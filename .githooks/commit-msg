@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+# regex to validate in commit msg
+commit_regex='(Fsel-[0-9]+|merge|hotfix|feature|story|task|bug|update)'
+error_msg="Aborting commit. Your commit message must start with Teams boards code (eg: 'Lsel-1111') or 'Merge' or 'feature/name-feature do somethings'"
+
+if ! grep -iqE "$commit_regex" "$1"; then
+    echo "$error_msg" >&2
+    exit 1
+fi
