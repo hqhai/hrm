@@ -408,4 +408,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get register => 'Đăng ký';
+
+  @override
+  String get dateNote => 'Ngày ghi chú';
 }

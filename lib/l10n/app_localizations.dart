@@ -902,6 +902,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Register'**
   String get register;
+
+  /// No description provided for @dateNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Date note'**
+  String get dateNote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -38,7 +38,8 @@ enum PriorityRequestStatus {
 enum ConfigStringValues {
   generalManager('GeneralManager'),
   manager('Manager'),
-  user('User');
+  user('User'),
+  userSystem('UserSystem');
 
   final String name;
 

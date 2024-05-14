@@ -5,16 +5,21 @@ import 'package:base_app/presentations/widgets/admin/department/department.widge
 import 'package:base_app/presentations/widgets/admin/personnel/personnel.widget.dart';
 import 'package:base_app/presentations/widgets/admin/position/position.widget.dart';
 import 'package:base_app/presentations/widgets/admin/request_by_manager/management_request.admin.widget.dart';
-import 'package:base_app/presentations/widgets/attendance/2/layout_calendar_2.dart';
 import 'package:base_app/presentations/widgets/attendance/timekeeping.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
+import 'package:base_app/presentations/widgets/create_request/create_request.dart';
 import 'package:base_app/presentations/widgets/create_request/roommetting_request/create_request_roommetting.dart';
+import 'package:base_app/presentations/widgets/request/doing_request.widget.dart';
+import 'package:base_app/presentations/widgets/request/done_request.widget.dart';
+import 'package:base_app/presentations/widgets/request/recent_request.widget.dart';
+import 'package:base_app/presentations/widgets/trash_app/calendar/layout_calendar_2.dart';
+import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentations/widgets/attendance/layout_calendar.dart';
 
 class MenuValues {
-  /*static List<Map<String, dynamic>> menuValues(BuildContext context) {
+  static List<Map<String, dynamic>> menuValues(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
       {
@@ -42,11 +47,15 @@ class MenuValues {
         'icon': const Icon(Icons.password, color: Colors.white, size: 30)
       }
     ];
-  }*/
+  }
 
-  static List<Map<String, dynamic>> menuValues(BuildContext context) {
+  static List<Map<String, dynamic>> menuUserSystemValues(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
+      {
+        'text': 'Create Note',
+        'icon': const Icon(Icons.note, color: Colors.white, size: 30)
+      },
       {
         'text': appLocalizations.calendar,
         'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)
@@ -116,16 +125,17 @@ class MenuValues {
     ];
   }
 
-  /*static const List<Widget> widgetOptions = <Widget>[
+  static const List<Widget> widgetOptions = <Widget>[
     CreateRequestWidget(),
     RecentRequest(),
     DoingRequest(),
     DoneRequest(),
     LayoutCalendar(),
     ChangePassword(),
-  ];*/
+  ];
 
-  static const List<Widget> widgetOptions = <Widget>[
+  static const List<Widget> widgetOptionsUserSystem = <Widget>[
+    CreateNoteWidget(),
     LayoutCalendar2(),
     ChangePassword(),
   ];
