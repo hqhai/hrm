@@ -15,7 +15,7 @@ class NotesState extends Equatable {
   final NoteStatus status;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [notes, status];
 
   factory NotesState.fromJson(Map<String, dynamic> json) => _$NotesStateFromJson(json);
 

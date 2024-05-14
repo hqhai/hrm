@@ -182,6 +182,11 @@ class MenuValues {
     PriorityRequestStatus.low.name
   ];
 
+  static List<String> languageValue = [
+    LanguageEnum.vi.name,
+    LanguageEnum.en.name,
+  ];
+
   static List<String> listOTvsOL = [
     TypeRequestStatus.onLeave.name,
     TypeRequestStatus.overTime.name

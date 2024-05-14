@@ -138,9 +138,9 @@
   "dateNote": "Ngày ghi chú",
   "enterYourRegisteredUsernameAndPassword": "Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản",
   "supportContact": "Liên hệ hỗ trợ",
-  "requiredDataFields": "Các trường dữ liệu là bắt buộc",
-  "delete": "Xóa",
-  "doYouWantToDeleteTheNote": "Bạn có muốn xóa ghi chú không?",
+  "theContentAndTitleCannotBeLeftBlank": "Nội dung và tiêu đề không được để trống",
+  "theNoteDateCannotBeBeforeThePresentTime": "Ngày ghi chú không được trước thời điểm hiện tại",
+  "youMadeANoteOnTheDate": "Bạn đã ghi chú vào ngày",
   "activate": "Hoạt Động",
   "home": "Trang chủ",
   "profile": "Hồ sơ"
