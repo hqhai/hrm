@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/domain/use_cases/login_usecase.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
+import 'package:base_app/presentations/bloc/auth/auth_event.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -26,34 +27,41 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<EmailOrUserLogin>(_emailOrUserNameLogin);
   }
 
-  FutureOr<void> _requestLogin(
-      RequestLogin event, Emitter<LoginState> emit) async {
+  FutureOr<void> _requestLogin(RequestLogin event, Emitter<LoginState> emit) async {
     if (event.username.isEmpty && event.password.isEmpty) {
       emit(state.copyWith(
           username: event.username,
-          pasword: event.password,
+          password: event.password,
           status: LoginStatus.loginAccountRequired));
       return;
     } else {
       try {
-        final token = await _loginUseCase.login(
-            username: event.username, password: event.password);
-        _authBloc.add(CheckAuthenticated(token: token));
-        emit(state.copyWith(
-            username: event.username,
-            pasword: event.password,
-            status: LoginStatus.loginSuccess));
+        final loginResponse =
+            await _loginUseCase.login(username: event.username, password: event.password);
+        _authBloc.add(CheckAuthenticated(
+            loginResponse: loginResponse,
+            saveLogin: event.saveLogin,
+            email: event.username,
+            password: event.password));
+        if (loginResponse.isFirstLogin == true) {
+          emit(state.copyWith(
+              username: event.username,
+              password: event.password,
+              status: LoginStatus.firstLoginSuccess));
+        } else {
+          emit(state.copyWith(
+              username: event.username,
+              password: event.password,
+              status: LoginStatus.loginSuccess));
+        }
       } catch (e) {
         emit(state.copyWith(
-            username: event.username,
-            pasword: event.password,
-            status: LoginStatus.loginFailed));
+            username: event.username, password: event.password, status: LoginStatus.loginFailed));
       }
     }
   }
 
-  FutureOr<void> _validate(
-      ValidateLogin event, Emitter<LoginState> emit) async {
+  FutureOr<void> _validate(ValidateLogin event, Emitter<LoginState> emit) async {
     emit(LoginInitial());
     if (event.username.isNotEmpty && event.password.isNotEmpty) {
       emit(state.copyWith(status: LoginStatus.validateSuccess));
@@ -77,16 +85,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  FutureOr<void> _emailOrUserNameLogin(
-      EmailOrUserLogin even, Emitter<LoginState> emit) async {
+  FutureOr<void> _emailOrUserNameLogin(EmailOrUserLogin even, Emitter<LoginState> emit) async {
     emit(LoginInitial());
     if (even.email.isNotEmpty) {
       emit(state.copyWith(status: LoginStatus.emailOrUserFalse));
     }
   }
 
-  FutureOr<void> _passWordLogin(
-      PassLogin even, Emitter<LoginState> emit) async {
+  FutureOr<void> _passWordLogin(PassLogin even, Emitter<LoginState> emit) async {
     emit(LoginInitial());
     if (even.password.isNotEmpty) {
       emit(state.copyWith(status: LoginStatus.passFalse));

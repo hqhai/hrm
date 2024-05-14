@@ -1,10 +1,19 @@
-part of 'register_bloc.dart';
+import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/data/models/register/register_request.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
 
-sealed class RegisterState extends Equatable {
-  const RegisterState();
-  
+part 'register_state.g.dart';
+
+@CopyWith()
+class RegisterState extends Equatable {
+  const RegisterState(
+      {this.registerRequest = const RegisterRequest(firstName: '', lastName: '', password: '', email: ''),
+      this.requestStatus = RegisterRequestStatus.init});
+
+  final RegisterRequest registerRequest;
+  final RegisterRequestStatus requestStatus;
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [registerRequest, requestStatus];
 }
-
-final class RegisterInitial extends RegisterState {}

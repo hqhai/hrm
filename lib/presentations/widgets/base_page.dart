@@ -27,7 +27,7 @@ class BasePage extends StatelessWidget {
     return Scaffold(
       appBar: appbar,
       backgroundColor: Colors.transparent,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       body: Container(
           decoration: BoxDecoration(
             color: colors.surfaceContainerLowest,

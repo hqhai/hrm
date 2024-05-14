@@ -7,7 +7,7 @@ part of 'login_state.dart';
 // **************************************************************************
 
 abstract class _$LoginStateCWProxy {
-  LoginState pasword(String pasword);
+  LoginState password(String password);
 
   LoginState status(LoginStatus status);
 
@@ -20,7 +20,7 @@ abstract class _$LoginStateCWProxy {
   /// LoginState(...).copyWith(id: 12, name: "My name")
   /// ````
   LoginState call({
-    String? pasword,
+    String? password,
     LoginStatus? status,
     String? username,
   });
@@ -33,7 +33,7 @@ class _$LoginStateCWProxyImpl implements _$LoginStateCWProxy {
   const _$LoginStateCWProxyImpl(this._value);
 
   @override
-  LoginState pasword(String pasword) => this(pasword: pasword);
+  LoginState password(String password) => this(password: password);
 
   @override
   LoginState status(LoginStatus status) => this(status: status);
@@ -50,15 +50,15 @@ class _$LoginStateCWProxyImpl implements _$LoginStateCWProxy {
   /// LoginState(...).copyWith(id: 12, name: "My name")
   /// ````
   LoginState call({
-    Object? pasword = const $CopyWithPlaceholder(),
+    Object? password = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
     Object? username = const $CopyWithPlaceholder(),
   }) {
     return LoginState(
-      pasword: pasword == const $CopyWithPlaceholder() || pasword == null
-          ? _value.pasword
+      password: password == const $CopyWithPlaceholder() || password == null
+          ? _value.password
           // ignore: cast_nullable_to_non_nullable
-          : pasword as String,
+          : password as String,
       status: status == const $CopyWithPlaceholder() || status == null
           ? _value.status
           // ignore: cast_nullable_to_non_nullable

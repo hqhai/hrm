@@ -1,4 +1,5 @@
-part of 'auth_bloc.dart';
+import 'package:base_app/data/models/response/login_response.dart';
+import 'package:equatable/equatable.dart';
 
 sealed class AuthEvent extends Equatable {
   const AuthEvent();
@@ -8,13 +9,17 @@ sealed class AuthEvent extends Equatable {
 }
 
 class CheckAuthenticated extends AuthEvent {
-  final String? token;
+  final bool saveLogin;
+  final LoginResponse? loginResponse;
+  final String email;
+  final String password;
 
-  const CheckAuthenticated({this.token});
+  const CheckAuthenticated({this.loginResponse, this.saveLogin = true, this.email = '', this.password = ''});
+
   @override
-  List<Object?> get props => [token];
+  List<Object?> get props => [loginResponse, saveLogin, email, password];
 }
 
-class Logout extends AuthEvent {
-  const Logout();
+class LogoutEvent extends AuthEvent {
+  const LogoutEvent();
 }

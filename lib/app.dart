@@ -1,5 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/router.dart';
+import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +20,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   List<LocalizationsDelegate<dynamic>> get _getLocalizationsDelegates {
     return const [
+      AppLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
@@ -36,21 +39,29 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, AppMode>(builder: (context, mode) {
-      return KeyboardVisibilityProvider(
-        child: UnfocusInkWellScreen(
-          child: MaterialApp.router(
-            routerConfig: dI<AppRouters>().goRouter,
-            themeMode: ThemeMode.light,
-            theme: const AppTheme().lightTheme(context),
-            localizationsDelegates: _getLocalizationsDelegates,
-            localeResolutionCallback: _localeResolutionCallback,
-            supportedLocales: const [
-              Locale('en'), // us
-            ],
-          ),
-        ),
-      );
-    });
+    return BlocBuilder<LanguageCubit, String>(
+      builder: (context, languageCode) {
+        return BlocBuilder<ThemeCubit, AppMode>(
+          builder: (context, mode) {
+            return KeyboardVisibilityProvider(
+              child: UnfocusInkWellScreen(
+                child: MaterialApp.router(
+                  routerConfig: dI<AppRouters>().goRouter,
+                  themeMode: ThemeMode.light,
+                  theme: const AppTheme().lightTheme(context),
+                  localizationsDelegates: _getLocalizationsDelegates,
+                  localeResolutionCallback: _localeResolutionCallback,
+                  locale: Locale.fromSubtags(languageCode: languageCode),
+                  supportedLocales: const [
+                    Locale('en'),
+                    Locale('vi') // us
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

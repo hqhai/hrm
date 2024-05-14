@@ -1,4 +1,4 @@
-import 'package:base_app/data/models/enums/user_status.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';

@@ -1,10 +1,27 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/presentations/pages/check_in_setting/create_check_in_setting.page.dart';
+import 'package:base_app/presentations/pages/department/infor_department.page.dart';
+import 'package:base_app/presentations/pages/department/update_department.page.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
+import 'package:base_app/presentations/pages/forgot_password/forgot_password.page.dart';
 import 'package:base_app/presentations/pages/home/home.page.dart';
 import 'package:base_app/presentations/pages/login/login.page.dart';
 import 'package:base_app/presentations/pages/main.page.dart';
+import 'package:base_app/presentations/pages/personnel/create_personnel.page.dart';
+import 'package:base_app/presentations/pages/position/create_position.page.dart';
+import 'package:base_app/presentations/pages/position/update_position.page.dart';
 import 'package:base_app/presentations/pages/register/register.page.dart';
+import 'package:base_app/presentations/pages/request/create_request/create_explanation.page.dart';
+import 'package:base_app/presentations/pages/request/create_request/create_room_meeting.dart';
+import 'package:base_app/presentations/pages/request/get_request/explanation_request.page.dart';
+import 'package:base_app/presentations/pages/request/get_request/list_explanation_by_user.page.dart';
+import 'package:base_app/presentations/pages/request/get_request/onleave_request.page.dart';
+import 'package:base_app/presentations/pages/request/get_request/overtime_request.page.dart';
+import 'package:base_app/presentations/pages/request/get_request/request.page.dart';
+import 'package:base_app/presentations/pages/request/get_request/roommeeting_request.page.dart';
+import 'package:base_app/presentations/pages/request/update_request/request.update.page.dart';
+import 'package:base_app/presentations/pages/department/create_department.page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 
@@ -27,5 +44,22 @@ class AppRouters {
     Pages.login: loginPageRoute,
     Pages.register: registerPageRoute,
     Pages.home: homePageRoute,
+    Pages.requestDefault: requestDefaultPageRoute,
+    Pages.overTimeRequest: overTimeRequestPageRoute,
+    Pages.onLeaveRequest: onLeaveRequestPageRoute,
+    Pages.explanationRequest: explanationPageRoute,
+    Pages.getExplanationRequest: getExplanationRequestPageRoute,
+    Pages.requestUpdatePage: requestUpdatePageRoute,
+    Pages.createRoomMeetingPage: createRoomMeetingPageRoute,
+    Pages.listExplanationByUserPage: listExplanationByUserPageRoute,
+    Pages.roomMeetingRequestPageRoute: roomMeetingRequestPageRoute,
+    Pages.createDepartmentPage: createDepartmentPageRoute,
+    Pages.updateDepartmentPage: updateDepartmentPageRoute,
+    Pages.informationDepartmentPage: informationDepartmentPageRoute,
+    Pages.createPositionPage: createPositionPageRoute,
+    Pages.updatePositionPage: updatePositionPageRoute,
+    Pages.createPersonnelPage: createPersonnelPageRoute,
+    Pages.createCheckInSettingPage: createCheckInSettingPageRoute,
+    Pages.forgotPasswordPage: forgotPasswordPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

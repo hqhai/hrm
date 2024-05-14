@@ -1,0 +1,58 @@
+enum TypeRequestStatus {
+  overTime('OverTime'),
+  onLeave('OnLeave'),
+  explanation('Explanation'),
+  roomMeeting('RoomMeeting'),
+  cRM('CRM'),
+  iT('IT'),
+  website('Website');
+
+  final String name;
+
+  const TypeRequestStatus(this.name);
+}
+
+enum StatusRequestStatus {
+  pending('Pending'),
+  reject('Reject'),
+  subsequentApproval('SubsequentApproval'),
+  doing('Doing'),
+  done('Done'),
+  cancel('Cancel');
+
+  final String name;
+
+  const StatusRequestStatus(this.name);
+}
+
+enum PriorityRequestStatus {
+  high('High'),
+  medium('Medium'),
+  low('Low');
+
+  final String name;
+
+  const PriorityRequestStatus(this.name);
+}
+
+enum ConfigStringValues {
+  generalManager('GeneralManager'),
+  manager('Manager'),
+  user('User');
+
+  final String name;
+
+  const ConfigStringValues(this.name);
+}
+
+enum ParentId {
+  aG('Atlantic group'),
+  fsel('Five-star E-Learning');
+
+  final String name;
+
+  const ParentId(this.name);
+}
+
+
+

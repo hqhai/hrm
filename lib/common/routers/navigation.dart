@@ -13,7 +13,7 @@ class AppNavigation {
   push(context,
       {required String page,
       String? params,
-      Map<String, dynamic>? paramsQuerry}) {
+      Map<String, dynamic>? paramsQuerry,}) {
     if (params != null) {
       final urlParams = '$page/$params';
       if (paramsQuerry != null) {
@@ -32,6 +32,13 @@ class AppNavigation {
     }
 
     return GoRouter.of(context).push(page);
+  }
+
+  pushName(context, {required String page, Map<String, dynamic>? extra}) {
+    if (extra != null) {
+      return GoRouter.of(context).pushNamed(page, extra: extra);
+    }
+    return GoRouter.of(context).pushNamed(page);
   }
 
   String _navigationQuerryParams(
@@ -67,5 +74,20 @@ class AppNavigation {
 
   pop(context) {
     return GoRouter.of(context).pop();
+  }
+
+  pushReplacementNamed(context,
+      {
+        required String page,
+        Map<String, String> pathParameters = const <String, String>{},
+        Map<String, dynamic> queryParameters = const <String, dynamic>{},
+        Object? extra,
+      }) {
+    GoRouter.of(context).pushReplacementNamed(
+      page,
+      pathParameters: pathParameters,
+      queryParameters: queryParameters,
+      extra: extra,
+    );
   }
 }

@@ -9,6 +9,7 @@ class SpacingUnit {
   static const x2_5 = 10.0;
   static const x3 = 12.0;
   static const x3_5 = 14.0;
+  static const x3_75 = 15.0;
   static const x4 = 16.0;
   static const x4_5 = 18.0;
   static const x5 = 20.0;
@@ -53,10 +54,12 @@ class SpacingUnit {
   static const x37_5 = 150.0;
   static const x40 = 160.0;
   static const x42_5 = 170.0;
+  static const x45 = 180;
   static const x49 = 196.0;
   static const x50 = 200.0;
   static const x55 = 220.0;
   static const x59 = 236.0;
+  static const x60 = 240.0;
   static const x62 = 248.0;
   static const x65 = 260.0;
   static const x66 = 264.0;
