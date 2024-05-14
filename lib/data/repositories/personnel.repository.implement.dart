@@ -1,0 +1,47 @@
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/data/models/personnel/create_personnel_request.dart';
+import 'package:base_app/domain/repositories/personnel.repository.dart';
+import 'package:base_app/domain/services/personnel.service.dart';
+import 'package:injectable/injectable.dart';
+
+@LazySingleton(as: PersonnelRepository)
+class PersonnelRepositoryImpl extends PersonnelRepository {
+  final PersonnelService personnelService;
+
+  PersonnelRepositoryImpl() : personnelService = dI<PersonnelService>();
+
+  @override
+  Future<int> createPersonnel({
+    String? code,
+    required String firstName,
+    required String lastName,
+    required String email,
+    String? phoneNumber,
+    required String startDate,
+    String? attendanceId,
+    required List<String> departmentId,
+    required List<String> positionId,
+    int? morningStartTime,
+    int? morningEndTime,
+    int? afternoonStartTime,
+    int? afternoonEndTime,
+  }) async {
+    int codeStatus = await personnelService.createPersonnel(
+        createPersonnelRequest: CreatePersonnelRequest(
+      code: code,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+      startDate: startDate,
+      attendanceId: attendanceId,
+      departmentId: departmentId,
+      positionId: positionId,
+      morningStartTime: morningStartTime,
+      morningEndTime: morningStartTime,
+      afternoonStartTime: afternoonStartTime,
+      afternoonEndTime: afternoonEndTime,
+    ));
+    return codeStatus;
+  }
+}

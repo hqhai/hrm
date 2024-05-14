@@ -17,9 +17,11 @@ class DataKey {
   static String userLogin = 'user_login';
   static String token = 'token';
   static String userName = 'username';
+  static String email = 'email';
   static String password = 'password';
   static String expiration = 'expiration';
-  static String fullname = 'fullname';
+  static String fullName = 'fullName';
+  static String roles = 'roles';
   static String process = 'Process';
   static String done = 'Done';
   static String unfinished = 'Unfinished';

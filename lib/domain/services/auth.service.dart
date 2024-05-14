@@ -1,5 +1,5 @@
+import 'package:base_app/data/models/register/register_request.dart';
 import 'package:base_app/data/models/request/login_request.dart';
-import 'package:base_app/data/models/request/register_request.dart';
 import 'package:base_app/data/models/response/login_response.dart';
 import 'package:base_app/data/models/response/register_response.dart';
 

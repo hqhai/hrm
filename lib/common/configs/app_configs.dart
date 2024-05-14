@@ -9,8 +9,16 @@ void setConfig(Map<String, String> env) {
 
 @JsonSerializable()
 class AppConfig {
-  @JsonKey(name: 'BASE_API_URL', defaultValue: '')
-  final String baseApiUrl;
+  @JsonKey(name: 'BASE_SYSTEM_URL', defaultValue: '')
+  final String baseSystemUrl;
+  @JsonKey(name: 'BASE_STORAGE_URL', defaultValue: '')
+  final String baseURLFile;
+  @JsonKey(name: 'BASE_AUTH_URL', defaultValue: '')
+  final String baseAuthUrl;
+  @JsonKey(name: 'BASE_USER_URL', defaultValue: '')
+  final String baseUserUrl;
+  @JsonKey(name: 'BASE_REQUEST_URL', defaultValue: '')
+  final String baseRequestUrl;
   @JsonKey(name: 'BASE_URL', defaultValue: '')
   final String baseUrl;
   @JsonKey(name: 'ENV', defaultValue: '')
@@ -18,7 +26,7 @@ class AppConfig {
   static String _token = '';
   static String get getToken => _token;
 
-  AppConfig({this.env = '', this.baseUrl = '', this.baseApiUrl = ''});
+  AppConfig({this.env = '', this.baseUrl = '', this.baseAuthUrl = '', this.baseUserUrl = '', this.baseRequestUrl ='', this.baseURLFile ='', this.baseSystemUrl =''});
 
   static AppConfig? _instance;
 

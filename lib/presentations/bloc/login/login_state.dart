@@ -6,6 +6,7 @@ part 'login_state.g.dart';
 enum LoginStatus {
   initLoginState,
   loginSuccess,
+  firstLoginSuccess,
   loadingState,
   loginAccountRequired,
   loginFailed,
@@ -22,15 +23,15 @@ enum LoginStatus {
 class LoginState extends Equatable {
   final LoginStatus status;
   final String username;
-  final String pasword;
+  final String password;
   const LoginState({
     this.status = LoginStatus.initLoginState,
     this.username = '',
-    this.pasword = '',
+    this.password = '',
   });
 
   @override
-  List<Object> get props => [status, username, pasword];
+  List<Object> get props => [status, username, password];
 }
 
 final class LoginInitial extends LoginState {}

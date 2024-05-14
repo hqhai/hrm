@@ -1,7 +1,7 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-enum AppMode { lightMode, darkMode }
+enum AppMode { lightMode, darkMode, }
 
 extension AppModeX on AppMode {
   bool get isLightMode => this == AppMode.lightMode;
