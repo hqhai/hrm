@@ -1,15 +1,13 @@
 import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
-import 'package:base_app/presentations/bloc/request/request/request_event.dart';
 import 'package:base_app/presentations/bloc/request/request/request_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_event.dart';
@@ -17,13 +15,13 @@ import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_sta
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:themes/themes.dart';
 import 'package:widgets/app_input.dart';
-import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
 
 class CreateNoteWidget extends StatefulWidget {
   const CreateNoteWidget({
@@ -37,7 +35,11 @@ class CreateNoteWidget extends StatefulWidget {
 class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   final TextEditingController titleController = TextEditingController(),
       commentsController = TextEditingController();
-  late String pathImage, checkTitle, checkContent, dropdownPriorityValue, dropdownApproverValue;
+  late String pathImage,
+      checkTitle,
+      checkContent,
+      dropdownPriorityValue,
+      dropdownApproverValue;
   late File file;
   Uint8List? imageData;
 
@@ -92,12 +94,14 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) => previous.status != current.status,
       child: BlocConsumer<UserByRolesBloc, UserByRolesState>(
-        listener: (context, stateUser) => _listenerUserByRoles(context, stateUser),
+        listener: (context, stateUser) =>
+            _listenerUserByRoles(context, stateUser),
         builder: (context, stateUser) {
           return Container(
-            margin:
-                const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-            padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+            margin: const EdgeInsets.symmetric(
+                horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
             height: MediaQuery.sizeOf(context).height,
             decoration: BoxDecoration(
               color: CustomsColor.colorBackground,
@@ -115,10 +119,10 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                     children: [
                       Text(
                         appLocalizations.dateNote,
-                        style: TextStyle(fontSize: SpacingUnit.x4_5, color: colors.text),
+                        style: TextStyle(
+                            fontSize: SpacingUnit.x4_5, color: colors.text),
                       ),
                       const SizedBox(width: SpacingUnit.x3_5),
-
                     ],
                   ),
                   const SizedBox(height: SpacingUnit.x6_5),
@@ -138,7 +142,8 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                   const SizedBox(height: SpacingUnit.x6_5),
                   Text(
                     appLocalizations.content,
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4_5),
+                    style: TextStyle(
+                        color: colors.text, fontSize: SpacingUnit.x4_5),
                   ),
                   const SizedBox(height: SpacingUnit.x4_5),
                   AppInputArea(
@@ -150,15 +155,19 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                   ),
                   const SizedBox(height: SpacingUnit.x4_5),
                   Text(appLocalizations.selectFile,
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4_5)),
+                      style: TextStyle(
+                          color: colors.text, fontSize: SpacingUnit.x4_5)),
                   const SizedBox(height: SpacingUnit.x4_5),
                   Row(
-                    mainAxisAlignment:
-                        kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: kIsWeb
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: () => kIsWeb ? getImagePathByWeb() : getImagePath(),
-                        icon: Icon(Icons.file_copy, size: SpacingUnit.x10, color: colors.text),
+                        onPressed: () =>
+                            kIsWeb ? getImagePathByWeb() : getImagePath(),
+                        icon: Icon(Icons.file_copy,
+                            size: SpacingUnit.x10, color: colors.text),
                       ),
                       removed(context),
                       imageSelect()
@@ -169,10 +178,13 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
+                            backgroundColor: _checkTextField()
+                                ? Colors.blue
+                                : Colors.indigo),
                         onPressed: () => _createRequest(context, stateUser),
                         child: Text(appLocalizations.create,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                            style: TextStyle(
+                                color: colors.text, fontSize: SpacingUnit.x5)),
                       ),
                       const SizedBox(width: SpacingUnit.x5),
                     ],
@@ -190,7 +202,8 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
     return stateUser.status == UserStatus.getUsersByRoleSuccess
         ? DropdownMenu<String>(
             width: MediaQuery.sizeOf(context).width * 0.5,
-            initialSelection: stateUser.users.map((e) => e.fullName).toList().first,
+            initialSelection:
+                stateUser.users.map((e) => e.fullName).toList().first,
             onSelected: (String? value) {
               setState(
                 () {
@@ -198,8 +211,10 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                 },
               );
             },
-            dropdownMenuEntries:
-                stateUser.users.map((e) => e.fullName).toList().map<DropdownMenuEntry<String>>(
+            dropdownMenuEntries: stateUser.users
+                .map((e) => e.fullName)
+                .toList()
+                .map<DropdownMenuEntry<String>>(
               (String value) {
                 return DropdownMenuEntry<String>(value: value, label: value);
               },
@@ -253,7 +268,8 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   }
 
   Future<void> getImagePathByWeb() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.image);
     if (result != null) {
       setState(() {
         file = File.fromRawPath(result.files.first.bytes!);
@@ -283,7 +299,10 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   }
 
   String approver(String approverName, List<User> users) {
-    User u = users.where((element) => element.fullName.toString() == approverName.toString()).first;
+    User u = users
+        .where(
+            (element) => element.fullName.toString() == approverName.toString())
+        .first;
     return users[users.indexOf(u)].id;
   }
 }

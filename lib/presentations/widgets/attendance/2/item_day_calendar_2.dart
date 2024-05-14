@@ -1,9 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/domain/entities/attendance.dart';
-import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
@@ -14,7 +11,6 @@ import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import 'package:themes/themes.dart';
 
 class BodyCalendar2 extends StatefulWidget {
@@ -57,7 +53,9 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
 
   bool _checkDateNow(DateTime date) {
     DateTime dateTime = DateTime.now();
-    if (dateTime.day == date.day && dateTime.month == date.month && dateTime.year == date.year) {
+    if (dateTime.day == date.day &&
+        dateTime.month == date.month &&
+        dateTime.year == date.year) {
       return true;
     }
     return false;
@@ -69,10 +67,13 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
   }
 
   int _checkAttendance(List<Attendance> attendances, DateTime date, int month) {
-    List<String> attendanceDates = attendances.map((e) => e.checkDate.toString()).toList();
+    List<String> attendanceDates =
+        attendances.map((e) => e.checkDate.toString()).toList();
     int index = attendanceDates.indexWhere((e) {
       DateTime dateTime = DateTime.parse(e);
-      return dateTime.month == month && dateTime.day == date.day && month == date.month;
+      return dateTime.month == month &&
+          dateTime.day == date.day &&
+          month == date.month;
     });
     return index != -1 ? index : -1;
   }
@@ -83,8 +84,10 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
     if (index == -1) {
       return 3;
     } else {
-      List<String> timePartsIn = format(attendances[index].timeCheckIn.toString()).split(':');
-      List<String> timePartsOut = format(attendances[index].timeCheckOut.toString()).split(':');
+      List<String> timePartsIn =
+          format(attendances[index].timeCheckIn.toString()).split(':');
+      List<String> timePartsOut =
+          format(attendances[index].timeCheckOut.toString()).split(':');
       int hourIn = int.parse(timePartsIn[0]);
       int minuteIn = int.parse(timePartsIn[1]);
       int hourOut = int.parse(timePartsOut[0]);
@@ -105,14 +108,14 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
   _listener(BuildContext context, RequestState state) {
     if (state.status == RequestStatus.createRequestSuccess) {
       dI<AttendanceBloc>().add(GetAttendanceEvent(
-          email: dI<UserBloc>().state.user.email, month: widget.month, year: widget.year));
+          email: dI<UserBloc>().state.user.email,
+          month: widget.month,
+          year: widget.year));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
-    final appLocalizations = AppLocalizations.of(context)!;
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
     return BlocListener<RequestBloc, RequestState>(
@@ -130,16 +133,15 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
                 child: GridView.builder(
                   itemCount: widget.listDate.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 1,
-                    childAspectRatio: 4
-                  ),
+                      crossAxisCount: 1,
+                      mainAxisSpacing: 5,
+                      crossAxisSpacing: 1,
+                      childAspectRatio: 4),
                   itemBuilder: (context, index) {
                     return GestureDetector(
                         onTap: () {
-                          if (_checkCheckIn(
-                                  state.attendances, widget.listDate[index], widget.month) !=
+                          if (_checkCheckIn(state.attendances,
+                                  widget.listDate[index], widget.month) !=
                               3) {
                             _getNote(context, index, state);
                           }
@@ -156,26 +158,19 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
     );
   }
 
-  Color _color(BuildContext context) {
-    final colors = AppTheme.getColors(context);
-    return checkIn == 1
-        ? colors.error
-        : (checkIn == 2
-            ? Colors.green
-            : checkIn == 4
-                ? Colors.amber
-                : colors.text);
-  }
-
   Widget _item(BuildContext context, int index, AttendanceState state) {
     return _Item(
       date: widget.listDate[index],
       month: widget.month,
-      checkIn: _checkCheckIn(state.attendances, widget.listDate[index], widget.month),
-      attendanceIndex: _checkAttendance(state.attendances, widget.listDate[index], widget.month),
-      attendance: _checkAttendance(state.attendances, widget.listDate[index], widget.month) != -1
-          ? state.attendances[
-              _checkAttendance(state.attendances, widget.listDate[index], widget.month)]
+      checkIn: _checkCheckIn(
+          state.attendances, widget.listDate[index], widget.month),
+      attendanceIndex: _checkAttendance(
+          state.attendances, widget.listDate[index], widget.month),
+      attendance: _checkAttendance(
+                  state.attendances, widget.listDate[index], widget.month) !=
+              -1
+          ? state.attendances[_checkAttendance(
+              state.attendances, widget.listDate[index], widget.month)]
           : const Attendance(),
       itemDate: _getWidgetContent(widget.listDate[index]),
       isNowDate: _checkDateNow(widget.listDate[index]),
@@ -185,32 +180,27 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
   _getNote(BuildContext context, int index, AttendanceState state) {
     setState(() {
       day = widget.listDate[index];
-      attendance = _checkAttendance(state.attendances, widget.listDate[index], widget.month) != -1
-          ? state.attendances[
-              _checkAttendance(state.attendances, widget.listDate[index], widget.month)]
+      attendance = _checkAttendance(
+                  state.attendances, widget.listDate[index], widget.month) !=
+              -1
+          ? state.attendances[_checkAttendance(
+              state.attendances, widget.listDate[index], widget.month)]
           : const Attendance();
-      timeKeepingInDay = '${format(attendance.timeCheckIn)} - ${format(attendance.timeCheckOut)}';
-      checkIn = _checkCheckIn(state.attendances, widget.listDate[index], widget.month);
+      timeKeepingInDay =
+          '${format(attendance.timeCheckIn)} - ${format(attendance.timeCheckOut)}';
+      checkIn = _checkCheckIn(
+          state.attendances, widget.listDate[index], widget.month);
       if (attendance.noteRoomLeader != null) {
-        noteRoomLeader = attendance.noteRoomLeader??'';
+        noteRoomLeader = attendance.noteRoomLeader ?? '';
       } else {
         noteRoomLeader = '';
       }
       if (attendance.noteManager != null) {
-        noteManager = attendance.noteManager??'';
+        noteManager = attendance.noteManager ?? '';
       } else {
         noteManager = '';
       }
     });
-  }
-
-  _nextScreen() {
-    if (attendance.requestId == null) {
-      dI<AppNavigation>().pushName(context, page: Pages.explanationRequest, extra: {
-        'lateDay': DateFormat('yyyy-MM-dd').format(day),
-        'lateTime': checkIn == 1 ? format(attendance.timeCheckIn) : format(attendance.timeCheckOut),
-      });
-    }
   }
 }
 

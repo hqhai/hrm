@@ -1,23 +1,11 @@
-import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/note.dart';
-import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
-import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
-import 'package:base_app/presentations/bloc/request/request/request_state.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import 'package:themes/themes.dart';
 
 class BodyCalendar2 extends StatefulWidget {
@@ -60,7 +48,9 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
 
   bool _checkDateNow(DateTime date) {
     DateTime dateTime = DateTime.now();
-    if (dateTime.day == date.day && dateTime.month == date.month && dateTime.year == date.year) {
+    if (dateTime.day == date.day &&
+        dateTime.month == date.month &&
+        dateTime.year == date.year) {
       return true;
     }
     return false;
@@ -75,7 +65,9 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
     List<String> noteDates = notes.map((e) => e.dateCreate.toString()).toList();
     int index = noteDates.indexWhere((e) {
       DateTime dateTime = DateTime.parse(e);
-      return dateTime.month == month && dateTime.day == date.day && month == date.month;
+      return dateTime.month == month &&
+          dateTime.day == date.day &&
+          month == date.month;
     });
     return index != -1 ? index : -1;
   }
@@ -85,17 +77,8 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
     super.initState();
   }
 
-  _listener(BuildContext context, RequestState state) {
-    if (state.status == RequestStatus.createRequestSuccess) {
-      dI<AttendanceBloc>().add(GetAttendanceEvent(
-          email: dI<UserBloc>().state.user.email, month: widget.month, year: widget.year));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
-    final appLocalizations = AppLocalizations.of(context)!;
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
     return BlocBuilder<NotesBloc, NotesState>(
@@ -114,7 +97,8 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
                     crossAxisSpacing: 1,
                     childAspectRatio: 4),
                 itemBuilder: (context, index) {
-                  return GestureDetector(onTap: () {}, child: _item(context, index, state));
+                  return GestureDetector(
+                      onTap: () {}, child: _item(context, index, state));
                 },
               ),
             ),
@@ -131,20 +115,12 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
       month: widget.month,
       noteIndex: _checkNote(state.notes, widget.listDate[index], widget.month),
       note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
-          ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
+          ? state.notes[
+              _checkNote(state.notes, widget.listDate[index], widget.month)]
           : const Note(),
       itemDate: _getWidgetContent(widget.listDate[index]),
       isNowDate: _checkDateNow(widget.listDate[index]),
     );
-  }
-
-  _nextScreen() {
-    if (attendance.requestId == null) {
-      dI<AppNavigation>().pushName(context, page: Pages.explanationRequest, extra: {
-        'lateDay': DateFormat('yyyy-MM-dd').format(day),
-        'lateTime': checkIn == 1 ? format(attendance.timeCheckIn) : format(attendance.timeCheckOut),
-      });
-    }
   }
 }
 
@@ -187,24 +163,28 @@ class _Item extends StatelessWidget {
                   Text(note.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
+                      style: TextStyle(
+                          color: colors.text, fontSize: SpacingUnit.x4)),
                   const SizedBox(
                     height: SpacingUnit.x2,
                   ),
                   Text(note.content,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: colors.cyan, fontSize: SpacingUnit.x3)),
+                      style: TextStyle(
+                          color: colors.cyan, fontSize: SpacingUnit.x3)),
                 ],
               ),
             ),
             Expanded(
               flex: 20,
               child: CircleAvatar(
-                backgroundColor: isNowDate ? colors.primary : Colors.transparent,
+                backgroundColor:
+                    isNowDate ? colors.primary : Colors.transparent,
                 child: Text(
                   date.day.toString(),
-                  style: theme.textTheme.titleLarge!.copyWith(color: colors.text),
+                  style:
+                      theme.textTheme.titleLarge!.copyWith(color: colors.text),
                 ),
               ),
             ),

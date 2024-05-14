@@ -23,8 +23,9 @@ import 'package:themes/themes.dart';
 import 'package:widgets/app_button.dart';
 import 'package:widgets/app_show_dialog.dart';
 
-final loginPageRoute =
-    GoRoute(path: Pages.login, builder: (context, GoRouterState state) => const LoginPage());
+final loginPageRoute = GoRoute(
+    path: Pages.login,
+    builder: (context, GoRouterState state) => const LoginPage());
 
 //User: huukhoa@atlantic.edu.vn1            Admin@123
 
@@ -35,7 +36,8 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String checkEmail = '', checkPassword = '';
@@ -125,7 +127,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
           errorEmail = appLocalizations.errorEmailOrPassword;
           errorPass = appLocalizations.errorEmailOrPassword;
         });
-        ShowDialog.instance.showDialogCommon(context, 'Error email or password');
+        ShowDialog.instance
+            .showDialogCommon(context, 'Error email or password');
       case LoginStatus.emailOrUserFalse:
         setState(() {
           errorEmail = 'Required data field';
@@ -194,14 +197,15 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                       child: Column(children: [
                         const SizedBox(height: SpacingUnit.x4),
                         Image.asset(Assets.images.signIn.logo.path,
-                            fit: BoxFit.fill, width: width, height: height * 0.15),
+                            fit: BoxFit.fill,
+                            width: width,
+                            height: height * 0.15),
                         const SizedBox(height: SpacingUnit.x10_5),
                         AppInputEmail(
                           iconLeft: Padding(
                             padding: const EdgeInsets.all(SpacingUnit.x2_5),
                             child: SvgPicture.asset(
                               Assets.images.icon.person,
-                              color: colors.outline,
                             ),
                           ),
                           placeHolder: appLocalizations.email,
@@ -218,7 +222,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                             padding: const EdgeInsets.all(SpacingUnit.x2_5),
                             child: SvgPicture.asset(
                               Assets.images.icon.lock,
-                              color: colors.outline,
                             ),
                           ),
                           error: errorPass,
@@ -260,8 +263,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           color: checkInput()
                               ? CustomsColor.colorButtonSelect
                               : CustomsColor.colorUnButtonSelect,
-                          colorText:
-                              checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect,
+                          colorText: checkInput()
+                              ? colors.text
+                              : CustomsColor.colorTextUnButtonSelect,
                         ),
                         const Expanded(
                           flex: 5,
@@ -271,7 +275,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           builder: (context, languageCode) {
                             return Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                                borderRadius:
+                                    BorderRadius.circular(SpacingUnit.x2_5),
                                 border: Border.all(
                                   color: Colors.white,
                                   width: 2,
@@ -280,12 +285,15 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                               child: GestureDetector(
                                 onTap: () => _language(languageCode),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(SpacingUnit.x2_5),
+                                  padding:
+                                      const EdgeInsets.all(SpacingUnit.x2_5),
                                   child: Text(
                                     languageCode == 'vi'
                                         ? 'Switch to English'
                                         : 'Chuyển sang tiếng Việt',
-                                    style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                                    style: TextStyle(
+                                        fontSize: SpacingUnit.x4,
+                                        color: colors.text),
                                   ),
                                 ),
                               ),
@@ -298,15 +306,17 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           children: [
                             Text(
                               appLocalizations.notAMember,
-                              style: TextStyle(fontSize: 16, color: colors.text),
+                              style:
+                                  TextStyle(fontSize: 16, color: colors.text),
                             ),
                             GestureDetector(
                                 onTap: () {
                                   onRegister(context);
                                 },
                                 child: Text(appLocalizations.signUpNow,
-                                    style:
-                                        const TextStyle(fontSize: 16, color: Color(0xffABBFED)))),
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xffABBFED)))),
                           ],
                         ),
                         const SizedBox(height: SpacingUnit.x4),
@@ -341,8 +351,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       _controller.forward(from: 0);
     });
     Future.delayed(const Duration(seconds: 1), () {
-      dI<LoginBloc>()
-          .add(ValidateLogin(username: emailController.text, password: passwordController.text));
+      dI<LoginBloc>().add(ValidateLogin(
+          username: emailController.text, password: passwordController.text));
     });
   }
 
@@ -353,7 +363,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   bool checkInput() {
     RegExp regExpPass = RegExp(checkPasswordRegexExp);
     RegExp regExpEmail = RegExp(checkEmailRegexExpTest); //
-    return (regExpEmail.hasMatch(checkEmail) && regExpPass.hasMatch(checkPassword))
+    return (regExpEmail.hasMatch(checkEmail) &&
+            regExpPass.hasMatch(checkPassword))
         ? isCheckedInput = true
         : isCheckedInput = false;
   }

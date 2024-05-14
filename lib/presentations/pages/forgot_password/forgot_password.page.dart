@@ -71,7 +71,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 padding: const EdgeInsets.all(SpacingUnit.x4),
                 child: Column(children: [
                   const SizedBox(height: SpacingUnit.x4),
-                  Text(appLocalizations.pleaseEnterTheEmailYouWantToRetrieveYourPassword,
+                  Text(
+                      appLocalizations
+                          .pleaseEnterTheEmailYouWantToRetrieveYourPassword,
                       style: const TextStyle(fontSize: SpacingUnit.x4)),
                   const SizedBox(height: SpacingUnit.x10_5),
                   AppInputEmail(
@@ -79,7 +81,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       padding: const EdgeInsets.all(SpacingUnit.x2_5),
                       child: SvgPicture.asset(
                         Assets.images.icon.person,
-                        color: colors.outline,
                       ),
                     ),
                     placeHolder: appLocalizations.email,
@@ -99,7 +100,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     color: checkInput()
                         ? CustomsColor.colorButtonSelect
                         : CustomsColor.colorUnButtonSelect,
-                    colorText: checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect,
+                    colorText: checkInput()
+                        ? colors.text
+                        : CustomsColor.colorTextUnButtonSelect,
                   ),
                 ]),
               ),
@@ -112,7 +115,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   bool checkInput() {
     RegExp regExpEmail = RegExp(checkEmailRegexExpTest);
-    return (regExpEmail.hasMatch(checkEmail)) ? isCheckedInput = true : isCheckedInput = false;
+    return (regExpEmail.hasMatch(checkEmail))
+        ? isCheckedInput = true
+        : isCheckedInput = false;
   }
 
   void onSubmit() {

@@ -115,8 +115,8 @@ class _ItemDepartmentState extends State<ItemDepartment> {
   }
 
   //Chưa có Department by id nên để trống
-  _information(BuildContext context, DepartmentState state){
-    dI<AppNavigation>().pushName(context,
-        page: Pages.informationDepartmentPage, extra: {'id': state.departments[widget.index].id});
-  }
+  // _information(BuildContext context, DepartmentState state){
+  //   dI<AppNavigation>().pushName(context,
+  //       page: Pages.informationDepartmentPage, extra: {'id': state.departments[widget.index].id});
+  // }
 }
