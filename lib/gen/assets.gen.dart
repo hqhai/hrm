@@ -104,8 +104,11 @@ class $AssetsImagesSignInGen {
   AssetGenImage get logo =>
       const AssetGenImage('assets/images/sign_in/Logo.png');
 
+  /// File path: assets/images/sign_in/biometric.svg
+  String get biometric => 'assets/images/sign_in/biometric.svg';
+
   /// List of all assets
-  List<AssetGenImage> get values => [background, logo];
+  List<dynamic> get values => [background, logo, biometric];
 }
 
 class Assets {

@@ -21,4 +21,5 @@ class Pages {
   static const String createPersonnelPage = '/createPersonnelPage';
   static const String createCheckInSettingPage = '/createCheckInSettingPage';
   static const String forgotPasswordPage = '/forgotPasswordPage';
+  static const String updateNotesPage = '/updateNotesPage';
 }

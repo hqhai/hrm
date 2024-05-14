@@ -4,7 +4,8 @@
   "password": "Password",
   "staySignedIn": "Stay signed in",
   "forgotPassword": "Forgot password",
-  "login": "login",
+  "login": "Log in",
+  "login2": "LOG IN",
   "notAMember": "Not a member? ",
   "alreadyAMember": "Already a member?  ",
   "signUpNow": "Sign up now",
@@ -134,5 +135,13 @@
   "pleaseCheckYourEmail": ", Please check your email.",
   "calendar": "calendar",
   "register": "Register",
-  "dateNote": "Date note"
+  "dateNote": "Date note",
+  "enterYourRegisteredUsernameAndPassword": "Enter your registered username and password",
+  "supportContact": "Support Contact",
+  "theContentAndTitleCannotBeLeftBlank": "Content and title cannot be blank",
+  "theNoteDateCannotBeBeforeThePresentTime": "The note date cannot be before the present time",
+  "youMadeANoteOnTheDate": "You made a note on the date",
+  "requiredDataFields": "Required data fields",
+  "delete": "Delete",
+  "doYouWantToDeleteTheNote": "Do you want to delete the note?"
 }

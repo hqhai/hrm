@@ -5,6 +5,7 @@
   "staySignedIn": "Lưu đăng nhập",
   "forgotPassword": "Quên mật khẩu",
   "login": "Đăng nhập",
+  "login2": "ĐĂNG NHẬP",
   "notAMember": "Chưa có tài khoản?  ",
   "alreadyAMember": "Đã có tài khoản chưa?  ",
   "signUpNow": "Đăng ký",
@@ -134,5 +135,13 @@
   "pleaseCheckYourEmail": ", Làm ơn check email của bạn.",
   "calendar": "Lịch",
   "register": "Đăng ký",
-  "dateNote": "Ngày ghi chú"
+  "dateNote": "Ngày ghi chú",
+  "enterYourRegisteredUsernameAndPassword": "Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản",
+  "supportContact": "Liên hệ hỗ trợ",
+  "theContentAndTitleCannotBeLeftBlank": "Nội dung và tiêu đề không được để trống",
+  "theNoteDateCannotBeBeforeThePresentTime": "Ngày ghi chú không được trước thời điểm hiện tại",
+  "youMadeANoteOnTheDate": "Bạn đã ghi chú vào ngày",
+  "requiredDataFields": "Các trường dữ liệu là bắt buộc",
+  "delete": "Xóa",
+  "doYouWantToDeleteTheNote": "Bạn có muốn xóa ghi chú không?"
 }

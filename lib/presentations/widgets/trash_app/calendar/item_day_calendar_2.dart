@@ -2,6 +2,7 @@ import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
+import 'package:base_app/presentations/widgets/trash_app/calendar/dialog.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,9 +49,7 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
 
   bool _checkDateNow(DateTime date) {
     DateTime dateTime = DateTime.now();
-    if (dateTime.day == date.day &&
-        dateTime.month == date.month &&
-        dateTime.year == date.year) {
+    if (dateTime.day == date.day && dateTime.month == date.month && dateTime.year == date.year) {
       return true;
     }
     return false;
@@ -65,9 +64,7 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
     List<String> noteDates = notes.map((e) => e.dateCreate.toString()).toList();
     int index = noteDates.indexWhere((e) {
       DateTime dateTime = DateTime.parse(e);
-      return dateTime.month == month &&
-          dateTime.day == date.day &&
-          month == date.month;
+      return dateTime.month == month && dateTime.day == date.day && month == date.month;
     });
     return index != -1 ? index : -1;
   }
@@ -98,7 +95,15 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
                     childAspectRatio: 4),
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                      onTap: () {}, child: _item(context, index, state));
+                      onTap: () {
+                        if (_checkNote(state.notes, widget.listDate[index], widget.month) != -1) {
+                          noteDialog(
+                              context,
+                              state.notes[
+                                  _checkNote(state.notes, widget.listDate[index], widget.month)]);
+                        }
+                      },
+                      child: _item(context, index, state));
                 },
               ),
             ),
@@ -115,8 +120,7 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
       month: widget.month,
       noteIndex: _checkNote(state.notes, widget.listDate[index], widget.month),
       note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
-          ? state.notes[
-              _checkNote(state.notes, widget.listDate[index], widget.month)]
+          ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
           : const Note(),
       itemDate: _getWidgetContent(widget.listDate[index]),
       isNowDate: _checkDateNow(widget.listDate[index]),
@@ -158,33 +162,32 @@ class _Item extends StatelessWidget {
           children: [
             Expanded(
               flex: 80,
-              child: Column(
-                children: [
-                  Text(note.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: colors.text, fontSize: SpacingUnit.x4)),
-                  const SizedBox(
-                    height: SpacingUnit.x2,
-                  ),
-                  Text(note.content,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: colors.cyan, fontSize: SpacingUnit.x3)),
-                ],
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: [
+                    Text(note.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
+                    const SizedBox(
+                      height: SpacingUnit.x2,
+                    ),
+                    Text(note.content,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: colors.cyan, fontSize: SpacingUnit.x3)),
+                  ],
+                ),
               ),
             ),
             Expanded(
               flex: 20,
               child: CircleAvatar(
-                backgroundColor:
-                    isNowDate ? colors.primary : Colors.transparent,
+                backgroundColor: isNowDate ? colors.primary : Colors.transparent,
                 child: Text(
                   date.day.toString(),
-                  style:
-                      theme.textTheme.titleLarge!.copyWith(color: colors.text),
+                  style: theme.textTheme.titleLarge!.copyWith(color: colors.text),
                 ),
               ),
             ),
