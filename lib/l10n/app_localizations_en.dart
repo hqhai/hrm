@@ -20,7 +20,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPassword => 'Forgot password';
 
   @override
-  String get login => 'login';
+  String get login => 'Log in';
+
+  @override
+  String get login2 => 'LOG IN';
 
   @override
   String get notAMember => 'Not a member? ';
@@ -411,4 +414,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dateNote => 'Date note';
+
+  @override
+  String get enterYourRegisteredUsernameAndPassword => 'Enter your registered username and password';
+
+  @override
+  String get supportContact => 'Support Contact';
 }

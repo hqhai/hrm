@@ -28,6 +28,8 @@ const _$NoteStatusEnumMap = {
   NoteStatus.createNoteInit: 'createNoteInit',
   NoteStatus.createNoteSuccess: 'createNoteSuccess',
   NoteStatus.createNoteError: 'createNoteError',
+  NoteStatus.createNoteErrorAlreadyExistOnDay:
+      'createNoteErrorAlreadyExistOnDay',
   NoteStatus.getNoteInit: 'getNoteInit',
   NoteStatus.getNoteSuccess: 'getNoteSuccess',
   NoteStatus.getNoteError: 'getNoteError',

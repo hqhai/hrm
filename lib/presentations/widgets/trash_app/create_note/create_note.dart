@@ -1,25 +1,15 @@
-import 'dart:io';
-
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/utils/color_utils.dart';
-import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/user.dart';
+import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
-import 'package:base_app/presentations/bloc/request/request/request_state.dart';
-import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_event.dart';
-import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_state.dart';
+import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
+import 'package:base_app/presentations/bloc/notes/notes_state.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
+import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:themes/themes.dart';
 import 'package:widgets/app_input.dart';
 
@@ -34,55 +24,32 @@ class CreateNoteWidget extends StatefulWidget {
 
 class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   final TextEditingController titleController = TextEditingController(),
-      commentsController = TextEditingController();
-  late String pathImage,
-      checkTitle,
-      checkContent,
-      dropdownPriorityValue,
-      dropdownApproverValue;
-  late File file;
-  Uint8List? imageData;
+      contentController = TextEditingController();
+  late String dateNote, checkTitle, checkContent;
 
   @override
   void initState() {
     super.initState();
-    dI<UserByRolesBloc>().add(const GetUserByRoleEvent(role: 'manager'));
-    dropdownPriorityValue = MenuValues.listPriority.first;
     checkTitle = '';
     checkContent = '';
+    dateNote = '';
     titleController.text = '';
-    commentsController.text = '';
-    pathImage = '';
-    file = File('');
+    contentController.text = '';
   }
 
   @override
   void dispose() {
     super.dispose();
     titleController.dispose();
-    commentsController.dispose();
+    contentController.dispose();
   }
 
-  _listener(BuildContext context, RequestState state) {
-    if (state.status == RequestStatus.createRequestSuccess) {
-      Navigator.of(context).pop();
-      successDialog(context);
-      checkTitle = '';
-      checkContent = '';
-      titleController.text = '';
-      commentsController.text = '';
-    } else if (state.status == RequestStatus.createRequestInit) {
-      Navigator.of(context).pop();
+  _listener(BuildContext context, NotesState state){
+    if(state.status == NoteStatus.createNoteInit){
       progressIndicatorDialog(context);
-    } else if (state.status == RequestStatus.createRequestError) {
-      Navigator.of(context).pop();
-      unsuccessfulDialog(context);
     }
-  }
+    else if(state.status == NoteStatus.createNoteSuccess){
 
-  _listenerUserByRoles(BuildContext context, UserByRolesState state) {
-    if (state.status == UserStatus.getUsersByRoleSuccess) {
-      dropdownApproverValue = state.users.first.fullName;
     }
   }
 
@@ -90,219 +57,94 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return BlocListener<RequestBloc, RequestState>(
+    return BlocListener<NotesBloc, NotesState>(
       listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => previous.status != current.status,
-      child: BlocConsumer<UserByRolesBloc, UserByRolesState>(
-        listener: (context, stateUser) =>
-            _listenerUserByRoles(context, stateUser),
-        builder: (context, stateUser) {
-          return Container(
-            margin: const EdgeInsets.symmetric(
-                horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-            padding: const EdgeInsets.symmetric(
-                horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-            height: MediaQuery.sizeOf(context).height,
-            decoration: BoxDecoration(
-              color: CustomsColor.colorBackground,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(SpacingUnit.x4),
-              ),
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+        height: MediaQuery
+            .sizeOf(context)
+            .height,
+        decoration: BoxDecoration(
+          color: CustomsColor.colorBackground,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(SpacingUnit.x4),
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: SpacingUnit.x4_5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(height: SpacingUnit.x4_5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        appLocalizations.dateNote,
-                        style: TextStyle(
-                            fontSize: SpacingUnit.x4_5, color: colors.text),
-                      ),
-                      const SizedBox(width: SpacingUnit.x3_5),
-                    ],
-                  ),
-                  const SizedBox(height: SpacingUnit.x6_5),
                   Text(
-                    appLocalizations.title,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4_5,
-                    ),
+                    appLocalizations.dateNote,
+                    style: TextStyle(fontSize: SpacingUnit.x4_5, color: colors.text),
                   ),
-                  const SizedBox(height: SpacingUnit.x4_5),
-                  AppInput(
-                    placeHolder: appLocalizations.title,
-                    controller: titleController,
-                    onChange: (value) => setState(() => checkTitle = value),
-                  ),
-                  const SizedBox(height: SpacingUnit.x6_5),
-                  Text(
-                    appLocalizations.content,
-                    style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4_5),
-                  ),
-                  const SizedBox(height: SpacingUnit.x4_5),
-                  AppInputArea(
-                    minLines: 10,
-                    maxLines: 10,
-                    placeHolder: appLocalizations.content,
-                    controller: commentsController,
-                    onChange: (value) => setState(() => checkContent = value),
-                  ),
-                  const SizedBox(height: SpacingUnit.x4_5),
-                  Text(appLocalizations.selectFile,
-                      style: TextStyle(
-                          color: colors.text, fontSize: SpacingUnit.x4_5)),
-                  const SizedBox(height: SpacingUnit.x4_5),
-                  Row(
-                    mainAxisAlignment: kIsWeb
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () =>
-                            kIsWeb ? getImagePathByWeb() : getImagePath(),
-                        icon: Icon(Icons.file_copy,
-                            size: SpacingUnit.x10, color: colors.text),
-                      ),
-                      removed(context),
-                      imageSelect()
-                    ],
-                  ),
-                  const SizedBox(height: SpacingUnit.x4_5),
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: _checkTextField()
-                                ? Colors.blue
-                                : Colors.indigo),
-                        onPressed: () => _createRequest(context, stateUser),
-                        child: Text(appLocalizations.create,
-                            style: TextStyle(
-                                color: colors.text, fontSize: SpacingUnit.x5)),
-                      ),
-                      const SizedBox(width: SpacingUnit.x5),
-                    ],
+                  const SizedBox(width: SpacingUnit.x3_5),
+                  DatePicker(
+                    onChange: (value) => dateNote = value,
                   )
                 ],
               ),
-            ),
-          );
-        },
+              const SizedBox(height: SpacingUnit.x6_5),
+              Text(
+                appLocalizations.title,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4_5,
+                ),
+              ),
+              const SizedBox(height: SpacingUnit.x4_5),
+              AppInput(
+                placeHolder: appLocalizations.title,
+                controller: titleController,
+                onChange: (value) => setState(() => checkTitle = value),
+              ),
+              const SizedBox(height: SpacingUnit.x6_5),
+              Text(
+                appLocalizations.content,
+                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4_5),
+              ),
+              const SizedBox(height: SpacingUnit.x4_5),
+              AppInputArea(
+                minLines: 10,
+                maxLines: 10,
+                placeHolder: appLocalizations.content,
+                controller: contentController,
+                onChange: (value) => setState(() => checkContent = value),
+              ),
+              const SizedBox(height: SpacingUnit.x4_5),
+              Row(
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
+                    onPressed: () =>
+                        _createNote(
+                            context,
+                            Note(
+                                title: titleController.text,
+                                content: contentController.text,
+                                dateCreate: dateNote)),
+                    child: Text(appLocalizations.create,
+                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                  ),
+                  const SizedBox(width: SpacingUnit.x5),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
-  }
-
-  Widget dropdownApprover(UserByRolesState stateUser) {
-    return stateUser.status == UserStatus.getUsersByRoleSuccess
-        ? DropdownMenu<String>(
-            width: MediaQuery.sizeOf(context).width * 0.5,
-            initialSelection:
-                stateUser.users.map((e) => e.fullName).toList().first,
-            onSelected: (String? value) {
-              setState(
-                () {
-                  dropdownApproverValue = value!;
-                },
-              );
-            },
-            dropdownMenuEntries: stateUser.users
-                .map((e) => e.fullName)
-                .toList()
-                .map<DropdownMenuEntry<String>>(
-              (String value) {
-                return DropdownMenuEntry<String>(value: value, label: value);
-              },
-            ).toList(),
-          )
-        : Shimmer.fromColors(
-            baseColor: Colors.red,
-            highlightColor: Colors.yellow,
-            child: Container(
-              width: MediaQuery.sizeOf(context).width * 0.5,
-            ));
-  }
-
-  Widget removed(BuildContext context) {
-    final colors = AppTheme.getColors(context);
-    if (pathImage != '' || imageData != null) {
-      return IconButton(
-        onPressed: () => deleteImagePath(),
-        icon: Icon(Icons.delete, size: SpacingUnit.x6, color: colors.error),
-      );
-    }
-    return const SizedBox();
-  }
-
-  Widget imageSelect() {
-    if (pathImage != '' || imageData != null) {
-      return SizedBox(
-        height: SpacingUnit.x50,
-        width: SpacingUnit.x50,
-        child: kIsWeb
-            ? imageData != null
-                ? Image.memory(imageData!, fit: BoxFit.fill)
-                : const SizedBox()
-            : Image.file(fit: BoxFit.fill, File(pathImage)),
-      );
-    }
-    return const SizedBox();
   }
 
   bool _checkTextField() {
     return checkTitle != '' && checkContent != '';
   }
 
-  _createRequest(BuildContext context, UserByRolesState state) {}
-
-  Future<void> deleteImagePath() async {
-    setState(() {
-      pathImage = '';
-      imageData = null;
-    });
-  }
-
-  Future<void> getImagePathByWeb() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.image);
-    if (result != null) {
-      setState(() {
-        file = File.fromRawPath(result.files.first.bytes!);
-        imageData = result.files.first.bytes!;
-      });
-    } else {
-      setState(() {
-        imageData = null;
-      });
-    }
-  }
-
-  Future<void> getImagePath() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        pathImage = pickedFile.path;
-        file = File(pathImage);
-      });
-    } else {
-      setState(() {
-        pathImage = '';
-      });
-    }
-  }
-
-  String approver(String approverName, List<User> users) {
-    User u = users
-        .where(
-            (element) => element.fullName.toString() == approverName.toString())
-        .first;
-    return users[users.indexOf(u)].id;
-  }
+  _createNote(BuildContext context, Note note) {}
 }

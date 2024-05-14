@@ -4,7 +4,8 @@
   "password": "Password",
   "staySignedIn": "Stay signed in",
   "forgotPassword": "Forgot password",
-  "login": "login",
+  "login": "Log in",
+  "login2": "LOG IN",
   "notAMember": "Not a member? ",
   "alreadyAMember": "Already a member?  ",
   "signUpNow": "Sign up now",
@@ -134,5 +135,7 @@
   "pleaseCheckYourEmail": ", Please check your email.",
   "calendar": "calendar",
   "register": "Register",
-  "dateNote": "Date note"
+  "dateNote": "Date note",
+  "enterYourRegisteredUsernameAndPassword": "Enter your registered username and password",
+  "supportContact": "Support Contact"
 }

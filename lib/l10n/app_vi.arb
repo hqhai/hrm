@@ -5,6 +5,7 @@
   "staySignedIn": "Lưu đăng nhập",
   "forgotPassword": "Quên mật khẩu",
   "login": "Đăng nhập",
+  "login2": "ĐĂNG NHẬP",
   "notAMember": "Chưa có tài khoản?  ",
   "alreadyAMember": "Đã có tài khoản chưa?  ",
   "signUpNow": "Đăng ký",
@@ -134,5 +135,7 @@
   "pleaseCheckYourEmail": ", Làm ơn check email của bạn.",
   "calendar": "Lịch",
   "register": "Đăng ký",
-  "dateNote": "Ngày ghi chú"
+  "dateNote": "Ngày ghi chú",
+  "enterYourRegisteredUsernameAndPassword": "Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản",
+  "supportContact": "Liên hệ hỗ trợ"
 }

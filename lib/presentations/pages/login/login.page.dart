@@ -1,7 +1,9 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
+import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -23,9 +25,8 @@ import 'package:themes/themes.dart';
 import 'package:widgets/app_button.dart';
 import 'package:widgets/app_show_dialog.dart';
 
-final loginPageRoute = GoRoute(
-    path: Pages.login,
-    builder: (context, GoRouterState state) => const LoginPage());
+final loginPageRoute =
+    GoRoute(path: Pages.login, builder: (context, GoRouterState state) => const LoginPage());
 
 //User: huukhoa@atlantic.edu.vn1            Admin@123
 
@@ -36,8 +37,7 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
-    with SingleTickerProviderStateMixin {
+class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String checkEmail = '', checkPassword = '';
@@ -45,6 +45,7 @@ class _LoginPageState extends State<LoginPage>
   late Animation<double> _animationWidth, _animationHeight;
   late double width, height;
 
+  String? dropdownLanguageValue = '';
   String? rememberEmail = '';
   String? rememberPassword = '';
   String? errorEmail = '';
@@ -127,8 +128,7 @@ class _LoginPageState extends State<LoginPage>
           errorEmail = appLocalizations.errorEmailOrPassword;
           errorPass = appLocalizations.errorEmailOrPassword;
         });
-        ShowDialog.instance
-            .showDialogCommon(context, 'Error email or password');
+        ShowDialog.instance.showDialogCommon(context, 'Error email or password');
       case LoginStatus.emailOrUserFalse:
         setState(() {
           errorEmail = 'Required data field';
@@ -141,6 +141,25 @@ class _LoginPageState extends State<LoginPage>
         });
       default:
         break;
+    }
+  }
+
+  _language(String value) {
+    setState(() {
+      dropdownLanguageValue = value;
+    });
+    if (value == LanguageEnum.en.name) {
+      dI<LanguageCubit>().changeLocale('en');
+    } else {
+      dI<LanguageCubit>().changeLocale('vi');
+    }
+  }
+
+  String getDropdownLanguageValue(String languageCode) {
+    if (languageCode == 'en') {
+      return LanguageEnum.en.name;
+    } else {
+      return LanguageEnum.vi.name;
     }
   }
 
@@ -162,6 +181,35 @@ class _LoginPageState extends State<LoginPage>
               fit: BoxFit.fill,
               width: width,
               height: height,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: SpacingUnit.x10, right: SpacingUnit.x4),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: BlocBuilder<LanguageCubit, String>(
+                  builder: (context, languageCode) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
+                        border: Border.all(
+                          color: colors.outline,
+                          width: 1,
+                        ),
+                      ),
+                      child: DropdownMenu<String>(
+                        width: SpacingUnit.x34,
+                        textStyle: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                        initialSelection: getDropdownLanguageValue(languageCode),
+                        onSelected: (String? value) => _language(value!),
+                        dropdownMenuEntries:
+                            MenuValues.languageValue.map<DropdownMenuEntry<String>>((String value) {
+                          return DropdownMenuEntry<String>(value: value, label: value);
+                        }).toList(),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
             Center(
               child: SizedBox(
@@ -191,21 +239,27 @@ class _LoginPageState extends State<LoginPage>
                         color: CustomsColor.colorBackground,
                       ),
                     ),
-                    margin: const EdgeInsets.all(SpacingUnit.x8),
+                    margin: const EdgeInsets.only(
+                        left: SpacingUnit.x8,
+                        right: SpacingUnit.x8,
+                        bottom: SpacingUnit.x8,
+                        top: SpacingUnit.x30),
                     child: Padding(
                       padding: const EdgeInsets.all(SpacingUnit.x4),
                       child: Column(children: [
                         const SizedBox(height: SpacingUnit.x4),
-                        Image.asset(Assets.images.signIn.logo.path,
-                            fit: BoxFit.fill,
-                            width: width,
-                            height: height * 0.15),
-                        const SizedBox(height: SpacingUnit.x10_5),
+                        Text(appLocalizations.login2,
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x6)),
+                        Text(appLocalizations.enterYourRegisteredUsernameAndPassword,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
+                        const SizedBox(height: SpacingUnit.x5),
                         AppInputEmail(
                           iconLeft: Padding(
                             padding: const EdgeInsets.all(SpacingUnit.x2_5),
                             child: SvgPicture.asset(
                               Assets.images.icon.person,
+                              colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
                             ),
                           ),
                           placeHolder: appLocalizations.email,
@@ -222,6 +276,7 @@ class _LoginPageState extends State<LoginPage>
                             padding: const EdgeInsets.all(SpacingUnit.x2_5),
                             child: SvgPicture.asset(
                               Assets.images.icon.lock,
+                              colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
                             ),
                           ),
                           error: errorPass,
@@ -263,63 +318,97 @@ class _LoginPageState extends State<LoginPage>
                           color: checkInput()
                               ? CustomsColor.colorButtonSelect
                               : CustomsColor.colorUnButtonSelect,
-                          colorText: checkInput()
-                              ? colors.text
-                              : CustomsColor.colorTextUnButtonSelect,
+                          colorText:
+                              checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect,
+                        ),
+                        const SizedBox(height: SpacingUnit.x4),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: colors.onSurfaceVariant,
+                            borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
+                            border: Border.all(
+                              color: colors.outline,
+                              width: 1,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(SpacingUnit.x0_5),
+                            child: SvgPicture.asset(
+                              height: SpacingUnit.x8,
+                              width: SpacingUnit.x8,
+                              Assets.images.signIn.biometric,
+                              colorFilter: ColorFilter.mode(colors.background, BlendMode.srcIn),
+                            ),
+                          ),
                         ),
                         const Expanded(
                           flex: 5,
                           child: SizedBox(),
                         ),
-                        BlocBuilder<LanguageCubit, String>(
-                          builder: (context, languageCode) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(SpacingUnit.x2_5),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
-                              ),
-                              child: GestureDetector(
-                                onTap: () => _language(languageCode),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.all(SpacingUnit.x2_5),
-                                  child: Text(
-                                    languageCode == 'vi'
-                                        ? 'Switch to English'
-                                        : 'Chuyển sang tiếng Việt',
-                                    style: TextStyle(
-                                        fontSize: SpacingUnit.x4,
-                                        color: colors.text),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
                         const SizedBox(height: SpacingUnit.x4),
-                        Row(
+                        /*Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               appLocalizations.notAMember,
-                              style:
-                                  TextStyle(fontSize: 16, color: colors.text),
+                              style: TextStyle(fontSize: 16, color: colors.text),
                             ),
                             GestureDetector(
                                 onTap: () {
                                   onRegister(context);
                                 },
                                 child: Text(appLocalizations.signUpNow,
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Color(0xffABBFED)))),
+                                    style:
+                                        const TextStyle(fontSize: 16, color: Color(0xffABBFED)))),
                           ],
+                        ),*/
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: SizedBox(
+                            height: SpacingUnit.x16,
+                            width: SpacingUnit.x60,
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                      margin: const EdgeInsets.only(bottom: SpacingUnit.x1_5),
+                                      padding: const EdgeInsets.only(
+                                          top: SpacingUnit.x3,
+                                          left: SpacingUnit.x3,
+                                          bottom: SpacingUnit.x3,
+                                          right: SpacingUnit.x6),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(SpacingUnit.x1),
+                                        border: Border.all(
+                                          color: colors.text,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        appLocalizations.supportContact,
+                                        style: TextStyle(fontSize: 16, color: colors.text),
+                                      )),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Container(
+                                      padding: const EdgeInsets.all(SpacingUnit.x2),
+                                      decoration: BoxDecoration(
+                                        color: CustomsColor.colorBackground,
+                                        borderRadius: BorderRadius.circular(SpacingUnit.x100),
+                                        border: Border.all(
+                                          color: colors.text,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: const Icon(Icons.headphones,
+                                          color: Colors.white, size: 45)),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        const SizedBox(height: SpacingUnit.x4),
                       ]),
                     ),
                   ),
@@ -330,14 +419,6 @@ class _LoginPageState extends State<LoginPage>
         ),
       ),
     );
-  }
-
-  _language(String languageCode) {
-    if (languageCode == 'vi') {
-      dI<LanguageCubit>().changeLocale('en');
-    } else {
-      dI<LanguageCubit>().changeLocale('vi');
-    }
   }
 
   void onClickForgotPassword() {
@@ -351,8 +432,8 @@ class _LoginPageState extends State<LoginPage>
       _controller.forward(from: 0);
     });
     Future.delayed(const Duration(seconds: 1), () {
-      dI<LoginBloc>().add(ValidateLogin(
-          username: emailController.text, password: passwordController.text));
+      dI<LoginBloc>()
+          .add(ValidateLogin(username: emailController.text, password: passwordController.text));
     });
   }
 
@@ -363,8 +444,7 @@ class _LoginPageState extends State<LoginPage>
   bool checkInput() {
     RegExp regExpPass = RegExp(checkPasswordRegexExp);
     RegExp regExpEmail = RegExp(checkEmailRegexExpTest); //
-    return (regExpEmail.hasMatch(checkEmail) &&
-            regExpPass.hasMatch(checkPassword))
+    return (regExpEmail.hasMatch(checkEmail) && regExpPass.hasMatch(checkPassword))
         ? isCheckedInput = true
         : isCheckedInput = false;
   }
