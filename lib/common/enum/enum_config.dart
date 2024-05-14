@@ -162,3 +162,23 @@ enum CheckInSettingStatus{
   getCheckInSettingByIdSuccess,
   getCheckInSettingByIdError,
 }
+
+enum NoteStatus{
+  init,
+  createNoteInit,
+  createNoteSuccess,
+  createNoteError,
+  createNoteErrorAlreadyExistOnDay,
+  getNoteInit,
+  getNoteSuccess,
+  getNoteError,
+  updateNoteInit,
+  updateNoteSuccess,
+  updateNoteError,
+  deleteNoteInit,
+  deleteNoteSuccess,
+  deleteNoteError,
+  expired,
+  complete,
+  unfinished,
+}

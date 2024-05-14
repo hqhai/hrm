@@ -133,5 +133,6 @@
   "newPasswordHasJustBeenSentToEmail": "New password has just been sent to email",
   "pleaseCheckYourEmail": ", Please check your email.",
   "calendar": "calendar",
-  "register": "Register"
+  "register": "Register",
+  "dateNote": "Date note"
 }

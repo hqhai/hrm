@@ -133,5 +133,6 @@
   "newPasswordHasJustBeenSentToEmail": "Mật khẩu mới vừa được gửi tới email",
   "pleaseCheckYourEmail": ", Làm ơn check email của bạn.",
   "calendar": "Lịch",
-  "register": "Đăng ký"
+  "register": "Đăng ký",
+  "dateNote": "Ngày ghi chú"
 }

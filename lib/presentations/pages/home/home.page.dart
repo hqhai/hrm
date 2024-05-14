@@ -177,6 +177,15 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                           height: 20,
                         ),
+                        if (stateUser.user.role == ConfigStringValues.userSystem.name)
+                          ...MenuValues.menuUserSystemValues(context).asMap().entries.map(
+                                (entry) => SideMenuTile(
+                                  text: entry.value['text'],
+                                  checkSelect: selectedIndex == entry.key,
+                                  icon: entry.value['icon'],
+                                  onTap: () => selectedIndexFunction(entry),
+                                ),
+                              ),
                         if (stateUser.user.role == ConfigStringValues.generalManager.name)
                           ...MenuValues.menuGeneralManagerValues(context).asMap().entries.map(
                                 (entry) => SideMenuTile(
@@ -207,7 +216,8 @@ class _HomePageState extends State<HomePage> {
                         SideMenuTile(
                           text: appLocalizations.logout,
                           checkSelect: false,
-                          icon: const Icon(Icons.logout, color: Colors.white, size: SpacingUnit.x7_5),
+                          icon:
+                              const Icon(Icons.logout, color: Colors.white, size: SpacingUnit.x7_5),
                           onTap: () => logoutFunction(),
                         ),
                       ],
@@ -229,7 +239,9 @@ class _HomePageState extends State<HomePage> {
             ? MenuValues.widgetOptionsGeneralManager[selectedIndex]
             : state.user.role == ConfigStringValues.manager.name
                 ? MenuValues.widgetOptionsManager[selectedIndex]
-                : MenuValues.widgetOptions[selectedIndex]
+                : state.user.role == ConfigStringValues.userSystem.name
+                    ? MenuValues.widgetOptionsUserSystem[selectedIndex]
+                    : MenuValues.widgetOptions[selectedIndex]
         : Container();
   }
 }
