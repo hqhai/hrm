@@ -3,7 +3,6 @@ import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
-import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -202,7 +201,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         initialSelection: getDropdownLanguageValue(languageCode),
                         onSelected: (String? value) => _language(value!),
                         dropdownMenuEntries:
-                            MenuValues.languageValue.map<DropdownMenuEntry<String>>((String value) {
+                        LanguageEnum.values.map((e) => e.name).map<DropdownMenuEntry<String>>((String value) {
                           return DropdownMenuEntry<String>(value: value, label: value);
                         }).toList(),
                       ),
