@@ -44,11 +44,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   late AnimationController _controller;
   late Animation<double> _animationWidth, _animationHeight;
   late double width, height;
-  String? dropdownLanguage = '',
-      rememberEmail = '',
-      rememberPassword = '',
-      errorEmail = '',
-      errorPass = '';
+  String? rememberEmail = '', rememberPassword = '', errorEmail = '', errorPass = '';
   bool checkSaveLogin = false, isCheckedInput = false;
 
   @override
@@ -143,9 +139,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   }
 
   _language(String value) {
-    setState(() {
-      dropdownLanguage = value;
-    });
     if (value == LanguageEnum.en.name) {
       dI<LanguageCubit>().changeLocale(LanguageCodeEnum.en);
     } else {
@@ -154,7 +147,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   }
 
   String getDropdownLanguageValue(String? languageCode) {
-    if (languageCode == 'en') {
+    if (languageCode == LanguageCodeEnum.en.name) {
       return LanguageEnum.en.name;
     } else {
       return LanguageEnum.vi.name;
