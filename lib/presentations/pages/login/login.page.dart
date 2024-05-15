@@ -13,9 +13,9 @@ import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
-import 'package:base_app/presentations/widgets/custom/app_input_email.dart';
-import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
 import 'package:base_app/presentations/widgets/custom/contact_help.dart';
+import 'package:base_app/presentations/widgets/login/drop_down_menu.dart';
+import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -173,48 +173,15 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
               width: width,
               height: height,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: SpacingUnit.x10, right: SpacingUnit.x4),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: BlocBuilder<LanguageCubit, LanguageCodeEnum>(
-                  builder: (context, languageCode) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
-                        border: Border.all(
-                          color: colors.outline,
-                          width: 1,
-                        ),
-                      ),
-                      child: DropdownMenu<String>(
-                        width: SpacingUnit.x34,
-                        textStyle: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                        initialSelection: getDropdownLanguageValue(languageCode.name),
-                        onSelected: (String? value) => _language(value!),
-                        dropdownMenuEntries: LanguageEnum.values
-                            .map((e) => e.name)
-                            .map<DropdownMenuEntry<String>>((String value) {
-                          return DropdownMenuEntry<String>(value: value, label: value);
-                        }).toList(),
-                      ),
-                    );
-                  },
-                ),
-              ),
+            DropdownMenuWidget(
+              onSelected: (String? value) => _language(value!),
             ),
             Center(
-              child: SizedBox(
-                height: SpacingUnit.x50,
-                width: SpacingUnit.x50,
-                child: Lottie.asset(
-                  Assets.images.icon.loading,
-                  width: SpacingUnit.x50,
-                  height: SpacingUnit.x50,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
+                child: SizedBox(
+                    height: SpacingUnit.x50,
+                    width: SpacingUnit.x50,
+                    child: Lottie.asset(Assets.images.icon.loading,
+                        width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill))),
             Container(
               alignment: Alignment.topCenter,
               child: SizeTransition(
@@ -226,10 +193,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                     decoration: BoxDecoration(
                       color: CustomsColor.colorBackground,
                       borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                      border: Border.all(
-                        width: 1,
-                        color: CustomsColor.colorBackground,
-                      ),
+                      border: Border.all(width: 1, color: CustomsColor.colorBackground),
                     ),
                     margin: const EdgeInsets.only(
                         left: SpacingUnit.x8,
@@ -245,39 +209,18 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         Text(appLocalizations.enterYourRegisteredUsernameAndPassword,
                             textAlign: TextAlign.center,
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
-                        const SizedBox(height: SpacingUnit.x5),
-                        AppInputEmail(
-                          iconLeft: Padding(
-                            padding: const EdgeInsets.all(SpacingUnit.x2_5),
-                            child: SvgPicture.asset(
-                              Assets.images.icon.person,
-                              colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
-                            ),
-                          ),
-                          placeHolder: appLocalizations.email,
-                          error: errorEmail,
-                          controller: emailController,
-                          onChange: (value) => setState(() {
+                        EmailAndPasswordWidget(
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          errorEmail: errorEmail,
+                          errorPass: errorPass,
+                          onChangeEmail: (value) => setState(() {
                             checkEmail = value;
                           }),
-                        ),
-                        const SizedBox(height: SpacingUnit.x4),
-                        AppInputPassword(
-                          iconLeft: Padding(
-                            padding: const EdgeInsets.all(SpacingUnit.x2_5),
-                            child: SvgPicture.asset(
-                              Assets.images.icon.lock,
-                              colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
-                            ),
-                          ),
-                          error: errorPass,
-                          placeHolder: appLocalizations.password,
-                          controller: passwordController,
-                          onChange: (value) => setState(() {
+                          onChangePass: (value) => setState(() {
                             checkPassword = value;
                           }),
                         ),
-                        const SizedBox(height: SpacingUnit.x4),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -301,25 +244,19 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         ),
                         const SizedBox(height: SpacingUnit.x4),
                         AppButton(
-                          title: appLocalizations.login,
-                          onSubmit: () => {
-                            if (checkInput()) onSubmit(),
-                          },
-                          color: checkInput()
-                              ? CustomsColor.colorButtonSelect
-                              : CustomsColor.colorUnButtonSelect,
-                          colorText:
-                              checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect,
-                        ),
+                            title: appLocalizations.login,
+                            onSubmit: () => {if (checkInput()) onSubmit()},
+                            color: checkInput()
+                                ? CustomsColor.colorButtonSelect
+                                : CustomsColor.colorUnButtonSelect,
+                            colorText:
+                                checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect),
                         const SizedBox(height: SpacingUnit.x4),
                         Container(
                           decoration: BoxDecoration(
                             color: colors.onSurfaceVariant,
                             borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
-                            border: Border.all(
-                              color: colors.outline,
-                              width: 1,
-                            ),
+                            border: Border.all(color: colors.outline, width: 1),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(SpacingUnit.x0_5),
@@ -331,10 +268,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                             ),
                           ),
                         ),
-                        const Expanded(
-                          flex: 5,
-                          child: SizedBox(),
-                        ),
+                        const Expanded(flex: 5, child: SizedBox()),
                         const SizedBox(height: SpacingUnit.x4),
                         const ContactHelpWidget(),
                       ]),
