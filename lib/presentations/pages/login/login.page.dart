@@ -138,11 +138,11 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     }
   }
 
-  _language(LanguageEnum value) {
-    if (value == LanguageEnum.en) {
-      dI<LanguageCubit>().changeLocale(LanguageEnum.en);
-    } else {
+  _language(LanguageEnum? value) {
+    if (value != null && value == LanguageEnum.vi) {
       dI<LanguageCubit>().changeLocale(LanguageEnum.vi);
+    } else {
+      dI<LanguageCubit>().changeLocale(LanguageEnum.en);
     }
   }
 
@@ -166,7 +166,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
               height: height,
             ),
             DropdownMenuWidget(
-              onSelected: (LanguageEnum? value) => _language(value!),
+              onSelected: (LanguageEnum? value) => _language(value),
             ),
             Center(
                 child: SizedBox(
@@ -206,12 +206,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           passwordController: passwordController,
                           errorEmail: errorEmail,
                           errorPass: errorPass,
-                          onChangeEmail: (value) => setState(() {
-                            checkEmail = value;
-                          }),
-                          onChangePass: (value) => setState(() {
-                            checkPassword = value;
-                          }),
+                          onChangeEmail: (value) => onChangeEmail(value),
+                          onChangePass: (value) => onChangePassword(value),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -237,7 +233,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         const SizedBox(height: SpacingUnit.x4),
                         AppButton(
                             title: appLocalizations.login,
-                            onSubmit: () => {if (checkInput()) onSubmit()},
+                            onSubmit: () => onSubmit(),
                             color: checkInput()
                                 ? CustomsColor.colorButtonSelect
                                 : CustomsColor.colorUnButtonSelect,
@@ -280,15 +276,18 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   }
 
   void onSubmit() {
-    setState(() {
-      _animationHeight = const AlwaysStoppedAnimation<double>(0);
-      _animationWidth = const AlwaysStoppedAnimation<double>(0);
-      _controller.forward(from: 0);
-    });
-    Future.delayed(const Duration(seconds: 1), () {
-      dI<LoginBloc>()
-          .add(ValidateLogin(username: emailController.text, password: passwordController.text));
-    });
+    bool isCheck = checkInput();
+    if (isCheck) {
+      setState(() {
+        _animationHeight = const AlwaysStoppedAnimation<double>(0);
+        _animationWidth = const AlwaysStoppedAnimation<double>(0);
+        _controller.forward(from: 0);
+      });
+      Future.delayed(const Duration(seconds: 1), () {
+        dI<LoginBloc>()
+            .add(ValidateLogin(username: emailController.text, password: passwordController.text));
+      });
+    }
   }
 
   void onRegister(context) {
@@ -301,5 +300,17 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     return (regExpEmail.hasMatch(checkEmail) && regExpPass.hasMatch(checkPassword))
         ? isCheckedInput = true
         : isCheckedInput = false;
+  }
+
+  onChangeEmail(String value) {
+    setState(() {
+      checkEmail = value;
+    });
+  }
+
+  onChangePassword(String value) {
+    setState(() {
+      checkPassword = value;
+    });
   }
 }

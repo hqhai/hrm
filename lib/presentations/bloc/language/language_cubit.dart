@@ -20,20 +20,6 @@ class LanguageCubit extends HydratedCubit<LanguageState> {
   Map<String, dynamic>? toJson(LanguageState state) {
     return state.toJson();
   }
-
-/*@override
-  LanguageEnum? fromJson(Map<String, dynamic> json) {
-    return $enumDecode(_$LanguageCodeEnumMap, json['languageCode']);
-  }
-
-  @override
-  Map<String, dynamic>? toJson(LanguageEnum state) {
-    return <String, dynamic>{'status': _$LanguageCodeEnumMap[state]!};
-  }*/
 }
 
-const _$LanguageCodeEnumMap = {
-  LanguageEnum.vi: 'vi',
-  LanguageEnum.en: 'en',
-};
 
