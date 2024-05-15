@@ -40,7 +40,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LanguageCubit, LanguageCodeEnum>(
+    return BlocBuilder<LanguageCubit, LanguageEnum>(
       builder: (context, languageCode) {
         return BlocBuilder<ThemeCubit, AppMode>(
           builder: (context, mode) {

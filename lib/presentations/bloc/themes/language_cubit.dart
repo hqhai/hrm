@@ -4,25 +4,23 @@ import 'package:injectable/injectable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @lazySingleton
-class LanguageCubit extends HydratedCubit<LanguageCodeEnum> {
-  LanguageCubit() : super(LanguageCodeEnum.en);
+class LanguageCubit extends HydratedCubit<LanguageEnum> {
+  LanguageCubit() : super(LanguageEnum.en);
 
-  void changeLocale(LanguageCodeEnum languageCode) => emit(languageCode);
+  void changeLocale(LanguageEnum languageCode) => emit(languageCode);
 
   @override
-  LanguageCodeEnum? fromJson(Map<String, dynamic> json) {
-    return $enumDecode(_$LanguageCodeEnumMap, json['languageCode']);
+  LanguageEnum? fromJson(Map<String, dynamic> json) {
+    return $enumDecode(_$LanguageEnumMap, json['languageCode']);
   }
 
   @override
-  Map<String, dynamic>? toJson(LanguageCodeEnum state) {
-    return <String, dynamic>{'status': _$LanguageCodeEnumMap[state]!};
+  Map<String, dynamic>? toJson(LanguageEnum state) {
+    return <String, dynamic>{'status': _$LanguageEnumMap[state]!};
   }
 }
 
-const _$LanguageCodeEnumMap = {
-  LanguageCodeEnum.vi: 'vi',
-  LanguageCodeEnum.en: 'en',
+const _$LanguageEnumMap = {
+  LanguageEnum.vi: 'vi',
+  LanguageEnum.en: 'en',
 };
-
-

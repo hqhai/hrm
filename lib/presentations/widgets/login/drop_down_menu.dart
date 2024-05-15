@@ -6,22 +6,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class DropdownMenuWidget extends StatefulWidget {
-  const DropdownMenuWidget(
-      {super.key, this.onSelected,});
+  const DropdownMenuWidget({
+    super.key,
+    this.onSelected,
+  });
 
-  final ValueChanged<String?>? onSelected;
+  final ValueChanged<LanguageEnum?>? onSelected;
 
   @override
   State<DropdownMenuWidget> createState() => _DropdownMenuWidgetState();
 }
 
 class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
-
-  String getDropdownLanguageValue(String? languageCode) {
-    if (languageCode == LanguageCodeEnum.en.name) {
-      return LanguageEnum.en.name;
+  LanguageEnum getDropdownLanguageValue(LanguageEnum? languageCode) {
+    if (languageCode != null && languageCode == LanguageEnum.en) {
+      return LanguageEnum.en;
     } else {
-      return LanguageEnum.vi.name;
+      return LanguageEnum.vi;
     }
   }
 
@@ -29,10 +30,11 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding: const EdgeInsets.only(top: SpacingUnit.x10, right: SpacingUnit.x4),
+      padding:
+          const EdgeInsets.only(top: SpacingUnit.x10, right: SpacingUnit.x4),
       child: Align(
         alignment: Alignment.topRight,
-        child: BlocBuilder<LanguageCubit, LanguageCodeEnum>(
+        child: BlocBuilder<LanguageCubit, LanguageEnum>(
           builder: (context, languageCode) {
             return Container(
               decoration: BoxDecoration(
@@ -42,16 +44,16 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
                   width: 1,
                 ),
               ),
-              child: DropdownMenu<String>(
+              child: DropdownMenu<LanguageEnum>(
                 width: SpacingUnit.x34,
-                textStyle: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                initialSelection: getDropdownLanguageValue(languageCode.name),
+                textStyle:
+                    TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                initialSelection: getDropdownLanguageValue(languageCode),
                 onSelected: widget.onSelected,
                 dropdownMenuEntries: LanguageEnum.values
-                    .map((e) => e.name)
-                    .map<DropdownMenuEntry<String>>((String value) {
-                  return DropdownMenuEntry<String>(value: value, label: value);
-                }).toList(),
+                    .toList()
+                    .map((e) => DropdownMenuEntry(label: e.name, value: e))
+                    .toList(),
               ),
             );
           },

@@ -17,13 +17,14 @@ import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_blo
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_event.dart';
 import 'package:base_app/presentations/pages/home/side_menu_tile.dart';
 import 'package:common/utils/spacing_unit.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
-final homePageRoute =
-    GoRoute(path: Pages.home, builder: (context, GoRouterState state) => const HomePage());
+final homePageRoute = GoRoute(
+    path: Pages.home,
+    builder: (context, GoRouterState state) => const HomePage());
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -66,12 +67,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   _english() {
-    dI<LanguageCubit>().changeLocale(LanguageCodeEnum.en);
+    dI<LanguageCubit>().changeLocale(LanguageEnum.en);
     Navigator.of(context).pop();
   }
 
   _vietnamese() {
-    dI<LanguageCubit>().changeLocale(LanguageCodeEnum.vi);
+    dI<LanguageCubit>().changeLocale(LanguageEnum.vi);
     Navigator.of(context).pop();
   }
 
@@ -152,7 +153,8 @@ class _HomePageState extends State<HomePage> {
                                     overflow: TextOverflow.ellipsis,
                                     stateUser.user.fullName,
                                     style: const TextStyle(
-                                        color: Colors.white, fontSize: SpacingUnit.x4_5),
+                                        color: Colors.white,
+                                        fontSize: SpacingUnit.x4_5),
                                   ),
                                 ),
                                 const SizedBox(
@@ -167,7 +169,8 @@ class _HomePageState extends State<HomePage> {
                                     overflow: TextOverflow.ellipsis,
                                     stateUser.user.email,
                                     style: const TextStyle(
-                                        color: Colors.white, fontSize: SpacingUnit.x3_5),
+                                        color: Colors.white,
+                                        fontSize: SpacingUnit.x3_5),
                                   ),
                                 ),
                               ],
@@ -177,8 +180,12 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        if (stateUser.user.role == ConfigStringValues.userSystem.name)
-                          ...MenuValues.menuUserSystemValues(context).asMap().entries.map(
+                        if (stateUser.user.role ==
+                            ConfigStringValues.userSystem.name)
+                          ...MenuValues.menuUserSystemValues(context)
+                              .asMap()
+                              .entries
+                              .map(
                                 (entry) => SideMenuTile(
                                   text: entry.value['text'],
                                   checkSelect: selectedIndex == entry.key,
@@ -186,8 +193,12 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () => selectedIndexFunction(entry),
                                 ),
                               ),
-                        if (stateUser.user.role == ConfigStringValues.generalManager.name)
-                          ...MenuValues.menuGeneralManagerValues(context).asMap().entries.map(
+                        if (stateUser.user.role ==
+                            ConfigStringValues.generalManager.name)
+                          ...MenuValues.menuGeneralManagerValues(context)
+                              .asMap()
+                              .entries
+                              .map(
                                 (entry) => SideMenuTile(
                                   text: entry.value['text'],
                                   checkSelect: selectedIndex == entry.key,
@@ -195,8 +206,12 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () => selectedIndexFunction(entry),
                                 ),
                               ),
-                        if (stateUser.user.role == ConfigStringValues.manager.name)
-                          ...MenuValues.menuManagerValues(context).asMap().entries.map(
+                        if (stateUser.user.role ==
+                            ConfigStringValues.manager.name)
+                          ...MenuValues.menuManagerValues(context)
+                              .asMap()
+                              .entries
+                              .map(
                                 (entry) => SideMenuTile(
                                   text: entry.value['text'],
                                   checkSelect: selectedIndex == entry.key,
@@ -216,8 +231,8 @@ class _HomePageState extends State<HomePage> {
                         SideMenuTile(
                           text: appLocalizations.logout,
                           checkSelect: false,
-                          icon:
-                              const Icon(Icons.logout, color: Colors.white, size: SpacingUnit.x7_5),
+                          icon: const Icon(Icons.logout,
+                              color: Colors.white, size: SpacingUnit.x7_5),
                           onTap: () => logoutFunction(),
                         ),
                       ],
