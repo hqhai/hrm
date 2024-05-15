@@ -35,6 +35,7 @@ enum PriorityRequestStatus {
   const PriorityRequestStatus(this.name);
 }
 
+
 enum ConfigStringValues {
   generalManager('GeneralManager'),
   manager('Manager'),
@@ -56,7 +57,7 @@ enum ParentId {
 }
 
 enum LanguageEnum {
-  vi('Tiếng Việt', 'vi'),
+  vi( 'Tiếng Việt', 'vi'),
   en('English', 'en');
 
   final String name;
@@ -64,3 +65,7 @@ enum LanguageEnum {
 
   const LanguageEnum(this.name, this.code);
 }
+
+
+
+

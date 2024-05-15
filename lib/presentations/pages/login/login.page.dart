@@ -8,13 +8,13 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
-import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
 import 'package:base_app/presentations/widgets/custom/contact_help.dart';
-import 'package:base_app/presentations/widgets/login/drop_down_menu.dart';
+import 'package:base_app/presentations/widgets/login/drop_down_menu_language.dart';
 import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,9 +25,8 @@ import 'package:themes/themes.dart';
 import 'package:widgets/app_button.dart';
 import 'package:widgets/app_show_dialog.dart';
 
-final loginPageRoute = GoRoute(
-    path: Pages.login,
-    builder: (context, GoRouterState state) => const LoginPage());
+final loginPageRoute =
+    GoRoute(path: Pages.login, builder: (context, GoRouterState state) => const LoginPage());
 
 //User: huukhoa@atlantic.edu.vn1            Admin@123
 
@@ -38,18 +37,14 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
-    with SingleTickerProviderStateMixin {
+class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
   final TextEditingController emailController = TextEditingController(),
       passwordController = TextEditingController();
   String checkEmail = '', checkPassword = '';
   late AnimationController _controller;
   late Animation<double> _animationWidth, _animationHeight;
   late double width, height;
-  String? rememberEmail = '',
-      rememberPassword = '',
-      errorEmail = '',
-      errorPass = '';
+  String? rememberEmail = '', rememberPassword = '', errorEmail = '', errorPass = '';
   bool checkSaveLogin = false, isCheckedInput = false;
 
   @override
@@ -127,8 +122,7 @@ class _LoginPageState extends State<LoginPage>
           errorEmail = appLocalizations.errorEmailOrPassword;
           errorPass = appLocalizations.errorEmailOrPassword;
         });
-        ShowDialog.instance
-            .showDialogCommon(context, appLocalizations.errorEmailOrPassword);
+        ShowDialog.instance.showDialogCommon(context, appLocalizations.errorEmailOrPassword);
       case LoginStatus.emailOrUserFalse:
         setState(() {
           errorEmail = appLocalizations.requiredDataFields;
@@ -149,14 +143,6 @@ class _LoginPageState extends State<LoginPage>
       dI<LanguageCubit>().changeLocale(LanguageEnum.en);
     } else {
       dI<LanguageCubit>().changeLocale(LanguageEnum.vi);
-    }
-  }
-
-  LanguageEnum getDropdownLanguageValue(LanguageEnum? languageCode) {
-    if (languageCode == LanguageEnum.en) {
-      return LanguageEnum.en;
-    } else {
-      return LanguageEnum.vi;
     }
   }
 
@@ -187,9 +173,7 @@ class _LoginPageState extends State<LoginPage>
                     height: SpacingUnit.x50,
                     width: SpacingUnit.x50,
                     child: Lottie.asset(Assets.images.icon.loading,
-                        width: SpacingUnit.x50,
-                        height: SpacingUnit.x50,
-                        fit: BoxFit.fill))),
+                        width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill))),
             Container(
               alignment: Alignment.topCenter,
               child: SizeTransition(
@@ -201,8 +185,7 @@ class _LoginPageState extends State<LoginPage>
                     decoration: BoxDecoration(
                       color: CustomsColor.colorBackground,
                       borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                      border: Border.all(
-                          width: 1, color: CustomsColor.colorBackground),
+                      border: Border.all(width: 1, color: CustomsColor.colorBackground),
                     ),
                     margin: const EdgeInsets.only(
                         left: SpacingUnit.x8,
@@ -214,14 +197,10 @@ class _LoginPageState extends State<LoginPage>
                       child: Column(children: [
                         const SizedBox(height: SpacingUnit.x4),
                         Text(appLocalizations.login2,
-                            style: TextStyle(
-                                color: colors.text, fontSize: SpacingUnit.x6)),
-                        Text(
-                            appLocalizations
-                                .enterYourRegisteredUsernameAndPassword,
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x6)),
+                        Text(appLocalizations.enterYourRegisteredUsernameAndPassword,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: colors.text, fontSize: SpacingUnit.x4)),
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
                         EmailAndPasswordWidget(
                           emailController: emailController,
                           passwordController: passwordController,
@@ -262,15 +241,13 @@ class _LoginPageState extends State<LoginPage>
                             color: checkInput()
                                 ? CustomsColor.colorButtonSelect
                                 : CustomsColor.colorUnButtonSelect,
-                            colorText: checkInput()
-                                ? colors.text
-                                : CustomsColor.colorTextUnButtonSelect),
+                            colorText:
+                                checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect),
                         const SizedBox(height: SpacingUnit.x4),
                         Container(
                           decoration: BoxDecoration(
                             color: colors.onSurfaceVariant,
-                            borderRadius:
-                                BorderRadius.circular(SpacingUnit.x0_5),
+                            borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
                             border: Border.all(color: colors.outline, width: 1),
                           ),
                           child: Padding(
@@ -279,8 +256,7 @@ class _LoginPageState extends State<LoginPage>
                               height: SpacingUnit.x8,
                               width: SpacingUnit.x8,
                               Assets.images.signIn.biometric,
-                              colorFilter: ColorFilter.mode(
-                                  colors.background, BlendMode.srcIn),
+                              colorFilter: ColorFilter.mode(colors.background, BlendMode.srcIn),
                             ),
                           ),
                         ),
@@ -310,8 +286,8 @@ class _LoginPageState extends State<LoginPage>
       _controller.forward(from: 0);
     });
     Future.delayed(const Duration(seconds: 1), () {
-      dI<LoginBloc>().add(ValidateLogin(
-          username: emailController.text, password: passwordController.text));
+      dI<LoginBloc>()
+          .add(ValidateLogin(username: emailController.text, password: passwordController.text));
     });
   }
 
@@ -322,8 +298,7 @@ class _LoginPageState extends State<LoginPage>
   bool checkInput() {
     RegExp regExpPass = RegExp(checkPasswordRegexExp);
     RegExp regExpEmail = RegExp(checkEmailRegexExpTest); //
-    return (regExpEmail.hasMatch(checkEmail) &&
-            regExpPass.hasMatch(checkPassword))
+    return (regExpEmail.hasMatch(checkEmail) && regExpPass.hasMatch(checkPassword))
         ? isCheckedInput = true
         : isCheckedInput = false;
   }
