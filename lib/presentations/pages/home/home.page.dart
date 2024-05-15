@@ -66,12 +66,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   _english() {
-    dI<LanguageCubit>().changeLocale("en");
+    dI<LanguageCubit>().changeLocale(LanguageCodeEnum.en);
     Navigator.of(context).pop();
   }
 
   _vietnamese() {
-    dI<LanguageCubit>().changeLocale("vi");
+    dI<LanguageCubit>().changeLocale(LanguageCodeEnum.vi);
     Navigator.of(context).pop();
   }
 

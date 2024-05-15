@@ -147,9 +147,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       dropdownLanguage = value;
     });
     if (value == LanguageEnum.en.name) {
-      dI<LanguageCubit>().changeLocale("en");
+      dI<LanguageCubit>().changeLocale(LanguageCodeEnum.en);
     } else {
-      dI<LanguageCubit>().changeLocale("vi");
+      dI<LanguageCubit>().changeLocale(LanguageCodeEnum.vi);
     }
   }
 
@@ -184,7 +184,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
               padding: const EdgeInsets.only(top: SpacingUnit.x10, right: SpacingUnit.x4),
               child: Align(
                 alignment: Alignment.topRight,
-                child: BlocBuilder<LanguageCubit, String>(
+                child: BlocBuilder<LanguageCubit, LanguageCodeEnum>(
                   builder: (context, languageCode) {
                     return Container(
                       decoration: BoxDecoration(
@@ -197,7 +197,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                       child: DropdownMenu<String>(
                         width: SpacingUnit.x34,
                         textStyle: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                        initialSelection: getDropdownLanguageValue(languageCode),
+                        initialSelection: getDropdownLanguageValue(languageCode.name),
                         onSelected: (String? value) => _language(value!),
                         dropdownMenuEntries: LanguageEnum.values
                             .map((e) => e.name)

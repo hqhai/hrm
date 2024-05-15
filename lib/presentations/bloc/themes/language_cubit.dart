@@ -1,19 +1,20 @@
+import 'package:base_app/common/enum/value_string.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class LanguageCubit extends HydratedCubit<String> {
-  LanguageCubit() : super('en');
+class LanguageCubit extends HydratedCubit<LanguageCodeEnum> {
+  LanguageCubit() : super(LanguageCodeEnum.en);
 
-  void changeLocale(String languageCode) => emit(languageCode);
+  void changeLocale(LanguageCodeEnum languageCode) => emit(languageCode);
 
   @override
-  String? fromJson(Map<String, dynamic> json) {
+  LanguageCodeEnum? fromJson(Map<String, dynamic> json) {
     return json['languageCode'];
   }
 
   @override
-  Map<String, dynamic>? toJson(String state) {
+  Map<String, dynamic>? toJson(LanguageCodeEnum state) {
     return {'languageCode': state};
   }
 }
