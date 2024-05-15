@@ -13,11 +13,10 @@ import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
-import 'package:base_app/presentations/widgets/custom/app_input_email.dart';
-import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
+import 'package:base_app/presentations/widgets/login/drop_down_menu.dart';
+import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
@@ -144,23 +143,21 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   }
 
   _language(String value) {
-    setState(() {
-      dropdownLanguageValue = value;
-    });
     if (value == LanguageEnum.en.name) {
-      dI<LanguageCubit>().changeLocale('en');
+      dI<LanguageCubit>().changeLocale(LanguageCodeEnum.en);
     } else {
-      dI<LanguageCubit>().changeLocale('vi');
+      dI<LanguageCubit>().changeLocale(LanguageCodeEnum.vi);
     }
   }
 
-  String getDropdownLanguageValue(String languageCode) {
-    if (languageCode == 'en') {
+  String getDropdownLanguageValue(String? languageCode) {
+    if (languageCode == LanguageCodeEnum.en.name) {
       return LanguageEnum.en.name;
     } else {
       return LanguageEnum.vi.name;
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -181,34 +178,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
               width: width,
               height: height,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: SpacingUnit.x10, right: SpacingUnit.x4),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: BlocBuilder<LanguageCubit, String>(
-                  builder: (context, languageCode) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
-                        border: Border.all(
-                          color: colors.outline,
-                          width: 1,
-                        ),
-                      ),
-                      child: DropdownMenu<String>(
-                        width: SpacingUnit.x34,
-                        textStyle: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                        initialSelection: getDropdownLanguageValue(languageCode),
-                        onSelected: (String? value) => _language(value!),
-                        dropdownMenuEntries:
-                        LanguageEnum.values.map((e) => e.name).map<DropdownMenuEntry<String>>((String value) {
-                          return DropdownMenuEntry<String>(value: value, label: value);
-                        }).toList(),
-                      ),
-                    );
-                  },
-                ),
-              ),
+            DropdownMenuWidget(
+              onSelected: (String? value) => _language(value!),
             ),
             Center(
               child: SizedBox(
@@ -252,41 +223,15 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         Text(appLocalizations.enterYourRegisteredUsernameAndPassword,
                             textAlign: TextAlign.center,
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
-                        const SizedBox(height: SpacingUnit.x5),
-                        AppInputEmail(
-                          iconLeft: Padding(
-                            padding: const EdgeInsets.all(SpacingUnit.x2_5),
-                            child: SvgPicture.asset(
-                              Assets.images.icon.person,
-                              colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
-                            ),
-                          ),
-                          placeHolder: appLocalizations.email,
-                          autofocus: false,
-                          error: errorEmail,
-                          controller: emailController,
-                          onChange: (value) => setState(() {
+                        EmailAndPasswordWidget(
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          errorEmail: errorEmail,
+                          errorPass: errorPass,
+                          onChangeEmail: (value) => setState(() {
                             checkEmail = value;
                           }),
                         ),
-                        const SizedBox(height: SpacingUnit.x4),
-                        AppInputPassword(
-                          iconLeft: Padding(
-                            padding: const EdgeInsets.all(SpacingUnit.x2_5),
-                            child: SvgPicture.asset(
-                              Assets.images.icon.lock,
-                              colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
-                            ),
-                          ),
-                          error: errorPass,
-                          autofocus: false,
-                          placeHolder: appLocalizations.password,
-                          controller: passwordController,
-                          onChange: (value) => setState(() {
-                            checkPassword = value;
-                          }),
-                        ),
-                        const SizedBox(height: SpacingUnit.x4),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

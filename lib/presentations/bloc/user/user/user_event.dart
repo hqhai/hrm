@@ -39,3 +39,10 @@ class ForgotPasswordEvent extends UserEvent {
   @override
   List<Object> get props => [email];
 }
+
+class DeleteAccountEvent extends UserEvent {
+  const DeleteAccountEvent();
+
+  @override
+  List<Object> get props => [];
+}

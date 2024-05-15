@@ -143,5 +143,7 @@
   "youMadeANoteOnTheDate": "You made a note on the date",
   "requiredDataFields": "Required data fields",
   "delete": "Delete",
-  "doYouWantToDeleteTheNote": "Do you want to delete the note?"
+  "doYouWantToDeleteTheNote": "Do you want to delete the note?",
+  "doYouWantToDeleteYourAccount": "Do you want to delete your account?",
+  "deleteAccount": "Delete Account"
 }

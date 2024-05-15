@@ -438,4 +438,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get doYouWantToDeleteTheNote => 'Bạn có muốn xóa ghi chú không?';
+
+  @override
+  String get doYouWantToDeleteYourAccount => 'Bạn có muốn xóa tài khoản này không?';
+
+  @override
+  String get deleteAccount => 'Xóa tài khoản';
 }

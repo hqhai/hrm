@@ -52,7 +52,10 @@ enum UserStatus {
   pending,
   verified,
   active,
-  unknown
+  unknown,
+  deleteAccountInit,
+  deleteAccountSuccess,
+  deleteAccountError,
 }
 
 enum AuthStatus {
@@ -165,6 +168,7 @@ enum CheckInSettingStatus{
 
 enum NoteStatus{
   init,
+  error,
   createNoteInit,
   createNoteSuccess,
   createNoteError,
@@ -172,6 +176,9 @@ enum NoteStatus{
   getNoteInit,
   getNoteSuccess,
   getNoteError,
+  getNotesInit,
+  getNotesSuccess,
+  getNotesError,
   updateNoteInit,
   updateNoteSuccess,
   updateNoteError,
@@ -181,4 +188,5 @@ enum NoteStatus{
   expired,
   complete,
   unfinished,
+  reset,
 }

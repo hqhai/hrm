@@ -11,4 +11,7 @@ abstract class UserUseCase {
   Future<int> forgotPassword({required String email});
 
   Future<int> register({required RegisterRequest registerRequest});
+
+  Future<int> deleteAccount();
+
 }

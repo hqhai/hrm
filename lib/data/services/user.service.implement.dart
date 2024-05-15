@@ -70,4 +70,13 @@ class UserServiceImpl extends BaseService implements UserService {
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     return responseBase.statusCode;
   }
+
+  @override
+  Future<int> deleteAccount() async {
+    final url = '$baseUrl${PathConfig.deleteAccount}';
+    final response = await client.delete(url);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    int statusCode = responseBase.statusCode;
+    return statusCode;
+  }
 }

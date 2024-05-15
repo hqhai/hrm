@@ -39,4 +39,9 @@ class UserUseCaseImpl extends UserUseCase {
   Future<int> register({required RegisterRequest registerRequest}) async {
     return await _userRepository.register(registerRequest: registerRequest);
   }
+
+  @override
+  Future<int> deleteAccount() async {
+    return await _userRepository.deleteAccount();
+  }
 }

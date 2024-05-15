@@ -44,4 +44,9 @@ class UserRepositoryImpl extends UserRepository {
   Future<int> register({required RegisterRequest registerRequest}) async {
     return await userService.register(registerRequest: registerRequest);
   }
+
+  @override
+  Future<int> deleteAccount() async {
+    return await userService.deleteAccount();
+  }
 }

@@ -23,6 +23,8 @@ class PathConfig {
   static String checkInSetting ='/checkin-setting';
   static String forgotPassword ='/user/forgot-password';
   static String registerSystem = '/auth/register-system-user';
+  static String note = '/system-user-calender';
+  static String deleteAccount = '/user/delete-system-user';
 
 
 

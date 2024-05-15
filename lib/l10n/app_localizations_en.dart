@@ -438,4 +438,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get doYouWantToDeleteTheNote => 'Do you want to delete the note?';
+
+  @override
+  String get doYouWantToDeleteYourAccount => 'Do you want to delete your account?';
+
+  @override
+  String get deleteAccount => 'Delete Account';
 }
