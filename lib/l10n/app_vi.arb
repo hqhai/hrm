@@ -144,5 +144,9 @@
   "activate": "Hoạt Động",
   "home": "Trang chủ",
   "profile": "Hồ sơ"
-
+  "requiredDataFields": "Các trường dữ liệu là bắt buộc",
+  "delete": "Xóa",
+  "doYouWantToDeleteTheNote": "Bạn có muốn xóa ghi chú không?",
+  "doYouWantToDeleteYourAccount": "Bạn có muốn xóa tài khoản này không?",
+  "deleteAccount": "Xóa tài khoản"
 }

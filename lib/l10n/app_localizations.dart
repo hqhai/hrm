@@ -962,6 +962,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to delete the note?'**
   String get doYouWantToDeleteTheNote;
+
+  /// No description provided for @doYouWantToDeleteYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete your account?'**
+  String get doYouWantToDeleteYourAccount;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

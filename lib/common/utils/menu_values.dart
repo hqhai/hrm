@@ -47,6 +47,28 @@ class MenuValues {
     ];
   }
 
+  static List<Map<String, dynamic>> menuUserSystemValues(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    return [
+      {
+        'text': 'Create Note',
+        'icon': const Icon(Icons.note, color: Colors.white, size: 30)
+      },
+      {
+        'text': appLocalizations.calendar,
+        'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)
+      },
+      {
+        'text': appLocalizations.changePassword,
+        'icon': const Icon(Icons.password, color: Colors.white, size: 30)
+      },
+      {
+        'text': appLocalizations.deleteAccount,
+        'icon': const Icon(Icons.no_accounts, color: Colors.white, size: 30)
+      }
+    ];
+  }
+
   static List<Map<String, dynamic>> menuGeneralManagerValues(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
@@ -112,6 +134,13 @@ class MenuValues {
     DoneRequest(),
     LayoutCalendar(),
     ChangePassword(),
+  ];
+
+  static const List<Widget> widgetOptionsUserSystem = <Widget>[
+    CreateNoteWidget(),
+    LayoutCalendar2(),
+    ChangePassword(),
+    DeleteAccountWidget(),
   ];
 
   static const List<Widget> widgetOptionsManager = <Widget>[

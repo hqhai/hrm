@@ -147,4 +147,7 @@
   "activate": "Activate",
   "home": "Home",
   "profile": "Profile"
+  "doYouWantToDeleteTheNote": "Do you want to delete the note?",
+  "doYouWantToDeleteYourAccount": "Do you want to delete your account?",
+  "deleteAccount": "Delete Account"
 }

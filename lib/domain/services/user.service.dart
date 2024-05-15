@@ -14,4 +14,5 @@ abstract class UserService {
   Future<int> forgotPassword({required ForgotPasswordRequest forgotPasswordRequest});
 
   Future<int> register({required RegisterRequest registerRequest});
+  Future<int> deleteAccount();
 }

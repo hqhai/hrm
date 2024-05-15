@@ -22,21 +22,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<ChangePasswordEvent>(_changePassword);
     on<ResetUserEvent>(_resetUserEvent);
     on<ForgotPasswordEvent>(_forgotPasswordEvent);
+    on<DeleteAccountEvent>(_deleteAccountEvent);
   }
-
-  User userExample = const User(
-    id: '66771508',
-    fullName: 'Nguyen Van A',
-    email: 'hieu@gmail.com',
-    code: 'NVA',
-    avatarPath: '',
-    type: 'ha?',
-    department: 'phong 1',
-    phoneNumber: '66771508',
-    role: 'GeneralManager',
-    status: UserStatus.getUserInfoSuccess,
-    personId: '12345678',
-  );
 
   FutureOr<void> _getUserInfo(GetUserInfo event, Emitter<UserState> emit) async {
     emit(state.copyWith(status: UserStatus.getUserInfoInit));
@@ -78,6 +65,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(state.copyWith(status: UserStatus.forgotPasswordSuccess));
     } catch (e) {
       emit(state.copyWith(status: UserStatus.forgotPasswordError));
+    }
+  }
+
+  FutureOr<void> _deleteAccountEvent(DeleteAccountEvent event, Emitter<UserState> emit) async {
+    emit(state.copyWith(status: UserStatus.deleteAccountInit,));
+    try {
+      await userUseCase.deleteAccount();
+      emit(state.copyWith(status: UserStatus.deleteAccountSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: UserStatus.deleteAccountError));
     }
   }
 }

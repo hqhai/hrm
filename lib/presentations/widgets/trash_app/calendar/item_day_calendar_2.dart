@@ -1,12 +1,14 @@
-import 'package:base_app/domain/entities/attendance.dart';
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
+import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
-import 'package:base_app/presentations/widgets/trash_app/calendar/dialog.dart';
+import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class BodyCalendar2 extends StatefulWidget {
@@ -36,11 +38,7 @@ class BodyCalendar2 extends StatefulWidget {
 
 class _BodyCalendar2State extends State<BodyCalendar2> {
   late String token;
-  DateTime day = DateTime.now();
-  String timeKeepingInDay = '';
   int checkIn = 3;
-  Attendance attendance = const Attendance();
-  String noteRoomLeader = '', noteManager = '';
 
   Widget _getWidgetContent(DateTime date) {
     if (widget.widget == null) return const SizedBox();
@@ -55,13 +53,8 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
     return false;
   }
 
-  String format(String time) {
-    DateTime dateTime = DateTime.parse(time);
-    return DateFormat('HH:mm:ss').format(dateTime);
-  }
-
   int _checkNote(List<Note> notes, DateTime date, int month) {
-    List<String> noteDates = notes.map((e) => e.dateCreate.toString()).toList();
+    List<String> noteDates = notes.map((e) => e.dateTime.toString()).toList();
     int index = noteDates.indexWhere((e) {
       DateTime dateTime = DateTime.parse(e);
       return dateTime.month == month && dateTime.day == date.day && month == date.month;
@@ -71,14 +64,32 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
 
   @override
   void initState() {
+    dI<NotesBloc>().add(GetNotesEvent(
+        startDate: formatYMD(DateTime(widget.year, widget.month, 1).toString()),
+        endDate: formatYMD(DateTime(widget.year, widget.month + 1, 0).toString())));
     super.initState();
   }
+
+  _listener(BuildContext context, NotesState state){
+    if(state.status == NoteStatus.updateNoteSuccess){
+      dI<NotesBloc>().add(GetNotesEvent(
+          startDate: formatYMD(DateTime(widget.year, widget.month, 1).toString()),
+          endDate: formatYMD(DateTime(widget.year, widget.month + 1, 0).toString())));
+    }
+    else if(state.status == NoteStatus.deleteNoteSuccess){
+      dI<NotesBloc>().add(GetNotesEvent(
+          startDate: formatYMD(DateTime(widget.year, widget.month, 1).toString()),
+          endDate: formatYMD(DateTime(widget.year, widget.month + 1, 0).toString())));
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
-    return BlocBuilder<NotesBloc, NotesState>(
+    return BlocConsumer<NotesBloc, NotesState>(
+      listener: (context, state) => _listener(context, state),
       builder: (context, state) {
         return Column(
           children: [
@@ -121,7 +132,13 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
       noteIndex: _checkNote(state.notes, widget.listDate[index], widget.month),
       note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
           ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
-          : const Note(),
+          : const Note(
+              id: '',
+              dateTime: '',
+              note: '',
+              createdUserId: '',
+              createdDate: '',
+              createdFullName: ''),
       itemDate: _getWidgetContent(widget.listDate[index]),
       isNowDate: _checkDateNow(widget.listDate[index]),
     );
@@ -164,21 +181,10 @@ class _Item extends StatelessWidget {
               flex: 80,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Column(
-                  children: [
-                    Text(note.title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
-                    const SizedBox(
-                      height: SpacingUnit.x2,
-                    ),
-                    Text(note.content,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: colors.cyan, fontSize: SpacingUnit.x3)),
-                  ],
-                ),
+                child: Text(note.note,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
               ),
             ),
             Expanded(

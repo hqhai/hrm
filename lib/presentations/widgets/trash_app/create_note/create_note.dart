@@ -3,7 +3,6 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_event.dart';
@@ -15,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
-import 'package:widgets/app_input.dart';
 
 class CreateNoteWidget extends StatefulWidget {
   const CreateNoteWidget({
@@ -27,17 +25,14 @@ class CreateNoteWidget extends StatefulWidget {
 }
 
 class _CreateNoteWidgetState extends State<CreateNoteWidget> {
-  final TextEditingController titleController = TextEditingController(),
-      contentController = TextEditingController();
-  late String dateNote, checkTitle, checkContent, error;
+  final TextEditingController contentController = TextEditingController();
+  late String dateNote, checkContent, error;
 
   @override
   void initState() {
     super.initState();
-    checkTitle = '';
     checkContent = '';
     dateNote = formatYMD(DateTime.now().toString());
-    titleController.text = '';
     contentController.text = '';
     error = '';
   }
@@ -45,7 +40,6 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   @override
   void dispose() {
     super.dispose();
-    titleController.dispose();
     contentController.dispose();
   }
 
@@ -101,21 +95,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
               ),
               const SizedBox(height: SpacingUnit.x6_5),
               Text(
-                appLocalizations.title,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4_5,
-                ),
-              ),
-              const SizedBox(height: SpacingUnit.x4_5),
-              AppInput(
-                placeHolder: appLocalizations.title,
-                controller: titleController,
-                onChange: (value) => setState(() => checkTitle = value),
-              ),
-              const SizedBox(height: SpacingUnit.x6_5),
-              Text(
-                appLocalizations.content,
+                appLocalizations.note,
                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4_5),
               ),
               const SizedBox(height: SpacingUnit.x4_5),
@@ -137,12 +117,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: colors.blue),
-                    onPressed: () => _createNote(
-                        context,
-                        Note(
-                            title: titleController.text,
-                            content: contentController.text,
-                            dateCreate: dateNote)),
+                    onPressed: () => _createNote(context, contentController.text, dateNote),
                     child: Text(appLocalizations.create,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
                   ),
@@ -156,14 +131,10 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
     );
   }
 
-  bool _checkTextField() {
-    return checkTitle != '' && checkContent != '';
-  }
-
-  _createNote(BuildContext context, Note note) {
+  _createNote(BuildContext context, String note, String dateTime) {
     final appLocalizations = AppLocalizations.of(context)!;
     DateTime now = DateTime.now();
-    if (_checkTextField()) {
+    if (checkContent != '') {
       if (DateFormat('yyyy-MM-dd')
           .parse(dateNote)
           .isBefore(DateTime(now.year, now.month, now.day))) {
@@ -171,7 +142,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
           error = appLocalizations.theNoteDateCannotBeBeforeThePresentTime;
         });
       } else {
-        dI<NotesBloc>().add(CreateNotesEvent(note: note));
+        dI<NotesBloc>().add(CreateNotesEvent(note: note, dateTime: dateTime));
       }
     } else {
       setState(() {

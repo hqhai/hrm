@@ -66,6 +66,16 @@ enum LanguageEnum {
   const LanguageEnum(this.name, this.code);
 }
 
+enum LanguageCodeEnum {
+  vi('vi'),
+  en('en');
+
+  final String name;
+
+  const LanguageCodeEnum(this.name);
+}
+
+
 
 
 
