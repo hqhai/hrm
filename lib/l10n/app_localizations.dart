@@ -926,6 +926,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Support Contact'**
   String get supportContact;
+
+  /// No description provided for @requiredDataFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Required data fields'**
+  String get requiredDataFields;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @doYouWantToDeleteTheNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete the note?'**
+  String get doYouWantToDeleteTheNote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

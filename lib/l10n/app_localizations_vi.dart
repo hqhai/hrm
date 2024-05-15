@@ -420,4 +420,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get supportContact => 'Liên hệ hỗ trợ';
+
+  @override
+  String get requiredDataFields => 'Các trường dữ liệu là bắt buộc';
+
+  @override
+  String get delete => 'Xóa';
+
+  @override
+  String get doYouWantToDeleteTheNote => 'Bạn có muốn xóa ghi chú không?';
 }

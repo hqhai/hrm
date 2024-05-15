@@ -3,7 +3,6 @@ import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
-import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -16,6 +15,7 @@ import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_email.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
+import 'package:base_app/presentations/widgets/custom/contact_help.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -38,20 +38,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController(),
+      passwordController = TextEditingController();
   String checkEmail = '', checkPassword = '';
   late AnimationController _controller;
   late Animation<double> _animationWidth, _animationHeight;
   late double width, height;
-
-  String? dropdownLanguageValue = '';
-  String? rememberEmail = '';
-  String? rememberPassword = '';
-  String? errorEmail = '';
-  String? errorPass = '';
-  bool checkSaveLogin = false;
-  bool isCheckedInput = false;
+  String? dropdownLanguage = '',
+      rememberEmail = '',
+      rememberPassword = '',
+      errorEmail = '',
+      errorPass = '';
+  bool checkSaveLogin = false, isCheckedInput = false;
 
   @override
   void initState() {
@@ -109,8 +107,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             saveLogin: checkSaveLogin));
       case LoginStatus.validateFailed:
         setState(() {
-          errorEmail = 'Required data field';
-          errorPass = 'Required data field';
+          errorEmail = appLocalizations.requiredDataFields;
+          errorPass = appLocalizations.requiredDataFields;
         });
       case LoginStatus.loginFailed:
         setState(() {
@@ -128,15 +126,15 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
           errorEmail = appLocalizations.errorEmailOrPassword;
           errorPass = appLocalizations.errorEmailOrPassword;
         });
-        ShowDialog.instance.showDialogCommon(context, 'Error email or password');
+        ShowDialog.instance.showDialogCommon(context, appLocalizations.errorEmailOrPassword);
       case LoginStatus.emailOrUserFalse:
         setState(() {
-          errorEmail = 'Required data field';
+          errorEmail = appLocalizations.requiredDataFields;
           errorPass = '';
         });
       case LoginStatus.passFalse:
         setState(() {
-          errorPass = 'Required data field';
+          errorPass = appLocalizations.requiredDataFields;
           errorEmail = '';
         });
       default:
@@ -146,16 +144,16 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   _language(String value) {
     setState(() {
-      dropdownLanguageValue = value;
+      dropdownLanguage = value;
     });
     if (value == LanguageEnum.en.name) {
-      dI<LanguageCubit>().changeLocale('en');
+      dI<LanguageCubit>().changeLocale("en");
     } else {
-      dI<LanguageCubit>().changeLocale('vi');
+      dI<LanguageCubit>().changeLocale("vi");
     }
   }
 
-  String getDropdownLanguageValue(String languageCode) {
+  String getDropdownLanguageValue(String? languageCode) {
     if (languageCode == 'en') {
       return LanguageEnum.en.name;
     } else {
@@ -201,8 +199,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         textStyle: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                         initialSelection: getDropdownLanguageValue(languageCode),
                         onSelected: (String? value) => _language(value!),
-                        dropdownMenuEntries:
-                            MenuValues.languageValue.map<DropdownMenuEntry<String>>((String value) {
+                        dropdownMenuEntries: LanguageEnum.values
+                            .map((e) => e.name)
+                            .map<DropdownMenuEntry<String>>((String value) {
                           return DropdownMenuEntry<String>(value: value, label: value);
                         }).toList(),
                       ),
@@ -263,7 +262,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                             ),
                           ),
                           placeHolder: appLocalizations.email,
-                          autofocus: false,
                           error: errorEmail,
                           controller: emailController,
                           onChange: (value) => setState(() {
@@ -280,7 +278,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                             ),
                           ),
                           error: errorPass,
-                          autofocus: false,
                           placeHolder: appLocalizations.password,
                           controller: passwordController,
                           onChange: (value) => setState(() {
@@ -346,69 +343,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           child: SizedBox(),
                         ),
                         const SizedBox(height: SpacingUnit.x4),
-                        /*Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              appLocalizations.notAMember,
-                              style: TextStyle(fontSize: 16, color: colors.text),
-                            ),
-                            GestureDetector(
-                                onTap: () {
-                                  onRegister(context);
-                                },
-                                child: Text(appLocalizations.signUpNow,
-                                    style:
-                                        const TextStyle(fontSize: 16, color: Color(0xffABBFED)))),
-                          ],
-                        ),*/
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: SizedBox(
-                            height: SpacingUnit.x16,
-                            width: SpacingUnit.x60,
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                      margin: const EdgeInsets.only(bottom: SpacingUnit.x1_5),
-                                      padding: const EdgeInsets.only(
-                                          top: SpacingUnit.x3,
-                                          left: SpacingUnit.x3,
-                                          bottom: SpacingUnit.x3,
-                                          right: SpacingUnit.x6),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                                        border: Border.all(
-                                          color: colors.text,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        appLocalizations.supportContact,
-                                        style: TextStyle(fontSize: 16, color: colors.text),
-                                      )),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: Container(
-                                      padding: const EdgeInsets.all(SpacingUnit.x2),
-                                      decoration: BoxDecoration(
-                                        color: CustomsColor.colorBackground,
-                                        borderRadius: BorderRadius.circular(SpacingUnit.x100),
-                                        border: Border.all(
-                                          color: colors.text,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      child: const Icon(Icons.headphones,
-                                          color: Colors.white, size: 45)),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        const ContactHelpWidget(),
                       ]),
                     ),
                   ),

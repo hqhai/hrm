@@ -137,5 +137,9 @@
   "register": "Register",
   "dateNote": "Date note",
   "enterYourRegisteredUsernameAndPassword": "Enter your registered username and password",
-  "supportContact": "Support Contact"
+  "supportContact": "Support Contact",
+  "requiredDataFields": "Required data fields",
+  "delete": "Delete",
+  "doYouWantToDeleteTheNote": "Do you want to delete the note?"
+
 }
