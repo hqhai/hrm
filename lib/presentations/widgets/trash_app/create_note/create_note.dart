@@ -51,15 +51,17 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
 
   _listener(BuildContext context, NotesState state) {
     final appLocalizations = AppLocalizations.of(context)!;
-    if (state.status == NoteStatus.createNoteSuccess) {
-      successDialog(context);
-    } else if (state.status == NoteStatus.createNoteError) {
-      unsuccessfulDialog(context);
-    }
-    else if (state.status == NoteStatus.createNoteErrorAlreadyExistOnDay) {
-      successFullDialog(context, "${appLocalizations.youMadeANoteOnTheDate} $dateNote");
-    }
-
+    setState(() {
+      if (state.status == NoteStatus.createNoteSuccess) {
+        successDialog(context);
+        error = '';
+      } else if (state.status == NoteStatus.createNoteError) {
+        unsuccessfulDialog(context);
+        error = '';
+      } else if (state.status == NoteStatus.createNoteErrorAlreadyExistOnDay) {
+        successFullDialog(context, "${appLocalizations.youMadeANoteOnTheDate} $dateNote");
+      }
+    });
   }
 
   @override
