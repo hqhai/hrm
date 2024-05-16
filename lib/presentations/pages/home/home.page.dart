@@ -11,6 +11,7 @@ import 'package:base_app/presentations/bloc/auth/auth_event.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
 import 'package:base_app/presentations/bloc/request/request/request_event.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
@@ -197,7 +198,9 @@ class _HomePageState extends State<HomePage> {
             ? MenuValues.widgetOptionsGeneralManager[selectedIndex]
             : state.user.role == ConfigStringValues.manager.name
                 ? MenuValues.widgetOptionsManager[selectedIndex]
-                : MenuValues.widgetOptions[selectedIndex]
+                : state.user.role == ConfigStringValues.userSystem.name
+                    ? MenuValues.widgetOptionsUserSystem[selectedIndex]
+                    : MenuValues.widgetOptions[selectedIndex]
         : Container();
   }
 }

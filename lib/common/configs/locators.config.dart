@@ -80,7 +80,7 @@ import '../../presentations/bloc/register/register_bloc.dart' as _i57;
 import '../../presentations/bloc/request/request/request_bloc.dart' as _i58;
 import '../../presentations/bloc/request/room_meeting/room_meeting_bloc.dart'
     as _i65;
-import '../../presentations/bloc/themes/language_cubit.dart' as _i32;
+import '../../presentations/bloc/language/language_cubit.dart' as _i32;
 import '../../presentations/bloc/themes/theme_cubit.dart' as _i66;
 import '../../presentations/bloc/user/user/user_bloc.dart' as _i67;
 import '../../presentations/bloc/user/user_by_manager/user_by_admin_bloc.dart'
