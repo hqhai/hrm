@@ -181,10 +181,6 @@ class MenuValues {
     PriorityRequestStatus.medium.name,
     PriorityRequestStatus.low.name
   ];
-  static List<String> listParentId = [
-    ParentId.aG.name,
-    ParentId.fsel.name
-  ];
 
   static List<String> listOTvsOL = [
     TypeRequestStatus.onLeave.name,

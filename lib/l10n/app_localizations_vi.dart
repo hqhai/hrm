@@ -429,4 +429,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get doYouWantToDeleteTheNote => 'Bạn có muốn xóa ghi chú không?';
+
+  @override
+  String get activate => 'Hoạt Động';
+
+  @override
+  String get home => 'Trang chủ';
+
+  @override
+  String get profile => 'Hồ sơ';
 }

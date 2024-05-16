@@ -140,6 +140,8 @@
   "supportContact": "Support Contact",
   "requiredDataFields": "Required data fields",
   "delete": "Delete",
-  "doYouWantToDeleteTheNote": "Do you want to delete the note?"
-
+  "doYouWantToDeleteTheNote": "Do you want to delete the note?",
+  "activate": "Activate",
+  "home": "Home",
+  "profile": "Profile"
 }

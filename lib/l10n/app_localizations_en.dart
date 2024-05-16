@@ -429,4 +429,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get doYouWantToDeleteTheNote => 'Do you want to delete the note?';
+
+  @override
+  String get activate => 'Activate';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get profile => 'Profile';
 }

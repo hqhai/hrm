@@ -73,12 +73,21 @@ class $AssetsImagesIconGen {
   /// File path: assets/images/icon/Lock.svg
   String get lock => 'assets/images/icon/Lock.svg';
 
+  /// File path: assets/images/icon/activate.svg
+  String get activate => 'assets/images/icon/activate.svg';
+
   /// File path: assets/images/icon/circular_progress_indicator.png
   AssetGenImage get circularProgressIndicator =>
       const AssetGenImage('assets/images/icon/circular_progress_indicator.png');
 
+  /// File path: assets/images/icon/home.svg
+  String get home => 'assets/images/icon/home.svg';
+
   /// File path: assets/images/icon/person.svg
   String get person => 'assets/images/icon/person.svg';
+
+  /// File path: assets/images/icon/profile.svg
+  String get profile => 'assets/images/icon/profile.svg';
 
   /// List of all assets
   List<dynamic> get values => [
@@ -88,8 +97,11 @@ class $AssetsImagesIconGen {
         iconNight,
         loading,
         lock,
+        activate,
         circularProgressIndicator,
-        person
+        home,
+        person,
+        profile
       ];
 }
 

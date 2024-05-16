@@ -140,6 +140,9 @@
   "supportContact": "Liên hệ hỗ trợ",
   "requiredDataFields": "Các trường dữ liệu là bắt buộc",
   "delete": "Xóa",
-  "doYouWantToDeleteTheNote": "Bạn có muốn xóa ghi chú không?"
+  "doYouWantToDeleteTheNote": "Bạn có muốn xóa ghi chú không?",
+  "activate": "Hoạt Động",
+  "home": "Trang chủ",
+  "profile": "Hồ sơ"
 
 }
