@@ -1,7 +1,8 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/router.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
+import 'package:base_app/presentations/bloc/language/language_state.dart';
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +40,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LanguageCubit, String>(
+    return BlocBuilder<LanguageCubit, LanguageState>(
       builder: (context, languageCode) {
         return BlocBuilder<ThemeCubit, AppMode>(
           builder: (context, mode) {
@@ -51,7 +52,7 @@ class _AppState extends State<App> {
                   theme: const AppTheme().lightTheme(context),
                   localizationsDelegates: _getLocalizationsDelegates,
                   localeResolutionCallback: _localeResolutionCallback,
-                  locale: Locale.fromSubtags(languageCode: languageCode),
+                  locale: Locale.fromSubtags(languageCode: languageCode.languageCode.code),
                   supportedLocales: const [
                     Locale('en'),
                     Locale('vi') // us

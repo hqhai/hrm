@@ -23,6 +23,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get login => 'Đăng nhập';
 
   @override
+  String get login2 => 'ĐĂNG NHẬP';
+
+  @override
   String get notAMember => 'Chưa có tài khoản?  ';
 
   @override
@@ -411,4 +414,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get dateNote => 'Ngày ghi chú';
+
+  @override
+  String get enterYourRegisteredUsernameAndPassword => 'Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản';
+
+  @override
+  String get supportContact => 'Liên hệ hỗ trợ';
+
+  @override
+  String get requiredDataFields => 'Các trường dữ liệu là bắt buộc';
+
+  @override
+  String get delete => 'Xóa';
+
+  @override
+  String get doYouWantToDeleteTheNote => 'Bạn có muốn xóa ghi chú không?';
 }

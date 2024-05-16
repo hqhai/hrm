@@ -126,8 +126,14 @@ abstract class AppLocalizations {
   /// No description provided for @login.
   ///
   /// In en, this message translates to:
-  /// **'login'**
+  /// **'Log in'**
   String get login;
+
+  /// No description provided for @login2.
+  ///
+  /// In en, this message translates to:
+  /// **'LOG IN'**
+  String get login2;
 
   /// No description provided for @notAMember.
   ///
@@ -908,6 +914,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Date note'**
   String get dateNote;
+
+  /// No description provided for @enterYourRegisteredUsernameAndPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your registered username and password'**
+  String get enterYourRegisteredUsernameAndPassword;
+
+  /// No description provided for @supportContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Support Contact'**
+  String get supportContact;
+
+  /// No description provided for @requiredDataFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Required data fields'**
+  String get requiredDataFields;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @doYouWantToDeleteTheNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete the note?'**
+  String get doYouWantToDeleteTheNote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

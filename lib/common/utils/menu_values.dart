@@ -12,8 +12,6 @@ import 'package:base_app/presentations/widgets/create_request/roommetting_reques
 import 'package:base_app/presentations/widgets/request/doing_request.widget.dart';
 import 'package:base_app/presentations/widgets/request/done_request.widget.dart';
 import 'package:base_app/presentations/widgets/request/recent_request.widget.dart';
-import 'package:base_app/presentations/widgets/trash_app/calendar/layout_calendar_2.dart';
-import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentations/widgets/attendance/layout_calendar.dart';
@@ -40,24 +38,6 @@ class MenuValues {
       },
       {
         'text': appLocalizations.timeKeeping,
-        'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)
-      },
-      {
-        'text': appLocalizations.changePassword,
-        'icon': const Icon(Icons.password, color: Colors.white, size: 30)
-      }
-    ];
-  }
-
-  static List<Map<String, dynamic>> menuUserSystemValues(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    return [
-      {
-        'text': 'Create Note',
-        'icon': const Icon(Icons.note, color: Colors.white, size: 30)
-      },
-      {
-        'text': appLocalizations.calendar,
         'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)
       },
       {
@@ -131,12 +111,6 @@ class MenuValues {
     DoingRequest(),
     DoneRequest(),
     LayoutCalendar(),
-    ChangePassword(),
-  ];
-
-  static const List<Widget> widgetOptionsUserSystem = <Widget>[
-    CreateNoteWidget(),
-    LayoutCalendar2(),
     ChangePassword(),
   ];
 

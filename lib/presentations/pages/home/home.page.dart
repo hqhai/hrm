@@ -7,9 +7,9 @@ import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
 import 'package:base_app/presentations/bloc/request/request/request_event.dart';
-import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
@@ -66,12 +66,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   _english() {
-    dI<LanguageCubit>().changeLocale('en');
+    dI<LanguageCubit>().changeLocale(LanguageEnum.en);
     Navigator.of(context).pop();
   }
 
   _vietnamese() {
-    dI<LanguageCubit>().changeLocale('vi');
+    dI<LanguageCubit>().changeLocale(LanguageEnum.vi);
     Navigator.of(context).pop();
   }
 
@@ -95,9 +95,9 @@ class _HomePageState extends State<HomePage> {
                 PopupMenuItem(
                   child: GestureDetector(
                     onTap: () => _vietnamese(),
-                    child: const Text(
-                      'Tiếng Việt',
-                      style: TextStyle(
+                    child: Text(
+                      LanguageEnum.vi.name,
+                      style: const TextStyle(
                         fontSize: 18,
                       ),
                     ),
@@ -106,9 +106,9 @@ class _HomePageState extends State<HomePage> {
                 PopupMenuItem(
                   child: GestureDetector(
                     onTap: () => _english(),
-                    child: const Text(
-                      'English',
-                      style: TextStyle(
+                    child: Text(
+                      LanguageEnum.en.name,
+                      style: const TextStyle(
                         fontSize: 18,
                       ),
                     ),
@@ -177,15 +177,6 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        if (stateUser.user.role == ConfigStringValues.userSystem.name)
-                          ...MenuValues.menuUserSystemValues(context).asMap().entries.map(
-                                (entry) => SideMenuTile(
-                                  text: entry.value['text'],
-                                  checkSelect: selectedIndex == entry.key,
-                                  icon: entry.value['icon'],
-                                  onTap: () => selectedIndexFunction(entry),
-                                ),
-                              ),
                         if (stateUser.user.role == ConfigStringValues.generalManager.name)
                           ...MenuValues.menuGeneralManagerValues(context).asMap().entries.map(
                                 (entry) => SideMenuTile(
@@ -239,9 +230,7 @@ class _HomePageState extends State<HomePage> {
             ? MenuValues.widgetOptionsGeneralManager[selectedIndex]
             : state.user.role == ConfigStringValues.manager.name
                 ? MenuValues.widgetOptionsManager[selectedIndex]
-                : state.user.role == ConfigStringValues.userSystem.name
-                    ? MenuValues.widgetOptionsUserSystem[selectedIndex]
-                    : MenuValues.widgetOptions[selectedIndex]
+                : MenuValues.widgetOptions[selectedIndex]
         : Container();
   }
 }

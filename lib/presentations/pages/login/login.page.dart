@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
@@ -7,13 +8,14 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
-import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
-import 'package:base_app/presentations/widgets/custom/app_input_email.dart';
-import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
+import 'package:base_app/presentations/widgets/custom/contact_help.dart';
+import 'package:base_app/presentations/widgets/login/drop_down_menu_language.dart';
+import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,9 +25,8 @@ import 'package:themes/themes.dart';
 import 'package:widgets/app_button.dart';
 import 'package:widgets/app_show_dialog.dart';
 
-final loginPageRoute = GoRoute(
-    path: Pages.login,
-    builder: (context, GoRouterState state) => const LoginPage());
+final loginPageRoute =
+    GoRoute(path: Pages.login, builder: (context, GoRouterState state) => const LoginPage());
 
 //User: huukhoa@atlantic.edu.vn1            Admin@123
 
@@ -36,21 +37,15 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
-    with SingleTickerProviderStateMixin {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+  final TextEditingController emailController = TextEditingController(),
+      passwordController = TextEditingController();
   String checkEmail = '', checkPassword = '';
   late AnimationController _controller;
   late Animation<double> _animationWidth, _animationHeight;
   late double width, height;
-
-  String? rememberEmail = '';
-  String? rememberPassword = '';
-  String? errorEmail = '';
-  String? errorPass = '';
-  bool checkSaveLogin = false;
-  bool isCheckedInput = false;
+  String? rememberEmail = '', rememberPassword = '', errorEmail = '', errorPass = '';
+  bool checkSaveLogin = false, isCheckedInput = false;
 
   @override
   void initState() {
@@ -108,8 +103,8 @@ class _LoginPageState extends State<LoginPage>
             saveLogin: checkSaveLogin));
       case LoginStatus.validateFailed:
         setState(() {
-          errorEmail = 'Required data field';
-          errorPass = 'Required data field';
+          errorEmail = appLocalizations.requiredDataFields;
+          errorPass = appLocalizations.requiredDataFields;
         });
       case LoginStatus.loginFailed:
         setState(() {
@@ -127,20 +122,27 @@ class _LoginPageState extends State<LoginPage>
           errorEmail = appLocalizations.errorEmailOrPassword;
           errorPass = appLocalizations.errorEmailOrPassword;
         });
-        ShowDialog.instance
-            .showDialogCommon(context, 'Error email or password');
+        ShowDialog.instance.showDialogCommon(context, appLocalizations.errorEmailOrPassword);
       case LoginStatus.emailOrUserFalse:
         setState(() {
-          errorEmail = 'Required data field';
+          errorEmail = appLocalizations.requiredDataFields;
           errorPass = '';
         });
       case LoginStatus.passFalse:
         setState(() {
-          errorPass = 'Required data field';
+          errorPass = appLocalizations.requiredDataFields;
           errorEmail = '';
         });
       default:
         break;
+    }
+  }
+
+  _language(LanguageEnum? value) {
+    if (value != null && value == LanguageEnum.vi) {
+      dI<LanguageCubit>().changeLocale(LanguageEnum.vi);
+    } else {
+      dI<LanguageCubit>().changeLocale(LanguageEnum.en);
     }
   }
 
@@ -163,18 +165,15 @@ class _LoginPageState extends State<LoginPage>
               width: width,
               height: height,
             ),
-            Center(
-              child: SizedBox(
-                height: SpacingUnit.x50,
-                width: SpacingUnit.x50,
-                child: Lottie.asset(
-                  Assets.images.icon.loading,
-                  width: SpacingUnit.x50,
-                  height: SpacingUnit.x50,
-                  fit: BoxFit.fill,
-                ),
-              ),
+            DropdownMenuWidget(
+              onSelected: (LanguageEnum? value) => _language(value),
             ),
+            Center(
+                child: SizedBox(
+                    height: SpacingUnit.x50,
+                    width: SpacingUnit.x50,
+                    child: Lottie.asset(Assets.images.icon.loading,
+                        width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill))),
             Container(
               alignment: Alignment.topCenter,
               child: SizeTransition(
@@ -186,53 +185,30 @@ class _LoginPageState extends State<LoginPage>
                     decoration: BoxDecoration(
                       color: CustomsColor.colorBackground,
                       borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                      border: Border.all(
-                        width: 1,
-                        color: CustomsColor.colorBackground,
-                      ),
+                      border: Border.all(width: 1, color: CustomsColor.colorBackground),
                     ),
-                    margin: const EdgeInsets.all(SpacingUnit.x8),
+                    margin: const EdgeInsets.only(
+                        left: SpacingUnit.x8,
+                        right: SpacingUnit.x8,
+                        bottom: SpacingUnit.x8,
+                        top: SpacingUnit.x30),
                     child: Padding(
                       padding: const EdgeInsets.all(SpacingUnit.x4),
                       child: Column(children: [
                         const SizedBox(height: SpacingUnit.x4),
-                        Image.asset(Assets.images.signIn.logo.path,
-                            fit: BoxFit.fill,
-                            width: width,
-                            height: height * 0.15),
-                        const SizedBox(height: SpacingUnit.x10_5),
-                        AppInputEmail(
-                          iconLeft: Padding(
-                            padding: const EdgeInsets.all(SpacingUnit.x2_5),
-                            child: SvgPicture.asset(
-                              Assets.images.icon.person,
-                            ),
-                          ),
-                          placeHolder: appLocalizations.email,
-                          autofocus: false,
-                          error: errorEmail,
-                          controller: emailController,
-                          onChange: (value) => setState(() {
-                            checkEmail = value;
-                          }),
+                        Text(appLocalizations.login2,
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x6)),
+                        Text(appLocalizations.enterYourRegisteredUsernameAndPassword,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
+                        EmailAndPasswordWidget(
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          errorEmail: errorEmail,
+                          errorPass: errorPass,
+                          onChangeEmail: (value) => onChangeEmail(value),
+                          onChangePass: (value) => onChangePassword(value),
                         ),
-                        const SizedBox(height: SpacingUnit.x4),
-                        AppInputPassword(
-                          iconLeft: Padding(
-                            padding: const EdgeInsets.all(SpacingUnit.x2_5),
-                            child: SvgPicture.asset(
-                              Assets.images.icon.lock,
-                            ),
-                          ),
-                          error: errorPass,
-                          autofocus: false,
-                          placeHolder: appLocalizations.password,
-                          controller: passwordController,
-                          onChange: (value) => setState(() {
-                            checkPassword = value;
-                          }),
-                        ),
-                        const SizedBox(height: SpacingUnit.x4),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -256,70 +232,33 @@ class _LoginPageState extends State<LoginPage>
                         ),
                         const SizedBox(height: SpacingUnit.x4),
                         AppButton(
-                          title: appLocalizations.login,
-                          onSubmit: () => {
-                            if (checkInput()) onSubmit(),
-                          },
-                          color: checkInput()
-                              ? CustomsColor.colorButtonSelect
-                              : CustomsColor.colorUnButtonSelect,
-                          colorText: checkInput()
-                              ? colors.text
-                              : CustomsColor.colorTextUnButtonSelect,
-                        ),
-                        const Expanded(
-                          flex: 5,
-                          child: SizedBox(),
-                        ),
-                        BlocBuilder<LanguageCubit, String>(
-                          builder: (context, languageCode) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(SpacingUnit.x2_5),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
-                              ),
-                              child: GestureDetector(
-                                onTap: () => _language(languageCode),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.all(SpacingUnit.x2_5),
-                                  child: Text(
-                                    languageCode == 'vi'
-                                        ? 'Switch to English'
-                                        : 'Chuyển sang tiếng Việt',
-                                    style: TextStyle(
-                                        fontSize: SpacingUnit.x4,
-                                        color: colors.text),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                            title: appLocalizations.login,
+                            onSubmit: () => onSubmit(),
+                            color: checkInput()
+                                ? CustomsColor.colorButtonSelect
+                                : CustomsColor.colorUnButtonSelect,
+                            colorText:
+                                checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect),
                         const SizedBox(height: SpacingUnit.x4),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              appLocalizations.notAMember,
-                              style:
-                                  TextStyle(fontSize: 16, color: colors.text),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: colors.onSurfaceVariant,
+                            borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
+                            border: Border.all(color: colors.outline, width: 1),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(SpacingUnit.x0_5),
+                            child: SvgPicture.asset(
+                              height: SpacingUnit.x8,
+                              width: SpacingUnit.x8,
+                              Assets.images.signIn.biometric,
+                              colorFilter: ColorFilter.mode(colors.background, BlendMode.srcIn),
                             ),
-                            GestureDetector(
-                                onTap: () {
-                                  onRegister(context);
-                                },
-                                child: Text(appLocalizations.signUpNow,
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Color(0xffABBFED)))),
-                          ],
+                          ),
                         ),
+                        const Expanded(flex: 5, child: SizedBox()),
                         const SizedBox(height: SpacingUnit.x4),
+                        const ContactHelpWidget(),
                       ]),
                     ),
                   ),
@@ -332,28 +271,23 @@ class _LoginPageState extends State<LoginPage>
     );
   }
 
-  _language(String languageCode) {
-    if (languageCode == 'vi') {
-      dI<LanguageCubit>().changeLocale('en');
-    } else {
-      dI<LanguageCubit>().changeLocale('vi');
-    }
-  }
-
   void onClickForgotPassword() {
     dI<AppNavigation>().push(context, page: Pages.forgotPasswordPage);
   }
 
   void onSubmit() {
-    setState(() {
-      _animationHeight = const AlwaysStoppedAnimation<double>(0);
-      _animationWidth = const AlwaysStoppedAnimation<double>(0);
-      _controller.forward(from: 0);
-    });
-    Future.delayed(const Duration(seconds: 1), () {
-      dI<LoginBloc>().add(ValidateLogin(
-          username: emailController.text, password: passwordController.text));
-    });
+    bool isCheck = checkInput();
+    if (isCheck) {
+      setState(() {
+        _animationHeight = const AlwaysStoppedAnimation<double>(0);
+        _animationWidth = const AlwaysStoppedAnimation<double>(0);
+        _controller.forward(from: 0);
+      });
+      Future.delayed(const Duration(seconds: 1), () {
+        dI<LoginBloc>()
+            .add(ValidateLogin(username: emailController.text, password: passwordController.text));
+      });
+    }
   }
 
   void onRegister(context) {
@@ -363,9 +297,20 @@ class _LoginPageState extends State<LoginPage>
   bool checkInput() {
     RegExp regExpPass = RegExp(checkPasswordRegexExp);
     RegExp regExpEmail = RegExp(checkEmailRegexExpTest); //
-    return (regExpEmail.hasMatch(checkEmail) &&
-            regExpPass.hasMatch(checkPassword))
+    return (regExpEmail.hasMatch(checkEmail) && regExpPass.hasMatch(checkPassword))
         ? isCheckedInput = true
         : isCheckedInput = false;
+  }
+
+  onChangeEmail(String value) {
+    setState(() {
+      checkEmail = value;
+    });
+  }
+
+  onChangePassword(String value) {
+    setState(() {
+      checkPassword = value;
+    });
   }
 }
