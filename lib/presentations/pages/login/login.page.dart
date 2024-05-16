@@ -158,7 +158,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -230,6 +229,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           errorPass: errorPass,
                           onChangeEmail: (value) => setState(() {
                             checkEmail = value;
+                          }),
+                          onChangePass: (value) => setState(() {
+                            checkPassword = value;
                           }),
                         ),
                         Row(
