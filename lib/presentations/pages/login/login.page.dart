@@ -18,6 +18,7 @@ import 'package:base_app/presentations/widgets/custom/contact_help.dart';
 import 'package:base_app/presentations/widgets/login/drop_down_menu_language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';

@@ -1,6 +1,11 @@
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
+import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
+import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
