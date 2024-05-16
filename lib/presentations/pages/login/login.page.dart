@@ -10,7 +10,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
-import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
 import 'package:base_app/presentations/widgets/login/drop_down_menu.dart';

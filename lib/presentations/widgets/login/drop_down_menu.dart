@@ -1,6 +1,6 @@
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';

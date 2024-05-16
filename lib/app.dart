@@ -2,7 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/router.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/themes/language_cubit.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

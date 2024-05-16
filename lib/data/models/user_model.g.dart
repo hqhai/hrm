@@ -42,4 +42,7 @@ const _$UserStatusEnumMap = {
   UserStatus.verified: 'verified',
   UserStatus.active: 'active',
   UserStatus.unknown: 'unknown',
+  UserStatus.deleteAccountInit: 'deleteAccountInit',
+  UserStatus.deleteAccountSuccess: 'deleteAccountSuccess',
+  UserStatus.deleteAccountError: 'deleteAccountError',
 };

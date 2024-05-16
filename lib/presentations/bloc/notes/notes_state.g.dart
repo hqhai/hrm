@@ -108,6 +108,7 @@ Map<String, dynamic> _$NotesStateToJson(NotesState instance) =>
 
 const _$NoteStatusEnumMap = {
   NoteStatus.init: 'init',
+  NoteStatus.error: 'error',
   NoteStatus.createNoteInit: 'createNoteInit',
   NoteStatus.createNoteSuccess: 'createNoteSuccess',
   NoteStatus.createNoteError: 'createNoteError',
@@ -128,4 +129,5 @@ const _$NoteStatusEnumMap = {
   NoteStatus.expired: 'expired',
   NoteStatus.complete: 'complete',
   NoteStatus.unfinished: 'unfinished',
+  NoteStatus.reset: 'reset',
 };
