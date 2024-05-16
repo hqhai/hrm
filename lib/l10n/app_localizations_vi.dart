@@ -413,15 +413,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get register => 'Đăng ký';
 
   @override
-  String get dateNote => 'Ngày ghi chú';
-
-  @override
-  String get enterYourRegisteredUsernameAndPassword => 'Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản';
-
-  @override
-  String get supportContact => 'Liên hệ hỗ trợ';
-
-  @override
   String get theContentAndTitleCannotBeLeftBlank => 'Nội dung và tiêu đề không được để trống';
 
   @override
@@ -431,6 +422,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get youMadeANoteOnTheDate => 'Bạn đã ghi chú vào ngày';
 
   @override
+  String get dateNote => 'Ngày ghi chú';
+
+  @override
+  String get enterYourRegisteredUsernameAndPassword => 'Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản';
+
+  @override
+  String get supportContact => 'Liên hệ hỗ trợ';
+
+  @override
   String get requiredDataFields => 'Các trường dữ liệu là bắt buộc';
 
   @override
@@ -438,6 +438,15 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get doYouWantToDeleteTheNote => 'Bạn có muốn xóa ghi chú không?';
+
+  @override
+  String get activate => 'Hoạt Động';
+
+  @override
+  String get home => 'Trang chủ';
+
+  @override
+  String get profile => 'Hồ sơ';
 
   @override
   String get doYouWantToDeleteYourAccount => 'Bạn có muốn xóa tài khoản này không?';

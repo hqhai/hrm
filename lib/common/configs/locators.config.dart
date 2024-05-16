@@ -72,6 +72,7 @@ import '../../presentations/bloc/auth/auth_bloc.dart' as _i12;
 import '../../presentations/bloc/checkin_setting/check_in_setting_bloc.dart'
     as _i17;
 import '../../presentations/bloc/department/department_bloc.dart' as _i25;
+import '../../presentations/bloc/language/language_cubit.dart' as _i32;
 import '../../presentations/bloc/login/login_bloc.dart' as _i33;
 import '../../presentations/bloc/notes/notes_bloc.dart' as _i42;
 import '../../presentations/bloc/personnel/personnel_bloc.dart' as _i43;
@@ -80,7 +81,6 @@ import '../../presentations/bloc/register/register_bloc.dart' as _i57;
 import '../../presentations/bloc/request/request/request_bloc.dart' as _i58;
 import '../../presentations/bloc/request/room_meeting/room_meeting_bloc.dart'
     as _i65;
-import '../../presentations/bloc/language/language_cubit.dart' as _i32;
 import '../../presentations/bloc/themes/theme_cubit.dart' as _i66;
 import '../../presentations/bloc/user/user/user_bloc.dart' as _i67;
 import '../../presentations/bloc/user/user_by_manager/user_by_admin_bloc.dart'

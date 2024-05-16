@@ -909,24 +909,6 @@ abstract class AppLocalizations {
   /// **'Register'**
   String get register;
 
-  /// No description provided for @dateNote.
-  ///
-  /// In en, this message translates to:
-  /// **'Date note'**
-  String get dateNote;
-
-  /// No description provided for @enterYourRegisteredUsernameAndPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter your registered username and password'**
-  String get enterYourRegisteredUsernameAndPassword;
-
-  /// No description provided for @supportContact.
-  ///
-  /// In en, this message translates to:
-  /// **'Support Contact'**
-  String get supportContact;
-
   /// No description provided for @theContentAndTitleCannotBeLeftBlank.
   ///
   /// In en, this message translates to:
@@ -945,6 +927,24 @@ abstract class AppLocalizations {
   /// **'You made a note on the date'**
   String get youMadeANoteOnTheDate;
 
+  /// No description provided for @dateNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Date note'**
+  String get dateNote;
+
+  /// No description provided for @enterYourRegisteredUsernameAndPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your registered username and password'**
+  String get enterYourRegisteredUsernameAndPassword;
+
+  /// No description provided for @supportContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Support Contact'**
+  String get supportContact;
+
   /// No description provided for @requiredDataFields.
   ///
   /// In en, this message translates to:
@@ -962,6 +962,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to delete the note?'**
   String get doYouWantToDeleteTheNote;
+
+  /// No description provided for @activate.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate'**
+  String get activate;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
 
   /// No description provided for @doYouWantToDeleteYourAccount.
   ///

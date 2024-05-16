@@ -23,14 +23,14 @@ class BodyCalendar2 extends StatefulWidget {
 
   const BodyCalendar2(
       {super.key,
-      required this.month,
-      required this.year,
-      required this.mapMonth,
-      required this.mapDayInWeek,
-      required this.mapNumberDayInWeek,
-      required this.listDate,
-      this.widget,
-      this.listItemDate});
+        required this.month,
+        required this.year,
+        required this.mapMonth,
+        required this.mapDayInWeek,
+        required this.mapNumberDayInWeek,
+        required this.listDate,
+        this.widget,
+        this.listItemDate});
 
   @override
   State<BodyCalendar2> createState() => _BodyCalendar2State();
@@ -111,7 +111,7 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
                           noteDialog(
                               context,
                               state.notes[
-                                  _checkNote(state.notes, widget.listDate[index], widget.month)]);
+                              _checkNote(state.notes, widget.listDate[index], widget.month)]);
                         }
                       },
                       child: _item(context, index, state));
@@ -133,12 +133,12 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
       note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
           ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
           : const Note(
-              id: '',
-              dateTime: '',
-              note: '',
-              createdUserId: '',
-              createdDate: '',
-              createdFullName: ''),
+          id: '',
+          dateTime: '',
+          note: '',
+          createdUserId: '',
+          createdDate: '',
+          createdFullName: ''),
       itemDate: _getWidgetContent(widget.listDate[index]),
       isNowDate: _checkDateNow(widget.listDate[index]),
     );

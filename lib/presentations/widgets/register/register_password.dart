@@ -12,9 +12,9 @@ class RegisterPassword extends StatefulWidget {
 
   const RegisterPassword(
       {super.key,
-      required this.onChange,
-      required this.onChangePassword,
-      this.passwordDefault = ''});
+        required this.onChange,
+        required this.onChangePassword,
+        this.passwordDefault = ''});
 
   @override
   State<RegisterPassword> createState() => _RegisterPasswordState();
@@ -71,9 +71,9 @@ class _RegisterPasswordState extends State<RegisterPassword> {
             placeHolder: appLocalizations.confirmPassword,
             controller: confirmPasswordController,
             onChange: (value) => {
-                  widget.onChange.call(checkInput(passwordController.text)),
-                  widget.onChangePassword.call(passwordController.text)
-                }),
+              widget.onChange.call(checkInput(passwordController.text)),
+              widget.onChangePassword.call(passwordController.text)
+            }),
       ],
     );
   }

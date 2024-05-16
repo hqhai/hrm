@@ -19,7 +19,7 @@ import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
 final registerPageRoute =
-    GoRoute(path: Pages.register, builder: (context, GoRouterState state) => const RegisterPage());
+GoRoute(path: Pages.register, builder: (context, GoRouterState state) => const RegisterPage());
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -188,3 +188,4 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
 
   void onSubmit() {}
 }
+

@@ -413,15 +413,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get register => 'Register';
 
   @override
-  String get dateNote => 'Date note';
-
-  @override
-  String get enterYourRegisteredUsernameAndPassword => 'Enter your registered username and password';
-
-  @override
-  String get supportContact => 'Support Contact';
-
-  @override
   String get theContentAndTitleCannotBeLeftBlank => 'Content and title cannot be blank';
 
   @override
@@ -431,6 +422,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get youMadeANoteOnTheDate => 'You made a note on the date';
 
   @override
+  String get dateNote => 'Date note';
+
+  @override
+  String get enterYourRegisteredUsernameAndPassword => 'Enter your registered username and password';
+
+  @override
+  String get supportContact => 'Support Contact';
+
+  @override
   String get requiredDataFields => 'Required data fields';
 
   @override
@@ -438,6 +438,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get doYouWantToDeleteTheNote => 'Do you want to delete the note?';
+
+  @override
+  String get activate => 'Activate';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get profile => 'Profile';
 
   @override
   String get doYouWantToDeleteYourAccount => 'Do you want to delete your account?';

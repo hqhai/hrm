@@ -3,7 +3,7 @@ import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
-import 'package:base_app/common/utils/menu_values.dart';
+import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -11,16 +11,14 @@ import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
-import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
-import 'package:base_app/presentations/widgets/login/drop_down_menu.dart';
 import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:base_app/presentations/widgets/custom/contact_help.dart';
 import 'package:base_app/presentations/widgets/login/drop_down_menu_language.dart';
-import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
@@ -266,7 +264,23 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         ),
                         const Expanded(flex: 5, child: SizedBox()),
                         const SizedBox(height: SpacingUnit.x4),
-                        const ContactHelpWidget(),
+                        //const ContactHelpWidget(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              appLocalizations.notAMember,
+                              style: TextStyle(fontSize: 16, color: colors.text),
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  onRegister(context);
+                                },
+                                child: Text(appLocalizations.signUpNow,
+                                    style:
+                                    const TextStyle(fontSize: 16, color: Color(0xffABBFED)))),
+                          ],
+                        ),
                       ]),
                     ),
                   ),

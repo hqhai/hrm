@@ -11,11 +11,11 @@ class RegisterUsername extends StatefulWidget {
 
   const RegisterUsername(
       {super.key,
-      required this.onChange,
-      required this.onChangeFirstName,
-      required this.onChangeLastName,
-      this.firstNameDefault = '',
-      this.lastNameDefault = ''});
+        required this.onChange,
+        required this.onChangeFirstName,
+        required this.onChangeLastName,
+        this.firstNameDefault = '',
+        this.lastNameDefault = ''});
 
   @override
   State<RegisterUsername> createState() => _RegisterUsernameState();
@@ -55,9 +55,9 @@ class _RegisterUsernameState extends State<RegisterUsername> {
             placeHolder: appLocalizations.firstName,
             controller: firstNameController,
             onChange: (value) => {
-                  widget.onChange.call(checkInput(firstNameController.text)),
-                  widget.onChangeFirstName.call(firstNameController.text),
-                }),
+              widget.onChange.call(checkInput(firstNameController.text)),
+              widget.onChangeFirstName.call(firstNameController.text),
+            }),
         const SizedBox(
           height: 29.5,
         ),
@@ -65,9 +65,9 @@ class _RegisterUsernameState extends State<RegisterUsername> {
             placeHolder: appLocalizations.lastName,
             controller: lastNameController,
             onChange: (value) => {
-                  widget.onChange.call(checkInput(lastNameController.text)),
-                  widget.onChangeLastName.call(lastNameController.text),
-                }),
+              widget.onChange.call(checkInput(lastNameController.text)),
+              widget.onChangeLastName.call(lastNameController.text),
+            }),
       ],
     );
   }

@@ -48,9 +48,9 @@ class _RegisterEmailState extends State<RegisterEmail> {
             placeHolder: appLocalizations.email,
             controller: emailController,
             onChange: (value) => {
-                  widget.onChange.call(checkInput(value)),
-                  widget.onChangeEmail.call(emailController.text)
-                }),
+              widget.onChange.call(checkInput(value)),
+              widget.onChangeEmail.call(emailController.text)
+            }),
       ],
     );
   }

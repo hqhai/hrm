@@ -12,6 +12,9 @@ import 'package:base_app/presentations/widgets/create_request/roommetting_reques
 import 'package:base_app/presentations/widgets/request/doing_request.widget.dart';
 import 'package:base_app/presentations/widgets/request/done_request.widget.dart';
 import 'package:base_app/presentations/widgets/request/recent_request.widget.dart';
+import 'package:base_app/presentations/widgets/trash_app/calendar/layout_calendar_2.dart';
+import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
+import 'package:base_app/presentations/widgets/trash_app/delete_account/delete_account.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentations/widgets/attendance/layout_calendar.dart';
