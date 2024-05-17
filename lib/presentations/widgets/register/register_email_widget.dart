@@ -45,12 +45,10 @@ class _RegisterEmailState extends State<RegisterEmail> {
           height: 29.5,
         ),
         AppInputEmail(
-            placeHolder: appLocalizations.email,
-            controller: emailController,
-            onChange: (value) => {
-                  widget.onChange.call(checkInput(value)),
-                  widget.onChangeEmail.call(emailController.text)
-                }),
+          placeHolder: appLocalizations.email,
+          controller: emailController,
+          onChange: (value) => setOnChangeEmail(value),
+        )
       ],
     );
   }
@@ -58,5 +56,10 @@ class _RegisterEmailState extends State<RegisterEmail> {
   bool checkInput(String emailController) {
     RegExp regExpEmail = RegExp(checkEmailRegexExp);
     return (regExpEmail.hasMatch(emailController)) ? isCheckedInput = true : isCheckedInput = false;
+  }
+
+  setOnChangeEmail(String value) {
+    widget.onChange.call(checkInput(value));
+    widget.onChangeEmail.call(emailController.text);
   }
 }

@@ -9,13 +9,18 @@ part 'notes_state.g.dart';
 @CopyWith()
 @JsonSerializable()
 class NotesState extends Equatable {
-  const NotesState({this.notes = const [], this.status = NoteStatus.init});
+  const NotesState(
+      {this.notes = const [],
+      this.note = const Note(
+          id: '', dateTime: '', note: '', createdFullName: '', createdDate: '', createdUserId: ''),
+      this.status = NoteStatus.init});
 
   final List<Note> notes;
+  final Note note;
   final NoteStatus status;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [notes, status, note];
 
   factory NotesState.fromJson(Map<String, dynamic> json) => _$NotesStateFromJson(json);
 

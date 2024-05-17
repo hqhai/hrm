@@ -413,6 +413,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get register => 'Đăng ký';
 
   @override
+  String get theContentAndTitleCannotBeLeftBlank => 'Nội dung và tiêu đề không được để trống';
+
+  @override
+  String get theNoteDateCannotBeBeforeThePresentTime => 'Ngày ghi chú không được trước thời điểm hiện tại';
+
+  @override
+  String get youMadeANoteOnTheDate => 'Bạn đã ghi chú vào ngày';
+
+  @override
   String get dateNote => 'Ngày ghi chú';
 
   @override
@@ -429,4 +438,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get doYouWantToDeleteTheNote => 'Bạn có muốn xóa ghi chú không?';
+
+  @override
+  String get activate => 'Hoạt Động';
+
+  @override
+  String get home => 'Trang chủ';
+
+  @override
+  String get profile => 'Hồ sơ';
+
+  @override
+  String get doYouWantToDeleteYourAccount => 'Bạn có muốn xóa tài khoản này không?';
+
+  @override
+  String get deleteAccount => 'Xóa tài khoản';
 }

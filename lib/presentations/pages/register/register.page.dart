@@ -19,7 +19,7 @@ import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
 final registerPageRoute =
-    GoRoute(path: Pages.register, builder: (context, GoRouterState state) => const RegisterPage());
+GoRoute(path: Pages.register, builder: (context, GoRouterState state) => const RegisterPage());
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -105,24 +105,24 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
                         children: [
                           SingleChildScrollView(
                             child: RegisterEmail(
-                              onChange: (value) => {checkInputs[0] = value},
-                              onChangeEmail: (value) => {valueInputs[0] = value},
+                              onChange: (value) => checkInputs0(value),
+                              onChangeEmail: (value) => valueInputs0(value),
                               emailDefault: state.registerRequest.email,
                             ),
                           ),
                           SingleChildScrollView(
                             child: RegisterUsername(
-                              onChange: (value) => {checkInputs[1] = value},
-                              onChangeFirstName: (value) => {valueInputs[1] = value},
-                              onChangeLastName: (value) => {valueInputs[2] = value},
+                              onChange: (value) => checkInputs1(value),
+                              onChangeFirstName: (value) => valueInputs1(value),
+                              onChangeLastName: (value) => valueInputs2(value),
                               firstNameDefault: state.registerRequest.firstName,
                               lastNameDefault: state.registerRequest.lastName,
                             ),
                           ),
                           SingleChildScrollView(
                             child: RegisterPassword(
-                              onChange: (value) => {checkInputs[2] = value},
-                              onChangePassword: (value) => {valueInputs[3] = value},
+                              onChange: (value) => checkInputs2(value),
+                              onChangePassword: (value) => valueInputs3(value),
                               passwordDefault: state.registerRequest.password,
                             ),
                           )
@@ -144,13 +144,13 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
                       children: [
                         Text(
                           appLocalizations.alreadyAMember,
-                          style: TextStyle(fontSize: 16, color: colors.text),
+                          style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
                         ),
                         GestureDetector(
                           onTap: () => onLogin(context),
                           child: Text(
                             appLocalizations.logInNow,
-                            style: const TextStyle(fontSize: 16, color: Color(0xffABBFED)),
+                            style: const TextStyle(fontSize: SpacingUnit.x4, color: Color(0xffABBFED)),
                           ),
                         ),
                       ],
@@ -186,5 +186,16 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
     );
   }
 
-  void onSubmit() {}
+  checkInputs0(bool value) {checkInputs[0] = value;}
+  checkInputs1(bool value) {checkInputs[1] = value;}
+  checkInputs2(bool value) {checkInputs[2] = value;}
+  checkInputs3(bool value) {checkInputs[3] = value;}
+
+  valueInputs0(String value) {valueInputs[0] = value;}
+  valueInputs1(String value) {valueInputs[1] = value;}
+  valueInputs2(String value) {valueInputs[2] = value;}
+  valueInputs3(String value) {valueInputs[3] = value;}
+
+
 }
+

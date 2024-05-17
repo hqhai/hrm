@@ -135,11 +135,18 @@
   "pleaseCheckYourEmail": ", Please check your email.",
   "calendar": "calendar",
   "register": "Register",
+  "theContentAndTitleCannotBeLeftBlank": "Content and title cannot be blank",
+  "theNoteDateCannotBeBeforeThePresentTime": "The note date cannot be before the present time",
+  "youMadeANoteOnTheDate": "You made a note on the date",
   "dateNote": "Date note",
   "enterYourRegisteredUsernameAndPassword": "Enter your registered username and password",
   "supportContact": "Support Contact",
   "requiredDataFields": "Required data fields",
   "delete": "Delete",
-  "doYouWantToDeleteTheNote": "Do you want to delete the note?"
-
+  "doYouWantToDeleteTheNote": "Do you want to delete the note?",
+  "activate": "Activate",
+  "home": "Home",
+  "profile": "Profile",
+  "doYouWantToDeleteYourAccount": "Do you want to delete your account?",
+  "deleteAccount": "Delete Account"
 }

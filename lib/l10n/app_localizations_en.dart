@@ -413,6 +413,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get register => 'Register';
 
   @override
+  String get theContentAndTitleCannotBeLeftBlank => 'Content and title cannot be blank';
+
+  @override
+  String get theNoteDateCannotBeBeforeThePresentTime => 'The note date cannot be before the present time';
+
+  @override
+  String get youMadeANoteOnTheDate => 'You made a note on the date';
+
+  @override
   String get dateNote => 'Date note';
 
   @override
@@ -429,4 +438,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get doYouWantToDeleteTheNote => 'Do you want to delete the note?';
+
+  @override
+  String get activate => 'Activate';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get doYouWantToDeleteYourAccount => 'Do you want to delete your account?';
+
+  @override
+  String get deleteAccount => 'Delete Account';
 }

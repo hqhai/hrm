@@ -4,6 +4,7 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/menu_values.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
@@ -16,11 +17,10 @@ import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_event.dart';
 import 'package:base_app/presentations/pages/home/side_menu_tile.dart';
-import 'package:common/utils/spacing_unit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 final homePageRoute =
     GoRoute(path: Pages.home, builder: (context, GoRouterState state) => const HomePage());
@@ -75,8 +75,10 @@ class _HomePageState extends State<HomePage> {
     Navigator.of(context).pop();
   }
 
+
   @override
   Widget build(BuildContext context) {
+    /*final colors = AppTheme.getColors(context);*/
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocConsumer<UserBloc, UserState>(
       listener: (context, stateUser) {
@@ -177,38 +179,47 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                           height: 20,
                         ),
+                        if (stateUser.user.role == ConfigStringValues.userSystem.name)
+                          ...MenuValues.menuUserSystemValues(context).asMap().entries.map(
+                                (entry) => SideMenuTile(
+                              text: entry.value['text'],
+                              checkSelect: selectedIndex == entry.key,
+                              icon: entry.value['icon'],
+                              onTap: () => selectedIndexFunction(entry),
+                            ),
+                          ),
                         if (stateUser.user.role == ConfigStringValues.generalManager.name)
                           ...MenuValues.menuGeneralManagerValues(context).asMap().entries.map(
                                 (entry) => SideMenuTile(
-                                  text: entry.value['text'],
-                                  checkSelect: selectedIndex == entry.key,
-                                  icon: entry.value['icon'],
-                                  onTap: () => selectedIndexFunction(entry),
-                                ),
-                              ),
+                              text: entry.value['text'],
+                              checkSelect: selectedIndex == entry.key,
+                              icon: entry.value['icon'],
+                              onTap: () => selectedIndexFunction(entry),
+                            ),
+                          ),
                         if (stateUser.user.role == ConfigStringValues.manager.name)
                           ...MenuValues.menuManagerValues(context).asMap().entries.map(
                                 (entry) => SideMenuTile(
-                                  text: entry.value['text'],
-                                  checkSelect: selectedIndex == entry.key,
-                                  icon: entry.value['icon'],
-                                  onTap: () => selectedIndexFunction(entry),
-                                ),
-                              ),
+                              text: entry.value['text'],
+                              checkSelect: selectedIndex == entry.key,
+                              icon: entry.value['icon'],
+                              onTap: () => selectedIndexFunction(entry),
+                            ),
+                          ),
                         if (stateUser.user.role == ConfigStringValues.user.name)
                           ...MenuValues.menuValues(context).asMap().entries.map(
                                 (entry) => SideMenuTile(
-                                  text: entry.value['text'],
-                                  checkSelect: selectedIndex == entry.key,
-                                  icon: entry.value['icon'],
-                                  onTap: () => selectedIndexFunction(entry),
-                                ),
-                              ),
+                              text: entry.value['text'],
+                              checkSelect: selectedIndex == entry.key,
+                              icon: entry.value['icon'],
+                              onTap: () => selectedIndexFunction(entry),
+                            ),
+                          ),
                         SideMenuTile(
                           text: appLocalizations.logout,
                           checkSelect: false,
                           icon:
-                              const Icon(Icons.logout, color: Colors.white, size: SpacingUnit.x7_5),
+                          const Icon(Icons.logout, color: Colors.white, size: SpacingUnit.x7_5),
                           onTap: () => logoutFunction(),
                         ),
                       ],
@@ -218,11 +229,71 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          /*bottomNavigationBar: BottomNavigationBar(
+            showUnselectedLabels: true,
+            selectedFontSize: 12,
+            unselectedFontSize: 12,
+            type: BottomNavigationBarType.fixed,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  Assets.images.icon.activate,
+                  colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
+                ),
+                label: appLocalizations.activate,
+                activeIcon: SvgPicture.asset(
+                  Assets.images.icon.activate,
+                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  Assets.images.icon.home,
+                  colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
+                ),
+                label: appLocalizations.home,
+                activeIcon: SvgPicture.asset(
+                  Assets.images.icon.home,
+                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  Assets.images.icon.profile,
+                  colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
+                ),
+                label: appLocalizations.profile,
+                activeIcon: SvgPicture.asset(
+                  Assets.images.icon.profile,
+                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                ),
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: colors.text,
+            unselectedItemColor: colors.outline,
+            onTap: _onItemTapped,
+          ),*/
           body: _screen(stateUser),
+              //_widgetOptions.elementAt(_selectedIndex),
         );
       },
     );
   }
+
+  /*int _selectedIndex = 0;
+  late final List<Widget> _widgetOptions = <Widget>[
+    const RecentRequest(),
+    const DoingRequest(),
+    const DoneRequest(),
+    const LayoutCalendar(),
+  ];*/
+
+  /*void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }*/
 
   Widget _screen(UserState state) {
     return state.user.role != ''
@@ -230,7 +301,9 @@ class _HomePageState extends State<HomePage> {
             ? MenuValues.widgetOptionsGeneralManager[selectedIndex]
             : state.user.role == ConfigStringValues.manager.name
                 ? MenuValues.widgetOptionsManager[selectedIndex]
-                : MenuValues.widgetOptions[selectedIndex]
+                : state.user.role == ConfigStringValues.userSystem.name
+                    ? MenuValues.widgetOptionsUserSystem[selectedIndex]
+                    : MenuValues.widgetOptions[selectedIndex]
         : Container();
   }
 }

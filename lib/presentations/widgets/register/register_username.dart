@@ -52,27 +52,33 @@ class _RegisterUsernameState extends State<RegisterUsername> {
           height: 29.5,
         ),
         AppInput(
-            placeHolder: appLocalizations.firstName,
-            controller: firstNameController,
-            onChange: (value) => {
-                  widget.onChange.call(checkInput(firstNameController.text)),
-                  widget.onChangeFirstName.call(firstNameController.text),
-                }),
+          placeHolder: appLocalizations.firstName,
+          controller: firstNameController,
+          onChange: (value) => setOnchangeFirstName(value),
+        ),
         const SizedBox(
           height: 29.5,
         ),
         AppInput(
-            placeHolder: appLocalizations.lastName,
-            controller: lastNameController,
-            onChange: (value) => {
-                  widget.onChange.call(checkInput(lastNameController.text)),
-                  widget.onChangeLastName.call(lastNameController.text),
-                }),
+          placeHolder: appLocalizations.lastName,
+          controller: lastNameController,
+          onChange: (value) => setOnchangeLastName(value),
+        ),
       ],
     );
   }
 
   bool checkInput(String usernameController) {
     return (usernameController != '') ? isCheckedInput = true : isCheckedInput = false;
+  }
+
+  setOnchangeFirstName(String value) {
+    widget.onChange.call(checkInput(firstNameController.text));
+    widget.onChangeFirstName.call(firstNameController.text);
+  }
+
+  setOnchangeLastName(String value) {
+    widget.onChange.call(checkInput(lastNameController.text));
+    widget.onChangeLastName.call(lastNameController.text);
   }
 }

@@ -12,6 +12,9 @@ import 'package:base_app/presentations/widgets/create_request/roommetting_reques
 import 'package:base_app/presentations/widgets/request/doing_request.widget.dart';
 import 'package:base_app/presentations/widgets/request/done_request.widget.dart';
 import 'package:base_app/presentations/widgets/request/recent_request.widget.dart';
+import 'package:base_app/presentations/widgets/trash_app/calendar/layout_calendar_2.dart';
+import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
+import 'package:base_app/presentations/widgets/trash_app/delete_account/delete_account.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentations/widgets/attendance/layout_calendar.dart';
@@ -43,6 +46,28 @@ class MenuValues {
       {
         'text': appLocalizations.changePassword,
         'icon': const Icon(Icons.password, color: Colors.white, size: 30)
+      }
+    ];
+  }
+
+  static List<Map<String, dynamic>> menuUserSystemValues(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    return [
+      {
+        'text': 'Create Note',
+        'icon': const Icon(Icons.note, color: Colors.white, size: 30)
+      },
+      {
+        'text': appLocalizations.calendar,
+        'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)
+      },
+      {
+        'text': appLocalizations.changePassword,
+        'icon': const Icon(Icons.password, color: Colors.white, size: 30)
+      },
+      {
+        'text': appLocalizations.deleteAccount,
+        'icon': const Icon(Icons.no_accounts, color: Colors.white, size: 30)
       }
     ];
   }
@@ -114,6 +139,13 @@ class MenuValues {
     ChangePassword(),
   ];
 
+  static const List<Widget> widgetOptionsUserSystem = <Widget>[
+    CreateNoteWidget(),
+    LayoutCalendar2(),
+    ChangePassword(),
+    DeleteAccountWidget(),
+  ];
+
   static const List<Widget> widgetOptionsManager = <Widget>[
     ManagementRequest(),
     CreateRoomMeetingWidget(),
@@ -181,9 +213,10 @@ class MenuValues {
     PriorityRequestStatus.medium.name,
     PriorityRequestStatus.low.name
   ];
-  static List<String> listParentId = [
-    ParentId.aG.name,
-    ParentId.fsel.name
+
+  static List<String> languageValue = [
+    LanguageEnum.vi.name,
+    LanguageEnum.en.name,
   ];
 
   static List<String> listOTvsOL = [

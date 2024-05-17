@@ -13,9 +13,9 @@ import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
+import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:base_app/presentations/widgets/custom/contact_help.dart';
 import 'package:base_app/presentations/widgets/login/drop_down_menu_language.dart';
-import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,8 +44,14 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   late AnimationController _controller;
   late Animation<double> _animationWidth, _animationHeight;
   late double width, height;
-  String? rememberEmail = '', rememberPassword = '', errorEmail = '', errorPass = '';
-  bool checkSaveLogin = false, isCheckedInput = false;
+
+  String? dropdownLanguageValue = '';
+  String? rememberEmail = '';
+  String? rememberPassword = '';
+  String? errorEmail = '';
+  String? errorPass = '';
+  bool checkSaveLogin = false;
+  bool isCheckedInput = false;
 
   @override
   void initState() {
@@ -213,9 +219,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             AppCheckbox(
-                                onChanged: (bool? value) => setState(() {
-                                      checkSaveLogin = value!;
-                                    }),
+                                onChanged: (bool? value) => setCheckSaveLogin(value),
                                 label: appLocalizations.staySignedIn,
                                 value: checkSaveLogin,
                                 color: CustomsColor.colorText,
@@ -258,7 +262,23 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         ),
                         const Expanded(flex: 5, child: SizedBox()),
                         const SizedBox(height: SpacingUnit.x4),
-                        const ContactHelpWidget(),
+                        //const ContactHelpWidget(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              appLocalizations.notAMember,
+                              style: TextStyle(fontSize: 16, color: colors.text),
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  onRegister(context);
+                                },
+                                child: Text(appLocalizations.signUpNow,
+                                    style:
+                                        const TextStyle(fontSize: 16, color: Color(0xffABBFED)))),
+                          ],
+                        ),
                       ]),
                     ),
                   ),
@@ -311,6 +331,12 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   onChangePassword(String value) {
     setState(() {
       checkPassword = value;
+    });
+  }
+
+  setCheckSaveLogin(bool? value) {
+    setState(() {
+      checkSaveLogin = value!;
     });
   }
 }

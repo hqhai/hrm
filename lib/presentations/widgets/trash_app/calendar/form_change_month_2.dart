@@ -9,10 +9,10 @@ class FormChangeMonth2 extends StatelessWidget {
   final VoidCallback downMonth;
   const FormChangeMonth2(
       {super.key,
-      required this.year,
-      required this.month,
-      required this.upMonth,
-      required this.downMonth});
+        required this.year,
+        required this.month,
+        required this.upMonth,
+        required this.downMonth});
 
   @override
   Widget build(BuildContext context) {
@@ -54,3 +54,4 @@ class FormChangeMonth2 extends StatelessWidget {
     );
   }
 }
+

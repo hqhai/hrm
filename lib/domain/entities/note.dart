@@ -1,23 +1,32 @@
-import 'package:base_app/common/enum/enum_config.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'note.g.dart';
 
+@CopyWith()
 @JsonSerializable()
 class Note {
+  final String note;
+  final String dateTime;
   final String id;
-  final String title;
-  final String content;
-  final String dateCreate;
-  final NoteStatus status;
+  final String createdUserId;
+  final String? updatedUserId;
+  final String createdFullName;
+  final String? updatedFullName;
+  final String createdDate;
+  final String? updatedDate;
 
-  const Note(
-      {
-      this.id = '',
-      this.title = '',
-      this.content = '',
-      this.dateCreate = '',
-      this.status = NoteStatus.init});
+  const Note({
+    required this.note,
+    required this.dateTime,
+    required this.id,
+    required this.createdUserId,
+    this.updatedUserId,
+    required this.createdFullName,
+    this.updatedFullName,
+    required this.createdDate,
+    this.updatedDate,
+  });
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 

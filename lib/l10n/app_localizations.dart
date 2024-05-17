@@ -909,6 +909,24 @@ abstract class AppLocalizations {
   /// **'Register'**
   String get register;
 
+  /// No description provided for @theContentAndTitleCannotBeLeftBlank.
+  ///
+  /// In en, this message translates to:
+  /// **'Content and title cannot be blank'**
+  String get theContentAndTitleCannotBeLeftBlank;
+
+  /// No description provided for @theNoteDateCannotBeBeforeThePresentTime.
+  ///
+  /// In en, this message translates to:
+  /// **'The note date cannot be before the present time'**
+  String get theNoteDateCannotBeBeforeThePresentTime;
+
+  /// No description provided for @youMadeANoteOnTheDate.
+  ///
+  /// In en, this message translates to:
+  /// **'You made a note on the date'**
+  String get youMadeANoteOnTheDate;
+
   /// No description provided for @dateNote.
   ///
   /// In en, this message translates to:
@@ -944,6 +962,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to delete the note?'**
   String get doYouWantToDeleteTheNote;
+
+  /// No description provided for @activate.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate'**
+  String get activate;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @doYouWantToDeleteYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete your account?'**
+  String get doYouWantToDeleteYourAccount;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
