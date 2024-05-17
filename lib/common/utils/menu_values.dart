@@ -9,6 +9,7 @@ import 'package:base_app/presentations/widgets/attendance/timekeeping.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
 import 'package:base_app/presentations/widgets/create_request/create_request.dart';
 import 'package:base_app/presentations/widgets/create_request/roommetting_request/create_request_roommetting.dart';
+import 'package:base_app/presentations/widgets/profile/profile.widget.dart';
 import 'package:base_app/presentations/widgets/request/doing_request.widget.dart';
 import 'package:base_app/presentations/widgets/request/done_request.widget.dart';
 import 'package:base_app/presentations/widgets/request/recent_request.widget.dart';
@@ -53,10 +54,7 @@ class MenuValues {
   static List<Map<String, dynamic>> menuUserSystemValues(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
-      {
-        'text': 'Create Note',
-        'icon': const Icon(Icons.note, color: Colors.white, size: 30)
-      },
+      {'text': 'Create Note', 'icon': const Icon(Icons.note, color: Colors.white, size: 30)},
       {
         'text': appLocalizations.calendar,
         'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)
@@ -125,15 +123,21 @@ class MenuValues {
         'text': appLocalizations.setRoom,
         'icon': const Icon(Icons.meeting_room, color: Colors.white, size: 30)
       },
-      {'text': appLocalizations.timeKeeping, 'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)},
-      {'text': appLocalizations.changePassword, 'icon': const Icon(Icons.password, color: Colors.white, size: 30)}
+      {
+        'text': appLocalizations.timeKeeping,
+        'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)
+      },
+      {
+        'text': appLocalizations.changePassword,
+        'icon': const Icon(Icons.password, color: Colors.white, size: 30)
+      }
     ];
   }
 
-  static const List<Widget> widgetOptions = <Widget>[
-    CreateRequestWidget(),
+  static const List<Widget> widgetOptionsUser = <Widget>[
+    ProfileWidget(),
     RecentRequest(),
-    DoingRequest(),
+    ProfileWidget(),
     DoneRequest(),
     LayoutCalendar(),
     ChangePassword(),
@@ -261,4 +265,15 @@ class MenuValues {
     'Sat': 6,
     'Sun': 0,
   };
+}
+
+class TitleAppbarValues {
+  static List<String> listTitleAppbar(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    return[
+      appLocalizations.activate,
+      appLocalizations.home,
+      appLocalizations.userInformation,
+    ];
+  }
 }

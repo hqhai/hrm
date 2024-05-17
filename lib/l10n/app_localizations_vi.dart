@@ -101,22 +101,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get logout => 'Đăng xuất';
 
   @override
-  String get title => 'Tiêu đề :';
+  String get title => 'Tiêu đề';
 
   @override
-  String get content => 'Nội dung :';
+  String get content => 'Nội dung';
 
   @override
   String get selectFile => 'Thêm file';
 
   @override
-  String get typeRequest => 'Kiểu yêu cầu :';
+  String get typeRequest => 'Kiểu yêu cầu';
 
   @override
-  String get priority => 'Mức ưu tiên :';
+  String get priority => 'Mức ưu tiên';
 
   @override
-  String get approver => 'Người phê duyệt :';
+  String get approver => 'Người phê duyệt';
 
   @override
   String get createOvertimeRequestIsSuccess => 'Tạo yêu cầu OT thành công';
@@ -146,13 +146,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get leaveACommentHere => 'Viết nội dung tại đây';
 
   @override
-  String get previouslyAvailableSchedules => 'Lịch trình có sẵn :';
+  String get previouslyAvailableSchedules => 'Lịch trình có sẵn';
 
   @override
   String get thereAreCurrentlyNoMeetingsScheduled => 'Hiện tại chưa có cuộc họp nào được lên lịch';
 
   @override
-  String get scheduleAMeeting => 'Lên lịch cho cuộc họp :';
+  String get scheduleAMeeting => 'Lên lịch cho cuộc họp';
 
   @override
   String get update => 'Cập nhật';
@@ -185,22 +185,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get address => 'Địa chỉ';
 
   @override
-  String get project => 'Project :';
+  String get project => 'Project';
 
   @override
-  String get task => 'Task :';
+  String get task => 'Task';
 
   @override
-  String get createTime => 'Thời gian tạo :';
+  String get createTime => 'Thời gian tạo';
 
   @override
   String get type => 'Kiểu';
 
   @override
-  String get creator => 'Người tạo :';
+  String get creator => 'Người tạo';
 
   @override
-  String get phoneNumber => 'Số điện thoại :';
+  String get phoneNumber => 'Số điện thoại';
 
   @override
   String get note => 'Ghi chú';
@@ -212,19 +212,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get currentPassword => 'Mật khẩu cũ';
 
   @override
-  String get noteRoomLeader => 'Ghi chú của trưởng phòng :';
+  String get noteRoomLeader => 'Ghi chú của trưởng phòng';
 
   @override
-  String get noteManager => 'Ghi chú của quản lý :';
+  String get noteManager => 'Ghi chú của quản lý';
 
   @override
   String get explanation => 'Giải trình';
 
   @override
-  String get startDay => 'Ngày bắt đầu :';
+  String get startDay => 'Ngày bắt đầu';
 
   @override
-  String get endDay => 'Ngày kết thúc :';
+  String get endDay => 'Ngày kết thúc';
 
   @override
   String get roomName => 'Tên phòng';
@@ -453,4 +453,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get deleteAccount => 'Xóa tài khoản';
+
+  @override
+  String get userInformation => 'Thông tin nhân viên';
+
+  @override
+  String get employeeCode => 'Mã nhân viên';
+
+  @override
+  String get personalEmail => 'Email cá nhân';
+
+  @override
+  String get gender => 'Giới tính';
+
+  @override
+  String get dateOfBirth => 'Ngày sinh';
+
+  @override
+  String get branch => 'Chi nhánh';
+
+  @override
+  String get editPersonalInformation => 'Sửa thông tin cá nhân';
+
+  @override
+  String get setting => 'Cài đặt';
 }

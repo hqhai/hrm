@@ -90,6 +90,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/sign_in/
+    - assets/images/icon/popup_appbar/
     - assets/images/icon/
     - assets/images/error/
     - assets/env/
