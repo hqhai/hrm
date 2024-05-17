@@ -71,9 +71,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 padding: const EdgeInsets.all(SpacingUnit.x4),
                 child: Column(children: [
                   const SizedBox(height: SpacingUnit.x4),
-                  Text(
-                      appLocalizations
-                          .pleaseEnterTheEmailYouWantToRetrieveYourPassword,
+                  Text(appLocalizations.pleaseEnterTheEmailYouWantToRetrieveYourPassword,
                       style: const TextStyle(fontSize: SpacingUnit.x4)),
                   const SizedBox(height: SpacingUnit.x10_5),
                   AppInputEmail(
@@ -87,22 +85,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     autofocus: false,
                     error: errorEmail,
                     controller: emailController,
-                    onChange: (value) => setState(() {
-                      checkEmail = value;
-                    }),
+                    onChange: (value) => setCheckEmail(value),
                   ),
                   const SizedBox(height: SpacingUnit.x8),
                   AppButton(
                     title: appLocalizations.forgotPassword,
-                    onSubmit: () => {
-                      if (checkInput()) onSubmit(),
-                    },
+                    onSubmit: () => onSubmit(),
                     color: checkInput()
                         ? CustomsColor.colorButtonSelect
                         : CustomsColor.colorUnButtonSelect,
-                    colorText: checkInput()
-                        ? colors.text
-                        : CustomsColor.colorTextUnButtonSelect,
+                    colorText: checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect,
                   ),
                 ]),
               ),
@@ -115,12 +107,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   bool checkInput() {
     RegExp regExpEmail = RegExp(checkEmailRegexExpTest);
-    return (regExpEmail.hasMatch(checkEmail))
-        ? isCheckedInput = true
-        : isCheckedInput = false;
+    return (regExpEmail.hasMatch(checkEmail)) ? isCheckedInput = true : isCheckedInput = false;
   }
 
   void onSubmit() {
-    dI<UserBloc>().add(ForgotPasswordEvent(email: emailController.text));
+    bool check = checkInput();
+    if(check){
+      dI<UserBloc>().add(ForgotPasswordEvent(email: emailController.text));
+
+    }
+  }
+
+  setCheckEmail(String value) {
+    setState(() {
+      checkEmail = value;
+    });
   }
 }
