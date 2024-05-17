@@ -86,6 +86,9 @@ class $AssetsImagesIconGen {
   /// File path: assets/images/icon/person.svg
   String get person => 'assets/images/icon/person.svg';
 
+  $AssetsImagesIconPopupAppbarGen get popupAppbar =>
+      const $AssetsImagesIconPopupAppbarGen();
+
   /// File path: assets/images/icon/profile.svg
   String get profile => 'assets/images/icon/profile.svg';
 
@@ -121,6 +124,40 @@ class $AssetsImagesSignInGen {
 
   /// List of all assets
   List<dynamic> get values => [background, logo, biometric];
+}
+
+class $AssetsImagesIconPopupAppbarGen {
+  const $AssetsImagesIconPopupAppbarGen();
+
+  /// File path: assets/images/icon/popup_appbar/cai_dat.svg
+  String get caiDat => 'assets/images/icon/popup_appbar/cai_dat.svg';
+
+  /// File path: assets/images/icon/popup_appbar/dang_xuat.svg
+  String get dangXuat => 'assets/images/icon/popup_appbar/dang_xuat.svg';
+
+  /// File path: assets/images/icon/popup_appbar/doi_mat_khau.svg
+  String get doiMatKhau => 'assets/images/icon/popup_appbar/doi_mat_khau.svg';
+
+  /// File path: assets/images/icon/popup_appbar/mi_options-vertical.svg
+  String get miOptionsVertical =>
+      'assets/images/icon/popup_appbar/mi_options-vertical.svg';
+
+  /// File path: assets/images/icon/popup_appbar/ngon_ngu.svg
+  String get ngonNgu => 'assets/images/icon/popup_appbar/ngon_ngu.svg';
+
+  /// File path: assets/images/icon/popup_appbar/sua_thong_tin_ca_nhan.svg
+  String get suaThongTinCaNhan =>
+      'assets/images/icon/popup_appbar/sua_thong_tin_ca_nhan.svg';
+
+  /// List of all assets
+  List<String> get values => [
+        caiDat,
+        dangXuat,
+        doiMatKhau,
+        miOptionsVertical,
+        ngonNgu,
+        suaThongTinCaNhan
+      ];
 }
 
 class Assets {

@@ -288,13 +288,13 @@ abstract class AppLocalizations {
   /// No description provided for @title.
   ///
   /// In en, this message translates to:
-  /// **'Title :'**
+  /// **'Title'**
   String get title;
 
   /// No description provided for @content.
   ///
   /// In en, this message translates to:
-  /// **'Content :'**
+  /// **'Content'**
   String get content;
 
   /// No description provided for @selectFile.
@@ -306,19 +306,19 @@ abstract class AppLocalizations {
   /// No description provided for @typeRequest.
   ///
   /// In en, this message translates to:
-  /// **'Type request :'**
+  /// **'Type request'**
   String get typeRequest;
 
   /// No description provided for @priority.
   ///
   /// In en, this message translates to:
-  /// **'Priority :'**
+  /// **'Priority'**
   String get priority;
 
   /// No description provided for @approver.
   ///
   /// In en, this message translates to:
-  /// **'Approver :'**
+  /// **'Approver'**
   String get approver;
 
   /// No description provided for @createOvertimeRequestIsSuccess.
@@ -378,7 +378,7 @@ abstract class AppLocalizations {
   /// No description provided for @previouslyAvailableSchedules.
   ///
   /// In en, this message translates to:
-  /// **'Previously available schedules :'**
+  /// **'Previously available schedules'**
   String get previouslyAvailableSchedules;
 
   /// No description provided for @thereAreCurrentlyNoMeetingsScheduled.
@@ -390,7 +390,7 @@ abstract class AppLocalizations {
   /// No description provided for @scheduleAMeeting.
   ///
   /// In en, this message translates to:
-  /// **'Schedule a meeting :'**
+  /// **'Schedule a meeting'**
   String get scheduleAMeeting;
 
   /// No description provided for @update.
@@ -456,19 +456,19 @@ abstract class AppLocalizations {
   /// No description provided for @project.
   ///
   /// In en, this message translates to:
-  /// **'Project :'**
+  /// **'Project'**
   String get project;
 
   /// No description provided for @task.
   ///
   /// In en, this message translates to:
-  /// **'Task :'**
+  /// **'Task'**
   String get task;
 
   /// No description provided for @createTime.
   ///
   /// In en, this message translates to:
-  /// **'Create Time :'**
+  /// **'Create Time'**
   String get createTime;
 
   /// No description provided for @type.
@@ -480,13 +480,13 @@ abstract class AppLocalizations {
   /// No description provided for @creator.
   ///
   /// In en, this message translates to:
-  /// **'Creator :'**
+  /// **'Creator'**
   String get creator;
 
   /// No description provided for @phoneNumber.
   ///
   /// In en, this message translates to:
-  /// **'Phone Number :'**
+  /// **'Phone Number'**
   String get phoneNumber;
 
   /// No description provided for @note.
@@ -510,13 +510,13 @@ abstract class AppLocalizations {
   /// No description provided for @noteRoomLeader.
   ///
   /// In en, this message translates to:
-  /// **'Note Room Leader :'**
+  /// **'Note Room Leader'**
   String get noteRoomLeader;
 
   /// No description provided for @noteManager.
   ///
   /// In en, this message translates to:
-  /// **'Note Manager :'**
+  /// **'Note Manager'**
   String get noteManager;
 
   /// No description provided for @explanation.
@@ -528,13 +528,13 @@ abstract class AppLocalizations {
   /// No description provided for @startDay.
   ///
   /// In en, this message translates to:
-  /// **'Start Day :'**
+  /// **'Start Day'**
   String get startDay;
 
   /// No description provided for @endDay.
   ///
   /// In en, this message translates to:
-  /// **'End Day :'**
+  /// **'End Day'**
   String get endDay;
 
   /// No description provided for @roomName.
@@ -618,7 +618,7 @@ abstract class AppLocalizations {
   /// No description provided for @lateTime.
   ///
   /// In en, this message translates to:
-  /// **'Late time: '**
+  /// **'Late time'**
   String get lateTime;
 
   /// No description provided for @book.
@@ -993,6 +993,24 @@ abstract class AppLocalizations {
   /// **'Delete Account'**
   String get deleteAccount;
 
+  /// No description provided for @userInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'User information'**
+  String get userInformation;
+
+  /// No description provided for @employeeCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee code'**
+  String get employeeCode;
+
+  /// No description provided for @personalEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal email'**
+  String get personalEmail;
+
   /// No description provided for @gender.
   ///
   /// In en, this message translates to:
@@ -1004,6 +1022,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Date of birth'**
   String get dateOfBirth;
+
+  /// No description provided for @branch.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch'**
+  String get branch;
+
+  /// No description provided for @editPersonalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit personal information'**
+  String get editPersonalInformation;
+
+  /// No description provided for @setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting'**
+  String get setting;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
