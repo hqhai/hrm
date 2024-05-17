@@ -105,7 +105,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                 AppInput(
                   placeHolder: appLocalizations.name,
                   controller: nameController,
-                  onChange: (value) => setState(() => name = value),
+                  onChange: (value) => setName(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(appLocalizations.code,
@@ -114,7 +114,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                 AppInput(
                   placeHolder: appLocalizations.code,
                   controller: codeController,
-                  onChange: (value) => setState(() => code = value),
+                  onChange: (value) => setCode(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(appLocalizations.phoneNumber,
@@ -123,7 +123,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                 AppInput(
                   placeHolder: appLocalizations.phoneNumber,
                   controller: phoneNumberController,
-                  onChange: (value) => setState(() => phoneNumber = value),
+                  onChange: (value) => setPhoneNumber(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(appLocalizations.email,
@@ -132,7 +132,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                 AppInput(
                   placeHolder: appLocalizations.email,
                   controller: emailController,
-                  onChange: (value) => setState(() => email = value),
+                  onChange: (value) => setEmail(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(appLocalizations.address,
@@ -141,7 +141,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                 AppInput(
                   placeHolder: appLocalizations.address,
                   controller: addressController,
-                  onChange: (value) => setState(() => address = value),
+                  onChange: (value) => setAddress(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(appLocalizations.description,
@@ -157,9 +157,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                 Text(appLocalizations.parent,
                     style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 ItemDropdownDepartment(
-                  onChange: (value) => setState(() {
-                    parent = value;
-                  }),
+                  onChange: (value) => setParent(value),
                 ),
                 const SizedBox(height: SpacingUnit.x4),
                 ElevatedButton(
@@ -204,5 +202,31 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                 parentId: parentId(parent, state),
               )));
     }
+  }
+
+  setName(String value) {
+    setState(() => name = value);
+  }
+
+  setCode(String value) {
+    setState(() => code = value);
+  }
+
+  setPhoneNumber(String value) {
+    setState(() => phoneNumber = value);
+  }
+
+  setEmail(String value) {
+    setState(() => email = value);
+  }
+
+  setAddress(String value) {
+    setState(() => address = value);
+  }
+
+  setParent(String value) {
+    setState(() {
+      parent = value;
+    });
   }
 }

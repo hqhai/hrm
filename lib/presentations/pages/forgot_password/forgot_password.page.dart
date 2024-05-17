@@ -87,16 +87,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     autofocus: false,
                     error: errorEmail,
                     controller: emailController,
-                    onChange: (value) => setState(() {
-                      checkEmail = value;
-                    }),
+                    onChange: (value) => setCheckEmail(value),
                   ),
                   const SizedBox(height: SpacingUnit.x8),
                   AppButton(
                     title: appLocalizations.forgotPassword,
-                    onSubmit: () => {
-                      if (checkInput()) onSubmit(),
-                    },
+                    onSubmit: () => onSubmit(),
                     color: checkInput()
                         ? CustomsColor.colorButtonSelect
                         : CustomsColor.colorUnButtonSelect,
@@ -117,6 +113,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   void onSubmit() {
-    dI<UserBloc>().add(ForgotPasswordEvent(email: emailController.text));
+    bool check = checkInput();
+    if(check){
+      dI<UserBloc>().add(ForgotPasswordEvent(email: emailController.text));
+
+    }
+  }
+
+  setCheckEmail(String value) {
+    setState(() {
+      checkEmail = value;
+    });
   }
 }

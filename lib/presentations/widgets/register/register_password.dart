@@ -12,9 +12,9 @@ class RegisterPassword extends StatefulWidget {
 
   const RegisterPassword(
       {super.key,
-        required this.onChange,
-        required this.onChangePassword,
-        this.passwordDefault = ''});
+      required this.onChange,
+      required this.onChangePassword,
+      this.passwordDefault = ''});
 
   @override
   State<RegisterPassword> createState() => _RegisterPasswordState();
@@ -55,12 +55,7 @@ class _RegisterPasswordState extends State<RegisterPassword> {
         AppInputPassword(
           placeHolder: appLocalizations.password,
           controller: passwordController,
-          onChange: (value) {
-            setState(() {
-              passwordController.text = value;
-              progress();
-            });
-          },
+          onChange: (value) =>  setOnChangePassword(value),
         ),
         if (passwordController.text != '')
           AppInputNewPasswordValidate(password: passwordController.text, condition: condition),
@@ -68,12 +63,10 @@ class _RegisterPasswordState extends State<RegisterPassword> {
           height: 29.5,
         ),
         AppInputPassword(
-            placeHolder: appLocalizations.confirmPassword,
-            controller: confirmPasswordController,
-            onChange: (value) => {
-              widget.onChange.call(checkInput(passwordController.text)),
-              widget.onChangePassword.call(passwordController.text)
-            }),
+          placeHolder: appLocalizations.confirmPassword,
+          controller: confirmPasswordController,
+          onChange: (value) => onChangeConfirmPassword(value),
+        )
       ],
     );
   }
@@ -91,5 +84,17 @@ class _RegisterPasswordState extends State<RegisterPassword> {
     RegExp(r'.*[A-Z]+.*').hasMatch(passwordController.text) ? condition_3 = 1 : condition_3 = 0;
     RegExp(r'.*[\W_]+.*').hasMatch(passwordController.text) ? condition_4 = 1 : condition_4 = 0;
     condition = condition_1 + condition_2 + condition_3 + condition_4;
+  }
+
+  onChangeConfirmPassword(String value) {
+    widget.onChange.call(checkInput(passwordController.text));
+    widget.onChangePassword.call(passwordController.text);
+  }
+
+  setOnChangePassword(String value) {
+    setState(() {
+      passwordController.text = value;
+      progress();
+    });
   }
 }

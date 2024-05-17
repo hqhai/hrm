@@ -218,9 +218,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             AppCheckbox(
-                                onChanged: (bool? value) => setState(() {
-                                      checkSaveLogin = value!;
-                                    }),
+                                onChanged: (bool? value) => setCheckSaveLogin(value),
                                 label: appLocalizations.staySignedIn,
                                 value: checkSaveLogin,
                                 color: CustomsColor.colorText,
@@ -277,7 +275,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                 },
                                 child: Text(appLocalizations.signUpNow,
                                     style:
-                                    const TextStyle(fontSize: 16, color: Color(0xffABBFED)))),
+                                        const TextStyle(fontSize: 16, color: Color(0xffABBFED)))),
                           ],
                         ),
                       ]),
@@ -332,6 +330,12 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   onChangePassword(String value) {
     setState(() {
       checkPassword = value;
+    });
+  }
+
+  setCheckSaveLogin(bool? value) {
+    setState(() {
+      checkSaveLogin = value!;
     });
   }
 }
