@@ -11,6 +11,8 @@ abstract class _$AuthStateCWProxy {
 
   AuthState password(String password);
 
+  AuthState roles(List<String> roles);
+
   AuthState saveLogin(bool saveLogin);
 
   AuthState status(AuthStatus status);
@@ -26,6 +28,7 @@ abstract class _$AuthStateCWProxy {
   AuthState call({
     String? email,
     String? password,
+    List<String>? roles,
     bool? saveLogin,
     AuthStatus? status,
     String? token,
@@ -43,6 +46,9 @@ class _$AuthStateCWProxyImpl implements _$AuthStateCWProxy {
 
   @override
   AuthState password(String password) => this(password: password);
+
+  @override
+  AuthState roles(List<String> roles) => this(roles: roles);
 
   @override
   AuthState saveLogin(bool saveLogin) => this(saveLogin: saveLogin);
@@ -64,6 +70,7 @@ class _$AuthStateCWProxyImpl implements _$AuthStateCWProxy {
   AuthState call({
     Object? email = const $CopyWithPlaceholder(),
     Object? password = const $CopyWithPlaceholder(),
+    Object? roles = const $CopyWithPlaceholder(),
     Object? saveLogin = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
     Object? token = const $CopyWithPlaceholder(),
@@ -77,6 +84,10 @@ class _$AuthStateCWProxyImpl implements _$AuthStateCWProxy {
           ? _value.password
           // ignore: cast_nullable_to_non_nullable
           : password as String,
+      roles: roles == const $CopyWithPlaceholder() || roles == null
+          ? _value.roles
+          // ignore: cast_nullable_to_non_nullable
+          : roles as List<String>,
       saveLogin: saveLogin == const $CopyWithPlaceholder() || saveLogin == null
           ? _value.saveLogin
           // ignore: cast_nullable_to_non_nullable
@@ -109,6 +120,9 @@ AuthState _$AuthStateFromJson(Map<String, dynamic> json) => AuthState(
       saveLogin: json['saveLogin'] as bool? ?? false,
       email: json['email'] as String? ?? '',
       password: json['password'] as String? ?? '',
+      roles:
+          (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
     );
 
 Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
@@ -117,6 +131,7 @@ Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
       'saveLogin': instance.saveLogin,
       'email': instance.email,
       'password': instance.password,
+      'roles': instance.roles,
     };
 
 const _$AuthStatusEnumMap = {

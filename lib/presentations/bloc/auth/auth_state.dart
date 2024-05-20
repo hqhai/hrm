@@ -13,16 +13,18 @@ class AuthState extends Equatable {
   final bool saveLogin;
   final String email;
   final String password;
+  final List<String> roles;
 
   const AuthState(
       {required this.status,
       this.token = '',
       this.saveLogin = false,
       this.email = '',
-      this.password = ''});
+      this.password = '',
+      this.roles = const []});
 
   @override
-  List<Object> get props => [status, token, saveLogin, email, password];
+  List<Object> get props => [status, token, saveLogin, email, password, roles];
 
   factory AuthState.fromJson(Map<String, dynamic> json) =>
       _$AuthStateFromJson(json);
