@@ -80,8 +80,10 @@ class $AssetsImagesIconGen {
   AssetGenImage get circularProgressIndicator =>
       const AssetGenImage('assets/images/icon/circular_progress_indicator.png');
 
+  $AssetsImagesIconHomeGen get home => const $AssetsImagesIconHomeGen();
+
   /// File path: assets/images/icon/home.svg
-  String get home => 'assets/images/icon/home.svg';
+  String get homeSvg => 'assets/images/icon/home.svg';
 
   /// File path: assets/images/icon/person.svg
   String get person => 'assets/images/icon/person.svg';
@@ -102,7 +104,7 @@ class $AssetsImagesIconGen {
         lock,
         activate,
         circularProgressIndicator,
-        home,
+        homeSvg,
         person,
         profile
       ];
@@ -126,6 +128,41 @@ class $AssetsImagesSignInGen {
   List<dynamic> get values => [background, logo, biometric];
 }
 
+class $AssetsImagesIconHomeGen {
+  const $AssetsImagesIconHomeGen();
+
+  /// File path: assets/images/icon/home/chevron.forward.svg
+  String get chevronForward => 'assets/images/icon/home/chevron.forward.svg';
+
+  /// File path: assets/images/icon/home/chevron.left.svg
+  String get chevronLeft => 'assets/images/icon/home/chevron.left.svg';
+
+  /// File path: assets/images/icon/home/ic_baseline-place.svg
+  String get icBaselinePlace => 'assets/images/icon/home/ic_baseline-place.svg';
+
+  /// File path: assets/images/icon/home/material-symbols_wifi.svg
+  String get materialSymbolsWifi =>
+      'assets/images/icon/home/material-symbols_wifi.svg';
+
+  /// File path: assets/images/icon/home/mingcute_time-line.svg
+  String get mingcuteTimeLine =>
+      'assets/images/icon/home/mingcute_time-line.svg';
+
+  /// File path: assets/images/icon/home/ph_fingerprint-fill.svg
+  String get phFingerprintFill =>
+      'assets/images/icon/home/ph_fingerprint-fill.svg';
+
+  /// List of all assets
+  List<String> get values => [
+        chevronForward,
+        chevronLeft,
+        icBaselinePlace,
+        materialSymbolsWifi,
+        mingcuteTimeLine,
+        phFingerprintFill
+      ];
+}
+
 class $AssetsImagesIconPopupAppbarGen {
   const $AssetsImagesIconPopupAppbarGen();
 
@@ -137,6 +174,10 @@ class $AssetsImagesIconPopupAppbarGen {
 
   /// File path: assets/images/icon/popup_appbar/doi_mat_khau.svg
   String get doiMatKhau => 'assets/images/icon/popup_appbar/doi_mat_khau.svg';
+
+  /// File path: assets/images/icon/popup_appbar/home_icon_notification.svg
+  String get homeIconNotification =>
+      'assets/images/icon/popup_appbar/home_icon_notification.svg';
 
   /// File path: assets/images/icon/popup_appbar/mi_options-vertical.svg
   String get miOptionsVertical =>
@@ -154,6 +195,7 @@ class $AssetsImagesIconPopupAppbarGen {
         caiDat,
         dangXuat,
         doiMatKhau,
+        homeIconNotification,
         miOptionsVertical,
         ngonNgu,
         suaThongTinCaNhan
