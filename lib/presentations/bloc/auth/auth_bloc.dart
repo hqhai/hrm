@@ -18,8 +18,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<LogoutEvent>(_logOut);
   }
 
-  FutureOr<void> _checkAuthenticated(
-      CheckAuthenticated event, Emitter<AuthState> emit) async {
+  FutureOr<void> _checkAuthenticated(CheckAuthenticated event, Emitter<AuthState> emit) async {
     String userToken, email, password;
     if (event.loginResponse != null) {
       userToken = event.loginResponse!.accessToken;
@@ -52,9 +51,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   FutureOr<void> _logOut(LogoutEvent event, Emitter<AuthState> emit) async {
     if (dI<AuthBloc>().state.saveLogin) {
       emit(AuthState(
-          status: AuthStatus.unAuthentication,
-          email: state.email,
-          password: state.password));
+          status: AuthStatus.unAuthentication, email: state.email, password: state.password));
     } else {
       emit(const AuthState(status: AuthStatus.unAuthentication));
     }

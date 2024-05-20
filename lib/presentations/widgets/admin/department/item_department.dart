@@ -5,7 +5,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/bloc/department/department_bloc.dart';
 import 'package:base_app/presentations/bloc/department/department_event.dart';
 import 'package:base_app/presentations/bloc/department/department_state.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/delete_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';

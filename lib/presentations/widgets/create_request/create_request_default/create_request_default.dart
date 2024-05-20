@@ -15,6 +15,8 @@ import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_eve
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_state.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,7 +81,7 @@ class _CreateRequestDefaultWidgetState extends State<CreateRequestDefaultWidget>
 
   _listenerUserByRoles(BuildContext context, UserByRolesState state) {
     if (state.status == UserStatus.getUsersByRoleSuccess) {
-      dropdownApproverValue = state.users.first.fullName;
+      dropdownApproverValue = state.users.first.fullName??"";
     }
   }
 
@@ -212,7 +214,7 @@ class _CreateRequestDefaultWidgetState extends State<CreateRequestDefaultWidget>
               );
             },
             dropdownMenuEntries:
-                stateUser.users.map((e) => e.fullName).toList().map<DropdownMenuEntry<String>>(
+                stateUser.users.map((e) => e.fullName??"").toList().map<DropdownMenuEntry<String>>(
               (String value) {
                 return DropdownMenuEntry<String>(value: value, label: value);
               },

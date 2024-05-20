@@ -156,5 +156,7 @@
   "dateOfBirth": "Ngày sinh",
   "branch": "Chi nhánh",
   "editPersonalInformation": "Sửa thông tin cá nhân",
-  "setting": "Cài đặt"
+  "setting": "Cài đặt",
+  "account": "Tài khoản",
+  "currentPasswordIsIncorrect": "Mật khẩu hiện tại không đúng!"
 }

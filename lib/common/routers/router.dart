@@ -23,6 +23,7 @@ import 'package:base_app/presentations/pages/request/get_request/roommeeting_req
 import 'package:base_app/presentations/pages/request/update_request/request.update.page.dart';
 import 'package:base_app/presentations/pages/department/create_department.page.dart';
 import 'package:base_app/presentations/pages/trash_app/update_note.dart';
+import 'package:base_app/presentations/widgets/change_password/change_password.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 
@@ -63,5 +64,6 @@ class AppRouters {
     Pages.createCheckInSettingPage: createCheckInSettingPageRoute,
     Pages.forgotPasswordPage: forgotPasswordPageRoute,
     Pages.updateNotesPage: updateNotePageRoute,
+    Pages.changePasswordPage: changePasswordPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

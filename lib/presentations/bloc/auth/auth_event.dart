@@ -23,3 +23,4 @@ class CheckAuthenticated extends AuthEvent {
 class LogoutEvent extends AuthEvent {
   const LogoutEvent();
 }
+

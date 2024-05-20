@@ -1,16 +1,20 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_email.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/success_dialog_common.dart';
+import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -71,9 +75,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 padding: const EdgeInsets.all(SpacingUnit.x4),
                 child: Column(children: [
                   const SizedBox(height: SpacingUnit.x4),
-                  Text(
-                      appLocalizations
-                          .pleaseEnterTheEmailYouWantToRetrieveYourPassword,
+                  Text(appLocalizations.pleaseEnterTheEmailYouWantToRetrieveYourPassword,
                       style: const TextStyle(fontSize: SpacingUnit.x4)),
                   const SizedBox(height: SpacingUnit.x10_5),
                   AppInputEmail(
@@ -100,9 +102,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     color: checkInput()
                         ? CustomsColor.colorButtonSelect
                         : CustomsColor.colorUnButtonSelect,
-                    colorText: checkInput()
-                        ? colors.text
-                        : CustomsColor.colorTextUnButtonSelect,
+                    colorText: checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect,
                   ),
                 ]),
               ),
@@ -115,9 +115,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   bool checkInput() {
     RegExp regExpEmail = RegExp(checkEmailRegexExpTest);
-    return (regExpEmail.hasMatch(checkEmail))
-        ? isCheckedInput = true
-        : isCheckedInput = false;
+    return (regExpEmail.hasMatch(checkEmail)) ? isCheckedInput = true : isCheckedInput = false;
   }
 
   void onSubmit() {

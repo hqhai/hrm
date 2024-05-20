@@ -8,11 +8,22 @@ import 'package:base_app/presentations/bloc/request/request/request_state.dart';
 import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_bloc.dart';
 import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_event.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
+import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 import 'package:widgets/app_input.dart';
+
+popDialog(BuildContext context){
+  Navigator.of(context).pop();
+}
+
+onClickOK(BuildContext context, VoidCallback callback) {
+  callback.call();
+  Navigator.of(context).pop();
+}
+
 
 createRequestDialog(BuildContext context, VoidCallback callback) {
   return showDialog(
@@ -270,44 +281,6 @@ updateRequestDialog(BuildContext context, VoidCallback callback) async {
   );
 }
 
-deleteDialog(BuildContext context, VoidCallback callback) async {
-  final appLocalizations = AppLocalizations.of(context)!;
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        content: Scrollbar(
-          child: Text(
-            appLocalizations.doYouWantToDeleteTheRoom,
-            style: const TextStyle(fontSize: SpacingUnit.x6, color: Colors.white),
-          ),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              callback.call();
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              appLocalizations.ok,
-              style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white),
-            ),
-          ),
-          ElevatedButton(
-            child: Text(
-              appLocalizations.cancel,
-              style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
 updateRoomMeetingDialog(BuildContext context, RoomMeeting roomMeeting) async {
   final TextEditingController roomNameController =
           TextEditingController(text: roomMeeting.roomName??''),
@@ -516,134 +489,10 @@ changeStatusRequestByManagerDialog(BuildContext context, VoidCallback callback) 
   );
 }
 
-changePasswordDialog(BuildContext context, VoidCallback callback) async {
-  final appLocalizations = AppLocalizations.of(context)!;
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        content: Scrollbar(
-          child: Text(
-            appLocalizations.doYouWantToChangeYourPassword,
-            style: const TextStyle(fontSize: SpacingUnit.x6, color: Colors.white),
-          ),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              callback.call();
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              appLocalizations.ok,
-              style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white),
-            ),
-          ),
-          ElevatedButton(
-            child: Text(
-              appLocalizations.cancel,
-              style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
 
-successDialog(BuildContext context) async {
-  final appLocalizations = AppLocalizations.of(context)!;
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        content: Scrollbar(
-          child: Text(appLocalizations.success,
-              textAlign: TextAlign.center, style: const TextStyle(fontSize: SpacingUnit.x8)),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(appLocalizations.ok),
-          ),
-        ],
-      );
-    },
-  );
-}
 
-unsuccessfulDialog(BuildContext context) async {
-  final appLocalizations = AppLocalizations.of(context)!;
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        content: Scrollbar(
-          child: Text(appLocalizations.unsuccessful,
-              textAlign: TextAlign.center, style: const TextStyle(fontSize: SpacingUnit.x8)),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(appLocalizations.ok),
-          ),
-        ],
-      );
-    },
-  );
-}
 
-progressIndicatorDialog(BuildContext context) async {
-  return showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (context) {
-      return const AlertDialog(
-        content: SizedBox(
-          height: 100,
-          width: 100,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(
-                height: 50,
-                width: 50,
-                child: CircularProgressIndicator(),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
-}
 
-successFullDialog(BuildContext context, String content) async {
-  final appLocalizations = AppLocalizations.of(context)!;
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        content: Scrollbar(
-          child: Text(content,
-              textAlign: TextAlign.center, style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white)),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(appLocalizations.ok),
-          ),
-        ],
-      );
-    },
-  );
-}
+
+
+
