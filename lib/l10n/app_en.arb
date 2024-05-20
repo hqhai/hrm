@@ -156,5 +156,7 @@
   "dateOfBirth": "Date of birth",
   "branch": "Branch",
   "editPersonalInformation": "Edit personal information",
-  "setting": "Setting"
+  "setting": "Setting",
+  "account": "Account",
+  "currentPasswordIsIncorrect": "Current password is incorrect!"
 }

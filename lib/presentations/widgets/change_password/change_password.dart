@@ -1,16 +1,26 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/login/login_bloc.dart';
+import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/change_password_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/register/app_input_new_pssword_validate.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
+
+final changePasswordPageRoute = GoRoute(
+    path: Pages.changePasswordPage,
+    builder: (context, GoRouterState state) => const ChangePassword());
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -26,6 +36,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   String notification1 = '', notification2 = '';
 
   _listener(BuildContext context, UserState state) {
+    final appLocalizations = AppLocalizations.of(context)!;
     if (state.status == UserStatus.changePasswordSuccess) {
       successDialog(context);
       setState(() {
@@ -34,11 +45,14 @@ class _ChangePasswordState extends State<ChangePassword> {
       currentPasswordController.text = '';
       newPasswordController.text = '';
       confirmPasswordController.text = '';
+      if (dI<LoginBloc>().state.status == LoginStatus.firstLoginSuccess) {
+        dI<LoginBloc>().add(const ChangePasswordSuccessEvent());
+      }
     }
     if (state.status == UserStatus.changePasswordError) {
       unsuccessfulDialog(context);
       setState(() {
-        notification1 = 'Current password is incorrect!';
+        notification1 = appLocalizations.currentPasswordIsIncorrect;
       });
     }
   }
@@ -48,6 +62,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -105,7 +120,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                     height: SpacingUnit.x3_75,
                   ),
                   if (newPasswordController.text != '')
-                    AppInputNewPasswordValidate(password: newPasswordController.text, condition: condition),
+                    AppInputNewPasswordValidate(
+                        password: newPasswordController.text, condition: condition),
                   const SizedBox(
                     height: SpacingUnit.x3_75,
                   ),

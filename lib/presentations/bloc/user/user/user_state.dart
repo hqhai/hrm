@@ -10,7 +10,8 @@ class UserState extends Equatable {
   final User user;
   final UserStatus status;
 
-  const UserState({this.user = const User(), this.status = UserStatus.init});
+  const UserState(
+      {this.user = const User(id: "", createdUserId: ""), this.status = UserStatus.init});
 
   @override
   List<Object> get props => [user, status];

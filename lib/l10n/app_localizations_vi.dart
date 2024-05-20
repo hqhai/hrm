@@ -477,4 +477,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get setting => 'Cài đặt';
+
+  @override
+  String get account => 'Tài khoản';
+
+  @override
+  String get currentPasswordIsIncorrect => 'Mật khẩu hiện tại không đúng!';
 }

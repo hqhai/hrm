@@ -22,4 +22,5 @@ class Pages {
   static const String createCheckInSettingPage = '/createCheckInSettingPage';
   static const String forgotPasswordPage = '/forgotPasswordPage';
   static const String updateNotesPage = '/updateNotesPage';
+  static const String changePasswordPage = '/changePasswordPage';
 }

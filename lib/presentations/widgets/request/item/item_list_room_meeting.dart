@@ -9,6 +9,7 @@ import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_ev
 import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
+import 'package:base_app/presentations/widgets/dialog/delete_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

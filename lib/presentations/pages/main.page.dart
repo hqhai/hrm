@@ -10,12 +10,13 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/pages/home/home.page.dart';
 import 'package:base_app/presentations/pages/login/login.page.dart';
+import 'package:base_app/presentations/widgets/change_password/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 final mainPageRoute =
-GoRoute(path: Pages.main, builder: (context, GoRouterState state) => const MainPage());
+    GoRoute(path: Pages.main, builder: (context, GoRouterState state) => const MainPage());
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -40,13 +41,11 @@ class _MainPageState extends State<MainPage> {
             return BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 if (state.status == AuthStatus.loggedIn) {
-                  if(stateUser.status != UserStatus.getUserInfoErrorUnauthorized) {
-                    //Chưa fix isFirstLogin nên tạm khóa chức năng đổi mật khẩu lần đầu đăng nhập
-                  /*if(stateLogin.status == LoginStatus.firstLoginSuccess)
-                {
-                  return const ChangePassword();
-                }*/
-                  return const HomePage();
+                  if (stateUser.status != UserStatus.getUserInfoErrorUnauthorized) {
+                    if (stateLogin.status == LoginStatus.firstLoginSuccess) {
+                      return const ChangePassword();
+                    }
+                    return const HomePage();
                   }
                 }
                 return const LoginPage();

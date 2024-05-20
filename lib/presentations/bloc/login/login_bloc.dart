@@ -25,6 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<StatusLogin>(_status);
     on<PassLogin>(_passWordLogin);
     on<EmailOrUserLogin>(_emailOrUserNameLogin);
+    on<ChangePasswordSuccessEvent>(_changePasswordSuccessEvent);
   }
 
   FutureOr<void> _requestLogin(RequestLogin event, Emitter<LoginState> emit) async {
@@ -97,5 +98,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (even.password.isNotEmpty) {
       emit(state.copyWith(status: LoginStatus.passFalse));
     }
+  }
+
+  FutureOr<void> _changePasswordSuccessEvent(
+      ChangePasswordSuccessEvent event, Emitter<LoginState> emit) {
+    emit(state.copyWith(status: LoginStatus.loginSuccess));
   }
 }

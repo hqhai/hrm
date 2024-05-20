@@ -67,3 +67,10 @@ class StatusLogin extends LoginEvent {
   @override
   List<Object> get props => [status];
 }
+
+class ChangePasswordSuccessEvent extends LoginEvent {
+  const ChangePasswordSuccessEvent();
+
+  @override
+  List<Object> get props => [];
+}
