@@ -148,5 +148,7 @@
   "home": "Home",
   "profile": "Profile",
   "doYouWantToDeleteYourAccount": "Do you want to delete your account?",
-  "deleteAccount": "Delete Account"
+  "deleteAccount": "Delete Account",
+  "gender": "Gender",
+  "dateOfBirth": "Date of birth"
 }

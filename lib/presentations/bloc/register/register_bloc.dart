@@ -16,80 +16,78 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc()
       : userUseCase = dI<UserUseCase>(),
         super(const RegisterState(
-          registerRequest: RegisterRequest(firstName: '', lastName: '', password: '', email: ''),
-          requestStatus: RegisterRequestStatus.init)) {
+            registerRequest: RegisterRequest(
+                firstName: '', lastName: '', password: '', email: '', gender: '', dayOfBirth: ''),
+            requestStatus: RegisterRequestStatus.init)) {
     on<RegisterEvent>((event, emit) {});
     on<RegisterEmailInputEvent>(registerEmailInputEvent);
     on<RegisterNameInputEvent>(registerNameInputEvent);
     on<RegisterPasswordInputEvent>(registerPasswordInputEvent);
     on<RegisterRequestEvent>(_registerRequestEvent);
+    on<RegisterGenderDateOfBirthInputEvent>(_registerGenderDateOfBirthInputEvent);
   }
 
-  FutureOr<void> registerEmailInputEvent(RegisterEmailInputEvent event,
-      Emitter<RegisterState> emit) {
+  FutureOr<void> registerEmailInputEvent(
+      RegisterEmailInputEvent event, Emitter<RegisterState> emit) {
     emit(state.copyWith(requestStatus: RegisterRequestStatus.init));
     try {
-      RegisterRequest registerRequest = event.registerRequest.copyWith(
-        firstName: event.registerRequest.firstName,
-        lastName: event.registerRequest.lastName,
-        email: event.email,
-        password: event.registerRequest.password,
-      );
+      RegisterRequest registerRequest = state.registerRequest.copyWith(email: event.email);
       emit(state.copyWith(
           registerRequest: registerRequest, requestStatus: RegisterRequestStatus.emailInput));
     } catch (e) {
-      emit(state.copyWith(
-          registerRequest: event.registerRequest,
-          requestStatus: RegisterRequestStatus.errorEmailInput));
+      emit(state.copyWith(requestStatus: RegisterRequestStatus.errorEmailInput));
     }
   }
 
   FutureOr<void> registerNameInputEvent(RegisterNameInputEvent event, Emitter<RegisterState> emit) {
     emit(state.copyWith(requestStatus: RegisterRequestStatus.init));
     try {
-      RegisterRequest registerRequest = event.registerRequest.copyWith(
-        firstName: event.firstName,
-        lastName: event.lastName,
-        email: event.registerRequest.email,
-        password: event.registerRequest.password,
-      );
+      RegisterRequest registerRequest =
+          state.registerRequest.copyWith(firstName: event.firstName, lastName: event.lastName);
       emit(state.copyWith(
           registerRequest: registerRequest, requestStatus: RegisterRequestStatus.nameInput));
     } catch (e) {
-      emit(state.copyWith(
-          registerRequest: event.registerRequest,
-          requestStatus: RegisterRequestStatus.errorNameInput));
+      emit(state.copyWith(requestStatus: RegisterRequestStatus.errorNameInput));
     }
   }
 
-  FutureOr<void> registerPasswordInputEvent(RegisterPasswordInputEvent event,
-      Emitter<RegisterState> emit) {
+  FutureOr<void> registerPasswordInputEvent(
+      RegisterPasswordInputEvent event, Emitter<RegisterState> emit) {
     emit(state.copyWith(requestStatus: RegisterRequestStatus.init));
     try {
-      RegisterRequest registerRequest = event.registerRequest.copyWith(
-        firstName: event.registerRequest.firstName,
-        lastName: event.registerRequest.lastName,
-        email: event.registerRequest.email,
+      RegisterRequest registerRequest = state.registerRequest.copyWith(
         password: event.password,
       );
       emit(state.copyWith(
           registerRequest: registerRequest, requestStatus: RegisterRequestStatus.passwordInput));
     } catch (e) {
-      emit(state.copyWith(
-          registerRequest: event.registerRequest,
-          requestStatus: RegisterRequestStatus.errorPasswordInput));
+      emit(state.copyWith(requestStatus: RegisterRequestStatus.errorPasswordInput));
     }
   }
 
-  FutureOr<void> _registerRequestEvent(RegisterRequestEvent event,
-      Emitter<RegisterState> emit) async {
+  FutureOr<void> _registerRequestEvent(
+      RegisterRequestEvent event, Emitter<RegisterState> emit) async {
     emit(state.copyWith(requestStatus: RegisterRequestStatus.registerInit));
     try {
-      RegisterRequest registerRequest = event.registerRequest.copyWith(password: event.password);
+      RegisterRequest registerRequest = state.registerRequest.copyWith(password: event.password);
       await userUseCase.register(registerRequest: registerRequest);
-      emit(state.copyWith(registerRequest: registerRequest, requestStatus: RegisterRequestStatus.registerSuccess));
+      emit(state.copyWith(
+          registerRequest: registerRequest, requestStatus: RegisterRequestStatus.registerSuccess));
     } catch (e) {
       emit(state.copyWith(requestStatus: RegisterRequestStatus.registerError));
+    }
+  }
+
+  FutureOr<void> _registerGenderDateOfBirthInputEvent(
+      RegisterGenderDateOfBirthInputEvent event, Emitter<RegisterState> emit) {
+    emit(state.copyWith(requestStatus: RegisterRequestStatus.init));
+    try {
+      RegisterRequest registerRequest =
+          state.registerRequest.copyWith(gender: event.gender, dayOfBirth: event.dateOfBirth);
+      emit(state.copyWith(
+          registerRequest: registerRequest, requestStatus: RegisterRequestStatus.passwordInput));
+    } catch (e) {
+      emit(state.copyWith(requestStatus: RegisterRequestStatus.errorPasswordInput));
     }
   }
 }

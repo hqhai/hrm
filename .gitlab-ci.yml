@@ -1,0 +1,48 @@
+# This file is a template, and might need editing before it works on your project.
+# You can copy and paste this template into a new `.gitlab-ci.yml` file.
+# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
+#
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Flutter.gitlab-ci.yml
+
+stages:
+  - test
+  - build_testing
+  # - build_beta
+# manual_only_build_android_uat:
+#   extends: .build_android_testing
+#   only:
+#     variables:
+#       - $ENV =~ /uat/
+
+manual_build_android_uat:
+  extends: .build_android_testing
+  only:
+    - web
+  except:
+    variables:
+      - $ENV == "auto"
+
+.build_android_testing:
+  tags:
+    - flutter
+  stage: build_testing
+  needs: []
+  retry: 2
+  script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US.UTF-8
+    - export LC_ALL=en_US.UTF-8
+    - eval "$(/opt/homebrew/bin/brew shellenv)"
+    - make clean
+    - make build-apk
+    - fastlane android publish_appcenter env:uat
+
+test:
+  tags:
+    - flutter
+  stage: test
+  script:
+    - make test

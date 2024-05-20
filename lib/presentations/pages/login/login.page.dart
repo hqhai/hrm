@@ -14,7 +14,6 @@ import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
 import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
-import 'package:base_app/presentations/widgets/custom/contact_help.dart';
 import 'package:base_app/presentations/widgets/login/drop_down_menu_language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

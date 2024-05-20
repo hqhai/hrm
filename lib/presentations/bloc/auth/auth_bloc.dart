@@ -18,17 +18,19 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<LogoutEvent>(_logOut);
   }
 
-  FutureOr<void> _checkAuthenticated(
-      CheckAuthenticated event, Emitter<AuthState> emit) async {
+  FutureOr<void> _checkAuthenticated(CheckAuthenticated event, Emitter<AuthState> emit) async {
     String userToken, email, password;
+    List<String> roles;
     if (event.loginResponse != null) {
       userToken = event.loginResponse!.accessToken;
       email = event.email;
       password = event.password;
+      roles = event.roles;
     } else {
       userToken = state.token;
       email = state.email;
       password = state.password;
+      roles = state.roles;
     }
     try {
       if (userToken.isNotEmpty) {
@@ -40,7 +42,8 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
             token: userToken,
             saveLogin: event.saveLogin,
             email: email,
-            password: password));
+            password: password,
+            roles: roles));
       } else {
         emit(const AuthState(status: AuthStatus.unAuthentication));
       }
@@ -52,9 +55,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   FutureOr<void> _logOut(LogoutEvent event, Emitter<AuthState> emit) async {
     if (dI<AuthBloc>().state.saveLogin) {
       emit(AuthState(
-          status: AuthStatus.unAuthentication,
-          email: state.email,
-          password: state.password));
+          status: AuthStatus.unAuthentication, email: state.email, password: state.password));
     } else {
       emit(const AuthState(status: AuthStatus.unAuthentication));
     }

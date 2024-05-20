@@ -453,4 +453,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get deleteAccount => 'Xóa tài khoản';
+
+  @override
+  String get gender => 'Giới tính';
+
+  @override
+  String get dateOfBirth => 'Ngày sinh';
 }

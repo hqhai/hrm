@@ -453,4 +453,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAccount => 'Delete Account';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get dateOfBirth => 'Date of birth';
 }

@@ -66,6 +66,18 @@ enum LanguageEnum {
   const LanguageEnum(this.name, this.code);
 }
 
+enum GenderEnum {
+  male('Nam', 'Male'),
+  female('Nữ', 'Female'),
+  other('Khác', 'Other');
+
+  final String nameVi;
+  final String nameEn;
+
+  const GenderEnum(this.nameVi, this.nameEn);
+}
+
+
 
 
 

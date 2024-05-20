@@ -1,9 +1,18 @@
-FLUTTER ?=fvm flutter
+FLUTTER ?=flutter
 
 
 .PHONY: gen-code
 gen-code:
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+
+.PHONY: test
+test:
+	bash scripts/appendGitEnvs.sh
+	git submodule update --init
+	git submodule update --recursive --remote
+	$(FLUTTER) pub get
+	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+	$(FLUTTER) analyze
 
 .PHONY: clean
 clean:
@@ -22,9 +31,10 @@ init:
 	
 .PHONY: build-apk
 build-apk:
+	bash scripts/appendGitEnvs.sh
 	$(FLUTTER) pub get
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
-	$(FLUTTER) build apk
+	$(FLUTTER) build apk -t lib/main.dart
 
 .PHONY: build-ipa
 build-ipa:
