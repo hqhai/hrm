@@ -61,7 +61,6 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
 
   _listener(BuildContext context, DepartmentState state) {
     nameController.text = state.departments[widget.index].name;
-    codeController.text = state.departments[widget.index].code;
     emailController.text = state.departments[widget.index].email;
     phoneNumberController.text = state.departments[widget.index].phoneNumber;
     addressController.text = state.departments[widget.index].address;
@@ -71,7 +70,6 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
         .first
         .name;
     name = state.departments[widget.index].name;
-    code = state.departments[widget.index].code;
     email = state.departments[widget.index].email;
     address = state.departments[widget.index].address;
     phoneNumber = state.departments[widget.index].phoneNumber;

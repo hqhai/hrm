@@ -33,7 +33,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
 
   @override
   void initState() {
-    email = dI<UserBloc>().state.user.email;
+    email = dI<UserBloc>().state.user.email ?? "";
     dI<AttendanceBloc>().add(
         GetAttendanceEvent(email: email, month: currentDateTime.month, year: currentDateTime.year));
     super.initState();

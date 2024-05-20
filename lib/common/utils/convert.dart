@@ -29,6 +29,14 @@ String formatYMD(String time) {
   return '';
 }
 
+String formatDMY(String time) {
+  if (time != '') {
+    DateTime dateTime = DateTime.parse(time);
+    return DateFormat('dd-MM-yyyy').format(dateTime);
+  }
+  return '';
+}
+
 String formatHMS(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);

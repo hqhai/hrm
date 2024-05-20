@@ -11,6 +11,7 @@ import 'package:base_app/presentations/pages/main.page.dart';
 import 'package:base_app/presentations/pages/personnel/create_personnel.page.dart';
 import 'package:base_app/presentations/pages/position/create_position.page.dart';
 import 'package:base_app/presentations/pages/position/update_position.page.dart';
+import 'package:base_app/presentations/pages/profile/update_profile.page.dart';
 import 'package:base_app/presentations/pages/register/register.page.dart';
 import 'package:base_app/presentations/pages/request/create_request/create_explanation.page.dart';
 import 'package:base_app/presentations/pages/request/create_request/create_room_meeting.dart';
@@ -65,5 +66,6 @@ class AppRouters {
     Pages.forgotPasswordPage: forgotPasswordPageRoute,
     Pages.updateNotesPage: updateNotePageRoute,
     Pages.changePasswordPage: changePasswordPageRoute,
+    Pages.updateProfilePage : updateProfilePageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

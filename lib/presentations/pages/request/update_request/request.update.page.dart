@@ -259,7 +259,7 @@ class _RequestUpdatePageState extends State<RequestUpdatePage> {
                           SizedBox(
                             width: MediaQuery.sizeOf(context).width * 0.5,
                             child: Text(
-                              approverName(request.approverId ?? ''),
+                              approverName(request.approverId ?? '')??"",
                               style: TextStyle(fontSize: SpacingUnit.x4_5, color: colors.text),
                             ),
                           ),
@@ -333,7 +333,7 @@ class _RequestUpdatePageState extends State<RequestUpdatePage> {
                     const SizedBox(
                       height: SpacingUnit.x4_5,
                     ),
-                    dI<UserBloc>().state.user.role == ConfigStringValues.user.name
+                    dI<UserBloc>().state.user.id == ConfigStringValues.user.name
                         ? ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
@@ -491,7 +491,7 @@ class _RequestUpdatePageState extends State<RequestUpdatePage> {
     }
   }
 
-  String approverName(String id) {
+  String? approverName(String id) {
     return dI<UserByRolesBloc>().state.users.where((e) => e.id == id).first.fullName;
   }
 }

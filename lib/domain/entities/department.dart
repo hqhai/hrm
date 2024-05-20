@@ -4,7 +4,6 @@ part 'department.g.dart';
 @JsonSerializable()
 class Department {
   final String name;
-  final String code;
   final String phoneNumber;
   final String email;
   final String address;
@@ -20,7 +19,6 @@ class Department {
 
   const Department({
     required this.name,
-    required this.code,
     required this.phoneNumber,
     required this.email,
     required this.address,

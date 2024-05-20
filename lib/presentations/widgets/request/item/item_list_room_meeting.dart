@@ -58,7 +58,7 @@ class _ItemListRoomMeetingState extends State<ItemListRoomMeeting> {
                                   fontSize: SpacingUnit.x6, color: Colors.deepOrange)),
                         ),
                         Expanded(
-                          flex: (!(state.user.role ==
+                          flex: (!(state.user.id ==
                                   ConfigStringValues.generalManager.name))
                               ? 40
                               : 20,
@@ -71,7 +71,7 @@ class _ItemListRoomMeetingState extends State<ItemListRoomMeeting> {
                           ),
                         ),
                         Expanded(
-                          flex: (!(state.user.role ==
+                          flex: (!(state.user.id ==
                                   ConfigStringValues.generalManager.name))
                               ? 15
                               : 10,
@@ -92,7 +92,7 @@ class _ItemListRoomMeetingState extends State<ItemListRoomMeeting> {
                               style:
                                   const TextStyle(fontSize: SpacingUnit.x4, color: Colors.orange)),
                         ),
-                        if (state.user.role == ConfigStringValues.generalManager.name)
+                        if (state.user.id == ConfigStringValues.generalManager.name)
                           Expanded(
                             flex: 10,
                             child: GestureDetector(
@@ -102,7 +102,7 @@ class _ItemListRoomMeetingState extends State<ItemListRoomMeeting> {
                               child: const Icon(Icons.delete, color: Colors.red, size: 24),
                             ),
                           ),
-                        if (state.user.role == ConfigStringValues.generalManager.name)
+                        if (state.user.id == ConfigStringValues.generalManager.name)
                           Expanded(
                             flex: 10,
                             child: GestureDetector(

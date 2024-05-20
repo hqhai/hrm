@@ -1,5 +1,5 @@
-import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/entities/family.dart';
+import 'package:base_app/domain/entities/user_department_position.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
@@ -11,8 +11,8 @@ class User {
   final String? updatedUserId;
   final String? createdFullName;
   final String? updatedFullName;
-  final DateTime? createdDate;
-  final DateTime? updatedDate;
+  final String? createdDate;
+  final String? updatedDate;
   final String? userName;
   final String? code;
   final String? tax;
@@ -20,17 +20,17 @@ class User {
   final String? firstName;
   final String? lastName;
   final String? fullName;
-  final DateTime? dayOfBirth;
+  final String? dayOfBirth;
   final String? gender;
   final String? avatarPath;
   final String? ciNumber;
   final String? ciIssuePlace;
-  final DateTime? ciIssueDate;
-  final DateTime? ciExpiryDate;
+  final String? ciIssueDate;
+  final String? ciExpiryDate;
   final String? passPortNumber;
   final String? passPortIssuePlace;
-  final DateTime? passPortIssueDate;
-  final DateTime? passPortExpiryDate;
+  final String? passPortIssueDate;
+  final String? passPortExpiryDate;
   final String? residentProvince;
   final String? residentAddress;
   final String? residentDistrict;
@@ -47,7 +47,7 @@ class User {
   final String? bankName;
   final String? accountHolderName;
   final String? accountNumber;
-  final List<Family>? families;
+  final List<Family> families;
   final String? phoneNumber;
   final String? email;
   final String? companyEmail;
@@ -57,13 +57,13 @@ class User {
   final String? graduationType;
   final String? graduationYear;
   final bool? profileStatus;
-  final DateTime? probationDay;
-  final DateTime? officialDay;
-  final DateTime? endDate;
+  final String? probationDay;
+  final String? officialDay;
+  final String? endDate;
   final String? statusUser;
   final String? typeOfPersonnel;
   final String? description;
-  final List<Department>? userDepartmentPositions;
+  final List<UserDepartmentPosition> userDepartmentPositions;
 
   const User({
     required this.id,
@@ -102,7 +102,7 @@ class User {
     this.bankName,
     this.accountHolderName,
     this.accountNumber,
-    this.families,
+    this.families = const [],
     this.phoneNumber,
     this.email,
     this.companyEmail,
@@ -118,7 +118,7 @@ class User {
     this.statusUser,
     this.typeOfPersonnel,
     this.description,
-    this.userDepartmentPositions,
+    this.userDepartmentPositions = const [],
     this.updatedUserId,
     this.createdFullName,
     this.updatedFullName,

@@ -46,7 +46,7 @@ class _ManagementRequestState extends State<ManagementRequest> {
     dI<RequestBloc>().add(GetRequestByAdminEvent(
         type: dropdownTypeRequestValue, startDate: startDate, endDate: endDate));
     dI<UserByAdminBloc>().add(GetUserByManagerEvent(startDate, endDate));
-    dI<UserByRolesBloc>().add(GetUserByRoleEvent(role: dI<UserBloc>().state.user.role));
+    dI<UserByRolesBloc>().add(GetUserByRoleEvent(role: dI<UserBloc>().state.user.id));
     super.initState();
   }
 
@@ -96,7 +96,7 @@ class _ManagementRequestState extends State<ManagementRequest> {
                             onSelected: (String? value) {
                               dropdownTypeRequestValue = value!;
                             },
-                            dropdownMenuEntries: dI<UserBloc>().state.user.role ==
+                            dropdownMenuEntries: dI<UserBloc>().state.user.id ==
                                     ConfigStringValues.generalManager.name
                                 ? MenuValues.listSearchTypeRequestByAdmin
                                     .map<DropdownMenuEntry<String>>((String value) {

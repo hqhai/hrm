@@ -83,16 +83,16 @@ class _DatePickerState extends State<DatePicker> with RestorationMixin {
           ),
           child: Text(
             getTimeDisplay(),
-            style: const TextStyle(fontSize: SpacingUnit.x5, color: Colors.white),
+            style: const TextStyle(fontSize: 20, color: Colors.white),
           )),
     );
   }
 
-  String getTimeDisplay() {
+  String getTimeDisplay(){
     return getTime == ''
         ? widget.oldDate != ''
-            ? widget.oldDate
-            : DateFormat('yyyy-MM-dd').format(DateTime.now())
+        ? widget.oldDate
+        : DateFormat('yyyy-MM-dd').format(DateTime.now())
         : getTime;
   }
 }

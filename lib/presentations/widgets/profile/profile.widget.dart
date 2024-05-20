@@ -1,10 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:base_app/common/utils/color_utils.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
+import 'package:base_app/presentations/pages/profile/item_textfield_content_update_profile.dart';
+import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
+import 'package:base_app/presentations/widgets/profile/item_text_content_profile.dart';
+import 'package:base_app/presentations/widgets/profile/item_text_title_profile.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +25,7 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
+
   @override
   void initState() {
     super.initState();
@@ -29,16 +35,21 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Scaffold(
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           return Container(
             padding:
-                const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+            const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
             margin:
-                const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-            height: MediaQuery.sizeOf(context).height,
+            const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+            height: MediaQuery
+                .sizeOf(context)
+                .height,
             decoration: BoxDecoration(
               color: CustomsColor.colorBackground,
               borderRadius: const BorderRadius.all(
@@ -63,7 +74,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         Expanded(
                             flex: 30,
                             child: Image.network(
-                              state.user.avatarPath,
+                              state.user.avatarPath ?? "",
                               fit: BoxFit.fill,
                               errorBuilder: (context, error, stackTrace) {
                                 return Image.asset(
@@ -80,7 +91,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  state.user.fullName,
+                                  state.user.fullName ?? "",
                                   style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
                                 ),
                                 const SizedBox(height: SpacingUnit.x5),
@@ -89,15 +100,15 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     Text(
                                       '${appLocalizations.phoneNumber} : ',
                                       style:
-                                          TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                                      TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                                     ),
                                     Expanded(
                                       child: Text(
-                                        state.user.phoneNumber,
+                                        state.user.phoneNumber ?? "",
                                         maxLines: 1,
                                         overflow: TextOverflow.clip,
                                         style:
-                                            TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                                        TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                                       ),
                                     ),
                                   ],
@@ -110,15 +121,15 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     Text(
                                       '${appLocalizations.email} : ',
                                       style:
-                                          TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                                      TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                                     ),
                                     Expanded(
                                       child: Text(
                                         maxLines: 2,
                                         overflow: TextOverflow.clip,
-                                        state.user.email,
+                                        state.user.email ?? "",
                                         style:
-                                            TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                                        TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                                       ),
                                     ),
                                   ],
@@ -146,283 +157,47 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: SpacingUnit.x3),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      appLocalizations.employeeCode,
-                                      style: TextStyle(
-                                          color: colors.tertiary, fontSize: SpacingUnit.x3),
-                                    ),
-                                    const SizedBox(
-                                      height: SpacingUnit.x4_5,
-                                    ),
-                                    Container(
-                                      width: width * 0.5,
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                            color: colors.text,
-                                            width: 1,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        state.user.id,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                          color: colors.text,
-                                          fontSize: SpacingUnit.x3,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: SpacingUnit.x4_5,
-                                    ),
-                                    Text(
-                                      appLocalizations.personalEmail,
-                                      style: TextStyle(
-                                          color: colors.tertiary, fontSize: SpacingUnit.x3),
-                                    ),
-                                    const SizedBox(
-                                      height: SpacingUnit.x4_5,
-                                    ),
-                                    Container(
-                                      width: width * 0.5,
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                            color: colors.text,
-                                            width: 1,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        state.user.email,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style:
-                                            TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: SpacingUnit.x4_5,
-                                    ),
-                                    Text(
-                                      appLocalizations.gender,
-                                      style: TextStyle(
-                                          color: colors.tertiary, fontSize: SpacingUnit.x3),
-                                    ),
-                                    const SizedBox(
-                                      height: SpacingUnit.x4_5,
-                                    ),
-                                    Container(
-                                      width: width * 0.5,
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                            color: colors.text,
-                                            width: 1,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        state.user.type,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style:
-                                            TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: SpacingUnit.x4_5,
-                                    ),
-                                    Text(
-                                      appLocalizations.department,
-                                      style: TextStyle(
-                                          color: colors.tertiary, fontSize: SpacingUnit.x3),
-                                    ),
-                                    const SizedBox(
-                                      height: SpacingUnit.x4_5,
-                                    ),
-                                    Container(
-                                      width: width * 0.5,
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                            color: colors.text,
-                                            width: 1,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        state.user.department,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style:
-                                            TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    appLocalizations.dateOfBirth,
-                                    style:
-                                        TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x3),
-                                  ),
-                                  const SizedBox(
-                                    height: SpacingUnit.x4_5,
-                                  ),
-                                  Container(
-                                    width: width * 0.5,
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: colors.text,
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      state.user.id,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.clip,
-                                      style:
-                                          TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: SpacingUnit.x4_5,
-                                  ),
-                                  Text(
-                                    appLocalizations.phoneNumber,
-                                    style:
-                                        TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x3),
-                                  ),
-                                  const SizedBox(
-                                    height: SpacingUnit.x4_5,
-                                  ),
-                                  Container(
-                                    width: width * 0.5,
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: colors.text,
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      state.user.phoneNumber,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: SpacingUnit.x4_5,
-                                  ),
-                                  Text(
-                                    appLocalizations.address,
-                                    style:
-                                        TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x3),
-                                  ),
-                                  const SizedBox(
-                                    height: SpacingUnit.x4_5,
-                                  ),
-                                  Container(
-                                    width: width * 0.5,
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: colors.text,
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      state.user.department,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: SpacingUnit.x4_5,
-                                  ),
-                                  Text(
-                                    appLocalizations.branch,
-                                    style:
-                                        TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x3),
-                                  ),
-                                  const SizedBox(
-                                    height: SpacingUnit.x4_5,
-                                  ),
-                                  Container(
-                                    width: width * 0.5,
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: colors.text,
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      state.user.type,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                        ItemTitleProfile(
+                          title1: appLocalizations.employeeCode,
+                          title2: appLocalizations.dateOfBirth,
                         ),
-                        const SizedBox(
-                          height: SpacingUnit.x4_5,
+                        ItemContentProfile(
+                          content1: state.user.code ?? '',
+                          content2: formatDMY(state.user.dayOfBirth ?? ''),
                         ),
-                        Text(
-                          appLocalizations.position,
-                          style: TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x3),
+                        ItemTitleProfile(
+                          title1: appLocalizations.personalEmail,
+                          title2: appLocalizations.phoneNumber,
                         ),
-                        const SizedBox(
-                          height: SpacingUnit.x4_5,
+                        ItemContentProfile(
+                            content1: state.user.email ?? "",
+                            content2: state.user.phoneNumber ?? ""),
+                        ItemTitleProfile(
+                          title1: appLocalizations.gender,
+                          title2: appLocalizations.address,
                         ),
-                        Container(
-                          width: width,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: colors.text,
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          child: Text(
-                            state.user.type,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                          ),
+                        ItemContentProfile(
+                          content1: state.user.gender ?? "",
+                          content2:
+                          "${state.user.residentAddress ?? ""}, ${state.user.residentWard ??
+                              ""}, ${state.user.residentDistrict ?? ""},${state.user
+                              .residentProvince ?? ""}",
+                        ),
+                        ItemTitleProfile(
+                          title1: appLocalizations.department,
+                          title2: appLocalizations.position,
+                        ),
+                        ItemDepartmentAndPositionProfile(
+                          departmentNames: state.user.userDepartmentPositions.isNotEmpty
+                              ? state.user.userDepartmentPositions
+                              .map((e) => e.department?.name ?? "")
+                              .toList()
+                              : [],
+                          positionNames: state.user.userDepartmentPositions.isNotEmpty
+                              ? state.user.userDepartmentPositions
+                              .map((e) => e.position?.name ?? "")
+                              .toList()
+                              : [],
                         ),
                       ],
                     ),
