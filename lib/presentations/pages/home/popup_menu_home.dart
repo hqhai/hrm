@@ -31,12 +31,6 @@ class _PopupMenuHomeState extends State<PopupMenuHome> {
 
   bool checkOpacity = false;
 
-  _editPersonalInformation() {}
-
-  _setting() {}
-
-  _changePassword() {}
-
   _language(BuildContext context, LanguageState state) {
     if (state.languageCode == LanguageEnum.en) {
       dI<LanguageCubit>().changeLocale(LanguageEnum.vi);
@@ -68,72 +62,6 @@ class _PopupMenuHomeState extends State<PopupMenuHome> {
       onOpened: () => widget.onChangeCheckOpacity(!checkOpacity),
       onCanceled: () => widget.onChangeCheckOpacity(checkOpacity),
       itemBuilder: (_) => [
-        PopupMenuItem(
-          child: GestureDetector(
-            onTap: () => _editPersonalInformation(),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Assets.images.icon.popupAppbar.suaThongTinCaNhan,
-                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                ),
-                const SizedBox(
-                  width: SpacingUnit.x3,
-                ),
-                Text(
-                  appLocalizations.editPersonalInformation,
-                  style: const TextStyle(
-                    fontSize: SpacingUnit.x3_5,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        PopupMenuItem(
-          child: GestureDetector(
-            onTap: () => _setting(),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Assets.images.icon.popupAppbar.caiDat,
-                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                ),
-                const SizedBox(
-                  width: SpacingUnit.x3,
-                ),
-                Text(
-                  appLocalizations.setting,
-                  style: const TextStyle(
-                    fontSize: SpacingUnit.x3_5,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        PopupMenuItem(
-          child: GestureDetector(
-            onTap: () => _changePassword(),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Assets.images.icon.popupAppbar.doiMatKhau,
-                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                ),
-                const SizedBox(
-                  width: SpacingUnit.x3,
-                ),
-                Text(
-                  appLocalizations.changePassword,
-                  style: const TextStyle(
-                    fontSize: SpacingUnit.x3_5,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
         PopupMenuItem(
           child: BlocBuilder<LanguageCubit, LanguageState>(
             builder: (context, stateLanguage) {

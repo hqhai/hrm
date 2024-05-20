@@ -8,7 +8,6 @@ part of 'department.dart';
 
 Department _$DepartmentFromJson(Map<String, dynamic> json) => Department(
       name: json['name'] as String,
-      code: json['code'] as String,
       phoneNumber: json['phoneNumber'] as String,
       email: json['email'] as String,
       address: json['address'] as String,
@@ -26,7 +25,6 @@ Department _$DepartmentFromJson(Map<String, dynamic> json) => Department(
 Map<String, dynamic> _$DepartmentToJson(Department instance) {
   final val = <String, dynamic>{
     'name': instance.name,
-    'code': instance.code,
     'phoneNumber': instance.phoneNumber,
     'email': instance.email,
     'address': instance.address,

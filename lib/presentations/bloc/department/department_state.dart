@@ -14,7 +14,6 @@ class DepartmentState extends Equatable {
   const DepartmentState(
       {this.department = const Department(
           name: '',
-          code: '',
           phoneNumber: '',
           email: '',
           address: '',

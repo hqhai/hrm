@@ -61,7 +61,7 @@ class _ListUsersByManagerState extends State<ListUsersByManager> {
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              stateUser.users[index].fullName,
+                              stateUser.users[index].fullName??"",
                               style: TextStyle(
                                   fontSize: 18,
                                   color:

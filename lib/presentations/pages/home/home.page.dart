@@ -3,6 +3,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/menu_values.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_event.dart';
 import 'package:base_app/presentations/pages/home/popup_menu_account.dart';
+import 'package:base_app/presentations/pages/home/popup_menu_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -83,10 +85,10 @@ class _HomePageState extends State<HomePage> {
       builder: (context, stateUser) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(titleValue(context, selectedIndex)),
-            actions: [
-              PopupMenuAccount(onChangeCheckOpacity: (value) => _opacity(value)),
-            ],
+            leading: const SizedBox(),
+            title: Text(titleValue(context, selectedIndex),
+                style: const TextStyle(fontSize: SpacingUnit.x6_5)),
+            actions: [popupMenu(selectedIndex)],
           ),
           bottomNavigationBar: BottomNavigationBar(
             showUnselectedLabels: true,
@@ -140,6 +142,16 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  Widget popupMenu(int selectedIndex) {
+    if (selectedIndex == 0) {
+      return PopupMenuAccount(onChangeCheckOpacity: (value) => _opacity(value));
+    } else if (selectedIndex == 1) {
+      return PopupMenuHome(onChangeCheckOpacity: (value) => _opacity(value));
+    } else {
+      return PopupMenuAccount(onChangeCheckOpacity: (value) => _opacity(value));
+    }
   }
 
   void _onItemTapped(int index) {

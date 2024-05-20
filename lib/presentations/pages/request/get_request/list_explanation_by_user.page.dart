@@ -205,7 +205,7 @@ class _ListExplanationByUserPageState extends State<ListExplanationByUserPage> {
   }
 
   bool _check() {
-    return dI<UserBloc>().state.user.role == ConfigStringValues.manager.name;
+    return dI<UserBloc>().state.user.id == ConfigStringValues.manager.name;
   }
 
   countList(List<Request> listRequest) {

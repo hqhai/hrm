@@ -105,7 +105,7 @@ class _BodyCalendarState extends State<BodyCalendar> {
   _listener(BuildContext context, RequestState state) {
     if (state.status == RequestStatus.createRequestSuccess) {
       dI<AttendanceBloc>().add(GetAttendanceEvent(
-          email: dI<UserBloc>().state.user.email, month: widget.month, year: widget.year));
+          email: dI<UserBloc>().state.user.email ?? "", month: widget.month, year: widget.year));
     }
   }
 
@@ -244,12 +244,12 @@ class _BodyCalendarState extends State<BodyCalendar> {
       timeKeepingInDay = '${format(attendance.timeCheckIn)} - ${format(attendance.timeCheckOut)}';
       checkIn = _checkCheckIn(state.attendances, widget.listDate[index], widget.month);
       if (attendance.noteRoomLeader != null) {
-        noteRoomLeader = attendance.noteRoomLeader??'';
+        noteRoomLeader = attendance.noteRoomLeader ?? '';
       } else {
         noteRoomLeader = '';
       }
       if (attendance.noteManager != null) {
-        noteManager = attendance.noteManager??'';
+        noteManager = attendance.noteManager ?? '';
       } else {
         noteManager = '';
       }

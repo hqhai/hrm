@@ -106,6 +106,6 @@ class _CreateRoomMeetingWidgetState extends State<CreateRoomMeetingWidget> {
   }
 
   bool _checkRole(){
-    return dI<UserBloc>().state.user.role == ConfigStringValues.manager.name;
+    return dI<UserBloc>().state.user.id == ConfigStringValues.manager.name;
   }
 }

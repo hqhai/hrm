@@ -1,6 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';

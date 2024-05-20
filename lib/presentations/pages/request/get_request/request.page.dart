@@ -241,7 +241,7 @@ class _RequestPageState extends State<RequestPage> {
                             width: MediaQuery.sizeOf(context).width * 0.5,
                             child: Text(
                               textAlign: TextAlign.right,
-                              approverName(state.request.approverId??''),
+                              approverName(state.request.approverId??'')??"",
                               style: TextStyle(fontSize: SpacingUnit.x4_5, color: colors.text),
                             ),
                           ),
@@ -326,7 +326,7 @@ class _RequestPageState extends State<RequestPage> {
                     const SizedBox(
                       height: SpacingUnit.x4_5,
                     ),
-                    dI<UserBloc>().state.user.role == ConfigStringValues.user.name &&
+                    dI<UserBloc>().state.user.id == ConfigStringValues.user.name &&
                             state.request.status == StatusRequestStatus.pending.name
                         ? ElevatedButton(
                             style: ElevatedButton.styleFrom(
@@ -369,7 +369,7 @@ class _RequestPageState extends State<RequestPage> {
     }
   }
 
-  String approverName(String id) {
+  String? approverName(String id) {
     List<User> users = dI<UserByRolesBloc>().state.users.where((e) => e.id == id).toList();
     if(users.isNotEmpty) {
       return dI<UserByRolesBloc>().state.users.where((e) => e.id == id).first.fullName;

@@ -42,7 +42,9 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
     }
   }
 
-  _editPersonalInformation() {}
+  _editPersonalInformation() {
+    dI<AppNavigation>().push(context, page: Pages.updateProfilePage);
+  }
 
   _setting() {}
 
