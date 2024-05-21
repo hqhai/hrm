@@ -8,7 +8,8 @@ part 'register_state.g.dart';
 @CopyWith()
 class RegisterState extends Equatable {
   const RegisterState(
-      {this.registerRequest = const RegisterRequest(firstName: '', lastName: '', password: '', email: ''),
+      {this.registerRequest = const RegisterRequest(
+          firstName: '', lastName: '', password: '', email: '', dayOfBirth: '', gender: ''),
       this.requestStatus = RegisterRequestStatus.init});
 
   final RegisterRequest registerRequest;

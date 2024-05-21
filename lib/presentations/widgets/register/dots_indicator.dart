@@ -79,7 +79,7 @@ class PageIndicator extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      currentPageIndex == 2
+                      currentPageIndex == 3
                           ? appLocalizations.register
                           : appLocalizations.continues,
                       style: TextStyle(
@@ -105,13 +105,16 @@ class PageIndicator extends StatelessWidget {
 
   _currentPage(RegisterState state) {
     if (currentPageIndex == 0) {
-      dI<RegisterBloc>().add(RegisterEmailInputEvent(valueInputs[0], state.registerRequest));
+      dI<RegisterBloc>().add(RegisterEmailInputEvent(email: valueInputs[0],));
     }
     if (currentPageIndex == 1) {
-      dI<RegisterBloc>().add(RegisterNameInputEvent(valueInputs[1], valueInputs[2], state.registerRequest,));
+      dI<RegisterBloc>().add(RegisterNameInputEvent(firstName: valueInputs[1], lastName: valueInputs[2],));
     }
-    if (currentPageIndex == 2) {
-      dI<RegisterBloc>().add(RegisterRequestEvent(valueInputs[3], state.registerRequest));
+    if(currentPageIndex == 2){
+      dI<RegisterBloc>().add(RegisterGenderDateOfBirthInputEvent(gender: valueInputs[3], dateOfBirth: valueInputs[4],));
+    }
+    if (currentPageIndex == 3) {
+      dI<RegisterBloc>().add(RegisterRequestEvent(password: valueInputs[5]));
     }
     onUpdateCurrentPageIndex(currentPageIndex + 1);
   }

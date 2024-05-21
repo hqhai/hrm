@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -12,6 +13,7 @@ import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.
 import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/register/dots_indicator.dart';
 import 'package:base_app/presentations/widgets/register/register_email_widget.dart';
+import 'package:base_app/presentations/widgets/register/register_gender_date_of_birth_widget.dart';
 import 'package:base_app/presentations/widgets/register/register_password.dart';
 import 'package:base_app/presentations/widgets/register/register_username.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
 final registerPageRoute =
-GoRoute(path: Pages.register, builder: (context, GoRouterState state) => const RegisterPage());
+    GoRoute(path: Pages.register, builder: (context, GoRouterState state) => const RegisterPage());
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -33,13 +35,13 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
   late final TabController tabController;
   late PageController pageViewController;
   int currentIndex = 0;
-  List<bool> checkInputs = [false, false, false];
-  List<String> valueInputs = ['', '', '', ''];
+  List<bool> checkInputs = [false, false, false, false];
+  List<String> valueInputs = ['', '', '', '', '', ''];
 
   @override
   void initState() {
     pageViewController = PageController();
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
 
@@ -50,15 +52,13 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
     super.dispose();
   }
 
-  _listener(BuildContext context, RegisterState state){
-    if(state.requestStatus == RegisterRequestStatus.registerInit){
+  _listener(BuildContext context, RegisterState state) {
+    if (state.requestStatus == RegisterRequestStatus.registerInit) {
       progressIndicatorDialog(context);
-    }
-    else if (state.requestStatus == RegisterRequestStatus.registerSuccess){
+    } else if (state.requestStatus == RegisterRequestStatus.registerSuccess) {
       Navigator.of(context).pop();
       successDialog(context);
-    }
-    else if (state.requestStatus == RegisterRequestStatus.registerError){
+    } else if (state.requestStatus == RegisterRequestStatus.registerError) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }
@@ -93,10 +93,10 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
                         width: SpacingUnit.x42_5, height: SpacingUnit.x16),
                     const SizedBox(height: SpacingUnit.x10_5),
                     DotsIndicator(
-                      width: 68,
-                      height: 6,
+                      width: SpacingUnit.x13,
+                      height: SpacingUnit.x1_5,
                       currentIndex: currentIndex.toInt(),
-                      pageCount: 3,
+                      pageCount: 4,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.4,
@@ -120,10 +120,17 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
                               lastNameDefault: state.registerRequest.lastName,
                             ),
                           ),
+                          RegisterGenderEnumAndDateOfBirth(
+                            genderDefault: state.registerRequest.gender,
+                            dateOfBirthDefault: state.registerRequest.dayOfBirth,
+                            onChange: (value) => checkInputs2(value),
+                            onChangeDateOfBirth: (value) => valueInputs4(value),
+                            onChangeGender: (value) => valueInputs3(value),
+                          ),
                           SingleChildScrollView(
                             child: RegisterPassword(
-                              onChange: (value) => checkInputs2(value),
-                              onChangePassword: (value) => valueInputs3(value),
+                              onChange: (value) => checkInputs3(value),
+                              onChangePassword: (value) => valueInputs5(value),
                               passwordDefault: state.registerRequest.password,
                             ),
                           )
@@ -151,7 +158,8 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
                           onTap: () => onLogin(context),
                           child: Text(
                             appLocalizations.logInNow,
-                            style: const TextStyle(fontSize: SpacingUnit.x4, color: Color(0xffABBFED)),
+                            style:
+                                const TextStyle(fontSize: SpacingUnit.x4, color: Color(0xffABBFED)),
                           ),
                         ),
                       ],
@@ -187,16 +195,63 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
     );
   }
 
-  checkInputs0(bool value) {checkInputs[0] = value;}
-  checkInputs1(bool value) {checkInputs[1] = value;}
-  checkInputs2(bool value) {checkInputs[2] = value;}
-  checkInputs3(bool value) {checkInputs[3] = value;}
+  checkInputs0(bool value) {
+    setState(() {
+      checkInputs[0] = value;
+    });
+  }
 
-  valueInputs0(String value) {valueInputs[0] = value;}
-  valueInputs1(String value) {valueInputs[1] = value;}
-  valueInputs2(String value) {valueInputs[2] = value;}
-  valueInputs3(String value) {valueInputs[3] = value;}
+  checkInputs1(bool value) {
+    setState(() {
+      checkInputs[1] = value;
+    });
+  }
 
+  checkInputs2(bool value) {
+    setState(() {
+      checkInputs[2] = value;
+    });
+  }
 
+  checkInputs3(bool value) {
+    setState(() {
+      checkInputs[3] = value;
+    });
+  }
+
+  valueInputs0(String value) {
+    setState(() {
+      valueInputs[0] = value;
+    });
+  }
+
+  valueInputs1(String value) {
+    setState(() {
+      valueInputs[1] = value;
+    });
+  }
+
+  valueInputs2(String value) {
+    setState(() {
+      valueInputs[2] = value;
+    });
+  }
+
+  valueInputs4(String value) {
+    setState(() {
+      valueInputs[4] = value;
+    });
+  }
+
+  valueInputs3(GenderEnum value) {
+    setState(() {
+      valueInputs[3] = value.nameEn;
+    });
+  }
+
+  valueInputs5(String value) {
+    setState(() {
+      valueInputs[5] = value;
+    });
+  }
 }
-

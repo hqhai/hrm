@@ -1,5 +1,3 @@
-
-import 'package:base_app/data/models/register/register_request.dart';
 import 'package:equatable/equatable.dart';
 
 sealed class RegisterEvent extends Equatable {
@@ -10,41 +8,62 @@ sealed class RegisterEvent extends Equatable {
 }
 
 class RegisterEmailInputEvent extends RegisterEvent {
-  const RegisterEmailInputEvent(this.email, this.registerRequest);
+  const RegisterEmailInputEvent({
+    this.email = '',
+  });
 
   final String email;
-  final RegisterRequest registerRequest;
 
   @override
-  List<Object> get props => [email, registerRequest];
+  List<Object> get props => [
+        email,
+      ];
 }
 
 class RegisterNameInputEvent extends RegisterEvent {
-  const RegisterNameInputEvent(this.firstName, this.lastName, this.registerRequest);
+  const RegisterNameInputEvent({
+    this.firstName = '',
+    this.lastName = '',
+  });
 
-  final RegisterRequest registerRequest;
   final String firstName, lastName;
 
   @override
-  List<Object> get props => [firstName, lastName, registerRequest, ];
+  List<Object> get props => [
+        firstName,
+        lastName,
+      ];
 }
 
 class RegisterPasswordInputEvent extends RegisterEvent {
-  const RegisterPasswordInputEvent(this.password, this.registerRequest);
+  const RegisterPasswordInputEvent({
+    this.password = '',
+  });
 
-  final RegisterRequest registerRequest;
   final String password;
 
   @override
-  List<Object> get props => [password, registerRequest];
+  List<Object> get props => [password];
+}
+
+class RegisterGenderDateOfBirthInputEvent extends RegisterEvent {
+  const RegisterGenderDateOfBirthInputEvent({
+    this.gender = '',
+    this.dateOfBirth = '',
+  });
+
+  final String gender;
+  final String dateOfBirth;
+
+  @override
+  List<Object> get props => [gender, dateOfBirth];
 }
 
 class RegisterRequestEvent extends RegisterEvent {
-  const RegisterRequestEvent(this.password, this.registerRequest);
+  const RegisterRequestEvent({this.password = ''});
 
-  final RegisterRequest registerRequest;
   final String password;
 
   @override
-  List<Object> get props => [password, registerRequest, ];
+  List<Object> get props => [password];
 }
