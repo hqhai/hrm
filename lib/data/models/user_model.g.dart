@@ -21,6 +21,9 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
 
 const _$UserStatusEnumMap = {
   UserStatus.init: 'init',
+  UserStatus.updateProfileInit: 'updateProfileInit',
+  UserStatus.updateProfileSuccess: 'updateProfileSuccess',
+  UserStatus.updateProfileError: 'updateProfileError',
   UserStatus.getUserInfoInit: 'getUserInfoInit',
   UserStatus.getUserInfoSuccess: 'getUserInfoSuccess',
   UserStatus.getUserInfoError: 'getUserInfoError',

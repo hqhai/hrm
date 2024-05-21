@@ -1070,6 +1070,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ward'**
   String get ward;
+
+  /// No description provided for @doYouWantToUpdateProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to update profile?'**
+  String get doYouWantToUpdateProfile;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

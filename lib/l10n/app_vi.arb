@@ -161,5 +161,6 @@
   "currentPasswordIsIncorrect": "Mật khẩu hiện tại không đúng!",
   "province": "Tỉnh",
   "district": "Huyện",
-  "ward": "Phường"
+  "ward": "Phường",
+  "doYouWantToUpdateProfile": "Bạn có muốn chỉnh sửa thông tin cá nhân không?"
 }

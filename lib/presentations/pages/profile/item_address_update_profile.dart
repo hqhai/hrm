@@ -133,7 +133,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   }
 
   _setProvinceId(String? value, AddressState state) {
-    (value) => widget.onChangeProvince;
+    widget.onChangeProvince.call(value??"");
 
     setState(() {
       provinceId = state.provinces.where((e) => e.name == value).first.id;
@@ -142,7 +142,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   }
 
   _setDistrictsId(String? value, AddressState state) {
-    (value) => widget.onChangeDistrict;
+    widget.onChangeDistrict.call(value??"");
     setState(() {
       districtId = state.districts.where((e) => e.name == value).first.id;
     });

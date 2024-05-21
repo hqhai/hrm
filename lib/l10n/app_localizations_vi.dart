@@ -492,4 +492,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get ward => 'Phường';
+
+  @override
+  String get doYouWantToUpdateProfile => 'Bạn có muốn chỉnh sửa thông tin cá nhân không?';
 }
