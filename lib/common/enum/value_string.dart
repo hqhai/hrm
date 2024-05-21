@@ -35,7 +35,6 @@ enum PriorityRequestStatus {
   const PriorityRequestStatus(this.name);
 }
 
-
 enum ConfigStringValues {
   generalManager('GeneralManager'),
   manager('Manager'),
@@ -57,7 +56,7 @@ enum ParentId {
 }
 
 enum LanguageEnum {
-  vi( 'Tiếng Việt', 'vi'),
+  vi('Tiếng Việt', 'vi'),
   en('English', 'en');
 
   final String name;
@@ -66,8 +65,25 @@ enum LanguageEnum {
   const LanguageEnum(this.name, this.code);
 }
 
+enum GenderEnum {
+  male('Nam', 'Male'),
+  female('Nữ', 'Female'),
+  other('Khác', 'Other');
 
+  final String nameVi;
+  final String nameEn;
 
+  const GenderEnum(this.nameVi, this.nameEn);
+}
 
+enum LocationEnum {
+  country('Country'),
+  province('Province'),
+  district('District'),
+  ward('Ward');
 
+  final String name;
+
+  const LocationEnum(this.name);
+}
 

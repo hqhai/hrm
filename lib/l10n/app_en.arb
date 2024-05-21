@@ -158,5 +158,8 @@
   "editPersonalInformation": "Edit personal information",
   "setting": "Setting",
   "account": "Account",
-  "currentPasswordIsIncorrect": "Current password is incorrect!"
+  "currentPasswordIsIncorrect": "Current password is incorrect!",
+  "province": "Province",
+  "district": "District",
+  "ward": "Ward"
 }

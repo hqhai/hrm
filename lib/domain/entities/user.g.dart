@@ -44,9 +44,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       accountHolderName: json['accountHolderName'] as String?,
       accountNumber: json['accountNumber'] as String?,
       families: (json['families'] as List<dynamic>?)
-              ?.map((e) => Family.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+          ?.map((e) => Family.fromJson(e as Map<String, dynamic>))
+          .toList(),
       phoneNumber: json['phoneNumber'] as String?,
       email: json['email'] as String?,
       companyEmail: json['companyEmail'] as String?,
@@ -126,7 +125,7 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('bankName', instance.bankName);
   writeNotNull('accountHolderName', instance.accountHolderName);
   writeNotNull('accountNumber', instance.accountNumber);
-  val['families'] = instance.families;
+  writeNotNull('families', instance.families);
   writeNotNull('phoneNumber', instance.phoneNumber);
   writeNotNull('email', instance.email);
   writeNotNull('companyEmail', instance.companyEmail);

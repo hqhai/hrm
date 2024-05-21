@@ -1,12 +1,14 @@
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({super.key, this.restorationId, required this.onChange, this.oldDate = ''});
+  const DatePicker({super.key, this.check = true, this.restorationId, required this.onChange, this.oldDate = ''});
 
   final String? restorationId;
   final ValueChanged<String> onChange;
   final String oldDate;
+  final bool check;
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -70,11 +72,11 @@ class _DatePickerState extends State<DatePicker> with RestorationMixin {
         _restorableDatePickerRouteFuture.present();
       },
       child: Container(
-          width: 200,
-          height: 50,
+          width: SpacingUnit.x50,
+          height: SpacingUnit.x12_5,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(SpacingUnit.x2_5,),
             border: Border.all(
               color: const Color(0xff2a6067),
               width: 2,
@@ -82,7 +84,7 @@ class _DatePickerState extends State<DatePicker> with RestorationMixin {
           ),
           child: Text(
             getTimeDisplay(),
-            style: const TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: widget.check ? SpacingUnit.x5 : SpacingUnit.x4, color: Colors.white),
           )),
     );
   }

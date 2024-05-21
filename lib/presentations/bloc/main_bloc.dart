@@ -4,6 +4,7 @@ import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/checkin_setting/check_in_setting_bloc.dart';
 import 'package:base_app/presentations/bloc/department/department_bloc.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
+import 'package:base_app/presentations/bloc/location/address/address_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/personnel/personnel_bloc.dart';
@@ -37,5 +38,6 @@ class MainBloc {
         BlocProvider<PersonnelBloc>(create: (BuildContext context) => dI<PersonnelBloc>()),
         BlocProvider<CheckInSettingBloc>(create: (BuildContext context) => dI<CheckInSettingBloc>()),
         BlocProvider<NotesBloc>(create: (BuildContext context) => dI<NotesBloc>()),
+        BlocProvider<AddressBloc>(create: (BuildContext context) => dI<AddressBloc>()),
       ];
 }

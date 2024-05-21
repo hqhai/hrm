@@ -8,6 +8,7 @@ part 'user_department_position.g.dart';
 @CopyWith()
 @JsonSerializable()
 class UserDepartmentPosition {
+  final String? id;
   final String? userId;
   final String? departmentId;
   final Department? department;
@@ -15,7 +16,7 @@ class UserDepartmentPosition {
   final Position? position;
 
   const UserDepartmentPosition(
-      {this.userId, this.departmentId, this.department, this.positionId, this.position});
+      {this.id, this.userId, this.departmentId, this.department, this.positionId, this.position});
 
   factory UserDepartmentPosition.fromJson(Map<String, dynamic> json) =>
       _$UserDepartmentPositionFromJson(json);

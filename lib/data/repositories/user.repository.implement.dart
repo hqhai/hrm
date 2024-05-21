@@ -3,6 +3,7 @@ import 'package:base_app/data/models/register/register_request.dart';
 import 'package:base_app/data/models/request/change_password/change_password_request.dart';
 import 'package:base_app/data/models/request/get_list_user_by_role/get_list_user_by_role.dart';
 import 'package:base_app/data/models/user/forgot_password_request.dart';
+import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/repositories/user.repositories.dart';
 import 'package:base_app/domain/services/user.service.dart';
@@ -48,5 +49,10 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<int> deleteAccount() async {
     return await userService.deleteAccount();
+  }
+
+  @override
+  Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
+    return await userService.updateProfile(updateProfileRequest: updateProfileRequest);
   }
 }

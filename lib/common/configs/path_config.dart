@@ -25,9 +25,7 @@ class PathConfig {
   static String registerSystem = '/auth/register-system-user';
   static String note = '/system-user-calender';
   static String deleteAccount = '/user/delete-system-user';
-
-
-
-
+  static String location = '/location';
+  static String updateProfile = '/update-user';
 
 }

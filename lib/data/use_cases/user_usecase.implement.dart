@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/data/models/register/register_request.dart';
+import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/repositories/user.repositories.dart';
 import 'package:base_app/domain/use_cases/user_usecase.dart';
@@ -44,4 +45,10 @@ class UserUseCaseImpl extends UserUseCase {
   Future<int> deleteAccount() async {
     return await _userRepository.deleteAccount();
   }
+
+  @override
+  Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
+    return await _userRepository.updateProfile(updateProfileRequest: updateProfileRequest);
+  }
+
 }

@@ -1,4 +1,5 @@
 import 'package:base_app/data/models/register/register_request.dart';
+import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/user.dart';
 
 abstract class UserUseCase {
@@ -13,5 +14,7 @@ abstract class UserUseCase {
   Future<int> register({required RegisterRequest registerRequest});
 
   Future<int> deleteAccount();
+
+  Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest});
 
 }

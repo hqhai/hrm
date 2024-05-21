@@ -6,6 +6,7 @@ part 'family.g.dart';
 @CopyWith()
 @JsonSerializable()
 class Family {
+  final String? id;
   final String? relationShip;
   final String? name;
   final String? phoneNumber;
@@ -13,6 +14,7 @@ class Family {
   final String? job;
 
   const Family({
+    this.id,
     this.relationShip,
     this.name,
     this.phoneNumber,

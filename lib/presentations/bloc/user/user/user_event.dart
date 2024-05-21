@@ -1,3 +1,4 @@
+import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:equatable/equatable.dart';
 
 sealed class UserEvent extends Equatable {
@@ -45,4 +46,12 @@ class DeleteAccountEvent extends UserEvent {
 
   @override
   List<Object> get props => [];
+}
+
+class UpdateProfileEvent extends UserEvent {
+  const UpdateProfileEvent({required this.updateProfileRequest});
+  final UpdateProfileRequest updateProfileRequest;
+
+  @override
+  List<Object> get props => [updateProfileRequest];
 }

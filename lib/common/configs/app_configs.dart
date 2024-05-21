@@ -19,6 +19,8 @@ class AppConfig {
   final String baseUserUrl;
   @JsonKey(name: 'BASE_REQUEST_URL', defaultValue: '')
   final String baseRequestUrl;
+  @JsonKey(name: 'BASE_SYSTEM_GATEWAY_URL', defaultValue: '')
+  final String baseSystemGatewayUrl;
   @JsonKey(name: 'BASE_URL', defaultValue: '')
   final String baseUrl;
   @JsonKey(name: 'ENV', defaultValue: '')
@@ -26,7 +28,7 @@ class AppConfig {
   static String _token = '';
   static String get getToken => _token;
 
-  AppConfig({this.env = '', this.baseUrl = '', this.baseAuthUrl = '', this.baseUserUrl = '', this.baseRequestUrl ='', this.baseURLFile ='', this.baseSystemUrl =''});
+  AppConfig({this.env = '', this.baseUrl = '', this.baseAuthUrl = '', this.baseUserUrl = '', this.baseRequestUrl ='', this.baseURLFile ='', this.baseSystemUrl ='', this.baseSystemGatewayUrl = ''});
 
   static AppConfig? _instance;
 

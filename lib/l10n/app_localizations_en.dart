@@ -483,4 +483,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get currentPasswordIsIncorrect => 'Current password is incorrect!';
+
+  @override
+  String get province => 'Province';
+
+  @override
+  String get district => 'District';
+
+  @override
+  String get ward => 'Ward';
 }
