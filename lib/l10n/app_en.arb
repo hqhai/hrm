@@ -161,5 +161,6 @@
   "currentPasswordIsIncorrect": "Current password is incorrect!",
   "province": "Province",
   "district": "District",
-  "ward": "Ward"
+  "ward": "Ward",
+  "doYouWantToUpdateProfile": "Do you want to update profile?"
 }

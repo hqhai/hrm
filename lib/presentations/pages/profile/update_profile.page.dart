@@ -1,12 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
-import 'package:base_app/data/models/user/profile/update_user_department_position_request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
@@ -17,6 +17,9 @@ import 'package:base_app/presentations/pages/profile/item_date_of_birth_update_p
 import 'package:base_app/presentations/pages/profile/item_input_update_profile.dart';
 import 'package:base_app/presentations/pages/profile/item_constant_update_profile.dart';
 import 'package:base_app/presentations/pages/profile/item_profile.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/update_profile_dialog.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
 import 'package:base_app/presentations/widgets/profile/item_text_title_profile.dart';
 import 'package:common/utils/spacing_unit.dart';
@@ -39,21 +42,37 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  String code = '',
-      email = '',
-      dateOfBirth = '',
-      phoneNumber = '',
-      province = '',
-      district = '',
-      ward = '',
-      address = '',
-      firstName = '',
-      lastName = '';
-  GenderEnum gender = GenderEnum.male;
+  String? dateOfBirth, phoneNumber, province, district, ward, address, firstName, lastName;
+  GenderEnum? gender = GenderEnum.male;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  _listener(BuildContext context, UserState state) {
+    /*setState(() {
+      dateOfBirth = state.user.dayOfBirth ?? "";
+      phoneNumber = state.user.phoneNumber ?? "";
+      province = state.user.residentProvince ?? "";
+      district = state.user.residentDistrict ?? "";
+      ward = state.user.residentWard ?? "";
+      address = state.user.residentAddress ?? "";
+      firstName = state.user.firstName ?? "";
+      lastName = state.user.lastName ?? "";
+    });*/
+    if (state.status == UserStatus.updateProfileInit) {
+      Navigator.of(context).pop();
+      progressIndicatorDialog(context);
+    }
+    if (state.status == UserStatus.updateProfileSuccess) {
+      Navigator.of(context).pop();
+      successDialog(context);
+    }
+    if (state.status == UserStatus.updateProfileError) {
+      Navigator.of(context).pop();
+      unsuccessfulDialog(context);
+    }
   }
 
   @override
@@ -62,7 +81,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(),
-      body: BlocBuilder<UserBloc, UserState>(
+      body: BlocConsumer<UserBloc, UserState>(
+        listener: (context, state) => _listener(context, state),
         builder: (context, state) {
           return Container(
             padding:
@@ -176,25 +196,13 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   _updateProfile(BuildContext context, UserState state) {
-    final List<UpdateUserDepartmentPositionRequest> updateUserDepartmentPositionRequests = [];
-    for (int i = 0; i <= state.user.userDepartmentPositions.length; i++) {
-      UpdateUserDepartmentPositionRequest updateUserDepartmentPositionRequest =
-          UpdateUserDepartmentPositionRequest(
-              id: state.user.userDepartmentPositions[i].id,
-              positionId: state.user.userDepartmentPositions[i].positionId,
-              departmentId: state.user.userDepartmentPositions[i].departmentId);
-      updateUserDepartmentPositionRequests.add(updateUserDepartmentPositionRequest);
-    }
-
     final UpdateProfileRequest updateProfileRequest = UpdateProfileRequest(
       id: state.user.id,
-      firstName: firstName,
-      lastName: lastName,
-      dayOfBirth: dateOfBirth,
-      userDepartmentPositions: updateUserDepartmentPositionRequests,
-      gender: gender.nameEn,
+      firstName: firstName ?? state.user.firstName ?? "",
+      lastName: lastName ?? state.user.lastName ?? "",
+      dayOfBirth: dateOfBirth ?? state.user.dayOfBirth ?? "",
+      gender: gender?.nameEn ?? state.user.gender ?? "",
       phoneNumber: state.user.phoneNumber ?? "",
-      email: state.user.email ?? "",
       tax: state.user.tax ?? "",
       families: state.user.families ?? [],
       ciNumber: state.user.ciNumber ?? "",
@@ -205,10 +213,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       passPortIssueDate: state.user.passPortIssueDate ?? "",
       passPortExpiryDate: state.user.passPortExpiryDate ?? "",
       passPortNumber: state.user.passPortNumber ?? "",
-      residentProvince: province,
-      residentDistrict: district,
-      residentWard: ward,
-      residentAddress: address,
+      residentProvince: province ?? state.user.residentProvince ?? "",
+      residentDistrict: district ?? state.user.residentDistrict ?? "",
+      residentWard: ward ?? state.user.residentWard ?? "",
+      residentAddress: address ?? state.user.residentAddress ?? "",
       originAddress: state.user.originAddress ?? "",
       originWard: state.user.originWard ?? "",
       originDistrict: state.user.originDistrict ?? "",
@@ -225,25 +233,13 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       specializes: state.user.specializes ?? "",
       graduationType: state.user.graduationType ?? "",
       graduationYear: state.user.graduationYear ?? "",
-      profileStatus: state.user.profileStatus ?? true,
-      probationDay: state.user.probationDay ?? "",
-      officialDay: state.user.officialDay ?? "",
-      statusUser: state.user.statusUser ?? "",
-      typeOfPersonnel: state.user.typeOfPersonnel ?? "",
       description: state.user.description ?? "",
-      fullName: state.user.fullName ?? "",
       avatarPath: state.user.avatarPath ?? "",
-      code: state.user.code ?? "",
-      userName: state.user.userName ?? "",
-      residentLocationId: state.user.residentLocationId ?? "",
-      createdFullName: state.user.createdFullName ?? "",
-      createdUserId: state.user.createdUserId,
-      createdDate: state.user.createdDate ?? "",
-      attendanceId: state.user.attendanceId ?? 0,
-      endDate: state.user.endDate ?? "",
-      originLocationId: state.user.originLocationId ?? "",
     );
-    dI<UserBloc>().add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest));
+    updateProfileDialog(
+      context,
+      () => dI<UserBloc>().add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest)),
+    );
   }
 
   _setPhoneNumber(String value) {

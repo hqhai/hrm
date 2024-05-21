@@ -492,4 +492,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ward => 'Ward';
+
+  @override
+  String get doYouWantToUpdateProfile => 'Do you want to update profile?';
 }
