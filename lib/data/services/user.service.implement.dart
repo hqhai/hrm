@@ -6,6 +6,7 @@ import 'package:base_app/data/models/register/register_request.dart';
 import 'package:base_app/data/models/request/change_password/change_password_request.dart';
 import 'package:base_app/data/models/request/get_list_user_by_role/get_list_user_by_role.dart';
 import 'package:base_app/data/models/user/forgot_password_request.dart';
+import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/services/user.service.dart';
 import 'package:common/model/response.dart';
@@ -75,6 +76,16 @@ class UserServiceImpl extends BaseService implements UserService {
   Future<int> deleteAccount() async {
     final url = '$baseUrl${PathConfig.deleteAccount}';
     final response = await client.delete(url);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    int statusCode = responseBase.statusCode;
+    return statusCode;
+  }
+
+  @override
+  Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
+    final url = '$baseUrlUser${PathConfig.updateProfile}';
+    final body = jsonEncode(updateProfileRequest.toJson());
+    final response = await client.put(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     int statusCode = responseBase.statusCode;
     return statusCode;

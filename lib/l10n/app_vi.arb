@@ -158,5 +158,8 @@
   "editPersonalInformation": "Sửa thông tin cá nhân",
   "setting": "Cài đặt",
   "account": "Tài khoản",
-  "currentPasswordIsIncorrect": "Mật khẩu hiện tại không đúng!"
+  "currentPasswordIsIncorrect": "Mật khẩu hiện tại không đúng!",
+  "province": "Tỉnh",
+  "district": "Huyện",
+  "ward": "Phường"
 }

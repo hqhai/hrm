@@ -1052,6 +1052,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Current password is incorrect!'**
   String get currentPasswordIsIncorrect;
+
+  /// No description provided for @province.
+  ///
+  /// In en, this message translates to:
+  /// **'Province'**
+  String get province;
+
+  /// No description provided for @district.
+  ///
+  /// In en, this message translates to:
+  /// **'District'**
+  String get district;
+
+  /// No description provided for @ward.
+  ///
+  /// In en, this message translates to:
+  /// **'Ward'**
+  String get ward;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,15 +1,23 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
-import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/data/models/user/profile/update_profile_request.dart';
+import 'package:base_app/data/models/user/profile/update_user_department_position_request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
-import 'package:base_app/presentations/pages/profile/item_textfield_content_update_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_address_update_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_gender_update_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_date_of_birth_update_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_input_update_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_constant_update_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_profile.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
-import 'package:base_app/presentations/widgets/profile/item_text_content_profile.dart';
 import 'package:base_app/presentations/widgets/profile/item_text_title_profile.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +25,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final updateProfilePageRoute =
-    GoRoute(path: Pages.updateProfilePage, builder: (context, GoRouterState state) => const UpdateProfilePage());
+final updateProfilePageRoute = GoRoute(
+    path: Pages.updateProfilePage,
+    builder: (context, GoRouterState state) => const UpdateProfilePage());
 
 class UpdateProfilePage extends StatefulWidget {
   const UpdateProfilePage({
@@ -30,7 +39,17 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  String code = '', email = '', gender = '', dateOfBirth = '', phoneNumber = '', address = '';
+  String code = '',
+      email = '',
+      dateOfBirth = '',
+      phoneNumber = '',
+      province = '',
+      district = '',
+      ward = '',
+      address = '',
+      firstName = '',
+      lastName = '';
+  GenderEnum gender = GenderEnum.male;
 
   @override
   void initState() {
@@ -42,6 +61,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
+      appBar: AppBar(),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           return Container(
@@ -59,88 +79,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(SpacingUnit.x3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                      color: CustomsColor.colorBackground,
-                      border: Border.all(
-                        color: colors.text,
-                        width: 1,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            flex: 30,
-                            child: Image.network(
-                              state.user.avatarPath ?? "",
-                              fit: BoxFit.fill,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Image.asset(
-                                  Assets.images.error.imageError.path,
-                                  fit: BoxFit.fill,
-                                );
-                              },
-                            )),
-                        Expanded(
-                          flex: 70,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: SpacingUnit.x4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  state.user.fullName ?? "",
-                                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
-                                ),
-                                const SizedBox(height: SpacingUnit.x5),
-                                Row(
-                                  children: [
-                                    Text(
-                                      '${appLocalizations.phoneNumber} : ',
-                                      style:
-                                          TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        state.user.phoneNumber ?? "",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.clip,
-                                        style:
-                                            TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: SpacingUnit.x1_5,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      '${appLocalizations.email} : ',
-                                      style:
-                                          TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        maxLines: 2,
-                                        overflow: TextOverflow.clip,
-                                        state.user.email ?? "",
-                                        style:
-                                            TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                  const ItemProfile(),
                   const SizedBox(
                     height: SpacingUnit.x9_5,
                   ),
@@ -157,39 +96,50 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ItemTitleProfile(
-                          title1: appLocalizations.employeeCode,
-                          title2: appLocalizations.dateOfBirth,
-                        ),
-                        ItemCodeAndDateOfBirthUpdateProfile(
-                          code: state.user.code ?? '',
+                        ItemUpdateProfileConstant(
+                            title: appLocalizations.employeeCode, content: state.user.code ?? ''),
+                        ItemUpdateProfileConstant(
+                            title: appLocalizations.email, content: state.user.email ?? ''),
+                        ItemDateOfBirthUpdateProfile(
                           dateOfBirth: formatDMY(
                             state.user.dayOfBirth ?? '',
                           ),
-                          onChangeCode: (value) => code = value,
                           onChangeDateOfBirth: (value) => dateOfBirth = formatYMD(value),
                         ),
-                        ItemTitleProfile(
-                          title1: appLocalizations.personalEmail,
-                          title2: appLocalizations.phoneNumber,
+                        ItemInputUpdateProfile(
+                          title: appLocalizations.firstName,
+                          content: state.user.firstName ?? "",
+                          onChange: (value) => _setFirstName(value),
                         ),
-                        ItemContentProfile(
-                            content1: state.user.email ?? "",
-                            content2: state.user.phoneNumber ?? ""),
-                        ItemTitleProfile(
-                          title1: appLocalizations.gender,
-                          title2: appLocalizations.address,
+                        ItemInputUpdateProfile(
+                          title: appLocalizations.lastName,
+                          content: state.user.lastName ?? "",
+                          onChange: (value) => _setLastName(value),
                         ),
-                        ItemContentProfile(
-                          content1: state.user.gender ?? "",
-                          content2:
-                              "${state.user.residentAddress ?? ""}, ${state.user.residentWard ?? ""}, ${state.user.residentDistrict ?? ""},${state.user.residentProvince ?? ""}",
+                        ItemInputUpdateProfile(
+                          title: appLocalizations.phoneNumber,
+                          content: state.user.phoneNumber ?? "",
+                          onChange: (value) => _setPhoneNumber(value),
+                        ),
+                        ItemGenderUpdateProfile(
+                            onChangeGender: (value) => _setGender(value),
+                            gender: state.user.gender ?? ""),
+                        ItemAddressUpdateProfile(
+                            onChangeProvince: (value) => _setProvince(value),
+                            onChangeDistrict: (value) => _setDistrict(value),
+                            onChangeWard: (value) => _setWard(value)),
+                        ItemInputUpdateProfile(
+                          title: appLocalizations.address,
+                          content: state.user.residentAddress ?? "",
+                          onChange: (value) => _setAddress(value),
                         ),
                         ItemTitleProfile(
+                          check: false,
                           title1: appLocalizations.department,
                           title2: appLocalizations.position,
                         ),
                         ItemDepartmentAndPositionProfile(
+                          check: false,
                           departmentNames: state.user.userDepartmentPositions.isNotEmpty
                               ? state.user.userDepartmentPositions
                                   .map((e) => e.department?.name ?? "")
@@ -204,6 +154,18 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: SpacingUnit.x5,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: colors.blue),
+                    onPressed: () => _updateProfile(context, state),
+                    child: Text(appLocalizations.update,
+                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                  ),
+                  const SizedBox(
+                    height: SpacingUnit.x5,
+                  ),
                 ],
               ),
             ),
@@ -211,5 +173,124 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         },
       ),
     );
+  }
+
+  _updateProfile(BuildContext context, UserState state) {
+    final List<UpdateUserDepartmentPositionRequest> updateUserDepartmentPositionRequests = [];
+    for (int i = 0; i <= state.user.userDepartmentPositions.length; i++) {
+      UpdateUserDepartmentPositionRequest updateUserDepartmentPositionRequest =
+          UpdateUserDepartmentPositionRequest(
+              id: state.user.userDepartmentPositions[i].id,
+              positionId: state.user.userDepartmentPositions[i].positionId,
+              departmentId: state.user.userDepartmentPositions[i].departmentId);
+      updateUserDepartmentPositionRequests.add(updateUserDepartmentPositionRequest);
+    }
+
+    final UpdateProfileRequest updateProfileRequest = UpdateProfileRequest(
+      id: state.user.id,
+      firstName: firstName,
+      lastName: lastName,
+      dayOfBirth: dateOfBirth,
+      userDepartmentPositions: updateUserDepartmentPositionRequests,
+      gender: gender.nameEn,
+      phoneNumber: state.user.phoneNumber ?? "",
+      email: state.user.email ?? "",
+      tax: state.user.tax ?? "",
+      families: state.user.families ?? [],
+      ciNumber: state.user.ciNumber ?? "",
+      ciIssuePlace: state.user.ciIssuePlace ?? "",
+      ciIssueDate: state.user.ciIssueDate ?? "",
+      ciExpiryDate: state.user.ciExpiryDate ?? "",
+      passPortIssuePlace: state.user.passPortIssuePlace ?? "",
+      passPortIssueDate: state.user.passPortIssueDate ?? "",
+      passPortExpiryDate: state.user.passPortExpiryDate ?? "",
+      passPortNumber: state.user.passPortNumber ?? "",
+      residentProvince: province,
+      residentDistrict: district,
+      residentWard: ward,
+      residentAddress: address,
+      originAddress: state.user.originAddress ?? "",
+      originWard: state.user.originWard ?? "",
+      originDistrict: state.user.originDistrict ?? "",
+      originProvince: state.user.originProvince ?? "",
+      maritalStatus: state.user.maritalStatus ?? "",
+      ethnicity: state.user.ethnicity ?? "",
+      religion: state.user.religion ?? "",
+      bankName: state.user.bankName ?? "",
+      accountHolderName: state.user.accountHolderName ?? "",
+      accountNumber: state.user.accountNumber ?? "",
+      companyEmail: state.user.companyEmail ?? "",
+      educationLevel: null,
+      education: state.user.education ?? "",
+      specializes: state.user.specializes ?? "",
+      graduationType: state.user.graduationType ?? "",
+      graduationYear: state.user.graduationYear ?? "",
+      profileStatus: state.user.profileStatus ?? true,
+      probationDay: state.user.probationDay ?? "",
+      officialDay: state.user.officialDay ?? "",
+      statusUser: state.user.statusUser ?? "",
+      typeOfPersonnel: state.user.typeOfPersonnel ?? "",
+      description: state.user.description ?? "",
+      fullName: state.user.fullName ?? "",
+      avatarPath: state.user.avatarPath ?? "",
+      code: state.user.code ?? "",
+      userName: state.user.userName ?? "",
+      residentLocationId: state.user.residentLocationId ?? "",
+      createdFullName: state.user.createdFullName ?? "",
+      createdUserId: state.user.createdUserId,
+      createdDate: state.user.createdDate ?? "",
+      attendanceId: state.user.attendanceId ?? 0,
+      endDate: state.user.endDate ?? "",
+      originLocationId: state.user.originLocationId ?? "",
+    );
+    dI<UserBloc>().add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest));
+  }
+
+  _setPhoneNumber(String value) {
+    setState(() {
+      phoneNumber = value;
+    });
+  }
+
+  _setGender(GenderEnum value) {
+    setState(() {
+      gender = value;
+    });
+  }
+
+  _setAddress(String value) {
+    setState(() {
+      address = value;
+    });
+  }
+
+  _setProvince(String value) {
+    setState(() {
+      province = value;
+    });
+  }
+
+  _setDistrict(String value) {
+    setState(() {
+      district = value;
+    });
+  }
+
+  _setWard(String value) {
+    setState(() {
+      ward = value;
+    });
+  }
+
+  _setFirstName(String value) {
+    setState(() {
+      firstName = value;
+    });
+  }
+
+  _setLastName(String value) {
+    setState(() {
+      lastName = value;
+    });
   }
 }

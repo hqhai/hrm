@@ -23,6 +23,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<ResetUserEvent>(_resetUserEvent);
     on<ForgotPasswordEvent>(_forgotPasswordEvent);
     on<DeleteAccountEvent>(_deleteAccountEvent);
+    on<UpdateProfileEvent>(_updateProfileEvent);
   }
 
   FutureOr<void> _getUserInfo(GetUserInfo event, Emitter<UserState> emit) async {
@@ -34,8 +35,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       e as ResponseBase;
       if (e.statusCode == 401) {
         emit(state.copyWith(status: UserStatus.getUserInfoErrorUnauthorized));
-      }
-      else{
+      } else {
         emit(state.copyWith(status: UserStatus.getUserInfoError));
       }
     }
@@ -59,7 +59,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   FutureOr<void> _forgotPasswordEvent(ForgotPasswordEvent event, Emitter<UserState> emit) async {
-    emit(state.copyWith(status: UserStatus.forgotPasswordInit,));
+    emit(state.copyWith(
+      status: UserStatus.forgotPasswordInit,
+    ));
     try {
       await userUseCase.forgotPassword(email: event.email);
       emit(state.copyWith(status: UserStatus.forgotPasswordSuccess));
@@ -69,12 +71,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   FutureOr<void> _deleteAccountEvent(DeleteAccountEvent event, Emitter<UserState> emit) async {
-    emit(state.copyWith(status: UserStatus.deleteAccountInit,));
+    emit(state.copyWith(status: UserStatus.deleteAccountInit));
     try {
       await userUseCase.deleteAccount();
       emit(state.copyWith(status: UserStatus.deleteAccountSuccess));
     } catch (e) {
       emit(state.copyWith(status: UserStatus.deleteAccountError));
+    }
+  }
+
+  FutureOr<void> _updateProfileEvent(UpdateProfileEvent event, Emitter<UserState> emit) async {
+    emit(state.copyWith(status: UserStatus.updateProfileInit));
+    try {
+      await userUseCase.updateProfile(updateProfileRequest: event.updateProfileRequest);
+      emit(state.copyWith(status: UserStatus.updateProfileSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: UserStatus.updateProfileError));
     }
   }
 }

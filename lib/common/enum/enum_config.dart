@@ -32,6 +32,9 @@ enum RequestStatus {
 
 enum UserStatus {
   init,
+  updateProfileInit,
+  updateProfileSuccess,
+  updateProfileError,
   getUserInfoInit,
   getUserInfoSuccess,
   getUserInfoError,
@@ -189,4 +192,17 @@ enum NoteStatus{
   complete,
   unfinished,
   reset,
+}
+
+enum AddressStatus{
+  init,
+  getProvincesInit,
+  getProvincesSuccess,
+  getProvincesError,
+  getDistrictsInit,
+  getDistrictsSuccess,
+  getDistrictsError,
+  getWardsInit,
+  getWardsSuccess,
+  getWardsError,
 }

@@ -483,4 +483,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get currentPasswordIsIncorrect => 'Mật khẩu hiện tại không đúng!';
+
+  @override
+  String get province => 'Tỉnh';
+
+  @override
+  String get district => 'Huyện';
+
+  @override
+  String get ward => 'Phường';
 }

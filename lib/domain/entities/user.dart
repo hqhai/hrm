@@ -47,7 +47,7 @@ class User {
   final String? bankName;
   final String? accountHolderName;
   final String? accountNumber;
-  final List<Family> families;
+  final List<Family>? families;
   final String? phoneNumber;
   final String? email;
   final String? companyEmail;
@@ -102,7 +102,7 @@ class User {
     this.bankName,
     this.accountHolderName,
     this.accountNumber,
-    this.families = const [],
+    this.families,
     this.phoneNumber,
     this.email,
     this.companyEmail,
