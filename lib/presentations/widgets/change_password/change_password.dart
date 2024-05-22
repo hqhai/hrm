@@ -2,16 +2,24 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/login/login_bloc.dart';
+import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/change_password_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/register/app_input_new_pssword_validate.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
+
+final changePasswordPageRoute = GoRoute(
+    path: Pages.changePasswordPage,
+    builder: (context, GoRouterState state) => const ChangePassword());
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -163,7 +171,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     } else {
       changePasswordDialog(
         context,
-        () => dI<UserBloc>().add(
+            () => dI<UserBloc>().add(
           ChangePasswordEvent(
             newPassword: newPasswordController.text,
             currentPassword: currentPasswordController.text,
