@@ -8,7 +8,7 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Flutter.gitlab-ci.yml
 
 stages:
-  # - test
+  - test
   - build_testing
   # - build_beta
 # manual_only_build_android_uat:
@@ -25,7 +25,6 @@ manual_build_android_uat:
     variables:
       - $ENV != "auto"
 
-
 .build_android_testing:
   tags:
     - flutter
@@ -41,4 +40,9 @@ manual_build_android_uat:
     - make build-apk
     - fastlane android publish_appcenter env:uat
 
-
+test:
+  tags:
+    - flutter
+  stage: test
+  script:
+    - make test

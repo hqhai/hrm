@@ -5,6 +5,15 @@ FLUTTER ?=fvm flutter
 gen-code:
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
 
+.PHONY: test
+test:
+	bash scripts/appendGitEnvs.sh
+	git submodule update --init
+	git submodule update --recursive --remote
+	$(FLUTTER) pub get
+	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+	$(FLUTTER) analyze
+
 .PHONY: clean
 clean:
 	$(FLUTTER) clean
