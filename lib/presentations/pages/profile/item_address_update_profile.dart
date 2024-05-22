@@ -12,11 +12,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ItemAddressUpdateProfile extends StatefulWidget {
-  const ItemAddressUpdateProfile(
-      {super.key,
-      required this.onChangeProvince,
-      required this.onChangeDistrict,
-      required this.onChangeWard});
+  const ItemAddressUpdateProfile({
+    super.key,
+    required this.onChangeProvince,
+    required this.onChangeDistrict,
+    required this.onChangeWard,
+  });
 
   final ValueChanged<String> onChangeProvince, onChangeDistrict, onChangeWard;
 
@@ -30,6 +31,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   @override
   void initState() {
     super.initState();
+    String keyWord1 = dI<UserBloc>().state.user.residentDistrict ?? "";
+    String keyWord2 = dI<UserBloc>().state.user.residentWard ?? "";
+    dI<AddressBloc>().add(GetDistrictsByKeyEvent(keyWord: keyWord1));
+    dI<AddressBloc>().add(GetWardsByKeyEvent(keyWord: keyWord2));
     dI<AddressBloc>().add(const GetProvincesEvent());
   }
 
@@ -63,10 +68,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   height: SpacingUnit.x3,
                 ),
                 DropdownMenu<String>(
-                  width: width*0.8,
+                  width: width * 0.8,
                   textStyle: const TextStyle(fontSize: SpacingUnit.x3),
-                  initialSelection: stateUser.user.residentProvince,
-                  onSelected: (String? value) => _setProvinceId(value, state),
+                  initialSelection: state.provinces.isNotEmpty ? state.provinces.first.name : "",
+                  onSelected: (String? value) => _setProvinceId(value, state, stateUser),
                   menuHeight: SpacingUnit.x50,
                   dropdownMenuEntries: state.provinces
                       .map((e) => e.name)
@@ -86,10 +91,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   height: SpacingUnit.x3,
                 ),
                 DropdownMenu<String>(
-                  width: width*0.8,
+                  width: width * 0.8,
                   textStyle: const TextStyle(fontSize: SpacingUnit.x3),
-                  initialSelection: stateUser.user.residentDistrict,
-                  onSelected: (String? value) => _setDistrictsId(value, state),
+                  initialSelection: state.districts.isNotEmpty ? state.districts.first.name : "",
+                  onSelected: (String? value) => _setDistrictsId(value, state, stateUser),
                   menuHeight: SpacingUnit.x50,
                   dropdownMenuEntries: state.districts
                       .map((e) => e.name)
@@ -109,10 +114,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   height: SpacingUnit.x3,
                 ),
                 DropdownMenu<String>(
-                  width: width*0.8,
+                  width: width * 0.8,
                   textStyle: const TextStyle(fontSize: SpacingUnit.x3),
-                  initialSelection: stateUser.user.residentWard,
-                  onSelected: (String? value) => widget.onChangeWard,
+                  initialSelection: state.wards.isNotEmpty ? stateUser.user.residentWard : "",
+                  onSelected: (String? value) => _setOnChangeWard(value, state, stateUser),
                   menuHeight: SpacingUnit.x50,
                   dropdownMenuEntries: state.wards
                       .map((e) => e.name)
@@ -132,8 +137,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
     );
   }
 
-  _setProvinceId(String? value, AddressState state) {
-    widget.onChangeProvince.call(value??"");
+  _setProvinceId(String? value, AddressState state, UserState stateUser) {
+    widget.onChangeProvince.call(value ?? stateUser.user.residentProvince ?? "");
 
     setState(() {
       provinceId = state.provinces.where((e) => e.name == value).first.id;
@@ -141,11 +146,15 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
     dI<AddressBloc>().add(GetDistrictsEvent(parentId: provinceId ?? ""));
   }
 
-  _setDistrictsId(String? value, AddressState state) {
-    widget.onChangeDistrict.call(value??"");
+  _setDistrictsId(String? value, AddressState state, UserState stateUser) {
+    widget.onChangeDistrict.call(value ?? stateUser.user.residentAddress ?? "");
     setState(() {
       districtId = state.districts.where((e) => e.name == value).first.id;
     });
     dI<AddressBloc>().add(GetWardsEvent(parentId: districtId ?? ""));
+  }
+
+  _setOnChangeWard(String? value, AddressState state, UserState stateUser) {
+    widget.onChangeWard.call(value ?? stateUser.user.residentWard ?? "");
   }
 }

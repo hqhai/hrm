@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/data/models/response.dart';
+import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/user.dart';
+import 'package:base_app/domain/use_cases/request_usecase.dart';
 import 'package:base_app/domain/use_cases/user_usecase.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
@@ -13,9 +16,11 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserUseCase userUseCase;
+  final RequestUseCase _requestUseCase;
 
   UserBloc()
       : userUseCase = dI<UserUseCase>(),
+        _requestUseCase = dI<RequestUseCase>(),
         super(const UserState()) {
     on<UserEvent>((event, emit) {});
     on<GetUserInfo>(_getUserInfo);
@@ -83,11 +88,18 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   FutureOr<void> _updateProfileEvent(UpdateProfileEvent event, Emitter<UserState> emit) async {
     emit(state.copyWith(status: UserStatus.updateProfileInit));
     try {
-      await userUseCase.updateProfile(updateProfileRequest: event.updateProfileRequest);
-      emit(state.copyWith(status: UserStatus.updateProfileSuccess));
+      if (event.file != File('')) {
+        String path = await _requestUseCase.uploadFile(originFile: event.file, imageData: null);
+        UpdateProfileRequest updateProfileRequest =
+            event.updateProfileRequest.copyWith(avatarPath: path);
+        await userUseCase.updateProfile(updateProfileRequest: updateProfileRequest);
+        emit(state.copyWith(status: UserStatus.updateProfileSuccess));
+      } else {
+        await userUseCase.updateProfile(updateProfileRequest: event.updateProfileRequest);
+        emit(state.copyWith(status: UserStatus.updateProfileSuccess));
+      }
     } catch (e) {
       emit(state.copyWith(status: UserStatus.updateProfileError));
     }
   }
 }
-

@@ -1,9 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/pages/profile/item_profile.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
@@ -35,7 +38,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      body: BlocBuilder<UserBloc, UserState>(
+      body: BlocConsumer<UserBloc, UserState>(
+        listener: (context, state) => _listener(context, state),
         builder: (context, state) {
           return Container(
             padding:
@@ -123,5 +127,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         },
       ),
     );
+  }
+
+  _listener(BuildContext context, UserState state) {
+    if (state.status == UserStatus.updateProfileSuccess) {
+      dI<UserBloc>().add(const GetUserInfo());
+    }
   }
 }

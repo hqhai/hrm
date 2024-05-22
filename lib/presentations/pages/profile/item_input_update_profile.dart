@@ -45,12 +45,16 @@ class _ItemInputUpdateProfileState extends State<ItemInputUpdateProfile> {
         AppInput(
           controller: contentController,
           maxLines: 1,
-          onChange: (values) => widget.onChange,
+          onChange: (values) => _setOnChange(values),
         ),
         const SizedBox(
           height: SpacingUnit.x3,
         ),
       ],
     );
+  }
+
+  _setOnChange(String values) {
+    widget.onChange.call(values);
   }
 }

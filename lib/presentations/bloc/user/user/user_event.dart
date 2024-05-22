@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:equatable/equatable.dart';
 
@@ -49,9 +51,10 @@ class DeleteAccountEvent extends UserEvent {
 }
 
 class UpdateProfileEvent extends UserEvent {
-  const UpdateProfileEvent({required this.updateProfileRequest});
+  const UpdateProfileEvent({required this.updateProfileRequest, required this.file});
   final UpdateProfileRequest updateProfileRequest;
+  final File file;
 
   @override
-  List<Object> get props => [updateProfileRequest];
+  List<Object> get props => [updateProfileRequest, file];
 }

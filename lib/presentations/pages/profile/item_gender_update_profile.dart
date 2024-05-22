@@ -57,7 +57,7 @@ class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
             DropdownMenu<GenderEnum>(
               textStyle: const TextStyle(fontSize: SpacingUnit.x3),
               initialSelection: convertGenderEnum(),
-              onSelected: (GenderEnum? value) => widget.onChangeGender,
+              onSelected: (GenderEnum? value) => _setGender(value),
               dropdownMenuEntries:
                   GenderEnum.values.map((e) => e).map<DropdownMenuEntry<GenderEnum>>((GenderEnum value) {
                 return DropdownMenuEntry<GenderEnum>(
@@ -72,5 +72,9 @@ class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
         );
       },
     );
+  }
+
+  _setGender(GenderEnum? value) {
+    widget.onChangeGender.call(value??GenderEnum.male);
   }
 }

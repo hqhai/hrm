@@ -259,7 +259,7 @@ class _RequestUpdatePageState extends State<RequestUpdatePage> {
                           SizedBox(
                             width: MediaQuery.sizeOf(context).width * 0.5,
                             child: Text(
-                              approverName(request.approverId ?? '')??"",
+                              approverName(request.approverId ?? '') ?? "",
                               style: TextStyle(fontSize: SpacingUnit.x4_5, color: colors.text),
                             ),
                           ),

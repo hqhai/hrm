@@ -51,7 +51,7 @@ class User {
   final String? phoneNumber;
   final String? email;
   final String? companyEmail;
-  final String? level;
+  final String? educationLevel;
   final String? education;
   final String? specializes;
   final String? graduationType;
@@ -106,7 +106,7 @@ class User {
     this.phoneNumber,
     this.email,
     this.companyEmail,
-    this.level,
+    this.educationLevel,
     this.education,
     this.specializes,
     this.graduationType,
