@@ -1,4 +1,4 @@
-FLUTTER ?=fvm flutter
+FLUTTER ?=flutter
 
 
 .PHONY: gen-code
