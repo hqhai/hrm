@@ -9,7 +9,7 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 analyzer:
-  exclude: [build/**, packages/**]
+  exclude: [build/**, packages/**, lib/l10n/**]
   errors:
     unnecessary_question_mark: ignore
 linter:
