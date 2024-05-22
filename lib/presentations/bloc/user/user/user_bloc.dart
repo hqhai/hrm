@@ -88,7 +88,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   FutureOr<void> _updateProfileEvent(UpdateProfileEvent event, Emitter<UserState> emit) async {
     emit(state.copyWith(status: UserStatus.updateProfileInit));
     try {
-      if (event.file != File('')) {
+      if (event.file.path != File('').path) {
         String path = await _requestUseCase.uploadFile(originFile: event.file, imageData: null);
         UpdateProfileRequest updateProfileRequest =
             event.updateProfileRequest.copyWith(avatarPath: path);
