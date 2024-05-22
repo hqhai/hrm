@@ -27,7 +27,6 @@ class MainBloc {
         BlocProvider<UserBloc>(create: (BuildContext context) => dI<UserBloc>()),
         BlocProvider<AttendanceBloc>(create: (BuildContext context) => dI<AttendanceBloc>()),
         BlocProvider<RegisterBloc>(create: (BuildContext context) => dI<RegisterBloc>()),
-        BlocProvider<UserBloc>(create: (BuildContext context) => dI<UserBloc>()),
         BlocProvider<RequestBloc>(create: (BuildContext context) => dI<RequestBloc>()),
         BlocProvider<LanguageCubit>(create: (BuildContext context) => dI<LanguageCubit>()),
         BlocProvider<UserByRolesBloc>(create: (BuildContext context) => dI<UserByRolesBloc>()),

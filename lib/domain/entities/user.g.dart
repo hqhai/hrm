@@ -49,7 +49,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       phoneNumber: json['phoneNumber'] as String?,
       email: json['email'] as String?,
       companyEmail: json['companyEmail'] as String?,
-      level: json['level'] as String?,
+      educationLevel: json['educationLevel'] as String?,
       education: json['education'] as String?,
       specializes: json['specializes'] as String?,
       graduationType: json['graduationType'] as String?,
@@ -129,7 +129,7 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('phoneNumber', instance.phoneNumber);
   writeNotNull('email', instance.email);
   writeNotNull('companyEmail', instance.companyEmail);
-  writeNotNull('level', instance.level);
+  writeNotNull('educationLevel', instance.educationLevel);
   writeNotNull('education', instance.education);
   writeNotNull('specializes', instance.specializes);
   writeNotNull('graduationType', instance.graduationType);

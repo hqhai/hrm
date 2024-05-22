@@ -15,8 +15,9 @@ class LocationUseCaseImpl extends LocationUseCase {
       {required int pageSize,
       required int page,
       required String locationType,
-      String? parentId}) async {
+      String? parentId,
+        String? keyWord}) async {
     return _locationRepository.getAddress(
-        pageSize: pageSize, page: page, locationType: locationType, parentId: parentId);
+        pageSize: pageSize, page: page, locationType: locationType, parentId: parentId, keyWord: keyWord);
   }
 }

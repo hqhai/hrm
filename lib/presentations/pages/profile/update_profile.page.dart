@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/value_string.dart';
@@ -43,6 +45,7 @@ class UpdateProfilePage extends StatefulWidget {
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   String? dateOfBirth, phoneNumber, province, district, ward, address, firstName, lastName;
+  File file = File('');
   GenderEnum? gender = GenderEnum.male;
 
   @override
@@ -51,16 +54,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   _listener(BuildContext context, UserState state) {
-    /*setState(() {
-      dateOfBirth = state.user.dayOfBirth ?? "";
-      phoneNumber = state.user.phoneNumber ?? "";
-      province = state.user.residentProvince ?? "";
-      district = state.user.residentDistrict ?? "";
-      ward = state.user.residentWard ?? "";
-      address = state.user.residentAddress ?? "";
-      firstName = state.user.firstName ?? "";
-      lastName = state.user.lastName ?? "";
-    });*/
     if (state.status == UserStatus.updateProfileInit) {
       Navigator.of(context).pop();
       progressIndicatorDialog(context);
@@ -99,7 +92,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const ItemProfile(),
+                  ItemProfile(isCheck: true, onChange: (value) => _setFileAvatar(value)),
                   const SizedBox(
                     height: SpacingUnit.x9_5,
                   ),
@@ -202,7 +195,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       lastName: lastName ?? state.user.lastName ?? "",
       dayOfBirth: dateOfBirth ?? state.user.dayOfBirth ?? "",
       gender: gender?.nameEn ?? state.user.gender ?? "",
-      phoneNumber: state.user.phoneNumber ?? "",
+      phoneNumber: phoneNumber ?? state.user.phoneNumber ?? "",
       tax: state.user.tax ?? "",
       families: state.user.families ?? [],
       ciNumber: state.user.ciNumber ?? "",
@@ -228,7 +221,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       accountHolderName: state.user.accountHolderName ?? "",
       accountNumber: state.user.accountNumber ?? "",
       companyEmail: state.user.companyEmail ?? "",
-      educationLevel: null,
+      educationLevel: state.user.educationLevel ?? "",
       education: state.user.education ?? "",
       specializes: state.user.specializes ?? "",
       graduationType: state.user.graduationType ?? "",
@@ -238,7 +231,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     );
     updateProfileDialog(
       context,
-      () => dI<UserBloc>().add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest)),
+      () => dI<UserBloc>().add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest, file: file)),
     );
   }
 
@@ -287,6 +280,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   _setLastName(String value) {
     setState(() {
       lastName = value;
+    });
+  }
+
+  _setFileAvatar(File value) {
+    setState(() {
+      file = value;
     });
   }
 }

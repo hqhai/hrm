@@ -31,3 +31,19 @@ class GetWardsEvent extends AddressEvent {
   @override
   List<Object?> get props => [parentId];
 }
+
+class GetDistrictsByKeyEvent extends AddressEvent {
+  const GetDistrictsByKeyEvent({required this.keyWord});
+  final String keyWord;
+
+  @override
+  List<Object?> get props => [keyWord];
+}
+
+class GetWardsByKeyEvent extends AddressEvent {
+  const GetWardsByKeyEvent({required this.keyWord});
+  final String keyWord;
+
+  @override
+  List<Object?> get props => [keyWord];
+}

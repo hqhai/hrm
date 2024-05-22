@@ -205,4 +205,10 @@ enum AddressStatus{
   getWardsInit,
   getWardsSuccess,
   getWardsError,
+  getDistrictsByKeyInit,
+  getDistrictsByKeySuccess,
+  getDistrictsByKeyError,
+  getWardsByKeyInit,
+  getWardsByKeySuccess,
+  getWardsByKeyError,
 }

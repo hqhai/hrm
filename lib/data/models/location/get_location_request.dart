@@ -8,12 +8,14 @@ class GetLocationRequest {
   final int pageSize;
   final int page;
   final String? parentId;
+  final String? keyWord;
 
   const GetLocationRequest({
     required this.locationType,
     required this.pageSize,
     required this.page,
     this.parentId,
+    this.keyWord
   });
 
   factory GetLocationRequest.fromJson(Map<String, dynamic> json) =>
