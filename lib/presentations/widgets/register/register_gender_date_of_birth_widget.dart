@@ -22,10 +22,12 @@ class RegisterGenderEnumAndDateOfBirth extends StatefulWidget {
       required this.onChangeDateOfBirth});
 
   @override
-  State<RegisterGenderEnumAndDateOfBirth> createState() => _RegisterGenderEnumAndDateOfBirthState();
+  State<RegisterGenderEnumAndDateOfBirth> createState() =>
+      _RegisterGenderEnumAndDateOfBirthState();
 }
 
-class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAndDateOfBirth> {
+class _RegisterGenderEnumAndDateOfBirthState
+    extends State<RegisterGenderEnumAndDateOfBirth> {
   late TextEditingController emailController;
   bool isCheckedInput = false;
 
@@ -61,7 +63,9 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
                   GenderEnum.values.map((e) => e).map<DropdownMenuEntry<GenderEnum>>((GenderEnum value) {
                 return DropdownMenuEntry<GenderEnum>(
                     value: value,
-                    label: state.languageCode == LanguageEnum.en ? value.nameEn : value.nameVi);
+                    label: state.languageCode == LanguageEnum.en
+                        ? value.nameEn
+                        : value.nameVi);
               }).toList(),
             );
           },
@@ -72,6 +76,8 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
 
   bool checkInput(String emailController) {
     RegExp regExpEmail = RegExp(checkEmailRegexExp);
-    return (regExpEmail.hasMatch(emailController)) ? isCheckedInput = true : isCheckedInput = false;
+    return (regExpEmail.hasMatch(emailController))
+        ? isCheckedInput = true
+        : isCheckedInput = false;
   }
 }
