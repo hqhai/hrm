@@ -333,7 +333,7 @@ class _RequestUpdatePageState extends State<RequestUpdatePage> {
                     const SizedBox(
                       height: SpacingUnit.x4_5,
                     ),
-                    dI<UserBloc>().state.user.id == ConfigStringValues.user.name
+                    dI<UserBloc>().state.user.id == ConfigRoleStringValues.user.name
                         ? ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,

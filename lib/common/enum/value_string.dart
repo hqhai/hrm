@@ -35,7 +35,7 @@ enum PriorityRequestStatus {
   const PriorityRequestStatus(this.name);
 }
 
-enum ConfigStringValues {
+enum ConfigRoleStringValues {
   generalManager('GeneralManager'),
   manager('Manager'),
   user('User'),
@@ -43,7 +43,7 @@ enum ConfigStringValues {
 
   final String name;
 
-  const ConfigStringValues(this.name);
+  const ConfigRoleStringValues(this.name);
 }
 
 enum ParentId {

@@ -59,7 +59,7 @@ class _ItemListRoomMeetingState extends State<ItemListRoomMeeting> {
                         ),
                         Expanded(
                           flex: (!(state.user.id ==
-                                  ConfigStringValues.generalManager.name))
+                                  ConfigRoleStringValues.generalManager.name))
                               ? 40
                               : 20,
                           child: Text(
@@ -72,7 +72,7 @@ class _ItemListRoomMeetingState extends State<ItemListRoomMeeting> {
                         ),
                         Expanded(
                           flex: (!(state.user.id ==
-                                  ConfigStringValues.generalManager.name))
+                                  ConfigRoleStringValues.generalManager.name))
                               ? 15
                               : 10,
                           child: Text(
@@ -92,7 +92,7 @@ class _ItemListRoomMeetingState extends State<ItemListRoomMeeting> {
                               style:
                                   const TextStyle(fontSize: SpacingUnit.x4, color: Colors.orange)),
                         ),
-                        if (state.user.id == ConfigStringValues.generalManager.name)
+                        if (state.user.id == ConfigRoleStringValues.generalManager.name)
                           Expanded(
                             flex: 10,
                             child: GestureDetector(
@@ -102,7 +102,7 @@ class _ItemListRoomMeetingState extends State<ItemListRoomMeeting> {
                               child: const Icon(Icons.delete, color: Colors.red, size: 24),
                             ),
                           ),
-                        if (state.user.id == ConfigStringValues.generalManager.name)
+                        if (state.user.id == ConfigRoleStringValues.generalManager.name)
                           Expanded(
                             flex: 10,
                             child: GestureDetector(

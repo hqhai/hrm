@@ -171,7 +171,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     } else {
       changePasswordDialog(
         context,
-        () => dI<UserBloc>().add(
+            () => dI<UserBloc>().add(
           ChangePasswordEvent(
             newPassword: newPasswordController.text,
             currentPassword: currentPasswordController.text,
