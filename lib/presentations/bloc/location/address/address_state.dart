@@ -19,4 +19,9 @@ class AddressState extends Equatable {
 
   @override
   List<Object> get props => [provinces, districts, wards, status];
+
+  factory AddressState.fromJson(Map<String, dynamic> json) =>
+      _$AddressStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AddressStateToJson(this);
 }
