@@ -23,7 +23,7 @@ manual_build_android_uat:
     - web
   except:
     variables:
-      - $ENV != "auto"
+      - $ENV == "auto"
 
 .build_android_testing:
   tags:

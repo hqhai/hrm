@@ -71,12 +71,11 @@ platform :android do
 
   desc "Deploy a new version to the App Center"
   lane :publish_appcenter do |options|
-      env = options[:env]
     #TODO fastlane lane env 
       pathApk = "./build/app/outputs/flutter-apk/app-release.apk"
       puts "pathApk = " + pathApk
-      apiToken = "ee7122cc-bfa7-40a3-beec-04ef2e1b463b"
-      appName = "LMS-TESTING"
+      apiToken = "1e147a9c50de6a7ccbda935b8968be79559104fe"
+      appName = "HRM"
       appcenter_upload(
       api_token: apiToken,
       owner_name: "FSEL", 
@@ -84,20 +83,12 @@ platform :android do
       app_os: "Android",
       app_platform: "Java",
       apk: pathApk,
-      release_notes:"[#{options[:env].upcase}][#{git_branch.upcase}] : #{options[:notes]}",
+      release_notes:"[[#{git_branch.upcase}] : #{options[:notes]}",
       notify_testers: true,
       should_clip: false,
       timeout: 600,
       )
-      UI.message("[#{options[:env].upcase}][#{git_branch.upcase}] : #{lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK]}")
-    #   teams_url = "https://teams.microsoft.com/_#/conversations/19:aaf85d255d264c6f83e60680fa1b98b4@thread.v2?ctx=chat"
-    #   teams_bot(
-    #   teams_url: teams_url,
-    #   title: "New Release [#{options[:env].upcase}][#{git_branch}]",
-    #   text: "Hi team !! this Link down load [#{options[:env].upcase}][#{git_branch}]("+lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK]+"). I can send messages on Microsoft Teams very easily from Fastlane.",
-    #   activity_title: "Hey",
-    #   activity_image: "https://seeklogo.com/images/F/fastlane-logo-6CA0B0B428-seeklogo.com.png"
-    # )
+      UI.message("[#{git_branch.upcase}] : #{lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK]}")
   end
 end
 
@@ -135,7 +126,7 @@ platform :ios do
   )
 
   pilot(api_key: api_key)
-end
+  end
 end
 
 
