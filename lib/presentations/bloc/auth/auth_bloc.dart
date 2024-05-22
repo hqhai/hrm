@@ -25,7 +25,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       userToken = event.loginResponse!.accessToken;
       email = event.email;
       password = event.password;
-      roles = event.roles;
+      roles = event.loginResponse!.roles;
     } else {
       userToken = state.token;
       email = state.email;

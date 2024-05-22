@@ -13,17 +13,15 @@ class CheckAuthenticated extends AuthEvent {
   final LoginResponse? loginResponse;
   final String email;
   final String password;
-  final List<String> roles;
 
   const CheckAuthenticated(
       {this.loginResponse,
       this.saveLogin = true,
       this.email = '',
-      this.password = '',
-      this.roles = const []});
+      this.password = '',});
 
   @override
-  List<Object?> get props => [loginResponse, saveLogin, email, password, roles];
+  List<Object?> get props => [loginResponse, saveLogin, email, password,];
 }
 
 class LogoutEvent extends AuthEvent {

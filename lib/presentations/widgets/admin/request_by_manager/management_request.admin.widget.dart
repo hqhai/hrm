@@ -97,7 +97,7 @@ class _ManagementRequestState extends State<ManagementRequest> {
                               dropdownTypeRequestValue = value!;
                             },
                             dropdownMenuEntries: dI<UserBloc>().state.user.id ==
-                                    ConfigStringValues.generalManager.name
+                                    ConfigRoleStringValues.generalManager.name
                                 ? MenuValues.listSearchTypeRequestByAdmin
                                     .map<DropdownMenuEntry<String>>((String value) {
                                     return DropdownMenuEntry<String>(value: value, label: value);

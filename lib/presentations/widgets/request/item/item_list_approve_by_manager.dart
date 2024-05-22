@@ -108,6 +108,6 @@ class _ItemListApproveByManagerState extends State<ItemListApproveByManager> {
   }
 
   bool _checkRole() {
-    return dI<UserBloc>().state.user.id.toString() == ConfigStringValues.manager.name;
+    return dI<UserBloc>().state.user.id.toString() == ConfigRoleStringValues.manager.name;
   }
 }

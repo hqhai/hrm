@@ -326,7 +326,7 @@ class _RequestPageState extends State<RequestPage> {
                     const SizedBox(
                       height: SpacingUnit.x4_5,
                     ),
-                    dI<UserBloc>().state.user.id == ConfigStringValues.user.name &&
+                    dI<UserBloc>().state.user.id == ConfigRoleStringValues.user.name &&
                             state.request.status == StatusRequestStatus.pending.name
                         ? ElevatedButton(
                             style: ElevatedButton.styleFrom(
