@@ -2,7 +2,7 @@ import 'app_localizations.dart';
 
 /// The translations for Vietnamese (`vi`).
 class AppLocalizationsVi extends AppLocalizations {
-  AppLocalizationsVi([String locale = 'vi']) : super(locale);
+  AppLocalizationsVi([super.locale = 'vi']);
 
   @override
   String get helloWorld => 'Hello World!';
@@ -149,7 +149,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get previouslyAvailableSchedules => 'Lịch trình có sẵn :';
 
   @override
-  String get thereAreCurrentlyNoMeetingsScheduled => 'Hiện tại chưa có cuộc họp nào được lên lịch';
+  String get thereAreCurrentlyNoMeetingsScheduled =>
+      'Hiện tại chưa có cuộc họp nào được lên lịch';
 
   @override
   String get scheduleAMeeting => 'Lên lịch cho cuộc họp :';
@@ -275,10 +276,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get errorEmailOrPassword => 'Email hoặc mật khẩu lỗi';
 
   @override
-  String get endTimeMustBeAfterStartTime => 'Thời gian kết thúc phải sau thời gian bắt đầu!';
+  String get endTimeMustBeAfterStartTime =>
+      'Thời gian kết thúc phải sau thời gian bắt đầu!';
 
   @override
-  String get bookingTimeMustBeAfterCurrentTime => 'Thời gian đặt phòng phải sau thời gian hiện tại!';
+  String get bookingTimeMustBeAfterCurrentTime =>
+      'Thời gian đặt phòng phải sau thời gian hiện tại!';
 
   @override
   String get today => 'Hôm nay';
@@ -293,7 +296,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get setRoom => 'Đặt phòng';
 
   @override
-  String get projectAndTasksCannotBeLeftBlank => 'Project và task không thể để trống';
+  String get projectAndTasksCannotBeLeftBlank =>
+      'Project và task không thể để trống';
 
   @override
   String get noDataFound => 'Không tìm thấy dữ liệu!';
@@ -302,19 +306,23 @@ class AppLocalizationsVi extends AppLocalizations {
   String get oops => 'Ôi!';
 
   @override
-  String get changeStatusRequestByManager => 'Bạn có muốn sửa đổi trạng thái các yêu cầu không?';
+  String get changeStatusRequestByManager =>
+      'Bạn có muốn sửa đổi trạng thái các yêu cầu không?';
 
   @override
-  String get doYouWantToCreateDepartment => 'Bạn có muốn tạo phòng ban mới không?';
+  String get doYouWantToCreateDepartment =>
+      'Bạn có muốn tạo phòng ban mới không?';
 
   @override
   String get doYouWantToCreatePosition => 'Bạn có muốn tạo chức vụ mới không?';
 
   @override
-  String get doYouWantToUpdateDepartment => 'Bạn có muốn chỉnh sửa thông tin phòng ban không?';
+  String get doYouWantToUpdateDepartment =>
+      'Bạn có muốn chỉnh sửa thông tin phòng ban không?';
 
   @override
-  String get doYouWantToUpdatePosition => 'Bạn có muốn chỉnh sửa thông tin chức vụ không?';
+  String get doYouWantToUpdatePosition =>
+      'Bạn có muốn chỉnh sửa thông tin chức vụ không?';
 
   @override
   String get code => 'Mã';
@@ -359,10 +367,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get doYouWantToCreatePersonnel => 'Bạn có muốn tạo nhân sự mới không?';
 
   @override
-  String get doYouWantToUpdatePersonnel => 'Bạn có muốn chỉnh sửa thông tin nhân sự không?';
+  String get doYouWantToUpdatePersonnel =>
+      'Bạn có muốn chỉnh sửa thông tin nhân sự không?';
 
   @override
-  String get doYouWantToCreateCheckInSetting => 'Bạn có muốn tạo khung giờ làm việc mới không?';
+  String get doYouWantToCreateCheckInSetting =>
+      'Bạn có muốn tạo khung giờ làm việc mới không?';
 
   @override
   String get startDate => 'Ngày bắt đầu làm việc';
@@ -398,10 +408,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get workingTime => 'Thời gian làm việc';
 
   @override
-  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword => 'Vui lòng nhập email bạn muốn lấy lại mật khẩu!';
+  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword =>
+      'Vui lòng nhập email bạn muốn lấy lại mật khẩu!';
 
   @override
-  String get newPasswordHasJustBeenSentToEmail => 'Mật khẩu mới vừa được gửi tới email';
+  String get newPasswordHasJustBeenSentToEmail =>
+      'Mật khẩu mới vừa được gửi tới email';
 
   @override
   String get pleaseCheckYourEmail => ', Làm ơn check email của bạn.';
@@ -413,10 +425,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get register => 'Đăng ký';
 
   @override
-  String get theContentAndTitleCannotBeLeftBlank => 'Nội dung và tiêu đề không được để trống';
+  String get theContentAndTitleCannotBeLeftBlank =>
+      'Nội dung và tiêu đề không được để trống';
 
   @override
-  String get theNoteDateCannotBeBeforeThePresentTime => 'Ngày ghi chú không được trước thời điểm hiện tại';
+  String get theNoteDateCannotBeBeforeThePresentTime =>
+      'Ngày ghi chú không được trước thời điểm hiện tại';
 
   @override
   String get youMadeANoteOnTheDate => 'Bạn đã ghi chú vào ngày';
@@ -425,7 +439,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get dateNote => 'Ngày ghi chú';
 
   @override
-  String get enterYourRegisteredUsernameAndPassword => 'Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản';
+  String get enterYourRegisteredUsernameAndPassword =>
+      'Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản';
 
   @override
   String get supportContact => 'Liên hệ hỗ trợ';
@@ -449,7 +464,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get profile => 'Hồ sơ';
 
   @override
-  String get doYouWantToDeleteYourAccount => 'Bạn có muốn xóa tài khoản này không?';
+  String get doYouWantToDeleteYourAccount =>
+      'Bạn có muốn xóa tài khoản này không?';
 
   @override
   String get deleteAccount => 'Xóa tài khoản';

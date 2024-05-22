@@ -2,7 +2,7 @@ import 'app_localizations.dart';
 
 /// The translations for English (`en`).
 class AppLocalizationsEn extends AppLocalizations {
-  AppLocalizationsEn([String locale = 'en']) : super(locale);
+  AppLocalizationsEn([super.locale = 'en']);
 
   @override
   String get helloWorld => 'Hello World!';
@@ -119,7 +119,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get approver => 'Approver :';
 
   @override
-  String get createOvertimeRequestIsSuccess => 'Create overtime request is success';
+  String get createOvertimeRequestIsSuccess =>
+      'Create overtime request is success';
 
   @override
   String get successfullyCreatedRequest => 'Successfully created request';
@@ -140,7 +141,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePasswordSuccess => 'Change password success!';
 
   @override
-  String get doYouWantToChangeYourPassword => 'Do you want to change your password?';
+  String get doYouWantToChangeYourPassword =>
+      'Do you want to change your password?';
 
   @override
   String get leaveACommentHere => 'Leave a comment here';
@@ -149,7 +151,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get previouslyAvailableSchedules => 'Previously available schedules :';
 
   @override
-  String get thereAreCurrentlyNoMeetingsScheduled => 'There are currently no meetings scheduled';
+  String get thereAreCurrentlyNoMeetingsScheduled =>
+      'There are currently no meetings scheduled';
 
   @override
   String get scheduleAMeeting => 'Schedule a meeting :';
@@ -275,10 +278,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorEmailOrPassword => 'Error email or password';
 
   @override
-  String get endTimeMustBeAfterStartTime => 'End time must be after start time!';
+  String get endTimeMustBeAfterStartTime =>
+      'End time must be after start time!';
 
   @override
-  String get bookingTimeMustBeAfterCurrentTime => 'Booking time must be after current time!';
+  String get bookingTimeMustBeAfterCurrentTime =>
+      'Booking time must be after current time!';
 
   @override
   String get today => 'Today';
@@ -293,7 +298,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setRoom => 'Set room';
 
   @override
-  String get projectAndTasksCannotBeLeftBlank => 'Project and tasks cannot be left blank';
+  String get projectAndTasksCannotBeLeftBlank =>
+      'Project and tasks cannot be left blank';
 
   @override
   String get noDataFound => 'No Data Found!';
@@ -302,7 +308,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get oops => 'Oops!';
 
   @override
-  String get changeStatusRequestByManager => 'Do you want to modify status requests?';
+  String get changeStatusRequestByManager =>
+      'Do you want to modify status requests?';
 
   @override
   String get doYouWantToCreateDepartment => 'Do you want to create department?';
@@ -362,7 +369,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get doYouWantToUpdatePersonnel => 'Do you want to update personnel?';
 
   @override
-  String get doYouWantToCreateCheckInSetting => 'Do you want to create work time?';
+  String get doYouWantToCreateCheckInSetting =>
+      'Do you want to create work time?';
 
   @override
   String get startDate => 'Start date';
@@ -398,10 +406,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get workingTime => 'Working time';
 
   @override
-  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword => 'Please enter the email you want to retrieve your password!';
+  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword =>
+      'Please enter the email you want to retrieve your password!';
 
   @override
-  String get newPasswordHasJustBeenSentToEmail => 'New password has just been sent to email';
+  String get newPasswordHasJustBeenSentToEmail =>
+      'New password has just been sent to email';
 
   @override
   String get pleaseCheckYourEmail => ', Please check your email.';
@@ -413,10 +423,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get register => 'Register';
 
   @override
-  String get theContentAndTitleCannotBeLeftBlank => 'Content and title cannot be blank';
+  String get theContentAndTitleCannotBeLeftBlank =>
+      'Content and title cannot be blank';
 
   @override
-  String get theNoteDateCannotBeBeforeThePresentTime => 'The note date cannot be before the present time';
+  String get theNoteDateCannotBeBeforeThePresentTime =>
+      'The note date cannot be before the present time';
 
   @override
   String get youMadeANoteOnTheDate => 'You made a note on the date';
@@ -425,7 +437,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dateNote => 'Date note';
 
   @override
-  String get enterYourRegisteredUsernameAndPassword => 'Enter your registered username and password';
+  String get enterYourRegisteredUsernameAndPassword =>
+      'Enter your registered username and password';
 
   @override
   String get supportContact => 'Support Contact';
@@ -449,7 +462,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile => 'Profile';
 
   @override
-  String get doYouWantToDeleteYourAccount => 'Do you want to delete your account?';
+  String get doYouWantToDeleteYourAccount =>
+      'Do you want to delete your account?';
 
   @override
   String get deleteAccount => 'Delete Account';
