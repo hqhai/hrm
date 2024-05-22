@@ -13,6 +13,7 @@ class CheckAuthenticated extends AuthEvent {
   final LoginResponse? loginResponse;
   final String email;
   final String password;
+  final List<String> roles;
 
   const CheckAuthenticated(
       {this.loginResponse,
