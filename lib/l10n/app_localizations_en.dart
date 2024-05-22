@@ -101,22 +101,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Logout';
 
   @override
-  String get title => 'Title :';
+  String get title => 'Title';
 
   @override
-  String get content => 'Content :';
+  String get content => 'Content';
 
   @override
   String get selectFile => 'Select file';
 
   @override
-  String get typeRequest => 'Type request :';
+  String get typeRequest => 'Type request';
 
   @override
-  String get priority => 'Priority :';
+  String get priority => 'Priority';
 
   @override
-  String get approver => 'Approver :';
+  String get approver => 'Approver';
 
   @override
   String get createOvertimeRequestIsSuccess => 'Create overtime request is success';
@@ -146,13 +146,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leaveACommentHere => 'Leave a comment here';
 
   @override
-  String get previouslyAvailableSchedules => 'Previously available schedules :';
+  String get previouslyAvailableSchedules => 'Previously available schedules';
 
   @override
   String get thereAreCurrentlyNoMeetingsScheduled => 'There are currently no meetings scheduled';
 
   @override
-  String get scheduleAMeeting => 'Schedule a meeting :';
+  String get scheduleAMeeting => 'Schedule a meeting';
 
   @override
   String get update => 'UPDATE';
@@ -185,22 +185,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get address => 'Address';
 
   @override
-  String get project => 'Project :';
+  String get project => 'Project';
 
   @override
-  String get task => 'Task :';
+  String get task => 'Task';
 
   @override
-  String get createTime => 'Create Time :';
+  String get createTime => 'Create Time';
 
   @override
   String get type => 'Type';
 
   @override
-  String get creator => 'Creator :';
+  String get creator => 'Creator';
 
   @override
-  String get phoneNumber => 'Phone Number :';
+  String get phoneNumber => 'Phone Number';
 
   @override
   String get note => 'Note';
@@ -212,19 +212,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currentPassword => 'Current Password';
 
   @override
-  String get noteRoomLeader => 'Note Room Leader :';
+  String get noteRoomLeader => 'Note Room Leader';
 
   @override
-  String get noteManager => 'Note Manager :';
+  String get noteManager => 'Note Manager';
 
   @override
   String get explanation => 'Explanation';
 
   @override
-  String get startDay => 'Start Day :';
+  String get startDay => 'Start Day';
 
   @override
-  String get endDay => 'End Day :';
+  String get endDay => 'End Day';
 
   @override
   String get roomName => 'Room Name';
@@ -266,7 +266,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add => 'Add';
 
   @override
-  String get lateTime => 'Late time: ';
+  String get lateTime => 'Late time';
 
   @override
   String get book => 'Book';
@@ -455,8 +455,44 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteAccount => 'Delete Account';
 
   @override
+  String get userInformation => 'User information';
+
+  @override
+  String get employeeCode => 'Employee code';
+
+  @override
+  String get personalEmail => 'Personal email';
+
+  @override
   String get gender => 'Gender';
 
   @override
   String get dateOfBirth => 'Date of birth';
+
+  @override
+  String get branch => 'Branch';
+
+  @override
+  String get editPersonalInformation => 'Edit personal information';
+
+  @override
+  String get setting => 'Setting';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get currentPasswordIsIncorrect => 'Current password is incorrect!';
+
+  @override
+  String get province => 'Province';
+
+  @override
+  String get district => 'District';
+
+  @override
+  String get ward => 'Ward';
+
+  @override
+  String get doYouWantToUpdateProfile => 'Do you want to update profile?';
 }
