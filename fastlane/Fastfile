@@ -1,0 +1,143 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+default_platform(:android)
+
+# variables:
+#   FlutterChannel: 'stable'
+#   FlutterVersion: '3.13.9'
+
+#   ProjectSlug: '<APP_CENTER_USERNAME>/<APP_CENTER_APP>'
+#   ProjectDirectory: '$(Build.SourcesDirectory)'
+
+#   BuildNumber: '$(Build.BuildNumber)'
+#   BuildMessage: '$(Build.SourceVersionMessage)'
+#   BuildDirectory: '$(ProjectDirectory)/build/app/outputs/apk/release/app-release.apk'
+  
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+    upload_to_play_store
+  end
+
+  lane :test_teams do
+  teams_bot(
+    teams_url: 'https://outlook.office.com/webhook/...',
+    title: 'Welcome from Fastlane',
+    summary: 'Integration is a success',
+    text: 'Hi there !! I am [Teams Bot](https://github.com/huextrat/fastlane-plugin-teams_bot). I can send messages on Microsoft Teams very easily from Fastlane.',
+    activity_title: 'Hey',
+    activity_subtitle: 'Working on Fastlane',
+    activity_image: 'https://seeklogo.com/images/F/fastlane-logo-6CA0B0B428-seeklogo.com.png',
+    facts: [
+      {
+        'name' => 'Environment',
+        'value' => 'Staging'
+      },
+      {
+        'name' => 'Branch',
+        'value' => 'Develop'
+      }
+    ],
+    theme_color: '321244',
+    use_markdown: true
+  )
+  end
+
+
+  desc "Deploy a new version to the App Center"
+  lane :testcase do |options|
+      env = options[:env]
+      puts "[#{options[:env].upcase}]"
+  end
+
+  desc "Deploy a new version to the App Center"
+  lane :publish_appcenter do |options|
+      env = options[:env]
+    #TODO fastlane lane env 
+      pathApk = "./build/app/outputs/flutter-apk/app-release.apk"
+      puts "pathApk = " + pathApk
+      apiToken = "ee7122cc-bfa7-40a3-beec-04ef2e1b463b"
+      appName = "LMS-TESTING"
+      appcenter_upload(
+      api_token: apiToken,
+      owner_name: "FSEL", 
+      app_name: appName,
+      app_os: "Android",
+      app_platform: "Java",
+      apk: pathApk,
+      release_notes:"[#{options[:env].upcase}][#{git_branch.upcase}] : #{options[:notes]}",
+      notify_testers: true,
+      should_clip: false,
+      timeout: 600,
+      )
+      UI.message("[#{options[:env].upcase}][#{git_branch.upcase}] : #{lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK]}")
+    #   teams_url = "https://teams.microsoft.com/_#/conversations/19:aaf85d255d264c6f83e60680fa1b98b4@thread.v2?ctx=chat"
+    #   teams_bot(
+    #   teams_url: teams_url,
+    #   title: "New Release [#{options[:env].upcase}][#{git_branch}]",
+    #   text: "Hi team !! this Link down load [#{options[:env].upcase}][#{git_branch}]("+lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK]+"). I can send messages on Microsoft Teams very easily from Fastlane.",
+    #   activity_title: "Hey",
+    #   activity_image: "https://seeklogo.com/images/F/fastlane-logo-6CA0B0B428-seeklogo.com.png"
+    # )
+  end
+end
+
+platform :ios do
+  desc "Deploy a new version to the App Center"
+  lane :publish_appcenter do |options|
+    pathApk = "./build/ios/ipa/lms_app.ipa"
+      puts "pathApk = " + pathApk
+    env = options[:env]
+    apiToken = "0b974866f98110fd36a89b1e011161b31020f41f"
+    appName = "TESTING"
+    #TODO fastlane lane env 
+      appcenter_upload(
+      api_token: apiToken,
+      owner_name: "FSEL", 
+      app_name: appName,
+      app_os: "ios",
+      app_platform: "Objective-C / Swift",
+      apk: pathApk,
+      release_notes:"[#{options[:env].upcase}][#{git_branch.upcase}] :  #{options[:notes]}",
+      notify_testers: true,
+      should_clip: false,
+      timeout: 600,
+      )
+      UI.message("#{options[:env].upcase}][#{git_branch.upcase}] : #{lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK]}")
+  end
+
+  lane :release do
+  api_key = app_store_connect_api_key(
+    key_id: "D383SF739",
+    issuer_id: "e578fe49-b5c1-4f5b-988f-456e0cbba8c8",
+    key_filepath: "./AuthKey_KWW2KVQRDT.p8",
+    duration: 1200, # optional (maximum 1200)
+    in_house: false # optional but may be required if using match/sigh
+  )
+
+  pilot(api_key: api_key)
+end
+end
+
+
+
+

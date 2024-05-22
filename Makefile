@@ -22,9 +22,10 @@ init:
 	
 .PHONY: build-apk
 build-apk:
+	bash scripts/appendGitEnvs.sh
 	$(FLUTTER) pub get
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
-	$(FLUTTER) build apk
+	$(FLUTTER) build apk -t lib/main.dart
 
 .PHONY: build-ipa
 build-ipa:
