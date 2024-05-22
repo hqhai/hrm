@@ -20,13 +20,11 @@ class _HomeWidgetState extends State<HomeWidget> {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         return Container(
-          padding:
-          const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-          margin:
-          const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-          height: MediaQuery
-              .sizeOf(context)
-              .height,
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+          margin: const EdgeInsets.symmetric(
+              horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+          height: MediaQuery.sizeOf(context).height,
           decoration: BoxDecoration(
             color: CustomsColor.colorBackground,
             borderRadius: const BorderRadius.all(
@@ -44,12 +42,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                   width: 1,
                 ),
               ),
-              child: Row(
+              child: const Row(
                 children: [
-                  Column(children: [
-                    Text('Nguyeenx Van A'),
-                    Text('Chuc vu:')
-                  ],)
+                  Column(
+                    children: [Text('Nguyeenx Van A'), Text('Chuc vu:')],
+                  )
                 ],
               ),
             ),
