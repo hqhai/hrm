@@ -1,9 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/attendance.dart';
-import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
@@ -13,7 +11,6 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import 'package:themes/themes.dart';
 
@@ -45,10 +42,8 @@ class BodyCalendar extends StatefulWidget {
 class _BodyCalendarState extends State<BodyCalendar> {
   late String token;
   DateTime day = DateTime.now();
-  String timeKeepingInDay = '';
   int checkIn = 3;
-  Attendance attendance = const Attendance();
-  String noteRoomLeader = '', noteManager = '';
+  Attendance attendance = const Attendance(attendanceDate: '');
 
   Widget _getWidgetContent(DateTime date) {
     if (widget.widget == null) return const SizedBox();
@@ -63,13 +58,8 @@ class _BodyCalendarState extends State<BodyCalendar> {
     return false;
   }
 
-  String format(String time) {
-    DateTime dateTime = DateTime.parse(time);
-    return DateFormat('HH:mm:ss').format(dateTime);
-  }
-
   int _checkAttendance(List<Attendance> attendances, DateTime date, int month) {
-    List<String> attendanceDates = attendances.map((e) => e.checkDate.toString()).toList();
+    List<String> attendanceDates = attendances.map((e) => e.attendanceDate.toString()).toList();
     int index = attendanceDates.indexWhere((e) {
       DateTime dateTime = DateTime.parse(e);
       return dateTime.month == month && dateTime.day == date.day && month == date.month;
@@ -82,9 +72,13 @@ class _BodyCalendarState extends State<BodyCalendar> {
     int index = _checkAttendance(attendances, date, month);
     if (index == -1) {
       return 3;
+    } else if (attendances[index].checkIn == null) {
+      return 1;
+    } else if (attendances[index].checkOut == null) {
+      return 4;
     } else {
-      List<String> timePartsIn = format(attendances[index].timeCheckIn.toString()).split(':');
-      List<String> timePartsOut = format(attendances[index].timeCheckOut.toString()).split(':');
+      List<String> timePartsIn = formatHMByH(attendances[index].checkIn ?? "").split(':');
+      List<String> timePartsOut = formatHMByH(attendances[index].checkOut ?? "").split(':');
       int hourIn = int.parse(timePartsIn[0]);
       int minuteIn = int.parse(timePartsIn[1]);
       int hourOut = int.parse(timePartsOut[0]);
@@ -100,19 +94,19 @@ class _BodyCalendarState extends State<BodyCalendar> {
   @override
   void initState() {
     super.initState();
+    dI<AttendanceBloc>().add(GetAttendanceEvent(
+        id: dI<UserBloc>().state.user.id, month: widget.month, year: widget.year));
   }
 
   _listener(BuildContext context, RequestState state) {
     if (state.status == RequestStatus.createRequestSuccess) {
       dI<AttendanceBloc>().add(GetAttendanceEvent(
-          email: dI<UserBloc>().state.user.email ?? "", month: widget.month, year: widget.year));
+          id: dI<UserBloc>().state.user.id, month: widget.month, year: widget.year));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
-    final appLocalizations = AppLocalizations.of(context)!;
     return BlocListener<RequestBloc, RequestState>(
       listener: (context, state) {
         _listener(context, state);
@@ -125,7 +119,7 @@ class _BodyCalendarState extends State<BodyCalendar> {
                 margin: const EdgeInsets.symmetric(horizontal: 3),
                 width: MediaQuery.sizeOf(context).width,
                 height: widget.listDate.length < 42
-                    ? MediaQuery.sizeOf(context).width * 5 / 7
+                    ? MediaQuery.sizeOf(context).width * 4.7 / 7
                     : MediaQuery.sizeOf(context).width * 6 / 7,
                 child: GridView.builder(
                   itemCount: widget.listDate.length,
@@ -147,76 +141,11 @@ class _BodyCalendarState extends State<BodyCalendar> {
                   },
                 ),
               ),
-              Text(
-                '${day.day} / ${day.month} / ${day.year}',
-                style: TextStyle(fontSize: 18, color: colors.text),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                timeKeepingInDay,
-                style: TextStyle(
-                  fontSize: 25,
-                  color: _color(context),
-                ),
-              ),
-              if ((checkIn == 1 || checkIn == 4) && attendance.requestId == null)
-                ElevatedButton(
-                  onPressed: () => _nextScreen(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  child: Text(
-                    appLocalizations.explanation,
-                    style: TextStyle(fontSize: 18, color: colors.text),
-                  ),
-                ),
-              const SizedBox(height: SpacingUnit.x4),
-              if ((checkIn == 1 || checkIn == 4) && noteRoomLeader != '')
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      appLocalizations.noteRoomLeader,
-                      style: TextStyle(fontSize: 18, color: colors.text),
-                    ),
-                    Text(
-                      noteRoomLeader,
-                      style: TextStyle(fontSize: 18, color: colors.text),
-                    ),
-                  ],
-                ),
-              const SizedBox(height: SpacingUnit.x4),
-              if ((checkIn == 1 || checkIn == 4) && noteManager != '')
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      appLocalizations.noteManager,
-                      style: TextStyle(fontSize: 18, color: colors.text),
-                    ),
-                    Text(
-                      noteManager,
-                      style: TextStyle(fontSize: 18, color: colors.text),
-                    ),
-                  ],
-                ),
-              const SizedBox(height: SpacingUnit.x4),
             ],
           );
         },
       ),
     );
-  }
-
-  Color _color(BuildContext context) {
-    final colors = AppTheme.getColors(context);
-    return checkIn == 1
-        ? colors.error
-        : (checkIn == 2
-            ? Colors.green
-            : checkIn == 4
-                ? Colors.amber
-                : colors.text);
   }
 
   Widget _item(BuildContext context, int index, AttendanceState state) {
@@ -228,7 +157,7 @@ class _BodyCalendarState extends State<BodyCalendar> {
       attendance: _checkAttendance(state.attendances, widget.listDate[index], widget.month) != -1
           ? state.attendances[
               _checkAttendance(state.attendances, widget.listDate[index], widget.month)]
-          : const Attendance(),
+          : const Attendance(attendanceDate: ''),
       itemDate: _getWidgetContent(widget.listDate[index]),
       isNowDate: _checkDateNow(widget.listDate[index]),
     );
@@ -240,29 +169,9 @@ class _BodyCalendarState extends State<BodyCalendar> {
       attendance = _checkAttendance(state.attendances, widget.listDate[index], widget.month) != -1
           ? state.attendances[
               _checkAttendance(state.attendances, widget.listDate[index], widget.month)]
-          : const Attendance();
-      timeKeepingInDay = '${format(attendance.timeCheckIn)} - ${format(attendance.timeCheckOut)}';
+          : const Attendance(attendanceDate: '');
       checkIn = _checkCheckIn(state.attendances, widget.listDate[index], widget.month);
-      if (attendance.noteRoomLeader != null) {
-        noteRoomLeader = attendance.noteRoomLeader ?? '';
-      } else {
-        noteRoomLeader = '';
-      }
-      if (attendance.noteManager != null) {
-        noteManager = attendance.noteManager ?? '';
-      } else {
-        noteManager = '';
-      }
     });
-  }
-
-  _nextScreen() {
-    if (attendance.requestId == null) {
-      dI<AppNavigation>().pushName(context, page: Pages.explanationRequest, extra: {
-        'lateDay': DateFormat('yyyy-MM-dd').format(day),
-        'lateTime': checkIn == 1 ? format(attendance.timeCheckIn) : format(attendance.timeCheckOut),
-      });
-    }
   }
 }
 

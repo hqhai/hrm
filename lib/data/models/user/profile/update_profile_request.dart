@@ -33,12 +33,8 @@ class UpdateProfileRequest {
   final String? maritalStatus;
   final String? ethnicity;
   final String? religion;
-  final String? bankName;
-  final String? accountHolderName;
-  final String? accountNumber;
   final List<Family>? families;
   final String? phoneNumber;
-  final String? companyEmail;
   final String? educationLevel;
   final String? education;
   final String? specializes;
@@ -73,12 +69,8 @@ class UpdateProfileRequest {
     this.maritalStatus,
     this.ethnicity,
     this.religion,
-    this.bankName,
-    this.accountHolderName,
-    this.accountNumber,
     this.families,
     this.phoneNumber,
-    this.companyEmail,
     this.educationLevel,
     this.education,
     this.specializes,

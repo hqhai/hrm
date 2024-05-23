@@ -495,4 +495,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get doYouWantToUpdateProfile => 'Do you want to update profile?';
+
+  @override
+  String get checkInOut => 'Check-in/out';
+
+  @override
+  String get viewAttendanceHistory => 'View attendance history';
+
+  @override
+  String get noData => 'No data';
+
+  @override
+  String get administrativeTime => 'Administrative time';
+
+  @override
+  String get formOfTimekeeping => 'Form of timekeeping';
+
+  @override
+  String get checkIn => 'Check in';
+
+  @override
+  String get checkOut => 'Check out';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get timeWorking => 'Time working';
+
+  @override
+  String get date => 'Date';
 }

@@ -1,5 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
+import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
 import 'package:base_app/presentations/pages/check_in_setting/create_check_in_setting.page.dart';
 import 'package:base_app/presentations/pages/department/infor_department.page.dart';
 import 'package:base_app/presentations/pages/department/update_department.page.dart';
@@ -67,5 +69,7 @@ class AppRouters {
     Pages.updateNotesPage: updateNotePageRoute,
     Pages.changePasswordPage: changePasswordPageRoute,
     Pages.updateProfilePage : updateProfilePageRoute,
+    Pages.layoutCalendarAttendanceHistoryPage : layoutCalendarAttendanceHistoryPageRoute,
+    Pages.historyAttendancePage : historyAttendancePageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

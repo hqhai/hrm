@@ -7,6 +7,8 @@ part of 'attendance_state.dart';
 // **************************************************************************
 
 abstract class _$AttendanceStateCWProxy {
+  AttendanceState attendance(Attendance attendance);
+
   AttendanceState attendances(List<Attendance> attendances);
 
   AttendanceState status(AttendanceStatus status);
@@ -18,6 +20,7 @@ abstract class _$AttendanceStateCWProxy {
   /// AttendanceState(...).copyWith(id: 12, name: "My name")
   /// ````
   AttendanceState call({
+    Attendance? attendance,
     List<Attendance>? attendances,
     AttendanceStatus? status,
   });
@@ -28,6 +31,10 @@ class _$AttendanceStateCWProxyImpl implements _$AttendanceStateCWProxy {
   final AttendanceState _value;
 
   const _$AttendanceStateCWProxyImpl(this._value);
+
+  @override
+  AttendanceState attendance(Attendance attendance) =>
+      this(attendance: attendance);
 
   @override
   AttendanceState attendances(List<Attendance> attendances) =>
@@ -45,10 +52,16 @@ class _$AttendanceStateCWProxyImpl implements _$AttendanceStateCWProxy {
   /// AttendanceState(...).copyWith(id: 12, name: "My name")
   /// ````
   AttendanceState call({
+    Object? attendance = const $CopyWithPlaceholder(),
     Object? attendances = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
   }) {
     return AttendanceState(
+      attendance:
+          attendance == const $CopyWithPlaceholder() || attendance == null
+              ? _value.attendance
+              // ignore: cast_nullable_to_non_nullable
+              : attendance as Attendance,
       attendances:
           attendances == const $CopyWithPlaceholder() || attendances == null
               ? _value.attendances

@@ -1076,6 +1076,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to update profile?'**
   String get doYouWantToUpdateProfile;
+
+  /// No description provided for @checkInOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-in/out'**
+  String get checkInOut;
+
+  /// No description provided for @viewAttendanceHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'View attendance history'**
+  String get viewAttendanceHistory;
+
+  /// No description provided for @noData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data'**
+  String get noData;
+
+  /// No description provided for @administrativeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrative time'**
+  String get administrativeTime;
+
+  /// No description provided for @formOfTimekeeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Form of timekeeping'**
+  String get formOfTimekeeping;
+
+  /// No description provided for @checkIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Check in'**
+  String get checkIn;
+
+  /// No description provided for @checkOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Check out'**
+  String get checkOut;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @timeWorking.
+  ///
+  /// In en, this message translates to:
+  /// **'Time working'**
+  String get timeWorking;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

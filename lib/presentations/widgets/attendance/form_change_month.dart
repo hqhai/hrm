@@ -26,7 +26,7 @@ class FormChangeMonth extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              "$month $year",
+              "$month / $year",
               style: theme.textTheme.titleLarge,
             ),
           ),
