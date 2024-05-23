@@ -31,7 +31,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
           id: event.id,
           year: event.year.toString(),
           month: event.month.toString());
-      /*Attendance attendance = attendances
+      Attendance attendance = attendances
           .where((e) =>
       formatYMD(e.attendanceDate) == DateFormat('yyyy-MM-dd').format(DateTime.now()))
           .first;
@@ -42,9 +42,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       else {
         emit(state.copyWith(
             attendances: attendances, status: AttendanceStatus.getAttendanceSuccess));
-      }*/
-      emit(state.copyWith(
-          attendances: attendances, status: AttendanceStatus.getAttendanceSuccess));
+      }
     } catch (e) {
       emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
     }
