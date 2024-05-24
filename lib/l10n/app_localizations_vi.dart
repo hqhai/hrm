@@ -495,4 +495,43 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get doYouWantToUpdateProfile => 'Bạn có muốn chỉnh sửa thông tin cá nhân không?';
+
+  @override
+  String get checkInOut => 'Check-in/out';
+
+  @override
+  String get viewAttendanceHistory => 'Xem lịch sử chấm công';
+
+  @override
+  String get noData => 'Không có dữ liệu';
+
+  @override
+  String get administrativeTime => 'Giờ hành chính';
+
+  @override
+  String get formOfTimekeeping => 'Hình thức châm công';
+
+  @override
+  String get checkIn => 'Check in';
+
+  @override
+  String get checkOut => 'Check out';
+
+  @override
+  String get history => 'Lịch sử';
+
+  @override
+  String get timeWorking => 'Ca làm việc';
+
+  @override
+  String get date => 'Ngày';
+
+  @override
+  String get dialogWrongPasswordA => 'Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng kiểm tra email ';
+
+  @override
+  String get dialogWrongPasswordB => ' để đặt lại mật khẩu';
+
+  @override
+  String get newPasswordOtherConfirmPassword => 'Mật khẩu mới khác mật khẩu xác nhận!';
 }

@@ -9,15 +9,15 @@ part of 'get_attendances_request.dart';
 GetAttendanceRequest _$GetAttendanceRequestFromJson(
         Map<String, dynamic> json) =>
     GetAttendanceRequest(
-      startDate: json['startDate'] as String,
-      endDate: json['endDate'] as String,
-      email: json['email'] as String,
+      userid: json['userid'] as String,
+      year: json['year'] as String,
+      month: json['month'] as String,
     );
 
 Map<String, dynamic> _$GetAttendanceRequestToJson(
         GetAttendanceRequest instance) =>
     <String, dynamic>{
-      'startDate': instance.startDate,
-      'endDate': instance.endDate,
-      'email': instance.email,
+      'userid': instance.userid,
+      'year': instance.year,
+      'month': instance.month,
     };

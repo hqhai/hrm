@@ -13,6 +13,7 @@ import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
+import 'package:base_app/presentations/widgets/dialog/wrong_password_many.dart';
 import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:base_app/presentations/widgets/login/drop_down_menu_language.dart';
 import 'package:flutter/material.dart';
@@ -101,6 +102,13 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   _loginListener(BuildContext context, LoginState state) {
     final appLocalizations = AppLocalizations.of(context)!;
     switch (state.status) {
+      case LoginStatus.userLocked:
+        wrongPasswordManyDialog(context, emailController.text);
+        setState(() {
+          _animationHeight = AlwaysStoppedAnimation<double>(height * 0.9);
+          _animationWidth = AlwaysStoppedAnimation<double>(width * 0.9);
+          _controller.forward(from: 0);
+        });
       case LoginStatus.validateSuccess:
         dI<LoginBloc>().add(RequestLogin(
             username: emailController.text,

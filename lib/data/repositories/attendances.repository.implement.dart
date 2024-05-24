@@ -13,9 +13,9 @@ class AttendanceRepositoryImplement extends AttendanceRepository {
 
   @override
   Future<List<Attendance>> getAttendances(
-      {required String startDate, required String endDate, required String email}) async {
+      {required String month, required String year, required String id}) async {
     final attendances = await attendanceService
-        .getAttendance(GetAttendanceRequest(startDate: startDate, endDate: endDate, email: email));
+        .getAttendance(GetAttendanceRequest(month: month, year: year, userid: id));
     return attendances;
   }
 }

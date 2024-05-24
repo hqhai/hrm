@@ -162,5 +162,18 @@
   "province": "Province",
   "district": "District",
   "ward": "Ward",
-  "doYouWantToUpdateProfile": "Do you want to update profile?"
+  "doYouWantToUpdateProfile": "Do you want to update profile?",
+  "checkInOut": "Check-in/out",
+  "viewAttendanceHistory": "View attendance history",
+  "noData": "No data",
+  "administrativeTime": "Administrative time",
+  "formOfTimekeeping": "Form of timekeeping",
+  "checkIn": "Check in",
+  "checkOut": "Check out",
+  "history": "History",
+  "timeWorking": "Time working",
+  "date": "Date",
+  "dialogWrongPasswordA": "You have entered incorrect login information 5 times. Your account has been temporarily locked. Please check your email ",
+  "dialogWrongPasswordB": " to reset your password",
+  "newPasswordOtherConfirmPassword": "New password other confirm password!"
 }

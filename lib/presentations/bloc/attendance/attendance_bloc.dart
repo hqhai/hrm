@@ -10,6 +10,7 @@ import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
 import 'package:bloc/bloc.dart';
 
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 
 @lazySingleton
 class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
@@ -20,27 +21,35 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
         super(const AttendanceState()) {
     on<AttendanceEvent>((event, emit) {});
     on<GetAttendanceEvent>(_getAttendanceEvent);
+    on<GetAttendanceNowEvent>(_getAttendanceNowEvent);
   }
 
   FutureOr<void> _getAttendanceEvent(
       GetAttendanceEvent event, Emitter<AttendanceState> emit) async {
     emit(state.copyWith(status: AttendanceStatus.getAttendanceInit));
     try {
-      if (event.month == 12) {
-        List<Attendance> attendances = await _attendanceUseCase.getAttendances(
-            email: event.email,
-            endDate: formatYM(event.year + 1, 1),
-            startDate: formatYM(event.year, event.month));
-        emit(state.copyWith(
-            attendances: attendances, status: AttendanceStatus.getAttendanceSuccess));
-      } else {
-        List<Attendance> attendances = await _attendanceUseCase.getAttendances(
-            email: event.email,
-            endDate: formatYM(event.year, event.month + 1),
-            startDate: formatYM(event.year, event.month));
-        emit(state.copyWith(
-            attendances: attendances, status: AttendanceStatus.getAttendanceSuccess));
-      }
+      List<Attendance> attendances = await _attendanceUseCase.getAttendances(
+          id: event.id, year: event.year.toString(), month: event.month.toString());
+      emit(state.copyWith(
+          attendances: attendances,
+          status: AttendanceStatus.getAttendanceSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
+    }
+  }
+
+  FutureOr<void> _getAttendanceNowEvent(
+      GetAttendanceNowEvent event, Emitter<AttendanceState> emit) async {
+    emit(state.copyWith(status: AttendanceStatus.getAttendanceInit));
+    try {
+      DateTime dateDime = DateTime.now();
+      String time = DateFormat('yyyy-MM-dd').format(dateDime);
+      List<Attendance> attendancesNow = await _attendanceUseCase.getAttendances(
+          id: event.id, year: dateDime.year.toString(), month: dateDime.month.toString());
+      Attendance attendanceNow =
+          attendancesNow.where((e) => formatYMD(e.attendanceDate).contains(time)).first;
+      emit(
+          state.copyWith(attendance: attendanceNow, status: AttendanceStatus.getAttendanceSuccess));
     } catch (e) {
       emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
     }

@@ -4,11 +4,12 @@ part 'get_attendances_request.g.dart';
 
 @JsonSerializable()
 class GetAttendanceRequest {
-  final String startDate;
-  final String endDate;
-  final String email;
+  final String userid;
+  final String year;
+  final String month;
 
-  const GetAttendanceRequest({required this.startDate, required this.endDate, required this.email});
+
+  const GetAttendanceRequest({required this.userid, required this.year, required this.month, });
 
   factory GetAttendanceRequest.fromJson(Map<String, dynamic> json) =>
       _$GetAttendanceRequestFromJson(json);

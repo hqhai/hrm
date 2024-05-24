@@ -162,5 +162,19 @@
   "province": "Tỉnh",
   "district": "Huyện",
   "ward": "Phường",
-  "doYouWantToUpdateProfile": "Bạn có muốn chỉnh sửa thông tin cá nhân không?"
+  "doYouWantToUpdateProfile": "Bạn có muốn chỉnh sửa thông tin cá nhân không?",
+  "checkInOut": "Check-in/out",
+  "viewAttendanceHistory": "Xem lịch sử chấm công",
+  "noData": "Không có dữ liệu",
+  "administrativeTime": "Giờ hành chính",
+  "formOfTimekeeping": "Hình thức châm công",
+  "checkIn": "Check in",
+  "checkOut": "Check out",
+  "history": "Lịch sử",
+  "timeWorking": "Ca làm việc",
+  "date": "Ngày",
+  "dialogWrongPasswordA": "Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng kiểm tra email ",
+  "dialogWrongPasswordB": " để đặt lại mật khẩu",
+  "newPasswordOtherConfirmPassword": "Mật khẩu mới khác mật khẩu xác nhận!"
+
 }

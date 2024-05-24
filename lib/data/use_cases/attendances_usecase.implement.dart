@@ -12,9 +12,9 @@ class AttendanceUseCaseImplement extends AttendanceUseCase {
 
   @override
   Future<List<Attendance>> getAttendances(
-      {required String startDate, required String endDate, required String email}) async {
+      {required String month, required String year, required String id}) async {
     final attendances = await _attendanceRepository.getAttendances(
-        startDate: startDate, endDate: endDate, email: email);
+        month: month, year: year, id: id);
     return attendances;
   }
 }

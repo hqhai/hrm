@@ -24,4 +24,6 @@ class Pages {
   static const String updateNotesPage = '/updateNotesPage';
   static const String changePasswordPage = '/changePasswordPage';
   static const String updateProfilePage = '/updateProfilePage';
+  static const String layoutCalendarAttendanceHistoryPage = '/layoutCalendarAttendanceHistoryPage';
+  static const String historyAttendancePage = '/historyAttendancePage';
 }

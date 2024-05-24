@@ -5,15 +5,17 @@ import 'package:equatable/equatable.dart';
 
 part 'attendance_state.g.dart';
 
-
-
 @CopyWith()
 class AttendanceState extends Equatable {
   final AttendanceStatus status;
   final List<Attendance> attendances;
+  final Attendance attendance;
 
-  const AttendanceState({this.attendances = const [], this.status = AttendanceStatus.init});
+  const AttendanceState(
+      {this.attendances = const [],
+      this.attendance = const Attendance(attendanceDate: ""),
+      this.status = AttendanceStatus.init});
 
   @override
-  List<Object> get props => [attendances, status];
+  List<Object> get props => [attendances, status, attendance];
 }

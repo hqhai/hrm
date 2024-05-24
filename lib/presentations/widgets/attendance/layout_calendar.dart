@@ -29,13 +29,13 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
   DateTime lastDateTime = DateTime.now();
   DateTime date = DateTime(DateTime.now().year, DateTime.now().month, 1);
   List<DateTime> listDate = const [];
-  String email = '';
+  String id = '';
 
   @override
   void initState() {
-    email = dI<UserBloc>().state.user.email ?? "";
+    id = dI<UserBloc>().state.user.id;
     dI<AttendanceBloc>().add(
-        GetAttendanceEvent(email: email, month: currentDateTime.month, year: currentDateTime.year));
+        GetAttendanceEvent(id: id, month: currentDateTime.month, year: currentDateTime.year));
     super.initState();
     _getListDate();
   }
@@ -49,7 +49,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       }
     });
     dI<AttendanceBloc>().add(
-        GetAttendanceEvent(email: email, month: currentDateTime.month, year: currentDateTime.year));
+        GetAttendanceEvent(id: id, month: currentDateTime.month, year: currentDateTime.year));
     _getListDate();
   }
 
@@ -62,7 +62,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       }
     });
     dI<AttendanceBloc>().add(
-        GetAttendanceEvent(email: email, month: currentDateTime.month, year: currentDateTime.year));
+        GetAttendanceEvent(id: id, month: currentDateTime.month, year: currentDateTime.year));
     _getListDate();
   }
 
@@ -98,10 +98,8 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
-    return Scaffold(
-      body: Container(
+    return Container(
         margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-        height: MediaQuery.sizeOf(context).height,
         decoration: BoxDecoration(
             color: colors.surfaceContainer,
             borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x4))),
@@ -110,7 +108,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
             children: [
               FormChangeMonth(
                 year: currentDateTime.year.toString(),
-                month: MenuValues.mapMonth[currentDateTime.month] ?? "",
+                month: currentDateTime.month.toString(),
                 upMonth: () => _upMonth(),
                 downMonth: () => _downMonth(),
               ),
@@ -142,8 +140,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
 

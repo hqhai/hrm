@@ -6,7 +6,7 @@ class PathConfig {
   static String getUsersByRole = '/user/get-users-by-role';
   static String getUserAttendance = '/attendance/get-user-attendances';
   static String getAttendance = '/attendance/get-attendances';
-  static String getTimeKeepingByEmail = '/attendance/get-time-keeping-by-email';
+  static String getTimeKeepingByEmail = '/attendance/get-attendances';
   static String changePassword = '/user/change-password';
   static String request = '/request';
   static String getRequests = '/request/search-by-user';

@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:intl/intl.dart';
 
 String formatIso8601(String time) {
@@ -29,6 +32,23 @@ String formatYMD(String time) {
   return '';
 }
 
+String formatWeekDay(int weekDayIndex){
+  bool checkLanguage = dI<LanguageCubit>().state.languageCode == LanguageEnum.en;
+  List weekDayToString = WeekDayEnum.values.map((e) => setElementWeekDay(e, checkLanguage)).toList();
+  return weekDayToString[weekDayIndex-1];
+}
+
+setElementWeekDay(WeekDayEnum e, bool checkLanguage) {
+  if(checkLanguage){
+    return e.nameEn;
+  }
+  else {
+    return e.nameVi;
+  }
+}
+
+
+
 String formatDMY(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
@@ -41,6 +61,16 @@ String formatHMS(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
     return DateFormat('HH:mm:ss').format(dateTime);
+  }
+  return '';
+}
+
+String formatHMByH(String time) {
+  if (time != '') {
+    String dateTimeString = '2000-01-18 $time:00';
+    DateTime dateTime = DateTime.parse(dateTimeString);
+    String a = DateFormat('HH:mm').format(dateTime);
+    return a;
   }
   return '';
 }

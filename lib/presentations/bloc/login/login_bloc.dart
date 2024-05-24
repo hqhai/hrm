@@ -8,6 +8,7 @@ import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:base_app/data/models/response.dart';
 
 part 'login_event.dart';
 
@@ -56,8 +57,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               status: LoginStatus.loginSuccess));
         }
       } catch (e) {
-        emit(state.copyWith(
-            username: event.username, password: event.password, status: LoginStatus.loginFailed));
+        e as ResponseBase;
+        if (e.statusCode == 403) {
+          emit(state.copyWith(
+              username: event.username, password: event.password, status: LoginStatus.userLocked));
+        } else {
+          emit(state.copyWith(
+              username: event.username, password: event.password, status: LoginStatus.loginFailed));
+        }
       }
     }
   }

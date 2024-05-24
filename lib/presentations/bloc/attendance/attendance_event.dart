@@ -10,10 +10,18 @@ sealed class AttendanceEvent extends Equatable {
 class GetAttendanceEvent extends AttendanceEvent {
   final int year;
   final int month;
-  final String email;
+  final String id;
 
-  const GetAttendanceEvent({this.email = '', this.year = 0, this.month = 0});
+  const GetAttendanceEvent({this.id = '', this.year = 0, this.month = 0});
 
   @override
-  List<Object> get props => [email, year, month];
+  List<Object> get props => [id, year, month];
+}
+
+class GetAttendanceNowEvent extends AttendanceEvent {
+  final String id;
+  const GetAttendanceNowEvent({this.id = ''});
+
+  @override
+  List<Object> get props => [id];
 }

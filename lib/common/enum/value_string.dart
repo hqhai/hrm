@@ -87,3 +87,17 @@ enum LocationEnum {
   const LocationEnum(this.name);
 }
 
+enum WeekDayEnum {
+  monday('Monday', 'Thứ hai'),
+  tuesday('Tuesday', 'Thứ ba'),
+  wednesday('Wednesday', 'Thứ tư'),
+  thursday('Thursday', 'Thứ năm'),
+  friday('Friday', 'Thứ sáu'),
+  saturday('Saturday', 'Thứ bảy'),
+  sunday('Sunday', 'Chủ nhật');
+
+  final String nameEn;
+  final String nameVi;
+
+  const WeekDayEnum(this.nameEn, this.nameVi);
+}

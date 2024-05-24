@@ -23,7 +23,7 @@ class AttendanceServiceImplement extends BaseService implements AttendanceServic
     final params = getAttendanceRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result['userAttendanceModels'];
+    final data = responseBase.result;
     List<Attendance> attendances =
         (data as List<dynamic>).map((e) => Attendance.fromJson(e as Map<String, dynamic>)).toList();
     return attendances;

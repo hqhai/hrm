@@ -2,12 +2,10 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/domain/entities/address.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
-
 part 'address_state.g.dart';
 
 @CopyWith()
-@JsonSerializable()
+
 class AddressState extends Equatable {
   const AddressState(
       {this.provinces = const [],
@@ -23,8 +21,4 @@ class AddressState extends Equatable {
   @override
   List<Object> get props => [provinces, districts, wards, status];
 
-  factory AddressState.fromJson(Map<String, dynamic> json) =>
-      _$AddressStateFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AddressStateToJson(this);
 }

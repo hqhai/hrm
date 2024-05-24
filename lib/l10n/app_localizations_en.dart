@@ -495,4 +495,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get doYouWantToUpdateProfile => 'Do you want to update profile?';
+
+  @override
+  String get checkInOut => 'Check-in/out';
+
+  @override
+  String get viewAttendanceHistory => 'View attendance history';
+
+  @override
+  String get noData => 'No data';
+
+  @override
+  String get administrativeTime => 'Administrative time';
+
+  @override
+  String get formOfTimekeeping => 'Form of timekeeping';
+
+  @override
+  String get checkIn => 'Check in';
+
+  @override
+  String get checkOut => 'Check out';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get timeWorking => 'Time working';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get dialogWrongPasswordA => 'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please check your email ';
+
+  @override
+  String get dialogWrongPasswordB => ' to reset your password';
+
+  @override
+  String get newPasswordOtherConfirmPassword => 'New password other confirm password!';
 }
