@@ -1136,6 +1136,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Date'**
   String get date;
+
+  /// No description provided for @dialogWrongPasswordA.
+  ///
+  /// In en, this message translates to:
+  /// **'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please check your email '**
+  String get dialogWrongPasswordA;
+
+  /// No description provided for @dialogWrongPasswordB.
+  ///
+  /// In en, this message translates to:
+  /// **' to reset your password'**
+  String get dialogWrongPasswordB;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -172,5 +172,7 @@
   "checkOut": "Check out",
   "history": "History",
   "timeWorking": "Time working",
-  "date": "Date"
+  "date": "Date",
+  "dialogWrongPasswordA": "You have entered incorrect login information 5 times. Your account has been temporarily locked. Please check your email ",
+  "dialogWrongPasswordB": " to reset your password"
 }

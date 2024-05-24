@@ -172,6 +172,8 @@
   "checkOut": "Check out",
   "history": "Lịch sử",
   "timeWorking": "Ca làm việc",
-  "date": "Ngày"
+  "date": "Ngày",
+  "dialogWrongPasswordA": "Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng kiểm tra email ",
+  "dialogWrongPasswordB": " để đặt lại mật khẩu"
 
 }

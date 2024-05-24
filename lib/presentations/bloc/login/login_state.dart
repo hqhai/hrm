@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 part 'login_state.g.dart';
 
 enum LoginStatus {
+  userLocked,
   initLoginState,
   loginSuccess,
   firstLoginSuccess,

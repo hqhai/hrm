@@ -525,4 +525,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get date => 'Ngày';
+
+  @override
+  String get dialogWrongPasswordA => 'Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng kiểm tra email ';
+
+  @override
+  String get dialogWrongPasswordB => ' để đặt lại mật khẩu';
 }

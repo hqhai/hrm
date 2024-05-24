@@ -525,4 +525,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get date => 'Date';
+
+  @override
+  String get dialogWrongPasswordA => 'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please check your email ';
+
+  @override
+  String get dialogWrongPasswordB => ' to reset your password';
 }
