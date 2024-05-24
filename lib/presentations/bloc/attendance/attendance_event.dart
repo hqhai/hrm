@@ -17,3 +17,11 @@ class GetAttendanceEvent extends AttendanceEvent {
   @override
   List<Object> get props => [id, year, month];
 }
+
+class GetAttendanceNowEvent extends AttendanceEvent {
+  final String id;
+  const GetAttendanceNowEvent({this.id = ''});
+
+  @override
+  List<Object> get props => [id];
+}

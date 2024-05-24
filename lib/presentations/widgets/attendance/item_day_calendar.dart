@@ -1,5 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
@@ -129,15 +131,7 @@ class _BodyCalendarState extends State<BodyCalendar> {
                     crossAxisSpacing: 1,
                   ),
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                        onTap: () {
-                          if (_checkCheckIn(
-                                  state.attendances, widget.listDate[index], widget.month) !=
-                              3) {
-                            _getNote(context, index, state);
-                          }
-                        },
-                        child: _item(context, index, state));
+                    return _item(context, index, state);
                   },
                 ),
               ),
@@ -161,17 +155,6 @@ class _BodyCalendarState extends State<BodyCalendar> {
       itemDate: _getWidgetContent(widget.listDate[index]),
       isNowDate: _checkDateNow(widget.listDate[index]),
     );
-  }
-
-  _getNote(BuildContext context, int index, AttendanceState state) {
-    setState(() {
-      day = widget.listDate[index];
-      attendance = _checkAttendance(state.attendances, widget.listDate[index], widget.month) != -1
-          ? state.attendances[
-              _checkAttendance(state.attendances, widget.listDate[index], widget.month)]
-          : const Attendance(attendanceDate: '');
-      checkIn = _checkCheckIn(state.attendances, widget.listDate[index], widget.month);
-    });
   }
 }
 
@@ -198,20 +181,23 @@ class _Item extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
-    return Container(
-      color: colors.surfaceDim,
-      alignment: Alignment.topRight,
-      child: Padding(
-        padding: const EdgeInsets.only(
-            top: SpacingUnit.x1,
-            right: SpacingUnit.x1,
-            left: SpacingUnit.x1,
-            bottom: SpacingUnit.x1),
-        child: CircleAvatar(
-          backgroundColor: isNowDate ? colors.primary : Colors.transparent,
-          child: Text(
-            date.day.toString(),
-            style: theme.textTheme.titleLarge!.copyWith(color: _color(context)),
+    return GestureDetector(
+      onTap: () => _nextItemAttendanceHistoryPage(context),
+      child: Container(
+        color: colors.surfaceDim,
+        alignment: Alignment.topRight,
+        child: Padding(
+          padding: const EdgeInsets.only(
+              top: SpacingUnit.x1,
+              right: SpacingUnit.x1,
+              left: SpacingUnit.x1,
+              bottom: SpacingUnit.x1),
+          child: CircleAvatar(
+            backgroundColor: isNowDate ? colors.primary : Colors.transparent,
+            child: Text(
+              date.day.toString(),
+              style: theme.textTheme.titleLarge!.copyWith(color: _color(context)),
+            ),
           ),
         ),
       ),
@@ -227,7 +213,14 @@ class _Item extends StatelessWidget {
             : (checkIn == 2
                 ? Colors.green
                 : checkIn == 4
-                    ? Colors.amber
+                    ? colors.error
                     : colors.text));
   }
+  _nextItemAttendanceHistoryPage(BuildContext context,) {
+    if(attendance.attendanceDate != '') {
+      dI<AppNavigation>().pushName(context, page: Pages.historyAttendancePage, extra: {
+        'attendance': attendance});
+    }
+  }
+
 }

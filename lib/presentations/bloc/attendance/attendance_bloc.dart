@@ -21,28 +21,35 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
         super(const AttendanceState()) {
     on<AttendanceEvent>((event, emit) {});
     on<GetAttendanceEvent>(_getAttendanceEvent);
+    on<GetAttendanceNowEvent>(_getAttendanceNowEvent);
   }
 
-  FutureOr<void> _getAttendanceEvent(GetAttendanceEvent event,
-      Emitter<AttendanceState> emit) async {
+  FutureOr<void> _getAttendanceEvent(
+      GetAttendanceEvent event, Emitter<AttendanceState> emit) async {
     emit(state.copyWith(status: AttendanceStatus.getAttendanceInit));
     try {
       List<Attendance> attendances = await _attendanceUseCase.getAttendances(
-          id: event.id,
-          year: event.year.toString(),
-          month: event.month.toString());
-      Attendance attendance = attendances
-          .where((e) =>
-      formatYMD(e.attendanceDate) == DateFormat('yyyy-MM-dd').format(DateTime.now()))
-          .first;
-      if (attendance.attendanceDate.isNotEmpty) {
-        emit(state.copyWith(attendance: attendance,
-            attendances: attendances, status: AttendanceStatus.getAttendanceSuccess));
-      }
-      else {
-        emit(state.copyWith(
-            attendances: attendances, status: AttendanceStatus.getAttendanceSuccess));
-      }
+          id: event.id, year: event.year.toString(), month: event.month.toString());
+      emit(state.copyWith(
+          attendances: attendances,
+          status: AttendanceStatus.getAttendanceSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
+    }
+  }
+
+  FutureOr<void> _getAttendanceNowEvent(
+      GetAttendanceNowEvent event, Emitter<AttendanceState> emit) async {
+    emit(state.copyWith(status: AttendanceStatus.getAttendanceInit));
+    try {
+      DateTime dateDime = DateTime.now();
+      String time = DateFormat('yyyy-MM-dd').format(dateDime);
+      List<Attendance> attendancesNow = await _attendanceUseCase.getAttendances(
+          id: event.id, year: dateDime.year.toString(), month: dateDime.month.toString());
+      Attendance attendanceNow =
+          attendancesNow.where((e) => formatYMD(e.attendanceDate).contains(time)).first;
+      emit(
+          state.copyWith(attendance: attendanceNow, status: AttendanceStatus.getAttendanceSuccess));
     } catch (e) {
       emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
     }

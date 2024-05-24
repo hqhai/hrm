@@ -26,9 +26,8 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   void initState() {
     id = dI<UserBloc>().state.user.id;
-    DateTime dateTime = DateTime.now();
     dI<AttendanceBloc>()
-        .add(GetAttendanceEvent(id: id, month: dateTime.month, year: dateTime.year));
+        .add(GetAttendanceNowEvent(id: id,));
     super.initState();
   }
 
