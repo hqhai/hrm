@@ -133,7 +133,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     ),
                     onPressed: () {
                       if (_checkPass()) {
-                        _notificationOrDialog(state);
+                        _notificationOrDialog(state, context);
                       }
                     },
                   )
@@ -162,11 +162,12 @@ class _ChangePasswordState extends State<ChangePassword> {
         newPasswordController.text != '';
   }
 
-  _notificationOrDialog(UserState state) {
+  _notificationOrDialog(UserState state, BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     if (newPasswordController.text != confirmPasswordController.text &&
         confirmPasswordController.text != '') {
       setState(() {
-        notification2 = 'new password other confirm password!';
+        notification2 = appLocalizations.newPasswordOtherConfirmPassword;
       });
     } else {
       changePasswordDialog(

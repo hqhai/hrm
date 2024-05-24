@@ -1148,6 +1148,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **' to reset your password'**
   String get dialogWrongPasswordB;
+
+  /// No description provided for @newPasswordOtherConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password other confirm password!'**
+  String get newPasswordOtherConfirmPassword;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

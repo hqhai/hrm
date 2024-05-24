@@ -531,4 +531,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get dialogWrongPasswordB => ' để đặt lại mật khẩu';
+
+  @override
+  String get newPasswordOtherConfirmPassword => 'Mật khẩu mới khác mật khẩu xác nhận!';
 }

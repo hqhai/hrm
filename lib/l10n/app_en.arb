@@ -174,5 +174,6 @@
   "timeWorking": "Time working",
   "date": "Date",
   "dialogWrongPasswordA": "You have entered incorrect login information 5 times. Your account has been temporarily locked. Please check your email ",
-  "dialogWrongPasswordB": " to reset your password"
+  "dialogWrongPasswordB": " to reset your password",
+  "newPasswordOtherConfirmPassword": "New password other confirm password!"
 }

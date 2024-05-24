@@ -531,4 +531,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dialogWrongPasswordB => ' to reset your password';
+
+  @override
+  String get newPasswordOtherConfirmPassword => 'New password other confirm password!';
 }
