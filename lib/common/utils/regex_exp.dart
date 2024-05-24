@@ -9,3 +9,4 @@ const String inputFieldRegexExp =
 
 const String checkEmailRegexExpTest =
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z0-9]{2,}))$';
+const String checkPhoneNumberRegexExp = r'^.{10,}$';

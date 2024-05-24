@@ -88,7 +88,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           title2: appLocalizations.phoneNumber,
                         ),
                         ItemContentProfile(
-                            content1: state.user.email ?? "",
+                            content1: state.user.companyEmail ?? "",
                             content2: state.user.phoneNumber ?? ""),
                         ItemTitleProfile(
                           title1: appLocalizations.gender,

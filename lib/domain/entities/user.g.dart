@@ -7,8 +7,7 @@ part of 'user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-      id: json['id'] as String,
-      createdUserId: json['createdUserId'] as String,
+      isUseLogin: json['isUseLogin'] as bool?,
       userName: json['userName'] as String?,
       code: json['code'] as String?,
       tax: json['tax'] as String?,
@@ -28,15 +27,19 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       passPortIssueDate: json['passPortIssueDate'] as String?,
       passPortExpiryDate: json['passPortExpiryDate'] as String?,
       residentProvince: json['residentProvince'] as String?,
+      residentProvinceId: json['residentProvinceId'] as String?,
       residentAddress: json['residentAddress'] as String?,
       residentDistrict: json['residentDistrict'] as String?,
+      residentDistrictId: json['residentDistrictId'] as String?,
       residentWard: json['residentWard'] as String?,
+      residentWardId: json['residentWardId'] as String?,
       originAddress: json['originAddress'] as String?,
       originWard: json['originWard'] as String?,
+      originWardId: json['originWardId'] as String?,
       originDistrict: json['originDistrict'] as String?,
+      originDistrictId: json['originDistrictId'] as String?,
       originProvince: json['originProvince'] as String?,
-      residentLocationId: json['residentLocationId'] as String?,
-      originLocationId: json['originLocationId'] as String?,
+      originProvinceId: json['originProvinceId'] as String?,
       maritalStatus: json['maritalStatus'] as String?,
       ethnicity: json['ethnicity'] as String?,
       religion: json['religion'] as String?,
@@ -44,8 +47,9 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       accountHolderName: json['accountHolderName'] as String?,
       accountNumber: json['accountNumber'] as String?,
       families: (json['families'] as List<dynamic>?)
-          ?.map((e) => Family.fromJson(e as Map<String, dynamic>))
-          .toList(),
+              ?.map((e) => Family.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       phoneNumber: json['phoneNumber'] as String?,
       email: json['email'] as String?,
       companyEmail: json['companyEmail'] as String?,
@@ -58,27 +62,28 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       probationDay: json['probationDay'] as String?,
       officialDay: json['officialDay'] as String?,
       endDate: json['endDate'] as String?,
-      statusUser: json['statusUser'] as String?,
+      workingStatus: json['workingStatus'] as String?,
       typeOfPersonnel: json['typeOfPersonnel'] as String?,
       description: json['description'] as String?,
-      userDepartmentPositions: (json['userDepartmentPositions']
-                  as List<dynamic>?)
-              ?.map((e) =>
-                  UserDepartmentPosition.fromJson(e as Map<String, dynamic>))
+      userDepartmentPositions: (json['userDepartmentPositions'] as List<dynamic>?)
+              ?.map((e) => UserDepartmentPosition.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      isActive: json['isActive'] as bool?,
+      id: json['id'] as String,
+      createdUserId: json['createdUserId'] as String,
       updatedUserId: json['updatedUserId'] as String?,
       createdFullName: json['createdFullName'] as String?,
       updatedFullName: json['updatedFullName'] as String?,
       createdDate: json['createdDate'] as String?,
       updatedDate: json['updatedDate'] as String?,
+      emergencyAddress: json['emergencyAddress'] as String?,
+      emergencyName: json['emergencyName'] as String?,
+      emergencyPhoneNumber: json['emergencyPhoneNumber'] as String?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'createdUserId': instance.createdUserId,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -86,11 +91,7 @@ Map<String, dynamic> _$UserToJson(User instance) {
     }
   }
 
-  writeNotNull('updatedUserId', instance.updatedUserId);
-  writeNotNull('createdFullName', instance.createdFullName);
-  writeNotNull('updatedFullName', instance.updatedFullName);
-  writeNotNull('createdDate', instance.createdDate);
-  writeNotNull('updatedDate', instance.updatedDate);
+  writeNotNull('isUseLogin', instance.isUseLogin);
   writeNotNull('userName', instance.userName);
   writeNotNull('code', instance.code);
   writeNotNull('tax', instance.tax);
@@ -110,22 +111,26 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('passPortIssueDate', instance.passPortIssueDate);
   writeNotNull('passPortExpiryDate', instance.passPortExpiryDate);
   writeNotNull('residentProvince', instance.residentProvince);
+  writeNotNull('residentProvinceId', instance.residentProvinceId);
   writeNotNull('residentAddress', instance.residentAddress);
   writeNotNull('residentDistrict', instance.residentDistrict);
+  writeNotNull('residentDistrictId', instance.residentDistrictId);
   writeNotNull('residentWard', instance.residentWard);
+  writeNotNull('residentWardId', instance.residentWardId);
   writeNotNull('originAddress', instance.originAddress);
   writeNotNull('originWard', instance.originWard);
+  writeNotNull('originWardId', instance.originWardId);
   writeNotNull('originDistrict', instance.originDistrict);
+  writeNotNull('originDistrictId', instance.originDistrictId);
   writeNotNull('originProvince', instance.originProvince);
-  writeNotNull('residentLocationId', instance.residentLocationId);
-  writeNotNull('originLocationId', instance.originLocationId);
+  writeNotNull('originProvinceId', instance.originProvinceId);
   writeNotNull('maritalStatus', instance.maritalStatus);
   writeNotNull('ethnicity', instance.ethnicity);
   writeNotNull('religion', instance.religion);
   writeNotNull('bankName', instance.bankName);
   writeNotNull('accountHolderName', instance.accountHolderName);
   writeNotNull('accountNumber', instance.accountNumber);
-  writeNotNull('families', instance.families);
+  val['families'] = instance.families;
   writeNotNull('phoneNumber', instance.phoneNumber);
   writeNotNull('email', instance.email);
   writeNotNull('companyEmail', instance.companyEmail);
@@ -138,9 +143,20 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('probationDay', instance.probationDay);
   writeNotNull('officialDay', instance.officialDay);
   writeNotNull('endDate', instance.endDate);
-  writeNotNull('statusUser', instance.statusUser);
+  writeNotNull('workingStatus', instance.workingStatus);
   writeNotNull('typeOfPersonnel', instance.typeOfPersonnel);
   writeNotNull('description', instance.description);
   val['userDepartmentPositions'] = instance.userDepartmentPositions;
+  writeNotNull('isActive', instance.isActive);
+  val['id'] = instance.id;
+  val['createdUserId'] = instance.createdUserId;
+  writeNotNull('updatedUserId', instance.updatedUserId);
+  writeNotNull('createdFullName', instance.createdFullName);
+  writeNotNull('updatedFullName', instance.updatedFullName);
+  writeNotNull('createdDate', instance.createdDate);
+  writeNotNull('updatedDate', instance.updatedDate);
+  writeNotNull('emergencyName', instance.emergencyName);
+  writeNotNull('emergencyPhoneNumber', instance.emergencyPhoneNumber);
+  writeNotNull('emergencyAddress', instance.emergencyAddress);
   return val;
 }

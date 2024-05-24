@@ -1,0 +1,1 @@
+const int numberOfProvinces = 70, numberOfDistrict = 50, numberOfWards = 100;

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/utils/number_unit.dart';
 import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:base_app/presentations/bloc/location/address/address_event.dart';
@@ -24,13 +25,14 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     on<GetDistrictsEvent>(_getDistrictsEvent);
     on<GetDistrictsByKeyEvent>(_getDistrictsByKeyEvent);
     on<GetWardsByKeyEvent>(_getWardsByKeyEvent);
+    on<GetProvinceByKeyEvent>(_getProvinceByKeyEvent);
   }
 
   FutureOr<void> _getProvincesEvent(GetProvincesEvent event, Emitter<AddressState> emit) async {
     emit(state.copyWith(status: AddressStatus.getProvincesInit));
     try {
       List<Address> provinces = await locationUseCase.getAddress(
-          page: 1, pageSize: 100, locationType: LocationEnum.province.name);
+          page: 1, pageSize: numberOfProvinces, locationType: LocationEnum.province.name);
       emit(state.copyWith(provinces: provinces, status: AddressStatus.getProvincesSuccess));
     } catch (e) {
       emit(state.copyWith(status: AddressStatus.getProvincesError));
@@ -41,7 +43,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     emit(state.copyWith(status: AddressStatus.getWardsInit));
     try {
       List<Address> wards = await locationUseCase.getAddress(
-          page: 1, pageSize: 60, locationType: LocationEnum.ward.name, parentId: event.parentId);
+          page: 1, pageSize: numberOfWards, locationType: LocationEnum.ward.name, parentId: event.parentId);
       emit(state.copyWith(wards: wards, status: AddressStatus.getWardsSuccess));
     } catch (e) {
       emit(state.copyWith(status: AddressStatus.getWardsError));
@@ -53,7 +55,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     try {
       List<Address> districts = await locationUseCase.getAddress(
           page: 1,
-          pageSize: 200,
+          pageSize: numberOfDistrict,
           locationType: LocationEnum.district.name,
           parentId: event.parentId);
       emit(state.copyWith(districts: districts, status: AddressStatus.getDistrictsSuccess));
@@ -68,7 +70,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     try {
       List<Address> districts = await locationUseCase.getAddress(
           page: 1,
-          pageSize: 200,
+          pageSize: numberOfDistrict,
           locationType: LocationEnum.district.name,
           keyWord: event.keyWord);
       emit(state.copyWith(districts: districts, status: AddressStatus.getDistrictsByKeySuccess));
@@ -81,10 +83,24 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     emit(state.copyWith(status: AddressStatus.getWardsByKeyInit));
     try {
       List<Address> wards = await locationUseCase.getAddress(
-          page: 1, pageSize: 60, locationType: LocationEnum.ward.name, keyWord: event.keyWord);
+          page: 1, pageSize: numberOfWards, locationType: LocationEnum.ward.name, keyWord: event.keyWord);
       emit(state.copyWith(wards: wards, status: AddressStatus.getWardsByKeySuccess));
     } catch (e) {
       emit(state.copyWith(status: AddressStatus.getWardsByKeyError));
+    }
+  }
+
+  FutureOr<void> _getProvinceByKeyEvent(GetProvinceByKeyEvent event, Emitter<AddressState> emit) async {
+    emit(state.copyWith(status: AddressStatus.getProvinceByKeySuccess));
+    try {
+      List<Address> province = await locationUseCase.getAddress(
+          page: 1,
+          pageSize: numberOfProvinces,
+          locationType: LocationEnum.province.name,
+          keyWord: event.keyWord);
+      emit(state.copyWith(provinces: province, status: AddressStatus.getProvinceByKeySuccess));
+    } catch (e) {
+      emit(state.copyWith(status: AddressStatus.getProvinceByKeyError));
     }
   }
 }

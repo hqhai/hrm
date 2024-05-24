@@ -8,7 +8,9 @@ import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
+import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
@@ -44,16 +46,32 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  String? dateOfBirth, phoneNumber, province, district, ward, address, firstName, lastName;
+  String? dateOfBirth, phoneNumber, address, firstName, lastName;
+  Address? province, ward, district;
   File file = File('');
   GenderEnum? gender = GenderEnum.male;
 
   @override
   void initState() {
     super.initState();
+    dI<UserBloc>().add(const GetUserInfo());
   }
 
   _listener(BuildContext context, UserState state) {
+    if(state.status == UserStatus.getUserInfoSuccess){
+      setState(() {
+        dateOfBirth = state.user.dayOfBirth ?? "";
+        phoneNumber = state.user.phoneNumber ?? "";
+        firstName = state.user.firstName ?? "";
+        lastName = state.user.lastName ?? "";
+        province =
+            Address(name: state.user.residentProvince ?? "", id: state.user.residentProvinceId ?? "");
+        ward =
+            Address(name: state.user.residentWard ?? "", id: state.user.residentWardId?? "");
+        district =
+            Address(name: state.user.residentDistrict ?? "", id: state.user.residentDistrictId ?? "");
+      });
+    }
     if (state.status == UserStatus.updateProfileInit) {
       Navigator.of(context).pop();
       progressIndicatorDialog(context);
@@ -112,7 +130,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         ItemUpdateProfileConstant(
                             title: appLocalizations.employeeCode, content: state.user.code ?? ''),
                         ItemUpdateProfileConstant(
-                            title: appLocalizations.email, content: state.user.email ?? ''),
+                            title: appLocalizations.email, content: state.user.companyEmail ?? ''),
                         ItemDateOfBirthUpdateProfile(
                           dateOfBirth: formatDMY(
                             state.user.dayOfBirth ?? '',
@@ -171,7 +189,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     height: SpacingUnit.x5,
                   ),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: colors.blue),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: isCheckOnClick() ? colors.blue : colors.surfaceBright),
                     onPressed: () => _updateProfile(context, state),
                     child: Text(appLocalizations.update,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
@@ -196,39 +215,29 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       dayOfBirth: dateOfBirth ?? state.user.dayOfBirth ?? "0001-01-01T00:00:00",
       gender: gender?.nameEn ?? state.user.gender ?? "",
       phoneNumber: phoneNumber ?? state.user.phoneNumber ?? "",
-      tax: state.user.tax ?? "",
-      families: state.user.families ?? [],
-      ciNumber: state.user.ciNumber ?? "",
-      ciIssuePlace: state.user.ciIssuePlace ?? "",
-      ciIssueDate: state.user.ciIssueDate ?? "0001-01-01T00:00:00",
-      ciExpiryDate: state.user.ciExpiryDate ?? "0001-01-01T00:00:00",
-      passPortIssuePlace: state.user.passPortIssuePlace ?? "",
-      passPortIssueDate: state.user.passPortIssueDate ?? "0001-01-01T00:00:00",
-      passPortExpiryDate: state.user.passPortExpiryDate ?? "0001-01-01T00:00:00",
-      passPortNumber: state.user.passPortNumber ?? "",
-      residentProvince: province ?? state.user.residentProvince ?? "",
-      residentDistrict: district ?? state.user.residentDistrict ?? "",
-      residentWard: ward ?? state.user.residentWard ?? "",
+      residentProvince: province?.name ?? state.user.residentProvince ?? "",
+      residentProvinceId: province?.id ?? state.user.residentProvinceId ?? "",
+      residentDistrict: district?.name ?? state.user.residentDistrict ?? "",
+      residentDistrictId: district?.id ?? state.user.residentDistrictId ?? "",
+      residentWard: ward?.name ?? state.user.residentWard ?? "",
+      residentWardId: ward?.id ?? state.user.residentWardId ?? "",
       residentAddress: address ?? state.user.residentAddress ?? "",
-      originAddress: state.user.originAddress ?? "",
-      originWard: state.user.originWard ?? "",
-      originDistrict: state.user.originDistrict ?? "",
-      originProvince: state.user.originProvince ?? "",
-      maritalStatus: state.user.maritalStatus ?? "",
-      ethnicity: state.user.ethnicity ?? "",
-      religion: state.user.religion ?? "",
-      educationLevel: state.user.educationLevel ?? "",
-      education: state.user.education ?? "",
-      specializes: state.user.specializes ?? "",
-      graduationType: state.user.graduationType ?? "",
-      graduationYear: state.user.graduationYear ?? "",
-      description: state.user.description ?? "",
       avatarPath: state.user.avatarPath ?? "",
     );
     updateProfileDialog(
       context,
-      () => dI<UserBloc>().add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest, file: file)),
+      () => dI<UserBloc>()
+          .add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest, file: file)),
     );
+  }
+
+  bool isCheckOnClick() {
+    RegExp regExpPhoneNumber = RegExp(checkPhoneNumberRegexExp);
+    bool check = regExpPhoneNumber.hasMatch(phoneNumber ?? "") &&
+        firstName != null &&
+        lastName != null &&
+        dateOfBirth != null;
+    return check;
   }
 
   _setPhoneNumber(String value) {
@@ -249,19 +258,19 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     });
   }
 
-  _setProvince(String value) {
+  _setProvince(Address? value) {
     setState(() {
       province = value;
     });
   }
 
-  _setDistrict(String value) {
+  _setDistrict(Address? value) {
     setState(() {
       district = value;
     });
   }
 
-  _setWard(String value) {
+  _setWard(Address? value) {
     setState(() {
       ward = value;
     });

@@ -6,13 +6,7 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User {
-  final String id;
-  final String createdUserId;
-  final String? updatedUserId;
-  final String? createdFullName;
-  final String? updatedFullName;
-  final String? createdDate;
-  final String? updatedDate;
+  final bool? isUseLogin;
   final String? userName;
   final String? code;
   final String? tax;
@@ -32,22 +26,26 @@ class User {
   final String? passPortIssueDate;
   final String? passPortExpiryDate;
   final String? residentProvince;
+  final String? residentProvinceId;
   final String? residentAddress;
   final String? residentDistrict;
+  final String? residentDistrictId;
   final String? residentWard;
+  final String? residentWardId;
   final String? originAddress;
   final String? originWard;
+  final String? originWardId;
   final String? originDistrict;
+  final String? originDistrictId;
   final String? originProvince;
-  final String? residentLocationId;
-  final String? originLocationId;
+  final String? originProvinceId;
   final String? maritalStatus;
   final String? ethnicity;
   final String? religion;
   final String? bankName;
   final String? accountHolderName;
   final String? accountNumber;
-  final List<Family>? families;
+  final List<Family> families;
   final String? phoneNumber;
   final String? email;
   final String? companyEmail;
@@ -60,14 +58,24 @@ class User {
   final String? probationDay;
   final String? officialDay;
   final String? endDate;
-  final String? statusUser;
+  final String? workingStatus;
   final String? typeOfPersonnel;
   final String? description;
   final List<UserDepartmentPosition> userDepartmentPositions;
+  final bool? isActive;
+  final String id;
+  final String createdUserId;
+  final String? updatedUserId;
+  final String? createdFullName;
+  final String? updatedFullName;
+  final String? createdDate;
+  final String? updatedDate;
+  final String? emergencyName;
+  final String? emergencyPhoneNumber;
+  final String? emergencyAddress;
 
   const User({
-    required this.id,
-    required this.createdUserId,
+    this.isUseLogin,
     this.userName,
     this.code,
     this.tax,
@@ -87,22 +95,26 @@ class User {
     this.passPortIssueDate,
     this.passPortExpiryDate,
     this.residentProvince,
+    this.residentProvinceId,
     this.residentAddress,
     this.residentDistrict,
+    this.residentDistrictId,
     this.residentWard,
+    this.residentWardId,
     this.originAddress,
     this.originWard,
+    this.originWardId,
     this.originDistrict,
+    this.originDistrictId,
     this.originProvince,
-    this.residentLocationId,
-    this.originLocationId,
+    this.originProvinceId,
     this.maritalStatus,
     this.ethnicity,
     this.religion,
     this.bankName,
     this.accountHolderName,
     this.accountNumber,
-    this.families,
+    this.families = const [],
     this.phoneNumber,
     this.email,
     this.companyEmail,
@@ -115,15 +127,21 @@ class User {
     this.probationDay,
     this.officialDay,
     this.endDate,
-    this.statusUser,
+    this.workingStatus,
     this.typeOfPersonnel,
     this.description,
     this.userDepartmentPositions = const [],
+    this.isActive,
+    required this.id,
+    required this.createdUserId,
     this.updatedUserId,
     this.createdFullName,
     this.updatedFullName,
     this.createdDate,
     this.updatedDate,
+    this.emergencyAddress,
+    this.emergencyName,
+    this.emergencyPhoneNumber,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
