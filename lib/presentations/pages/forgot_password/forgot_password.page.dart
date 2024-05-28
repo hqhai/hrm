@@ -108,7 +108,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   bool checkInput() {
-    RegExp regExpEmail = RegExp(checkEmailRegexExpTest);
+    RegExp regExpEmail = RegExp(checkEmailRegexExp);
     return (regExpEmail.hasMatch(checkEmail)) ? isCheckedInput = true : isCheckedInput = false;
   }
 

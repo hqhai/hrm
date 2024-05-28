@@ -323,7 +323,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   bool checkInput() {
     RegExp regExpPass = RegExp(checkPasswordRegexExp);
-    RegExp regExpEmail = RegExp(checkEmailRegexExpTest); //
+    RegExp regExpEmail = RegExp(checkEmailRegexExp); //
     return (regExpEmail.hasMatch(checkEmail) && regExpPass.hasMatch(checkPassword))
         ? isCheckedInput = true
         : isCheckedInput = false;
