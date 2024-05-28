@@ -9,6 +9,7 @@ import 'package:base_app/presentations/pages/error.page.dart';
 import 'package:base_app/presentations/pages/forgot_password/forgot_password.page.dart';
 import 'package:base_app/presentations/pages/home/home.page.dart';
 import 'package:base_app/presentations/pages/login/login.page.dart';
+import 'package:base_app/presentations/pages/login/register_biometric.page.dart';
 import 'package:base_app/presentations/pages/main.page.dart';
 import 'package:base_app/presentations/pages/personnel/create_personnel.page.dart';
 import 'package:base_app/presentations/pages/position/create_position.page.dart';
@@ -71,5 +72,6 @@ class AppRouters {
     Pages.updateProfilePage : updateProfilePageRoute,
     Pages.layoutCalendarAttendanceHistoryPage : layoutCalendarAttendanceHistoryPageRoute,
     Pages.historyAttendancePage : historyAttendancePageRoute,
+    Pages.biometricRegister: registerBiometricPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

@@ -1154,6 +1154,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New password other confirm password!'**
   String get newPasswordOtherConfirmPassword;
+
+  /// No description provided for @notRegisteredForBiometrics.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not registered for biometrics yet, please register, please log in with username and password first!'**
+  String get notRegisteredForBiometrics;
+
+  /// No description provided for @pleaseEnterYourUsernameAndPasswordHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your Username and password here'**
+  String get pleaseEnterYourUsernameAndPasswordHere;
+
+  /// No description provided for @youWantToSaveTheAboveAccountForBiometrics.
+  ///
+  /// In en, this message translates to:
+  /// **'You want to save the above account for biometrics'**
+  String get youWantToSaveTheAboveAccountForBiometrics;
+
+  /// No description provided for @yourBiometricAccountIsIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Your biometric account is incorrect'**
+  String get yourBiometricAccountIsIncorrect;
+
+  /// No description provided for @youPressYourFingerHere.
+  ///
+  /// In en, this message translates to:
+  /// **'You press your finger here'**
+  String get youPressYourFingerHere;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

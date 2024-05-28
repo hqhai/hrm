@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/log/logger.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
@@ -8,18 +9,23 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
+import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
+import 'package:base_app/presentations/bloc/biometric/biometric_state.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
+import 'package:base_app/presentations/widgets/dialog/biometric_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/wrong_password_many.dart';
 import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:base_app/presentations/widgets/login/drop_down_menu_language.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 import 'package:widgets/app_button.dart';
@@ -44,6 +50,10 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   late AnimationController _controller;
   late Animation<double> _animationWidth, _animationHeight;
   late double width, height;
+  final LocalAuthentication auth = LocalAuthentication();
+  List<BiometricType> availableBiometrics = [BiometricType.fingerprint];
+  bool isCheck = false;
+  String notification = '';
 
   String? dropdownLanguageValue = '';
   String? rememberEmail = '';
@@ -127,9 +137,18 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
           _animationWidth = AlwaysStoppedAnimation<double>(width * 0.9);
           _controller.forward(from: 0);
         });
+      case LoginStatus.notRegisteredForBiometrics:
+        notRegisteredForBiometricsDialog(context);
       case LoginStatus.loginSuccess:
       case LoginStatus.statusSuccess:
         passwordController.text = "";
+      case LoginStatus.wrongBiometricAccount:
+        setState(() {
+          biometricsLoginErrorDialog(context);
+          _animationHeight = AlwaysStoppedAnimation<double>(height * 0.9);
+          _animationWidth = AlwaysStoppedAnimation<double>(width * 0.9);
+          _controller.forward(from: 0);
+        });
       case LoginStatus.statusFalse:
         setState(() {
           errorEmail = appLocalizations.errorEmailOrPassword;
@@ -259,11 +278,19 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(SpacingUnit.x0_5),
-                            child: SvgPicture.asset(
-                              height: SpacingUnit.x8,
-                              width: SpacingUnit.x8,
-                              Assets.images.signIn.biometric,
-                              colorFilter: ColorFilter.mode(colors.background, BlendMode.srcIn),
+                            child: BlocBuilder<BiometricCubit, BiometricState>(
+                              builder: (context, stateBiometric) {
+                                return GestureDetector(
+                                  onTap: () => _getBiometric(context, stateBiometric),
+                                  child: SvgPicture.asset(
+                                    height: SpacingUnit.x8,
+                                    width: SpacingUnit.x8,
+                                    Assets.images.signIn.biometric,
+                                    colorFilter:
+                                        ColorFilter.mode(colors.background, BlendMode.srcIn),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -315,6 +342,35 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             .add(ValidateLogin(username: emailController.text, password: passwordController.text));
       });
     }
+  }
+
+  Future<void> _getBiometric(BuildContext context, BiometricState state) async {
+    final appLocalizations = AppLocalizations.of(context)!;
+    _setSupport();
+    availableBiometrics = await auth.getAvailableBiometrics();
+    if (availableBiometrics.isNotEmpty) {
+      final bool didAuthenticate = await auth.authenticate(
+          localizedReason: appLocalizations.youPressYourFingerHere,
+          options: const AuthenticationOptions(
+            useErrorDialogs: true,
+            biometricOnly: true,
+          ));
+      if (didAuthenticate) {
+        dI<LoginBloc>().add(BiometricRequestLogin(
+            username: state.loginRequest.username, password: state.loginRequest.password));
+      }
+    } else {
+      try {} on PlatformException catch (e) {
+        logger.w(e.message);
+      }
+    }
+  }
+
+  _setSupport() async {
+    bool isDeviceSupported = await auth.isDeviceSupported();
+    setState(() {
+      isCheck = isDeviceSupported;
+    });
   }
 
   void onRegister(context) {
