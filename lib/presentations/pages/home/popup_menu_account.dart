@@ -46,19 +46,21 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
     dI<AppNavigation>().push(context, page: Pages.updateProfilePage);
   }
 
-  _setting() {}
+  _setting(BuildContext context) {
+    dI<AppNavigation>().push(context, page: Pages.biometricRegister);
+  }
 
   _changePassword(BuildContext context) {
     dI<AppNavigation>().push(context, page: Pages.changePasswordPage);
   }
 
+
   void logoutFunction() {
-    setState(() {
-      dI<AuthBloc>().add(const LogoutEvent());
-      dI<RequestBloc>().add(const ResetRequestEvent());
-      dI<UserBloc>().add(const ResetUserEvent());
-      dI<UserByRolesBloc>().add(const ResetUsersEvent());
-    });
+    dI<AuthBloc>().add(const LogoutEvent());
+    dI<RequestBloc>().add(const ResetRequestEvent());
+    dI<UserBloc>().add(const ResetUserEvent());
+    dI<UserByRolesBloc>().add(const ResetUsersEvent());
+    Navigator.of(context).pop();
   }
 
   @override
@@ -97,7 +99,7 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
         ),
         PopupMenuItem(
           child: GestureDetector(
-            onTap: () => _setting(),
+            onTap: () => _setting(context),
             child: Row(
               children: [
                 SvgPicture.asset(

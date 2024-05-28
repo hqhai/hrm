@@ -534,4 +534,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get newPasswordOtherConfirmPassword => 'New password other confirm password!';
+
+  @override
+  String get notRegisteredForBiometrics => 'You have not registered for biometrics yet, please register, please log in with username and password first!';
+
+  @override
+  String get pleaseEnterYourUsernameAndPasswordHere => 'Please enter your Username and password here';
+
+  @override
+  String get youWantToSaveTheAboveAccountForBiometrics => 'You want to save the above account for biometrics';
+
+  @override
+  String get yourBiometricAccountIsIncorrect => 'Your biometric account is incorrect';
+
+  @override
+  String get youPressYourFingerHere => 'You press your finger here';
 }

@@ -49,7 +49,6 @@ class _MainPageState extends State<MainPage> {
                   }
                 }
                 return const LoginPage();
-                /*return const DepartmentWidget();*/
               },
             );
           },

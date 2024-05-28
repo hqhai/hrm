@@ -534,4 +534,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get newPasswordOtherConfirmPassword => 'Mật khẩu mới khác mật khẩu xác nhận!';
+
+  @override
+  String get notRegisteredForBiometrics => 'Bạn chưa đăng ký sinh trắc học, hãy đăng ký, hãy đăng nhâ bằng username và password trước!';
+
+  @override
+  String get pleaseEnterYourUsernameAndPasswordHere => 'Nhập tên đăng nhập và mật khẩu tại đây';
+
+  @override
+  String get youWantToSaveTheAboveAccountForBiometrics => 'Bạn muôn lưu tài khoản này cho đăng nhập sinh trắc học?';
+
+  @override
+  String get yourBiometricAccountIsIncorrect => 'Tài khoản sinh trắc học của bạn không chính xác';
+
+  @override
+  String get youPressYourFingerHere => 'Ấn ngón tay của bạn vào đây';
 }

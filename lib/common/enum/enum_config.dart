@@ -215,3 +215,8 @@ enum AddressStatus{
   getWardsByKeySuccess,
   getWardsByKeyError,
 }
+
+enum BiometricEnum{
+  haveRegistration,
+  notRegistered,
+}

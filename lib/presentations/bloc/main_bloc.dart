@@ -1,6 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
+import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
 import 'package:base_app/presentations/bloc/checkin_setting/check_in_setting_bloc.dart';
 import 'package:base_app/presentations/bloc/department/department_bloc.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
@@ -38,5 +39,6 @@ class MainBloc {
         BlocProvider<CheckInSettingBloc>(create: (BuildContext context) => dI<CheckInSettingBloc>()),
         BlocProvider<NotesBloc>(create: (BuildContext context) => dI<NotesBloc>()),
         BlocProvider<AddressBloc>(create: (BuildContext context) => dI<AddressBloc>()),
+        BlocProvider<BiometricCubit>(create: (BuildContext context) => dI<BiometricCubit>()),
       ];
 }

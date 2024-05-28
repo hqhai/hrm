@@ -4,9 +4,9 @@ part 'forgot_password_request.g.dart';
 
 @JsonSerializable()
 class ForgotPasswordRequest {
-  final String email;
+  final String userName;
 
-  const ForgotPasswordRequest({required this.email});
+  const ForgotPasswordRequest({required this.userName});
 
   factory ForgotPasswordRequest.fromJson(Map<String, dynamic> json) =>
       _$ForgotPasswordRequestFromJson(json);

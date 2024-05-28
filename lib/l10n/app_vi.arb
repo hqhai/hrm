@@ -175,6 +175,11 @@
   "date": "Ngày",
   "dialogWrongPasswordA": "Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng kiểm tra email ",
   "dialogWrongPasswordB": " để đặt lại mật khẩu",
-  "newPasswordOtherConfirmPassword": "Mật khẩu mới khác mật khẩu xác nhận!"
+  "newPasswordOtherConfirmPassword": "Mật khẩu mới khác mật khẩu xác nhận!",
+  "notRegisteredForBiometrics": "Bạn chưa đăng ký sinh trắc học, hãy đăng ký",
+  "pleaseEnterYourUsernameAndPasswordHere": "Nhập tên đăng nhập và mật khẩu tại đây",
+  "youWantToSaveTheAboveAccountForBiometrics": "Bạn muôn lưu tài khoản này cho đăng nhập sinh trắc học?",
+  "yourBiometricAccountIsIncorrect": "Tài khoản sinh trắc học của bạn không chính xác",
+  "youPressYourFingerHere": "Ấn ngón tay của bạn vào đây"
 
 }

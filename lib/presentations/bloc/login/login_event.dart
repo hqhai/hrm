@@ -22,17 +22,32 @@ class RequestLogin extends LoginEvent {
   List<Object> get props => [username, password, saveLogin];
 }
 
-class ValidateLogin extends LoginEvent {
+class BiometricRequestLogin extends LoginEvent {
   final String username;
   final String password;
 
-  const ValidateLogin({
+  const BiometricRequestLogin({
     required this.username,
     required this.password,
   });
 
   @override
   List<Object> get props => [username, password];
+}
+
+class ValidateLogin extends LoginEvent {
+  final String username;
+  final String password;
+  final bool check;
+
+  const ValidateLogin({
+    required this.username,
+    required this.password,
+    this.check = false,
+  });
+
+  @override
+  List<Object> get props => [username, password, check];
 }
 
 class EmailOrUserLogin extends LoginEvent {

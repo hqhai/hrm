@@ -5,6 +5,7 @@ part 'login_state.g.dart';
 
 enum LoginStatus {
   userLocked,
+  wrongBiometricAccount,
   initLoginState,
   loginSuccess,
   firstLoginSuccess,
@@ -18,6 +19,7 @@ enum LoginStatus {
   emailOrUserFalse,
   passFalse,
   errorState,
+  notRegisteredForBiometrics,
 }
 
 @CopyWith()
