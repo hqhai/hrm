@@ -536,7 +536,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get newPasswordOtherConfirmPassword => 'Mật khẩu mới khác mật khẩu xác nhận!';
 
   @override
-  String get notRegisteredForBiometrics => 'Bạn chưa đăng ký sinh trắc học, hãy đăng ký, hãy đăng nhâ bằng username và password trước!';
+  String get notRegisteredForBiometrics => 'Bạn chưa đăng ký sinh trắc học, hãy đăng ký';
 
   @override
   String get pleaseEnterYourUsernameAndPasswordHere => 'Nhập tên đăng nhập và mật khẩu tại đây';
