@@ -65,8 +65,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       workingStatus: json['workingStatus'] as String?,
       typeOfPersonnel: json['typeOfPersonnel'] as String?,
       description: json['description'] as String?,
-      userDepartmentPositions: (json['userDepartmentPositions'] as List<dynamic>?)
-              ?.map((e) => UserDepartmentPosition.fromJson(e as Map<String, dynamic>))
+      userDepartmentPositions: (json['userDepartmentPositions']
+                  as List<dynamic>?)
+              ?.map((e) =>
+                  UserDepartmentPosition.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       isActive: json['isActive'] as bool?,
