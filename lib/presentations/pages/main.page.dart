@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
@@ -42,7 +43,8 @@ class _MainPageState extends State<MainPage> {
               builder: (context, state) {
                 if (state.status == AuthStatus.loggedIn) {
                   if (stateUser.status != UserStatus.getUserInfoErrorUnauthorized) {
-                    if (stateLogin.status == LoginStatus.firstLoginSuccess) {
+                    if (stateLogin.status == LoginStatus.firstLoginSuccess &&
+                        state.roles.first != ConfigRoleStringValues.userSystem.name) {
                       return const ChangePassword();
                     }
                     return const HomePage();
