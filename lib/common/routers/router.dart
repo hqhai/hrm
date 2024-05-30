@@ -26,6 +26,8 @@ import 'package:base_app/presentations/pages/request/get_request/request.page.da
 import 'package:base_app/presentations/pages/request/get_request/roommeeting_request.page.dart';
 import 'package:base_app/presentations/pages/request/update_request/request.update.page.dart';
 import 'package:base_app/presentations/pages/department/create_department.page.dart';
+import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps.dart';
+import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps_check.dart';
 import 'package:base_app/presentations/pages/trash_app/update_note.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
 import 'package:go_router/go_router.dart';
@@ -73,5 +75,7 @@ class AppRouters {
     Pages.layoutCalendarAttendanceHistoryPage : layoutCalendarAttendanceHistoryPageRoute,
     Pages.historyAttendancePage : historyAttendancePageRoute,
     Pages.biometricRegister: registerBiometricPageRoute,
+    Pages.timekeepingGPSPage: timekeepingGPSPageRoute,
+    Pages.timekeepingGPSCheckPage: timekeepingGPSCheckPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

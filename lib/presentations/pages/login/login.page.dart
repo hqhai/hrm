@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   late Animation<double> _animationWidth, _animationHeight;
   late double width, height;
   final LocalAuthentication auth = LocalAuthentication();
-  List<BiometricType> availableBiometrics = [BiometricType.fingerprint];
+  List<BiometricType> availableBiometrics = [BiometricType.fingerprint, BiometricType.face];
   bool isCheck = false;
   String notification = '';
 
@@ -346,7 +346,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   Future<void> _getBiometric(BuildContext context, BiometricState state) async {
     final appLocalizations = AppLocalizations.of(context)!;
-    _setSupport();
     availableBiometrics = await auth.getAvailableBiometrics();
     if (availableBiometrics.isNotEmpty) {
       final bool didAuthenticate = await auth.authenticate(
@@ -364,13 +363,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         logger.w(e.message);
       }
     }
-  }
-
-  _setSupport() async {
-    bool isDeviceSupported = await auth.isDeviceSupported();
-    setState(() {
-      isCheck = isDeviceSupported;
-    });
   }
 
   void onRegister(context) {

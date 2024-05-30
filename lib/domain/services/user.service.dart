@@ -12,7 +12,7 @@ abstract class UserService {
 
   Future<List<User>> getUserByRole({required GetListUserByRole getListUserByRole});
 
-  Future<int> forgotPassword({required ForgotPasswordRequest forgotPasswordRequest});
+  Future<String> forgotPassword({required ForgotPasswordRequest forgotPasswordRequest});
 
   Future<int> register({required RegisterRequest registerRequest});
   Future<int> deleteAccount();

@@ -68,8 +68,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       status: UserStatus.forgotPasswordInit,
     ));
     try {
-      await userUseCase.forgotPassword(email: event.email);
-      emit(state.copyWith(status: UserStatus.forgotPasswordSuccess));
+      String email = await userUseCase.forgotPassword(email: event.email);
+      emit(state.copyWith(email: email, status: UserStatus.forgotPasswordSuccess));
     } catch (e) {
       emit(state.copyWith(status: UserStatus.forgotPasswordError));
     }

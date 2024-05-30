@@ -10,7 +10,7 @@ abstract class UserRepository {
 
   Future<List<User>> getUserByRole({required String role});
 
-  Future<int> forgotPassword({required String email});
+  Future<String> forgotPassword({required String email});
 
   Future<int> register({required RegisterRequest registerRequest});
 

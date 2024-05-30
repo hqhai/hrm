@@ -549,4 +549,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get youPressYourFingerHere => 'Ấn ngón tay của bạn vào đây';
+
+  @override
+  String get touchTheIconToTimeClock => 'Chạm tay vào icon để chấm công';
+
+  @override
+  String get timekeepingImmediately => 'Chấm công ngay';
+
+  @override
+  String get complete => 'Hoàn thành';
+
+  @override
+  String get locationServicesAreDisabled => 'Chức năng định vị bị vô hiệu hóa';
+
+  @override
+  String get locationPermissionsAreDenied => 'Quyền truy cập bị từ chối';
+
+  @override
+  String get locationPermissionsArePermanentlyDenied => 'Quyền truy cập bị từ chối, chúng ti không thể yêu cầu được quyền truy cập định vị';
+
+  @override
+  String get validateToolLocation => 'Xác thực vị trí chấm công';
+
+  @override
+  String get step => 'Bước 1/1';
 }

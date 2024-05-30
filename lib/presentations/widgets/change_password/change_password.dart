@@ -1,6 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
@@ -157,9 +158,9 @@ class _ChangePasswordState extends State<ChangePassword> {
   }
 
   bool _checkPass() {
+    RegExp regExpPass = RegExp(checkPasswordRegexExp);
     return confirmPasswordController.text != '' &&
-        newPasswordController.text != '' &&
-        newPasswordController.text != '';
+        newPasswordController.text != '' && regExpPass.hasMatch(newPasswordController.text);
   }
 
   _notificationOrDialog(UserState state, BuildContext context) {

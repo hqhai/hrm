@@ -44,7 +44,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     } else if (state.status == UserStatus.forgotPasswordSuccess) {
       Navigator.of(context).pop();
       successFullDialog(context,
-          '${appLocalizations.newPasswordHasJustBeenSentToEmail} ${emailController.text} ${appLocalizations.pleaseCheckYourEmail}');
+          '${appLocalizations.newPasswordHasJustBeenSentToEmail} ${state.email} ${appLocalizations.pleaseCheckYourEmail}');
     } else if (state.status == UserStatus.forgotPasswordError) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);

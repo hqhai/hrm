@@ -94,6 +94,7 @@ flutter:
     - assets/images/icon/popup_appbar/
     - assets/images/icon/
     - assets/images/icon/home/
+    - assets/images/time_keeping/
     - assets/images/error/
     - assets/env/
   # fonts:

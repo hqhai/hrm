@@ -180,5 +180,13 @@
   "pleaseEnterYourUsernameAndPasswordHere": "Please enter your Username and password here",
   "youWantToSaveTheAboveAccountForBiometrics": "You want to save the above account for biometrics",
   "yourBiometricAccountIsIncorrect": "Your biometric account is incorrect",
-  "youPressYourFingerHere": "You press your finger here"
+  "youPressYourFingerHere": "You press your finger here",
+  "touchTheIconToTimeClock": "Touch The Icon To Time Clock",
+  "timekeepingImmediately": "Timekeeping immediately",
+  "complete": "Complete",
+  "locationServicesAreDisabled": "Location services are disabled.",
+  "locationPermissionsAreDenied": "Location permissions are denied",
+  "locationPermissionsArePermanentlyDenied": "Location permissions are permanently denied, we cannot request permissions.",
+  "validateToolLocation": "Validate tool location",
+  "step" : "Step 1/1"
 }
