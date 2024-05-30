@@ -1184,6 +1184,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You press your finger here'**
   String get youPressYourFingerHere;
+
+  /// No description provided for @touchTheIconToTimeClock.
+  ///
+  /// In en, this message translates to:
+  /// **'Touch The Icon To Time Clock'**
+  String get touchTheIconToTimeClock;
+
+  /// No description provided for @timekeepingImmediately.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping immediately'**
+  String get timekeepingImmediately;
+
+  /// No description provided for @complete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get complete;
+
+  /// No description provided for @locationServicesAreDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are disabled.'**
+  String get locationServicesAreDisabled;
+
+  /// No description provided for @locationPermissionsAreDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permissions are denied'**
+  String get locationPermissionsAreDenied;
+
+  /// No description provided for @locationPermissionsArePermanentlyDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permissions are permanently denied, we cannot request permissions.'**
+  String get locationPermissionsArePermanentlyDenied;
+
+  /// No description provided for @validateToolLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Validate tool location'**
+  String get validateToolLocation;
+
+  /// No description provided for @step.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 1/1'**
+  String get step;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

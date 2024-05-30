@@ -55,12 +55,12 @@ class UserServiceImpl extends BaseService implements UserService {
   }
 
   @override
-  Future<int> forgotPassword({required ForgotPasswordRequest forgotPasswordRequest}) async {
+  Future<String> forgotPassword({required ForgotPasswordRequest forgotPasswordRequest}) async {
     final url = '$baseUrl${PathConfig.forgotPassword}';
     final body = jsonEncode(forgotPasswordRequest.toJson());
     final response = await client.post(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-   return responseBase.statusCode;
+   return responseBase.result;
   }
 
   @override

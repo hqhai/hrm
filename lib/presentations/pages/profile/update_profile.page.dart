@@ -58,18 +58,18 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   _listener(BuildContext context, UserState state) {
-    if(state.status == UserStatus.getUserInfoSuccess){
+    if (state.status == UserStatus.getUserInfoSuccess) {
       setState(() {
         dateOfBirth = state.user.dayOfBirth ?? "";
         phoneNumber = state.user.phoneNumber ?? "";
         firstName = state.user.firstName ?? "";
         lastName = state.user.lastName ?? "";
-        province =
-            Address(name: state.user.residentProvince ?? "", id: state.user.residentProvinceId ?? "");
-        ward =
-            Address(name: state.user.residentWard ?? "", id: state.user.residentWardId?? "");
-        district =
-            Address(name: state.user.residentDistrict ?? "", id: state.user.residentDistrictId ?? "");
+        province = Address(
+            name: state.user.residentProvince ?? "", id: state.user.residentProvinceId ?? "");
+        ward = Address(name: state.user.residentWard ?? "", id: state.user.residentWardId ?? "");
+        district = Address(
+            name: state.user.residentDistrict ?? "", id: state.user.residentDistrictId ?? "");
+        address = state.user.residentAddress ?? "";
       });
     }
     if (state.status == UserStatus.updateProfileInit) {
@@ -190,7 +190,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: isCheckOnClick() ? colors.blue : colors.surfaceBright),
+                        backgroundColor:
+                            isCheckOnClick(state) ? colors.blue : colors.surfaceBright),
                     onPressed: () => _updateProfile(context, state),
                     child: Text(appLocalizations.update,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
@@ -231,12 +232,23 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     );
   }
 
-  bool isCheckOnClick() {
+  bool isCheckOnClick(UserState state) {
     RegExp regExpPhoneNumber = RegExp(checkPhoneNumberRegexExp);
+    bool checkChange = firstName == state.user.firstName &&
+        lastName == state.user.lastName &&
+        dateOfBirth == state.user.dayOfBirth &&
+        phoneNumber == state.user.phoneNumber &&
+        province?.id == state.user.residentProvinceId &&
+        ward?.id == state.user.residentWardId &&
+        district?.id == state.user.residentDistrictId &&
+        address == state.user.residentAddress &&
+        gender?.nameEn == state.user.gender &&
+        file.path == '';
     bool check = regExpPhoneNumber.hasMatch(phoneNumber ?? "") &&
-        firstName != null &&
-        lastName != null &&
-        dateOfBirth != null;
+        firstName != '' &&
+        lastName != '' &&
+        dateOfBirth != '' &&
+        !checkChange;
     return check;
   }
 

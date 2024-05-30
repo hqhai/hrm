@@ -1,4 +1,3 @@
-
 import 'package:common/utils/validate_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,6 +64,7 @@ class AppInputPassword extends StatefulWidget {
 class _AppInputPasswordState extends State<AppInputPassword> {
   bool hintText = true;
   late FocusNode focusNode;
+
   @override
   void initState() {
     focusNode = widget.focusNode ?? FocusNode();
@@ -98,20 +98,13 @@ class _AppInputPasswordState extends State<AppInputPassword> {
                     widget.onChange!(value);
                   }
                 },
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(
-                    "[a-zA-Z0-9@.!#&*%?+]",
-                  )),
-                ],
+                inputFormatters: const [],
                 obscureText: hintText,
                 controller: widget.controller,
                 style: theme.textTheme.bodyLarge,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.only(
-                      bottom: 0,
-                      left: 16,
-                      top: 0,
-                      right: 16 // HERE THE IMPORTANT PART
+                      bottom: 0, left: 16, top: 0, right: 16 // HERE THE IMPORTANT PART
                       ),
                   prefixIcon: widget.iconLeft ?? const SizedBox(),
                   suffixIcon: IconButton(
@@ -132,13 +125,11 @@ class _AppInputPasswordState extends State<AppInputPassword> {
                           ),
                   ),
                   hintText: widget.placeHolder,
-                  hintStyle: theme.textTheme.bodyLarge
-                      ?.copyWith(color: colors.textTertiary),
+                  hintStyle: theme.textTheme.bodyLarge?.copyWith(color: colors.textTertiary),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(
-                      color:
-                          isEmpty(widget.error) ? colors.outline : colors.error,
+                      color: isEmpty(widget.error) ? colors.outline : colors.error,
                       width: 1.0,
                     ),
                   ),
@@ -158,8 +149,7 @@ class _AppInputPasswordState extends State<AppInputPassword> {
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
                   widget.error!,
-                  style:
-                      theme.textTheme.bodyLarge?.copyWith(color: colors.error),
+                  style: theme.textTheme.bodyLarge?.copyWith(color: colors.error),
                   maxLines: 2,
                 ),
               )

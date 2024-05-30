@@ -8,11 +8,12 @@ part 'user_state.g.dart';
 @CopyWith()
 class UserState extends Equatable {
   final User user;
+  final String email;
   final UserStatus status;
 
   const UserState(
-      {this.user = const User(id: "", createdUserId: ""), this.status = UserStatus.init});
+      {this.user = const User(id: "", createdUserId: ""), this.email = '', this.status = UserStatus.init});
 
   @override
-  List<Object> get props => [user, status];
+  List<Object> get props => [user, email, status];
 }

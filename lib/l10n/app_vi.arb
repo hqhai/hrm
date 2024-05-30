@@ -43,7 +43,7 @@
   "doYouWantToCreateARequest": "Bạn có muốn khởi tạo yêu cầu?",
   "doYouWantToDeleteTheRoom": "Bạn có muốn xóa phòng không?",
   "doYouWantToUpdateARequest": "Bạn có muốn cập nhật yêu cầu?",
-  "changePasswordSuccess" : "Đổi mật khẩu thành công!",
+  "changePasswordSuccess": "Đổi mật khẩu thành công!",
   "doYouWantToChangeYourPassword": "Bạn có muốn đổi mật khẩu?",
   "leaveACommentHere": "Viết nội dung tại đây",
   "previouslyAvailableSchedules": "Lịch trình có sẵn",
@@ -84,7 +84,7 @@
   "unsuccessful": "Thất bại!",
   "email": "Email",
   "search": "Tìm kiếm",
-  "continues" : "Tiếp tục  ",
+  "continues": "Tiếp tục  ",
   "add": "Thêm",
   "lateTime": "Thời gian muộn: ",
   "book": "Đặt lịch",
@@ -98,7 +98,7 @@
   "projectAndTasksCannotBeLeftBlank": "Project và task không thể để trống",
   "noDataFound": "Không tìm thấy dữ liệu!",
   "oops": "Ôi!",
-  "changeStatusRequestByManager" :  "Bạn có muốn sửa đổi trạng thái các yêu cầu không?",
+  "changeStatusRequestByManager": "Bạn có muốn sửa đổi trạng thái các yêu cầu không?",
   "doYouWantToCreateDepartment": "Bạn có muốn tạo phòng ban mới không?",
   "doYouWantToCreatePosition": "Bạn có muốn tạo chức vụ mới không?",
   "doYouWantToUpdateDepartment": "Bạn có muốn chỉnh sửa thông tin phòng ban không?",
@@ -180,6 +180,13 @@
   "pleaseEnterYourUsernameAndPasswordHere": "Nhập tên đăng nhập và mật khẩu tại đây",
   "youWantToSaveTheAboveAccountForBiometrics": "Bạn muôn lưu tài khoản này cho đăng nhập sinh trắc học?",
   "yourBiometricAccountIsIncorrect": "Tài khoản sinh trắc học của bạn không chính xác",
-  "youPressYourFingerHere": "Ấn ngón tay của bạn vào đây"
-
+  "youPressYourFingerHere": "Ấn ngón tay của bạn vào đây",
+  "touchTheIconToTimeClock": "Chạm tay vào icon để chấm công",
+  "timekeepingImmediately": "Chấm công ngay",
+  "complete": "Hoàn thành",
+  "locationServicesAreDisabled": "Chức năng định vị bị vô hiệu hóa",
+  "locationPermissionsAreDenied": "Quyền truy cập bị từ chối",
+  "locationPermissionsArePermanentlyDenied": "Quyền truy cập bị từ chối, chúng ti không thể yêu cầu được quyền truy cập định vị",
+  "validateToolLocation": "Xác thực vị trí chấm công",
+  "step" : "Bước 1/1"
 }

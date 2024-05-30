@@ -35,6 +35,8 @@ class $AssetsImagesGen {
   $AssetsImagesErrorGen get error => const $AssetsImagesErrorGen();
   $AssetsImagesIconGen get icon => const $AssetsImagesIconGen();
   $AssetsImagesSignInGen get signIn => const $AssetsImagesSignInGen();
+  $AssetsImagesTimeKeepingGen get timeKeeping =>
+      const $AssetsImagesTimeKeepingGen();
 }
 
 class $AssetsImagesErrorGen {
@@ -126,6 +128,21 @@ class $AssetsImagesSignInGen {
 
   /// List of all assets
   List<dynamic> get values => [background, logo, biometric];
+}
+
+class $AssetsImagesTimeKeepingGen {
+  const $AssetsImagesTimeKeepingGen();
+
+  /// File path: assets/images/time_keeping/noto_world-map.png
+  AssetGenImage get notoWorldMap =>
+      const AssetGenImage('assets/images/time_keeping/noto_world-map.png');
+
+  /// File path: assets/images/time_keeping/un_world-map.png
+  AssetGenImage get unWorldMap =>
+      const AssetGenImage('assets/images/time_keeping/un_world-map.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [notoWorldMap, unWorldMap];
 }
 
 class $AssetsImagesIconHomeGen {

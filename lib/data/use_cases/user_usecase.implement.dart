@@ -32,7 +32,7 @@ class UserUseCaseImpl extends UserUseCase {
   }
 
   @override
-  Future<int> forgotPassword({required String email}) async {
+  Future<String> forgotPassword({required String email}) async {
     return await _userRepository.forgotPassword(email: email);
   }
 

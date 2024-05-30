@@ -549,4 +549,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get youPressYourFingerHere => 'You press your finger here';
+
+  @override
+  String get touchTheIconToTimeClock => 'Touch The Icon To Time Clock';
+
+  @override
+  String get timekeepingImmediately => 'Timekeeping immediately';
+
+  @override
+  String get complete => 'Complete';
+
+  @override
+  String get locationServicesAreDisabled => 'Location services are disabled.';
+
+  @override
+  String get locationPermissionsAreDenied => 'Location permissions are denied';
+
+  @override
+  String get locationPermissionsArePermanentlyDenied => 'Location permissions are permanently denied, we cannot request permissions.';
+
+  @override
+  String get validateToolLocation => 'Validate tool location';
+
+  @override
+  String get step => 'Step 1/1';
 }

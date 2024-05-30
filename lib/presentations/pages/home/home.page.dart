@@ -36,7 +36,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectedIndexSystem = 0, selectedIndex = 0;
+  int selectedIndexSystem = 0, selectedIndex = 1;
   bool checkOpacity = false;
 
   @override
