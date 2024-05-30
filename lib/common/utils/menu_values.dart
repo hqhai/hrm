@@ -1,5 +1,6 @@
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/activate/activate.widget.dart';
 import 'package:base_app/presentations/widgets/admin/check_in_setting/check_in_setting.widget.dart';
 import 'package:base_app/presentations/widgets/admin/department/department.widget.dart';
 import 'package:base_app/presentations/widgets/admin/personnel/personnel.widget.dart';
@@ -132,7 +133,7 @@ class MenuValues {
   }
 
   static const List<Widget> widgetOptionsUser = <Widget>[
-    ProfileWidget(),
+    ActivateWidget(),
     HomeWidget(),
     ProfileWidget(),
   ];

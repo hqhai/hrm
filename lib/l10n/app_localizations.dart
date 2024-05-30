@@ -1232,6 +1232,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Step 1/1'**
   String get step;
+
+  /// No description provided for @singleWordList.
+  ///
+  /// In en, this message translates to:
+  /// **'Requisition list'**
+  String get singleWordList;
+
+  /// No description provided for @createANewSingleWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new requisition'**
+  String get createANewSingleWord;
+
+  /// No description provided for @deadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Deadline'**
+  String get deadline;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pending;
+
+  /// No description provided for @reject.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject'**
+  String get reject;
+
+  /// No description provided for @modificatio.
+  ///
+  /// In en, this message translates to:
+  /// **'Modification request'**
+  String get modificatio;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

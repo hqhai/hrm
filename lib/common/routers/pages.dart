@@ -29,4 +29,5 @@ class Pages {
   static const String biometricRegister = '/biometricRegister';
   static const String timekeepingGPSPage = '/timekeepingGPSPage';
   static const String timekeepingGPSCheckPage = '/timekeepingGPSCheckPage';
+  static const String requisitionListPage = '/requisitionListPage';
 }

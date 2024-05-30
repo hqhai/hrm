@@ -188,5 +188,17 @@
   "locationPermissionsAreDenied": "Quyền truy cập bị từ chối",
   "locationPermissionsArePermanentlyDenied": "Quyền truy cập bị từ chối, chúng ti không thể yêu cầu được quyền truy cập định vị",
   "validateToolLocation": "Xác thực vị trí chấm công",
-  "step" : "Bước 1/1"
+  "step" : "Bước 1/1",
+  "singleWordList": "Danh sách đơn từ",
+  "createANewSingleWord": "Tạo mới đơn từ",
+  "deadline": "Thời hạn",
+  "all": "Tất cả",
+  "pending": "Chờ duyệt",
+  "reject": "Đã từ chối",
+  "modificatio": "Y/c sửa lại đơn",
+  "done": "Đã duyệt",
+  "filter": "Bộ lọc",
+  "time": "Thời gian",
+  "status": "Trạng thái",
+  "apply": "Áp dụng"
 }

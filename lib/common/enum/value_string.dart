@@ -76,6 +76,34 @@ enum GenderEnum {
   const GenderEnum(this.nameVi, this.nameEn);
 }
 
+enum StatusRequisitionEnum {
+  pending('Pending', 'Chờ duyệt'),
+  reject('Reject', 'Đã từ chối'),
+  modification('Modification request', 'Y/c sửa lại'),
+  done('Done', 'Đã duyệt');
+
+  final String nameEn;
+  final String nameVi;
+
+  const StatusRequisitionEnum(this.nameEn, this.nameVi);
+}
+
+enum RequisitionTypeEnum {
+  leave('Đơn xin nghỉ', 'Application for leave'),
+  explanation('Giải trình công', 'Explanation'),
+  overtime('Đơn tăng ca', 'Overtime'),
+  vehicleDispatch('Đơn đề nghị điều xe', 'Application for vehicle dispatch'),
+  postalDelivery('Đơn đề nghị chuyển phát bưu điện', 'Application for postal delivery'),
+  releaseOfWarehouse('Đơn đề nghị xuất kho', 'Application for release of warehouse'),
+  stationeryOrder('Phiếu đặt văn phòng phẩm', 'Stationery order form'),
+  business('Đơn công tác', 'application for business trip');
+
+  final String nameVi;
+  final String nameEn;
+
+  const RequisitionTypeEnum(this.nameVi, this.nameEn);
+}
+
 enum LocationEnum {
   country('Country'),
   province('Province'),

@@ -188,5 +188,17 @@
   "locationPermissionsAreDenied": "Location permissions are denied",
   "locationPermissionsArePermanentlyDenied": "Location permissions are permanently denied, we cannot request permissions.",
   "validateToolLocation": "Validate tool location",
-  "step" : "Step 1/1"
+  "step" : "Step 1/1",
+  "singleWordList": "Requisition list",
+  "createANewSingleWord": "Create a new requisition",
+  "deadline": "Deadline",
+  "all": "All",
+  "pending": "Pending",
+  "reject": "Reject",
+  "modificatio": "Modification request",
+  "done": "Done",
+  "filter": "Filter",
+  "time": "Time",
+  "status": "Status",
+  "apply": "Apply"
 }

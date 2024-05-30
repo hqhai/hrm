@@ -573,4 +573,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get step => 'Step 1/1';
+
+  @override
+  String get singleWordList => 'Requisition list';
+
+  @override
+  String get createANewSingleWord => 'Create a new requisition';
+
+  @override
+  String get deadline => 'Deadline';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get reject => 'Reject';
+
+  @override
+  String get modificatio => 'Modification request';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get apply => 'Apply';
 }

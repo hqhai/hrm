@@ -72,7 +72,7 @@ class _DatePickerState extends State<DatePicker> with RestorationMixin {
         _restorableDatePickerRouteFuture.present();
       },
       child: Container(
-          width: SpacingUnit.x50,
+          width: SpacingUnit.x40,
           height: SpacingUnit.x12_5,
           alignment: Alignment.center,
           decoration: BoxDecoration(

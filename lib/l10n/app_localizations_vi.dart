@@ -573,4 +573,40 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get step => 'Bước 1/1';
+
+  @override
+  String get singleWordList => 'Danh sách đơn từ';
+
+  @override
+  String get createANewSingleWord => 'Tạo mới đơn từ';
+
+  @override
+  String get deadline => 'Thời hạn';
+
+  @override
+  String get all => 'Tất cả';
+
+  @override
+  String get pending => 'Chờ duyệt';
+
+  @override
+  String get reject => 'Đã từ chối';
+
+  @override
+  String get modificatio => 'Y/c sửa lại đơn';
+
+  @override
+  String get done => 'Đã duyệt';
+
+  @override
+  String get filter => 'Bộ lọc';
+
+  @override
+  String get time => 'Thời gian';
+
+  @override
+  String get status => 'Trạng thái';
+
+  @override
+  String get apply => 'Áp dụng';
 }
