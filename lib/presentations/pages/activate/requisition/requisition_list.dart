@@ -98,7 +98,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                             runSpacing: SpacingUnit.x3,
                             children: listFilter
                                 .map((e) => GestureDetector(
-                                      onTap: () => listFilter.remove(e),
+                                      onTap: () => removeListFilter(e),
                                       child: Container(
                                         padding: const EdgeInsets.all(
                                           SpacingUnit.x1,
@@ -145,18 +145,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
-                          onTap: () => showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Dialog(
-                                child: FilterRequisitionDialog(
-                                  sendData: (value) => setState(() {
-                                    listFilter = value.statuses;
-                                  }),
-                                ),
-                              );
-                            },
-                          ),
+                          onTap: () => dialog(context),
                           child: Container(
                             color: colors.background,
                             height: height * 0.04,
@@ -204,5 +193,30 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     setState(() {
       checkOpacity = check;
     });
+  }
+
+  removeListFilter(String e) {
+    setState(() {
+      listFilter.remove(e);
+    });
+  }
+
+  setlLstFilter(List<String> statuses) {
+    setState(() {
+      listFilter = statuses;
+    });
+  }
+
+  dialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: FilterRequisitionDialog(
+            sendData: (value) => setlLstFilter(value.statuses),
+          ),
+        );
+      },
+    );
   }
 }
