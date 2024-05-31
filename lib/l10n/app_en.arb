@@ -196,10 +196,19 @@
   "all": "All",
   "pending": "Pending",
   "reject": "Reject",
-  "modificatio": "Modification request",
+  "modification": "Modification request",
   "done": "Done",
   "filter": "Filter",
   "time": "Time",
   "status": "Status",
-  "apply": "Apply"
+  "apply": "Apply",
+  "expiredEdit": "Expired edit",
+  "expired": "Expired",
+  "leave":"Application for leave",
+  "overtime":"Overtime",
+  "vehicleDispatch":"Application for vehicle dispatch",
+  "postalDelivery":"Application for postal delivery",
+  "releaseOfWarehouse":"Application for release of warehouse",
+  "stationeryOrder":"Stationery order form",
+  "business":"application for business trip"
 }

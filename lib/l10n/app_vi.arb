@@ -196,10 +196,19 @@
   "all": "Tất cả",
   "pending": "Chờ duyệt",
   "reject": "Đã từ chối",
-  "modificatio": "Y/c sửa lại đơn",
+  "modification": "Y/c sửa lại đơn",
   "done": "Đã duyệt",
   "filter": "Bộ lọc",
   "time": "Thời gian",
   "status": "Trạng thái",
-  "apply": "Áp dụng"
+  "apply": "Áp dụng",
+  "expiredEdit": "Quá hạn sửa",
+  "expired": "Quá hạn",
+  "leave":"Đơn xin nghỉ",
+  "overtime":"Đơn tăng ca",
+  "vehicleDispatch":"Đơn đề nghị điều xe",
+  "postalDelivery":"Đơn đề nghị chuyển phát bưu điện",
+  "releaseOfWarehouse":"Đơn đề nghị xuất kho",
+  "stationeryOrder":"Phiếu đặt văn phòng phẩm",
+  "business":"Đơn công tác"
 }

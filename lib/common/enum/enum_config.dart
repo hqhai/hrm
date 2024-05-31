@@ -220,3 +220,13 @@ enum BiometricEnum{
   haveRegistration,
   notRegistered,
 }
+
+enum RequisitionEnum{
+  init,
+  getRequisitionInit,
+  getRequisitionSuccess,
+  getRequisitionError,
+  getRequisitionsInit,
+  getRequisitionsSuccess,
+  getRequisitionsError,
+}

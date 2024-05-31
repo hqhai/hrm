@@ -596,7 +596,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get reject => 'Đã từ chối';
 
   @override
-  String get modificatio => 'Y/c sửa lại đơn';
+  String get modification => 'Y/c sửa lại đơn';
 
   @override
   String get done => 'Đã duyệt';
@@ -612,4 +612,31 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get apply => 'Áp dụng';
+
+  @override
+  String get expiredEdit => 'Quá hạn sửa';
+
+  @override
+  String get expired => 'Quá hạn';
+
+  @override
+  String get leave => 'Đơn xin nghỉ';
+
+  @override
+  String get overtime => 'Đơn tăng ca';
+
+  @override
+  String get vehicleDispatch => 'Đơn đề nghị điều xe';
+
+  @override
+  String get postalDelivery => 'Đơn đề nghị chuyển phát bưu điện';
+
+  @override
+  String get releaseOfWarehouse => 'Đơn đề nghị xuất kho';
+
+  @override
+  String get stationeryOrder => 'Phiếu đặt văn phòng phẩm';
+
+  @override
+  String get business => 'Đơn công tác';
 }

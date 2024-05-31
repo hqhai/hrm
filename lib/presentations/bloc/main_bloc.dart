@@ -13,6 +13,7 @@ import 'package:base_app/presentations/bloc/position/position_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_bloc.dart';
 import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
 import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_manager/user_by_admin_bloc.dart';
@@ -40,5 +41,6 @@ class MainBloc {
         BlocProvider<NotesBloc>(create: (BuildContext context) => dI<NotesBloc>()),
         BlocProvider<AddressBloc>(create: (BuildContext context) => dI<AddressBloc>()),
         BlocProvider<BiometricCubit>(create: (BuildContext context) => dI<BiometricCubit>()),
+        BlocProvider<RequisitionBloc>(create: (BuildContext context) => dI<RequisitionBloc>()),
       ];
 }

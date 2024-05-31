@@ -596,7 +596,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reject => 'Reject';
 
   @override
-  String get modificatio => 'Modification request';
+  String get modification => 'Modification request';
 
   @override
   String get done => 'Done';
@@ -612,4 +612,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get apply => 'Apply';
+
+  @override
+  String get expiredEdit => 'Expired edit';
+
+  @override
+  String get expired => 'Expired';
+
+  @override
+  String get leave => 'Application for leave';
+
+  @override
+  String get overtime => 'Overtime';
+
+  @override
+  String get vehicleDispatch => 'Application for vehicle dispatch';
+
+  @override
+  String get postalDelivery => 'Application for postal delivery';
+
+  @override
+  String get releaseOfWarehouse => 'Application for release of warehouse';
+
+  @override
+  String get stationeryOrder => 'Stationery order form';
+
+  @override
+  String get business => 'application for business trip';
 }

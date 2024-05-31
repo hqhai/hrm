@@ -1275,11 +1275,11 @@ abstract class AppLocalizations {
   /// **'Reject'**
   String get reject;
 
-  /// No description provided for @modificatio.
+  /// No description provided for @modification.
   ///
   /// In en, this message translates to:
   /// **'Modification request'**
-  String get modificatio;
+  String get modification;
 
   /// No description provided for @done.
   ///
@@ -1310,6 +1310,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Apply'**
   String get apply;
+
+  /// No description provided for @expiredEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired edit'**
+  String get expiredEdit;
+
+  /// No description provided for @expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get expired;
+
+  /// No description provided for @leave.
+  ///
+  /// In en, this message translates to:
+  /// **'Application for leave'**
+  String get leave;
+
+  /// No description provided for @overtime.
+  ///
+  /// In en, this message translates to:
+  /// **'Overtime'**
+  String get overtime;
+
+  /// No description provided for @vehicleDispatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Application for vehicle dispatch'**
+  String get vehicleDispatch;
+
+  /// No description provided for @postalDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Application for postal delivery'**
+  String get postalDelivery;
+
+  /// No description provided for @releaseOfWarehouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Application for release of warehouse'**
+  String get releaseOfWarehouse;
+
+  /// No description provided for @stationeryOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Stationery order form'**
+  String get stationeryOrder;
+
+  /// No description provided for @business.
+  ///
+  /// In en, this message translates to:
+  /// **'application for business trip'**
+  String get business;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

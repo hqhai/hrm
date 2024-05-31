@@ -7,7 +7,6 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/item_activate.dart';
 import 'package:flutter/material.dart';
-import 'package:themes/themes.dart';
 
 class ActivateWidget extends StatefulWidget {
   const ActivateWidget({super.key});
