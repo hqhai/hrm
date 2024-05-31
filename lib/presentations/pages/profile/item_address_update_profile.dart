@@ -27,7 +27,7 @@ class ItemAddressUpdateProfile extends StatefulWidget {
 }
 
 class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
-  String? provinceId = '', districtId = '', wardId = '';
+  String? provinceId, districtId, wardId;
 
   @override
   void initState() {
@@ -153,7 +153,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
 
   _setProvinceId(Address? value, AddressState state, UserState stateUser) {
     Address address = Address(
-        id: stateUser.user.residentProvinceId ?? "", name: stateUser.user.residentProvince ?? "");
+        id: stateUser.user.residentProvinceId, name: stateUser.user.residentProvince);
     widget.onChangeProvince.call(value ?? address);
 
     setState(() {
@@ -164,7 +164,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
 
   _setDistrictsId(Address? value, AddressState state, UserState stateUser) {
     Address address = Address(
-        id: stateUser.user.residentDistrictId ?? "", name: stateUser.user.residentDistrict ?? "");
+        id: stateUser.user.residentDistrictId, name: stateUser.user.residentDistrict);
 
     widget.onChangeDistrict.call(value ?? address);
     setState(() {
@@ -175,7 +175,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
 
   _setOnChangeWard(Address? value, AddressState state, UserState stateUser) {
     Address address =
-        Address(id: stateUser.user.residentWardId ?? "", name: stateUser.user.residentWard ?? "");
+        Address(id: stateUser.user.residentWardId, name: stateUser.user.residentWard);
     widget.onChangeWard.call(value ?? address);
   }
 
@@ -186,10 +186,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
       if (addresses.isNotEmpty) {
         return addresses[0];
       } else {
-        return const Address(name: '', id: '');
+        return const Address();
       }
     } else {
-      return const Address(name: '', id: '');
+      return const Address();
     }
   }
 
@@ -200,10 +200,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
       if (addresses.isNotEmpty) {
         return addresses[0];
       } else {
-        return const Address(name: '', id: '');
+        return const Address();
       }
     } else {
-      return const Address(name: '', id: '');
+      return const Address();
     }
   }
 
@@ -214,10 +214,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
       if (addresses.isNotEmpty) {
         return addresses[0];
       } else {
-        return const Address(name: '', id: '');
+        return const Address();
       }
     } else {
-      return const Address(name: '', id: '');
+      return const Address();
     }
   }
 }

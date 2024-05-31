@@ -1011,6 +1011,12 @@ abstract class AppLocalizations {
   /// **'Personal email'**
   String get personalEmail;
 
+  /// No description provided for @companyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Email'**
+  String get companyEmail;
+
   /// No description provided for @gender.
   ///
   /// In en, this message translates to:

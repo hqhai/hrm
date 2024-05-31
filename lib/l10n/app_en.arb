@@ -152,6 +152,7 @@
   "userInformation": "User information",
   "employeeCode": "Employee code",
   "personalEmail": "Personal email",
+  "companyEmail": "Company Email",
   "gender": "Gender",
   "dateOfBirth": "Date of birth",
   "branch": "Branch",

@@ -130,7 +130,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         ItemUpdateProfileConstant(
                             title: appLocalizations.employeeCode, content: state.user.code ?? ''),
                         ItemUpdateProfileConstant(
-                            title: appLocalizations.email, content: state.user.companyEmail ?? ''),
+                            title: appLocalizations.companyEmail, content: state.user.companyEmail ?? ''),
                         ItemDateOfBirthUpdateProfile(
                           dateOfBirth: formatDMY(
                             state.user.dayOfBirth ?? '',

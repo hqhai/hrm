@@ -152,6 +152,7 @@
   "userInformation": "Thông tin nhân viên",
   "employeeCode": "Mã nhân viên",
   "personalEmail": "Email cá nhân",
+  "companyEmail": "Email công ty",
   "gender": "Giới tính",
   "dateOfBirth": "Ngày sinh",
   "branch": "Chi nhánh",

@@ -464,6 +464,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get personalEmail => 'Personal email';
 
   @override
+  String get companyEmail => 'Company Email';
+
+  @override
   String get gender => 'Gender';
 
   @override

@@ -464,6 +464,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get personalEmail => 'Email cá nhân';
 
   @override
+  String get companyEmail => 'Email công ty';
+
+  @override
   String get gender => 'Giới tính';
 
   @override
