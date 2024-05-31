@@ -32,11 +32,23 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   @override
   void initState() {
     super.initState();
-    String parentId1 = dI<UserBloc>().state.user.residentProvinceId ?? "";
-    String parentId2 = dI<UserBloc>().state.user.residentDistrictId ?? "";
-    dI<AddressBloc>().add(GetDistrictsEvent(parentId: parentId1));
-    dI<AddressBloc>().add(GetWardsEvent(parentId: parentId2));
     dI<AddressBloc>().add(const GetProvincesEvent());
+    _getGetDistrictsInit();
+    _getWardInit();
+  }
+
+  _getGetDistrictsInit() {
+    String parentId1 = dI<UserBloc>().state.user.residentProvinceId ?? "";
+    if (parentId1 != "") {
+      dI<AddressBloc>().add(GetDistrictsEvent(parentId: parentId1));
+    }
+  }
+
+  _getWardInit() {
+    String parentId2 = dI<UserBloc>().state.user.residentDistrictId ?? "";
+    if (parentId2 != "") {
+      dI<AddressBloc>().add(GetWardsEvent(parentId: parentId2));
+    }
   }
 
   _listener(BuildContext context, AddressState state) {
@@ -81,7 +93,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   dropdownMenuEntries: state.provinces
                       .map((e) => e)
                       .map((Address value) =>
-                          DropdownMenuEntry<Address>(value: value, label: value.name))
+                          DropdownMenuEntry<Address>(value: value, label: value.name??""))
                       .toList(),
                 ),
                 const SizedBox(
@@ -103,7 +115,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   dropdownMenuEntries: state.districts
                       .map((e) => e)
                       .map((Address value) =>
-                      DropdownMenuEntry<Address>(value: value, label: value.name))
+                          DropdownMenuEntry<Address>(value: value, label: value.name??""))
                       .toList(),
                 ),
                 const SizedBox(
@@ -125,7 +137,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   dropdownMenuEntries: state.wards
                       .map((e) => e)
                       .map((Address value) =>
-                      DropdownMenuEntry<Address>(value: value, label: value.name))
+                          DropdownMenuEntry<Address>(value: value, label: value.name??""))
                       .toList(),
                 ),
                 const SizedBox(

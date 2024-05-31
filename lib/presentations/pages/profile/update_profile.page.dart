@@ -60,16 +60,16 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   _listener(BuildContext context, UserState state) {
     if (state.status == UserStatus.getUserInfoSuccess) {
       setState(() {
-        dateOfBirth = state.user.dayOfBirth ?? "";
-        phoneNumber = state.user.phoneNumber ?? "";
-        firstName = state.user.firstName ?? "";
-        lastName = state.user.lastName ?? "";
+        dateOfBirth = state.user.dayOfBirth;
+        phoneNumber = state.user.phoneNumber;
+        firstName = state.user.firstName;
+        lastName = state.user.lastName;
         province = Address(
-            name: state.user.residentProvince ?? "", id: state.user.residentProvinceId ?? "");
-        ward = Address(name: state.user.residentWard ?? "", id: state.user.residentWardId ?? "");
+            name: state.user.residentProvince, id: state.user.residentProvinceId);
+        ward = Address(name: state.user.residentWard, id: state.user.residentWardId);
         district = Address(
-            name: state.user.residentDistrict ?? "", id: state.user.residentDistrictId ?? "");
-        address = state.user.residentAddress ?? "";
+            name: state.user.residentDistrict, id: state.user.residentDistrictId);
+        address = state.user.residentAddress;
       });
     }
     if (state.status == UserStatus.updateProfileInit) {
@@ -135,7 +135,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           dateOfBirth: formatDMY(
                             state.user.dayOfBirth ?? '',
                           ),
-                          onChangeDateOfBirth: (value) => dateOfBirth = formatYMD(value),
+                          onChangeDateOfBirth: (value) => _setDateOfBirth(value),
                         ),
                         ItemInputUpdateProfile(
                           title: appLocalizations.firstName,
@@ -216,20 +216,22 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       dayOfBirth: dateOfBirth ?? state.user.dayOfBirth ?? "0001-01-01T00:00:00",
       gender: gender?.nameEn ?? state.user.gender ?? "",
       phoneNumber: phoneNumber ?? state.user.phoneNumber ?? "",
-      residentProvince: province?.name ?? state.user.residentProvince ?? "",
-      residentProvinceId: province?.id ?? state.user.residentProvinceId ?? "",
-      residentDistrict: district?.name ?? state.user.residentDistrict ?? "",
-      residentDistrictId: district?.id ?? state.user.residentDistrictId ?? "",
-      residentWard: ward?.name ?? state.user.residentWard ?? "",
-      residentWardId: ward?.id ?? state.user.residentWardId ?? "",
-      residentAddress: address ?? state.user.residentAddress ?? "",
+      residentProvince: province?.name ?? state.user.residentProvince,
+      residentProvinceId: province?.id ?? state.user.residentProvinceId,
+      residentDistrict: district?.name ?? state.user.residentDistrict,
+      residentDistrictId: district?.id ?? state.user.residentDistrictId,
+      residentWard: ward?.name ?? state.user.residentWard,
+      residentWardId: ward?.id ?? state.user.residentWardId,
+      residentAddress: address ?? state.user.residentAddress,
       avatarPath: state.user.avatarPath ?? "",
     );
-    updateProfileDialog(
-      context,
-      () => dI<UserBloc>()
-          .add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest, file: file)),
-    );
+    if (isCheckOnClick(state)) {
+      updateProfileDialog(
+        context,
+        () => dI<UserBloc>()
+            .add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest, file: file)),
+      );
+    }
   }
 
   bool isCheckOnClick(UserState state) {
@@ -304,5 +306,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     setState(() {
       file = value;
     });
+  }
+
+  _setDateOfBirth(String value) {
+    setState(() {
+      dateOfBirth = formatYMD(value);
+    });
+
   }
 }
