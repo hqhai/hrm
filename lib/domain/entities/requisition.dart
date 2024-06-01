@@ -1,4 +1,4 @@
-import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,7 +14,7 @@ class Requisition {
   final String? creator;
   final String? createTime;
   final String? deadLine;
-  final String? status;
+  final StatusRequisitionEnum? status;
 
   const Requisition({
     required this.id,

@@ -639,4 +639,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get business => 'application for business trip';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get primarySchool => 'Primary school';
+
+  @override
+  String get secondarySchool => 'Secondary school';
+
+  @override
+  String get highSchool => 'High school';
+
+  @override
+  String get vocationalSchool => 'Vocational school';
+
+  @override
+  String get college => 'College';
+
+  @override
+  String get university => 'University';
+
+  @override
+  String get masterDegree => 'Master degree';
+
+  @override
+  String get doctorate => 'Doctorate';
+
+  @override
+  String get working => 'Working';
+
+  @override
+  String get resignation => 'Resignation';
+
+  @override
+  String get maternityLeave => 'MaternityLeave';
+
+  @override
+  String get aboutToStart => 'AboutToStart';
+
+  @override
+  String get longTermUnpaidLeave => 'LongTermUnpaidLeave';
+
+  @override
+  String get yourRequisition => 'Your requisition';
+
+  @override
+  String get requisitionYouApproval => 'Requisition you approval';
+
+  @override
+  String get requisitionYouFollow => 'Requisition you follow';
 }

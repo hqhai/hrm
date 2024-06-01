@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
@@ -64,11 +64,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         phoneNumber = state.user.phoneNumber;
         firstName = state.user.firstName;
         lastName = state.user.lastName;
-        province = Address(
-            name: state.user.residentProvince, id: state.user.residentProvinceId);
+        province = Address(name: state.user.residentProvince, id: state.user.residentProvinceId);
         ward = Address(name: state.user.residentWard, id: state.user.residentWardId);
-        district = Address(
-            name: state.user.residentDistrict, id: state.user.residentDistrictId);
+        district = Address(name: state.user.residentDistrict, id: state.user.residentDistrictId);
         address = state.user.residentAddress;
       });
     }
@@ -130,7 +128,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         ItemUpdateProfileConstant(
                             title: appLocalizations.employeeCode, content: state.user.code ?? ''),
                         ItemUpdateProfileConstant(
-                            title: appLocalizations.companyEmail, content: state.user.companyEmail ?? ''),
+                            title: appLocalizations.companyEmail,
+                            content: state.user.companyEmail ?? ''),
                         ItemDateOfBirthUpdateProfile(
                           dateOfBirth: formatDMY(
                             state.user.dayOfBirth ?? '',
@@ -154,7 +153,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         ),
                         ItemGenderUpdateProfile(
                             onChangeGender: (value) => _setGender(value),
-                            gender: state.user.gender ?? ""),
+                            gender: state.user.gender ?? GenderEnum.male),
                         ItemAddressUpdateProfile(
                             onChangeProvince: (value) => _setProvince(value),
                             onChangeDistrict: (value) => _setDistrict(value),
@@ -214,7 +213,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       firstName: firstName ?? state.user.firstName ?? "",
       lastName: lastName ?? state.user.lastName ?? "",
       dayOfBirth: dateOfBirth ?? state.user.dayOfBirth ?? "0001-01-01T00:00:00",
-      gender: gender?.nameEn ?? state.user.gender ?? "",
+      gender: gender?.name ?? state.user.gender?.name ?? "",
       phoneNumber: phoneNumber ?? state.user.phoneNumber ?? "",
       residentProvince: province?.name ?? state.user.residentProvince,
       residentProvinceId: province?.id ?? state.user.residentProvinceId,
@@ -244,7 +243,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         ward?.id == state.user.residentWardId &&
         district?.id == state.user.residentDistrictId &&
         address == state.user.residentAddress &&
-        gender?.nameEn == state.user.gender &&
+        gender == state.user.gender &&
         file.path == '';
     bool check = regExpPhoneNumber.hasMatch(phoneNumber ?? "") &&
         firstName != '' &&
@@ -312,6 +311,5 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     setState(() {
       dateOfBirth = formatYMD(value);
     });
-
   }
 }

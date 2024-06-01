@@ -1,13 +1,15 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/language/language_cubit.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class FilterRequisitionDialog extends StatefulWidget {
@@ -20,21 +22,23 @@ class FilterRequisitionDialog extends StatefulWidget {
 }
 
 class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
-  String type = '', startTime = '', endTime = '';
-  List<String> statuses = [];
+  String startTime = DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      endTime = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  RequisitionTypeEnum type = RequisitionTypeEnum.explanation;
+  List<StatusRequisitionEnum> statuses = [];
 
   void setType({RequisitionTypeEnum? value}) {
-    type = _setNameType(value);
+    type = value ?? RequisitionTypeEnum.business;
   }
 
-  void saveDrag({required String a}) {
-    if (!statuses.contains(a)) {
+  void saveDrag({required StatusRequisitionEnum eStatus}) {
+    if (!statuses.contains(eStatus)) {
       setState(() {
-        statuses.add(a);
+        statuses.add(eStatus);
       });
     } else {
       setState(() {
-        statuses.remove(a);
+        statuses.remove(eStatus);
       });
     }
   }
@@ -45,28 +49,6 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
 
   void setEndTime({required String value}) {
     endTime = value;
-  }
-
-  String _setNameStatus(StatusRequisitionEnum e) {
-    LanguageEnum languageEnum = dI<LanguageCubit>().state.languageCode;
-    if (languageEnum == LanguageEnum.vi) {
-      return e.nameVi;
-    } else {
-      return e.nameEn;
-    }
-  }
-
-  String _setNameType(RequisitionTypeEnum? e) {
-    LanguageEnum languageEnum = dI<LanguageCubit>().state.languageCode;
-    if (e == null) {
-      return '';
-    } else {
-      if (languageEnum == LanguageEnum.vi) {
-        return e.nameVi;
-      } else {
-        return e.nameEn;
-      }
-    }
   }
 
   @override
@@ -111,13 +93,9 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
                       initialSelection: RequisitionTypeEnum.explanation,
                       onSelected: (RequisitionTypeEnum? value) => setType(value: value),
                       dropdownMenuEntries: RequisitionTypeEnum.values
-                          .map((e) => e)
                           .map<DropdownMenuEntry<RequisitionTypeEnum>>((RequisitionTypeEnum value) {
                         return DropdownMenuEntry<RequisitionTypeEnum>(
-                            value: value,
-                            label: dI<LanguageCubit>().state.languageCode == LanguageEnum.en
-                                ? value.nameEn
-                                : value.nameVi);
+                            value: value, label: value.configTypeName);
                       }).toList(),
                     ),
                   ),
@@ -154,20 +132,19 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
                     spacing: SpacingUnit.x4,
                     runSpacing: SpacingUnit.x3,
                     children: StatusRequisitionEnum.values
-                        .map((e) => _setNameStatus(e))
                         .map(
-                          (eName) => GestureDetector(
-                            onTap: () => saveDrag(a: eName),
+                          (eStatus) => GestureDetector(
+                            onTap: () => saveDrag(eStatus: eStatus),
                             child: Container(
                               padding: const EdgeInsets.all(SpacingUnit.x1),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                                color: statuses.contains(eName)
+                                color: statuses.contains(eStatus)
                                     ? colors.error
                                     : CustomsColor.colorBackground,
                                 border: Border.all(color: colors.text, width: SpacingUnit.x0_25),
                               ),
-                              child: Text(eName),
+                              child: Text(eStatus.configStatusName),
                             ),
                           ),
                         )
@@ -180,11 +157,7 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    widget.sendData.call(FilterDialogModel(
-                        type: type, endTime: endTime, startTime: startTime, statuses: statuses));
-                    popDialog(context);
-                  },
+                  onPressed: () => setApply(),
                   child: Text(appLocalizations.apply),
                 ),
                 ElevatedButton(
@@ -197,5 +170,13 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
         ),
       ),
     );
+  }
+
+  setApply() {
+    widget.sendData.call(
+        FilterDialogModel(type: type, endTime: endTime, startTime: startTime, statuses: statuses));
+    dI<RequisitionBloc>().add(
+        GetRequisitionsByFilterEvent(requisitionTypeEnum: type, listStatusRequisition: statuses));
+    popDialog(context);
   }
 }

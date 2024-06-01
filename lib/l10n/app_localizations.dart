@@ -1364,6 +1364,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'application for business trip'**
   String get business;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @primarySchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary school'**
+  String get primarySchool;
+
+  /// No description provided for @secondarySchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary school'**
+  String get secondarySchool;
+
+  /// No description provided for @highSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'High school'**
+  String get highSchool;
+
+  /// No description provided for @vocationalSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocational school'**
+  String get vocationalSchool;
+
+  /// No description provided for @college.
+  ///
+  /// In en, this message translates to:
+  /// **'College'**
+  String get college;
+
+  /// No description provided for @university.
+  ///
+  /// In en, this message translates to:
+  /// **'University'**
+  String get university;
+
+  /// No description provided for @masterDegree.
+  ///
+  /// In en, this message translates to:
+  /// **'Master degree'**
+  String get masterDegree;
+
+  /// No description provided for @doctorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctorate'**
+  String get doctorate;
+
+  /// No description provided for @working.
+  ///
+  /// In en, this message translates to:
+  /// **'Working'**
+  String get working;
+
+  /// No description provided for @resignation.
+  ///
+  /// In en, this message translates to:
+  /// **'Resignation'**
+  String get resignation;
+
+  /// No description provided for @maternityLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'MaternityLeave'**
+  String get maternityLeave;
+
+  /// No description provided for @aboutToStart.
+  ///
+  /// In en, this message translates to:
+  /// **'AboutToStart'**
+  String get aboutToStart;
+
+  /// No description provided for @longTermUnpaidLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'LongTermUnpaidLeave'**
+  String get longTermUnpaidLeave;
+
+  /// No description provided for @yourRequisition.
+  ///
+  /// In en, this message translates to:
+  /// **'Your requisition'**
+  String get yourRequisition;
+
+  /// No description provided for @requisitionYouApproval.
+  ///
+  /// In en, this message translates to:
+  /// **'Requisition you approval'**
+  String get requisitionYouApproval;
+
+  /// No description provided for @requisitionYouFollow.
+  ///
+  /// In en, this message translates to:
+  /// **'Requisition you follow'**
+  String get requisitionYouFollow;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -16,7 +16,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       lastName: json['lastName'] as String?,
       fullName: json['fullName'] as String?,
       dayOfBirth: json['dayOfBirth'] as String?,
-      gender: json['gender'] as String?,
+      gender: $enumDecodeNullable(_$GenderEnumEnumMap, json['gender']),
       avatarPath: json['avatarPath'] as String?,
       ciNumber: json['ciNumber'] as String?,
       ciIssuePlace: json['ciIssuePlace'] as String?,
@@ -53,7 +53,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       phoneNumber: json['phoneNumber'] as String?,
       email: json['email'] as String?,
       companyEmail: json['companyEmail'] as String?,
-      educationLevel: json['educationLevel'] as String?,
+      educationLevel: $enumDecodeNullable(
+          _$EducationLevelEnumEnumMap, json['educationLevel']),
       education: json['education'] as String?,
       specializes: json['specializes'] as String?,
       graduationType: json['graduationType'] as String?,
@@ -62,7 +63,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       probationDay: json['probationDay'] as String?,
       officialDay: json['officialDay'] as String?,
       endDate: json['endDate'] as String?,
-      workingStatus: json['workingStatus'] as String?,
+      workingStatus: $enumDecodeNullable(
+          _$WorkingStatusEnumEnumMap, json['workingStatus']),
       typeOfPersonnel: json['typeOfPersonnel'] as String?,
       description: json['description'] as String?,
       userDepartmentPositions: (json['userDepartmentPositions']
@@ -102,7 +104,7 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('lastName', instance.lastName);
   writeNotNull('fullName', instance.fullName);
   writeNotNull('dayOfBirth', instance.dayOfBirth);
-  writeNotNull('gender', instance.gender);
+  writeNotNull('gender', _$GenderEnumEnumMap[instance.gender]);
   writeNotNull('avatarPath', instance.avatarPath);
   writeNotNull('ciNumber', instance.ciNumber);
   writeNotNull('ciIssuePlace', instance.ciIssuePlace);
@@ -136,7 +138,8 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('phoneNumber', instance.phoneNumber);
   writeNotNull('email', instance.email);
   writeNotNull('companyEmail', instance.companyEmail);
-  writeNotNull('educationLevel', instance.educationLevel);
+  writeNotNull(
+      'educationLevel', _$EducationLevelEnumEnumMap[instance.educationLevel]);
   writeNotNull('education', instance.education);
   writeNotNull('specializes', instance.specializes);
   writeNotNull('graduationType', instance.graduationType);
@@ -145,7 +148,8 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('probationDay', instance.probationDay);
   writeNotNull('officialDay', instance.officialDay);
   writeNotNull('endDate', instance.endDate);
-  writeNotNull('workingStatus', instance.workingStatus);
+  writeNotNull(
+      'workingStatus', _$WorkingStatusEnumEnumMap[instance.workingStatus]);
   writeNotNull('typeOfPersonnel', instance.typeOfPersonnel);
   writeNotNull('description', instance.description);
   val['userDepartmentPositions'] = instance.userDepartmentPositions;
@@ -162,3 +166,29 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('emergencyAddress', instance.emergencyAddress);
   return val;
 }
+
+const _$GenderEnumEnumMap = {
+  GenderEnum.male: 'Male',
+  GenderEnum.female: 'Female',
+  GenderEnum.other: 'Other',
+};
+
+const _$EducationLevelEnumEnumMap = {
+  EducationLevelEnum.primarySchool: 'PrimarySchool',
+  EducationLevelEnum.secondarySchool: 'SecondarySchool',
+  EducationLevelEnum.highSchool: 'HighSchool',
+  EducationLevelEnum.vocationalSchool: 'VocationalSchool',
+  EducationLevelEnum.college: 'College',
+  EducationLevelEnum.university: 'University',
+  EducationLevelEnum.masterDegree: 'MasterDegree',
+  EducationLevelEnum.doctorate: 'Doctorate',
+  EducationLevelEnum.other: 'Other',
+};
+
+const _$WorkingStatusEnumEnumMap = {
+  WorkingStatusEnum.working: 'Working',
+  WorkingStatusEnum.resignation: 'Resignation',
+  WorkingStatusEnum.maternityLeave: 'MaternityLeave',
+  WorkingStatusEnum.aboutToStart: 'AboutToStart',
+  WorkingStatusEnum.longTermUnpaidLeave: 'LongTermUnpaidLeave',
+};

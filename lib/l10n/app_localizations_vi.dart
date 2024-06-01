@@ -639,4 +639,61 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get business => 'Đơn công tác';
+
+  @override
+  String get male => 'Nam';
+
+  @override
+  String get female => 'Nữ';
+
+  @override
+  String get other => 'Khác';
+
+  @override
+  String get primarySchool => 'Tiểu học';
+
+  @override
+  String get secondarySchool => 'Trung học';
+
+  @override
+  String get highSchool => 'Cao trung';
+
+  @override
+  String get vocationalSchool => 'Trường nghề';
+
+  @override
+  String get college => 'Cao đẳng';
+
+  @override
+  String get university => 'Đại học';
+
+  @override
+  String get masterDegree => 'Thạc sĩ';
+
+  @override
+  String get doctorate => 'Tiến sĩ';
+
+  @override
+  String get working => 'Đang làm việc';
+
+  @override
+  String get resignation => 'Từ chức';
+
+  @override
+  String get maternityLeave => 'Nghỉ thai sản';
+
+  @override
+  String get aboutToStart => 'Sắp bắt đầu';
+
+  @override
+  String get longTermUnpaidLeave => 'Nghỉ phép dài hạn không lương';
+
+  @override
+  String get yourRequisition => 'Dơn từ của bạn';
+
+  @override
+  String get requisitionYouApproval => 'Đơn từ bạn phê duyệt';
+
+  @override
+  String get requisitionYouFollow => 'Đơn từ bạn theo dõi';
 }

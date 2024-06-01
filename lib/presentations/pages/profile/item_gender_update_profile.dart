@@ -1,4 +1,4 @@
-import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
@@ -10,12 +10,12 @@ import 'package:themes/themes.dart';
 class ItemGenderUpdateProfile extends StatefulWidget {
   const ItemGenderUpdateProfile({
     super.key,
-    this.gender = "",
+    this.gender = GenderEnum.male,
     required this.onChangeGender,
   });
 
   final ValueChanged<GenderEnum> onChangeGender;
-  final String gender;
+  final GenderEnum gender;
 
   @override
   State<ItemGenderUpdateProfile> createState() =>
@@ -29,9 +29,9 @@ class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
   }
 
   GenderEnum convertGenderEnum() {
-    if (widget.gender == GenderEnum.male.nameVi || widget.gender == GenderEnum.male.nameEn) {
+    if (widget.gender == GenderEnum.male) {
       return GenderEnum.male;
-    } else if (widget.gender == GenderEnum.female.nameVi || widget.gender == GenderEnum.female.nameEn) {
+    } else if (widget.gender == GenderEnum.female) {
       return GenderEnum.female;
     } else {
       return GenderEnum.other;
@@ -59,10 +59,10 @@ class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
               initialSelection: convertGenderEnum(),
               onSelected: (GenderEnum? value) => _setGender(value),
               dropdownMenuEntries:
-                  GenderEnum.values.map((e) => e).map<DropdownMenuEntry<GenderEnum>>((GenderEnum value) {
+                  GenderEnum.values.map<DropdownMenuEntry<GenderEnum>>((GenderEnum value) {
                 return DropdownMenuEntry<GenderEnum>(
                     value: value,
-                    label: state.languageCode == LanguageEnum.en ? value.nameEn : value.nameVi);
+                    label: value.configGenderName);
               }).toList(),
             ),
             const SizedBox(

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -11,6 +12,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition/item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition/popup_menu_requisition_list.dart';
+import 'package:base_app/presentations/pages/activate/requisition/wrap_filter.dart';
 import 'package:base_app/presentations/widgets/dialog/filter_requisition_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +36,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   bool checkOpacity = false;
   var random = Random();
 
-  List<String> listFilter = [];
+  List<StatusRequisitionEnum> listFilter = [];
 
   @override
   void initState() {
@@ -70,7 +72,6 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                     children: [
                       if (listFilter.isEmpty)
                         Container(
-                          width: width * 0.5,
                           padding: const EdgeInsets.all(
                             SpacingUnit.x1,
                           ),
@@ -92,54 +93,9 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                       if (listFilter.isNotEmpty)
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          child: Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            spacing: SpacingUnit.x4,
-                            runSpacing: SpacingUnit.x3,
-                            children: listFilter
-                                .map((e) => GestureDetector(
-                                      onTap: () => removeListFilter(e),
-                                      child: Container(
-                                        padding: const EdgeInsets.all(
-                                          SpacingUnit.x1,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            SpacingUnit.x1,
-                                          ),
-                                          color: CustomsColor.colorBackground,
-                                          border: Border.all(
-                                            color: colors.text,
-                                            width: SpacingUnit.x0_25,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              e,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  color: colors.text, fontSize: SpacingUnit.x3),
-                                            ),
-                                            const SizedBox(
-                                              width: SpacingUnit.x1,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () => setState(() {
-                                                listFilter.remove(e);
-                                              }),
-                                              child: Icon(
-                                                Icons.cancel_outlined,
-                                                size: SpacingUnit.x5,
-                                                color: colors.error,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
+                          child: WrapFilter(
+                            listFilter: listFilter,
+                            onChange: (value) => removeListFilter(value),
                           ),
                         ),
                       Align(
@@ -164,7 +120,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                       horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
                   margin: const EdgeInsets.symmetric(
                       horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                  height: height * 0.75,
+                  height: height * 0.78,
                   decoration: BoxDecoration(
                     color: CustomsColor.colorBackground,
                     borderRadius: const BorderRadius.all(
@@ -173,10 +129,24 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                   ),
                   child: SingleChildScrollView(
                     child: SizedBox(
-                      height: height * 0.6,
-                      child: ListView.builder(
-                        itemCount: state.requisitions.length,
-                        itemBuilder: (context, index) => ItemRequisitionList(index: index),
+                      height: height * 0.75,
+                      child: Stack(
+                        children: [
+                          ListView.builder(
+                            itemCount: state.requisitions.length,
+                            itemBuilder: (context, index) => ItemRequisitionList(index: index),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(SpacingUnit.x20),
+                                  color: CustomsColor.colorBackground,
+                                  border: Border.all(color: colors.polarGreen, width: 1)),
+                              child: Icon(Icons.add, color: colors.polarGreen, size: width * 0.1),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -195,13 +165,13 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     });
   }
 
-  removeListFilter(String e) {
+  removeListFilter(StatusRequisitionEnum e) {
     setState(() {
       listFilter.remove(e);
     });
   }
 
-  setlLstFilter(List<String> statuses) {
+  setlLstFilter(List<StatusRequisitionEnum> statuses) {
     setState(() {
       listFilter = statuses;
     });

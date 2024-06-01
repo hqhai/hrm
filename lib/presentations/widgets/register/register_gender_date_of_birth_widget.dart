@@ -1,4 +1,4 @@
-import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -63,11 +63,10 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
               initialSelection: GenderEnum.male,
               onSelected: (GenderEnum? value) => _setGender(value),
               dropdownMenuEntries: GenderEnum.values
-                  .map((e) => e)
                   .map<DropdownMenuEntry<GenderEnum>>((GenderEnum value) {
                 return DropdownMenuEntry<GenderEnum>(
                     value: value,
-                    label: state.languageCode == LanguageEnum.en ? value.nameEn : value.nameVi);
+                    label: value.configGenderName);
               }).toList(),
             );
           },
@@ -98,7 +97,7 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
   _setGender(GenderEnum? value) {
     widget.onChangeGender.call(value??GenderEnum.male);
     setState(() {
-      gender = value?.nameEn ?? "";
+      gender = value?.name ?? "";
     });
     _check();
   }

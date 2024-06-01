@@ -91,9 +91,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   ),
                   menuHeight: SpacingUnit.x50,
                   dropdownMenuEntries: state.provinces
-                      .map((e) => e)
                       .map((Address value) =>
-                          DropdownMenuEntry<Address>(value: value, label: value.name??""))
+                          DropdownMenuEntry<Address>(value: value, label: value.name ?? ""))
                       .toList(),
                 ),
                 const SizedBox(
@@ -113,9 +112,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   onSelected: (Address? value) => _setDistrictsId(value, state, stateUser),
                   menuHeight: SpacingUnit.x50,
                   dropdownMenuEntries: state.districts
-                      .map((e) => e)
                       .map((Address value) =>
-                          DropdownMenuEntry<Address>(value: value, label: value.name??""))
+                          DropdownMenuEntry<Address>(value: value, label: value.name ?? ""))
                       .toList(),
                 ),
                 const SizedBox(
@@ -135,9 +133,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   onSelected: (Address? value) => _setOnChangeWard(value, state, stateUser),
                   menuHeight: SpacingUnit.x50,
                   dropdownMenuEntries: state.wards
-                      .map((e) => e)
                       .map((Address value) =>
-                          DropdownMenuEntry<Address>(value: value, label: value.name??""))
+                          DropdownMenuEntry<Address>(value: value, label: value.name ?? ""))
                       .toList(),
                 ),
                 const SizedBox(
@@ -152,8 +149,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   }
 
   _setProvinceId(Address? value, AddressState state, UserState stateUser) {
-    Address address = Address(
-        id: stateUser.user.residentProvinceId, name: stateUser.user.residentProvince);
+    Address address =
+        Address(id: stateUser.user.residentProvinceId, name: stateUser.user.residentProvince);
     widget.onChangeProvince.call(value ?? address);
 
     setState(() {
@@ -163,8 +160,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   }
 
   _setDistrictsId(Address? value, AddressState state, UserState stateUser) {
-    Address address = Address(
-        id: stateUser.user.residentDistrictId, name: stateUser.user.residentDistrict);
+    Address address =
+        Address(id: stateUser.user.residentDistrictId, name: stateUser.user.residentDistrict);
 
     widget.onChangeDistrict.call(value ?? address);
     setState(() {
@@ -174,8 +171,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   }
 
   _setOnChangeWard(Address? value, AddressState state, UserState stateUser) {
-    Address address =
-        Address(id: stateUser.user.residentWardId, name: stateUser.user.residentWard);
+    Address address = Address(id: stateUser.user.residentWardId, name: stateUser.user.residentWard);
     widget.onChangeWard.call(value ?? address);
   }
 

@@ -49,7 +49,6 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
                 initialSelection: getDropdownLanguageValue(state.languageCode),
                 onSelected: widget.onSelected,
                 dropdownMenuEntries: LanguageEnum.values
-                    .map((e) => e)
                     .map<DropdownMenuEntry<LanguageEnum>>((LanguageEnum value) {
                   return DropdownMenuEntry<LanguageEnum>(value: value, label: value.name);
                 }).toList(),

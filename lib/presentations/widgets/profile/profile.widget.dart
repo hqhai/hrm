@@ -2,6 +2,7 @@
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -92,7 +93,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           title2: appLocalizations.address,
                         ),
                         ItemContentProfile(
-                          content1: state.user.gender ?? "",
+                          content1: state.user.gender?.configGenderName ?? "",
                           content2: _setAddress(state),
                         ),
                         ItemTitleProfile(
