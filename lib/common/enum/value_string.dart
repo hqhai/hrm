@@ -1,3 +1,4 @@
+
 enum TypeRequestStatus {
   overTime('OverTime'),
   onLeave('OnLeave'),
@@ -35,16 +36,8 @@ enum PriorityRequestStatus {
   const PriorityRequestStatus(this.name);
 }
 
-enum ConfigRoleStringValues {
-  generalManager('GeneralManager'),
-  manager('Manager'),
-  user('User'),
-  userSystem('UserSystem');
 
-  final String name;
 
-  const ConfigRoleStringValues(this.name);
-}
 
 enum ParentId {
   aG('Atlantic group'),
@@ -63,17 +56,6 @@ enum LanguageEnum {
   final String code;
 
   const LanguageEnum(this.name, this.code);
-}
-
-enum GenderEnum {
-  male('Nam', 'Male'),
-  female('Nữ', 'Female'),
-  other('Khác', 'Other');
-
-  final String nameVi;
-  final String nameEn;
-
-  const GenderEnum(this.nameVi, this.nameEn);
 }
 
 enum LocationEnum {

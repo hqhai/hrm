@@ -1,6 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -245,7 +245,7 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
 
   valueInputs3(GenderEnum value) {
     setState(() {
-      valueInputs[3] = value.nameEn;
+      valueInputs[3] = value.name;
     });
   }
 

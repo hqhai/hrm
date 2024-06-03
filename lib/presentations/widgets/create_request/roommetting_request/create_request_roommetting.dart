@@ -1,5 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/common/enum/enum_config.dart';

@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/domain/entities/family.dart';
 import 'package:base_app/domain/entities/user_department_position.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -15,7 +16,7 @@ class User {
   final String? lastName;
   final String? fullName;
   final String? dayOfBirth;
-  final String? gender;
+  final GenderEnum? gender;
   final String? avatarPath;
   final String? ciNumber;
   final String? ciIssuePlace;
@@ -49,7 +50,7 @@ class User {
   final String? phoneNumber;
   final String? email;
   final String? companyEmail;
-  final String? educationLevel;
+  final EducationLevelEnum? educationLevel;
   final String? education;
   final String? specializes;
   final String? graduationType;
@@ -58,7 +59,7 @@ class User {
   final String? probationDay;
   final String? officialDay;
   final String? endDate;
-  final String? workingStatus;
+  final WorkingStatusEnum? workingStatus;
   final String? typeOfPersonnel;
   final String? description;
   final List<UserDepartmentPosition> userDepartmentPositions;

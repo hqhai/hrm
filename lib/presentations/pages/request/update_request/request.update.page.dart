@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';

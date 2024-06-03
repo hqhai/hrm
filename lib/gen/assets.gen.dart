@@ -78,6 +78,9 @@ class $AssetsImagesIconGen {
   /// File path: assets/images/icon/activate.svg
   String get activate => 'assets/images/icon/activate.svg';
 
+  $AssetsImagesIconActivateIconGen get activateIcon =>
+      const $AssetsImagesIconActivateIconGen();
+
   /// File path: assets/images/icon/circular_progress_indicator.png
   AssetGenImage get circularProgressIndicator =>
       const AssetGenImage('assets/images/icon/circular_progress_indicator.png');
@@ -143,6 +146,38 @@ class $AssetsImagesTimeKeepingGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [notoWorldMap, unWorldMap];
+}
+
+class $AssetsImagesIconActivateIconGen {
+  const $AssetsImagesIconActivateIconGen();
+
+  /// File path: assets/images/icon/activate_icon/iconamoon_options-thin.svg
+  String get iconamoonOptionsThin =>
+      'assets/images/icon/activate_icon/iconamoon_options-thin.svg';
+
+  /// File path: assets/images/icon/activate_icon/material-symbols-light_list-alt-add-outline.svg
+  String get materialSymbolsLightListAltAddOutline =>
+      'assets/images/icon/activate_icon/material-symbols-light_list-alt-add-outline.svg';
+
+  /// File path: assets/images/icon/activate_icon/material-symbols-light_list-alt-outline.svg
+  String get materialSymbolsLightListAltOutline =>
+      'assets/images/icon/activate_icon/material-symbols-light_list-alt-outline.svg';
+
+  /// File path: assets/images/icon/activate_icon/material-symbols-light_search.svg
+  String get materialSymbolsLightSearch =>
+      'assets/images/icon/activate_icon/material-symbols-light_search.svg';
+
+  /// File path: assets/images/icon/activate_icon/new_word.svg
+  String get newWord => 'assets/images/icon/activate_icon/new_word.svg';
+
+  /// List of all assets
+  List<String> get values => [
+        iconamoonOptionsThin,
+        materialSymbolsLightListAltAddOutline,
+        materialSymbolsLightListAltOutline,
+        materialSymbolsLightSearch,
+        newWord
+      ];
 }
 
 class $AssetsImagesIconHomeGen {

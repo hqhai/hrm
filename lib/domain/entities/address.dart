@@ -6,12 +6,12 @@ part 'address.g.dart';
 @CopyWith()
 @JsonSerializable()
 class Address {
-  final String name;
-  final String id;
+  final String? name;
+  final String? id;
 
   const Address({
-    required this.name,
-    required this.id,
+    this.name,
+    this.id,
   });
 
   factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);

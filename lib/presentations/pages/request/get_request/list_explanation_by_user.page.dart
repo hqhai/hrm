@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';

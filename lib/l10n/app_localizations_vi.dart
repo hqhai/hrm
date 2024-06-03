@@ -464,6 +464,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get personalEmail => 'Email cá nhân';
 
   @override
+  String get companyEmail => 'Email công ty';
+
+  @override
   String get gender => 'Giới tính';
 
   @override
@@ -573,4 +576,142 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get step => 'Bước 1/1';
+
+  @override
+  String get singleWordList => 'Danh sách đơn từ';
+
+  @override
+  String get createANewSingleWord => 'Tạo mới đơn từ';
+
+  @override
+  String get deadline => 'Thời hạn';
+
+  @override
+  String get all => 'Tất cả';
+
+  @override
+  String get pending => 'Chờ duyệt';
+
+  @override
+  String get reject => 'Đã từ chối';
+
+  @override
+  String get modification => 'Y/c sửa lại đơn';
+
+  @override
+  String get done => 'Đã duyệt';
+
+  @override
+  String get filter => 'Bộ lọc';
+
+  @override
+  String get time => 'Thời gian';
+
+  @override
+  String get status => 'Trạng thái';
+
+  @override
+  String get apply => 'Áp dụng';
+
+  @override
+  String get expiredEdit => 'Quá hạn sửa';
+
+  @override
+  String get expired => 'Quá hạn';
+
+  @override
+  String get leave => 'Đơn xin nghỉ';
+
+  @override
+  String get overtime => 'Đơn tăng ca';
+
+  @override
+  String get vehicleDispatch => 'Đơn đề nghị điều xe';
+
+  @override
+  String get postalDelivery => 'Đơn đề nghị chuyển phát bưu điện';
+
+  @override
+  String get releaseOfWarehouse => 'Đơn đề nghị xuất kho';
+
+  @override
+  String get stationeryOrder => 'Phiếu đặt văn phòng phẩm';
+
+  @override
+  String get business => 'Đơn công tác';
+
+  @override
+  String get male => 'Nam';
+
+  @override
+  String get female => 'Nữ';
+
+  @override
+  String get other => 'Khác';
+
+  @override
+  String get primarySchool => 'Tiểu học';
+
+  @override
+  String get secondarySchool => 'Trung học';
+
+  @override
+  String get highSchool => 'Cao trung';
+
+  @override
+  String get vocationalSchool => 'Trường nghề';
+
+  @override
+  String get college => 'Cao đẳng';
+
+  @override
+  String get university => 'Đại học';
+
+  @override
+  String get masterDegree => 'Thạc sĩ';
+
+  @override
+  String get doctorate => 'Tiến sĩ';
+
+  @override
+  String get working => 'Đang làm việc';
+
+  @override
+  String get resignation => 'Từ chức';
+
+  @override
+  String get maternityLeave => 'Nghỉ thai sản';
+
+  @override
+  String get aboutToStart => 'Sắp bắt đầu';
+
+  @override
+  String get longTermUnpaidLeave => 'Nghỉ phép dài hạn không lương';
+
+  @override
+  String get yourRequisition => 'Dơn từ của bạn';
+
+  @override
+  String get requisitionYouApproval => 'Đơn từ bạn phê duyệt';
+
+  @override
+  String get requisitionYouFollow => 'Đơn từ bạn theo dõi';
+
+  @override
+  String get applicationCode => 'Mã đơn';
+
+  @override
+  String get senderInformation => 'Thông tin người gửi';
+
+  @override
+  String get fullName => 'Họ và tên';
+
+  @override
+  String get generalInformation => 'Thông tin chung';
+
+  @override
+  String get contentOfApplication => 'Nội dung đơn';
+
+  @override
+  String get follower => 'Người theo dõi';
 }

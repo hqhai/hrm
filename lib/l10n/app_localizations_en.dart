@@ -464,6 +464,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get personalEmail => 'Personal email';
 
   @override
+  String get companyEmail => 'Company Email';
+
+  @override
   String get gender => 'Gender';
 
   @override
@@ -573,4 +576,142 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get step => 'Step 1/1';
+
+  @override
+  String get singleWordList => 'Requisition list';
+
+  @override
+  String get createANewSingleWord => 'Create a new requisition';
+
+  @override
+  String get deadline => 'Deadline';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get reject => 'Reject';
+
+  @override
+  String get modification => 'Modification request';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get apply => 'Apply';
+
+  @override
+  String get expiredEdit => 'Expired edit';
+
+  @override
+  String get expired => 'Expired';
+
+  @override
+  String get leave => 'Application for leave';
+
+  @override
+  String get overtime => 'Overtime';
+
+  @override
+  String get vehicleDispatch => 'Application for vehicle dispatch';
+
+  @override
+  String get postalDelivery => 'Application for postal delivery';
+
+  @override
+  String get releaseOfWarehouse => 'Application for release of warehouse';
+
+  @override
+  String get stationeryOrder => 'Stationery order form';
+
+  @override
+  String get business => 'application for business trip';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get primarySchool => 'Primary school';
+
+  @override
+  String get secondarySchool => 'Secondary school';
+
+  @override
+  String get highSchool => 'High school';
+
+  @override
+  String get vocationalSchool => 'Vocational school';
+
+  @override
+  String get college => 'College';
+
+  @override
+  String get university => 'University';
+
+  @override
+  String get masterDegree => 'Master degree';
+
+  @override
+  String get doctorate => 'Doctorate';
+
+  @override
+  String get working => 'Working';
+
+  @override
+  String get resignation => 'Resignation';
+
+  @override
+  String get maternityLeave => 'MaternityLeave';
+
+  @override
+  String get aboutToStart => 'AboutToStart';
+
+  @override
+  String get longTermUnpaidLeave => 'LongTermUnpaidLeave';
+
+  @override
+  String get yourRequisition => 'Your requisition';
+
+  @override
+  String get requisitionYouApproval => 'Requisition you approval';
+
+  @override
+  String get requisitionYouFollow => 'Requisition you follow';
+
+  @override
+  String get applicationCode => 'Application code';
+
+  @override
+  String get senderInformation => 'Sender information';
+
+  @override
+  String get fullName => 'Full name';
+
+  @override
+  String get generalInformation => 'General information';
+
+  @override
+  String get contentOfApplication => 'Content of application';
+
+  @override
+  String get follower => 'Follower';
 }

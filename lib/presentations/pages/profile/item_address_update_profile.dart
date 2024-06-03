@@ -27,16 +27,28 @@ class ItemAddressUpdateProfile extends StatefulWidget {
 }
 
 class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
-  String? provinceId = '', districtId = '', wardId = '';
+  String? provinceId, districtId, wardId;
 
   @override
   void initState() {
     super.initState();
-    String parentId1 = dI<UserBloc>().state.user.residentProvinceId ?? "";
-    String parentId2 = dI<UserBloc>().state.user.residentDistrictId ?? "";
-    dI<AddressBloc>().add(GetDistrictsEvent(parentId: parentId1));
-    dI<AddressBloc>().add(GetWardsEvent(parentId: parentId2));
     dI<AddressBloc>().add(const GetProvincesEvent());
+    _getGetDistrictsInit();
+    _getWardInit();
+  }
+
+  _getGetDistrictsInit() {
+    String parentId1 = dI<UserBloc>().state.user.residentProvinceId ?? "";
+    if (parentId1 != "") {
+      dI<AddressBloc>().add(GetDistrictsEvent(parentId: parentId1));
+    }
+  }
+
+  _getWardInit() {
+    String parentId2 = dI<UserBloc>().state.user.residentDistrictId ?? "";
+    if (parentId2 != "") {
+      dI<AddressBloc>().add(GetWardsEvent(parentId: parentId2));
+    }
   }
 
   _listener(BuildContext context, AddressState state) {
@@ -79,9 +91,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   ),
                   menuHeight: SpacingUnit.x50,
                   dropdownMenuEntries: state.provinces
-                      .map((e) => e)
                       .map((Address value) =>
-                          DropdownMenuEntry<Address>(value: value, label: value.name))
+                          DropdownMenuEntry<Address>(value: value, label: value.name ?? ""))
                       .toList(),
                 ),
                 const SizedBox(
@@ -101,9 +112,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   onSelected: (Address? value) => _setDistrictsId(value, state, stateUser),
                   menuHeight: SpacingUnit.x50,
                   dropdownMenuEntries: state.districts
-                      .map((e) => e)
                       .map((Address value) =>
-                      DropdownMenuEntry<Address>(value: value, label: value.name))
+                          DropdownMenuEntry<Address>(value: value, label: value.name ?? ""))
                       .toList(),
                 ),
                 const SizedBox(
@@ -123,9 +133,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
                   onSelected: (Address? value) => _setOnChangeWard(value, state, stateUser),
                   menuHeight: SpacingUnit.x50,
                   dropdownMenuEntries: state.wards
-                      .map((e) => e)
                       .map((Address value) =>
-                      DropdownMenuEntry<Address>(value: value, label: value.name))
+                          DropdownMenuEntry<Address>(value: value, label: value.name ?? ""))
                       .toList(),
                 ),
                 const SizedBox(
@@ -140,8 +149,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   }
 
   _setProvinceId(Address? value, AddressState state, UserState stateUser) {
-    Address address = Address(
-        id: stateUser.user.residentProvinceId ?? "", name: stateUser.user.residentProvince ?? "");
+    Address address =
+        Address(id: stateUser.user.residentProvinceId, name: stateUser.user.residentProvince);
     widget.onChangeProvince.call(value ?? address);
 
     setState(() {
@@ -151,8 +160,8 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   }
 
   _setDistrictsId(Address? value, AddressState state, UserState stateUser) {
-    Address address = Address(
-        id: stateUser.user.residentDistrictId ?? "", name: stateUser.user.residentDistrict ?? "");
+    Address address =
+        Address(id: stateUser.user.residentDistrictId, name: stateUser.user.residentDistrict);
 
     widget.onChangeDistrict.call(value ?? address);
     setState(() {
@@ -162,8 +171,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   }
 
   _setOnChangeWard(Address? value, AddressState state, UserState stateUser) {
-    Address address =
-        Address(id: stateUser.user.residentWardId ?? "", name: stateUser.user.residentWard ?? "");
+    Address address = Address(id: stateUser.user.residentWardId, name: stateUser.user.residentWard);
     widget.onChangeWard.call(value ?? address);
   }
 
@@ -174,10 +182,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
       if (addresses.isNotEmpty) {
         return addresses[0];
       } else {
-        return const Address(name: '', id: '');
+        return const Address();
       }
     } else {
-      return const Address(name: '', id: '');
+      return const Address();
     }
   }
 
@@ -188,10 +196,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
       if (addresses.isNotEmpty) {
         return addresses[0];
       } else {
-        return const Address(name: '', id: '');
+        return const Address();
       }
     } else {
-      return const Address(name: '', id: '');
+      return const Address();
     }
   }
 
@@ -202,10 +210,10 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
       if (addresses.isNotEmpty) {
         return addresses[0];
       } else {
-        return const Address(name: '', id: '');
+        return const Address();
       }
     } else {
-      return const Address(name: '', id: '');
+      return const Address();
     }
   }
 }

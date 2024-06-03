@@ -2,6 +2,7 @@
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -27,7 +28,6 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-
   @override
   void initState() {
     super.initState();
@@ -43,12 +43,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         builder: (context, state) {
           return Container(
             padding:
-            const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+                const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
             margin:
-            const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-            height: MediaQuery
-                .sizeOf(context)
-                .height,
+                const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+            height: MediaQuery.sizeOf(context).height,
             decoration: BoxDecoration(
               color: CustomsColor.colorBackground,
               borderRadius: const BorderRadius.all(
@@ -84,7 +82,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           content2: formatDMY(state.user.dayOfBirth ?? ''),
                         ),
                         ItemTitleProfile(
-                          title1: appLocalizations.personalEmail,
+                          title1: appLocalizations.companyEmail,
                           title2: appLocalizations.phoneNumber,
                         ),
                         ItemContentProfile(
@@ -95,11 +93,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           title2: appLocalizations.address,
                         ),
                         ItemContentProfile(
-                          content1: state.user.gender ?? "",
-                          content2:
-                          "${state.user.residentAddress ?? ""}, ${state.user.residentWard ??
-                              ""}, ${state.user.residentDistrict ?? ""},${state.user
-                              .residentProvince ?? ""}",
+                          content1: state.user.gender?.configGenderName ?? "",
+                          content2: _setAddress(state),
                         ),
                         ItemTitleProfile(
                           title1: appLocalizations.department,
@@ -108,13 +103,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         ItemDepartmentAndPositionProfile(
                           departmentNames: state.user.userDepartmentPositions.isNotEmpty
                               ? state.user.userDepartmentPositions
-                              .map((e) => e.department?.name ?? "")
-                              .toList()
+                                  .map((e) => e.department?.name ?? "")
+                                  .toList()
                               : [],
                           positionNames: state.user.userDepartmentPositions.isNotEmpty
                               ? state.user.userDepartmentPositions
-                              .map((e) => e.position?.name ?? "")
-                              .toList()
+                                  .map((e) => e.position?.name ?? "")
+                                  .toList()
                               : [],
                         ),
                       ],
@@ -133,5 +128,23 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     if (state.status == UserStatus.updateProfileSuccess) {
       dI<UserBloc>().add(const GetUserInfo());
     }
+  }
+
+  String _setAddress(UserState state) {
+    String? province = '', district = '', ward = '', address = '';
+
+    if(state.user.residentAddress != null){
+      address = "${state.user.residentAddress}";
+    }
+    if(state.user.residentWard != null){
+      ward = "${state.user.residentWard}, ";
+    }
+    if(state.user.residentDistrict != null){
+      district = "${state.user.residentDistrict}, ";
+    }
+    if(state.user.residentProvince != null){
+      province = "${state.user.residentDistrict}, ";
+    }
+    return province + district + ward + address;
   }
 }
