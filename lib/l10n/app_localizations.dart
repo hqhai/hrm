@@ -1478,6 +1478,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Requisition you follow'**
   String get requisitionYouFollow;
+
+  /// No description provided for @applicationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Application code'**
+  String get applicationCode;
+
+  /// No description provided for @senderInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Sender information'**
+  String get senderInformation;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name'**
+  String get fullName;
+
+  /// No description provided for @generalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'General information'**
+  String get generalInformation;
+
+  /// No description provided for @contentOfApplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Content of application'**
+  String get contentOfApplication;
+
+  /// No description provided for @follower.
+  ///
+  /// In en, this message translates to:
+  /// **'Follower'**
+  String get follower;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -229,5 +229,11 @@
   "longTermUnpaidLeave": "LongTermUnpaidLeave",
   "yourRequisition": "Your requisition",
   "requisitionYouApproval": "Requisition you approval",
-  "requisitionYouFollow": "Requisition you follow"
+  "requisitionYouFollow": "Requisition you follow",
+  "applicationCode": "Application code",
+  "senderInformation": "Sender information",
+  "fullName": "Full name",
+  "generalInformation": "General information",
+  "contentOfApplication": "Content of application",
+  "follower": "Follower"
 }

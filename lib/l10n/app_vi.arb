@@ -229,5 +229,11 @@
   "longTermUnpaidLeave": "Nghỉ phép dài hạn không lương",
   "yourRequisition": "Dơn từ của bạn",
   "requisitionYouApproval": "Đơn từ bạn phê duyệt",
-  "requisitionYouFollow": "Đơn từ bạn theo dõi"
+  "requisitionYouFollow": "Đơn từ bạn theo dõi",
+  "applicationCode": "Mã đơn",
+  "senderInformation": "Thông tin người gửi",
+  "fullName": "Họ và tên",
+  "generalInformation": "Thông tin chung",
+  "contentOfApplication": "Nội dung đơn",
+  "follower": "Người theo dõi"
 }

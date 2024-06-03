@@ -696,4 +696,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get requisitionYouFollow => 'Requisition you follow';
+
+  @override
+  String get applicationCode => 'Application code';
+
+  @override
+  String get senderInformation => 'Sender information';
+
+  @override
+  String get fullName => 'Full name';
+
+  @override
+  String get generalInformation => 'General information';
+
+  @override
+  String get contentOfApplication => 'Content of application';
+
+  @override
+  String get follower => 'Follower';
 }

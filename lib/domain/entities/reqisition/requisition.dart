@@ -9,12 +9,18 @@ part 'requisition.g.dart';
 class Requisition {
   final String id;
   final RequisitionTypeEnum type;
+  final StatusRequisitionEnum? status;
+  final String? position;
+  final String? creatorId;
+  final String? department;
+  final String? follower;
   final String? title;
-  final String? content;
+  final Object? content;
+  final List<String>? filePaths;
   final String? creator;
   final String? createTime;
   final String? deadLine;
-  final StatusRequisitionEnum? status;
+
 
   const Requisition({
     required this.id,
@@ -25,6 +31,11 @@ class Requisition {
     this.createTime,
     this.status,
     this.deadLine,
+    this.position,
+    this.department,
+    this.filePaths,
+    this.creatorId,
+    this.follower
   });
 
   factory Requisition.fromJson(Map<String, dynamic> json) => _$RequisitionFromJson(json);

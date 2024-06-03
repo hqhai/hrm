@@ -696,4 +696,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get requisitionYouFollow => 'Đơn từ bạn theo dõi';
+
+  @override
+  String get applicationCode => 'Mã đơn';
+
+  @override
+  String get senderInformation => 'Thông tin người gửi';
+
+  @override
+  String get fullName => 'Họ và tên';
+
+  @override
+  String get generalInformation => 'Thông tin chung';
+
+  @override
+  String get contentOfApplication => 'Nội dung đơn';
+
+  @override
+  String get follower => 'Người theo dõi';
 }

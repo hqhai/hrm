@@ -1,13 +1,12 @@
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/requisition.dart';
+import 'package:base_app/domain/entities/reqisition/requisition.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_infor_item_1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -46,9 +45,9 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
             title: Center(
               child: Column(
                 children: [
-                  Text(widget.requisition.status?.configStatusName ?? "",
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x6)),
-                  Text(widget.requisition.id,
+                  Text(widget.requisition.type.configTypeName,
+                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                  Text('${appLocalizations.applicationCode} : ${widget.requisition.id}',
                       style: TextStyle(color: colors.surfaceVariantHigh, fontSize: SpacingUnit.x3)),
                 ],
               ),
@@ -70,21 +69,32 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                 Radius.circular(SpacingUnit.x4),
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(appLocalizations.creator,
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(appLocalizations.name,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(widget.requisition.creator ?? "",
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
-                  ],
-                )
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    appLocalizations.senderInformation,
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x3,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  RequisitionInformationItem1(
+                    title: appLocalizations.fullName,
+                    content: widget.requisition.creator ?? "",
+                  ),
+                  RequisitionInformationItem1(
+                    title: appLocalizations.employeeCode,
+                    content: widget.requisition.id ?? "",
+                  ),
+                  RequisitionInformationItem1(
+                    title: appLocalizations.fullName,
+                    content: widget.requisition.creator ?? "",
+                  ),
+                ],
+              ),
             ),
           ),
         );
