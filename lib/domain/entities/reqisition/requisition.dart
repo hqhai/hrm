@@ -15,7 +15,7 @@ class Requisition {
   final String? department;
   final String? follower;
   final String? title;
-  final Object? content;
+  final dynamic content;
   final List<String>? filePaths;
   final String? creator;
   final String? createTime;
