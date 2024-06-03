@@ -6,7 +6,7 @@ import 'package:base_app/domain/entities/reqisition/requisition.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_infor_item_1.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_sender_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -73,25 +73,11 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    appLocalizations.senderInformation,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x3,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  RequisitionInformationItem1(
-                    title: appLocalizations.fullName,
-                    content: widget.requisition.creator ?? "",
-                  ),
-                  RequisitionInformationItem1(
-                    title: appLocalizations.employeeCode,
-                    content: widget.requisition.id ?? "",
-                  ),
-                  RequisitionInformationItem1(
-                    title: appLocalizations.fullName,
-                    content: widget.requisition.creator ?? "",
+                  RequisitionInformationSenderInformation(
+                    creator: widget.requisition.creator ?? "",
+                    creatorId: widget.requisition.creatorId ?? "",
+                    position: widget.requisition.position ?? "",
+                    department: widget.requisition.department ?? "",
                   ),
                 ],
               ),
