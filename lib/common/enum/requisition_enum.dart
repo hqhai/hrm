@@ -103,3 +103,28 @@ extension ConfigRequisitionTypeExplanationExtension on RequisitionTypeExplanatio
     }
   }
 }
+
+enum RequisitionTypeOnLeaveEnum {
+  annualLeave('Annual leave'),
+  compensatoryLeave('Compensatory leave'),
+  sickLeave('Sick leave');
+
+  final String name;
+
+  const RequisitionTypeOnLeaveEnum(this.name);
+}
+
+extension ConfigRequisitionTypeOnLeaveExtension on RequisitionTypeOnLeaveEnum {
+  String get configRequisitionTypeOnLeaveName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case RequisitionTypeOnLeaveEnum.annualLeave:
+        return appLocalizations.annualLeave;
+      case RequisitionTypeOnLeaveEnum.compensatoryLeave:
+        return appLocalizations.compensatoryLeave;
+      case RequisitionTypeOnLeaveEnum.sickLeave:
+        return appLocalizations.sickLeave;
+    }
+  }
+}

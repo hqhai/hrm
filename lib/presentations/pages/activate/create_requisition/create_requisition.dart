@@ -49,7 +49,7 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
               ),
               ItemActivateWidget(
                 title: appLocalizations.leave,
-                callback: () {},
+                callback: () => _nextCreateRequisitionOnLeaveScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.overtime,
@@ -86,4 +86,7 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
     dI<AppNavigation>().pushName(context, page: Pages.createRequisitionExplanationPage);
   }
 
+  _nextCreateRequisitionOnLeaveScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionLeavePage);
+  }
 }

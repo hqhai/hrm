@@ -261,5 +261,10 @@
   "attachedFiles": "Attached files",
   "check": "Check",
   "timeHasBeenRequestedInAdvance": "Time has been requested in advance",
-  "workDay": "Ngày công"
+  "workDay": "Work date",
+  "annualLeave": "Annual leave",
+  "compensatoryLeave": "Compensatory leave",
+  "sickLeave": "Sick leave",
+  "intervalOnLeave": "Interval on leave",
+  "substitute": "The person handling the work takes over during the break"
 }

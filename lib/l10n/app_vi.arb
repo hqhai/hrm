@@ -261,5 +261,10 @@
   "attachedFiles": "Đính kèm",
   "check": "Kiểm tra",
   "timeHasBeenRequestedInAdvance": "Thời gian đã xin nghỉ trước",
-  "workDay": "Ngày công"
+  "workDay": "Ngày công",
+  "annualLeave": "Phép năm",
+  "compensatoryLeave": "Nghỉ bù",
+  "sickLeave": "Nghỉ bệnh",
+  "intervalOnLeave": "Thời gian nghỉ",
+  "substitute": "Người giải quyết công việc thay trong thời gian nghỉ"
 }

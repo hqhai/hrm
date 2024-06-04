@@ -1,11 +1,11 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateFollower extends StatefulWidget {
-  const ItemCreateFollower({super.key, this.onChange});
+  const ItemCreateFollower({super.key, this.onChange, this.title});
 
+  final String? title;
   final ValueChanged<String>? onChange;
 
   @override
@@ -17,14 +17,13 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          appLocalizations.follower,
+          widget.title ?? "",
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x4,

@@ -792,4 +792,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get workDay => 'Ngày công';
+
+  @override
+  String get annualLeave => 'Phép năm';
+
+  @override
+  String get compensatoryLeave => 'Nghỉ bù';
+
+  @override
+  String get sickLeave => 'Nghỉ bệnh';
+
+  @override
+  String get intervalOnLeave => 'Thời gian nghỉ';
+
+  @override
+  String get substitute => 'Người giải quyết công việc thay trong thời gian nghỉ';
 }

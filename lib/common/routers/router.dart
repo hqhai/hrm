@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_explanation.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_leave.dart';
 import 'package:base_app/presentations/pages/activate/requisition/requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition/see_list_requisition.page.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/requisition_infor.page.dart';
@@ -47,9 +48,7 @@ class AppRouters {
   AppRouters() : goRouter = _router;
 
   static GoRouter get _router => GoRouter(
-      routes: routerPages,
-      navigatorKey: dI<AppNavigation>().navigatorKey,
-      initialLocation: '/');
+      routes: routerPages, navigatorKey: dI<AppNavigation>().navigatorKey, initialLocation: '/');
 
   static List<GoRoute> routerPages = {
     Pages.main: mainPageRoute,
@@ -76,16 +75,17 @@ class AppRouters {
     Pages.forgotPasswordPage: forgotPasswordPageRoute,
     Pages.updateNotesPage: updateNotePageRoute,
     Pages.changePasswordPage: changePasswordPageRoute,
-    Pages.updateProfilePage : updateProfilePageRoute,
-    Pages.layoutCalendarAttendanceHistoryPage : layoutCalendarAttendanceHistoryPageRoute,
-    Pages.historyAttendancePage : historyAttendancePageRoute,
+    Pages.updateProfilePage: updateProfilePageRoute,
+    Pages.layoutCalendarAttendanceHistoryPage: layoutCalendarAttendanceHistoryPageRoute,
+    Pages.historyAttendancePage: historyAttendancePageRoute,
     Pages.biometricRegister: registerBiometricPageRoute,
     Pages.timekeepingGPSPage: timekeepingGPSPageRoute,
     Pages.timekeepingGPSCheckPage: timekeepingGPSCheckPageRoute,
     Pages.requisitionListPage: requisitionListPageRoute,
     Pages.seeRequisitionListPage: seeListRequisitionPageRoute,
-    Pages.requisitionInformationPage : requisitionInformationPageRoute,
-    Pages.createRequisitionPage : createRequisitionPageRoute,
-    Pages.createRequisitionExplanationPage : createRequisitionExplanationPageRoute,
+    Pages.requisitionInformationPage: requisitionInformationPageRoute,
+    Pages.createRequisitionPage: createRequisitionPageRoute,
+    Pages.createRequisitionExplanationPage: createRequisitionExplanationPageRoute,
+    Pages.createRequisitionLeavePage: createRequisitionLeavePageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

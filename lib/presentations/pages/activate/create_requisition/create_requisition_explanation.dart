@@ -5,6 +5,7 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/pages/profile/item_date_of_birth_update_profile.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_load_flie.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_application_code.dart';
@@ -111,38 +112,12 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                   dateOfBirth: DateFormat('dd-MM-yyyy').format(DateTime.now()),
                   onChangeDateOfBirth: (value) => _setWorkDate(value),
                 ),
-              ItemCreateFollower(onChange: (value) => _setFollower(value)),
+              ItemCreateFollower(
+                  title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
               ItemLoadFile(onChangeFiles: (value) => _setFile(value)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () => _save(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: colors.blue,
-                    ),
-                    child: Text(
-                      appLocalizations.save,
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x5,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => _cancel(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: colors.blue,
-                    ),
-                    child: Text(
-                      appLocalizations.cancel,
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x5,
-                      ),
-                    ),
-                  ),
-                ],
+              ItemButton(
+                callbackSave: () => _save(),
+                callbackCancel: () => _cancel(),
               )
             ],
           ),

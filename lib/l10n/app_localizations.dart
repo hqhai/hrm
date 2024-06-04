@@ -1668,8 +1668,38 @@ abstract class AppLocalizations {
   /// No description provided for @workDay.
   ///
   /// In en, this message translates to:
-  /// **'Ngày công'**
+  /// **'Work date'**
   String get workDay;
+
+  /// No description provided for @annualLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual leave'**
+  String get annualLeave;
+
+  /// No description provided for @compensatoryLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Compensatory leave'**
+  String get compensatoryLeave;
+
+  /// No description provided for @sickLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Sick leave'**
+  String get sickLeave;
+
+  /// No description provided for @intervalOnLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Interval on leave'**
+  String get intervalOnLeave;
+
+  /// No description provided for @substitute.
+  ///
+  /// In en, this message translates to:
+  /// **'The person handling the work takes over during the break'**
+  String get substitute;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

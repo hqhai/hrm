@@ -791,5 +791,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeHasBeenRequestedInAdvance => 'Time has been requested in advance';
 
   @override
-  String get workDay => 'Ngày công';
+  String get workDay => 'Work date';
+
+  @override
+  String get annualLeave => 'Annual leave';
+
+  @override
+  String get compensatoryLeave => 'Compensatory leave';
+
+  @override
+  String get sickLeave => 'Sick leave';
+
+  @override
+  String get intervalOnLeave => 'Interval on leave';
+
+  @override
+  String get substitute => 'The person handling the work takes over during the break';
 }
