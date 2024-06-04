@@ -103,7 +103,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             SizedBox(
                                 width: width * 0.7,
-                                child: Text(state.requisitions[widget.index].type.configTypeName,
+                                child: Text(state.requisitions[widget.index].type?.configTypeName??"",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(

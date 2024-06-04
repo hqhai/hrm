@@ -36,7 +36,6 @@ extension ConfigStatusExtension on StatusRequisitionEnum {
   }
 }
 
-
 enum RequisitionTypeEnum {
   leave('Application for leave'),
   explanation('Explanation'),
@@ -57,7 +56,6 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
     switch (this) {
-
       case RequisitionTypeEnum.leave:
         return appLocalizations.leave;
       case RequisitionTypeEnum.explanation:
@@ -74,6 +72,34 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
         return appLocalizations.stationeryOrder;
       case RequisitionTypeEnum.business:
         return appLocalizations.business;
+    }
+  }
+}
+
+enum RequisitionTypeExplanationEnum {
+  leaveEarly('LeaveEarly'),
+  late('Late'),
+  leaveCorrection('Requisition of leave correction'),
+  editTimekeeping('Edit timekeeping');
+
+  final String name;
+
+  const RequisitionTypeExplanationEnum(this.name);
+}
+
+extension ConfigRequisitionTypeExplanationExtension on RequisitionTypeExplanationEnum {
+  String get configRequisitionTypeExplanationName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case RequisitionTypeExplanationEnum.leaveEarly:
+        return appLocalizations.leaveEarly;
+      case RequisitionTypeExplanationEnum.late:
+        return appLocalizations.late;
+      case RequisitionTypeExplanationEnum.leaveCorrection:
+        return appLocalizations.leaveCorrection;
+      case RequisitionTypeExplanationEnum.editTimekeeping:
+        return appLocalizations.editTimekeeping;
     }
   }
 }

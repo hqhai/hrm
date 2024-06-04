@@ -5,8 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class ItemActivateWidget extends StatefulWidget {
-  const ItemActivateWidget({super.key, this.title = '', this.iconPath = '', required this.callback});
-  final String iconPath;
+  const ItemActivateWidget({super.key, this.title = '', this.iconPath, required this.callback});
+
+  final String? iconPath;
   final String title;
   final VoidCallback callback;
 
@@ -34,13 +35,14 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
         ),
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: SpacingUnit.x5),
-              child: SvgPicture.asset(
-                widget.iconPath,
-                colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+            if (widget.iconPath?.isNotEmpty ?? false)
+              Padding(
+                padding: const EdgeInsets.only(right: SpacingUnit.x5),
+                child: SvgPicture.asset(
+                  widget.iconPath ?? "",
+                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                ),
               ),
-            ),
             Text(
               widget.title,
               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),

@@ -38,7 +38,7 @@ class _ActivateWidgetState extends State<ActivateWidget> {
           ItemActivateWidget(
               iconPath: Assets.images.icon.activateIcon.materialSymbolsLightListAltAddOutline,
               title: appLocalizations.createANewSingleWord,
-              callback: () => {}),
+              callback: () => _nextCreateRequisitionScreen(context)),
         ],
       ),
     );
@@ -46,5 +46,8 @@ class _ActivateWidgetState extends State<ActivateWidget> {
 
   _nextRequisitionListScreen(BuildContext context) {
     dI<AppNavigation>().pushName(context, page: Pages.seeRequisitionListPage);
+  }
+  _nextCreateRequisitionScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionPage);
   }
 }

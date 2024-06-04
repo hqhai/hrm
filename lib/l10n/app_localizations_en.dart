@@ -714,4 +714,82 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get follower => 'Follower';
+
+  @override
+  String get totalDays => 'Total days';
+
+  @override
+  String get accompanyingPerson => 'Accompanying person';
+
+  @override
+  String get vehicle => 'Vehicle';
+
+  @override
+  String get destination => 'Destination';
+
+  @override
+  String get workingContent => 'Working content';
+
+  @override
+  String get attach => 'Attach';
+
+  @override
+  String get workApplicationForm => 'Work application form';
+
+  @override
+  String get drivingTime => 'Driving time';
+
+  @override
+  String get drive => 'Drive';
+
+  @override
+  String get carCaller => 'Car caller';
+
+  @override
+  String get schedule => 'Schedule';
+
+  @override
+  String get reasonForDriving => 'Reason for driving';
+
+  @override
+  String get shippingPurpose => 'Shipping purpose';
+
+  @override
+  String get reason => 'Reason';
+
+  @override
+  String get reasonForExplanation => 'Reason for explanation';
+
+  @override
+  String get detailedDescription => 'Detailed description';
+
+  @override
+  String get totalMinute => 'Total minute';
+
+  @override
+  String get leaveEarly => 'Get off work early';
+
+  @override
+  String get late => 'Late timekeeping';
+
+  @override
+  String get leaveCorrection => 'Requisition of leave correction';
+
+  @override
+  String get editTimekeeping => 'Edit timekeeping';
+
+  @override
+  String get replaceDay => 'replace day';
+
+  @override
+  String get attachedFiles => 'Attached files';
+
+  @override
+  String get check => 'Check';
+
+  @override
+  String get timeHasBeenRequestedInAdvance => 'Time has been requested in advance';
+
+  @override
+  String get workDay => 'Ngày công';
 }

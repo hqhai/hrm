@@ -1514,6 +1514,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Follower'**
   String get follower;
+
+  /// No description provided for @totalDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Total days'**
+  String get totalDays;
+
+  /// No description provided for @accompanyingPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Accompanying person'**
+  String get accompanyingPerson;
+
+  /// No description provided for @vehicle.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle'**
+  String get vehicle;
+
+  /// No description provided for @destination.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination'**
+  String get destination;
+
+  /// No description provided for @workingContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Working content'**
+  String get workingContent;
+
+  /// No description provided for @attach.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach'**
+  String get attach;
+
+  /// No description provided for @workApplicationForm.
+  ///
+  /// In en, this message translates to:
+  /// **'Work application form'**
+  String get workApplicationForm;
+
+  /// No description provided for @drivingTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Driving time'**
+  String get drivingTime;
+
+  /// No description provided for @drive.
+  ///
+  /// In en, this message translates to:
+  /// **'Drive'**
+  String get drive;
+
+  /// No description provided for @carCaller.
+  ///
+  /// In en, this message translates to:
+  /// **'Car caller'**
+  String get carCaller;
+
+  /// No description provided for @schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get schedule;
+
+  /// No description provided for @reasonForDriving.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for driving'**
+  String get reasonForDriving;
+
+  /// No description provided for @shippingPurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'Shipping purpose'**
+  String get shippingPurpose;
+
+  /// No description provided for @reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get reason;
+
+  /// No description provided for @reasonForExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for explanation'**
+  String get reasonForExplanation;
+
+  /// No description provided for @detailedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed description'**
+  String get detailedDescription;
+
+  /// No description provided for @totalMinute.
+  ///
+  /// In en, this message translates to:
+  /// **'Total minute'**
+  String get totalMinute;
+
+  /// No description provided for @leaveEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Get off work early'**
+  String get leaveEarly;
+
+  /// No description provided for @late.
+  ///
+  /// In en, this message translates to:
+  /// **'Late timekeeping'**
+  String get late;
+
+  /// No description provided for @leaveCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Requisition of leave correction'**
+  String get leaveCorrection;
+
+  /// No description provided for @editTimekeeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit timekeeping'**
+  String get editTimekeeping;
+
+  /// No description provided for @replaceDay.
+  ///
+  /// In en, this message translates to:
+  /// **'replace day'**
+  String get replaceDay;
+
+  /// No description provided for @attachedFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Attached files'**
+  String get attachedFiles;
+
+  /// No description provided for @check.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get check;
+
+  /// No description provided for @timeHasBeenRequestedInAdvance.
+  ///
+  /// In en, this message translates to:
+  /// **'Time has been requested in advance'**
+  String get timeHasBeenRequestedInAdvance;
+
+  /// No description provided for @workDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Ngày công'**
+  String get workDay;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

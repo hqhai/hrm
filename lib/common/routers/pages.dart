@@ -32,4 +32,6 @@ class Pages {
   static const String requisitionListPage = '/requisitionListPage';
   static const String seeRequisitionListPage = '/seeRequisitionListPage';
   static const String requisitionInformationPage = '/requisitionInformationPage';
+  static const String createRequisitionExplanationPage ='/createRequisitionExplanationPage';
+  static const String createRequisitionPage = '/createRequisitionPage';
 }

@@ -131,6 +131,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             title: appLocalizations.companyEmail,
                             content: state.user.companyEmail ?? ''),
                         ItemDateOfBirthUpdateProfile(
+                          title: appLocalizations.dateOfBirth,
                           dateOfBirth: formatDMY(
                             state.user.dayOfBirth ?? '',
                           ),

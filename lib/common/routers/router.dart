@@ -1,5 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_explanation.dart';
 import 'package:base_app/presentations/pages/activate/requisition/requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition/see_list_requisition.page.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/requisition_infor.page.dart';
@@ -83,5 +85,7 @@ class AppRouters {
     Pages.requisitionListPage: requisitionListPageRoute,
     Pages.seeRequisitionListPage: seeListRequisitionPageRoute,
     Pages.requisitionInformationPage : requisitionInformationPageRoute,
+    Pages.createRequisitionPage : createRequisitionPageRoute,
+    Pages.createRequisitionExplanationPage : createRequisitionExplanationPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

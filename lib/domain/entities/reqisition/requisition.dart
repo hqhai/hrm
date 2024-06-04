@@ -8,7 +8,7 @@ part 'requisition.g.dart';
 @JsonSerializable()
 class Requisition {
   final String id;
-  final RequisitionTypeEnum type;
+  final RequisitionTypeEnum? type;
   final StatusRequisitionEnum? status;
   final String? position;
   final String? creatorId;
@@ -24,7 +24,7 @@ class Requisition {
 
   const Requisition({
     required this.id,
-    required this.type,
+    this.type,
     this.title,
     this.content,
     this.creator,

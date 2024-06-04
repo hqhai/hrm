@@ -714,4 +714,82 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get follower => 'Người theo dõi';
+
+  @override
+  String get totalDays => 'Tổng số ngày';
+
+  @override
+  String get accompanyingPerson => 'Người đi cùng';
+
+  @override
+  String get vehicle => 'Phương tiện';
+
+  @override
+  String get destination => 'Địa điểm';
+
+  @override
+  String get workingContent => 'Nội dung công tác';
+
+  @override
+  String get attach => 'Tệp đính kèm';
+
+  @override
+  String get workApplicationForm => 'Mẫu đơn từ';
+
+  @override
+  String get drivingTime => 'Thời gian điều xe';
+
+  @override
+  String get drive => 'Tài xế';
+
+  @override
+  String get carCaller => 'Người điều xe';
+
+  @override
+  String get schedule => 'Lịch trình';
+
+  @override
+  String get reasonForDriving => 'Lý do điều xe';
+
+  @override
+  String get shippingPurpose => 'Mục đích gửi';
+
+  @override
+  String get reason => 'Lý do';
+
+  @override
+  String get reasonForExplanation => 'Lý do giải trình';
+
+  @override
+  String get detailedDescription => 'Mô tả chi tiết';
+
+  @override
+  String get totalMinute => 'Số phút';
+
+  @override
+  String get leaveEarly => 'Xin về sớm';
+
+  @override
+  String get late => 'Xin đến muộn';
+
+  @override
+  String get leaveCorrection => 'Xin sửa đơn nghỉ';
+
+  @override
+  String get editTimekeeping => 'Xin sửa chấm công';
+
+  @override
+  String get replaceDay => 'Ngày làm bù';
+
+  @override
+  String get attachedFiles => 'Đính kèm';
+
+  @override
+  String get check => 'Kiểm tra';
+
+  @override
+  String get timeHasBeenRequestedInAdvance => 'Thời gian đã xin nghỉ trước';
+
+  @override
+  String get workDay => 'Ngày công';
 }
