@@ -1575,6 +1575,12 @@ abstract class AppLocalizations {
   /// **'Car caller'**
   String get carCaller;
 
+  /// No description provided for @walker.
+  ///
+  /// In en, this message translates to:
+  /// **'Walker'**
+  String get walker;
+
   /// No description provided for @schedule.
   ///
   /// In en, this message translates to:
@@ -1700,6 +1706,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The person handling the work takes over during the break'**
   String get substitute;
+
+  /// No description provided for @pdf.
+  ///
+  /// In en, this message translates to:
+  /// **'PDF'**
+  String get pdf;
+
+  /// No description provided for @detailedReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed reason'**
+  String get detailedReason;
+
+  /// No description provided for @otherPaidLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Other paid leave'**
+  String get otherPaidLeave;
+
+  /// No description provided for @leaveWithoutPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave without pay'**
+  String get leaveWithoutPay;
+
+  /// No description provided for @permissionBiometric.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not granted biometric authentication permission to the app, please grant permission!'**
+  String get permissionBiometric;
+
+  /// No description provided for @transferType.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer Type'**
+  String get transferType;
+
+  /// No description provided for @often.
+  ///
+  /// In en, this message translates to:
+  /// **'Often'**
+  String get often;
+
+  /// No description provided for @superSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Super speed'**
+  String get superSpeed;
+
+  /// No description provided for @sendingPurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending purpose'**
+  String get sendingPurpose;
+
+  /// No description provided for @notePostalDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: To save costs, only use the FAST delivery service when absolutely necessary'**
+  String get notePostalDelivery;
+
+  /// No description provided for @explain.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain'**
+  String get explain;
+
+  /// No description provided for @unitPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit price (excluding VAT)'**
+  String get unitPrice;
+
+  /// No description provided for @numberOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of'**
+  String get numberOf;
+
+  /// No description provided for @intoMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Into money'**
+  String get intoMoney;
+
+  /// No description provided for @moreOfficeProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'More office products'**
+  String get moreOfficeProducts;
+
+  /// No description provided for @unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get unit;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

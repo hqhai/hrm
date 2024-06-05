@@ -6,9 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateIntervalOnLeave extends StatefulWidget {
-  const ItemCreateIntervalOnLeave({super.key, this.startTime, this.endTime});
+  const ItemCreateIntervalOnLeave({super.key, this.startTime, this.endTime, this.title, required this.dayOrHours});
 
   final ValueChanged<String>? startTime, endTime;
+  final String? title;
+  final bool dayOrHours;
 
   @override
   State<ItemCreateIntervalOnLeave> createState() => _ItemCreateIntervalOnLeaveState();
@@ -27,7 +29,7 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          appLocalizations.intervalOnLeave,
+          widget.title ?? "",
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x4,
@@ -117,6 +119,8 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
   }
 
   int setIntervalOnLeave() {
-    return endTime.difference(startTime).inHours;
+    return widget.dayOrHours
+        ? endTime.difference(startTime).inDays
+        : endTime.difference(startTime).inHours;
   }
 }

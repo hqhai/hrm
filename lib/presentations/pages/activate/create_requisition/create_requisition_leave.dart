@@ -28,15 +28,12 @@ class CreateRequisitionLeavePage extends StatefulWidget {
 }
 
 class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+  final TextEditingController detailedDescriptionController = TextEditingController(),
+      detailedReasonController = TextEditingController();
   int totalMinute = 0;
-  String startTime = '',
-      endTime = '',
-      follower = '',
-      substitute = '',
-      reason = '',
-      detailedDescription = '';
+  String startTime = '', endTime = '', reason = '', detailedDescription = '', detailedReason = '';
   List<File> files = [];
+  List<String> followers = [], substitutes = [];
   RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
 
   @override
@@ -46,7 +43,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          RequisitionTypeEnum.explanation.configTypeName,
+          RequisitionTypeEnum.leave.configTypeName,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,
@@ -72,7 +69,17 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                 onChange: (value) => _setReasonOnLeave(value),
               ),
               ItemCreateIntervalOnLeave(
-                  startTime: (value) => setStartTime(value), endTime: (value) => setEndTime(value)),
+                dayOrHours: false,
+                title: appLocalizations.intervalOnLeave,
+                startTime: (value) => setStartTime(value),
+                endTime: (value) => setEndTime(value),
+              ),
+              if (_checkType())
+                ItemCreateInputArea(
+                  textController: detailedReasonController,
+                  title: appLocalizations.detailedReason,
+                  onChange: (value) => _setDetailedReason(value),
+                ),
               ItemCreateFollower(
                   title: appLocalizations.substitute, onChange: (value) => _setSubstitute(value)),
               ItemCreateFollower(
@@ -94,9 +101,15 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     );
   }
 
-  _setFollower(String? value) {
+  bool _checkType() {
+    return reasonForOnLeave == RequisitionTypeOnLeaveEnum.otherPaidLeave ||
+        reasonForOnLeave == RequisitionTypeOnLeaveEnum.leaveWithoutPay ||
+        reasonForOnLeave == RequisitionTypeOnLeaveEnum.other;
+  }
+
+  _setFollower(List<String> value) {
     setState(() {
-      follower = value ?? "";
+      followers = value;
     });
   }
 
@@ -116,9 +129,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   _cancel() {}
 
-  _setSubstitute(String value) {
+  _setSubstitute(List<String> value) {
     setState(() {
-      substitute = value;
+      substitutes = value;
     });
   }
 
@@ -137,6 +150,12 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   setEndTime(String value) {
     setState(() {
       endTime = value;
+    });
+  }
+
+  _setDetailedReason(String value) {
+    setState(() {
+      detailedReason = value;
     });
   }
 }

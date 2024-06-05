@@ -57,11 +57,11 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
               ),
               ItemActivateWidget(
                 title: appLocalizations.vehicleDispatch,
-                callback: () {},
+                callback: () => _nextCreateRequisitionVehicleDispatchScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.postalDelivery,
-                callback: () {},
+                callback: () => _nextCreateRequisitionPostalDeliveryScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.releaseOfWarehouse,
@@ -73,7 +73,7 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
               ),
               ItemActivateWidget(
                 title: appLocalizations.business,
-                callback: () {},
+                callback: () => _nextCreateRequisitionBusinessScreen(context),
               ),
             ],
           ),
@@ -88,5 +88,18 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
 
   _nextCreateRequisitionOnLeaveScreen(BuildContext context) {
     dI<AppNavigation>().pushName(context, page: Pages.createRequisitionLeavePage);
+  }
+
+  _nextCreateRequisitionBusinessScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionBusinessPage);
+  }
+
+  _nextCreateRequisitionVehicleDispatchScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionVehicleDispatchPage);
+  }
+
+  _nextCreateRequisitionPostalDeliveryScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionPostalDeliveryPage);
+
   }
 }

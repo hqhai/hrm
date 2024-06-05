@@ -107,7 +107,10 @@ extension ConfigRequisitionTypeExplanationExtension on RequisitionTypeExplanatio
 enum RequisitionTypeOnLeaveEnum {
   annualLeave('Annual leave'),
   compensatoryLeave('Compensatory leave'),
-  sickLeave('Sick leave');
+  sickLeave('Sick leave'),
+  otherPaidLeave('Other paid leave'),
+  leaveWithoutPay('Leave without pay'),
+  other('Other');
 
   final String name;
 
@@ -125,6 +128,34 @@ extension ConfigRequisitionTypeOnLeaveExtension on RequisitionTypeOnLeaveEnum {
         return appLocalizations.compensatoryLeave;
       case RequisitionTypeOnLeaveEnum.sickLeave:
         return appLocalizations.sickLeave;
+      case RequisitionTypeOnLeaveEnum.otherPaidLeave:
+        return appLocalizations.otherPaidLeave;
+      case RequisitionTypeOnLeaveEnum.leaveWithoutPay:
+        return appLocalizations.leaveWithoutPay;
+      case RequisitionTypeOnLeaveEnum.other:
+        return appLocalizations.other;
+    }
+  }
+}
+
+enum RequisitionTransferTypeEnum {
+  often('Often'),
+  superSpeed('Super speed');
+
+  final String name;
+
+  const RequisitionTransferTypeEnum(this.name);
+}
+
+extension ConfigRequisitionTransferTypeExtension on RequisitionTransferTypeEnum {
+  String get configRequisitionTransferTypeName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case RequisitionTransferTypeEnum.often:
+        return appLocalizations.often;
+      case RequisitionTransferTypeEnum.superSpeed:
+        return appLocalizations.superSpeed;
     }
   }
 }

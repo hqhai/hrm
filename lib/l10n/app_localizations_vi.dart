@@ -161,10 +161,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ok => 'OK';
 
   @override
-  String get cancel => 'HỦY BỎ';
+  String get cancel => 'Hủy';
 
   @override
-  String get create => 'KHỞI TẠO';
+  String get create => 'Khởi tạo';
 
   @override
   String get startTime => 'Bắt đầu';
@@ -746,6 +746,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get carCaller => 'Người điều xe';
 
   @override
+  String get walker => 'Người đi xe';
+
+  @override
   String get schedule => 'Lịch trình';
 
   @override
@@ -807,4 +810,52 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get substitute => 'Người giải quyết công việc thay trong thời gian nghỉ';
+
+  @override
+  String get pdf => 'PDF';
+
+  @override
+  String get detailedReason => 'Lý do chi tiết';
+
+  @override
+  String get otherPaidLeave => 'Nghỉ hưởng lương khác';
+
+  @override
+  String get leaveWithoutPay => 'Nghỉ không lương';
+
+  @override
+  String get permissionBiometric => 'Bạn chưa cấp quyền xác thực sinh trắc học cho ứng dụng, vui lòng cấp quyền!';
+
+  @override
+  String get transferType => 'Loại chuyển phát';
+
+  @override
+  String get often => 'Thường';
+
+  @override
+  String get superSpeed => 'Siêu tốc';
+
+  @override
+  String get sendingPurpose => 'Mục đích gửi';
+
+  @override
+  String get notePostalDelivery => 'Lưu ý: Để tiết kiệm chi phí, chỉ sử dụng dịch vụ chuyển phát NHANH khi thật sự cần thiết';
+
+  @override
+  String get explain => 'Diễn giải';
+
+  @override
+  String get unitPrice => 'Đơn giá(chưa VAT)';
+
+  @override
+  String get numberOf => 'Số lượng';
+
+  @override
+  String get intoMoney => 'Thành tiền';
+
+  @override
+  String get moreOfficeProducts => 'Thêm văn phòng phẩm';
+
+  @override
+  String get unit => 'Đơn vị';
 }

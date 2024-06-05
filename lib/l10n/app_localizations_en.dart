@@ -746,6 +746,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get carCaller => 'Car caller';
 
   @override
+  String get walker => 'Walker';
+
+  @override
   String get schedule => 'Schedule';
 
   @override
@@ -807,4 +810,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get substitute => 'The person handling the work takes over during the break';
+
+  @override
+  String get pdf => 'PDF';
+
+  @override
+  String get detailedReason => 'Detailed reason';
+
+  @override
+  String get otherPaidLeave => 'Other paid leave';
+
+  @override
+  String get leaveWithoutPay => 'Leave without pay';
+
+  @override
+  String get permissionBiometric => 'You have not granted biometric authentication permission to the app, please grant permission!';
+
+  @override
+  String get transferType => 'Transfer Type';
+
+  @override
+  String get often => 'Often';
+
+  @override
+  String get superSpeed => 'Super speed';
+
+  @override
+  String get sendingPurpose => 'Sending purpose';
+
+  @override
+  String get notePostalDelivery => 'Note: To save costs, only use the FAST delivery service when absolutely necessary';
+
+  @override
+  String get explain => 'Explain';
+
+  @override
+  String get unitPrice => 'Unit price (excluding VAT)';
+
+  @override
+  String get numberOf => 'Number of';
+
+  @override
+  String get intoMoney => 'Into money';
+
+  @override
+  String get moreOfficeProducts => 'More office products';
+
+  @override
+  String get unit => 'Unit';
 }

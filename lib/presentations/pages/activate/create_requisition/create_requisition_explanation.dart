@@ -36,12 +36,12 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       detailedDescriptionController = TextEditingController(),
       applicationCodeController = TextEditingController();
   int totalMinute = 0;
-  String follower = '',
-      reason = '',
+  String reason = '',
       detailedDescription = '',
       replaceDate = '',
       applicationCode = '',
       workDate = '';
+  List<String> followers = [];
   List<File> files = [];
   RequisitionTypeExplanationEnum? reasonForExplanation = RequisitionTypeExplanationEnum.late;
 
@@ -77,6 +77,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
               if (reasonForExplanation == RequisitionTypeExplanationEnum.late ||
                   reasonForExplanation == RequisitionTypeExplanationEnum.leaveEarly)
                 ItemCreateTotalMinute(
+                  title: appLocalizations.totalMinute,
                   totalMinuteController: totalMinuteController,
                   onChange: (value) => _setTotalMinute(value),
                 ),
@@ -132,9 +133,9 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _setFollower(String? value) {
+  _setFollower(List<String> value) {
     setState(() {
-      follower = value ?? "";
+      followers = value;
     });
   }
 
