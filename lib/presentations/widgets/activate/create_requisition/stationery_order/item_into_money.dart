@@ -10,6 +10,7 @@ class ItemIntoMoney extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final width = MediaQuery.sizeOf(context).width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -24,7 +25,7 @@ class ItemIntoMoney extends StatelessWidget {
         Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
             child: Container(
-              width: SpacingUnit.x15,
+              width: width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(SpacingUnit.x1),
                 color: colors.surface,

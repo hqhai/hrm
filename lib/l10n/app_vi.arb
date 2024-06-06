@@ -283,5 +283,18 @@
   "numberOf": "Số lượng",
   "intoMoney": "Thành tiền",
   "moreOfficeProducts": "Thêm văn phòng phẩm",
-  "unit": "Đơn vị"
+  "unit": "Đơn vị",
+  "pieces": "Chiếc",
+  "rolls": "Cuộn",
+  "boxes": "Hộp",
+  "jars": "Lọ",
+  "books": "Quyển",
+  "reams": "Ram",
+  "volumes": "Tập",
+  "bags": "Túi",
+  "blisters": "Vỉ",
+  "pairs": "Đôi",
+  "stationeryList": "Danh sách văn phòng phẩm",
+  "product": "Sản phẩm",
+  "addProducts": "Thêm sản phẩm"
 }

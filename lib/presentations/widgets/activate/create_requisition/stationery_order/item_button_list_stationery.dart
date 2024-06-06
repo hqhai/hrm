@@ -22,7 +22,7 @@ class ItemButtonListStationery extends StatelessWidget {
             backgroundColor: colors.blue,
           ),
           child: Text(
-            appLocalizations.add,
+            appLocalizations.save,
             style: TextStyle(
               color: colors.text,
               fontSize: SpacingUnit.x5,

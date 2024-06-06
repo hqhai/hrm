@@ -1802,6 +1802,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unit'**
   String get unit;
+
+  /// No description provided for @pieces.
+  ///
+  /// In en, this message translates to:
+  /// **'Pieces'**
+  String get pieces;
+
+  /// No description provided for @rolls.
+  ///
+  /// In en, this message translates to:
+  /// **'rolls'**
+  String get rolls;
+
+  /// No description provided for @boxes.
+  ///
+  /// In en, this message translates to:
+  /// **'boxes'**
+  String get boxes;
+
+  /// No description provided for @jars.
+  ///
+  /// In en, this message translates to:
+  /// **'jars'**
+  String get jars;
+
+  /// No description provided for @books.
+  ///
+  /// In en, this message translates to:
+  /// **'books'**
+  String get books;
+
+  /// No description provided for @reams.
+  ///
+  /// In en, this message translates to:
+  /// **'reams'**
+  String get reams;
+
+  /// No description provided for @volumes.
+  ///
+  /// In en, this message translates to:
+  /// **'volumes'**
+  String get volumes;
+
+  /// No description provided for @bags.
+  ///
+  /// In en, this message translates to:
+  /// **'Bags'**
+  String get bags;
+
+  /// No description provided for @blisters.
+  ///
+  /// In en, this message translates to:
+  /// **'blisters'**
+  String get blisters;
+
+  /// No description provided for @pairs.
+  ///
+  /// In en, this message translates to:
+  /// **'Pairs'**
+  String get pairs;
+
+  /// No description provided for @stationeryList.
+  ///
+  /// In en, this message translates to:
+  /// **'Stationery list'**
+  String get stationeryList;
+
+  /// No description provided for @product.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get product;
+
+  /// No description provided for @addProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Add products'**
+  String get addProducts;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

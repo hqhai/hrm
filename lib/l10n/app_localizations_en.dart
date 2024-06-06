@@ -858,4 +858,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unit => 'Unit';
+
+  @override
+  String get pieces => 'Pieces';
+
+  @override
+  String get rolls => 'rolls';
+
+  @override
+  String get boxes => 'boxes';
+
+  @override
+  String get jars => 'jars';
+
+  @override
+  String get books => 'books';
+
+  @override
+  String get reams => 'reams';
+
+  @override
+  String get volumes => 'volumes';
+
+  @override
+  String get bags => 'Bags';
+
+  @override
+  String get blisters => 'blisters';
+
+  @override
+  String get pairs => 'Pairs';
+
+  @override
+  String get stationeryList => 'Stationery list';
+
+  @override
+  String get product => 'Product';
+
+  @override
+  String get addProducts => 'Add products';
 }

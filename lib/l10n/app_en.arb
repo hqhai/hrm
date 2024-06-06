@@ -283,5 +283,18 @@
   "numberOf": "Number of",
   "intoMoney": "Into money",
   "moreOfficeProducts": "More office products",
-  "unit": "Unit"
+  "unit": "Unit",
+  "pieces": "Pieces",
+  "rolls": "rolls",
+  "boxes": "boxes",
+  "jars": "jars",
+  "books": "books",
+  "reams": "reams",
+  "volumes": "volumes",
+  "bags": "Bags",
+  "blisters": "blisters",
+  "pairs": "Pairs",
+  "stationeryList": "Stationery list",
+  "product": "Product",
+  "addProducts": "Add products"
 }

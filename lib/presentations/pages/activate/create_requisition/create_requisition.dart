@@ -65,11 +65,11 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
               ),
               ItemActivateWidget(
                 title: appLocalizations.releaseOfWarehouse,
-                callback: () {},
+                callback: () => _nextCreateRequisitionReleaseOfWarehouseScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.stationeryOrder,
-                callback: () {},
+                callback: () => _nextCreateRequisitionStationeryOrderScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.business,
@@ -101,5 +101,13 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
   _nextCreateRequisitionPostalDeliveryScreen(BuildContext context) {
     dI<AppNavigation>().pushName(context, page: Pages.createRequisitionPostalDeliveryPage);
 
+  }
+
+  _nextCreateRequisitionStationeryOrderScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionStationeryOderPage);
+  }
+
+  _nextCreateRequisitionReleaseOfWarehouseScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionReleaseOfWarehousePage);
   }
 }

@@ -858,4 +858,43 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get unit => 'Đơn vị';
+
+  @override
+  String get pieces => 'Chiếc';
+
+  @override
+  String get rolls => 'Cuộn';
+
+  @override
+  String get boxes => 'Hộp';
+
+  @override
+  String get jars => 'Lọ';
+
+  @override
+  String get books => 'Quyển';
+
+  @override
+  String get reams => 'Ram';
+
+  @override
+  String get volumes => 'Tập';
+
+  @override
+  String get bags => 'Túi';
+
+  @override
+  String get blisters => 'Vỉ';
+
+  @override
+  String get pairs => 'Đôi';
+
+  @override
+  String get stationeryList => 'Danh sách văn phòng phẩm';
+
+  @override
+  String get product => 'Sản phẩm';
+
+  @override
+  String get addProducts => 'Thêm sản phẩm';
 }

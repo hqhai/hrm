@@ -40,4 +40,7 @@ class Pages {
   static const String createRequisitionVehicleDispatchPage =
       '/createRequisitionVehicleDispatchPage';
   static const String createRequisitionPostalDeliveryPage = '/createRequisitionPostalDeliveryPage';
+  static const String createRequisitionStationeryOderPage = '/createRequisitionStationeryOderPage';
+  static const String createRequisitionReleaseOfWarehousePage =
+      '/createRequisitionReleaseOfWarehousePage';
 }

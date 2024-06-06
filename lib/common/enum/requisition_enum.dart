@@ -159,3 +159,49 @@ extension ConfigRequisitionTransferTypeExtension on RequisitionTransferTypeEnum 
     }
   }
 }
+
+enum RequisitionStationeryUnitTypeEnum {
+  pieces('Pieces'),
+  rolls('rolls'),
+  boxes('boxes'),
+  jars('jars'),
+  books('books'),
+  reams('reams'),
+  volumes('volumes'),
+  bags('Bags'),
+  blisters('blisters'),
+  pairs('Pairs');
+
+  final String name;
+
+  const RequisitionStationeryUnitTypeEnum(this.name);
+}
+
+extension ConfigRequisitionStationeryUnitTypeExtension on RequisitionStationeryUnitTypeEnum {
+  String get configRequisitionStationeryUnitTypeName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case RequisitionStationeryUnitTypeEnum.pieces:
+        return appLocalizations.pieces;
+      case RequisitionStationeryUnitTypeEnum.rolls:
+        return appLocalizations.rolls;
+      case RequisitionStationeryUnitTypeEnum.boxes:
+        return appLocalizations.boxes;
+      case RequisitionStationeryUnitTypeEnum.jars:
+        return appLocalizations.jars;
+      case RequisitionStationeryUnitTypeEnum.books:
+        return appLocalizations.books;
+      case RequisitionStationeryUnitTypeEnum.reams:
+        return appLocalizations.reams;
+      case RequisitionStationeryUnitTypeEnum.volumes:
+        return appLocalizations.volumes;
+      case RequisitionStationeryUnitTypeEnum.bags:
+        return appLocalizations.bags;
+      case RequisitionStationeryUnitTypeEnum.blisters:
+        return appLocalizations.blisters;
+      case RequisitionStationeryUnitTypeEnum.pairs:
+        return appLocalizations.pairs;
+    }
+  }
+}
