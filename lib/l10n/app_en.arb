@@ -296,5 +296,13 @@
   "pairs": "Pairs",
   "stationeryList": "Stationery list",
   "product": "Product",
-  "addProducts": "Add products"
+  "addProducts": "Add products",
+  "car": "Car",
+  "bike": "Bike",
+  "motorbike": "Motorbike",
+  "tram": "Tram",
+  "vehicleType": "Vehicle type",
+  "licensePlate": "License plate",
+  "autoMaker": "Auto maker",
+  "refuse": "Refuse"
 }

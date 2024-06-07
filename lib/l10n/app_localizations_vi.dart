@@ -897,4 +897,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get addProducts => 'Thêm sản phẩm';
+
+  @override
+  String get car => 'Ô tô';
+
+  @override
+  String get bike => 'Xe đạp';
+
+  @override
+  String get motorbike => 'Xe máy';
+
+  @override
+  String get tram => 'Xe điện';
+
+  @override
+  String get vehicleType => 'Loại phương tiện';
+
+  @override
+  String get licensePlate => 'Biển số xe';
+
+  @override
+  String get autoMaker => 'Hãng sản xuất';
+
+  @override
+  String get refuse => 'Từ chối';
 }

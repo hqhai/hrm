@@ -897,4 +897,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addProducts => 'Add products';
+
+  @override
+  String get car => 'Car';
+
+  @override
+  String get bike => 'Bike';
+
+  @override
+  String get motorbike => 'Motorbike';
+
+  @override
+  String get tram => 'Tram';
+
+  @override
+  String get vehicleType => 'Vehicle type';
+
+  @override
+  String get licensePlate => 'License plate';
+
+  @override
+  String get autoMaker => 'Auto maker';
+
+  @override
+  String get refuse => 'Refuse';
 }

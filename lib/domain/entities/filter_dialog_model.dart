@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/domain/entities/department.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'filter_dialog_model.g.dart';
@@ -7,6 +8,7 @@ part 'filter_dialog_model.g.dart';
 @JsonSerializable()
 class FilterDialogModel {
   final RequisitionTypeEnum type;
+  final Department? department;
   final String startTime;
   final String endTime;
   final List<StatusRequisitionEnum> statuses;
@@ -15,7 +17,8 @@ class FilterDialogModel {
     this.type = RequisitionTypeEnum.business,
     this.startTime = '',
     this.endTime = '',
-    this.statuses = const []
+    this.statuses = const [],
+    this.department
   });
 
   factory FilterDialogModel.fromJson(Map<String, dynamic> json) => _$FilterDialogModelFromJson(json);

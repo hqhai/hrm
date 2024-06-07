@@ -17,7 +17,8 @@ class PathConfig {
   static String createRequestTypeRoomMeeting = '/room-meeting/create-request-type-room-meeting';
   static String updateStatusTypeRoomMeeting = '/room-meeting/update-status-type-room-meeting';
   static String getListUserByRequestExplanation = '/user/get-list-user-by-request-type-explanation';
-  static String department = '/department';
+  static String department = '/admin/department';
+  static String departments = '/admin/department/get-departments';
   static String getDepartmentById = '/department/get-department';
   static String position = '/position';
   static String checkInSetting ='/checkin-setting';

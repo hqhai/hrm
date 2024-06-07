@@ -58,20 +58,20 @@ class _ItemDepartmentState extends State<ItemDepartment> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          state.departments[widget.index].name,
+                          state.departments[widget.index].name??"",
                           maxLines: 1,
                           textAlign: TextAlign.left,
                           style: const TextStyle(fontSize: SpacingUnit.x5, color: Colors.orange),
                         ),
                         Text(
-                          state.departments[widget.index].address,
+                          state.departments[widget.index].address??"",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
                         ),
                         Text(
-                          state.departments[widget.index].phoneNumber,
+                          state.departments[widget.index].phoneNumber??"",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,

@@ -296,5 +296,13 @@
   "pairs": "Đôi",
   "stationeryList": "Danh sách văn phòng phẩm",
   "product": "Sản phẩm",
-  "addProducts": "Thêm sản phẩm"
+  "addProducts": "Thêm sản phẩm",
+  "car": "Ô tô",
+  "bike": "Xe đạp",
+  "motorbike": "Xe máy",
+  "tram": "Xe điện",
+  "vehicleType": "Loại phương tiện",
+  "licensePlate": "Biển số xe",
+  "autoMaker": "Hãng sản xuất",
+  "refuse": "Từ chối"
 }

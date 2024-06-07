@@ -45,12 +45,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
       phoneNumberController = TextEditingController(),
       addressController = TextEditingController(),
       descriptionController = TextEditingController();
-  String name = '',
-      code = '',
-      email = '',
-      address = '',
-      phoneNumber = '',
-      parent = '';
+  String name = '', code = '', email = '', address = '', phoneNumber = '', parent = '';
   List<String> listParents = const [];
 
   @override
@@ -60,19 +55,20 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
   }
 
   _listener(BuildContext context, DepartmentState state) {
-    nameController.text = state.departments[widget.index].name;
-    emailController.text = state.departments[widget.index].email;
-    phoneNumberController.text = state.departments[widget.index].phoneNumber;
-    addressController.text = state.departments[widget.index].address;
+    nameController.text = state.departments[widget.index].name ?? "";
+    emailController.text = state.departments[widget.index].email ?? "";
+    phoneNumberController.text = state.departments[widget.index].phoneNumber ?? "";
+    addressController.text = state.departments[widget.index].address ?? "";
     descriptionController.text = state.departments[widget.index].description ?? '';
     parent = state.departments
-        .where((e) => e.parentId == state.departments[widget.index].parentId)
-        .first
-        .name;
-    name = state.departments[widget.index].name;
-    email = state.departments[widget.index].email;
-    address = state.departments[widget.index].address;
-    phoneNumber = state.departments[widget.index].phoneNumber;
+            .where((e) => e.parentId == state.departments[widget.index].parentId)
+            .first
+            .name ??
+        "";
+    name = state.departments[widget.index].name ?? "";
+    email = state.departments[widget.index].email ?? "";
+    address = state.departments[widget.index].address ?? "";
+    phoneNumber = state.departments[widget.index].phoneNumber ?? "";
     if (state.status == DepartmentStatus.updateDepartmentSuccess) {
       Navigator.of(context).pop();
       Navigator.of(context).pop();
@@ -90,12 +86,8 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final height = MediaQuery
-        .sizeOf(context)
-        .height;
-    final width = MediaQuery
-        .sizeOf(context)
-        .width;
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     final appLocalizations = AppLocalizations.of(context)!;
     return BasePage(
       appbar: AppBar(
@@ -106,115 +98,115 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
         listener: (context, state) {
           _listener(context, state);
         },
-        builder: (context, state) =>
-            Container(
-              margin: const EdgeInsets.all(SpacingUnit.x2),
-              padding: const EdgeInsets.all(SpacingUnit.x2),
-              height: height,
-              decoration: BoxDecoration(
-                color: CustomsColor.colorBackground,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(SpacingUnit.x4),
-                ),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: SpacingUnit.x4),
-                    Text(appLocalizations.name,
-                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
-                    const SizedBox(height: SpacingUnit.x2),
-                    AppInput(
-                      placeHolder: appLocalizations.name,
-                      controller: nameController,
-                      onChange: (value) => setState(() => name = value),
-                    ),
-                    const SizedBox(height: SpacingUnit.x2),
-                    Text(appLocalizations.code,
-                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
-                    const SizedBox(height: SpacingUnit.x2),
-                    AppInput(
-                      placeHolder: appLocalizations.code,
-                      controller: codeController,
-                      onChange: (value) => setState(() => code = value),
-                    ),
-                    const SizedBox(height: SpacingUnit.x2),
-                    Text(appLocalizations.phoneNumber,
-                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
-                    const SizedBox(height: SpacingUnit.x2),
-                    AppInput(
-                      placeHolder: appLocalizations.phoneNumber,
-                      controller: phoneNumberController,
-                      onChange: (value) => setState(() => phoneNumber = value),
-                    ),
-                    const SizedBox(height: SpacingUnit.x2),
-                    Text(appLocalizations.email,
-                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
-                    const SizedBox(height: SpacingUnit.x2),
-                    AppInput(
-                      placeHolder: appLocalizations.email,
-                      controller: emailController,
-                      onChange: (value) => setState(() => email = value),
-                    ),
-                    const SizedBox(height: SpacingUnit.x2),
-                    Text(appLocalizations.address,
-                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
-                    const SizedBox(height: SpacingUnit.x2),
-                    AppInput(
-                      placeHolder: appLocalizations.address,
-                      controller: addressController,
-                      onChange: (value) => setState(() => address = value),
-                    ),
-                    const SizedBox(height: SpacingUnit.x2),
-                    Text(appLocalizations.description,
-                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
-                    const SizedBox(height: SpacingUnit.x2),
-                    AppInputArea(
-                      placeHolder: appLocalizations.description,
-                      controller: descriptionController,
-                      minLines: 5,
-                      maxLines: 5,
-                    ),
-                    const SizedBox(height: SpacingUnit.x2),
-                    Text(appLocalizations.parent,
-                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
-                    DropdownMenu<String>(
-                      width: width * 0.6,
-                      initialSelection: _parentInit(state),
-                      onSelected: (String? value) {
-                        setState(() {
-                          parent = value!;
-                        });
-                      },
-                      dropdownMenuEntries: state.departments
-                          .map((e) => e.name)
-                          .toList()
-                          .map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(value: value, label: value);
-                      }).toList(),
-                    ),
-                    const SizedBox(height: SpacingUnit.x4),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
-                      onPressed: () => _updateDialog(context, state),
-                      child: Text(appLocalizations.update,
-                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
-                    ),
-                  ],
-                ),
-              ),
+        builder: (context, state) => Container(
+          margin: const EdgeInsets.all(SpacingUnit.x2),
+          padding: const EdgeInsets.all(SpacingUnit.x2),
+          height: height,
+          decoration: BoxDecoration(
+            color: CustomsColor.colorBackground,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(SpacingUnit.x4),
             ),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: SpacingUnit.x4),
+                Text(appLocalizations.name,
+                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                const SizedBox(height: SpacingUnit.x2),
+                AppInput(
+                  placeHolder: appLocalizations.name,
+                  controller: nameController,
+                  onChange: (value) => setState(() => name = value),
+                ),
+                const SizedBox(height: SpacingUnit.x2),
+                Text(appLocalizations.code,
+                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                const SizedBox(height: SpacingUnit.x2),
+                AppInput(
+                  placeHolder: appLocalizations.code,
+                  controller: codeController,
+                  onChange: (value) => setState(() => code = value),
+                ),
+                const SizedBox(height: SpacingUnit.x2),
+                Text(appLocalizations.phoneNumber,
+                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                const SizedBox(height: SpacingUnit.x2),
+                AppInput(
+                  placeHolder: appLocalizations.phoneNumber,
+                  controller: phoneNumberController,
+                  onChange: (value) => setState(() => phoneNumber = value),
+                ),
+                const SizedBox(height: SpacingUnit.x2),
+                Text(appLocalizations.email,
+                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                const SizedBox(height: SpacingUnit.x2),
+                AppInput(
+                  placeHolder: appLocalizations.email,
+                  controller: emailController,
+                  onChange: (value) => setState(() => email = value),
+                ),
+                const SizedBox(height: SpacingUnit.x2),
+                Text(appLocalizations.address,
+                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                const SizedBox(height: SpacingUnit.x2),
+                AppInput(
+                  placeHolder: appLocalizations.address,
+                  controller: addressController,
+                  onChange: (value) => setState(() => address = value),
+                ),
+                const SizedBox(height: SpacingUnit.x2),
+                Text(appLocalizations.description,
+                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                const SizedBox(height: SpacingUnit.x2),
+                AppInputArea(
+                  placeHolder: appLocalizations.description,
+                  controller: descriptionController,
+                  minLines: 5,
+                  maxLines: 5,
+                ),
+                const SizedBox(height: SpacingUnit.x2),
+                Text(appLocalizations.parent,
+                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                DropdownMenu<String>(
+                  width: width * 0.6,
+                  initialSelection: _parentInit(state),
+                  onSelected: (String? value) {
+                    setState(() {
+                      parent = value!;
+                    });
+                  },
+                  dropdownMenuEntries: state.departments
+                      .map((e) => e.name ?? "")
+                      .toList()
+                      .map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(value: value, label: value);
+                  }).toList(),
+                ),
+                const SizedBox(height: SpacingUnit.x4),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
+                  onPressed: () => _updateDialog(context, state),
+                  child: Text(appLocalizations.update,
+                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
 
   String _parentInit(DepartmentState state) {
     return state.departments
-        .where((e) => e.parentId == state.departments[widget.index].parentId)
-        .first
-        .name;
+            .where((e) => e.parentId == state.departments[widget.index].parentId)
+            .first
+            .name ??
+        "";
   }
 
   bool _checkTextField() {
@@ -234,8 +226,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
       createDialog(
           context,
           appLocalizations.doYouWantToUpdateDepartment,
-              () =>
-              dI<DepartmentBloc>().add(UpdateDepartmentEvent(
+          () => dI<DepartmentBloc>().add(UpdateDepartmentEvent(
                 id: state.departments[widget.index].id,
                 name: nameController.text,
                 code: codeController.text,

@@ -8,6 +8,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
+import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_attach.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_general_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_sender_information.dart';
@@ -24,15 +25,18 @@ final requisitionInformationPageRoute = GoRoute(
       Map data = state.extra as Map;
       return RequisitionInformationPage(
         requisition: data['requisition'],
+        checkUser: data['checkUser'],
       );
     });
 
 class RequisitionInformationPage extends StatefulWidget {
   const RequisitionInformationPage(
       {super.key,
-      this.requisition = const Requisition(id: "", type: RequisitionTypeEnum.postalDelivery)});
+      this.requisition = const Requisition(id: "", type: RequisitionTypeEnum.postalDelivery),
+      this.checkUser = false});
 
   final Requisition requisition;
+  final bool checkUser;
 
   @override
   State<RequisitionInformationPage> createState() => _RequisitionInformationPageState();
@@ -80,14 +84,49 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                 Radius.circular(SpacingUnit.x4),
               ),
             ),
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RequisitionInformationSenderInformation(),
-                  RequisitionInformationGeneraliInformation(),
-                  RequisitionInformationType(),
-                  RequisitionInformationAttach(),
+                  const RequisitionInformationSenderInformation(),
+                  const RequisitionInformationGeneraliInformation(),
+                  const RequisitionInformationType(),
+                  const RequisitionInformationAttach(),
+                  if (state.requisition.status == StatusRequisitionEnum.pending &&
+                      !widget.checkUser)
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: ButtonItemListRequisition(
+                            check: true, title: appLocalizations.delete, callback: () {})),
+                  if (state.requisition.status == StatusRequisitionEnum.modification &&
+                      !widget.checkUser)
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: ButtonItemListRequisition(
+                            check: true, title: appLocalizations.update, callback: () {})),
+                  if (state.requisition.status == StatusRequisitionEnum.pending && widget.checkUser)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ButtonItemListRequisition(
+                          title: appLocalizations.approver,
+                          callback: () {},
+                        ),
+                        ButtonItemListRequisition(
+                          title: appLocalizations.refuse,
+                          callback: () {},
+                        ),
+                        ButtonItemListRequisition(
+                          title: appLocalizations.modification,
+                          callback: () {},
+                        ),
+                      ],
+                    ),
+                  if (state.requisition.status == StatusRequisitionEnum.done && widget.checkUser)
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: ButtonItemListRequisition(
+                            check: true, title: appLocalizations.cancel, callback: () {})),
                 ],
               ),
             ),

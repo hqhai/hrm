@@ -50,7 +50,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
 
   _listener(BuildContext context, DepartmentState state) {
     if (state.status == DepartmentStatus.getDepartmentSuccess) {
-      parent = state.departments.map((e) => e.name).toList().first;
+      parent = state.departments.map((e) => e.name??"").toList().first;
     }
     if (state.status == DepartmentStatus.createDepartmentSuccess) {
       Navigator.of(context).pop();

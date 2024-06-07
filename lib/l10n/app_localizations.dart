@@ -1880,6 +1880,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add products'**
   String get addProducts;
+
+  /// No description provided for @car.
+  ///
+  /// In en, this message translates to:
+  /// **'Car'**
+  String get car;
+
+  /// No description provided for @bike.
+  ///
+  /// In en, this message translates to:
+  /// **'Bike'**
+  String get bike;
+
+  /// No description provided for @motorbike.
+  ///
+  /// In en, this message translates to:
+  /// **'Motorbike'**
+  String get motorbike;
+
+  /// No description provided for @tram.
+  ///
+  /// In en, this message translates to:
+  /// **'Tram'**
+  String get tram;
+
+  /// No description provided for @vehicleType.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle type'**
+  String get vehicleType;
+
+  /// No description provided for @licensePlate.
+  ///
+  /// In en, this message translates to:
+  /// **'License plate'**
+  String get licensePlate;
+
+  /// No description provided for @autoMaker.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto maker'**
+  String get autoMaker;
+
+  /// No description provided for @refuse.
+  ///
+  /// In en, this message translates to:
+  /// **'Refuse'**
+  String get refuse;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

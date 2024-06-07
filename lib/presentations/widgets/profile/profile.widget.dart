@@ -13,6 +13,7 @@ import 'package:base_app/presentations/pages/profile/item_profile.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
 import 'package:base_app/presentations/widgets/profile/item_text_content_profile.dart';
 import 'package:base_app/presentations/widgets/profile/item_text_title_profile.dart';
+import 'package:base_app/presentations/widgets/profile/item_vehicle_proflie.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -112,6 +113,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   .toList()
                               : [],
                         ),
+                        const ItemVehicleProfile(),
                       ],
                     ),
                   ),

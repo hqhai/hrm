@@ -129,3 +129,35 @@ enum ConfigRoleStringValues {
 
   const ConfigRoleStringValues(this.name);
 }
+
+enum VehicleTypeEnum {
+  @JsonValue('Car')
+  car('Car'),
+  @JsonValue('Bike')
+  bike('Bike'),
+  @JsonValue('Motorbike')
+  motorbike('Motorbike'),
+  @JsonValue('Tram')
+  tram('Tram');
+
+  final String name;
+
+  const VehicleTypeEnum(this.name);
+}
+
+extension ConfigVehicleTypeExtension on VehicleTypeEnum {
+  String get configVehicleTypeName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case VehicleTypeEnum.car:
+        return appLocalizations.car;
+      case VehicleTypeEnum.bike:
+        return appLocalizations.bike;
+      case VehicleTypeEnum.motorbike:
+        return appLocalizations.motorbike;
+      case VehicleTypeEnum.tram:
+        return appLocalizations.tram;
+    }
+  }
+}

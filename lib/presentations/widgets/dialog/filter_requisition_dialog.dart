@@ -158,11 +158,17 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
               children: [
                 ElevatedButton(
                   onPressed: () => setApply(),
-                  child: Text(appLocalizations.apply),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: Text(appLocalizations.apply, style: TextStyle(color: colors.text)),
                 ),
                 ElevatedButton(
                   onPressed: () => popDialog(context),
-                  child: Text(appLocalizations.cancel),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: Text(appLocalizations.cancel, style: TextStyle(color: colors.text)),
                 ),
               ],
             ),

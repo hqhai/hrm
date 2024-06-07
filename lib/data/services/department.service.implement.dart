@@ -34,7 +34,7 @@ class DepartmentServiceImpl extends BaseService implements DepartmentService {
 
   @override
   Future<List<Department>> getDepartments() async {
-    final url = '$baseUrlUser${PathConfig.department}';
+    final url = '$baseUrlUser${PathConfig.departments}';
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;

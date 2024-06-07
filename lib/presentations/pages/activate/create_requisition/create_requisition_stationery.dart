@@ -3,6 +3,7 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/stationery/requisition_stationery.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationery_order.dart';
 import 'package:base_app/presentations/widgets/dialog/stationery_order_add_dialog.dart';
@@ -34,6 +35,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
         unitPrice: 20000,
         money: 40000)
   ];
+  List<String> followers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +123,8 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                     ),
                   ),
                 ),
+                ItemCreateFollower(
+                    title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
                 Padding(
                   padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
                   child: ItemButton(
@@ -183,6 +187,12 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
           note: value.note,
           unitPrice: value.unitPrice,
           product: value.product);
+    });
+  }
+
+  _setFollower(List<String> value) {
+    setState(() {
+      followers = value;
     });
   }
 }

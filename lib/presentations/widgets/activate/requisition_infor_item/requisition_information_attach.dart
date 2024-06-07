@@ -1,13 +1,12 @@
-import 'package:base_app/common/utils/color_utils.dart';
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-import 'package:base_app/presentations/widgets/dialog/pdf_show_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class RequisitionInformationAttach extends StatefulWidget {
@@ -22,6 +21,7 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
+    final width = MediaQuery.of(context).size.width;
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
         return Padding(
@@ -40,23 +40,43 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
               const SizedBox(
                 height: SpacingUnit.x4,
               ),
-              GestureDetector(
-                onTap: () => _showDialog(context, state),
-                child: Container(
-                  height: SpacingUnit.x15,
-                  width: SpacingUnit.x15,
-                  padding: const EdgeInsets.all(SpacingUnit.x3),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                    color: CustomsColor.colorBackground,
-                    border: Border.all(color: colors.text, width: 1),
-                  ),
-                  child: SvgPicture.asset(
-                    Assets.images.icon.activateIcon.fileAttach,
-                    colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+              if (state.requisition.filePaths?.isNotEmpty ?? false)
+                SizedBox(
+                  height: width * state.requisition.filePaths!.length * 0.3,
+                  child: GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 1,
+                      crossAxisSpacing: SpacingUnit.x10,
+                    ),
+                    itemCount: state.requisition.filePaths!.length,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () => _onClickFLie(context, index, state),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(SpacingUnit.x1),
+                          color: colors.surface,
+                          border: Border.all(color: colors.text, width: 1),
+                        ),
+                        child: _checkTypeFile(index, state)
+                            ? Center(
+                                child: Text(
+                                  appLocalizations.pdf,
+                                  style: TextStyle(
+                                    color: colors.text,
+                                    fontSize: SpacingUnit.x7,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              )
+                            : Image.network(
+                                state.requisition.filePaths![index],
+                                fit: BoxFit.fill,
+                              ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
               const SizedBox(
                 height: SpacingUnit.x2,
               ),
@@ -77,10 +97,21 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
     );
   }
 
-  _showDialog(BuildContext context, RequisitionState state) {
-    bool check = state.requisition.filePaths?.isNotEmpty ?? false;
-    if (check) {
-      pDFShowDialog(context, state.requisition.filePaths ?? []);
+  _onClickFLie(BuildContext context, int index, RequisitionState state) {
+    if (_checkTypeFile(index, state)) {
+      dI<AppNavigation>().pushName(context, page: Pages.pDFPage, extra: {
+        'url': state.requisition.filePaths![index],
+      });
+    } else {}
+  }
+
+  bool _checkTypeFile(int index, RequisitionState state) {
+    int length = state.requisition.filePaths![index].length;
+    String type = state.requisition.filePaths![index].substring(length - 3, length);
+    if (type == 'pdf' || type == 'PDF') {
+      return true;
+    } else {
+      return false;
     }
   }
 }
