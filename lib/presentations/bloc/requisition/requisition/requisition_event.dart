@@ -1,6 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
-import 'package:base_app/data/models/requisition/vehicle_driver/vehicle_driver_response/vehicle_driver_response.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:equatable/equatable.dart';
 
