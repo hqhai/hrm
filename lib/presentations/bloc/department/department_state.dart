@@ -12,15 +12,7 @@ class DepartmentState extends Equatable {
   final DepartmentStatus status;
 
   const DepartmentState(
-      {this.department = const Department(
-          name: '',
-          phoneNumber: '',
-          email: '',
-          address: '',
-          id: '',
-          createdUserId: '',
-          createdFullName: '',
-          createdDate: ''),
+      {this.department = const Department(id: '', createdUserId: ''),
       this.departments = const [],
       this.status = DepartmentStatus.init});
 

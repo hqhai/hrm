@@ -13,10 +13,13 @@ import 'package:base_app/presentations/bloc/position/position_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_bloc.dart';
 import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
 import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_manager/user_by_admin_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,10 +40,16 @@ class MainBloc {
         BlocProvider<DepartmentBloc>(create: (BuildContext context) => dI<DepartmentBloc>()),
         BlocProvider<PositionBloc>(create: (BuildContext context) => dI<PositionBloc>()),
         BlocProvider<PersonnelBloc>(create: (BuildContext context) => dI<PersonnelBloc>()),
-        BlocProvider<CheckInSettingBloc>(create: (BuildContext context) => dI<CheckInSettingBloc>()),
+        BlocProvider<CheckInSettingBloc>(
+            create: (BuildContext context) => dI<CheckInSettingBloc>()),
         BlocProvider<NotesBloc>(create: (BuildContext context) => dI<NotesBloc>()),
         BlocProvider<AddressBloc>(create: (BuildContext context) => dI<AddressBloc>()),
         BlocProvider<BiometricCubit>(create: (BuildContext context) => dI<BiometricCubit>()),
         BlocProvider<RequisitionBloc>(create: (BuildContext context) => dI<RequisitionBloc>()),
-      ];
+        BlocProvider<RequisitionApproveBloc>(
+            create: (BuildContext context) => dI<RequisitionApproveBloc>()),
+        BlocProvider<UserByNameBloc>(create: (BuildContext context) => dI<UserByNameBloc>()),
+        BlocProvider<FlowBloc>(create: (BuildContext context) => dI<FlowBloc>()),
+
+  ];
 }

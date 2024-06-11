@@ -7,6 +7,8 @@ import 'package:base_app/data/models/request/change_password/change_password_req
 import 'package:base_app/data/models/request/get_list_user_by_role/get_list_user_by_role.dart';
 import 'package:base_app/data/models/user/forgot_password_request.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
+import 'package:base_app/data/models/user/search/search_user_by_name_request.dart';
+import 'package:base_app/data/models/user/search/search_user_by_name_response.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/services/user.service.dart';
 import 'package:common/model/response.dart';
@@ -60,7 +62,7 @@ class UserServiceImpl extends BaseService implements UserService {
     final body = jsonEncode(forgotPasswordRequest.toJson());
     final response = await client.post(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-   return responseBase.result;
+    return responseBase.result;
   }
 
   @override
@@ -89,5 +91,19 @@ class UserServiceImpl extends BaseService implements UserService {
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     int statusCode = responseBase.statusCode;
     return statusCode;
+  }
+
+  @override
+  Future<SearchUserByNameResponse> getUserByFullName(
+      {required SearchUserByNameRequest searchUserByNameRequest}) async {
+    final url = '$baseUrlUser${PathConfig.searchUser}';
+    final params = searchUserByNameRequest.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result['items'];
+    final totalItems = responseBase.result['pagingInfo']['totalItems'];
+    List<User> users =
+        (data as List<dynamic>).map((e) => User.fromJson(e as Map<String, dynamic>)).toList();
+    return SearchUserByNameResponse(users: users, totalItems: totalItems);
   }
 }

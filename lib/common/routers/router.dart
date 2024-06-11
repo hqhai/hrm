@@ -1,7 +1,17 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_business.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_explanation.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_leave.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_postal_delivery.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_release_of_warehouse.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_stationery.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_vehicle_dispatch.dart';
+import 'package:base_app/presentations/pages/activate/file/pdf.page.dart';
 import 'package:base_app/presentations/pages/activate/requisition/requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition/see_list_requisition.page.dart';
+import 'package:base_app/presentations/pages/activate/requisition_approve/requisition_approve_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/requisition_infor.page.dart';
 import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
@@ -19,15 +29,6 @@ import 'package:base_app/presentations/pages/position/create_position.page.dart'
 import 'package:base_app/presentations/pages/position/update_position.page.dart';
 import 'package:base_app/presentations/pages/profile/update_profile.page.dart';
 import 'package:base_app/presentations/pages/register/register.page.dart';
-import 'package:base_app/presentations/pages/request/create_request/create_explanation.page.dart';
-import 'package:base_app/presentations/pages/request/create_request/create_room_meeting.dart';
-import 'package:base_app/presentations/pages/request/get_request/explanation_request.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/list_explanation_by_user.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/onleave_request.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/overtime_request.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/request.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/roommeeting_request.page.dart';
-import 'package:base_app/presentations/pages/request/update_request/request.update.page.dart';
 import 'package:base_app/presentations/pages/department/create_department.page.dart';
 import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps.dart';
 import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps_check.dart';
@@ -45,9 +46,7 @@ class AppRouters {
   AppRouters() : goRouter = _router;
 
   static GoRouter get _router => GoRouter(
-      routes: routerPages,
-      navigatorKey: dI<AppNavigation>().navigatorKey,
-      initialLocation: '/');
+      routes: routerPages, navigatorKey: dI<AppNavigation>().navigatorKey, initialLocation: '/');
 
   static List<GoRoute> routerPages = {
     Pages.main: mainPageRoute,
@@ -55,15 +54,6 @@ class AppRouters {
     Pages.login: loginPageRoute,
     Pages.register: registerPageRoute,
     Pages.home: homePageRoute,
-    Pages.requestDefault: requestDefaultPageRoute,
-    Pages.overTimeRequest: overTimeRequestPageRoute,
-    Pages.onLeaveRequest: onLeaveRequestPageRoute,
-    Pages.explanationRequest: explanationPageRoute,
-    Pages.getExplanationRequest: getExplanationRequestPageRoute,
-    Pages.requestUpdatePage: requestUpdatePageRoute,
-    Pages.createRoomMeetingPage: createRoomMeetingPageRoute,
-    Pages.listExplanationByUserPage: listExplanationByUserPageRoute,
-    Pages.roomMeetingRequestPageRoute: roomMeetingRequestPageRoute,
     Pages.createDepartmentPage: createDepartmentPageRoute,
     Pages.updateDepartmentPage: updateDepartmentPageRoute,
     Pages.informationDepartmentPage: informationDepartmentPageRoute,
@@ -74,14 +64,24 @@ class AppRouters {
     Pages.forgotPasswordPage: forgotPasswordPageRoute,
     Pages.updateNotesPage: updateNotePageRoute,
     Pages.changePasswordPage: changePasswordPageRoute,
-    Pages.updateProfilePage : updateProfilePageRoute,
-    Pages.layoutCalendarAttendanceHistoryPage : layoutCalendarAttendanceHistoryPageRoute,
-    Pages.historyAttendancePage : historyAttendancePageRoute,
+    Pages.updateProfilePage: updateProfilePageRoute,
+    Pages.layoutCalendarAttendanceHistoryPage: layoutCalendarAttendanceHistoryPageRoute,
+    Pages.historyAttendancePage: historyAttendancePageRoute,
     Pages.biometricRegister: registerBiometricPageRoute,
     Pages.timekeepingGPSPage: timekeepingGPSPageRoute,
     Pages.timekeepingGPSCheckPage: timekeepingGPSCheckPageRoute,
     Pages.requisitionListPage: requisitionListPageRoute,
-    Pages.seeRequisitionListPage: seeListRequisitionPageRoute,
-    Pages.requisitionInformationPage : requisitionInformationPageRoute,
+    Pages.seeRequestListPage: seeRequestListPageRoute,
+    Pages.requisitionInformationPage: requisitionInformationPageRoute,
+    Pages.createRequestPage: createRequestPageRoute,
+    Pages.createRequestExplanationPage: createRequestExplanationPageRoute,
+    Pages.createRequestLeavePage: createRequestLeavePageRoute,
+    Pages.pDFPage: pDFPageRoute,
+    Pages.createRequestBusinessPage: createRequestBusinessPageRoute,
+    Pages.createRequestPostalDeliveryPage: createRequestPostalDeliveryPageRoute,
+    Pages.createRequestVehicleDispatchPage: createRequestVehicleDispatchPageRoute,
+    Pages.createRequestStationeryOderPage: createRequestStationeryOderPageRoute,
+    Pages.createRequestReleaseOfWarehousePage: createRequestReleaseOfWarehousePageRoute,
+    Pages.requisitionApproveListPage : requisitionApproveListPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

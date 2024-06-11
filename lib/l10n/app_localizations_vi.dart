@@ -161,10 +161,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ok => 'OK';
 
   @override
-  String get cancel => 'HỦY BỎ';
+  String get cancel => 'Hủy';
 
   @override
-  String get create => 'KHỞI TẠO';
+  String get create => 'Khởi tạo';
 
   @override
   String get startTime => 'Bắt đầu';
@@ -714,4 +714,256 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get follower => 'Người theo dõi';
+
+  @override
+  String get totalDays => 'Tổng số ngày';
+
+  @override
+  String get accompanyingPerson => 'Người đi cùng';
+
+  @override
+  String get vehicle => 'Phương tiện';
+
+  @override
+  String get destination => 'Địa điểm';
+
+  @override
+  String get workingContent => 'Nội dung công tác';
+
+  @override
+  String get attach => 'Tệp đính kèm';
+
+  @override
+  String get workApplicationForm => 'Mẫu đơn từ';
+
+  @override
+  String get drivingTime => 'Thời gian điều xe';
+
+  @override
+  String get drive => 'Tài xế';
+
+  @override
+  String get carCaller => 'Người điều xe';
+
+  @override
+  String get walker => 'Người đi xe';
+
+  @override
+  String get schedule => 'Lịch trình';
+
+  @override
+  String get reasonForDriving => 'Lý do điều xe';
+
+  @override
+  String get shippingPurpose => 'Mục đích gửi';
+
+  @override
+  String get reason => 'Lý do';
+
+  @override
+  String get reasonForExplanation => 'Lý do giải trình';
+
+  @override
+  String get detailedDescription => 'Mô tả chi tiết';
+
+  @override
+  String get totalMinute => 'Số phút';
+
+  @override
+  String get leaveEarly => 'Xin về sớm';
+
+  @override
+  String get late => 'Xin đến muộn';
+
+  @override
+  String get leaveCorrection => 'Xin sửa đơn nghỉ';
+
+  @override
+  String get editTimekeeping => 'Xin sửa chấm công';
+
+  @override
+  String get replaceDay => 'Ngày làm bù';
+
+  @override
+  String get attachedFiles => 'Đính kèm';
+
+  @override
+  String get check => 'Kiểm tra';
+
+  @override
+  String get timeHasBeenRequestedInAdvance => 'Thời gian đã xin nghỉ trước';
+
+  @override
+  String get workDay => 'Ngày công';
+
+  @override
+  String get annualLeave => 'Phép năm';
+
+  @override
+  String get compensatoryLeave => 'Nghỉ bù';
+
+  @override
+  String get sickLeave => 'Nghỉ bệnh';
+
+  @override
+  String get intervalOnLeave => 'Thời gian nghỉ';
+
+  @override
+  String get substitute => 'Người giải quyết công việc thay trong thời gian nghỉ';
+
+  @override
+  String get pdf => 'PDF';
+
+  @override
+  String get detailedReason => 'Lý do chi tiết';
+
+  @override
+  String get otherPaidLeave => 'Nghỉ hưởng lương khác';
+
+  @override
+  String get leaveWithoutPay => 'Nghỉ không lương';
+
+  @override
+  String get permissionBiometric => 'Bạn chưa cấp quyền xác thực sinh trắc học cho ứng dụng, vui lòng cấp quyền!';
+
+  @override
+  String get transferType => 'Loại chuyển phát';
+
+  @override
+  String get often => 'Thường';
+
+  @override
+  String get superSpeed => 'Siêu tốc';
+
+  @override
+  String get sendingPurpose => 'Mục đích gửi';
+
+  @override
+  String get notePostalDelivery => 'Lưu ý: Để tiết kiệm chi phí, chỉ sử dụng dịch vụ chuyển phát NHANH khi thật sự cần thiết';
+
+  @override
+  String get explain => 'Diễn giải';
+
+  @override
+  String get unitPrice => 'Đơn giá(chưa VAT)';
+
+  @override
+  String get numberOf => 'Số lượng';
+
+  @override
+  String get intoMoney => 'Thành tiền';
+
+  @override
+  String get moreOfficeProducts => 'Thêm văn phòng phẩm';
+
+  @override
+  String get unit => 'Đơn vị';
+
+  @override
+  String get pieces => 'Chiếc';
+
+  @override
+  String get rolls => 'Cuộn';
+
+  @override
+  String get boxes => 'Hộp';
+
+  @override
+  String get jars => 'Lọ';
+
+  @override
+  String get books => 'Quyển';
+
+  @override
+  String get reams => 'Ram';
+
+  @override
+  String get volumes => 'Tập';
+
+  @override
+  String get bags => 'Túi';
+
+  @override
+  String get blisters => 'Vỉ';
+
+  @override
+  String get pairs => 'Đôi';
+
+  @override
+  String get stationeryList => 'Danh sách văn phòng phẩm';
+
+  @override
+  String get product => 'Sản phẩm';
+
+  @override
+  String get addProducts => 'Thêm sản phẩm';
+
+  @override
+  String get car => 'Ô tô';
+
+  @override
+  String get bike => 'Xe đạp';
+
+  @override
+  String get motorbike => 'Xe máy';
+
+  @override
+  String get tram => 'Xe điện';
+
+  @override
+  String get vehicleType => 'Loại phương tiện';
+
+  @override
+  String get licensePlate => 'Biển số xe';
+
+  @override
+  String get autoMaker => 'Hãng sản xuất';
+
+  @override
+  String get refuse => 'Từ chối';
+
+  @override
+  String get process => 'Chờ duyệt';
+
+  @override
+  String get edit => 'Yêu cầu chỉnh sửa';
+
+  @override
+  String get overdueEdit => 'Quá hạn chỉnh sửa';
+
+  @override
+  String get overdueApprove => 'Quá hạn phê duyệt';
+
+  @override
+  String get newStatus => 'Mới';
+
+  @override
+  String get standard => 'Giao hàng tiêu chuẩn';
+
+  @override
+  String get express => 'Giao hàng nhanh';
+
+  @override
+  String get sameDay => 'Giao hàng trong ngày';
+
+  @override
+  String get overnight => 'Giao hàng qua đêm';
+
+  @override
+  String get twoDay => 'Giao hàng trong hai ngày';
+
+  @override
+  String get economy => 'Giao hàng tiết kiệm';
+
+  @override
+  String get rush => 'Giao hàng hỏa tốc';
+
+  @override
+  String get scheduled => 'Giao hàng theo lịch hẹn';
+
+  @override
+  String get core => 'Chính';
+
+  @override
+  String get noBrowsingFlowYet => 'Chưa có luồng duyệt';
 }

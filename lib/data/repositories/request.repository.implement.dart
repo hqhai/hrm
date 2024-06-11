@@ -23,9 +23,7 @@ import 'package:base_app/data/models/request/room_meeting/delete_room_meeting.da
 import 'package:base_app/data/models/request/room_meeting/update_room_meeting.dart';
 import 'package:base_app/data/models/request/update_request_request.dart';
 import 'package:base_app/data/models/request/upload_file.dart';
-import 'package:base_app/data/models/response/get_request_by_user.dart';
-
-import 'package:base_app/domain/entities/request.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/repositories/request.repository.dart';
@@ -63,7 +61,7 @@ class RequestRepositoryImplement extends RequestRepository {
   }
 
   @override
-  Future<GetRequestByUserResponse> getRequest(String status, int page) async {
+  Future<int> getRequest(String status, int page) async {
     return await requestService.getRequest(GetRequestRequest(status: status, page: page));
   }
 

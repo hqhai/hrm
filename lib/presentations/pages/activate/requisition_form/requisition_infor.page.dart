@@ -1,12 +1,18 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/requisition.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
+import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_attach.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_general_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_sender_information.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -19,21 +25,30 @@ final requisitionInformationPageRoute = GoRoute(
       Map data = state.extra as Map;
       return RequisitionInformationPage(
         requisition: data['requisition'],
+        checkUser: data['checkUser'],
       );
     });
 
 class RequisitionInformationPage extends StatefulWidget {
   const RequisitionInformationPage(
       {super.key,
-      this.requisition = const Requisition(id: "", type: RequisitionTypeEnum.postalDelivery)});
+      this.requisition = const Request(id: "",),
+      this.checkUser = false});
 
-  final Requisition requisition;
+  final Request requisition;
+  final bool checkUser;
 
   @override
   State<RequisitionInformationPage> createState() => _RequisitionInformationPageState();
 }
 
 class _RequisitionInformationPageState extends State<RequisitionInformationPage> {
+  @override
+  void initState() {
+    dI<RequisitionBloc>().add(GetRequisitionByIdEvent(requisition: widget.requisition));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -45,9 +60,9 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
             title: Center(
               child: Column(
                 children: [
-                  Text(widget.requisition.type.configTypeName,
+                  Text(state.requisition.flowId?? "",
                       style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
-                  Text('${appLocalizations.applicationCode} : ${widget.requisition.id}',
+                  Text('${appLocalizations.applicationCode} : ${state.requisition.id}',
                       style: TextStyle(color: colors.surfaceVariantHigh, fontSize: SpacingUnit.x3)),
                 ],
               ),
@@ -73,12 +88,45 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RequisitionInformationSenderInformation(
-                    creator: widget.requisition.creator ?? "",
-                    creatorId: widget.requisition.creatorId ?? "",
-                    position: widget.requisition.position ?? "",
-                    department: widget.requisition.department ?? "",
-                  ),
+                  const RequisitionInformationSenderInformation(),
+                  const RequisitionInformationGeneraliInformation(),
+                  const RequisitionInformationType(),
+                  const RequisitionInformationAttach(),
+                  if (state.requisition.status == StatusRequestEnum.process &&
+                      !widget.checkUser)
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: ButtonItemListRequisition(
+                            check: true, title: appLocalizations.delete, callback: () {})),
+                  if (state.requisition.status == StatusRequestEnum.edit &&
+                      !widget.checkUser)
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: ButtonItemListRequisition(
+                            check: true, title: appLocalizations.update, callback: () {})),
+                  if (state.requisition.status == StatusRequestEnum.process && widget.checkUser)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ButtonItemListRequisition(
+                          title: appLocalizations.approver,
+                          callback: () {},
+                        ),
+                        ButtonItemListRequisition(
+                          title: appLocalizations.refuse,
+                          callback: () {},
+                        ),
+                        ButtonItemListRequisition(
+                          title: appLocalizations.modification,
+                          callback: () {},
+                        ),
+                      ],
+                    ),
+                  if (state.requisition.status == StatusRequestEnum.approve && widget.checkUser)
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: ButtonItemListRequisition(
+                            check: true, title: appLocalizations.cancel, callback: () {})),
                 ],
               ),
             ),

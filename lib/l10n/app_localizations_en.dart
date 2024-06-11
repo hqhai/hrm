@@ -714,4 +714,256 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get follower => 'Follower';
+
+  @override
+  String get totalDays => 'Total days';
+
+  @override
+  String get accompanyingPerson => 'Accompanying person';
+
+  @override
+  String get vehicle => 'Vehicle';
+
+  @override
+  String get destination => 'Destination';
+
+  @override
+  String get workingContent => 'Working content';
+
+  @override
+  String get attach => 'Attach';
+
+  @override
+  String get workApplicationForm => 'Work application form';
+
+  @override
+  String get drivingTime => 'Driving time';
+
+  @override
+  String get drive => 'Drive';
+
+  @override
+  String get carCaller => 'Car caller';
+
+  @override
+  String get walker => 'Walker';
+
+  @override
+  String get schedule => 'Schedule';
+
+  @override
+  String get reasonForDriving => 'Reason for driving';
+
+  @override
+  String get shippingPurpose => 'Shipping purpose';
+
+  @override
+  String get reason => 'Reason';
+
+  @override
+  String get reasonForExplanation => 'Reason for explanation';
+
+  @override
+  String get detailedDescription => 'Detailed description';
+
+  @override
+  String get totalMinute => 'Total minute';
+
+  @override
+  String get leaveEarly => 'Get off work early';
+
+  @override
+  String get late => 'Late timekeeping';
+
+  @override
+  String get leaveCorrection => 'Requisition of leave correction';
+
+  @override
+  String get editTimekeeping => 'Edit timekeeping';
+
+  @override
+  String get replaceDay => 'replace day';
+
+  @override
+  String get attachedFiles => 'Attached files';
+
+  @override
+  String get check => 'Check';
+
+  @override
+  String get timeHasBeenRequestedInAdvance => 'Time has been requested in advance';
+
+  @override
+  String get workDay => 'Work date';
+
+  @override
+  String get annualLeave => 'Annual leave';
+
+  @override
+  String get compensatoryLeave => 'Compensatory leave';
+
+  @override
+  String get sickLeave => 'Sick leave';
+
+  @override
+  String get intervalOnLeave => 'Interval on leave';
+
+  @override
+  String get substitute => 'The person handling the work takes over during the break';
+
+  @override
+  String get pdf => 'PDF';
+
+  @override
+  String get detailedReason => 'Detailed reason';
+
+  @override
+  String get otherPaidLeave => 'Other paid leave';
+
+  @override
+  String get leaveWithoutPay => 'Leave without pay';
+
+  @override
+  String get permissionBiometric => 'You have not granted biometric authentication permission to the app, please grant permission!';
+
+  @override
+  String get transferType => 'Transfer Type';
+
+  @override
+  String get often => 'Often';
+
+  @override
+  String get superSpeed => 'Super speed';
+
+  @override
+  String get sendingPurpose => 'Sending purpose';
+
+  @override
+  String get notePostalDelivery => 'Note: To save costs, only use the FAST delivery service when absolutely necessary';
+
+  @override
+  String get explain => 'Explain';
+
+  @override
+  String get unitPrice => 'Unit price (excluding VAT)';
+
+  @override
+  String get numberOf => 'Number of';
+
+  @override
+  String get intoMoney => 'Into money';
+
+  @override
+  String get moreOfficeProducts => 'More office products';
+
+  @override
+  String get unit => 'Unit';
+
+  @override
+  String get pieces => 'Pieces';
+
+  @override
+  String get rolls => 'rolls';
+
+  @override
+  String get boxes => 'boxes';
+
+  @override
+  String get jars => 'jars';
+
+  @override
+  String get books => 'books';
+
+  @override
+  String get reams => 'reams';
+
+  @override
+  String get volumes => 'volumes';
+
+  @override
+  String get bags => 'Bags';
+
+  @override
+  String get blisters => 'blisters';
+
+  @override
+  String get pairs => 'Pairs';
+
+  @override
+  String get stationeryList => 'Stationery list';
+
+  @override
+  String get product => 'Product';
+
+  @override
+  String get addProducts => 'Add products';
+
+  @override
+  String get car => 'Car';
+
+  @override
+  String get bike => 'Bike';
+
+  @override
+  String get motorbike => 'Motorbike';
+
+  @override
+  String get tram => 'Tram';
+
+  @override
+  String get vehicleType => 'Vehicle type';
+
+  @override
+  String get licensePlate => 'License plate';
+
+  @override
+  String get autoMaker => 'Auto maker';
+
+  @override
+  String get refuse => 'Refuse';
+
+  @override
+  String get process => 'Process';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get overdueEdit => 'Overdue edit';
+
+  @override
+  String get overdueApprove => 'Overdue approve';
+
+  @override
+  String get newStatus => 'New';
+
+  @override
+  String get standard => 'Standard';
+
+  @override
+  String get express => 'Express';
+
+  @override
+  String get sameDay => 'Same Day';
+
+  @override
+  String get overnight => 'Overnight';
+
+  @override
+  String get twoDay => 'Two Day';
+
+  @override
+  String get economy => 'Economy';
+
+  @override
+  String get rush => 'Rush';
+
+  @override
+  String get scheduled => 'Scheduled';
+
+  @override
+  String get core => 'Core';
+
+  @override
+  String get noBrowsingFlowYet => 'No browsing flow yet';
 }

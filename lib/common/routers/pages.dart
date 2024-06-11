@@ -30,6 +30,18 @@ class Pages {
   static const String timekeepingGPSPage = '/timekeepingGPSPage';
   static const String timekeepingGPSCheckPage = '/timekeepingGPSCheckPage';
   static const String requisitionListPage = '/requisitionListPage';
-  static const String seeRequisitionListPage = '/seeRequisitionListPage';
+  static const String seeRequestListPage = '/seeRequestListPage';
   static const String requisitionInformationPage = '/requisitionInformationPage';
+  static const String createRequestExplanationPage = '/createRequestExplanationPage';
+  static const String createRequestPage = '/createRequestPage';
+  static const String createRequestLeavePage = '/createRequestLeavePage';
+  static const String pDFPage = '/pDFPage';
+  static const String createRequestBusinessPage = '/createRequestBusinessPage';
+  static const String createRequestVehicleDispatchPage =
+      '/createRequestVehicleDispatchPage';
+  static const String createRequestPostalDeliveryPage = '/createRequestPostalDeliveryPage';
+  static const String createRequestStationeryOderPage = '/createRequestStationeryOderPage';
+  static const String createRequestReleaseOfWarehousePage =
+      '/createRequestReleaseOfWarehousePage';
+  static const String requisitionApproveListPage = '/requisitionApproveListPage';
 }

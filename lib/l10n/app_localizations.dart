@@ -1514,6 +1514,510 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Follower'**
   String get follower;
+
+  /// No description provided for @totalDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Total days'**
+  String get totalDays;
+
+  /// No description provided for @accompanyingPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Accompanying person'**
+  String get accompanyingPerson;
+
+  /// No description provided for @vehicle.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle'**
+  String get vehicle;
+
+  /// No description provided for @destination.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination'**
+  String get destination;
+
+  /// No description provided for @workingContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Working content'**
+  String get workingContent;
+
+  /// No description provided for @attach.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach'**
+  String get attach;
+
+  /// No description provided for @workApplicationForm.
+  ///
+  /// In en, this message translates to:
+  /// **'Work application form'**
+  String get workApplicationForm;
+
+  /// No description provided for @drivingTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Driving time'**
+  String get drivingTime;
+
+  /// No description provided for @drive.
+  ///
+  /// In en, this message translates to:
+  /// **'Drive'**
+  String get drive;
+
+  /// No description provided for @carCaller.
+  ///
+  /// In en, this message translates to:
+  /// **'Car caller'**
+  String get carCaller;
+
+  /// No description provided for @walker.
+  ///
+  /// In en, this message translates to:
+  /// **'Walker'**
+  String get walker;
+
+  /// No description provided for @schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get schedule;
+
+  /// No description provided for @reasonForDriving.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for driving'**
+  String get reasonForDriving;
+
+  /// No description provided for @shippingPurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'Shipping purpose'**
+  String get shippingPurpose;
+
+  /// No description provided for @reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get reason;
+
+  /// No description provided for @reasonForExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for explanation'**
+  String get reasonForExplanation;
+
+  /// No description provided for @detailedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed description'**
+  String get detailedDescription;
+
+  /// No description provided for @totalMinute.
+  ///
+  /// In en, this message translates to:
+  /// **'Total minute'**
+  String get totalMinute;
+
+  /// No description provided for @leaveEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Get off work early'**
+  String get leaveEarly;
+
+  /// No description provided for @late.
+  ///
+  /// In en, this message translates to:
+  /// **'Late timekeeping'**
+  String get late;
+
+  /// No description provided for @leaveCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Requisition of leave correction'**
+  String get leaveCorrection;
+
+  /// No description provided for @editTimekeeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit timekeeping'**
+  String get editTimekeeping;
+
+  /// No description provided for @replaceDay.
+  ///
+  /// In en, this message translates to:
+  /// **'replace day'**
+  String get replaceDay;
+
+  /// No description provided for @attachedFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Attached files'**
+  String get attachedFiles;
+
+  /// No description provided for @check.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get check;
+
+  /// No description provided for @timeHasBeenRequestedInAdvance.
+  ///
+  /// In en, this message translates to:
+  /// **'Time has been requested in advance'**
+  String get timeHasBeenRequestedInAdvance;
+
+  /// No description provided for @workDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Work date'**
+  String get workDay;
+
+  /// No description provided for @annualLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual leave'**
+  String get annualLeave;
+
+  /// No description provided for @compensatoryLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Compensatory leave'**
+  String get compensatoryLeave;
+
+  /// No description provided for @sickLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Sick leave'**
+  String get sickLeave;
+
+  /// No description provided for @intervalOnLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Interval on leave'**
+  String get intervalOnLeave;
+
+  /// No description provided for @substitute.
+  ///
+  /// In en, this message translates to:
+  /// **'The person handling the work takes over during the break'**
+  String get substitute;
+
+  /// No description provided for @pdf.
+  ///
+  /// In en, this message translates to:
+  /// **'PDF'**
+  String get pdf;
+
+  /// No description provided for @detailedReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed reason'**
+  String get detailedReason;
+
+  /// No description provided for @otherPaidLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Other paid leave'**
+  String get otherPaidLeave;
+
+  /// No description provided for @leaveWithoutPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave without pay'**
+  String get leaveWithoutPay;
+
+  /// No description provided for @permissionBiometric.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not granted biometric authentication permission to the app, please grant permission!'**
+  String get permissionBiometric;
+
+  /// No description provided for @transferType.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer Type'**
+  String get transferType;
+
+  /// No description provided for @often.
+  ///
+  /// In en, this message translates to:
+  /// **'Often'**
+  String get often;
+
+  /// No description provided for @superSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Super speed'**
+  String get superSpeed;
+
+  /// No description provided for @sendingPurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending purpose'**
+  String get sendingPurpose;
+
+  /// No description provided for @notePostalDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: To save costs, only use the FAST delivery service when absolutely necessary'**
+  String get notePostalDelivery;
+
+  /// No description provided for @explain.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain'**
+  String get explain;
+
+  /// No description provided for @unitPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit price (excluding VAT)'**
+  String get unitPrice;
+
+  /// No description provided for @numberOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of'**
+  String get numberOf;
+
+  /// No description provided for @intoMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Into money'**
+  String get intoMoney;
+
+  /// No description provided for @moreOfficeProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'More office products'**
+  String get moreOfficeProducts;
+
+  /// No description provided for @unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get unit;
+
+  /// No description provided for @pieces.
+  ///
+  /// In en, this message translates to:
+  /// **'Pieces'**
+  String get pieces;
+
+  /// No description provided for @rolls.
+  ///
+  /// In en, this message translates to:
+  /// **'rolls'**
+  String get rolls;
+
+  /// No description provided for @boxes.
+  ///
+  /// In en, this message translates to:
+  /// **'boxes'**
+  String get boxes;
+
+  /// No description provided for @jars.
+  ///
+  /// In en, this message translates to:
+  /// **'jars'**
+  String get jars;
+
+  /// No description provided for @books.
+  ///
+  /// In en, this message translates to:
+  /// **'books'**
+  String get books;
+
+  /// No description provided for @reams.
+  ///
+  /// In en, this message translates to:
+  /// **'reams'**
+  String get reams;
+
+  /// No description provided for @volumes.
+  ///
+  /// In en, this message translates to:
+  /// **'volumes'**
+  String get volumes;
+
+  /// No description provided for @bags.
+  ///
+  /// In en, this message translates to:
+  /// **'Bags'**
+  String get bags;
+
+  /// No description provided for @blisters.
+  ///
+  /// In en, this message translates to:
+  /// **'blisters'**
+  String get blisters;
+
+  /// No description provided for @pairs.
+  ///
+  /// In en, this message translates to:
+  /// **'Pairs'**
+  String get pairs;
+
+  /// No description provided for @stationeryList.
+  ///
+  /// In en, this message translates to:
+  /// **'Stationery list'**
+  String get stationeryList;
+
+  /// No description provided for @product.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get product;
+
+  /// No description provided for @addProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Add products'**
+  String get addProducts;
+
+  /// No description provided for @car.
+  ///
+  /// In en, this message translates to:
+  /// **'Car'**
+  String get car;
+
+  /// No description provided for @bike.
+  ///
+  /// In en, this message translates to:
+  /// **'Bike'**
+  String get bike;
+
+  /// No description provided for @motorbike.
+  ///
+  /// In en, this message translates to:
+  /// **'Motorbike'**
+  String get motorbike;
+
+  /// No description provided for @tram.
+  ///
+  /// In en, this message translates to:
+  /// **'Tram'**
+  String get tram;
+
+  /// No description provided for @vehicleType.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle type'**
+  String get vehicleType;
+
+  /// No description provided for @licensePlate.
+  ///
+  /// In en, this message translates to:
+  /// **'License plate'**
+  String get licensePlate;
+
+  /// No description provided for @autoMaker.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto maker'**
+  String get autoMaker;
+
+  /// No description provided for @refuse.
+  ///
+  /// In en, this message translates to:
+  /// **'Refuse'**
+  String get refuse;
+
+  /// No description provided for @process.
+  ///
+  /// In en, this message translates to:
+  /// **'Process'**
+  String get process;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @overdueEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue edit'**
+  String get overdueEdit;
+
+  /// No description provided for @overdueApprove.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue approve'**
+  String get overdueApprove;
+
+  /// No description provided for @newStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newStatus;
+
+  /// No description provided for @standard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get standard;
+
+  /// No description provided for @express.
+  ///
+  /// In en, this message translates to:
+  /// **'Express'**
+  String get express;
+
+  /// No description provided for @sameDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Same Day'**
+  String get sameDay;
+
+  /// No description provided for @overnight.
+  ///
+  /// In en, this message translates to:
+  /// **'Overnight'**
+  String get overnight;
+
+  /// No description provided for @twoDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Two Day'**
+  String get twoDay;
+
+  /// No description provided for @economy.
+  ///
+  /// In en, this message translates to:
+  /// **'Economy'**
+  String get economy;
+
+  /// No description provided for @rush.
+  ///
+  /// In en, this message translates to:
+  /// **'Rush'**
+  String get rush;
+
+  /// No description provided for @scheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled'**
+  String get scheduled;
+
+  /// No description provided for @core.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
+  String get core;
+
+  /// No description provided for @noBrowsingFlowYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No browsing flow yet'**
+  String get noBrowsingFlowYet;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

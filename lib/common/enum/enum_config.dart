@@ -42,6 +42,9 @@ enum UserStatus {
   getUsersByRoleInit,
   getUsersByRoleSuccess,
   getUsersByRoleError,
+  getUsersByNameInit,
+  getUsersByNameSuccess,
+  getUsersByNameError,
   changePasswordInit,
   changePasswordSuccess,
   changePasswordError,
@@ -93,7 +96,7 @@ enum RegisterRequestStatus {
   registerError,
 }
 
-enum DepartmentStatus{
+enum DepartmentStatus {
   init,
   createDepartmentInit,
   createDepartmentSuccess,
@@ -112,7 +115,7 @@ enum DepartmentStatus{
   getDepartmentByIdError,
 }
 
-enum PositionStatus{
+enum PositionStatus {
   init,
   createPositionInit,
   createPositionSuccess,
@@ -131,7 +134,7 @@ enum PositionStatus{
   getPositionByIdError,
 }
 
-enum PersonnelStatus{
+enum PersonnelStatus {
   init,
   createPersonnelInit,
   createPersonnelSuccess,
@@ -150,7 +153,7 @@ enum PersonnelStatus{
   getPersonnelByIdError,
 }
 
-enum CheckInSettingStatus{
+enum CheckInSettingStatus {
   init,
   createCheckInSettingInit,
   createCheckInSettingSuccess,
@@ -169,7 +172,7 @@ enum CheckInSettingStatus{
   getCheckInSettingByIdError,
 }
 
-enum NoteStatus{
+enum NoteStatus {
   init,
   error,
   createNoteInit,
@@ -194,7 +197,7 @@ enum NoteStatus{
   reset,
 }
 
-enum AddressStatus{
+enum AddressStatus {
   init,
   getProvincesInit,
   getProvincesSuccess,
@@ -216,16 +219,19 @@ enum AddressStatus{
   getWardsByKeyError,
 }
 
-enum BiometricEnum{
+enum BiometricEnum {
   haveRegistration,
   notRegistered,
 }
 
-enum RequisitionEnum{
+enum RequisitionEnum {
   init,
   getRequisitionInit,
   getRequisitionSuccess,
   getRequisitionError,
+  postRequisitionInit,
+  postRequisitionSuccess,
+  postRequisitionError,
   getRequisitionsInit,
   getRequisitionsSuccess,
   getRequisitionsError,

@@ -1,6 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/data/models/register/register_request.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
+import 'package:base_app/data/models/user/search/search_user_by_name_response.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/repositories/user.repositories.dart';
 import 'package:base_app/domain/use_cases/user_usecase.dart';
@@ -49,6 +50,11 @@ class UserUseCaseImpl extends UserUseCase {
   @override
   Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
     return await _userRepository.updateProfile(updateProfileRequest: updateProfileRequest);
+  }
+
+  @override
+  Future<SearchUserByNameResponse> getUserByFullName({required String fullName, int? page}) async {
+    return await _userRepository.getUserByFullName(fullName: fullName, page: page);
   }
 
 }

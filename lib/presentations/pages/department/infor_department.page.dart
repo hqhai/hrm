@@ -39,7 +39,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
   }
 
   String _parent(DepartmentState state) {
-    return state.departments.where((e) => e.parentId == state.department.parentId).first.name;
+    return state.departments.where((e) => e.parentId == state.department.parentId).first.name ?? "";
   }
 
   @override
@@ -72,7 +72,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
                     style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(
-                  state.department.name,
+                  state.department.name ?? "",
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
@@ -80,7 +80,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
                     style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(
-                  state.department.phoneNumber,
+                  state.department.phoneNumber ?? "",
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
@@ -88,7 +88,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
                     style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(
-                  state.department.email,
+                  state.department.email ?? "",
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
@@ -96,7 +96,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
                     style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(
-                  state.department.address,
+                  state.department.address ?? "",
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
                 ),
                 const SizedBox(height: SpacingUnit.x2),

@@ -6,20 +6,18 @@ part 'requisition_business_trip.g.dart';
 @CopyWith()
 @JsonSerializable()
 class RequisitionBusinessTrip {
-  final String? startTime;
-  final String? endTime;
-  final int? numberDays;
-  final String? accompanyingPerson;
-  final String? vehicle;
-  final String? destination;
+  final String? startDate;
+  final String? endDate;
+  final int? totalTime;
   final String? content;
+  final List<String>? substitutePersons;
+  final String? vehicle;
 
   const RequisitionBusinessTrip({
-    this.startTime,
-    this.endTime,
-    this.numberDays,
-    this.accompanyingPerson,
-    this.destination,
+    this.startDate,
+    this.endDate,
+    this.totalTime,
+    this.substitutePersons,
     this.vehicle,
     this.content,
   });

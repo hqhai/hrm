@@ -6,8 +6,8 @@ import 'package:themes/themes.dart';
 
 class WrapFilter extends StatefulWidget {
   const WrapFilter({super.key, this.listFilter = const [], required this.onChange,});
-  final List<StatusRequisitionEnum> listFilter;
-  final ValueChanged<StatusRequisitionEnum> onChange;
+  final List<StatusRequestEnum> listFilter;
+  final ValueChanged<StatusRequestEnum> onChange;
 
   @override
   State<WrapFilter> createState() => _WrapFilterState();
@@ -42,7 +42,7 @@ class _WrapFilterState extends State<WrapFilter> {
             child: Row(
               children: [
                 Text(
-                  e.configStatusName,
+                  e.configRequestStatusName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -68,7 +68,7 @@ class _WrapFilterState extends State<WrapFilter> {
     );
   }
 
-  removeListFilter(StatusRequisitionEnum e) {
+  removeListFilter(StatusRequestEnum e) {
     widget.onChange.call(e);
   }
 }

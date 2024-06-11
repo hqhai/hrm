@@ -13,19 +13,6 @@ enum TypeRequestStatus {
   const TypeRequestStatus(this.name);
 }
 
-enum StatusRequestStatus {
-  pending('Pending'),
-  reject('Reject'),
-  subsequentApproval('SubsequentApproval'),
-  doing('Doing'),
-  done('Done'),
-  cancel('Cancel');
-
-  final String name;
-
-  const StatusRequestStatus(this.name);
-}
-
 enum PriorityRequestStatus {
   high('High'),
   medium('Medium'),
@@ -35,10 +22,6 @@ enum PriorityRequestStatus {
 
   const PriorityRequestStatus(this.name);
 }
-
-
-
-
 enum ParentId {
   aG('Atlantic group'),
   fsel('Five-star E-Learning');

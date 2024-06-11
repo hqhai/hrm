@@ -21,6 +21,7 @@ import 'package:base_app/presentations/pages/profile/item_date_of_birth_update_p
 import 'package:base_app/presentations/pages/profile/item_input_update_profile.dart';
 import 'package:base_app/presentations/pages/profile/item_constant_update_profile.dart';
 import 'package:base_app/presentations/pages/profile/item_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_vehicle_update_profile.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/update_profile_dialog.dart';
@@ -46,10 +47,11 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  String? dateOfBirth, phoneNumber, address, firstName, lastName;
+  String? dateOfBirth, phoneNumber, address, firstName, lastName, licensePlate, autoMaker;
   Address? province, ward, district;
   File file = File('');
   GenderEnum? gender = GenderEnum.male;
+  VehicleTypeEnum? vehicleType = VehicleTypeEnum.car;
 
   @override
   void initState() {
@@ -68,6 +70,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         ward = Address(name: state.user.residentWard, id: state.user.residentWardId);
         district = Address(name: state.user.residentDistrict, id: state.user.residentDistrictId);
         address = state.user.residentAddress;
+        vehicleType = state.user.vehicleType;
+        licensePlate = state.user.licensePlate;
+        autoMaker = state.user.autoMaker;
       });
     }
     if (state.status == UserStatus.updateProfileInit) {
@@ -131,6 +136,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             title: appLocalizations.companyEmail,
                             content: state.user.companyEmail ?? ''),
                         ItemDateOfBirthUpdateProfile(
+                          title: appLocalizations.dateOfBirth,
                           dateOfBirth: formatDMY(
                             state.user.dayOfBirth ?? '',
                           ),
@@ -181,6 +187,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                   .toList()
                               : [],
                         ),
+                        ItemVehicleUpdateProfile(
+                          vehicle: state.user.vehicleType ?? VehicleTypeEnum.car,
+                          onChangeVehicle: (value) => _onChangeVehicle(value),
+                        ),
+                        ItemInputUpdateProfile(
+                          title: appLocalizations.licensePlate,
+                          content: state.user.licensePlate ?? "",
+                          onChange: (value) => _setLicensePlate(value),
+                        ),
+                        ItemInputUpdateProfile(
+                          title: appLocalizations.autoMaker,
+                          content: state.user.autoMaker ?? "",
+                          onChange: (value) => _setAutoMaker(value),
+                        ),
                       ],
                     ),
                   ),
@@ -223,6 +243,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       residentWardId: ward?.id ?? state.user.residentWardId,
       residentAddress: address ?? state.user.residentAddress,
       avatarPath: state.user.avatarPath ?? "",
+      autoMaker: autoMaker ?? state.user.autoMaker ?? "",
+      licensePlate: licensePlate ?? state.user.licensePlate ?? "",
+      vehicleType: vehicleType?.name ?? state.user.vehicleType?.name ?? "",
     );
     if (isCheckOnClick(state)) {
       updateProfileDialog(
@@ -244,7 +267,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         district?.id == state.user.residentDistrictId &&
         address == state.user.residentAddress &&
         gender == state.user.gender &&
-        file.path == '';
+        file.path == '' &&
+        autoMaker == state.user.autoMaker &&
+        licensePlate == state.user.licensePlate &&
+        vehicleType == state.user.vehicleType;
     bool check = regExpPhoneNumber.hasMatch(phoneNumber ?? "") &&
         firstName != '' &&
         lastName != '' &&
@@ -310,6 +336,24 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   _setDateOfBirth(String value) {
     setState(() {
       dateOfBirth = formatYMD(value);
+    });
+  }
+
+  _onChangeVehicle(VehicleTypeEnum value) {
+    setState(() {
+      vehicleType = value;
+    });
+  }
+
+  _setLicensePlate(String value) {
+    setState(() {
+      licensePlate = value;
+    });
+  }
+
+  _setAutoMaker(String value) {
+    setState(() {
+      autoMaker = value;
     });
   }
 }

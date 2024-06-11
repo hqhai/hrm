@@ -17,8 +17,7 @@ import 'package:base_app/data/models/request/room_meeting/delete_room_meeting.da
 import 'package:base_app/data/models/request/room_meeting/update_room_meeting.dart';
 import 'package:base_app/data/models/request/update_request_request.dart';
 import 'package:base_app/data/models/request/upload_file.dart';
-import 'package:base_app/data/models/response/get_request_by_user.dart';
-import 'package:base_app/domain/entities/request.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/services/request.service.dart';
@@ -81,18 +80,8 @@ class RequestServiceImpl extends BaseService implements RequestService {
   }
 
   @override
-  Future<GetRequestByUserResponse> getRequest(GetRequestRequest getRequestRequest) async {
-    final url = '$baseUrl${PathConfig.getRequests}';
-    final params = getRequestRequest.toJson();
-    final response = await client.get(url, params: params);
-    final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data1 = responseBase.result['items'];
-    final data2 = responseBase.result['pagingInfo']['totalItems'];
-    List<Request> requests =
-        (data1 as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
-    GetRequestByUserResponse getRequestByUserResponse =
-        GetRequestByUserResponse(requests: requests, totalItems: data2);
-    return getRequestByUserResponse;
+  Future<int> getRequest(GetRequestRequest getRequestRequest) async {
+    return 0;
   }
 
   @override

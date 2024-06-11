@@ -36,7 +36,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   bool checkOpacity = false;
   var random = Random();
 
-  List<StatusRequisitionEnum> listFilter = [];
+  List<StatusRequestEnum> listFilter = [];
 
   @override
   void initState() {
@@ -165,13 +165,13 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     });
   }
 
-  removeListFilter(StatusRequisitionEnum e) {
+  removeListFilter(StatusRequestEnum e) {
     setState(() {
       listFilter.remove(e);
     });
   }
 
-  setlLstFilter(List<StatusRequisitionEnum> statuses) {
+  setlLstFilter(List<StatusRequestEnum> statuses) {
     setState(() {
       listFilter = statuses;
     });

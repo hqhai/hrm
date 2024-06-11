@@ -18,7 +18,7 @@ class _ItemDropdownDepartmentState extends State<ItemDropdownDepartment> {
   String departmentName = '';
 
   _listenerDepartment(BuildContext context, DepartmentState state) {
-    departmentName = state.departments.map((e) => e.name).toList().first;
+    departmentName = state.departments.map((e) => e.name??"").toList().first;
   }
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _ItemDropdownDepartmentState extends State<ItemDropdownDepartment> {
             initialSelection: departmentName,
             onSelected: (String? value) => _select(value),
             dropdownMenuEntries: state.departments
-                .map((e) => e.name)
+                .map((e) => e.name??"")
                 .toList()
                 .map<DropdownMenuEntry<String>>((String value) {
               return DropdownMenuEntry<String>(value: value, label: value);

@@ -13,6 +13,9 @@ class UpdateProfileRequest {
   final String gender;
   final String? phoneNumber;
   final String? avatarPath;
+  final String? vehicleType;
+  final String? licensePlate;
+  final String? autoMaker;
   final String? residentProvince;
   final String? residentProvinceId;
   final String? residentAddress;
@@ -29,6 +32,9 @@ class UpdateProfileRequest {
     required this.gender,
     this.phoneNumber,
     this.avatarPath,
+    this.vehicleType,
+    this.licensePlate,
+    this.autoMaker,
     this.residentProvince,
     this.residentProvinceId,
     this.residentAddress,

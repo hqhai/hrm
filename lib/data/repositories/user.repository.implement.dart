@@ -4,6 +4,8 @@ import 'package:base_app/data/models/request/change_password/change_password_req
 import 'package:base_app/data/models/request/get_list_user_by_role/get_list_user_by_role.dart';
 import 'package:base_app/data/models/user/forgot_password_request.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
+import 'package:base_app/data/models/user/search/search_user_by_name_request.dart';
+import 'package:base_app/data/models/user/search/search_user_by_name_response.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/repositories/user.repositories.dart';
 import 'package:base_app/domain/services/user.service.dart';
@@ -31,7 +33,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<List<User>> getUserByRole({required String role}) async {
     final List<User> users =
-        await userService.getUserByRole(getListUserByRole: GetListUserByRole(role: role));
+    await userService.getUserByRole(getListUserByRole: GetListUserByRole(role: role));
     return users;
   }
 
@@ -54,5 +56,11 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
     return await userService.updateProfile(updateProfileRequest: updateProfileRequest);
+  }
+
+  @override
+  Future<SearchUserByNameResponse> getUserByFullName({required String fullName, int? page}) async {
+    return await userService.getUserByFullName(
+        searchUserByNameRequest: SearchUserByNameRequest(fullName: fullName, page: page ?? 0));
   }
 }

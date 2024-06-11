@@ -84,6 +84,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       emergencyAddress: json['emergencyAddress'] as String?,
       emergencyName: json['emergencyName'] as String?,
       emergencyPhoneNumber: json['emergencyPhoneNumber'] as String?,
+      autoMaker: json['autoMaker'] as String?,
+      licensePlate: json['licensePlate'] as String?,
+      vehicleType:
+          $enumDecodeNullable(_$VehicleTypeEnumEnumMap, json['vehicleType']),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) {
@@ -164,6 +168,9 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('emergencyName', instance.emergencyName);
   writeNotNull('emergencyPhoneNumber', instance.emergencyPhoneNumber);
   writeNotNull('emergencyAddress', instance.emergencyAddress);
+  writeNotNull('vehicleType', _$VehicleTypeEnumEnumMap[instance.vehicleType]);
+  writeNotNull('licensePlate', instance.licensePlate);
+  writeNotNull('autoMaker', instance.autoMaker);
   return val;
 }
 
@@ -191,4 +198,11 @@ const _$WorkingStatusEnumEnumMap = {
   WorkingStatusEnum.maternityLeave: 'MaternityLeave',
   WorkingStatusEnum.aboutToStart: 'AboutToStart',
   WorkingStatusEnum.longTermUnpaidLeave: 'LongTermUnpaidLeave',
+};
+
+const _$VehicleTypeEnumEnumMap = {
+  VehicleTypeEnum.car: 'Car',
+  VehicleTypeEnum.bike: 'Bike',
+  VehicleTypeEnum.motorbike: 'Motorbike',
+  VehicleTypeEnum.tram: 'Tram',
 };
