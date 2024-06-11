@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/enum/stationery_enum.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -9,7 +10,7 @@ part 'stationeries.g.dart';
 class Stationeries {
   final String? product;
   final String? note;
-  final RequestWarehouseReleasedsUnitTypeEnum? unit;
+  final String? unit;
   final int? quantity;
   final int? unitPrice;
   final int? amount;

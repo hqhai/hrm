@@ -33,4 +33,5 @@ class PathConfig {
   static String getFlowByUser = '/flow/get-flow-by-user';
   static String requestSearch = '/request/search';
   static String request = '/request';
+  static String stationery = '/stationery';
 }

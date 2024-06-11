@@ -9,24 +9,24 @@ part 'config_request_model.g.dart';
 @CopyWith()
 @JsonSerializable()
 class ConfigRequestModel {
-  final String? flowId; //
-  final RequisitionTypeOnLeaveEnum? takeLeaveReason; //
-  final int? numberValue; //
-  final List<String>? subtitudePersons; //
-  final List<String>? attachments; //
-  final String? content; //
-  final String? vehicle; //
-  final String? destination; //
+  final String? flowId;
+  final String? takeLeaveReason;
+  final int? numberValue;
+  final List<String>? subtitudePersons;
+  final List<String>? attachments;
+  final String? content;
+  final String? vehicle;
+  final String? destination;
   final String? overTimes;
-  final RequisitionDeliveryTypeEnum? deliveryType; //
+  final String? deliveryType;
   final List<WarehouseReleaseds>? warehourseReleaseds;
-  final List<Stationeries>? stationeries; //
-  final int? subtotal; //
-  final int? totalAmount; //
-  final RequisitionTypeExplanationEnum? explanationReason; //
-  final String? startDate; //
-  final String? endDate; //
-  final int? total; //
+  final List<Stationeries>? stationeries;
+  final int? subtotal;
+  final int? totalAmount;
+  final String? explanationReason;
+  final String? startDate;
+  final String? endDate;
+  final int? total;
 
   const ConfigRequestModel(
       {this.flowId,

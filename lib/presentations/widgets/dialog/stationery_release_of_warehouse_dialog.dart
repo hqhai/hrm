@@ -1,11 +1,11 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/enum/stationery_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_station_unit_type.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -25,8 +25,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
       explainController = TextEditingController(),
       numberOfController = TextEditingController(),
       noteController = TextEditingController();
-  String explain = '', note = '', product = '';
-  RequestWarehouseReleasedsUnitTypeEnum unit = RequestWarehouseReleasedsUnitTypeEnum.pairs;
+  String explain = '', note = '', product = '', unit = '';
   int numberOf = 0;
 
   @override
@@ -37,7 +36,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     noteController.text = widget.releaseOfWarehouse?.note ?? "";
     explain = widget.releaseOfWarehouse?.product ?? "";
     note = widget.releaseOfWarehouse?.note ?? "";
-    unit = widget.releaseOfWarehouse?.unit ?? RequestWarehouseReleasedsUnitTypeEnum.pairs;
+    unit = widget.releaseOfWarehouse?.unit ?? '';
     numberOf = widget.releaseOfWarehouse?.quantity ?? 0;
     super.initState();
   }
@@ -62,10 +61,6 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
               title: appLocalizations.explain,
               inputController: explainController,
               onChange: (value) => _setExplain(value),
-            ),
-            ItemStationeryUnitType(
-              title: appLocalizations.unit,
-              onChangeValue: (value) => _setUnit(value),
             ),
             ItemCreateTotalMinute(
               title: appLocalizations.numberOf,
@@ -112,7 +107,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     Navigator.of(context).pop();
   }
 
-  _setUnit(RequestWarehouseReleasedsUnitTypeEnum value) {
+  _setUnit(String value) {
     setState(() {
       unit = value;
     });

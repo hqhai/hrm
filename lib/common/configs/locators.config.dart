@@ -22,7 +22,7 @@ import '../../data/repositories/personnel.repository.implement.dart' as _i54;
 import '../../data/repositories/position.repository.implement.dart' as _i61;
 import '../../data/repositories/request.repository.implement.dart' as _i69;
 import '../../data/repositories/requisition.repository.implement.dart' as _i77;
-import '../../data/repositories/user.repository.implement.dart' as _i89;
+import '../../data/repositories/user.repository.implement.dart' as _i90;
 import '../../data/services/attendances.service.implement.dart' as _i10;
 import '../../data/services/auth.service.implement.dart' as _i17;
 import '../../data/services/base.service.dart' as _i26;
@@ -34,7 +34,7 @@ import '../../data/services/personnel.service.implement.dart' as _i56;
 import '../../data/services/position.service.implement.dart' as _i63;
 import '../../data/services/request.service.implement.dart' as _i71;
 import '../../data/services/requisition.service.implement.dart' as _i79;
-import '../../data/services/user.service.implement.dart' as _i91;
+import '../../data/services/user.service.implement.dart' as _i92;
 import '../../data/use_cases/attendances_usecase.implement.dart' as _i12;
 import '../../data/use_cases/check_in_setting_usecase.implement.dart' as _i25;
 import '../../data/use_cases/department_usecase.implement.dart' as _i33;
@@ -45,7 +45,7 @@ import '../../data/use_cases/personnel_usecase.implement.dart' as _i58;
 import '../../data/use_cases/position_usecase.implement.dart' as _i65;
 import '../../data/use_cases/request_usecase.implement.dart' as _i73;
 import '../../data/use_cases/requisition.usecase.implement.dart' as _i81;
-import '../../data/use_cases/user_usecase.implement.dart' as _i93;
+import '../../data/use_cases/user_usecase.implement.dart' as _i94;
 import '../../domain/repositories/attendances.repository.dart' as _i7;
 import '../../domain/repositories/auth.repository.dart' as _i14;
 import '../../domain/repositories/check_in_setting.repository.dart' as _i20;
@@ -56,7 +56,7 @@ import '../../domain/repositories/personnel.repository.dart' as _i53;
 import '../../domain/repositories/position.repository.dart' as _i60;
 import '../../domain/repositories/request.repository.dart' as _i68;
 import '../../domain/repositories/requisition.repository.dart' as _i76;
-import '../../domain/repositories/user.repositories.dart' as _i88;
+import '../../domain/repositories/user.repositories.dart' as _i89;
 import '../../domain/services/attendances.service.dart' as _i9;
 import '../../domain/services/auth.service.dart' as _i16;
 import '../../domain/services/check_in_setting.service.dart' as _i22;
@@ -67,7 +67,7 @@ import '../../domain/services/personnel.service.dart' as _i55;
 import '../../domain/services/position.service.dart' as _i62;
 import '../../domain/services/request.service.dart' as _i70;
 import '../../domain/services/requisition.service.dart' as _i78;
-import '../../domain/services/user.service.dart' as _i90;
+import '../../domain/services/user.service.dart' as _i91;
 import '../../domain/use_cases/attendances_usecase.dart' as _i11;
 import '../../domain/use_cases/check_in_setting_usecase.dart' as _i24;
 import '../../domain/use_cases/departments_usecase.dart' as _i32;
@@ -78,7 +78,7 @@ import '../../domain/use_cases/personnel_usecase.dart' as _i57;
 import '../../domain/use_cases/position_usecase.dart' as _i64;
 import '../../domain/use_cases/request_usecase.dart' as _i72;
 import '../../domain/use_cases/requisition.usecase.dart' as _i80;
-import '../../domain/use_cases/user_usecase.dart' as _i92;
+import '../../domain/use_cases/user_usecase.dart' as _i93;
 import '../../presentations/bloc/attendance/attendance_bloc.dart' as _i6;
 import '../../presentations/bloc/auth/auth_bloc.dart' as _i13;
 import '../../presentations/bloc/biometric/biometric_cubit.dart' as _i18;
@@ -100,14 +100,16 @@ import '../../presentations/bloc/requisition/requisition/requisition_bloc.dart'
     as _i75;
 import '../../presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart'
     as _i74;
-import '../../presentations/bloc/themes/theme_cubit.dart' as _i83;
-import '../../presentations/bloc/user/user/user_bloc.dart' as _i84;
+import '../../presentations/bloc/requisition/stationery/stationery_bloc.dart'
+    as _i83;
+import '../../presentations/bloc/themes/theme_cubit.dart' as _i84;
+import '../../presentations/bloc/user/user/user_bloc.dart' as _i85;
 import '../../presentations/bloc/user/user_by_manager/user_by_admin_bloc.dart'
-    as _i85;
-import '../../presentations/bloc/user/user_by_name/user_by_name_bloc.dart'
     as _i86;
-import '../../presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart'
+import '../../presentations/bloc/user/user_by_name/user_by_name_bloc.dart'
     as _i87;
+import '../../presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart'
+    as _i88;
 import '../routers/navigation.dart' as _i4;
 import '../routers/router.dart' as _i5;
 
@@ -189,14 +191,15 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i80.RequisitionUseCase>(
         () => _i81.RequisitionUseCaseImpl());
     gh.lazySingleton<_i82.RoomMeetingBloc>(() => _i82.RoomMeetingBloc());
-    gh.lazySingleton<_i83.ThemeCubit>(() => _i83.ThemeCubit());
-    gh.lazySingleton<_i84.UserBloc>(() => _i84.UserBloc());
-    gh.lazySingleton<_i85.UserByAdminBloc>(() => _i85.UserByAdminBloc());
-    gh.lazySingleton<_i86.UserByNameBloc>(() => _i86.UserByNameBloc());
-    gh.lazySingleton<_i87.UserByRolesBloc>(() => _i87.UserByRolesBloc());
-    gh.lazySingleton<_i88.UserRepository>(() => _i89.UserRepositoryImpl());
-    gh.lazySingleton<_i90.UserService>(() => _i91.UserServiceImpl());
-    gh.lazySingleton<_i92.UserUseCase>(() => _i93.UserUseCaseImpl());
+    gh.lazySingleton<_i83.StationeryBloc>(() => _i83.StationeryBloc());
+    gh.lazySingleton<_i84.ThemeCubit>(() => _i84.ThemeCubit());
+    gh.lazySingleton<_i85.UserBloc>(() => _i85.UserBloc());
+    gh.lazySingleton<_i86.UserByAdminBloc>(() => _i86.UserByAdminBloc());
+    gh.lazySingleton<_i87.UserByNameBloc>(() => _i87.UserByNameBloc());
+    gh.lazySingleton<_i88.UserByRolesBloc>(() => _i88.UserByRolesBloc());
+    gh.lazySingleton<_i89.UserRepository>(() => _i90.UserRepositoryImpl());
+    gh.lazySingleton<_i91.UserService>(() => _i92.UserServiceImpl());
+    gh.lazySingleton<_i93.UserUseCase>(() => _i94.UserUseCaseImpl());
     return this;
   }
 }

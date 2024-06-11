@@ -1,14 +1,15 @@
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
+import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_into_money.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_station_unit_type.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet_stationery.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:themes/themes.dart';
 
 class StationeryOderAddDialog extends StatefulWidget {
   const StationeryOderAddDialog({super.key, this.requisitionStationery, this.stationery});
@@ -25,9 +26,18 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       numberOfController = TextEditingController(),
       noteController = TextEditingController(),
       unitPriceController = TextEditingController();
-  String explain = '', note = '';
-  RequestWarehouseReleasedsUnitTypeEnum unit = RequestWarehouseReleasedsUnitTypeEnum.pairs;
+  String explain = '', note = '', unit = '';
   int numberOf = 0, unitPrice = 0, intoMoney = 0;
+  Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
+
+  setStationery(Stationery value) {
+    setState(() {
+      stationery = value;
+      unitPrice = 1000; //int.parse(value.unitPrice ?? "");
+      explain = value.product ?? "";
+      unit = value.unit ?? "";
+    });
+  }
 
   @override
   void initState() {
@@ -53,6 +63,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final height = MediaQuery.sizeOf(context).height;
+    final colors = AppTheme.getColors(context);
     return Container(
       height: height * 0.75,
       padding: const EdgeInsets.all(SpacingUnit.x2),
@@ -60,19 +71,83 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ItemCreateInput(
-              title: appLocalizations.explain,
-              inputController: explainController,
-              onChange: (value) => _setExplain(value),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+              child: Row(
+                children: [
+                  Text(
+                    appLocalizations.product,
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: SpacingUnit.x4,
+                  ),
+                  GestureDetector(
+                    onTap: () => _showBottomSheet(context),
+                    child: Icon(
+                      Icons.add,
+                      size: SpacingUnit.x8,
+                      color: colors.success,
+                    ),
+                  )
+                ],
+              ),
             ),
-            ItemStationeryUnitType(
-              title: appLocalizations.unit,
-              onChangeValue: (value) => _setUnit(value),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+              child: Text(
+                stationery.product ?? "",
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                ),
+              ),
             ),
-            ItemCreateTotalMinute(
-              title: appLocalizations.unitPrice,
-              totalMinuteController: unitPriceController,
-              onChange: (value) => _setUnitPrice(value),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+              child: Text(
+                appLocalizations.unit,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+              child: Text(
+                stationery.unit ?? "",
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+              child: Text(
+                appLocalizations.unitPrice,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+              child: Text(
+                stationery.unitPrice ?? "",
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                ),
+              ),
             ),
             ItemCreateTotalMinute(
               title: appLocalizations.numberOf,
@@ -98,18 +173,6 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     );
   }
 
-  _setExplain(String value) {
-    setState(() {
-      explain = value;
-    });
-  }
-
-  _setUnitPrice(String value) {
-    setState(() {
-      unitPrice = int.parse(value);
-    });
-  }
-
   _setNote(String value) {
     setState(() {
       note = value;
@@ -129,15 +192,20 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     Navigator.of(context).pop();
   }
 
-  _setUnit(RequestWarehouseReleasedsUnitTypeEnum value) {
-    setState(() {
-      unit = value;
-    });
-  }
-
   _setNumber(String value) {
     setState(() {
       numberOf = int.parse(value);
     });
+  }
+
+  _showBottomSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetStationeryWidget(
+          onChange: (value) => setStationery(value),
+        );
+      },
+    );
   }
 }

@@ -1,8 +1,11 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
+import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
 import 'package:base_app/domain/repositories/requisition.repository.dart';
 import 'package:base_app/domain/services/requisition.service.dart';
 import 'package:injectable/injectable.dart';
@@ -72,4 +75,12 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
     // TODO: implement getRequisitionsByFilter
     throw UnimplementedError();
   }
+
+  @override
+  Future<SearchStationeryByNameResponse> getStationery(
+      {required String name, required int page}) async {
+    return await _requestService.getStationery(
+        searchStationeryByNameRequest: SearchStationeryByNameRequest(page: page, fullName: name));
+  }
+
 }
