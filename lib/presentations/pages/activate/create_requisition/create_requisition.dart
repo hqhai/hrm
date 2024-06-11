@@ -68,7 +68,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                     )
                   : Center(
                       child: Text(
-                        'Chưa có luồng duyệt!',
+                        appLocalizations.noBrowsingFlowYet,
                         style: TextStyle(
                           fontSize: SpacingUnit.x6,
                           color: colors.text,
