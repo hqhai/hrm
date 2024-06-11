@@ -2012,6 +2012,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Core'**
   String get core;
+
+  /// No description provided for @noBrowsingFlowYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No browsing flow yet'**
+  String get noBrowsingFlowYet;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

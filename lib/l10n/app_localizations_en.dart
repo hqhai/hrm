@@ -963,4 +963,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get core => 'Core';
+
+  @override
+  String get noBrowsingFlowYet => 'No browsing flow yet';
 }

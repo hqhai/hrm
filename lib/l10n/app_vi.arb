@@ -318,5 +318,6 @@
   "economy": "Giao hàng tiết kiệm",
   "rush": "Giao hàng hỏa tốc",
   "scheduled": "Giao hàng theo lịch hẹn",
-  "core": "Chính"
+  "core": "Chính",
+  "noBrowsingFlowYet": "Chưa có luồng duyệt"
 }

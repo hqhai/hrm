@@ -963,4 +963,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get core => 'Chính';
+
+  @override
+  String get noBrowsingFlowYet => 'Chưa có luồng duyệt';
 }

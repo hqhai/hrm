@@ -318,5 +318,6 @@
   "economy": "Economy",
   "rush": "Rush",
   "scheduled": "Scheduled",
-  "core": "Core"
+  "core": "Core",
+  "noBrowsingFlowYet": "No browsing flow yet"
 }
