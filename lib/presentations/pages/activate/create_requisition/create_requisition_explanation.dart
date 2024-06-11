@@ -76,7 +76,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (reasonForExplanation == RequisitionTypeExplanationEnum.late ||
-                  reasonForExplanation == RequisitionTypeExplanationEnum.leaveEarly)
+                  reasonForExplanation == RequisitionTypeExplanationEnum.early)
                 ItemCreateTotalMinute(
                   title: appLocalizations.totalMinute,
                   totalMinuteController: totalMinuteController,
@@ -95,19 +95,19 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                 title: appLocalizations.detailedDescription,
                 onChange: (value) => _setDetailedDescription(value),
               ),
-              if (reasonForExplanation == RequisitionTypeExplanationEnum.leaveCorrection)
+              if (reasonForExplanation == RequisitionTypeExplanationEnum.other)
                 ItemCreateInputApplicationCode(
                   textController: applicationCodeController,
                   onChange: (value) => _setApplicationCode(value),
                 ),
-              if (reasonForExplanation == RequisitionTypeExplanationEnum.leaveEarly)
+              if (reasonForExplanation == RequisitionTypeExplanationEnum.other)
                 ItemDateOfBirthUpdateProfile(
                   check: true,
                   title: appLocalizations.replaceDay,
                   dateOfBirth: DateFormat('dd-MM-yyyy').format(DateTime.now()),
                   onChangeDateOfBirth: (value) => _setDate(value),
                 ),
-              if (reasonForExplanation == RequisitionTypeExplanationEnum.editTimekeeping)
+              if (reasonForExplanation == RequisitionTypeExplanationEnum.other)
                 ItemDateOfBirthUpdateProfile(
                   check: true,
                   title: appLocalizations.workDay,

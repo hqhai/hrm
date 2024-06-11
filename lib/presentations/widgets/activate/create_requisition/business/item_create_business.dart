@@ -6,9 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateBusinessDay extends StatefulWidget {
-  const ItemCreateBusinessDay({super.key, this.startTime, this.endTime, this.title, required this.dayOrHours});
+  const ItemCreateBusinessDay(
+      {super.key, this.startTime, this.endTime, this.title, required this.dayOrHours, this.total});
 
   final ValueChanged<String>? startTime, endTime;
+  final ValueChanged<int>? total;
   final String? title;
   final bool dayOrHours;
 
@@ -108,6 +110,9 @@ class _ItemCreateBusinessDayState extends State<ItemCreateBusinessDay> {
     setState(() {
       widget.startTime?.call(value);
       startTime = DateTime.parse(value);
+      widget.total?.call(widget.dayOrHours
+          ? endTime.difference(startTime).inDays
+          : endTime.difference(startTime).inHours);
     });
   }
 
@@ -115,12 +120,16 @@ class _ItemCreateBusinessDayState extends State<ItemCreateBusinessDay> {
     setState(() {
       widget.endTime?.call(value);
       endTime = DateTime.parse(value);
+      widget.total?.call(widget.dayOrHours
+          ? endTime.difference(startTime).inDays
+          : endTime.difference(startTime).inHours);
     });
   }
 
   int setIntervalOnLeave() {
-    return widget.dayOrHours
+    int total = widget.dayOrHours
         ? endTime.difference(startTime).inDays
         : endTime.difference(startTime).inHours;
+    return total;
   }
 }

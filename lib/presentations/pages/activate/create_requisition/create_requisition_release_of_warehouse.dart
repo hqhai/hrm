@@ -1,7 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/warehouse_released/warehouse_released_response/warehouse_releaseds.dart';
+import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
@@ -13,14 +13,18 @@ import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
 final createRequestReleaseOfWarehousePageRoute = GoRoute(
-  path: Pages.createRequestReleaseOfWarehousePage,
-  name: Pages.createRequestReleaseOfWarehousePage,
-  builder: (context, GoRouterState state) => const CreateRequisitionReleaseOfWarehousePage(),
-);
+    path: Pages.createRequestReleaseOfWarehousePage,
+    name: Pages.createRequestReleaseOfWarehousePage,
+    builder: (context, GoRouterState state) {
+      Map data = state.extra as Map;
+      return CreateRequisitionReleaseOfWarehousePage(
+        flowId: data['flowId'],
+      );
+    });
 
 class CreateRequisitionReleaseOfWarehousePage extends StatefulWidget {
-  const CreateRequisitionReleaseOfWarehousePage({super.key});
-
+  const CreateRequisitionReleaseOfWarehousePage({super.key, this.flowId});
+  final String? flowId;
   @override
   State<CreateRequisitionReleaseOfWarehousePage> createState() =>
       _CreateRequisitionReleaseOfWarehousePageState();

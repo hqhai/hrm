@@ -4,8 +4,8 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
-import 'package:base_app/data/models/requisition/vehicle_driver/vehicle_driver_response/vehicle_driver_response.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -15,6 +15,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +108,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                     title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
                 ItemButton(
                   callbackSave: () => _save(),
-                  callbackCancel: () => _cancel(),
+                  callbackCancel: () => _cancel(context),
                 )
               ],
             ),
@@ -122,28 +123,6 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       followers = value.map((e) => e.id).toList();
     });
   }
-
-  _save() {
-    if (_checkValue()) {
-      dI<RequisitionBloc>().add(
-        PostRequestEvent(
-          postRequestRequest: PostRequestRequest(
-            description: scheduleController.text,
-            followerIds: followers,
-            flowId: widget.flowId,
-            config: VehicleDriverResponse(
-              content: contentController.text,
-              endDate: endTime,
-              startDate: startTime,
-              subtitudePersons: walkers,
-            ),
-          ),
-        ),
-      );
-    }
-  }
-
-  _cancel() {}
 
   _setWalker(List<User> value) {
     setState(() {
@@ -185,5 +164,29 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }
+  }
+
+  _save() {
+    if (_checkValue()) {
+      dI<RequisitionBloc>().add(
+        PostRequestEvent(
+          postRequestRequest: PostRequestRequest(
+            description: scheduleController.text,
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              content: contentController.text,
+              endDate: endTime,
+              startDate: startTime,
+              subtitudePersons: walkers,
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
+  _cancel(BuildContext context) {
+    popDialog(context);
   }
 }

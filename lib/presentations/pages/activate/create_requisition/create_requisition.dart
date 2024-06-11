@@ -107,7 +107,9 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     } else if (state.flows[index].flowType == RequisitionTypeEnum.stationery) {
       dI<AppNavigation>().pushName(context, page: Pages.createRequestStationeryOderPage);
     } else {
-      dI<AppNavigation>().pushName(context, page: Pages.createRequestBusinessPage);
+      dI<AppNavigation>().pushName(context, page: Pages.createRequestBusinessPage, extra: {
+        'flowId': state.flows[index].id,
+      },);
     }
   }
 }

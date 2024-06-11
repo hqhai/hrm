@@ -6,9 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateIntervalOnLeave extends StatefulWidget {
-  const ItemCreateIntervalOnLeave({super.key, this.startTime, this.endTime, this.title, required this.dayOrHours});
+  const ItemCreateIntervalOnLeave({super.key, this.total, this.startTime, this.endTime, this.title, required this.dayOrHours});
 
   final ValueChanged<String>? startTime, endTime;
+  final ValueChanged<int>? total;
   final String? title;
   final bool dayOrHours;
 
@@ -108,6 +109,9 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
     setState(() {
       widget.startTime?.call(value);
       startTime = DateTime.parse(value);
+      widget.total?.call(widget.dayOrHours
+          ? endTime.difference(startTime).inDays
+          : endTime.difference(startTime).inHours);
     });
   }
 
@@ -115,6 +119,9 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
     setState(() {
       widget.endTime?.call(value);
       endTime = DateTime.parse(value);
+      widget.total?.call(widget.dayOrHours
+          ? endTime.difference(startTime).inDays
+          : endTime.difference(startTime).inHours);
     });
   }
 

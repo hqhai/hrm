@@ -11,9 +11,11 @@ sealed class RequisitionEvent extends Equatable {
 }
 
 class PostRequestEvent extends RequisitionEvent {
-  const PostRequestEvent({this.postRequestRequest = const PostRequestRequest()});
-
   final PostRequestRequest postRequestRequest;
+
+  const PostRequestEvent({
+    this.postRequestRequest = const PostRequestRequest(),
+  });
 
   @override
   List<Object?> get props => [postRequestRequest];

@@ -132,10 +132,9 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
 }
 
 enum RequisitionTypeExplanationEnum {
-  leaveEarly('LeaveEarly'),
+  early('Early'),
   late('Late'),
-  leaveCorrection('Requisition of leave correction'),
-  editTimekeeping('Edit timekeeping');
+  other('Other');
 
   final String name;
 
@@ -147,14 +146,12 @@ extension ConfigRequisitionTypeExplanationExtension on RequisitionTypeExplanatio
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
     switch (this) {
-      case RequisitionTypeExplanationEnum.leaveEarly:
+      case RequisitionTypeExplanationEnum.early:
         return appLocalizations.leaveEarly;
       case RequisitionTypeExplanationEnum.late:
         return appLocalizations.late;
-      case RequisitionTypeExplanationEnum.leaveCorrection:
-        return appLocalizations.leaveCorrection;
-      case RequisitionTypeExplanationEnum.editTimekeeping:
-        return appLocalizations.editTimekeeping;
+      case RequisitionTypeExplanationEnum.other:
+        return appLocalizations.other;
     }
   }
 }
