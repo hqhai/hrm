@@ -13,7 +13,6 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/business/item_create_business.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
