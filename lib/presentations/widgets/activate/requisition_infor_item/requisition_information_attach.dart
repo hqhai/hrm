@@ -40,16 +40,16 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
               const SizedBox(
                 height: SpacingUnit.x4,
               ),
-              if (state.requisition.filePaths?.isNotEmpty ?? false)
+              if (state.requisition.attachments?.isNotEmpty ?? false)
                 SizedBox(
-                  height: width * state.requisition.filePaths!.length * 0.3,
+                  height: width * state.requisition.attachments!.length * 0.3,
                   child: GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       mainAxisSpacing: 1,
                       crossAxisSpacing: SpacingUnit.x10,
                     ),
-                    itemCount: state.requisition.filePaths!.length,
+                    itemCount: state.requisition.attachments!.length,
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () => _onClickFLie(context, index, state),
                       child: Container(
@@ -70,7 +70,7 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
                                 ),
                               )
                             : Image.network(
-                                state.requisition.filePaths![index],
+                                state.requisition.attachments![index],
                                 fit: BoxFit.fill,
                               ),
                       ),
@@ -100,14 +100,14 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
   _onClickFLie(BuildContext context, int index, RequisitionState state) {
     if (_checkTypeFile(index, state)) {
       dI<AppNavigation>().pushName(context, page: Pages.pDFPage, extra: {
-        'url': state.requisition.filePaths![index],
+        'url': state.requisition.attachments![index],
       });
     } else {}
   }
 
   bool _checkTypeFile(int index, RequisitionState state) {
-    int length = state.requisition.filePaths![index].length;
-    String type = state.requisition.filePaths![index].substring(length - 3, length);
+    int length = state.requisition.attachments![index].length;
+    String type = state.requisition.attachments![index].substring(length - 3, length);
     if (type == 'pdf' || type == 'PDF') {
       return true;
     } else {

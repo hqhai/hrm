@@ -1,5 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/stationery/requisition_stationery.dart';
+import 'package:base_app/data/models/requisition/stationery/stationeries_response/stationeries.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -7,7 +7,7 @@ import 'package:themes/themes.dart';
 class ItemListStationery extends StatelessWidget {
   const ItemListStationery({super.key, this.requisitionStationery, this.index});
 
-  final RequisitionStationery? requisitionStationery;
+  final Stationeries? requisitionStationery;
   final int? index;
 
   @override
@@ -55,14 +55,14 @@ class ItemListStationery extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${appLocalizations.numberOf} : ${requisitionStationery?.number ?? 0}',
+                    '${appLocalizations.numberOf} : ${requisitionStationery?.quantity ?? 0}',
                     style: TextStyle(
                       fontSize: SpacingUnit.x3,
                       color: colors.text,
                     ),
                   ),
                   Text(
-                    '${appLocalizations.intoMoney} : ${requisitionStationery?.money}',
+                    '${appLocalizations.intoMoney} : ${requisitionStationery?.amount}',
                     style: TextStyle(
                       fontSize: SpacingUnit.x3,
                       color: colors.text,

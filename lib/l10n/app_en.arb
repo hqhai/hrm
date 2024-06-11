@@ -304,5 +304,19 @@
   "vehicleType": "Vehicle type",
   "licensePlate": "License plate",
   "autoMaker": "Auto maker",
-  "refuse": "Refuse"
+  "refuse": "Refuse",
+  "process": "Process",
+  "edit": "Edit",
+  "overdueEdit": "Overdue edit",
+  "overdueApprove": "Overdue approve",
+  "newStatus": "New",
+  "standard": "Standard",
+  "express": "Express",
+  "sameDay": "Same Day",
+  "overnight": "Overnight",
+  "twoDay": "Two Day",
+  "economy": "Economy",
+  "rush": "Rush",
+  "scheduled": "Scheduled",
+  "core": "Core"
 }

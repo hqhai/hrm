@@ -24,7 +24,7 @@ class ContentItemRequisitionList extends StatelessWidget {
         SizedBox(
           width: width * 0.7,
           child: Text(
-            state.requisitions[index].type?.configTypeName ?? "",
+            state.requisitions[index].flowId?? "",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -43,7 +43,7 @@ class ContentItemRequisitionList extends StatelessWidget {
             SizedBox(
               width: width * 0.6,
               child: Text(
-                state.requisitions[index].creator ?? "",
+                state.requisitions[index].createdFullName ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
@@ -59,7 +59,7 @@ class ContentItemRequisitionList extends StatelessWidget {
           SizedBox(
             width: width * 0.6,
             child: Text(
-              state.requisitions[index].createTime ?? "",
+              state.requisitions[index].createdDate ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
@@ -75,7 +75,7 @@ class ContentItemRequisitionList extends StatelessWidget {
             SizedBox(
               width: width * 0.6,
               child: Text(
-                state.requisitions[index].deadLine ?? "",
+                state.requisitions[index].flowId ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),

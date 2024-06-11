@@ -35,7 +35,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.fullName,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.creator ?? "",
+                    Text(state.requisition.createdFullName ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -47,7 +47,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.employeeCode,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.creatorId ?? "",
+                    Text(state.requisition.createdUserId ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -59,7 +59,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.position,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.position ?? "",
+                    Text(state.requisition.createdPositionId ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -71,7 +71,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.department,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.department ?? "",
+                    Text(state.requisition.createdDepartmentId ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),

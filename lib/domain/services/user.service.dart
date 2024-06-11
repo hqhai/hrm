@@ -3,6 +3,8 @@ import 'package:base_app/data/models/request/change_password/change_password_req
 import 'package:base_app/data/models/request/get_list_user_by_role/get_list_user_by_role.dart';
 import 'package:base_app/data/models/user/forgot_password_request.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
+import 'package:base_app/data/models/user/search/search_user_by_name_request.dart';
+import 'package:base_app/data/models/user/search/search_user_by_name_response.dart';
 import 'package:base_app/domain/entities/user.dart';
 
 abstract class UserService {
@@ -15,7 +17,10 @@ abstract class UserService {
   Future<String> forgotPassword({required ForgotPasswordRequest forgotPasswordRequest});
 
   Future<int> register({required RegisterRequest registerRequest});
+
   Future<int> deleteAccount();
 
   Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest});
+
+  Future<SearchUserByNameResponse> getUserByFullName({required SearchUserByNameRequest searchUserByNameRequest});
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/business/item_create_business.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
@@ -14,9 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final createRequisitionBusinessPageRoute = GoRoute(
-  path: Pages.createRequisitionBusinessPage,
-  name: Pages.createRequisitionBusinessPage,
+final createRequestBusinessPageRoute = GoRoute(
+  path: Pages.createRequestBusinessPage,
+  name: Pages.createRequestBusinessPage,
   builder: (context, GoRouterState state) => const CreateRequisitionBusinessPage(),
 );
 
@@ -34,7 +35,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   int totalMinute = 0;
   String startTime = '', endTime = '', reason = '', vehicle = '', destination = '';
   List<File> files = [];
-  List<String> followers = [], substitutes = [];
+  List<User> followers = [], substitutes = [];
   RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
 
   @override
@@ -44,7 +45,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          RequisitionTypeEnum.business.configTypeName,
+          RequisitionTypeEnum.bussiness.configTypeName,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,
@@ -103,7 +104,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     );
   }
 
-  _setFollower(List<String> value) {
+  _setFollower(List<User> value) {
     setState(() {
       followers = value;
     });
@@ -125,7 +126,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   _cancel() {}
 
-  _setSubstitute(List<String> value) {
+  _setSubstitute(List<User> value) {
     setState(() {
       substitutes = value;
     });

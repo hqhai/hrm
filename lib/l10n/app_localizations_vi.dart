@@ -921,4 +921,46 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get refuse => 'Từ chối';
+
+  @override
+  String get process => 'Chờ duyệt';
+
+  @override
+  String get edit => 'Yêu cầu chỉnh sửa';
+
+  @override
+  String get overdueEdit => 'Quá hạn chỉnh sửa';
+
+  @override
+  String get overdueApprove => 'Quá hạn phê duyệt';
+
+  @override
+  String get newStatus => 'Mới';
+
+  @override
+  String get standard => 'Giao hàng tiêu chuẩn';
+
+  @override
+  String get express => 'Giao hàng nhanh';
+
+  @override
+  String get sameDay => 'Giao hàng trong ngày';
+
+  @override
+  String get overnight => 'Giao hàng qua đêm';
+
+  @override
+  String get twoDay => 'Giao hàng trong hai ngày';
+
+  @override
+  String get economy => 'Giao hàng tiết kiệm';
+
+  @override
+  String get rush => 'Giao hàng hỏa tốc';
+
+  @override
+  String get scheduled => 'Giao hàng theo lịch hẹn';
+
+  @override
+  String get core => 'Chính';
 }

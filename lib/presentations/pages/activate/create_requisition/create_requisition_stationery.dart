@@ -1,7 +1,8 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/stationery/requisition_stationery.dart';
+import 'package:base_app/data/models/requisition/stationery/stationeries_response/stationeries.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
@@ -11,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final createRequisitionStationeryOderPageRoute = GoRoute(
-  path: Pages.createRequisitionStationeryOderPage,
-  name: Pages.createRequisitionStationeryOderPage,
+final createRequestStationeryOderPageRoute = GoRoute(
+  path: Pages.createRequestStationeryOderPage,
+  name: Pages.createRequestStationeryOderPage,
   builder: (context, GoRouterState state) => const CreateRequisitionStationeryOderPage(),
 );
 
@@ -26,16 +27,8 @@ class CreateRequisitionStationeryOderPage extends StatefulWidget {
 }
 
 class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionStationeryOderPage> {
-  List<RequisitionStationery> listRequisitionStationery = [
-    const RequisitionStationery(
-        product: 'Chong chóng tre của Nobita',
-        number: 2,
-        unit: RequisitionStationeryUnitTypeEnum.pairs,
-        note: 'Không mua cũng được',
-        unitPrice: 20000,
-        money: 40000)
-  ];
-  List<String> followers = [];
+  List<Stationeries> listRequisitionStationery = [];
+  List<User> followers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +39,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          RequisitionTypeEnum.stationeryOrder.configTypeName,
+          RequisitionTypeEnum.stationery.configTypeName,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,
@@ -153,7 +146,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     );
   }
 
-  setAdd(RequisitionStationery value) {
+  setAdd(Stationeries value) {
     setState(() {
       listRequisitionStationery.add(value);
     });
@@ -163,8 +156,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
 
   _cancel() {}
 
-  _getStationeryInList(
-      BuildContext context, RequisitionStationery listRequisitionStationery, int index) {
+  _getStationeryInList(BuildContext context, Stationeries listRequisitionStationery, int index) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -178,19 +170,20 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     );
   }
 
-  setEdit(RequisitionStationery value, int index) {
+  setEdit(Stationeries value, int index) {
     setState(() {
-      listRequisitionStationery[index] = RequisitionStationery(
-          money: value.money,
-          number: value.number,
-          unit: value.unit,
-          note: value.note,
-          unitPrice: value.unitPrice,
-          product: value.product);
+      listRequisitionStationery[index] = Stationeries(
+        unit: value.unit,
+        note: value.note,
+        unitPrice: value.unitPrice,
+        product: value.product,
+        quantity: value.quantity,
+        amount: value.amount,
+      );
     });
   }
 
-  _setFollower(List<String> value) {
+  _setFollower(List<User> value) {
     setState(() {
       followers = value;
     });

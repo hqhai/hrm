@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/pages/profile/item_date_of_birth_update_profile.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
@@ -17,9 +18,9 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
-final createRequisitionExplanationPageRoute = GoRoute(
-  path: Pages.createRequisitionExplanationPage,
-  name: Pages.createRequisitionExplanationPage,
+final createRequestExplanationPageRoute = GoRoute(
+  path: Pages.createRequestExplanationPage,
+  name: Pages.createRequestExplanationPage,
   builder: (context, GoRouterState state) => const CreateRequisitionExplanationPage(),
 );
 
@@ -41,7 +42,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       replaceDate = '',
       applicationCode = '',
       workDate = '';
-  List<String> followers = [];
+  List<User> followers = [];
   List<File> files = [];
   RequisitionTypeExplanationEnum? reasonForExplanation = RequisitionTypeExplanationEnum.late;
 
@@ -133,7 +134,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _setFollower(List<String> value) {
+  _setFollower(List<User> value) {
     setState(() {
       followers = value;
     });

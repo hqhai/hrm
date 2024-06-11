@@ -1,6 +1,6 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/stationery/requisition_release_of_warehouse.dart';
+import 'package:base_app/data/models/requisition/warehouse_released/warehouse_released_response/warehouse_releaseds.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -8,7 +8,7 @@ import 'package:themes/themes.dart';
 class ItemListReleaseOfWarehouse extends StatelessWidget {
   const ItemListReleaseOfWarehouse({super.key, this.requisitionReleaseOfWarehouse, this.index});
 
-  final RequisitionReleaseOfWarehouse? requisitionReleaseOfWarehouse;
+  final WarehouseReleaseds? requisitionReleaseOfWarehouse;
   final int? index;
 
   @override
@@ -63,7 +63,7 @@ class ItemListReleaseOfWarehouse extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${appLocalizations.numberOf} : ${requisitionReleaseOfWarehouse?.number}',
+                    '${appLocalizations.numberOf} : ${requisitionReleaseOfWarehouse?.quantity}',
                     style: TextStyle(
                       fontSize: SpacingUnit.x3,
                       color: colors.text,

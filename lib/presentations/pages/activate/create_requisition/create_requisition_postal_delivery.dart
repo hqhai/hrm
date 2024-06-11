@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_load_flie.dart';
@@ -13,9 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final createRequisitionPostalDeliveryPageRoute = GoRoute(
-  path: Pages.createRequisitionPostalDeliveryPage,
-  name: Pages.createRequisitionPostalDeliveryPage,
+final createRequestPostalDeliveryPageRoute = GoRoute(
+  path: Pages.createRequestPostalDeliveryPage,
+  name: Pages.createRequestPostalDeliveryPage,
   builder: (context, GoRouterState state) => const CreateRequisitionPostalDeliveryPage(),
 );
 
@@ -30,9 +31,9 @@ class CreateRequisitionPostalDeliveryPage extends StatefulWidget {
 class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionPostalDeliveryPage> {
   final TextEditingController reasonController = TextEditingController();
   String reason = '';
-  List<String> followers = [];
+  List<User> followers = [];
   List<File> files = [];
-  RequisitionTransferTypeEnum? transferType = RequisitionTransferTypeEnum.often;
+  RequisitionDeliveryTypeEnum? transferType = RequisitionDeliveryTypeEnum.rush;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ItemCreateReasonTransferType(onChange: (value) => _setTransferType(value)),
-              if (transferType == RequisitionTransferTypeEnum.superSpeed)
+              if (transferType == RequisitionDeliveryTypeEnum.rush)
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x3),
                   child: Text(appLocalizations.notePostalDelivery,
@@ -89,7 +90,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
     );
   }
 
-  _setFollower(List<String> value) {
+  _setFollower(List<User> value) {
     setState(() {
       followers = value;
     });
@@ -111,7 +112,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
 
   _cancel() {}
 
-  _setTransferType(RequisitionTransferTypeEnum value) {
+  _setTransferType(RequisitionDeliveryTypeEnum value) {
     setState(() {
       transferType = value;
     });

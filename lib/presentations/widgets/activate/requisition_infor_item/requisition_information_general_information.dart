@@ -36,7 +36,7 @@ class RequisitionInformationGeneraliInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.type,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.type?.configTypeName ?? "",
+                    Text(state.requisition.flowId ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -48,7 +48,7 @@ class RequisitionInformationGeneraliInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.status,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.status?.configStatusName ?? "",
+                    Text(state.requisition.status?.configRequestStatusName ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -72,7 +72,7 @@ class RequisitionInformationGeneraliInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.createTime,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.createTime ?? "",
+                    Text(state.requisition.createdDate ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -84,7 +84,7 @@ class RequisitionInformationGeneraliInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.follower,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.follower ?? "",
+                    Text(state.requisition.followerIds?.first ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),

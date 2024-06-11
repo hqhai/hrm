@@ -32,8 +32,8 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   }
 
   bool _check(RequisitionApproveState state) {
-    return state.requisitions[widget.index].status != StatusRequisitionEnum.done &&
-        state.requisitions[widget.index].status != StatusRequisitionEnum.pending;
+    return state.requisitions[widget.index].status != StatusRequestEnum.approve &&
+        state.requisitions[widget.index].status != StatusRequestEnum.process;
   }
 
   @override
@@ -60,14 +60,14 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                   color: colors.neutralVariant40,
                   padding: const EdgeInsets.all(SpacingUnit.x2),
                   child: Text(
-                    StatusRequisitionEnum.values
+                    StatusRequestEnum.values
                         .firstWhere((e) => e == state.requisitions[widget.index].status)
-                        .configStatusName,
+                        .configRequestStatusName,
                     style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                   ),
                 ),
               ),
-              if (state.requisitions[widget.index].status == StatusRequisitionEnum.done)
+              if (state.requisitions[widget.index].status == StatusRequestEnum.approve)
                 Align(
                   alignment: Alignment.bottomRight,
                   child: ButtonItemListRequisition(
@@ -75,7 +75,7 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                     callback: () {},
                   ),
                 ),
-              if (state.requisitions[widget.index].status == StatusRequisitionEnum.pending)
+              if (state.requisitions[widget.index].status == StatusRequestEnum.process)
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Row(

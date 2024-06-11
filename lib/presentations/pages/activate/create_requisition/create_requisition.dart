@@ -8,20 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final createRequisitionPageRoute = GoRoute(
-  path: Pages.createRequisitionPage,
-  name: Pages.createRequisitionPage,
-  builder: (context, GoRouterState state) => const CreateRequisitionPage(),
+final createRequestPageRoute = GoRoute(
+  path: Pages.createRequestPage,
+  name: Pages.createRequestPage,
+  builder: (context, GoRouterState state) => const CreateRequestPage(),
 );
 
-class CreateRequisitionPage extends StatefulWidget {
-  const CreateRequisitionPage({super.key});
+class CreateRequestPage extends StatefulWidget {
+  const CreateRequestPage({super.key});
 
   @override
-  State<CreateRequisitionPage> createState() => _CreateRequisitionPageState();
+  State<CreateRequestPage> createState() => _CreateRequestPageState();
 }
 
-class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
+class _CreateRequestPageState extends State<CreateRequestPage> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -45,11 +45,11 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
             children: [
               ItemActivateWidget(
                 title: appLocalizations.explanation,
-                callback: () => _nextCreateRequisitionExplanationScreen(context),
+                callback: () => _nextCreateRequestExplanationScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.leave,
-                callback: () => _nextCreateRequisitionOnLeaveScreen(context),
+                callback: () => _nextCreateRequestOnLeaveScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.overtime,
@@ -57,23 +57,23 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
               ),
               ItemActivateWidget(
                 title: appLocalizations.vehicleDispatch,
-                callback: () => _nextCreateRequisitionVehicleDispatchScreen(context),
+                callback: () => _nextCreateRequestVehicleDispatchScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.postalDelivery,
-                callback: () => _nextCreateRequisitionPostalDeliveryScreen(context),
+                callback: () => _nextCreateRequestPostalDeliveryScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.releaseOfWarehouse,
-                callback: () => _nextCreateRequisitionReleaseOfWarehouseScreen(context),
+                callback: () => _nextCreateRequestReleaseOfWarehouseScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.stationeryOrder,
-                callback: () => _nextCreateRequisitionStationeryOrderScreen(context),
+                callback: () => _nextCreateRequestStationeryOrderScreen(context),
               ),
               ItemActivateWidget(
                 title: appLocalizations.business,
-                callback: () => _nextCreateRequisitionBusinessScreen(context),
+                callback: () => _nextCreateRequestBusinessScreen(context),
               ),
             ],
           ),
@@ -82,32 +82,32 @@ class _CreateRequisitionPageState extends State<CreateRequisitionPage> {
     );
   }
 
-  _nextCreateRequisitionExplanationScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionExplanationPage);
+  _nextCreateRequestExplanationScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequestExplanationPage);
   }
 
-  _nextCreateRequisitionOnLeaveScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionLeavePage);
+  _nextCreateRequestOnLeaveScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequestLeavePage);
   }
 
-  _nextCreateRequisitionBusinessScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionBusinessPage);
+  _nextCreateRequestBusinessScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequestBusinessPage);
   }
 
-  _nextCreateRequisitionVehicleDispatchScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionVehicleDispatchPage);
+  _nextCreateRequestVehicleDispatchScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequestVehicleDispatchPage);
   }
 
-  _nextCreateRequisitionPostalDeliveryScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionPostalDeliveryPage);
+  _nextCreateRequestPostalDeliveryScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequestPostalDeliveryPage);
 
   }
 
-  _nextCreateRequisitionStationeryOrderScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionStationeryOderPage);
+  _nextCreateRequestStationeryOrderScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequestStationeryOderPage);
   }
 
-  _nextCreateRequisitionReleaseOfWarehouseScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionReleaseOfWarehousePage);
+  _nextCreateRequestReleaseOfWarehouseScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.createRequestReleaseOfWarehousePage);
   }
 }

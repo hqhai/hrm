@@ -921,4 +921,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get refuse => 'Refuse';
+
+  @override
+  String get process => 'Process';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get overdueEdit => 'Overdue edit';
+
+  @override
+  String get overdueApprove => 'Overdue approve';
+
+  @override
+  String get newStatus => 'New';
+
+  @override
+  String get standard => 'Standard';
+
+  @override
+  String get express => 'Express';
+
+  @override
+  String get sameDay => 'Same Day';
+
+  @override
+  String get overnight => 'Overnight';
+
+  @override
+  String get twoDay => 'Two Day';
+
+  @override
+  String get economy => 'Economy';
+
+  @override
+  String get rush => 'Rush';
+
+  @override
+  String get scheduled => 'Scheduled';
+
+  @override
+  String get core => 'Core';
 }

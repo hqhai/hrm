@@ -29,15 +29,6 @@ import 'package:base_app/presentations/pages/position/create_position.page.dart'
 import 'package:base_app/presentations/pages/position/update_position.page.dart';
 import 'package:base_app/presentations/pages/profile/update_profile.page.dart';
 import 'package:base_app/presentations/pages/register/register.page.dart';
-import 'package:base_app/presentations/pages/request/create_request/create_explanation.page.dart';
-import 'package:base_app/presentations/pages/request/create_request/create_room_meeting.dart';
-import 'package:base_app/presentations/pages/request/get_request/explanation_request.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/list_explanation_by_user.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/onleave_request.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/overtime_request.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/request.page.dart';
-import 'package:base_app/presentations/pages/request/get_request/roommeeting_request.page.dart';
-import 'package:base_app/presentations/pages/request/update_request/request.update.page.dart';
 import 'package:base_app/presentations/pages/department/create_department.page.dart';
 import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps.dart';
 import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps_check.dart';
@@ -63,15 +54,6 @@ class AppRouters {
     Pages.login: loginPageRoute,
     Pages.register: registerPageRoute,
     Pages.home: homePageRoute,
-    Pages.requestDefault: requestDefaultPageRoute,
-    Pages.overTimeRequest: overTimeRequestPageRoute,
-    Pages.onLeaveRequest: onLeaveRequestPageRoute,
-    Pages.explanationRequest: explanationPageRoute,
-    Pages.getExplanationRequest: getExplanationRequestPageRoute,
-    Pages.requestUpdatePage: requestUpdatePageRoute,
-    Pages.createRoomMeetingPage: createRoomMeetingPageRoute,
-    Pages.listExplanationByUserPage: listExplanationByUserPageRoute,
-    Pages.roomMeetingRequestPageRoute: roomMeetingRequestPageRoute,
     Pages.createDepartmentPage: createDepartmentPageRoute,
     Pages.updateDepartmentPage: updateDepartmentPageRoute,
     Pages.informationDepartmentPage: informationDepartmentPageRoute,
@@ -89,17 +71,17 @@ class AppRouters {
     Pages.timekeepingGPSPage: timekeepingGPSPageRoute,
     Pages.timekeepingGPSCheckPage: timekeepingGPSCheckPageRoute,
     Pages.requisitionListPage: requisitionListPageRoute,
-    Pages.seeRequisitionListPage: seeListRequisitionPageRoute,
+    Pages.seeRequestListPage: seeRequestListPageRoute,
     Pages.requisitionInformationPage: requisitionInformationPageRoute,
-    Pages.createRequisitionPage: createRequisitionPageRoute,
-    Pages.createRequisitionExplanationPage: createRequisitionExplanationPageRoute,
-    Pages.createRequisitionLeavePage: createRequisitionLeavePageRoute,
+    Pages.createRequestPage: createRequestPageRoute,
+    Pages.createRequestExplanationPage: createRequestExplanationPageRoute,
+    Pages.createRequestLeavePage: createRequestLeavePageRoute,
     Pages.pDFPage: pDFPageRoute,
-    Pages.createRequisitionBusinessPage: createRequisitionBusinessPageRoute,
-    Pages.createRequisitionPostalDeliveryPage: createRequisitionPostalDeliveryPageRoute,
-    Pages.createRequisitionVehicleDispatchPage: createRequisitionVehicleDispatchPageRoute,
-    Pages.createRequisitionStationeryOderPage: createRequisitionStationeryOderPageRoute,
-    Pages.createRequisitionReleaseOfWarehousePage: createRequisitionReleaseOfWarehousePageRoute,
+    Pages.createRequestBusinessPage: createRequestBusinessPageRoute,
+    Pages.createRequestPostalDeliveryPage: createRequestPostalDeliveryPageRoute,
+    Pages.createRequestVehicleDispatchPage: createRequestVehicleDispatchPageRoute,
+    Pages.createRequestStationeryOderPage: createRequestStationeryOderPageRoute,
+    Pages.createRequestReleaseOfWarehousePage: createRequestReleaseOfWarehousePageRoute,
     Pages.requisitionApproveListPage : requisitionApproveListPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

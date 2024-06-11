@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_load_flie.dart';
@@ -14,9 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final createRequisitionLeavePageRoute = GoRoute(
-  path: Pages.createRequisitionLeavePage,
-  name: Pages.createRequisitionLeavePage,
+final createRequestLeavePageRoute = GoRoute(
+  path: Pages.createRequestLeavePage,
+  name: Pages.createRequestLeavePage,
   builder: (context, GoRouterState state) => const CreateRequisitionLeavePage(),
 );
 
@@ -33,7 +34,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   int totalMinute = 0;
   String startTime = '', endTime = '', reason = '', detailedDescription = '', detailedReason = '';
   List<File> files = [];
-  List<String> followers = [], substitutes = [];
+  List<User> followers = [], substitutes = [];
   RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
 
   @override
@@ -43,7 +44,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          RequisitionTypeEnum.leave.configTypeName,
+          RequisitionTypeEnum.takeLeave.configTypeName,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,
@@ -107,7 +108,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         reasonForOnLeave == RequisitionTypeOnLeaveEnum.other;
   }
 
-  _setFollower(List<String> value) {
+  _setFollower(List<User> value) {
     setState(() {
       followers = value;
     });
@@ -129,7 +130,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   _cancel() {}
 
-  _setSubstitute(List<String> value) {
+  _setSubstitute(List<User> value) {
     setState(() {
       substitutes = value;
     });

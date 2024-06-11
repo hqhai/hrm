@@ -1928,6 +1928,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Refuse'**
   String get refuse;
+
+  /// No description provided for @process.
+  ///
+  /// In en, this message translates to:
+  /// **'Process'**
+  String get process;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @overdueEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue edit'**
+  String get overdueEdit;
+
+  /// No description provided for @overdueApprove.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue approve'**
+  String get overdueApprove;
+
+  /// No description provided for @newStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newStatus;
+
+  /// No description provided for @standard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get standard;
+
+  /// No description provided for @express.
+  ///
+  /// In en, this message translates to:
+  /// **'Express'**
+  String get express;
+
+  /// No description provided for @sameDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Same Day'**
+  String get sameDay;
+
+  /// No description provided for @overnight.
+  ///
+  /// In en, this message translates to:
+  /// **'Overnight'**
+  String get overnight;
+
+  /// No description provided for @twoDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Two Day'**
+  String get twoDay;
+
+  /// No description provided for @economy.
+  ///
+  /// In en, this message translates to:
+  /// **'Economy'**
+  String get economy;
+
+  /// No description provided for @rush.
+  ///
+  /// In en, this message translates to:
+  /// **'Rush'**
+  String get rush;
+
+  /// No description provided for @scheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled'**
+  String get scheduled;
+
+  /// No description provided for @core.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
+  String get core;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

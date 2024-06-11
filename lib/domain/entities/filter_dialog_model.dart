@@ -11,10 +11,10 @@ class FilterDialogModel {
   final Department? department;
   final String startTime;
   final String endTime;
-  final List<StatusRequisitionEnum> statuses;
+  final List<StatusRequestEnum> statuses;
 
   const FilterDialogModel({
-    this.type = RequisitionTypeEnum.business,
+    this.type = RequisitionTypeEnum.bussiness,
     this.startTime = '',
     this.endTime = '',
     this.statuses = const [],

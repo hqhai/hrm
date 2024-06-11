@@ -3,7 +3,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/requisition.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
@@ -32,10 +32,10 @@ final requisitionInformationPageRoute = GoRoute(
 class RequisitionInformationPage extends StatefulWidget {
   const RequisitionInformationPage(
       {super.key,
-      this.requisition = const Requisition(id: "", type: RequisitionTypeEnum.postalDelivery),
+      this.requisition = const Request(id: "",),
       this.checkUser = false});
 
-  final Requisition requisition;
+  final Request requisition;
   final bool checkUser;
 
   @override
@@ -60,7 +60,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
             title: Center(
               child: Column(
                 children: [
-                  Text(state.requisition.type?.configTypeName ?? "",
+                  Text(state.requisition.flowId?? "",
                       style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
                   Text('${appLocalizations.applicationCode} : ${state.requisition.id}',
                       style: TextStyle(color: colors.surfaceVariantHigh, fontSize: SpacingUnit.x3)),
@@ -92,19 +92,19 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                   const RequisitionInformationGeneraliInformation(),
                   const RequisitionInformationType(),
                   const RequisitionInformationAttach(),
-                  if (state.requisition.status == StatusRequisitionEnum.pending &&
+                  if (state.requisition.status == StatusRequestEnum.process &&
                       !widget.checkUser)
                     Align(
                         alignment: Alignment.bottomRight,
                         child: ButtonItemListRequisition(
                             check: true, title: appLocalizations.delete, callback: () {})),
-                  if (state.requisition.status == StatusRequisitionEnum.modification &&
+                  if (state.requisition.status == StatusRequestEnum.edit &&
                       !widget.checkUser)
                     Align(
                         alignment: Alignment.bottomRight,
                         child: ButtonItemListRequisition(
                             check: true, title: appLocalizations.update, callback: () {})),
-                  if (state.requisition.status == StatusRequisitionEnum.pending && widget.checkUser)
+                  if (state.requisition.status == StatusRequestEnum.process && widget.checkUser)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -122,7 +122,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                         ),
                       ],
                     ),
-                  if (state.requisition.status == StatusRequisitionEnum.done && widget.checkUser)
+                  if (state.requisition.status == StatusRequestEnum.approve && widget.checkUser)
                     Align(
                         alignment: Alignment.bottomRight,
                         child: ButtonItemListRequisition(

@@ -45,9 +45,9 @@ class _ActivateWidgetState extends State<ActivateWidget> {
   }
 
   _nextRequisitionListScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.seeRequisitionListPage);
+    dI<AppNavigation>().pushName(context, page: Pages.seeRequestListPage);
   }
   _nextCreateRequisitionScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.createRequisitionPage);
+    dI<AppNavigation>().pushName(context, page: Pages.createRequestPage);
   }
 }

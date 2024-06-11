@@ -8,7 +8,6 @@ class PathConfig {
   static String getAttendance = '/attendance/get-attendances';
   static String getTimeKeepingByEmail = '/attendance/get-attendances';
   static String changePassword = '/user/change-password';
-  static String request = '/request';
   static String getRequests = '/request/search-by-user';
   static String file = '/file';
   static String getRequestByAdmin = '/request/get-list-request-had-type';
@@ -27,6 +26,11 @@ class PathConfig {
   static String note = '/system-user-calender';
   static String deleteAccount = '/user/delete-system-user';
   static String location = '/location';
+  //user
   static String updateProfile = '/user/update-profile-user';
-
+  static String searchUser = '/admin/user/search-user';
+  //request
+  static String getFlowByUser = '/flow/get-flow-by-user';
+  static String requestSearch = '/request/search';
+  static String request = '/request';
 }

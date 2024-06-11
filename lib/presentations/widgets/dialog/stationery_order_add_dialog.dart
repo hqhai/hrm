@@ -1,6 +1,6 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/stationery/requisition_stationery.dart';
+import 'package:base_app/data/models/requisition/stationery/stationeries_response/stationeries.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 class StationeryOderAddDialog extends StatefulWidget {
   const StationeryOderAddDialog({super.key, this.requisitionStationery, this.stationery});
 
-  final ValueChanged<RequisitionStationery>? requisitionStationery;
-  final RequisitionStationery? stationery;
+  final ValueChanged<Stationeries>? requisitionStationery;
+  final Stationeries? stationery;
 
   @override
   State<StationeryOderAddDialog> createState() => _StationeryOderAddDialogState();
@@ -26,20 +26,20 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       noteController = TextEditingController(),
       unitPriceController = TextEditingController();
   String explain = '', note = '';
-  RequisitionStationeryUnitTypeEnum unit = RequisitionStationeryUnitTypeEnum.pairs;
+  RequestWarehouseReleasedsUnitTypeEnum unit = RequestWarehouseReleasedsUnitTypeEnum.pairs;
   int numberOf = 0, unitPrice = 0, intoMoney = 0;
 
   @override
   void initState() {
     explainController.text = widget.stationery?.product ?? "";
-    numberOfController.text = (widget.stationery?.number ?? 0).toString();
+    numberOfController.text = (widget.stationery?.quantity ?? 0).toString();
     noteController.text = widget.stationery?.note ?? "";
     unitPriceController.text = (widget.stationery?.unitPrice ?? 0).toString();
     explain = widget.stationery?.product ?? "";
     note = widget.stationery?.note ?? "";
-    numberOf = widget.stationery?.number ?? 0;
+    numberOf = widget.stationery?.quantity ?? 0;
     unitPrice = widget.stationery?.unitPrice ?? 0;
-    intoMoney = widget.stationery?.money ?? 0;
+    intoMoney = widget.stationery?.amount ?? 0;
     super.initState();
   }
 
@@ -118,18 +118,18 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
 
   setAdd() {
     setState(() {
-      widget.requisitionStationery?.call(RequisitionStationery(
+      widget.requisitionStationery?.call(Stationeries(
           product: explain,
           unitPrice: unitPrice,
           note: note,
           unit: unit,
-          number: numberOf,
-          money: numberOf * unitPrice));
+          quantity: numberOf,
+          amount: numberOf * unitPrice));
     });
     Navigator.of(context).pop();
   }
 
-  _setUnit(RequisitionStationeryUnitTypeEnum value) {
+  _setUnit(RequestWarehouseReleasedsUnitTypeEnum value) {
     setState(() {
       unit = value;
     });

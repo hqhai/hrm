@@ -1,7 +1,8 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/stationery/requisition_release_of_warehouse.dart';
+import 'package:base_app/data/models/requisition/warehouse_released/warehouse_released_response/warehouse_releaseds.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
@@ -11,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final createRequisitionReleaseOfWarehousePageRoute = GoRoute(
-  path: Pages.createRequisitionReleaseOfWarehousePage,
-  name: Pages.createRequisitionReleaseOfWarehousePage,
+final createRequestReleaseOfWarehousePageRoute = GoRoute(
+  path: Pages.createRequestReleaseOfWarehousePage,
+  name: Pages.createRequestReleaseOfWarehousePage,
   builder: (context, GoRouterState state) => const CreateRequisitionReleaseOfWarehousePage(),
 );
 
@@ -27,15 +28,8 @@ class CreateRequisitionReleaseOfWarehousePage extends StatefulWidget {
 
 class _CreateRequisitionReleaseOfWarehousePageState
     extends State<CreateRequisitionReleaseOfWarehousePage> {
-  List<RequisitionReleaseOfWarehouse> requisitionReleaseOfWarehouse = [
-    const RequisitionReleaseOfWarehouse(
-        product: 'Chong chóng tre của Nobita',
-        number: 2,
-        unit: RequisitionStationeryUnitTypeEnum.pairs,
-        note: 'Không mua cũng được',
-        explain: 'Để bay')
-  ];
-  List<String> followers = [];
+  List<WarehouseReleaseds> requisitionReleaseOfWarehouse = [];
+  List<User> followers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +40,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          RequisitionTypeEnum.releaseOfWarehouse.configTypeName,
+          RequisitionTypeEnum.warehouseReleased.configTypeName,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,
@@ -153,7 +147,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
     );
   }
 
-  setAdd(RequisitionReleaseOfWarehouse value) {
+  setAdd(WarehouseReleaseds value) {
     setState(() {
       requisitionReleaseOfWarehouse.add(value);
     });
@@ -163,8 +157,8 @@ class _CreateRequisitionReleaseOfWarehousePageState
 
   _cancel() {}
 
-  _getStationeryInList(BuildContext context,
-      RequisitionReleaseOfWarehouse requisitionReleaseOfWarehouse, int index) {
+  _getStationeryInList(
+      BuildContext context, WarehouseReleaseds requisitionReleaseOfWarehouse, int index) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -178,18 +172,18 @@ class _CreateRequisitionReleaseOfWarehousePageState
     );
   }
 
-  setEdit(RequisitionReleaseOfWarehouse value, int index) {
+  setEdit(WarehouseReleaseds value, int index) {
     setState(() {
-      requisitionReleaseOfWarehouse[index] = RequisitionReleaseOfWarehouse(
-          number: value.number,
+      requisitionReleaseOfWarehouse[index] = WarehouseReleaseds(
           unit: value.unit,
           note: value.note,
           product: value.product,
-          explain: value.explain);
+          explain: value.explain,
+          quantity: value.quantity);
     });
   }
 
-  _setFollower(List<String> value) {
+  _setFollower(List<User> value) {
     setState(() {
       followers = value;
     });

@@ -7,7 +7,7 @@ import 'package:themes/themes.dart';
 class ItemCreateReasonTransferType extends StatefulWidget {
   const ItemCreateReasonTransferType({super.key, this.onChange});
 
-  final ValueChanged<RequisitionTransferTypeEnum>? onChange;
+  final ValueChanged<RequisitionDeliveryTypeEnum>? onChange;
 
   @override
   State<ItemCreateReasonTransferType> createState() => _ItemCreateReasonTransferTypeState();
@@ -32,18 +32,18 @@ class _ItemCreateReasonTransferTypeState extends State<ItemCreateReasonTransferT
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-          child: DropdownMenu<RequisitionTransferTypeEnum>(
+          child: DropdownMenu<RequisitionDeliveryTypeEnum>(
             width: width * 0.8,
             textStyle: const TextStyle(fontSize: SpacingUnit.x4),
-            initialSelection: RequisitionTransferTypeEnum.often,
-            onSelected: (RequisitionTransferTypeEnum? value) =>
+            initialSelection: RequisitionDeliveryTypeEnum.rush,
+            onSelected: (RequisitionDeliveryTypeEnum? value) =>
                 _onChangeReasonTransferType(value),
             menuHeight: SpacingUnit.x50,
-            dropdownMenuEntries: RequisitionTransferTypeEnum.values
+            dropdownMenuEntries: RequisitionDeliveryTypeEnum.values
                 .map(
-                  (value) => DropdownMenuEntry<RequisitionTransferTypeEnum>(
+                  (value) => DropdownMenuEntry<RequisitionDeliveryTypeEnum>(
                     value: value,
-                    label: value.configRequisitionTransferTypeName,
+                    label: value.configDeliveryTypeName,
                   ),
                 )
                 .toList(),
@@ -53,7 +53,7 @@ class _ItemCreateReasonTransferTypeState extends State<ItemCreateReasonTransferT
     );
   }
 
-  _onChangeReasonTransferType(RequisitionTransferTypeEnum? value) {
-    widget.onChange?.call(value ?? RequisitionTransferTypeEnum.often);
+  _onChangeReasonTransferType(RequisitionDeliveryTypeEnum? value) {
+    widget.onChange?.call(value ?? RequisitionDeliveryTypeEnum.rush);
   }
 }

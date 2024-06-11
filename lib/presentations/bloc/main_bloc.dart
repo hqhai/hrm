@@ -18,6 +18,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_manager/user_by_admin_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,5 +47,6 @@ class MainBloc {
         BlocProvider<RequisitionBloc>(create: (BuildContext context) => dI<RequisitionBloc>()),
         BlocProvider<RequisitionApproveBloc>(
             create: (BuildContext context) => dI<RequisitionApproveBloc>()),
+        BlocProvider<UserByNameBloc>(create: (BuildContext context) => dI<UserByNameBloc>()),
       ];
 }

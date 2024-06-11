@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/data/models/response.dart';
-import 'package:base_app/data/models/response/get_request_by_user.dart';
-import 'package:base_app/domain/entities/request.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/use_cases/request_usecase.dart';
 import 'package:base_app/presentations/bloc/request/request/request_event.dart';
 import 'package:base_app/presentations/bloc/request/request/request_state.dart';
@@ -108,13 +107,9 @@ class RequestBloc extends Bloc<RequestEvent, RequestState> {
     emit(state.copyWith(status: RequestStatus.getRequestInit));
     try {
       List<Request> requests = [];
-      GetRequestByUserResponse getRequestByUserResponse =
-          await _requestUseCase.getRequest(status: event.status, page: event.page);
-      requests.addAll(event.requests);
-      requests.addAll(getRequestByUserResponse.requests);
       emit(state.copyWith(
           requests: requests,
-          totalItems: getRequestByUserResponse.totalItems,
+          totalItems: 0,
           status: RequestStatus.getRequestSuccess));
     } catch (e) {
       emit(state.copyWith(status: RequestStatus.getRequestError));
@@ -268,8 +263,7 @@ class RequestBloc extends Bloc<RequestEvent, RequestState> {
       GetRequestByUserEvent event, Emitter<RequestState> emit) async {
     emit(state.copyWith(status: RequestStatus.getRequestInit));
     try {
-      List<Request> listRequests =
-          event.requests.where((e) => e.createdUserId == event.userId).toList();
+      List<Request> listRequests = [];
       emit(state.copyWith(requestsByUser: listRequests, status: RequestStatus.getRequestSuccess));
     } catch (e) {
       emit(state.copyWith(status: RequestStatus.getRequestError));

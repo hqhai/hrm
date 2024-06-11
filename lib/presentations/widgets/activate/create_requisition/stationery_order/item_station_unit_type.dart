@@ -7,7 +7,7 @@ class ItemStationeryUnitType extends StatefulWidget {
   const ItemStationeryUnitType({super.key, this.onChangeValue, this.title});
 
   final String? title;
-  final ValueChanged<RequisitionStationeryUnitTypeEnum>? onChangeValue;
+  final ValueChanged<RequestWarehouseReleasedsUnitTypeEnum>? onChangeValue;
 
   @override
   State<ItemStationeryUnitType> createState() => _ItemStationeryUnitTypeState();
@@ -29,15 +29,15 @@ class _ItemStationeryUnitTypeState extends State<ItemStationeryUnitType> {
             fontWeight: FontWeight.w800,
           ),
         ),
-        DropdownMenu<RequisitionStationeryUnitTypeEnum>(
+        DropdownMenu<RequestWarehouseReleasedsUnitTypeEnum>(
           width: width * 0.5,
           textStyle: const TextStyle(fontSize: SpacingUnit.x3),
-          initialSelection: RequisitionStationeryUnitTypeEnum.pairs,
-          onSelected: (RequisitionStationeryUnitTypeEnum? value) => _setUnitType(value),
+          initialSelection: RequestWarehouseReleasedsUnitTypeEnum.pairs,
+          onSelected: (RequestWarehouseReleasedsUnitTypeEnum? value) => _setUnitType(value),
           menuHeight: SpacingUnit.x50,
-          dropdownMenuEntries: RequisitionStationeryUnitTypeEnum.values
+          dropdownMenuEntries: RequestWarehouseReleasedsUnitTypeEnum.values
               .map(
-                (value) => DropdownMenuEntry<RequisitionStationeryUnitTypeEnum>(
+                (value) => DropdownMenuEntry<RequestWarehouseReleasedsUnitTypeEnum>(
                   value: value,
                   label: value.configRequisitionStationeryUnitTypeName,
                 ),
@@ -48,7 +48,7 @@ class _ItemStationeryUnitTypeState extends State<ItemStationeryUnitType> {
     );
   }
 
-  _setUnitType(RequisitionStationeryUnitTypeEnum? value) {
+  _setUnitType(RequestWarehouseReleasedsUnitTypeEnum? value) {
     setState(() {
       if(value != null) {
         widget.onChangeValue?.call(value);

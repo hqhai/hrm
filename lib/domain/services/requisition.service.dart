@@ -1,30 +1,33 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/domain/entities/reqisition/requisition.dart';
+import 'package:base_app/domain/entities/reqisition/flow.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 
 abstract class RequisitionService{
-  Future<List<Requisition>> getRequisitions({int? page});
+  Future<List<Request>> getRequisitions({int? page});
 
-  Future<List<Requisition>> getRequisitionsByFilter({
+  Future<List<Request>> getRequisitionsByFilter({
     int? page,
     RequisitionTypeEnum? type,
     String? departmentId,
     String? startDate,
     String? endDate,
-    List<StatusRequisitionEnum>? status,
+    List<StatusRequestEnum>? status,
   });
 
-  Future<List<Requisition>> getRequisitionsApprove({int? page});
+  Future<List<Request>> getRequisitionsApprove({int? page});
 
-  Future<List<Requisition>> getRequisitionsApproveByFilter({
+  Future<List<Request>> getRequisitionsApproveByFilter({
     int? page,
     RequisitionTypeEnum? type,
     String? departmentId,
     String? startDate,
     String? endDate,
-    List<StatusRequisitionEnum>? status,
+    List<StatusRequestEnum>? status,
   });
 
-  Future<Requisition> getRequisitionById({required String id});
+  Future<Request> getRequisitionById({required String id});
 
   Future<int> approveRequisition({required String id, String? note, required String status});
+
+  Future<List<Flow>> getFlowByUser();
 }

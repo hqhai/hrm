@@ -31,7 +31,7 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
   String startTime = DateFormat('yyyy-MM-dd').format(DateTime.now()),
       endTime = DateFormat('yyyy-MM-dd').format(DateTime.now());
   RequisitionTypeEnum type = RequisitionTypeEnum.explanation;
-  List<StatusRequisitionEnum> statuses = [];
+  List<StatusRequestEnum> statuses = [];
   Department? department;
   List<Map> mapDepartment = [];
 
@@ -42,10 +42,10 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
   }
 
   void setType({RequisitionTypeEnum? value}) {
-    type = value ?? RequisitionTypeEnum.business;
+    type = value ?? RequisitionTypeEnum.bussiness;
   }
 
-  void saveDrag({required StatusRequisitionEnum eStatus}) {
+  void saveDrag({required StatusRequestEnum eStatus}) {
     if (!statuses.contains(eStatus)) {
       setState(() {
         statuses.add(eStatus);
@@ -220,7 +220,7 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
                     Wrap(
                       spacing: SpacingUnit.x4,
                       runSpacing: SpacingUnit.x3,
-                      children: StatusRequisitionEnum.values
+                      children: StatusRequestEnum.values
                           .map(
                             (eStatus) => GestureDetector(
                               onTap: () => saveDrag(eStatus: eStatus),
@@ -233,7 +233,7 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
                                       : CustomsColor.colorBackground,
                                   border: Border.all(color: colors.text, width: SpacingUnit.x0_25),
                                 ),
-                                child: Text(eStatus.configStatusName),
+                                child: Text(eStatus.configRequestStatusName),
                               ),
                             ),
                           )

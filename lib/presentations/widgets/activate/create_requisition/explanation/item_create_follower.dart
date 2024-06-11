@@ -1,5 +1,8 @@
+import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -7,15 +10,14 @@ class ItemCreateFollower extends StatefulWidget {
   const ItemCreateFollower({super.key, this.onChange, this.title});
 
   final String? title;
-  final ValueChanged<List<String>>? onChange;
+  final ValueChanged<List<User>>? onChange;
 
   @override
   State<ItemCreateFollower> createState() => _ItemCreateFollowerState();
 }
 
 class _ItemCreateFollowerState extends State<ItemCreateFollower> {
-  List<String> list = ['a', 'a1', 'a2', 'b', 'c', 'd'];
-  List<String> listFollower = [''];
+  List<User> listFollower = [];
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
           ),
         ),
         SizedBox(
-          height: height * 0.1 * listFollower.length,
+          height: height * 0.08 * listFollower.length,
           child: ListView.builder(
             itemCount: listFollower.length,
             itemBuilder: (context, index) => Padding(
@@ -43,22 +45,22 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  DropdownMenu<String>(
-                    width: width * 0.5,
-                    enableFilter: true,
-                    requestFocusOnTap: true,
-                    textStyle: const TextStyle(fontSize: SpacingUnit.x3),
-                    initialSelection: '',
-                    onSelected: (String? value) => _setFollower(value, index),
-                    menuHeight: SpacingUnit.x50,
-                    dropdownMenuEntries: list
-                        .map(
-                          (value) => DropdownMenuEntry<String>(
-                            value: value,
-                            label: value,
-                          ),
-                        )
-                        .toList(),
+                  Container(
+                    width: width * 0.7,
+                    height: height * 0.05,
+                    padding: const EdgeInsets.all(SpacingUnit.x3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                      color: CustomsColor.colorBackground,
+                      border: Border.all(
+                        color: colors.text,
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      listFollower[index].fullName ?? "",
+                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+                    ),
                   ),
                   GestureDetector(
                       onTap: () => _delete(index),
@@ -73,7 +75,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
           ),
         ),
         ElevatedButton(
-          onPressed: () => _add(),
+          onPressed: () => _add(context),
           style: ElevatedButton.styleFrom(
             backgroundColor: colors.blue,
           ),
@@ -89,17 +91,18 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
     );
   }
 
-  _setFollower(String? value, int index) {
+  _add(BuildContext context) {
     setState(() {
-      listFollower[index] = value ?? "";
-      widget.onChange?.call(listFollower);
+      listFollower = [];
     });
-  }
-
-  _add() {
-    setState(() {
-      listFollower.add('');
-    });
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetWidget(
+          onChange: (value) => setListPerson(value),
+        );
+      },
+    );
   }
 
   _delete(int index) {
@@ -107,6 +110,13 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
       setState(() {
         listFollower.removeAt(index);
       });
+    });
+  }
+
+  setListPerson(List<User> value) {
+    setState(() {
+      listFollower = value;
+      widget.onChange?.call(listFollower);
     });
   }
 }

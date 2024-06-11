@@ -5,10 +5,8 @@ import 'package:base_app/presentations/widgets/admin/check_in_setting/check_in_s
 import 'package:base_app/presentations/widgets/admin/department/department.widget.dart';
 import 'package:base_app/presentations/widgets/admin/personnel/personnel.widget.dart';
 import 'package:base_app/presentations/widgets/admin/position/position.widget.dart';
-import 'package:base_app/presentations/widgets/admin/request_by_manager/management_request.admin.widget.dart';
 import 'package:base_app/presentations/widgets/attendance/timekeeping.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
-import 'package:base_app/presentations/widgets/create_request/roommetting_request/create_request_roommetting.dart';
 import 'package:base_app/presentations/widgets/home/home.widget.dart';
 import 'package:base_app/presentations/widgets/profile/profile.widget.dart';
 import 'package:base_app/presentations/widgets/trash_app/calendar/layout_calendar_2.dart';
@@ -146,8 +144,6 @@ class MenuValues {
   ];
 
   static const List<Widget> widgetOptionsManager = <Widget>[
-    ManagementRequest(),
-    CreateRoomMeetingWidget(),
     LayoutCalendar(),
     ChangePassword(),
   ];
@@ -195,18 +191,6 @@ class MenuValues {
     TypeRequestStatus.overTime.name
   ];
 
-  static List<String> checkApprover = [
-    StatusRequestStatus.pending.name,
-    StatusRequestStatus.done.name,
-    StatusRequestStatus.reject.name,
-  ];
-
-  static List<String> checkManagerApprover = [
-    StatusRequestStatus.subsequentApproval.name,
-    StatusRequestStatus.pending.name,
-    StatusRequestStatus.done.name,
-    StatusRequestStatus.reject.name,
-  ];
   static List<String> listPriority = [
     PriorityRequestStatus.high.name,
     PriorityRequestStatus.medium.name,

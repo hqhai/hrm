@@ -55,11 +55,11 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                       color: colors.neutralVariant40,
                       padding: const EdgeInsets.all(SpacingUnit.x2),
                       child: Text(
-                          StatusRequisitionEnum.values
+                          StatusRequestEnum.values
                               .firstWhere((e) => e == state.requisitions[widget.index].status)
-                              .configStatusName,
+                              .configRequestStatusName,
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))),
-              if (state.requisitions[widget.index].status == StatusRequisitionEnum.modification)
+              if (state.requisitions[widget.index].status == StatusRequestEnum.edit)
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
@@ -74,7 +74,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                       )),
                 ),
-              if (state.requisitions[widget.index].status == StatusRequisitionEnum.pending)
+              if (state.requisitions[widget.index].status == StatusRequestEnum.process)
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
@@ -94,7 +94,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     SizedBox(
                         width: width * 0.7,
-                        child: Text(state.requisitions[widget.index].type?.configTypeName ?? "",
+                        child: Text(state.requisitions[widget.index].flowId??"",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -107,7 +107,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                       SizedBox(
                           width: width * 0.6,
-                          child: Text(state.requisitions[widget.index].creator ?? "",
+                          child: Text(state.requisitions[widget.index].createdFullName ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
@@ -117,7 +117,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                       SizedBox(
                           width: width * 0.6,
-                          child: Text(state.requisitions[widget.index].createTime ?? "",
+                          child: Text(state.requisitions[widget.index].createdDate ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
@@ -127,7 +127,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                       SizedBox(
                           width: width * 0.6,
-                          child: Text(state.requisitions[widget.index].deadLine ?? "",
+                          child: Text(state.requisitions[widget.index].flowId ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))

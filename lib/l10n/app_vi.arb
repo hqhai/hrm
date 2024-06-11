@@ -304,5 +304,19 @@
   "vehicleType": "Loại phương tiện",
   "licensePlate": "Biển số xe",
   "autoMaker": "Hãng sản xuất",
-  "refuse": "Từ chối"
+  "refuse": "Từ chối",
+  "process": "Chờ duyệt",
+  "edit": "Yêu cầu chỉnh sửa",
+  "overdueEdit": "Quá hạn chỉnh sửa",
+  "overdueApprove": "Quá hạn phê duyệt",
+  "newStatus": "Mới",
+  "standard": "Giao hàng tiêu chuẩn",
+  "express": "Giao hàng nhanh",
+  "sameDay": "Giao hàng trong ngày",
+  "overnight": "Giao hàng qua đêm",
+  "twoDay": "Giao hàng trong hai ngày",
+  "economy": "Giao hàng tiết kiệm",
+  "rush": "Giao hàng hỏa tốc",
+  "scheduled": "Giao hàng theo lịch hẹn",
+  "core": "Chính"
 }

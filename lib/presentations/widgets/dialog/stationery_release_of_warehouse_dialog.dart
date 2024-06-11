@@ -1,6 +1,6 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/stationery/requisition_release_of_warehouse.dart';
+import 'package:base_app/data/models/requisition/warehouse_released/warehouse_released_response/warehouse_releaseds.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
@@ -13,8 +13,8 @@ class ReleaseOfWarehouseAddDialog extends StatefulWidget {
   const ReleaseOfWarehouseAddDialog(
       {super.key, this.requisitionReleaseOfWarehouse, this.releaseOfWarehouse});
 
-  final ValueChanged<RequisitionReleaseOfWarehouse>? requisitionReleaseOfWarehouse;
-  final RequisitionReleaseOfWarehouse? releaseOfWarehouse;
+  final ValueChanged<WarehouseReleaseds>? requisitionReleaseOfWarehouse;
+  final WarehouseReleaseds? releaseOfWarehouse;
 
   @override
   State<ReleaseOfWarehouseAddDialog> createState() => _ReleaseOfWarehouseAddDialogState();
@@ -26,19 +26,19 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
       numberOfController = TextEditingController(),
       noteController = TextEditingController();
   String explain = '', note = '', product = '';
-  RequisitionStationeryUnitTypeEnum unit = RequisitionStationeryUnitTypeEnum.pairs;
+  RequestWarehouseReleasedsUnitTypeEnum unit = RequestWarehouseReleasedsUnitTypeEnum.pairs;
   int numberOf = 0;
 
   @override
   void initState() {
     productController.text = widget.releaseOfWarehouse?.product ?? "";
     explainController.text = widget.releaseOfWarehouse?.product ?? "";
-    numberOfController.text = (widget.releaseOfWarehouse?.number ?? 0).toString();
+    numberOfController.text = (widget.releaseOfWarehouse?.quantity ?? 0).toString();
     noteController.text = widget.releaseOfWarehouse?.note ?? "";
     explain = widget.releaseOfWarehouse?.product ?? "";
     note = widget.releaseOfWarehouse?.note ?? "";
-    unit = widget.releaseOfWarehouse?.unit ?? RequisitionStationeryUnitTypeEnum.pairs;
-    numberOf = widget.releaseOfWarehouse?.number ?? 0;
+    unit = widget.releaseOfWarehouse?.unit ?? RequestWarehouseReleasedsUnitTypeEnum.pairs;
+    numberOf = widget.releaseOfWarehouse?.quantity ?? 0;
     super.initState();
   }
 
@@ -101,18 +101,18 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
 
   setAdd() {
     setState(() {
-      widget.requisitionReleaseOfWarehouse?.call(RequisitionReleaseOfWarehouse(
+      widget.requisitionReleaseOfWarehouse?.call(WarehouseReleaseds(
         product: product,
         note: note,
         unit: unit,
-        number: numberOf,
+        quantity: numberOf,
         explain: explain
       ));
     });
     Navigator.of(context).pop();
   }
 
-  _setUnit(RequisitionStationeryUnitTypeEnum value) {
+  _setUnit(RequestWarehouseReleasedsUnitTypeEnum value) {
     setState(() {
       unit = value;
     });

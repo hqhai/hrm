@@ -6,8 +6,7 @@ import 'package:base_app/data/models/request/explanation/create_explanation_conf
 import 'package:base_app/data/models/request/on_leave/create_onleave_config_request.dart';
 import 'package:base_app/data/models/request/overtime/list_request_types.dart';
 import 'package:base_app/data/models/request/room_meeting/create_request_type_room_meeting_config.dart';
-import 'package:base_app/data/models/response/get_request_by_user.dart';
-import 'package:base_app/domain/entities/request.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
 
@@ -52,7 +51,7 @@ abstract class RequestUseCase {
     Uint8List? imageData,
   });
 
-  Future<GetRequestByUserResponse> getRequest({
+  Future<int> getRequest({
     required String status,
     required int page,
   });

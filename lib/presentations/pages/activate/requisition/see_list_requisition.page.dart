@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final seeListRequisitionPageRoute = GoRoute(
-    path: Pages.seeRequisitionListPage,
-    name: Pages.seeRequisitionListPage,
+final seeRequestListPageRoute = GoRoute(
+    path: Pages.seeRequestListPage,
+    name: Pages.seeRequestListPage,
     builder: (context, GoRouterState state) => const SeeListRequisitionPage());
 
 class SeeListRequisitionPage extends StatefulWidget {

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/business/item_create_business.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
@@ -13,29 +14,29 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final createRequisitionVehicleDispatchPageRoute = GoRoute(
-  path: Pages.createRequisitionVehicleDispatchPage,
-  name: Pages.createRequisitionVehicleDispatchPage,
-  builder: (context, GoRouterState state) => const CreateRequisitionVehicleDispatchPage(),
+final createRequestVehicleDispatchPageRoute = GoRoute(
+  path: Pages.createRequestVehicleDispatchPage,
+  name: Pages.createRequestVehicleDispatchPage,
+  builder: (context, GoRouterState state) => const CreateRequestVehicleDispatchPage(),
 );
 
-class CreateRequisitionVehicleDispatchPage extends StatefulWidget {
-  const CreateRequisitionVehicleDispatchPage({super.key});
+class CreateRequestVehicleDispatchPage extends StatefulWidget {
+  const CreateRequestVehicleDispatchPage({super.key});
 
   @override
-  State<CreateRequisitionVehicleDispatchPage> createState() =>
-      _CreateRequisitionVehicleDispatchPageState();
+  State<CreateRequestVehicleDispatchPage> createState() =>
+      _CreateRequestVehicleDispatchPageState();
 }
 
-class _CreateRequisitionVehicleDispatchPageState
-    extends State<CreateRequisitionVehicleDispatchPage> {
+class _CreateRequestVehicleDispatchPageState
+    extends State<CreateRequestVehicleDispatchPage> {
   final TextEditingController scheduleController = TextEditingController(),
       vehicleController = TextEditingController(),
       destinationController = TextEditingController();
   int totalMinute = 0;
   String startTime = '', endTime = '', schedule = '';
   List<File> files = [];
-  List<String> followers = [], walkers = [], carCaller = [];
+  List<User> followers = [], walkers = [], carCaller = [];
   RequisitionTypeOnLeaveEnum? scheduleForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
 
   @override
@@ -45,7 +46,7 @@ class _CreateRequisitionVehicleDispatchPageState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          RequisitionTypeEnum.vehicleDispatch.configTypeName,
+          RequisitionTypeEnum.vehicleDriver.configTypeName,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,
@@ -96,7 +97,7 @@ class _CreateRequisitionVehicleDispatchPageState
     );
   }
 
-  _setFollower(List<String> value) {
+  _setFollower(List<User> value) {
     setState(() {
       followers = value;
     });
@@ -112,7 +113,7 @@ class _CreateRequisitionVehicleDispatchPageState
 
   _cancel() {}
 
-  _setWalker(List<String> value) {
+  _setWalker(List<User> value) {
     setState(() {
       walkers = value;
     });
@@ -136,7 +137,7 @@ class _CreateRequisitionVehicleDispatchPageState
     });
   }
 
-  _setCarCaller(List<String> value) {
+  _setCarCaller(List<User> value) {
     setState(() {
       carCaller = value;
     });
