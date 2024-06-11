@@ -13,6 +13,7 @@ import 'package:base_app/presentations/bloc/position/position_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_bloc.dart';
 import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
 import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
@@ -48,5 +49,7 @@ class MainBloc {
         BlocProvider<RequisitionApproveBloc>(
             create: (BuildContext context) => dI<RequisitionApproveBloc>()),
         BlocProvider<UserByNameBloc>(create: (BuildContext context) => dI<UserByNameBloc>()),
-      ];
+        BlocProvider<FlowBloc>(create: (BuildContext context) => dI<FlowBloc>()),
+
+  ];
 }

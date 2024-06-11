@@ -7,7 +7,9 @@ import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class FlowBloc extends Bloc<FlowEvent, FlowState> {
   final RequisitionUseCase requisitionUseCase;
 

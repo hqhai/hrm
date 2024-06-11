@@ -26,10 +26,10 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
 
   @override
   Future<List<Flow>> getFlowByUser() async {
-    final url = '$baseUrlUser${PathConfig.getFlowByUser}';
+    final url = '$baseUrl${PathConfig.getFlowByUser}';
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result['item'];
+    final data = responseBase.result['items'];
     List<Flow> flows = (data as List<dynamic>).map((e) => Flow.fromJson(e as Map<String, dynamic>)).toList();
     return flows;
   }

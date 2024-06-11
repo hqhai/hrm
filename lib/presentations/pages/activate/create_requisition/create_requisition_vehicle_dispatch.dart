@@ -1,5 +1,5 @@
-
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
@@ -10,22 +10,32 @@ import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
 final createRequestVehicleDispatchPageRoute = GoRoute(
-  path: Pages.createRequestVehicleDispatchPage,
-  name: Pages.createRequestVehicleDispatchPage,
-  builder: (context, GoRouterState state) => const CreateRequestVehicleDispatchPage(),
-);
+    path: Pages.createRequestVehicleDispatchPage,
+    name: Pages.createRequestVehicleDispatchPage,
+    builder: (context, GoRouterState state) {
+      Map data = state.extra as Map;
+      return CreateRequestVehicleDispatchPage(
+        flowId: data['flowId'],
+      );
+    });
 
 class CreateRequestVehicleDispatchPage extends StatefulWidget {
-  const CreateRequestVehicleDispatchPage({super.key});
+  const CreateRequestVehicleDispatchPage({super.key, this.flowId});
+
+  final String? flowId;
 
   @override
   State<CreateRequestVehicleDispatchPage> createState() => _CreateRequestVehicleDispatchPageState();
@@ -39,8 +49,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   String startTime = '', endTime = '', schedule = '', content = '';
   List<String> followers = [], walkers = [];
 
-  bool _checkValue(){
-    bool check = schedule!= ''&& content != '' && walkers != [];
+  bool _checkValue() {
+    bool check = schedule != '' && content != '' && walkers != [];
     return check;
   }
 
@@ -48,56 +58,59 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          RequisitionTypeEnum.vehicleDriver.configTypeName,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x5,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(SpacingUnit.x3),
-          margin: const EdgeInsets.all(SpacingUnit.x3),
-          decoration: BoxDecoration(
-            color: colors.surface,
-            borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-            border: Border.all(
-              width: 1,
-              color: colors.surface,
+    return BlocListener<RequisitionBloc, RequisitionState>(
+      listener: (context, state) => _listener(context, state),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            RequisitionTypeEnum.vehicleDriver.configTypeName,
+            style: TextStyle(
+              color: colors.text,
+              fontSize: SpacingUnit.x5,
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ItemCreateIntervalOnLeave(
-                dayOrHours: false,
-                title: appLocalizations.intervalOnLeave,
-                startTime: (value) => setStartTime(value),
-                endTime: (value) => setEndTime(value),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(SpacingUnit.x3),
+            margin: const EdgeInsets.all(SpacingUnit.x3),
+            decoration: BoxDecoration(
+              color: colors.surface,
+              borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+              border: Border.all(
+                width: 1,
+                color: colors.surface,
               ),
-              ItemCreateInputArea(
-                textController: scheduleController,
-                title: appLocalizations.schedule,
-                onChange: (value) => _setSchedule(value),
-              ),
-              ItemCreateInputArea(
-                textController: contentController,
-                title: appLocalizations.content,
-                onChange: (value) => _setContent(value),
-              ),
-              ItemCreateFollower(
-                  title: appLocalizations.walker, onChange: (value) => _setWalker(value)),
-              ItemCreateFollower(
-                  title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-              ItemButton(
-                callbackSave: () => _save(),
-                callbackCancel: () => _cancel(),
-              )
-            ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ItemCreateIntervalOnLeave(
+                  dayOrHours: false,
+                  title: appLocalizations.intervalOnLeave,
+                  startTime: (value) => setStartTime(value),
+                  endTime: (value) => setEndTime(value),
+                ),
+                ItemCreateInputArea(
+                  textController: scheduleController,
+                  title: appLocalizations.schedule,
+                  onChange: (value) => _setSchedule(value),
+                ),
+                ItemCreateInputArea(
+                  textController: contentController,
+                  title: appLocalizations.content,
+                  onChange: (value) => _setContent(value),
+                ),
+                ItemCreateFollower(
+                    title: appLocalizations.walker, onChange: (value) => _setWalker(value)),
+                ItemCreateFollower(
+                    title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
+                ItemButton(
+                  callbackSave: () => _save(),
+                  callbackCancel: () => _cancel(),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -111,22 +124,22 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   _save() {
-    if(_checkValue()) {
+    if (_checkValue()) {
       dI<RequisitionBloc>().add(
-      PostRequestEvent(
-        postRequestRequest: PostRequestRequest(
-          description: scheduleController.text,
-          followerIds: followers,
-          flowId: 'b11bc307-7e58-4eb7-9d14-7b393359f864',
-          config: VehicleDriverResponse(
-            content: contentController.text,
-            endDate: endTime,
-            startDate: startTime,
-            subtitudePersons: walkers,
+        PostRequestEvent(
+          postRequestRequest: PostRequestRequest(
+            description: scheduleController.text,
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: VehicleDriverResponse(
+              content: contentController.text,
+              endDate: endTime,
+              startDate: startTime,
+              subtitudePersons: walkers,
+            ),
           ),
         ),
-      ),
-    );
+      );
     }
   }
 
@@ -160,5 +173,17 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     setState(() {
       content = value;
     });
+  }
+
+  _listener(BuildContext context, RequisitionState state) {
+    if (state.status == RequisitionEnum.postRequisitionInit) {
+      progressIndicatorDialog(context);
+    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
+      Navigator.of(context).pop();
+      successDialog(context);
+    } else if (state.status == RequisitionEnum.postRequisitionError) {
+      Navigator.of(context).pop();
+      unsuccessfulDialog(context);
+    }
   }
 }

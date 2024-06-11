@@ -84,8 +84,6 @@ extension ConfigRequestStatusExtension on StatusRequestEnum {
 }
 
 enum RequisitionTypeEnum {
-  @JsonValue('Core')
-  core('Core'),
   @JsonValue('TakeLeave')
   takeLeave('TakeLeave'),
   @JsonValue('Bussiness')
@@ -129,8 +127,6 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
         return appLocalizations.stationeryOrder;
       case RequisitionTypeEnum.bussiness:
         return appLocalizations.business;
-      case RequisitionTypeEnum.core:
-    return appLocalizations.core;
     }
   }
 }
