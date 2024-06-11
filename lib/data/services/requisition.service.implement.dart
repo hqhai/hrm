@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
@@ -33,6 +34,15 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     return flows;
   }
 
+  @override
+  Future<int> postRequest({required PostRequestRequest postRequestRequest}) async {
+    final url = '$baseUrl${PathConfig.request}';
+    final body = jsonEncode(postRequestRequest.toJson());
+    final response = await client.post(url, body:  body);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final statusCode = responseBase.statusCode;
+    return statusCode;
+  }
 
   @override
   Future<int> approveRequisition({required String id, String? note, required String status}) {
@@ -69,5 +79,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     // TODO: implement getRequisitionsByFilter
     throw UnimplementedError();
   }
+
+
 
 }

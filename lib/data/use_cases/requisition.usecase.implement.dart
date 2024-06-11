@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/repositories/requisition.repository.dart';
@@ -51,5 +52,10 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   @override
   Future<List<Flow>> getFlowByUser() async {
     return await _requisitionRepository.getFlowByUser();
+  }
+
+  @override
+  Future<int> postRequest({required PostRequestRequest postRequestRequest}) async {
+    return await _requisitionRepository.postRequest(postRequestRequest: postRequestRequest);
   }
 }

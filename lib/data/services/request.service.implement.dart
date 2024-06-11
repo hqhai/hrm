@@ -81,10 +81,6 @@ class RequestServiceImpl extends BaseService implements RequestService {
 
   @override
   Future<int> getRequest(GetRequestRequest getRequestRequest) async {
-    final url = '$baseUrl${PathConfig.getRequests}';
-    final params = getRequestRequest.toJson();
-    final response = await client.get(url, params: params);
-    final responseBase = ResponseBase.fromJson(json.decode(response.body));
     return 0;
   }
 

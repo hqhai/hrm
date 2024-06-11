@@ -1,4 +1,3 @@
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,13 +10,11 @@ class VehicleDriverResponse {
   final String? endDate;
   final String? content;
   final List<String>? subtitudePersons;
-  final String? vehicle;
 
   const VehicleDriverResponse({
     this.startDate,
     this.endDate,
     this.content,
-    this.vehicle,
     this.subtitudePersons,
   });
 

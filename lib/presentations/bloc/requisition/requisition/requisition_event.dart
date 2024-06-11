@@ -1,4 +1,6 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/vehicle_driver/vehicle_driver_response/vehicle_driver_response.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,6 +9,15 @@ sealed class RequisitionEvent extends Equatable {
 
   @override
   List<Object?> get props => [];
+}
+
+class PostRequestEvent extends RequisitionEvent {
+  const PostRequestEvent({this.postRequestRequest = const PostRequestRequest()});
+
+  final PostRequestRequest postRequestRequest;
+
+  @override
+  List<Object?> get props => [postRequestRequest];
 }
 
 class GetRequisitionsEvent extends RequisitionEvent {

@@ -6,7 +6,7 @@ part 'post_request_request.g.dart';
 @CopyWith()
 @JsonSerializable()
 class PostRequestRequest {
-  final String? flowI;
+  final String? flowId;
   final dynamic config;
   final List<String>? followerIds;
   final String? description;
@@ -17,7 +17,7 @@ class PostRequestRequest {
     this.followerIds,
     this.description,
     this.config,
-    this.flowI
+    this.flowId
   });
 
   factory PostRequestRequest.fromJson(Map<String, dynamic> json) =>

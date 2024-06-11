@@ -50,7 +50,7 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
       emit(state.copyWith(
           requisition: event.requisition, status: RequisitionEnum.getRequisitionSuccess));
     } catch (e) {
-      emit(state.copyWith(status: RequisitionEnum.getRequisitionError));
+      emit(state.copyWith(status: RequisitionEnum.getRequisitionsError));
     }
   }
 }

@@ -1,15 +1,19 @@
-import 'dart:io';
 
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/vehicle_driver/vehicle_driver_response/vehicle_driver_response.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/business/item_create_business.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/item_load_flie.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
@@ -24,20 +28,21 @@ class CreateRequestVehicleDispatchPage extends StatefulWidget {
   const CreateRequestVehicleDispatchPage({super.key});
 
   @override
-  State<CreateRequestVehicleDispatchPage> createState() =>
-      _CreateRequestVehicleDispatchPageState();
+  State<CreateRequestVehicleDispatchPage> createState() => _CreateRequestVehicleDispatchPageState();
 }
 
-class _CreateRequestVehicleDispatchPageState
-    extends State<CreateRequestVehicleDispatchPage> {
+class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleDispatchPage> {
   final TextEditingController scheduleController = TextEditingController(),
-      vehicleController = TextEditingController(),
+      contentController = TextEditingController(),
       destinationController = TextEditingController();
   int totalMinute = 0;
-  String startTime = '', endTime = '', schedule = '';
-  List<File> files = [];
-  List<User> followers = [], walkers = [], carCaller = [];
-  RequisitionTypeOnLeaveEnum? scheduleForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
+  String startTime = '', endTime = '', schedule = '', content = '';
+  List<String> followers = [], walkers = [];
+
+  bool _checkValue(){
+    bool check = schedule!= ''&& content != '' && walkers != [];
+    return check;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +73,9 @@ class _CreateRequestVehicleDispatchPageState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ItemCreateBusinessDay(
-                dayOrHours: true,
-                title: appLocalizations.time,
+              ItemCreateIntervalOnLeave(
+                dayOrHours: false,
+                title: appLocalizations.intervalOnLeave,
                 startTime: (value) => setStartTime(value),
                 endTime: (value) => setEndTime(value),
               ),
@@ -79,13 +84,15 @@ class _CreateRequestVehicleDispatchPageState
                 title: appLocalizations.schedule,
                 onChange: (value) => _setSchedule(value),
               ),
+              ItemCreateInputArea(
+                textController: contentController,
+                title: appLocalizations.content,
+                onChange: (value) => _setContent(value),
+              ),
               ItemCreateFollower(
                   title: appLocalizations.walker, onChange: (value) => _setWalker(value)),
               ItemCreateFollower(
-                  title: appLocalizations.carCaller, onChange: (value) => _setCarCaller(value)),
-              ItemCreateFollower(
                   title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-              ItemLoadFile(onChangeFiles: (value) => _setFile(value)),
               ItemButton(
                 callbackSave: () => _save(),
                 callbackCancel: () => _cancel(),
@@ -99,35 +106,47 @@ class _CreateRequestVehicleDispatchPageState
 
   _setFollower(List<User> value) {
     setState(() {
-      followers = value;
+      followers = value.map((e) => e.id).toList();
     });
   }
 
-  _setFile(List<File> value) {
-    setState(() {
-      files = value;
-    });
+  _save() {
+    if(_checkValue()) {
+      dI<RequisitionBloc>().add(
+      PostRequestEvent(
+        postRequestRequest: PostRequestRequest(
+          description: scheduleController.text,
+          followerIds: followers,
+          flowId: 'b11bc307-7e58-4eb7-9d14-7b393359f864',
+          config: VehicleDriverResponse(
+            content: contentController.text,
+            endDate: endTime,
+            startDate: startTime,
+            subtitudePersons: walkers,
+          ),
+        ),
+      ),
+    );
+    }
   }
-
-  _save() {}
 
   _cancel() {}
 
   _setWalker(List<User> value) {
     setState(() {
-      walkers = value;
+      walkers = value.map((e) => e.id).toList();
     });
   }
 
   setStartTime(String value) {
     setState(() {
-      startTime = value;
+      startTime = formatIso8601(value);
     });
   }
 
   setEndTime(String value) {
     setState(() {
-      endTime = value;
+      endTime = formatIso8601(value);
     });
   }
 
@@ -137,9 +156,9 @@ class _CreateRequestVehicleDispatchPageState
     });
   }
 
-  _setCarCaller(List<User> value) {
+  _setContent(String value) {
     setState(() {
-      carCaller = value;
+      content = value;
     });
   }
 }
