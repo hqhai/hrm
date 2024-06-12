@@ -28,7 +28,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
       numberOfController = TextEditingController(),
       noteController = TextEditingController();
   String explain = '', note = '', product = '', unit = '';
-  double numberOf = 0;
+  int numberOf = 0;
   Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
 
   @override
@@ -143,7 +143,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
 
   _setNumber(String value) {
     setState(() {
-      numberOf = double.parse(value);
+      numberOf = int.parse(value);
     });
   }
 

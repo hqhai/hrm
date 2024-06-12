@@ -9,7 +9,7 @@ class Stationeries {
   final String? product;
   final String? note;
   final String? unit;
-  final double? quantity;
+  final int? quantity;
   final double? unitPrice;
   final double? amount;
 

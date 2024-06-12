@@ -28,7 +28,8 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       noteController = TextEditingController(),
       unitPriceController = TextEditingController();
   String explain = '', note = '', unit = '', month = '';
-  double numberOf = 0, intoMoney = 0, unitPrice = 0;
+  double intoMoney = 0, unitPrice = 0;
+  int numberOf = 0;
   Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
 
   setStationery(Stationery value) {
@@ -52,12 +53,6 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     unitPrice = widget.stationery?.unitPrice ?? 0;
     intoMoney = widget.stationery?.amount ?? 0;
     super.initState();
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    intoMoney = unitPrice * numberOf;
-    super.setState(fn);
   }
 
   @override
@@ -148,7 +143,8 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
 
   _setNumber(String value) {
     setState(() {
-      numberOf = double.parse(value);
+      numberOf = int.parse(value);
+      intoMoney = unitPrice * numberOf;
     });
   }
 

@@ -86,13 +86,13 @@ class _RequisitionInformationContentTypeBusinessTripState
                       children: [
                         Text(appLocalizations.accompanyingPerson,
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        if (state.requisition.config.subtitudePersons?.isNotEmpty ?? false)
+                        if (stateUserById.subtitudePersons.isNotEmpty ?? false)
                           Container(
                             margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                             height:
-                                SpacingUnit.x6 * state.requisition.config.subtitudePersons!.length,
+                                SpacingUnit.x6 * stateUserById.subtitudePersons.length,
                             child: ListView.builder(
-                              itemCount: state.requisition.config.subtitudePersons!.length,
+                              itemCount: stateUserById.subtitudePersons.length,
                               itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
                                 child: Text(

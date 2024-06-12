@@ -10,7 +10,7 @@ class WarehouseReleaseds {
   final String? unit;
   final String? explain;
   final String? note;
-  final double? quantity;
+  final int? quantity;
 
   const WarehouseReleaseds({
     this.product,
