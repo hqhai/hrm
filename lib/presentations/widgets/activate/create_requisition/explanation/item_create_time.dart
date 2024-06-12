@@ -1,5 +1,4 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:base_app/presentations/widgets/custom/time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';

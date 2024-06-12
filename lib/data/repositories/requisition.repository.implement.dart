@@ -2,7 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
-import 'package:base_app/data/models/requisition/requisition/get_request_resquest.dart';
+import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';

@@ -5,7 +5,6 @@ import 'package:base_app/data/models/requisition/requisition/request_response.da
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
-import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
 import 'package:base_app/domain/repositories/requisition.repository.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:injectable/injectable.dart';
