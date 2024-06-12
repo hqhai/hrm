@@ -86,7 +86,7 @@ class _RequisitionInformationContentTypeBusinessTripState
                       children: [
                         Text(appLocalizations.accompanyingPerson,
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        if (stateUserById.subtitudePersons.isNotEmpty ?? false)
+                        if (stateUserById.subtitudePersons.isNotEmpty)
                           Container(
                             margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                             height:
