@@ -7,6 +7,7 @@ abstract class UserRepository {
   Future<bool> changePassword(String newPassword, String currentPassword);
 
   Future<User> getUserInfo();
+
   Future<int> deleteAccount();
 
   Future<List<User>> getUserByRole({required String role});
@@ -18,4 +19,6 @@ abstract class UserRepository {
   Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest});
 
   Future<SearchUserByNameResponse> getUserByFullName({required String fullName, int? page});
+
+  Future<List<User>> getUserById({required List<String> id});
 }

@@ -47,7 +47,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.employeeCode,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.createdUserId ?? "",
+                    Text(state.requisition.createdCode ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -59,7 +59,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.position,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.createdPositionId ?? "",
+                    Text(state.requisition.nameCreatedPosition ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -71,7 +71,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.department,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.createdDepartmentId ?? "",
+                    Text(state.requisition.nameCreatedDepartment ?? "",
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),

@@ -3,6 +3,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
@@ -94,7 +95,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     SizedBox(
                         width: width * 0.7,
-                        child: Text(state.requisitions[widget.index].flowId??"",
+                        child: Text(state.requisitions[widget.index].description ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -117,20 +118,22 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                       SizedBox(
                           width: width * 0.6,
-                          child: Text(state.requisitions[widget.index].createdDate ?? "",
+                          child: Text(
+                              formatYMDHMS(state.requisitions[widget.index].createdDate ?? ""),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
                     ]),
                     Row(children: [
-                      Text('${appLocalizations.deadline} : ',
+                      Text('${appLocalizations.code} : ',
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                       SizedBox(
                           width: width * 0.6,
-                          child: Text(state.requisitions[widget.index].flowId ?? "",
+                          child: Text(state.requisitions[widget.index].code ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
+                              style: TextStyle(
+                                  color: colors.successVariant, fontSize: SpacingUnit.x3_5)))
                     ]),
                   ]))
             ]),

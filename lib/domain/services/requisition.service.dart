@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
@@ -37,6 +38,8 @@ abstract class RequisitionService{
   Future<int> approveRequisition({required String id, String? note, required String status});
 
   Future<List<Flow>> getFlowByUser();
+
+  Future<Flow> getFlowById({required FlowByIdRequest flowByIdRequest});
 
   Future<SearchStationeryByNameResponse> getStationery({required SearchStationeryByNameRequest searchStationeryByNameRequest});
 }

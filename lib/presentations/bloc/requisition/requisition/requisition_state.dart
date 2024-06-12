@@ -7,16 +7,19 @@ part 'requisition_state.g.dart';
 
 @CopyWith()
 class RequisitionState extends Equatable {
-  const RequisitionState({
-    this.requisition = const Request(id: '',),
-    this.requisitions = const [],
-    this.status = RequisitionEnum.init
-  });
+  const RequisitionState(
+      {this.requisition = const Request(
+        id: '',
+      ),
+      this.requisitions = const [],
+      this.status = RequisitionEnum.init,
+      this.countItem = 0});
 
   final Request requisition;
   final List<Request> requisitions;
   final RequisitionEnum status;
+  final int countItem;
 
   @override
-  List<Object> get props => [requisition, requisitions, status];
+  List<Object> get props => [requisition, requisitions, status, countItem];
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
@@ -64,7 +65,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
 
   @override
   Future<RequestsResponse> getRequisitions({required GetRequestRequest requestsRequest}) async {
-    final url = '$baseUrl${PathConfig.request}';
+    final url = '$baseUrl${PathConfig.getRequestSelf}';
     final params = requestsRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
@@ -117,5 +118,15 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     List<Stationery> stationeries =
         (data as List<dynamic>).map((e) => Stationery.fromJson(e as Map<String, dynamic>)).toList();
     return SearchStationeryByNameResponse(totalItems: totalItems, stationery: stationeries);
+  }
+
+  @override
+  Future<Flow> getFlowById({required FlowByIdRequest flowByIdRequest}) async {
+    final url = '$baseUrl${PathConfig.flow}/${flowByIdRequest.id}';
+    final response = await client.get(url);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    Flow flow = Flow.fromJson(data);
+    return flow;
   }
 }

@@ -106,4 +106,16 @@ class UserServiceImpl extends BaseService implements UserService {
         (data as List<dynamic>).map((e) => User.fromJson(e as Map<String, dynamic>)).toList();
     return SearchUserByNameResponse(users: users, totalItems: totalItems);
   }
+
+  @override
+  Future<List<User>> getUserById({required List<String> ids}) async {
+    final url = '$baseUrlUser${PathConfig.getUserIds}';
+    final body = jsonEncode(ids);
+    final response = await client.post(url,body: body);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    List<User> users =
+    (data as List<dynamic>).map((e) => User.fromJson(e as Map<String, dynamic>)).toList();
+    return users;
+  }
 }

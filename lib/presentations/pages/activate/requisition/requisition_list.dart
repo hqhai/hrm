@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
@@ -35,13 +36,38 @@ class RequisitionListPage extends StatefulWidget {
 class _RequisitionListPageState extends State<RequisitionListPage> {
   bool checkOpacity = false;
   var random = Random();
+  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  late ScrollController controller;
+  RequisitionEnum status = RequisitionEnum.getRequisitionsInit;
 
   List<StatusRequestEnum> listFilter = [];
 
   @override
   void initState() {
-    dI<RequisitionBloc>().add(const GetRequisitionsEvent());
+    dI<RequisitionBloc>().add(GetRequisitionsEvent(page: pageIndex));
+    controller = ScrollController()..addListener(_scrollListener);
     super.initState();
+  }
+
+  _scrollListener() {
+    if (lengthList <= totalItems &&
+        status == RequisitionEnum.getRequisitionsSuccess &&
+        controller.position.extentAfter < totalItems) {
+      setState(() {
+        pageIndex++;
+      });
+      dI<RequisitionBloc>().add(GetRequisitionsEvent(
+        page: pageIndex,
+      ));
+    }
+  }
+
+  _listener(BuildContext context, RequisitionState state) {
+    setState(() {
+      status = state.status;
+      totalItems = state.countItem;
+      lengthList = state.requisitions.length;
+    });
   }
 
   @override
@@ -60,7 +86,8 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       ),
       body: Opacity(
         opacity: checkOpacity ? 0.5 : 1,
-        child: BlocBuilder<RequisitionBloc, RequisitionState>(
+        child: BlocConsumer<RequisitionBloc, RequisitionState>(
+          listener: (context, state) => _listener(context, state),
           builder: (context, state) {
             return Column(
               children: [

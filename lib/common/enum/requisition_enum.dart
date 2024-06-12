@@ -191,13 +191,21 @@ extension ConfigRequisitionTypeOnLeaveExtension on RequisitionTypeOnLeaveEnum {
 }
 
 enum RequisitionDeliveryTypeEnum {
+  @JsonValue('Standard')
   standard("Standard"),
+  @JsonValue('Express')
   express("Express"),
+  @JsonValue('SameDay')
   sameDay("SameDay"),
+  @JsonValue('Overnight')
   overnight("Overnight"),
+  @JsonValue('TwoDay')
   twoDay("TwoDay"),
+  @JsonValue('Economy')
   economy("Economy"),
+  @JsonValue('Rush')
   rush("Rush"),
+  @JsonValue('Scheduled')
   scheduled("Scheduled");
 
   final String name;

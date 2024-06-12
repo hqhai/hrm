@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
@@ -83,5 +84,10 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       {required String name, required int page}) async {
     return await _requestService.getStationery(
         searchStationeryByNameRequest: SearchStationeryByNameRequest(page: page, fullName: name));
+  }
+
+  @override
+  Future<Flow> getFlowById({required String id}) async {
+    return await _requestService.getFlowById(flowByIdRequest: FlowByIdRequest(id: id));
   }
 }

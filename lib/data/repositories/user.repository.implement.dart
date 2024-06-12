@@ -33,7 +33,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<List<User>> getUserByRole({required String role}) async {
     final List<User> users =
-    await userService.getUserByRole(getListUserByRole: GetListUserByRole(role: role));
+        await userService.getUserByRole(getListUserByRole: GetListUserByRole(role: role));
     return users;
   }
 
@@ -62,5 +62,10 @@ class UserRepositoryImpl extends UserRepository {
   Future<SearchUserByNameResponse> getUserByFullName({required String fullName, int? page}) async {
     return await userService.getUserByFullName(
         searchUserByNameRequest: SearchUserByNameRequest(fullName: fullName, page: page ?? 0));
+  }
+
+  @override
+  Future<List<User>> getUserById({required List<String> id}) async {
+    return await userService.getUserById(ids: id);
   }
 }

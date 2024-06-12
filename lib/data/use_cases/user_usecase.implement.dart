@@ -57,4 +57,9 @@ class UserUseCaseImpl extends UserUseCase {
     return await _userRepository.getUserByFullName(fullName: fullName, page: page);
   }
 
+  @override
+  Future<List<User>> getUserById({required List<String> id}) async {
+    return await _userRepository.getUserById(id: id);
+  }
+
 }

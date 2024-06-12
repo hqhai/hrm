@@ -78,4 +78,9 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
     return await _requisitionRepository.getStationery(name: name, page: page);
   }
 
+  @override
+  Future<Flow> getFlowById({required String id}) async {
+    return await _requisitionRepository.getFlowById(id: id);
+  }
+
 }

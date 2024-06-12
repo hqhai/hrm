@@ -22,10 +22,12 @@ class PostRequestEvent extends RequisitionEvent {
 }
 
 class GetRequisitionsEvent extends RequisitionEvent {
-  const GetRequisitionsEvent();
+  final int page;
+
+  const GetRequisitionsEvent({this.page = 0});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [page];
 }
 
 class GetRequisitionsByFilterEvent extends RequisitionEvent {

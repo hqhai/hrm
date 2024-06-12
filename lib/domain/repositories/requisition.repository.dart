@@ -36,5 +36,7 @@ abstract class RequisitionRepository {
 
   Future<List<Flow>> getFlowByUser();
 
+  Future<Flow> getFlowById({required String id});
+
   Future<SearchStationeryByNameResponse> getStationery({required String name, required int page});
 }
