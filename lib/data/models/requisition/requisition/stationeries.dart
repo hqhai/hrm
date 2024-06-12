@@ -11,9 +11,9 @@ class Stationeries {
   final String? product;
   final String? note;
   final String? unit;
-  final int? quantity;
-  final int? unitPrice;
-  final int? amount;
+  final double? quantity;
+  final double? unitPrice;
+  final double? amount;
 
 
   const Stationeries({

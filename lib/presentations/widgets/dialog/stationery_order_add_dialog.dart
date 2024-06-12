@@ -5,6 +5,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_dialog.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_into_money.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet_stationery.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
@@ -26,14 +27,14 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       numberOfController = TextEditingController(),
       noteController = TextEditingController(),
       unitPriceController = TextEditingController();
-  String explain = '', note = '', unit = '';
-  int numberOf = 0, unitPrice = 0, intoMoney = 0;
+  String explain = '', note = '', unit = '', month = '';
+  double numberOf = 0, intoMoney = 0, unitPrice = 0;
   Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
 
   setStationery(Stationery value) {
     setState(() {
       stationery = value;
-      unitPrice = 1000; //int.parse(value.unitPrice ?? "");
+      unitPrice = double.parse((value.unitPrice ?? '0').replaceAll(',', ''));
       explain = value.product ?? "";
       unit = value.unit ?? "";
     });
@@ -97,58 +98,11 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-              child: Text(
-                stationery.product ?? "",
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-              child: Text(
-                appLocalizations.unit,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-              child: Text(
-                stationery.unit ?? "",
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-              child: Text(
-                appLocalizations.unitPrice,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-              child: Text(
-                stationery.unitPrice ?? "",
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                ),
-              ),
-            ),
+            ItemAddStationeryDialog(
+                check: true,
+                unit: stationery.unit,
+                unitPrice: double.parse((stationery.unitPrice ?? '0').replaceAll(',', '')),
+                product: stationery.product),
             ItemCreateTotalMinute(
               title: appLocalizations.numberOf,
               totalMinuteController: numberOfController,
@@ -194,7 +148,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
 
   _setNumber(String value) {
     setState(() {
-      numberOf = int.parse(value);
+      numberOf = double.parse(value);
     });
   }
 

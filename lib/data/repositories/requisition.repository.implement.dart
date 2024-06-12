@@ -1,6 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request_resquest.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
@@ -42,8 +43,9 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
 
   @override
   Future<List<Request>> getRequisitions({int? page}) {
-    // TODO: implement getRequisitions
-    throw UnimplementedError();
+    return _requestService.getRequisitions(
+      requestsRequest: RequestsRequest(page: page ?? 0),
+    );
   }
 
   @override
@@ -82,5 +84,4 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
     return await _requestService.getStationery(
         searchStationeryByNameRequest: SearchStationeryByNameRequest(page: page, fullName: name));
   }
-
 }

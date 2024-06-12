@@ -15,11 +15,9 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/item_load_flie.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_reason_for_explanation.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
@@ -54,13 +52,19 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       detailedDescriptionController = TextEditingController(),
       applicationCodeController = TextEditingController();
   int totalMinute = 0;
+  String errorReason = '', errorContent = '', errorVehicle = '', errorDestination = '';
   String reason = '', detailedDescription = '', replaceDate = '', workDate = '';
   List<String> followers = [];
   List<File> files = [];
   RequisitionTypeExplanationEnum? reasonForExplanation = RequisitionTypeExplanationEnum.late;
 
-  bool _checkValue() {
-    bool check = reason != '';
+  bool _checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    bool check = reason != '' && detailedDescription != '';
+    setState(() {
+      errorReason = reason != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination = detailedDescription != '' ? '' : appLocalizations.cannotBeLeftBlank;
+    });
     return check;
   }
 
@@ -107,22 +111,24 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (reasonForExplanation == RequisitionTypeExplanationEnum.late ||
+                /*if (reasonForExplanation == RequisitionTypeExplanationEnum.late ||
                     reasonForExplanation == RequisitionTypeExplanationEnum.early)
                   ItemCreateTotalMinute(
                     title: appLocalizations.totalMinute,
                     totalMinuteController: totalMinuteController,
                     onChange: (value) => _setTotalMinute(value),
-                  ),
+                  ),*/
                 ItemCreateReasonForExplanation(
                   onChange: (value) => _setReasonForExplanation(value),
                 ),
                 ItemCreateInputArea(
+                  error: errorReason,
                   textController: reasonController,
                   title: appLocalizations.reason,
                   onChange: (value) => _setReason(value),
                 ),
                 ItemCreateInputArea(
+                  error: errorDestination,
                   textController: detailedDescriptionController,
                   title: appLocalizations.detailedDescription,
                   onChange: (value) => _setDetailedDescription(value),
@@ -141,9 +147,8 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                 ),
                 ItemCreateFollower(
                     title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-                ItemLoadFile(onChangeFiles: (value) => _setFile(value)),
                 ItemButton(
-                  callbackSave: () => _save(),
+                  callbackSave: () => _save(context),
                   callbackCancel: () => _cancel(),
                 )
               ],
@@ -166,11 +171,11 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _setTotalMinute(String value) {
+  /*_setTotalMinute(String value) {
     setState(() {
       totalMinute = value as int;
     });
-  }
+  }*/
 
   _setReason(String value) {
     setState(() {
@@ -190,14 +195,8 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _setFile(List<File> value) {
-    setState(() {
-      files = value;
-    });
-  }
-
-  _save() {
-    if (_checkValue()) {
+  _save(BuildContext context) {
+    if (_checkValue(context)) {
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           postRequestRequest: PostRequestRequest(

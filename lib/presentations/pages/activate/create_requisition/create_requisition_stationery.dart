@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -14,6 +15,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationery_order.dart';
+import 'package:base_app/presentations/widgets/custom/month_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/stationery_order_add_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
@@ -45,9 +47,15 @@ class CreateRequisitionStationeryOderPage extends StatefulWidget {
 class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionStationeryOderPage> {
   List<Stationeries> listRequisitionStationery = [];
   List<String> followers = [];
+  String month = formatM(DateTime.now().toString());
+  String error = '';
 
-  bool _checkValue() {
-    bool check = listRequisitionStationery != [];
+  bool _checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    bool check = listRequisitionStationery.isNotEmpty;
+    setState(() {
+      error = check ? '' : appLocalizations.thereAreCurrentlyNoProducts;
+    });
     return check;
   }
 
@@ -99,6 +107,23 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                    child: Text(
+                      appLocalizations.time,
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                      child: MonthPicker(
+                        check: true,
+                        onChange: (value) => setMonth(value),
+                      )),
                   Text(
                     appLocalizations.stationeryList,
                     style: TextStyle(
@@ -128,6 +153,17 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                       ),
                     ),
                   ),
+                  if(error != '')
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+                      child: Text(
+                        error,
+                        style: TextStyle(
+                          color: colors.error,
+                          fontSize: SpacingUnit.x3,
+                        ),
+                      ),
+                    ),
                   GestureDetector(
                     onTap: () => _addStationery(context),
                     child: Container(
@@ -156,7 +192,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                   Padding(
                     padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
                     child: ItemButton(
-                      callbackSave: () => _save(),
+                      callbackSave: () => _save(context),
                       callbackCancel: () => _cancel(),
                     ),
                   )
@@ -188,20 +224,46 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     });
   }
 
-  _save() {
-    if (_checkValue()) {
+  _save(BuildContext context) {
+    if (_checkValue(context)) {
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           postRequestRequest: PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
+            description: month,
             config: ConfigRequestModel(
               stationeries: listRequisitionStationery,
+              subtotal: _subtotal(),
+              numberValue: _numberValue(),
+              totalAmount: _totalAmount(),
             ),
           ),
         ),
       );
     }
+  }
+
+  double _subtotal() {
+    double subtotal = 0;
+    for (var element in listRequisitionStationery) {
+      subtotal += element.amount ?? 0;
+    }
+    return subtotal;
+  }
+
+  setMonth(String value) {
+    setState(() {
+      month = value;
+    });
+  }
+
+  double _numberValue() {
+    return _subtotal() * 0.08;
+  }
+
+  double _totalAmount() {
+    return _subtotal() + _numberValue();
   }
 
   _cancel() {}

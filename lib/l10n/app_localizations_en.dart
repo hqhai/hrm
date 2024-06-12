@@ -966,4 +966,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noBrowsingFlowYet => 'No browsing flow yet';
+
+  @override
+  String get cannotBeLeftBlank => 'Cannot be left blank';
+
+  @override
+  String get thereAreCurrentlyNoProducts => 'There are currently no products';
 }

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateInputArea extends StatefulWidget {
-  const ItemCreateInputArea({super.key, this.textController, this.onChange, this.title = ''});
+  const ItemCreateInputArea(
+      {super.key, this.textController, this.onChange, this.title = '', this.error = ''});
 
   final String title;
+  final String? error;
   final TextEditingController? textController;
   final ValueChanged<String>? onChange;
 
@@ -38,6 +40,17 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
             onChange: (value) => _setOnChangeText(value),
           ),
         ),
+        if (widget.error?.isNotEmpty ?? false)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+            child: Text(
+              widget.error ?? "",
+              style: TextStyle(
+                color: colors.error,
+                fontSize: SpacingUnit.x3,
+              ),
+            ),
+          ),
       ],
     );
   }

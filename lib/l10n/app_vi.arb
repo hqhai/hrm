@@ -319,5 +319,7 @@
   "rush": "Giao hàng hỏa tốc",
   "scheduled": "Giao hàng theo lịch hẹn",
   "core": "Chính",
-  "noBrowsingFlowYet": "Chưa có luồng duyệt"
+  "noBrowsingFlowYet": "Chưa có luồng duyệt",
+  "cannotBeLeftBlank": "Không được để trống",
+  "thereAreCurrentlyNoProducts": "Hiện tại không có sản phẩm nào"
 }

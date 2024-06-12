@@ -23,8 +23,7 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
 
   @override
   Future<List<Request>> getRequests({int? page}) {
-    // TODO: implement getRequests
-    throw UnimplementedError();
+    return _requisitionRepository.getRequisitions(page: page);
   }
 
   @override

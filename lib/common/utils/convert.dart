@@ -97,6 +97,15 @@ String formatYMDHMS(String time) {
   }
 }
 
+String formatM(String time) {
+  if (time == '') {
+    return '';
+  } else {
+    DateTime dateTime = DateTime.parse(time);
+    return DateFormat('yyyy-MM').format(dateTime);
+  }
+}
+
 Future<String> convertToBase64(File imageFile) async {
   Uint8List imageBytes = await imageFile.readAsBytes();
   String base64Image = base64Url.encode(imageBytes);

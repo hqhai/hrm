@@ -47,12 +47,21 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       contentController = TextEditingController(),
       destinationController = TextEditingController();
   int totalMinute = 0;
+  String errorTime = '', errorSchedule = '', errorContent = '';
   String startTime = '', endTime = '', schedule = '', content = '';
   List<String> followers = [], walkers = [];
 
-  bool _checkValue() {
+  bool _checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    bool checkTime = totalMinute > 0;
     bool check = schedule != '' && content != '' && walkers != [];
-    return check;
+    setState(() {
+      errorTime = checkTime ? "" : appLocalizations.endTimeMustBeAfterStartTime;
+      errorSchedule = schedule != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorContent = content != '' ? '' : appLocalizations.cannotBeLeftBlank;
+    });
+
+    return check && checkTime;
   }
 
   @override
@@ -87,17 +96,21 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ItemCreateIntervalOnLeave(
+                  error: errorTime,
                   dayOrHours: false,
                   title: appLocalizations.intervalOnLeave,
                   startTime: (value) => setStartTime(value),
                   endTime: (value) => setEndTime(value),
+                  total: (value) => setTotal(value),
                 ),
                 ItemCreateInputArea(
+                  error: errorSchedule,
                   textController: scheduleController,
                   title: appLocalizations.schedule,
                   onChange: (value) => _setSchedule(value),
                 ),
                 ItemCreateInputArea(
+                  error: errorContent,
                   textController: contentController,
                   title: appLocalizations.content,
                   onChange: (value) => _setContent(value),
@@ -107,7 +120,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                 ItemCreateFollower(
                     title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
                 ItemButton(
-                  callbackSave: () => _save(),
+                  callbackSave: () => _save(context),
                   callbackCancel: () => _cancel(context),
                 )
               ],
@@ -166,8 +179,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     }
   }
 
-  _save() {
-    if (_checkValue()) {
+  _save(BuildContext context) {
+    if (_checkValue(context)) {
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           postRequestRequest: PostRequestRequest(
@@ -188,5 +201,11 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
 
   _cancel(BuildContext context) {
     popDialog(context);
+  }
+
+  setTotal(int value) {
+    setState(() {
+      totalMinute = value;
+    });
   }
 }

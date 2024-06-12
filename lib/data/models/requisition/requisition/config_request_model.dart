@@ -11,7 +11,7 @@ part 'config_request_model.g.dart';
 class ConfigRequestModel {
   final String? flowId;
   final String? takeLeaveReason;
-  final int? numberValue;
+  final double? numberValue;
   final List<String>? subtitudePersons;
   final List<String>? attachments;
   final String? content;
@@ -21,12 +21,12 @@ class ConfigRequestModel {
   final String? deliveryType;
   final List<WarehouseReleaseds>? warehourseReleaseds;
   final List<Stationeries>? stationeries;
-  final int? subtotal;
-  final int? totalAmount;
+  final double? subtotal;
+  final double? totalAmount;
   final String? explanationReason;
   final String? startDate;
   final String? endDate;
-  final int? total;
+  final double? total;
 
   const ConfigRequestModel(
       {this.flowId,

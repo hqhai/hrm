@@ -6,11 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateIntervalOnLeave extends StatefulWidget {
-  const ItemCreateIntervalOnLeave({super.key, this.total, this.startTime, this.endTime, this.title, required this.dayOrHours});
+  const ItemCreateIntervalOnLeave({super.key, this.error, this.total, this.startTime, this.endTime, this.title, required this.dayOrHours});
 
   final ValueChanged<String>? startTime, endTime;
   final ValueChanged<int>? total;
-  final String? title;
+  final String? title, error;
   final bool dayOrHours;
 
   @override
@@ -100,7 +100,18 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
               )
             ],
           ),
-        )
+        ),
+        if(widget.error != '')
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+            child: Text(
+              widget.error ?? "",
+              style: TextStyle(
+                color: colors.error,
+                fontSize: SpacingUnit.x3,
+              ),
+            ),
+          ),
       ],
     );
   }
