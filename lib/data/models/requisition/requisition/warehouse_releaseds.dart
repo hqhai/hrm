@@ -1,4 +1,3 @@
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -8,10 +7,10 @@ part 'warehouse_releaseds.g.dart';
 @JsonSerializable()
 class WarehouseReleaseds {
   final String? product;
-  final RequestWarehouseReleasedsUnitTypeEnum? unit;
+  final String? unit;
   final String? explain;
   final String? note;
-  final int? quantity;
+  final double? quantity;
 
   const WarehouseReleaseds({
     this.product,

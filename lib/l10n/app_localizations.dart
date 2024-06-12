@@ -2018,6 +2018,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No browsing flow yet'**
   String get noBrowsingFlowYet;
+
+  /// No description provided for @cannotBeLeftBlank.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot be left blank'**
+  String get cannotBeLeftBlank;
+
+  /// No description provided for @thereAreCurrentlyNoProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'There are currently no products'**
+  String get thereAreCurrentlyNoProducts;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

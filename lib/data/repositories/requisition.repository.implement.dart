@@ -1,6 +1,10 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request_response.dart';
+import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
+import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
+import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/repositories/requisition.repository.dart';
@@ -38,9 +42,10 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<List<Request>> getRequisitions({int? page}) {
-    // TODO: implement getRequisitions
-    throw UnimplementedError();
+  Future<RequestsResponse> getRequisitions({int? page}) {
+    return _requestService.getRequisitions(
+      requestsRequest: GetRequestRequest(page: page ?? 0),
+    );
   }
 
   @override
@@ -71,5 +76,12 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       List<StatusRequestEnum>? status}) {
     // TODO: implement getRequisitionsByFilter
     throw UnimplementedError();
+  }
+
+  @override
+  Future<SearchStationeryByNameResponse> getStationery(
+      {required String name, required int page}) async {
+    return await _requestService.getStationery(
+        searchStationeryByNameRequest: SearchStationeryByNameRequest(page: page, fullName: name));
   }
 }

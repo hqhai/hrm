@@ -49,14 +49,24 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       vehicleController = TextEditingController(),
       destinationController = TextEditingController(),
       contentController = TextEditingController();
-  int total = 0;
+  double total = 0;
+  String errorTime = '', errorReason = '', errorContent = '', errorVehicle = '', errorDestination = '';
   String startTime = '', endTime = '', content = '', reason = '', vehicle = '', destination = '';
   List<File> files = [];
   List<String> followers = [], substitutes = [];
   RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
 
-  bool _checkValue() {
-    bool check = reason != '' && vehicle != '' && destination != '';
+  bool _checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    bool checkTime = total > 0;
+    bool check = reason != '' && vehicle != '' && destination != '' && content != '';
+    setState(() {
+      errorTime = checkTime ? "" : appLocalizations.endTimeMustBeAfterStartTime;
+      errorReason = reason != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorContent = content != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorVehicle = vehicle != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination = destination != '' ? '' : appLocalizations.cannotBeLeftBlank;
+    });
     return check;
   }
 
@@ -104,17 +114,20 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ItemCreateIntervalOnLeave(
+                  error: errorTime,
                   dayOrHours: false,
                   title: appLocalizations.intervalOnLeave,
                   startTime: (value) => setStartTime(value),
                   endTime: (value) => setEndTime(value),
                 ),
                 ItemCreateInputArea(
+                  error: errorDestination,
                   textController: detailedDescriptionController,
                   title: appLocalizations.detailedDescription,
                   onChange: (value) => _setReason(value),
                 ),
                 ItemCreateInputArea(
+                  error: errorContent,
                   textController: contentController,
                   title: appLocalizations.content,
                   onChange: (value) => _setContent(value),
@@ -124,17 +137,19 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                 ItemCreateFollower(
                     title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
                 ItemCreateInput(
+                  error: errorVehicle,
                   title: appLocalizations.vehicle,
                   inputController: vehicleController,
                   onChange: (value) => _setVehicle(value),
                 ),
                 ItemCreateInput(
+                  error: errorDestination,
                   title: appLocalizations.destination,
                   inputController: destinationController,
                   onChange: (value) => _setDestination(value),
                 ),
                 ItemButton(
-                  callbackSave: () => _save(),
+                  callbackSave: () => _save(context),
                   callbackCancel: () => _cancel(),
                 )
               ],
@@ -157,8 +172,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  _save() {
-    if (_checkValue()) {
+  _save(BuildContext context) {
+    if (_checkValue(context)) {
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           postRequestRequest: PostRequestRequest(
@@ -218,7 +233,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  setTotal(int value) {
+  setTotal(double value) {
     setState(() {
       total = value;
     });

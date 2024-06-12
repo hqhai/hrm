@@ -319,5 +319,7 @@
   "rush": "Rush",
   "scheduled": "Scheduled",
   "core": "Core",
-  "noBrowsingFlowYet": "No browsing flow yet"
+  "noBrowsingFlowYet": "No browsing flow yet",
+  "cannotBeLeftBlank": "Cannot be left blank",
+  "thereAreCurrentlyNoProducts": "There are currently no products"
 }

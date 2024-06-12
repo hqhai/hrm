@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateInput extends StatefulWidget {
-  const ItemCreateInput({super.key, this.inputController, this.onChange, this.title});
+  const ItemCreateInput({super.key, this.inputController, this.onChange, this.title, this.error});
 
   final TextEditingController? inputController;
   final ValueChanged<String>? onChange;
-  final String? title;
+  final String? title, error;
 
   @override
   State<ItemCreateInput> createState() => _ItemCreateInputState();
@@ -40,6 +40,17 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
             onChange: (value) => _onChangeInput(value),
           ),
         ),
+        if (widget.error?.isNotEmpty??false)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+            child: Text(
+              widget.error ?? "",
+              style: TextStyle(
+                color: colors.error,
+                fontSize: SpacingUnit.x3,
+              ),
+            ),
+          ),
       ],
     );
   }

@@ -1,13 +1,15 @@
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
+import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_station_unit_type.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet_stationery.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:themes/themes.dart';
 
 class ReleaseOfWarehouseAddDialog extends StatefulWidget {
   const ReleaseOfWarehouseAddDialog(
@@ -25,9 +27,9 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
       explainController = TextEditingController(),
       numberOfController = TextEditingController(),
       noteController = TextEditingController();
-  String explain = '', note = '', product = '';
-  RequestWarehouseReleasedsUnitTypeEnum unit = RequestWarehouseReleasedsUnitTypeEnum.pairs;
-  int numberOf = 0;
+  String explain = '', note = '', product = '', unit = '';
+  double numberOf = 0;
+  Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
 
   @override
   void initState() {
@@ -37,15 +39,24 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     noteController.text = widget.releaseOfWarehouse?.note ?? "";
     explain = widget.releaseOfWarehouse?.product ?? "";
     note = widget.releaseOfWarehouse?.note ?? "";
-    unit = widget.releaseOfWarehouse?.unit ?? RequestWarehouseReleasedsUnitTypeEnum.pairs;
+    unit = widget.releaseOfWarehouse?.unit ?? '';
     numberOf = widget.releaseOfWarehouse?.quantity ?? 0;
     super.initState();
+  }
+
+  setStationery(Stationery value) {
+    setState(() {
+      stationery = value;
+      product = value.product ??"";
+      unit = value.unit ?? "";
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final height = MediaQuery.sizeOf(context).height;
+    final colors = AppTheme.getColors(context);
     return Container(
       height: height * 0.75,
       padding: const EdgeInsets.all(SpacingUnit.x2),
@@ -53,19 +64,37 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ItemCreateInput(
-              title: appLocalizations.product,
-              inputController: productController,
-              onChange: (value) => _setProduct(value),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+              child: Row(
+                children: [
+                  Text(
+                    appLocalizations.product,
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: SpacingUnit.x4,
+                  ),
+                  GestureDetector(
+                    onTap: () => _showBottomSheet(context),
+                    child: Icon(
+                      Icons.add,
+                      size: SpacingUnit.x8,
+                      color: colors.success,
+                    ),
+                  )
+                ],
+              ),
             ),
+            ItemAddStationeryDialog(check: false, product: stationery.product??"", unit: stationery.unit??""),
             ItemCreateInput(
               title: appLocalizations.explain,
               inputController: explainController,
               onChange: (value) => _setExplain(value),
-            ),
-            ItemStationeryUnitType(
-              title: appLocalizations.unit,
-              onChangeValue: (value) => _setUnit(value),
             ),
             ItemCreateTotalMinute(
               title: appLocalizations.numberOf,
@@ -112,21 +141,21 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     Navigator.of(context).pop();
   }
 
-  _setUnit(RequestWarehouseReleasedsUnitTypeEnum value) {
-    setState(() {
-      unit = value;
-    });
-  }
-
   _setNumber(String value) {
     setState(() {
-      numberOf = int.parse(value);
+      numberOf = double.parse(value);
     });
   }
 
-  _setProduct(String value) {
-    setState(() {
-      product = value;
-    });
+
+  _showBottomSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetStationeryWidget(
+          onChange: (value) => setStationery(value),
+        );
+      },
+    );
   }
 }

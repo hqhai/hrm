@@ -88,9 +88,21 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
 
   _nextScreen(BuildContext context, FlowState state, int index) {
     if (state.flows[index].flowType == RequisitionTypeEnum.explanation) {
-      dI<AppNavigation>().pushName(context, page: Pages.createRequestExplanationPage);
+      dI<AppNavigation>().pushName(
+        context,
+        page: Pages.createRequestExplanationPage,
+        extra: {
+          'flowId': state.flows[index].id,
+        },
+      );
     } else if (state.flows[index].flowType == RequisitionTypeEnum.takeLeave) {
-      dI<AppNavigation>().pushName(context, page: Pages.createRequestLeavePage);
+      dI<AppNavigation>().pushName(
+        context,
+        page: Pages.createRequestLeavePage,
+        extra: {
+          'flowId': state.flows[index].id,
+        },
+      );
     } else if (state.flows[index].flowType == RequisitionTypeEnum.overTime) {
     } else if (state.flows[index].flowType == RequisitionTypeEnum.vehicleDriver) {
       dI<AppNavigation>().pushName(
@@ -101,15 +113,37 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
         },
       );
     } else if (state.flows[index].flowType == RequisitionTypeEnum.postalDelivery) {
-      dI<AppNavigation>().pushName(context, page: Pages.createRequestPostalDeliveryPage);
+      dI<AppNavigation>().pushName(
+        context,
+        page: Pages.createRequestPostalDeliveryPage,
+        extra: {
+          'flowId': state.flows[index].id,
+        },
+      );
     } else if (state.flows[index].flowType == RequisitionTypeEnum.warehouseReleased) {
-      dI<AppNavigation>().pushName(context, page: Pages.createRequestReleaseOfWarehousePage);
+      dI<AppNavigation>().pushName(
+        context,
+        page: Pages.createRequestReleaseOfWarehousePage,
+        extra: {
+          'flowId': state.flows[index].id,
+        },
+      );
     } else if (state.flows[index].flowType == RequisitionTypeEnum.stationery) {
-      dI<AppNavigation>().pushName(context, page: Pages.createRequestStationeryOderPage);
+      dI<AppNavigation>().pushName(
+        context,
+        page: Pages.createRequestStationeryOderPage,
+        extra: {
+          'flowId': state.flows[index].id,
+        },
+      );
     } else {
-      dI<AppNavigation>().pushName(context, page: Pages.createRequestBusinessPage, extra: {
-        'flowId': state.flows[index].id,
-      },);
+      dI<AppNavigation>().pushName(
+        context,
+        page: Pages.createRequestBusinessPage,
+        extra: {
+          'flowId': state.flows[index].id,
+        },
+      );
     }
   }
 }

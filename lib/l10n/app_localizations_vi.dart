@@ -966,4 +966,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noBrowsingFlowYet => 'Chưa có luồng duyệt';
+
+  @override
+  String get cannotBeLeftBlank => 'Không được để trống';
+
+  @override
+  String get thereAreCurrentlyNoProducts => 'Hiện tại không có sản phẩm nào';
 }

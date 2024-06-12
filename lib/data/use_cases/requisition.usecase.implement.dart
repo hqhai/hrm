@@ -1,16 +1,18 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request_response.dart';
+import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/repositories/requisition.repository.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:injectable/injectable.dart';
 
-
 @LazySingleton(as: RequisitionUseCase)
 class RequisitionUseCaseImpl extends RequisitionUseCase {
   final RequisitionRepository _requisitionRepository;
+
   RequisitionUseCaseImpl() : _requisitionRepository = dI<RequisitionRepository>();
 
   @override
@@ -20,9 +22,8 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   }
 
   @override
-  Future<List<Request>> getRequests({int? page}) {
-    // TODO: implement getRequests
-    throw UnimplementedError();
+  Future<RequestsResponse> getRequests({int? page}) {
+    return _requisitionRepository.getRequisitions(page: page);
   }
 
   @override
@@ -38,13 +39,25 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   }
 
   @override
-  Future<List<Request>> getRequisitionsApproveByFilter({int? page, StatusRequestEnum? type, String? departmentId, String? startDate, String? endDate, List<StatusRequestEnum>? status}) {
+  Future<List<Request>> getRequisitionsApproveByFilter(
+      {int? page,
+      StatusRequestEnum? type,
+      String? departmentId,
+      String? startDate,
+      String? endDate,
+      List<StatusRequestEnum>? status}) {
     // TODO: implement getRequisitionsApproveByFilter
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Request>> getRequisitionsByFilter({int? page, StatusRequestEnum? type, String? departmentId, String? startDate, String? endDate, List<StatusRequestEnum>? status}) {
+  Future<List<Request>> getRequisitionsByFilter(
+      {int? page,
+      StatusRequestEnum? type,
+      String? departmentId,
+      String? startDate,
+      String? endDate,
+      List<StatusRequestEnum>? status}) {
     // TODO: implement getRequisitionsByFilter
     throw UnimplementedError();
   }
@@ -58,4 +71,11 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   Future<int> postRequest({required PostRequestRequest postRequestRequest}) async {
     return await _requisitionRepository.postRequest(postRequestRequest: postRequestRequest);
   }
+
+  @override
+  Future<SearchStationeryByNameResponse> getStationery(
+      {required String name, required int page}) async {
+    return await _requisitionRepository.getStationery(name: name, page: page);
+  }
+
 }

@@ -1,12 +1,14 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request_response.dart';
+import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 
 abstract class RequisitionRepository {
   Future<int> postRequest({required PostRequestRequest postRequestRequest});
 
-  Future<List<Request>> getRequisitions({int? page});
+  Future<RequestsResponse> getRequisitions({int? page});
 
   Future<List<Request>> getRequisitionsByFilter({
     int? page,
@@ -33,4 +35,6 @@ abstract class RequisitionRepository {
   Future<int> approveRequisition({required String id, String? note, required String status});
 
   Future<List<Flow>> getFlowByUser();
+
+  Future<SearchStationeryByNameResponse> getStationery({required String name, required int page});
 }

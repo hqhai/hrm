@@ -1,4 +1,3 @@
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -56,7 +55,7 @@ class ItemListReleaseOfWarehouse extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${appLocalizations.unit} : ${requisitionReleaseOfWarehouse?.unit?.configRequisitionStationeryUnitTypeName}',
+                    '${appLocalizations.unit} : ${requisitionReleaseOfWarehouse?.unit??""}',
                     style: TextStyle(
                       fontSize: SpacingUnit.x3,
                       color: colors.text,
