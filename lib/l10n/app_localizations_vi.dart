@@ -689,7 +689,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get longTermUnpaidLeave => 'Nghỉ phép dài hạn không lương';
 
   @override
-  String get yourRequisition => 'Dơn từ của bạn';
+  String get yourRequisition => 'Đơn từ của bạn';
 
   @override
   String get requisitionYouApproval => 'Đơn từ bạn phê duyệt';

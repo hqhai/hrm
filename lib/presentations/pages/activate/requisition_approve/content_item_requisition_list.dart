@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
@@ -23,7 +24,7 @@ class ContentItemRequisitionList extends StatelessWidget {
         SizedBox(
           width: width * 0.7,
           child: Text(
-            state.requisitions[index].flowId?? "",
+            state.requisitions[index].description?? "",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -58,7 +59,7 @@ class ContentItemRequisitionList extends StatelessWidget {
           SizedBox(
             width: width * 0.6,
             child: Text(
-              state.requisitions[index].createdDate ?? "",
+              formatYMDHMS(state.requisitions[index].createdDate ?? ""),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
@@ -68,16 +69,16 @@ class ContentItemRequisitionList extends StatelessWidget {
         Row(
           children: [
             Text(
-              '${appLocalizations.deadline} : ',
+              '${appLocalizations.code} : ',
               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
             ),
             SizedBox(
               width: width * 0.6,
               child: Text(
-                state.requisitions[index].flowId ?? "",
+                state.requisitions[index].code ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                style: TextStyle(color: colors.success, fontSize: SpacingUnit.x3_5),
               ),
             )
           ],

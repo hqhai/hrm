@@ -12,10 +12,11 @@ sealed class RequisitionApproveEvent extends Equatable {
 }
 
 class GetRequisitionsApproveEvent extends RequisitionApproveEvent {
-  const GetRequisitionsApproveEvent();
+  const GetRequisitionsApproveEvent({this.page = 0});
+  final int page;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [page];
 }
 
 class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {

@@ -22,7 +22,7 @@ abstract class RequisitionService{
     List<StatusRequestEnum>? status,
   });
 
-  Future<List<Request>> getRequisitionsApprove({int? page});
+  Future<RequestsResponse> getRequisitionsApprove({required GetRequestRequest requestsRequest});
 
   Future<List<Request>> getRequisitionsApproveByFilter({
     int? page,

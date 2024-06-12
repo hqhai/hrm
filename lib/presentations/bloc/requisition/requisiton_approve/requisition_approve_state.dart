@@ -10,12 +10,14 @@ class RequisitionApproveState extends Equatable {
   const RequisitionApproveState(
       {this.requisition = const Request(id: ''),
       this.requisitions = const [],
-      this.status = RequisitionEnum.init});
+      this.status = RequisitionEnum.init,
+      this.countItem = 0});
 
   final Request requisition;
   final List<Request> requisitions;
   final RequisitionEnum status;
+  final int countItem;
 
   @override
-  List<Object> get props => [requisition, requisitions, status];
+  List<Object> get props => [requisition, requisitions, status, countItem];
 }

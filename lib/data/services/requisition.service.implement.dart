@@ -77,9 +77,16 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<List<Request>> getRequisitionsApprove({int? page}) {
-    // TODO: implement getRequisitionsApprove
-    throw UnimplementedError();
+  Future<RequestsResponse> getRequisitionsApprove({required GetRequestRequest requestsRequest}) async {
+    final url = '$baseUrl${PathConfig.getRequestApprove}';
+    final params = requestsRequest.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result['items'];
+    final totalItems = responseBase.result['pagingInfo']['totalItems'];
+    List<Request> request =
+    (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
+    return RequestsResponse(totalItems: totalItems, requests: request);
   }
 
   @override

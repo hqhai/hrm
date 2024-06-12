@@ -19,7 +19,7 @@ abstract class RequisitionRepository {
     List<StatusRequestEnum>? status,
   });
 
-  Future<List<Request>> getRequisitionsApprove({int? page});
+  Future<RequestsResponse> getRequisitionsApprove({int? page});
 
   Future<List<Request>> getRequisitionsApproveByFilter({
     int? page,

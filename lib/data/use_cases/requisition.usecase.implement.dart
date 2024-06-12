@@ -33,9 +33,8 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   }
 
   @override
-  Future<List<Request>> getRequisitionsApprove({int? page}) {
-    // TODO: implement getRequisitionsApprove
-    throw UnimplementedError();
+  Future<RequestsResponse> getRequisitionsApprove({int? page}) async {
+    return await _requisitionRepository.getRequisitionsApprove(page: page);
   }
 
   @override

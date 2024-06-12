@@ -40,7 +40,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
 
   @override
   void initState() {
-    dI<RequisitionApproveBloc>().add(const GetRequisitionsApproveEvent());
+    dI<RequisitionApproveBloc>().add(const GetRequisitionsApproveEvent(page: 0));
     super.initState();
   }
 

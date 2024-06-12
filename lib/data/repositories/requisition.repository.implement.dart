@@ -50,9 +50,9 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<List<Request>> getRequisitionsApprove({int? page}) {
-    // TODO: implement getRequisitionsApprove
-    throw UnimplementedError();
+  Future<RequestsResponse> getRequisitionsApprove({int? page}) async {
+    return await _requestService.getRequisitionsApprove(
+        requestsRequest: GetRequestRequest(page: page ?? 0));
   }
 
   @override
