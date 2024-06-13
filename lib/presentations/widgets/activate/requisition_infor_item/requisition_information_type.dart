@@ -15,8 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RequisitionInformationType extends StatelessWidget {
   const RequisitionInformationType({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RequisitionBloc, RequisitionState>(
