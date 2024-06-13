@@ -7,6 +7,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
@@ -46,86 +47,87 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   String statusStepRequestApprove(RequisitionApproveState state) {
     Request request = _request(state, widget.id);
     String status = request.stepRequests
-        ?.firstWhere((stepRequest) => stepRequest.status == EnumStepRequestStatusEnum.newStatus)
-        .stepRequestApprovers
-        ?.firstWhere((stepRequestApprovers) =>
-    stepRequestApprovers.approverId == dI<UserBloc>().state.user.id).status
-        ?.configStepRequestStatusName ?? "";
+            ?.firstWhere((stepRequest) => stepRequest.status == EnumStepRequestStatusEnum.newStatus)
+            .stepRequestApprovers
+            ?.firstWhere((stepRequestApprovers) =>
+                stepRequestApprovers.approverId == dI<UserBloc>().state.user.id)
+            .status
+            ?.configStepRequestStatusName ??
+        "";
     return status;
   }
-
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    final height = MediaQuery
-        .sizeOf(context)
-        .height;
+    final height = MediaQuery.sizeOf(context).height;
     return BlocBuilder<RequisitionApproveBloc, RequisitionApproveState>(
-      builder: (context, state) =>
-          Container(
-            height: _check(state, widget.id) ? height * 0.15 : height * 0.18,
-            margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingUnit.x1),
-              color: CustomsColor.colorBackground,
-              border: Border.all(color: colors.text, width: 1),
-            ),
-            child: GestureDetector(
-              onTap: () => _nextRequisitionInformationScreen(context, state),
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      color: colors.neutralVariant40,
-                      padding: const EdgeInsets.all(SpacingUnit.x2),
-                      child: Text(
-                        statusStepRequestApprove(state),
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                      ),
-                    ),
+      builder: (context, state) => Container(
+        height: _check(state, widget.id) ? height * 0.15 : height * 0.18,
+        margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingUnit.x1),
+          color: CustomsColor.colorBackground,
+          border: Border.all(color: colors.text, width: 1),
+        ),
+        child: GestureDetector(
+          onTap: () => _nextRequisitionInformationScreen(context, state),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  color: colors.neutralVariant40,
+                  padding: const EdgeInsets.all(SpacingUnit.x2),
+                  child: Text(
+                    statusStepRequestApprove(state),
+                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                   ),
-                  if (_request(state, widget.id).status == StatusRequestEnum.approve)
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: ButtonItemListRequisition(
-                        title: appLocalizations.cancel,
+                ),
+              ),
+              if (_request(state, widget.id).status == StatusRequestEnum.approve)
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: ButtonItemListRequisition(
+                    title: appLocalizations.cancel,
+                    callback: () {},
+                  ),
+                ),
+              if (_request(state, widget.id).status == StatusRequestEnum.process)
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        child: ButtonItemListRequisition(
+                          title: appLocalizations.approver,
+                          callback: () {},
+                        ),
+                        onTap: () => _isApprover(state),
+                      ),
+                      ButtonItemListRequisition(
+                        title: appLocalizations.refuse,
                         callback: () {},
                       ),
-                    ),
-                  if (_request(state, widget.id).status == StatusRequestEnum.process)
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ButtonItemListRequisition(
-                            title: appLocalizations.approver,
-                            callback: () {},
-                          ),
-                          ButtonItemListRequisition(
-                            title: appLocalizations.refuse,
-                            callback: () {},
-                          ),
-                          ButtonItemListRequisition(
-                            title: appLocalizations.modification,
-                            callback: () {},
-                          ),
-                        ],
+                      ButtonItemListRequisition(
+                        title: appLocalizations.modification,
+                        callback: () {},
                       ),
-                    ),
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(SpacingUnit.x2),
-                      child: ContentItemRequisitionList(id: widget.id),
-                    ),
-                  )
-                ],
-              ),
-            ),
+                    ],
+                  ),
+                ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(SpacingUnit.x2),
+                  child: ContentItemRequisitionList(id: widget.id),
+                ),
+              )
+            ],
           ),
+        ),
+      ),
     );
   }
 
@@ -136,5 +138,16 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
     });
   }
 
-
+  _isApprover(RequisitionApproveState state) {
+    Request request = _request(state, widget.id);
+    String idStepRequestApprove = request.stepRequests
+            ?.firstWhere((stepRequest) => stepRequest.status == EnumStepRequestStatusEnum.newStatus)
+            .stepRequestApprovers
+            ?.firstWhere((stepRequestApprovers) =>
+                stepRequestApprovers.approverId == dI<UserBloc>().state.user.id)
+            .id ??
+        "";
+    dI<RequisitionApproveBloc>().add(ApproveRequestEvent(
+        id: idStepRequestApprove, note: '', status: EnumStepRequestStatusEnum.approve));
+  }
 }

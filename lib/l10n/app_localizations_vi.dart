@@ -116,7 +116,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get priority => 'Mức ưu tiên';
 
   @override
-  String get approver => 'Người phê duyệt';
+  String get approver => 'Phê duyệt';
 
   @override
   String get createOvertimeRequestIsSuccess => 'Tạo yêu cầu OT thành công';

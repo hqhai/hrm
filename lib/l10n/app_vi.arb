@@ -36,7 +36,7 @@
   "selectFile": "Thêm file",
   "typeRequest": "Kiểu yêu cầu",
   "priority": "Mức ưu tiên",
-  "approver": "Người phê duyệt",
+  "approver": "Phê duyệt",
   "createOvertimeRequestIsSuccess": "Tạo yêu cầu OT thành công",
   "successfullyCreatedRequest": "Yêu cầu được khởi tạo thành công",
   "createRequestFailed": "Yêu cầu được khởi tạo thất bại",

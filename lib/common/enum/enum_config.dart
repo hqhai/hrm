@@ -238,4 +238,7 @@ enum RequisitionEnum {
   getRequisitionsInit,
   getRequisitionsSuccess,
   getRequisitionsError,
+  approveRequisitionInit,
+  approveRequisitionSuccess,
+  approveRequisitionError,
 }

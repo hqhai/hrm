@@ -21,6 +21,7 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
     on<GetRequisitionsApproveEvent>(_getRequisitionsApproveEvent);
     on<GetRequisitionsApproveByFilterEvent>(_getRequisitionsApproveByFilterEvent);
     on<GetRequisitionApproveByIdEvent>(_getRequisitionApproveByIdEvent);
+    on<ApproveRequestEvent>(_approveRequestEvent);
   }
 
   List<Request> requisitions = [];
@@ -38,7 +39,9 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
       requests.addAll(state.requisitions);
       requests.addAll(newStationery);
       emit(state.copyWith(
-          requisitions: requests, countItem: totalItems, status: RequisitionEnum.getRequisitionsSuccess));
+          requisitions: requests,
+          countItem: totalItems,
+          status: RequisitionEnum.getRequisitionsSuccess));
     } catch (e) {
       emit(state.copyWith(status: RequisitionEnum.getRequisitionsError));
     }
@@ -57,7 +60,9 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
       requests.addAll(state.requisitions);
       requests.addAll(newStationery);
       emit(state.copyWith(
-          requisitions: requests, countItem: totalItems, status: RequisitionEnum.getRequisitionsSuccess));
+          requisitions: requests,
+          countItem: totalItems,
+          status: RequisitionEnum.getRequisitionsSuccess));
     } catch (e) {
       emit(state.copyWith(status: RequisitionEnum.getRequisitionsError));
     }
@@ -71,6 +76,17 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
           requisition: event.requisition, status: RequisitionEnum.getRequisitionSuccess));
     } catch (e) {
       emit(state.copyWith(status: RequisitionEnum.getRequisitionsError));
+    }
+  }
+
+  FutureOr<void> _approveRequestEvent(
+      ApproveRequestEvent event, Emitter<RequisitionApproveState> emit) async {
+    emit(state.copyWith(status: RequisitionEnum.approveRequisitionInit));
+    try {
+
+      emit(state.copyWith(status: RequisitionEnum.approveRequisitionSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: RequisitionEnum.approveRequisitionError));
     }
   }
 }
