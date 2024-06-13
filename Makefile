@@ -40,7 +40,8 @@ build-apk:
 build-ipa:
 	$(FLUTTER) pub get
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
-	$(FLUTTER) build ipa --release
+	cd ios && pod install --repo-update && cd ..
+	$(FLUTTER) build ipa --release --export-method=ad-hoc
 
 .PHONY: git-hook
 git-hook:

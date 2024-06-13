@@ -25,6 +25,14 @@ manual_build_android_uat:
     variables:
       - $ENV == "auto"
 
+manual_build_ios_uat:
+  extends: .build_ios_testing
+  only:
+    - web
+  except:
+    variables:
+      - $ENV == "auto"
+
 .build_android_testing:
   tags:
     - flutter
@@ -39,6 +47,21 @@ manual_build_android_uat:
     - make clean
     - make build-apk
     - fastlane android publish_appcenter env:uat
+
+.build_ios_testing:
+  tags:
+    - flutter
+  stage: build_testing
+  needs: []
+  retry: 2
+  script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US.UTF-8
+    - export LC_ALL=en_US.UTF-8
+    - eval "$(/opt/homebrew/bin/brew shellenv)"
+    - make clean
+    - make build-ipa
+    - fastlane ios publish_appcenter env:uat
 
 test:
   tags:
