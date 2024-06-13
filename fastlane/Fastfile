@@ -95,11 +95,11 @@ end
 platform :ios do
   desc "Deploy a new version to the App Center"
   lane :publish_appcenter do |options|
-    pathApk = "./build/ios/ipa/lms_app.ipa"
+    pathApk = "./build/ios/ipa/base_app.ipa"
       puts "pathApk = " + pathApk
     env = options[:env]
-    apiToken = "0b974866f98110fd36a89b1e011161b31020f41f"
-    appName = "TESTING"
+    apiToken = "c17bb2bbd07e11e92f6849193b7b96f602211b26"
+    appName = "HRM-1"
     #TODO fastlane lane env 
       appcenter_upload(
       api_token: apiToken,
