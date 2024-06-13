@@ -28,7 +28,7 @@ extension ConfigStepRequestStatusExtension on EnumStepRequestStatusEnum {
       case EnumStepRequestStatusEnum.newStatus:
         return appLocalizations.newStatus;
       case EnumStepRequestStatusEnum.approve:
-        return appLocalizations.approver;
+        return appLocalizations.done;
       case EnumStepRequestStatusEnum.reject:
         return appLocalizations.reject;
       case EnumStepRequestStatusEnum.edit:
@@ -72,7 +72,7 @@ extension ConfigRequestStatusExtension on StatusRequestEnum {
       case StatusRequestEnum.edit:
         return appLocalizations.edit;
       case StatusRequestEnum.approve:
-        return appLocalizations.approver;
+        return appLocalizations.done;
       case StatusRequestEnum.cancel:
         return appLocalizations.cancel;
       case StatusRequestEnum.overdueEdit:
@@ -237,4 +237,3 @@ extension ConfigDeliveryTypeExtension on RequisitionDeliveryTypeEnum {
     }
   }
 }
-

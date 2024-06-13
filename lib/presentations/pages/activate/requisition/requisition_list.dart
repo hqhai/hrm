@@ -6,6 +6,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -39,27 +40,54 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   int pageIndex = 1, totalItems = 0, lengthList = 0;
   late ScrollController controller;
   RequisitionEnum status = RequisitionEnum.getRequisitionsInit;
-
   List<StatusRequestEnum> listFilter = [];
+  List<StatusRequestEnum>? listStatusRequisition;
+  RequisitionTypeEnum? requisitionTypeEnum;
+  String? startTime;
+  String? endTime;
 
   @override
   void initState() {
-    dI<RequisitionBloc>().add(GetRequisitionsEvent(page: pageIndex));
     controller = ScrollController()..addListener(_scrollListener);
+    dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
+      page: pageIndex,
+    ));
     super.initState();
   }
 
   _scrollListener() {
+    status;
     if (lengthList <= totalItems &&
         status == RequisitionEnum.getRequisitionsSuccess &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
       });
-      dI<RequisitionBloc>().add(GetRequisitionsEvent(
+      dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
+        listStatusRequisition: listFilter,
+        requisitionTypeEnum: requisitionTypeEnum,
+        startTime: startTime,
+        endTime: endTime,
         page: pageIndex,
       ));
     }
+  }
+
+  setlLstFilter(FilterDialogModel value) {
+    setState(() {
+      listStatusRequisition = value.statuses;
+      listFilter = value.statuses;
+      requisitionTypeEnum = value.type;
+      startTime = value.startTime;
+      endTime = value.endTime;
+    });
+    dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
+      listStatusRequisition: listFilter,
+      requisitionTypeEnum: requisitionTypeEnum,
+      startTime: startTime,
+      endTime: endTime,
+      page: pageIndex,
+    ));
   }
 
   _listener(BuildContext context, RequisitionState state) {
@@ -160,8 +188,10 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                       child: Stack(
                         children: [
                           ListView.builder(
+                            controller: controller,
                             itemCount: state.requisitions.length,
-                            itemBuilder: (context, index) => ItemRequisitionList(index: index),
+                            itemBuilder: (context, index) =>
+                                ItemRequisitionList(id: state.requisitions[index].id),
                           ),
                           Align(
                             alignment: Alignment.bottomRight,
@@ -198,19 +228,13 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     });
   }
 
-  setlLstFilter(List<StatusRequestEnum> statuses) {
-    setState(() {
-      listFilter = statuses;
-    });
-  }
-
   dialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           child: FilterRequisitionDialog(
-            sendData: (value) => setlLstFilter(value.statuses),
+            sendData: (value) => setlLstFilter(value),
           ),
         );
       },

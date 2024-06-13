@@ -12,7 +12,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition/popup_menu_requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition/wrap_filter.dart';
-import 'package:base_app/presentations/pages/activate/requisition_approve/item_list_requisition_approve.dart';
+import 'package:base_app/presentations/pages/activate/requisition_approve/listview_request_approve.dart';
 import 'package:base_app/presentations/widgets/dialog/filter_requisition_approve_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +40,12 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
 
   @override
   void initState() {
-    dI<RequisitionApproveBloc>().add(const GetRequisitionsApproveEvent(page: 0));
+    dI<RequisitionApproveBloc>().add(
+      const GetRequisitionsApproveByFilterEvent(
+        page: 0,
+        listStatusRequisition: [StatusRequestEnum.process],
+      ),
+    );
     super.initState();
   }
 
@@ -114,28 +119,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
                     ],
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                  height: height * 0.78,
-                  decoration: BoxDecoration(
-                    color: CustomsColor.colorBackground,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(SpacingUnit.x1),
-                    ),
-                  ),
-                  child: SingleChildScrollView(
-                    child: SizedBox(
-                      height: height * 0.75,
-                      child: ListView.builder(
-                        itemCount: state.requisitions.length,
-                        itemBuilder: (context, index) => ItemRequisitionApproveList(index: index),
-                      ),
-                    ),
-                  ),
-                ),
+                const ListviewRequestApprove(type: StatusRequestEnum.process),
               ],
             );
           },

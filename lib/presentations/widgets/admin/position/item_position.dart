@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/position.dart';
 import 'package:base_app/presentations/bloc/position/position_bloc.dart';
 import 'package:base_app/presentations/bloc/position/position_event.dart';
 import 'package:base_app/presentations/bloc/position/position_state.dart';
@@ -11,15 +12,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ItemPosition extends StatefulWidget {
-  const ItemPosition({super.key, this.index = 0});
+  const ItemPosition({super.key, required this.id,});
 
-  final int index;
+  final String id;
 
   @override
   State<ItemPosition> createState() => _ItemPositionState();
 }
 
 class _ItemPositionState extends State<ItemPosition> {
+
+  int index = 0;
+
+  
+  Position getPositionInId(PositionState state){
+    Position position = state.positions.firstWhere((element) => element.id == widget.id);
+    setState(() {
+      index = state.positions.indexOf(position);
+    });
+    return position;
+  } 
+  
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -44,7 +57,7 @@ class _ItemPositionState extends State<ItemPosition> {
                   flex: 15,
                   child: CircleAvatar(
                     backgroundColor: const Color(0xff42558A),
-                    child: Text('${widget.index + 1}',
+                    child: Text('${index + 1}',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: SpacingUnit.x6, color: colors.text)),
                   ),
@@ -58,12 +71,12 @@ class _ItemPositionState extends State<ItemPosition> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          state.positions[widget.index].name,
+                          getPositionInId(state).name,
                           textAlign: TextAlign.left,
                           style: const TextStyle(fontSize: SpacingUnit.x5, color: Colors.orange),
                         ),
                         Text(
-                          state.positions[widget.index].description ?? '',
+                          getPositionInId(state).description ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
@@ -96,12 +109,12 @@ class _ItemPositionState extends State<ItemPosition> {
 
   _deleteDialog(BuildContext context, PositionState state) {
     deleteDialog(context,
-        () => dI<PositionBloc>().add(DeletePositionsEvent(id: state.positions[widget.index].id)));
+        () => dI<PositionBloc>().add(DeletePositionsEvent(id: getPositionInId(state).id)));
   }
 
   _update(BuildContext context) {
     dI<AppNavigation>()
-        .pushName(context, page: Pages.updatePositionPage, extra: {'index': widget.index});
+        .pushName(context, page: Pages.updatePositionPage, extra: {'index': index});
   }
 
 /*_information(BuildContext context, PositionState state){

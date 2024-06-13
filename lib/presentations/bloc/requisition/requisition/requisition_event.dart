@@ -1,6 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:equatable/equatable.dart';
 
 sealed class RequisitionEvent extends Equatable {
@@ -32,22 +31,23 @@ class GetRequisitionsEvent extends RequisitionEvent {
 
 class GetRequisitionsByFilterEvent extends RequisitionEvent {
   const GetRequisitionsByFilterEvent(
-      {this.requisitionTypeEnum, this.listStatusRequisition, this.startTime, this.endTime});
+      {this.requisitionTypeEnum, this.listStatusRequisition, this.startTime, this.endTime, this.page});
 
+  final int? page;
   final RequisitionTypeEnum? requisitionTypeEnum;
   final List<StatusRequestEnum>? listStatusRequisition;
   final String? startTime;
   final String? endTime;
 
   @override
-  List<Object?> get props => [requisitionTypeEnum, listStatusRequisition, startTime, endTime];
+  List<Object?> get props => [requisitionTypeEnum, listStatusRequisition, startTime, endTime, page];
 }
 
 class GetRequisitionByIdEvent extends RequisitionEvent {
-  const GetRequisitionByIdEvent({this.requisition});
+  const GetRequisitionByIdEvent({this.id});
 
-  final Request? requisition;
+  final String? id;
 
   @override
-  List<Object?> get props => [requisition];
+  List<Object?> get props => [id];
 }

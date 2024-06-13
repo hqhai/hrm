@@ -25,6 +25,7 @@ class _RequisitionInformationContentTypeBusinessTripState
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
+    final width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<UserByIdBloc, UserByIdState>(
       builder: (context, stateUserById) {
         return BlocBuilder<RequisitionBloc, RequisitionState>(
@@ -89,8 +90,7 @@ class _RequisitionInformationContentTypeBusinessTripState
                         if (stateUserById.subtitudePersons.isNotEmpty)
                           Container(
                             margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                            height:
-                                SpacingUnit.x6 * stateUserById.subtitudePersons.length,
+                            height: SpacingUnit.x6 * stateUserById.subtitudePersons.length,
                             child: ListView.builder(
                               itemCount: stateUserById.subtitudePersons.length,
                               itemBuilder: (context, index) => Padding(
@@ -112,8 +112,14 @@ class _RequisitionInformationContentTypeBusinessTripState
                       children: [
                         Text(appLocalizations.vehicle,
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        Text(state.requisition.config.vehicle ?? "",
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
+                        Container(
+                          alignment: Alignment.topRight,
+                          width: width * 0.5,
+                          child: Text(state.requisition.config.vehicle ?? "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
+                        )
                       ],
                     ),
                   ),

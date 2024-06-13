@@ -35,6 +35,7 @@ class PathConfig {
   static String getFlowByUser = '/flow/get-flow-by-user';
   static String requestSearch = '/request/search';
   static String request = '/request';
+  static String requestInId = '/request/get-request';
   static String stationery = '/stationery';
   static String getRequestSelf = '/request/get-request-self';
   static String getRequestApprove = '/request/get-request-approve';

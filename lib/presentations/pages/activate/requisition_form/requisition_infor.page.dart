@@ -3,7 +3,6 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
@@ -30,20 +29,16 @@ final requisitionInformationPageRoute = GoRoute(
     builder: (context, GoRouterState state) {
       Map data = state.extra as Map;
       return RequisitionInformationPage(
-        requisition: data['requisition'],
+        id: data['id'],
         checkUser: data['checkUser'],
       );
     });
 
 class RequisitionInformationPage extends StatefulWidget {
   const RequisitionInformationPage(
-      {super.key,
-      this.requisition = const Request(
-        id: "",
-      ),
-      this.checkUser = false});
+      {super.key, this.id = '', this.checkUser = false});
 
-  final Request requisition;
+  final String id;
   final bool checkUser;
 
   @override
@@ -51,26 +46,34 @@ class RequisitionInformationPage extends StatefulWidget {
 }
 
 class _RequisitionInformationPageState extends State<RequisitionInformationPage> {
+
+
+
   @override
   void initState() {
-    dI<RequisitionBloc>().add(GetRequisitionByIdEvent(requisition: widget.requisition));
-    dI<FlowBloc>().add(GetFlowEvent(id: widget.requisition.flowId ?? ""));
-    dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: widget.requisition.followerIds ?? []));
-    if (widget.requisition.config.subtitudePersons?.isNotEmpty ?? false) {
-      dI<UserByIdBloc>()
-          .add(GetSubtitudePersonsByIdEvent(ids: widget.requisition.followerIds ?? []));
-    }
+    dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
     super.initState();
+  }
+
+  _listener(BuildContext context, RequisitionState state) {
+    dI<FlowBloc>().add(GetFlowEvent(id: state.requisition.flowId ?? ""));
+    dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds ?? []));
+    if (state.requisition.config.subtitudePersons?.isNotEmpty ?? false) {
+      dI<UserByIdBloc>()
+          .add(GetSubtitudePersonsByIdEvent(ids: state.requisition.followerIds ?? []));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<FlowBloc, FlowState>(
-      builder: (context, stateFlow) {
-        return BlocBuilder<RequisitionBloc, RequisitionState>(
-          builder: (context, state) {
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
+      listener: (context, state) => _listener(context, state),
+      listenWhen: (previous, current) => previous.requisition != current.requisition,
+      builder: (context, state) {
+        return BlocBuilder<FlowBloc, FlowState>(
+          builder: (context, stateFlow) {
             return Scaffold(
               appBar: AppBar(
                 title: Center(

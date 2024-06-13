@@ -45,13 +45,19 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
   }
 
   FutureOr<void> _getRequisitionsApproveByFilterEvent(
-      GetRequisitionsApproveByFilterEvent event, Emitter<RequisitionApproveState> emit) {
+      GetRequisitionsApproveByFilterEvent event, Emitter<RequisitionApproveState> emit) async {
     emit(state.copyWith(status: RequisitionEnum.getRequisitionsInit));
     try {
-      List<Request> requisitionsByFilter = state.requisitions;
-
+      List<Request> requests = [];
+      RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsApprove(
+        page: event.page,
+      );
+      List<Request> newStationery = requestsResponse.requests;
+      int totalItems = requestsResponse.totalItems;
+      requests.addAll(state.requisitions);
+      requests.addAll(newStationery);
       emit(state.copyWith(
-          requisitions: requisitionsByFilter, status: RequisitionEnum.getRequisitionsSuccess));
+          requisitions: requests, countItem: totalItems, status: RequisitionEnum.getRequisitionsSuccess));
     } catch (e) {
       emit(state.copyWith(status: RequisitionEnum.getRequisitionsError));
     }

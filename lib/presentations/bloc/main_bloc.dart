@@ -16,6 +16,7 @@ import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_bl
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/stationery/stationery_bloc.dart';
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
@@ -54,5 +55,7 @@ class MainBloc {
         BlocProvider<FlowBloc>(create: (BuildContext context) => dI<FlowBloc>()),
         BlocProvider<StationeryBloc>(create: (BuildContext context) => dI<StationeryBloc>()),
         BlocProvider<UserByIdBloc>(create: (BuildContext context) => dI<UserByIdBloc>()),
-      ];
+        BlocProvider<RequisitionFollowingBloc>(create: (BuildContext context) => dI<RequisitionFollowingBloc>()),
+
+  ];
 }

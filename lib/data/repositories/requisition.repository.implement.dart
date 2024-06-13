@@ -1,9 +1,9 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
@@ -37,9 +37,8 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<Request> getRequisitionById({required String id}) {
-    // TODO: implement getRequisitionById
-    throw UnimplementedError();
+  Future<Request> getRequisitionById({required String id}) async {
+    return await _requestService.getRequisitionById(id: id);
   }
 
   @override
@@ -56,30 +55,6 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<List<Request>> getRequisitionsApproveByFilter(
-      {int? page,
-      RequisitionTypeEnum? type,
-      String? departmentId,
-      String? startDate,
-      String? endDate,
-      List<StatusRequestEnum>? status}) {
-    // TODO: implement getRequisitionsApproveByFilter
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Request>> getRequisitionsByFilter(
-      {int? page,
-      RequisitionTypeEnum? type,
-      String? departmentId,
-      String? startDate,
-      String? endDate,
-      List<StatusRequestEnum>? status}) {
-    // TODO: implement getRequisitionsByFilter
-    throw UnimplementedError();
-  }
-
-  @override
   Future<SearchStationeryByNameResponse> getStationery(
       {required String name, required int page}) async {
     return await _requestService.getStationery(
@@ -89,5 +64,92 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   @override
   Future<Flow> getFlowById({required String id}) async {
     return await _requestService.getFlowById(flowByIdRequest: FlowByIdRequest(id: id));
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsFollowerByFilter(
+      {int? page,
+      String? type,
+      String? departmentId,
+      String? startDate,
+      String? endDate,
+      List<String>? status}) async {
+    if(status?.isNotEmpty??false){
+      return await _requestService.getRequisitionsFollowerByFilter(
+        getRequestFilterRequest: GetRequestFilterRequest(
+            type: type,
+            page: page,
+            endDate: endDate,
+            startDate: startDate,
+            listStatuses: status?.join(','),
+            createdDepartmentId: departmentId),
+      );
+    }
+    return await _requestService.getRequisitionsFollowerByFilter(
+      getRequestFilterRequest: GetRequestFilterRequest(
+          type: type,
+          page: page,
+          endDate: endDate,
+          startDate: startDate,
+          createdDepartmentId: departmentId),
+    );
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsApproveByFilter(
+      {int? page,
+      String? type,
+      String? departmentId,
+      String? startDate,
+      String? endDate,
+      List<String>? status}) async {
+    if(status?.isNotEmpty??false){
+      return await _requestService.getRequisitionsApproveByFilter(
+        getRequestFilterRequest: GetRequestFilterRequest(
+            type: type,
+            page: page,
+            endDate: endDate,
+            startDate: startDate,
+            listStatuses: status?.join(','),
+            createdDepartmentId: departmentId),
+      );
+    }
+    return await _requestService.getRequisitionsApproveByFilter(
+      getRequestFilterRequest: GetRequestFilterRequest(
+          type: type,
+          page: page,
+          endDate: endDate,
+          startDate: startDate,
+          createdDepartmentId: departmentId),
+    );
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsByFilter(
+      {int? page,
+        String? type,
+        String? departmentId,
+        String? startDate,
+        String? endDate,
+        List<String>? status}) async {
+    if(status?.isNotEmpty??false){
+      return await _requestService.getRequisitionsByFilter(
+        getRequestFilterRequest: GetRequestFilterRequest(
+            type: type,
+            page: page,
+            endDate: endDate,
+            startDate: startDate,
+            listStatuses: status?.join(','),
+            createdDepartmentId: departmentId),
+      );
+    }
+    return await _requestService.getRequisitionsByFilter(
+      getRequestFilterRequest: GetRequestFilterRequest(
+          type: type,
+          page: page,
+          endDate: endDate,
+          startDate: startDate,
+          createdDepartmentId: departmentId),
+    );
   }
 }

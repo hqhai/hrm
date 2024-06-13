@@ -1,4 +1,3 @@
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
@@ -10,27 +9,36 @@ abstract class RequisitionUseCase {
 
   Future<RequestsResponse> getRequests({int? page});
 
-  Future<List<Request>> getRequisitionsByFilter({
+  Future<RequestsResponse> getRequisitionsByFilter({
     int? page,
-    StatusRequestEnum? type,
+    String? type,
     String? departmentId,
     String? startDate,
     String? endDate,
-    List<StatusRequestEnum>? status,
+    List<String>? status,
   });
 
   Future<RequestsResponse> getRequisitionsApprove({int? page});
 
-  Future<List<Request>> getRequisitionsApproveByFilter({
+  Future<RequestsResponse> getRequisitionsApproveByFilter({
     int? page,
-    StatusRequestEnum? type,
+    String? type,
     String? departmentId,
     String? startDate,
     String? endDate,
-    List<StatusRequestEnum>? status,
+    List<String>? status,
   });
 
-  Future<Request> getRequisition({required String id});
+  Future<RequestsResponse> getRequisitionsFollowerByFilter({
+    int? page,
+    String? type,
+    String? departmentId,
+    String? startDate,
+    String? endDate,
+    List<String>? status,
+  });
+
+  Future<Request> getRequisitionById({required String id});
 
   Future<int> approveRequest({required String id, String? note, required String status});
 

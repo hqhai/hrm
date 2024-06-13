@@ -86,7 +86,7 @@ class _RequisitionInformationContentTypeStationeriesState
   }
 
   double _customHeight(double height) {
-    return (height * 0.125) * listCheck.where((e) => e == true).length +
+    return (height * 0.128) * listCheck.where((e) => e == true).length +
         (height * 0.278) * listCheck.where((e) => e == false).length;
   }
 }

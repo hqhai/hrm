@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/data/models/response.dart';
@@ -58,9 +58,13 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<Request> getRequisitionById({required String id}) {
-    // TODO: implement getRequisitionById
-    throw UnimplementedError();
+  Future<Request> getRequisitionById({required String id}) async {
+    final url = '$baseUrl${PathConfig.requestInId}/$id';
+    final response = await client.get(url);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    Request request = Request.fromJson(data);
+    return request;
   }
 
   @override
@@ -77,7 +81,8 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<RequestsResponse> getRequisitionsApprove({required GetRequestRequest requestsRequest}) async {
+  Future<RequestsResponse> getRequisitionsApprove(
+      {required GetRequestRequest requestsRequest}) async {
     final url = '$baseUrl${PathConfig.getRequestApprove}';
     final params = requestsRequest.toJson();
     final response = await client.get(url, params: params);
@@ -85,33 +90,31 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final data = responseBase.result['items'];
     final totalItems = responseBase.result['pagingInfo']['totalItems'];
     List<Request> request =
-    (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
+        (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
     return RequestsResponse(totalItems: totalItems, requests: request);
   }
 
   @override
-  Future<List<Request>> getRequisitionsApproveByFilter(
-      {int? page,
-      RequisitionTypeEnum? type,
-      String? departmentId,
-      String? startDate,
-      String? endDate,
-      List<StatusRequestEnum>? status}) {
+  Future<RequestsResponse> getRequisitionsByFilter(
+      {required GetRequestFilterRequest getRequestFilterRequest}) async {
+    final url = '$baseUrl${PathConfig.getRequestSelf}';
+    final params = getRequestFilterRequest.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result['items'];
+    final totalItems = responseBase.result['pagingInfo']['totalItems'];
+    List<Request> request =
+        (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
+    return RequestsResponse(totalItems: totalItems, requests: request);
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsApproveByFilter(
+      {required GetRequestFilterRequest getRequestFilterRequest}) async {
     // TODO: implement getRequisitionsApproveByFilter
     throw UnimplementedError();
   }
 
-  @override
-  Future<List<Request>> getRequisitionsByFilter(
-      {int? page,
-      RequisitionTypeEnum? type,
-      String? departmentId,
-      String? startDate,
-      String? endDate,
-      List<StatusRequestEnum>? status}) {
-    // TODO: implement getRequisitionsByFilter
-    throw UnimplementedError();
-  }
 
   @override
   Future<SearchStationeryByNameResponse> getStationery(
@@ -127,6 +130,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     return SearchStationeryByNameResponse(totalItems: totalItems, stationery: stationeries);
   }
 
+
   @override
   Future<Flow> getFlowById({required FlowByIdRequest flowByIdRequest}) async {
     final url = '$baseUrl${PathConfig.flow}/${flowByIdRequest.id}';
@@ -135,5 +139,19 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final data = responseBase.result;
     Flow flow = Flow.fromJson(data);
     return flow;
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsFollowerByFilter(
+      {required GetRequestFilterRequest getRequestFilterRequest}) async {
+    final url = '$baseUrl${PathConfig.getRequestFollower}';
+    final params = getRequestFilterRequest.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result['items'];
+    final totalItems = responseBase.result['pagingInfo']['totalItems'];
+    List<Request> request =
+    (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
+    return RequestsResponse(totalItems: totalItems, requests: request);
   }
 }

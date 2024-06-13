@@ -21,15 +21,16 @@ class GetRequisitionsApproveEvent extends RequisitionApproveEvent {
 
 class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
   const GetRequisitionsApproveByFilterEvent(
-      {this.requisitionTypeEnum, this.listStatusRequisition, this.startTime, this.endTime});
+      {this.requisitionTypeEnum, this.listStatusRequisition, this.startTime, this.endTime, this.page = 0});
 
   final RequisitionTypeEnum? requisitionTypeEnum;
   final List<StatusRequestEnum>? listStatusRequisition;
   final String? startTime;
   final String? endTime;
+  final int page;
 
   @override
-  List<Object?> get props => [requisitionTypeEnum, listStatusRequisition, startTime, endTime];
+  List<Object?> get props => [requisitionTypeEnum, listStatusRequisition, startTime, endTime, page];
 }
 
 class GetRequisitionApproveByIdEvent extends RequisitionApproveEvent {

@@ -1,5 +1,6 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
@@ -8,8 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ContentItemRequisitionList extends StatelessWidget {
-  const ContentItemRequisitionList({super.key, this.index = 0});
-  final int index;
+  const ContentItemRequisitionList({super.key, required this.id});
+  final String id;
+
+
+  Request _request(RequisitionApproveState state, String id) {
+    return state.requisitions.firstWhere((element) => element.id == id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class ContentItemRequisitionList extends StatelessWidget {
         SizedBox(
           width: width * 0.7,
           child: Text(
-            state.requisitions[index].description?? "",
+            _request(state, id).description?? "",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -43,7 +49,7 @@ class ContentItemRequisitionList extends StatelessWidget {
             SizedBox(
               width: width * 0.6,
               child: Text(
-                state.requisitions[index].createdFullName ?? "",
+                _request(state, id).createdFullName ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
@@ -59,7 +65,7 @@ class ContentItemRequisitionList extends StatelessWidget {
           SizedBox(
             width: width * 0.6,
             child: Text(
-              formatYMDHMS(state.requisitions[index].createdDate ?? ""),
+              formatYMDHMS( _request(state, id).createdDate ?? ""),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
@@ -75,7 +81,7 @@ class ContentItemRequisitionList extends StatelessWidget {
             SizedBox(
               width: width * 0.6,
               child: Text(
-                state.requisitions[index].code ?? "",
+                _request(state, id).code ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: colors.success, fontSize: SpacingUnit.x3_5),
