@@ -9,12 +9,12 @@ class GetRequestFilterRequest {
   final String? createdDepartmentId;
   final String? startDate;
   final String? endDate;
-  final String? listStatuses;
+  final String? statuses;
 
   const GetRequestFilterRequest({
     this.page,
     this.endDate,
-    this.listStatuses,
+    this.statuses,
     this.type,
     this.createdDepartmentId,
     this.startDate,

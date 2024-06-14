@@ -27,7 +27,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       numberOfController = TextEditingController(),
       noteController = TextEditingController(),
       unitPriceController = TextEditingController();
-  String explain = '', note = '', unit = '', month = '';
+  String explain = '', note = '', unit = '', month = '', product = '';
   double intoMoney = 0, unitPrice = 0;
   int numberOf = 0;
   Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
@@ -48,6 +48,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     noteController.text = widget.stationery?.note ?? "";
     unitPriceController.text = (widget.stationery?.unitPrice ?? 0).toString();
     explain = widget.stationery?.product ?? "";
+    unit =  widget.stationery?.unit ?? "";
     note = widget.stationery?.note ?? "";
     numberOf = widget.stationery?.quantity ?? 0;
     unitPrice = widget.stationery?.unitPrice ?? 0;
@@ -95,9 +96,9 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
             ),
             ItemAddStationeryDialog(
                 check: true,
-                unit: stationery.unit,
+                unit: unit,
                 unitPrice: double.parse((stationery.unitPrice ?? '0').replaceAll(',', '')),
-                product: stationery.product),
+                product: product),
             ItemCreateTotalMinute(
               title: appLocalizations.numberOf,
               totalMinuteController: numberOfController,

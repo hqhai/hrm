@@ -84,7 +84,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
             page: page,
             endDate: endDate,
             startDate: startDate,
-            listStatuses: status?.join(','),
+            statuses: status?.join(','),
             createdDepartmentId: departmentId),
       );
     }
@@ -132,7 +132,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
             page: page,
             endDate: endDate,
             startDate: startDate,
-            listStatuses: status?.join(','),
+            statuses: status?.join(','),
             createdDepartmentId: departmentId),
       );
     }
