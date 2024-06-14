@@ -54,13 +54,10 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.sizeOf(context).width;
-    final height = MediaQuery.sizeOf(context).height;
     return SizedBox(
-      width: width,
-      height: height * 0.65,
       child: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Align(
@@ -152,24 +149,27 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => setApply(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+            Padding(
+              padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => setApply(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: Text(appLocalizations.apply, style: TextStyle(color: colors.text)),
                   ),
-                  child: Text(appLocalizations.apply, style: TextStyle(color: colors.text)),
-                ),
-                ElevatedButton(
-                  onPressed: () => popDialog(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                  ElevatedButton(
+                    onPressed: () => popDialog(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: Text(appLocalizations.cancel, style: TextStyle(color: colors.text)),
                   ),
-                  child: Text(appLocalizations.cancel, style: TextStyle(color: colors.text)),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

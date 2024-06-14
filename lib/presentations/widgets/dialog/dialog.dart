@@ -7,7 +7,6 @@ import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
 import 'package:base_app/presentations/bloc/request/request/request_state.dart';
 import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_bloc.dart';
 import 'package:base_app/presentations/bloc/request/room_meeting/room_meeting_event.dart';
-import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
 import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 import 'package:widgets/app_input.dart';
 
-popDialog(BuildContext context){
+popDialog(BuildContext context) {
   Navigator.of(context).pop();
 }
 
@@ -23,7 +22,6 @@ onClickOK(BuildContext context, VoidCallback callback) {
   callback.call();
   Navigator.of(context).pop();
 }
-
 
 createRequestDialog(BuildContext context, VoidCallback callback) {
   return showDialog(
@@ -34,44 +32,42 @@ createRequestDialog(BuildContext context, VoidCallback callback) {
         content: Scrollbar(
           child: BlocBuilder<RequestBloc, RequestState>(
             builder: (context, stateRequest) {
-              return SizedBox(
-                height: 170,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      maxLines: 3,
-                      appLocalizations.doYouWantToCreateARequest,
-                      style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x6),
-                    ),
-                    const SizedBox(
-                      height: SpacingUnit.x4,
-                    ),
-                    BlocBuilder<RequestBloc, RequestState>(
-                      builder: (context, state) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                callback.call();
-                              },
-                              child: Text(appLocalizations.ok),
-                            ),
-                            ElevatedButton(
-                              child: Text(appLocalizations.cancel),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ),
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    maxLines: 3,
+                    appLocalizations.doYouWantToCreateARequest,
+                    style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x6),
+                  ),
+                  const SizedBox(
+                    height: SpacingUnit.x4,
+                  ),
+                  BlocBuilder<RequestBloc, RequestState>(
+                    builder: (context, state) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              callback.call();
+                            },
+                            child: Text(appLocalizations.ok),
+                          ),
+                          ElevatedButton(
+                            child: Text(appLocalizations.cancel),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
               );
             },
           ),
@@ -90,44 +86,42 @@ createDialog(BuildContext context, String title, VoidCallback callback) {
         content: Scrollbar(
           child: BlocBuilder<RequestBloc, RequestState>(
             builder: (context, stateRequest) {
-              return SizedBox(
-                height: 170,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      maxLines: 3,
-                      title,
-                      style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x6),
-                    ),
-                    const SizedBox(
-                      height: SpacingUnit.x4,
-                    ),
-                    BlocBuilder<RequestBloc, RequestState>(
-                      builder: (context, state) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                callback.call();
-                              },
-                              child: Text(appLocalizations.ok),
-                            ),
-                            ElevatedButton(
-                              child: Text(appLocalizations.cancel),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ),
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    maxLines: 3,
+                    title,
+                    style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x6),
+                  ),
+                  const SizedBox(
+                    height: SpacingUnit.x4,
+                  ),
+                  BlocBuilder<RequestBloc, RequestState>(
+                    builder: (context, state) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              callback.call();
+                            },
+                            child: Text(appLocalizations.ok),
+                          ),
+                          ElevatedButton(
+                            child: Text(appLocalizations.cancel),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
               );
             },
           ),
@@ -144,78 +138,26 @@ createRoomMeetingDialog(BuildContext context, VoidCallback callback) async {
       final appLocalizations = AppLocalizations.of(context)!;
       return AlertDialog(
         content: Scrollbar(
-          child: SizedBox(
-            height: 170,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  maxLines: 3,
-                  appLocalizations.doYouWantToCreateARequest,
-                  style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x6),
-                ),
-                const SizedBox(
-                  height: SpacingUnit.x4,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        callback.call();
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(appLocalizations.ok),
-                    ),
-                    ElevatedButton(
-                      child: Text(appLocalizations.cancel),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}
-
-noteDialog(BuildContext context, ValueChanged<String> onChange) async {
-  final TextEditingController noteController = TextEditingController();
-  return showDialog(
-    context: context,
-    builder: (context) {
-      final appLocalizations = AppLocalizations.of(context)!;
-      return AlertDialog(
-        content: SizedBox(
-          height: 250,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(appLocalizations.note),
               const SizedBox(
-                height: SpacingUnit.x4_5,
+                height: 30,
               ),
-              AppInputArea(
-                minLines: 5,
-                maxLines: 5,
-                placeHolder: appLocalizations.note,
-                controller: noteController,
+              Text(
+                maxLines: 3,
+                appLocalizations.doYouWantToCreateARequest,
+                style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x6),
               ),
               const SizedBox(
-                height: SpacingUnit.x4_5,
+                height: SpacingUnit.x4,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      onChange.call(noteController.text);
+                      callback.call();
                       Navigator.of(context).pop();
                     },
                     child: Text(appLocalizations.ok),
@@ -227,7 +169,7 @@ noteDialog(BuildContext context, ValueChanged<String> onChange) async {
                     },
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -243,37 +185,35 @@ updateRequestDialog(BuildContext context, VoidCallback callback) async {
       final appLocalizations = AppLocalizations.of(context)!;
       return AlertDialog(
         content: Scrollbar(
-          child: SizedBox(
-            height: 140,
-            child: Column(
-              children: [
-                Text(
-                  maxLines: 3,
-                  appLocalizations.doYouWantToUpdateARequest,
-                  style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x6),
-                ),
-                const SizedBox(
-                  height: SpacingUnit.x4,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        callback.call();
-                      },
-                      child: Text(appLocalizations.ok),
-                    ),
-                    ElevatedButton(
-                      child: Text(appLocalizations.cancel),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                maxLines: 3,
+                appLocalizations.doYouWantToUpdateARequest,
+                style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x6),
+              ),
+              const SizedBox(
+                height: SpacingUnit.x4,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      callback.call();
+                    },
+                    child: Text(appLocalizations.ok),
+                  ),
+                  ElevatedButton(
+                    child: Text(appLocalizations.cancel),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       );
@@ -283,10 +223,10 @@ updateRequestDialog(BuildContext context, VoidCallback callback) async {
 
 updateRoomMeetingDialog(BuildContext context, RoomMeeting roomMeeting) async {
   final TextEditingController roomNameController =
-          TextEditingController(text: roomMeeting.roomName??''),
+          TextEditingController(text: roomMeeting.roomName ?? ''),
       numberOfSeatsController = TextEditingController(text: roomMeeting.numberOfSeats.toString()),
-      addressController = TextEditingController(text: roomMeeting.address??''),
-      descriptionController = TextEditingController(text: roomMeeting.description??'');
+      addressController = TextEditingController(text: roomMeeting.address ?? ''),
+      descriptionController = TextEditingController(text: roomMeeting.description ?? '');
   final appLocalizations = AppLocalizations.of(context)!;
   return showDialog(
     context: context,
@@ -488,11 +428,3 @@ changeStatusRequestByManagerDialog(BuildContext context, VoidCallback callback) 
     },
   );
 }
-
-
-
-
-
-
-
-

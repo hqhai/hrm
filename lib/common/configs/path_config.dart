@@ -40,4 +40,6 @@ class PathConfig {
   static String getRequestSelf = '/request/get-request-self';
   static String getRequestApprove = '/request/get-request-approve';
   static String getRequestFollower = '/request/get-request-follower';
+  static String stepRequestApprover = '/step-request-approver';
+
 }

@@ -12,18 +12,22 @@ class ButtonItemListRequisition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return Container(
-      margin: const EdgeInsets.all(SpacingUnit.x2),
-      padding: const EdgeInsets.all(SpacingUnit.x2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingUnit.x1),
-        color: CustomsColor.colorBackground,
-        border: Border.all(color: colors.text, width: 1),
-      ),
-      child: Text(
-        title,
-        style: TextStyle(color: colors.text, fontSize: check? SpacingUnit.x4: SpacingUnit.x2_5),
+    return GestureDetector(
+      onTap: () => callback(),
+      child: Container(
+        margin: const EdgeInsets.all(SpacingUnit.x2),
+        padding: const EdgeInsets.all(SpacingUnit.x2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingUnit.x1),
+          color: CustomsColor.colorBackground,
+          border: Border.all(color: colors.text, width: 1),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(color: colors.text, fontSize: check? SpacingUnit.x4: SpacingUnit.x2_5),
+        ),
       ),
     );
   }
+
 }

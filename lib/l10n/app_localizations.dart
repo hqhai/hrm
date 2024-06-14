@@ -2030,6 +2030,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'There are currently no products'**
   String get thereAreCurrentlyNoProducts;
+
+  /// No description provided for @removeFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove filter'**
+  String get removeFilter;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

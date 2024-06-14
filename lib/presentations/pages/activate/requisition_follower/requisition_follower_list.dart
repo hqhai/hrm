@@ -62,13 +62,15 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
       setState(() {
         pageIndex++;
       });
-      dI<RequisitionFollowingBloc>().add(GetRequisitionsFollowingByFilterEvent(
-        listStatusRequisition: listFilter,
-        requisitionTypeEnum: requisitionTypeEnum,
-        startTime: startTime,
-        endTime: endTime,
-        page: pageIndex,
-      ));
+      dI<RequisitionFollowingBloc>().add(
+        GetRequisitionsFollowingByFilterEvent(
+          listStatusRequisition: listFilter,
+          requisitionTypeEnum: requisitionTypeEnum,
+          startTime: startTime,
+          endTime: endTime,
+          page: pageIndex,
+        ),
+      );
     }
   }
 

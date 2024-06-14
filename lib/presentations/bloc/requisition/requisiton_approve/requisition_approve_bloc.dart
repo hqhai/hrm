@@ -22,6 +22,7 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
     on<GetRequisitionsApproveByFilterEvent>(_getRequisitionsApproveByFilterEvent);
     on<GetRequisitionApproveByIdEvent>(_getRequisitionApproveByIdEvent);
     on<ApproveRequestEvent>(_approveRequestEvent);
+    on<RemoveFilterEvent>(_removeFilterEvent);
   }
 
   List<Request> requisitions = [];
@@ -52,17 +53,48 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
     emit(state.copyWith(status: RequisitionEnum.getRequisitionsInit));
     try {
       List<Request> requests = [];
-      RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsApprove(
+      RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsApproveByFilter(
         page: event.page,
+        departmentId: event.departmentId,
+        endDate: event.endTime,
+        startDate: event.startTime,
+        type: event.requisitionTypeEnum?.name,
+        status: event.status,
       );
       List<Request> newStationery = requestsResponse.requests;
       int totalItems = requestsResponse.totalItems;
-      requests.addAll(state.requisitions);
-      requests.addAll(newStationery);
-      emit(state.copyWith(
+      if ((state.statusRequest == event.status) &&
+          (state.startTime == event.startTime || event.startTime == null) &&
+          (state.endTime == event.endTime || event.endTime == null) &&
+          (state.requisitionTypeEnum == event.requisitionTypeEnum?.name ||
+              event.requisitionTypeEnum == null) &&
+          event.page != 0 &&
+          event.page != 1) {
+        requests.addAll(state.requisitions);
+        requests.addAll(newStationery);
+        emit(state.copyWith(
+          statusRequest: event.status,
+          endTime: event.endTime,
+          startTime: event.startTime,
+          requisitionTypeEnum: event.requisitionTypeEnum?.name,
+          departmentId: event.departmentId,
+          page: event.page,
           requisitions: requests,
           countItem: totalItems,
-          status: RequisitionEnum.getRequisitionsSuccess));
+          status: RequisitionEnum.getRequisitionsSuccess,
+        ));
+      } else {
+        requests.addAll(newStationery);
+        emit(state.copyWith(
+            endTime: event.endTime,
+            startTime: event.startTime,
+            requisitionTypeEnum: event.requisitionTypeEnum?.name,
+            departmentId: event.departmentId,
+            page: event.page,
+            requisitions: requests,
+            countItem: totalItems,
+            status: RequisitionEnum.getRequisitionsSuccess));
+      }
     } catch (e) {
       emit(state.copyWith(status: RequisitionEnum.getRequisitionsError));
     }
@@ -83,10 +115,37 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
       ApproveRequestEvent event, Emitter<RequisitionApproveState> emit) async {
     emit(state.copyWith(status: RequisitionEnum.approveRequisitionInit));
     try {
-
+      await requisitionUseCase.approveRequest(
+          id: event.id, status: event.status?.name ?? "", note: event.note ?? "");
       emit(state.copyWith(status: RequisitionEnum.approveRequisitionSuccess));
     } catch (e) {
       emit(state.copyWith(status: RequisitionEnum.approveRequisitionError));
+    }
+  }
+
+  FutureOr<void> _removeFilterEvent(
+      RemoveFilterEvent event, Emitter<RequisitionApproveState> emit) async {
+    emit(state.copyWith(status: RequisitionEnum.getRequisitionsSuccess));
+    try {
+      List<Request> requests = [];
+      RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsApproveByFilter(
+        page: 0,
+        status: event.status,
+      );
+      List<Request> newStationery = requestsResponse.requests;
+      int totalItems = requestsResponse.totalItems;
+      requests.addAll(newStationery);
+      emit(state.copyWith(
+        requisitionTypeEnum: null,
+          startTime: null,
+          endTime: null,
+          departmentId: null,
+          statusRequest: event.status,
+          requisitions: requests,
+          countItem: totalItems,
+          status: RequisitionEnum.getRequisitionsSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: RequisitionEnum.getRequisitionsError));
     }
   }
 }

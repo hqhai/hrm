@@ -972,4 +972,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get thereAreCurrentlyNoProducts => 'Hiện tại không có sản phẩm nào';
+
+  @override
+  String get removeFilter => 'Xóa bộ lọc';
 }

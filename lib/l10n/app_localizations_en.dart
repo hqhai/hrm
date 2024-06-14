@@ -972,4 +972,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get thereAreCurrentlyNoProducts => 'There are currently no products';
+
+  @override
+  String get removeFilter => 'Remove filter';
 }

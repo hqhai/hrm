@@ -26,7 +26,7 @@ abstract class RequisitionRepository {
     String? departmentId,
     String? startDate,
     String? endDate,
-    List<String>? status,
+    String? status
   });
 
   Future<RequestsResponse> getRequisitionsFollowerByFilter({
@@ -40,7 +40,7 @@ abstract class RequisitionRepository {
 
   Future<Request> getRequisitionById({required String id});
 
-  Future<int> approveRequisition({required String id, String? note, required String status});
+  Future<String> approveRequisition({required String id, String? note, required String status});
 
   Future<List<Flow>> getFlowByUser();
 

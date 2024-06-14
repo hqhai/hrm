@@ -15,9 +15,8 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   RequisitionUseCaseImpl() : _requisitionRepository = dI<RequisitionRepository>();
 
   @override
-  Future<int> approveRequest({required String id, String? note, required String status}) {
-    // TODO: implement approveRequest
-    throw UnimplementedError();
+  Future<String> approveRequest({required String id, String? note, required String status}) async {
+    return await _requisitionRepository.approveRequisition(id: id, status: status, note: note);
   }
 
   @override
@@ -63,14 +62,14 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
       String? departmentId,
       String? startDate,
       String? endDate,
-      List<String>? status}) async {
+        String? status}) async {
     return await _requisitionRepository.getRequisitionsApproveByFilter(
       page: page,
       endDate: endDate,
       startDate: startDate,
-      status: status,
       type: type,
       departmentId: departmentId,
+      status: status
     );
   }
 

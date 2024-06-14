@@ -55,7 +55,8 @@ class MainBloc {
         BlocProvider<FlowBloc>(create: (BuildContext context) => dI<FlowBloc>()),
         BlocProvider<StationeryBloc>(create: (BuildContext context) => dI<StationeryBloc>()),
         BlocProvider<UserByIdBloc>(create: (BuildContext context) => dI<UserByIdBloc>()),
-        BlocProvider<RequisitionFollowingBloc>(create: (BuildContext context) => dI<RequisitionFollowingBloc>()),
+        BlocProvider<RequisitionFollowingBloc>(
+            create: (BuildContext context) => dI<RequisitionFollowingBloc>()),
 
-  ];
+      ];
 }

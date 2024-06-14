@@ -321,5 +321,6 @@
   "core": "Core",
   "noBrowsingFlowYet": "No browsing flow yet",
   "cannotBeLeftBlank": "Cannot be left blank",
-  "thereAreCurrentlyNoProducts": "There are currently no products"
+  "thereAreCurrentlyNoProducts": "There are currently no products",
+  "removeFilter": "Remove filter"
 }

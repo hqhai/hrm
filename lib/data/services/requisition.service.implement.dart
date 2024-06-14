@@ -6,6 +6,8 @@ import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/approve_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
@@ -49,12 +51,6 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final statusCode = responseBase.statusCode;
     return statusCode;
-  }
-
-  @override
-  Future<int> approveRequisition({required String id, String? note, required String status}) {
-    // TODO: implement approveRequisition
-    throw UnimplementedError();
   }
 
   @override
@@ -110,9 +106,16 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
 
   @override
   Future<RequestsResponse> getRequisitionsApproveByFilter(
-      {required GetRequestFilterRequest getRequestFilterRequest}) async {
-    // TODO: implement getRequisitionsApproveByFilter
-    throw UnimplementedError();
+      {required GetRequestApproveFilterRequest getRequestApproveFilterRequest}) async {
+    final url = '$baseUrl${PathConfig.getRequestApprove}';
+    final params = getRequestApproveFilterRequest.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result['items'];
+    final totalItems = responseBase.result['pagingInfo']['totalItems'];
+    List<Request> request =
+    (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
+    return RequestsResponse(totalItems: totalItems, requests: request);
   }
 
 
@@ -153,5 +156,15 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     List<Request> request =
     (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
     return RequestsResponse(totalItems: totalItems, requests: request);
+  }
+
+  @override
+  Future<String> approveRequisition({required ApproveRequest approveRequest}) async {
+    final url = '$baseUrl${PathConfig.stepRequestApprover}';
+    final body = jsonEncode(approveRequest.toJson());
+    final response = await client.put(url, body: body);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.statusCode;
+    return data.toString();
   }
 }

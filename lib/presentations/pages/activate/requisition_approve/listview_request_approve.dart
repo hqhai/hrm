@@ -9,9 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ListviewRequestApprove extends StatefulWidget {
-  final StatusRequestEnum type;
+  const ListviewRequestApprove({super.key, required this.onChangeStatus});
 
-  const ListviewRequestApprove({super.key, required this.type});
+  final ValueChanged<String> onChangeStatus;
 
   @override
   State<ListviewRequestApprove> createState() => _ListviewRequestApproveState();
@@ -21,10 +21,12 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
     with TickerProviderStateMixin {
   StatusRequestEnum status = StatusRequestEnum.process;
   late final TabController _tabController;
+  String? departmentId, startTime, endTime;
+  String? requisitionTypeEnum;
 
   @override
   void initState() {
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 5, vsync: this)..addListener(_scrollListener);
     super.initState();
   }
 
@@ -51,22 +53,26 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TabBar(
-                    isScrollable: true,
-                    controller: _tabController,
-                    tabs: EnumStepRequestStatusEnum.values
-                        .map((status) => Tab(
-                                child: Text(
-                              status.configStepRequestStatusName,
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                            )))
-                        .toList()),
+                  isScrollable: true,
+                  controller: _tabController,
+                  tabs: EnumStepRequestStatusEnum.values
+                      .map(
+                        (status) => Tab(
+                          child: Text(
+                            status.configStepRequestStatusName,
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
                 SizedBox(
                   height: height * 0.7,
                   child: TabBarView(
                       controller: _tabController,
                       children: EnumStepRequestStatusEnum.values
                           .map((status) => TabBarViewListRequistionApprove(
-                                type: status,
+                                status: status,
                               ))
                           .toList()),
                 ),
@@ -76,5 +82,9 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
         );
       },
     );
+  }
+
+  void _scrollListener() {
+    widget.onChangeStatus.call(EnumStepRequestStatusEnum.values[_tabController.index].name);
   }
 }

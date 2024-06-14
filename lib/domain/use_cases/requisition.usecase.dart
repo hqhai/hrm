@@ -26,7 +26,7 @@ abstract class RequisitionUseCase {
     String? departmentId,
     String? startDate,
     String? endDate,
-    List<String>? status,
+    String? status
   });
 
   Future<RequestsResponse> getRequisitionsFollowerByFilter({
@@ -40,12 +40,14 @@ abstract class RequisitionUseCase {
 
   Future<Request> getRequisitionById({required String id});
 
-  Future<int> approveRequest({required String id, String? note, required String status});
+  Future<String> approveRequest({required String id, String? note, required String status});
 
   Future<List<Flow>> getFlowByUser();
 
   Future<Flow> getFlowById({required String id});
 
   Future<SearchStationeryByNameResponse> getStationery({required String name, required int page});
+
+
 
 }
