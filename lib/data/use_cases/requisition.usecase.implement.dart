@@ -108,4 +108,9 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
       departmentId: departmentId,
     );
   }
+
+  @override
+  Future<int> userRejectRequisitionById({required String id}) async {
+    return await _requisitionRepository.userRejectRequisitionById(id: id);
+  }
 }

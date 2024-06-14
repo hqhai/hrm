@@ -48,10 +48,10 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
 
   @override
   void initState() {
-    controller = ScrollController()..addListener(_scrollListener);
     dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
       page: pageIndex,
     ));
+    controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
 
@@ -91,6 +91,11 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   }
 
   _listener(BuildContext context, RequisitionState state) {
+    if (state.status == RequisitionEnum.userRejectRequisitionSuccess) {
+      dI<RequisitionBloc>().add(const GetRequisitionsByFilterEvent(
+        page: 1,
+      ));
+    }
     setState(() {
       status = state.status;
       totalItems = state.countItem;
@@ -116,6 +121,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
         opacity: checkOpacity ? 0.5 : 1,
         child: BlocConsumer<RequisitionBloc, RequisitionState>(
           listener: (context, state) => _listener(context, state),
+          buildWhen: (previous, current) => previous.requisitions != current.requisitions,
           builder: (context, state) {
             return Column(
               children: [

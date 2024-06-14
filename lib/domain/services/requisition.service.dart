@@ -39,4 +39,6 @@ abstract class RequisitionService {
 
   Future<SearchStationeryByNameResponse> getStationery(
       {required SearchStationeryByNameRequest searchStationeryByNameRequest});
+
+  Future<int> userRejectRequisitionById({required String id});
 }

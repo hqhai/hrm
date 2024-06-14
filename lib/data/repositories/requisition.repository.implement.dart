@@ -145,4 +145,9 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
           createdDepartmentId: departmentId),
     );
   }
+
+  @override
+  Future<int> userRejectRequisitionById({required String id}) async {
+    return await _requestService.userRejectRequisitionById(id: id);
+  }
 }

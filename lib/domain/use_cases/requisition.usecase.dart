@@ -48,6 +48,6 @@ abstract class RequisitionUseCase {
 
   Future<SearchStationeryByNameResponse> getStationery({required String name, required int page});
 
-
+  Future<int> userRejectRequisitionById({required String id});
 
 }

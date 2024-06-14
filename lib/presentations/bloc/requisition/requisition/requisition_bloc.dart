@@ -23,6 +23,20 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     on<GetRequisitionsByFilterEvent>(_getRequisitionsByFilterEvent);
     on<GetRequisitionByIdEvent>(_getRequisitionByIdEvent);
     on<PostRequestEvent>(_postRequestEvent);
+    on<UserRejectRequestEvent>(_userRejectRequestEvent);
+  }
+
+  FutureOr<void> _userRejectRequestEvent(
+      UserRejectRequestEvent event, Emitter<RequisitionState> emit) async {
+    emit(state.copyWith(status: RequisitionEnum.userRejectRequisitionInit));
+    try {
+      await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
+      RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsByFilter(page: 1);
+      List<Request> newRequest = requestsResponse.requests;
+      emit(state.copyWith(requisitions: newRequest, status: RequisitionEnum.userRejectRequisitionSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: RequisitionEnum.userRejectRequisitionError));
+    }
   }
 
   FutureOr<void> _getRequisitionsEvent(

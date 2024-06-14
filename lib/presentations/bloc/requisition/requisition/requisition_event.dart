@@ -20,6 +20,15 @@ class PostRequestEvent extends RequisitionEvent {
   List<Object?> get props => [postRequestRequest];
 }
 
+class UserRejectRequestEvent extends RequisitionEvent {
+  const UserRejectRequestEvent({this.id});
+
+  final String? id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
 class GetRequisitionsEvent extends RequisitionEvent {
   final int page;
 

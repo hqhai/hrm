@@ -167,4 +167,13 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final data = responseBase.statusCode;
     return data.toString();
   }
+
+  @override
+  Future<int> userRejectRequisitionById({required String id}) async {
+    final url = '$baseUrl${PathConfig.changeStatus}/$id';
+    final response = await client.put(url);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final statusCode = responseBase.statusCode;
+    return statusCode;
+  }
 }

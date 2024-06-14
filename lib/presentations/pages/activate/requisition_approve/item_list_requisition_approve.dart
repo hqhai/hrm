@@ -112,16 +112,16 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                       ButtonItemListRequisition(
                         title: appLocalizations.approver,
                         callback: () =>
-                            _isApprover(state, context, EnumStepRequestStatusEnum.approve),
+                            _isApprover(state.requisitions, context, EnumStepRequestStatusEnum.approve),
                       ),
                       ButtonItemListRequisition(
                         title: appLocalizations.refuse,
                         callback: () =>
-                            _isApprover(state, context, EnumStepRequestStatusEnum.reject),
+                            _isApprover(state.requisitions, context, EnumStepRequestStatusEnum.reject),
                       ),
                       ButtonItemListRequisition(
                         title: appLocalizations.modification,
-                        callback: () => _isApprover(state, context, EnumStepRequestStatusEnum.edit),
+                        callback: () => _isApprover(state.requisitions, context, EnumStepRequestStatusEnum.edit),
                       ),
                     ],
                   ),
@@ -147,9 +147,9 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   }
 
   _isApprover(
-      RequisitionApproveState state, BuildContext context, EnumStepRequestStatusEnum status) {
+      List<Request> requests, BuildContext context, EnumStepRequestStatusEnum status) {
     String idUser = dI<UserBloc>().state.user.id;
-    Request request = _request(state.requisitions, widget.id);
+    Request request = _request(requests, widget.id);
     if (request.stepRequests?.isNotEmpty ?? false) {
       final stepRequests = request.stepRequests ?? [];
       final indexNewStepRequest = stepRequests

@@ -241,4 +241,7 @@ enum RequisitionEnum {
   approveRequisitionInit,
   approveRequisitionSuccess,
   approveRequisitionError,
+  userRejectRequisitionInit,
+  userRejectRequisitionSuccess,
+  userRejectRequisitionError,
 }
