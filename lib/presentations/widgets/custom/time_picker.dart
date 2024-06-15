@@ -14,10 +14,16 @@ class TimePicker extends StatefulWidget {
 
 class _TimePickerState extends State<TimePicker> {
   late DateTime timeValue;
+  DateFormat inputFormat = DateFormat('dd-MM-yyyy HH:mm');
 
   @override
   void initState() {
-    timeValue = DateTime.now();
+    if(widget.timeSlot != '') {
+      timeValue = inputFormat.parse(widget.timeSlot);
+    }
+    else{
+      timeValue = DateTime.now();
+    }
     super.initState();
   }
 
@@ -26,7 +32,7 @@ class _TimePickerState extends State<TimePicker> {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
       onTap: () {
-        showTimePicker();
+        showTimePicker(timeValue);
       },
       child: Container(
         padding: const EdgeInsets.all(4),
@@ -51,11 +57,11 @@ class _TimePickerState extends State<TimePicker> {
     );
   }
 
-  showTimePicker() async {
-    DateTime? dateTime = DateTime.now();
+  showTimePicker(DateTime time) async {
+    DateTime? dateTime = time;
     dateTime = await showOmniDateTimePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: time,
       firstDate: DateTime(1600).subtract(const Duration(days: 3652)),
       lastDate: DateTime.now().add(
         const Duration(days: 3652),
