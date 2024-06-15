@@ -975,4 +975,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get removeFilter => 'Xóa bộ lọc';
+
+  @override
+  String get paymentAfterTax => 'Thanh toán sau thuế';
+
+  @override
+  String get intoMoneyNoVAT => 'Thành tiền chưa VAT';
 }

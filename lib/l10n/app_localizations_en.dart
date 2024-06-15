@@ -975,4 +975,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get removeFilter => 'Remove filter';
+
+  @override
+  String get paymentAfterTax => 'Payment after tax';
+
+  @override
+  String get intoMoneyNoVAT => 'Into money (excluding VAT)';
 }

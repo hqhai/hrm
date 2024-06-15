@@ -322,5 +322,7 @@
   "noBrowsingFlowYet": "No browsing flow yet",
   "cannotBeLeftBlank": "Cannot be left blank",
   "thereAreCurrentlyNoProducts": "There are currently no products",
-  "removeFilter": "Remove filter"
+  "removeFilter": "Remove filter",
+  "paymentAfterTax": "Payment after tax",
+  "intoMoneyNoVAT": "Into money (excluding VAT)"
 }

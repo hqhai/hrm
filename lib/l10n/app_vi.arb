@@ -322,5 +322,7 @@
   "noBrowsingFlowYet": "Chưa có luồng duyệt",
   "cannotBeLeftBlank": "Không được để trống",
   "thereAreCurrentlyNoProducts": "Hiện tại không có sản phẩm nào",
-  "removeFilter": "Xóa bộ lọc"
+  "removeFilter": "Xóa bộ lọc",
+  "paymentAfterTax": "Thanh toán sau thuế",
+  "intoMoneyNoVAT": "Thành tiền chưa VAT"
 }

@@ -13,44 +13,24 @@ class ItemButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-          onPressed: () => _save(),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colors.blue,
-          ),
-          child: Text(
-            appLocalizations.save,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x5,
-            ),
+    return Center(
+      child: ElevatedButton(
+        onPressed: () => _save(),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: colors.blue,
+        ),
+        child: Text(
+          appLocalizations.save,
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x5,
           ),
         ),
-        ElevatedButton(
-          onPressed: () => _cancel(),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colors.blue,
-          ),
-          child: Text(
-            appLocalizations.cancel,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x5,
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
   _save() {
     callbackSave?.call();
-  }
-
-  _cancel() {
-    callbackCancel?.call();
   }
 }

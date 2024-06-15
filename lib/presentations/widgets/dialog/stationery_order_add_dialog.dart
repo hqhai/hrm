@@ -35,6 +35,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
   setStationery(Stationery value) {
     setState(() {
       stationery = value;
+      product = value.product??"";
       unitPrice = double.parse((value.unitPrice ?? '0').replaceAll(',', ''));
       explain = value.product ?? "";
       unit = value.unit ?? "";
@@ -98,15 +99,15 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
                 check: true,
                 unit: unit,
                 unitPrice: double.parse((stationery.unitPrice ?? '0').replaceAll(',', '')),
-                product: product),
+                product: explain),
             ItemCreateTotalMinute(
               title: appLocalizations.numberOf,
               totalMinuteController: numberOfController,
               onChange: (value) => _setNumber(value),
             ),
             ItemIntoMoney(
-              title: appLocalizations.intoMoney,
-              content: intoMoney.toString(),
+              title: appLocalizations.intoMoneyNoVAT,
+              content: intoMoney.toInt().toString(),
             ),
             ItemCreateInput(
               title: appLocalizations.note,
