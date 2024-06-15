@@ -1,8 +1,10 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/flow_enum.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
@@ -11,6 +13,7 @@ import 'package:base_app/presentations/widgets/activate/item_activate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 final createRequestPageRoute = GoRoute(
@@ -58,7 +61,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
               color: colors.surface,
               padding: const EdgeInsets.all(SpacingUnit.x4),
               margin: const EdgeInsets.all(SpacingUnit.x4),
-              child: state.flows.isNotEmpty
+              child: state.status == FlowStatusEnum.getFlowsSuccess
                   ? ListView.builder(
                       itemCount: state.flows.length,
                       itemBuilder: (context, index) => ItemActivateWidget(
@@ -67,12 +70,11 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                       ),
                     )
                   : Center(
-                      child: Text(
-                        appLocalizations.noBrowsingFlowYet,
-                        style: TextStyle(
-                          fontSize: SpacingUnit.x6,
-                          color: colors.text,
-                        ),
+                      child: SizedBox(
+                        height: SpacingUnit.x50,
+                        width: SpacingUnit.x50,
+                        child: Lottie.asset(Assets.images.icon.loading,
+                            width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
                       ),
                     ),
             ),
