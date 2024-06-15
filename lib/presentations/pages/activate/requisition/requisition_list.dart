@@ -40,11 +40,8 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   int pageIndex = 1, totalItems = 0, lengthList = 0;
   late ScrollController controller;
   RequisitionEnum status = RequisitionEnum.getRequisitionsInit;
-  List<StatusRequestEnum> listFilter = [];
-  List<StatusRequestEnum>? listStatusRequisition;
-  RequisitionTypeEnum? requisitionTypeEnum;
-  String? startTime;
-  String? endTime;
+  List<StatusRequestEnum> listStatusFilter = [];
+  FilterDialogModel filterData = const FilterDialogModel();
 
   @override
   void initState() {
@@ -64,10 +61,10 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
         pageIndex++;
       });
       dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
-        listStatusRequisition: listFilter,
-        requisitionTypeEnum: requisitionTypeEnum,
-        startTime: startTime,
-        endTime: endTime,
+        listStatusRequisition: listStatusFilter,
+        requisitionTypeEnum: filterData.type,
+        startTime: filterData.startTime,
+        endTime: filterData.endTime,
         page: pageIndex,
       ));
     }
@@ -75,18 +72,15 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
 
   setlLstFilter(FilterDialogModel value) {
     setState(() {
-      listStatusRequisition = value.statuses;
-      listFilter = value.statuses;
-      requisitionTypeEnum = value.type;
-      startTime = value.startTime;
-      endTime = value.endTime;
+      filterData = value;
+      listStatusFilter = value.statuses ?? [];
     });
     dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
-      listStatusRequisition: listFilter,
-      requisitionTypeEnum: requisitionTypeEnum,
-      startTime: startTime,
-      endTime: endTime,
-      page: pageIndex,
+      listStatusRequisition: listStatusFilter,
+      requisitionTypeEnum: filterData.type,
+      startTime: filterData.startTime,
+      endTime: filterData.endTime,
+      page: 1,
     ));
   }
 
@@ -131,31 +125,37 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                       horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
                   child: Stack(
                     children: [
-                      if (listFilter.isEmpty)
-                        Container(
-                          padding: const EdgeInsets.all(
-                            SpacingUnit.x1,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
+                      if (listStatusFilter.isEmpty)
+                        GestureDetector(
+                          onTap: () => _setAll(),
+                          child: Container(
+                            padding: const EdgeInsets.all(
                               SpacingUnit.x1,
                             ),
-                            color: CustomsColor.colorBackground,
-                            border: Border.all(
-                              color: colors.text,
-                              width: SpacingUnit.x0_25,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                SpacingUnit.x1,
+                              ),
+                              color: CustomsColor.colorBackground,
+                              border: Border.all(
+                                color: colors.text,
+                                width: SpacingUnit.x0_25,
+                              ),
                             ),
+                            child: Text(
+                                _checkFilter()
+                                    ? appLocalizations.all
+                                    : appLocalizations.removeFilter,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
                           ),
-                          child: Text(appLocalizations.all,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
                         ),
-                      if (listFilter.isNotEmpty)
+                      if (listStatusFilter.isNotEmpty)
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: WrapFilter(
-                            listFilter: listFilter,
+                            listFilter: listStatusFilter,
                             onChange: (value) => removeListFilter(value),
                           ),
                         ),
@@ -222,6 +222,31 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     );
   }
 
+  bool _checkFilter() {
+    bool check = filterData.department == null &&
+        filterData.startTime == null &&
+        filterData.endTime == null &&
+        filterData.type == null;
+    return check;
+  }
+
+  _setAll() {
+    if (!_checkFilter()) {
+      setState(() {
+        filterData = const FilterDialogModel();
+      });
+      dI<RequisitionBloc>().add(
+        GetRequisitionsByFilterEvent(
+          listStatusRequisition: listStatusFilter,
+          requisitionTypeEnum: filterData.type,
+          startTime: filterData.startTime,
+          endTime: filterData.endTime,
+          page: 1,
+        ),
+      );
+    }
+  }
+
   _opacity(bool check) {
     setState(() {
       checkOpacity = check;
@@ -230,8 +255,16 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
 
   removeListFilter(StatusRequestEnum e) {
     setState(() {
-      listFilter.remove(e);
+      listStatusFilter.remove(e);
+      filterData = filterData.copyWith(statuses: listStatusFilter);
     });
+    dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
+      listStatusRequisition: listStatusFilter,
+      requisitionTypeEnum: filterData.type,
+      startTime: filterData.startTime,
+      endTime: filterData.endTime,
+      page: 1,
+    ));
   }
 
   dialog(BuildContext context) {

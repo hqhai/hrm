@@ -1,6 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/tab_bar_view_list_requisition_approve.dart';
@@ -9,9 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ListviewRequestApprove extends StatefulWidget {
-  const ListviewRequestApprove({super.key, required this.onChangeStatus});
+  const ListviewRequestApprove(
+      {super.key, required this.onChangeStatus, this.filterData = const FilterDialogModel()});
 
   final ValueChanged<String> onChangeStatus;
+  final FilterDialogModel filterData;
 
   @override
   State<ListviewRequestApprove> createState() => _ListviewRequestApproveState();
@@ -19,10 +22,7 @@ class ListviewRequestApprove extends StatefulWidget {
 
 class _ListviewRequestApproveState extends State<ListviewRequestApprove>
     with TickerProviderStateMixin {
-  StatusRequestEnum status = StatusRequestEnum.process;
   late final TabController _tabController;
-  String? departmentId, startTime, endTime;
-  String? requisitionTypeEnum;
 
   @override
   void initState() {
@@ -72,6 +72,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
                       controller: _tabController,
                       children: EnumStepRequestStatusEnum.values
                           .map((status) => TabBarViewListRequistionApprove(
+                                filterData: widget.filterData,
                                 status: status,
                               ))
                           .toList()),
@@ -85,6 +86,8 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
   }
 
   void _scrollListener() {
-    widget.onChangeStatus.call(EnumStepRequestStatusEnum.values[_tabController.index].name);
+    widget.onChangeStatus.call(
+      EnumStepRequestStatusEnum.values[_tabController.index].name,
+    );
   }
 }

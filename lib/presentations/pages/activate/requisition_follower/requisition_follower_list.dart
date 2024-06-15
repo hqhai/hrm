@@ -40,11 +40,8 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
   int pageIndex = 1, totalItems = 0, lengthList = 0;
   late ScrollController controller;
   RequisitionEnum status = RequisitionEnum.getRequisitionsInit;
-  List<StatusRequestEnum> listFilter = [];
-  List<StatusRequestEnum>? listStatusRequisition;
-  RequisitionTypeEnum? requisitionTypeEnum;
-  String? startTime;
-  String? endTime;
+  FilterDialogModel filterData = const FilterDialogModel();
+  List<StatusRequestEnum> listStatusFilter = [];
 
   @override
   void initState() {
@@ -64,10 +61,10 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
       });
       dI<RequisitionFollowingBloc>().add(
         GetRequisitionsFollowingByFilterEvent(
-          listStatusRequisition: listFilter,
-          requisitionTypeEnum: requisitionTypeEnum,
-          startTime: startTime,
-          endTime: endTime,
+          listStatusRequisition: listStatusFilter,
+          requisitionTypeEnum: filterData.type,
+          startTime: filterData.startTime,
+          endTime: filterData.endTime,
           page: pageIndex,
         ),
       );
@@ -76,18 +73,15 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
 
   setlLstFilter(FilterDialogModel value) {
     setState(() {
-      listStatusRequisition = value.statuses;
-      listFilter = value.statuses;
-      requisitionTypeEnum = value.type;
-      startTime = value.startTime;
-      endTime = value.endTime;
+      filterData = value;
+      listStatusFilter = value.statuses??[];
     });
     dI<RequisitionFollowingBloc>().add(GetRequisitionsFollowingByFilterEvent(
-      listStatusRequisition: listFilter,
-      requisitionTypeEnum: requisitionTypeEnum,
-      startTime: startTime,
-      endTime: endTime,
-      page: 0,
+      listStatusRequisition: listStatusFilter,
+      requisitionTypeEnum: filterData.type,
+      startTime: filterData.startTime,
+      endTime: filterData.endTime,
+      page: 1,
     ));
   }
 
@@ -126,7 +120,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
                       horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
                   child: Stack(
                     children: [
-                      if (listFilter.isEmpty)
+                      if (listStatusFilter.isEmpty)
                         Container(
                           padding: const EdgeInsets.all(
                             SpacingUnit.x1,
@@ -146,11 +140,11 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
                         ),
-                      if (listFilter.isNotEmpty)
+                      if (listStatusFilter.isNotEmpty)
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: WrapFilter(
-                            listFilter: listFilter,
+                            listFilter: listStatusFilter,
                             onChange: (value) => removeListFilter(value),
                           ),
                         ),
@@ -225,8 +219,16 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
 
   removeListFilter(StatusRequestEnum e) {
     setState(() {
-      listFilter.remove(e);
+      listStatusFilter.remove(e);
+      filterData = filterData.copyWith(statuses: listStatusFilter);
     });
+    dI<RequisitionFollowingBloc>().add(GetRequisitionsFollowingByFilterEvent(
+      listStatusRequisition: listStatusFilter,
+      requisitionTypeEnum: filterData.type,
+      startTime: filterData.startTime,
+      endTime: filterData.endTime,
+      page: 1,
+    ));
   }
 
   dialog(BuildContext context) {

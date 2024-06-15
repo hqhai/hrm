@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
@@ -14,17 +15,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
 class TabBarViewListRequistionApprove extends StatefulWidget {
-  const TabBarViewListRequistionApprove({super.key, required this.status});
+  const TabBarViewListRequistionApprove(
+      {super.key, required this.status, this.filterData = const FilterDialogModel()});
 
   final EnumStepRequestStatusEnum status;
+  final FilterDialogModel filterData;
 
   @override
   State<TabBarViewListRequistionApprove> createState() => _TabBarViewListRequistionApproveState();
 }
 
 class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequistionApprove> {
-  String? departmentId, startTime, endTime;
-  String? requisitionTypeEnum;
   RequisitionEnum status = RequisitionEnum.getRequisitionsInit;
   late ScrollController controller;
   int pageIndex = 1, totalItems = 0, lengthList = 0;
@@ -34,30 +35,14 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
     dI<RequisitionApproveBloc>().add(
       GetRequisitionsApproveByFilterEvent(
           page: 1,
-          departmentId: departmentId,
-          startTime: startTime,
-          endTime: endTime,
-          requisitionTypeEnum: _type(requisitionTypeEnum),
+          departmentId: widget.filterData.department?.id,
+          startTime: widget.filterData.startTime,
+          endTime: widget.filterData.endTime,
+          requisitionTypeEnum: widget.filterData.type,
           status: widget.status.name),
     );
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
-  }
-
-  String? setText(String text) {
-    if (text == '') {
-      return null;
-    }
-    return text;
-  }
-
-  RequisitionTypeEnum? _type(String? requisitionTypeEnum) {
-    if (requisitionTypeEnum?.isNotEmpty ?? false) {
-      return RequisitionTypeEnum.values.firstWhere(
-        (element) => element.name == requisitionTypeEnum,
-      );
-    }
-    return null;
   }
 
   _scrollListener() {
@@ -71,10 +56,10 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
         GetRequisitionsApproveByFilterEvent(
             status: widget.status.name,
             page: pageIndex,
-            departmentId: departmentId,
-            startTime: startTime,
-            endTime: endTime,
-            requisitionTypeEnum: _type(requisitionTypeEnum)),
+            departmentId: widget.filterData.department?.id,
+            startTime: widget.filterData.startTime,
+            endTime: widget.filterData.endTime,
+            requisitionTypeEnum: widget.filterData.type),
       );
     }
   }
@@ -90,11 +75,11 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
       dI<RequisitionApproveBloc>().add(
         GetRequisitionsApproveByFilterEvent(
             status: widget.status.name,
-            page: 0,
-            departmentId: departmentId,
-            startTime: startTime,
-            endTime: endTime,
-            requisitionTypeEnum: _type(requisitionTypeEnum)),
+            page: 1,
+            departmentId: widget.filterData.department?.id,
+            startTime: widget.filterData.startTime,
+            endTime: widget.filterData.endTime,
+            requisitionTypeEnum: widget.filterData.type),
       );
       successDialog(context);
     } else if (state.status == RequisitionEnum.approveRequisitionError) {

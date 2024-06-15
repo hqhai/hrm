@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -33,9 +32,8 @@ class RequisitionApproveListPage extends StatefulWidget {
 class _RequisitionApproveListPageState extends State<RequisitionApproveListPage> {
   bool checkOpacity = false;
   var random = Random();
-  String? departmentId, startTime, endTime;
+  FilterDialogModel filterData = const FilterDialogModel();
   String status = '';
-  RequisitionTypeEnum? requisitionTypeEnum;
 
   @override
   void initState() {
@@ -44,7 +42,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
 
   bool _checkFilter() {
     bool check =
-        departmentId == null && startTime == null && endTime == null && requisitionTypeEnum == null;
+        filterData.department == null && filterData.startTime == null && filterData.endTime == null && filterData.type== null;
     return check;
   }
 
@@ -110,6 +108,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
               ),
               ListviewRequestApprove(
                 onChangeStatus: (value) => setStatus(value),
+                filterData: filterData,
               ),
             ],
           ),
@@ -126,18 +125,15 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
 
   setlLstFilter(FilterDialogModel value) {
     setState(() {
-      departmentId = value.department?.id;
-      startTime = value.startTime;
-      endTime = value.endTime;
-      requisitionTypeEnum = value.type;
+      filterData = value;
     });
     dI<RequisitionApproveBloc>().add(
       GetRequisitionsApproveByFilterEvent(
-          page: 0,
-          departmentId: departmentId,
-          startTime: startTime,
-          endTime: endTime,
-          requisitionTypeEnum: requisitionTypeEnum),
+          page: 1,
+          departmentId: value.department?.id,
+          startTime: value.startTime,
+          endTime: value.endTime,
+          requisitionTypeEnum: value.type),
     );
   }
 
@@ -158,10 +154,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
     if (!_checkFilter()) {
       dI<RequisitionApproveBloc>().add(RemoveFilterEvent(status: status));
       setState(() {
-        departmentId = null;
-        startTime = null;
-        endTime = null;
-        requisitionTypeEnum = null;
+        filterData = const FilterDialogModel();
       });
     }
   }

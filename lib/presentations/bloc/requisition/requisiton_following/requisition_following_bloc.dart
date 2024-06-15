@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
@@ -32,21 +31,14 @@ class RequisitionFollowingBloc extends Bloc<RequisitionFollowingEvent, Requisiti
         type: event.requisitionTypeEnum?.name,
         status: event.listStatusRequisition?.map((e) => e.name).toList(),
         startDate: event.startTime,
-        endDate: event.startTime,
+        endDate: event.endTime,
       );
       List<Request> newRequest = requestsResponse.requests;
       int totalItems = requestsResponse.totalItems;
-      if (listStatusRequestEquals(event.listStatusRequisition, state.listStatusRequisition) &&
-          (state.startTime == event.startTime || event.startTime == null) &&
-          (state.endTime == event.endTime || event.endTime == null) &&
-          state.requisitionTypeEnum == event.requisitionTypeEnum?.name || event.requisitionTypeEnum == null) {
+      if (event.page != 1) {
         requests.addAll(state.requisitions);
         requests.addAll(newRequest);
         emit(state.copyWith(
-            endTime: event.endTime,
-            startTime: event.startTime,
-            requisitionTypeEnum: event.requisitionTypeEnum?.name,
-            listStatusRequisition: event.listStatusRequisition,
             requisitions: requests,
             countItem: totalItems,
             status: RequisitionEnum.getRequisitionsSuccess));
@@ -55,10 +47,6 @@ class RequisitionFollowingBloc extends Bloc<RequisitionFollowingEvent, Requisiti
         emit(state.copyWith(
             requisitions: requests,
             countItem: totalItems,
-            endTime: event.endTime,
-            startTime: event.startTime,
-            requisitionTypeEnum: event.requisitionTypeEnum?.name,
-            listStatusRequisition: event.listStatusRequisition,
             status: RequisitionEnum.getRequisitionsSuccess));
       }
     } catch (e) {
