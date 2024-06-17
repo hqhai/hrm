@@ -1,6 +1,6 @@
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
 
 pDFShowDialog(BuildContext context, List<String> paths) async {

@@ -2,7 +2,7 @@ import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/dialog/bottom_sheet.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 

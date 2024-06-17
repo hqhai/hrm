@@ -11,7 +11,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/pages/activate/requisition/popup_menu_requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/listview_request_approve.dart';
-import 'package:base_app/presentations/widgets/dialog/filter_requisition_approve_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/filter_requisition_approve_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';

@@ -40,16 +40,16 @@ class GetRequisitionsEvent extends RequisitionEvent {
 
 class GetRequisitionsByFilterEvent extends RequisitionEvent {
   const GetRequisitionsByFilterEvent(
-      {this.requisitionTypeEnum, this.listStatusRequisition, this.startTime, this.endTime, this.page});
+      {this.flowId, this.listStatusRequisition, this.startTime, this.endTime, this.page});
 
   final int? page;
-  final RequisitionTypeEnum? requisitionTypeEnum;
+  final String? flowId;
   final List<StatusRequestEnum>? listStatusRequisition;
   final String? startTime;
   final String? endTime;
 
   @override
-  List<Object?> get props => [requisitionTypeEnum, listStatusRequisition, startTime, endTime, page];
+  List<Object?> get props => [flowId, listStatusRequisition, startTime, endTime, page];
 }
 
 class GetRequisitionByIdEvent extends RequisitionEvent {

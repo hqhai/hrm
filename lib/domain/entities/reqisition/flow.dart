@@ -6,7 +6,7 @@ part 'flow.g.dart';
 
 @CopyWith()
 @JsonSerializable()
-class Flow {
+class FlowRequest {
   final RequisitionTypeEnum? flowType;
   final String? name;
   final int? timeLimitBeforeCreation;
@@ -17,7 +17,7 @@ class Flow {
   final String? quantityLimitType;
   final String id;
 
-  const Flow({
+  const FlowRequest({
     this.flowType,
     this.name,
     this.timeLimitBeforeCreation,
@@ -29,7 +29,7 @@ class Flow {
     required this.id,
   });
 
-  factory Flow.fromJson(Map<String, dynamic> json) => _$FlowFromJson(json);
+  factory FlowRequest.fromJson(Map<String, dynamic> json) => _$FlowRequestFromJson(json);
 
-  Map<String, dynamic> toJson() => _$FlowToJson(this);
+  Map<String, dynamic> toJson() => _$FlowRequestToJson(this);
 }

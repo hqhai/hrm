@@ -8,10 +8,12 @@ sealed class FlowEvent extends Equatable {
 }
 
 class GetFlowsEvent extends FlowEvent {
-  const GetFlowsEvent();
+  final int page;
+
+  const GetFlowsEvent({this.page = 1});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [page];
 }
 
 class GetFlowEvent extends FlowEvent {

@@ -23,7 +23,7 @@ import 'package:base_app/presentations/pages/profile/item_constant_update_profil
 import 'package:base_app/presentations/pages/profile/item_profile.dart';
 import 'package:base_app/presentations/pages/profile/item_vehicle_update_profile.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/update_profile_dialog.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
 import 'package:base_app/presentations/widgets/profile/item_text_title_profile.dart';

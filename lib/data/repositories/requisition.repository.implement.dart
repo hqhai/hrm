@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
+import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
@@ -21,8 +22,10 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   RequisitionRepositoryImplement() : _requestService = dI<RequisitionService>();
 
   @override
-  Future<List<Flow>> getFlowByUser() async {
-    return await _requestService.getFlowByUser();
+  Future<FlowResponse> getFlowByUser({required int page}) async {
+    return await _requestService.getFlowByUser(
+      getRequestRequest: GetRequestRequest(page: page),
+    );
   }
 
   @override
@@ -65,7 +68,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<Flow> getFlowById({required String id}) async {
+  Future<FlowRequest> getFlowById({required String id}) async {
     return await _requestService.getFlowById(flowByIdRequest: FlowByIdRequest(id: id));
   }
 
@@ -120,7 +123,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   @override
   Future<RequestsResponse> getRequisitionsByFilter(
       {int? page,
-      String? type,
+      String? flowId,
       String? departmentId,
       String? startDate,
       String? endDate,
@@ -128,7 +131,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
     if (status?.isNotEmpty ?? false) {
       return await _requestService.getRequisitionsByFilter(
         getRequestFilterRequest: GetRequestFilterRequest(
-            type: type,
+            flowId: flowId,
             page: page,
             endDate: endDate,
             startDate: startDate,
@@ -138,7 +141,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
     }
     return await _requestService.getRequisitionsByFilter(
       getRequestFilterRequest: GetRequestFilterRequest(
-          type: type,
+          flowId: flowId,
           page: page,
           endDate: endDate,
           startDate: startDate,

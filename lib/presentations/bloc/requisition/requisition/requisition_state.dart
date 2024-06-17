@@ -12,20 +12,12 @@ class RequisitionState extends Equatable {
   final List<Request> requisitions;
   final RequisitionEnum status;
   final int countItem;
-  final String requisitionTypeEnum;
-  final List<StatusRequestEnum> listStatusRequisition;
-  final String startTime;
-  final String endTime;
 
   const RequisitionState({
     this.requisition = const Request(id: ''),
     this.requisitions = const [],
     this.status = RequisitionEnum.init,
     this.countItem = 0,
-    this.startTime = '',
-    this.listStatusRequisition = const [],
-    this.requisitionTypeEnum = '',
-    this.endTime = '',
   });
 
   @override
@@ -34,9 +26,5 @@ class RequisitionState extends Equatable {
         requisitions,
         status,
         countItem,
-        requisitionTypeEnum,
-        listStatusRequisition,
-        startTime,
-        endTime
       ];
 }

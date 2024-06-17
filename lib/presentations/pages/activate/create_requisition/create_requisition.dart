@@ -30,10 +30,36 @@ class CreateRequestPage extends StatefulWidget {
 }
 
 class _CreateRequestPageState extends State<CreateRequestPage> {
+  late ScrollController controller;
+  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  FlowStatusEnum status = FlowStatusEnum.getFlowsInit;
+
   @override
   void initState() {
     dI<FlowBloc>().add(const GetFlowsEvent());
+    controller = ScrollController()..addListener(_scrollListener);
     super.initState();
+  }
+
+  _scrollListener() {
+    if (lengthList <= totalItems &&
+        status == FlowStatusEnum.getFlowsSuccess &&
+        controller.position.extentAfter < totalItems) {
+      setState(() {
+        pageIndex++;
+      });
+      dI<FlowBloc>().add(GetFlowsEvent(
+        page: pageIndex,
+      ));
+    }
+  }
+
+  _listener(BuildContext context, FlowState state) {
+    setState(() {
+      status = state.status;
+      totalItems = state.totalItems;
+      lengthList = state.flows.length;
+    });
   }
 
   @override
@@ -52,7 +78,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           ),
         ),
       ),
-      body: BlocBuilder<FlowBloc, FlowState>(
+      body: BlocConsumer<FlowBloc, FlowState>(
+        listener: (context, state) => _listener(context, state),
         builder: (context, state) {
           return SingleChildScrollView(
             child: Container(
@@ -63,6 +90,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
               margin: const EdgeInsets.all(SpacingUnit.x4),
               child: state.status == FlowStatusEnum.getFlowsSuccess
                   ? ListView.builder(
+                      controller: controller,
                       itemCount: state.flows.length,
                       itemBuilder: (context, index) => ItemActivateWidget(
                         title: _setTitle(context, state, index),
@@ -85,7 +113,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
   }
 
   String _setTitle(BuildContext context, FlowState state, int index) {
-    return state.flows[index].flowType?.configTypeName ?? "";
+    return state.flows[index].name??"";
   }
 
   _nextScreen(BuildContext context, FlowState state, int index) {

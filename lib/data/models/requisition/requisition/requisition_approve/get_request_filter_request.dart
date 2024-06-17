@@ -5,6 +5,7 @@ part 'get_request_filter_request.g.dart';
 @JsonSerializable()
 class GetRequestFilterRequest {
   final int? page;
+  final String? flowId;
   final String? type;
   final String? createdDepartmentId;
   final String? startDate;
@@ -12,10 +13,11 @@ class GetRequestFilterRequest {
   final String? statuses;
 
   const GetRequestFilterRequest({
+    this.type,
     this.page,
     this.endDate,
     this.statuses,
-    this.type,
+    this.flowId,
     this.createdDepartmentId,
     this.startDate,
   });

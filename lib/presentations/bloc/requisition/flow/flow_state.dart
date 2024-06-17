@@ -7,13 +7,17 @@ part 'flow_state.g.dart';
 
 @CopyWith()
 class FlowState extends Equatable {
-  const FlowState(
-      {this.flow = const Flow(id: ''), this.flows = const [], this.status = FlowStatusEnum.init});
-
-  final Flow flow;
-  final List<Flow> flows;
+  final FlowRequest flow;
+  final List<FlowRequest> flows;
   final FlowStatusEnum status;
+  final int totalItems;
+
+  const FlowState(
+      {this.flow = const FlowRequest(id: ''),
+      this.flows = const [],
+      this.status = FlowStatusEnum.init,
+      this.totalItems = 0});
 
   @override
-  List<Object> get props => [flow, flows, status];
+  List<Object> get props => [flow, flows, status, totalItems];
 }
