@@ -23,7 +23,7 @@ class UserByNameBloc extends Bloc<UserByNameEvent, UserByNameState> {
 
   FutureOr<void> _getUserByNameEvent(
       GetUserByNameEvent event, Emitter<UserByNameState> emit) async {
-    emit(state.copyWith(status: UserStatus.getUsersByNameInit));
+    emit(state.copyWith(status: UserStatus.init));
     try {
       List<User> users = [];
       SearchUserByNameResponse searchUserByNameResponse =
@@ -33,7 +33,7 @@ class UserByNameBloc extends Bloc<UserByNameEvent, UserByNameState> {
         emit(state.copyWith(
           usersByName: newUsers,
           countItem: searchUserByNameResponse.totalItems,
-          status: UserStatus.getUsersByNameSuccess,
+          status: UserStatus.success,
         ));
       } else {
         users.addAll(state.usersByName);
@@ -41,11 +41,11 @@ class UserByNameBloc extends Bloc<UserByNameEvent, UserByNameState> {
         emit(state.copyWith(
           usersByName: users,
           countItem: searchUserByNameResponse.totalItems,
-          status: UserStatus.getUsersByNameSuccess,
+          status: UserStatus.success,
         ));
       }
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.getUsersByNameError));
+      emit(state.copyWith(status: UserStatus.fail));
     }
   }
 }

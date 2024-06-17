@@ -16,7 +16,6 @@ import 'package:base_app/presentations/pages/activate/requisition_follower/requi
 import 'package:base_app/presentations/pages/activate/requisition_form/requisition_infor.page.dart';
 import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
-import 'package:base_app/presentations/pages/check_in_setting/create_check_in_setting.page.dart';
 import 'package:base_app/presentations/pages/department/infor_department.page.dart';
 import 'package:base_app/presentations/pages/department/update_department.page.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
@@ -61,7 +60,6 @@ class AppRouters {
     Pages.createPositionPage: createPositionPageRoute,
     Pages.updatePositionPage: updatePositionPageRoute,
     Pages.createPersonnelPage: createPersonnelPageRoute,
-    Pages.createCheckInSettingPage: createCheckInSettingPageRoute,
     Pages.forgotPasswordPage: forgotPasswordPageRoute,
     Pages.updateNotesPage: updateNotePageRoute,
     Pages.changePasswordPage: changePasswordPageRoute,

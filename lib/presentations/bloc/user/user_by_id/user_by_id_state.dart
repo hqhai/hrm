@@ -12,7 +12,7 @@ class UserByIdState extends Equatable {
   final UserStatus status;
 
   const UserByIdState({
-    this.status = UserStatus.getUsersByIdInit,
+    this.status = UserStatus.init,
     this.userById = const [],
     this.subtitudePersons = const [],
   });

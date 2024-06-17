@@ -21,13 +21,13 @@ class ItemTitleProfile extends StatelessWidget {
             Expanded(
               child: Text(
                 title1,
-                style: TextStyle(color: colors.tertiary, fontSize: check ? SpacingUnit.x3 : SpacingUnit.x4),
+                style: TextStyle(color: colors.text, fontSize: check ? SpacingUnit.x3 : SpacingUnit.x4),
               ),
             ),
             Expanded(
               child: Text(
                 title2,
-                style: TextStyle(color: colors.tertiary, fontSize: check ? SpacingUnit.x3 : SpacingUnit.x4),
+                style: TextStyle(color: colors.text, fontSize: check ? SpacingUnit.x3 : SpacingUnit.x4),
               ),
             ),
           ],

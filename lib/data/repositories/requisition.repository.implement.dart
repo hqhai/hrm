@@ -29,7 +29,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<int> postRequest({required PostRequestRequest postRequestRequest}) async {
+  Future<Request> postRequest({required PostRequestRequest postRequestRequest}) async {
     return await _requestService.postRequest(
       postRequestRequest: postRequestRequest,
     );
@@ -150,7 +150,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<int> userRejectRequisitionById({required String id}) async {
+  Future<bool> userRejectRequisitionById({required String id}) async {
     return await _requestService.userRejectRequisitionById(id: id);
   }
 }

@@ -7,8 +7,6 @@ import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/language/language_state.dart';
-import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
-import 'package:base_app/presentations/bloc/request/request/request_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
@@ -44,7 +42,6 @@ class _PopupMenuHomeState extends State<PopupMenuHome> {
   void logoutFunction() {
     setState(() {
       dI<AuthBloc>().add(const LogoutEvent());
-      dI<RequestBloc>().add(const ResetRequestEvent());
       dI<UserBloc>().add(const ResetUserEvent());
       dI<UserByRolesBloc>().add(const ResetUsersEvent());
     });

@@ -39,7 +39,7 @@ class _ItemVehicleUpdateProfileState extends State<ItemVehicleUpdateProfile> {
           children: [
             Text(
               appLocalizations.vehicleType,
-              style: TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x4),
+              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
             ),
             const SizedBox(
               height: SpacingUnit.x3,

@@ -211,11 +211,13 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
               onSelected: (LanguageEnum? value) => _language(value),
             ),
             Center(
-                child: SizedBox(
-                    height: SpacingUnit.x50,
-                    width: SpacingUnit.x50,
-                    child: Lottie.asset(Assets.images.icon.loading,
-                        width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill))),
+              child: SizedBox(
+                height: SpacingUnit.x50,
+                width: SpacingUnit.x50,
+                child: Lottie.asset(Assets.images.icon.loading,
+                    width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
+              ),
+            ),
             Container(
               alignment: Alignment.topCenter,
               child: SizeTransition(

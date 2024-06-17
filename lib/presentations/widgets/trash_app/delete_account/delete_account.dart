@@ -35,18 +35,24 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
     super.dispose();
   }
 
+  bool checkListenWhen(UserStatus status, UserStatus status2) {
+    return status != status2;
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) => _listener(context, state),
+      listenWhen: (previous, current) => checkListenWhen(
+        previous.status,
+        current.status,
+      ),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
         padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-        height: MediaQuery
-            .sizeOf(context)
-            .height,
+        height: MediaQuery.sizeOf(context).height,
         decoration: BoxDecoration(
           color: CustomsColor.colorBackground,
           borderRadius: const BorderRadius.all(
@@ -78,10 +84,8 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
   }
 
   _listener(BuildContext context, UserState state) {
-    if(state.status == UserStatus.deleteAccountSuccess){
+    if (state.status == UserStatus.fail) {
       logoutFunction();
     }
   }
-
-
 }

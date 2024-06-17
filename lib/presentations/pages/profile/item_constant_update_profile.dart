@@ -17,7 +17,7 @@ class ItemUpdateProfileConstant extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x4),
+          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
         ),
         Container(
           width: width,

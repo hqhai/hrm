@@ -37,7 +37,7 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   _listener(BuildContext context, UserState state) {
     final appLocalizations = AppLocalizations.of(context)!;
-    if (state.status == UserStatus.changePasswordSuccess) {
+    if (state.status == UserStatus.success) {
       successDialog(context);
       setState(() {
         notification1 = '';
@@ -49,7 +49,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         dI<LoginBloc>().add(const ChangePasswordSuccessEvent());
       }
     }
-    if (state.status == UserStatus.changePasswordError) {
+    if (state.status == UserStatus.fail) {
       unsuccessfulDialog(context);
       setState(() {
         notification1 = appLocalizations.currentPasswordIsIncorrect;

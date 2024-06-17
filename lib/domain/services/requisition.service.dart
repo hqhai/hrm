@@ -12,7 +12,7 @@ import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 
 abstract class RequisitionService {
-  Future<int> postRequest({required PostRequestRequest postRequestRequest});
+  Future<Request> postRequest({required PostRequestRequest postRequestRequest});
 
   Future<RequestsResponse> getRequisitions({required GetRequestRequest requestsRequest});
 
@@ -41,5 +41,5 @@ abstract class RequisitionService {
   Future<SearchStationeryByNameResponse> getStationery(
       {required SearchStationeryByNameRequest searchStationeryByNameRequest});
 
-  Future<int> userRejectRequisitionById({required String id});
+  Future<bool> userRejectRequisitionById({required String id});
 }

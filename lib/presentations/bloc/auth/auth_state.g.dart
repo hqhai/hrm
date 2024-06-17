@@ -141,4 +141,5 @@ const _$AuthStatusEnumMap = {
   AuthStatus.loggedOut: 'loggedOut',
   AuthStatus.loginFail: 'loginFail',
   AuthStatus.unAuthentication: 'unAuthentication',
+  AuthStatus.unauthorized: 'unauthorized',
 };

@@ -6,7 +6,7 @@ import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 
 abstract class RequisitionUseCase {
-  Future<int> postRequest({required PostRequestRequest postRequestRequest});
+  Future<Request> postRequest({required PostRequestRequest postRequestRequest});
 
   Future<RequestsResponse> getRequests({int? page});
 
@@ -49,6 +49,6 @@ abstract class RequisitionUseCase {
 
   Future<SearchStationeryByNameResponse> getStationery({required String name, required int page});
 
-  Future<int> userRejectRequisitionById({required String id});
+  Future<bool> userRejectRequisitionById({required String id});
 
 }

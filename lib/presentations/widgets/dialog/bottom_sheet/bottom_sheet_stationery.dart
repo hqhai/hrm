@@ -29,7 +29,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
   late ScrollController controller;
   String? searchStr;
   int pageIndex = 1, totalItems = 0, lengthList = 0;
-  StationeryStatus status = StationeryStatus.getStationeryInit;
+  StationeryStatus status = StationeryStatus.init;
 
   @override
   void initState() {
@@ -119,7 +119,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
 
   _scrollListener() {
     if (lengthList <= totalItems &&
-        status == StationeryStatus.getStationerySuccess &&
+        status == StationeryStatus.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;

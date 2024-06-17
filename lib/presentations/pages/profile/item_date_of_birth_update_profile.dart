@@ -39,7 +39,7 @@ class _ItemDateOfBirthUpdateProfileState extends State<ItemDateOfBirthUpdateProf
             Text(
               widget.title,
               style: TextStyle(
-                color: widget.check ? colors.text : colors.tertiary,
+                color: colors.text,
                 fontSize: SpacingUnit.x4,
                 fontWeight: widget.check? FontWeight.w800 : FontWeight.w400
               ),

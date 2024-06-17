@@ -27,7 +27,7 @@ class ItemVehicleProfile extends StatelessWidget {
               child: Text(
                 appLocalizations.vehicle,
                 style: TextStyle(
-                    color: colors.tertiary, fontSize: SpacingUnit.x3, fontWeight: FontWeight.w800),
+                    color: colors.text, fontSize: SpacingUnit.x3, fontWeight: FontWeight.w800),
               ),
             ),
             ItemTitleProfile(
@@ -40,7 +40,7 @@ class ItemVehicleProfile extends StatelessWidget {
             ),
             Text(
               appLocalizations.autoMaker,
-              style: TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x3),
+              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
             ),
             Row(
               children: [

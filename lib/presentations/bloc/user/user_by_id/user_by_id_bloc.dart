@@ -22,23 +22,23 @@ class UserByIdBloc extends Bloc<UserByIdEvent, UserByIdState> {
   }
 
   FutureOr<void> _getUsersByIdEvent(GetUsersByIdEvent event, Emitter<UserByIdState> emit) async {
-    emit(state.copyWith(status: UserStatus.getUsersByIdInit));
+    emit(state.copyWith(status: UserStatus.init));
     try {
       List<User> users = await userUseCase.getUserById(id: event.ids);
-      emit(state.copyWith(userById: users, status: UserStatus.getUsersByIdSuccess));
+      emit(state.copyWith(userById: users, status: UserStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.getUsersByIdError));
+      emit(state.copyWith(status: UserStatus.fail));
     }
   }
 
   FutureOr<void> _getSubtitudePersonsByIdEvent(
       GetSubtitudePersonsByIdEvent event, Emitter<UserByIdState> emit) async {
-    emit(state.copyWith(status: UserStatus.getUsersByIdInit));
+    emit(state.copyWith(status: UserStatus.init));
     try {
       List<User> users = await userUseCase.getUserById(id: event.ids);
-      emit(state.copyWith(subtitudePersons: users, status: UserStatus.getUsersByIdSuccess));
+      emit(state.copyWith(subtitudePersons: users, status: UserStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.getUsersByIdError));
+      emit(state.copyWith(status: UserStatus.fail));
     }
   }
 }

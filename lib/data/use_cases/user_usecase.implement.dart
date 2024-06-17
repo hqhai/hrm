@@ -48,7 +48,7 @@ class UserUseCaseImpl extends UserUseCase {
   }
 
   @override
-  Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
+  Future<User> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
     return await _userRepository.updateProfile(updateProfileRequest: updateProfileRequest);
   }
 

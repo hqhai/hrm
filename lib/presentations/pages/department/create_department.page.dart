@@ -11,7 +11,6 @@ import 'package:base_app/presentations/bloc/department/department_state.dart';
 import 'package:base_app/presentations/widgets/admin/department/item_dropdown_department.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
@@ -189,18 +188,6 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
   _createDialog(BuildContext context, DepartmentState state) {
     final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
-      createDialog(
-          context,
-          appLocalizations.doYouWantToCreateDepartment,
-          () => dI<DepartmentBloc>().add(CreateDepartmentEvent(
-                name: nameController.text,
-                code: codeController.text,
-                phoneNumber: phoneNumberController.text,
-                email: emailController.text,
-                address: addressController.text,
-                description: descriptionController.text,
-                parentId: parentId(parent, state),
-              )));
     }
   }
 

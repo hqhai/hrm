@@ -18,7 +18,7 @@ abstract class UserUseCase {
 
   Future<int> deleteAccount();
 
-  Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest});
+  Future<User> updateProfile({required UpdateProfileRequest updateProfileRequest});
 
   Future<SearchUserByNameResponse> getUserByFullName({required String fullName, int? page});
 }

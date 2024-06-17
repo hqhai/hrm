@@ -22,12 +22,13 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<List<Address>> getAddress({required GetLocationRequest getLocationRequest}) async {
+  Future<GetLocationResponse> getAddress({required GetLocationRequest getLocationRequest}) async {
     final url = '$baseSystemGatewayUrl${PathConfig.location}';
     final params = getLocationRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    List<Address> addresses = GetLocationResponse.fromJson(responseBase.result).items;
+    final data = responseBase.result;
+    GetLocationResponse addresses = GetLocationResponse.fromJson(data);
     return addresses;
   }
 

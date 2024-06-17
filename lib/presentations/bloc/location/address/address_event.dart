@@ -10,26 +10,29 @@ sealed class AddressEvent extends Equatable {
 }
 
 class GetProvincesEvent extends AddressEvent {
-  const GetProvincesEvent();
+  const GetProvincesEvent({this.page = 1});
+  final int page;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [page];
 }
 
 class GetDistrictsEvent extends AddressEvent {
-  const GetDistrictsEvent({required this.parentId});
+  const GetDistrictsEvent({required this.parentId, required this.page});
   final String parentId;
+  final int page;
 
   @override
-  List<Object?> get props => [parentId];
+  List<Object?> get props => [parentId, page];
 }
 
 class GetWardsEvent extends AddressEvent {
-  const GetWardsEvent({required this.parentId});
+  const GetWardsEvent({required this.parentId, required this.page});
   final String parentId;
+  final int page;
 
   @override
-  List<Object?> get props => [parentId];
+  List<Object?> get props => [parentId, page];
 }
 class GetProvinceByKeyEvent extends AddressEvent {
   const GetProvinceByKeyEvent({required this.keyWord});

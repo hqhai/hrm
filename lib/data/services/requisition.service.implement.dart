@@ -49,13 +49,14 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<int> postRequest({required PostRequestRequest postRequestRequest}) async {
+  Future<Request> postRequest({required PostRequestRequest postRequestRequest}) async {
     final url = '$baseUrl${PathConfig.request}';
     final body = jsonEncode(postRequestRequest.toJson());
     final response = await client.post(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final statusCode = responseBase.statusCode;
-    return statusCode;
+    final result = responseBase.result;
+    final Request request = Request.fromJson(result);
+    return request;
   }
 
   @override
@@ -172,11 +173,11 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<int> userRejectRequisitionById({required String id}) async {
+  Future<bool> userRejectRequisitionById({required String id}) async {
     final url = '$baseUrl${PathConfig.changeStatus}/$id';
     final response = await client.put(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final statusCode = responseBase.statusCode;
-    return statusCode;
+    final result = responseBase.result;
+    return result;
   }
 }

@@ -20,7 +20,7 @@ abstract class UserService {
 
   Future<int> deleteAccount();
 
-  Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest});
+  Future<User> updateProfile({required UpdateProfileRequest updateProfileRequest});
 
   Future<SearchUserByNameResponse> getUserByFullName(
       {required SearchUserByNameRequest searchUserByNameRequest});

@@ -223,19 +223,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
   _updateDialog(BuildContext context, DepartmentState state) {
     final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
-      createDialog(
-          context,
-          appLocalizations.doYouWantToUpdateDepartment,
-          () => dI<DepartmentBloc>().add(UpdateDepartmentEvent(
-                id: state.departments[widget.index].id,
-                name: nameController.text,
-                code: codeController.text,
-                phoneNumber: phoneNumberController.text,
-                email: emailController.text,
-                address: addressController.text,
-                description: descriptionController.text,
-                parentId: parentId(parent, state),
-              )));
+
     }
   }
 }

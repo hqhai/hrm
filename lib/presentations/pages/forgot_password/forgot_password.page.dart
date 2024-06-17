@@ -39,16 +39,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   _listener(BuildContext context, UserState state) {
     final appLocalizations = AppLocalizations.of(context)!;
-    if (state.status == UserStatus.forgotPasswordInit) {
+    if (state.status == UserStatus.init) {
       progressIndicatorDialog(context);
-    } else if (state.status == UserStatus.forgotPasswordSuccess) {
+    } else if (state.status == UserStatus.success) {
       Navigator.of(context).pop();
       successFullDialog(context,
           '${appLocalizations.newPasswordHasJustBeenSentToEmail} ${state.email} ${appLocalizations.pleaseCheckYourEmail}');
-    } else if (state.status == UserStatus.forgotPasswordError) {
+    } else if (state.status == UserStatus.fail) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }
+  }
+
+  bool checkListenWhen(UserStatus status, UserStatus status2) {
+    return status != status2;
   }
 
   @override
@@ -59,6 +63,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     final height = MediaQuery.of(context).size.height;
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) => _listener(context, state),
+      listenWhen: (previous, current) => checkListenWhen(
+        previous.status,
+        current.status,
+      ),
       child: Scaffold(
         appBar: AppBar(),
         body: Container(
@@ -114,9 +122,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void onSubmit() {
     bool check = checkInput();
-    if(check){
+    if (check) {
       dI<UserBloc>().add(ForgotPasswordEvent(email: emailController.text));
-
     }
   }
 

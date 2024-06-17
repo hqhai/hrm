@@ -54,7 +54,7 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
+  Future<User> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
     return await userService.updateProfile(updateProfileRequest: updateProfileRequest);
   }
 
