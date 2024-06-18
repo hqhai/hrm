@@ -44,7 +44,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          RequisitionTypeEnum.takeLeave.configTypeName,
+          RequisitionTypeEnum.lateArrival.configTypeName,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,

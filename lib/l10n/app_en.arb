@@ -264,7 +264,6 @@
   "timeHasBeenRequestedInAdvance": "Time has been requested in advance",
   "workDay": "Work date",
   "annualLeave": "Annual leave",
-  "compensatoryLeave": "Compensatory leave",
   "sickLeave": "Sick leave",
   "intervalOnLeave": "Interval on leave",
   "substitute": "The person handling the work takes over during the break",
@@ -324,5 +323,9 @@
   "thereAreCurrentlyNoProducts": "There are currently no products",
   "removeFilter": "Remove filter",
   "paymentAfterTax": "Payment after tax",
-  "intoMoneyNoVAT": "Into money (excluding VAT)"
+  "intoMoneyNoVAT": "Into money (excluding VAT)",
+  "yearlyAndSeniorityLeave": "Yearly and seniority leave",
+  "compensatoryLeave": "Compensatory leave",
+  "otherLeave": "Other leave",
+  "unpaidLeave": "Unpaid leave"
 }

@@ -32,13 +32,15 @@ final createRequestBusinessPageRoute = GoRoute(
       Map data = state.extra as Map;
       return CreateRequisitionBusinessPage(
         flowId: data['flowId'],
+        requestId: data['requestId'],
       );
     });
 
 class CreateRequisitionBusinessPage extends StatefulWidget {
-  const CreateRequisitionBusinessPage({super.key, this.flowId = ''});
+  const CreateRequisitionBusinessPage({super.key, this.flowId = '', this.requestId});
 
   final String flowId;
+  final String? requestId;
 
   @override
   State<CreateRequisitionBusinessPage> createState() => _CreateRequisitionBusinessPageState();
@@ -50,11 +52,25 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       destinationController = TextEditingController(),
       contentController = TextEditingController();
   double total = 0;
-  String errorTime = '', errorReason = '', errorContent = '', errorVehicle = '', errorDestination = '';
+  String errorTime = '',
+      errorReason = '',
+      errorContent = '',
+      errorVehicle = '',
+      errorDestination = '';
   String startTime = '', endTime = '', content = '', reason = '', vehicle = '', destination = '';
   List<File> files = [];
   List<String> followers = [], substitutes = [];
   RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
+
+  @override
+  void initState() {
+    if (widget.requestId?.isNotEmpty ?? false) {
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.requestId),
+      );
+    }
+    super.initState();
+  }
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -71,6 +87,16 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   }
 
   _listener(BuildContext context, RequisitionState state) {
+    if (state.status == RequisitionEnum.success) {
+      setState(() {
+        startTime = state.requisition.config.startDate ?? "";
+        endTime = state.requisition.config.endDate ?? "";
+        content = state.requisition.config.content ?? "";
+        //reason = state.requisition.config. ?? "";
+        vehicle = state.requisition.config.endDate ?? "";
+        destination = state.requisition.config.endDate ?? "";
+      });
+    }
     if (state.status == RequisitionEnum.postRequisitionInit) {
       progressIndicatorDialog(context);
     } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
@@ -98,6 +124,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       ),
       body: BlocListener<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
+        listenWhen: (previous, current) => _listenWhen(previous.status, current.status),
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(SpacingUnit.x3),
@@ -238,5 +265,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     setState(() {
       total = double.parse(value.toString());
     });
+  }
+
+  bool _listenWhen(RequisitionEnum statusP, RequisitionEnum statusC) {
+    return statusP != statusC;
   }
 }

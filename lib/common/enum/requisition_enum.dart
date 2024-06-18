@@ -84,8 +84,18 @@ extension ConfigRequestStatusExtension on StatusRequestEnum {
 }
 
 enum RequisitionTypeEnum {
-  @JsonValue('TakeLeave')
-  takeLeave('TakeLeave'),
+  @JsonValue('YearlyAndSeniorityLeave')
+  yearlyAndSeniorityLeave('YearlyAndSeniorityLeave'),
+  @JsonValue('CompensatoryLeave')
+  compensatoryLeave('CompensatoryLeave'),
+  @JsonValue('OtherLeave')
+  otherLeave('OtherLeave'),
+  @JsonValue('UnpaidLeave')
+  unpaidLeave('UnpaidLeave'),
+  @JsonValue('LateArrival')
+  lateArrival('LateArrival'),
+  @JsonValue('EarlyDeparture')
+  earlyDeparture('EarlyDeparture'),
   @JsonValue('Bussiness')
   bussiness('Bussiness'),
   @JsonValue('OverTime')
@@ -111,8 +121,8 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
     switch (this) {
-      case RequisitionTypeEnum.takeLeave:
-        return appLocalizations.leave;
+      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
+        return appLocalizations.yearlyAndSeniorityLeave;
       case RequisitionTypeEnum.explanation:
         return appLocalizations.explanation;
       case RequisitionTypeEnum.overTime:
@@ -127,6 +137,16 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
         return appLocalizations.stationeryOrder;
       case RequisitionTypeEnum.bussiness:
         return appLocalizations.business;
+      case RequisitionTypeEnum.compensatoryLeave:
+        return appLocalizations.compensatoryLeave;
+      case RequisitionTypeEnum.otherLeave:
+        return appLocalizations.otherLeave;
+      case RequisitionTypeEnum.unpaidLeave:
+        return appLocalizations.unpaidLeave;
+      case RequisitionTypeEnum.lateArrival:
+        return appLocalizations.late;
+      case RequisitionTypeEnum.earlyDeparture:
+        return  appLocalizations.leaveEarly;
     }
   }
 }
