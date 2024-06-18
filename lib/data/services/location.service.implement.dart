@@ -5,7 +5,6 @@ import 'package:base_app/common/configs/path_config.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/response.dart';
-import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/domain/services/location.service.dart';
 import 'package:injectable/injectable.dart';
 

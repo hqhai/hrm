@@ -124,7 +124,7 @@ class _CreatePositionWidgetState extends State<CreatePositionWidget> {
   }
 
   _createDialog(BuildContext context, PositionState state) {
-    final appLocalizations = AppLocalizations.of(context)!;
+    //final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
 
     }

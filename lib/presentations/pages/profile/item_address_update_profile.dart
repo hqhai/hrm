@@ -1,11 +1,8 @@
-import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
+
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/location/address/address_bloc.dart';
-import 'package:base_app/presentations/bloc/location/address/address_event.dart';
-import 'package:base_app/presentations/bloc/location/address/address_state.dart';
+
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_district.dart';

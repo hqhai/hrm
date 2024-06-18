@@ -38,7 +38,7 @@ class _AvatarSystemUserState extends State<AvatarSystemUser> {
                       child: Text(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        stateUser.user.fullName ?? "",
+                        stateUser.user.fullName,
                         style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x4_5),
                       ),
                     ),
@@ -50,7 +50,7 @@ class _AvatarSystemUserState extends State<AvatarSystemUser> {
                       child: Text(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        stateUser.user.email ?? "",
+                        stateUser.user.email,
                         style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x3_5),
                       ),
                     ),

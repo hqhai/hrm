@@ -36,7 +36,7 @@ class ItemHomeInforWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(state.user.fullName ?? "",
+                    Text(state.user.fullName,
                         maxLines: 1,
                         style: TextStyle(
                             overflow: TextOverflow.clip,
@@ -70,7 +70,7 @@ class ItemHomeInforWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(SpacingUnit.x100),
                   child: Image.network(
                     height: width * 0.2,
-                    state.user.avatarPath ?? "",
+                    state.user.avatarPath,
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(

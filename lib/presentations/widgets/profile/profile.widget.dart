@@ -88,22 +88,22 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           title2: appLocalizations.dateOfBirth,
                         ),
                         ItemContentProfile(
-                          content1: state.user.code ?? '',
-                          content2: formatDMY(state.user.dayOfBirth ?? ''),
+                          content1: state.user.code,
+                          content2: formatDMY(state.user.dayOfBirth),
                         ),
                         ItemTitleProfile(
                           title1: appLocalizations.companyEmail,
                           title2: appLocalizations.phoneNumber,
                         ),
                         ItemContentProfile(
-                            content1: state.user.companyEmail ?? "",
-                            content2: state.user.phoneNumber ?? ""),
+                            content1: state.user.companyEmail,
+                            content2: state.user.phoneNumber),
                         ItemTitleProfile(
                           title1: appLocalizations.gender,
                           title2: appLocalizations.address,
                         ),
                         ItemContentProfile(
-                          content1: state.user.gender?.configGenderName ?? "",
+                          content1: state.user.gender.configGenderName,
                           content2: _setAddress(state.user),
                         ),
                         ItemTitleProfile(
@@ -144,16 +144,16 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   String _setAddress(User user) {
     String? province = '', district = '', ward = '', address = '';
 
-    if(user.residentAddress != null){
-      address = "${user.residentAddress}";
+    if(user.residentAddress.isNotEmpty){
+      address = user.residentAddress;
     }
-    if(user.residentWard != null){
+    if(user.residentWard.isNotEmpty){
       ward = "${user.residentWard}, ";
     }
-    if(user.residentDistrict != null){
+    if(user.residentDistrict.isNotEmpty){
       district = "${user.residentDistrict}, ";
     }
-    if(user.residentProvince != null){
+    if(user.residentProvince.isNotEmpty){
       province = "${user.residentDistrict}, ";
     }
     return province + district + ward + address;

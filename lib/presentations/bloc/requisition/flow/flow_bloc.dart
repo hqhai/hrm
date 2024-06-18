@@ -27,7 +27,7 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
     try {
       FlowResponse flowResponse = await requisitionUseCase.getFlowByUser(page: event.page);
       List<FlowRequest> flows = flowResponse.flows;
-      int total = flowResponse.totalItems;
+      //int total = flowResponse.totalItems;
       emit(state.copyWith(flows: flows, status: FlowStatusEnum.getFlowsSuccess));
     } catch (e) {
       emit(state.copyWith(status: FlowStatusEnum.getFlowsError));

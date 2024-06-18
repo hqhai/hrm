@@ -10,7 +10,6 @@ import 'package:base_app/presentations/bloc/department/department_event.dart';
 import 'package:base_app/presentations/bloc/department/department_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
@@ -221,7 +220,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
   }
 
   _updateDialog(BuildContext context, DepartmentState state) {
-    final appLocalizations = AppLocalizations.of(context)!;
+    //final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
 
     }

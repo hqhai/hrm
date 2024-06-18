@@ -186,7 +186,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
   }
 
   _createDialog(BuildContext context, DepartmentState state) {
-    final appLocalizations = AppLocalizations.of(context)!;
+    //final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
     }
   }

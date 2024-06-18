@@ -133,7 +133,7 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
   }
 
   _updateDialog(BuildContext context, PositionState state) {
-    final appLocalizations = AppLocalizations.of(context)!;
+    //final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
     }
   }

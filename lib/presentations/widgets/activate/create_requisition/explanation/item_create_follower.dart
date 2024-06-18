@@ -60,7 +60,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
                         ),
                       ),
                       child: Text(
-                        listFollower[index].fullName ?? "",
+                        listFollower[index].fullName,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
                       ),
                     ),
