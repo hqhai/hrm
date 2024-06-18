@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
