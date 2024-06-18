@@ -2030,6 +2030,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'There are currently no products'**
   String get thereAreCurrentlyNoProducts;
+
+  /// No description provided for @removeFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove filter'**
+  String get removeFilter;
+
+  /// No description provided for @paymentAfterTax.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment after tax'**
+  String get paymentAfterTax;
+
+  /// No description provided for @intoMoneyNoVAT.
+  ///
+  /// In en, this message translates to:
+  /// **'Into money (excluding VAT)'**
+  String get intoMoneyNoVAT;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

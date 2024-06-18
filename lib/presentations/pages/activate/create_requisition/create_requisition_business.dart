@@ -119,6 +119,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                   title: appLocalizations.intervalOnLeave,
                   startTime: (value) => setStartTime(value),
                   endTime: (value) => setEndTime(value),
+                  total: (value) => setTotal(value),
                 ),
                 ItemCreateInputArea(
                   error: errorDestination,
@@ -233,9 +234,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  setTotal(double value) {
+  setTotal(int value) {
     setState(() {
-      total = value;
+      total = double.parse(value.toString());
     });
   }
 }

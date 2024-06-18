@@ -22,5 +22,8 @@ abstract class UserService {
 
   Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest});
 
-  Future<SearchUserByNameResponse> getUserByFullName({required SearchUserByNameRequest searchUserByNameRequest});
+  Future<SearchUserByNameResponse> getUserByFullName(
+      {required SearchUserByNameRequest searchUserByNameRequest});
+
+  Future<List<User>> getUserById({required List<String> ids});
 }

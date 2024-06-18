@@ -114,7 +114,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
     setState(() {
       searchStr = value;
     });
-    dI<UserByNameBloc>().add(GetUserByNameEvent(page: 0, name: value));
+    dI<UserByNameBloc>().add(GetUserByNameEvent(page: 1, name: value));
   }
 
   _scrollListener() {

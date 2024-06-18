@@ -30,6 +30,7 @@ class Pages {
   static const String timekeepingGPSPage = '/timekeepingGPSPage';
   static const String timekeepingGPSCheckPage = '/timekeepingGPSCheckPage';
   static const String requisitionListPage = '/requisitionListPage';
+  static const String requisitionFollowerListPage = '/requisitionFollowerListPage';
   static const String seeRequestListPage = '/seeRequestListPage';
   static const String requisitionInformationPage = '/requisitionInformationPage';
   static const String createRequestExplanationPage = '/createRequestExplanationPage';

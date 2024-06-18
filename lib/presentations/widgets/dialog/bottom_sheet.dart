@@ -34,7 +34,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
 
   @override
   void initState() {
-    dI<UserByNameBloc>().add(const GetUserByNameEvent(page: 0, name: ''));
+    dI<UserByNameBloc>().add(const GetUserByNameEvent(page: 1, name: ''));
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
@@ -141,7 +141,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
     setState(() {
       searchStr = value;
     });
-    dI<UserByNameBloc>().add(GetUserByNameEvent(page: 0, name: value));
+    dI<UserByNameBloc>().add(GetUserByNameEvent(page: 1, name: value));
   }
 
   _scrollListener() {

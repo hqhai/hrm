@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -35,13 +37,64 @@ class RequisitionListPage extends StatefulWidget {
 class _RequisitionListPageState extends State<RequisitionListPage> {
   bool checkOpacity = false;
   var random = Random();
-
-  List<StatusRequestEnum> listFilter = [];
+  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  late ScrollController controller;
+  RequisitionEnum status = RequisitionEnum.getRequisitionsInit;
+  List<StatusRequestEnum> listStatusFilter = [];
+  FilterDialogModel filterData = const FilterDialogModel();
 
   @override
   void initState() {
-    dI<RequisitionBloc>().add(const GetRequisitionsEvent());
+    dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
+      page: pageIndex,
+    ));
+    controller = ScrollController()..addListener(_scrollListener);
     super.initState();
+  }
+
+  _scrollListener() {
+    status;
+    if (lengthList <= totalItems &&
+        status == RequisitionEnum.getRequisitionsSuccess &&
+        controller.position.extentAfter < totalItems) {
+      setState(() {
+        pageIndex++;
+      });
+      dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
+        listStatusRequisition: listStatusFilter,
+        requisitionTypeEnum: filterData.type,
+        startTime: filterData.startTime,
+        endTime: filterData.endTime,
+        page: pageIndex,
+      ));
+    }
+  }
+
+  setlLstFilter(FilterDialogModel value) {
+    setState(() {
+      filterData = value;
+      listStatusFilter = value.statuses ?? [];
+    });
+    dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
+      listStatusRequisition: listStatusFilter,
+      requisitionTypeEnum: filterData.type,
+      startTime: filterData.startTime,
+      endTime: filterData.endTime,
+      page: 1,
+    ));
+  }
+
+  _listener(BuildContext context, RequisitionState state) {
+    if (state.status == RequisitionEnum.userRejectRequisitionSuccess) {
+      dI<RequisitionBloc>().add(const GetRequisitionsByFilterEvent(
+        page: 1,
+      ));
+    }
+    setState(() {
+      status = state.status;
+      totalItems = state.countItem;
+      lengthList = state.requisitions.length;
+    });
   }
 
   @override
@@ -60,7 +113,9 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       ),
       body: Opacity(
         opacity: checkOpacity ? 0.5 : 1,
-        child: BlocBuilder<RequisitionBloc, RequisitionState>(
+        child: BlocConsumer<RequisitionBloc, RequisitionState>(
+          listener: (context, state) => _listener(context, state),
+          buildWhen: (previous, current) => previous.requisitions != current.requisitions,
           builder: (context, state) {
             return Column(
               children: [
@@ -70,31 +125,37 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                       horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
                   child: Stack(
                     children: [
-                      if (listFilter.isEmpty)
-                        Container(
-                          padding: const EdgeInsets.all(
-                            SpacingUnit.x1,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
+                      if (listStatusFilter.isEmpty)
+                        GestureDetector(
+                          onTap: () => _setAll(),
+                          child: Container(
+                            padding: const EdgeInsets.all(
                               SpacingUnit.x1,
                             ),
-                            color: CustomsColor.colorBackground,
-                            border: Border.all(
-                              color: colors.text,
-                              width: SpacingUnit.x0_25,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                SpacingUnit.x1,
+                              ),
+                              color: CustomsColor.colorBackground,
+                              border: Border.all(
+                                color: colors.text,
+                                width: SpacingUnit.x0_25,
+                              ),
                             ),
+                            child: Text(
+                                _checkFilter()
+                                    ? appLocalizations.all
+                                    : appLocalizations.removeFilter,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
                           ),
-                          child: Text(appLocalizations.all,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
                         ),
-                      if (listFilter.isNotEmpty)
+                      if (listStatusFilter.isNotEmpty)
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: WrapFilter(
-                            listFilter: listFilter,
+                            listFilter: listStatusFilter,
                             onChange: (value) => removeListFilter(value),
                           ),
                         ),
@@ -133,8 +194,10 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
                       child: Stack(
                         children: [
                           ListView.builder(
+                            controller: controller,
                             itemCount: state.requisitions.length,
-                            itemBuilder: (context, index) => ItemRequisitionList(index: index),
+                            itemBuilder: (context, index) =>
+                                ItemRequisitionList(id: state.requisitions[index].id),
                           ),
                           Align(
                             alignment: Alignment.bottomRight,
@@ -159,6 +222,31 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     );
   }
 
+  bool _checkFilter() {
+    bool check = filterData.department == null &&
+        filterData.startTime == null &&
+        filterData.endTime == null &&
+        filterData.type == null;
+    return check;
+  }
+
+  _setAll() {
+    if (!_checkFilter()) {
+      setState(() {
+        filterData = const FilterDialogModel();
+      });
+      dI<RequisitionBloc>().add(
+        GetRequisitionsByFilterEvent(
+          listStatusRequisition: listStatusFilter,
+          requisitionTypeEnum: filterData.type,
+          startTime: filterData.startTime,
+          endTime: filterData.endTime,
+          page: 1,
+        ),
+      );
+    }
+  }
+
   _opacity(bool check) {
     setState(() {
       checkOpacity = check;
@@ -167,14 +255,16 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
 
   removeListFilter(StatusRequestEnum e) {
     setState(() {
-      listFilter.remove(e);
+      listStatusFilter.remove(e);
+      filterData = filterData.copyWith(statuses: listStatusFilter);
     });
-  }
-
-  setlLstFilter(List<StatusRequestEnum> statuses) {
-    setState(() {
-      listFilter = statuses;
-    });
+    dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
+      listStatusRequisition: listStatusFilter,
+      requisitionTypeEnum: filterData.type,
+      startTime: filterData.startTime,
+      endTime: filterData.endTime,
+      page: 1,
+    ));
   }
 
   dialog(BuildContext context) {
@@ -183,7 +273,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       builder: (BuildContext context) {
         return Dialog(
           child: FilterRequisitionDialog(
-            sendData: (value) => setlLstFilter(value.statuses),
+            sendData: (value) => setlLstFilter(value),
           ),
         );
       },

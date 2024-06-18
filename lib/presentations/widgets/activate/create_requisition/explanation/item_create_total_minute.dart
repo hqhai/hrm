@@ -39,7 +39,7 @@ class _ItemCreateTotalMinuteState extends State<ItemCreateTotalMinute> {
             onChange: (value) => _onChangeTotalMinute(value),
             inputFormatter: [
               FilteringTextInputFormatter.allow(
-                RegExp(numberRegexExp),
+                RegExp(numberOfRegexExp),
               ),
             ],
           ),

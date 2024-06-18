@@ -58,7 +58,7 @@ class _SeeListRequisitionPageState extends State<SeeListRequisitionPage> {
             ItemActivateWidget(
                 iconPath: Assets.images.icon.activateIcon.materialSymbolsLightListAltOutline,
                 title: appLocalizations.requisitionYouFollow,
-                callback: () => {}),
+                callback: () => _nextRequisitionFollowerListScreen(context)),
           ],
         ),
       ),
@@ -71,5 +71,8 @@ class _SeeListRequisitionPageState extends State<SeeListRequisitionPage> {
 
   _nextRequisitionApproveListScreen(BuildContext context) {
     dI<AppNavigation>().pushName(context, page: Pages.requisitionApproveListPage);
+  }
+  _nextRequisitionFollowerListScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.requisitionFollowerListPage);
   }
 }

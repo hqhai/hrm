@@ -7,7 +7,7 @@ class GetRequestRequest {
   final int page;
 
   const GetRequestRequest({
-    this.page = 0
+    this.page = 1
   });
 
   factory GetRequestRequest.fromJson(Map<String, dynamic> json) =>

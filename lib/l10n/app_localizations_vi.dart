@@ -116,7 +116,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get priority => 'Mức ưu tiên';
 
   @override
-  String get approver => 'Người phê duyệt';
+  String get approver => 'Phê duyệt';
 
   @override
   String get createOvertimeRequestIsSuccess => 'Tạo yêu cầu OT thành công';
@@ -689,7 +689,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get longTermUnpaidLeave => 'Nghỉ phép dài hạn không lương';
 
   @override
-  String get yourRequisition => 'Dơn từ của bạn';
+  String get yourRequisition => 'Đơn từ của bạn';
 
   @override
   String get requisitionYouApproval => 'Đơn từ bạn phê duyệt';
@@ -972,4 +972,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get thereAreCurrentlyNoProducts => 'Hiện tại không có sản phẩm nào';
+
+  @override
+  String get removeFilter => 'Xóa bộ lọc';
+
+  @override
+  String get paymentAfterTax => 'Thanh toán sau thuế';
+
+  @override
+  String get intoMoneyNoVAT => 'Thành tiền chưa VAT';
 }

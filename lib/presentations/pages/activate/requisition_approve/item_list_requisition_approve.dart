@@ -4,22 +4,27 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
+import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/content_item_requisition_list.dart';
+import 'package:base_app/presentations/widgets/dialog/note_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ItemRequisitionApproveList extends StatefulWidget {
+  final String id;
+  final EnumStepRequestStatusEnum status;
+
   const ItemRequisitionApproveList({
     super.key,
-    this.index = 0,
+    this.id = '',
+    this.status = EnumStepRequestStatusEnum.newStatus,
   });
-
-  final int index;
 
   @override
   State<ItemRequisitionApproveList> createState() => _ItemRequisitionApproveListState();
@@ -31,10 +36,35 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
     super.initState();
   }
 
-  bool _check(RequisitionApproveState state) {
-    return state.requisitions[widget.index].status != StatusRequestEnum.approve &&
-        state.requisitions[widget.index].status != StatusRequestEnum.process;
+  bool _check(RequisitionApproveState state, String id) {
+    final requisitions = state.requisitions.firstWhere((element) => element.id == id);
+    return requisitions.status != StatusRequestEnum.approve &&
+        requisitions.status != StatusRequestEnum.process;
   }
+
+  Request _request(List<Request> requests, String id) {
+    return requests.firstWhere((element) => element.id == id);
+  }
+
+  /*String statusStepRequestApprove(List<Request> requests) {
+    Request request = _request(requests, widget.id);
+    String idUser = dI<UserBloc>().state.user.id;
+    String statusStepRequestApprove = '';
+    if (request.stepRequests?.isNotEmpty ?? false) {
+      final stepRequests = request.stepRequests ?? [];
+      for (var stepRequest in stepRequests) {
+        final stepRequestApprovers = stepRequest.stepRequestApprovers ?? [];
+        final indexStepRequestApprover =
+            stepRequestApprovers.indexWhere((element) => element.approverId == idUser);
+        if (indexStepRequestApprover != -1) {
+          statusStepRequestApprove =
+              stepRequestApprovers[indexStepRequestApprover].status?.configStepRequestStatusName ??
+                  "";
+        }
+      }
+    }
+    return statusStepRequestApprove;
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +73,7 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
     final height = MediaQuery.sizeOf(context).height;
     return BlocBuilder<RequisitionApproveBloc, RequisitionApproveState>(
       builder: (context, state) => Container(
-        height: _check(state) ? height * 0.15 : height * 0.18,
+        height: _check(state, widget.id) ? height * 0.15 : height * 0.18,
         margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SpacingUnit.x1),
@@ -60,14 +90,12 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                   color: colors.neutralVariant40,
                   padding: const EdgeInsets.all(SpacingUnit.x2),
                   child: Text(
-                    StatusRequestEnum.values
-                        .firstWhere((e) => e == state.requisitions[widget.index].status)
-                        .configRequestStatusName,
+                    widget.status.configStepRequestStatusName,
                     style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                   ),
                 ),
               ),
-              if (state.requisitions[widget.index].status == StatusRequestEnum.approve)
+              if (widget.status.configStepRequestStatusName == EnumStepRequestStatusEnum.approve.configStepRequestStatusName)
                 Align(
                   alignment: Alignment.bottomRight,
                   child: ButtonItemListRequisition(
@@ -75,7 +103,7 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                     callback: () {},
                   ),
                 ),
-              if (state.requisitions[widget.index].status == StatusRequestEnum.process)
+              if (widget.status.configStepRequestStatusName == EnumStepRequestStatusEnum.newStatus.configStepRequestStatusName)
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Row(
@@ -83,15 +111,17 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                     children: [
                       ButtonItemListRequisition(
                         title: appLocalizations.approver,
-                        callback: () {},
+                        callback: () =>
+                            _isApprover(state.requisitions, context, EnumStepRequestStatusEnum.approve),
                       ),
                       ButtonItemListRequisition(
                         title: appLocalizations.refuse,
-                        callback: () {},
+                        callback: () =>
+                            _isApprover(state.requisitions, context, EnumStepRequestStatusEnum.reject),
                       ),
                       ButtonItemListRequisition(
                         title: appLocalizations.modification,
-                        callback: () {},
+                        callback: () => _isApprover(state.requisitions, context, EnumStepRequestStatusEnum.edit),
                       ),
                     ],
                   ),
@@ -99,7 +129,7 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
               SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child: ContentItemRequisitionList(index: widget.index),
+                  child: ContentItemRequisitionList(id: widget.id),
                 ),
               )
             ],
@@ -111,8 +141,29 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
 
   _nextRequisitionInformationScreen(BuildContext context, RequisitionApproveState state) {
     dI<AppNavigation>().pushName(context, page: Pages.requisitionInformationPage, extra: {
-      'requisition': state.requisitions[widget.index],
+      'id': widget.id,
       'checkUser': true,
     });
+  }
+
+  _isApprover(
+      List<Request> requests, BuildContext context, EnumStepRequestStatusEnum status) {
+    String idUser = dI<UserBloc>().state.user.id;
+    Request request = _request(requests, widget.id);
+    if (request.stepRequests?.isNotEmpty ?? false) {
+      final stepRequests = request.stepRequests ?? [];
+      final indexNewStepRequest = stepRequests
+          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      if (indexNewStepRequest != -1) {
+        final stepRequest = stepRequests[indexNewStepRequest];
+        final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
+        final int indexNewRequest =
+            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
+        if (indexNewRequest != -1) {
+          String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
+          noteDialog(context, status, idStepRequestApprove);
+        }
+      }
+    }
   }
 }

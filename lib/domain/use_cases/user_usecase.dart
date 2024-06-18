@@ -10,6 +10,8 @@ abstract class UserUseCase {
 
   Future<List<User>> getUserByRole({required String role});
 
+  Future<List<User>> getUserById({required List<String> id});
+
   Future<String> forgotPassword({required String email});
 
   Future<int> register({required RegisterRequest registerRequest});
