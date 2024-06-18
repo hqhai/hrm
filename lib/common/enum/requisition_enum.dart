@@ -28,7 +28,7 @@ extension ConfigStepRequestStatusExtension on EnumStepRequestStatusEnum {
       case EnumStepRequestStatusEnum.newStatus:
         return appLocalizations.newStatus;
       case EnumStepRequestStatusEnum.approve:
-        return appLocalizations.approver;
+        return appLocalizations.done;
       case EnumStepRequestStatusEnum.reject:
         return appLocalizations.reject;
       case EnumStepRequestStatusEnum.edit:
@@ -72,7 +72,7 @@ extension ConfigRequestStatusExtension on StatusRequestEnum {
       case StatusRequestEnum.edit:
         return appLocalizations.edit;
       case StatusRequestEnum.approve:
-        return appLocalizations.approver;
+        return appLocalizations.done;
       case StatusRequestEnum.cancel:
         return appLocalizations.cancel;
       case StatusRequestEnum.overdueEdit:
@@ -191,13 +191,21 @@ extension ConfigRequisitionTypeOnLeaveExtension on RequisitionTypeOnLeaveEnum {
 }
 
 enum RequisitionDeliveryTypeEnum {
+  @JsonValue('Standard')
   standard("Standard"),
+  @JsonValue('Express')
   express("Express"),
+  @JsonValue('SameDay')
   sameDay("SameDay"),
+  @JsonValue('Overnight')
   overnight("Overnight"),
+  @JsonValue('TwoDay')
   twoDay("TwoDay"),
+  @JsonValue('Economy')
   economy("Economy"),
+  @JsonValue('Rush')
   rush("Rush"),
+  @JsonValue('Scheduled')
   scheduled("Scheduled");
 
   final String name;
@@ -229,4 +237,3 @@ extension ConfigDeliveryTypeExtension on RequisitionDeliveryTypeEnum {
     }
   }
 }
-

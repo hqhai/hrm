@@ -111,3 +111,22 @@ Future<String> convertToBase64(File imageFile) async {
   String base64Image = base64Url.encode(imageBytes);
   return base64Image;
 }
+
+bool listStatusRequestEquals<StatusRequestEnum>(
+    List<StatusRequestEnum>? list1, List<StatusRequestEnum>? list2) {
+  if (list1 == null) {
+    return list2 == null;
+  }
+  if (list2 == null || list1.length != list2.length) {
+    return false;
+  }
+  if (identical(list1, list2)) {
+    return true;
+  }
+  for (int index = 0; index < list1.length; index += 1) {
+    if (list1[index] != list2[index]) {
+      return false;
+    }
+  }
+  return true;
+}

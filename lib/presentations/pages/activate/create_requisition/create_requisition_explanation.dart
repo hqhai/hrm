@@ -133,12 +133,13 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                   title: appLocalizations.detailedDescription,
                   onChange: (value) => _setDetailedDescription(value),
                 ),
-                ItemCreateTime(
-                  check: true,
-                  title: appLocalizations.replaceDay,
-                  dateOfBirth: DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.now()),
-                  onChangeDateOfBirth: (value) => _setDate(value),
-                ),
+                if (reasonForExplanation == RequisitionTypeExplanationEnum.early)
+                  ItemCreateTime(
+                    check: true,
+                    title: appLocalizations.replaceDay,
+                    dateOfBirth: DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.now()),
+                    onChangeDateOfBirth: (value) => _setDate(value),
+                  ),
                 ItemCreateTime(
                   check: true,
                   title: appLocalizations.workDay,

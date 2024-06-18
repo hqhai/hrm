@@ -27,11 +27,20 @@ class PathConfig {
   static String deleteAccount = '/user/delete-system-user';
   static String location = '/location';
   //user
+  static String getUserIds = '/user/get-user-ids';
   static String updateProfile = '/user/update-profile-user';
   static String searchUser = '/admin/user/search-user';
   //request
+  static String flow = '/admin/flow';
   static String getFlowByUser = '/flow/get-flow-by-user';
   static String requestSearch = '/request/search';
   static String request = '/request';
+  static String requestInId = '/request/get-request';
   static String stationery = '/stationery';
+  static String getRequestSelf = '/request/get-request-self';
+  static String getRequestApprove = '/request/get-request-approve';
+  static String getRequestFollower = '/request/get-request-follower';
+  static String stepRequestApprover = '/step-request-approver';
+  static String changeStatus = '/request/change-status';
+
 }

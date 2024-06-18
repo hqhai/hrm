@@ -12,6 +12,7 @@ import 'package:base_app/presentations/pages/activate/file/pdf.page.dart';
 import 'package:base_app/presentations/pages/activate/requisition/requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition/see_list_requisition.page.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/requisition_approve_list.dart';
+import 'package:base_app/presentations/pages/activate/requisition_follower/requisition_follower_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/requisition_infor.page.dart';
 import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
@@ -82,6 +83,7 @@ class AppRouters {
     Pages.createRequestVehicleDispatchPage: createRequestVehicleDispatchPageRoute,
     Pages.createRequestStationeryOderPage: createRequestStationeryOderPageRoute,
     Pages.createRequestReleaseOfWarehousePage: createRequestReleaseOfWarehousePageRoute,
-    Pages.requisitionApproveListPage : requisitionApproveListPageRoute,
+    Pages.requisitionApproveListPage: requisitionApproveListPageRoute,
+    Pages.requisitionFollowerListPage: requisitionFollowerListPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

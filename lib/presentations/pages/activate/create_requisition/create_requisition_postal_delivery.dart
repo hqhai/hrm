@@ -84,7 +84,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
         ),
       ),
       body: BlocListener<RequisitionBloc, RequisitionState>(
-        listener: (context, state)  => _listener(context, state),
+        listener: (context, state) => _listener(context, state),
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(SpacingUnit.x3),

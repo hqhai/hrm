@@ -1,5 +1,4 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
@@ -16,50 +15,23 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   RequisitionUseCaseImpl() : _requisitionRepository = dI<RequisitionRepository>();
 
   @override
-  Future<int> approveRequest({required String id, String? note, required String status}) {
-    // TODO: implement approveRequest
-    throw UnimplementedError();
+  Future<String> approveRequest({required String id, String? note, required String status}) async {
+    return await _requisitionRepository.approveRequisition(id: id, status: status, note: note);
   }
 
   @override
-  Future<RequestsResponse> getRequests({int? page}) {
-    return _requisitionRepository.getRequisitions(page: page);
+  Future<RequestsResponse> getRequests({int? page}) async {
+    return await _requisitionRepository.getRequisitions(page: page);
   }
 
   @override
-  Future<Request> getRequisition({required String id}) {
-    // TODO: implement getRequisition
-    throw UnimplementedError();
+  Future<Request> getRequisitionById({required String id}) async {
+    return await _requisitionRepository.getRequisitionById(id: id);
   }
 
   @override
-  Future<List<Request>> getRequisitionsApprove({int? page}) {
-    // TODO: implement getRequisitionsApprove
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Request>> getRequisitionsApproveByFilter(
-      {int? page,
-      StatusRequestEnum? type,
-      String? departmentId,
-      String? startDate,
-      String? endDate,
-      List<StatusRequestEnum>? status}) {
-    // TODO: implement getRequisitionsApproveByFilter
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Request>> getRequisitionsByFilter(
-      {int? page,
-      StatusRequestEnum? type,
-      String? departmentId,
-      String? startDate,
-      String? endDate,
-      List<StatusRequestEnum>? status}) {
-    // TODO: implement getRequisitionsByFilter
-    throw UnimplementedError();
+  Future<RequestsResponse> getRequisitionsApprove({int? page}) async {
+    return await _requisitionRepository.getRequisitionsApprove(page: page);
   }
 
   @override
@@ -78,4 +50,67 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
     return await _requisitionRepository.getStationery(name: name, page: page);
   }
 
+  @override
+  Future<Flow> getFlowById({required String id}) async {
+    return await _requisitionRepository.getFlowById(id: id);
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsApproveByFilter(
+      {int? page,
+      String? type,
+      String? departmentId,
+      String? startDate,
+      String? endDate,
+        String? status}) async {
+    return await _requisitionRepository.getRequisitionsApproveByFilter(
+      page: page,
+      endDate: endDate,
+      startDate: startDate,
+      type: type,
+      departmentId: departmentId,
+      status: status
+    );
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsFollowerByFilter(
+      {int? page,
+      String? type,
+      String? departmentId,
+      String? startDate,
+      String? endDate,
+      List<String>? status}) async {
+    return await _requisitionRepository.getRequisitionsFollowerByFilter(
+      page: page,
+      endDate: endDate,
+      startDate: startDate,
+      status: status,
+      type: type,
+      departmentId: departmentId,
+    );
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsByFilter(
+      {int? page,
+        String? type,
+        String? departmentId,
+        String? startDate,
+        String? endDate,
+        List<String>? status}) async {
+    return await _requisitionRepository.getRequisitionsByFilter(
+      page: page,
+      endDate: endDate,
+      startDate: startDate,
+      status: status,
+      type: type,
+      departmentId: departmentId,
+    );
+  }
+
+  @override
+  Future<int> userRejectRequisitionById({required String id}) async {
+    return await _requisitionRepository.userRejectRequisitionById(id: id);
+  }
 }

@@ -68,7 +68,7 @@ class _PositionWidgetState extends State<PositionWidget> {
                         itemCount: state.positions.length,
                         itemBuilder: (context, index) {
                           return ItemPosition(
-                            index: index,
+                            id: state.positions[index].id,
                           );
                         }),
                   ),

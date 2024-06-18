@@ -1,11 +1,8 @@
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +20,7 @@ class FilterRequisitionDialog extends StatefulWidget {
 
 class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
   String startTime = DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      endTime = DateFormat('yyyy-MM-dd').format(DateTime.now());
+      endTime = DateFormat('yyyy-MM-dd').format(DateTime.now()), errorTime = '';
   RequisitionTypeEnum type = RequisitionTypeEnum.explanation;
   List<StatusRequestEnum> statuses = [];
 
@@ -51,17 +48,16 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
     endTime = value;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.sizeOf(context).width;
-    final height = MediaQuery.sizeOf(context).height;
     return SizedBox(
-      width: width,
-      height: height * 0.6,
       child: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Align(
@@ -153,24 +149,27 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => setApply(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+            Padding(
+              padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => setApply(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: Text(appLocalizations.apply, style: TextStyle(color: colors.text)),
                   ),
-                  child: Text(appLocalizations.apply, style: TextStyle(color: colors.text)),
-                ),
-                ElevatedButton(
-                  onPressed: () => popDialog(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                  ElevatedButton(
+                    onPressed: () => popDialog(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: Text(appLocalizations.cancel, style: TextStyle(color: colors.text)),
                   ),
-                  child: Text(appLocalizations.cancel, style: TextStyle(color: colors.text)),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -181,8 +180,6 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
   setApply() {
     widget.sendData.call(
         FilterDialogModel(type: type, endTime: endTime, startTime: startTime, statuses: statuses));
-    dI<RequisitionBloc>().add(
-        GetRequisitionsByFilterEvent(requisitionTypeEnum: type, listStatusRequisition: statuses));
     popDialog(context);
   }
 }

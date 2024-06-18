@@ -65,7 +65,7 @@ class ItemAddStationeryDialog extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
             child: Text(
-              '${unitPrice ?? 0}',
+              '${(unitPrice ?? 0).toInt()}',
               style: TextStyle(
                 color: colors.text,
                 fontSize: SpacingUnit.x4,

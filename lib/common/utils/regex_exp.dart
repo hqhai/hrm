@@ -6,3 +6,5 @@ const String checkSpecialRegexExp = r'{.*?}';
 const String passwordInputRegexExp = '[a-zA-Z0-9@.!#&*%?+]';
 const String checkPhoneNumberRegexExp = r'^.{10,}$';
 const String numberRegexExp = r'^\d+$';
+const String numberOfRegexExp = r'^\d{1,3}$';
+

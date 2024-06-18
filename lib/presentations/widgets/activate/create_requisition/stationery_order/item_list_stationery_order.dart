@@ -62,7 +62,7 @@ class ItemListStationery extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${appLocalizations.intoMoney} : ${requisitionStationery?.amount}',
+                    '${appLocalizations.intoMoney} : ${(requisitionStationery?.amount??0).toInt()}',
                     style: TextStyle(
                       fontSize: SpacingUnit.x3,
                       color: colors.text,

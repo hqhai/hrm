@@ -15,6 +15,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationery_order.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_total_amount.dart';
 import 'package:base_app/presentations/widgets/custom/month_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/stationery_order_add_dialog.dart';
@@ -153,7 +154,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                       ),
                     ),
                   ),
-                  if(error != '')
+                  if (error != '')
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
                       child: Text(
@@ -187,6 +188,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                       ),
                     ),
                   ),
+                  ItemTotalAmount(totalAmount: _totalAmount(),),
                   ItemCreateFollower(
                       title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
                   Padding(
@@ -244,18 +246,18 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     }
   }
 
+  setMonth(String value) {
+    setState(() {
+      month = value;
+    });
+  }
+
   double _subtotal() {
     double subtotal = 0;
     for (var element in listRequisitionStationery) {
       subtotal += element.amount ?? 0;
     }
     return subtotal;
-  }
-
-  setMonth(String value) {
-    setState(() {
-      month = value;
-    });
   }
 
   double _numberValue() {
