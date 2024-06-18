@@ -1,8 +1,6 @@
-
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_district.dart';
@@ -37,16 +35,21 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
   _getProvince(Address address) {
     setState(() {
       province = address;
+      widget.onChangeProvince.call(address);
     });
   }
+
   _getDistrict(Address address) {
     setState(() {
       district = address;
+      widget.onChangeDistrict.call(address);
     });
   }
+
   _getWard(Address address) {
     setState(() {
       ward = address;
+      widget.onChangeWard.call(address);
     });
   }
 
@@ -84,7 +87,6 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -179,5 +181,4 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
       },
     );
   }
-
 }
