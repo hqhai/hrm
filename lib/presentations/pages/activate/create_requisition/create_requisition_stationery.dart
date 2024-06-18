@@ -61,12 +61,12 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.postRequisitionInit) {
+    if (state.status == RequisitionEnum.init) {
       progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
+    } else if (state.status == RequisitionEnum.success) {
       Navigator.of(context).pop();
       successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
+    } else if (state.status == RequisitionEnum.fail) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }
@@ -233,8 +233,8 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
           postRequestRequest: PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
-            description: month,
             config: ConfigRequestModel(
+              description: month,
               stationeries: listRequisitionStationery,
               subtotal: _subtotal(),
               numberValue: _numberValue(),

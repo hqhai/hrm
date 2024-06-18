@@ -55,8 +55,10 @@ class _CreateRequisitionReleaseOfWarehousePageState
     final appLocalizations = AppLocalizations.of(context)!;
     bool check = requisitionReleaseOfWarehouse.isNotEmpty && description != '';
     setState(() {
-      errorDescription = description != '' ? "": appLocalizations.cannotBeLeftBlank;
-      errorList = requisitionReleaseOfWarehouse.isNotEmpty ? '' : appLocalizations.thereAreCurrentlyNoProducts;
+      errorDescription = description != '' ? "" : appLocalizations.cannotBeLeftBlank;
+      errorList = requisitionReleaseOfWarehouse.isNotEmpty
+          ? ''
+          : appLocalizations.thereAreCurrentlyNoProducts;
     });
     return check;
   }
@@ -131,7 +133,8 @@ class _CreateRequisitionReleaseOfWarehousePageState
                         ),
                       ),
                     ),
-                  ),if(errorList != '')
+                  ),
+                  if (errorList != '')
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
                       child: Text(
@@ -142,7 +145,6 @@ class _CreateRequisitionReleaseOfWarehousePageState
                         ),
                       ),
                     ),
-
                   GestureDetector(
                     onTap: () => _addStationery(context),
                     child: Container(
@@ -210,8 +212,8 @@ class _CreateRequisitionReleaseOfWarehousePageState
           postRequestRequest: PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
-            description: description,
             config: ConfigRequestModel(
+              description: description,
               warehourseReleaseds: requisitionReleaseOfWarehouse,
             ),
           ),
@@ -261,12 +263,12 @@ class _CreateRequisitionReleaseOfWarehousePageState
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.postRequisitionInit) {
+    if (state.status == RequisitionEnum.init) {
       progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
+    } else if (state.status == RequisitionEnum.success) {
       Navigator.of(context).pop();
       successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
+    } else if (state.status == RequisitionEnum.fail) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }

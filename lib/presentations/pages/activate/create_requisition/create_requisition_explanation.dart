@@ -69,12 +69,12 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.postRequisitionInit) {
+    if (state.status == RequisitionEnum.init) {
       progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
+    } else if (state.status == RequisitionEnum.success) {
       Navigator.of(context).pop();
       successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
+    } else if (state.status == RequisitionEnum.fail) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }

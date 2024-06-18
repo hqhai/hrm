@@ -7,6 +7,7 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -39,7 +40,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   var random = Random();
   int pageIndex = 1, totalItems = 0, lengthList = 0;
   late ScrollController controller;
-  RequisitionEnum status = RequisitionEnum.getRequisitionsInit;
+  RequisitionEnum status = RequisitionEnum.init;
   List<StatusRequestEnum> listStatusFilter = [];
   FilterDialogModel filterData = const FilterDialogModel();
 
@@ -55,7 +56,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   _scrollListener() {
     status;
     if (lengthList <= totalItems &&
-        status == RequisitionEnum.getRequisitionsSuccess &&
+        status == RequisitionEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
@@ -85,11 +86,6 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.userRejectRequisitionSuccess) {
-      dI<RequisitionBloc>().add(const GetRequisitionsByFilterEvent(
-        page: 1,
-      ));
-    }
     setState(() {
       status = state.status;
       totalItems = state.countItem;
@@ -115,6 +111,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
         opacity: checkOpacity ? 0.5 : 1,
         child: BlocConsumer<RequisitionBloc, RequisitionState>(
           listener: (context, state) => _listener(context, state),
+          listenWhen: (previous, current) => _listenWhen(previous.requisitions, current.requisitions),
           buildWhen: (previous, current) => previous.requisitions != current.requisitions,
           builder: (context, state) {
             return Column(
@@ -278,5 +275,9 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
         );
       },
     );
+  }
+
+  bool _listenWhen(List<Request> requisitionsP, List<Request> requisitionsC) {
+    return requisitionsP != requisitionsC;
   }
 }

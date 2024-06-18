@@ -9,38 +9,30 @@ part 'requisition_approve_state.g.dart';
 class RequisitionApproveState extends Equatable {
   final Request requisition;
   final List<Request> requisitions;
-  final RequisitionEnum status;
   final int countItem;
-  final int page;
-  final String requisitionTypeEnum;
-  final String departmentId;
-  final String startTime;
-  final String endTime;
-  final String statusRequest;
+  final RequisitionEnum statusPost;
+  final RequisitionEnum statusGet;
+  final RequisitionEnum statusGetById;
+  final RequisitionEnum statusApprove;
 
-  const RequisitionApproveState(
-      {this.requisition = const Request(id: ''),
-      this.requisitions = const [],
-      this.status = RequisitionEnum.init,
-      this.countItem = 0,
-      this.page = 0,
-      this.requisitionTypeEnum = '',
-      this.departmentId = '',
-      this.startTime = '',
-      this.endTime = '',
-      this.statusRequest = ''});
+  const RequisitionApproveState({
+    this.requisition = const Request(id: ''),
+    this.requisitions = const [],
+    this.statusApprove = RequisitionEnum.init,
+    this.statusGetById = RequisitionEnum.init,
+    this.statusPost = RequisitionEnum.init,
+    this.statusGet = RequisitionEnum.init,
+    this.countItem = 0,
+  });
 
   @override
   List<Object> get props => [
         requisition,
-        requisitions,
-        status,
+        requisitions.hashCode,
+        statusPost,
+        statusGetById,
+        statusApprove,
         countItem,
-        endTime,
-        startTime,
-        departmentId,
-        requisitionTypeEnum,
-        page,
-        statusRequest
+        statusGet,
       ];
 }

@@ -11,7 +11,7 @@ class GetLocationResponse {
 
   const GetLocationResponse({
     this.items = const [],
-    this.pagingInfo = const PagingInfoRequest(page: 0, totalItems: 0, pageSize: 0),
+    this.pagingInfo = const PagingInfoRequest(page: 1, totalItems: 0, pageSize: 0),
   });
 
   factory GetLocationResponse.fromJson(Map<String, dynamic> json) =>

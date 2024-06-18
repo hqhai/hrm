@@ -92,17 +92,17 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
         startTime = state.requisition.config.startDate ?? "";
         endTime = state.requisition.config.endDate ?? "";
         content = state.requisition.config.content ?? "";
-        //reason = state.requisition.config. ?? "";
+        reason = state.requisition.config.description ?? "";
         vehicle = state.requisition.config.endDate ?? "";
         destination = state.requisition.config.endDate ?? "";
       });
     }
-    if (state.status == RequisitionEnum.postRequisitionInit) {
+    if (state.status == RequisitionEnum.init) {
       progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
+    } else if (state.status == RequisitionEnum.success) {
       Navigator.of(context).pop();
       successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
+    } else if (state.status == RequisitionEnum.fail) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }
@@ -205,10 +205,11 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           postRequestRequest: PostRequestRequest(
-            description: detailedDescriptionController.text,
+
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
+              description: detailedDescriptionController.text,
               destination: destinationController.text,
               content: contentController.text,
               vehicle: vehicleController.text,

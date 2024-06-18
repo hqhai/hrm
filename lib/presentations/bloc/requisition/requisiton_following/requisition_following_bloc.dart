@@ -23,7 +23,7 @@ class RequisitionFollowingBloc extends Bloc<RequisitionFollowingEvent, Requisiti
 
   FutureOr<void> _getRequisitionsFollowingByFilterEvent(
       GetRequisitionsFollowingByFilterEvent event, Emitter<RequisitionFollowingState> emit) async {
-    emit(state.copyWith(status: RequisitionEnum.getRequisitionsSuccess));
+    emit(state.copyWith(status: RequisitionEnum.init));
     try {
       List<Request> requests = [];
       RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsFollowerByFilter(
@@ -41,16 +41,16 @@ class RequisitionFollowingBloc extends Bloc<RequisitionFollowingEvent, Requisiti
         emit(state.copyWith(
             requisitions: requests,
             countItem: totalItems,
-            status: RequisitionEnum.getRequisitionsSuccess));
+            status: RequisitionEnum.success));
       } else {
         requests.addAll(newRequest);
         emit(state.copyWith(
             requisitions: requests,
             countItem: totalItems,
-            status: RequisitionEnum.getRequisitionsSuccess));
+            status: RequisitionEnum.success));
       }
     } catch (e) {
-      emit(state.copyWith(status: RequisitionEnum.getRequisitionsError));
+      emit(state.copyWith(status: RequisitionEnum.fail));
     }
   }
 

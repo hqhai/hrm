@@ -164,13 +164,13 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<String> approveRequisition({required ApproveRequest approveRequest}) async {
+  Future<bool> approveRequisition({required ApproveRequest approveRequest}) async {
     final url = '$baseUrl${PathConfig.stepRequestApprover}';
     final body = jsonEncode(approveRequest.toJson());
     final response = await client.put(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.statusCode;
-    return data.toString();
+    final bool data = responseBase.result;
+    return data;
   }
 
   @override

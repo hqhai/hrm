@@ -57,7 +57,7 @@ class RequisitionInformationGeneraliInformation extends StatelessWidget {
                           children: [
                             Text(appLocalizations.status,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                            Text(state.requisition.status?.configRequestStatusName ?? "",
+                            Text(state.requisition.status.configRequestStatusName,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                           ],
                         ),
@@ -69,7 +69,7 @@ class RequisitionInformationGeneraliInformation extends StatelessWidget {
                           children: [
                             Text(appLocalizations.applicationCode,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                            Text(state.requisition.code ?? "",
+                            Text(state.requisition.code,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                           ],
                         ),
@@ -81,7 +81,7 @@ class RequisitionInformationGeneraliInformation extends StatelessWidget {
                           children: [
                             Text(appLocalizations.createTime,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                            Text(formatYMDHMS(state.requisition.createdDate ?? ""),
+                            Text(formatYMDHMS(state.requisition.createdDate),
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                           ],
                         ),

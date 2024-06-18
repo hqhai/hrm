@@ -58,12 +58,12 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.postRequisitionInit) {
+    if (state.status == RequisitionEnum.init) {
       progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
+    } else if (state.status == RequisitionEnum.success) {
       Navigator.of(context).pop();
       successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
+    } else if (state.status == RequisitionEnum.fail) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }
@@ -146,8 +146,8 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
           postRequestRequest: PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
-            description: reason,
             config: ConfigRequestModel(
+              description: reason,
               deliveryType: transferType?.name ?? "",
             ),
           ),

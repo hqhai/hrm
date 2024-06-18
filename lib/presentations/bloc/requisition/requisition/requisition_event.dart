@@ -29,15 +29,6 @@ class UserRejectRequestEvent extends RequisitionEvent {
   List<Object?> get props => [id];
 }
 
-class GetRequisitionsEvent extends RequisitionEvent {
-  final int page;
-
-  const GetRequisitionsEvent({this.page = 0});
-
-  @override
-  List<Object?> get props => [page];
-}
-
 class GetRequisitionsByFilterEvent extends RequisitionEvent {
   const GetRequisitionsByFilterEvent(
       {this.flowId, this.listStatusRequisition, this.startTime, this.endTime, this.page});

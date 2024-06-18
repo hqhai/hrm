@@ -8,6 +8,7 @@ part 'config_request_model.g.dart';
 @CopyWith()
 @JsonSerializable()
 class ConfigRequestModel {
+  final String? description;
   final String? flowId;
   final String? takeLeaveReason;
   final double? numberValue;
@@ -29,6 +30,7 @@ class ConfigRequestModel {
 
   const ConfigRequestModel(
       {this.flowId,
+      this.description,
       this.attachments,
       this.stationeries,
       this.totalAmount,

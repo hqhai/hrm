@@ -106,7 +106,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                     children: [
                       SizedBox(
                           width: width * 0.7,
-                          child: Text(_getRequestInId(state).description ?? "",
+                          child: Text(_getRequestInId(state).config.description ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -121,7 +121,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                         ),
                         SizedBox(
                             width: width * 0.6,
-                            child: Text(_getRequestInId(state).createdFullName ?? "",
+                            child: Text(_getRequestInId(state).createdFullName,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
@@ -131,7 +131,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                         SizedBox(
                             width: width * 0.6,
-                            child: Text(formatYMDHMS(_getRequestInId(state).createdDate ?? ""),
+                            child: Text(formatYMDHMS(_getRequestInId(state).createdDate),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
@@ -142,7 +142,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                           SizedBox(
                               width: width * 0.6,
-                              child: Text(_getRequestInId(state).code ?? "",
+                              child: Text(_getRequestInId(state).code,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(

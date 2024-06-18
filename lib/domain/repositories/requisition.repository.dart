@@ -41,7 +41,7 @@ abstract class RequisitionRepository {
 
   Future<Request> getRequisitionById({required String id});
 
-  Future<String> approveRequisition({required String id, String? note, required String status});
+  Future<bool> approveRequisition({required String id, String? note, required String status});
 
   Future<FlowResponse> getFlowByUser({required int page});
 

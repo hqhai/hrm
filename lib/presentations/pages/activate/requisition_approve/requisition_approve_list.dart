@@ -41,8 +41,10 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
   }
 
   bool _checkFilter() {
-    bool check =
-        filterData.department == null && filterData.startTime == null && filterData.endTime == null && filterData.type== null;
+    bool check = filterData.department == null &&
+        filterData.startTime == null &&
+        filterData.endTime == null &&
+        filterData.type == null;
     return check;
   }
 
@@ -127,14 +129,13 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
     setState(() {
       filterData = value;
     });
-    dI<RequisitionApproveBloc>().add(
-      GetRequisitionsApproveByFilterEvent(
-          page: 1,
-          departmentId: value.department?.id,
-          startTime: value.startTime,
-          endTime: value.endTime,
-          requisitionTypeEnum: value.type),
-    );
+    dI<RequisitionApproveBloc>().add(GetRequisitionsApproveByFilterEvent(
+      page: 1,
+      departmentId: value.department?.id,
+      startTime: value.startTime,
+      endTime: value.endTime,
+      requisitionTypeEnum: value.type,
+    ));
   }
 
   dialog(BuildContext context) {
@@ -152,10 +153,18 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
 
   _setAll() {
     if (!_checkFilter()) {
-      dI<RequisitionApproveBloc>().add(RemoveFilterEvent(status: status));
       setState(() {
         filterData = const FilterDialogModel();
       });
+      dI<RequisitionApproveBloc>().add(
+        GetRequisitionsApproveByFilterEvent(
+            page: 1,
+            departmentId: filterData.department?.id,
+            startTime: filterData.startTime,
+            endTime: filterData.endTime,
+            requisitionTypeEnum: filterData.type,
+        ),
+      );
     }
   }
 

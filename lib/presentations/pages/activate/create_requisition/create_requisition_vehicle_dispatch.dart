@@ -168,12 +168,12 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.postRequisitionInit) {
+    if (state.status == RequisitionEnum.init) {
       progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
+    } else if (state.status == RequisitionEnum.success) {
       Navigator.of(context).pop();
       successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
+    } else if (state.status == RequisitionEnum.fail) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }
@@ -184,10 +184,10 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           postRequestRequest: PostRequestRequest(
-            description: scheduleController.text,
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
+              description: scheduleController.text,
               content: contentController.text,
               endDate: endTime,
               startDate: startTime,

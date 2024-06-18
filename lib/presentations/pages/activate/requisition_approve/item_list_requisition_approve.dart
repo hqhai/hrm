@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
@@ -6,12 +8,16 @@ import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/content_item_requisition_list.dart';
 import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -31,6 +37,8 @@ class ItemRequisitionApproveList extends StatefulWidget {
 }
 
 class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList> {
+
+  String? note;
   @override
   void initState() {
     super.initState();
@@ -45,26 +53,6 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   Request _request(List<Request> requests, String id) {
     return requests.firstWhere((element) => element.id == id);
   }
-
-  /*String statusStepRequestApprove(List<Request> requests) {
-    Request request = _request(requests, widget.id);
-    String idUser = dI<UserBloc>().state.user.id;
-    String statusStepRequestApprove = '';
-    if (request.stepRequests?.isNotEmpty ?? false) {
-      final stepRequests = request.stepRequests ?? [];
-      for (var stepRequest in stepRequests) {
-        final stepRequestApprovers = stepRequest.stepRequestApprovers ?? [];
-        final indexStepRequestApprover =
-            stepRequestApprovers.indexWhere((element) => element.approverId == idUser);
-        if (indexStepRequestApprover != -1) {
-          statusStepRequestApprove =
-              stepRequestApprovers[indexStepRequestApprover].status?.configStepRequestStatusName ??
-                  "";
-        }
-      }
-    }
-    return statusStepRequestApprove;
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +83,8 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                   ),
                 ),
               ),
-              if (widget.status.configStepRequestStatusName == EnumStepRequestStatusEnum.approve.configStepRequestStatusName)
+              if (widget.status.configStepRequestStatusName ==
+                  EnumStepRequestStatusEnum.approve.configStepRequestStatusName)
                 Align(
                   alignment: Alignment.bottomRight,
                   child: ButtonItemListRequisition(
@@ -103,7 +92,8 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                     callback: () {},
                   ),
                 ),
-              if (widget.status.configStepRequestStatusName == EnumStepRequestStatusEnum.newStatus.configStepRequestStatusName)
+              if (widget.status.configStepRequestStatusName ==
+                  EnumStepRequestStatusEnum.newStatus.configStepRequestStatusName)
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Row(
@@ -111,17 +101,18 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                     children: [
                       ButtonItemListRequisition(
                         title: appLocalizations.approver,
-                        callback: () =>
-                            _isApprover(state.requisitions, context, EnumStepRequestStatusEnum.approve),
+                        callback: () => _isApprover(
+                            state.requisitions, context, EnumStepRequestStatusEnum.approve),
                       ),
                       ButtonItemListRequisition(
                         title: appLocalizations.refuse,
-                        callback: () =>
-                            _isApprover(state.requisitions, context, EnumStepRequestStatusEnum.reject),
+                        callback: () => _isApprover(
+                            state.requisitions, context, EnumStepRequestStatusEnum.reject),
                       ),
                       ButtonItemListRequisition(
                         title: appLocalizations.modification,
-                        callback: () => _isApprover(state.requisitions, context, EnumStepRequestStatusEnum.edit),
+                        callback: () => _isApprover(
+                            state.requisitions, context, EnumStepRequestStatusEnum.edit),
                       ),
                     ],
                   ),
@@ -146,12 +137,11 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
     });
   }
 
-  _isApprover(
-      List<Request> requests, BuildContext context, EnumStepRequestStatusEnum status) {
+  _isApprover(List<Request> requests, BuildContext context, EnumStepRequestStatusEnum status) {
     String idUser = dI<UserBloc>().state.user.id;
     Request request = _request(requests, widget.id);
-    if (request.stepRequests?.isNotEmpty ?? false) {
-      final stepRequests = request.stepRequests ?? [];
+    if (request.stepRequests.isNotEmpty) {
+      final stepRequests = request.stepRequests;
       final indexNewStepRequest = stepRequests
           .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
@@ -161,9 +151,40 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
             stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
-          noteDialog(context, status, idStepRequestApprove);
+          noteDialog(
+            context,
+                (value) => _setNote(value),
+                () => _setApprove(idStepRequestApprove, status),
+          );
         }
       }
     }
+  }
+
+  userRejectRequest() {
+    dI<RequisitionBloc>().add(UserRejectRequestEvent(id: widget.id));
+  }
+
+  _setNote(String value) {
+    setState(() {
+      note = value;
+    });
+  }
+
+  _setApprove(String id, EnumStepRequestStatusEnum status) async {
+    Navigator.of(context).pop();
+    progressIndicatorDialog(context);
+    final Completer completer = Completer();
+    dI<RequisitionApproveBloc>().add(
+      ApproveRequestEvent(
+        id: id,
+        note: note,
+        status: status,
+        requestId: widget.id,
+        completer: completer,
+      ),
+    );
+    completer.future;
+    Navigator.of(context).pop();
   }
 }

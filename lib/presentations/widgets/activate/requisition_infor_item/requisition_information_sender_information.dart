@@ -35,7 +35,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.fullName,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.createdFullName ?? "",
+                    Text(state.requisition.createdFullName,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -47,7 +47,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.employeeCode,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.createdCode ?? "",
+                    Text(state.requisition.createdCode,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -59,7 +59,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.position,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.nameCreatedPosition ?? "",
+                    Text(state.requisition.nameCreatedPosition,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
@@ -71,7 +71,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   children: [
                     Text(appLocalizations.department,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.nameCreatedDepartment ?? "",
+                    Text(state.requisition.nameCreatedDepartment,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                   ],
                 ),
