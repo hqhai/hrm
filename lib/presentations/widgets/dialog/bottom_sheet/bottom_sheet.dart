@@ -30,7 +30,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   String searchStr = '';
   late ScrollController controller;
   int pageIndex = 1, totalItems = 0, lengthList = 0;
-  UserStatus status = UserStatus.getUsersByNameInit;
+  UserStatus status = UserStatus.init;
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () => addListPerson(
                           user: state.usersByName[index],
-                          listValueByIndex: state.usersByName[index].fullName ?? ""),
+                          listValueByIndex: state.usersByName[index].fullName),
                       child: Container(
                         padding: const EdgeInsets.all(SpacingUnit.x2),
                         margin: const EdgeInsets.all(SpacingUnit.x2),
@@ -89,7 +89,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                               ),
                             ),
                             Text(
-                              state.usersByName[index].fullName ?? "",
+                              state.usersByName[index].fullName,
                               style: TextStyle(
                                 color: colors.text,
                                 fontSize: SpacingUnit.x3,
@@ -146,7 +146,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
 
   _scrollListener() {
     if (lengthList <= totalItems &&
-        status == UserStatus.getUsersByNameSuccess &&
+        status == UserStatus.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;

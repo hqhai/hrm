@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
+import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
@@ -24,7 +25,9 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
   FutureOr<void> _getFlowsEvent(GetFlowsEvent event, Emitter<FlowState> emit) async {
     emit(state.copyWith(status: FlowStatusEnum.getFlowsInit));
     try {
-      List<Flow> flows = await requisitionUseCase.getFlowByUser();
+      FlowResponse flowResponse = await requisitionUseCase.getFlowByUser(page: event.page);
+      List<FlowRequest> flows = flowResponse.flows;
+      //int total = flowResponse.totalItems;
       emit(state.copyWith(flows: flows, status: FlowStatusEnum.getFlowsSuccess));
     } catch (e) {
       emit(state.copyWith(status: FlowStatusEnum.getFlowsError));
@@ -34,7 +37,7 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
   FutureOr<void> _getFlowEvent(GetFlowEvent event, Emitter<FlowState> emit) async {
     emit(state.copyWith(status: FlowStatusEnum.getFlowInit));
     try {
-      Flow flow = await requisitionUseCase.getFlowById(id: event.id);
+      FlowRequest flow = await requisitionUseCase.getFlowById(id: event.id);
       emit(
         state.copyWith(
           flow: flow,

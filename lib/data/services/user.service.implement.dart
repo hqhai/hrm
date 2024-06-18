@@ -84,13 +84,14 @@ class UserServiceImpl extends BaseService implements UserService {
   }
 
   @override
-  Future<int> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
+  Future<User> updateProfile({required UpdateProfileRequest updateProfileRequest}) async {
     final url = '$baseUrlUser${PathConfig.updateProfile}';
     final body = jsonEncode(updateProfileRequest.toJson());
     final response = await client.put(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    int statusCode = responseBase.statusCode;
-    return statusCode;
+    final data = responseBase.result;
+    User user = User.fromJson(data);
+    return user;
   }
 
   @override

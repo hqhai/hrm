@@ -75,7 +75,7 @@ class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
                               itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
                                 child: Text(
-                                  stateUserById.subtitudePersons[index].fullName ?? "",
+                                  stateUserById.subtitudePersons[index].fullName,
                                   style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                                 ),
                               ),

@@ -9,9 +9,8 @@ import 'package:base_app/presentations/bloc/position/position_event.dart';
 import 'package:base_app/presentations/bloc/position/position_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -134,16 +133,8 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
   }
 
   _updateDialog(BuildContext context, PositionState state) {
-    final appLocalizations = AppLocalizations.of(context)!;
+    //final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
-      createDialog(
-          context,
-          appLocalizations.doYouWantToUpdatePosition,
-          () => dI<PositionBloc>().add(UpdatePositionEvent(
-                id: state.positions[widget.index].id,
-                name: nameController.text,
-                description: descriptionController.text,
-              )));
     }
   }
 }

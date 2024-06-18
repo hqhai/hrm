@@ -23,7 +23,7 @@ class StationeryBloc extends Bloc<StationeryEvent, StationeryState> {
 
   FutureOr<void> _getStationeriesEvent(
       GetStationeriesEvent event, Emitter<StationeryState> emit) async {
-    emit(state.copyWith(status: StationeryStatus.getStationeryInit));
+    emit(state.copyWith(status: StationeryStatus.init));
     try {
       List<Stationery> stationery = [];
       SearchStationeryByNameResponse searchStationeryByNameResponse =
@@ -36,15 +36,15 @@ class StationeryBloc extends Bloc<StationeryEvent, StationeryState> {
         emit(state.copyWith(
             countItem: totalItems,
             stationeries: stationery,
-            status: StationeryStatus.getStationerySuccess));
+            status: StationeryStatus.success));
       } else {
         emit(state.copyWith(
             countItem: totalItems,
             stationeries: newStationery,
-            status: StationeryStatus.getStationerySuccess));
+            status: StationeryStatus.success));
       }
     } catch (e) {
-      emit(state.copyWith(status: StationeryStatus.getStationeryError));
+      emit(state.copyWith(status: StationeryStatus.fail));
     }
   }
 }

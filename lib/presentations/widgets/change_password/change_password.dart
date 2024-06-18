@@ -9,8 +9,8 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
-import 'package:base_app/presentations/widgets/dialog/change_password_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/password/change_password_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/register/app_input_new_pssword_validate.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   _listener(BuildContext context, UserState state) {
     final appLocalizations = AppLocalizations.of(context)!;
-    if (state.status == UserStatus.changePasswordSuccess) {
+    if (state.status == UserStatus.success) {
       successDialog(context);
       setState(() {
         notification1 = '';
@@ -49,7 +49,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         dI<LoginBloc>().add(const ChangePasswordSuccessEvent());
       }
     }
-    if (state.status == UserStatus.changePasswordError) {
+    if (state.status == UserStatus.fail) {
       unsuccessfulDialog(context);
       setState(() {
         notification1 = appLocalizations.currentPasswordIsIncorrect;

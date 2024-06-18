@@ -27,7 +27,7 @@ class ItemVehicleProfile extends StatelessWidget {
               child: Text(
                 appLocalizations.vehicle,
                 style: TextStyle(
-                    color: colors.tertiary, fontSize: SpacingUnit.x3, fontWeight: FontWeight.w800),
+                    color: colors.text, fontSize: SpacingUnit.x3, fontWeight: FontWeight.w800),
               ),
             ),
             ItemTitleProfile(
@@ -35,12 +35,12 @@ class ItemVehicleProfile extends StatelessWidget {
               title2: appLocalizations.licensePlate,
             ),
             ItemContentProfile(
-              content1: state.user.vehicleType?.configVehicleTypeName ?? "",
-              content2: state.user.licensePlate ?? "",
+              content1: state.user.vehicleType.configVehicleTypeName,
+              content2: state.user.licensePlate,
             ),
             Text(
               appLocalizations.autoMaker,
-              style: TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x3),
+              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
             ),
             Row(
               children: [
@@ -58,7 +58,7 @@ class ItemVehicleProfile extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        state.user.autoMaker ?? "",
+                        state.user.autoMaker,
                         maxLines: 2,
                         overflow: TextOverflow.clip,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),

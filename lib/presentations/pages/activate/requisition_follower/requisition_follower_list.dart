@@ -15,7 +15,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_following/req
 import 'package:base_app/presentations/pages/activate/requisition/popup_menu_requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition/wrap_filter.dart';
 import 'package:base_app/presentations/pages/activate/requisition_follower/item_list_requisition_follower.dart';
-import 'package:base_app/presentations/widgets/dialog/filter_requisition_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/filter_requisition_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';

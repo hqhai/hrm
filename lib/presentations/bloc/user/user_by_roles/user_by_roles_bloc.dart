@@ -24,12 +24,12 @@ class UserByRolesBloc extends Bloc<UserByRolesEvent, UserByRolesState> {
 
   FutureOr<void> _getUserByRoleEvent(
       GetUserByRoleEvent event, Emitter<UserByRolesState> emit) async {
-    emit(state.copyWith(status: UserStatus.getUsersByRoleInit));
+    emit(state.copyWith(status: UserStatus.init));
     try {
       List<User> users = await userUseCase.getUserByRole(role: event.role);
-      emit(state.copyWith(users: users, status: UserStatus.getUsersByRoleSuccess));
+      emit(state.copyWith(users: users, status: UserStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.getUsersByRoleError));
+      emit(state.copyWith(status: UserStatus.fail));
     }
   }
 

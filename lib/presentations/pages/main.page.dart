@@ -42,7 +42,7 @@ class _MainPageState extends State<MainPage> {
             return BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 if (state.status == AuthStatus.loggedIn) {
-                  if (stateUser.status != UserStatus.getUserInfoErrorUnauthorized) {
+                  if (stateUser.status != UserStatus.unauthorized) {
                     if (stateLogin.status == LoginStatus.firstLoginSuccess &&
                         state.roles.first != ConfigRoleStringValues.userSystem.name) {
                       return const ChangePassword();

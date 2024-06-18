@@ -1,8 +1,1 @@
-
-
-enum StationeryStatus {
-  init,
-  getStationeryInit,
-  getStationerySuccess,
-  getStationeryError,
-}
+enum StationeryStatus { init, start, success, fail }

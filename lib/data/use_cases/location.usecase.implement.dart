@@ -1,5 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/domain/entities/address.dart';
+import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/domain/repositories/location.repositories.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:injectable/injectable.dart';
@@ -11,7 +11,7 @@ class LocationUseCaseImpl extends LocationUseCase {
   LocationUseCaseImpl() : _locationRepository = dI<LocationRepository>();
 
   @override
-  Future<List<Address>> getAddress(
+  Future<GetLocationResponse> getAddress(
       {required int pageSize,
       required int page,
       required String locationType,

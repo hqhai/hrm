@@ -73,7 +73,7 @@ class _ItemProfileState extends State<ItemProfile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        state.user.fullName ?? "",
+                        state.user.fullName,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
                       ),
                       const SizedBox(height: SpacingUnit.x5),
@@ -85,7 +85,7 @@ class _ItemProfileState extends State<ItemProfile> {
                           ),
                           Expanded(
                             child: Text(
-                              state.user.phoneNumber ?? "",
+                              state.user.phoneNumber,
                               maxLines: 1,
                               overflow: TextOverflow.clip,
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
@@ -106,7 +106,7 @@ class _ItemProfileState extends State<ItemProfile> {
                             child: Text(
                               maxLines: 2,
                               overflow: TextOverflow.clip,
-                              state.user.email ?? "",
+                              state.user.email,
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                             ),
                           ),
@@ -124,14 +124,14 @@ class _ItemProfileState extends State<ItemProfile> {
   }
 
   bool _checkPathImage(UserState state) {
-    return state.user.avatarPath?.isNotEmpty == true && pathImage == '';
+    return state.user.avatarPath.isNotEmpty == true && pathImage == '';
   }
 
   Widget _image(UserState state) {
     if (_checkPathImage(state)) {
       return SizedBox(
         child: Image.network(
-          state.user.avatarPath ?? "",
+          state.user.avatarPath,
           fit: BoxFit.fill,
           errorBuilder: (context, error, stackTrace) {
             return Image.asset(

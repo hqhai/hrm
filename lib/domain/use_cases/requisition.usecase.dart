@@ -1,3 +1,4 @@
+import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
@@ -5,13 +6,13 @@ import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 
 abstract class RequisitionUseCase {
-  Future<int> postRequest({required PostRequestRequest postRequestRequest});
+  Future<Request> postRequest({required PostRequestRequest postRequestRequest});
 
   Future<RequestsResponse> getRequests({int? page});
 
   Future<RequestsResponse> getRequisitionsByFilter({
     int? page,
-    String? type,
+    String? flowId,
     String? departmentId,
     String? startDate,
     String? endDate,
@@ -42,12 +43,12 @@ abstract class RequisitionUseCase {
 
   Future<String> approveRequest({required String id, String? note, required String status});
 
-  Future<List<Flow>> getFlowByUser();
+  Future<FlowResponse> getFlowByUser({required int page});
 
-  Future<Flow> getFlowById({required String id});
+  Future<FlowRequest> getFlowById({required String id});
 
   Future<SearchStationeryByNameResponse> getStationery({required String name, required int page});
 
-  Future<int> userRejectRequisitionById({required String id});
+  Future<bool> userRejectRequisitionById({required String id});
 
 }

@@ -1,5 +1,4 @@
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
@@ -12,20 +11,12 @@ class RequisitionState extends Equatable {
   final List<Request> requisitions;
   final RequisitionEnum status;
   final int countItem;
-  final String requisitionTypeEnum;
-  final List<StatusRequestEnum> listStatusRequisition;
-  final String startTime;
-  final String endTime;
 
   const RequisitionState({
     this.requisition = const Request(id: ''),
     this.requisitions = const [],
     this.status = RequisitionEnum.init,
     this.countItem = 0,
-    this.startTime = '',
-    this.listStatusRequisition = const [],
-    this.requisitionTypeEnum = '',
-    this.endTime = '',
   });
 
   @override
@@ -34,9 +25,5 @@ class RequisitionState extends Equatable {
         requisitions,
         status,
         countItem,
-        requisitionTypeEnum,
-        listStatusRequisition,
-        startTime,
-        endTime
       ];
 }

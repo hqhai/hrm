@@ -8,8 +8,6 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
-import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
-import 'package:base_app/presentations/bloc/request/request/request_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
@@ -57,14 +55,13 @@ class _HomePageState extends State<HomePage> {
   void logoutFunction() {
     setState(() {
       dI<AuthBloc>().add(const LogoutEvent());
-      dI<RequestBloc>().add(const ResetRequestEvent());
       dI<UserBloc>().add(const ResetUserEvent());
       dI<UserByRolesBloc>().add(const ResetUsersEvent());
     });
   }
 
   _listener(BuildContext context, UserState state) {
-    if (state.status == UserStatus.getUserInfoErrorUnauthorized) {
+    if (state.status == UserStatus.unauthorized) {
       logoutFunction();
     }
   }

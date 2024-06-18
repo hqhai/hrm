@@ -1,39 +1,41 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/stationery_enum.dart';
-import 'package:base_app/common/utils/color_utils.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
-import 'package:base_app/presentations/bloc/requisition/stationery/stationery_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/stationery/stationery_event.dart';
-import 'package:base_app/presentations/bloc/requisition/stationery/stationery_state.dart';
-import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_event.dart';
-import 'package:base_app/presentations/widgets/custom/search_input.dart';
+import 'package:base_app/domain/entities/address.dart';
+import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/location/address/address_bloc.dart';
+import 'package:base_app/presentations/bloc/location/address/address_event.dart';
+import 'package:base_app/presentations/bloc/location/address/address_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
-class BottomSheetStationeryWidget extends StatefulWidget {
-  const BottomSheetStationeryWidget({
+class BottomSheetDistrictWidget extends StatefulWidget {
+  const BottomSheetDistrictWidget({
     super.key,
     required this.onChange,
+    required this.parentId,
   });
 
-  final ValueChanged<Stationery> onChange;
+  final ValueChanged<Address> onChange;
+  final String parentId;
 
   @override
-  State<BottomSheetStationeryWidget> createState() => _BottomSheetStationeryWidgetState();
+  State<BottomSheetDistrictWidget> createState() => _BottomSheetDistrictWidgetState();
 }
 
-class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidget> {
+class _BottomSheetDistrictWidgetState extends State<BottomSheetDistrictWidget> {
+  String searchStr = '';
   late ScrollController controller;
-  String? searchStr;
   int pageIndex = 1, totalItems = 0, lengthList = 0;
-  StationeryStatus status = StationeryStatus.getStationeryInit;
+  AddressStatus status = AddressStatus.init;
 
   @override
   void initState() {
-    dI<StationeryBloc>().add(const GetStationeriesEvent());
+    dI<AddressBloc>().add(GetDistrictsEvent(
+      parentId: widget.parentId,
+      page: 1,
+    ));
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
@@ -42,7 +44,8 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final height = MediaQuery.of(context).size.height;
-    return BlocConsumer<StationeryBloc, StationeryState>(
+    final appLocalizations = AppLocalizations.of(context)!;
+    return BlocConsumer<AddressBloc, AddressState>(
       listener: (context, state) => _listener(context, state),
       builder: (context, state) {
         return Container(
@@ -51,25 +54,27 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
           child: Center(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child: SearchInput(onChange: (value) => _onChangeSearch(value)),
+                Text(
+                  appLocalizations.district,
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x6,
+                  ),
                 ),
                 SizedBox(
                   height: height * 0.4,
                   child: ListView.builder(
                     controller: controller,
-                    itemCount: state.stationeries.length,
+                    itemCount: state.districts.length,
                     itemBuilder: (context, index) => GestureDetector(
-                      onTap: () => setOnChange(
-                        stationery: state.stationeries[index],
+                      onTap: () => addAddress(
+                        address: state.districts[index],
                       ),
                       child: Container(
                         padding: const EdgeInsets.all(SpacingUnit.x2),
                         margin: const EdgeInsets.all(SpacingUnit.x2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                          color: CustomsColor.colorBackground,
                           border: Border.all(
                             color: colors.text,
                             width: 1,
@@ -85,7 +90,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
                               ),
                             ),
                             Text(
-                              state.stationeries[index].product ?? "",
+                              state.districts[index].name ?? "",
                               style: TextStyle(
                                 color: colors.text,
                                 fontSize: SpacingUnit.x3,
@@ -105,37 +110,30 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
     );
   }
 
-  setOnChange({required Stationery stationery}) {
-    widget.onChange.call(stationery);
-    Navigator.of(context).pop();
-  }
-
-  _onChangeSearch(String value) {
-    setState(() {
-      searchStr = value;
-    });
-    dI<UserByNameBloc>().add(GetUserByNameEvent(page: 1, name: value));
-  }
-
   _scrollListener() {
     if (lengthList <= totalItems &&
-        status == StationeryStatus.getStationerySuccess &&
+        status == AddressStatus.getDistrictsSuccess &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
       });
-      dI<StationeryBloc>().add(GetStationeriesEvent(
-        name: searchStr ?? "",
+      dI<AddressBloc>().add(GetDistrictsEvent(
+        parentId: widget.parentId,
         page: pageIndex,
       ));
     }
   }
 
-  _listener(BuildContext context, StationeryState state) {
+  _listener(BuildContext context, AddressState state) {
     setState(() {
       status = state.status;
-      totalItems = state.countItem;
-      lengthList = state.stationeries.length;
+      totalItems = state.totalItemDistricts;
+      lengthList = state.districts.length;
     });
+  }
+
+  addAddress({required Address address}) {
+    widget.onChange.call(address);
+    Navigator.of(context).pop();
   }
 }

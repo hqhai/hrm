@@ -32,30 +32,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   FutureOr<void> _getUserInfo(GetUserInfo event, Emitter<UserState> emit) async {
-    emit(state.copyWith(status: UserStatus.getUserInfoInit));
+    emit(state.copyWith(status: UserStatus.init));
     try {
       User user = await userUseCase.getUserInfo();
-      emit(state.copyWith(user: user, status: UserStatus.getUserInfoSuccess));
+      emit(state.copyWith(user: user, status: UserStatus.success));
     } catch (e) {
       e as ResponseBase;
       if (e.statusCode == 401) {
-        emit(state.copyWith(status: UserStatus.getUserInfoErrorUnauthorized));
+        emit(state.copyWith(status: UserStatus.unauthorized));
       } else {
-        emit(state.copyWith(status: UserStatus.getUserInfoError));
+        emit(state.copyWith(status: UserStatus.fail));
       }
     }
   }
 
   FutureOr<void> _changePassword(ChangePasswordEvent event, Emitter<UserState> emit) async {
-    emit(state.copyWith(status: UserStatus.changePasswordInit));
+    emit(state.copyWith(status: UserStatus.init));
     try {
       bool checkChangePassword = await userUseCase.changePassword(
           newPassword: event.newPassword, currentPassword: event.currentPassword);
       checkChangePassword
-          ? emit(state.copyWith(status: UserStatus.changePasswordSuccess))
-          : emit(state.copyWith(status: UserStatus.changePasswordError));
+          ? emit(state.copyWith(status: UserStatus.success))
+          : emit(state.copyWith(status: UserStatus.fail));
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.changePasswordError));
+      emit(state.copyWith(status: UserStatus.fail));
     }
   }
 
@@ -65,41 +65,42 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   FutureOr<void> _forgotPasswordEvent(ForgotPasswordEvent event, Emitter<UserState> emit) async {
     emit(state.copyWith(
-      status: UserStatus.forgotPasswordInit,
+      status: UserStatus.init,
     ));
     try {
       String email = await userUseCase.forgotPassword(email: event.email);
-      emit(state.copyWith(email: email, status: UserStatus.forgotPasswordSuccess));
+      emit(state.copyWith(email: email, status: UserStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.forgotPasswordError));
+      emit(state.copyWith(status: UserStatus.fail));
     }
   }
 
   FutureOr<void> _deleteAccountEvent(DeleteAccountEvent event, Emitter<UserState> emit) async {
-    emit(state.copyWith(status: UserStatus.deleteAccountInit));
+    emit(state.copyWith(status: UserStatus.init));
     try {
       await userUseCase.deleteAccount();
-      emit(state.copyWith(status: UserStatus.deleteAccountSuccess));
+      emit(state.copyWith(status: UserStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.deleteAccountError));
+      emit(state.copyWith(status: UserStatus.fail));
     }
   }
 
   FutureOr<void> _updateProfileEvent(UpdateProfileEvent event, Emitter<UserState> emit) async {
-    emit(state.copyWith(status: UserStatus.updateProfileInit));
+    emit(state.copyWith(status: UserStatus.init));
     try {
       if (event.file.path != File('').path) {
         String path = await _requestUseCase.uploadFile(originFile: event.file, imageData: null);
         UpdateProfileRequest updateProfileRequest =
             event.updateProfileRequest.copyWith(avatarPath: path);
-        await userUseCase.updateProfile(updateProfileRequest: updateProfileRequest);
-        emit(state.copyWith(status: UserStatus.updateProfileSuccess));
+        User user = await userUseCase.updateProfile(updateProfileRequest: updateProfileRequest);
+        emit(state.copyWith(user: user, status: UserStatus.success));
       } else {
-        await userUseCase.updateProfile(updateProfileRequest: event.updateProfileRequest);
-        emit(state.copyWith(status: UserStatus.updateProfileSuccess));
+        User user =
+            await userUseCase.updateProfile(updateProfileRequest: event.updateProfileRequest);
+        emit(state.copyWith(user: user, status: UserStatus.success));
       }
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.updateProfileError));
+      emit(state.copyWith(status: UserStatus.fail));
     }
   }
 }

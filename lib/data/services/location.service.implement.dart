@@ -5,7 +5,6 @@ import 'package:base_app/common/configs/path_config.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/response.dart';
-import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/domain/services/location.service.dart';
 import 'package:injectable/injectable.dart';
 
@@ -22,12 +21,13 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<List<Address>> getAddress({required GetLocationRequest getLocationRequest}) async {
+  Future<GetLocationResponse> getAddress({required GetLocationRequest getLocationRequest}) async {
     final url = '$baseSystemGatewayUrl${PathConfig.location}';
     final params = getLocationRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    List<Address> addresses = GetLocationResponse.fromJson(responseBase.result).items;
+    final data = responseBase.result;
+    GetLocationResponse addresses = GetLocationResponse.fromJson(data);
     return addresses;
   }
 

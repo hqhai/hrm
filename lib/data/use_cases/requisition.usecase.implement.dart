@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
@@ -35,12 +36,12 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   }
 
   @override
-  Future<List<Flow>> getFlowByUser() async {
-    return await _requisitionRepository.getFlowByUser();
+  Future<FlowResponse> getFlowByUser({required int page}) async {
+    return await _requisitionRepository.getFlowByUser(page: page);
   }
 
   @override
-  Future<int> postRequest({required PostRequestRequest postRequestRequest}) async {
+  Future<Request> postRequest({required PostRequestRequest postRequestRequest}) async {
     return await _requisitionRepository.postRequest(postRequestRequest: postRequestRequest);
   }
 
@@ -51,7 +52,7 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   }
 
   @override
-  Future<Flow> getFlowById({required String id}) async {
+  Future<FlowRequest> getFlowById({required String id}) async {
     return await _requisitionRepository.getFlowById(id: id);
   }
 
@@ -94,7 +95,7 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   @override
   Future<RequestsResponse> getRequisitionsByFilter(
       {int? page,
-        String? type,
+        String? flowId,
         String? departmentId,
         String? startDate,
         String? endDate,
@@ -104,13 +105,13 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
       endDate: endDate,
       startDate: startDate,
       status: status,
-      type: type,
+      flowId: flowId,
       departmentId: departmentId,
     );
   }
 
   @override
-  Future<int> userRejectRequisitionById({required String id}) async {
+  Future<bool> userRejectRequisitionById({required String id}) async {
     return await _requisitionRepository.userRejectRequisitionById(id: id);
   }
 }

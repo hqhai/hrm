@@ -5,6 +5,7 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
@@ -34,13 +35,21 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
   }
 
+  bool checkListenWhen(UserStatus status, UserStatus status2) {
+    return status != status2;
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: BlocConsumer<UserBloc, UserState>(
-        listener: (context, state) => _listener(context, state),
+        listener: (context, state) => _listener(state.status),
+        listenWhen: (previous, current) => checkListenWhen(
+          previous.status,
+          current.status,
+        ),
         builder: (context, state) {
           return Container(
             padding:
@@ -79,23 +88,23 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           title2: appLocalizations.dateOfBirth,
                         ),
                         ItemContentProfile(
-                          content1: state.user.code ?? '',
-                          content2: formatDMY(state.user.dayOfBirth ?? ''),
+                          content1: state.user.code,
+                          content2: formatDMY(state.user.dayOfBirth),
                         ),
                         ItemTitleProfile(
                           title1: appLocalizations.companyEmail,
                           title2: appLocalizations.phoneNumber,
                         ),
                         ItemContentProfile(
-                            content1: state.user.companyEmail ?? "",
-                            content2: state.user.phoneNumber ?? ""),
+                            content1: state.user.companyEmail,
+                            content2: state.user.phoneNumber),
                         ItemTitleProfile(
                           title1: appLocalizations.gender,
                           title2: appLocalizations.address,
                         ),
                         ItemContentProfile(
-                          content1: state.user.gender?.configGenderName ?? "",
-                          content2: _setAddress(state),
+                          content1: state.user.gender.configGenderName,
+                          content2: _setAddress(state.user),
                         ),
                         ItemTitleProfile(
                           title1: appLocalizations.department,
@@ -126,26 +135,26 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     );
   }
 
-  _listener(BuildContext context, UserState state) {
-    if (state.status == UserStatus.updateProfileSuccess) {
+  _listener(UserStatus status) {
+    if (status == UserStatus.success) {
       dI<UserBloc>().add(const GetUserInfo());
     }
   }
 
-  String _setAddress(UserState state) {
+  String _setAddress(User user) {
     String? province = '', district = '', ward = '', address = '';
 
-    if(state.user.residentAddress != null){
-      address = "${state.user.residentAddress}";
+    if(user.residentAddress.isNotEmpty){
+      address = user.residentAddress;
     }
-    if(state.user.residentWard != null){
-      ward = "${state.user.residentWard}, ";
+    if(user.residentWard.isNotEmpty){
+      ward = "${user.residentWard}, ";
     }
-    if(state.user.residentDistrict != null){
-      district = "${state.user.residentDistrict}, ";
+    if(user.residentDistrict.isNotEmpty){
+      district = "${user.residentDistrict}, ";
     }
-    if(state.user.residentProvince != null){
-      province = "${state.user.residentDistrict}, ";
+    if(user.residentProvince.isNotEmpty){
+      province = "${user.residentDistrict}, ";
     }
     return province + district + ward + address;
   }

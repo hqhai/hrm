@@ -11,6 +11,7 @@ import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/address.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
@@ -23,7 +24,7 @@ import 'package:base_app/presentations/pages/profile/item_constant_update_profil
 import 'package:base_app/presentations/pages/profile/item_profile.dart';
 import 'package:base_app/presentations/pages/profile/item_vehicle_update_profile.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/update_profile_dialog.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
 import 'package:base_app/presentations/widgets/profile/item_text_title_profile.dart';
@@ -47,46 +48,34 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  String? dateOfBirth, phoneNumber, address, firstName, lastName, licensePlate, autoMaker;
+  String? phoneNumber, address, licensePlate, autoMaker;
   Address? province, ward, district;
+  String errorFirstName = '', errorLastName = '', firstName = '', lastName = '', dateOfBirth = '';
   File file = File('');
-  GenderEnum? gender = GenderEnum.male;
-  VehicleTypeEnum? vehicleType = VehicleTypeEnum.car;
+  GenderEnum gender = GenderEnum.male;
+  VehicleTypeEnum? vehicleType;
 
   @override
   void initState() {
+    User user = dI<UserBloc>().state.user;
+    dateOfBirth = user.dayOfBirth;
+    firstName = user.firstName;
+    lastName = user.lastName;
+    gender = user.gender;
     super.initState();
-    dI<UserBloc>().add(const GetUserInfo());
   }
 
   _listener(BuildContext context, UserState state) {
-    if (state.status == UserStatus.getUserInfoSuccess) {
-      setState(() {
-        dateOfBirth = state.user.dayOfBirth;
-        phoneNumber = state.user.phoneNumber;
-        firstName = state.user.firstName;
-        lastName = state.user.lastName;
-        province = Address(name: state.user.residentProvince, id: state.user.residentProvinceId);
-        ward = Address(name: state.user.residentWard, id: state.user.residentWardId);
-        district = Address(name: state.user.residentDistrict, id: state.user.residentDistrictId);
-        address = state.user.residentAddress;
-        vehicleType = state.user.vehicleType;
-        licensePlate = state.user.licensePlate;
-        autoMaker = state.user.autoMaker;
-      });
-    }
-    if (state.status == UserStatus.updateProfileInit) {
-      Navigator.of(context).pop();
-      progressIndicatorDialog(context);
-    }
-    if (state.status == UserStatus.updateProfileSuccess) {
-      Navigator.of(context).pop();
-      successDialog(context);
-    }
-    if (state.status == UserStatus.updateProfileError) {
+    Navigator.of(context).pop();
+    successDialog(context);
+  }
+
+  bool checkListenWhen(BuildContext context, UserState stateP, UserState stateC) {
+    if(stateC.status == UserStatus.fail && stateP.user != stateC.user){
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }
+    return stateP.user != stateC.user;
   }
 
   @override
@@ -97,6 +86,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       appBar: AppBar(),
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) => _listener(context, state),
+        listenWhen: (previous, current) => checkListenWhen(context,
+          previous,
+          current,
+        ),
         builder: (context, state) {
           return Container(
             padding:
@@ -131,42 +124,43 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ItemUpdateProfileConstant(
-                            title: appLocalizations.employeeCode, content: state.user.code ?? ''),
+                            title: appLocalizations.employeeCode, content: state.user.code),
                         ItemUpdateProfileConstant(
-                            title: appLocalizations.companyEmail,
-                            content: state.user.companyEmail ?? ''),
+                            title: appLocalizations.companyEmail, content: state.user.companyEmail),
                         ItemDateOfBirthUpdateProfile(
                           title: appLocalizations.dateOfBirth,
                           dateOfBirth: formatDMY(
-                            state.user.dayOfBirth ?? '',
+                            state.user.dayOfBirth,
                           ),
                           onChangeDateOfBirth: (value) => _setDateOfBirth(value),
                         ),
                         ItemInputUpdateProfile(
+                          error: errorFirstName,
                           title: appLocalizations.firstName,
-                          content: state.user.firstName ?? "",
+                          content: state.user.firstName,
                           onChange: (value) => _setFirstName(value),
                         ),
                         ItemInputUpdateProfile(
+                          error: errorLastName,
                           title: appLocalizations.lastName,
-                          content: state.user.lastName ?? "",
+                          content: state.user.lastName,
                           onChange: (value) => _setLastName(value),
                         ),
                         ItemInputUpdateProfile(
                           title: appLocalizations.phoneNumber,
-                          content: state.user.phoneNumber ?? "",
+                          content: state.user.phoneNumber,
                           onChange: (value) => _setPhoneNumber(value),
                         ),
                         ItemGenderUpdateProfile(
                             onChangeGender: (value) => _setGender(value),
-                            gender: state.user.gender ?? GenderEnum.male),
+                            gender: state.user.gender),
                         ItemAddressUpdateProfile(
                             onChangeProvince: (value) => _setProvince(value),
                             onChangeDistrict: (value) => _setDistrict(value),
                             onChangeWard: (value) => _setWard(value)),
                         ItemInputUpdateProfile(
                           title: appLocalizations.address,
-                          content: state.user.residentAddress ?? "",
+                          content: state.user.residentAddress,
                           onChange: (value) => _setAddress(value),
                         ),
                         ItemTitleProfile(
@@ -188,17 +182,17 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               : [],
                         ),
                         ItemVehicleUpdateProfile(
-                          vehicle: state.user.vehicleType ?? VehicleTypeEnum.car,
+                          vehicle: state.user.vehicleType,
                           onChangeVehicle: (value) => _onChangeVehicle(value),
                         ),
                         ItemInputUpdateProfile(
                           title: appLocalizations.licensePlate,
-                          content: state.user.licensePlate ?? "",
+                          content: state.user.licensePlate,
                           onChange: (value) => _setLicensePlate(value),
                         ),
                         ItemInputUpdateProfile(
                           title: appLocalizations.autoMaker,
-                          content: state.user.autoMaker ?? "",
+                          content: state.user.autoMaker,
                           onChange: (value) => _setAutoMaker(value),
                         ),
                       ],
@@ -209,9 +203,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            isCheckOnClick(state) ? colors.blue : colors.surfaceBright),
-                    onPressed: () => _updateProfile(context, state),
+                      backgroundColor: colors.blue,
+                    ),
+                    onPressed: () => _updateProfile(context, state.user),
                     child: Text(appLocalizations.update,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
                   ),
@@ -227,51 +221,107 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     );
   }
 
-  _updateProfile(BuildContext context, UserState state) {
+  String? setValueOnUpdateProfileRequest(String? value1, String value2) {
+    if (value1 == null && value2 == '') {
+      return value1;
+    } else if (value1 == null) {
+      return value2;
+    }
+    return value1;
+  }
+
+  String? setPath(String path) {
+    if (path == '') {
+      return null;
+    }
+    return path;
+  }
+
+  _updateProfile(BuildContext context, User user) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final UpdateProfileRequest updateProfileRequest = UpdateProfileRequest(
-      id: state.user.id,
-      firstName: firstName ?? state.user.firstName ?? "",
-      lastName: lastName ?? state.user.lastName ?? "",
-      dayOfBirth: dateOfBirth ?? state.user.dayOfBirth ?? "0001-01-01T00:00:00",
-      gender: gender?.name ?? state.user.gender?.name ?? "",
-      phoneNumber: phoneNumber ?? state.user.phoneNumber ?? "",
-      residentProvince: province?.name ?? state.user.residentProvince,
-      residentProvinceId: province?.id ?? state.user.residentProvinceId,
-      residentDistrict: district?.name ?? state.user.residentDistrict,
-      residentDistrictId: district?.id ?? state.user.residentDistrictId,
-      residentWard: ward?.name ?? state.user.residentWard,
-      residentWardId: ward?.id ?? state.user.residentWardId,
-      residentAddress: address ?? state.user.residentAddress,
-      avatarPath: state.user.avatarPath ?? "",
-      autoMaker: autoMaker ?? state.user.autoMaker ?? "",
-      licensePlate: licensePlate ?? state.user.licensePlate ?? "",
-      vehicleType: vehicleType?.name ?? state.user.vehicleType?.name ?? "",
+      id: user.id,
+      firstName: firstName,
+      lastName: lastName,
+      dayOfBirth: dateOfBirth,
+      gender: gender.name,
+      phoneNumber: setValueOnUpdateProfileRequest(
+        phoneNumber,
+        user.phoneNumber,
+      ),
+      residentProvince: setValueOnUpdateProfileRequest(
+        province?.name,
+        user.residentProvince,
+      ),
+      residentProvinceId: setValueOnUpdateProfileRequest(
+        province?.id,
+        user.residentProvinceId,
+      ),
+      residentDistrict: setValueOnUpdateProfileRequest(
+        district?.name,
+        user.residentDistrict,
+      ),
+      residentDistrictId: setValueOnUpdateProfileRequest(
+        district?.id,
+        user.residentDistrictId,
+      ),
+      residentWard: setValueOnUpdateProfileRequest(
+        ward?.name,
+        user.residentWard,
+      ),
+      residentWardId: setValueOnUpdateProfileRequest(
+        ward?.id,
+        user.residentWardId,
+      ),
+      residentAddress: setValueOnUpdateProfileRequest(address, user.residentAddress),
+      avatarPath: setPath(user.avatarPath),
+      autoMaker: setValueOnUpdateProfileRequest(
+        autoMaker,
+        user.autoMaker,
+      ),
+      licensePlate: setValueOnUpdateProfileRequest(
+        licensePlate,
+        user.licensePlate,
+      ),
+      vehicleType: setValueOnUpdateProfileRequest(
+        vehicleType?.name,
+        user.vehicleType.name,
+      ),
     );
-    if (isCheckOnClick(state)) {
-      updateProfileDialog(
-        context,
-        () => dI<UserBloc>()
-            .add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest, file: file)),
-      );
+    setState(() {
+      if (firstName == '') {
+        errorFirstName = appLocalizations.cannotBeLeftBlank;
+      }
+      if (lastName == '') {
+        errorLastName = appLocalizations.cannotBeLeftBlank;
+      }
+    });
+    if (isCheckOnClick(user)) {
+      updateProfileDialog(context, () {
+        dI<UserBloc>()
+            .add(UpdateProfileEvent(updateProfileRequest: updateProfileRequest, file: file));
+        Navigator.of(context).pop();
+        progressIndicatorDialog(context);
+      });
     }
   }
 
-  bool isCheckOnClick(UserState state) {
+  bool isCheckOnClick(User user) {
     RegExp regExpPhoneNumber = RegExp(checkPhoneNumberRegexExp);
-    bool checkChange = firstName == state.user.firstName &&
-        lastName == state.user.lastName &&
-        dateOfBirth == state.user.dayOfBirth &&
-        phoneNumber == state.user.phoneNumber &&
-        province?.id == state.user.residentProvinceId &&
-        ward?.id == state.user.residentWardId &&
-        district?.id == state.user.residentDistrictId &&
-        address == state.user.residentAddress &&
-        gender == state.user.gender &&
+    bool checkChange = firstName == user.firstName &&
+        lastName == user.lastName &&
+        dateOfBirth == user.dayOfBirth &&
+        gender == user.gender &&
+        phoneNumber == null &&
+        province == null &&
+        ward == null &&
+        district == null &&
+        address == null &&
         file.path == '' &&
-        autoMaker == state.user.autoMaker &&
-        licensePlate == state.user.licensePlate &&
-        vehicleType == state.user.vehicleType;
-    bool check = regExpPhoneNumber.hasMatch(phoneNumber ?? "") &&
+        autoMaker == null &&
+        licensePlate == null &&
+        vehicleType == null;
+    bool check = (regExpPhoneNumber.hasMatch(phoneNumber ?? "") || phoneNumber == null) &&
         firstName != '' &&
         lastName != '' &&
         dateOfBirth != '' &&

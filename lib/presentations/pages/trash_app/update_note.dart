@@ -9,7 +9,7 @@ import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
-import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

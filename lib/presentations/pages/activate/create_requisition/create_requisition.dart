@@ -1,8 +1,10 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/flow_enum.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
@@ -11,6 +13,7 @@ import 'package:base_app/presentations/widgets/activate/item_activate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 final createRequestPageRoute = GoRoute(
@@ -27,10 +30,36 @@ class CreateRequestPage extends StatefulWidget {
 }
 
 class _CreateRequestPageState extends State<CreateRequestPage> {
+  late ScrollController controller;
+  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  FlowStatusEnum status = FlowStatusEnum.getFlowsInit;
+
   @override
   void initState() {
     dI<FlowBloc>().add(const GetFlowsEvent());
+    controller = ScrollController()..addListener(_scrollListener);
     super.initState();
+  }
+
+  _scrollListener() {
+    if (lengthList <= totalItems &&
+        status == FlowStatusEnum.getFlowsSuccess &&
+        controller.position.extentAfter < totalItems) {
+      setState(() {
+        pageIndex++;
+      });
+      dI<FlowBloc>().add(GetFlowsEvent(
+        page: pageIndex,
+      ));
+    }
+  }
+
+  _listener(BuildContext context, FlowState state) {
+    setState(() {
+      status = state.status;
+      totalItems = state.totalItems;
+      lengthList = state.flows.length;
+    });
   }
 
   @override
@@ -49,7 +78,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           ),
         ),
       ),
-      body: BlocBuilder<FlowBloc, FlowState>(
+      body: BlocConsumer<FlowBloc, FlowState>(
+        listener: (context, state) => _listener(context, state),
         builder: (context, state) {
           return SingleChildScrollView(
             child: Container(
@@ -58,8 +88,9 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
               color: colors.surface,
               padding: const EdgeInsets.all(SpacingUnit.x4),
               margin: const EdgeInsets.all(SpacingUnit.x4),
-              child: state.flows.isNotEmpty
+              child: state.status == FlowStatusEnum.getFlowsSuccess
                   ? ListView.builder(
+                      controller: controller,
                       itemCount: state.flows.length,
                       itemBuilder: (context, index) => ItemActivateWidget(
                         title: _setTitle(context, state, index),
@@ -67,12 +98,11 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                       ),
                     )
                   : Center(
-                      child: Text(
-                        appLocalizations.noBrowsingFlowYet,
-                        style: TextStyle(
-                          fontSize: SpacingUnit.x6,
-                          color: colors.text,
-                        ),
+                      child: SizedBox(
+                        height: SpacingUnit.x50,
+                        width: SpacingUnit.x50,
+                        child: Lottie.asset(Assets.images.icon.loading,
+                            width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
                       ),
                     ),
             ),
@@ -83,7 +113,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
   }
 
   String _setTitle(BuildContext context, FlowState state, int index) {
-    return state.flows[index].flowType?.configTypeName ?? "";
+    return state.flows[index].name??"";
   }
 
   _nextScreen(BuildContext context, FlowState state, int index) {

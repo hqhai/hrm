@@ -1,5 +1,4 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
@@ -7,8 +6,6 @@ import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
-import 'package:base_app/presentations/bloc/request/request/request_bloc.dart';
-import 'package:base_app/presentations/bloc/request/request/request_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
@@ -100,45 +97,33 @@ class _BodyCalendarState extends State<BodyCalendar> {
         id: dI<UserBloc>().state.user.id, month: widget.month, year: widget.year));
   }
 
-  _listener(BuildContext context, RequestState state) {
-    if (state.status == RequestStatus.createRequestSuccess) {
-      dI<AttendanceBloc>().add(GetAttendanceEvent(
-          id: dI<UserBloc>().state.user.id, month: widget.month, year: widget.year));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RequestBloc, RequestState>(
-      listener: (context, state) {
-        _listener(context, state);
-      },
-      child: BlocBuilder<AttendanceBloc, AttendanceState>(
-        builder: (context, state) {
-          return Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 3),
-                width: MediaQuery.sizeOf(context).width,
-                height: widget.listDate.length < 42
-                    ? MediaQuery.sizeOf(context).width * 4.7 / 7
-                    : MediaQuery.sizeOf(context).width * 6 / 7,
-                child: GridView.builder(
-                  itemCount: widget.listDate.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 7,
-                    mainAxisSpacing: 1,
-                    crossAxisSpacing: 1,
-                  ),
-                  itemBuilder: (context, index) {
-                    return _item(context, index, state);
-                  },
+    return BlocBuilder<AttendanceBloc, AttendanceState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              width: MediaQuery.sizeOf(context).width,
+              height: widget.listDate.length < 42
+                  ? MediaQuery.sizeOf(context).width * 4.7 / 7
+                  : MediaQuery.sizeOf(context).width * 6 / 7,
+              child: GridView.builder(
+                itemCount: widget.listDate.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 7,
+                  mainAxisSpacing: 1,
+                  crossAxisSpacing: 1,
                 ),
+                itemBuilder: (context, index) {
+                  return _item(context, index, state);
+                },
               ),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        );
+      },
     );
   }
 

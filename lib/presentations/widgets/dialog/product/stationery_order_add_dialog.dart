@@ -7,8 +7,8 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_dialog.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_into_money.dart';
-import 'package:base_app/presentations/widgets/dialog/bottom_sheet_stationery.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_stationery.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 

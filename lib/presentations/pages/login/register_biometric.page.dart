@@ -9,7 +9,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
-import 'package:base_app/presentations/widgets/dialog/biometric_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/biometric/biometric_dialog.dart';
 import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

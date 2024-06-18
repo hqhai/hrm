@@ -9,7 +9,6 @@ import 'package:base_app/presentations/bloc/department/department_bloc.dart';
 import 'package:base_app/presentations/bloc/department/department_event.dart';
 import 'package:base_app/presentations/bloc/department/department_state.dart';
 import 'package:base_app/presentations/bloc/personnel/personnel_bloc.dart';
-import 'package:base_app/presentations/bloc/personnel/personnel_event.dart';
 import 'package:base_app/presentations/bloc/personnel/personnel_state.dart';
 import 'package:base_app/presentations/bloc/position/position_bloc.dart';
 import 'package:base_app/presentations/bloc/position/position_event.dart';
@@ -19,13 +18,11 @@ import 'package:base_app/presentations/widgets/admin/position/item_dropdown_posi
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:base_app/presentations/widgets/custom/work_time.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 import 'package:widgets/app_input.dart';
 
@@ -279,7 +276,7 @@ class _CreatePersonnelWidgetState extends State<CreatePersonnelWidget> {
     return firstName != '' && lastName != '' && email != '';
   }
 
-  List<String> _departmentId(DepartmentState state) {
+  /*List<String> _departmentId(DepartmentState state) {
     List<String> listDepartment = departmentName
         .map((name) => state.departments
             .firstWhere((element) => element.name.toString() == name.toString())
@@ -294,55 +291,18 @@ class _CreatePersonnelWidgetState extends State<CreatePersonnelWidget> {
             state.positions.firstWhere((element) => element.name.toString() == name.toString()).id)
         .toList();
     return listPosition;
-  }
+  }*/
 
-  int _timeToSeconds(String time) {
+  /*int _timeToSeconds(String time) {
     DateFormat format = DateFormat('HH:mm:ss');
     DateTime t1 = format.parse(time);
     DateTime t2 = format.parse("00:00:00");
     return t1.difference(t2).inSeconds;
-  }
+  }*/
 
   _createDialog(BuildContext context, PositionState stateP, DepartmentState stateD) {
-    final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
-      createDialog(
-        context,
-        appLocalizations.doYouWantToCreatePersonnel,
-        () => !isWorkTime
-            ? dI<PersonnelBloc>().add(
-                CreatePersonnelEvent(
-                  code: codeController.text,
-                  firstName: firstNameController.text,
-                  lastName: lastNameController.text,
-                  email: emailController.text,
-                  phoneNumber: phoneNumberController.text == '' ? null : phoneNumberController.text,
-                  attendanceId:
-                      attendanceIdController.text == '' ? null : attendanceIdController.text,
-                  startDate: startDate,
-                  departmentId: _departmentId(stateD),
-                  positionId: _positionId(stateP),
-                ),
-              )
-            : dI<PersonnelBloc>().add(
-                CreatePersonnelEvent(
-                  code: codeController.text,
-                  firstName: firstNameController.text,
-                  lastName: lastNameController.text,
-                  email: emailController.text,
-                  phoneNumber: phoneNumberController.text == '' ? null : phoneNumberController.text,
-                  attendanceId:
-                      attendanceIdController.text == '' ? null : attendanceIdController.text,
-                  startDate: startDate,
-                  departmentId: _departmentId(stateD),
-                  positionId: _positionId(stateP),
-                  morningStartTime: _timeToSeconds(morningStartTime),
-                  morningEndTime: _timeToSeconds(morningEndTime),
-                  afternoonEndTime: _timeToSeconds(afternoonEndTime),
-                  afternoonStartTime: _timeToSeconds(afternoonStartTime),
-                ),
-              ),
-      );
+
     }
   }
 

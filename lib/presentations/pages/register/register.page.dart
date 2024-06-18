@@ -10,7 +10,7 @@ import 'package:base_app/presentations/bloc/register/register_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/register/dots_indicator.dart';
 import 'package:base_app/presentations/widgets/register/register_email_widget.dart';
 import 'package:base_app/presentations/widgets/register/register_gender_date_of_birth_widget.dart';

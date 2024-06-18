@@ -15,7 +15,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/pages/activate/requisition/item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition/popup_menu_requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition/wrap_filter.dart';
-import 'package:base_app/presentations/widgets/dialog/filter_requisition_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/filter_request_self_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -62,7 +62,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       });
       dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
         listStatusRequisition: listStatusFilter,
-        requisitionTypeEnum: filterData.type,
+        flowId: filterData.flowId,
         startTime: filterData.startTime,
         endTime: filterData.endTime,
         page: pageIndex,
@@ -77,7 +77,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     });
     dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
       listStatusRequisition: listStatusFilter,
-      requisitionTypeEnum: filterData.type,
+      flowId: filterData.flowId,
       startTime: filterData.startTime,
       endTime: filterData.endTime,
       page: 1,
@@ -238,7 +238,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       dI<RequisitionBloc>().add(
         GetRequisitionsByFilterEvent(
           listStatusRequisition: listStatusFilter,
-          requisitionTypeEnum: filterData.type,
+          flowId: filterData.flowId,
           startTime: filterData.startTime,
           endTime: filterData.endTime,
           page: 1,
@@ -260,7 +260,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     });
     dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
       listStatusRequisition: listStatusFilter,
-      requisitionTypeEnum: filterData.type,
+      flowId: filterData.flowId,
       startTime: filterData.startTime,
       endTime: filterData.endTime,
       page: 1,
@@ -272,7 +272,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          child: FilterRequisitionDialog(
+          child: FilterRequestSelfDialog(
             sendData: (value) => setlLstFilter(value),
           ),
         );

@@ -1,8 +1,8 @@
 import 'package:base_app/data/models/location/get_location_request.dart';
-import 'package:base_app/domain/entities/address.dart';
+import 'package:base_app/data/models/location/get_location_response.dart';
 
 abstract class LocationService {
-  Future<List<Address>> getAddress({
+  Future<GetLocationResponse> getAddress({
     required GetLocationRequest getLocationRequest,
   });
 }

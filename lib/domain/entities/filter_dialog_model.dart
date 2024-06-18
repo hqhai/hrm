@@ -7,6 +7,7 @@ part 'filter_dialog_model.g.dart';
 @CopyWith()
 @JsonSerializable()
 class FilterDialogModel {
+  final String? flowId;
   final RequisitionTypeEnum? type;
   final Department? department;
   final String? startTime;
@@ -14,6 +15,7 @@ class FilterDialogModel {
   final List<StatusRequestEnum>? statuses;
 
   const FilterDialogModel({
+    this.flowId,
     this.type,
     this.startTime,
     this.endTime,

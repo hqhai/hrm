@@ -99,7 +99,7 @@ class RequisitionInformationGeneraliInformation extends StatelessWidget {
                               child: ListView.builder(
                                 itemCount: stateUserById.userById.length,
                                 itemBuilder: (context, index) => Text(
-                                  stateUserById.userById[index].fullName ?? "",
+                                  stateUserById.userById[index].fullName,
                                   style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                                 ),
                               ),

@@ -20,9 +20,9 @@ import 'package:base_app/presentations/widgets/activate/requisition_infor_item/r
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_general_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_sender_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_type.dart';
-import 'package:base_app/presentations/widgets/dialog/note_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

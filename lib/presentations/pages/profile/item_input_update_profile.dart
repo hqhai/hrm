@@ -4,20 +4,21 @@ import 'package:themes/themes.dart';
 import 'package:widgets/app_input.dart';
 
 class ItemInputUpdateProfile extends StatefulWidget {
-  const ItemInputUpdateProfile({
-    super.key,
-    this.title= '',
-    this.content = '',
-    required this.onChange,
-  });
-
+  final String? error;
   final ValueChanged<String> onChange;
   final String content;
   final String title;
 
+  const ItemInputUpdateProfile({
+    super.key,
+    this.title = '',
+    this.content = '',
+    required this.onChange,
+    this.error,
+  });
+
   @override
-  State<ItemInputUpdateProfile> createState() =>
-      _ItemInputUpdateProfileState();
+  State<ItemInputUpdateProfile> createState() => _ItemInputUpdateProfileState();
 }
 
 class _ItemInputUpdateProfileState extends State<ItemInputUpdateProfile> {
@@ -37,7 +38,7 @@ class _ItemInputUpdateProfileState extends State<ItemInputUpdateProfile> {
       children: [
         Text(
           widget.title,
-          style: TextStyle(color: colors.tertiary, fontSize: SpacingUnit.x4),
+          style: TextStyle(color: colors.text,  fontSize: SpacingUnit.x4),
         ),
         const SizedBox(
           height: SpacingUnit.x3,
@@ -50,6 +51,14 @@ class _ItemInputUpdateProfileState extends State<ItemInputUpdateProfile> {
         const SizedBox(
           height: SpacingUnit.x3,
         ),
+        if (widget.error?.isNotEmpty ?? false)
+          Padding(
+            padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+            child: Text(
+              widget.error ?? "",
+              style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3),
+            ),
+          ),
       ],
     );
   }
