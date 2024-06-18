@@ -158,6 +158,9 @@ enum BiometricEnum {
 
 enum RequisitionEnum {
   init,
+  start,
+  success,
+  fail,
   getRequisitionInit,
   getRequisitionSuccess,
   getRequisitionError,

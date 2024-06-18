@@ -264,7 +264,6 @@
   "timeHasBeenRequestedInAdvance": "Thời gian đã xin nghỉ trước",
   "workDay": "Ngày công",
   "annualLeave": "Phép năm",
-  "compensatoryLeave": "Nghỉ bù",
   "sickLeave": "Nghỉ bệnh",
   "intervalOnLeave": "Thời gian nghỉ",
   "substitute": "Người giải quyết công việc thay trong thời gian nghỉ",
@@ -324,5 +323,9 @@
   "thereAreCurrentlyNoProducts": "Hiện tại không có sản phẩm nào",
   "removeFilter": "Xóa bộ lọc",
   "paymentAfterTax": "Thanh toán sau thuế",
-  "intoMoneyNoVAT": "Thành tiền chưa VAT"
+  "intoMoneyNoVAT": "Thành tiền chưa VAT",
+  "yearlyAndSeniorityLeave": "Nghỉ phép năm",
+  "compensatoryLeave": "Nghỉ bù",
+  "otherLeave": "Nghỉ phép khác",
+  "unpaidLeave": "Nghỉ không lương"
 }

@@ -800,9 +800,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get annualLeave => 'Phép năm';
 
   @override
-  String get compensatoryLeave => 'Nghỉ bù';
-
-  @override
   String get sickLeave => 'Nghỉ bệnh';
 
   @override
@@ -981,4 +978,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get intoMoneyNoVAT => 'Thành tiền chưa VAT';
+
+  @override
+  String get yearlyAndSeniorityLeave => 'Nghỉ phép năm';
+
+  @override
+  String get compensatoryLeave => 'Nghỉ bù';
+
+  @override
+  String get otherLeave => 'Nghỉ phép khác';
+
+  @override
+  String get unpaidLeave => 'Nghỉ không lương';
 }

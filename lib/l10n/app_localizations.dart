@@ -1683,12 +1683,6 @@ abstract class AppLocalizations {
   /// **'Annual leave'**
   String get annualLeave;
 
-  /// No description provided for @compensatoryLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Compensatory leave'**
-  String get compensatoryLeave;
-
   /// No description provided for @sickLeave.
   ///
   /// In en, this message translates to:
@@ -2048,6 +2042,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Into money (excluding VAT)'**
   String get intoMoneyNoVAT;
+
+  /// No description provided for @yearlyAndSeniorityLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly and seniority leave'**
+  String get yearlyAndSeniorityLeave;
+
+  /// No description provided for @compensatoryLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Compensatory leave'**
+  String get compensatoryLeave;
+
+  /// No description provided for @otherLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Other leave'**
+  String get otherLeave;
+
+  /// No description provided for @unpaidLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid leave'**
+  String get unpaidLeave;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

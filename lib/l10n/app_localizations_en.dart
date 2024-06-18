@@ -800,9 +800,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get annualLeave => 'Annual leave';
 
   @override
-  String get compensatoryLeave => 'Compensatory leave';
-
-  @override
   String get sickLeave => 'Sick leave';
 
   @override
@@ -981,4 +978,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get intoMoneyNoVAT => 'Into money (excluding VAT)';
+
+  @override
+  String get yearlyAndSeniorityLeave => 'Yearly and seniority leave';
+
+  @override
+  String get compensatoryLeave => 'Compensatory leave';
+
+  @override
+  String get otherLeave => 'Other leave';
+
+  @override
+  String get unpaidLeave => 'Unpaid leave';
 }

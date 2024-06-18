@@ -125,7 +125,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           'flowId': state.flows[index].id,
         },
       );
-    } else if (state.flows[index].flowType == RequisitionTypeEnum.takeLeave) {
+    } else if (state.flows[index].flowType == RequisitionTypeEnum.lateArrival) {
       dI<AppNavigation>().pushName(
         context,
         page: Pages.createRequestLeavePage,

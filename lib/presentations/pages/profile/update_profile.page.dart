@@ -71,7 +71,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   bool checkListenWhen(BuildContext context, UserState stateP, UserState stateC) {
-    if(stateC.status == UserStatus.fail && stateP.user != stateC.user){
+    if (stateC.status == UserStatus.fail && stateP.user != stateC.user) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
     }
@@ -86,7 +86,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       appBar: AppBar(),
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) => _listener(context, state),
-        listenWhen: (previous, current) => checkListenWhen(context,
+        listenWhen: (previous, current) => checkListenWhen(
+          context,
           previous,
           current,
         ),
@@ -155,6 +156,11 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             onChangeGender: (value) => _setGender(value),
                             gender: state.user.gender),
                         ItemAddressUpdateProfile(
+                            province: Address(
+                                id: state.user.originProvinceId, name: state.user.originProvince),
+                            district: Address(
+                                id: state.user.originDistrictId, name: state.user.originDistrict),
+                            ward: Address(id: state.user.originWardId, name: state.user.originWard),
                             onChangeProvince: (value) => _setProvince(value),
                             onChangeDistrict: (value) => _setDistrict(value),
                             onChangeWard: (value) => _setWard(value)),

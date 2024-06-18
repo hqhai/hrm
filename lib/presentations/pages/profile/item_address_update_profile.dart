@@ -16,9 +16,13 @@ class ItemAddressUpdateProfile extends StatefulWidget {
     required this.onChangeProvince,
     required this.onChangeDistrict,
     required this.onChangeWard,
+    this.district = const Address(),
+    this.ward = const Address(),
+    this.province = const Address(),
   });
 
   final ValueChanged<Address> onChangeProvince, onChangeDistrict, onChangeWard;
+  final Address province, district, ward;
 
   @override
   State<ItemAddressUpdateProfile> createState() => _ItemAddressUpdateProfileState();
@@ -29,6 +33,9 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
 
   @override
   void initState() {
+    province = widget.province;
+    district = widget.district;
+    ward = widget.ward;
     super.initState();
   }
 
