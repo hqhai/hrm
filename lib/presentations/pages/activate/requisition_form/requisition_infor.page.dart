@@ -67,16 +67,10 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
 
   _listener(BuildContext context, RequisitionState state) {
     dI<FlowBloc>().add(GetFlowEvent(id: state.requisition.flowId));
-    dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
-    dI<UserByIdBloc>().add(
-      GetUsersByIdEvent(
-        ids: state.requisition.followerIds,
-      ),
-    );
     if (state.requisition.config.subtitudePersons?.isNotEmpty ?? false) {
       dI<UserByIdBloc>().add(
         GetSubtitudePersonsByIdEvent(
-          ids: state.requisition.followerIds,
+          ids: state.requisition.config.subtitudePersons ?? [],
         ),
       );
     }
@@ -132,7 +126,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const RequisitionInformationSenderInformation(),
-                        const RequisitionInformationGeneraliInformation(),
+                        RequisitionInformationGeneraliInformation(
+                            followerIds: state.requisition.followerIds),
                         const RequisitionInformationType(),
                         const RequisitionInformationContent(),
                         const RequisitionInformationAttach(),

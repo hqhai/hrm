@@ -21,24 +21,43 @@ class RequisitionInformationType extends StatelessWidget {
       builder: (context, stateRequisition) {
         return BlocBuilder<FlowBloc, FlowState>(
           builder: (context, state) {
-            if (state.flow.flowType == RequisitionTypeEnum.bussiness) {
-              return const RequisitionInformationContentTypeBusinessTrip();
-            } else if (state.flow.flowType == RequisitionTypeEnum.vehicleDriver) {
-              return const RequisitionInformationContentTypeVehicleDispatch();
-            } else if (state.flow.flowType == RequisitionTypeEnum.postalDelivery) {
-              return const RequisitionInformationContentTypePostalDeliveryService();
-            } else if (state.flow.flowType == RequisitionTypeEnum.explanation) {
-              return const RequisitionInformationContentTypeExplanation();
-            } else if (state.flow.flowType == RequisitionTypeEnum.warehouseReleased) {
-              return const RequisitionInformationContentTypeWarehouseReleaseds();
-            }else if (state.flow.flowType == RequisitionTypeEnum.stationery) {
-              return const RequisitionInformationContentTypeStationeries();
-            } else {
-              return Container();
-            }
+            return inFlowType(state.flow.flowType);
           },
         );
       },
     );
+  }
+}
+
+Widget inFlowType(RequisitionTypeEnum? type) {
+  switch (type) {
+    case RequisitionTypeEnum.yearlyAndSeniorityLeave:
+      return Container();
+    case RequisitionTypeEnum.compensatoryLeave:
+      return Container();
+    case RequisitionTypeEnum.otherLeave:
+      return Container();
+    case RequisitionTypeEnum.unpaidLeave:
+      return Container();
+    case RequisitionTypeEnum.lateArrival:
+      return Container();
+    case RequisitionTypeEnum.earlyDeparture:
+      return Container();
+    case RequisitionTypeEnum.bussiness:
+      return const RequisitionInformationContentTypeBusinessTrip();
+    case RequisitionTypeEnum.overTime:
+      return Container();
+    case RequisitionTypeEnum.vehicleDriver:
+      return const RequisitionInformationContentTypeVehicleDispatch();
+    case RequisitionTypeEnum.postalDelivery:
+      return const RequisitionInformationContentTypePostalDeliveryService();
+    case RequisitionTypeEnum.warehouseReleased:
+      return const RequisitionInformationContentTypeWarehouseReleaseds();
+    case RequisitionTypeEnum.stationery:
+      return const RequisitionInformationContentTypeStationeries();
+    case RequisitionTypeEnum.explanation:
+      return const RequisitionInformationContentTypeExplanation();
+    case null:
+      return Container();
   }
 }

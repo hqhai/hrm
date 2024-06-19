@@ -198,7 +198,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   }
 
   _save(BuildContext context) {
-    if (_checkValue(context)) {
+    if (_checkValue(context) && widget.requestId == null) {
       progressIndicatorDialog(context);
       Completer completer = Completer();
       dI<RequisitionBloc>().add(
@@ -222,6 +222,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       );
       completer.future;
       Navigator.of(context).pop();
+    } else if(_checkValue(context) && widget.requestId != null){
+
     }
   }
 
