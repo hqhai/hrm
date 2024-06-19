@@ -33,7 +33,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
   bool checkOpacity = false;
   var random = Random();
   FilterDialogModel filterData = const FilterDialogModel();
-  String status = '';
+  String? status;
 
   @override
   void initState() {
@@ -131,6 +131,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
     });
     dI<RequisitionApproveBloc>().add(GetRequisitionsApproveByFilterEvent(
       page: 1,
+      status: status,
       departmentId: value.department?.id,
       startTime: value.startTime,
       endTime: value.endTime,
@@ -158,11 +159,12 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
       });
       dI<RequisitionApproveBloc>().add(
         GetRequisitionsApproveByFilterEvent(
-            page: 1,
-            departmentId: filterData.department?.id,
-            startTime: filterData.startTime,
-            endTime: filterData.endTime,
-            requisitionTypeEnum: filterData.type,
+          page: 1,
+          status: status,
+          departmentId: filterData.department?.id,
+          startTime: filterData.startTime,
+          endTime: filterData.endTime,
+          requisitionTypeEnum: filterData.type,
         ),
       );
     }

@@ -80,9 +80,12 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
 
   _listener(BuildContext context, RequisitionState state) {
     if (state.statusGetById == RequisitionEnum.success) {
-      followers = state.requisition.followerIds;
-      listRequisitionStationery = state.requisition.config.stationeries ?? [];
-      month = state.requisition.config.startDate ?? "";
+      setState(() {
+        followers = state.requisition.followerIds;
+        listRequisitionStationery = state.requisition.config.stationeries ?? [];
+        month = state.requisition.config.description ?? "";
+      });
+
     }
 
     if (state.statusPost == RequisitionEnum.success) {
