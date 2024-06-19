@@ -5,7 +5,6 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
@@ -69,8 +68,10 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
   _listener(BuildContext context, RequisitionApproveState state) {
     setState(() {
       status = state.statusGet;
+      totalItems = state.countItem;
+      lengthList = state.requisitions.length;
     });
-    if(dI<AppNavigation>().isCurrentPage(Pages.requisitionApproveListPage)){
+    if (dI<AppNavigation>().isCurrentPage(Pages.requisitionApproveListPage)) {
       if (state.statusApprove == RequisitionEnum.success) {
         successDialog(context);
       }
@@ -78,7 +79,6 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
         unsuccessfulDialog(context);
       }
     }
-
   }
 
   @override
@@ -86,12 +86,12 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
     final height = MediaQuery.sizeOf(context).height;
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => _listenWhen(previous.requisitions, current.requisitions),
+      listenWhen: (previous, current) => _listenWhen(previous.statusApprove, current.statusApprove),
       builder: (context, state) {
         return SingleChildScrollView(
           child: SizedBox(
             height: height * 0.7,
-            child: state.statusGet == RequisitionEnum.init
+            child: state.statusGet == RequisitionEnum.init && state.requisitions.isEmpty
                 ? Center(
                     child: SizedBox(
                       height: SpacingUnit.x50,
@@ -114,7 +114,7 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
     );
   }
 
-  bool _listenWhen(List<Request> requisitionsP, List<Request> requisitionsC) {
+  bool _listenWhen(RequisitionEnum requisitionsP, RequisitionEnum requisitionsC) {
     return requisitionsP != requisitionsC;
   }
 }

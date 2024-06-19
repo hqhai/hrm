@@ -33,7 +33,7 @@ class CreateRequestPage extends StatefulWidget {
 class _CreateRequestPageState extends State<CreateRequestPage> {
   late ScrollController controller;
   int pageIndex = 1, totalItems = 0, lengthList = 0;
-  FlowStatusEnum status = FlowStatusEnum.getFlowsInit;
+  FlowStatusEnum status = FlowStatusEnum.init;
 
   @override
   void initState() {
@@ -44,7 +44,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
 
   _scrollListener() {
     if (lengthList <= totalItems &&
-        status == FlowStatusEnum.getFlowsSuccess &&
+        status == FlowStatusEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
@@ -57,7 +57,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
 
   _listener(BuildContext context, FlowState state) {
     setState(() {
-      status = state.status;
+      status = state.statusGet;
       totalItems = state.totalItems;
       lengthList = state.flows.length;
     });
@@ -89,21 +89,20 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
               color: colors.surface,
               padding: const EdgeInsets.all(SpacingUnit.x4),
               margin: const EdgeInsets.all(SpacingUnit.x4),
-              child: state.status == FlowStatusEnum.getFlowsSuccess
-                  ? ListView.builder(
+              child: state.statusGet == FlowStatusEnum.init && state.flows.isEmpty
+                  ? Center(
+                      child: SizedBox(
+                      height: SpacingUnit.x50,
+                      width: SpacingUnit.x50,
+                      child: Lottie.asset(Assets.images.icon.loading,
+                          width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
+                    ))
+                  : ListView.builder(
                       controller: controller,
                       itemCount: state.flows.length,
                       itemBuilder: (context, index) => ItemActivateWidget(
                         title: _setTitle(context, state, index),
                         callback: () => _nextScreen(context, state.flows[index]),
-                      ),
-                    )
-                  : Center(
-                      child: SizedBox(
-                        height: SpacingUnit.x50,
-                        width: SpacingUnit.x50,
-                        child: Lottie.asset(Assets.images.icon.loading,
-                            width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
                       ),
                     ),
             ),
