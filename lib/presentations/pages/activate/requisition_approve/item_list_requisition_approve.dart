@@ -186,16 +186,17 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
         completer: completer,
       ),
     );
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final statusCompleter = await completer.future;
     if (statusCompleter == RequisitionEnum.success) {
-      if (!context.mounted) return;
-      Navigator.of(context).pop();
-      successDialog(context);
+      if (!currentContext.mounted) return;
+      Navigator.of(currentContext).pop();
+      successDialog(currentContext);
     }
     if (statusCompleter == RequisitionEnum.fail) {
-      if (!context.mounted) return;
-      Navigator.of(context).pop();
-      unsuccessfulDialog(context);
+      if (!currentContext.mounted) return;
+      Navigator.of(currentContext).pop();
+      unsuccessfulDialog(currentContext);
     }
   }
 }
