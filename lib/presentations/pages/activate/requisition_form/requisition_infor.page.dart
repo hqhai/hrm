@@ -231,7 +231,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
   _setApprove(String id, EnumStepRequestStatusEnum status) async {
     Navigator.of(context).pop();
     progressIndicatorDialog(context);
-    final Completer completer = Completer();
+    final Completer completer = Completer<RequisitionEnum>();
     dI<RequisitionApproveBloc>().add(
       ApproveRequestEvent(
         id: id,
@@ -241,8 +241,17 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
         completer: completer,
       ),
     );
-    completer.future;
-    Navigator.of(context).pop();
+    final statusCompleter = await completer.future;
+    if (statusCompleter == RequisitionEnum.success) {
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      successDialog(context);
+    }
+    if (statusCompleter == RequisitionEnum.fail) {
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      unsuccessfulDialog(context);
+    }
   }
 
   _listenerApprove(BuildContext context, RequisitionApproveState state) {

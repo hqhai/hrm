@@ -72,12 +72,6 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success) {}
-    if (state.statusPost == RequisitionEnum.success) {
-      successDialog(context);
-    } else if (state.statusPost == RequisitionEnum.fail) {
-      unsuccessfulDialog(context);
-    }
   }
 
   @override
@@ -207,10 +201,10 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _save(BuildContext context) {
+  _save(BuildContext context) async {
     if (_checkValue(context)) {
       progressIndicatorDialog(context);
-      Completer completer = Completer();
+      Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           completer: completer,
@@ -226,8 +220,17 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
           ),
         ),
       );
-      completer.future;
-      Navigator.of(context).pop();
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        successDialog(context);
+      }
+      if (status == RequisitionEnum.fail) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        unsuccessfulDialog(context);
+      }
     }
   }
 

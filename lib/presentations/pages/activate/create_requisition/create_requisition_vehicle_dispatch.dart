@@ -65,7 +65,6 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     super.initState();
   }
 
-
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     bool checkTime = totalMinute > 0;
@@ -183,17 +182,12 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.statusPost == RequisitionEnum.success) {
-      successDialog(context);
-    } else if (state.statusPost == RequisitionEnum.fail) {
-      unsuccessfulDialog(context);
-    }
   }
 
-  _save(BuildContext context) {
+  _save(BuildContext context) async {
     if (_checkValue(context)) {
       progressIndicatorDialog(context);
-      Completer completer = Completer();
+      Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           completer: completer,
@@ -210,8 +204,17 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
           ),
         ),
       );
-      completer.future;
-      Navigator.of(context).pop();
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        successDialog(context);
+      }
+      if (status == RequisitionEnum.fail) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        unsuccessfulDialog(context);
+      }
     }
   }
 

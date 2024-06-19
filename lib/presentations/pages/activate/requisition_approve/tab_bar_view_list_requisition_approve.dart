@@ -1,8 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -10,7 +8,6 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/item_list_requisition_approve.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -71,14 +68,6 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
       totalItems = state.countItem;
       lengthList = state.requisitions.length;
     });
-    if (dI<AppNavigation>().isCurrentPage(Pages.requisitionApproveListPage)) {
-      if (state.statusApprove == RequisitionEnum.success) {
-        successDialog(context);
-      }
-      if (state.statusApprove == RequisitionEnum.fail) {
-        unsuccessfulDialog(context);
-      }
-    }
   }
 
   @override
@@ -86,7 +75,7 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
     final height = MediaQuery.sizeOf(context).height;
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => _listenWhen(previous.statusApprove, current.statusApprove),
+      listenWhen: (previous, current) => _listenWhen(previous.statusGet, current.statusGet),
       builder: (context, state) {
         return SingleChildScrollView(
           child: SizedBox(
@@ -96,8 +85,12 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
                     child: SizedBox(
                       height: SpacingUnit.x50,
                       width: SpacingUnit.x50,
-                      child: Lottie.asset(Assets.images.icon.loading,
-                          width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
+                      child: Lottie.asset(
+                        Assets.images.icon.loading,
+                        width: SpacingUnit.x50,
+                        height: SpacingUnit.x50,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   )
                 : ListView.builder(

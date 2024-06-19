@@ -98,11 +98,6 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
         destination = state.requisition.config.endDate ?? "";
       });
     }
-    if (state.statusPost == RequisitionEnum.success) {
-      successDialog(context);
-    } else if (state.statusPost == RequisitionEnum.fail) {
-      unsuccessfulDialog(context);
-    }
   }
 
   @override
@@ -197,10 +192,10 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  _save(BuildContext context) {
+  _save(BuildContext context) async {
     if (_checkValue(context) && widget.requestId == null) {
       progressIndicatorDialog(context);
-      Completer completer = Completer();
+      Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           completer: completer,
@@ -220,11 +215,18 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
           ),
         ),
       );
-      completer.future;
-      Navigator.of(context).pop();
-    } else if(_checkValue(context) && widget.requestId != null){
-
-    }
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        successDialog(context);
+      }
+      if (status == RequisitionEnum.fail) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        unsuccessfulDialog(context);
+      }
+    } else if (_checkValue(context) && widget.requestId != null) {}
   }
 
   _cancel() {}

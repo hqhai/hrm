@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -16,6 +17,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/content_item_requisition_list.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
@@ -174,7 +176,7 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   _setApprove(String id, EnumStepRequestStatusEnum status) async {
     Navigator.of(context).pop();
     progressIndicatorDialog(context);
-    final Completer completer = Completer();
+    final Completer completer = Completer<RequisitionEnum>();
     dI<RequisitionApproveBloc>().add(
       ApproveRequestEvent(
         id: id,
@@ -184,7 +186,16 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
         completer: completer,
       ),
     );
-    completer.future;
-    Navigator.of(context).pop();
+    final statusCompleter = await completer.future;
+    if (statusCompleter == RequisitionEnum.success) {
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      successDialog(context);
+    }
+    if (statusCompleter == RequisitionEnum.fail) {
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      unsuccessfulDialog(context);
+    }
   }
 }

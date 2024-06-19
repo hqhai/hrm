@@ -85,13 +85,6 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
         listRequisitionStationery = state.requisition.config.stationeries ?? [];
         month = state.requisition.config.description ?? "";
       });
-
-    }
-
-    if (state.statusPost == RequisitionEnum.success) {
-      successDialog(context);
-    } else if (state.statusPost == RequisitionEnum.fail) {
-      unsuccessfulDialog(context);
     }
   }
 
@@ -256,10 +249,10 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     });
   }
 
-  _save(BuildContext context) {
+  _save(BuildContext context) async {
     if (_checkValue(context)) {
       progressIndicatorDialog(context);
-      Completer completer = Completer();
+      Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           completer: completer,
@@ -276,8 +269,17 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
           ),
         ),
       );
-      completer.future;
-      Navigator.of(context).pop();
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        successDialog(context);
+      }
+      if (status == RequisitionEnum.fail) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        unsuccessfulDialog(context);
+      }
     }
   }
 

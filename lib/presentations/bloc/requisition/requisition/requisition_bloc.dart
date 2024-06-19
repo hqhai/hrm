@@ -94,10 +94,10 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     try {
       await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
       emit(state.copyWith(statusPost: RequisitionEnum.success));
-      event.completer.complete();
+      event.completer.complete(RequisitionEnum.success);
     } catch (e) {
       emit(state.copyWith(statusPost: RequisitionEnum.fail));
-      event.completer.complete();
+      event.completer.complete(RequisitionEnum.fail);
     }
   }
 }

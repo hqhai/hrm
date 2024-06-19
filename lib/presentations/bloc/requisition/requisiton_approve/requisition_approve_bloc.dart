@@ -49,7 +49,6 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
           countItem: totalItems,
           statusGet: RequisitionEnum.success,
         ));
-
       } else {
         requests.addAll(newStationery);
         emit(state.copyWith(
@@ -78,17 +77,24 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
           id: event.id, status: event.status?.name ?? "", note: event.note ?? "");
       if (check) {
         final requests = [...state.requisitions];
-        int requestIndex = requests.indexWhere((element) => element.id == event.requestId);
+        int requestIndex = requests.indexWhere(
+          (element) => element.id == event.requestId,
+        );
         requests.removeAt(requestIndex);
-        emit(state.copyWith(requisitions: requests, statusApprove: RequisitionEnum.success));
-        event.completer.complete();
+        emit(
+          state.copyWith(
+            requisitions: requests,
+            statusApprove: RequisitionEnum.success,
+          ),
+        );
+        event.completer.complete(RequisitionEnum.success);
       } else {
         emit(state.copyWith(statusApprove: RequisitionEnum.fail));
-        event.completer.complete();
+        event.completer.complete(RequisitionEnum.success);
       }
     } catch (e) {
       emit(state.copyWith(statusApprove: RequisitionEnum.fail));
-      event.completer.complete();
+      event.completer.complete(RequisitionEnum.success);
     }
   }
 }
