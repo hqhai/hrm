@@ -33,8 +33,8 @@ class RequisitionFollowingBloc extends Bloc<RequisitionFollowingEvent, Requisiti
         startDate: event.startTime,
         endDate: event.endTime,
       );
-      final List<Request> newRequest = requestsResponse.requests;
-      final int totalItems = requestsResponse.totalItems;
+      final List<Request> newRequest = requestsResponse.items;
+      final int totalItems = requestsResponse.pagingInfo.totalItems;
       if (event.page != 1) {
         final List<Request> requests = [...state.requisitions];
         requests.addAll(newRequest);

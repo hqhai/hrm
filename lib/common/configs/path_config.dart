@@ -42,5 +42,6 @@ class PathConfig {
   static String getRequestFollower = '/request/get-request-follower';
   static String stepRequestApprover = '/step-request-approver';
   static String changeStatus = '/request/change-status';
+  static String editRequestEdit = '/request/edit-request-edit';
 
 }

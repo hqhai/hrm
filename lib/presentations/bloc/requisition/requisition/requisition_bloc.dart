@@ -22,29 +22,32 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     on<GetRequisitionByIdEvent>(_getRequisitionByIdEvent);
     on<PostRequestEvent>(_postRequestEvent);
     on<UserRejectRequestEvent>(_userRejectRequestEvent);
+    on<EditRequestEvent>(_editRequestEvent);
   }
 
+  //Reject request      ***********************************************
   FutureOr<void> _userRejectRequestEvent(
       UserRejectRequestEvent event, Emitter<RequisitionState> emit) async {
-    emit(state.copyWith(statusReject: RequisitionEnum.init));
+    emit(state.copyWith(status: RequisitionEnum.init));
     try {
       final int requestIndex = state.requisitions.indexWhere((element) => element.id == event.id);
       final List<Request> requests = state.requisitions;
       final bool check = await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
       if (check) {
         requests.removeAt(requestIndex);
-        emit(state.copyWith(requisitions: requests, statusReject: RequisitionEnum.success));
+        emit(state.copyWith(requisitions: requests, status: RequisitionEnum.success));
       } else {
-        emit(state.copyWith(statusReject: RequisitionEnum.fail));
+        emit(state.copyWith(status: RequisitionEnum.fail));
       }
     } catch (e) {
-      emit(state.copyWith(statusReject: RequisitionEnum.fail));
+      emit(state.copyWith(status: RequisitionEnum.fail));
     }
   }
 
+  //get by filter ***********************************************
   FutureOr<void> _getRequisitionsByFilterEvent(
       GetRequisitionsByFilterEvent event, Emitter<RequisitionState> emit) async {
-    emit(state.copyWith(statusGetByFilter: RequisitionEnum.init));
+    emit(state.copyWith(status: RequisitionEnum.init));
     try {
       final RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsByFilter(
           page: event.page,
@@ -52,8 +55,9 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
           status: event.listStatusRequisition?.map((e) => e.name).toList(),
           startDate: event.startTime,
           endDate: event.endTime);
-      final List<Request> newRequest = requestsResponse.requests;
-      final int totalItems = requestsResponse.totalItems;
+      final List<Request> newRequest = requestsResponse.items;
+      final int totalItems = requestsResponse.pagingInfo.totalItems;
+      // load more *********************
       if (event.page != 1) {
         final List<Request> requests = [...state.requisitions];
         requests.addAll(state.requisitions);
@@ -61,20 +65,23 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
         emit(state.copyWith(
           requisitions: requests,
           countItem: totalItems,
-          statusGetByFilter: RequisitionEnum.success,
+          status: RequisitionEnum.success,
         ));
-      } else {
+      }
+      // load more *********************
+      else {
         emit(state.copyWith(
           requisitions: newRequest,
           countItem: totalItems,
-          statusGetByFilter: RequisitionEnum.success,
+          status: RequisitionEnum.success,
         ));
       }
     } catch (e) {
-      emit(state.copyWith(statusGetByFilter: RequisitionEnum.fail));
+      emit(state.copyWith(status: RequisitionEnum.fail));
     }
   }
 
+//get by id     ***********************************************
   FutureOr<void> _getRequisitionByIdEvent(
       GetRequisitionByIdEvent event, Emitter<RequisitionState> emit) async {
     emit(state.copyWith(statusGetById: RequisitionEnum.init));
@@ -88,15 +95,34 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     }
   }
 
-  //Post Request
+  //Post Request     ***********************************************
   FutureOr<void> _postRequestEvent(PostRequestEvent event, Emitter<RequisitionState> emit) async {
-    emit(state.copyWith(statusPost: RequisitionEnum.init));
+    emit(state.copyWith(status: RequisitionEnum.init));
     try {
       await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
-      emit(state.copyWith(statusPost: RequisitionEnum.success));
+      emit(state.copyWith(status: RequisitionEnum.success));
       event.completer.complete(RequisitionEnum.success);
     } catch (e) {
-      emit(state.copyWith(statusPost: RequisitionEnum.fail));
+      emit(state.copyWith(status: RequisitionEnum.fail));
+      event.completer.complete(RequisitionEnum.fail);
+    }
+  }
+
+  //Edit Request     ***********************************************
+  FutureOr<void> _editRequestEvent(EditRequestEvent event, Emitter<RequisitionState> emit) async {
+    emit(state.copyWith(status: RequisitionEnum.init));
+    try {
+      final int requestIndex =
+          state.requisitions.indexWhere((element) => element.id == event.postRequestRequest.id);
+      final Request request =
+          await requisitionUseCase.editRequestEdit(postRequestRequest: event.postRequestRequest);
+      final List<Request> requests = [...state.requisitions];
+      requests[requestIndex] = request;
+      emit(state.copyWith(
+          requisition: request, requisitions: requests, status: RequisitionEnum.success));
+      event.completer.complete(RequisitionEnum.success);
+    } catch (e) {
+      emit(state.copyWith(status: RequisitionEnum.fail));
       event.completer.complete(RequisitionEnum.fail);
     }
   }

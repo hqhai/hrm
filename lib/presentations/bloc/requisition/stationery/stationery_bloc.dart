@@ -28,20 +28,16 @@ class StationeryBloc extends Bloc<StationeryEvent, StationeryState> {
       List<Stationery> stationery = [];
       SearchStationeryByNameResponse searchStationeryByNameResponse =
           await requisitionUseCase.getStationery(page: event.page, name: event.name);
-      List<Stationery> newStationery = searchStationeryByNameResponse.stationery;
-      int totalItems = searchStationeryByNameResponse.totalItems;
+      List<Stationery> newStationery = searchStationeryByNameResponse.items;
+      int totalItems = searchStationeryByNameResponse.pagingInfo.totalItems;
       if (event.name == state.name) {
         stationery.addAll(state.stationeries);
         stationery.addAll(newStationery);
         emit(state.copyWith(
-            countItem: totalItems,
-            stationeries: stationery,
-            status: StationeryStatus.success));
+            countItem: totalItems, stationeries: stationery, status: StationeryStatus.success));
       } else {
         emit(state.copyWith(
-            countItem: totalItems,
-            stationeries: newStationery,
-            status: StationeryStatus.success));
+            countItem: totalItems, stationeries: newStationery, status: StationeryStatus.success));
       }
     } catch (e) {
       emit(state.copyWith(status: StationeryStatus.fail));
