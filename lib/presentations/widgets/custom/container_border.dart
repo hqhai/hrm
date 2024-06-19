@@ -9,10 +9,14 @@ class ContainerBorder extends StatelessWidget {
     required this.child,
     this.width,
     this.height,
+    this.borderColors,
+    this.backgroundColors,
   });
 
   final Widget child;
   final double? height, width;
+  final Color? borderColors;
+  final Color? backgroundColors;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +28,9 @@ class ContainerBorder extends StatelessWidget {
       padding: const EdgeInsets.all(SpacingUnit.x3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingUnit.x2),
-        color: CustomsColor.colorBackground,
+        color: backgroundColors ?? CustomsColor.colorBackground,
         border: Border.all(
-          color: colors.text,
+          color: borderColors ?? colors.text,
           width: 1,
         ),
       ),
