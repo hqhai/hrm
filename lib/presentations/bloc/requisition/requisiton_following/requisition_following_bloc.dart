@@ -25,27 +25,26 @@ class RequisitionFollowingBloc extends Bloc<RequisitionFollowingEvent, Requisiti
       GetRequisitionsFollowingByFilterEvent event, Emitter<RequisitionFollowingState> emit) async {
     emit(state.copyWith(status: RequisitionEnum.init));
     try {
-      List<Request> requests = [];
-      RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsFollowerByFilter(
+
+      final RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsFollowerByFilter(
         page: event.page,
         type: event.requisitionTypeEnum?.name,
         status: event.listStatusRequisition?.map((e) => e.name).toList(),
         startDate: event.startTime,
         endDate: event.endTime,
       );
-      List<Request> newRequest = requestsResponse.requests;
-      int totalItems = requestsResponse.totalItems;
+      final List<Request> newRequest = requestsResponse.requests;
+      final int totalItems = requestsResponse.totalItems;
       if (event.page != 1) {
-        requests.addAll(state.requisitions);
+        final List<Request> requests = [...state.requisitions];
         requests.addAll(newRequest);
         emit(state.copyWith(
             requisitions: requests,
             countItem: totalItems,
             status: RequisitionEnum.success));
       } else {
-        requests.addAll(newRequest);
         emit(state.copyWith(
-            requisitions: requests,
+            requisitions: newRequest,
             countItem: totalItems,
             status: RequisitionEnum.success));
       }

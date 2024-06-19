@@ -32,21 +32,15 @@ class RequisitionInformationType extends StatelessWidget {
 Widget inFlowType(RequisitionTypeEnum? type) {
   switch (type) {
     case RequisitionTypeEnum.yearlyAndSeniorityLeave:
-      return Container();
     case RequisitionTypeEnum.compensatoryLeave:
-      return Container();
     case RequisitionTypeEnum.otherLeave:
-      return Container();
     case RequisitionTypeEnum.unpaidLeave:
-      return Container();
     case RequisitionTypeEnum.lateArrival:
-      return Container();
     case RequisitionTypeEnum.earlyDeparture:
+    case RequisitionTypeEnum.overTime:
       return Container();
     case RequisitionTypeEnum.bussiness:
       return const RequisitionInformationContentTypeBusinessTrip();
-    case RequisitionTypeEnum.overTime:
-      return Container();
     case RequisitionTypeEnum.vehicleDriver:
       return const RequisitionInformationContentTypeVehicleDispatch();
     case RequisitionTypeEnum.postalDelivery:

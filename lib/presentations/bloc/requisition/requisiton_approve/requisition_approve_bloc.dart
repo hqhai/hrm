@@ -29,7 +29,6 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
       GetRequisitionsApproveByFilterEvent event, Emitter<RequisitionApproveState> emit) async {
     emit(state.copyWith(statusGet: RequisitionEnum.init));
     try {
-      List<Request> requests = [];
       final RequestsResponse requestsResponse =
           await requisitionUseCase.getRequisitionsApproveByFilter(
         page: event.page,
@@ -39,10 +38,10 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
         type: event.requisitionTypeEnum?.name,
         status: event.status,
       );
-      List<Request> newStationery = requestsResponse.requests;
-      int totalItems = requestsResponse.totalItems;
+      final List<Request> newStationery = requestsResponse.requests;
+      final int totalItems = requestsResponse.totalItems;
       if (event.page != 1) {
-        requests.addAll(state.requisitions);
+        final List<Request> requests = [...state.requisitions];
         requests.addAll(newStationery);
         emit(state.copyWith(
           requisitions: requests,
@@ -50,9 +49,8 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
           statusGet: RequisitionEnum.success,
         ));
       } else {
-        requests.addAll(newStationery);
         emit(state.copyWith(
-            requisitions: requests, countItem: totalItems, statusGet: RequisitionEnum.success));
+            requisitions: newStationery, countItem: totalItems, statusGet: RequisitionEnum.success));
       }
     } catch (e) {
       emit(state.copyWith(statusGet: RequisitionEnum.fail));
@@ -77,7 +75,7 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
           id: event.id, status: event.status?.name ?? "", note: event.note ?? "");
       if (check) {
         final requests = [...state.requisitions];
-        int requestIndex = requests.indexWhere(
+        final int requestIndex = requests.indexWhere(
           (element) => element.id == event.requestId,
         );
         requests.removeAt(requestIndex);

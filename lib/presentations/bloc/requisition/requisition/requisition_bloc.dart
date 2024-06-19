@@ -28,9 +28,9 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       UserRejectRequestEvent event, Emitter<RequisitionState> emit) async {
     emit(state.copyWith(statusReject: RequisitionEnum.init));
     try {
-      int requestIndex = state.requisitions.indexWhere((element) => element.id == event.id);
-      List<Request> requests = state.requisitions;
-      bool check = await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
+      final int requestIndex = state.requisitions.indexWhere((element) => element.id == event.id);
+      final List<Request> requests = state.requisitions;
+      final bool check = await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
       if (check) {
         requests.removeAt(requestIndex);
         emit(state.copyWith(requisitions: requests, statusReject: RequisitionEnum.success));
@@ -46,17 +46,16 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       GetRequisitionsByFilterEvent event, Emitter<RequisitionState> emit) async {
     emit(state.copyWith(statusGetByFilter: RequisitionEnum.init));
     try {
-      List<Request> requests = [];
-      RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsByFilter(
-        page: event.page,
-        flowId: event.flowId != '' ? event.flowId : null,
-        status: event.listStatusRequisition?.map((e) => e.name).toList(),
-        startDate: event.startTime,
-        endDate: event.endTime
-      );
-      List<Request> newRequest = requestsResponse.requests;
-      int totalItems = requestsResponse.totalItems;
+      final RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsByFilter(
+          page: event.page,
+          flowId: event.flowId != '' ? event.flowId : null,
+          status: event.listStatusRequisition?.map((e) => e.name).toList(),
+          startDate: event.startTime,
+          endDate: event.endTime);
+      final List<Request> newRequest = requestsResponse.requests;
+      final int totalItems = requestsResponse.totalItems;
       if (event.page != 1) {
+        final List<Request> requests = [...state.requisitions];
         requests.addAll(state.requisitions);
         requests.addAll(newRequest);
         emit(state.copyWith(
@@ -65,9 +64,8 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
           statusGetByFilter: RequisitionEnum.success,
         ));
       } else {
-        requests.addAll(newRequest);
         emit(state.copyWith(
-          requisitions: requests,
+          requisitions: newRequest,
           countItem: totalItems,
           statusGetByFilter: RequisitionEnum.success,
         ));
@@ -81,7 +79,9 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       GetRequisitionByIdEvent event, Emitter<RequisitionState> emit) async {
     emit(state.copyWith(statusGetById: RequisitionEnum.init));
     try {
-      Request request = await requisitionUseCase.getRequisitionById(id: event.id ?? "");
+      final Request request = await requisitionUseCase.getRequisitionById(
+        id: event.id ?? "",
+      );
       emit(state.copyWith(requisition: request, statusGetById: RequisitionEnum.success));
     } catch (e) {
       emit(state.copyWith(statusGetById: RequisitionEnum.fail));

@@ -51,7 +51,7 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
   FutureOr<void> _getFlowEvent(GetFlowEvent event, Emitter<FlowState> emit) async {
     emit(state.copyWith(statusGetById: FlowStatusEnum.init));
     try {
-      FlowRequest flow = await requisitionUseCase.getFlowById(id: event.id);
+      final FlowRequest flow = await requisitionUseCase.getFlowById(id: event.id);
       emit(
         state.copyWith(
           flow: flow,
