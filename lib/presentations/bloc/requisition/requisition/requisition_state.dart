@@ -9,13 +9,21 @@ part 'requisition_state.g.dart';
 class RequisitionState extends Equatable {
   final Request requisition;
   final List<Request> requisitions;
-  final RequisitionEnum status;
+  final RequisitionEnum statusGetByFilter;
+  final RequisitionEnum statusGetById;
+  final RequisitionEnum statusPost;
+  final RequisitionEnum statusReject;
+  final RequisitionEnum statusUpdate;
   final int countItem;
 
   const RequisitionState({
     this.requisition = const Request(id: ''),
     this.requisitions = const [],
-    this.status = RequisitionEnum.init,
+    this.statusGetByFilter = RequisitionEnum.init,
+    this.statusGetById = RequisitionEnum.init,
+    this.statusPost = RequisitionEnum.init,
+    this.statusUpdate = RequisitionEnum.init,
+    this.statusReject = RequisitionEnum.init,
     this.countItem = 0,
   });
 
@@ -23,7 +31,11 @@ class RequisitionState extends Equatable {
   List<Object> get props => [
         requisition,
         requisitions,
-        status,
+        statusPost,
+        statusReject,
+        statusUpdate,
+        statusGetById,
+        statusGetByFilter,
         countItem,
       ];
 }

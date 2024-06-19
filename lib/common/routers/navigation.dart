@@ -10,6 +10,28 @@ class AppNavigation {
     GoRouter.of(context).push(page);
   }
 
+  isCurrentPage(
+      page, {
+        BuildContext? buildContext,
+      }) {
+    final context = buildContext ?? navigatorKey.currentContext!;
+    final router = GoRouter.of(context);
+    final GoRouterDelegate delegate = router.routerDelegate;
+    final routes = delegate.currentConfiguration.routes.reversed
+        .map((e) => e as GoRoute)
+        .toList();
+    final currentPage = routes.first;
+    if (page == '/') {
+      final result = currentPage.path == page;
+      //developer.log('🔎 mainPage isCurrent:$result ');
+      return result;
+    } else {
+      final result = currentPage.path.contains(page);
+      //developer.log('🔎 $page isCurrent:$result ');
+      return result;
+    }
+  }
+
   push(context,
       {required String page,
       String? params,

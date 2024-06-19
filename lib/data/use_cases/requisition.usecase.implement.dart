@@ -16,7 +16,7 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   RequisitionUseCaseImpl() : _requisitionRepository = dI<RequisitionRepository>();
 
   @override
-  Future<String> approveRequest({required String id, String? note, required String status}) async {
+  Future<bool> approveRequest({required String id, String? note, required String status}) async {
     return await _requisitionRepository.approveRequisition(id: id, status: status, note: note);
   }
 

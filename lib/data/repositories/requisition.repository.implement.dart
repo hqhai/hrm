@@ -36,7 +36,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<String> approveRequisition(
+  Future<bool> approveRequisition(
       {required String id, String? note, required String status}) async {
     return await _requestService.approveRequisition(
         approveRequest: ApproveRequest(id: id, note: note ?? "", status: status));

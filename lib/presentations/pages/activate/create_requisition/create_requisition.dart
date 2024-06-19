@@ -4,6 +4,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
@@ -32,7 +33,7 @@ class CreateRequestPage extends StatefulWidget {
 class _CreateRequestPageState extends State<CreateRequestPage> {
   late ScrollController controller;
   int pageIndex = 1, totalItems = 0, lengthList = 0;
-  FlowStatusEnum status = FlowStatusEnum.getFlowsInit;
+  FlowStatusEnum status = FlowStatusEnum.init;
 
   @override
   void initState() {
@@ -43,7 +44,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
 
   _scrollListener() {
     if (lengthList <= totalItems &&
-        status == FlowStatusEnum.getFlowsSuccess &&
+        status == FlowStatusEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
@@ -56,7 +57,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
 
   _listener(BuildContext context, FlowState state) {
     setState(() {
-      status = state.status;
+      status = state.statusGet;
       totalItems = state.totalItems;
       lengthList = state.flows.length;
     });
@@ -88,21 +89,20 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
               color: colors.surface,
               padding: const EdgeInsets.all(SpacingUnit.x4),
               margin: const EdgeInsets.all(SpacingUnit.x4),
-              child: state.status == FlowStatusEnum.getFlowsSuccess
-                  ? ListView.builder(
+              child: state.statusGet == FlowStatusEnum.init && state.flows.isEmpty
+                  ? Center(
+                      child: SizedBox(
+                      height: SpacingUnit.x50,
+                      width: SpacingUnit.x50,
+                      child: Lottie.asset(Assets.images.icon.loading,
+                          width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
+                    ))
+                  : ListView.builder(
                       controller: controller,
                       itemCount: state.flows.length,
                       itemBuilder: (context, index) => ItemActivateWidget(
                         title: _setTitle(context, state, index),
-                        callback: () => _nextScreen(context, state, index),
-                      ),
-                    )
-                  : Center(
-                      child: SizedBox(
-                        height: SpacingUnit.x50,
-                        width: SpacingUnit.x50,
-                        child: Lottie.asset(Assets.images.icon.loading,
-                            width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
+                        callback: () => _nextScreen(context, state.flows[index]),
                       ),
                     ),
             ),
@@ -113,67 +113,75 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
   }
 
   String _setTitle(BuildContext context, FlowState state, int index) {
-    return state.flows[index].name??"";
+    return state.flows[index].name ?? "";
   }
 
-  _nextScreen(BuildContext context, FlowState state, int index) {
-    if (state.flows[index].flowType == RequisitionTypeEnum.explanation) {
-      dI<AppNavigation>().pushName(
-        context,
-        page: Pages.createRequestExplanationPage,
-        extra: {
-          'flowId': state.flows[index].id,
-        },
-      );
-    } else if (state.flows[index].flowType == RequisitionTypeEnum.lateArrival) {
-      dI<AppNavigation>().pushName(
-        context,
-        page: Pages.createRequestLeavePage,
-        extra: {
-          'flowId': state.flows[index].id,
-        },
-      );
-    } else if (state.flows[index].flowType == RequisitionTypeEnum.overTime) {
-    } else if (state.flows[index].flowType == RequisitionTypeEnum.vehicleDriver) {
-      dI<AppNavigation>().pushName(
-        context,
-        page: Pages.createRequestVehicleDispatchPage,
-        extra: {
-          'flowId': state.flows[index].id,
-        },
-      );
-    } else if (state.flows[index].flowType == RequisitionTypeEnum.postalDelivery) {
-      dI<AppNavigation>().pushName(
-        context,
-        page: Pages.createRequestPostalDeliveryPage,
-        extra: {
-          'flowId': state.flows[index].id,
-        },
-      );
-    } else if (state.flows[index].flowType == RequisitionTypeEnum.warehouseReleased) {
-      dI<AppNavigation>().pushName(
-        context,
-        page: Pages.createRequestReleaseOfWarehousePage,
-        extra: {
-          'flowId': state.flows[index].id,
-        },
-      );
-    } else if (state.flows[index].flowType == RequisitionTypeEnum.stationery) {
-      dI<AppNavigation>().pushName(
-        context,
-        page: Pages.createRequestStationeryOderPage,
-        extra: {
-          'flowId': state.flows[index].id,
-        },
-      );
-    } else {
-      dI<AppNavigation>().pushName(
-        context,
-        page: Pages.createRequestBusinessPage,
-        extra: {
-          'flowId': state.flows[index].id,
-        },
-      );
+  _push({
+    required BuildContext context,
+    required String page,
+    required String id,
+  }) {
+    dI<AppNavigation>().pushName(
+      context,
+      page: page,
+      extra: {
+        'flowId': id,
+      },
+    );
+  }
+
+  _nextScreen(BuildContext context, FlowRequest flow) {
+    switch (flow.flowType) {
+      case RequisitionTypeEnum.explanation:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestExplanationPage,
+        );
+      case RequisitionTypeEnum.lateArrival:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.overTime:
+      /*_push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestLeavePage,
+        );*/
+      case RequisitionTypeEnum.vehicleDriver:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestVehicleDispatchPage,
+        );
+      case RequisitionTypeEnum.postalDelivery:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestPostalDeliveryPage,
+        );
+      case RequisitionTypeEnum.warehouseReleased:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestReleaseOfWarehousePage,
+        );
+      case RequisitionTypeEnum.stationery:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestStationeryOderPage,
+        );
+      case RequisitionTypeEnum.bussiness:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestBusinessPage,
+        );
+      default:
+        break;
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
@@ -87,24 +88,15 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.success) {
+    if (state.statusGetById == RequisitionEnum.success) {
       setState(() {
         startTime = state.requisition.config.startDate ?? "";
         endTime = state.requisition.config.endDate ?? "";
         content = state.requisition.config.content ?? "";
-        //reason = state.requisition.config. ?? "";
+        reason = state.requisition.config.description ?? "";
         vehicle = state.requisition.config.endDate ?? "";
         destination = state.requisition.config.endDate ?? "";
       });
-    }
-    if (state.status == RequisitionEnum.postRequisitionInit) {
-      progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
-      Navigator.of(context).pop();
-      successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
-      Navigator.of(context).pop();
-      unsuccessfulDialog(context);
     }
   }
 
@@ -124,7 +116,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       ),
       body: BlocListener<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
-        listenWhen: (previous, current) => _listenWhen(previous.status, current.status),
+        listenWhen: (previous, current) => _listenWhen(previous, current),
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(SpacingUnit.x3),
@@ -200,15 +192,18 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  _save(BuildContext context) {
-    if (_checkValue(context)) {
+  _save(BuildContext context) async {
+    if (_checkValue(context) && widget.requestId == null) {
+      progressIndicatorDialog(context);
+      Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
+          completer: completer,
           postRequestRequest: PostRequestRequest(
-            description: detailedDescriptionController.text,
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
+              description: detailedDescriptionController.text,
               destination: destinationController.text,
               content: contentController.text,
               vehicle: vehicleController.text,
@@ -220,7 +215,18 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
           ),
         ),
       );
-    }
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        successDialog(context);
+      }
+      if (status == RequisitionEnum.fail) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        unsuccessfulDialog(context);
+      }
+    } else if (_checkValue(context) && widget.requestId != null) {}
   }
 
   _cancel() {}
@@ -267,7 +273,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  bool _listenWhen(RequisitionEnum statusP, RequisitionEnum statusC) {
+  bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
     return statusP != statusC;
   }
 }

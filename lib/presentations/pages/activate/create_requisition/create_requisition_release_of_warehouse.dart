@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
@@ -30,13 +32,15 @@ final createRequestReleaseOfWarehousePageRoute = GoRoute(
       Map data = state.extra as Map;
       return CreateRequisitionReleaseOfWarehousePage(
         flowId: data['flowId'],
+        requestId: data['requestId'],
       );
     });
 
 class CreateRequisitionReleaseOfWarehousePage extends StatefulWidget {
-  const CreateRequisitionReleaseOfWarehousePage({super.key, this.flowId});
+  const CreateRequisitionReleaseOfWarehousePage({super.key, this.flowId, this.requestId});
 
   final String? flowId;
+  final String? requestId;
 
   @override
   State<CreateRequisitionReleaseOfWarehousePage> createState() =>
@@ -51,14 +55,23 @@ class _CreateRequisitionReleaseOfWarehousePageState
   String description = '';
   String errorList = '', errorDescription = '';
 
-  bool _checkValue(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    bool check = requisitionReleaseOfWarehouse.isNotEmpty && description != '';
-    setState(() {
-      errorDescription = description != '' ? "": appLocalizations.cannotBeLeftBlank;
-      errorList = requisitionReleaseOfWarehouse.isNotEmpty ? '' : appLocalizations.thereAreCurrentlyNoProducts;
-    });
-    return check;
+  @override
+  void initState() {
+    if (widget.requestId?.isNotEmpty ?? false) {
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.requestId),
+      );
+    }
+    super.initState();
+  }
+
+  _listener(BuildContext context, RequisitionState state) {
+    if (state.statusGetById == RequisitionEnum.success) {
+      description = state.requisition.config.description ?? "";
+      scheduleController.text = state.requisition.config.description ?? "";
+      followers = state.requisition.followerIds;
+      requisitionReleaseOfWarehouse = state.requisition.config.warehourseReleaseds ?? [];
+    }
   }
 
   @override
@@ -79,6 +92,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
       ),
       body: BlocListener<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
+        listenWhen: (previous, current) => _listenWhen(previous, current),
         child: SingleChildScrollView(
           child: Container(
             width: width,
@@ -131,7 +145,8 @@ class _CreateRequisitionReleaseOfWarehousePageState
                         ),
                       ),
                     ),
-                  ),if(errorList != '')
+                  ),
+                  if (errorList != '')
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
                       child: Text(
@@ -142,7 +157,6 @@ class _CreateRequisitionReleaseOfWarehousePageState
                         ),
                       ),
                     ),
-
                   GestureDetector(
                     onTap: () => _addStationery(context),
                     child: Container(
@@ -184,6 +198,18 @@ class _CreateRequisitionReleaseOfWarehousePageState
     );
   }
 
+  bool _checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    bool check = requisitionReleaseOfWarehouse.isNotEmpty && description != '';
+    setState(() {
+      errorDescription = description != '' ? "" : appLocalizations.cannotBeLeftBlank;
+      errorList = requisitionReleaseOfWarehouse.isNotEmpty
+          ? ''
+          : appLocalizations.thereAreCurrentlyNoProducts;
+    });
+    return check;
+  }
+
   _addStationery(BuildContext context) {
     showDialog(
       context: context,
@@ -203,20 +229,34 @@ class _CreateRequisitionReleaseOfWarehousePageState
     });
   }
 
-  _save(BuildContext context) {
+  _save(BuildContext context) async {
     if (_checkValue(context)) {
+      progressIndicatorDialog(context);
+      Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
+          completer: completer,
           postRequestRequest: PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
-            description: description,
             config: ConfigRequestModel(
+              description: description,
               warehourseReleaseds: requisitionReleaseOfWarehouse,
             ),
           ),
         ),
       );
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        successDialog(context);
+      }
+      if (status == RequisitionEnum.fail) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        unsuccessfulDialog(context);
+      }
     }
   }
 
@@ -260,15 +300,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
     });
   }
 
-  _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.postRequisitionInit) {
-      progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
-      Navigator.of(context).pop();
-      successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
-      Navigator.of(context).pop();
-      unsuccessfulDialog(context);
-    }
+  _listenWhen(RequisitionState previous, RequisitionState current) {
+    return previous != current;
   }
 }

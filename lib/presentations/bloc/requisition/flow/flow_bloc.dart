@@ -23,29 +23,43 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
   }
 
   FutureOr<void> _getFlowsEvent(GetFlowsEvent event, Emitter<FlowState> emit) async {
-    emit(state.copyWith(status: FlowStatusEnum.getFlowsInit));
+    emit(state.copyWith(statusGet: FlowStatusEnum.init));
     try {
-      FlowResponse flowResponse = await requisitionUseCase.getFlowByUser(page: event.page);
-      List<FlowRequest> flows = flowResponse.flows;
-      //int total = flowResponse.totalItems;
-      emit(state.copyWith(flows: flows, status: FlowStatusEnum.getFlowsSuccess));
+      final FlowResponse flowResponse = await requisitionUseCase.getFlowByUser(page: event.page);
+      final List<FlowRequest> newFlows = flowResponse.flows;
+      final int total = flowResponse.totalItems;
+      if (event.page != 1) {
+        final List<FlowRequest> flows = [...state.flows];
+        flows.addAll(newFlows);
+        emit(state.copyWith(
+          flows: flows,
+          statusGet: FlowStatusEnum.success,
+          totalItems: total,
+        ));
+      } else {
+        emit(state.copyWith(
+          flows: newFlows,
+          statusGet: FlowStatusEnum.success,
+          totalItems: total,
+        ));
+      }
     } catch (e) {
-      emit(state.copyWith(status: FlowStatusEnum.getFlowsError));
+      emit(state.copyWith(statusGet: FlowStatusEnum.fail));
     }
   }
 
   FutureOr<void> _getFlowEvent(GetFlowEvent event, Emitter<FlowState> emit) async {
-    emit(state.copyWith(status: FlowStatusEnum.getFlowInit));
+    emit(state.copyWith(statusGetById: FlowStatusEnum.init));
     try {
-      FlowRequest flow = await requisitionUseCase.getFlowById(id: event.id);
+      final FlowRequest flow = await requisitionUseCase.getFlowById(id: event.id);
       emit(
         state.copyWith(
           flow: flow,
-          status: FlowStatusEnum.getFlowSuccess,
+          statusGetById: FlowStatusEnum.success,
         ),
       );
     } catch (e) {
-      emit(state.copyWith(status: FlowStatusEnum.getFlowError));
+      emit(state.copyWith(statusGetById: FlowStatusEnum.fail));
     }
   }
 }

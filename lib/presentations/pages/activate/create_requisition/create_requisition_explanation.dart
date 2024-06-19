@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
@@ -33,14 +34,16 @@ final createRequestExplanationPageRoute = GoRoute(
     Map data = state.extra as Map;
     return CreateRequisitionExplanationPage(
       flowId: data['flowId'],
+      requestId: data['requestId'],
     );
   },
 );
 
 class CreateRequisitionExplanationPage extends StatefulWidget {
-  const CreateRequisitionExplanationPage({super.key, this.flowId = ''});
+  const CreateRequisitionExplanationPage({super.key, this.flowId = '', this.requestId});
 
   final String flowId;
+  final String? requestId;
 
   @override
   State<CreateRequisitionExplanationPage> createState() => _CreateRequisitionExplanationPageState();
@@ -58,26 +61,17 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   List<File> files = [];
   RequisitionTypeExplanationEnum? reasonForExplanation = RequisitionTypeExplanationEnum.late;
 
-  bool _checkValue(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    bool check = reason != '' && detailedDescription != '';
-    setState(() {
-      errorReason = reason != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorDestination = detailedDescription != '' ? '' : appLocalizations.cannotBeLeftBlank;
-    });
-    return check;
+  @override
+  void initState() {
+    if (widget.requestId?.isNotEmpty ?? false) {
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.requestId),
+      );
+    }
+    super.initState();
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.postRequisitionInit) {
-      progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
-      Navigator.of(context).pop();
-      successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
-      Navigator.of(context).pop();
-      unsuccessfulDialog(context);
-    }
   }
 
   @override
@@ -86,6 +80,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     final colors = AppTheme.getColors(context);
     return BlocListener<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
+      listenWhen: (previous, current) => _listenWhen(previous, current),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -160,6 +155,16 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     );
   }
 
+  bool _checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    bool check = reason != '' && detailedDescription != '';
+    setState(() {
+      errorReason = reason != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination = detailedDescription != '' ? '' : appLocalizations.cannotBeLeftBlank;
+    });
+    return check;
+  }
+
   _setReasonForExplanation(RequisitionTypeExplanationEnum? value) {
     setState(() {
       reasonForExplanation = value;
@@ -196,10 +201,13 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _save(BuildContext context) {
+  _save(BuildContext context) async {
     if (_checkValue(context)) {
+      progressIndicatorDialog(context);
+      Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
+          completer: completer,
           postRequestRequest: PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
@@ -212,6 +220,17 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
           ),
         ),
       );
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        successDialog(context);
+      }
+      if (status == RequisitionEnum.fail) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        unsuccessfulDialog(context);
+      }
     }
   }
 
@@ -221,5 +240,9 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     setState(() {
       workDate = formatIso8601(value);
     });
+  }
+
+  _listenWhen(RequisitionState previous, RequisitionState current) {
+    return previous != current;
   }
 }

@@ -39,7 +39,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
   var random = Random();
   int pageIndex = 1, totalItems = 0, lengthList = 0;
   late ScrollController controller;
-  RequisitionEnum status = RequisitionEnum.getRequisitionsInit;
+  RequisitionEnum status = RequisitionEnum.init;
   FilterDialogModel filterData = const FilterDialogModel();
   List<StatusRequestEnum> listStatusFilter = [];
 
@@ -54,7 +54,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
 
   _scrollListener() {
     if (lengthList <= totalItems &&
-        status == RequisitionEnum.getRequisitionsSuccess &&
+        status == RequisitionEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;

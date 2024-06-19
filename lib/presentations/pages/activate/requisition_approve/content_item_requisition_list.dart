@@ -10,8 +10,8 @@ import 'package:themes/themes.dart';
 
 class ContentItemRequisitionList extends StatelessWidget {
   const ContentItemRequisitionList({super.key, required this.id});
-  final String id;
 
+  final String id;
 
   Request _request(RequisitionApproveState state, String id) {
     return state.requisitions.firstWhere((element) => element.id == id);
@@ -23,75 +23,73 @@ class ContentItemRequisitionList extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<RequisitionApproveBloc, RequisitionApproveState>(
-  builder: (context, state) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: width * 0.7,
-          child: Text(
-            _request(state, id).description?? "",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x3_5,
-                fontWeight: FontWeight.w700),
-          ),
-        ),
-        const SizedBox(height: SpacingUnit.x3_5),
-        Row(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${appLocalizations.creator} : ',
-              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-            ),
             SizedBox(
-              width: width * 0.6,
+              width: width * 0.7,
               child: Text(
-                _request(state, id).createdFullName ?? "",
+                _request(state, id).config.description ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w700),
+              ),
+            ),
+            const SizedBox(height: SpacingUnit.x3_5),
+            Row(
+              children: [
+                Text(
+                  '${appLocalizations.creator} : ',
+                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                ),
+                SizedBox(
+                  width: width * 0.6,
+                  child: Text(
+                    _request(state, id).createdFullName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                  ),
+                )
+              ],
+            ),
+            Row(children: [
+              Text(
+                '${appLocalizations.createTime} : ',
                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
               ),
-            )
-          ],
-        ),
-        Row(children: [
-          Text(
-            '${appLocalizations.createTime} : ',
-            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-          ),
-          SizedBox(
-            width: width * 0.6,
-            child: Text(
-              formatYMDHMS( _request(state, id).createdDate ?? ""),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+              SizedBox(
+                width: width * 0.6,
+                child: Text(
+                  formatYMDHMS(_request(state, id).createdDate),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                ),
+              )
+            ]),
+            Row(
+              children: [
+                Text(
+                  '${appLocalizations.code} : ',
+                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                ),
+                SizedBox(
+                  width: width * 0.6,
+                  child: Text(
+                    _request(state, id).code,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: colors.success, fontSize: SpacingUnit.x3_5),
+                  ),
+                )
+              ],
             ),
-          )
-        ]),
-        Row(
-          children: [
-            Text(
-              '${appLocalizations.code} : ',
-              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-            ),
-            SizedBox(
-              width: width * 0.6,
-              child: Text(
-                _request(state, id).code ?? "",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: colors.success, fontSize: SpacingUnit.x3_5),
-              ),
-            )
           ],
-        ),
-      ],
+        );
+      },
     );
-  },
-);
   }
 }

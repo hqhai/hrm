@@ -34,7 +34,7 @@ class RequisitionInformationContent extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x3),
                 child: Text(
-                  state.requisition.description ?? "",
+                  state.requisition.config.description ?? "",
                   maxLines: 10,
                   style: TextStyle(
                     color: colors.text,

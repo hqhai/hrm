@@ -9,13 +9,11 @@ class PostRequestRequest {
   final String? flowId;
   final dynamic config;
   final List<String>? followerIds;
-  final String? description;
 
 
 
   const PostRequestRequest({
     this.followerIds,
-    this.description,
     this.config,
     this.flowId
   });

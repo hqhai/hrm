@@ -26,7 +26,7 @@ class BottomSheetFlowWidget extends StatefulWidget {
 class _BottomSheetFlowWidgetState extends State<BottomSheetFlowWidget> {
   late ScrollController controller;
   int pageIndex = 1, totalItems = 0, lengthList = 0;
-  FlowStatusEnum status = FlowStatusEnum.getFlowsInit;
+  FlowStatusEnum status = FlowStatusEnum.init;
 
   @override
   void initState() {
@@ -101,7 +101,7 @@ class _BottomSheetFlowWidgetState extends State<BottomSheetFlowWidget> {
 
   _scrollListener() {
     if (lengthList <= totalItems &&
-        status == FlowStatusEnum.getFlowsSuccess &&
+        status == FlowStatusEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
@@ -114,7 +114,7 @@ class _BottomSheetFlowWidgetState extends State<BottomSheetFlowWidget> {
 
   _listener(BuildContext context, FlowState state) {
     setState(() {
-      status = state.status;
+      status = state.statusGet;
       totalItems = state.totalItems;
       lengthList = state.flows.length;
     });

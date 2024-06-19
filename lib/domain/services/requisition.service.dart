@@ -32,7 +32,7 @@ abstract class RequisitionService {
 
   Future<Request> getRequisitionById({required String id});
 
-  Future<String> approveRequisition({required ApproveRequest approveRequest});
+  Future<bool> approveRequisition({required ApproveRequest approveRequest});
 
   Future<FlowResponse> getFlowByUser({required GetRequestRequest getRequestRequest});
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
@@ -30,13 +32,15 @@ final createRequestVehicleDispatchPageRoute = GoRoute(
       Map data = state.extra as Map;
       return CreateRequestVehicleDispatchPage(
         flowId: data['flowId'],
+        requestId: data['requestId'],
       );
     });
 
 class CreateRequestVehicleDispatchPage extends StatefulWidget {
-  const CreateRequestVehicleDispatchPage({super.key, this.flowId});
+  const CreateRequestVehicleDispatchPage({super.key, this.flowId, this.requestId});
 
   final String? flowId;
+  final String? requestId;
 
   @override
   State<CreateRequestVehicleDispatchPage> createState() => _CreateRequestVehicleDispatchPageState();
@@ -50,6 +54,16 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   String errorTime = '', errorSchedule = '', errorContent = '';
   String startTime = '', endTime = '', schedule = '', content = '';
   List<String> followers = [], walkers = [];
+
+  @override
+  void initState() {
+    if (widget.requestId?.isNotEmpty ?? false) {
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.requestId),
+      );
+    }
+    super.initState();
+  }
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -168,26 +182,20 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.postRequisitionInit) {
-      progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionSuccess) {
-      Navigator.of(context).pop();
-      successDialog(context);
-    } else if (state.status == RequisitionEnum.postRequisitionError) {
-      Navigator.of(context).pop();
-      unsuccessfulDialog(context);
-    }
   }
 
-  _save(BuildContext context) {
+  _save(BuildContext context) async {
     if (_checkValue(context)) {
+      progressIndicatorDialog(context);
+      Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
+          completer: completer,
           postRequestRequest: PostRequestRequest(
-            description: scheduleController.text,
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
+              description: scheduleController.text,
               content: contentController.text,
               endDate: endTime,
               startDate: startTime,
@@ -196,6 +204,17 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
           ),
         ),
       );
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        successDialog(context);
+      }
+      if (status == RequisitionEnum.fail) {
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        unsuccessfulDialog(context);
+      }
     }
   }
 

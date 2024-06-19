@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:equatable/equatable.dart';
@@ -9,15 +11,6 @@ sealed class RequisitionApproveEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetRequisitionsApproveEvent extends RequisitionApproveEvent {
-  const GetRequisitionsApproveEvent({this.page = 0});
-
-  final int page;
-
-  @override
-  List<Object?> get props => [page];
-}
-
 class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
   const GetRequisitionsApproveByFilterEvent(
       {this.requisitionTypeEnum,
@@ -25,7 +18,7 @@ class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
       this.endTime,
       this.page = 0,
       this.departmentId,
-      this.status});
+      this.status,});
 
   final RequisitionTypeEnum? requisitionTypeEnum;
   final String? startTime;
@@ -36,13 +29,6 @@ class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
 
   @override
   List<Object?> get props => [requisitionTypeEnum, startTime, endTime, page, departmentId, status];
-}
-
-class RemoveFilterEvent extends RequisitionApproveEvent {
-  const RemoveFilterEvent({this.status = ''});
-  final String status;
-  @override
-  List<Object?> get props => [status];
 }
 
 class GetRequisitionApproveByIdEvent extends RequisitionApproveEvent {
@@ -58,13 +44,17 @@ class ApproveRequestEvent extends RequisitionApproveEvent {
   final String id;
   final String? note;
   final EnumStepRequestStatusEnum? status;
+  final String requestId;
+  final Completer completer;
 
   const ApproveRequestEvent({
     this.id = '',
     this.note,
     this.status,
+    this.requestId = '',
+    required this.completer
   });
 
   @override
-  List<Object?> get props => [id, note, status];
+  List<Object?> get props => [id, note, status, requestId, completer];
 }

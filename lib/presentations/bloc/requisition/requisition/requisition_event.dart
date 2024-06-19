@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:equatable/equatable.dart';
@@ -11,13 +13,15 @@ sealed class RequisitionEvent extends Equatable {
 
 class PostRequestEvent extends RequisitionEvent {
   final PostRequestRequest postRequestRequest;
+  final Completer completer;
 
   const PostRequestEvent({
     this.postRequestRequest = const PostRequestRequest(),
+    required this.completer,
   });
 
   @override
-  List<Object?> get props => [postRequestRequest];
+  List<Object?> get props => [postRequestRequest, completer];
 }
 
 class UserRejectRequestEvent extends RequisitionEvent {
@@ -27,15 +31,6 @@ class UserRejectRequestEvent extends RequisitionEvent {
 
   @override
   List<Object?> get props => [id];
-}
-
-class GetRequisitionsEvent extends RequisitionEvent {
-  final int page;
-
-  const GetRequisitionsEvent({this.page = 0});
-
-  @override
-  List<Object?> get props => [page];
 }
 
 class GetRequisitionsByFilterEvent extends RequisitionEvent {
