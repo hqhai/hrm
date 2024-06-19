@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
@@ -87,7 +88,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.success) {
+    if (state.statusGetById == RequisitionEnum.success) {
       setState(() {
         startTime = state.requisition.config.startDate ?? "";
         endTime = state.requisition.config.endDate ?? "";
@@ -97,13 +98,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
         destination = state.requisition.config.endDate ?? "";
       });
     }
-    if (state.status == RequisitionEnum.init) {
-      progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.success) {
-      Navigator.of(context).pop();
+    if (state.statusPost == RequisitionEnum.success) {
       successDialog(context);
-    } else if (state.status == RequisitionEnum.fail) {
-      Navigator.of(context).pop();
+    } else if (state.statusPost == RequisitionEnum.fail) {
       unsuccessfulDialog(context);
     }
   }
@@ -124,7 +121,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       ),
       body: BlocListener<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
-        listenWhen: (previous, current) => _listenWhen(previous.status, current.status),
+        listenWhen: (previous, current) => _listenWhen(previous, current),
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(SpacingUnit.x3),
@@ -202,10 +199,12 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   _save(BuildContext context) {
     if (_checkValue(context)) {
+      progressIndicatorDialog(context);
+      Completer completer = Completer();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
+          completer: completer,
           postRequestRequest: PostRequestRequest(
-
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
@@ -221,6 +220,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
           ),
         ),
       );
+      completer.future;
+      Navigator.of(context).pop();
     }
   }
 
@@ -268,7 +269,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  bool _listenWhen(RequisitionEnum statusP, RequisitionEnum statusC) {
+  bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
     return statusP != statusC;
   }
 }

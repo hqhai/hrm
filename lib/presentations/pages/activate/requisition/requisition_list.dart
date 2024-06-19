@@ -87,7 +87,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
 
   _listener(BuildContext context, RequisitionState state) {
     setState(() {
-      status = state.status;
+      status = state.statusGetByFilter;
       totalItems = state.countItem;
       lengthList = state.requisitions.length;
     });

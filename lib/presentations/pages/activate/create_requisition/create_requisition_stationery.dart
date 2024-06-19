@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
@@ -32,13 +34,19 @@ final createRequestStationeryOderPageRoute = GoRoute(
       Map data = state.extra as Map;
       return CreateRequisitionStationeryOderPage(
         flowId: data['flowId'],
+        requestId: data['requestId'],
       );
     });
 
 class CreateRequisitionStationeryOderPage extends StatefulWidget {
-  const CreateRequisitionStationeryOderPage({super.key, this.flowId = ''});
+  const CreateRequisitionStationeryOderPage({
+    super.key,
+    this.flowId = '',
+    this.requestId,
+  });
 
   final String flowId;
+  final String? requestId;
 
   @override
   State<CreateRequisitionStationeryOderPage> createState() =>
@@ -51,6 +59,16 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   String month = formatM(DateTime.now().toString());
   String error = '';
 
+  @override
+  void initState() {
+    if (widget.requestId?.isNotEmpty ?? false) {
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.requestId),
+      );
+    }
+    super.initState();
+  }
+
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     bool check = listRequisitionStationery.isNotEmpty;
@@ -61,15 +79,21 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.init) {
-      progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.success) {
-      Navigator.of(context).pop();
+    if (state.statusGetById == RequisitionEnum.success) {
+      followers = state.requisition.followerIds;
+      listRequisitionStationery = state.requisition.config.stationeries ?? [];
+      month = state.requisition.config.startDate ?? "";
+    }
+
+    if (state.statusPost == RequisitionEnum.success) {
       successDialog(context);
-    } else if (state.status == RequisitionEnum.fail) {
-      Navigator.of(context).pop();
+    } else if (state.statusPost == RequisitionEnum.fail) {
       unsuccessfulDialog(context);
     }
+  }
+
+  bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
+    return statusP != statusC;
   }
 
   @override
@@ -80,6 +104,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     final height = MediaQuery.of(context).size.height;
     return BlocListener<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
+      listenWhen: (previous, current) => _listenWhen(previous, current),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -188,7 +213,9 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                       ),
                     ),
                   ),
-                  ItemTotalAmount(totalAmount: _totalAmount(),),
+                  ItemTotalAmount(
+                    totalAmount: _totalAmount(),
+                  ),
                   ItemCreateFollower(
                       title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
                   Padding(
@@ -228,8 +255,11 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
 
   _save(BuildContext context) {
     if (_checkValue(context)) {
+      progressIndicatorDialog(context);
+      Completer completer = Completer();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
+          completer: completer,
           postRequestRequest: PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
@@ -243,6 +273,8 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
           ),
         ),
       );
+      completer.future;
+      Navigator.of(context).pop();
     }
   }
 

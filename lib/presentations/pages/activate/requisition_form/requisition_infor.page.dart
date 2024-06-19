@@ -7,6 +7,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
@@ -138,17 +139,23 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                         if (state.requisition.status == StatusRequestEnum.process &&
                             !widget.checkUser)
                           Align(
-                              alignment: Alignment.bottomRight,
-                              child: ButtonItemListRequisition(
-                                check: true,
-                                title: appLocalizations.delete,
-                                callback: () => userRejectRequest(),
-                              )),
+                            alignment: Alignment.bottomRight,
+                            child: ButtonItemListRequisition(
+                              check: true,
+                              title: appLocalizations.delete,
+                              callback: () => userRejectRequest(),
+                            ),
+                          ),
                         if (state.requisition.status == StatusRequestEnum.edit && !widget.checkUser)
                           Align(
-                              alignment: Alignment.bottomRight,
-                              child: ButtonItemListRequisition(
-                                  check: true, title: appLocalizations.update, callback: () {})),
+                            alignment: Alignment.bottomRight,
+                            child: ButtonItemListRequisition(
+                              check: true,
+                              title: appLocalizations.update,
+                              callback: () =>
+                                  _nextScreen(context, stateFlow.flow, state.requisition.id),
+                            ),
+                          ),
                         if (state.requisition.status == StatusRequestEnum.process &&
                             widget.checkUser)
                           Row(
@@ -174,9 +181,13 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                         if (state.requisition.status == StatusRequestEnum.approve &&
                             widget.checkUser)
                           Align(
-                              alignment: Alignment.bottomRight,
-                              child: ButtonItemListRequisition(
-                                  check: true, title: appLocalizations.cancel, callback: () {})),
+                            alignment: Alignment.bottomRight,
+                            child: ButtonItemListRequisition(
+                              check: true,
+                              title: appLocalizations.cancel,
+                              callback: () {},
+                            ),
+                          ),
                       ],
                     ),
                   ),
@@ -253,5 +264,80 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
 
   _listenApproveWhen(RequisitionEnum statusApproveP, RequisitionEnum statusApproveC) {
     return statusApproveP != statusApproveC;
+  }
+
+  _push({
+    required BuildContext context,
+    required String page,
+    required String id,
+    required String requestId,
+  }) {
+    dI<AppNavigation>().pushName(
+      context,
+      page: page,
+      extra: {'flowId': id, 'requestId': requestId},
+    );
+  }
+
+  _nextScreen(BuildContext context, FlowRequest flow, String requestId) {
+    switch (flow.flowType) {
+      case RequisitionTypeEnum.explanation:
+        _push(
+          requestId: requestId,
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestExplanationPage,
+        );
+      case RequisitionTypeEnum.lateArrival:
+        _push(
+          requestId: requestId,
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.overTime:
+      /*_push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestLeavePage,
+        );*/
+      case RequisitionTypeEnum.vehicleDriver:
+        _push(
+          requestId: requestId,
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestVehicleDispatchPage,
+        );
+      case RequisitionTypeEnum.postalDelivery:
+        _push(
+          requestId: requestId,
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestPostalDeliveryPage,
+        );
+      case RequisitionTypeEnum.warehouseReleased:
+        _push(
+          requestId: requestId,
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestReleaseOfWarehousePage,
+        );
+      case RequisitionTypeEnum.stationery:
+        _push(
+          requestId: requestId,
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestStationeryOderPage,
+        );
+      case RequisitionTypeEnum.bussiness:
+        _push(
+          requestId: requestId,
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestBusinessPage,
+        );
+      default:
+        break;
+    }
   }
 }

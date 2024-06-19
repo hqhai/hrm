@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
@@ -28,13 +30,15 @@ final createRequestPostalDeliveryPageRoute = GoRoute(
       Map data = state.extra as Map;
       return CreateRequisitionPostalDeliveryPage(
         flowId: data['flowId'],
+        requestId: data['requestId'],
       );
     });
 
 class CreateRequisitionPostalDeliveryPage extends StatefulWidget {
-  const CreateRequisitionPostalDeliveryPage({super.key, this.flowId});
+  const CreateRequisitionPostalDeliveryPage({super.key, this.flowId, this.requestId});
 
   final String? flowId;
+  final String? requestId;
 
   @override
   State<CreateRequisitionPostalDeliveryPage> createState() =>
@@ -48,23 +52,25 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   String errorDescription = '';
   RequisitionDeliveryTypeEnum? transferType = RequisitionDeliveryTypeEnum.rush;
 
-  bool _checkValue(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    bool check = reason != '';
-    setState(() {
-      errorDescription = reason != '' ? "" : appLocalizations.cannotBeLeftBlank;
-    });
-    return check;
+  @override
+  void initState() {
+    if (widget.requestId?.isNotEmpty ?? false) {
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.requestId),
+      );
+    }
+    super.initState();
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.init) {
-      progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.success) {
-      Navigator.of(context).pop();
+    if (state.statusGetById == RequisitionEnum.success) {
+      reason = state.requisition.config.description ?? "";
+      transferType = convertDeliveryType(state.requisition.config.deliveryType ?? "");
+      followers = state.requisition.followerIds;
+    }
+    if (state.statusPost == RequisitionEnum.success) {
       successDialog(context);
-    } else if (state.status == RequisitionEnum.fail) {
-      Navigator.of(context).pop();
+    } else if (state.statusPost == RequisitionEnum.fail) {
       unsuccessfulDialog(context);
     }
   }
@@ -85,6 +91,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       ),
       body: BlocListener<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
+        listenWhen: (previous, current) => _listenWhen(previous, current),
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(SpacingUnit.x3),
@@ -133,16 +140,35 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
     });
   }
 
+  RequisitionDeliveryTypeEnum? convertDeliveryType(String type) {
+    if (type != '') {
+      return RequisitionDeliveryTypeEnum.values.firstWhere((element) => element.name == type);
+    }
+    return null;
+  }
+
   _setReason(String value) {
     setState(() {
       reason = value;
     });
   }
 
+  bool _checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    bool check = reason != '';
+    setState(() {
+      errorDescription = reason != '' ? "" : appLocalizations.cannotBeLeftBlank;
+    });
+    return check;
+  }
+
   _save(BuildContext context) {
     if (_checkValue(context)) {
+      progressIndicatorDialog(context);
+      Completer completer = Completer();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
+          completer: completer,
           postRequestRequest: PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
@@ -153,6 +179,8 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
           ),
         ),
       );
+      completer.future;
+      Navigator.of(context).pop();
     }
   }
 
@@ -162,5 +190,9 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
     setState(() {
       transferType = value;
     });
+  }
+
+  _listenWhen(RequisitionState previous, RequisitionState current) {
+    return previous != current;
   }
 }

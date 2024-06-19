@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
@@ -30,13 +32,15 @@ final createRequestReleaseOfWarehousePageRoute = GoRoute(
       Map data = state.extra as Map;
       return CreateRequisitionReleaseOfWarehousePage(
         flowId: data['flowId'],
+        requestId: data['requestId'],
       );
     });
 
 class CreateRequisitionReleaseOfWarehousePage extends StatefulWidget {
-  const CreateRequisitionReleaseOfWarehousePage({super.key, this.flowId});
+  const CreateRequisitionReleaseOfWarehousePage({super.key, this.flowId, this.requestId});
 
   final String? flowId;
+  final String? requestId;
 
   @override
   State<CreateRequisitionReleaseOfWarehousePage> createState() =>
@@ -51,16 +55,28 @@ class _CreateRequisitionReleaseOfWarehousePageState
   String description = '';
   String errorList = '', errorDescription = '';
 
-  bool _checkValue(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    bool check = requisitionReleaseOfWarehouse.isNotEmpty && description != '';
-    setState(() {
-      errorDescription = description != '' ? "" : appLocalizations.cannotBeLeftBlank;
-      errorList = requisitionReleaseOfWarehouse.isNotEmpty
-          ? ''
-          : appLocalizations.thereAreCurrentlyNoProducts;
-    });
-    return check;
+  @override
+  void initState() {
+    if (widget.requestId?.isNotEmpty ?? false) {
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.requestId),
+      );
+    }
+    super.initState();
+  }
+
+  _listener(BuildContext context, RequisitionState state) {
+    if (state.statusGetById == RequisitionEnum.success) {
+      description = state.requisition.config.description ?? "";
+      scheduleController.text = state.requisition.config.description ?? "";
+      followers = state.requisition.followerIds;
+      requisitionReleaseOfWarehouse = state.requisition.config.warehourseReleaseds ?? [];
+    }
+    if (state.statusPost == RequisitionEnum.success) {
+      successDialog(context);
+    } else if (state.statusPost == RequisitionEnum.fail) {
+      unsuccessfulDialog(context);
+    }
   }
 
   @override
@@ -81,6 +97,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
       ),
       body: BlocListener<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
+        listenWhen: (previous, current) => _listenWhen(previous, current),
         child: SingleChildScrollView(
           child: Container(
             width: width,
@@ -186,6 +203,18 @@ class _CreateRequisitionReleaseOfWarehousePageState
     );
   }
 
+  bool _checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    bool check = requisitionReleaseOfWarehouse.isNotEmpty && description != '';
+    setState(() {
+      errorDescription = description != '' ? "" : appLocalizations.cannotBeLeftBlank;
+      errorList = requisitionReleaseOfWarehouse.isNotEmpty
+          ? ''
+          : appLocalizations.thereAreCurrentlyNoProducts;
+    });
+    return check;
+  }
+
   _addStationery(BuildContext context) {
     showDialog(
       context: context,
@@ -207,8 +236,11 @@ class _CreateRequisitionReleaseOfWarehousePageState
 
   _save(BuildContext context) {
     if (_checkValue(context)) {
+      progressIndicatorDialog(context);
+      Completer completer = Completer();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
+          completer: completer,
           postRequestRequest: PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
@@ -219,6 +251,8 @@ class _CreateRequisitionReleaseOfWarehousePageState
           ),
         ),
       );
+      completer.future;
+      Navigator.of(context).pop();
     }
   }
 
@@ -262,15 +296,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
     });
   }
 
-  _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.init) {
-      progressIndicatorDialog(context);
-    } else if (state.status == RequisitionEnum.success) {
-      Navigator.of(context).pop();
-      successDialog(context);
-    } else if (state.status == RequisitionEnum.fail) {
-      Navigator.of(context).pop();
-      unsuccessfulDialog(context);
-    }
+  _listenWhen(RequisitionState previous, RequisitionState current) {
+    return previous != current;
   }
 }
