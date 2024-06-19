@@ -1,5 +1,5 @@
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
@@ -22,18 +22,8 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
     final width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: widget.callback,
-      child: Container(
+      child: ContainerBorder(
         height: SpacingUnit.x20,
-        margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-        padding: const EdgeInsets.all(SpacingUnit.x3),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacingUnit.x2),
-          color: CustomsColor.colorBackground,
-          border: Border.all(
-            color: colors.text,
-            width: 1,
-          ),
-        ),
         child: Row(
           children: [
             if (_check())
@@ -45,7 +35,7 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
                 ),
               ),
             SizedBox(
-              width: _check() ? width* 0.6 : width* 0.75,
+              width: _check() ? width * 0.6 : width * 0.75,
               child: Text(
                 widget.title,
                 maxLines: 1,
@@ -59,7 +49,7 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
     );
   }
 
-  bool _check(){
+  bool _check() {
     return widget.iconPath?.isNotEmpty ?? false;
   }
 }

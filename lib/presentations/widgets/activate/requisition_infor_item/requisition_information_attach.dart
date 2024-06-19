@@ -106,8 +106,8 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
   }
 
   bool _checkTypeFile(int index, RequisitionState state) {
-    int length = state.requisition.attachments[index].length;
-    String type = state.requisition.attachments[index].substring(length - 3, length);
+    final int length = state.requisition.attachments[index].length;
+    final String type = state.requisition.attachments[index].substring(length - 3, length);
     if (type == 'pdf' || type == 'PDF') {
       return true;
     } else {

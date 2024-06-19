@@ -7,6 +7,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/data/models/navigator_extra/information_request_extra.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
@@ -274,13 +275,12 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
   _push({
     required BuildContext context,
     required String page,
-    required String id,
-    required String requestId,
+    required InformationRequestExtra informationRequestExtra,
   }) {
     dI<AppNavigation>().pushName(
       context,
       page: page,
-      extra: {'flowId': id, 'requestId': requestId},
+      extra: informationRequestExtra.toJson(),
     );
   }
 
@@ -288,16 +288,20 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     switch (flow.flowType) {
       case RequisitionTypeEnum.explanation:
         _push(
-          requestId: requestId,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
           context: context,
-          id: flow.id,
           page: Pages.createRequestExplanationPage,
         );
       case RequisitionTypeEnum.lateArrival:
         _push(
-          requestId: requestId,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
           context: context,
-          id: flow.id,
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.overTime:
@@ -308,37 +312,47 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
         );*/
       case RequisitionTypeEnum.vehicleDriver:
         _push(
-          requestId: requestId,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
           context: context,
-          id: flow.id,
           page: Pages.createRequestVehicleDispatchPage,
         );
       case RequisitionTypeEnum.postalDelivery:
         _push(
-          requestId: requestId,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
           context: context,
-          id: flow.id,
           page: Pages.createRequestPostalDeliveryPage,
         );
       case RequisitionTypeEnum.warehouseReleased:
         _push(
-          requestId: requestId,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
           context: context,
-          id: flow.id,
           page: Pages.createRequestReleaseOfWarehousePage,
         );
       case RequisitionTypeEnum.stationery:
         _push(
-          requestId: requestId,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
           context: context,
-          id: flow.id,
           page: Pages.createRequestStationeryOderPage,
         );
       case RequisitionTypeEnum.bussiness:
         _push(
-          requestId: requestId,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
           context: context,
-          id: flow.id,
           page: Pages.createRequestBusinessPage,
         );
       default:
