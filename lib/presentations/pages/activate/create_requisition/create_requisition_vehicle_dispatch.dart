@@ -47,13 +47,12 @@ class CreateRequestVehicleDispatchPage extends StatefulWidget {
 }
 
 class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleDispatchPage> {
-  final TextEditingController scheduleController = TextEditingController(),
-      contentController = TextEditingController(),
-      destinationController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController(),
+      contentController = TextEditingController();
   int totalMinute = 0;
   String errorTime = '', errorSchedule = '', errorContent = '';
-  String startTime = '', endTime = '', schedule = '', content = '';
-  List<String> followers = [], walkers = [];
+  String? startTime , endTime , description , content ;
+  List<String> followers = [], subtitudePersons = [];
 
   @override
   void initState() {
@@ -65,13 +64,28 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     super.initState();
   }
 
+  _listener(BuildContext context, RequisitionState state) {
+    if (state.status == RequisitionEnum.success) {
+      setState(() {
+        content = state.requisition.config.content ?? "";
+        contentController.text = state.requisition.config.content ?? "";
+        subtitudePersons = state.requisition.config.subtitudePersons ?? [];
+        description = state.requisition.config.description ?? "";
+        descriptionController.text = state.requisition.config.description ?? "";
+        startTime = formatYMDHMS(state.requisition.config.startDate ?? "");
+        endTime = formatYMDHMS(state.requisition.config.endDate ?? "");
+        followers = state.requisition.followerIds;
+      });
+    }
+  }
+
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     bool checkTime = totalMinute > 0;
-    bool check = schedule != '' && content != '' && walkers != [];
+    bool check = description != '' && content != '' && subtitudePersons != [];
     setState(() {
       errorTime = checkTime ? "" : appLocalizations.endTimeMustBeAfterStartTime;
-      errorSchedule = schedule != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorSchedule = description != '' ? '' : appLocalizations.cannotBeLeftBlank;
       errorContent = content != '' ? '' : appLocalizations.cannotBeLeftBlank;
     });
 
@@ -84,6 +98,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     final colors = AppTheme.getColors(context);
     return BlocListener<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
+      listenWhen: (previous, current) => previous.requisition != current.requisition,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -110,6 +125,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ItemCreateIntervalOnLeave(
+                  endTimeOld: endTime,
+                  startTimeOld: startTime,
                   error: errorTime,
                   dayOrHours: false,
                   title: appLocalizations.intervalOnLeave,
@@ -119,8 +136,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                 ),
                 ItemCreateInputArea(
                   error: errorSchedule,
-                  textController: scheduleController,
-                  title: appLocalizations.schedule,
+                  textController: descriptionController,
+                  title: appLocalizations.description,
                   onChange: (value) => _setSchedule(value),
                 ),
                 ItemCreateInputArea(
@@ -153,7 +170,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
 
   _setWalker(List<User> value) {
     setState(() {
-      walkers = value.map((e) => e.id).toList();
+      subtitudePersons = value.map((e) => e.id).toList();
     });
   }
 
@@ -171,7 +188,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
 
   _setSchedule(String value) {
     setState(() {
-      schedule = value;
+      description = value;
     });
   }
 
@@ -179,9 +196,6 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     setState(() {
       content = value;
     });
-  }
-
-  _listener(BuildContext context, RequisitionState state) {
   }
 
   _save(BuildContext context) async {
@@ -195,11 +209,11 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              description: scheduleController.text,
+              description: descriptionController.text,
               content: contentController.text,
               endDate: endTime,
               startDate: startTime,
-              subtitudePersons: walkers,
+              subtitudePersons: subtitudePersons,
             ),
           ),
         ),

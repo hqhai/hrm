@@ -1,3 +1,4 @@
+import 'package:base_app/data/models/paging_infor_request.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -5,12 +6,12 @@ part 'flow_response.g.dart';
 
 @JsonSerializable()
 class FlowResponse {
-  final int totalItems;
-  final List<FlowRequest> flows;
+  final PagingInfoRequest pagingInfo;
+  final List<FlowRequest> items;
 
   const FlowResponse({
-    this.totalItems = 0,
-    this.flows = const [],
+    this.items = const [],
+    this.pagingInfo= const PagingInfoRequest(totalItems: 0, pageSize: 0, page: 1),
   });
 
   factory FlowResponse.fromJson(Map<String, dynamic> json) =>

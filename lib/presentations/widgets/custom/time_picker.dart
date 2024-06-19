@@ -16,15 +16,16 @@ class _TimePickerState extends State<TimePicker> {
   late DateTime timeValue;
   DateFormat inputFormat = DateFormat('dd-MM-yyyy HH:mm');
 
-  @override
-  void initState() {
-    if(widget.timeSlot != '') {
-      timeValue = inputFormat.parse(widget.timeSlot);
-    }
-    else{
-      timeValue = DateTime.now();
-    }
-    super.initState();
+  DateTime setStartTimeOld() {
+    setState(() {
+      if(widget.timeSlot != '') {
+        timeValue = inputFormat.parse(widget.timeSlot);
+      }
+      else{
+        timeValue = DateTime.now();
+      }
+    });
+    return timeValue;
   }
 
   @override
@@ -32,7 +33,7 @@ class _TimePickerState extends State<TimePicker> {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
       onTap: () {
-        showTimePicker(timeValue);
+        showTimePicker(setStartTimeOld());
       },
       child: Container(
         padding: const EdgeInsets.all(4),
@@ -47,9 +48,9 @@ class _TimePickerState extends State<TimePicker> {
         ),
         child: Column(
           children: [
-            Text(DateFormat('yyyy-MM-dd').format(_ruleTime(timeValue)),
+            Text(DateFormat('yyyy-MM-dd').format(_ruleTime(setStartTimeOld())),
                 style: TextStyle(fontSize: 14, color: colors.text)),
-            Text(DateFormat('HH:mm:ss').format(_ruleTime(timeValue)),
+            Text(DateFormat('HH:mm:ss').format(_ruleTime(setStartTimeOld())),
                 style: TextStyle(fontSize: 14, color: colors.text)),
           ],
         ),

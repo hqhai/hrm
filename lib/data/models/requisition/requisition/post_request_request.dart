@@ -6,6 +6,7 @@ part 'post_request_request.g.dart';
 @CopyWith()
 @JsonSerializable()
 class PostRequestRequest {
+  final String? id;
   final String? flowId;
   final dynamic config;
   final List<String>? followerIds;
@@ -13,6 +14,7 @@ class PostRequestRequest {
 
 
   const PostRequestRequest({
+    this.id,
     this.followerIds,
     this.config,
     this.flowId

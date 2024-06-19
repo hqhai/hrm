@@ -55,3 +55,16 @@ class GetRequisitionByIdEvent extends RequisitionEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class EditRequestEvent extends RequisitionEvent {
+  final PostRequestRequest postRequestRequest;
+  final Completer completer;
+
+  const EditRequestEvent({
+    this.postRequestRequest = const PostRequestRequest(),
+    required this.completer,
+  });
+
+  @override
+  List<Object?> get props => [postRequestRequest, completer];
+}

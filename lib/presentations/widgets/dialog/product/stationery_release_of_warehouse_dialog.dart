@@ -90,7 +90,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
                 ],
               ),
             ),
-            ItemAddStationeryDialog(check: false, product: explain, unit: unit),
+            ItemAddStationeryDialog(check: false, product: product, unit: unit),
             ItemCreateInput(
               title: appLocalizations.explain,
               inputController: explainController,

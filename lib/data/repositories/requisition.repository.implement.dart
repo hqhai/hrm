@@ -153,4 +153,9 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   Future<bool> userRejectRequisitionById({required String id}) async {
     return await _requestService.userRejectRequisitionById(id: id);
   }
+
+  @override
+  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest}) async {
+    return await _requestService.editRequestEdit(postRequestRequest: postRequestRequest);
+  }
 }

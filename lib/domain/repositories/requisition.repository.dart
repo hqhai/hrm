@@ -21,14 +21,13 @@ abstract class RequisitionRepository {
 
   Future<RequestsResponse> getRequisitionsApprove({int? page});
 
-  Future<RequestsResponse> getRequisitionsApproveByFilter({
-    int? page,
-    String? type,
-    String? departmentId,
-    String? startDate,
-    String? endDate,
-    String? status
-  });
+  Future<RequestsResponse> getRequisitionsApproveByFilter(
+      {int? page,
+      String? type,
+      String? departmentId,
+      String? startDate,
+      String? endDate,
+      String? status});
 
   Future<RequestsResponse> getRequisitionsFollowerByFilter({
     int? page,
@@ -48,5 +47,8 @@ abstract class RequisitionRepository {
   Future<FlowRequest> getFlowById({required String id});
 
   Future<SearchStationeryByNameResponse> getStationery({required String name, required int page});
+
   Future<bool> userRejectRequisitionById({required String id});
+
+  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest});
 }

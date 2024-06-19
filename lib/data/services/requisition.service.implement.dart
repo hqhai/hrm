@@ -15,7 +15,6 @@ import 'package:base_app/data/models/requisition/staionery/search_stationery_by_
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
-import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
 import 'package:base_app/domain/services/requisition.service.dart';
 import 'package:injectable/injectable.dart';
 
@@ -39,13 +38,9 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final params = getRequestRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final items = responseBase.result['items'];
-    final totalItems = responseBase.result['pagingInfo']['totalItems'];
-    List<FlowRequest> flows = (items as List<dynamic>)
-        .map((e) => FlowRequest.fromJson(e as Map<String, dynamic>))
-        .toList();
-    int total = totalItems;
-    return FlowResponse(flows: flows, totalItems: total);
+    final result = responseBase.result;
+    final FlowResponse flowResponse = FlowResponse.fromJson(result);
+    return flowResponse;
   }
 
   @override
@@ -75,11 +70,9 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final params = requestsRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result['items'];
-    final totalItems = responseBase.result['pagingInfo']['totalItems'];
-    List<Request> request =
-        (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
-    return RequestsResponse(totalItems: totalItems, requests: request);
+    final data = responseBase.result;
+    final RequestsResponse requestsResponse = RequestsResponse.fromJson(data);
+    return requestsResponse;
   }
 
   @override
@@ -89,11 +82,9 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final params = requestsRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result['items'];
-    final totalItems = responseBase.result['pagingInfo']['totalItems'];
-    List<Request> request =
-        (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
-    return RequestsResponse(totalItems: totalItems, requests: request);
+    final data = responseBase.result;
+    final RequestsResponse requestsResponse = RequestsResponse.fromJson(data);
+    return requestsResponse;
   }
 
   @override
@@ -103,11 +94,9 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final params = getRequestFilterRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result['items'];
-    final totalItems = responseBase.result['pagingInfo']['totalItems'];
-    List<Request> request =
-        (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
-    return RequestsResponse(totalItems: totalItems, requests: request);
+    final data = responseBase.result;
+    final RequestsResponse requestsResponse = RequestsResponse.fromJson(data);
+    return requestsResponse;
   }
 
   @override
@@ -117,13 +106,10 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final params = getRequestApproveFilterRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result['items'];
-    final totalItems = responseBase.result['pagingInfo']['totalItems'];
-    List<Request> request =
-        (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
-    return RequestsResponse(totalItems: totalItems, requests: request);
+    final data = responseBase.result;
+    final RequestsResponse requestsResponse = RequestsResponse.fromJson(data);
+    return requestsResponse;
   }
-
 
   @override
   Future<SearchStationeryByNameResponse> getStationery(
@@ -132,11 +118,10 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final params = searchStationeryByNameRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result['items'];
-    final totalItems = responseBase.result['pagingInfo']['totalItems'];
-    List<Stationery> stationeries =
-        (data as List<dynamic>).map((e) => Stationery.fromJson(e as Map<String, dynamic>)).toList();
-    return SearchStationeryByNameResponse(totalItems: totalItems, stationery: stationeries);
+    final data = responseBase.result;
+    final SearchStationeryByNameResponse searchStationeryByNameResponse =
+        SearchStationeryByNameResponse.fromJson(data);
+    return searchStationeryByNameResponse;
   }
 
   @override
@@ -156,11 +141,9 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final params = getRequestFilterRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result['items'];
-    final totalItems = responseBase.result['pagingInfo']['totalItems'];
-    List<Request> request =
-        (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
-    return RequestsResponse(totalItems: totalItems, requests: request);
+    final data = responseBase.result;
+    final RequestsResponse requestsResponse = RequestsResponse.fromJson(data);
+    return requestsResponse;
   }
 
   @override
@@ -180,5 +163,16 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final result = responseBase.result;
     return result;
+  }
+
+  @override
+  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest}) async {
+    final url = '$baseUrl${PathConfig.editRequestEdit}';
+    final body = jsonEncode(postRequestRequest.toJson());
+    final response = await client.put(url, body: body);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    final Request request = Request.fromJson(data);
+    return request;
   }
 }

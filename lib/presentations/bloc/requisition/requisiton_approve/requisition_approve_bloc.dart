@@ -38,8 +38,8 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
         type: event.requisitionTypeEnum?.name,
         status: event.status,
       );
-      final List<Request> newStationery = requestsResponse.requests;
-      final int totalItems = requestsResponse.totalItems;
+      final List<Request> newStationery = requestsResponse.items;
+      final int totalItems = requestsResponse.pagingInfo.totalItems;
       if (event.page != 1) {
         final List<Request> requests = [...state.requisitions];
         requests.addAll(newStationery);
