@@ -48,16 +48,19 @@ final requisitionInformationPageRoute = GoRoute(
     });
 
 class RequisitionInformationPage extends StatefulWidget {
-  const RequisitionInformationPage({super.key, this.id = '', this.checkUser = false});
+  const RequisitionInformationPage(
+      {super.key, this.id = '', this.checkUser = false});
 
   final String id;
   final bool checkUser;
 
   @override
-  State<RequisitionInformationPage> createState() => _RequisitionInformationPageState();
+  State<RequisitionInformationPage> createState() =>
+      _RequisitionInformationPageState();
 }
 
-class _RequisitionInformationPageState extends State<RequisitionInformationPage> {
+class _RequisitionInformationPageState
+    extends State<RequisitionInformationPage> {
   String? note;
 
   @override
@@ -87,8 +90,10 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
           _listenApproveWhen(previous.statusApprove, current.statusApprove),
       child: BlocConsumer<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
-        buildWhen: (previous, current) => previous.requisition != current.requisition,
-        listenWhen: (previous, current) => previous.requisition != current.requisition,
+        buildWhen: (previous, current) =>
+            previous.requisition != current.requisition,
+        listenWhen: (previous, current) =>
+            previous.requisition != current.requisition,
         builder: (context, state) {
           return BlocBuilder<FlowBloc, FlowState>(
             builder: (context, stateFlow) {
@@ -98,10 +103,13 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                     child: Column(
                       children: [
                         Text(stateFlow.flow.flowType?.configTypeName ?? "",
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
-                        Text('${appLocalizations.applicationCode} : ${state.requisition.code}',
                             style: TextStyle(
-                                color: colors.surfaceVariantHigh, fontSize: SpacingUnit.x3)),
+                                color: colors.text, fontSize: SpacingUnit.x5)),
+                        Text(
+                            '${appLocalizations.applicationCode} : ${state.requisition.code}',
+                            style: TextStyle(
+                                color: colors.surfaceVariantHigh,
+                                fontSize: SpacingUnit.x3)),
                       ],
                     ),
                   ),
@@ -132,7 +140,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                         const RequisitionInformationType(),
                         const RequisitionInformationContent(),
                         const RequisitionInformationAttach(),
-                        if (state.requisition.status == StatusRequestEnum.process &&
+                        if (state.requisition.status ==
+                                StatusRequestEnum.process &&
                             !widget.checkUser)
                           Align(
                             alignment: Alignment.bottomRight,
@@ -142,39 +151,43 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                               callback: () => userRejectRequest(),
                             ),
                           ),
-                        if (state.requisition.status == StatusRequestEnum.edit && !widget.checkUser)
+                        if (state.requisition.status ==
+                                StatusRequestEnum.edit &&
+                            !widget.checkUser)
                           Align(
                             alignment: Alignment.bottomRight,
                             child: ButtonItemListRequisition(
                               check: true,
                               title: appLocalizations.update,
-                              callback: () =>
-                                  _nextScreen(context, stateFlow.flow, state.requisition.id),
+                              callback: () => _nextScreen(context,
+                                  stateFlow.flow, state.requisition.id),
                             ),
                           ),
-                        if (state.requisition.status == StatusRequestEnum.process &&
+                        if (state.requisition.status ==
+                                StatusRequestEnum.process &&
                             widget.checkUser)
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               ButtonItemListRequisition(
                                 title: appLocalizations.approver,
-                                callback: () => _isApprover(
-                                    state.requisition, context, EnumStepRequestStatusEnum.approve),
+                                callback: () => _isApprover(state.requisition,
+                                    context, EnumStepRequestStatusEnum.approve),
                               ),
                               ButtonItemListRequisition(
                                 title: appLocalizations.refuse,
-                                callback: () => _isApprover(
-                                    state.requisition, context, EnumStepRequestStatusEnum.reject),
+                                callback: () => _isApprover(state.requisition,
+                                    context, EnumStepRequestStatusEnum.reject),
                               ),
                               ButtonItemListRequisition(
                                 title: appLocalizations.modification,
-                                callback: () => _isApprover(
-                                    state.requisition, context, EnumStepRequestStatusEnum.edit),
+                                callback: () => _isApprover(state.requisition,
+                                    context, EnumStepRequestStatusEnum.edit),
                               ),
                             ],
                           ),
-                        if (state.requisition.status == StatusRequestEnum.approve &&
+                        if (state.requisition.status ==
+                                StatusRequestEnum.approve &&
                             widget.checkUser)
                           Align(
                             alignment: Alignment.bottomRight,
@@ -200,13 +213,13 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests?.isNotEmpty ?? false) {
       final stepRequests = request.stepRequests ?? [];
-      final indexNewStepRequest = stepRequests
-          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests.indexWhere(
+          (element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest =
-            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest = stepRequestApproves
+            .indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
           noteDialog(
@@ -229,9 +242,9 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     });
   }
 
-  _setApprove(String id, EnumStepRequestStatusEnum status, BuildContext context) async {
+  _setApprove(
+      String id, EnumStepRequestStatusEnum status, BuildContext context) async {
     Navigator.of(context).pop();
-    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     progressIndicatorDialog(context);
     final Completer completer = Completer<RequisitionEnum>();
     dI<RequisitionApproveBloc>().add(
@@ -245,16 +258,15 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     );
     final statusCompleter = await completer.future;
     if (statusCompleter == RequisitionEnum.success) {
-      print(">>>>>>>> ${statusCompleter.toString()}");
-      if (!currentContext.mounted) return;
+      if (!context.mounted) return;
       Navigator.of(context).pop();
       Navigator.of(context).pop();
-      successDialog(currentContext);
+      successDialog(context);
     }
     if (statusCompleter == RequisitionEnum.fail) {
-      if (!currentContext.mounted) return;
+      if (!context.mounted) return;
       Navigator.of(context).pop();
-      unsuccessfulDialog(currentContext);
+      unsuccessfulDialog(context);
     }
   }
 
@@ -270,7 +282,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     }
   }
 
-  _listenApproveWhen(RequisitionEnum statusApproveP, RequisitionEnum statusApproveC) {
+  _listenApproveWhen(
+      RequisitionEnum statusApproveP, RequisitionEnum statusApproveC) {
     return statusApproveP != statusApproveC;
   }
 
