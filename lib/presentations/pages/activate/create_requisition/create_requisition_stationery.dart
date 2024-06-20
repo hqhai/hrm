@@ -13,14 +13,16 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_month_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationery_order.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_total_amount.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_order_add_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -56,7 +58,11 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   List<Stationeries> listRequisitionStationery = [];
   List<String> followers = [];
   String month = "1";
-  String error = '', errorMonth = '';
+  String error = '',
+      errorMonth = '';
+  bool checkLoad = false,
+      checkSuccess = false,
+      checkUnSuccess = false;
   final TextEditingController inputController = TextEditingController(text: '1');
 
   @override
@@ -72,14 +78,10 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool check = listRequisitionStationery.isNotEmpty;
-    final bool checkTime =
-        int.parse(month)
-        - DateTime.now().month >= 0;
     setState(() {
       error = check ? '' : appLocalizations.thereAreCurrentlyNoProducts;
-      errorMonth = checkTime ? '' : appLocalizations.theStartTimeMustBeAfterTheCurrentTime;
     });
-    return check && checkTime;
+    return check;
   }
 
   _listener(BuildContext context, RequisitionState state) {
@@ -88,6 +90,8 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
         followers = state.requisition.followerIds;
         listRequisitionStationery = state.requisition.config.stationeries ?? [];
         month = state.requisition.config.description ?? "";
+        inputController.text = month;
+        dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
       });
     }
   }
@@ -100,127 +104,159 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return BlocListener<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) => _listenWhen(previous, current),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            RequisitionTypeEnum.stationery.configTypeName,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x5,
-            ),
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            width: width,
-            height: height * 0.85,
-            padding: const EdgeInsets.all(SpacingUnit.x3),
-            margin: const EdgeInsets.all(SpacingUnit.x3),
-            decoration: BoxDecoration(
-              color: colors.surface,
-              borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-              border: Border.all(
-                width: 1,
-                color: colors.surface,
+      child: BlocBuilder<UserByIdBloc, UserByIdState>(
+        builder: (context, stateUserById) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                RequisitionTypeEnum.stationery.configTypeName,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x5,
+                ),
               ),
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ItemMonthInput(
-                    title: appLocalizations.month,
-                    error: errorMonth,
-                    inputController: inputController,
-                    onChange: (value) => setMonth(value),
-                  ),
-                  Text(
-                    appLocalizations.stationeryList,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Container(
-                    width: width,
-                    height: height * 0.14 * listRequisitionStationery.length,
-                    padding: const EdgeInsets.all(SpacingUnit.x1),
-                    margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                    decoration: BoxDecoration(
+            body: Stack(
+              children: [
+                Container(
+                  width: width,
+                  height: height * 0.85,
+                  padding: const EdgeInsets.all(SpacingUnit.x3),
+                  margin: const EdgeInsets.all(SpacingUnit.x3),
+                  decoration: BoxDecoration(
+                    color: colors.surface,
+                    borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                    border: Border.all(
+                      width: 1,
                       color: colors.surface,
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                    ),
-                    child: ListView.builder(
-                      itemCount: listRequisitionStationery.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () =>
-                            _getStationeryInList(context, listRequisitionStationery[index], index),
-                        child: ItemListStationery(
-                          requisitionStationery: listRequisitionStationery[index],
-                          index: index,
-                        ),
-                      ),
                     ),
                   ),
-                  if (error != '')
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
-                      child: Text(
-                        error,
-                        style: TextStyle(
-                          color: colors.error,
-                          fontSize: SpacingUnit.x3,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ItemMonthInput(
+                          title: appLocalizations.month,
+                          error: errorMonth,
+                          inputController: inputController,
+                          onChange: (value) => setMonth(value),
                         ),
-                      ),
-                    ),
-                  GestureDetector(
-                    onTap: () => _addStationery(context),
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: SpacingUnit.x10,
-                      padding: const EdgeInsets.all(SpacingUnit.x2),
-                      decoration: BoxDecoration(
-                        color: colors.outlineSuccess,
-                        borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                        border: Border.all(
-                          width: 1,
-                          color: colors.text,
+                        Text(
+                          appLocalizations.stationeryList,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x4,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        appLocalizations.moreOfficeProducts,
-                        style: TextStyle(
-                          fontSize: SpacingUnit.x3_5,
-                          color: colors.background,
+                        Container(
+                          width: width,
+                          height: height * 0.14 * listRequisitionStationery.length,
+                          padding: const EdgeInsets.all(SpacingUnit.x1),
+                          margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                          decoration: BoxDecoration(
+                            color: colors.surface,
+                            borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                          ),
+                          child: ListView.builder(
+                            itemCount: listRequisitionStationery.length,
+                            itemBuilder: (context, index) =>
+                                GestureDetector(
+                                  onTap: () =>
+                                      _getStationeryInList(
+                                          context, listRequisitionStationery[index], index),
+                                  child: ItemListStationery(
+                                    requisitionStationery: listRequisitionStationery[index],
+                                    index: index,
+                                  ),
+                                ),
+                          ),
                         ),
-                      ),
+                        if (error != '')
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+                            child: Text(
+                              error,
+                              style: TextStyle(
+                                color: colors.error,
+                                fontSize: SpacingUnit.x3,
+                              ),
+                            ),
+                          ),
+                        GestureDetector(
+                          onTap: () => _addStationery(context),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: SpacingUnit.x10,
+                            padding: const EdgeInsets.all(SpacingUnit.x2),
+                            decoration: BoxDecoration(
+                              color: colors.outlineSuccess,
+                              borderRadius: BorderRadius.circular(SpacingUnit.x1),
+                              border: Border.all(width: 1, color: colors.text),
+                            ),
+                            child: Text(
+                              appLocalizations.moreOfficeProducts,
+                              style: TextStyle(
+                                fontSize: SpacingUnit.x3_5,
+                                color: colors.background,
+                              ),
+                            ),
+                          ),
+                        ),
+                        ItemTotalAmount(
+                          totalAmount: _totalAmount(),
+                        ),
+                        ItemCreateFollower(
+                            listFollower: stateUserById.userById,
+                            title: appLocalizations.follower, onChange: (value) =>
+                            _setFollower(value)),
+                        Padding(
+                          padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
+                          child: ItemButton(
+                            callbackSave: () => _save(context),
+                            callbackCancel: () => _cancel(),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  ItemTotalAmount(
-                    totalAmount: _totalAmount(),
-                  ),
-                  ItemCreateFollower(
-                      title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-                  Padding(
-                    padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
-                    child: ItemButton(
-                      callbackSave: () => _save(context),
-                      callbackCancel: () => _cancel(),
-                    ),
-                  )
-                ],
-              ),
+                ),
+                CheckLoadDialog(
+                  checkLoad: checkLoad,
+                  checkSuccess: checkSuccess,
+                  checkUnSuccess: checkUnSuccess,
+                  checkSuccessChange: () => setCheckSuccess(),
+                  checkUnSuccessChange: () => setCheckUnSuccess(),
+                ),
+              ],
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
+  }
+
+  setCheckSuccess() {
+    setState(() {
+      checkSuccess = false;
+    });
+  }
+
+  setCheckUnSuccess() {
+    setState(() {
+      checkUnSuccess = false;
+    });
   }
 
   _addStationery(BuildContext context) {
@@ -243,8 +279,42 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
 
   _save(BuildContext context) async {
-    if (_checkValue(context)) {
-      progressIndicatorDialog(context);
+    if (_checkValue(context) && widget.requestId != null) {
+      Completer completer = Completer<RequisitionEnum>();
+      dI<RequisitionBloc>().add(
+        EditRequestEvent(
+          completer: completer,
+          postRequestRequest: PostRequestRequest(
+            id: widget.requestId,
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              description: month,
+              stationeries: listRequisitionStationery,
+              subtotal: _subtotal(),
+              numberValue: _numberValue(),
+              totalAmount: _totalAmount(),
+            ),
+          ),
+        ),
+      );
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
+      }
+      if (status == RequisitionEnum.fail) {
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
+      }
+    } else if (_checkValue(context)) {
+      setState(() {
+        checkLoad = true;
+      });
       Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
@@ -264,14 +334,16 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
       );
       final status = await completer.future;
       if (status == RequisitionEnum.success) {
-        if (!context.mounted) return;
-        //Navigator.of(context).pop();
-        successDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
       }
       if (status == RequisitionEnum.fail) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        unsuccessfulDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
       }
     }
   }

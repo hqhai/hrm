@@ -165,7 +165,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
 
   _setNumber(String value) {
     setState(() {
-      numberOf = int.parse(value);
+      numberOf = value != '' ? int.parse(value) : 0;
       intoMoney = unitPrice * numberOf;
     });
   }
