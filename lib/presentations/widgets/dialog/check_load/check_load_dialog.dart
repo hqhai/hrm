@@ -1,0 +1,104 @@
+import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:themes/themes.dart';
+
+class CheckLoadDialog extends StatefulWidget {
+  final bool checkLoad, checkSuccess, checkUnSuccess;
+  final VoidCallback checkSuccessChange, checkUnSuccessChange;
+
+  const CheckLoadDialog(
+      {super.key,
+      this.checkLoad = false,
+      this.checkSuccess = false,
+      this.checkUnSuccess = false,
+      required this.checkSuccessChange,
+      required this.checkUnSuccessChange});
+
+  @override
+  State<CheckLoadDialog> createState() => _CheckLoadDialogState();
+}
+
+class _CheckLoadDialogState extends State<CheckLoadDialog> {
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
+    return Stack(
+      children: [
+        if (widget.checkLoad)
+          Center(
+            child: ContainerBorder(
+              height: SpacingUnit.x50,
+              width: SpacingUnit.x50,
+              child: Lottie.asset(Assets.images.icon.loading,
+                  width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
+            ),
+          ),
+        if (widget.checkSuccess)
+          Center(
+            child: ContainerBorder(
+              height: SpacingUnit.x30,
+              width: SpacingUnit.x50,
+              child: Column(
+                children: [
+                  Text(
+                    appLocalizations.success,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: SpacingUnit.x8, color: colors.success),
+                  ),
+                  GestureDetector(
+                    onTap: widget.checkSuccessChange,
+                    child: ContainerBorder(
+                      margin: SpacingUnit.x1,
+                      padding: SpacingUnit.x1,
+                      height: SpacingUnit.x10,
+                      width: SpacingUnit.x20,
+                      child: Text(
+                        appLocalizations.ok,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        if (widget.checkUnSuccess)
+          Center(
+            child: ContainerBorder(
+              height: SpacingUnit.x30,
+              width: SpacingUnit.x50,
+              child: Column(
+                children: [
+                  Text(
+                    appLocalizations.unsuccessful,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: SpacingUnit.x8, color: colors.error),
+                  ),
+                  GestureDetector(
+                    onTap: widget.checkUnSuccessChange,
+                    child: ContainerBorder(
+                      margin: SpacingUnit.x1,
+                      padding: SpacingUnit.x1,
+                      height: SpacingUnit.x10,
+                      width: SpacingUnit.x20,
+                      child: Text(
+                        appLocalizations.ok,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
