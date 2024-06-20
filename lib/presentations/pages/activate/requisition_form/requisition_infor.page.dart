@@ -18,18 +18,19 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
+import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
-import 'package:base_app/presentations/pages/activate/requisition_form/item_request_process.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_attach.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_general_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_sender_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_type.dart';
-import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -47,18 +48,20 @@ final requisitionInformationPageRoute = GoRoute(
     });
 
 class RequisitionInformationPage extends StatefulWidget {
-  const RequisitionInformationPage({super.key, this.id = '', this.checkUser = false});
+  const RequisitionInformationPage(
+      {super.key, this.id = '', this.checkUser = false});
 
   final String id;
   final bool checkUser;
 
   @override
-  State<RequisitionInformationPage> createState() => _RequisitionInformationPageState();
+  State<RequisitionInformationPage> createState() =>
+      _RequisitionInformationPageState();
 }
 
-class _RequisitionInformationPageState extends State<RequisitionInformationPage> {
+class _RequisitionInformationPageState
+    extends State<RequisitionInformationPage> {
   String? note;
-  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
 
   @override
   void initState() {
@@ -81,111 +84,128 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(context, state),
-      buildWhen: (previous, current) => previous.requisition != current.requisition,
-      listenWhen: (previous, current) => previous.requisition != current.requisition,
-      builder: (context, state) {
-        return BlocBuilder<FlowBloc, FlowState>(
-          builder: (context, stateFlow) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Center(
-                  child: Column(
-                    children: [
-                      Text(stateFlow.flow.flowType?.configTypeName ?? "",
-                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
-                      Text('${appLocalizations.applicationCode} : ${state.requisition.code}',
-                          style: TextStyle(
-                              color: colors.surfaceVariantHigh, fontSize: SpacingUnit.x3)),
-                    ],
+    return BlocListener<RequisitionApproveBloc, RequisitionApproveState>(
+      listener: (context, state) => _listenerApprove(context, state),
+      listenWhen: (previous, current) =>
+          _listenApproveWhen(previous.statusApprove, current.statusApprove),
+      child: BlocConsumer<RequisitionBloc, RequisitionState>(
+        listener: (context, state) => _listener(context, state),
+        buildWhen: (previous, current) =>
+            previous.requisition != current.requisition,
+        listenWhen: (previous, current) =>
+            previous.requisition != current.requisition,
+        builder: (context, state) {
+          return BlocBuilder<FlowBloc, FlowState>(
+            builder: (context, stateFlow) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: Center(
+                    child: Column(
+                      children: [
+                        Text(stateFlow.flow.flowType?.configTypeName ?? "",
+                            style: TextStyle(
+                                color: colors.text, fontSize: SpacingUnit.x5)),
+                        Text(
+                            '${appLocalizations.applicationCode} : ${state.requisition.code}',
+                            style: TextStyle(
+                                color: colors.surfaceVariantHigh,
+                                fontSize: SpacingUnit.x3)),
+                      ],
+                    ),
+                  ),
+                  actions: const [
+                    SizedBox(
+                      width: SpacingUnit.x15,
+                    )
+                  ],
+                ),
+                body: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+                  decoration: BoxDecoration(
+                    color: CustomsColor.colorBackground,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(SpacingUnit.x4),
+                    ),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const RequisitionInformationSenderInformation(),
+                        RequisitionInformationGeneraliInformation(
+                            followerIds: state.requisition.followerIds),
+                        const RequisitionInformationType(),
+                        const RequisitionInformationContent(),
+                        const RequisitionInformationAttach(),
+                        if (state.requisition.status ==
+                                StatusRequestEnum.process &&
+                            !widget.checkUser)
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: ButtonItemListRequisition(
+                              check: true,
+                              title: appLocalizations.delete,
+                              callback: () => userRejectRequest(),
+                            ),
+                          ),
+                        if (state.requisition.status ==
+                                StatusRequestEnum.edit &&
+                            !widget.checkUser)
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: ButtonItemListRequisition(
+                              check: true,
+                              title: appLocalizations.update,
+                              callback: () => _nextScreen(context,
+                                  stateFlow.flow, state.requisition.id),
+                            ),
+                          ),
+                        if (state.requisition.status ==
+                                StatusRequestEnum.process &&
+                            widget.checkUser)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ButtonItemListRequisition(
+                                title: appLocalizations.approver,
+                                callback: () => _isApprover(state.requisition,
+                                    context, EnumStepRequestStatusEnum.approve),
+                              ),
+                              ButtonItemListRequisition(
+                                title: appLocalizations.refuse,
+                                callback: () => _isApprover(state.requisition,
+                                    context, EnumStepRequestStatusEnum.reject),
+                              ),
+                              ButtonItemListRequisition(
+                                title: appLocalizations.modification,
+                                callback: () => _isApprover(state.requisition,
+                                    context, EnumStepRequestStatusEnum.edit),
+                              ),
+                            ],
+                          ),
+                        if (state.requisition.status ==
+                                StatusRequestEnum.approve &&
+                            widget.checkUser)
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: ButtonItemListRequisition(
+                              check: true,
+                              title: appLocalizations.cancel,
+                              callback: () {},
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
-                actions: const [
-                  SizedBox(width: SpacingUnit.x15),
-                ],
-              ),
-              body: Stack(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                    decoration: BoxDecoration(
-                      color: CustomsColor.colorBackground,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(SpacingUnit.x4),
-                      ),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const RequisitionInformationSenderInformation(),
-                          RequisitionInformationGeneraliInformation(
-                              followerIds: state.requisition.followerIds),
-                          const RequisitionInformationType(),
-                          const RequisitionInformationContent(),
-                          const RequisitionInformationAttach(),
-                          if (state.requisition.status == StatusRequestEnum.process &&
-                              !widget.checkUser)
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: ButtonItemListRequisition(
-                                check: true,
-                                title: appLocalizations.delete,
-                                callback: () => userRejectRequest(),
-                              ),
-                            ),
-                          if (state.requisition.status == StatusRequestEnum.edit &&
-                              !widget.checkUser)
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: ButtonItemListRequisition(
-                                check: true,
-                                title: appLocalizations.update,
-                                callback: () =>
-                                    _nextScreen(context, stateFlow.flow, state.requisition.id),
-                              ),
-                            ),
-                          if (state.requisition.status == StatusRequestEnum.process &&
-                              widget.checkUser)
-                            ItemRequestProcess(
-                              callBackApprover: () => _isApprover(
-                                  state.requisition, context, EnumStepRequestStatusEnum.approve),
-                              callBackEdit: () => _isApprover(
-                                  state.requisition, context, EnumStepRequestStatusEnum.edit),
-                              callBackReject: () => _isApprover(
-                                  state.requisition, context, EnumStepRequestStatusEnum.reject),
-                            ),
-                          if (state.requisition.status == StatusRequestEnum.approve &&
-                              widget.checkUser)
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: ButtonItemListRequisition(
-                                check: true,
-                                title: appLocalizations.cancel,
-                                callback: () {},
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  CheckLoadDialog(
-                    checkLoad: checkLoad,
-                    checkSuccess: checkSuccess,
-                    checkUnSuccess: checkUnSuccess,
-                    checkSuccessChange: () => setCheckSuccess(),
-                    checkUnSuccessChange: () => setCheckUnSuccess(),
-                  )
-                ],
-              ),
-            );
-          },
-        );
-      },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
@@ -193,13 +213,13 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests?.isNotEmpty ?? false) {
       final stepRequests = request.stepRequests ?? [];
-      final indexNewStepRequest = stepRequests
-          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests.indexWhere(
+          (element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest =
-            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest = stepRequestApproves
+            .indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
           noteDialog(
@@ -222,11 +242,10 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     });
   }
 
-  _setApprove(String id, EnumStepRequestStatusEnum status, BuildContext context) async {
+  _setApprove(
+      String id, EnumStepRequestStatusEnum status, BuildContext context) async {
     Navigator.of(context).pop();
-    setState(() {
-      checkLoad = true;
-    });
+    progressIndicatorDialog(context);
     final Completer completer = Completer<RequisitionEnum>();
     dI<RequisitionApproveBloc>().add(
       ApproveRequestEvent(
@@ -239,18 +258,33 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     );
     final statusCompleter = await completer.future;
     if (statusCompleter == RequisitionEnum.success) {
-      setState(() {
-        dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
-        checkLoad = false;
-        checkSuccess = true;
-      });
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+      successDialog(context);
     }
     if (statusCompleter == RequisitionEnum.fail) {
-      setState(() {
-        checkLoad = false;
-        checkUnSuccess = true;
-      });
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      unsuccessfulDialog(context);
     }
+  }
+
+  _listenerApprove(BuildContext context, RequisitionApproveState state) {
+    if (dI<AppNavigation>().isCurrentPage(Pages.requisitionInformationPage)) {
+      if (state.statusApprove == RequisitionEnum.success) {
+        successDialog(context);
+        dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
+      }
+      if (state.statusApprove == RequisitionEnum.fail) {
+        unsuccessfulDialog(context);
+      }
+    }
+  }
+
+  _listenApproveWhen(
+      RequisitionEnum statusApproveP, RequisitionEnum statusApproveC) {
+    return statusApproveP != statusApproveC;
   }
 
   _push({
@@ -339,17 +373,5 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       default:
         break;
     }
-  }
-
-  setCheckSuccess() {
-    setState(() {
-      checkSuccess = false;
-    });
-  }
-
-  setCheckUnSuccess() {
-    setState(() {
-      checkUnSuccess = false;
-    });
   }
 }
