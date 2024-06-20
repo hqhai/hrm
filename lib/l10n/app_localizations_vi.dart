@@ -990,4 +990,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get unpaidLeave => 'Nghỉ không lương';
+
+  @override
+  String get theStartTimeMustBeAfterTheCurrentTime => 'Thời gian bắt đầu phải sau thời gian hiện tại';
+
+  @override
+  String get month => 'Tháng';
+
+  @override
+  String get quantityCannotBeZero => 'Số lượng không được bằng 0';
 }

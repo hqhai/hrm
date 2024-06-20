@@ -2066,6 +2066,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unpaid leave'**
   String get unpaidLeave;
+
+  /// No description provided for @theStartTimeMustBeAfterTheCurrentTime.
+  ///
+  /// In en, this message translates to:
+  /// **'The start time must be after the current time'**
+  String get theStartTimeMustBeAfterTheCurrentTime;
+
+  /// No description provided for @month.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get month;
+
+  /// No description provided for @quantityCannotBeZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity cannot be zero'**
+  String get quantityCannotBeZero;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

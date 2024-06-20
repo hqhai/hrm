@@ -327,5 +327,8 @@
   "yearlyAndSeniorityLeave": "Yearly and seniority leave",
   "compensatoryLeave": "Compensatory leave",
   "otherLeave": "Other leave",
-  "unpaidLeave": "Unpaid leave"
+  "unpaidLeave": "Unpaid leave",
+  "theStartTimeMustBeAfterTheCurrentTime": "The start time must be after the current time",
+  "month": "Month",
+  "quantityCannotBeZero": "Quantity cannot be zero"
 }

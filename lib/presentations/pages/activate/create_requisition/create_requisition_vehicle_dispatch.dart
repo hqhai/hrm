@@ -51,7 +51,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       contentController = TextEditingController();
   int totalMinute = 0;
   String errorTime = '', errorSchedule = '', errorContent = '';
-  String? startTime , endTime , description , content ;
+  String? startTime, endTime, description, content;
+
   List<String> followers = [], subtitudePersons = [];
 
   @override
@@ -81,15 +82,25 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    bool checkTime = totalMinute > 0;
-    bool check = description != '' && content != '' && subtitudePersons != [];
+    final bool checkTime = totalMinute > 0;
+    final DateTime date = DateTime.parse(
+      startTime ?? DateTime.now().toString(),
+    );
+    final bool checkStart = date.difference(DateTime.now()).inHours > 0;
+    final bool checkDescription = description != '' && description != null;
+    final bool checkContent = content != '' && content != null;
+    final bool check = checkDescription && checkContent && subtitudePersons != [];
     setState(() {
-      errorTime = checkTime ? "" : appLocalizations.endTimeMustBeAfterStartTime;
-      errorSchedule = description != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorContent = content != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorTime = !checkStart
+          ? appLocalizations.theStartTimeMustBeAfterTheCurrentTime
+          : !checkTime
+              ? appLocalizations.endTimeMustBeAfterStartTime
+              : "";
+      errorSchedule = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorContent = checkContent ? '' : appLocalizations.cannotBeLeftBlank;
     });
 
-    return check && checkTime;
+    return check && checkTime && checkStart;
   }
 
   @override
@@ -137,7 +148,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                 ItemCreateInputArea(
                   error: errorSchedule,
                   textController: descriptionController,
-                  title: appLocalizations.description,
+                  title: appLocalizations.schedule,
                   onChange: (value) => _setSchedule(value),
                 ),
                 ItemCreateInputArea(
@@ -176,13 +187,13 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
 
   setStartTime(String value) {
     setState(() {
-      startTime = formatIso8601(value);
+      startTime = value;
     });
   }
 
   setEndTime(String value) {
     setState(() {
-      endTime = formatIso8601(value);
+      endTime = value;
     });
   }
 
@@ -201,7 +212,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   _save(BuildContext context) async {
     if (_checkValue(context)) {
       progressIndicatorDialog(context);
-      Completer completer = Completer<RequisitionEnum>();
+      final Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           completer: completer,
@@ -211,8 +222,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
             config: ConfigRequestModel(
               description: descriptionController.text,
               content: contentController.text,
-              endDate: endTime,
-              startDate: startTime,
+              endDate: formatIso8601(endTime),
+              startDate: formatIso8601(startTime),
               subtitudePersons: subtitudePersons,
             ),
           ),

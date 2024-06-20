@@ -44,7 +44,7 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
         widget.startTimeOld ?? DateTime.now().toString(),
       );
     });
-    return widget.startTimeOld??DateFormat('dd-MM-yyyy HH:mm').format(
+    return widget.startTimeOld??DateFormat('yyyy-MM-dd HH:mm').format(
       DateTime.now(),
     );
   }
@@ -55,7 +55,7 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
         widget.endTimeOld ?? DateTime.now().toString(),
       );
     });
-    return widget.endTimeOld??DateFormat('dd-MM-yyyy HH:mm').format(
+    return widget.endTimeOld??DateFormat('yyyy-MM-dd HH:mm').format(
       DateTime.now(),
     );
   }
@@ -120,7 +120,7 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+          padding: const EdgeInsets.only(top: SpacingUnit.x3),
           child: Row(
             children: [
               Padding(
@@ -154,7 +154,7 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
         ),
         if (widget.error != '')
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+            padding: const EdgeInsets.only(top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),
             child: Text(
               widget.error ?? "",
               style: TextStyle(

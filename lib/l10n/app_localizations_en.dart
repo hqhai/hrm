@@ -990,4 +990,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unpaidLeave => 'Unpaid leave';
+
+  @override
+  String get theStartTimeMustBeAfterTheCurrentTime => 'The start time must be after the current time';
+
+  @override
+  String get month => 'Month';
+
+  @override
+  String get quantityCannotBeZero => 'Quantity cannot be zero';
 }

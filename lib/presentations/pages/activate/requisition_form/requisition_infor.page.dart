@@ -212,7 +212,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
           noteDialog(
             context,
             (value) => _setNote(value),
-            () => _setApprove(idStepRequestApprove, status),
+            () => _setApprove(idStepRequestApprove, status, context),
           );
         }
       }
@@ -229,8 +229,9 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     });
   }
 
-  _setApprove(String id, EnumStepRequestStatusEnum status) async {
+  _setApprove(String id, EnumStepRequestStatusEnum status, BuildContext context) async {
     Navigator.of(context).pop();
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     progressIndicatorDialog(context);
     final Completer completer = Completer<RequisitionEnum>();
     dI<RequisitionApproveBloc>().add(
@@ -242,16 +243,17 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
         completer: completer,
       ),
     );
-    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final statusCompleter = await completer.future;
     if (statusCompleter == RequisitionEnum.success) {
+      print(">>>>>>>> ${statusCompleter.toString()}");
       if (!currentContext.mounted) return;
-      Navigator.of(currentContext).pop();
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
       successDialog(currentContext);
     }
     if (statusCompleter == RequisitionEnum.fail) {
       if (!currentContext.mounted) return;
-      Navigator.of(currentContext).pop();
+      Navigator.of(context).pop();
       unsuccessfulDialog(currentContext);
     }
   }

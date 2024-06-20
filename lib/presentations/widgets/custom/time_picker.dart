@@ -14,7 +14,9 @@ class TimePicker extends StatefulWidget {
 
 class _TimePickerState extends State<TimePicker> {
   late DateTime timeValue;
-  DateFormat inputFormat = DateFormat('dd-MM-yyyy HH:mm');
+  DateFormat inputFormat = DateFormat('yyyy-MM-dd HH:mm');
+
+
 
   DateTime setStartTimeOld() {
     setState(() {

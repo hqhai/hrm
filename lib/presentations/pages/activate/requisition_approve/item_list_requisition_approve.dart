@@ -174,8 +174,9 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   }
 
   _setApprove(String id, EnumStepRequestStatusEnum status) async {
-    Navigator.of(context).pop();
-    progressIndicatorDialog(context);
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    Navigator.of(currentContext).pop();
+    progressIndicatorDialog(currentContext);
     final Completer completer = Completer<RequisitionEnum>();
     dI<RequisitionApproveBloc>().add(
       ApproveRequestEvent(
@@ -186,7 +187,6 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
         completer: completer,
       ),
     );
-    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final statusCompleter = await completer.future;
     if (statusCompleter == RequisitionEnum.success) {
       if (!currentContext.mounted) return;

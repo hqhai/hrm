@@ -65,13 +65,13 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () => addListPerson(
                           user: state.usersByName[index],
-                          listValueByIndex: state.usersByName[index].fullName),
+                          listValueByIndex: state.usersByName[index].id),
                       child: Container(
                         padding: const EdgeInsets.all(SpacingUnit.x2),
                         margin: const EdgeInsets.all(SpacingUnit.x2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                          color: listPerson.contains(state.usersByName[index].fullName)
+                          color: listPerson.contains(state.usersByName[index].id)
                               ? colors.tertiary
                               : CustomsColor.colorBackground,
                           border: Border.all(
