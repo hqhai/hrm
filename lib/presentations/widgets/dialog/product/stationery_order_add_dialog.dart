@@ -27,15 +27,26 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       numberOfController = TextEditingController(),
       noteController = TextEditingController(),
       unitPriceController = TextEditingController();
-  String explain = '', note = '', unit = '', month = '', product = '';
+  String explain = '', note = '', unit = '', product = '', errorProduct = '', errorNumberOf = '';
   double intoMoney = 0, unitPrice = 0;
   int numberOf = 0;
   Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
 
+  bool checkOnClick(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final bool checkProduct = product != '';
+    final bool checkNumberOf = numberOf > 0;
+    setState(() {
+      errorProduct = checkProduct ? "" : appLocalizations.cannotBeLeftBlank;
+      errorNumberOf = checkNumberOf ? "" : appLocalizations.quantityCannotBeZero;
+    });
+    return checkProduct && checkNumberOf;
+  }
+
   setStationery(Stationery value) {
     setState(() {
       stationery = value;
-      product = value.product??"";
+      product = value.product ?? "";
       unitPrice = double.parse((value.unitPrice ?? '0').replaceAll(',', ''));
       explain = value.product ?? "";
       unit = value.unit ?? "";
@@ -49,7 +60,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     noteController.text = widget.stationery?.note ?? "";
     unitPriceController.text = (widget.stationery?.unitPrice ?? 0).toString();
     explain = widget.stationery?.product ?? "";
-    unit =  widget.stationery?.unit ?? "";
+    unit = widget.stationery?.unit ?? "";
     note = widget.stationery?.note ?? "";
     numberOf = widget.stationery?.quantity ?? 0;
     unitPrice = widget.stationery?.unitPrice ?? 0;
@@ -87,7 +98,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
                   GestureDetector(
                     onTap: () => _showBottomSheet(context),
                     child: Icon(
-                      Icons.add,
+                      Icons.add_circle,
                       size: SpacingUnit.x8,
                       color: colors.success,
                     ),
@@ -95,12 +106,21 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
                 ],
               ),
             ),
+            if (errorProduct != '')
+              Text(
+                errorProduct,
+                style: TextStyle(
+                  color: colors.error,
+                  fontSize: SpacingUnit.x3,
+                ),
+              ),
             ItemAddStationeryDialog(
                 check: true,
                 unit: unit,
                 unitPrice: double.parse((stationery.unitPrice ?? '0').replaceAll(',', '')),
                 product: explain),
             ItemCreateTotalMinute(
+              error: errorNumberOf,
               title: appLocalizations.numberOf,
               totalMinuteController: numberOfController,
               onChange: (value) => _setNumber(value),
@@ -116,7 +136,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
             ),
             ItemButtonListStationery(
               callbackCancel: () => popDialog(context),
-              callbackAdd: () => setAdd(),
+              callbackAdd: () => setAdd(context),
             )
           ],
         ),
@@ -130,8 +150,8 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     });
   }
 
-  setAdd() {
-    setState(() {
+  setAdd(BuildContext context) {
+    if (checkOnClick(context)) {
       widget.requisitionStationery?.call(Stationeries(
           product: explain,
           unitPrice: unitPrice,
@@ -139,8 +159,8 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
           unit: unit,
           quantity: numberOf,
           amount: numberOf * unitPrice));
-    });
-    Navigator.of(context).pop();
+      Navigator.of(context).pop();
+    }
   }
 
   _setNumber(String value) {

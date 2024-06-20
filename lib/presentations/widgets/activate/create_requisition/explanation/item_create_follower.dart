@@ -2,6 +2,7 @@ import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -76,16 +77,20 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () => _add(context),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: colors.blue,
-            ),
-            child: Text(
-              appLocalizations.add,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x5,
+          GestureDetector(
+            onTap: () => _add(context),
+            child: ContainerBorder(
+              backgroundColors: colors.success,
+              width: SpacingUnit.x20,
+              padding: SpacingUnit.x1,
+              borderColors: colors.success,
+              child: Text(
+                appLocalizations.add,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: colors.background,
+                  fontSize: SpacingUnit.x5,
+                ),
               ),
             ),
           ),

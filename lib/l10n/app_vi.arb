@@ -327,7 +327,9 @@
   "yearlyAndSeniorityLeave": "Nghỉ phép năm",
   "compensatoryLeave": "Nghỉ bù",
   "otherLeave": "Nghỉ phép khác",
-  "unpaidLeave": "Nghỉ không lương",
+  "theStartTimeMustBeAfterTheCurrentTime": "Thời gian bắt đầu phải sau thời gian hiện tại",
+  "month": "Tháng",
+  "quantityCannotBeZero": "Số lượng không được bằng 0"
   "horizontalCalendar": "Lịch ngang",
   "verticalCalendar": "Lịch dọc"
 }

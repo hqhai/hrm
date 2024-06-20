@@ -7,7 +7,7 @@ progressIndicatorDialog(BuildContext context) async {
   return showDialog(
     barrierDismissible: false,
     context: context,
-    builder: (context) {
+    builder: (BuildContext context) {
       return AlertDialog(
         content: SizedBox(
           height: SpacingUnit.x50,

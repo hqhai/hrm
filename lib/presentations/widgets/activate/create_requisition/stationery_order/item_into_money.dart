@@ -1,4 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -24,13 +25,9 @@ class ItemIntoMoney extends StatelessWidget {
         ),
         Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-            child: Container(
+            child: ContainerBorder(
               width: width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                color: colors.surface,
-                border: Border.all(color: colors.text, width: 1),
-              ),
+              margin: SpacingUnit.x1,
               child: Text(
                 content ?? "",
                 style: TextStyle(
