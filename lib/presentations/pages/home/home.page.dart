@@ -53,11 +53,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void logoutFunction() {
-    setState(() {
       dI<AuthBloc>().add(const LogoutEvent());
       dI<UserBloc>().add(const ResetUserEvent());
       dI<UserByRolesBloc>().add(const ResetUsersEvent());
-    });
   }
 
   _listener(BuildContext context, UserState state) {

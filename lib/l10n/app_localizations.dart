@@ -2084,6 +2084,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quantity cannot be zero'**
   String get quantityCannotBeZero;
+
+  /// No description provided for @duplicateEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate Email'**
+  String get duplicateEmail;
+
+  /// No description provided for @invalidParentId.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid ParentId'**
+  String get invalidParentId;
+
+  /// No description provided for @itemNotExists.
+  ///
+  /// In en, this message translates to:
+  /// **'Item Not Exists'**
+  String get itemNotExists;
+
+  /// No description provided for @dataInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Data In Use'**
+  String get dataInUse;
+
+  /// No description provided for @duplicateCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate Code'**
+  String get duplicateCode;
+
+  /// No description provided for @startDateAfterEndDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date After End Date'**
+  String get startDateAfterEndDate;
+
+  /// No description provided for @idsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Ids Empty'**
+  String get idsEmpty;
+
+  /// No description provided for @userDoesNotExist.
+  ///
+  /// In en, this message translates to:
+  /// **'User Does Not Exist'**
+  String get userDoesNotExist;
+
+  /// No description provided for @emailInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Email In Use'**
+  String get emailInUse;
+
+  /// No description provided for @companyEmailInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Email In Use'**
+  String get companyEmailInUse;
+
+  /// No description provided for @phoneNumberInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number In Use'**
+  String get phoneNumberInUse;
+
+  /// No description provided for @userCreationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'User Creation Failed'**
+  String get userCreationFailed;
+
+  /// No description provided for @differentRoleUserSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Different Role User System'**
+  String get differentRoleUserSystem;
+
+  /// No description provided for @userNameInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'UserName In Use'**
+  String get userNameInUse;
+
+  /// No description provided for @userNameCannotBeEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'User Name Cannot Be Empty'**
+  String get userNameCannotBeEmpty;
+
+  /// No description provided for @userNameNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'User Name Not Found'**
+  String get userNameNotFound;
+
+  /// No description provided for @bothEmailsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Both Emails Empty'**
+  String get bothEmailsEmpty;
+
+  /// No description provided for @duplicatePassportNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate Passport Number'**
+  String get duplicatePassportNumber;
+
+  /// No description provided for @duplicateCitizenID.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate Citizen ID'**
+  String get duplicateCitizenID;
+
+  /// No description provided for @emailCannotBeEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Cannot Be Empty'**
+  String get emailCannotBeEmpty;
+
+  /// No description provided for @onlyOneFulltimeInDepartment.
+  ///
+  /// In en, this message translates to:
+  /// **'Only One Fulltime In Department'**
+  String get onlyOneFulltimeInDepartment;
+
+  /// No description provided for @parttimeToFulltimeOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Parttime To Fulltime Only'**
+  String get parttimeToFulltimeOnly;
+
+  /// No description provided for @duplicateLicensePlate.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate License Plate'**
+  String get duplicateLicensePlate;
+
+  /// No description provided for @duplicateTaxNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate Tax Number'**
+  String get duplicateTaxNumber;
+
+  /// No description provided for @duplicateBankAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate Bank Account Number'**
+  String get duplicateBankAccountNumber;
+
+  /// No description provided for @timeSlotAlreadyPleaseChooseAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Slot Already Please Choose Another'**
+  String get timeSlotAlreadyPleaseChooseAnother;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

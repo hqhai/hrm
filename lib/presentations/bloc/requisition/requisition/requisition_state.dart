@@ -11,6 +11,7 @@ class RequisitionState extends Equatable {
   final List<Request> requisitions;
   final RequisitionEnum status;
   final RequisitionEnum statusGetById;
+  final String errorCode;
   final int countItem;
 
   const RequisitionState({
@@ -19,14 +20,10 @@ class RequisitionState extends Equatable {
     this.status = RequisitionEnum.init,
     this.statusGetById = RequisitionEnum.init,
     this.countItem = 0,
+    this.errorCode = '',
   });
 
   @override
-  List<Object> get props => [
-        requisition,
-        requisitions,
-        status,
-        statusGetById,
-        countItem,
-      ];
+  List<Object> get props =>
+      [requisition, requisitions, status, statusGetById, countItem, errorCode];
 }

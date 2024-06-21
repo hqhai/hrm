@@ -34,7 +34,7 @@ class _ItemCreateTotalMinuteState extends State<ItemCreateTotalMinute> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+          padding: const EdgeInsets.only(top: SpacingUnit.x3),
           child: AppInput(
             placeHolder: widget.title ?? "",
             controller: widget.totalMinuteController,

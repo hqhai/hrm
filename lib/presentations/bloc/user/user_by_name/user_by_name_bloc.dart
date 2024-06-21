@@ -25,18 +25,17 @@ class UserByNameBloc extends Bloc<UserByNameEvent, UserByNameState> {
       GetUserByNameEvent event, Emitter<UserByNameState> emit) async {
     emit(state.copyWith(status: UserStatus.init));
     try {
-      List<User> users = [];
       SearchUserByNameResponse searchUserByNameResponse =
           await userUseCase.getUserByFullName(fullName: event.name, page: event.page);
-      List<User> newUsers = searchUserByNameResponse.users;
-      if (event.name != state.name) {
+      final List<User> newUsers = searchUserByNameResponse.users;
+      if (event.name != state.name && event.page == 1) {
         emit(state.copyWith(
           usersByName: newUsers,
           countItem: searchUserByNameResponse.totalItems,
           status: UserStatus.success,
         ));
       } else {
-        users.addAll(state.usersByName);
+        final List<User> users = [...state.usersByName];
         users.addAll(newUsers);
         emit(state.copyWith(
           usersByName: users,

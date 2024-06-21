@@ -13,13 +13,15 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/release_of_warehouse/item_list_release_of_warehouse.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_release_of_warehouse_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -54,6 +56,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
   List<String> followers = [];
   String description = '';
   String errorList = '', errorDescription = '';
+  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
 
   @override
   void initState() {
@@ -71,6 +74,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
       scheduleController.text = state.requisition.config.description ?? "";
       followers = state.requisition.followerIds;
       requisitionReleaseOfWarehouse = state.requisition.config.warehourseReleaseds ?? [];
+      dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
     }
   }
 
@@ -93,109 +97,139 @@ class _CreateRequisitionReleaseOfWarehousePageState
       body: BlocListener<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => _listenWhen(previous, current),
-        child: SingleChildScrollView(
-          child: Container(
-            width: width,
-            height: height * 0.85,
-            padding: const EdgeInsets.all(SpacingUnit.x3),
-            margin: const EdgeInsets.all(SpacingUnit.x3),
-            decoration: BoxDecoration(
-              color: colors.surface,
-              borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-              border: Border.all(
-                width: 1,
-                color: colors.surface,
-              ),
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ItemCreateInputArea(
-                    error: errorDescription,
-                    textController: scheduleController,
-                    title: appLocalizations.description,
-                    onChange: (value) => _setSchedule(value),
-                  ),
-                  Text(
-                    appLocalizations.releaseOfWarehouse,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Container(
-                    width: width,
-                    height: height * 0.14 * requisitionReleaseOfWarehouse.length,
-                    padding: const EdgeInsets.all(SpacingUnit.x1),
-                    margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                    decoration: BoxDecoration(
+        child: BlocBuilder<UserByIdBloc, UserByIdState>(
+          builder: (context, stateUserById) {
+            return Stack(
+              children: [
+                Container(
+                  width: width,
+                  height: height * 0.85,
+                  padding: const EdgeInsets.all(SpacingUnit.x3),
+                  margin: const EdgeInsets.all(SpacingUnit.x3),
+                  decoration: BoxDecoration(
+                    color: colors.surface,
+                    borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                    border: Border.all(
+                      width: 1,
                       color: colors.surface,
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                    ),
-                    child: ListView.builder(
-                      itemCount: requisitionReleaseOfWarehouse.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => _getStationeryInList(
-                            context, requisitionReleaseOfWarehouse[index], index),
-                        child: ItemListReleaseOfWarehouse(
-                          requisitionReleaseOfWarehouse: requisitionReleaseOfWarehouse[index],
-                          index: index,
-                        ),
-                      ),
                     ),
                   ),
-                  if (errorList != '')
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
-                      child: Text(
-                        errorList,
-                        style: TextStyle(
-                          color: colors.error,
-                          fontSize: SpacingUnit.x3,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ItemCreateInputArea(
+                          error: errorDescription,
+                          textController: scheduleController,
+                          title: appLocalizations.description,
+                          onChange: (value) => _setSchedule(value),
                         ),
-                      ),
-                    ),
-                  GestureDetector(
-                    onTap: () => _addStationery(context),
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: SpacingUnit.x10,
-                      padding: const EdgeInsets.all(SpacingUnit.x2),
-                      decoration: BoxDecoration(
-                        color: colors.outlineSuccess,
-                        borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                        border: Border.all(
-                          width: 1,
-                          color: colors.text,
+                        Text(
+                          appLocalizations.releaseOfWarehouse,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x4,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        appLocalizations.addProducts,
-                        style: TextStyle(
-                          fontSize: SpacingUnit.x3_5,
-                          color: colors.background,
+                        Container(
+                          width: width,
+                          height: height * 0.14 * requisitionReleaseOfWarehouse.length,
+                          padding: const EdgeInsets.all(SpacingUnit.x1),
+                          margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                          decoration: BoxDecoration(
+                            color: colors.surface,
+                            borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                          ),
+                          child: ListView.builder(
+                            itemCount: requisitionReleaseOfWarehouse.length,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: () => _getStationeryInList(
+                                  context, requisitionReleaseOfWarehouse[index], index),
+                              child: ItemListReleaseOfWarehouse(
+                                requisitionReleaseOfWarehouse:
+                                    requisitionReleaseOfWarehouse[index],
+                                index: index,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        if (errorList != '')
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+                            child: Text(
+                              errorList,
+                              style: TextStyle(
+                                color: colors.error,
+                                fontSize: SpacingUnit.x3,
+                              ),
+                            ),
+                          ),
+                        GestureDetector(
+                          onTap: () => _addStationery(context),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: SpacingUnit.x10,
+                            padding: const EdgeInsets.all(SpacingUnit.x2),
+                            decoration: BoxDecoration(
+                              color: colors.outlineSuccess,
+                              borderRadius: BorderRadius.circular(SpacingUnit.x1),
+                              border: Border.all(
+                                width: 1,
+                                color: colors.text,
+                              ),
+                            ),
+                            child: Text(
+                              appLocalizations.addProducts,
+                              style: TextStyle(
+                                fontSize: SpacingUnit.x3_5,
+                                color: colors.background,
+                              ),
+                            ),
+                          ),
+                        ),
+                        ItemCreateFollower(
+                            listFollower: _setListUser(
+                              stateUserById.userById,
+                            ),
+                            title: appLocalizations.follower,
+                            onChange: (value) => _setFollower(value)),
+                        Padding(
+                          padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
+                          child: ItemButton(
+                            callbackSave: () => _save(context),
+                            callbackCancel: () => _cancel(),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  ItemCreateFollower(
-                      title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-                  Padding(
-                    padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
-                    child: ItemButton(
-                      callbackSave: () => _save(context),
-                      callbackCancel: () => _cancel(),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
+                ),
+                CheckLoadDialog(
+                  checkLoad: checkLoad,
+                  checkSuccess: checkSuccess,
+                  checkUnSuccess: checkUnSuccess,
+                  checkSuccessChange: () => setCheckSuccess(),
+                  checkUnSuccessChange: () => setCheckUnSuccess(),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
+  }
+
+  setCheckSuccess() {
+    setState(() {
+      checkSuccess = false;
+    });
+  }
+
+  setCheckUnSuccess() {
+    setState(() {
+      checkUnSuccess = false;
+    });
   }
 
   bool _checkValue(BuildContext context) {
@@ -230,8 +264,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
   }
 
   _save(BuildContext context) async {
-    if (_checkValue(context)) {
-      progressIndicatorDialog(context);
+    if (_checkValue(context) && widget.requestId == null) {
       Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
@@ -248,14 +281,45 @@ class _CreateRequisitionReleaseOfWarehousePageState
       );
       final status = await completer.future;
       if (status == RequisitionEnum.success) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        successDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
       }
       if (status == RequisitionEnum.fail) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        unsuccessfulDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
+      }
+    } else if (_checkValue(context) && widget.requestId != null) {
+      Completer completer = Completer<RequisitionEnum>();
+      dI<RequisitionBloc>().add(
+        EditRequestEvent(
+          completer: completer,
+          postRequestRequest: PostRequestRequest(
+            id: widget.requestId,
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              description: description,
+              warehourseReleaseds: requisitionReleaseOfWarehouse,
+            ),
+          ),
+        ),
+      );
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
+      }
+      if (status == RequisitionEnum.fail) {
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
       }
     }
   }
@@ -302,5 +366,12 @@ class _CreateRequisitionReleaseOfWarehousePageState
 
   _listenWhen(RequisitionState previous, RequisitionState current) {
     return previous != current;
+  }
+
+  List<User> _setListUser(List<User> userById) {
+    if (widget.requestId != null) {
+      return userById;
+    }
+    return [];
   }
 }

@@ -58,11 +58,8 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   List<Stationeries> listRequisitionStationery = [];
   List<String> followers = [];
   String month = "1";
-  String error = '',
-      errorMonth = '';
-  bool checkLoad = false,
-      checkSuccess = false,
-      checkUnSuccess = false;
+  String error = '', errorMonth = '';
+  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   final TextEditingController inputController = TextEditingController(text: '1');
 
   @override
@@ -104,14 +101,8 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return BlocListener<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) => _listenWhen(previous, current),
@@ -129,106 +120,108 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
             ),
             body: Stack(
               children: [
-                Container(
-                  width: width,
-                  height: height * 0.85,
-                  padding: const EdgeInsets.all(SpacingUnit.x3),
-                  margin: const EdgeInsets.all(SpacingUnit.x3),
-                  decoration: BoxDecoration(
-                    color: colors.surface,
-                    borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                    border: Border.all(
-                      width: 1,
+                SingleChildScrollView(
+                  child: Container(
+                    width: width,
+                    height: height * 0.85,
+                    padding: const EdgeInsets.all(SpacingUnit.x3),
+                    margin: const EdgeInsets.all(SpacingUnit.x3),
+                    decoration: BoxDecoration(
                       color: colors.surface,
+                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                      border: Border.all(
+                        width: 1,
+                        color: colors.surface,
+                      ),
                     ),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ItemMonthInput(
-                          title: appLocalizations.month,
-                          error: errorMonth,
-                          inputController: inputController,
-                          onChange: (value) => setMonth(value),
-                        ),
-                        Text(
-                          appLocalizations.stationeryList,
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x4,
-                            fontWeight: FontWeight.w800,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ItemMonthInput(
+                            title: appLocalizations.month,
+                            error: errorMonth,
+                            inputController: inputController,
+                            onChange: (value) => setMonth(value),
                           ),
-                        ),
-                        Container(
-                          width: width,
-                          height: height * 0.14 * listRequisitionStationery.length,
-                          padding: const EdgeInsets.all(SpacingUnit.x1),
-                          margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                          decoration: BoxDecoration(
-                            color: colors.surface,
-                            borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                          ),
-                          child: ListView.builder(
-                            itemCount: listRequisitionStationery.length,
-                            itemBuilder: (context, index) =>
-                                GestureDetector(
-                                  onTap: () =>
-                                      _getStationeryInList(
-                                          context, listRequisitionStationery[index], index),
-                                  child: ItemListStationery(
-                                    requisitionStationery: listRequisitionStationery[index],
-                                    index: index,
-                                  ),
-                                ),
-                          ),
-                        ),
-                        if (error != '')
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
-                            child: Text(
-                              error,
-                              style: TextStyle(
-                                color: colors.error,
-                                fontSize: SpacingUnit.x3,
-                              ),
+                          Text(
+                            appLocalizations.stationeryList,
+                            style: TextStyle(
+                              color: colors.text,
+                              fontSize: SpacingUnit.x4,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
-                        GestureDetector(
-                          onTap: () => _addStationery(context),
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: SpacingUnit.x10,
-                            padding: const EdgeInsets.all(SpacingUnit.x2),
+                          Container(
+                            width: width,
+                            height: height * 0.14 * listRequisitionStationery.length,
+                            padding: const EdgeInsets.all(SpacingUnit.x1),
+                            margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                             decoration: BoxDecoration(
-                              color: colors.outlineSuccess,
-                              borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                              border: Border.all(width: 1, color: colors.text),
+                              color: colors.surface,
+                              borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
                             ),
-                            child: Text(
-                              appLocalizations.moreOfficeProducts,
-                              style: TextStyle(
-                                fontSize: SpacingUnit.x3_5,
-                                color: colors.background,
+                            child: ListView.builder(
+                              itemCount: listRequisitionStationery.length,
+                              itemBuilder: (context, index) => GestureDetector(
+                                onTap: () => _getStationeryInList(
+                                    context, listRequisitionStationery[index], index),
+                                child: ItemListStationery(
+                                  requisitionStationery: listRequisitionStationery[index],
+                                  index: index,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        ItemTotalAmount(
-                          totalAmount: _totalAmount(),
-                        ),
-                        ItemCreateFollower(
-                            listFollower: stateUserById.userById,
-                            title: appLocalizations.follower, onChange: (value) =>
-                            _setFollower(value)),
-                        Padding(
-                          padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
-                          child: ItemButton(
-                            callbackSave: () => _save(context),
-                            callbackCancel: () => _cancel(),
+                          if (error != '')
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+                              child: Text(
+                                error,
+                                style: TextStyle(
+                                  color: colors.error,
+                                  fontSize: SpacingUnit.x3,
+                                ),
+                              ),
+                            ),
+                          GestureDetector(
+                            onTap: () => _addStationery(context),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: SpacingUnit.x10,
+                              padding: const EdgeInsets.all(SpacingUnit.x2),
+                              decoration: BoxDecoration(
+                                color: colors.outlineSuccess,
+                                borderRadius: BorderRadius.circular(SpacingUnit.x1),
+                                border: Border.all(width: 1, color: colors.text),
+                              ),
+                              child: Text(
+                                appLocalizations.moreOfficeProducts,
+                                style: TextStyle(
+                                  fontSize: SpacingUnit.x3_5,
+                                  color: colors.background,
+                                ),
+                              ),
+                            ),
                           ),
-                        )
-                      ],
+                          ItemTotalAmount(
+                            totalAmount: _totalAmount(),
+                          ),
+                          ItemCreateFollower(
+                              listFollower: _setListUser(
+                                stateUserById.userById,
+                              ),
+                              title: appLocalizations.follower,
+                              onChange: (value) => _setFollower(value)),
+                          Padding(
+                            padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
+                            child: ItemButton(
+                              callbackSave: () => _save(context),
+                              callbackCancel: () => _cancel(),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -403,5 +396,12 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     setState(() {
       followers = value.map((e) => e.id).toList();
     });
+  }
+
+  List<User> _setListUser(List<User> userById) {
+    if (widget.requestId != null) {
+      return userById;
+    }
+    return [];
   }
 }

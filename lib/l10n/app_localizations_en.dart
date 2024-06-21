@@ -999,4 +999,82 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quantityCannotBeZero => 'Quantity cannot be zero';
+
+  @override
+  String get duplicateEmail => 'Duplicate Email';
+
+  @override
+  String get invalidParentId => 'Invalid ParentId';
+
+  @override
+  String get itemNotExists => 'Item Not Exists';
+
+  @override
+  String get dataInUse => 'Data In Use';
+
+  @override
+  String get duplicateCode => 'Duplicate Code';
+
+  @override
+  String get startDateAfterEndDate => 'Start Date After End Date';
+
+  @override
+  String get idsEmpty => 'Ids Empty';
+
+  @override
+  String get userDoesNotExist => 'User Does Not Exist';
+
+  @override
+  String get emailInUse => 'Email In Use';
+
+  @override
+  String get companyEmailInUse => 'Company Email In Use';
+
+  @override
+  String get phoneNumberInUse => 'Phone Number In Use';
+
+  @override
+  String get userCreationFailed => 'User Creation Failed';
+
+  @override
+  String get differentRoleUserSystem => 'Different Role User System';
+
+  @override
+  String get userNameInUse => 'UserName In Use';
+
+  @override
+  String get userNameCannotBeEmpty => 'User Name Cannot Be Empty';
+
+  @override
+  String get userNameNotFound => 'User Name Not Found';
+
+  @override
+  String get bothEmailsEmpty => 'Both Emails Empty';
+
+  @override
+  String get duplicatePassportNumber => 'Duplicate Passport Number';
+
+  @override
+  String get duplicateCitizenID => 'Duplicate Citizen ID';
+
+  @override
+  String get emailCannotBeEmpty => 'Email Cannot Be Empty';
+
+  @override
+  String get onlyOneFulltimeInDepartment => 'Only One Fulltime In Department';
+
+  @override
+  String get parttimeToFulltimeOnly => 'Parttime To Fulltime Only';
+
+  @override
+  String get duplicateLicensePlate => 'Duplicate License Plate';
+
+  @override
+  String get duplicateTaxNumber => 'Duplicate Tax Number';
+
+  @override
+  String get duplicateBankAccountNumber => 'Duplicate Bank Account Number';
+
+  @override
+  String get timeSlotAlreadyPleaseChooseAnother => 'Time Slot Already Please Choose Another';
 }

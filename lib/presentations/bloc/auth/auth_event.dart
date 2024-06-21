@@ -28,3 +28,7 @@ class LogoutEvent extends AuthEvent {
   const LogoutEvent();
 }
 
+class ResetEvent extends AuthEvent {
+  const ResetEvent();
+}
+

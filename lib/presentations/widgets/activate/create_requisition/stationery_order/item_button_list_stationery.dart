@@ -13,36 +13,39 @@ class ItemButtonListStationery extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-          onPressed: () => _add(),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colors.blue,
-          ),
-          child: Text(
-            appLocalizations.save,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x5,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ElevatedButton(
+            onPressed: () => _add(),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colors.blue,
+            ),
+            child: Text(
+              appLocalizations.save,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x5,
+              ),
             ),
           ),
-        ),
-        ElevatedButton(
-          onPressed: () => _cancel(),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colors.blue,
-          ),
-          child: Text(
-            appLocalizations.cancel,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x5,
+          ElevatedButton(
+            onPressed: () => _cancel(),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colors.blue,
+            ),
+            child: Text(
+              appLocalizations.cancel,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x5,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
