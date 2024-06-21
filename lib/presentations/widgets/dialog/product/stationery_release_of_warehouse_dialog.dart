@@ -75,7 +75,6 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final height = MediaQuery.sizeOf(context).height;
     final colors = AppTheme.getColors(context);
     return Container(
       padding: const EdgeInsets.all(SpacingUnit.x4),
