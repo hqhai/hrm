@@ -27,27 +27,47 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
       explainController = TextEditingController(),
       numberOfController = TextEditingController(),
       noteController = TextEditingController();
-  String explain = '', note = '', product = '', unit = '';
+  String explain = '',
+      note = '',
+      product = '',
+      unit = '',
+      errorProduct = '',
+      errorNumberOf = '',
+      errorExplain = '';
   int numberOf = 0;
   Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
 
   @override
   void initState() {
     productController.text = widget.releaseOfWarehouse?.product ?? "";
-    explainController.text = widget.releaseOfWarehouse?.product ?? "";
+    explainController.text = widget.releaseOfWarehouse?.explain ?? "";
     numberOfController.text = (widget.releaseOfWarehouse?.quantity ?? 0).toString();
     noteController.text = widget.releaseOfWarehouse?.note ?? "";
-    explain = widget.releaseOfWarehouse?.product ?? "";
+    product = widget.releaseOfWarehouse?.product ?? "";
+    explain = widget.releaseOfWarehouse?.explain ?? "";
     note = widget.releaseOfWarehouse?.note ?? "";
     unit = widget.releaseOfWarehouse?.unit ?? '';
     numberOf = widget.releaseOfWarehouse?.quantity ?? 0;
     super.initState();
   }
 
+  bool checkOnClick(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final bool checkProduct = product != '';
+    final bool checkNumberOf = numberOf > 0;
+    final bool checkExplain = explain.isNotEmpty;
+    setState(() {
+      errorProduct = checkProduct ? "" : appLocalizations.cannotBeLeftBlank;
+      errorNumberOf = checkNumberOf ? "" : appLocalizations.quantityCannotBeZero;
+      errorExplain = checkProduct ? "" : appLocalizations.cannotBeLeftBlank;
+    });
+    return checkProduct && checkNumberOf && checkExplain;
+  }
+
   setStationery(Stationery value) {
     setState(() {
       stationery = value;
-      product = value.product ??"";
+      product = value.product ?? "";
       unit = value.unit ?? "";
     });
   }
@@ -58,10 +78,10 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     final height = MediaQuery.sizeOf(context).height;
     final colors = AppTheme.getColors(context);
     return Container(
-      height: height * 0.75,
-      padding: const EdgeInsets.all(SpacingUnit.x2),
+      padding: const EdgeInsets.all(SpacingUnit.x4),
       child: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
@@ -90,13 +110,23 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
                 ],
               ),
             ),
+            if (errorProduct != '')
+              Text(
+                errorProduct,
+                style: TextStyle(
+                  color: colors.error,
+                  fontSize: SpacingUnit.x3,
+                ),
+              ),
             ItemAddStationeryDialog(check: false, product: product, unit: unit),
             ItemCreateInput(
+              error: errorExplain,
               title: appLocalizations.explain,
               inputController: explainController,
               onChange: (value) => _setExplain(value),
             ),
             ItemCreateTotalMinute(
+              error: errorNumberOf,
               title: appLocalizations.numberOf,
               totalMinuteController: numberOfController,
               onChange: (value) => _setNumber(value),
@@ -108,7 +138,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
             ),
             ItemButtonListStationery(
               callbackCancel: () => popDialog(context),
-              callbackAdd: () => setAdd(),
+              callbackAdd: () => setAdd(context),
             )
           ],
         ),
@@ -128,25 +158,26 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     });
   }
 
-  setAdd() {
-    setState(() {
-      widget.requisitionReleaseOfWarehouse?.call(WarehouseReleaseds(
-        product: product,
-        note: note,
-        unit: unit,
-        quantity: numberOf,
-        explain: explain
-      ));
-    });
-    Navigator.of(context).pop();
+  setAdd(BuildContext context) {
+    if (checkOnClick(context)) {
+      setState(() {
+        widget.requisitionReleaseOfWarehouse?.call(WarehouseReleaseds(
+          product: product,
+          note: note,
+          unit: unit,
+          quantity: numberOf,
+          explain: explain,
+        ));
+      });
+      Navigator.of(context).pop();
+    }
   }
 
   _setNumber(String value) {
     setState(() {
-      numberOf = int.parse(value);
+      numberOf = value != '' ? int.parse(value) : 0;
     });
   }
-
 
   _showBottomSheet(BuildContext context) {
     showModalBottomSheet<void>(

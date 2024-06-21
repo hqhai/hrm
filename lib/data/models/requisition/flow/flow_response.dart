@@ -1,4 +1,4 @@
-import 'package:base_app/data/models/paging_infor_request.dart';
+import 'package:base_app/data/models/response/paging_infor_request.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:json_annotation/json_annotation.dart';
 

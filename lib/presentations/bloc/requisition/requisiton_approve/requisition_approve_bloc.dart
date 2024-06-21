@@ -88,11 +88,11 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
         event.completer.complete(RequisitionEnum.success);
       } else {
         emit(state.copyWith(statusApprove: RequisitionEnum.fail));
-        event.completer.complete(RequisitionEnum.success);
+        event.completer.complete(RequisitionEnum.fail);
       }
     } catch (e) {
       emit(state.copyWith(statusApprove: RequisitionEnum.fail));
-      event.completer.complete(RequisitionEnum.success);
+      event.completer.complete(RequisitionEnum.fail);
     }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
+import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
@@ -100,11 +101,18 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     emit(state.copyWith(status: RequisitionEnum.init));
     try {
       await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
-      emit(state.copyWith(status: RequisitionEnum.success));
+      emit(state.copyWith(errorCode: '', status: RequisitionEnum.success));
       event.completer.complete(RequisitionEnum.success);
     } catch (e) {
-      emit(state.copyWith(status: RequisitionEnum.fail));
-      event.completer.complete(RequisitionEnum.fail);
+      e as ResponseBase;
+      if (e.statusCode == 400) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(errorCode: errorCode, status: RequisitionEnum.fail));
+        event.completer.complete(RequisitionEnum.fail);
+      } else {
+        emit(state.copyWith(errorCode: '', status: RequisitionEnum.fail));
+        event.completer.complete(RequisitionEnum.fail);
+      }
     }
   }
 
@@ -119,11 +127,21 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       final List<Request> requests = [...state.requisitions];
       requests[requestIndex] = request;
       emit(state.copyWith(
-          requisition: request, requisitions: requests, status: RequisitionEnum.success));
+          errorCode: '',
+          requisition: request,
+          requisitions: requests,
+          status: RequisitionEnum.success));
       event.completer.complete(RequisitionEnum.success);
     } catch (e) {
-      emit(state.copyWith(status: RequisitionEnum.fail));
-      event.completer.complete(RequisitionEnum.fail);
+      e as ResponseBase;
+      if (e.statusCode == 400) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(errorCode: errorCode, status: RequisitionEnum.fail));
+        event.completer.complete(RequisitionEnum.fail);
+      } else {
+        emit(state.copyWith(status: RequisitionEnum.fail));
+        event.completer.complete(RequisitionEnum.fail);
+      }
     }
   }
 }

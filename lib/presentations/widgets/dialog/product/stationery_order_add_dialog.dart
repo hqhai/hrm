@@ -27,7 +27,13 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       numberOfController = TextEditingController(),
       noteController = TextEditingController(),
       unitPriceController = TextEditingController();
-  String explain = '', note = '', unit = '', product = '', errorProduct = '', errorNumberOf = '';
+  String explain = '',
+      note = '',
+      unit = '',
+      product = '',
+      errorExplain = '',
+      errorProduct = '',
+      errorNumberOf = '';
   double intoMoney = 0, unitPrice = 0;
   int numberOf = 0;
   Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
@@ -50,6 +56,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       unitPrice = double.parse((value.unitPrice ?? '0').replaceAll(',', ''));
       explain = value.product ?? "";
       unit = value.unit ?? "";
+      intoMoney = unitPrice * numberOf;
     });
   }
 
@@ -64,6 +71,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     note = widget.stationery?.note ?? "";
     numberOf = widget.stationery?.quantity ?? 0;
     unitPrice = widget.stationery?.unitPrice ?? 0;
+    stationery = stationery.copyWith(unitPrice: unitPrice.toString());
     intoMoney = widget.stationery?.amount ?? 0;
     super.initState();
   }
@@ -71,13 +79,12 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final height = MediaQuery.sizeOf(context).height;
     final colors = AppTheme.getColors(context);
     return Container(
-      height: height * 0.75,
-      padding: const EdgeInsets.all(SpacingUnit.x2),
+      padding: const EdgeInsets.all(SpacingUnit.x3),
       child: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
