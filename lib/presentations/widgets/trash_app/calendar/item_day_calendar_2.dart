@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
@@ -23,14 +24,14 @@ class BodyCalendar2 extends StatefulWidget {
 
   const BodyCalendar2(
       {super.key,
-        required this.month,
-        required this.year,
-        required this.mapMonth,
-        required this.mapDayInWeek,
-        required this.mapNumberDayInWeek,
-        required this.listDate,
-        this.widget,
-        this.listItemDate});
+      required this.month,
+      required this.year,
+      required this.mapMonth,
+      required this.mapDayInWeek,
+      required this.mapNumberDayInWeek,
+      required this.listDate,
+      this.widget,
+      this.listItemDate});
 
   @override
   State<BodyCalendar2> createState() => _BodyCalendar2State();
@@ -39,6 +40,8 @@ class BodyCalendar2 extends StatefulWidget {
 class _BodyCalendar2State extends State<BodyCalendar2> {
   late String token;
   int checkIn = 3;
+  final ScrollController _scrollController = ScrollController();
+  late int _selectedIndex;
 
   Widget _getWidgetContent(DateTime date) {
     if (widget.widget == null) return const SizedBox();
@@ -64,25 +67,38 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
 
   @override
   void initState() {
+    _selectedIndex = DateTime.now().day - 1;
     dI<NotesBloc>().add(GetNotesEvent(
         startDate: formatYMD(DateTime(widget.year, widget.month, 1).toString()),
         endDate: formatYMD(DateTime(widget.year, widget.month + 1, 0).toString())));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToSelectedIndex();
+    });
     super.initState();
   }
 
-  _listener(BuildContext context, NotesState state){
-    if(state.status == NoteStatus.updateNoteSuccess){
+  _listener(BuildContext context, NotesState state) {
+    if (state.status == NoteStatus.updateNoteSuccess) {
       dI<NotesBloc>().add(GetNotesEvent(
           startDate: formatYMD(DateTime(widget.year, widget.month, 1).toString()),
           endDate: formatYMD(DateTime(widget.year, widget.month + 1, 0).toString())));
-    }
-    else if(state.status == NoteStatus.deleteNoteSuccess){
+    } else if (state.status == NoteStatus.deleteNoteSuccess) {
       dI<NotesBloc>().add(GetNotesEvent(
           startDate: formatYMD(DateTime(widget.year, widget.month, 1).toString()),
           endDate: formatYMD(DateTime(widget.year, widget.month + 1, 0).toString())));
     }
   }
 
+  void _scrollToSelectedIndex() {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    if (!currentContext.mounted) return;
+    final width = MediaQuery.sizeOf(currentContext).width;
+    _scrollController.animateTo(
+      _selectedIndex * width * 1.06,
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,13 +113,10 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
               margin: const EdgeInsets.symmetric(horizontal: 3),
               width: width,
               height: height * 0.77,
-              child: GridView.builder(
+              child: ListView.builder(
+                controller: _scrollController,
                 itemCount: widget.listDate.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 1,
-                    childAspectRatio: 4),
+                scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                       onTap: () {
@@ -111,10 +124,10 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
                           noteDialog(
                               context,
                               state.notes[
-                              _checkNote(state.notes, widget.listDate[index], widget.month)]);
+                                  _checkNote(state.notes, widget.listDate[index], widget.month)]);
                         }
                       },
-                      child: _item(context, index, state));
+                      child: _item(index, state));
                 },
               ),
             ),
@@ -125,7 +138,7 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
     );
   }
 
-  Widget _item(BuildContext context, int index, NotesState state) {
+  Widget _item(int index, NotesState state) {
     return _Item(
       date: widget.listDate[index],
       month: widget.month,
@@ -133,12 +146,12 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
       note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
           ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
           : const Note(
-          id: '',
-          dateTime: '',
-          note: '',
-          createdUserId: '',
-          createdDate: '',
-          createdFullName: ''),
+              id: '',
+              dateTime: '',
+              note: '',
+              createdUserId: '',
+              createdDate: '',
+              createdFullName: ''),
       itemDate: _getWidgetContent(widget.listDate[index]),
       isNowDate: _checkDateNow(widget.listDate[index]),
     );
@@ -166,8 +179,20 @@ class _Item extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
+    final width = MediaQuery.sizeOf(context).width;
     return Container(
-      color: colors.surfaceDim,
+      width: width,
+      margin: const EdgeInsets.all(
+        SpacingUnit.x3,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingUnit.x2),
+        color: colors.surfaceDim,
+        border: Border.all(
+          color: colors.surfaceBright,
+          width: 1,
+        ),
+      ),
       alignment: Alignment.topRight,
       child: Padding(
         padding: const EdgeInsets.only(
