@@ -12,12 +12,14 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/postal_delivery/item_create_postal_delivery_type.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -51,6 +53,9 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   List<String> followers = [];
   String errorDescription = '';
   RequisitionDeliveryTypeEnum? transferType = RequisitionDeliveryTypeEnum.rush;
+  bool checkLoad = false,
+      checkSuccess = false,
+      checkUnSuccess = false;
 
   @override
   void initState() {
@@ -66,7 +71,9 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
     if (state.statusGetById == RequisitionEnum.success) {
       reason = state.requisition.config.description ?? "";
       transferType = convertDeliveryType(state.requisition.config.deliveryType ?? "");
+      reasonController.text = state.requisition.config.description ?? "";
       followers = state.requisition.followerIds;
+      dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
     }
   }
 
@@ -87,46 +94,87 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       body: BlocListener<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => _listenWhen(previous, current),
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(SpacingUnit.x3),
-            margin: const EdgeInsets.all(SpacingUnit.x3),
-            decoration: BoxDecoration(
-              color: colors.surface,
-              borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-              border: Border.all(
-                width: 1,
-                color: colors.surface,
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        child: BlocBuilder<UserByIdBloc, UserByIdState>(
+          builder: (context, stateUserById) {
+            return Stack(
               children: [
-                ItemCreateReasonTransferType(onChange: (value) => _setTransferType(value)),
-                if (transferType == RequisitionDeliveryTypeEnum.rush)
-                  Padding(
+                SingleChildScrollView(
+                  child: Container(
                     padding: const EdgeInsets.all(SpacingUnit.x3),
-                    child: Text(appLocalizations.notePostalDelivery,
-                        style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3)),
+                    margin: const EdgeInsets.all(SpacingUnit.x3),
+                    decoration: BoxDecoration(
+                      color: colors.surface,
+                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                      border: Border.all(
+                        width: 1,
+                        color: colors.surface,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ItemCreateReasonTransferType(
+                          onChange: (value) => _setTransferType(value),
+                          typeDefault: transferType,
+                        ),
+                        if (transferType == RequisitionDeliveryTypeEnum.rush)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+                            child: Text(appLocalizations.notePostalDelivery,
+                                style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3)),
+                          ),
+                        ItemCreateInputArea(
+                          error: errorDescription,
+                          textController: reasonController,
+                          title: appLocalizations.sendingPurpose,
+                          onChange: (value) => _setReason(value),
+                        ),
+                        ItemCreateFollower(
+                            listFollower: _setListUser(
+                              stateUserById.userById,
+                            ),
+                            title: appLocalizations.follower, onChange: (value) =>
+                            _setFollower(value)),
+                        ItemButton(
+                          callbackSave: () => _save(context),
+                          callbackCancel: () => _cancel(),
+                        )
+                      ],
+                    ),
                   ),
-                ItemCreateInputArea(
-                  error: errorDescription,
-                  textController: reasonController,
-                  title: appLocalizations.sendingPurpose,
-                  onChange: (value) => _setReason(value),
                 ),
-                ItemCreateFollower(
-                    title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-                ItemButton(
-                  callbackSave: () => _save(context),
-                  callbackCancel: () => _cancel(),
-                )
+                CheckLoadDialog(
+                  checkLoad: checkLoad,
+                  checkSuccess: checkSuccess,
+                  checkUnSuccess: checkUnSuccess,
+                  checkSuccessChange: () => setCheckSuccess(),
+                  checkUnSuccessChange: () => setCheckUnSuccess(),
+                ),
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
+  }
+
+  List<User> _setListUser(List<User> userById) {
+    if (widget.requestId != null) {
+      return userById;
+    }
+    return [];
+  }
+
+  setCheckSuccess() {
+    setState(() {
+      checkSuccess = false;
+    });
+  }
+
+  setCheckUnSuccess() {
+    setState(() {
+      checkUnSuccess = false;
+    });
   }
 
   _setFollower(List<User> value) {
@@ -159,7 +207,6 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
 
   _save(BuildContext context) async {
     if (_checkValue(context)) {
-      progressIndicatorDialog(context);
       Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
@@ -176,14 +223,16 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       );
       final status = await completer.future;
       if (status == RequisitionEnum.success) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        successDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
       }
       if (status == RequisitionEnum.fail) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        unsuccessfulDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
       }
     }
   }

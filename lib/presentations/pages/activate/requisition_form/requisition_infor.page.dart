@@ -48,19 +48,16 @@ final requisitionInformationPageRoute = GoRoute(
     });
 
 class RequisitionInformationPage extends StatefulWidget {
-  const RequisitionInformationPage(
-      {super.key, this.id = '', this.checkUser = false});
+  const RequisitionInformationPage({super.key, this.id = '', this.checkUser = false});
 
   final String id;
   final bool checkUser;
 
   @override
-  State<RequisitionInformationPage> createState() =>
-      _RequisitionInformationPageState();
+  State<RequisitionInformationPage> createState() => _RequisitionInformationPageState();
 }
 
-class _RequisitionInformationPageState
-    extends State<RequisitionInformationPage> {
+class _RequisitionInformationPageState extends State<RequisitionInformationPage> {
   String? note;
 
   @override
@@ -213,19 +210,25 @@ class _RequisitionInformationPageState
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests?.isNotEmpty ?? false) {
       final stepRequests = request.stepRequests ?? [];
-      final indexNewStepRequest = stepRequests.indexWhere(
-          (element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests
+          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest = stepRequestApproves
-            .indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest =
+            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
-          noteDialog(
-            context,
-            (value) => _setNote(value),
-            () => _setApprove(idStepRequestApprove, status, context),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Dialog(
+                child: NoteDialog(
+                    noteChange: (value) => _setNote(value),
+                    callback: () => _setApprove(idStepRequestApprove, status, context),
+                    status: status),
+              );
+            },
           );
         }
       }
@@ -242,8 +245,7 @@ class _RequisitionInformationPageState
     });
   }
 
-  _setApprove(
-      String id, EnumStepRequestStatusEnum status, BuildContext context) async {
+  _setApprove(String id, EnumStepRequestStatusEnum status, BuildContext context) async {
     Navigator.of(context).pop();
     progressIndicatorDialog(context);
     final Completer completer = Completer<RequisitionEnum>();
