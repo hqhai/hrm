@@ -990,4 +990,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get unpaidLeave => 'Nghỉ không lương';
+
+  @override
+  String get horizontalCalendar => 'Lịch ngang';
+
+  @override
+  String get verticalCalendar => 'Lịch dọc';
 }

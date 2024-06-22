@@ -29,6 +29,7 @@ class _LayoutCalendar2State extends State<LayoutCalendar2> {
   DateTime date = DateTime(DateTime.now().year, DateTime.now().month, 1);
   List<DateTime> listDate = const [];
   String email = '';
+  bool checkTypeCalender = false;
 
   @override
   void initState() {
@@ -94,12 +95,14 @@ class _LayoutCalendar2State extends State<LayoutCalendar2> {
           child: Column(
             children: [
               FormChangeMonth2(
+                onChange: (value) => _setTypeCalender(value),
                 year: currentDateTime.year.toString(),
                 month: MenuValues.mapMonth[currentDateTime.month] ?? "",
                 upMonth: () => _upMonth(),
                 downMonth: () => _downMonth(),
               ),
               BodyCalendar2(
+                checkTypeCalender: checkTypeCalender,
                 widget: widget.item,
                 listItemDate: widget.listItemDate,
                 listDate: listDate,
@@ -114,6 +117,12 @@ class _LayoutCalendar2State extends State<LayoutCalendar2> {
         ),
       ),
     );
+  }
+
+  _setTypeCalender(bool value) {
+    setState(() {
+      checkTypeCalender = value;
+    });
   }
 }
 
