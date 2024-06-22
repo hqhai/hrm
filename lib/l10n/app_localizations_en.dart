@@ -1077,4 +1077,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timeSlotAlreadyPleaseChooseAnother => 'Time Slot Already Please Choose Another';
+
+  @override
+  String get theNumberOfFormsCreatedHasExceededTheLimit => 'The Number Of Forms Created Has Exceeded The Limit';
 }

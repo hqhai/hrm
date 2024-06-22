@@ -2240,6 +2240,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Time Slot Already Please Choose Another'**
   String get timeSlotAlreadyPleaseChooseAnother;
+
+  /// No description provided for @theNumberOfFormsCreatedHasExceededTheLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'The Number Of Forms Created Has Exceeded The Limit'**
+  String get theNumberOfFormsCreatedHasExceededTheLimit;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,7 +1,9 @@
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:flutter/cupertino.dart';
 
-Map errorResponse(BuildContext context){
+Map errorResponse(){
+  final context = dI<AppNavigation>().navigatorKey.currentContext!;
   final appLocalizations = AppLocalizations.of(context)!;
   return {
     "DuplicateEmail": appLocalizations.duplicateEmail,
@@ -29,13 +31,14 @@ Map errorResponse(BuildContext context){
     "DuplicateLicensePlate": appLocalizations.duplicateLicensePlate,
     "DuplicateTaxNumber": appLocalizations.duplicateTaxNumber,
     "DuplicateBankAccountNumber": appLocalizations.duplicateBankAccountNumber,
-    "TimeSlotAlreadyPleaseChooseAnother": appLocalizations.timeSlotAlreadyPleaseChooseAnother
+    "TimeSlotAlreadyPleaseChooseAnother": appLocalizations.timeSlotAlreadyPleaseChooseAnother,
+    "TheNumberOfFormsCreatedHasExceededTheLimit": appLocalizations.theNumberOfFormsCreatedHasExceededTheLimit
   };
 }
 
-String? setErrorValue(String value, BuildContext context) {
+String? setErrorValue(String value) {
   if (value != '') {
-    final String? errorCode = errorResponse(context)[value];
+    final String? errorCode = errorResponse()[value];
     if(errorCode == null){
       return null;
     }

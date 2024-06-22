@@ -1077,4 +1077,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get timeSlotAlreadyPleaseChooseAnother => 'Thời gian đã có rồi, xin vui lòng chọn cái khác';
+
+  @override
+  String get theNumberOfFormsCreatedHasExceededTheLimit => 'Số lượng biểu mẫu được tạo đã vượt quá giới hạn';
 }

@@ -4,6 +4,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -103,10 +104,11 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    return BlocListener<RequisitionBloc, RequisitionState>(
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) => _listenWhen(previous, current),
-      child: BlocBuilder<UserByIdBloc, UserByIdState>(
+      builder: (context, state) =>
+      BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
             appBar: AppBar(
@@ -226,6 +228,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                   ),
                 ),
                 CheckLoadDialog(
+                  fail: setErrorValue(state.errorCode),
                   checkLoad: checkLoad,
                   checkSuccess: checkSuccess,
                   checkUnSuccess: checkUnSuccess,
