@@ -95,11 +95,16 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkTime = totalMinute > 0;
-    final DateTime date = DateTime.parse(
-      startTime ?? DateTime.now().toString(),
+    final String now = DateTime.now().toString();
+    final DateTime dateStart = DateTime.parse(
+      startTime ?? now,
     );
-    final bool checkStart = date.difference(DateTime.now()).inSeconds > 0;
+    final DateTime dateEnd = DateTime.parse(
+      endTime ?? now,
+    );
+    final bool checkTime = totalMinute > 0 || dateEnd.difference(dateStart).inSeconds > 0;
+
+    final bool checkStart = dateEnd.difference(DateTime.now()).inSeconds > 0;
     final bool checkDescription = description != '' && description != null;
     final bool checkContent = content != '' && content != null;
     final bool check = checkDescription && checkContent && subtitudePersons != [];
@@ -193,7 +198,9 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                   ),
                 ),
                 CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode,),
+                  fail: setErrorValue(
+                    state.errorCode,
+                  ),
                   checkLoad: checkLoad,
                   checkSuccess: checkSuccess,
                   checkUnSuccess: checkUnSuccess,
@@ -257,7 +264,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   _save(BuildContext context) async {
-    if (_checkValue(context) &&  widget.requestId == null) {
+    if (_checkValue(context) && widget.requestId == null) {
       setState(() {
         checkLoad = true;
       });
@@ -291,8 +298,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
           checkUnSuccess = true;
         });
       }
-    }
-    else if (_checkValue(context) && widget.requestId != null) {
+    } else if (_checkValue(context) && widget.requestId != null) {
       setState(() {
         checkLoad = true;
       });
@@ -341,7 +347,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   List<User> _setListUser(List<User> userById) {
-    if(widget.requestId != null){
+    if (widget.requestId != null) {
       return userById;
     }
     return [];
