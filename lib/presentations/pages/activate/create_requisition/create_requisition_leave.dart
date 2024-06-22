@@ -16,13 +16,25 @@ import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
 final createRequestLeavePageRoute = GoRoute(
-  path: Pages.createRequestLeavePage,
-  name: Pages.createRequestLeavePage,
-  builder: (context, GoRouterState state) => const CreateRequisitionLeavePage(),
-);
+    path: Pages.createRequestLeavePage,
+    name: Pages.createRequestLeavePage,
+    builder: (context, GoRouterState state) {
+      Map data = state.extra as Map;
+      return CreateRequisitionLeavePage(
+        flowId: data['flowId'],
+        requestId: data['requestId'],
+      );
+    });
 
 class CreateRequisitionLeavePage extends StatefulWidget {
-  const CreateRequisitionLeavePage({super.key});
+  const CreateRequisitionLeavePage({
+    super.key,
+    this.flowId = '',
+    this.requestId,
+  });
+
+  final String flowId;
+  final String? requestId;
 
   @override
   State<CreateRequisitionLeavePage> createState() => _CreateRequisitionLeavePageState();

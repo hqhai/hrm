@@ -1,5 +1,6 @@
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
+import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -17,7 +18,6 @@ class ConfigRequestModel {
   final String? content;
   final String? vehicle;
   final String? destination;
-  final String? overTimes;
   final String? deliveryType;
   final List<WarehouseReleaseds>? warehourseReleaseds;
   final List<Stationeries>? stationeries;
@@ -27,27 +27,29 @@ class ConfigRequestModel {
   final String? startDate;
   final String? endDate;
   final double? total;
+  final List<RequisitionOverTime>? overTimes;
 
-  const ConfigRequestModel(
-      {this.flowId,
-      this.description,
-      this.attachments,
-      this.stationeries,
-      this.totalAmount,
-      this.subtotal,
-      this.numberValue,
-      this.deliveryType,
-      this.subtitudePersons,
-      this.destination,
-      this.vehicle,
-      this.content,
-      this.endDate,
-      this.startDate,
-      this.explanationReason,
-      this.overTimes,
-      this.takeLeaveReason,
-      this.total,
-      this.warehourseReleaseds});
+  const ConfigRequestModel({
+    this.overTimes,
+    this.flowId,
+    this.description,
+    this.attachments,
+    this.stationeries,
+    this.totalAmount,
+    this.subtotal,
+    this.numberValue,
+    this.deliveryType,
+    this.subtitudePersons,
+    this.destination,
+    this.vehicle,
+    this.content,
+    this.endDate,
+    this.startDate,
+    this.explanationReason,
+    this.takeLeaveReason,
+    this.total,
+    this.warehourseReleaseds,
+  });
 
   factory ConfigRequestModel.fromJson(Map<String, dynamic> json) =>
       _$ConfigRequestModelFromJson(json);
