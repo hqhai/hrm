@@ -6,6 +6,7 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -14,13 +15,15 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -58,10 +61,11 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       errorContent = '',
       errorVehicle = '',
       errorDestination = '';
-  String startTime = '', endTime = '', content = '', reason = '', vehicle = '', destination = '';
+  String? startTime, endTime, content, reason, vehicle, destination;
   List<File> files = [];
   List<String> followers = [], substitutes = [];
   RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
+  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
 
   @override
   void initState() {
@@ -76,13 +80,13 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     bool checkTime = total > 0;
-    bool check = reason != '' && vehicle != '' && destination != '' && content != '';
+    bool check = reason != null && vehicle != null && destination != null && content != null;
     setState(() {
       errorTime = checkTime ? "" : appLocalizations.endTimeMustBeAfterStartTime;
-      errorReason = reason != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorContent = content != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorVehicle = vehicle != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorDestination = destination != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorReason = reason != null ? '' : appLocalizations.cannotBeLeftBlank;
+      errorContent = content != null ? '' : appLocalizations.cannotBeLeftBlank;
+      errorVehicle = vehicle != null ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination = destination != null ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return check;
   }
@@ -90,12 +94,27 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   _listener(BuildContext context, RequisitionState state) {
     if (state.statusGetById == RequisitionEnum.success) {
       setState(() {
-        startTime = state.requisition.config.startDate ?? "";
-        endTime = state.requisition.config.endDate ?? "";
+        startTime = formatYMDHMS(state.requisition.config.startDate ?? "");
+        endTime = formatYMDHMS(state.requisition.config.endDate ?? "");
         content = state.requisition.config.content ?? "";
+        contentController.text = content ?? "";
         reason = state.requisition.config.description ?? "";
-        vehicle = state.requisition.config.endDate ?? "";
-        destination = state.requisition.config.endDate ?? "";
+        detailedDescriptionController.text = reason ?? "";
+        vehicle = state.requisition.config.vehicle ?? "";
+        vehicleController.text = vehicle ?? "";
+        destination = state.requisition.config.description ?? "";
+        destinationController.text = destination ?? "";
+        followers = state.requisition.followerIds;
+        substitutes = state.requisition.config.subtitudePersons ?? [];
+        total = state.requisition.config.total ?? 0;
+        dI<UserByIdBloc>().add(
+          GetUsersByIdEvent(ids: state.requisition.followerIds),
+        );
+        dI<UserByIdBloc>().add(
+          GetSubtitudePersonsByIdEvent(
+            ids: state.requisition.config.subtitudePersons ?? [],
+          ),
+        );
       });
     }
   }
@@ -114,70 +133,111 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
           ),
         ),
       ),
-      body: BlocListener<RequisitionBloc, RequisitionState>(
+      body: BlocConsumer<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => _listenWhen(previous, current),
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(SpacingUnit.x3),
-            margin: const EdgeInsets.all(SpacingUnit.x3),
-            decoration: BoxDecoration(
-              color: colors.surface,
-              borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-              border: Border.all(
-                width: 1,
-                color: colors.surface,
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
+          builder: (context, stateUserById) {
+            return Stack(
               children: [
-                ItemCreateIntervalOnLeave(
-                  error: errorTime,
-                  dayOrHours: false,
-                  title: appLocalizations.intervalOnLeave,
-                  startTime: (value) => setStartTime(value),
-                  endTime: (value) => setEndTime(value),
-                  total: (value) => setTotal(value),
+                SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.all(SpacingUnit.x3),
+                    margin: const EdgeInsets.all(SpacingUnit.x3),
+                    decoration: BoxDecoration(
+                      color: colors.surface,
+                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                      border: Border.all(
+                        width: 1,
+                        color: colors.surface,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ItemCreateIntervalOnLeave(
+                          endTimeOld: endTime,
+                          startTimeOld: startTime,
+                          error: errorTime,
+                          dayOrHours: false,
+                          title: appLocalizations.intervalOnLeave,
+                          startTime: (value) => setStartTime(value),
+                          endTime: (value) => setEndTime(value),
+                          total: (value) => setTotal(value),
+                        ),
+                        ItemCreateInputArea(
+                          error: errorDestination,
+                          textController: detailedDescriptionController,
+                          title: appLocalizations.detailedDescription,
+                          onChange: (value) => _setReason(value),
+                        ),
+                        ItemCreateInputArea(
+                          error: errorContent,
+                          textController: contentController,
+                          title: appLocalizations.content,
+                          onChange: (value) => _setContent(value),
+                        ),
+                        ItemCreateFollower(
+                            listFollower: _setListUser(stateUserById.subtitudePersons),
+                            title: appLocalizations.substitute,
+                            onChange: (value) => _setSubstitute(value)),
+                        ItemCreateFollower(
+                            listFollower: _setListUser(stateUserById.userById),
+                            title: appLocalizations.follower,
+                            onChange: (value) => _setFollower(value)),
+                        ItemCreateInput(
+                          error: errorVehicle,
+                          title: appLocalizations.vehicle,
+                          inputController: vehicleController,
+                          onChange: (value) => _setVehicle(value),
+                        ),
+                        ItemCreateInput(
+                          error: errorDestination,
+                          title: appLocalizations.destination,
+                          inputController: destinationController,
+                          onChange: (value) => _setDestination(value),
+                        ),
+                        ItemButton(
+                          callbackSave: () => _save(context),
+                          callbackCancel: () => _cancel(),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-                ItemCreateInputArea(
-                  error: errorDestination,
-                  textController: detailedDescriptionController,
-                  title: appLocalizations.detailedDescription,
-                  onChange: (value) => _setReason(value),
+                CheckLoadDialog(
+                  fail: setErrorValue(state.errorCode),
+                  checkLoad: checkLoad,
+                  checkSuccess: checkSuccess,
+                  checkUnSuccess: checkUnSuccess,
+                  checkSuccessChange: () => setCheckSuccess(),
+                  checkUnSuccessChange: () => setCheckUnSuccess(),
                 ),
-                ItemCreateInputArea(
-                  error: errorContent,
-                  textController: contentController,
-                  title: appLocalizations.content,
-                  onChange: (value) => _setContent(value),
-                ),
-                ItemCreateFollower(
-                    title: appLocalizations.substitute, onChange: (value) => _setSubstitute(value)),
-                ItemCreateFollower(
-                    title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-                ItemCreateInput(
-                  error: errorVehicle,
-                  title: appLocalizations.vehicle,
-                  inputController: vehicleController,
-                  onChange: (value) => _setVehicle(value),
-                ),
-                ItemCreateInput(
-                  error: errorDestination,
-                  title: appLocalizations.destination,
-                  inputController: destinationController,
-                  onChange: (value) => _setDestination(value),
-                ),
-                ItemButton(
-                  callbackSave: () => _save(context),
-                  callbackCancel: () => _cancel(),
-                )
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
+  }
+
+  List<User> _setListUser(List<User> userById) {
+    if (widget.requestId != null) {
+      return userById;
+    }
+    return [];
+  }
+
+  setCheckSuccess() {
+    setState(() {
+      checkSuccess = false;
+    });
+  }
+
+  setCheckUnSuccess() {
+    setState(() {
+      checkUnSuccess = false;
+    });
   }
 
   _setFollower(List<User> value) {
@@ -194,7 +254,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   _save(BuildContext context) async {
     if (_checkValue(context) && widget.requestId == null) {
-      progressIndicatorDialog(context);
+      setState(() {
+        checkLoad = true;
+      });
       Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
@@ -207,8 +269,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
               destination: destinationController.text,
               content: contentController.text,
               vehicle: vehicleController.text,
-              endDate: endTime,
-              startDate: startTime,
+              endDate: formatIso8601(endTime),
+              startDate: formatIso8601(startTime),
               subtitudePersons: substitutes,
               total: total,
             ),
@@ -217,17 +279,54 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       );
       final status = await completer.future;
       if (status == RequisitionEnum.success) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        successDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
       }
       if (status == RequisitionEnum.fail) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        unsuccessfulDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
       }
     } else if (_checkValue(context) && widget.requestId != null) {
-
+      setState(() {
+        checkLoad = true;
+      });
+      Completer completer = Completer<RequisitionEnum>();
+      dI<RequisitionBloc>().add(
+        EditRequestEvent(
+          completer: completer,
+          postRequestRequest: PostRequestRequest(
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              description: detailedDescriptionController.text,
+              destination: destinationController.text,
+              content: contentController.text,
+              vehicle: vehicleController.text,
+              endDate: formatIso8601(endTime),
+              startDate: formatIso8601(startTime),
+              subtitudePersons: substitutes,
+              total: total,
+            ),
+          ),
+        ),
+      );
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
+      }
+      if (status == RequisitionEnum.fail) {
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
+      }
     }
   }
 
@@ -241,13 +340,13 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   setStartTime(String value) {
     setState(() {
-      startTime = formatIso8601(value);
+      startTime = value;
     });
   }
 
   setEndTime(String value) {
     setState(() {
-      endTime = formatIso8601(value);
+      endTime = value;
     });
   }
 

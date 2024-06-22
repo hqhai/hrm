@@ -193,7 +193,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                   ),
                 ),
                 CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode, context),
+                  fail: setErrorValue(state.errorCode,),
                   checkLoad: checkLoad,
                   checkSuccess: checkSuccess,
                   checkUnSuccess: checkUnSuccess,

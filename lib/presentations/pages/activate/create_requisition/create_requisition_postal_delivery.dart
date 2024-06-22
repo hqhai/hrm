@@ -4,6 +4,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -91,69 +92,72 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
           ),
         ),
       ),
-      body: BlocListener<RequisitionBloc, RequisitionState>(
+      body: BlocConsumer<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => _listenWhen(previous, current),
-        child: BlocBuilder<UserByIdBloc, UserByIdState>(
-          builder: (context, stateUserById) {
-            return Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.all(SpacingUnit.x3),
-                    margin: const EdgeInsets.all(SpacingUnit.x3),
-                    decoration: BoxDecoration(
-                      color: colors.surface,
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                      border: Border.all(
-                        width: 1,
-                        color: colors.surface,
+        builder: (context, state) =>
+            BlocBuilder<UserByIdBloc, UserByIdState>(
+              builder: (context, stateUserById) {
+                return Stack(
+                  children: [
+                    SingleChildScrollView(
+                      child: Container(
+                        padding: const EdgeInsets.all(SpacingUnit.x3),
+                        margin: const EdgeInsets.all(SpacingUnit.x3),
+                        decoration: BoxDecoration(
+                          color: colors.surface,
+                          borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                          border: Border.all(
+                            width: 1,
+                            color: colors.surface,
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ItemCreateReasonTransferType(
+                              onChange: (value) => _setTransferType(value),
+                              typeDefault: transferType,
+                            ),
+                            if (transferType == RequisitionDeliveryTypeEnum.rush)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+                                child: Text(appLocalizations.notePostalDelivery,
+                                    style: TextStyle(
+                                        color: colors.error, fontSize: SpacingUnit.x3)),
+                              ),
+                            ItemCreateInputArea(
+                              error: errorDescription,
+                              textController: reasonController,
+                              title: appLocalizations.sendingPurpose,
+                              onChange: (value) => _setReason(value),
+                            ),
+                            ItemCreateFollower(
+                                listFollower: _setListUser(
+                                  stateUserById.userById,
+                                ),
+                                title: appLocalizations.follower, onChange: (value) =>
+                                _setFollower(value)),
+                            ItemButton(
+                              callbackSave: () => _save(context),
+                              callbackCancel: () => _cancel(),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ItemCreateReasonTransferType(
-                          onChange: (value) => _setTransferType(value),
-                          typeDefault: transferType,
-                        ),
-                        if (transferType == RequisitionDeliveryTypeEnum.rush)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
-                            child: Text(appLocalizations.notePostalDelivery,
-                                style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3)),
-                          ),
-                        ItemCreateInputArea(
-                          error: errorDescription,
-                          textController: reasonController,
-                          title: appLocalizations.sendingPurpose,
-                          onChange: (value) => _setReason(value),
-                        ),
-                        ItemCreateFollower(
-                            listFollower: _setListUser(
-                              stateUserById.userById,
-                            ),
-                            title: appLocalizations.follower, onChange: (value) =>
-                            _setFollower(value)),
-                        ItemButton(
-                          callbackSave: () => _save(context),
-                          callbackCancel: () => _cancel(),
-                        )
-                      ],
+                    CheckLoadDialog(
+                      fail: setErrorValue(state.errorCode),
+                      checkLoad: checkLoad,
+                      checkSuccess: checkSuccess,
+                      checkUnSuccess: checkUnSuccess,
+                      checkSuccessChange: () => setCheckSuccess(),
+                      checkUnSuccessChange: () => setCheckUnSuccess(),
                     ),
-                  ),
-                ),
-                CheckLoadDialog(
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ],
-            );
-          },
-        ),
+                  ],
+                );
+              },
+            ),
       ),
     );
   }
@@ -206,12 +210,42 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   }
 
   _save(BuildContext context) async {
-    if (_checkValue(context)) {
+    if (_checkValue(context) && widget.requestId == null) {
       Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
           completer: completer,
           postRequestRequest: PostRequestRequest(
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              description: reason,
+              deliveryType: transferType?.name ?? "",
+            ),
+          ),
+        ),
+      );
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
+      }
+      if (status == RequisitionEnum.fail) {
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
+      }
+    }
+    else if (_checkValue(context) && widget.requestId != null) {
+      Completer completer = Completer<RequisitionEnum>();
+      dI<RequisitionBloc>().add(
+        EditRequestEvent(
+          completer: completer,
+          postRequestRequest: PostRequestRequest(
+            id: widget.requestId,
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
