@@ -32,7 +32,7 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+          padding: const EdgeInsets.only(top: SpacingUnit.x3),
           child: AppInputArea(
             maxLines: 4,
             placeHolder: widget.title,
@@ -42,7 +42,7 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
         ),
         if (widget.error?.isNotEmpty ?? false)
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+            padding: const EdgeInsets.only(bottom: SpacingUnit.x1),
             child: Text(
               widget.error ?? "",
               style: TextStyle(
