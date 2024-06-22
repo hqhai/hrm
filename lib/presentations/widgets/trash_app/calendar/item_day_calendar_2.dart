@@ -3,15 +3,14 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/note.dart';
-import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
+import 'package:base_app/presentations/widgets/trash_app/calendar/item_calender_2.dart';
 import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:themes/themes.dart';
 
 class BodyCalendar2 extends StatefulWidget {
   final int month;
@@ -22,9 +21,11 @@ class BodyCalendar2 extends StatefulWidget {
   final List<DateTime> listDate;
   final List<DateTime>? listItemDate;
   final Map<DateTime, Widget>? widget;
+  final bool checkTypeCalender;
 
   const BodyCalendar2(
       {super.key,
+      required this.checkTypeCalender,
       required this.month,
       required this.year,
       required this.mapMonth,
@@ -95,7 +96,7 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
     if (!currentContext.mounted) return;
     final width = MediaQuery.sizeOf(currentContext).width;
     _scrollController.animateTo(
-      _selectedIndex * width * 1,
+      _selectedIndex * (widget.checkTypeCalender ? width : width * 0.3 + SpacingUnit.x3),
       duration: const Duration(seconds: 1),
       curve: Curves.easeInOut,
     );
@@ -113,11 +114,11 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 3),
               width: width,
-              height: height * 0.77,
+              height: height * 0.7,
               child: ListView.builder(
                 controller: _scrollController,
                 itemCount: widget.listDate.length,
-                scrollDirection: Axis.horizontal,
+                scrollDirection: widget.checkTypeCalender ? Axis.horizontal : Axis.vertical,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                       onTap: () {
@@ -140,97 +141,38 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
   }
 
   Widget _item(int index, NotesState state) {
-    return _Item(
-      date: widget.listDate[index],
-      month: widget.month,
-      noteIndex: _checkNote(state.notes, widget.listDate[index], widget.month),
-      note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
-          ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
-          : const Note(
-              id: '',
-              dateTime: '',
-              note: '',
-              createdUserId: '',
-              createdDate: '',
-              createdFullName: ''),
-      itemDate: _getWidgetContent(widget.listDate[index]),
-      isNowDate: _checkDateNow(widget.listDate[index]),
-    );
-  }
-}
-
-class _Item extends StatelessWidget {
-  final bool isNowDate;
-  final Note note;
-  final int month;
-  final int noteIndex;
-  final DateTime date;
-  final Widget itemDate;
-
-  const _Item({
-    required this.note,
-    required this.noteIndex,
-    required this.date,
-    required this.month,
-    required this.itemDate,
-    required this.isNowDate,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    final colors = AppTheme.getColors(context);
-    final theme = Theme.of(context);
-    final width = MediaQuery.sizeOf(context).width;
-    return Container(
-      width: width - SpacingUnit.x10,
-      margin: const EdgeInsets.all(SpacingUnit.x5),
-      padding: const EdgeInsets.all(SpacingUnit.x5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingUnit.x2),
-        color: colors.surfaceDim,
-        border: Border.all(
-          color: colors.surfaceBright,
-          width: 1,
-        ),
-      ),
-      alignment: Alignment.topRight,
-      child: Column(
-        children: [
-          Expanded(
-            flex: 20,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: CircleAvatar(
-                backgroundColor: isNowDate ? colors.primary : Colors.transparent,
-                child: Text(
-                  date.day.toString(),
-                  style: theme.textTheme.titleLarge!.copyWith(color: colors.text),
-                ),
-              ),
-            ),
-          ),
-          if (note.note != '')
-            Expanded(
-              flex: 10,
-              child: Text(
-                appLocalizations.note,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x6),
-              ),
-            ),
-          Expanded(
-            flex: note.note != '' ? 70 : 80,
-            child: Text(
-              note.note,
-              maxLines: 15,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
-            ),
-          ),
-        ],
-      ),
-    );
+    return widget.checkTypeCalender
+        ? ItemHorizontal(
+            date: widget.listDate[index],
+            month: widget.month,
+            noteIndex: _checkNote(state.notes, widget.listDate[index], widget.month),
+            note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
+                ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
+                : const Note(
+                    id: '',
+                    dateTime: '',
+                    note: '',
+                    createdUserId: '',
+                    createdDate: '',
+                    createdFullName: ''),
+            itemDate: _getWidgetContent(widget.listDate[index]),
+            isNowDate: _checkDateNow(widget.listDate[index]),
+          )
+        : ItemVertical(
+            date: widget.listDate[index],
+            month: widget.month,
+            noteIndex: _checkNote(state.notes, widget.listDate[index], widget.month),
+            note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
+                ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
+                : const Note(
+                    id: '',
+                    dateTime: '',
+                    note: '',
+                    createdUserId: '',
+                    createdDate: '',
+                    createdFullName: ''),
+            itemDate: _getWidgetContent(widget.listDate[index]),
+            isNowDate: _checkDateNow(widget.listDate[index]),
+          );
   }
 }
