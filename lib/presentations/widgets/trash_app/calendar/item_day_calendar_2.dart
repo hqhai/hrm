@@ -3,6 +3,7 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/note.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
@@ -94,7 +95,7 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
     if (!currentContext.mounted) return;
     final width = MediaQuery.sizeOf(currentContext).width;
     _scrollController.animateTo(
-      _selectedIndex * width * 1.06,
+      _selectedIndex * width * 1,
       duration: const Duration(seconds: 1),
       curve: Curves.easeInOut,
     );
@@ -177,14 +178,14 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
     final width = MediaQuery.sizeOf(context).width;
     return Container(
-      width: width,
-      margin: const EdgeInsets.all(
-        SpacingUnit.x3,
-      ),
+      width: width - SpacingUnit.x10,
+      margin: const EdgeInsets.all(SpacingUnit.x5),
+      padding: const EdgeInsets.all(SpacingUnit.x5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingUnit.x2),
         color: colors.surfaceDim,
@@ -194,26 +195,12 @@ class _Item extends StatelessWidget {
         ),
       ),
       alignment: Alignment.topRight,
-      child: Padding(
-        padding: const EdgeInsets.only(
-            top: SpacingUnit.x1,
-            right: SpacingUnit.x1,
-            left: SpacingUnit.x1,
-            bottom: SpacingUnit.x1),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 80,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(note.note,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
-              ),
-            ),
-            Expanded(
-              flex: 20,
+      child: Column(
+        children: [
+          Expanded(
+            flex: 20,
+            child: Align(
+              alignment: Alignment.topCenter,
               child: CircleAvatar(
                 backgroundColor: isNowDate ? colors.primary : Colors.transparent,
                 child: Text(
@@ -222,8 +209,27 @@ class _Item extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          if (note.note != '')
+            Expanded(
+              flex: 10,
+              child: Text(
+                appLocalizations.note,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x6),
+              ),
+            ),
+          Expanded(
+            flex: note.note != '' ? 70 : 80,
+            child: Text(
+              note.note,
+              maxLines: 15,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+            ),
+          ),
+        ],
       ),
     );
   }
