@@ -24,6 +24,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/overt
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/overtime/over_time_dialog.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -156,18 +157,20 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                           ),
                           ContainerBorder(
                             width: width,
-                            height: height * 0.1 * requisitionOverTimes.length,
                             borderColors: colors.surface,
-                            child: ListView.builder(
-                              itemCount: requisitionOverTimes.length,
-                              itemBuilder: (context, index) => GestureDetector(
-                                onTap: () => _getStationeryInList(
-                                    context, requisitionOverTimes[index], index),
-                                child: ItemListOverTime(
-                                  requisitionOverTime: requisitionOverTimes[index],
-                                  index: index,
-                                ),
-                              ),
+                            child: Column(
+                              children: requisitionOverTimes
+                                  .mapIndexed(
+                                    (index, element) => GestureDetector(
+                                      onTap: () => _getStationeryInList(
+                                          context, requisitionOverTimes[index], index),
+                                      child: ItemListOverTime(
+                                        requisitionOverTime: requisitionOverTimes[index],
+                                        index: index,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                           if (error != '')
@@ -412,6 +415,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
           note: value.note,
           startTime: value.startTime,
           date: value.date);
+
     });
   }
 

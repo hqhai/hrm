@@ -57,7 +57,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
   void initState() {
     noteController.text = widget.requisitionOverTime?.note ?? "";
     requisitionOverTime = widget.requisitionOverTime ?? const RequisitionOverTime();
-    date = widget.requisitionOverTime?.date ?? formatYMD(DateTime.now().toString());
+    date = formatYMD(widget.requisitionOverTime?.date ?? formatYMD(DateTime.now().toString()));
     startTime = widget.requisitionOverTime?.startTime ?? 0;
     endTime = widget.requisitionOverTime?.endTime ?? 0;
     suggestTime = double.parse((endTime - startTime).toString());

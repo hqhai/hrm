@@ -26,7 +26,6 @@ class ItemListOverTime extends StatelessWidget {
           ),
         ),
         Container(
-          //height: height * 0.1,
           width: width * 0.75,
           padding: const EdgeInsets.all(SpacingUnit.x2_5),
           margin: const EdgeInsets.only(left: SpacingUnit.x2_5, top: SpacingUnit.x4),
@@ -44,7 +43,7 @@ class ItemListOverTime extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                requisitionOverTime?.date ?? "",
+                formatYMD(requisitionOverTime?.date ?? ""),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
