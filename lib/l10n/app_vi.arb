@@ -359,4 +359,6 @@
   "quantityCannotBeZero": "Số lượng không được bằng 0"
   "horizontalCalendar": "Lịch ngang",
   "verticalCalendar": "Lịch dọc"
+  "listOvertime": "Danh sách giờ tăng ca",
+  "totalTime": "Tổng thời gian"
 }

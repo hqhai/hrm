@@ -83,6 +83,18 @@ String formatHM(String time) {
   return '';
 }
 
+String formatDHM(String time) {
+  if (time != '') {
+    DateTime dateTime = DateTime.parse(time);
+    return DateFormat('dd HH:mm').format(dateTime);
+  }
+  return '';
+}
+
+DateTime formatDateHM(String time){
+  return DateFormat('HH:mm').parse(time);
+}
+
 String formatYM(int year, int month) {
   DateTime dateTime = DateTime(year, month);
   return DateFormat('yyyy-MM').format(dateTime);
