@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class TimePickerHourMinute extends StatefulWidget {
-  const TimePickerHourMinute({super.key, required this.onChange});
+  const TimePickerHourMinute({super.key, required this.onChange, this.timeSlot});
 
   final ValueChanged<String> onChange;
+  final String? timeSlot;
 
   @override
   State<TimePickerHourMinute> createState() => _TimePickerHourMinuteState();
@@ -14,6 +15,17 @@ class TimePickerHourMinute extends StatefulWidget {
 
 class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
   TimeOfDay? selectedTime;
+
+  TimeOfDay? timeOfDay(){
+    if(widget.timeSlot != null){
+      DateTime parsedTime = formatDateHM(widget.timeSlot?? formatHM(DateTime.now().toString()));
+      setState(() {
+        selectedTime = TimeOfDay.fromDateTime(DateTime.parse(parsedTime.toString()));
+      });
+      return selectedTime;
+    }
+    return selectedTime;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +43,7 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
           ),
         ),
         child: Text(
-            selectedTime != null
+            timeOfDay() != null
                 ? formatHM(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,
                         selectedTime!.hour, selectedTime!.minute)
                     .toString())

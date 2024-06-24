@@ -1080,4 +1080,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get theNumberOfFormsCreatedHasExceededTheLimit => 'The Number Of Forms Created Has Exceeded The Limit';
+
+  @override
+  String get listOvertime => 'List of overtime hours';
+
+  @override
+  String get totalTime => 'Total time';
 }

@@ -1080,4 +1080,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get theNumberOfFormsCreatedHasExceededTheLimit => 'Số lượng biểu mẫu được tạo đã vượt quá giới hạn';
+
+  @override
+  String get listOvertime => 'Danh sách giờ tăng ca';
+
+  @override
+  String get totalTime => 'Tổng thời gian';
 }

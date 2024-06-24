@@ -20,38 +20,41 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.title,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: SpacingUnit.x3),
-          child: AppInputArea(
-            maxLines: 4,
-            placeHolder: widget.title,
-            controller: widget.textController,
-            onChange: (value) => _setOnChangeText(value),
-          ),
-        ),
-        if (widget.error?.isNotEmpty ?? false)
-          Padding(
-            padding: const EdgeInsets.only(bottom: SpacingUnit.x1),
-            child: Text(
-              widget.error ?? "",
-              style: TextStyle(
-                color: colors.error,
-                fontSize: SpacingUnit.x3,
-              ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4,),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.title,
+            style: TextStyle(
+              color: colors.text,
+              fontSize: SpacingUnit.x4,
+              fontWeight: FontWeight.w800,
             ),
           ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: SpacingUnit.x3),
+            child: AppInputArea(
+              maxLines: 4,
+              placeHolder: widget.title,
+              controller: widget.textController,
+              onChange: (value) => _setOnChangeText(value),
+            ),
+          ),
+          if (widget.error?.isNotEmpty ?? false)
+            Padding(
+              padding: const EdgeInsets.only(bottom: SpacingUnit.x1),
+              child: Text(
+                widget.error ?? "",
+                style: TextStyle(
+                  color: colors.error,
+                  fontSize: SpacingUnit.x3,
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 

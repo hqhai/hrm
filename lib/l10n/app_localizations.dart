@@ -2246,6 +2246,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The Number Of Forms Created Has Exceeded The Limit'**
   String get theNumberOfFormsCreatedHasExceededTheLimit;
+
+  /// No description provided for @listOvertime.
+  ///
+  /// In en, this message translates to:
+  /// **'List of overtime hours'**
+  String get listOvertime;
+
+  /// No description provided for @totalTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Total time'**
+  String get totalTime;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -59,7 +59,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     setState(() {
       errorProduct = checkProduct ? "" : appLocalizations.cannotBeLeftBlank;
       errorNumberOf = checkNumberOf ? "" : appLocalizations.quantityCannotBeZero;
-      errorExplain = checkProduct ? "" : appLocalizations.cannotBeLeftBlank;
+      errorExplain = checkExplain ? "" : appLocalizations.cannotBeLeftBlank;
     });
     return checkProduct && checkNumberOf && checkExplain;
   }

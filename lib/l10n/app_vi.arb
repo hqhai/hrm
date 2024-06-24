@@ -357,5 +357,7 @@
   "duplicateTaxNumber": "Mã số thuế bị trùng",
   "duplicateBankAccountNumber": "Số tài khoản ngân hàng bị trùng",
   "timeSlotAlreadyPleaseChooseAnother": "Thời gian đã có rồi, xin vui lòng chọn cái khác",
-  "theNumberOfFormsCreatedHasExceededTheLimit": "Số lượng biểu mẫu được tạo đã vượt quá giới hạn"
+  "theNumberOfFormsCreatedHasExceededTheLimit": "Số lượng biểu mẫu được tạo đã vượt quá giới hạn",
+  "listOvertime": "Danh sách giờ tăng ca",
+  "totalTime": "Tổng thời gian"
 }
