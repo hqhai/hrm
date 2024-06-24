@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +39,9 @@ class _FormChangeMonth2State extends State<FormChangeMonth2> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x3,),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingUnit.x3,
+                ),
                 child: GestureDetector(
                   onTap: () => _setTypeCalender(),
                   child: ContainerBorder(
