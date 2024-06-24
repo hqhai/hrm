@@ -5,6 +5,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/release_of_warehouse/item_list_release_of_warehouse.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/release_of_warehouse/item_list_release_of_warehouse_extend.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -36,7 +37,6 @@ class _RequisitionInformationContentTypeWarehouseReleasedsState
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final height = MediaQuery.sizeOf(context).height;
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
@@ -55,25 +55,31 @@ class _RequisitionInformationContentTypeWarehouseReleasedsState
               ),
               if (state.requisition.config.warehourseReleaseds?.isNotEmpty ?? false)
                 Container(
-                    height: _customHeight(height),
-                    padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-                    child: ListView.builder(
-                      itemCount: state.requisition.config.warehourseReleaseds?.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => checkSubmit(index),
-                        child: listCheck[index]
-                            ? ItemListReleaseOfWarehouse(
-                                requisitionReleaseOfWarehouse:
-                                    state.requisition.config.warehourseReleaseds?[index],
-                                index: index,
-                              )
-                            : ItemListReleaseOfWarehouseExtend(
-                                requisitionReleaseOfWarehouse:
-                                    state.requisition.config.warehourseReleaseds?[index],
-                                index: index,
-                              ),
-                      ),
-                    )),
+                  padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+                  child: Column(
+                    children: state.requisition.config.warehourseReleaseds!
+                        .mapIndexed(
+                          (index, element) => listCheck[index]
+                              ? GestureDetector(
+                                  onTap: () => onClick(index),
+                                  child: ItemListReleaseOfWarehouse(
+                                    requisitionReleaseOfWarehouse:
+                                        state.requisition.config.warehourseReleaseds?[index],
+                                    index: index,
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () => onClick(index),
+                                  child: ItemListReleaseOfWarehouseExtend(
+                                    requisitionReleaseOfWarehouse:
+                                        state.requisition.config.warehourseReleaseds?[index],
+                                    index: index,
+                                  ),
+                                ),
+                        )
+                        .toList(),
+                  ),
+                ),
             ],
           ),
         );
@@ -87,8 +93,9 @@ class _RequisitionInformationContentTypeWarehouseReleasedsState
     });
   }
 
-  double _customHeight(double height) {
-    return (height * 0.125) * listCheck.where((e) => e == true).length +
-        (height * 0.278) * listCheck.where((e) => e == false).length;
+  onClick(int index) {
+    setState(() {
+      listCheck[index] = !listCheck[index];
+    });
   }
 }

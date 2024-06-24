@@ -10,6 +10,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -29,7 +30,6 @@ class RequisitionInformationGeneraliInformation extends StatefulWidget {
 
 class _RequisitionInformationGeneraliInformationState
     extends State<RequisitionInformationGeneraliInformation> {
-
   @override
   void initState() {
     dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: widget.followerIds));
@@ -116,13 +116,17 @@ class _RequisitionInformationGeneraliInformationState
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
                             const SizedBox(height: SpacingUnit.x2),
                             SizedBox(
-                              height: SpacingUnit.x4 * stateUserById.userById.length,
-                              child: ListView.builder(
-                                itemCount: stateUserById.userById.length,
-                                itemBuilder: (context, index) => Text(
-                                  stateUserById.userById[index].fullName,
-                                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: stateUserById.userById
+                                    .mapIndexed(
+                                      (index, element) => Text(
+                                        stateUserById.userById[index].fullName,
+                                        style:
+                                            TextStyle(color: colors.blue, fontSize: SpacingUnit.x3),
+                                      ),
+                                    )
+                                    .toList(),
                               ),
                             )
                           ],

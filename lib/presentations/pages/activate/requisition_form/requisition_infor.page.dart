@@ -292,11 +292,14 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.overTime:
-      /*_push(
-          context: context,
-          id: flow.id,
-          page: Pages.createRequestLeavePage,
-        );*/
+      _push(
+        informationRequestExtra: InformationRequestExtra(
+          requestId: requestId,
+          flowId: flow.id,
+        ),
+        context: context,
+        page: Pages.createRequestOverTimePage,
+        );
       case RequisitionTypeEnum.vehicleDriver:
         _push(
           informationRequestExtra: InformationRequestExtra(

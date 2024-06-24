@@ -5,6 +5,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_business_trip.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_explanation.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_overtime.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_postal_delivery_service.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_stationeries.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_vehicle_dispatch.dart';
@@ -37,8 +38,9 @@ Widget inFlowType(RequisitionTypeEnum? type) {
     case RequisitionTypeEnum.unpaidLeave:
     case RequisitionTypeEnum.lateArrival:
     case RequisitionTypeEnum.earlyDeparture:
-    case RequisitionTypeEnum.overTime:
       return Container();
+    case RequisitionTypeEnum.overTime:
+      return const RequisitionInformationContentTypeOverTime();
     case RequisitionTypeEnum.bussiness:
       return const RequisitionInformationContentTypeBusinessTrip();
     case RequisitionTypeEnum.vehicleDriver:
