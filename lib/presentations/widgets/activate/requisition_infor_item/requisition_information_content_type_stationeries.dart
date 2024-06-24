@@ -38,7 +38,8 @@ class _RequisitionInformationContentTypeStationeriesState
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return BlocBuilder<RequisitionBloc, RequisitionState>(
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
+      listener: (context, state) => _listener(state),
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
@@ -95,6 +96,13 @@ class _RequisitionInformationContentTypeStationeriesState
   onClick(int index) {
     setState(() {
       listCheck[index] = !listCheck[index];
+    });
+  }
+
+  _listener(RequisitionState state) {
+    setState(() {
+      final int count = state.requisition.config.stationeries!.length;
+      listCheck = List.filled(count, true);
     });
   }
 }

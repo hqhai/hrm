@@ -74,7 +74,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
       description = state.requisition.config.description ?? "";
       scheduleController.text = state.requisition.config.description ?? "";
       followers = state.requisition.followerIds;
-      requisitionReleaseOfWarehouse = state.requisition.config.warehourseReleaseds ?? [];
+      requisitionReleaseOfWarehouse = [...?state.requisition.config.warehourseReleaseds];
       dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
     }
   }
@@ -366,7 +366,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
   }
 
   _listenWhen(RequisitionState previous, RequisitionState current) {
-    return previous != current;
+    return previous.requisition != current.requisition;
   }
 
   List<User> _setListUser(List<User> userById) {

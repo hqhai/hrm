@@ -26,11 +26,10 @@ class _RequisitionInformationContentTypeOverTimeState
 
   @override
   void initState() {
-    if (dI<RequisitionBloc>().state.requisition.config.overTimes?.isNotEmpty ?? false) {
+    /*if (dI<RequisitionBloc>().state.requisition.config.overTimes?.isNotEmpty ?? false) {
       final int count = dI<RequisitionBloc>().state.requisition.config.overTimes!.length;
       listCheck = List.filled(count, true);
-    }
-
+    }*/
     super.initState();
   }
 
@@ -40,8 +39,10 @@ class _RequisitionInformationContentTypeOverTimeState
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocConsumer<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(state),
+      listenWhen: (previous, current) => previous.requisition != current.requisition,
       builder: (context, state) {
         final overTimes = state.requisition.config.overTimes;
+        final listCheck = List.filled(state.requisition.config.overTimes?.length??0, true);
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           child: Column(
@@ -81,7 +82,8 @@ class _RequisitionInformationContentTypeOverTimeState
                                     ),
                             )
                             .toList(),
-                      ))
+                      ),
+                    )
                   : const SizedBox()
             ],
           ),

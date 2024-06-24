@@ -88,7 +88,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     if (state.statusGetById == RequisitionEnum.success) {
       setState(() {
         followers = state.requisition.followerIds;
-        requisitionOverTimes = state.requisition.config.overTimes ?? [];
+        requisitionOverTimes = [...?state.requisition.config.overTimes];
         description = state.requisition.config.description ?? "";
         inputController.text = description;
         dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
@@ -97,7 +97,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   }
 
   bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
-    return statusP != statusC;
+    return statusP.requisition != statusC.requisition;
   }
 
   @override
@@ -162,7 +162,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                               children: requisitionOverTimes
                                   .mapIndexed(
                                     (index, element) => GestureDetector(
-                                      onTap: () => _getStationeryInList(
+                                      onTap: () => _getOverTimeInList(
                                           context, requisitionOverTimes[index], index),
                                       child: ItemListOverTime(
                                         requisitionOverTime: requisitionOverTimes[index],
@@ -303,8 +303,10 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   }
 
   _save(BuildContext context) async {
+    dI<RequisitionBloc>().state;
     if (_checkValue(context) && widget.requestId != null) {
       Completer completer = Completer<RequisitionEnum>();
+      dI<RequisitionBloc>().state;
       dI<RequisitionBloc>().add(
         EditRequestEvent(
           completer: completer,
@@ -332,7 +334,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
           checkUnSuccess = true;
         });
       }
-    } else if (_checkValue(context)) {
+    } else if (_checkValue(context) && widget.requestId == null) {
       setState(() {
         checkLoad = true;
       });
@@ -346,9 +348,6 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
             config: ConfigRequestModel(
               description: description,
               overTimes: requisitionOverTimes,
-              subtotal: _subtotal(),
-              numberValue: _numberValue(),
-              totalAmount: _totalAmount(),
             ),
           ),
         ),
@@ -393,7 +392,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
 
   _cancel() {}
 
-  _getStationeryInList(BuildContext context, RequisitionOverTime requisitionOverTimes, int index) {
+  _getOverTimeInList(BuildContext context, RequisitionOverTime requisitionOverTimes, int index) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

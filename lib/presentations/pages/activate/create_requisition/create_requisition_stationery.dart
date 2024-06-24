@@ -86,7 +86,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     if (state.statusGetById == RequisitionEnum.success) {
       setState(() {
         followers = state.requisition.followerIds;
-        listRequisitionStationery = state.requisition.config.stationeries ?? [];
+        listRequisitionStationery = [...?state.requisition.config.stationeries];
         month = state.requisition.config.description ?? "";
         inputController.text = month;
         dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
@@ -95,7 +95,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
 
   bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
-    return statusP != statusC;
+    return statusP.requisition != statusC.requisition;
   }
 
   @override
