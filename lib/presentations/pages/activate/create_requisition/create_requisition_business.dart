@@ -186,7 +186,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                         ),
                         ItemCreateFollower(
                             listFollower: _setListUser(stateUserById.subtitudePersons),
-                            title: appLocalizations.substitute,
+                            title: appLocalizations.accompanyingPerson,
                             onChange: (value) => _setSubstitute(value)),
                         ItemCreateFollower(
                             listFollower: _setListUser(stateUserById.userById),

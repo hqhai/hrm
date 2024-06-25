@@ -13,6 +13,7 @@ import 'package:base_app/data/models/request/room_meeting/delete_room_meeting.da
 import 'package:base_app/data/models/request/room_meeting/update_room_meeting.dart';
 import 'package:base_app/data/models/request/update_request_request.dart';
 import 'package:base_app/data/models/request/upload_file.dart';
+import 'package:base_app/data/models/request/upload_files.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -40,6 +41,9 @@ abstract class RequestService {
 
   Future<String> uploadFile({
     UploadFileRequest? uploadFileRequest,
+  });
+  Future<List<String>> uploadFiles({
+    UploadFilesRequest? uploadFileRequests,
   });
 
   Future<Request> upDateRequestById({required UpdateRequestRequest updateRequestRequest, required String id});

@@ -1104,4 +1104,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get maternityLeave => 'Maternity Leave';
+
+  @override
+  String get revoke => 'Revoke';
 }

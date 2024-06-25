@@ -593,7 +593,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pending => 'Chờ duyệt';
 
   @override
-  String get reject => 'Đã từ chối';
+  String get reject => 'Từ chối';
 
   @override
   String get modification => 'Y/c sửa lại đơn';
@@ -1104,4 +1104,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get maternityLeave => 'Nghỉ thai sản';
+
+  @override
+  String get revoke => 'Hủy bỏ';
 }

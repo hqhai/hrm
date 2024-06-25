@@ -365,5 +365,6 @@
   "mourningLeave": "Mourning Leave",
   "homeSickLeave": "Home Sick Leave",
   "hospitalSickLeave": "Hospital Sick Leave",
-  "maternityLeave": "Maternity Leave"
+  "maternityLeave": "Maternity Leave",
+  "revoke": "Revoke"
 }

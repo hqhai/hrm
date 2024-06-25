@@ -51,6 +51,11 @@ abstract class RequestRepository {
     Uint8List? imageData,
   });
 
+  Future<List<String>> uploadFiles({
+    List<File>? originFile,
+    List<Uint8List>? imageData,
+  });
+
   Future<int> getRequest(
     String status,
       int page,

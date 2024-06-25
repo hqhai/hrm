@@ -2294,6 +2294,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Maternity Leave'**
   String get maternityLeave;
+
+  /// No description provided for @revoke.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke'**
+  String get revoke;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

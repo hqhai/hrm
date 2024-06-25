@@ -134,7 +134,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                               alignment: Alignment.bottomRight,
                               child: ButtonItemListRequisition(
                                 check: true,
-                                title: appLocalizations.delete,
+                                title: appLocalizations.revoke,
                                 callback: () => userRejectRequest(),
                               ),
                             ),

@@ -195,7 +195,7 @@
   "deadline": "Thời hạn",
   "all": "Tất cả",
   "pending": "Chờ duyệt",
-  "reject": "Đã từ chối",
+  "reject": "Từ chối",
   "modification": "Y/c sửa lại đơn",
   "done": "Đã duyệt",
   "filter": "Bộ lọc",
@@ -365,5 +365,6 @@
   "mourningLeave": "Nghỉ tang",
   "homeSickLeave": "Nghỉ ốm tại gia",
   "hospitalSickLeave": "Nghỉ ốm tại viện",
-  "maternityLeave": "Nghỉ thai sản"
+  "maternityLeave": "Nghỉ thai sản",
+  "revoke": "Hủy bỏ"
 }

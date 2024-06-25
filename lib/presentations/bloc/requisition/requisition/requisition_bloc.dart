@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/use_cases/request_usecase.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
@@ -14,9 +17,11 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
   final RequisitionUseCase requisitionUseCase;
+  final RequestUseCase _requestUseCase;
 
   RequisitionBloc()
       : requisitionUseCase = dI<RequisitionUseCase>(),
+        _requestUseCase = dI<RequestUseCase>(),
         super(const RequisitionState()) {
     on<RequisitionEvent>((event, emit) {});
     on<GetRequisitionsByFilterEvent>(_getRequisitionsByFilterEvent);
@@ -100,9 +105,20 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
   FutureOr<void> _postRequestEvent(PostRequestEvent event, Emitter<RequisitionState> emit) async {
     emit(state.copyWith(status: RequisitionEnum.init));
     try {
-      await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
-      emit(state.copyWith(errorCode: '', status: RequisitionEnum.success));
-      event.completer.complete(RequisitionEnum.success);
+      if (event.files.isNotEmpty) {
+        final List<String> paths = await _requestUseCase.uploadFiles(
+          originFile: event.files,
+        );
+        final ConfigRequestModel configRequestModel = event.postRequestRequest.config;
+        final PostRequestRequest postRequestRequest = event.postRequestRequest
+            .copyWith(config: configRequestModel.copyWith(attachments: paths));
+        await requisitionUseCase.postRequest(postRequestRequest: postRequestRequest);
+        emit(state.copyWith(errorCode: '', status: RequisitionEnum.success));
+        event.completer.complete(RequisitionEnum.success);
+      }{
+        await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
+        emit(state.copyWith(errorCode: '', status: RequisitionEnum.success));
+      }
     } catch (e) {
       e as ResponseBase;
       if (e.statusCode == 400) {
@@ -141,7 +157,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       } else {
         emit(state.copyWith(status: RequisitionEnum.fail));
       }
-    event.completer.complete(RequisitionEnum.fail);
+      event.completer.complete(RequisitionEnum.fail);
     }
   }
 }

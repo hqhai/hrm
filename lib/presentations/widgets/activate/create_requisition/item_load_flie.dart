@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -126,6 +128,7 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
       setState(() {
         files = result.paths.map((path) => File(path ?? "")).toList();
         paths = result.paths.map((path) => path.toString()).toList();
+        widget.onChangeFiles?.call(files);
       });
     } else {
       setState(() {
