@@ -73,7 +73,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
     if (state.statusGetById == RequisitionEnum.success) {
       description = state.requisition.config.description ?? "";
       scheduleController.text = state.requisition.config.description ?? "";
-      followers = state.requisition.followerIds;
+      followers = [...state.requisition.followerIds];
       requisitionReleaseOfWarehouse = [...?state.requisition.config.warehourseReleaseds];
       dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
     }

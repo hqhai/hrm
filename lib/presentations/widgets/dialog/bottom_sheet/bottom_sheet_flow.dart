@@ -43,47 +43,44 @@ class _BottomSheetFlowWidgetState extends State<BottomSheetFlowWidget> {
       listener: (context, state) => _listener(context, state),
       builder: (context, state) {
         return Container(
-          height: height * 0.6,
+          height: height * 0.4,
           color: colors.surface,
           child: Center(
-            child: SizedBox(
-              height: height * 0.4,
-              child: ListView.builder(
-                controller: controller,
-                itemCount: state.flows.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () => setOnChange(
-                    flow: state.flows[index],
+            child: ListView.builder(
+              controller: controller,
+              itemCount: state.flows.length,
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () => setOnChange(
+                  flow: state.flows[index],
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(SpacingUnit.x3),
+                  margin: const EdgeInsets.all(SpacingUnit.x2),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                    color: CustomsColor.colorBackground,
+                    border: Border.all(
+                      color: colors.text,
+                      width: 1,
+                    ),
                   ),
-                  child: Container(
-                    padding: const EdgeInsets.all(SpacingUnit.x2),
-                    margin: const EdgeInsets.all(SpacingUnit.x2),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                      color: CustomsColor.colorBackground,
-                      border: Border.all(
-                        color: colors.text,
-                        width: 1,
+                  child: Row(
+                    children: [
+                      Text(
+                        '${index + 1}.    ',
+                        style: TextStyle(
+                          color: colors.text,
+                          fontSize: SpacingUnit.x3,
+                        ),
                       ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          '${index + 1}.    ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
+                      Text(
+                        state.flows[index].name ?? "",
+                        style: TextStyle(
+                          color: colors.text,
+                          fontSize: SpacingUnit.x3,
                         ),
-                        Text(
-                          state.flows[index].name ?? "",
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

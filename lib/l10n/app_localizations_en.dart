@@ -680,9 +680,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resignation => 'Resignation';
 
   @override
-  String get maternityLeave => 'MaternityLeave';
-
-  @override
   String get aboutToStart => 'AboutToStart';
 
   @override
@@ -983,9 +980,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yearlyAndSeniorityLeave => 'Yearly and seniority leave';
 
   @override
-  String get compensatoryLeave => 'Compensatory leave';
-
-  @override
   String get otherLeave => 'Other leave';
 
   @override
@@ -1086,4 +1080,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totalTime => 'Total time';
+
+  @override
+  String get yearlyLeave => 'Yearly Leave';
+
+  @override
+  String get seniorityLeave => 'Seniority Leave';
+
+  @override
+  String get compensatoryLeave => 'Compensatory Leave';
+
+  @override
+  String get weddingLeave => 'Wedding Leave';
+
+  @override
+  String get mourningLeave => 'Mourning Leave';
+
+  @override
+  String get homeSickLeave => 'Home Sick Leave';
+
+  @override
+  String get hospitalSickLeave => 'Hospital Sick Leave';
+
+  @override
+  String get maternityLeave => 'Maternity Leave';
 }
