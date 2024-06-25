@@ -112,15 +112,34 @@ class RequestServiceImpl extends BaseService implements RequestService {
   }
 
   @override
-  Future<List<String>> uploadFiles({UploadFilesRequest? uploadFileRequests}) async { //files
-    final List<bool> isFile =[...uploadFileRequests!.originFiles!.map((e) => e.path.endsWith('png') ||
-        e.path.endsWith('jpg'))];
-    final List<String> sendFileType = [...isFile.map((e) => e? 'Images' : 'Files') ];
+  Future<List<String>> uploadFiles({UploadFilesRequest? uploadFileRequests}) async {
+    //files
+    final List<bool> isFile = [
+      ...uploadFileRequests!.originFiles!
+          .map((e) => e.path.endsWith('png') || e.path.endsWith('jpg'))
+    ];
+    final List<String> sendFileType = [
+      ...isFile.map(
+        (e) => e ? 'Images' : 'Files',
+      )
+    ];
     final url = '$baseURLFile${PathConfig.files}/Files';
-    final List<String> filenames = [...uploadFileRequests.originFiles!.map((e) => e.path.split('/').last)];
+    final List<String> filenames = [
+      ...uploadFileRequests.originFiles!.map(
+        (e) => e.path.split('/').last,
+      )
+    ];
     final response = await client.postUploadFiles(url,
-        fileTypes: uploadFileRequests.originFiles!.map((e) => '/${e.path.split('.').last}').toList(),
-        uploadFileBytes: uploadFileRequests.originFiles!.map((e) => e.readAsBytesSync(),).toList(),
+        fileTypes: uploadFileRequests.originFiles!
+            .map(
+              (e) => '/${e.path.split('.').last}',
+            )
+            .toList(),
+        uploadFileBytes: uploadFileRequests.originFiles!
+            .map(
+              (e) => e.readAsBytesSync(),
+            )
+            .toList(),
         fileNames: filenames);
     final responseBase = ResponseBase.fromJson(json.decode(response));
     return responseBase.result as List<String>;
