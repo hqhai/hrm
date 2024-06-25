@@ -79,16 +79,23 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    bool checkTime = total > 0;
-    bool check = reason != null && vehicle != null && destination != null && content != null;
+    final bool checkTime = total > 0;
+    final DateTime now = DateTime.now();
+    final bool checkStartTime =
+        DateTime.parse(startTime ?? now.toString()).difference(now).inSeconds > 0;
+    final bool check = reason != null && vehicle != null && destination != null && content != null;
     setState(() {
-      errorTime = checkTime ? "" : appLocalizations.endTimeMustBeAfterStartTime;
+      errorTime = !checkStartTime
+          ? appLocalizations.theStartTimeMustBeAfterTheCurrentTime
+          : !checkTime
+              ? appLocalizations.endTimeMustBeAfterStartTime
+              : "";
       errorReason = reason != null ? '' : appLocalizations.cannotBeLeftBlank;
       errorContent = content != null ? '' : appLocalizations.cannotBeLeftBlank;
       errorVehicle = vehicle != null ? '' : appLocalizations.cannotBeLeftBlank;
       errorDestination = destination != null ? '' : appLocalizations.cannotBeLeftBlank;
     });
-    return check;
+    return check && checkStartTime && checkTime;
   }
 
   _listener(BuildContext context, RequisitionState state) {

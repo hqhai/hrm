@@ -3,6 +3,54 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+enum EnumTakeLeave {
+  @JsonValue('YearlyLeave')
+  yearlyLeave('YearlyLeave'),
+  @JsonValue('SeniorityLeave')
+  seniorityLeave('SeniorityLeave'),
+  @JsonValue('CompensatoryLeave')
+  compensatoryLeave('CompensatoryLeave'),
+  @JsonValue('WeddingLeave')
+  weddingLeave('WeddingLeave'),
+  @JsonValue('MourningLeave')
+  mourningLeave('MourningLeave'),
+  @JsonValue('HomeSickLeave')
+  homeSickLeave('HomeSickLeave'),
+  @JsonValue('HospitalSickLeave')
+  hospitalSickLeave('HospitalSickLeave'),
+  @JsonValue('MaternityLeave')
+  maternityLeave('MaternityLeave');
+
+  final String name;
+
+  const EnumTakeLeave(this.name);
+}
+
+extension ConfigEnumTakeLeaveExtension on EnumTakeLeave {
+  String get configEnumTakeLeaveName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case EnumTakeLeave.yearlyLeave:
+        return appLocalizations.yearlyLeave;
+      case EnumTakeLeave.seniorityLeave:
+        return appLocalizations.seniorityLeave;
+      case EnumTakeLeave.compensatoryLeave:
+        return appLocalizations.compensatoryLeave;
+      case EnumTakeLeave.weddingLeave:
+        return appLocalizations.weddingLeave;
+      case EnumTakeLeave.mourningLeave:
+        return appLocalizations.mourningLeave;
+      case EnumTakeLeave.homeSickLeave:
+        return appLocalizations.homeSickLeave;
+      case EnumTakeLeave.hospitalSickLeave:
+        return appLocalizations.hospitalSickLeave;
+      case EnumTakeLeave.maternityLeave:
+        return appLocalizations.maternityLeave;
+    }
+  }
+}
+
 enum EnumStepRequestStatusEnum {
   @JsonValue('New')
   newStatus('New'),
@@ -146,7 +194,7 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
       case RequisitionTypeEnum.lateArrival:
         return appLocalizations.late;
       case RequisitionTypeEnum.earlyDeparture:
-        return  appLocalizations.leaveEarly;
+        return appLocalizations.leaveEarly;
     }
   }
 }

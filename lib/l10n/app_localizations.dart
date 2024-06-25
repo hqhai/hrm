@@ -1443,12 +1443,6 @@ abstract class AppLocalizations {
   /// **'Resignation'**
   String get resignation;
 
-  /// No description provided for @maternityLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'MaternityLeave'**
-  String get maternityLeave;
-
   /// No description provided for @aboutToStart.
   ///
   /// In en, this message translates to:
@@ -2049,12 +2043,6 @@ abstract class AppLocalizations {
   /// **'Yearly and seniority leave'**
   String get yearlyAndSeniorityLeave;
 
-  /// No description provided for @compensatoryLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Compensatory leave'**
-  String get compensatoryLeave;
-
   /// No description provided for @otherLeave.
   ///
   /// In en, this message translates to:
@@ -2258,6 +2246,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total time'**
   String get totalTime;
+
+  /// No description provided for @yearlyLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly Leave'**
+  String get yearlyLeave;
+
+  /// No description provided for @seniorityLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Seniority Leave'**
+  String get seniorityLeave;
+
+  /// No description provided for @compensatoryLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Compensatory Leave'**
+  String get compensatoryLeave;
+
+  /// No description provided for @weddingLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Wedding Leave'**
+  String get weddingLeave;
+
+  /// No description provided for @mourningLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Mourning Leave'**
+  String get mourningLeave;
+
+  /// No description provided for @homeSickLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Sick Leave'**
+  String get homeSickLeave;
+
+  /// No description provided for @hospitalSickLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Hospital Sick Leave'**
+  String get hospitalSickLeave;
+
+  /// No description provided for @maternityLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Maternity Leave'**
+  String get maternityLeave;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -120,12 +120,14 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     required BuildContext context,
     required String page,
     required String id,
+    RequisitionTypeEnum? type,
   }) {
     dI<AppNavigation>().pushName(
       context,
       page: page,
       extra: {
         'flowId': id,
+        'type': type,
       },
     );
   }
@@ -184,24 +186,28 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
         _push(
           context: context,
           id: flow.id,
+          type: RequisitionTypeEnum.yearlyAndSeniorityLeave,
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.compensatoryLeave:
         _push(
           context: context,
           id: flow.id,
+          type: RequisitionTypeEnum.compensatoryLeave,
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.otherLeave:
         _push(
           context: context,
           id: flow.id,
+          type: RequisitionTypeEnum.otherLeave,
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.unpaidLeave:
         _push(
           context: context,
           id: flow.id,
+          type: RequisitionTypeEnum.unpaidLeave,
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.earlyDeparture:

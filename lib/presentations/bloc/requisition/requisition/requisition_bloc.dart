@@ -120,7 +120,6 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
   FutureOr<void> _editRequestEvent(EditRequestEvent event, Emitter<RequisitionState> emit) async {
     emit(state.copyWith(status: RequisitionEnum.init));
     try {
-      print('request: ${state.requisition}');
       final int requestIndex =
           state.requisitions.indexWhere((element) => element.id == event.postRequestRequest.id);
       final Request request =

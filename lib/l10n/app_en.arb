@@ -224,7 +224,6 @@
   "doctorate": "Doctorate",
   "working": "Working",
   "resignation": "Resignation",
-  "maternityLeave": "MaternityLeave",
   "aboutToStart": "AboutToStart",
   "longTermUnpaidLeave": "LongTermUnpaidLeave",
   "yourRequisition": "Your requisition",
@@ -325,7 +324,6 @@
   "paymentAfterTax": "Payment after tax",
   "intoMoneyNoVAT": "Into money (excluding VAT)",
   "yearlyAndSeniorityLeave": "Yearly and seniority leave",
-  "compensatoryLeave": "Compensatory leave",
   "otherLeave": "Other leave",
   "unpaidLeave": "Unpaid leave",
   "theStartTimeMustBeAfterTheCurrentTime": "The start time must be after the current time",
@@ -359,5 +357,13 @@
   "timeSlotAlreadyPleaseChooseAnother": "Time Slot Already Please Choose Another",
   "theNumberOfFormsCreatedHasExceededTheLimit": "The Number Of Forms Created Has Exceeded The Limit",
   "listOvertime": "List of overtime hours",
-  "totalTime": "Total time"
+  "totalTime": "Total time",
+  "yearlyLeave": "Yearly Leave",
+  "seniorityLeave": "Seniority Leave",
+  "compensatoryLeave": "Compensatory Leave",
+  "weddingLeave": "Wedding Leave",
+  "mourningLeave": "Mourning Leave",
+  "homeSickLeave": "Home Sick Leave",
+  "hospitalSickLeave": "Hospital Sick Leave",
+  "maternityLeave": "Maternity Leave"
 }

@@ -224,7 +224,6 @@
   "doctorate": "Tiến sĩ",
   "working": "Đang làm việc",
   "resignation": "Từ chức",
-  "maternityLeave": "Nghỉ thai sản",
   "aboutToStart": "Sắp bắt đầu",
   "longTermUnpaidLeave": "Nghỉ phép dài hạn không lương",
   "yourRequisition": "Đơn từ của bạn",
@@ -325,7 +324,6 @@
   "paymentAfterTax": "Thanh toán sau thuế",
   "intoMoneyNoVAT": "Thành tiền chưa VAT",
   "yearlyAndSeniorityLeave": "Nghỉ phép năm",
-  "compensatoryLeave": "Nghỉ bù",
   "otherLeave": "Nghỉ phép khác",
   "unpaidLeave": "Nghỉ không lương",
   "theStartTimeMustBeAfterTheCurrentTime": "Thời gian bắt đầu phải sau thời gian hiện tại",
@@ -359,5 +357,13 @@
   "timeSlotAlreadyPleaseChooseAnother": "Thời gian đã có rồi, xin vui lòng chọn cái khác",
   "theNumberOfFormsCreatedHasExceededTheLimit": "Số lượng biểu mẫu được tạo đã vượt quá giới hạn",
   "listOvertime": "Danh sách giờ tăng ca",
-  "totalTime": "Tổng thời gian"
+  "totalTime": "Tổng thời gian",
+  "yearlyLeave": "Nghỉ phép năm",
+  "seniorityLeave": "Nghỉ thâm niên",
+  "compensatoryLeave": "Nghỉ bù",
+  "weddingLeave": "Nghỉ cưới",
+  "mourningLeave": "Nghỉ tang",
+  "homeSickLeave": "Nghỉ ốm tại gia",
+  "hospitalSickLeave": "Nghỉ ốm tại viện",
+  "maternityLeave": "Nghỉ thai sản"
 }

@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
@@ -10,7 +13,6 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_reason_on_leave.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
@@ -23,6 +25,7 @@ final createRequestLeavePageRoute = GoRoute(
       return CreateRequisitionLeavePage(
         flowId: data['flowId'],
         requestId: data['requestId'],
+        type: data['type'],
       );
     });
 
@@ -31,8 +34,10 @@ class CreateRequisitionLeavePage extends StatefulWidget {
     super.key,
     this.flowId = '',
     this.requestId,
+    this.type = RequisitionTypeEnum.yearlyAndSeniorityLeave,
   });
 
+  final RequisitionTypeEnum type;
   final String flowId;
   final String? requestId;
 
@@ -44,10 +49,16 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   final TextEditingController detailedDescriptionController = TextEditingController(),
       detailedReasonController = TextEditingController();
   int totalMinute = 0;
-  String startTime = '', endTime = '', reason = '', detailedDescription = '', detailedReason = '';
+  String? startTime, endTime, reason, detailedDescription, detailedReason;
   List<File> files = [];
   List<User> followers = [], substitutes = [];
-  RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
+  RequisitionTypeEnum? reasonForOnLeave = RequisitionTypeEnum.yearlyAndSeniorityLeave;
+
+  @override
+  void initState() {
+    reasonForOnLeave = widget.type;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +67,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          RequisitionTypeEnum.lateArrival.configTypeName,
+          widget.type.configTypeName,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,
@@ -71,24 +82,26 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
             color: colors.surface,
             borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
             border: Border.all(
-              width: 1,
+              width: SpacingUnit.x0_25,
               color: colors.surface,
             ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ItemCreateReasonOnLeave(
-                onChange: (value) => _setReasonOnLeave(value),
-              ),
               ItemCreateIntervalOnLeave(
-                dayOrHours: false,
+                //total: ,
+                error: '',
+                startTimeOld: startTime,
+                endTimeOld: endTime,
+                dayOrHours: true,
                 title: appLocalizations.intervalOnLeave,
                 startTime: (value) => setStartTime(value),
                 endTime: (value) => setEndTime(value),
               ),
               if (_checkType())
                 ItemCreateInputArea(
+                  error: '',
                   textController: detailedReasonController,
                   title: appLocalizations.detailedReason,
                   onChange: (value) => _setDetailedReason(value),
@@ -115,9 +128,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   }
 
   bool _checkType() {
-    return reasonForOnLeave == RequisitionTypeOnLeaveEnum.otherPaidLeave ||
-        reasonForOnLeave == RequisitionTypeOnLeaveEnum.leaveWithoutPay ||
-        reasonForOnLeave == RequisitionTypeOnLeaveEnum.other;
+    return reasonForOnLeave == RequisitionTypeEnum.yearlyAndSeniorityLeave ||
+        reasonForOnLeave == RequisitionTypeEnum.compensatoryLeave ||
+        reasonForOnLeave == RequisitionTypeEnum.otherLeave;
   }
 
   _setFollower(List<User> value) {
@@ -138,19 +151,23 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     });
   }
 
-  _save() {}
+  _save() {
+    PostRequestRequest(
+      //followerIds: followers,
+      flowId: widget.flowId,
+      config: ConfigRequestModel(
+        description: detailedDescriptionController.text,
+        endDate: formatIso8601(endTime),
+        startDate: formatIso8601(startTime),
+      ),
+    );
+  }
 
   _cancel() {}
 
   _setSubstitute(List<User> value) {
     setState(() {
       substitutes = value;
-    });
-  }
-
-  _setReasonOnLeave(RequisitionTypeOnLeaveEnum value) {
-    setState(() {
-      reasonForOnLeave = value;
     });
   }
 
