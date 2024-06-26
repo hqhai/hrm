@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
@@ -106,16 +107,14 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     emit(state.copyWith(status: RequisitionEnum.init));
     try {
       if (event.files.isNotEmpty) {
-        final List<String> paths = await _requestUseCase.uploadFiles(
-          originFile: event.files,
-        );
+        final List<String> paths = [...await listPaths(event.files)];
         final ConfigRequestModel configRequestModel = event.postRequestRequest.config;
         final PostRequestRequest postRequestRequest = event.postRequestRequest
             .copyWith(config: configRequestModel.copyWith(attachments: paths));
         await requisitionUseCase.postRequest(postRequestRequest: postRequestRequest);
         emit(state.copyWith(errorCode: '', status: RequisitionEnum.success));
         event.completer.complete(RequisitionEnum.success);
-      }{
+      } else {
         await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
         emit(state.copyWith(errorCode: '', status: RequisitionEnum.success));
       }
@@ -130,6 +129,14 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
         event.completer.complete(RequisitionEnum.fail);
       }
     }
+  }
+
+  Future<List<String>> listPaths( List<File> files) async{
+    List<Future<String>> futures = files.map((file) async {
+      return await _requestUseCase.uploadFile(originFile: file);
+    }).toList();
+    List<String> paths = await Future.wait(futures);
+    return paths;
   }
 
   //Edit Request     ***********************************************

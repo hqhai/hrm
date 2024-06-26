@@ -99,7 +99,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success) {
+    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
       setState(() {
         startTime = formatYMDHMS(state.requisition.config.startDate ?? "");
         endTime = formatYMDHMS(state.requisition.config.endDate ?? "");

@@ -8,11 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateFollower extends StatefulWidget {
-  const ItemCreateFollower({super.key, this.onChange, this.title, this.listFollower = const []});
+  const ItemCreateFollower({
+    super.key,
+    this.onChange,
+    this.title,
+    this.listFollower = const [],
+    this.error = '',
+  });
 
   final String? title;
   final ValueChanged<List<User>>? onChange;
   final List<User> listFollower;
+  final String error;
 
   @override
   State<ItemCreateFollower> createState() => _ItemCreateFollowerState();
@@ -21,14 +28,13 @@ class ItemCreateFollower extends StatefulWidget {
 class _ItemCreateFollowerState extends State<ItemCreateFollower> {
   List<User> listFollower = [];
 
-  List<User> setListFollower(){
-    if(widget.listFollower.isNotEmpty && listFollower.isEmpty){
+  List<User> setListFollower() {
+    if (widget.listFollower.isNotEmpty && listFollower.isEmpty) {
       setState(() {
         listFollower = widget.listFollower;
       });
       return widget.listFollower;
-    }
-    else if(widget.listFollower.isNotEmpty && listFollower.isNotEmpty){
+    } else if (widget.listFollower.isNotEmpty && listFollower.isNotEmpty) {
       return listFollower;
     }
     return listFollower;
@@ -57,7 +63,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
             height: height * 0.08 * setListFollower().length,
             child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              itemCount:setListFollower().length,
+              itemCount: setListFollower().length,
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
                 child: Row(
@@ -92,6 +98,14 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
               ),
             ),
           ),
+          if (widget.error.isNotEmpty)
+            Text(
+              widget.error,
+              style: TextStyle(
+                color: colors.error,
+                fontSize: SpacingUnit.x3,
+              ),
+            ),
           GestureDetector(
             onTap: () => _add(context),
             child: ContainerBorder(

@@ -53,7 +53,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   final TextEditingController descriptionController = TextEditingController(),
       contentController = TextEditingController();
   int totalMinute = 0;
-  String errorTime = '', errorSchedule = '', errorContent = '';
+  String errorTime = '', errorSchedule = '', errorContent = '', errorSubtitude = '';
   String? startTime, endTime, description, content;
 
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
@@ -71,7 +71,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.success) {
+    if (state.status == RequisitionEnum.success&& widget.requestId != null) {
       setState(() {
         content = state.requisition.config.content ?? "";
         contentController.text = state.requisition.config.content ?? "";
@@ -107,8 +107,9 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     final bool checkStart = dateEnd.difference(DateTime.now()).inSeconds > 0;
     final bool checkDescription = description != '' && description != null;
     final bool checkContent = content != '' && content != null;
-    final bool check = checkDescription && checkContent && subtitudePersons != [];
+    final bool check = checkDescription && checkContent && subtitudePersons.isNotEmpty;
     setState(() {
+      errorSubtitude = subtitudePersons.isNotEmpty ? '' : appLocalizations.cannotBeLeftBlank;
       errorTime = !checkStart
           ? appLocalizations.theStartTimeMustBeAfterTheCurrentTime
           : !checkTime
@@ -180,6 +181,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                           onChange: (value) => _setContent(value),
                         ),
                         ItemCreateFollower(
+                          error: errorSubtitude,
                           listFollower: _setListUser(stateUserById.subtitudePersons),
                           title: appLocalizations.walker,
                           onChange: (value) => _setWalker(value),

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -13,9 +11,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class ItemLoadFile extends StatefulWidget {
-  const ItemLoadFile({super.key, this.onChangeFiles});
+  const ItemLoadFile({super.key, this.onChangeFiles, this.files = const []});
 
   final ValueChanged<List<File>>? onChangeFiles;
+  final List<File> files;
 
   @override
   State<ItemLoadFile> createState() => _ItemLoadFileState();
@@ -24,6 +23,15 @@ class ItemLoadFile extends StatefulWidget {
 class _ItemLoadFileState extends State<ItemLoadFile> {
   late List<File> files = [];
   late List<String> paths = [];
+
+  List<File> setOldFiles() {
+    setState(() {
+      if (widget.files.isNotEmpty && paths.isEmpty) {
+        files = widget.files;
+      }
+    });
+    return files;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +67,7 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
             ),
           ),
         ),
-        if (files.isNotEmpty)
+        if (setOldFiles().isNotEmpty)
           SizedBox(
             height: width * widthListFile(),
             child: GridView.builder(
@@ -68,7 +76,7 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                 mainAxisSpacing: 1,
                 crossAxisSpacing: SpacingUnit.x10,
               ),
-              itemCount: files.length,
+              itemCount: setOldFiles().length,
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () => _onClickFLie(context, index),
                 child: Container(
@@ -91,6 +99,14 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                       : Image.file(
                           files[index],
                           fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) => Image.network(
+                            files[index].path,
+                            fit: BoxFit.fill,
+                            errorBuilder: (context, error, stackTrace) => Image.asset(
+                              Assets.images.error.imageError.path,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
                         ),
                 ),
               ),

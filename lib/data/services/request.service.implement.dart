@@ -113,8 +113,7 @@ class RequestServiceImpl extends BaseService implements RequestService {
 
   @override
   Future<List<String>> uploadFiles({UploadFilesRequest? uploadFileRequests}) async {
-    //files
-    final List<bool> isFile = [
+   /* final List<bool> isFile = [
       ...uploadFileRequests!.originFiles!
           .map((e) => e.path.endsWith('png') || e.path.endsWith('jpg'))
     ];
@@ -142,7 +141,8 @@ class RequestServiceImpl extends BaseService implements RequestService {
             .toList(),
         fileNames: filenames);
     final responseBase = ResponseBase.fromJson(json.decode(response));
-    return responseBase.result as List<String>;
+    return responseBase.result as List<String>;*/
+    return [];
   }
 
   @override

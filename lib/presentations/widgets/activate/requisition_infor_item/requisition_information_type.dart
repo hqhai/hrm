@@ -5,6 +5,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_business_trip.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_explanation.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_leave.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_overtime.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_postal_delivery_service.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_stationeries.dart';
@@ -33,9 +34,13 @@ class RequisitionInformationType extends StatelessWidget {
 Widget inFlowType(RequisitionTypeEnum? type) {
   switch (type) {
     case RequisitionTypeEnum.yearlyAndSeniorityLeave:
+      return const RequisitionInformationContentTypeLeave();
     case RequisitionTypeEnum.compensatoryLeave:
+      return const RequisitionInformationContentTypeLeave();
     case RequisitionTypeEnum.otherLeave:
+      return const RequisitionInformationContentTypeLeave();
     case RequisitionTypeEnum.unpaidLeave:
+      return const RequisitionInformationContentTypeLeave();
     case RequisitionTypeEnum.lateArrival:
     case RequisitionTypeEnum.earlyDeparture:
       return Container();
