@@ -359,13 +359,10 @@
   "totalTime": "Total time",
   "horizontalCalendar": "Horizontal calendar",
   "verticalCalendar": "Vertical calendar",
-  "unpaidLeave": "Unpaid leave",
   "yearlyLeave": "Yearly Leave",
   "seniorityLeave": "Seniority Leave",
-  "compensatoryLeave": "Compensatory Leave",
   "weddingLeave": "Wedding Leave",
   "mourningLeave": "Mourning Leave",
   "homeSickLeave": "Home Sick Leave",
-  "hospitalSickLeave": "Hospital Sick Leave",
-  "maternityLeave": "Maternity Leave"
+  "hospitalSickLeave": "Hospital Sick Leave"
 }
