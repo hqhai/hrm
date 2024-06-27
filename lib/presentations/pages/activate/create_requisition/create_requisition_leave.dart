@@ -18,10 +18,13 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
+import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_bloc.dart';
+import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_event.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_load_flie.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create.work.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_take_leave.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
@@ -74,6 +77,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   void initState() {
     reasonForOnLeave = widget.type;
     reason = listEnumTakeLeave();
+    dI<WorkAndSalaryBloc>().add(const GetTotalLeaveDayEvent());
     if (widget.requestId?.isNotEmpty ?? false) {
       dI<RequisitionBloc>().add(
         GetRequisitionByIdEvent(id: widget.requestId),
@@ -117,8 +121,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     final appLocalizations = AppLocalizations.of(context)!;
     final DateTime now = DateTime.now();
     final bool checkTime = DateTime.parse(startTime ?? now.toString())
-        .difference(DateTime.parse(endTime ?? now.toString()))
-        .inSeconds <
+            .difference(DateTime.parse(endTime ?? now.toString()))
+            .inSeconds <
         0;
     final bool checkStartTime =
         DateTime.parse(startTime ?? now.toString()).difference(now).inSeconds > 0;
@@ -126,8 +130,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       errorTime = !checkStartTime
           ? appLocalizations.theStartTimeMustBeAfterTheCurrentTime
           : !checkTime
-          ? appLocalizations.endTimeMustBeAfterStartTime
-          : "";
+              ? appLocalizations.endTimeMustBeAfterStartTime
+              : "";
     });
     return checkTime && checkStartTime;
   }
@@ -169,6 +173,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ItemCreateIntervalOnLeave(
+                          leave: true,
                           error: errorTime,
                           startTimeOld: startTime,
                           endTimeOld: endTime,
@@ -181,6 +186,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                           type: widget.type,
                           onChange: (value) => _setReason(value),
                         ),
+                        const ItemTakeLeaveWork(),
                         if (_checkType())
                           ItemCreateInputArea(
                             textController: detailedReasonController,

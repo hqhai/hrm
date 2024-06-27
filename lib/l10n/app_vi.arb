@@ -366,5 +366,8 @@
   "homeSickLeave": "Nghỉ ốm tại gia",
   "hospitalSickLeave": "Nghỉ ốm tại viện",
   "maternityLeave": "Nghỉ thai sản",
-  "revoke": "Hủy bỏ"
+  "revoke": "Hủy bỏ",
+  "leaveNumberUsed": "Phép đã dùng",
+  "leaveNumberPermission": "Phép ban đầu",
+  "leaveNumberRemaining": "Phép còn lại"
 }

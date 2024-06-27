@@ -366,5 +366,8 @@
   "homeSickLeave": "Home Sick Leave",
   "hospitalSickLeave": "Hospital Sick Leave",
   "maternityLeave": "Maternity Leave",
-  "revoke": "Revoke"
+  "revoke": "Revoke",
+  "leaveNumberUsed": "Leave number used",
+  "leaveNumberPermission": "Leave number allowed",
+  "leaveNumberRemaining": "Leave number remaining"
 }

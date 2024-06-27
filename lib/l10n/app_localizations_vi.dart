@@ -1107,4 +1107,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get revoke => 'Hủy bỏ';
+
+  @override
+  String get leaveNumberUsed => 'Phép đã dùng';
+
+  @override
+  String get leaveNumberPermission => 'Phép ban đầu';
+
+  @override
+  String get leaveNumberRemaining => 'Phép còn lại';
 }
