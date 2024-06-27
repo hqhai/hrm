@@ -2258,18 +2258,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total time'**
   String get totalTime;
-
-  /// No description provided for @horizontalCalendar.
-  ///
-  /// In en, this message translates to:
-  /// **'Horizontal calendar'**
-  String get horizontalCalendar;
-
-  /// No description provided for @verticalCalendar.
-  ///
-  /// In en, this message translates to:
-  /// **'Vertical calendar'**
-  String get verticalCalendar;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

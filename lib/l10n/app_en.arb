@@ -327,7 +327,6 @@
   "yearlyAndSeniorityLeave": "Yearly and seniority leave",
   "compensatoryLeave": "Compensatory leave",
   "otherLeave": "Other leave",
-  "unpaidLeave": "Unpaid leave",
   "theStartTimeMustBeAfterTheCurrentTime": "The start time must be after the current time",
   "month": "Month",
   "quantityCannotBeZero": "Quantity cannot be zero",
@@ -361,5 +360,7 @@
   "listOvertime": "List of overtime hours",
   "totalTime": "Total time",
   "horizontalCalendar": "Horizontal calendar",
-  "verticalCalendar": "Vertical calendar"
+  "verticalCalendar": "Vertical calendar",
+  "unpaidLeave": "Unpaid leave"
+
 }

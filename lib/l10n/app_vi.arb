@@ -327,8 +327,12 @@
   "yearlyAndSeniorityLeave": "Nghỉ phép năm",
   "compensatoryLeave": "Nghỉ bù",
   "otherLeave": "Nghỉ phép khác",
+  "horizontalCalendar": "Lịch ngang",
+  "verticalCalendar": "Lịch dọc",
+  "unpaidLeave": "Nghỉ không lương",
   "theStartTimeMustBeAfterTheCurrentTime": "Thời gian bắt đầu phải sau thời gian hiện tại",
   "month": "Tháng",
+  "quantityCannotBeZero": "Số lượng không được bằng 0",
   "duplicateEmail": "Email bị trùng",
   "invalidParentId": "Id đối tượng không hợp lệ",
   "itemNotExists": "Đối tượng không tồn tại",
@@ -356,9 +360,6 @@
   "duplicateBankAccountNumber": "Số tài khoản ngân hàng bị trùng",
   "timeSlotAlreadyPleaseChooseAnother": "Thời gian đã có rồi, xin vui lòng chọn cái khác",
   "theNumberOfFormsCreatedHasExceededTheLimit": "Số lượng biểu mẫu được tạo đã vượt quá giới hạn",
-  "quantityCannotBeZero": "Số lượng không được bằng 0",
-  "horizontalCalendar": "Lịch ngang",
-  "verticalCalendar": "Lịch dọc",
   "listOvertime": "Danh sách giờ tăng ca",
   "totalTime": "Tổng thời gian"
 }
