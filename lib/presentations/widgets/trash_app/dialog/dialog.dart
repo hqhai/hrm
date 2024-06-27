@@ -1,6 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -9,11 +10,13 @@ import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:flutter/material.dart';
+import 'package:themes/themes.dart';
 
 noteDialog(BuildContext context, Note note) async {
   return showDialog(
     context: context,
     builder: (context) {
+      final colors = AppTheme.getColors(context);
       final appLocalizations = AppLocalizations.of(context)!;
       return AlertDialog(
         content: SizedBox(
@@ -23,21 +26,41 @@ noteDialog(BuildContext context, Note note) async {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(appLocalizations.createTime,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white)),
-                Text(note.dateTime,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white)),
+                Text(
+                  appLocalizations.createTime,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: SpacingUnit.x4,
+                    color: colors.text,
+                  ),
+                ),
+                Text(
+                  formatYMD(note.dateTime),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: SpacingUnit.x4,
+                    color: colors.text,
+                  ),
+                ),
                 const SizedBox(
                   height: SpacingUnit.x4_5,
                 ),
-                Text(appLocalizations.note,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white)),
-                Text(note.note,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white)),
+                Text(
+                  appLocalizations.note,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: SpacingUnit.x4,
+                    color: colors.text,
+                  ),
+                ),
+                Text(
+                  note.note,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: SpacingUnit.x4,
+                    color: colors.text,
+                  ),
+                ),
                 const SizedBox(
                   height: SpacingUnit.x4_5,
                 ),
@@ -119,7 +142,7 @@ deleteNoteDialog(BuildContext context, Note note) async {
   );
 }
 
-closePopUp(BuildContext context){
+closePopUp(BuildContext context) {
   Navigator.of(context).pop();
 }
 
