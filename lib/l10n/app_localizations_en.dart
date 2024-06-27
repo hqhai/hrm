@@ -1122,4 +1122,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get youLater => 'You later';
+
+  @override
+  String get timeKeepingList => 'list Timekeeping';
 }

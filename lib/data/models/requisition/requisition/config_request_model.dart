@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
@@ -14,6 +15,7 @@ class ConfigRequestModel {
   final String? flowId;
   final EnumTakeLeave? takeLeaveReason;
   final double? numberValue;
+  final EditTimekeeping? editTimekeeping;
   final List<String>? subtitudePersons;
   final List<String>? attachments;
   final String? content;
@@ -31,6 +33,7 @@ class ConfigRequestModel {
   final List<RequisitionOverTime>? overTimes;
 
   const ConfigRequestModel({
+    this.editTimekeeping,
     this.overTimes,
     this.flowId,
     this.description,

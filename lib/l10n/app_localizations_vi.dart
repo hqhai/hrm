@@ -1122,4 +1122,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get youLater => 'Đến muộn';
+
+  @override
+  String get timeKeepingList => 'Danh sách thời gian';
 }

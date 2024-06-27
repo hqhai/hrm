@@ -371,5 +371,6 @@
   "leaveNumberPermission": "Leave number allowed",
   "leaveNumberRemaining": "Leave number remaining",
   "youEarly": "You early",
-  "youLater": "You later"
+  "youLater": "You later",
+  "timeKeepingList": "list Timekeeping"
 }

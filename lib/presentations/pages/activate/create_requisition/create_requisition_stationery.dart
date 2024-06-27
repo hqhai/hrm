@@ -22,6 +22,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationery_order.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_total_amount.dart';
+import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_order_add_dialog.dart';
 import 'package:flutter/material.dart';
@@ -107,8 +108,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     return BlocConsumer<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) => _listenWhen(previous, current),
-      builder: (context, state) =>
-      BlocBuilder<UserByIdBloc, UserByIdState>(
+      builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
             appBar: AppBar(
@@ -186,25 +186,9 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                                 ),
                               ),
                             ),
-                          GestureDetector(
-                            onTap: () => _addStationery(context),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: SpacingUnit.x10,
-                              padding: const EdgeInsets.all(SpacingUnit.x2),
-                              decoration: BoxDecoration(
-                                color: colors.outlineSuccess,
-                                borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                                border: Border.all(width: 1, color: colors.text),
-                              ),
-                              child: Text(
-                                appLocalizations.moreOfficeProducts,
-                                style: TextStyle(
-                                  fontSize: SpacingUnit.x3_5,
-                                  color: colors.background,
-                                ),
-                              ),
-                            ),
+                          ButtonAddList(
+                            title: appLocalizations.moreOfficeProducts,
+                            callBack: () => _addStationery(context),
                           ),
                           ItemTotalAmount(
                             totalAmount: _totalAmount(),

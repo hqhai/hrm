@@ -2330,6 +2330,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You later'**
   String get youLater;
+
+  /// No description provided for @timeKeepingList.
+  ///
+  /// In en, this message translates to:
+  /// **'list Timekeeping'**
+  String get timeKeepingList;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -4,27 +4,32 @@ import 'dart:io';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_reason_for_explanation.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
+import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
+import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/timekeeping_dialog/timekeeping_dialog.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 final createRequestExplanationPageRoute = GoRoute(
@@ -57,16 +62,13 @@ class CreateRequisitionExplanationPage extends StatefulWidget {
 }
 
 class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExplanationPage> {
-  final TextEditingController totalMinuteController = TextEditingController(),
-      reasonController = TextEditingController(),
-      detailedDescriptionController = TextEditingController(),
-      applicationCodeController = TextEditingController();
-  int totalMinute = 0;
-  String errorReason = '', errorContent = '', errorVehicle = '', errorDestination = '';
-  String reason = '', detailedDescription = '', replaceDate = '', workDate = '';
+  final TextEditingController detailedDescriptionController = TextEditingController();
+  List<RequisitionOverTime> listRequisitionOverTimes = [];
+  String errorTime = '', errorDestination = '';
+  String? description;
   List<String> followers = [];
   List<File> files = [];
-  RequisitionTypeExplanationEnum? reasonForExplanation = RequisitionTypeExplanationEnum.late;
+  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
 
   @override
   void initState() {
@@ -78,86 +80,161 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     super.initState();
   }
 
-  _listener(BuildContext context, RequisitionState state) {}
+  _listener(BuildContext context, RequisitionState state) {
+    setState(() {
+      listRequisitionOverTimes = [...?state.requisition.config.overTimes];
+      followers = [...state.requisition.followerIds];
+      description = state.requisition.config.description;
+      detailedDescriptionController.text = description ?? "";
+      dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocListener<RequisitionBloc, RequisitionState>(
+    final width = MediaQuery.of(context).size.width;
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) => _listenWhen(previous, current),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.type.configTypeName,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x5,
-            ),
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(SpacingUnit.x3),
-            margin: const EdgeInsets.all(SpacingUnit.x3),
-            decoration: BoxDecoration(
-              color: colors.surface,
-              borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-              border: Border.all(
-                width: 1,
-                color: colors.surface,
+      builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
+        builder: (context, stateUserById) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                widget.type.configTypeName,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x5,
+                ),
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            body: Stack(
               children: [
-                ItemCreateInputArea(
-                  error: errorReason,
-                  textController: reasonController,
-                  title: appLocalizations.reason,
-                  onChange: (value) => _setReason(value),
+                SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.all(SpacingUnit.x3),
+                    margin: const EdgeInsets.all(SpacingUnit.x3),
+                    decoration: BoxDecoration(
+                      color: colors.surface,
+                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                      border: Border.all(
+                        width: 1,
+                        color: colors.surface,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          appLocalizations.timeKeepingList,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x4,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        if (errorTime != '')
+                          Text(
+                            errorTime,
+                            style: TextStyle(
+                              color: colors.error,
+                              fontSize: SpacingUnit.x3,
+                            ),
+                          ),
+                        if (listRequisitionOverTimes.isNotEmpty)
+                          Container(
+                            width: width,
+                            padding: const EdgeInsets.all(SpacingUnit.x1),
+                            margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                            decoration: BoxDecoration(
+                              color: colors.surface,
+                              borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                            ),
+                            child: Column(
+                              children: listRequisitionOverTimes
+                                  .mapIndexed(
+                                    (index, element) => GestureDetector(
+                                      onTap: () => _getStationeryInList(
+                                          context, listRequisitionOverTimes[index], index),
+                                      child: ItemListOverTime(
+                                        requisitionOverTime: listRequisitionOverTimes[index],
+                                        index: index,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
+                        ButtonAddList(
+                          title: appLocalizations.addWorkTime,
+                          callBack: () => _addTime(context),
+                        ),
+                        ItemCreateInputArea(
+                          error: errorDestination,
+                          textController: detailedDescriptionController,
+                          title: appLocalizations.detailedDescription,
+                          onChange: (value) => _setDetailedDescription(value),
+                        ),
+                        ItemCreateFollower(
+                            listFollower: _setListUser(
+                              stateUserById.userById,
+                            ),
+                            title: appLocalizations.follower,
+                            onChange: (value) => _setFollower(value)),
+                        ItemButton(
+                          callbackSave: () => _save(context),
+                          callbackCancel: () => _cancel(),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-                ItemCreateInputArea(
-                  error: errorDestination,
-                  textController: detailedDescriptionController,
-                  title: appLocalizations.detailedDescription,
-                  onChange: (value) => _setDetailedDescription(value),
+                CheckLoadDialog(
+                  fail: setErrorValue(state.errorCode),
+                  checkLoad: checkLoad,
+                  checkSuccess: checkSuccess,
+                  checkUnSuccess: checkUnSuccess,
+                  checkSuccessChange: () => setCheckSuccess(),
+                  checkUnSuccessChange: () => setCheckUnSuccess(),
                 ),
-                ItemCreateTime(
-                  check: true,
-                  title: appLocalizations.workDay,
-                  dateOfBirth: DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
-                  onChangeDateOfBirth: (value) => _setWorkDate(value),
-                ),
-                ItemCreateFollower(
-                    title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-                ItemButton(
-                  callbackSave: () => _save(context),
-                  callbackCancel: () => _cancel(),
-                )
               ],
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
 
-  bool _checkValue(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    bool check = reason != '' && detailedDescription != '';
+  setCheckSuccess() {
     setState(() {
-      errorReason = reason != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorDestination = detailedDescription != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      checkSuccess = false;
     });
-    return check;
   }
 
-  _setReasonForExplanation(RequisitionTypeExplanationEnum? value) {
+  setCheckUnSuccess() {
     setState(() {
-      reasonForExplanation = value;
+      checkUnSuccess = false;
     });
+  }
+
+  List<User> _setListUser(List<User> userById) {
+    if (widget.requestId != null) {
+      return userById;
+    }
+    return [];
+  }
+
+  bool _checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final bool checkDescription = description != null;
+    final bool checkList = listRequisitionOverTimes.isNotEmpty;
+    setState(() {
+      errorTime = checkList ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+    });
+    return checkList && checkDescription;
   }
 
   _setFollower(List<User> value) {
@@ -166,33 +243,17 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  /*_setTotalMinute(String value) {
-    setState(() {
-      totalMinute = value as int;
-    });
-  }*/
-
-  _setReason(String value) {
-    setState(() {
-      reason = value;
-    });
-  }
-
   _setDetailedDescription(String value) {
     setState(() {
-      detailedDescription = value;
-    });
-  }
-
-  _setDate(String value) {
-    setState(() {
-      replaceDate = formatIso8601(value);
+      description = value;
     });
   }
 
   _save(BuildContext context) async {
-    if (_checkValue(context)) {
-      progressIndicatorDialog(context);
+    if (_checkValue(context) && widget.requestId == null) {
+      setState(() {
+        checkLoad = true;
+      });
       Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
@@ -201,37 +262,99 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              explanationReason: reasonForExplanation?.name,
-              startDate: workDate,
-              destination: detailedDescription,
-              endDate: replaceDate,
+              editTimekeeping: EditTimekeeping.editTimekeeping,
+              overTimes: listRequisitionOverTimes,
+              destination: description,
             ),
           ),
         ),
       );
       final status = await completer.future;
       if (status == RequisitionEnum.success) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        successDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
       }
       if (status == RequisitionEnum.fail) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        unsuccessfulDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
+      }
+    } else if (_checkValue(context) && widget.requestId != null) {
+      setState(() {
+        checkLoad = true;
+      });
+      Completer completer = Completer<RequisitionEnum>();
+      dI<RequisitionBloc>().add(
+        EditRequestEvent(
+          completer: completer,
+          postRequestRequest: PostRequestRequest(
+            id: widget.requestId,
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              editTimekeeping: EditTimekeeping.editTimekeeping,
+              overTimes: listRequisitionOverTimes,
+              destination: description,
+            ),
+          ),
+        ),
+      );
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
+      }
+      if (status == RequisitionEnum.fail) {
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
       }
     }
   }
 
-  _cancel() {}
+  _listenWhen(RequisitionState previous, RequisitionState current) {
+    return previous.requisition != current.requisition;
+  }
 
-  _setWorkDate(String value) {
+  _addTime(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: TimeKeepingDialog(
+            onChange: (value) => setListTime(value),
+          ),
+        );
+      },
+    );
+  }
+
+  setListTime(RequisitionOverTime value) {
     setState(() {
-      workDate = formatIso8601(value);
+      listRequisitionOverTimes.add(value);
     });
   }
 
-  _listenWhen(RequisitionState previous, RequisitionState current) {
-    return previous != current;
+  _getStationeryInList(
+      BuildContext context, RequisitionOverTime listRequisitionOverTime, int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: TimeKeepingDialog(
+            requisitionOverTime: listRequisitionOverTime,
+            onChange: (value) => setListTime(value),
+          ),
+        );
+      },
+    );
   }
+
+  _cancel() {}
 }
