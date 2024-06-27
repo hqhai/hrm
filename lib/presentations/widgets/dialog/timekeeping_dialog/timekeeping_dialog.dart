@@ -19,7 +19,7 @@ class TimeKeepingDialog extends StatefulWidget {
 
 class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
   final TextEditingController noteController = TextEditingController();
-  String errorNote = '';
+  String errorNote = '', errorTime = '';
   RequisitionOverTime? requisitionOverTime;
 
   @override
@@ -29,6 +29,17 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
       noteController.text = widget.requisitionOverTime?.note ?? "";
     }
     super.initState();
+  }
+
+  bool checkValue(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    bool checkTime = requisitionOverTime != null;
+    bool checkNote = noteController.text != '' || noteController.text.isNotEmpty;
+    setState(() {
+      errorNote = checkNote ? "" : appLocalizations.cannotBeLeftBlank;
+      errorTime = checkTime ? "" : appLocalizations.cannotBeLeftBlank;
+    });
+    return checkTime && checkNote;
   }
 
   @override
@@ -60,6 +71,12 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
               ],
             ),
           ),
+          if (errorTime.isNotEmpty)
+            Text(errorTime,
+                style: TextStyle(
+                  fontSize: SpacingUnit.x3,
+                  color: colors.error,
+                )),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
             child: Text(
@@ -125,18 +142,13 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
             height: SpacingUnit.x4_5,
           ),
           AppInputArea(
+            error: errorNote,
             minLines: 5,
             maxLines: 5,
             placeHolder: appLocalizations.note,
             controller: noteController,
             onChange: (value) => setNote(value),
           ),
-          if (errorNote.isNotEmpty)
-            Text(errorNote,
-                style: TextStyle(
-                  fontSize: SpacingUnit.x3,
-                  color: colors.error,
-                )),
           const SizedBox(
             height: SpacingUnit.x4_5,
           ),
@@ -175,7 +187,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
   }
 
   _setAdd(BuildContext context) {
-    if (requisitionOverTime != null) {
+    if (checkValue(context)) {
       setState(() {
         widget.onChange.call(requisitionOverTime!);
         Navigator.of(context).pop();
