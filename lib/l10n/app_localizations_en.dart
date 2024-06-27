@@ -1116,4 +1116,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get leaveNumberRemaining => 'Leave number remaining';
+
+  @override
+  String get youEarly => 'You early';
+
+  @override
+  String get youLater => 'You later';
 }

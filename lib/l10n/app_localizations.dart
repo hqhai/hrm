@@ -2318,6 +2318,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave number remaining'**
   String get leaveNumberRemaining;
+
+  /// No description provided for @youEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'You early'**
+  String get youEarly;
+
+  /// No description provided for @youLater.
+  ///
+  /// In en, this message translates to:
+  /// **'You later'**
+  String get youLater;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

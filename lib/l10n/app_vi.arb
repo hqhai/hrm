@@ -369,5 +369,7 @@
   "revoke": "Hủy bỏ",
   "leaveNumberUsed": "Phép đã dùng",
   "leaveNumberPermission": "Phép ban đầu",
-  "leaveNumberRemaining": "Phép còn lại"
+  "leaveNumberRemaining": "Phép còn lại",
+  "youEarly": "Về sớm",
+  "youLater": "Đến muộn"
 }

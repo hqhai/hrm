@@ -369,5 +369,7 @@
   "revoke": "Revoke",
   "leaveNumberUsed": "Leave number used",
   "leaveNumberPermission": "Leave number allowed",
-  "leaveNumberRemaining": "Leave number remaining"
+  "leaveNumberRemaining": "Leave number remaining",
+  "youEarly": "You early",
+  "youLater": "You later"
 }

@@ -1116,4 +1116,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get leaveNumberRemaining => 'Phép còn lại';
+
+  @override
+  String get youEarly => 'Về sớm';
+
+  @override
+  String get youLater => 'Đến muộn';
 }

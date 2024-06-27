@@ -35,13 +35,20 @@ final createRequestExplanationPageRoute = GoRoute(
     return CreateRequisitionExplanationPage(
       flowId: data['flowId'],
       requestId: data['requestId'],
+      type: data['type'],
     );
   },
 );
 
 class CreateRequisitionExplanationPage extends StatefulWidget {
-  const CreateRequisitionExplanationPage({super.key, this.flowId = '', this.requestId});
+  const CreateRequisitionExplanationPage({
+    super.key,
+    this.flowId = '',
+    this.requestId,
+    this.type = RequisitionTypeEnum.explanation,
+  });
 
+  final RequisitionTypeEnum type;
   final String flowId;
   final String? requestId;
 
@@ -71,8 +78,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     super.initState();
   }
 
-  _listener(BuildContext context, RequisitionState state) {
-  }
+  _listener(BuildContext context, RequisitionState state) {}
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +90,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            RequisitionTypeEnum.explanation.configTypeName,
+            widget.type.configTypeName,
             style: TextStyle(
               color: colors.text,
               fontSize: SpacingUnit.x5,
@@ -106,16 +112,6 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /*if (reasonForExplanation == RequisitionTypeExplanationEnum.late ||
-                    reasonForExplanation == RequisitionTypeExplanationEnum.early)
-                  ItemCreateTotalMinute(
-                    title: appLocalizations.totalMinute,
-                    totalMinuteController: totalMinuteController,
-                    onChange: (value) => _setTotalMinute(value),
-                  ),*/
-                ItemCreateReasonForExplanation(
-                  onChange: (value) => _setReasonForExplanation(value),
-                ),
                 ItemCreateInputArea(
                   error: errorReason,
                   textController: reasonController,
@@ -128,17 +124,10 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                   title: appLocalizations.detailedDescription,
                   onChange: (value) => _setDetailedDescription(value),
                 ),
-                if (reasonForExplanation == RequisitionTypeExplanationEnum.early)
-                  ItemCreateTime(
-                    check: true,
-                    title: appLocalizations.replaceDay,
-                    dateOfBirth: DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.now()),
-                    onChangeDateOfBirth: (value) => _setDate(value),
-                  ),
                 ItemCreateTime(
                   check: true,
                   title: appLocalizations.workDay,
-                  dateOfBirth: DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.now()),
+                  dateOfBirth: DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
                   onChangeDateOfBirth: (value) => _setWorkDate(value),
                 ),
                 ItemCreateFollower(
