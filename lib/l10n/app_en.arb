@@ -359,7 +359,7 @@
   "timeSlotAlreadyPleaseChooseAnother": "Time Slot Already Please Choose Another",
   "theNumberOfFormsCreatedHasExceededTheLimit": "The Number Of Forms Created Has Exceeded The Limit",
   "listOvertime": "List of overtime hours",
-  "totalTime": "Total time"
+  "totalTime": "Total time",
   "horizontalCalendar": "Horizontal calendar",
   "verticalCalendar": "Vertical calendar"
 }
