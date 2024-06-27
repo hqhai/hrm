@@ -327,5 +327,7 @@
   "yearlyAndSeniorityLeave": "Yearly and seniority leave",
   "compensatoryLeave": "Compensatory leave",
   "otherLeave": "Other leave",
-  "unpaidLeave": "Unpaid leave"
+  "unpaidLeave": "Unpaid leave",
+  "horizontalCalendar": "Horizontal calendar",
+  "verticalCalendar": "Vertical calendar"
 }
