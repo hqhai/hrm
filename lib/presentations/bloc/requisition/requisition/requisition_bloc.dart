@@ -117,6 +117,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       } else {
         await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
         emit(state.copyWith(errorCode: '', status: RequisitionEnum.success));
+        event.completer.complete(RequisitionEnum.fail);
       }
     } catch (e) {
       e as ResponseBase;
