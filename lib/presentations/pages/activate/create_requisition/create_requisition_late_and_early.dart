@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -14,27 +15,25 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_timm_ymd.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/list_overtime.dart';
 import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/timekeeping_dialog/timekeeping_dialog.dart';
-import 'package:collection/collection.dart';
+import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/overtime/over_time_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final createRequestExplanationPageRoute = GoRoute(
-  path: Pages.createRequestExplanationPage,
-  name: Pages.createRequestExplanationPage,
+final createRequestLateAndEarlyPageRoute = GoRoute(
+  path: Pages.createRequestLateAndEarlyPage,
+  name: Pages.createRequestLateAndEarlyPage,
   builder: (context, GoRouterState state) {
     Map data = state.extra as Map;
-    return CreateRequisitionExplanationPage(
+    return CreateRequisitionLateAndEarlyPage(
       flowId: data['flowId'],
       requestId: data['requestId'],
       type: data['type'],
@@ -42,12 +41,12 @@ final createRequestExplanationPageRoute = GoRoute(
   },
 );
 
-class CreateRequisitionExplanationPage extends StatefulWidget {
-  const CreateRequisitionExplanationPage({
+class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
+  const CreateRequisitionLateAndEarlyPage({
     super.key,
     this.flowId = '',
     this.requestId,
-    this.type = RequisitionTypeEnum.explanation,
+    this.type = RequisitionTypeEnum.lateArrival,
   });
 
   final RequisitionTypeEnum type;
@@ -55,21 +54,18 @@ class CreateRequisitionExplanationPage extends StatefulWidget {
   final String? requestId;
 
   @override
-  State<CreateRequisitionExplanationPage> createState() => _CreateRequisitionExplanationPageState();
+  State<CreateRequisitionLateAndEarlyPage> createState() =>
+      _CreateRequisitionLateAndEarlyPageState();
 }
 
-class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExplanationPage> {
-  final TextEditingController totalMinuteController = TextEditingController(),
-      reasonController = TextEditingController(),
-      detailedDescriptionController = TextEditingController(),
-      applicationCodeController = TextEditingController();
+class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLateAndEarlyPage> {
+  final TextEditingController detailedDescriptionController = TextEditingController();
+  String errorTime = '', errorDestination = '';
   List<RequisitionOverTime> listRequisitionOverTimes = [];
-  String errorReason = '', errorContent = '', errorVehicle = '', errorDestination = '';
-  String reason = '', detailedDescription = '';
-  DateTime? workDate, replaceDate;
+  DateTime? workDate;
+  String? description;
   List<String> followers = [];
-  List<File> files = [];
-  RequisitionTypeExplanationEnum? reasonForExplanation = RequisitionTypeExplanationEnum.late;
+  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
 
   @override
   void initState() {
@@ -87,11 +83,10 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
-    return BlocListener<RequisitionBloc, RequisitionState>(
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) => _listenWhen(previous, current),
-      child: Scaffold(
+      builder: (context, state) => Scaffold(
         appBar: AppBar(
           title: Text(
             widget.type.configTypeName,
@@ -101,97 +96,110 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(SpacingUnit.x3),
-            margin: const EdgeInsets.all(SpacingUnit.x3),
-            decoration: BoxDecoration(
-              color: colors.surface,
-              borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-              border: Border.all(
-                width: 1,
-                color: colors.surface,
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(SpacingUnit.x3),
+                margin: const EdgeInsets.all(SpacingUnit.x3),
+                decoration: BoxDecoration(
+                  color: colors.surface,
+                  borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                  border: Border.all(
+                    width: 1,
+                    color: colors.surface,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ItemCreateInputArea(
+                      error: errorDestination,
+                      textController: detailedDescriptionController,
+                      title: appLocalizations.detailedDescription,
+                      onChange: (value) => _setDetailedDescription(value),
+                    ),
+                    ItemCreateTimeYMD(
+                      check: true,
+                      title: appLocalizations.workDay,
+                      dateOfBirth: DateTime.now(),
+                      onChangeDateOfBirth: (value) => _setWorkDate(value),
+                    ),
+                    if (widget.type == RequisitionTypeEnum.earlyDeparture)
+                      ListOverTime(
+                        title: appLocalizations.listTime,
+                        requisitionOverTimes: listRequisitionOverTimes,
+                        onChangeList: (value) => _setChangeRequisitionOverTimes(value),
+                      ),
+                    if (widget.type == RequisitionTypeEnum.earlyDeparture)
+                      ButtonAddList(
+                        title: appLocalizations.workOffset,
+                        callBack: () => _addOverTime(context),
+                      ),
+                    ItemCreateFollower(
+                        title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
+                    ItemButton(
+                      callbackSave: () => _save(context),
+                      callbackCancel: () => _cancel(),
+                    )
+                  ],
+                ),
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ItemCreateInputArea(
-                  error: errorReason,
-                  textController: reasonController,
-                  title: appLocalizations.reason,
-                  onChange: (value) => _setReason(value),
-                ),
-                Text(
-                  appLocalizations.stationeryList,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                if (listRequisitionOverTimes.isNotEmpty)
-                  Container(
-                    width: width,
-                    padding: const EdgeInsets.all(SpacingUnit.x1),
-                    margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                    decoration: BoxDecoration(
-                      color: colors.surface,
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                    ),
-                    child: Column(
-                      children: listRequisitionOverTimes
-                          .mapIndexed(
-                            (index, element) => GestureDetector(
-                              onTap: () => _getStationeryInList(
-                                  context, listRequisitionOverTimes[index], index),
-                              child: ItemListOverTime(
-                                requisitionOverTime: listRequisitionOverTimes[index],
-                                index: index,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                ButtonAddList(
-                  title: appLocalizations.moreOfficeProducts,
-                  callBack: () => _addTime(context),
-                ),
-                ItemCreateInputArea(
-                  error: errorDestination,
-                  textController: detailedDescriptionController,
-                  title: appLocalizations.detailedDescription,
-                  onChange: (value) => _setDetailedDescription(value),
-                ),
-                ItemCreateTime(
-                  check: true,
-                  title: appLocalizations.workDay,
-                  dateOfBirth: DateTime.now(),
-                  onChangeDateOfBirth: (value) => _setWorkDate(value),
-                ),
-                ItemCreateFollower(
-                    title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-                ItemButton(
-                  callbackSave: () => _save(context),
-                  callbackCancel: () => _cancel(),
-                )
-              ],
+            CheckLoadDialog(
+              fail: setErrorValue(state.errorCode),
+              checkLoad: checkLoad,
+              checkSuccess: checkSuccess,
+              checkUnSuccess: checkUnSuccess,
+              checkSuccessChange: () => setCheckSuccess(),
+              checkUnSuccessChange: () => setCheckUnSuccess(),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 
+  setCheckSuccess() {
+    setState(() {
+      checkSuccess = false;
+    });
+  }
+
+  setCheckUnSuccess() {
+    setState(() {
+      checkUnSuccess = false;
+    });
+  }
+
+  _addOverTime(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: OverTimeAddDialog(
+            onChangeOverTimes: (value) => setAdd(value),
+          ),
+        );
+      },
+    );
+  }
+
+  setAdd(RequisitionOverTime value) {
+    setState(() {
+      listRequisitionOverTimes.add(value);
+    });
+  }
+
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    bool check = reason != '' && detailedDescription != '';
+    final bool checkDescription = description != null;
+    final bool checkList = listRequisitionOverTimes.isNotEmpty;
     setState(() {
-      errorReason = reason != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorDestination = detailedDescription != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorTime = checkList ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
-    return check;
+    return checkList && checkDescription;
   }
 
   _setFollower(List<User> value) {
@@ -200,27 +208,11 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  /*_setTotalMinute(String value) {
-    setState(() {
-      totalMinute = value as int;
-    });
-  }*/
-
-  _setReason(String value) {
-    setState(() {
-      reason = value;
-    });
-  }
-
-  _setDetailedDescription(String value) {
-    setState(() {
-      detailedDescription = value;
-    });
-  }
-
   _save(BuildContext context) async {
-    if (_checkValue(context)) {
-      progressIndicatorDialog(context);
+    if (_checkValue(context) && widget.requestId == null) {
+      setState(() {
+        checkLoad = true;
+      });
       Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         PostRequestEvent(
@@ -229,26 +221,68 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              explanationReason: reasonForExplanation?.name,
+              explanationReason: explanationReason(),
               startDate: workDate,
-              destination: detailedDescription,
-              endDate: replaceDate,
+              overTimes: listRequisitionOverTimes,
+              description: description,
             ),
           ),
         ),
       );
       final status = await completer.future;
       if (status == RequisitionEnum.success) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        successDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
       }
       if (status == RequisitionEnum.fail) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-        unsuccessfulDialog(context);
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
+      }
+    } else if (_checkValue(context) && widget.requestId != null) {
+      setState(() {
+        checkLoad = true;
+      });
+      Completer completer = Completer<RequisitionEnum>();
+      dI<RequisitionBloc>().add(
+        EditRequestEvent(
+          completer: completer,
+          postRequestRequest: PostRequestRequest(
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              explanationReason: explanationReason(),
+              startDate: workDate,
+              overTimes: listRequisitionOverTimes,
+              description: description,
+            ),
+          ),
+        ),
+      );
+      final status = await completer.future;
+      if (status == RequisitionEnum.success) {
+        setState(() {
+          checkLoad = false;
+          checkSuccess = true;
+        });
+      }
+      if (status == RequisitionEnum.fail) {
+        setState(() {
+          checkLoad = false;
+          checkUnSuccess = true;
+        });
       }
     }
+  }
+
+  String explanationReason() {
+    if (widget.type == RequisitionTypeEnum.lateArrival) {
+      return EditTimekeeping.late.name;
+    }
+    return EditTimekeeping.early.name;
   }
 
   _cancel() {}
@@ -263,38 +297,21 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     return previous != current;
   }
 
-  _addTime(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: TimeKeepingDialog(
-            onChange: (value) => setListTime(value),
-          ),
-        );
-      },
-    );
-  }
-
   setListTime(RequisitionOverTime value) {
     setState(() {
       listRequisitionOverTimes.add(value);
     });
-
   }
 
-  _getStationeryInList(
-      BuildContext context, RequisitionOverTime listRequisitionOverTime, int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: TimeKeepingDialog(
-            requisitionOverTime: listRequisitionOverTime,
-            onChange: (value) => setListTime(value),
-          ),
-        );
-      },
-    );
+  _setDetailedDescription(String value) {
+    setState(() {
+      description = value;
+    });
+  }
+
+  _setChangeRequisitionOverTimes(List<RequisitionOverTime> value) {
+    setState(() {
+      listRequisitionOverTimes = value;
+    });
   }
 }

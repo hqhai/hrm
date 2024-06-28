@@ -71,7 +71,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       reason = state.requisition.config.description ?? "";
       transferType = convertDeliveryType(state.requisition.config.deliveryType ?? "");
       reasonController.text = state.requisition.config.description ?? "";
-      followers = state.requisition.followerIds;
+      followers = [...state.requisition.followerIds];
       dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
     }
   }

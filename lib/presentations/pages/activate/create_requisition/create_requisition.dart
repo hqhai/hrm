@@ -155,7 +155,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           type: RequisitionTypeEnum.lateArrival,
           context: context,
           informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestExplanationPage,
+          page: Pages.createRequestLateAndEarlyPage,
         );
       case RequisitionTypeEnum.overTime:
         _push(
@@ -226,7 +226,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           type: RequisitionTypeEnum.earlyDeparture,
           context: context,
           informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestExplanationPage,
+          page: Pages.createRequestLateAndEarlyPage,
         );
       case null:
     }

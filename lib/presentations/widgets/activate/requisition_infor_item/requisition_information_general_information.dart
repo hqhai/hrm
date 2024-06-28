@@ -18,10 +18,8 @@ import 'package:themes/themes.dart';
 class RequisitionInformationGeneraliInformation extends StatefulWidget {
   const RequisitionInformationGeneraliInformation({
     super.key,
-    this.followerIds = const [],
   });
 
-  final List<String> followerIds;
 
   @override
   State<RequisitionInformationGeneraliInformation> createState() =>
@@ -30,11 +28,6 @@ class RequisitionInformationGeneraliInformation extends StatefulWidget {
 
 class _RequisitionInformationGeneraliInformationState
     extends State<RequisitionInformationGeneraliInformation> {
-  @override
-  void initState() {
-    dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: widget.followerIds));
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

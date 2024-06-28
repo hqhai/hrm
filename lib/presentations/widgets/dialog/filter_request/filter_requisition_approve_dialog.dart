@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
@@ -51,12 +52,12 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
     }
   }
 
-  void setStartTime({required String value}) {
-    startTime = value;
+  void setStartTime({required DateTime value}) {
+    startTime = formatYMD(value.toString());
   }
 
-  void setEndTime({required String value}) {
-    endTime = value;
+  void setEndTime({required DateTime value}) {
+    endTime = formatYMD(value.toString());
   }
 
   setDepartment({Map? value}) {

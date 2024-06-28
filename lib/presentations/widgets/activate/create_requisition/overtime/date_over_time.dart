@@ -5,11 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class DateOverTime extends StatelessWidget {
-  const DateOverTime({super.key, this.errorDate = '', this.dateOld = '', required this.changeValue});
-  final String errorDate;
-  final String dateOld;
-  final ValueChanged<String> changeValue;
+  const DateOverTime({
+    super.key,
+    this.errorDate = '',
+    this.dateOld,
+    required this.changeValue,
+  });
 
+  final String errorDate;
+  final DateTime? dateOld;
+  final ValueChanged<DateTime> changeValue;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +59,7 @@ class DateOverTime extends StatelessWidget {
     );
   }
 
-  setDate(String value) {
+  setDate(DateTime value) {
     changeValue.call(value);
   }
 }

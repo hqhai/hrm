@@ -3,6 +3,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_business.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_explanation.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_late_and_early.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_leave.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_over_time.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_postal_delivery.dart';
@@ -46,8 +47,11 @@ class AppRouters {
 
   AppRouters() : goRouter = _router;
 
-  static GoRouter get _router => GoRouter(
-      routes: routerPages, navigatorKey: dI<AppNavigation>().navigatorKey, initialLocation: '/');
+  static GoRouter get _router =>
+      GoRouter(
+          routes: routerPages,
+          navigatorKey: dI<AppNavigation>().navigatorKey,
+          initialLocation: '/');
 
   static List<GoRoute> routerPages = {
     Pages.main: mainPageRoute,
@@ -84,6 +88,7 @@ class AppRouters {
     Pages.createRequestReleaseOfWarehousePage: createRequestReleaseOfWarehousePageRoute,
     Pages.requisitionApproveListPage: requisitionApproveListPageRoute,
     Pages.requisitionFollowerListPage: requisitionFollowerListPageRoute,
-    Pages.createRequestOverTimePage : createRequestOverTimePageRoute
+    Pages.createRequestOverTimePage: createRequestOverTimePageRoute,
+    Pages.createRequestLateAndEarlyPage: createRequestLateAndEarlyPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

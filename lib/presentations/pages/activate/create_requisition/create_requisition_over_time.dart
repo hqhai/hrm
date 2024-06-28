@@ -148,6 +148,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                             onChange: (value) => setDescription(value),
                           ),
                           ListOverTime(
+                            title: appLocalizations.listOvertime,
                             error: error,
                             requisitionOverTimes: requisitionOverTimes,
                             onChangeList: (value) => _setChangeRequisitionOverTimes(value),

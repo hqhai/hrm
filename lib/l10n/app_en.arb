@@ -372,5 +372,7 @@
   "leaveNumberRemaining": "Leave number remaining",
   "youEarly": "You early",
   "youLater": "You later",
-  "timeKeepingList": "list Timekeeping"
+  "timeKeepingList": "list Timekeeping",
+  "listTime": "List time",
+  "workOffset": "Work offset"
 }

@@ -2,14 +2,19 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateBusinessDay extends StatefulWidget {
-  const ItemCreateBusinessDay(
-      {super.key, this.startTime, this.endTime, this.title, required this.dayOrHours, this.total});
+  const ItemCreateBusinessDay({
+    super.key,
+    this.startTime,
+    this.endTime,
+    this.title,
+    required this.dayOrHours,
+    this.total,
+  });
 
-  final ValueChanged<String>? startTime, endTime;
+  final ValueChanged<DateTime>? startTime, endTime;
   final ValueChanged<int>? total;
   final String? title;
   final bool dayOrHours;
@@ -19,7 +24,7 @@ class ItemCreateBusinessDay extends StatefulWidget {
 }
 
 class _ItemCreateBusinessDayState extends State<ItemCreateBusinessDay> {
-  String time = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  DateTime time = DateTime.now();
   DateTime startTime = DateTime.now(), endTime = DateTime.now();
 
   @override
@@ -50,7 +55,10 @@ class _ItemCreateBusinessDayState extends State<ItemCreateBusinessDay> {
             Container(
               width: width * 0.4,
               margin: const EdgeInsets.all(SpacingUnit.x3),
-              child: DatePicker(onChange: (value) => _setStart(value), oldDate: time),
+              child: DatePicker(
+                onChange: (value) => _setStart(value),
+                oldDate: time,
+              ),
             ),
           ],
         ),
@@ -106,20 +114,20 @@ class _ItemCreateBusinessDayState extends State<ItemCreateBusinessDay> {
     );
   }
 
-  _setStart(String value) {
+  _setStart(DateTime value) {
     setState(() {
       widget.startTime?.call(value);
-      startTime = DateTime.parse(value);
+      startTime = value;
       widget.total?.call(widget.dayOrHours
           ? endTime.difference(startTime).inDays
           : endTime.difference(startTime).inHours);
     });
   }
 
-  _setEnd(String value) {
+  _setEnd(DateTime value) {
     setState(() {
       widget.endTime?.call(value);
-      endTime = DateTime.parse(value);
+      endTime = value;
       widget.total?.call(widget.dayOrHours
           ? endTime.difference(startTime).inDays
           : endTime.difference(startTime).inHours);

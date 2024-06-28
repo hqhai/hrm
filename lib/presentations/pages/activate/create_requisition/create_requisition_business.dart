@@ -111,8 +111,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
         vehicleController.text = vehicle ?? "";
         destination = state.requisition.config.description ?? "";
         destinationController.text = destination ?? "";
-        followers = state.requisition.followerIds;
-        substitutes = state.requisition.config.subtitudePersons ?? [];
+        followers = [...state.requisition.followerIds];
+        substitutes = [...?state.requisition.config.subtitudePersons];
         total = state.requisition.config.total ?? 0;
         dI<UserByIdBloc>().add(
           GetUsersByIdEvent(ids: state.requisition.followerIds),

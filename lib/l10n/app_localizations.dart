@@ -2336,6 +2336,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'list Timekeeping'**
   String get timeKeepingList;
+
+  /// No description provided for @listTime.
+  ///
+  /// In en, this message translates to:
+  /// **'List time'**
+  String get listTime;
+
+  /// No description provided for @workOffset.
+  ///
+  /// In en, this message translates to:
+  /// **'Work offset'**
+  String get workOffset;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

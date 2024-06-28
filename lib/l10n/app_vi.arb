@@ -372,5 +372,7 @@
   "leaveNumberRemaining": "Phép còn lại",
   "youEarly": "Về sớm",
   "youLater": "Đến muộn",
-  "timeKeepingList": "Danh sách thời gian"
+  "timeKeepingList": "Danh sách thời gian",
+  "listTime": "Danh sách thời gian",
+  "workOffset": "Làm bù"
 }

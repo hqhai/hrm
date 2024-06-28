@@ -1125,4 +1125,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timeKeepingList => 'list Timekeeping';
+
+  @override
+  String get listTime => 'List time';
+
+  @override
+  String get workOffset => 'Work offset';
 }

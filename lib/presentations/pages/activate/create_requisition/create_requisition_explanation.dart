@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
@@ -67,7 +66,6 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   String errorTime = '', errorDestination = '';
   String? description;
   List<String> followers = [];
-  List<File> files = [];
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
 
   @override
@@ -264,7 +262,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             config: ConfigRequestModel(
               editTimekeeping: EditTimekeeping.editTimekeeping,
               overTimes: listRequisitionOverTimes,
-              destination: description,
+              description: description,
             ),
           ),
         ),
@@ -297,7 +295,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             config: ConfigRequestModel(
               editTimekeeping: EditTimekeeping.editTimekeeping,
               overTimes: listRequisitionOverTimes,
-              destination: description,
+              description: description,
             ),
           ),
         ),

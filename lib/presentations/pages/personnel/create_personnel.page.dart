@@ -16,7 +16,6 @@ import 'package:base_app/presentations/bloc/position/position_state.dart';
 import 'package:base_app/presentations/widgets/admin/department/item_dropdown_department.dart';
 import 'package:base_app/presentations/widgets/admin/position/item_dropdown_position.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:base_app/presentations/widgets/custom/work_time.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
@@ -237,7 +236,7 @@ class _CreatePersonnelWidgetState extends State<CreatePersonnelWidget> {
                 Text(appLocalizations.startDate,
                     style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
-                DatePicker(restorationId: 'StartDate', onChange: (value) => startDate = value),
+                //DatePicker(restorationId: 'StartDate', onChange: (value) => startDate = value),
                 const SizedBox(height: SpacingUnit.x2),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo),

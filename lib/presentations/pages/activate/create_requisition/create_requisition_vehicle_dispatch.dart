@@ -75,12 +75,12 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       setState(() {
         content = state.requisition.config.content ?? "";
         contentController.text = state.requisition.config.content ?? "";
-        subtitudePersons = state.requisition.config.subtitudePersons ?? [];
+        subtitudePersons = [...?state.requisition.config.subtitudePersons];
         description = state.requisition.config.description ?? "";
         descriptionController.text = state.requisition.config.description ?? "";
         startTime = state.requisition.config.startDate;
         endTime = state.requisition.config.endDate;
-        followers = state.requisition.followerIds;
+        followers = [...state.requisition.followerIds];
         dI<UserByIdBloc>().add(
           GetUsersByIdEvent(ids: state.requisition.followerIds),
         );

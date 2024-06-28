@@ -1125,4 +1125,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get timeKeepingList => 'Danh sách thời gian';
+
+  @override
+  String get listTime => 'Danh sách thời gian';
+
+  @override
+  String get workOffset => 'Làm bù';
 }

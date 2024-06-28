@@ -78,7 +78,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
           children: [
             DateOverTime(
               errorDate: errorDate,
-              dateOld: date,
+              dateOld: DateTime.parse(date),
               changeValue: (value) => setDate(value),
             ),
             TimeOverTime(
@@ -150,9 +150,9 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     });
   }
 
-  setDate(String value) {
+  setDate(DateTime value) {
     setState(() {
-      date = value;
+      date = formatYMD(value.toString());
     });
   }
 

@@ -75,6 +75,11 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
         ),
       );
     }
+    if (state.requisition.followerIds.isNotEmpty) {
+      dI<UserByIdBloc>().add(
+        GetUsersByIdEvent(ids: state.requisition.followerIds),
+      );
+    }
   }
 
   @override
@@ -123,8 +128,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const RequisitionInformationSenderInformation(),
-                          RequisitionInformationGeneraliInformation(
-                              followerIds: state.requisition.followerIds),
+                          const RequisitionInformationGeneraliInformation(),
                           const RequisitionInformationType(),
                           const RequisitionInformationContent(),
                           const RequisitionInformationAttach(),
@@ -266,15 +270,10 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     required InformationRequestExtra informationRequestExtra,
   }) {
     final extraData = informationRequestExtra.toJson();
-    if(type != null) {
+    if (type != null) {
       extraData.addAll({'type': type});
-      dI<AppNavigation>().pushName(
-        context,
-        page: page,
-        extra: extraData
-      );
-    }
-    else{
+      dI<AppNavigation>().pushName(context, page: page, extra: extraData);
+    } else {
       dI<AppNavigation>().pushName(
         context,
         page: page,
