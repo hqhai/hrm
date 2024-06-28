@@ -2049,12 +2049,6 @@ abstract class AppLocalizations {
   /// **'Other leave'**
   String get otherLeave;
 
-  /// No description provided for @unpaidLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Unpaid leave'**
-  String get unpaidLeave;
-
   /// No description provided for @theStartTimeMustBeAfterTheCurrentTime.
   ///
   /// In en, this message translates to:
@@ -2360,6 +2354,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reason for business trip'**
   String get reasonForBusinessTrip;
+
+  /// No description provided for @unpaidLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid leave'**
+  String get unpaidLeave;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

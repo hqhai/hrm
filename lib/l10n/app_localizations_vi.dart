@@ -983,9 +983,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get otherLeave => 'Nghỉ phép khác';
 
   @override
-  String get unpaidLeave => 'Nghỉ không lương';
-
-  @override
   String get theStartTimeMustBeAfterTheCurrentTime => 'Thời gian bắt đầu phải sau thời gian hiện tại';
 
   @override
@@ -1137,4 +1134,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get reasonForBusinessTrip => 'Lý do đi công tác';
+
+  @override
+  String get unpaidLeave => 'Nghỉ không lương';
 }

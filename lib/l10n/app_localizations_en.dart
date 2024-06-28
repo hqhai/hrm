@@ -983,9 +983,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otherLeave => 'Other leave';
 
   @override
-  String get unpaidLeave => 'Unpaid leave';
-
-  @override
   String get theStartTimeMustBeAfterTheCurrentTime => 'The start time must be after the current time';
 
   @override
@@ -1137,4 +1134,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reasonForBusinessTrip => 'Reason for business trip';
+
+  @override
+  String get unpaidLeave => 'Unpaid leave';
 }

@@ -65,6 +65,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   List<String> followers = [], substitutes = [];
   RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
+  bool checkClick = false;
   final DateTime now = DateTime.now();
 
   @override
@@ -79,9 +80,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkTime = (endTime??now).difference(startTime??now).inSeconds > 0;
-    final bool checkStartTime =
-        (startTime??now).difference(now).inSeconds > 0;
+    final bool checkTime = (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
+    final bool checkStartTime = (startTime ?? now).difference(now).inSeconds > 0;
     final bool check = reason != null && vehicle != null && destination != null && content != null;
     setState(() {
       errorTime = !checkStartTime
@@ -251,79 +251,88 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   }
 
   _save(BuildContext context) async {
-    if (_checkValue(context) && widget.requestId == null) {
+    if (!checkClick) {
       setState(() {
-        checkLoad = true;
+        checkClick = true;
       });
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        PostRequestEvent(
-          completer: completer,
-          postRequestRequest: PostRequestRequest(
-            followerIds: followers,
-            flowId: widget.flowId,
-            config: ConfigRequestModel(
-              description: detailedDescriptionController.text,
-              destination: destinationController.text,
-              content: contentController.text,
-              vehicle: vehicleController.text,
-              endDate: endTime ?? now,
-              startDate: startTime ?? now,
-              subtitudePersons: substitutes,
-              total: total,
+      if (_checkValue(context) && widget.requestId == null) {
+        setState(() {
+          checkLoad = true;
+        });
+        Completer completer = Completer<RequisitionEnum>();
+        dI<RequisitionBloc>().add(
+          PostRequestEvent(
+            completer: completer,
+            postRequestRequest: PostRequestRequest(
+              followerIds: followers,
+              flowId: widget.flowId,
+              config: ConfigRequestModel(
+                description: detailedDescriptionController.text,
+                destination: destinationController.text,
+                content: contentController.text,
+                vehicle: vehicleController.text,
+                endDate: endTime ?? now,
+                startDate: startTime ?? now,
+                subtitudePersons: substitutes,
+                total: total,
+              ),
             ),
           ),
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
+        );
+        final status = await completer.future;
+        if (status == RequisitionEnum.success) {
+          setState(() {
+            checkLoad = false;
+            checkSuccess = true;
+            checkClick = false;
+          });
+        }
+        if (status == RequisitionEnum.fail) {
+          setState(() {
+            checkLoad = false;
+            checkUnSuccess = true;
+            checkClick = false;
+          });
+        }
+      } else if (_checkValue(context) && widget.requestId != null) {
         setState(() {
-          checkLoad = false;
-          checkSuccess = true;
+          checkLoad = true;
         });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
-      }
-    } else if (_checkValue(context) && widget.requestId != null) {
-      setState(() {
-        checkLoad = true;
-      });
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        EditRequestEvent(
-          completer: completer,
-          postRequestRequest: PostRequestRequest(
-            followerIds: followers,
-            flowId: widget.flowId,
-            config: ConfigRequestModel(
-              description: detailedDescriptionController.text,
-              destination: destinationController.text,
-              content: contentController.text,
-              vehicle: vehicleController.text,
-              endDate: endTime,
-              startDate: startTime,
-              subtitudePersons: substitutes,
-              total: total,
+        Completer completer = Completer<RequisitionEnum>();
+        dI<RequisitionBloc>().add(
+          EditRequestEvent(
+            completer: completer,
+            postRequestRequest: PostRequestRequest(
+              followerIds: followers,
+              flowId: widget.flowId,
+              config: ConfigRequestModel(
+                description: detailedDescriptionController.text,
+                destination: destinationController.text,
+                content: contentController.text,
+                vehicle: vehicleController.text,
+                endDate: endTime,
+                startDate: startTime,
+                subtitudePersons: substitutes,
+                total: total,
+              ),
             ),
           ),
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
-        setState(() {
-          checkLoad = false;
-          checkSuccess = true;
-        });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
+        );
+        final status = await completer.future;
+        if (status == RequisitionEnum.success) {
+          setState(() {
+            checkLoad = false;
+            checkSuccess = true;
+            checkClick = false;
+          });
+        }
+        if (status == RequisitionEnum.fail) {
+          setState(() {
+            checkLoad = false;
+            checkUnSuccess = true;
+            checkClick = false;
+          });
+        }
       }
     }
   }

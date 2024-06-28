@@ -42,7 +42,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     emit(state.copyWith(status: RequisitionEnum.init));
     try {
       final int requestIndex = state.requisitions.indexWhere((element) => element.id == event.id);
-      final List<Request> requests = state.requisitions;
+      final List<Request> requests = [...state.requisitions];
       final bool check = await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
       if (check) {
         requests.removeAt(requestIndex);
