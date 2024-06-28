@@ -325,6 +325,8 @@
   "intoMoneyNoVAT": "Thành tiền chưa VAT",
   "yearlyAndSeniorityLeave": "Nghỉ phép năm",
   "otherLeave": "Nghỉ phép khác",
+  "horizontalCalendar": "Lịch ngang",
+  "verticalCalendar": "Lịch dọc",
   "unpaidLeave": "Nghỉ không lương",
   "theStartTimeMustBeAfterTheCurrentTime": "Thời gian bắt đầu phải sau thời gian hiện tại",
   "month": "Tháng",
