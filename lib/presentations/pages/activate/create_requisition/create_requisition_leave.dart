@@ -5,7 +5,6 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
@@ -65,13 +64,15 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   final TextEditingController detailedDescriptionController = TextEditingController(),
       detailedReasonController = TextEditingController();
   int totalMinute = 0;
-  String? startTime, endTime, description, detailedReason;
+  String? description, detailedReason;
+  DateTime? startTime, endTime;
   EnumTakeLeave? reason;
   List<File> files = [];
   List<String> followers = [], substitutes = [];
   RequisitionTypeEnum? reasonForOnLeave = RequisitionTypeEnum.yearlyAndSeniorityLeave;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   String errorTime = '';
+  final DateTime now = DateTime.now();
 
   @override
   void initState() {
@@ -97,8 +98,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   _listener(BuildContext context, RequisitionState state) {
     if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
       setState(() {
-        startTime = formatYMDHMS(state.requisition.config.startDate ?? "");
-        endTime = formatYMDHMS(state.requisition.config.endDate ?? "");
+        startTime = state.requisition.config.startDate;
+        endTime = state.requisition.config.endDate;
         description = state.requisition.config.description;
         detailedDescriptionController.text = description ?? "";
         reason = state.requisition.config.takeLeaveReason;
@@ -120,12 +121,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final DateTime now = DateTime.now();
-    final bool checkTime = DateTime.parse(startTime ?? now.toString())
-            .difference(DateTime.parse(endTime ?? now.toString()))
-            .inSeconds <
-        0;
-    final bool checkStartTime =
-        DateTime.parse(startTime ?? now.toString()).difference(now).inSeconds > 0;
+    final bool checkTime = (startTime ?? now).difference(endTime ?? now).inSeconds < 0;
+    final bool checkStartTime = (startTime ?? now).difference(now).inSeconds > 0;
     setState(() {
       errorTime = !checkStartTime
           ? appLocalizations.theStartTimeMustBeAfterTheCurrentTime
@@ -283,8 +280,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
               takeLeaveReason: reason,
               description: detailedDescriptionController.text,
               subtitudePersons: substitutes,
-              endDate: formatIso8601(endTime),
-              startDate: formatIso8601(startTime),
+              endDate: endTime,
+              startDate: startTime,
             ),
           ),
           completer: completer,
@@ -319,8 +316,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
               takeLeaveReason: reason,
               description: detailedDescriptionController.text,
               subtitudePersons: substitutes,
-              endDate: formatIso8601(endTime),
-              startDate: formatIso8601(startTime),
+              endDate: endTime,
+              startDate: startTime,
             ),
           ),
           completer: completer,
@@ -362,13 +359,13 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     });
   }
 
-  setStartTime(String value) {
+  setStartTime(DateTime value) {
     setState(() {
       startTime = value;
     });
   }
 
-  setEndTime(String value) {
+  setEndTime(DateTime value) {
     setState(() {
       endTime = value;
     });

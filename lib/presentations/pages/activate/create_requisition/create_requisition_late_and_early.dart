@@ -5,7 +5,6 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -28,7 +27,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 final createRequestExplanationPageRoute = GoRoute(
@@ -67,7 +65,8 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       applicationCodeController = TextEditingController();
   List<RequisitionOverTime> listRequisitionOverTimes = [];
   String errorReason = '', errorContent = '', errorVehicle = '', errorDestination = '';
-  String reason = '', detailedDescription = '', replaceDate = '', workDate = '';
+  String reason = '', detailedDescription = '';
+  DateTime? workDate, replaceDate;
   List<String> followers = [];
   List<File> files = [];
   RequisitionTypeExplanationEnum? reasonForExplanation = RequisitionTypeExplanationEnum.late;
@@ -168,7 +167,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                 ItemCreateTime(
                   check: true,
                   title: appLocalizations.workDay,
-                  dateOfBirth: DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
+                  dateOfBirth: DateTime.now(),
                   onChangeDateOfBirth: (value) => _setWorkDate(value),
                 ),
                 ItemCreateFollower(
@@ -254,9 +253,9 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
 
   _cancel() {}
 
-  _setWorkDate(String value) {
+  _setWorkDate(DateTime value) {
     setState(() {
-      workDate = formatIso8601(value);
+      workDate = value;
     });
   }
 

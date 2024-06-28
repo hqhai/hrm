@@ -5,7 +5,6 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
@@ -61,11 +60,13 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       errorContent = '',
       errorVehicle = '',
       errorDestination = '';
-  String? startTime, endTime, content, reason, vehicle, destination;
+  String? content, reason, vehicle, destination;
+  DateTime? startTime, endTime;
   List<File> files = [];
   List<String> followers = [], substitutes = [];
   RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
+  final DateTime now = DateTime.now();
 
   @override
   void initState() {
@@ -79,10 +80,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkTime = total > 0;
-    final DateTime now = DateTime.now();
+    final bool checkTime = (endTime??now).difference(startTime??now).inSeconds > 0;
     final bool checkStartTime =
-        DateTime.parse(startTime ?? now.toString()).difference(now).inSeconds > 0;
+        (startTime??now).difference(now).inSeconds > 0;
     final bool check = reason != null && vehicle != null && destination != null && content != null;
     setState(() {
       errorTime = !checkStartTime
@@ -101,8 +101,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   _listener(BuildContext context, RequisitionState state) {
     if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
       setState(() {
-        startTime = formatYMDHMS(state.requisition.config.startDate ?? "");
-        endTime = formatYMDHMS(state.requisition.config.endDate ?? "");
+        startTime = state.requisition.config.startDate;
+        endTime = state.requisition.config.endDate;
         content = state.requisition.config.content ?? "";
         contentController.text = content ?? "";
         reason = state.requisition.config.description ?? "";
@@ -276,8 +276,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
               destination: destinationController.text,
               content: contentController.text,
               vehicle: vehicleController.text,
-              endDate: formatIso8601(endTime),
-              startDate: formatIso8601(startTime),
+              endDate: endTime ?? now,
+              startDate: startTime ?? now,
               subtitudePersons: substitutes,
               total: total,
             ),
@@ -313,8 +313,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
               destination: destinationController.text,
               content: contentController.text,
               vehicle: vehicleController.text,
-              endDate: formatIso8601(endTime),
-              startDate: formatIso8601(startTime),
+              endDate: endTime,
+              startDate: startTime,
               subtitudePersons: substitutes,
               total: total,
             ),
@@ -345,13 +345,13 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  setStartTime(String value) {
+  setStartTime(DateTime value) {
     setState(() {
       startTime = value;
     });
   }
 
-  setEndTime(String value) {
+  setEndTime(DateTime value) {
     setState(() {
       endTime = value;
     });

@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
@@ -5,8 +6,9 @@ import 'package:themes/themes.dart';
 
 class TimePicker extends StatefulWidget {
   const TimePicker({super.key, required this.onChange, required this.timeSlot});
-  final ValueChanged<String> onChange;
-  final String timeSlot;
+
+  final ValueChanged<DateTime> onChange;
+  final DateTime? timeSlot;
 
   @override
   State<TimePicker> createState() => _TimePickerState();
@@ -14,18 +16,11 @@ class TimePicker extends StatefulWidget {
 
 class _TimePickerState extends State<TimePicker> {
   late DateTime timeValue;
-  DateFormat inputFormat = DateFormat('yyyy-MM-dd HH:mm');
-
-
+  final DateTime now = DateTime.now();
 
   DateTime setStartTimeOld() {
     setState(() {
-      if(widget.timeSlot != '') {
-        timeValue = inputFormat.parse(widget.timeSlot);
-      }
-      else{
-        timeValue = DateTime.now();
-      }
+      timeValue = widget.timeSlot ?? now;
     });
     return timeValue;
   }
@@ -50,10 +45,10 @@ class _TimePickerState extends State<TimePicker> {
         ),
         child: Column(
           children: [
-            Text(DateFormat('yyyy-MM-dd').format(_ruleTime(setStartTimeOld())),
-                style: TextStyle(fontSize: 14, color: colors.text)),
-            Text(DateFormat('HH:mm:ss').format(_ruleTime(setStartTimeOld())),
-                style: TextStyle(fontSize: 14, color: colors.text)),
+            Text(DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
+                style: TextStyle(fontSize: SpacingUnit.x3_5, color: colors.text)),
+            Text(DateFormat('HH:mm:ss').format(setStartTimeOld()),
+                style: TextStyle(fontSize: SpacingUnit.x3_5, color: colors.text)),
           ],
         ),
       ),
@@ -100,26 +95,8 @@ class _TimePickerState extends State<TimePicker> {
       },
     );
     setState(() {
-      dateTime != null ? timeValue = dateTime : timeValue = DateTime.now();
-      widget.onChange.call(DateFormat('yyyy-MM-dd HH:mm:ss').format(_ruleTime(timeValue)));
+      dateTime != null ? timeValue = dateTime : timeValue = now;
+      widget.onChange.call(timeValue);
     });
-  }
-  
-  DateTime _ruleTime(DateTime time){
-    if(time.hour <= 12 && widget.timeSlot == 'S'){
-      return DateTime(time.year, time.month, time.day, 8, 30, 0);
-    }
-    else if(time.hour <= 12 && widget.timeSlot == 'E'){
-      return DateTime(time.year, time.month, time.day, 12, 0, 0);
-    }
-    else if(time.hour > 12 && widget.timeSlot == 'S'){
-      return DateTime(time.year, time.month, time.day, 13, 0, 0);
-    }
-    else if(time.hour > 12 && widget.timeSlot == 'E'){
-      return DateTime(time.year, time.month, time.day, 18, 20, 0);
-    }
-    else{
-      return time;
-    }
   }
 }
