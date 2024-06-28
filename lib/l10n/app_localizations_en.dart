@@ -1131,4 +1131,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get workOffset => 'Work offset';
+
+  @override
+  String get reasonForRelease => 'Reason for release';
+
+  @override
+  String get reasonForBusinessTrip => 'Reason for business trip';
 }

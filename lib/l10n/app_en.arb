@@ -374,5 +374,8 @@
   "youLater": "You later",
   "timeKeepingList": "list Timekeeping",
   "listTime": "List time",
-  "workOffset": "Work offset"
+  "workOffset": "Work offset",
+  "reasonForRelease": "Reason for release",
+  "reasonForBusinessTrip": "Reason for business trip"
+
 }

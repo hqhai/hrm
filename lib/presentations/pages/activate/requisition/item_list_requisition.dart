@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -10,6 +13,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/language/language_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -160,11 +164,25 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
     );
   }
 
-  _nextRequisitionInformationScreen(BuildContext context, RequisitionState state) {
+  _nextRequisitionInformationScreen(BuildContext context, RequisitionState state) async {
     Request request = _getRequestInId(state);
-    dI<AppNavigation>().pushName(context, page: Pages.requisitionInformationPage, extra: {
-      'id': request.id,
-      'checkUser': false,
-    });
+    final Completer completer = Completer<RequisitionEnum>();
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dI<RequisitionBloc>().add(
+      GetRequisitionByIdEvent(id: widget.id, completer: completer),
+    );
+    final statusCompleter = await completer.future;
+    if(statusCompleter == RequisitionEnum.success){
+      if(!currentContext.mounted) return;
+      dI<AppNavigation>().pushName(
+        currentContext,
+        page: Pages.requisitionInformationPage,
+        extra: {
+          'id': request.id,
+          'checkUser': false,
+        },
+      );
+    }
+
   }
 }

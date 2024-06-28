@@ -175,7 +175,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                         ItemCreateInputArea(
                           error: errorDestination,
                           textController: detailedDescriptionController,
-                          title: appLocalizations.detailedDescription,
+                          title: appLocalizations.reasonForBusinessTrip,
                           onChange: (value) => _setReason(value),
                         ),
                         ItemCreateInputArea(

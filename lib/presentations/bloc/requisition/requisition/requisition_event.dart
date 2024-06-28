@@ -50,12 +50,12 @@ class GetRequisitionsByFilterEvent extends RequisitionEvent {
 }
 
 class GetRequisitionByIdEvent extends RequisitionEvent {
-  const GetRequisitionByIdEvent({this.id});
-
+  const GetRequisitionByIdEvent({this.id, this.completer});
+  final Completer? completer;
   final String? id;
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, completer];
 }
 
 class EditRequestEvent extends RequisitionEvent {

@@ -68,18 +68,14 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
 
   _listener(BuildContext context, RequisitionState state) {
     dI<FlowBloc>().add(GetFlowEvent(id: state.requisition.flowId));
-    if (state.requisition.config.subtitudePersons?.isNotEmpty ?? false) {
-      dI<UserByIdBloc>().add(
-        GetSubtitudePersonsByIdEvent(
-          ids: state.requisition.config.subtitudePersons ?? [],
-        ),
-      );
-    }
-    if (state.requisition.followerIds.isNotEmpty) {
-      dI<UserByIdBloc>().add(
-        GetUsersByIdEvent(ids: state.requisition.followerIds),
-      );
-    }
+    dI<UserByIdBloc>().add(
+      GetSubtitudePersonsByIdEvent(
+        ids: state.requisition.config.subtitudePersons ?? [],
+      ),
+    );
+    dI<UserByIdBloc>().add(
+      GetUsersByIdEvent(ids: state.requisition.followerIds),
+    );
   }
 
   @override

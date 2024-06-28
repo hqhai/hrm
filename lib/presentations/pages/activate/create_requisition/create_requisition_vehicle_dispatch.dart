@@ -155,7 +155,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                           startTimeOld: startTime,
                           error: errorTime,
                           dayOrHours: false,
-                          title: appLocalizations.intervalOnLeave,
+                          title: appLocalizations.drivingTime,
                           startTime: (value) => setStartTime(value),
                           endTime: (value) => setEndTime(value),
                           total: (value) => setTotal(value),
@@ -169,7 +169,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                         ItemCreateInputArea(
                           error: errorContent,
                           textController: contentController,
-                          title: appLocalizations.content,
+                          title: appLocalizations.reasonForDriving,
                           onChange: (value) => _setContent(value),
                         ),
                         ItemCreateFollower(

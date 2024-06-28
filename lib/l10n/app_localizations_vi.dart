@@ -1131,4 +1131,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get workOffset => 'Làm bù';
+
+  @override
+  String get reasonForRelease => 'Lý do xuất kho';
+
+  @override
+  String get reasonForBusinessTrip => 'Lý do đi công tác';
 }

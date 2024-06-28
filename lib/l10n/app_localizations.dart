@@ -2348,6 +2348,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Work offset'**
   String get workOffset;
+
+  /// No description provided for @reasonForRelease.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for release'**
+  String get reasonForRelease;
+
+  /// No description provided for @reasonForBusinessTrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for business trip'**
+  String get reasonForBusinessTrip;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
