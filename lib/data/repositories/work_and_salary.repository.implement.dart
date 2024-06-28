@@ -20,8 +20,8 @@ class WorkAndSalaryRepositoryImplement extends WorkAndSalaryRepository {
   Future<double> totalWorkday({required String startTime, required String endTime}) async {
     return await _workAndSalaryService.totalWorkday(
         startEndResponse: StartEndResponse(
-      endTime: endTime,
-      startTime: startTime,
+      endTime: DateTime.parse(endTime),
+      startTime:  DateTime.parse(startTime),
     ));
   }
 }
