@@ -15,7 +15,6 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
@@ -114,14 +113,6 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
         followers = [...state.requisition.followerIds];
         substitutes = [...?state.requisition.config.subtitudePersons];
         total = state.requisition.config.total ?? 0;
-        dI<UserByIdBloc>().add(
-          GetUsersByIdEvent(ids: state.requisition.followerIds),
-        );
-        dI<UserByIdBloc>().add(
-          GetSubtitudePersonsByIdEvent(
-            ids: state.requisition.config.subtitudePersons ?? [],
-          ),
-        );
       });
     }
   }

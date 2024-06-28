@@ -24,13 +24,6 @@ class ListOverTime extends StatefulWidget {
 }
 
 class _ListOverTimeState extends State<ListOverTime> {
-  List<RequisitionOverTime> requisitionOverTimes = [];
-
-  @override
-  void initState() {
-    requisitionOverTimes = widget.requisitionOverTimes;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +44,12 @@ class _ListOverTimeState extends State<ListOverTime> {
           width: width,
           borderColors: colors.surface,
           child: Column(
-            children: requisitionOverTimes
+            children:  widget.requisitionOverTimes
                 .mapIndexed(
                   (index, element) => GestureDetector(
-                    onTap: () => _getOverTimeInList(context, requisitionOverTimes[index], index),
+                    onTap: () => _getOverTimeInList(context,  widget.requisitionOverTimes[index], index),
                     child: ItemListOverTime(
-                      requisitionOverTime: requisitionOverTimes[index],
+                      requisitionOverTime: widget.requisitionOverTimes[index],
                       index: index,
                     ),
                   ),
@@ -94,14 +87,15 @@ class _ListOverTimeState extends State<ListOverTime> {
   }
 
   setEdit(RequisitionOverTime value, int index) {
+    final listOverTimes = widget.requisitionOverTimes;
     setState(() {
-      requisitionOverTimes[index] = RequisitionOverTime(
+      listOverTimes[index] = RequisitionOverTime(
           endTime: value.endTime,
           suggestTime: value.suggestTime,
           note: value.note,
           startTime: value.startTime,
           date: value.date);
-      widget.onChangeList.call(requisitionOverTimes);
+      widget.onChangeList.call(listOverTimes);
     });
   }
 }

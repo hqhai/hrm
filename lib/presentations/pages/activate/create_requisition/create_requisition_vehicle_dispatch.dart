@@ -14,7 +14,6 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
@@ -81,14 +80,6 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
         startTime = state.requisition.config.startDate;
         endTime = state.requisition.config.endDate;
         followers = [...state.requisition.followerIds];
-        dI<UserByIdBloc>().add(
-          GetUsersByIdEvent(ids: state.requisition.followerIds),
-        );
-        dI<UserByIdBloc>().add(
-          GetSubtitudePersonsByIdEvent(
-            ids: state.requisition.config.subtitudePersons ?? [],
-          ),
-        );
       });
     }
   }

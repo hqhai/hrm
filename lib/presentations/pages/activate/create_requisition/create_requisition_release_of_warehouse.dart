@@ -15,7 +15,6 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
@@ -75,7 +74,6 @@ class _CreateRequisitionReleaseOfWarehousePageState
       scheduleController.text = state.requisition.config.description ?? "";
       followers = [...state.requisition.followerIds];
       requisitionReleaseOfWarehouse = [...?state.requisition.config.warehourseReleaseds];
-      dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
     }
   }
 

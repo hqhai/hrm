@@ -77,7 +77,16 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     super.initState();
   }
 
-  _listener(BuildContext context, RequisitionState state) {}
+  _listener(BuildContext context, RequisitionState state) {
+    if(state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
+      setState(() {
+        workDate = state.requisition.config.startDate;
+        description = state.requisition.config.description??"";
+        listRequisitionOverTimes = [...?state.requisition.config.overTimes];
+        followers = [...state.requisition.followerIds];
+    });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

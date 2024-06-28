@@ -15,7 +15,6 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_bloc.dart';
 import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_event.dart';
@@ -106,14 +105,6 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         followers = [...state.requisition.followerIds];
         files = [...setListFiles(state.requisition.config.attachments ?? [])];
         substitutes = [...?state.requisition.config.subtitudePersons];
-        dI<UserByIdBloc>().add(
-          GetUsersByIdEvent(ids: state.requisition.followerIds),
-        );
-        dI<UserByIdBloc>().add(
-          GetSubtitudePersonsByIdEvent(
-            ids: state.requisition.config.subtitudePersons ?? [],
-          ),
-        );
       });
     }
   }
