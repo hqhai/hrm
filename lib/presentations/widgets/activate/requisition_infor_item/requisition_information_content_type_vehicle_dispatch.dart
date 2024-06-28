@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -10,7 +11,6 @@ import 'package:themes/themes.dart';
 
 class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
   const RequisitionInformationContentTypeVehicleDispatch({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +38,20 @@ class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appLocalizations.startTime,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        Text(state.requisition.config.startDate ?? "",
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
+                        Text(
+                          appLocalizations.startTime,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        ),
+                        Text(
+                          formatYMDHMS(state.requisition.config.startDate ?? ""),
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -50,10 +60,14 @@ class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appLocalizations.endTime,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        Text(state.requisition.config.endDate ?? "",
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
+                        Text(
+                          appLocalizations.endTime,
+                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                        ),
+                        Text(
+                          formatYMDHMS(state.requisition.config.endDate ?? ""),
+                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                        )
                       ],
                     ),
                   ),
@@ -63,13 +77,14 @@ class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appLocalizations.carCaller,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
+                        Text(
+                          appLocalizations.carCaller,
+                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                        ),
                         if (stateUserById.subtitudePersons.isNotEmpty)
                           Container(
                             margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                            height:
-                            SpacingUnit.x6 * stateUserById.subtitudePersons.length,
+                            height: SpacingUnit.x6 * stateUserById.subtitudePersons.length,
                             child: ListView.builder(
                               itemCount: stateUserById.subtitudePersons.length,
                               itemBuilder: (context, index) => Padding(

@@ -42,4 +42,6 @@ abstract class RequisitionService {
       {required SearchStationeryByNameRequest searchStationeryByNameRequest});
 
   Future<bool> userRejectRequisitionById({required String id});
+
+  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest});
 }

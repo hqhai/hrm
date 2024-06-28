@@ -7,6 +7,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/widgets/attendance/layout_calendar.dart';
 import 'package:base_app/presentations/widgets/home/item_home_checkin_checkout_gps_widget.dart';
 import 'package:base_app/presentations/widgets/home/item_home_infor_widget.dart';
@@ -25,6 +26,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   void initState() {
+    dI<UserBloc>().add(const GetUserInfo());
     id = dI<UserBloc>().state.user.id;
     dI<AttendanceBloc>()
         .add(GetAttendanceNowEvent(id: id,));

@@ -39,8 +39,8 @@ class ItemRequisitionApproveList extends StatefulWidget {
 }
 
 class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList> {
-
   String? note;
+
   @override
   void initState() {
     super.initState();
@@ -153,10 +153,16 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
             stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
-          noteDialog(
-            context,
-                (value) => _setNote(value),
-                () => _setApprove(idStepRequestApprove, status),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Dialog(
+                child: NoteDialog(
+                    noteChange: (value) => _setNote(value),
+                    callback: () => _setApprove(idStepRequestApprove, status),
+                    status: status),
+              );
+            },
           );
         }
       }
@@ -173,30 +179,40 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
     });
   }
 
-  _setApprove(String id, EnumStepRequestStatusEnum status) async {
-    Navigator.of(context).pop();
-    progressIndicatorDialog(context);
-    final Completer completer = Completer<RequisitionEnum>();
-    dI<RequisitionApproveBloc>().add(
-      ApproveRequestEvent(
-        id: id,
-        note: note,
-        status: status,
-        requestId: widget.id,
-        completer: completer,
-      ),
-    );
-    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    final statusCompleter = await completer.future;
-    if (statusCompleter == RequisitionEnum.success) {
-      if (!currentContext.mounted) return;
-      Navigator.of(currentContext).pop();
-      successDialog(currentContext);
+  bool checkNote(EnumStepRequestStatusEnum status) {
+    if ((status == EnumStepRequestStatusEnum.reject || status == EnumStepRequestStatusEnum.edit) &&
+        note == null) {
+      return false;
     }
-    if (statusCompleter == RequisitionEnum.fail) {
-      if (!currentContext.mounted) return;
+    return true;
+  }
+
+  _setApprove(String id, EnumStepRequestStatusEnum status) async {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    if (checkNote(status)) {
       Navigator.of(currentContext).pop();
-      unsuccessfulDialog(currentContext);
+      progressIndicatorDialog(currentContext);
+      final Completer completer = Completer<RequisitionEnum>();
+      dI<RequisitionApproveBloc>().add(
+        ApproveRequestEvent(
+          id: id,
+          note: note,
+          status: status,
+          requestId: widget.id,
+          completer: completer,
+        ),
+      );
+      final statusCompleter = await completer.future;
+      if (statusCompleter == RequisitionEnum.success) {
+        if (!currentContext.mounted) return;
+        Navigator.of(currentContext).pop();
+        successDialog(currentContext);
+      }
+      if (statusCompleter == RequisitionEnum.fail) {
+        if (!currentContext.mounted) return;
+        Navigator.of(currentContext).pop();
+        unsuccessfulDialog(currentContext);
+      }
     }
   }
 }

@@ -9,12 +9,14 @@ class ContainerBorder extends StatelessWidget {
     required this.child,
     this.width,
     this.height,
+    this.margin,
+    this.padding,
     this.borderColors,
     this.backgroundColors,
   });
 
   final Widget child;
-  final double? height, width;
+  final double? height, width, margin, padding;
   final Color? borderColors;
   final Color? backgroundColors;
 
@@ -24,8 +26,8 @@ class ContainerBorder extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-      padding: const EdgeInsets.all(SpacingUnit.x3),
+      margin: EdgeInsets.symmetric(vertical: margin ?? SpacingUnit.x3),
+      padding: EdgeInsets.all(padding ?? SpacingUnit.x2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingUnit.x2),
         color: backgroundColors ?? CustomsColor.colorBackground,

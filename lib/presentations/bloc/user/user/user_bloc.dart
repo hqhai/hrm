@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/data/models/response.dart';
@@ -40,6 +41,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       e as ResponseBase;
       if (e.statusCode == 401) {
         emit(state.copyWith(status: UserStatus.unauthorized));
+        AppConfig.setToken('');
       } else {
         emit(state.copyWith(status: UserStatus.fail));
       }

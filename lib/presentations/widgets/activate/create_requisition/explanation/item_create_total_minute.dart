@@ -6,11 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateTotalMinute extends StatefulWidget {
-  const ItemCreateTotalMinute({super.key, this.totalMinuteController, this.onChange, this.title});
+  const ItemCreateTotalMinute(
+      {super.key, this.error, this.totalMinuteController, this.onChange, this.title});
 
   final TextEditingController? totalMinuteController;
   final ValueChanged<String>? onChange;
   final String? title;
+  final String? error;
 
   @override
   State<ItemCreateTotalMinute> createState() => _ItemCreateTotalMinuteState();
@@ -32,7 +34,7 @@ class _ItemCreateTotalMinuteState extends State<ItemCreateTotalMinute> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+          padding: const EdgeInsets.only(top: SpacingUnit.x3),
           child: AppInput(
             placeHolder: widget.title ?? "",
             controller: widget.totalMinuteController,
@@ -44,6 +46,17 @@ class _ItemCreateTotalMinuteState extends State<ItemCreateTotalMinute> {
             ],
           ),
         ),
+        if (widget.error != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+            child: Text(
+              widget.error ?? "",
+              style: TextStyle(
+                color: colors.error,
+                fontSize: SpacingUnit.x3,
+              ),
+            ),
+          ),
       ],
     );
   }

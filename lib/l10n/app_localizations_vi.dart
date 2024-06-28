@@ -992,8 +992,98 @@ class AppLocalizationsVi extends AppLocalizations {
   String get unpaidLeave => 'Nghỉ không lương';
 
   @override
-  String get horizontalCalendar => 'Lịch ngang';
+  String get theStartTimeMustBeAfterTheCurrentTime => 'Thời gian bắt đầu phải sau thời gian hiện tại';
 
   @override
-  String get verticalCalendar => 'Lịch dọc';
+  String get month => 'Tháng';
+
+  @override
+  String get quantityCannotBeZero => 'Số lượng không được bằng 0';
+
+  @override
+  String get duplicateEmail => 'Email bị trùng';
+
+  @override
+  String get invalidParentId => 'Id đối tượng không hợp lệ';
+
+  @override
+  String get itemNotExists => 'Đối tượng không tồn tại';
+
+  @override
+  String get dataInUse => 'Dữ liệu đang được sử dụng';
+
+  @override
+  String get duplicateCode => 'Mã bị trùng';
+
+  @override
+  String get startDateAfterEndDate => 'Ngày bắt đầu sau ngày kết thúc';
+
+  @override
+  String get idsEmpty => 'Ids rỗng';
+
+  @override
+  String get userDoesNotExist => 'Người dùng không tồn tại';
+
+  @override
+  String get emailInUse => 'Email đang được sử dụng';
+
+  @override
+  String get companyEmailInUse => 'Email công ty đang được sử dụng';
+
+  @override
+  String get phoneNumberInUse => 'Số điện thoại đang được sử dụng';
+
+  @override
+  String get userCreationFailed => 'Tạo người dùng thất bại';
+
+  @override
+  String get differentRoleUserSystem => 'Hệ thống người dùng role khác';
+
+  @override
+  String get userNameInUse => 'Tên đăng nhập đang được sử dụng';
+
+  @override
+  String get userNameCannotBeEmpty => 'Tên đăng nhập không được rỗng';
+
+  @override
+  String get userNameNotFound => 'Tên đăng nhập không tồn tại';
+
+  @override
+  String get bothEmailsEmpty => 'Cả email cá nhân và email công ty đều rỗng';
+
+  @override
+  String get duplicatePassportNumber => 'Số hộ chiếu bị trùng';
+
+  @override
+  String get duplicateCitizenID => 'Số CMND/CCCD bị trùng';
+
+  @override
+  String get emailCannotBeEmpty => 'Email không được rỗng';
+
+  @override
+  String get onlyOneFulltimeInDepartment => 'Chỉ có thể có một nhân viên toàn thời gian trong một phòng ban';
+
+  @override
+  String get parttimeToFulltimeOnly => 'Chỉ có thể chuyển từ bán thời gian sang toàn thời gian';
+
+  @override
+  String get duplicateLicensePlate => 'Biển số xe bị trùng';
+
+  @override
+  String get duplicateTaxNumber => 'Mã số thuế bị trùng';
+
+  @override
+  String get duplicateBankAccountNumber => 'Số tài khoản ngân hàng bị trùng';
+
+  @override
+  String get timeSlotAlreadyPleaseChooseAnother => 'Thời gian đã có rồi, xin vui lòng chọn cái khác';
+
+  @override
+  String get theNumberOfFormsCreatedHasExceededTheLimit => 'Số lượng biểu mẫu được tạo đã vượt quá giới hạn';
+
+  @override
+  String get listOvertime => 'Danh sách giờ tăng ca';
+
+  @override
+  String get totalTime => 'Tổng thời gian';
 }

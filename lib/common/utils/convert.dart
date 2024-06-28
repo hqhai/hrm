@@ -6,8 +6,8 @@ import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:intl/intl.dart';
 
-String formatIso8601(String time) {
-  DateTime dateTime1 = DateTime.parse(time);
+String formatIso8601(String? time) {
+  DateTime dateTime1 = DateTime.parse(time??DateTime.now().toString());
   String time1 = DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime1);
   List<String> inputDateParts = time1.split(' ');
   List<String> dateParts = inputDateParts[0].split('-');
@@ -81,6 +81,18 @@ String formatHM(String time) {
     return DateFormat('HH:mm').format(dateTime);
   }
   return '';
+}
+
+String formatDHM(String time) {
+  if (time != '') {
+    DateTime dateTime = DateTime.parse(time);
+    return DateFormat('dd HH:mm').format(dateTime);
+  }
+  return '';
+}
+
+DateTime formatDateHM(String time){
+  return DateFormat('HH:mm').parse(time);
 }
 
 String formatYM(int year, int month) {

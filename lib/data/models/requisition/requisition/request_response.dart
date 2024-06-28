@@ -1,3 +1,4 @@
+import 'package:base_app/data/models/response/paging_infor_request.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -5,12 +6,12 @@ part 'request_response.g.dart';
 
 @JsonSerializable()
 class RequestsResponse {
-  final List<Request> requests;
-  final int totalItems;
+  final List<Request> items;
+  final PagingInfoRequest pagingInfo;
 
   const RequestsResponse({
-    this.totalItems = 0,
-    this.requests = const [],
+    this.pagingInfo= const PagingInfoRequest(totalItems: 0, pageSize: 0, page: 1),
+    this.items = const [],
   });
 
   factory RequestsResponse.fromJson(Map<String, dynamic> json) =>

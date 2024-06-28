@@ -2,15 +2,17 @@ import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateFollower extends StatefulWidget {
-  const ItemCreateFollower({super.key, this.onChange, this.title});
+  const ItemCreateFollower({super.key, this.onChange, this.title, this.listFollower = const []});
 
   final String? title;
   final ValueChanged<List<User>>? onChange;
+  final List<User> listFollower;
 
   @override
   State<ItemCreateFollower> createState() => _ItemCreateFollowerState();
@@ -18,6 +20,19 @@ class ItemCreateFollower extends StatefulWidget {
 
 class _ItemCreateFollowerState extends State<ItemCreateFollower> {
   List<User> listFollower = [];
+
+  List<User> setListFollower(){
+    if(widget.listFollower.isNotEmpty && listFollower.isEmpty){
+      setState(() {
+        listFollower = widget.listFollower;
+      });
+      return widget.listFollower;
+    }
+    else if(widget.listFollower.isNotEmpty && listFollower.isNotEmpty){
+      return listFollower;
+    }
+    return listFollower;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +54,10 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
             ),
           ),
           SizedBox(
-            height: height * 0.08 * listFollower.length,
+            height: height * 0.08 * setListFollower().length,
             child: ListView.builder(
-              itemCount: listFollower.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount:setListFollower().length,
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
                 child: Row(
@@ -60,7 +76,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
                         ),
                       ),
                       child: Text(
-                        listFollower[index].fullName,
+                        setListFollower()[index].fullName,
                         style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
                       ),
                     ),
@@ -76,16 +92,20 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () => _add(context),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: colors.blue,
-            ),
-            child: Text(
-              appLocalizations.add,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x5,
+          GestureDetector(
+            onTap: () => _add(context),
+            child: ContainerBorder(
+              backgroundColors: colors.success,
+              width: SpacingUnit.x20,
+              padding: SpacingUnit.x1,
+              borderColors: colors.success,
+              child: Text(
+                appLocalizations.add,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: colors.background,
+                  fontSize: SpacingUnit.x5,
+                ),
               ),
             ),
           ),

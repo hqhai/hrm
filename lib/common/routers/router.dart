@@ -4,6 +4,7 @@ import 'package:base_app/presentations/pages/activate/create_requisition/create_
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_business.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_explanation.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_leave.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_over_time.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_postal_delivery.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_release_of_warehouse.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_stationery.dart';
@@ -83,5 +84,6 @@ class AppRouters {
     Pages.createRequestReleaseOfWarehousePage: createRequestReleaseOfWarehousePageRoute,
     Pages.requisitionApproveListPage: requisitionApproveListPageRoute,
     Pages.requisitionFollowerListPage: requisitionFollowerListPageRoute,
+    Pages.createRequestOverTimePage : createRequestOverTimePageRoute
   }.entries.map((entry) => entry.value).toList();
 }

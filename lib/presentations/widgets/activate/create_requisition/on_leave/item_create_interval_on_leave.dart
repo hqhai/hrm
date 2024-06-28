@@ -1,13 +1,24 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/custom/time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateIntervalOnLeave extends StatefulWidget {
-  const ItemCreateIntervalOnLeave({super.key, this.error, this.total, this.startTime, this.endTime, this.title, required this.dayOrHours});
+  const ItemCreateIntervalOnLeave(
+      {super.key,
+      this.endTimeOld,
+      this.startTimeOld,
+      this.error,
+      this.total,
+      this.startTime,
+      this.endTime,
+      this.title,
+      required this.dayOrHours});
 
+  final String? startTimeOld, endTimeOld;
   final ValueChanged<String>? startTime, endTime;
   final ValueChanged<int>? total;
   final String? title, error;
@@ -18,8 +29,36 @@ class ItemCreateIntervalOnLeave extends StatefulWidget {
 }
 
 class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
-  String time = DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now());
   DateTime startTime = DateTime.now(), endTime = DateTime.now();
+
+  /*@override
+  void initState() {
+
+    super.initState();
+  }*/
+
+
+  String setStartTimeOld() {
+    setState(() {
+      startTime = DateTime.parse(
+        widget.startTimeOld ?? DateTime.now().toString(),
+      );
+    });
+    return widget.startTimeOld??DateFormat('yyyy-MM-dd HH:mm').format(
+      DateTime.now(),
+    );
+  }
+
+  String setEndTimeOld() {
+    setState(() {
+      endTime = DateTime.parse(
+        widget.endTimeOld ?? DateTime.now().toString(),
+      );
+    });
+    return widget.endTimeOld??DateFormat('yyyy-MM-dd HH:mm').format(
+      DateTime.now(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,55 +78,67 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
         ),
         Row(
           children: [
-            Text(
-              appLocalizations.startTime,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x4,
-              ),
-            ),
-            Container(
-              width: width * 0.4,
-              margin: const EdgeInsets.all(SpacingUnit.x3),
-              child: TimePicker(onChange: (value) => _setStart(value), timeSlot: time),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Text(
-              appLocalizations.endTime,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x4,
-              ),
-            ),
-            Container(
-                width: width * 0.4,
-                margin: const EdgeInsets.all(SpacingUnit.x3),
-                child: TimePicker(onChange: (value) => _setEnd(value), timeSlot: time)),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-          child: Row(
-            children: [
-              Text(
-                appLocalizations.intervalOnLeave,
+            Expanded(
+              child: Text(
+                appLocalizations.startTime,
                 style: TextStyle(
                   color: colors.text,
                   fontSize: SpacingUnit.x4,
                 ),
               ),
-              Container(
-                width: width * 0.25,
-                margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x3),
-                padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x3),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                  color: colors.surface,
-                  border: Border.all(color: colors.text, width: 1),
+            ),
+            Expanded(
+              flex: 2,
+              child: TimePicker(
+                onChange: (value) => _setStart(value),
+                timeSlot: setStartTimeOld(),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: SpacingUnit.x2,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                appLocalizations.endTime,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
                 ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: TimePicker(
+                onChange: (value) => _setEnd(value),
+                timeSlot: setEndTimeOld(),
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: SpacingUnit.x3),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: SpacingUnit.x2,
+                ),
+                child: Text(
+                  appLocalizations.time,
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                  ),
+                ),
+              ),
+              ContainerBorder(
+                width: width * 0.25,
+                margin: SpacingUnit.x2,
+                padding: SpacingUnit.x1,
                 child: Center(
                   child: Text(
                     setIntervalOnLeave().toString(),
@@ -101,9 +152,9 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
             ],
           ),
         ),
-        if(widget.error != '')
+        if (widget.error != '')
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+            padding: const EdgeInsets.only(top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),
             child: Text(
               widget.error ?? "",
               style: TextStyle(

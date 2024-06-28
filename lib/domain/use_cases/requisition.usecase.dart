@@ -51,4 +51,6 @@ abstract class RequisitionUseCase {
 
   Future<bool> userRejectRequisitionById({required String id});
 
+  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest});
+
 }

@@ -145,11 +145,11 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.overTime:
-      /*_push(
+        _push(
           context: context,
           id: flow.id,
-          page: Pages.createRequestLeavePage,
-        );*/
+          page: Pages.createRequestOverTimePage,
+        );
       case RequisitionTypeEnum.vehicleDriver:
         _push(
           context: context,
@@ -180,8 +180,37 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           id: flow.id,
           page: Pages.createRequestBusinessPage,
         );
-      default:
-        break;
+      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.compensatoryLeave:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.otherLeave:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.unpaidLeave:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.earlyDeparture:
+        _push(
+          context: context,
+          id: flow.id,
+          page: Pages.createRequestExplanationPage,
+        );
+      case null:
     }
   }
 }
