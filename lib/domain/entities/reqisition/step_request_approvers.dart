@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -6,14 +7,15 @@ part 'step_request_approvers.g.dart';
 
 @CopyWith()
 @JsonSerializable()
+@CustomDateTimeConverter()
 class StepRequestApprovers {
   final String id;
   final String? createdUserId;
   final String? updatedUserId;
   final String? createdFullName;
   final String? updatedFullName;
-  final String? createdDate;
-  final String? updatedDate;
+  final DateTime? createdDate;
+  final DateTime? updatedDate;
   final String? note;
   final EnumStepRequestStatusEnum? status;
   final String? stepRequestId;

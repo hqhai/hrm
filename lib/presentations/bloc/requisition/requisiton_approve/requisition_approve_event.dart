@@ -21,8 +21,8 @@ class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
       this.status,});
 
   final RequisitionTypeEnum? requisitionTypeEnum;
-  final String? startTime;
-  final String? endTime;
+  final DateTime? startTime;
+  final DateTime? endTime;
   final int page;
   final String? departmentId;
   final String? status;

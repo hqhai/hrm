@@ -33,8 +33,8 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
     super.initState();
   }
 
-  Request _getRequestInId(RequisitionFollowingState state) {
-    Request request = state.requisitions.firstWhere((element) => element.id == widget.id);
+  Request _getRequestInId(List<Request> requisitions) {
+    Request request = requisitions.firstWhere((element) => element.id == widget.id);
     return request;
   }
 
@@ -64,7 +64,7 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
                     padding: const EdgeInsets.all(SpacingUnit.x2),
                     child: Text(
                       StatusRequestEnum.values
-                          .firstWhere((e) => e == _getRequestInId(state).status)
+                          .firstWhere((e) => e == _getRequestInId(state.requisitions).status)
                           .configRequestStatusName,
                       style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                     ),
@@ -77,7 +77,7 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
                     children: [
                       SizedBox(
                           width: width * 0.7,
-                          child: Text(_getRequestInId(state).config.description ?? "",
+                          child: Text(_getRequestInId(state.requisitions).config.description ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -92,7 +92,7 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
                         ),
                         SizedBox(
                             width: width * 0.6,
-                            child: Text(_getRequestInId(state).createdFullName,
+                            child: Text(_getRequestInId(state.requisitions).createdFullName,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
@@ -102,7 +102,11 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                         SizedBox(
                             width: width * 0.6,
-                            child: Text(formatYMDHMS(_getRequestInId(state).createdDate),
+                            child: Text(
+                                formatYMDHMS(
+                                  dateTimeLocal(_getRequestInId(state.requisitions).createdDate)
+                                      .toString(),
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
@@ -113,7 +117,7 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                           SizedBox(
                               width: width * 0.6,
-                              child: Text(_getRequestInId(state).code,
+                              child: Text(_getRequestInId(state.requisitions).code,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -132,7 +136,7 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
   }
 
   _nextRequisitionInformationScreen(BuildContext context, RequisitionFollowingState state) {
-    Request request = _getRequestInId(state);
+    Request request = _getRequestInId(state.requisitions);
     dI<AppNavigation>().pushName(context, page: Pages.requisitionInformationPage, extra: {
       'id': request.id,
       'checkUser': false,

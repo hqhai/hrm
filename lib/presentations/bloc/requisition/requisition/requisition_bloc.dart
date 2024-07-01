@@ -61,11 +61,12 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     emit(state.copyWith(status: RequisitionEnum.init));
     try {
       final RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsByFilter(
-          page: event.page,
-          flowId: event.flowId != '' ? event.flowId : null,
-          status: event.listStatusRequisition?.map((e) => e.name).toList(),
-          startDate: event.startTime,
-          endDate: event.endTime);
+        page: event.page,
+        flowId: event.flowId != '' ? event.flowId : null,
+        status: event.listStatusRequisition?.map((e) => e.name).toList(),
+        startDate: event.startTime?.subtract(const Duration(hours: 7)),
+        endDate: event.endTime?.subtract(const Duration(hours: 7)),
+      );
       final List<Request> newRequest = requestsResponse.items;
       final int totalItems = requestsResponse.pagingInfo.totalItems;
       // load more *********************
@@ -112,7 +113,6 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       );
       event.completer?.complete(RequisitionEnum.success);
       emit(state.copyWith(requisition: request, statusGetById: RequisitionEnum.success));
-
     } catch (e) {
       emit(state.copyWith(statusGetById: RequisitionEnum.fail));
       event.completer?.complete(RequisitionEnum.fail);

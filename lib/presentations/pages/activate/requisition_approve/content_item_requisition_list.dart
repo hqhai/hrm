@@ -13,8 +13,8 @@ class ContentItemRequisitionList extends StatelessWidget {
 
   final String id;
 
-  Request _request(RequisitionApproveState state, String id) {
-    return state.requisitions.firstWhere((element) => element.id == id);
+  Request _request(List<Request> requisitions, String id) {
+    return requisitions.firstWhere((element) => element.id == id);
   }
 
   @override
@@ -30,7 +30,7 @@ class ContentItemRequisitionList extends StatelessWidget {
             SizedBox(
               width: width * 0.7,
               child: Text(
-                _request(state, id).config.description ?? "",
+                _request(state.requisitions, id).config.description ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -47,7 +47,7 @@ class ContentItemRequisitionList extends StatelessWidget {
                 SizedBox(
                   width: width * 0.6,
                   child: Text(
-                    _request(state, id).createdFullName,
+                    _request(state.requisitions, id).createdFullName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
@@ -63,7 +63,10 @@ class ContentItemRequisitionList extends StatelessWidget {
               SizedBox(
                 width: width * 0.6,
                 child: Text(
-                  formatYMDHMS(_request(state, id).createdDate),
+                  formatYMDHMS(
+                    dateTimeLocal(_request(state.requisitions, id).createdDate)
+                        .toString(),
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
@@ -79,7 +82,7 @@ class ContentItemRequisitionList extends StatelessWidget {
                 SizedBox(
                   width: width * 0.6,
                   child: Text(
-                    _request(state, id).code,
+                    _request(state.requisitions, id).code,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: colors.success, fontSize: SpacingUnit.x3_5),

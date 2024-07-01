@@ -1,13 +1,11 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/color_utils.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class FilterRequisitionDialog extends StatefulWidget {
@@ -20,8 +18,8 @@ class FilterRequisitionDialog extends StatefulWidget {
 }
 
 class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
-  String startTime = DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      endTime = DateFormat('yyyy-MM-dd').format(DateTime.now()), errorTime = '';
+  String errorTime = '';
+  DateTime startTime = DateTime.now(), endTime = DateTime.now();
   RequisitionTypeEnum type = RequisitionTypeEnum.explanation;
   List<StatusRequestEnum> statuses = [];
 
@@ -42,11 +40,11 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
   }
 
   void setStartTime({required DateTime value}) {
-    startTime = formatYMD(value.toString());
+    startTime =value;
   }
 
   void setEndTime({required DateTime value}) {
-    endTime = formatYMD(value.toString());
+    endTime = value;
   }
 
 

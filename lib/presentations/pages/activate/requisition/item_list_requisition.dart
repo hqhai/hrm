@@ -41,8 +41,8 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
     super.initState();
   }
 
-  Request _getRequestInId(RequisitionState state) {
-    Request request = state.requisitions.firstWhere((element) => element.id == widget.id);
+  Request _getRequestInId(List<Request> requisitions) {
+    Request request = requisitions.firstWhere((element) => element.id == widget.id);
     return request;
   }
 
@@ -74,11 +74,11 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                           padding: const EdgeInsets.all(SpacingUnit.x2),
                           child: Text(
                               StatusRequestEnum.values
-                                  .firstWhere((e) => e == _getRequestInId(state).status)
+                                  .firstWhere((e) => e == _getRequestInId(state.requisitions).status)
                                   .configRequestStatusName,
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))),
                 ),
-                if (_getRequestInId(state).status == StatusRequestEnum.edit)
+                if (_getRequestInId(state.requisitions).status == StatusRequestEnum.edit)
                   Opacity(
                     opacity: checkOpacity ? 0.5 : 1,
                     child: Align(
@@ -97,7 +97,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                           )),
                     ),
                   ),
-                if (_getRequestInId(state).status == StatusRequestEnum.process)
+                if (_getRequestInId(state.requisitions).status == StatusRequestEnum.process)
                   Opacity(
                     opacity: checkOpacity ? 0.5 : 1,
                     child: Align(
@@ -125,7 +125,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                       children: [
                         SizedBox(
                             width: width * 0.7,
-                            child: Text(_getRequestInId(state).config.description ?? "",
+                            child: Text(_getRequestInId(state.requisitions).config.description ?? "",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -140,7 +140,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                           ),
                           SizedBox(
                               width: width * 0.6,
-                              child: Text(_getRequestInId(state).createdFullName,
+                              child: Text(_getRequestInId(state.requisitions).createdFullName,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
@@ -150,7 +150,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                               style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                           SizedBox(
                               width: width * 0.6,
-                              child: Text(formatYMDHMS(_getRequestInId(state).createdDate),
+                              child: Text(formatYMDHMS(dateTimeLocal(_getRequestInId(state.requisitions).createdDate).toString()),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
@@ -161,7 +161,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
                             SizedBox(
                                 width: width * 0.6,
-                                child: Text(_getRequestInId(state).code,
+                                child: Text(_getRequestInId(state.requisitions).code,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -188,7 +188,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
   }
 
   _nextRequisitionInformationScreen(BuildContext context, RequisitionState state) async {
-    Request request = _getRequestInId(state);
+    Request request = _getRequestInId(state.requisitions);
     if (!checkOpacity) {
       setState(() {
         checkOpacity = true;

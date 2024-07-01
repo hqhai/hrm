@@ -1,5 +1,4 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
@@ -8,7 +7,6 @@ import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_department.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class FilterRequisitionApproveDialog extends StatefulWidget {
@@ -24,9 +22,8 @@ class FilterRequisitionApproveDialog extends StatefulWidget {
 }
 
 class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApproveDialog> {
-  String startTime = DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      endTime = DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      nameDepartment = '';
+  String nameDepartment = '';
+  DateTime startTime = DateTime.now(), endTime = DateTime.now();
   RequisitionTypeEnum type = RequisitionTypeEnum.explanation;
   List<StatusRequestEnum> statuses = [];
   Department? department;
@@ -53,11 +50,11 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
   }
 
   void setStartTime({required DateTime value}) {
-    startTime = formatYMD(value.toString());
+    startTime = value;
   }
 
   void setEndTime({required DateTime value}) {
-    endTime = formatYMD(value.toString());
+    endTime = value;
   }
 
   setDepartment({Map? value}) {
@@ -185,7 +182,7 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
                   child: Text(appLocalizations.apply, style: TextStyle(color: colors.text)),
                 ),
                 ElevatedButton(
-                  onPressed: () =>  popDialog(context),
+                  onPressed: () => popDialog(context),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),

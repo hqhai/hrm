@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/domain/entities/reqisition/step_requests.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
@@ -9,14 +10,15 @@ part 'request.g.dart';
 
 @CopyWith()
 @JsonSerializable()
+@CustomDateTimeConverter()
 class Request extends Equatable {
   final String id;
   final String createdUserId;
   final String updatedUserId;
   final String createdFullName;
   final String updatedFullName;
-  final String createdDate;
-  final String updatedDate;
+  final DateTime? createdDate;
+  final DateTime? updatedDate;
   final String code;
   final String flowId;
   final ConfigRequestModel config;
@@ -35,9 +37,9 @@ class Request extends Equatable {
       this.createdUserId = '',
       this.updatedUserId = '',
       this.status = StatusRequestEnum.process,
-      this.updatedDate = '',
+      this.updatedDate,
       this.updatedFullName = '',
-      this.createdDate = '',
+      this.createdDate,
       this.createdFullName = '',
       this.code = '',
       this.config = const ConfigRequestModel(),

@@ -18,7 +18,6 @@ class RequisitionInformationGeneraliInformation extends StatefulWidget {
     super.key,
   });
 
-
   @override
   State<RequisitionInformationGeneraliInformation> createState() =>
       _RequisitionInformationGeneraliInformationState();
@@ -26,7 +25,6 @@ class RequisitionInformationGeneraliInformation extends StatefulWidget {
 
 class _RequisitionInformationGeneraliInformationState
     extends State<RequisitionInformationGeneraliInformation> {
-
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -93,8 +91,13 @@ class _RequisitionInformationGeneraliInformationState
                           children: [
                             Text(appLocalizations.createTime,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                            Text(formatYMDHMS(state.requisition.createdDate),
-                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
+                            Text(
+                              formatYMDHMS(
+                                dateTimeLocal(state.requisition.createdDate)
+                                    .toString(),
+                              ),
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                            )
                           ],
                         ),
                       ),

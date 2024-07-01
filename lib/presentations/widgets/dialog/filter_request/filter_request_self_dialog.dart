@@ -1,6 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/color_utils.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
@@ -9,7 +8,6 @@ import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_flow.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class FilterRequestSelfDialog extends StatefulWidget {
@@ -22,11 +20,8 @@ class FilterRequestSelfDialog extends StatefulWidget {
 }
 
 class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
-  String startTime = DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      endTime = DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      errorTime = '',
-      flowName = '',
-      flowId = '';
+  String errorTime = '', flowName = '', flowId = '';
+  DateTime startTime = DateTime.now(), endTime = DateTime.now();
   List<StatusRequestEnum> statuses = [];
 
   void saveDrag({required StatusRequestEnum eStatus}) {
@@ -42,11 +37,11 @@ class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
   }
 
   void setStartTime({required DateTime value}) {
-    startTime = formatYMD(value.toString());
+    startTime = value;
   }
 
   void setEndTime({required DateTime value}) {
-    endTime = formatYMD(value.toString());
+    endTime = value;
   }
 
   @override
@@ -185,7 +180,10 @@ class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
 
   setApply() {
     widget.sendData.call(FilterDialogModel(
-        flowId: flowId, endTime: endTime, startTime: startTime, statuses: statuses));
+        flowId: flowId,
+        endTime: endTime,
+        startTime: startTime,
+        statuses: statuses));
     popDialog(context);
   }
 

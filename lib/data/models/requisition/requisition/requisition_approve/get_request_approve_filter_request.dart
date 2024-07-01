@@ -1,14 +1,16 @@
+import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_request_approve_filter_request.g.dart';
 
 @JsonSerializable()
+@CustomDateTimeConverter()
 class GetRequestApproveFilterRequest {
   final int? page;
   final String? type;
   final String? createdDepartmentId;
-  final String? startDate;
-  final String? endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final String? statusApprove;
 
 
