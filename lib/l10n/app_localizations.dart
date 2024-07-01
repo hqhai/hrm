@@ -2360,6 +2360,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unpaid leave'**
   String get unpaidLeave;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

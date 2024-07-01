@@ -1137,4 +1137,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get unpaidLeave => 'Nghỉ không lương';
+
+  @override
+  String get no => 'Không';
+
+  @override
+  String get yes => 'Có';
 }

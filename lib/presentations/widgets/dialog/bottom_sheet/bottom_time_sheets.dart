@@ -13,7 +13,6 @@ import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class BottomTimeSheetWidget extends StatefulWidget {
@@ -154,22 +153,10 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
   addDate({required Attendance date}) {
     setState(() {
       final RequisitionOverTime dateUnit = RequisitionOverTime(
-          date: date.attendanceDate,
-          endTime: _timeToSeconds(date.checkOut ?? ""),
-          startTime: _timeToSeconds(date.checkIn ?? ""));
+          date: date.attendanceDate,);
       widget.onChange.call(dateUnit);
       Navigator.of(context).pop();
     });
-  }
-
-  int? _timeToSeconds(String time) {
-    if (time.isEmpty) {
-      return null;
-    }
-    final DateFormat format = DateFormat('HH:mm');
-    final DateTime t1 = format.parse(time);
-    final DateTime t2 = format.parse("00:00:00");
-    return t1.difference(t2).inSeconds;
   }
 
   String strSeconds(int time) {

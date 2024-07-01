@@ -1137,4 +1137,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unpaidLeave => 'Unpaid leave';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get yes => 'Yes';
 }

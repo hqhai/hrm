@@ -376,5 +376,7 @@
   "workOffset": "Work offset",
   "reasonForRelease": "Reason for release",
   "reasonForBusinessTrip": "Reason for business trip",
-  "unpaidLeave": "Unpaid leave"
+  "unpaidLeave": "Unpaid leave",
+  "no": "No",
+  "yes": "Yes"
 }

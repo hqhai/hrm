@@ -378,6 +378,7 @@
   "listTime": "Danh sách thời gian",
   "workOffset": "Làm bù",
   "reasonForRelease": "Lý do xuất kho",
-  "reasonForBusinessTrip": "Lý do đi công tác"
-
+  "reasonForBusinessTrip": "Lý do đi công tác",
+  "no": "Không",
+  "yes": "Có"
 }

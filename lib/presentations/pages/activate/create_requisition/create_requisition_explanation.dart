@@ -1,4 +1,3 @@
-
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
@@ -120,6 +119,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ListOverTime(
+                            checkExplanation: true,
                             title: appLocalizations.timeKeepingList,
                             error: errorTime,
                             requisitionOverTimes: listRequisitionOverTimes,
@@ -284,7 +284,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       builder: (BuildContext context) {
         return Dialog(
           child: TimeKeepingDialog(
-            onChange: (value) => setListTime(value),
+            onChangeOverTimes: (value) => setListTime(value),
           ),
         );
       },

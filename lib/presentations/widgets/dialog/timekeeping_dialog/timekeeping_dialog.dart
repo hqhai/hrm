@@ -2,16 +2,20 @@ import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_time_sheets.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class TimeKeepingDialog extends StatefulWidget {
-  final ValueChanged<RequisitionOverTime> onChange;
-  final RequisitionOverTime? requisitionOverTime;
+  const TimeKeepingDialog({super.key, this.onChangeOverTimes, this.requisitionOverTime});
 
-  const TimeKeepingDialog({super.key, required this.onChange, this.requisitionOverTime});
+  final ValueChanged<RequisitionOverTime>? onChangeOverTimes;
+  final RequisitionOverTime? requisitionOverTime;
 
   @override
   State<TimeKeepingDialog> createState() => _TimeKeepingDialogState();
@@ -19,159 +23,139 @@ class TimeKeepingDialog extends StatefulWidget {
 
 class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
   final TextEditingController noteController = TextEditingController();
-  String errorNote = '', errorTime = '';
-  RequisitionOverTime? requisitionOverTime;
+  String date = '', errorTime = '', errorDate = '';
+  int startTime = 0, endTime = 0;
+  double? suggestTime;
+  String? note;
+  RequisitionOverTime requisitionOverTime = const RequisitionOverTime();
+
+  bool checkOnClick(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final bool checkDate = date.isNotEmpty;
+    setState(() {
+      errorDate = checkDate ? "" : appLocalizations.cannotBeLeftBlank;
+    });
+    return checkDate;
+  }
+
+  setRequisitionOverTime(RequisitionOverTime value) {
+    setState(() {
+      requisitionOverTime = value;
+      date = value.date ?? "";
+      startTime = value.startTime ?? 0;
+      endTime = value.endTime ?? 0;
+      suggestTime = double.parse((endTime - startTime).toString());
+      note = value.note;
+    });
+  }
 
   @override
   void initState() {
-    if (widget.requisitionOverTime != null) {
-      requisitionOverTime = widget.requisitionOverTime;
-      noteController.text = widget.requisitionOverTime?.note ?? "";
-    }
+    noteController.text = widget.requisitionOverTime?.note ?? "";
+    requisitionOverTime = widget.requisitionOverTime ?? const RequisitionOverTime();
+    date = formatYMD(widget.requisitionOverTime?.date ?? '');
+    startTime = widget.requisitionOverTime?.startTime ?? 0;
+    endTime = widget.requisitionOverTime?.endTime ?? 0;
+    suggestTime = double.parse((endTime - startTime).toString());
+    note = widget.requisitionOverTime?.note;
     super.initState();
-  }
-
-  bool checkValue(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    bool checkTime = requisitionOverTime != null;
-    bool checkNote = noteController.text != '' || noteController.text.isNotEmpty;
-    setState(() {
-      errorNote = checkNote ? "" : appLocalizations.cannotBeLeftBlank;
-      errorTime = checkTime ? "" : appLocalizations.cannotBeLeftBlank;
-    });
-    return checkTime && checkNote;
   }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return Padding(
-      padding: const EdgeInsets.all(SpacingUnit.x4_5),
+    return Container(
+      padding: const EdgeInsets.all(SpacingUnit.x3),
       child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-              child: Row(
-                children: [
-                  Text(
-                    appLocalizations.date,
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x4,
-                      color: colors.text,
-                    ),
-                  ),
-                  const SizedBox(width: SpacingUnit.x2),
-                  GestureDetector(
-                    onTap: () => setTime(context),
-                    child: Icon(Icons.add_circle, color: colors.success, size: SpacingUnit.x7),
-                  )
-                ],
-              ),
-            ),
-            if (errorTime.isNotEmpty)
-              Text(errorTime,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x3,
-                    color: colors.error,
-                  )),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-              child: Text(
-                formatDMY(requisitionOverTime?.date ?? ""),
-                style: TextStyle(
-                  fontSize: SpacingUnit.x4,
-                  color: colors.text,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    appLocalizations.checkIn,
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x4,
-                      color: colors.text,
-                    ),
-                  ),
-                  Text(
-                    strSeconds(requisitionOverTime?.startTime ?? 0),
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x4,
-                      color: colors.text,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    appLocalizations.checkIn,
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x4,
-                      color: colors.text,
-                    ),
-                  ),
-                  Text(
-                    strSeconds(requisitionOverTime?.endTime ?? 0),
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x4,
-                      color: colors.text,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              appLocalizations.note,
-              style: TextStyle(
-                fontSize: SpacingUnit.x4,
-                color: colors.text,
-              ),
-            ),
-            const SizedBox(
-              height: SpacingUnit.x4_5,
-            ),
-            AppInputArea(
-              error: errorNote,
-              minLines: 5,
-              maxLines: 5,
-              placeHolder: appLocalizations.note,
-              controller: noteController,
-              onChange: (value) => setNote(value),
-            ),
-            const SizedBox(
-              height: SpacingUnit.x4_5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ElevatedButton(
-                  onPressed: () => _setAdd(context),
-                  child: Text(appLocalizations.ok),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                  child: Row(
+                    children: [
+                      Text(
+                        appLocalizations.date,
+                        style: TextStyle(
+                          color: colors.text,
+                          fontSize: SpacingUnit.x4,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: SpacingUnit.x3),
+                        child: GestureDetector(
+                          onTap: () => setTime(context),
+                          child: Icon(
+                            Icons.add_circle,
+                            color: colors.success,
+                            size: SpacingUnit.x7,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                ElevatedButton(
-                  child: Text(appLocalizations.cancel),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
+                Text(
+                  formatYMD(date),
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x6,
+                  ),
                 ),
+                if (errorDate != '')
+                  Text(
+                    errorDate,
+                    style: TextStyle(
+                      color: colors.error,
+                      fontSize: SpacingUnit.x3,
+                    ),
+                  ),
               ],
+            ),
+            TimeOverTime(
+              dateOld: strSeconds(startTime),
+              changeValue: (value) => _setStart(value),
+              title: appLocalizations.startTime,
+            ),
+            TimeOverTime(
+              dateOld: strSeconds(endTime),
+              changeValue: (value) => _setEnd(value),
+              title: appLocalizations.endTime,
+            ),
+            if (errorTime != '')
+              Text(
+                errorTime,
+                style: TextStyle(
+                  color: colors.error,
+                  fontSize: SpacingUnit.x3,
+                ),
+              ),
+            ItemCreateInput(
+              title: appLocalizations.note,
+              inputController: noteController,
+              onChange: (value) => _setNote(value),
+            ),
+            ItemButtonListStationery(
+              callbackCancel: () => popDialog(context),
+              callbackAdd: () => setAdd(context),
             )
           ],
         ),
       ),
     );
+  }
+
+  int _timeToSeconds(String time) {
+    final DateFormat format = DateFormat('HH:mm:ss');
+    final DateTime t1 = format.parse(time);
+    final DateTime t2 = format.parse("00:00:00");
+    return t1.difference(t2).inSeconds;
   }
 
   String strSeconds(int time) {
@@ -182,19 +166,42 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
     return formatHM(result.toString());
   }
 
-  setNote(String value) {
+  setAdd(BuildContext context) {
+    if (checkOnClick(context)) {
+      widget.onChangeOverTimes?.call(RequisitionOverTime(
+          date: date,
+          endTime: endTime,
+          startTime: startTime,
+          note: note,
+      ));
+      Navigator.of(context).pop();
+    }
+  }
+
+  _setNote(String value) {
     setState(() {
-      requisitionOverTime = requisitionOverTime?.copyWith(note: value);
+      note = value;
     });
   }
 
-  _setAdd(BuildContext context) {
-    if (checkValue(context)) {
-      setState(() {
-        widget.onChange.call(requisitionOverTime!);
-        Navigator.of(context).pop();
-      });
-    }
+  setDate(DateTime value) {
+    setState(() {
+      date = formatYMD(value.toString());
+    });
+  }
+
+  _setStart(String value) {
+    setState(() {
+      startTime = _timeToSeconds(value);
+      suggestTime = double.parse((endTime - startTime).toString());
+    });
+  }
+
+  _setEnd(String value) {
+    setState(() {
+      endTime = _timeToSeconds(value);
+      suggestTime = double.parse((endTime - startTime).toString());
+    });
   }
 
   setTime(BuildContext context) {
@@ -212,7 +219,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
 
   setListTime(RequisitionOverTime value) {
     setState(() {
-      requisitionOverTime = value.copyWith(note: requisitionOverTime?.note);
+      date = value.date??'';
     });
   }
 }
