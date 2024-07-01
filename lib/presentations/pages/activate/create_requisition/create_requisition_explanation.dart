@@ -19,12 +19,11 @@ import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dar
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/list_overtime.dart';
 import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/timekeeping_dialog/timekeeping_dialog.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -96,7 +95,6 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
     return BlocConsumer<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) => _listenWhen(previous, current),
@@ -121,46 +119,12 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            appLocalizations.timeKeepingList,
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x4,
-                              fontWeight: FontWeight.w800,
-                            ),
+                          ListOverTime(
+                            title: appLocalizations.timeKeepingList,
+                            error: errorTime,
+                            requisitionOverTimes: listRequisitionOverTimes,
+                            onChangeList: (value) => _setChangeRequisitionOverTimes(value),
                           ),
-                          if (errorTime != '')
-                            Text(
-                              errorTime,
-                              style: TextStyle(
-                                color: colors.error,
-                                fontSize: SpacingUnit.x3,
-                              ),
-                            ),
-                          if (listRequisitionOverTimes.isNotEmpty)
-                            Container(
-                              width: width,
-                              padding: const EdgeInsets.all(SpacingUnit.x1),
-                              margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                              decoration: BoxDecoration(
-                                color: colors.surface,
-                                borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                              ),
-                              child: Column(
-                                children: listRequisitionOverTimes
-                                    .mapIndexed(
-                                      (index, element) => GestureDetector(
-                                        onTap: () => _getStationeryInList(
-                                            context, listRequisitionOverTimes[index], index),
-                                        child: ItemListOverTime(
-                                          requisitionOverTime: listRequisitionOverTimes[index],
-                                          index: index,
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
                           ButtonAddList(
                             title: appLocalizations.addWorkTime,
                             callBack: () => _addTime(context),
@@ -333,20 +297,11 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _getStationeryInList(
-      BuildContext context, RequisitionOverTime listRequisitionOverTime, int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: TimeKeepingDialog(
-            requisitionOverTime: listRequisitionOverTime,
-            onChange: (value) => setListTime(value),
-          ),
-        );
-      },
-    );
-  }
-
   _cancel() {}
+
+  _setChangeRequisitionOverTimes(List<RequisitionOverTime> value) {
+    setState(() {
+      listRequisitionOverTimes = value;
+    });
+  }
 }
