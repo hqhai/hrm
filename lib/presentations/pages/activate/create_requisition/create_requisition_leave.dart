@@ -25,6 +25,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create.work.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_take_leave.dart';
+import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,6 +72,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   RequisitionTypeEnum? reasonForOnLeave = RequisitionTypeEnum.yearlyAndSeniorityLeave;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   String errorTime = '';
+  bool checkClick = false;
   final DateTime now = DateTime.now();
 
   @override
@@ -92,6 +94,11 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   List<File> setListFiles(List<String> paths) {
     return paths.map((e) => File(e)).toList();
+  }
+
+  double opacity() {
+    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    return check ? 1 : 0.3;
   }
 
   _listener(BuildContext context, RequisitionState state) {
@@ -144,79 +151,74 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                   ),
                 ),
               ),
-              body: Stack(children: [
-                SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.all(SpacingUnit.x3),
-                    margin: const EdgeInsets.all(SpacingUnit.x3),
-                    decoration: BoxDecoration(
-                      color: colors.surface,
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                      border: Border.all(
-                        width: SpacingUnit.x0_25,
-                        color: colors.surface,
+              body: Stack(
+                children: [
+                  Opacity(
+                    opacity: opacity(),
+                    child: SingleChildScrollView(
+                      child: ContainerScreenMain(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ItemCreateIntervalOnLeave(
+                              leave: true,
+                              error: errorTime,
+                              startTimeOld: startTime,
+                              endTimeOld: endTime,
+                              dayOrHours: true,
+                              title: appLocalizations.intervalOnLeave,
+                              startTime: (value) => setStartTime(value),
+                              endTime: (value) => setEndTime(value),
+                            ),
+                            ItemTakeLeave(
+                              type: widget.type,
+                              onChange: (value) => _setReason(value),
+                            ),
+                            const ItemTakeLeaveWork(),
+                            if (_checkType())
+                              ItemCreateInputArea(
+                                textController: detailedReasonController,
+                                title: appLocalizations.detailedReason,
+                                onChange: (value) => _setDetailedReason(value),
+                              ),
+                            ItemCreateFollower(
+                              listFollower: _setListUser(stateUserById.subtitudePersons),
+                              title: appLocalizations.substitute,
+                              onChange: (value) => _setSubstitute(value),
+                            ),
+                            ItemCreateFollower(
+                              listFollower: _setListUser(stateUserById.userById),
+                              title: appLocalizations.follower,
+                              onChange: (value) => _setFollower(value),
+                            ),
+                            ItemCreateInputArea(
+                              textController: detailedDescriptionController,
+                              title: appLocalizations.detailedDescription,
+                              onChange: (value) => _setDescription(value),
+                            ),
+                            ItemLoadFile(
+                              files: files,
+                              onChangeFiles: (value) => _setFile(value),
+                            ),
+                            ItemButton(
+                              callbackSave: () => _save(context),
+                              callbackCancel: () => _cancel(),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ItemCreateIntervalOnLeave(
-                          leave: true,
-                          error: errorTime,
-                          startTimeOld: startTime,
-                          endTimeOld: endTime,
-                          dayOrHours: true,
-                          title: appLocalizations.intervalOnLeave,
-                          startTime: (value) => setStartTime(value),
-                          endTime: (value) => setEndTime(value),
-                        ),
-                        ItemTakeLeave(
-                          type: widget.type,
-                          onChange: (value) => _setReason(value),
-                        ),
-                        const ItemTakeLeaveWork(),
-                        if (_checkType())
-                          ItemCreateInputArea(
-                            textController: detailedReasonController,
-                            title: appLocalizations.detailedReason,
-                            onChange: (value) => _setDetailedReason(value),
-                          ),
-                        ItemCreateFollower(
-                          listFollower: _setListUser(stateUserById.subtitudePersons),
-                          title: appLocalizations.substitute,
-                          onChange: (value) => _setSubstitute(value),
-                        ),
-                        ItemCreateFollower(
-                          listFollower: _setListUser(stateUserById.userById),
-                          title: appLocalizations.follower,
-                          onChange: (value) => _setFollower(value),
-                        ),
-                        ItemCreateInputArea(
-                          textController: detailedDescriptionController,
-                          title: appLocalizations.detailedDescription,
-                          onChange: (value) => _setDescription(value),
-                        ),
-                        ItemLoadFile(
-                          files: files,
-                          onChangeFiles: (value) => _setFile(value),
-                        ),
-                        ItemButton(
-                          callbackSave: () => _save(context),
-                          callbackCancel: () => _cancel(),
-                        )
-                      ],
-                    ),
                   ),
-                ),
-                CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode),
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ]),
+                  CheckLoadDialog(
+                    fail: setErrorValue(state.errorCode),
+                    checkLoad: checkLoad,
+                    checkSuccess: checkSuccess,
+                    checkUnSuccess: checkUnSuccess,
+                    checkSuccessChange: () => setCheckSuccess(),
+                    checkUnSuccessChange: () => setCheckUnSuccess(),
+                  ),
+                ],
+              ),
             );
           },
         );

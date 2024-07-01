@@ -1,10 +1,10 @@
-import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
@@ -21,6 +21,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/list_overtime.dart';
 import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
+import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/overtime/over_time_dialog.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   String? description;
   List<String> followers = [];
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
+  bool checkClick = false;
 
   @override
   void initState() {
@@ -78,14 +80,19 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if(state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
+    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
       setState(() {
         workDate = state.requisition.config.startDate;
-        description = state.requisition.config.description??"";
+        description = state.requisition.config.description ?? "";
         listRequisitionOverTimes = [...?state.requisition.config.overTimes];
         followers = [...state.requisition.followerIds];
-    });
+      });
     }
+  }
+
+  double opacity() {
+    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    return check ? 1 : 0.3;
   }
 
   @override
@@ -107,51 +114,45 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
         ),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(SpacingUnit.x3),
-                margin: const EdgeInsets.all(SpacingUnit.x3),
-                decoration: BoxDecoration(
-                  color: colors.surface,
-                  borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                  border: Border.all(
-                    width: 1,
-                    color: colors.surface,
+            Opacity(
+              opacity: opacity(),
+              child: SingleChildScrollView(
+                child: ContainerScreenMain(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ItemCreateInputArea(
+                        error: errorDestination,
+                        textController: detailedDescriptionController,
+                        title: appLocalizations.detailedDescription,
+                        onChange: (value) => _setDetailedDescription(value),
+                      ),
+                      ItemCreateTimeYMD(
+                        check: true,
+                        title: appLocalizations.workDay,
+                        dateOfBirth: DateTime.now(),
+                        onChangeDateOfBirth: (value) => _setWorkDate(value),
+                      ),
+                      if (widget.type == RequisitionTypeEnum.earlyDeparture)
+                        ListOverTime(
+                          title: appLocalizations.listTime,
+                          requisitionOverTimes: listRequisitionOverTimes,
+                          onChangeList: (value) => _setChangeRequisitionOverTimes(value),
+                        ),
+                      if (widget.type == RequisitionTypeEnum.earlyDeparture)
+                        ButtonAddList(
+                          title: appLocalizations.workOffset,
+                          callBack: () => _addOverTime(context),
+                        ),
+                      ItemCreateFollower(
+                          title: appLocalizations.follower,
+                          onChange: (value) => _setFollower(value)),
+                      ItemButton(
+                        callbackSave: () => _save(context),
+                        callbackCancel: () => _cancel(),
+                      )
+                    ],
                   ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ItemCreateInputArea(
-                      error: errorDestination,
-                      textController: detailedDescriptionController,
-                      title: appLocalizations.detailedDescription,
-                      onChange: (value) => _setDetailedDescription(value),
-                    ),
-                    ItemCreateTimeYMD(
-                      check: true,
-                      title: appLocalizations.workDay,
-                      dateOfBirth: DateTime.now(),
-                      onChangeDateOfBirth: (value) => _setWorkDate(value),
-                    ),
-                    if (widget.type == RequisitionTypeEnum.earlyDeparture)
-                      ListOverTime(
-                        title: appLocalizations.listTime,
-                        requisitionOverTimes: listRequisitionOverTimes,
-                        onChangeList: (value) => _setChangeRequisitionOverTimes(value),
-                      ),
-                    if (widget.type == RequisitionTypeEnum.earlyDeparture)
-                      ButtonAddList(
-                        title: appLocalizations.workOffset,
-                        callBack: () => _addOverTime(context),
-                      ),
-                    ItemCreateFollower(
-                        title: appLocalizations.follower, onChange: (value) => _setFollower(value)),
-                    ItemButton(
-                      callbackSave: () => _save(context),
-                      callbackCancel: () => _cancel(),
-                    )
-                  ],
                 ),
               ),
             ),
@@ -203,12 +204,10 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkDescription = description != null;
-    final bool checkList = listRequisitionOverTimes.isNotEmpty;
     setState(() {
-      errorTime = checkList ? '' : appLocalizations.cannotBeLeftBlank;
       errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
-    return checkList && checkDescription;
+    return checkDescription;
   }
 
   _setFollower(List<User> value) {
@@ -217,74 +216,63 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     });
   }
 
+  PostRequestRequest request() {
+    return widget.requestId == null
+        ? PostRequestRequest(
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              explanationReason: explanationReason(),
+              startDate: workDate,
+              overTimes: listRequisitionOverTimes,
+              description: description,
+            ),
+          )
+        : PostRequestRequest(
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              explanationReason: explanationReason(),
+              startDate: workDate,
+              overTimes: listRequisitionOverTimes,
+              description: description,
+            ),
+          );
+  }
+
   _save(BuildContext context) async {
-    if (_checkValue(context) && widget.requestId == null) {
-      setState(() {
-        checkLoad = true;
-      });
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        PostRequestEvent(
-          completer: completer,
-          postRequestRequest: PostRequestRequest(
-            followerIds: followers,
-            flowId: widget.flowId,
-            config: ConfigRequestModel(
-              explanationReason: explanationReason(),
-              startDate: workDate,
-              overTimes: listRequisitionOverTimes,
-              description: description,
-            ),
-          ),
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
-        setState(() {
-          checkLoad = false;
-          checkSuccess = true;
-        });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
-      }
-    } else if (_checkValue(context) && widget.requestId != null) {
-      setState(() {
-        checkLoad = true;
-      });
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        EditRequestEvent(
-          completer: completer,
-          postRequestRequest: PostRequestRequest(
-            followerIds: followers,
-            flowId: widget.flowId,
-            config: ConfigRequestModel(
-              explanationReason: explanationReason(),
-              startDate: workDate,
-              overTimes: listRequisitionOverTimes,
-              description: description,
-            ),
-          ),
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
-        setState(() {
-          checkLoad = false;
-          checkSuccess = true;
-        });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
-      }
-    }
+    saveRequest(
+      context: context,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      postRequestRequest: request(),
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkLoadTrue: () => setCheckLoad(),
+      completerFail: () => completerFail(),
+      completerSuccess: () => completerSuccess(),
+    );
+  }
+
+  setCheckLoad() {
+    setState(() {
+      checkClick = true;
+      checkLoad = true;
+    });
+  }
+
+  completerFail() {
+    setState(() {
+      checkLoad = false;
+      checkUnSuccess = true;
+      checkClick = false;
+    });
+  }
+
+  completerSuccess() {
+    setState(() {
+      checkLoad = false;
+      checkSuccess = true;
+      checkClick = false;
+    });
   }
 
   String explanationReason() {

@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
@@ -19,7 +18,9 @@ import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dar
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/release_of_warehouse/item_list_release_of_warehouse.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/release_of_warehouse/list_product.dart';
+import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
+import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_release_of_warehouse_dialog.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +56,12 @@ class _CreateRequisitionReleaseOfWarehousePageState
   final TextEditingController scheduleController = TextEditingController();
   List<String> followers = [];
   String description = '';
-  String errorList = '', errorDescription = '';
-  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
+  String errorList = '',
+      errorDescription = '';
+  bool checkLoad = false,
+      checkSuccess = false,
+      checkUnSuccess = false;
+  bool checkClick = false;
 
   @override
   void initState() {
@@ -77,12 +82,15 @@ class _CreateRequisitionReleaseOfWarehousePageState
     }
   }
 
+  double opacity() {
+    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    return check ? 1 : 0.3;
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -96,125 +104,64 @@ class _CreateRequisitionReleaseOfWarehousePageState
       body: BlocConsumer<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => _listenWhen(previous, current),
-        builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
-          builder: (context, stateUserById) {
-            return Stack(
-              children: [
-                Container(
-                  width: width,
-                  height: height * 0.85,
-                  padding: const EdgeInsets.all(SpacingUnit.x3),
-                  margin: const EdgeInsets.all(SpacingUnit.x3),
-                  decoration: BoxDecoration(
-                    color: colors.surface,
-                    borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                    border: Border.all(
-                      width: 1,
-                      color: colors.surface,
+        builder: (context, state) =>
+            BlocBuilder<UserByIdBloc, UserByIdState>(
+              builder: (context, stateUserById) {
+                return Stack(
+                  children: [
+                    Opacity(
+                      opacity: opacity(),
+                      child: ContainerScreenMain(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ItemCreateInputArea(
+                                error: errorDescription,
+                                textController: scheduleController,
+                                title: appLocalizations.description,
+                                onChange: (value) => _setSchedule(value),
+                              ),
+                              ListProducts(
+                                  title: appLocalizations.releaseOfWarehouse,
+                                error: errorList,
+                                listProducts: requisitionReleaseOfWarehouse,
+                                onChangeList: (value) => _setList(value),
+                              ),
+                              ButtonAddList(
+                                title: appLocalizations.addProducts,
+                                callBack: () => _addStationery(context),
+                              ),
+                              ItemCreateFollower(
+                                  listFollower: _setListUser(
+                                    stateUserById.userById,
+                                  ),
+                                  title: appLocalizations.follower,
+                                  onChange: (value) => _setFollower(value)),
+                              Padding(
+                                padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
+                                child: ItemButton(
+                                  callbackSave: () => _save(context),
+                                  callbackCancel: () => _cancel(),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ItemCreateInputArea(
-                          error: errorDescription,
-                          textController: scheduleController,
-                          title: appLocalizations.description,
-                          onChange: (value) => _setSchedule(value),
-                        ),
-                        Text(
-                          appLocalizations.releaseOfWarehouse,
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x4,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        Container(
-                          width: width,
-                          height: height * 0.14 * requisitionReleaseOfWarehouse.length,
-                          padding: const EdgeInsets.all(SpacingUnit.x1),
-                          margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                          decoration: BoxDecoration(
-                            color: colors.surface,
-                            borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                          ),
-                          child: ListView.builder(
-                            itemCount: requisitionReleaseOfWarehouse.length,
-                            itemBuilder: (context, index) => GestureDetector(
-                              onTap: () => _getStationeryInList(
-                                  context, requisitionReleaseOfWarehouse[index], index),
-                              child: ItemListReleaseOfWarehouse(
-                                requisitionReleaseOfWarehouse: requisitionReleaseOfWarehouse[index],
-                                index: index,
-                              ),
-                            ),
-                          ),
-                        ),
-                        if (errorList != '')
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
-                            child: Text(
-                              errorList,
-                              style: TextStyle(
-                                color: colors.error,
-                                fontSize: SpacingUnit.x3,
-                              ),
-                            ),
-                          ),
-                        GestureDetector(
-                          onTap: () => _addStationery(context),
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: SpacingUnit.x10,
-                            padding: const EdgeInsets.all(SpacingUnit.x2),
-                            decoration: BoxDecoration(
-                              color: colors.outlineSuccess,
-                              borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                              border: Border.all(
-                                width: 1,
-                                color: colors.text,
-                              ),
-                            ),
-                            child: Text(
-                              appLocalizations.addProducts,
-                              style: TextStyle(
-                                fontSize: SpacingUnit.x3_5,
-                                color: colors.background,
-                              ),
-                            ),
-                          ),
-                        ),
-                        ItemCreateFollower(
-                            listFollower: _setListUser(
-                              stateUserById.userById,
-                            ),
-                            title: appLocalizations.follower,
-                            onChange: (value) => _setFollower(value)),
-                        Padding(
-                          padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
-                          child: ItemButton(
-                            callbackSave: () => _save(context),
-                            callbackCancel: () => _cancel(),
-                          ),
-                        )
-                      ],
+                    CheckLoadDialog(
+                      fail: setErrorValue(state.errorCode),
+                      checkLoad: checkLoad,
+                      checkSuccess: checkSuccess,
+                      checkUnSuccess: checkUnSuccess,
+                      checkSuccessChange: () => setCheckSuccess(),
+                      checkUnSuccessChange: () => setCheckUnSuccess(),
                     ),
-                  ),
-                ),
-                CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode),
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ],
-            );
-          },
-        ),
+                  ],
+                );
+              },
+            ),
       ),
     );
   }
@@ -262,94 +209,63 @@ class _CreateRequisitionReleaseOfWarehousePageState
     });
   }
 
-  _save(BuildContext context) async {
-    if (_checkValue(context) && widget.requestId == null) {
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        PostRequestEvent(
-          completer: completer,
-          postRequestRequest: PostRequestRequest(
-            followerIds: followers,
-            flowId: widget.flowId,
-            config: ConfigRequestModel(
-              description: description,
-              warehourseReleaseds: requisitionReleaseOfWarehouse,
-            ),
-          ),
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
-        setState(() {
-          checkLoad = false;
-          checkSuccess = true;
-        });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
-      }
-    } else if (_checkValue(context) && widget.requestId != null) {
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        EditRequestEvent(
-          completer: completer,
-          postRequestRequest: PostRequestRequest(
-            id: widget.requestId,
-            followerIds: followers,
-            flowId: widget.flowId,
-            config: ConfigRequestModel(
-              description: description,
-              warehourseReleaseds: requisitionReleaseOfWarehouse,
-            ),
-          ),
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
-        setState(() {
-          checkLoad = false;
-          checkSuccess = true;
-        });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
-      }
-    }
-  }
-
-  _cancel() {}
-
-  _getStationeryInList(
-      BuildContext context, WarehouseReleaseds requisitionReleaseOfWarehouse, int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: ReleaseOfWarehouseAddDialog(
-            releaseOfWarehouse: requisitionReleaseOfWarehouse,
-            requisitionReleaseOfWarehouse: (value) => setEdit(value, index),
-          ),
-        );
-      },
+  PostRequestRequest request() {
+    return widget.requestId == null
+        ? PostRequestRequest(
+      followerIds: followers,
+      flowId: widget.flowId,
+      config: ConfigRequestModel(
+        description: description,
+        warehourseReleaseds: requisitionReleaseOfWarehouse,
+      ),
+    )
+        : PostRequestRequest(
+      id: widget.requestId,
+      followerIds: followers,
+      flowId: widget.flowId,
+      config: ConfigRequestModel(
+        description: description,
+        warehourseReleaseds: requisitionReleaseOfWarehouse,
+      ),
     );
   }
 
-  setEdit(WarehouseReleaseds value, int index) {
+  _save(BuildContext context) async {
+    saveRequest(
+      context: context,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      postRequestRequest: request(),
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkLoadTrue: () => setCheckLoad(),
+      completerFail: () => completerFail(),
+      completerSuccess: () => completerSuccess(),
+    );
+  }
+
+  setCheckLoad() {
     setState(() {
-      requisitionReleaseOfWarehouse[index] = WarehouseReleaseds(
-          unit: value.unit,
-          note: value.note,
-          product: value.product,
-          explain: value.explain,
-          quantity: value.quantity);
+      checkClick = true;
+      checkLoad = true;
     });
   }
+
+  completerFail() {
+    setState(() {
+      checkLoad = false;
+      checkUnSuccess = true;
+      checkClick = false;
+    });
+  }
+
+  completerSuccess() {
+    setState(() {
+      checkLoad = false;
+      checkSuccess = true;
+      checkClick = false;
+    });
+  }
+
+  _cancel() {}
 
   _setFollower(List<User> value) {
     setState(() {
@@ -372,5 +288,11 @@ class _CreateRequisitionReleaseOfWarehousePageState
       return userById;
     }
     return [];
+  }
+
+  _setList(List<WarehouseReleaseds> value) {
+    setState(() {
+      requisitionReleaseOfWarehouse = value;
+    });
   }
 }

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({super.key, this.check = true, this.restorationId, required this.onChange, this.oldDate});
+  const DatePicker(
+      {super.key, this.check = true, this.restorationId, required this.onChange, this.oldDate});
 
   final String? restorationId;
   final ValueChanged<DateTime> onChange;
@@ -21,6 +22,7 @@ class _DatePickerState extends State<DatePicker> with RestorationMixin {
   String? get restorationId => widget.restorationId;
 
   final RestorableDateTime _selectedDate = RestorableDateTime(DateTime.now());
+
   late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
       RestorableRouteFuture<DateTime?>(
     onComplete: _selectDate,
@@ -61,6 +63,10 @@ class _DatePickerState extends State<DatePicker> with RestorationMixin {
         widget.onChange.call(newSelectedDate);
       });
     }
+    if (newSelectedDate == null && widget.oldDate != null) {
+      _selectedDate.value = widget.oldDate ?? DateTime.now();
+      widget.onChange.call(widget.oldDate ?? DateTime.now());
+    }
   }
 
   @override
@@ -74,7 +80,9 @@ class _DatePickerState extends State<DatePicker> with RestorationMixin {
           height: SpacingUnit.x12_5,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingUnit.x2_5,),
+            borderRadius: BorderRadius.circular(
+              SpacingUnit.x2_5,
+            ),
             border: Border.all(
               color: const Color(0xff2a6067),
               width: 2,
@@ -82,12 +90,18 @@ class _DatePickerState extends State<DatePicker> with RestorationMixin {
           ),
           child: Text(
             getTimeDisplay(),
-            style: TextStyle(fontSize: widget.check ? SpacingUnit.x5 : SpacingUnit.x4, color: Colors.white),
+            style: TextStyle(
+                fontSize: widget.check ? SpacingUnit.x5 : SpacingUnit.x4, color: Colors.white),
           )),
     );
   }
 
-  String getTimeDisplay(){
+  String getTimeDisplay() {
+    if (_selectedDate.value.day == DateTime.now().day &&
+        _selectedDate.value.month == DateTime.now().month &&
+        widget.oldDate != null) {
+      return formatYMD(DateFormat('yyyy-MM-dd').format(widget.oldDate ?? DateTime.now()));
+    }
     return formatYMD(DateFormat('yyyy-MM-dd').format(_selectedDate.value));
   }
 }

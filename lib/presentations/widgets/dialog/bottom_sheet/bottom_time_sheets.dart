@@ -44,28 +44,32 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
     return BlocBuilder<AttendanceBloc, AttendanceState>(
       builder: (context, state) {
         return Container(
-          height: dates(state.attendances).isEmpty ? height * 0.62 : height * 0.22,
+          height: height * 0.4,
           color: colors.surface,
           child: Center(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    onTap: () => setCheck(),
-                    child: ContainerBorder(
-                      child: Text(
-                        checkInOrOut ? appLocalizations.youLater : appLocalizations.youEarly,
-                        style: TextStyle(
-                          fontSize: SpacingUnit.x4,
-                          color: colors.text,
+                Expanded(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () => setCheck(),
+                      child: ContainerBorder(
+                        child: Text(
+                          checkInOrOut ? appLocalizations.youLater : appLocalizations.youEarly,
+                          style: TextStyle(
+                            fontSize: SpacingUnit.x4,
+                            color: colors.text,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: dates(state.attendances).isEmpty ? height * 0.5 : height * 0.1,
+                Expanded(
+                  flex: 4,
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

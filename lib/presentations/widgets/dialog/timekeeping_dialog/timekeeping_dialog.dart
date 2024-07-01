@@ -48,126 +48,128 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
     final colors = AppTheme.getColors(context);
     return Padding(
       padding: const EdgeInsets.all(SpacingUnit.x4_5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-            child: Row(
-              children: [
-                Text(
-                  appLocalizations.date,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+              child: Row(
+                children: [
+                  Text(
+                    appLocalizations.date,
+                    style: TextStyle(
+                      fontSize: SpacingUnit.x4,
+                      color: colors.text,
+                    ),
                   ),
-                ),
-                const SizedBox(width: SpacingUnit.x2),
-                GestureDetector(
-                  onTap: () => setTime(context),
-                  child: Icon(Icons.add_circle, color: colors.success, size: SpacingUnit.x7),
-                )
-              ],
+                  const SizedBox(width: SpacingUnit.x2),
+                  GestureDetector(
+                    onTap: () => setTime(context),
+                    child: Icon(Icons.add_circle, color: colors.success, size: SpacingUnit.x7),
+                  )
+                ],
+              ),
             ),
-          ),
-          if (errorTime.isNotEmpty)
-            Text(errorTime,
+            if (errorTime.isNotEmpty)
+              Text(errorTime,
+                  style: TextStyle(
+                    fontSize: SpacingUnit.x3,
+                    color: colors.error,
+                  )),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+              child: Text(
+                formatDMY(requisitionOverTime?.date ?? ""),
                 style: TextStyle(
-                  fontSize: SpacingUnit.x3,
-                  color: colors.error,
-                )),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-            child: Text(
-              formatDMY(requisitionOverTime?.date ?? ""),
+                  fontSize: SpacingUnit.x4,
+                  color: colors.text,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    appLocalizations.checkIn,
+                    style: TextStyle(
+                      fontSize: SpacingUnit.x4,
+                      color: colors.text,
+                    ),
+                  ),
+                  Text(
+                    strSeconds(requisitionOverTime?.startTime ?? 0),
+                    style: TextStyle(
+                      fontSize: SpacingUnit.x4,
+                      color: colors.text,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    appLocalizations.checkIn,
+                    style: TextStyle(
+                      fontSize: SpacingUnit.x4,
+                      color: colors.text,
+                    ),
+                  ),
+                  Text(
+                    strSeconds(requisitionOverTime?.endTime ?? 0),
+                    style: TextStyle(
+                      fontSize: SpacingUnit.x4,
+                      color: colors.text,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              appLocalizations.note,
               style: TextStyle(
                 fontSize: SpacingUnit.x4,
                 color: colors.text,
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            const SizedBox(
+              height: SpacingUnit.x4_5,
+            ),
+            AppInputArea(
+              error: errorNote,
+              minLines: 5,
+              maxLines: 5,
+              placeHolder: appLocalizations.note,
+              controller: noteController,
+              onChange: (value) => setNote(value),
+            ),
+            const SizedBox(
+              height: SpacingUnit.x4_5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(
-                  appLocalizations.checkIn,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
-                  ),
+                ElevatedButton(
+                  onPressed: () => _setAdd(context),
+                  child: Text(appLocalizations.ok),
                 ),
-                Text(
-                  strSeconds(requisitionOverTime?.startTime ?? 0),
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
-                  ),
+                ElevatedButton(
+                  child: Text(appLocalizations.cancel),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
               ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  appLocalizations.checkIn,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
-                  ),
-                ),
-                Text(
-                  strSeconds(requisitionOverTime?.endTime ?? 0),
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Text(
-            appLocalizations.note,
-            style: TextStyle(
-              fontSize: SpacingUnit.x4,
-              color: colors.text,
-            ),
-          ),
-          const SizedBox(
-            height: SpacingUnit.x4_5,
-          ),
-          AppInputArea(
-            error: errorNote,
-            minLines: 5,
-            maxLines: 5,
-            placeHolder: appLocalizations.note,
-            controller: noteController,
-            onChange: (value) => setNote(value),
-          ),
-          const SizedBox(
-            height: SpacingUnit.x4_5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () => _setAdd(context),
-                child: Text(appLocalizations.ok),
-              ),
-              ElevatedButton(
-                child: Text(appLocalizations.cancel),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
