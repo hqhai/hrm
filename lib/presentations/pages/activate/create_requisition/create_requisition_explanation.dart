@@ -213,28 +213,20 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
-            config: PostRequestRequest(
-              followerIds: followers,
-              flowId: widget.flowId,
-              config: ConfigRequestModel(
-                editTimekeeping: EditTimekeeping.editTimekeeping,
-                overTimes: listRequisitionOverTimes,
-                description: description,
-              ),
+            config: ConfigRequestModel(
+              editTimekeeping: EditTimekeeping.editTimekeeping,
+              overTimes: listRequisitionOverTimes,
+              description: description,
             ),
           )
         : PostRequestRequest(
+            id: widget.requestId,
             followerIds: followers,
             flowId: widget.flowId,
-            config: PostRequestRequest(
-              id: widget.requestId,
-              followerIds: followers,
-              flowId: widget.flowId,
-              config: ConfigRequestModel(
-                editTimekeeping: EditTimekeeping.editTimekeeping,
-                overTimes: listRequisitionOverTimes,
-                description: description,
-              ),
+            config: ConfigRequestModel(
+              editTimekeeping: EditTimekeeping.editTimekeeping,
+              overTimes: listRequisitionOverTimes,
+              description: description,
             ),
           );
   }
