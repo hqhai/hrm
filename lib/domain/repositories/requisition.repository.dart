@@ -14,8 +14,8 @@ abstract class RequisitionRepository {
     int? page,
     String? flowId,
     String? departmentId,
-    String? startDate,
-    String? endDate,
+    DateTime? startDate,
+    DateTime? endDate,
     List<String>? status,
   });
 
@@ -25,16 +25,16 @@ abstract class RequisitionRepository {
       {int? page,
       String? type,
       String? departmentId,
-      String? startDate,
-      String? endDate,
+        DateTime? startDate,
+        DateTime? endDate,
       String? status});
 
   Future<RequestsResponse> getRequisitionsFollowerByFilter({
     int? page,
     String? type,
     String? departmentId,
-    String? startDate,
-    String? endDate,
+    DateTime? startDate,
+    DateTime? endDate,
     List<String>? status,
   });
 

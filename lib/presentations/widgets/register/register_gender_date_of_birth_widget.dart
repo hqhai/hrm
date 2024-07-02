@@ -32,6 +32,7 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
   late TextEditingController emailController;
   bool isCheckedInput = false;
   String gender = '', dateOfBirth = '';
+  final DateTime now = DateTime.now();
 
   @override
   void initState() {
@@ -79,7 +80,7 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
         const SizedBox(
           height: SpacingUnit.x7,
         ),
-        DatePicker(onChange: (value) => _setDateOfBirth(value), oldDate: _setOldDate(),)
+        DatePicker(onChange: (value) => _setDateOfBirth(value), oldDate: now,)
       ],
     );
   }
@@ -87,11 +88,6 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
   bool checkInput(String emailController) {
     RegExp regExpEmail = RegExp(checkEmailRegexExp);
     return (regExpEmail.hasMatch(emailController)) ? isCheckedInput = true : isCheckedInput = false;
-  }
-
-  String _setOldDate() {
-    DateTime date = DateTime.now();
-    return formatYMD(date.toString());
   }
 
   _setGender(GenderEnum? value) {
@@ -102,10 +98,10 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
     _check();
   }
 
-  _setDateOfBirth(String value) {
-    widget.onChangeDateOfBirth.call(value);
+  _setDateOfBirth(DateTime value) {
+    widget.onChangeDateOfBirth.call(formatYMD(value.toString()));
     setState(() {
-      dateOfBirth = value;
+      dateOfBirth = formatYMD(value.toString());
     });
     _check();
   }

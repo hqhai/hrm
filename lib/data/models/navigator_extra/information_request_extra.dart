@@ -5,11 +5,11 @@ part 'information_request_extra.g.dart';
 @JsonSerializable()
 class InformationRequestExtra {
   final String flowId;
-  final String requestId;
+  final String? requestId;
 
   const InformationRequestExtra(
       {this.flowId = '',
-        this.requestId = '',
+        this.requestId,
         });
 
   factory InformationRequestExtra.fromJson(Map<String, dynamic> json) =>

@@ -100,6 +100,13 @@ String formatYM(int year, int month) {
   return DateFormat('yyyy-MM').format(dateTime);
 }
 
+DateTime? dateTimeLocal(DateTime? time){
+  if(time != null){
+    return time.add(const Duration(hours: 7));
+  }
+  return null;
+}
+
 String formatYMDHMS(String time) {
   if (time == '') {
     return '';

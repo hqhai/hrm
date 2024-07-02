@@ -28,8 +28,8 @@ class GetRequisitionsFollowingByFilterEvent extends RequisitionFollowingEvent {
   final int? page;
   final RequisitionTypeEnum? requisitionTypeEnum;
   final List<StatusRequestEnum>? listStatusRequisition;
-  final String? startTime;
-  final String? endTime;
+  final DateTime? startTime;
+  final DateTime? endTime;
 
   @override
   List<Object?> get props => [requisitionTypeEnum, listStatusRequisition, startTime, endTime, page];

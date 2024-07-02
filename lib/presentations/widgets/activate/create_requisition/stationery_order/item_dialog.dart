@@ -1,16 +1,32 @@
+import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/app_input.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:themes/themes.dart';
 
-class ItemAddStationeryDialog extends StatelessWidget {
+class ItemAddStationeryDialog extends StatefulWidget {
   const ItemAddStationeryDialog(
-      {super.key, this.unit, this.product, this.unitPrice, this.check = true});
+      {super.key,
+      this.check = true,
+      this.productController,
+      this.unitController,
+      this.unitPriceController,
+      required this.onChangeProduct,
+      required this.onchangeUnit,
+      this.onChangeUnitPrice});
 
-  final String? product, unit;
-  final double? unitPrice;
+  final ValueChanged<String> onChangeProduct, onchangeUnit;
+  final ValueChanged<double>? onChangeUnitPrice;
+  final TextEditingController? productController, unitController, unitPriceController;
   final bool check;
 
+  @override
+  State<ItemAddStationeryDialog> createState() => _ItemAddStationeryDialogState();
+}
+
+class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -20,12 +36,9 @@ class ItemAddStationeryDialog extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-          child: Text(
-            product ?? "",
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-            ),
+          child: AppInput(
+            controller: widget.productController,
+            onChange: (value) => setProduct(value),
           ),
         ),
         Padding(
@@ -41,15 +54,12 @@ class ItemAddStationeryDialog extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-          child: Text(
-            unit ?? "",
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-            ),
+          child: AppInput(
+            controller: widget.unitController,
+            onChange: (value) => setUnit(value),
           ),
         ),
-        if (check)
+        if (widget.check)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
             child: Text(
@@ -61,18 +71,35 @@ class ItemAddStationeryDialog extends StatelessWidget {
               ),
             ),
           ),
-        if (check)
+        if (widget.check)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-            child: Text(
-              '${(unitPrice ?? 0).toInt()}',
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x4,
-              ),
+            child: AppInput(
+              inputFormatter: [
+                FilteringTextInputFormatter.allow(
+                  RegExp(numberRegexExp),
+                ),
+              ],
+              controller: widget.unitPriceController,
+              onChange: (value) => setUnitPrice(value),
             ),
           ),
       ],
     );
   }
+
+  setProduct(String value) {
+    widget.onChangeProduct.call(value);
+  }
+
+  setUnit(String value) {
+    widget.onchangeUnit.call(value);
+  }
+
+  setUnitPrice(String value) {
+    final double price = double.parse(value);
+    widget.onChangeUnitPrice?.call(price);
+  }
+
+// '${(widget.unitPrice ?? 0).toInt()}',
 }

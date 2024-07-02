@@ -6,16 +6,16 @@ import 'package:themes/themes.dart';
 class ItemCreateTime extends StatefulWidget {
   const ItemCreateTime({
     super.key,
-    this.dateOfBirth = '',
+    this.dateOfBirth,
     required this.onChangeDateOfBirth,
     this.title = '',
     this.check = false,
   });
 
   final bool check;
-  final ValueChanged<String> onChangeDateOfBirth;
+  final ValueChanged<DateTime> onChangeDateOfBirth;
   final String title;
-  final String dateOfBirth;
+  final DateTime? dateOfBirth;
 
   @override
   State<ItemCreateTime> createState() => _ItemCreateTimeState();
@@ -63,7 +63,7 @@ class _ItemCreateTimeState extends State<ItemCreateTime> {
     );
   }
 
-  _setOnChange(String value) {
+  _setOnChange(DateTime value) {
     widget.onChangeDateOfBirth.call(value);
   }
 }

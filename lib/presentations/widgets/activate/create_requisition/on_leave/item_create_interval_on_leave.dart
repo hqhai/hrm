@@ -8,7 +8,6 @@ import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/custom/time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateIntervalOnLeave extends StatefulWidget {
@@ -24,8 +23,8 @@ class ItemCreateIntervalOnLeave extends StatefulWidget {
       this.leave = false,
       required this.dayOrHours});
 
-  final String? startTimeOld, endTimeOld;
-  final ValueChanged<String>? startTime, endTime;
+  final DateTime? startTimeOld, endTimeOld;
+  final ValueChanged<DateTime>? startTime, endTime;
   final ValueChanged<int>? total;
   final String? title, error;
   final bool dayOrHours, leave;
@@ -35,36 +34,21 @@ class ItemCreateIntervalOnLeave extends StatefulWidget {
 }
 
 class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
+  final DateTime now = DateTime.now();
   DateTime startTime = DateTime.now(), endTime = DateTime.now();
 
-  /*@override
-  void initState() {
-
-    super.initState();
-  }*/
-
-  String setStartTimeOld() {
+  DateTime setStartTimeOld() {
     setState(() {
-      startTime = DateTime.parse(
-        widget.startTimeOld ?? DateTime.now().toString(),
-      );
+      startTime = widget.startTimeOld ?? now;
     });
-    return widget.startTimeOld ??
-        DateFormat('yyyy-MM-dd HH:mm').format(
-          DateTime.now(),
-        );
+    return startTime;
   }
 
-  String setEndTimeOld() {
+  DateTime setEndTimeOld() {
     setState(() {
-      endTime = DateTime.parse(
-        widget.endTimeOld ?? DateTime.now().toString(),
-      );
+      endTime = widget.endTimeOld ?? now;
     });
-    return widget.endTimeOld ??
-        DateFormat('yyyy-MM-dd HH:mm').format(
-          DateTime.now(),
-        );
+    return endTime;
   }
 
   @override
@@ -213,10 +197,10 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
     );
   }
 
-  _setStart(String value) {
+  _setStart(DateTime value) {
     setState(() {
       widget.startTime?.call(value);
-      startTime = DateTime.parse(value);
+      startTime = value;
       widget.total?.call(widget.dayOrHours
           ? endTime.difference(startTime).inDays
           : endTime.difference(startTime).inHours);
@@ -231,10 +215,10 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
     });
   }
 
-  _setEnd(String value) {
+  _setEnd(DateTime value) {
     setState(() {
       widget.endTime?.call(value);
-      endTime = DateTime.parse(value);
+      endTime = value;
       widget.total?.call(widget.dayOrHours
           ? endTime.difference(startTime).inDays
           : endTime.difference(startTime).inHours);

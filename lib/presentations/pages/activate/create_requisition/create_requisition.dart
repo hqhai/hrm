@@ -4,6 +4,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/data/models/navigator_extra/information_request_extra.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -117,104 +118,115 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
   }
 
   _push({
+    RequisitionTypeEnum? type,
     required BuildContext context,
     required String page,
-    required String id,
-    RequisitionTypeEnum? type,
+    required InformationRequestExtra informationRequestExtra,
   }) {
-    dI<AppNavigation>().pushName(
-      context,
-      page: page,
-      extra: {
-        'flowId': id,
-        'type': type,
-      },
-    );
+    final extraData = informationRequestExtra.toJson();
+    if(type != null) {
+      extraData.addAll({'type': type});
+      dI<AppNavigation>().pushName(
+          context,
+          page: page,
+          extra: extraData
+      );
+    }
+    else{
+      dI<AppNavigation>().pushName(
+        context,
+        page: page,
+        extra: extraData,
+      );
+    }
   }
 
   _nextScreen(BuildContext context, FlowRequest flow) {
     switch (flow.flowType) {
       case RequisitionTypeEnum.explanation:
         _push(
+          type: RequisitionTypeEnum.explanation,
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestExplanationPage,
         );
       case RequisitionTypeEnum.lateArrival:
         _push(
+          type: RequisitionTypeEnum.lateArrival,
           context: context,
-          id: flow.id,
-          page: Pages.createRequestLeavePage,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+          page: Pages.createRequestLateAndEarlyPage,
         );
       case RequisitionTypeEnum.overTime:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestOverTimePage,
         );
       case RequisitionTypeEnum.vehicleDriver:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestVehicleDispatchPage,
         );
       case RequisitionTypeEnum.postalDelivery:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestPostalDeliveryPage,
         );
       case RequisitionTypeEnum.warehouseReleased:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestReleaseOfWarehousePage,
         );
       case RequisitionTypeEnum.stationery:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestStationeryOderPage,
         );
       case RequisitionTypeEnum.bussiness:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestBusinessPage,
         );
       case RequisitionTypeEnum.yearlyAndSeniorityLeave:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           type: RequisitionTypeEnum.yearlyAndSeniorityLeave,
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.compensatoryLeave:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           type: RequisitionTypeEnum.compensatoryLeave,
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.otherLeave:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           type: RequisitionTypeEnum.otherLeave,
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.unpaidLeave:
         _push(
           context: context,
-          id: flow.id,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           type: RequisitionTypeEnum.unpaidLeave,
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.earlyDeparture:
         _push(
+          type: RequisitionTypeEnum.earlyDeparture,
           context: context,
-          id: flow.id,
-          page: Pages.createRequestExplanationPage,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+          page: Pages.createRequestLateAndEarlyPage,
         );
       case null:
     }

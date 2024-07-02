@@ -42,20 +42,20 @@ class GetRequisitionsByFilterEvent extends RequisitionEvent {
   final int? page;
   final String? flowId;
   final List<StatusRequestEnum>? listStatusRequisition;
-  final String? startTime;
-  final String? endTime;
+  final DateTime? startTime;
+  final DateTime? endTime;
 
   @override
   List<Object?> get props => [flowId, listStatusRequisition, startTime, endTime, page];
 }
 
 class GetRequisitionByIdEvent extends RequisitionEvent {
-  const GetRequisitionByIdEvent({this.id});
-
+  const GetRequisitionByIdEvent({this.id, this.completer});
+  final Completer? completer;
   final String? id;
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, completer];
 }
 
 class EditRequestEvent extends RequisitionEvent {

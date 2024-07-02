@@ -2049,12 +2049,6 @@ abstract class AppLocalizations {
   /// **'Other leave'**
   String get otherLeave;
 
-  /// No description provided for @unpaidLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Unpaid leave'**
-  String get unpaidLeave;
-
   /// No description provided for @theStartTimeMustBeAfterTheCurrentTime.
   ///
   /// In en, this message translates to:
@@ -2318,6 +2312,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave number remaining'**
   String get leaveNumberRemaining;
+
+  /// No description provided for @youEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'You early'**
+  String get youEarly;
+
+  /// No description provided for @youLater.
+  ///
+  /// In en, this message translates to:
+  /// **'You later'**
+  String get youLater;
+
+  /// No description provided for @timeKeepingList.
+  ///
+  /// In en, this message translates to:
+  /// **'list Timekeeping'**
+  String get timeKeepingList;
+
+  /// No description provided for @listTime.
+  ///
+  /// In en, this message translates to:
+  /// **'List time'**
+  String get listTime;
+
+  /// No description provided for @workOffset.
+  ///
+  /// In en, this message translates to:
+  /// **'Work offset'**
+  String get workOffset;
+
+  /// No description provided for @reasonForRelease.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for release'**
+  String get reasonForRelease;
+
+  /// No description provided for @reasonForBusinessTrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for business trip'**
+  String get reasonForBusinessTrip;
+
+  /// No description provided for @unpaidLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid leave'**
+  String get unpaidLeave;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -45,49 +45,100 @@ class _RequisitionInformationContentTypeLeaveState
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+                    padding: const EdgeInsets.only(
+                      left: SpacingUnit.x1,
+                      top: SpacingUnit.x2,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appLocalizations.startTime,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        Text(formatYMDHMS(state.requisition.config.startDate ?? ""),
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
+                        Text(
+                          appLocalizations.startTime,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        ),
+                        Text(
+                          formatYMDHMS(
+                            (state.requisition.config.startDate ?? "").toString(),
+                          ),
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        )
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+                    padding: const EdgeInsets.only(
+                      left: SpacingUnit.x1,
+                      top: SpacingUnit.x2,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appLocalizations.endTime,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        Text(formatYMDHMS(state.requisition.config.endDate ?? ""),
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
+                        Text(
+                          appLocalizations.endTime,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        ),
+                        Text(
+                          formatYMDHMS(
+                            (state.requisition.config.endDate ?? "").toString(),
+                          ),
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        )
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+                    padding: const EdgeInsets.only(
+                      left: SpacingUnit.x1,
+                      top: SpacingUnit.x2,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appLocalizations.totalDays,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        Text((state.requisition.config.total ?? 0).toString(),
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
+                        Text(
+                          appLocalizations.totalDays,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        ),
+                        Text(
+                          (state.requisition.config.total ?? 0).toString(),
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        )
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+                    padding: const EdgeInsets.only(
+                      left: SpacingUnit.x1,
+                      top: SpacingUnit.x2,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appLocalizations.substitute,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
+                        Text(
+                          appLocalizations.substitute,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        ),
                         if (stateUserById.subtitudePersons.isNotEmpty)
                           Container(
                             margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
@@ -98,7 +149,10 @@ class _RequisitionInformationContentTypeLeaveState
                                 padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
                                 child: Text(
                                   stateUserById.subtitudePersons[index].fullName,
-                                  style: TextStyle(color: colors.blue, fontSize: SpacingUnit.x3),
+                                  style: TextStyle(
+                                    color: colors.blue,
+                                    fontSize: SpacingUnit.x3,
+                                  ),
                                 ),
                               ),
                             ),
@@ -111,31 +165,52 @@ class _RequisitionInformationContentTypeLeaveState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appLocalizations.reason,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
+                        Text(
+                          appLocalizations.reason,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        ),
                         Container(
                           alignment: Alignment.topRight,
                           width: width * 0.5,
                           child: Text(
-                              state.requisition.config.takeLeaveReason?.configEnumTakeLeaveName ??
-                                  "",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
+                            state.requisition.config.takeLeaveReason?.configEnumTakeLeaveName ?? "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: colors.text,
+                              fontSize: SpacingUnit.x3,
+                            ),
+                          ),
                         )
                       ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x4),
+                      left: SpacingUnit.x1,
+                      top: SpacingUnit.x2,
+                      bottom: SpacingUnit.x4,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(appLocalizations.description,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        Text(state.requisition.config.description ?? "",
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
+                        Text(
+                          appLocalizations.description,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        ),
+                        Text(
+                          state.requisition.config.description ?? "",
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        )
                       ],
                     ),
                   ),

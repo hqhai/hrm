@@ -90,7 +90,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                   ),
                   const SizedBox(width: SpacingUnit.x3_5),
                   DatePicker(
-                    onChange: (value) => dateNote = value,
+                    onChange: (value) => dateNote = formatYMD(value.toString()),
                   )
                 ],
               ),

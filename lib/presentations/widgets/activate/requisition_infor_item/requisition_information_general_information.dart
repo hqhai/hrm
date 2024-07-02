@@ -1,4 +1,3 @@
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -8,7 +7,6 @@ import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +16,7 @@ import 'package:themes/themes.dart';
 class RequisitionInformationGeneraliInformation extends StatefulWidget {
   const RequisitionInformationGeneraliInformation({
     super.key,
-    this.followerIds = const [],
   });
-
-  final List<String> followerIds;
 
   @override
   State<RequisitionInformationGeneraliInformation> createState() =>
@@ -30,12 +25,6 @@ class RequisitionInformationGeneraliInformation extends StatefulWidget {
 
 class _RequisitionInformationGeneraliInformationState
     extends State<RequisitionInformationGeneraliInformation> {
-  @override
-  void initState() {
-    dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: widget.followerIds));
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -102,8 +91,13 @@ class _RequisitionInformationGeneraliInformationState
                           children: [
                             Text(appLocalizations.createTime,
                                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                            Text(formatYMDHMS(state.requisition.createdDate),
-                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
+                            Text(
+                              formatYMDHMS(
+                                dateTimeLocal(state.requisition.createdDate)
+                                    .toString(),
+                              ),
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+                            )
                           ],
                         ),
                       ),

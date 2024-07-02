@@ -50,7 +50,7 @@ class _ItemDateOfBirthUpdateProfileState extends State<ItemDateOfBirthUpdateProf
             DatePicker(
               check: false,
               onChange: (value) => _setOnChange(value),
-              oldDate: widget.dateOfBirth,
+              oldDate: DateTime.tryParse(widget.dateOfBirth),
             ),
             const SizedBox(
               height: SpacingUnit.x3,
@@ -64,7 +64,7 @@ class _ItemDateOfBirthUpdateProfileState extends State<ItemDateOfBirthUpdateProf
     );
   }
 
-  _setOnChange(String value) {
-    widget.onChangeDateOfBirth.call(value);
+  _setOnChange(DateTime value) {
+    widget.onChangeDateOfBirth.call(value.toString());
   }
 }

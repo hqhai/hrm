@@ -371,5 +371,14 @@
   "revoke": "Hủy bỏ",
   "leaveNumberUsed": "Phép đã dùng",
   "leaveNumberPermission": "Phép ban đầu",
-  "leaveNumberRemaining": "Phép còn lại"
+  "leaveNumberRemaining": "Phép còn lại",
+  "youEarly": "Về sớm",
+  "youLater": "Đến muộn",
+  "timeKeepingList": "Danh sách thời gian",
+  "listTime": "Danh sách thời gian",
+  "workOffset": "Làm bù",
+  "reasonForRelease": "Lý do xuất kho",
+  "reasonForBusinessTrip": "Lý do đi công tác",
+  "no": "Không",
+  "yes": "Có"
 }

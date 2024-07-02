@@ -1,9 +1,9 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
-import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/overtime/over_time_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/timekeeping_dialog/timekeeping_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -11,39 +11,31 @@ import 'package:themes/themes.dart';
 class ListOverTime extends StatefulWidget {
   final List<RequisitionOverTime> requisitionOverTimes;
   final ValueChanged<List<RequisitionOverTime>> onChangeList;
-  final String error;
+  final String error, title;
+  final bool checkExplanation;
 
-  const ListOverTime({
-    super.key,
-    this.requisitionOverTimes = const [],
-    required this.onChangeList,
-    this.error = '',
-  });
+  const ListOverTime(
+      {super.key,
+      this.requisitionOverTimes = const [],
+      required this.onChangeList,
+      this.error = '',
+      required this.title,
+      this.checkExplanation = false});
 
   @override
   State<ListOverTime> createState() => _ListOverTimeState();
 }
 
 class _ListOverTimeState extends State<ListOverTime> {
-  List<RequisitionOverTime> requisitionOverTimes = [];
-
-  @override
-  void initState() {
-    requisitionOverTimes = widget.requisitionOverTimes;
-    super.initState();
-  }
-
-
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          appLocalizations.stationeryList,
+          widget.title,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x4,
@@ -54,12 +46,13 @@ class _ListOverTimeState extends State<ListOverTime> {
           width: width,
           borderColors: colors.surface,
           child: Column(
-            children: requisitionOverTimes
+            children: widget.requisitionOverTimes
                 .mapIndexed(
                   (index, element) => GestureDetector(
-                    onTap: () => _getOverTimeInList(context, requisitionOverTimes[index], index),
+                    onTap: () =>
+                        _getOverTimeInList(context, widget.requisitionOverTimes[index], index),
                     child: ItemListOverTime(
-                      requisitionOverTime: requisitionOverTimes[index],
+                      requisitionOverTime: widget.requisitionOverTimes[index],
                       index: index,
                     ),
                   ),
@@ -83,29 +76,43 @@ class _ListOverTimeState extends State<ListOverTime> {
   }
 
   _getOverTimeInList(BuildContext context, RequisitionOverTime requisitionOverTime, int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: OverTimeAddDialog(
-            requisitionOverTime: requisitionOverTime,
-            onChangeOverTimes: (value) => setEdit(value, index),
-          ),
-        );
-      },
-    );
+    if (widget.checkExplanation) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: TimeKeepingDialog(
+              requisitionOverTime: requisitionOverTime,
+              onChangeOverTimes: (value) => setEdit(value, index),
+            ),
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: OverTimeAddDialog(
+              requisitionOverTime: requisitionOverTime,
+              onChangeOverTimes: (value) => setEdit(value, index),
+            ),
+          );
+        },
+      );
+    }
   }
 
   setEdit(RequisitionOverTime value, int index) {
+    final listOverTimes = widget.requisitionOverTimes;
     setState(() {
-      requisitionOverTimes[index] = RequisitionOverTime(
+      listOverTimes[index] = RequisitionOverTime(
           endTime: value.endTime,
           suggestTime: value.suggestTime,
           note: value.note,
           startTime: value.startTime,
           date: value.date);
-      widget.onChangeList.call(requisitionOverTimes);
+      widget.onChangeList.call(listOverTimes);
     });
   }
-
 }

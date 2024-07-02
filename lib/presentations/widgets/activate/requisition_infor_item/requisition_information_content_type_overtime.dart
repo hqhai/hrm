@@ -67,7 +67,7 @@ class _RequisitionInformationContentTypeOverTimeState
                                       onTap: () => onClick(index),
                                       child: ItemListOverTime(
                                         requisitionOverTime:
-                                            state.requisition.config.overTimes?[index],
+                                            state.requisition.config.overTimes![index],
                                         index: index,
                                       ),
                                     )

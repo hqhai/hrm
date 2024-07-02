@@ -77,8 +77,8 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       {int? page,
       String? type,
       String? departmentId,
-      String? startDate,
-      String? endDate,
+      DateTime? startDate,
+        DateTime? endDate,
       List<String>? status}) async {
     if (status?.isNotEmpty ?? false) {
       return await _requestService.getRequisitionsFollowerByFilter(
@@ -106,8 +106,8 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       {int? page,
       String? type,
       String? departmentId,
-      String? startDate,
-      String? endDate,
+        DateTime? startDate,
+        DateTime? endDate,
       String? status}) async {
     return await _requestService.getRequisitionsApproveByFilter(
       getRequestApproveFilterRequest: GetRequestApproveFilterRequest(
@@ -125,8 +125,8 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       {int? page,
       String? flowId,
       String? departmentId,
-      String? startDate,
-      String? endDate,
+        DateTime? startDate,
+        DateTime? endDate,
       List<String>? status}) async {
     if (status?.isNotEmpty ?? false) {
       return await _requestService.getRequisitionsByFilter(

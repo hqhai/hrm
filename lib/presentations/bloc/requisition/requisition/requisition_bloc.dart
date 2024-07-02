@@ -10,8 +10,12 @@ import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/use_cases/request_usecase.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
+import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -38,7 +42,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     emit(state.copyWith(status: RequisitionEnum.init));
     try {
       final int requestIndex = state.requisitions.indexWhere((element) => element.id == event.id);
-      final List<Request> requests = state.requisitions;
+      final List<Request> requests = [...state.requisitions];
       final bool check = await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
       if (check) {
         requests.removeAt(requestIndex);
@@ -57,11 +61,12 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     emit(state.copyWith(status: RequisitionEnum.init));
     try {
       final RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsByFilter(
-          page: event.page,
-          flowId: event.flowId != '' ? event.flowId : null,
-          status: event.listStatusRequisition?.map((e) => e.name).toList(),
-          startDate: event.startTime,
-          endDate: event.endTime);
+        page: event.page,
+        flowId: event.flowId != '' ? event.flowId : null,
+        status: event.listStatusRequisition?.map((e) => e.name).toList(),
+        startDate: event.startTime?.subtract(const Duration(hours: 7)),
+        endDate: event.endTime?.subtract(const Duration(hours: 7)),
+      );
       final List<Request> newRequest = requestsResponse.items;
       final int totalItems = requestsResponse.pagingInfo.totalItems;
       // load more *********************
@@ -93,12 +98,24 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       GetRequisitionByIdEvent event, Emitter<RequisitionState> emit) async {
     emit(state.copyWith(statusGetById: RequisitionEnum.init));
     try {
-      final Request request = await requisitionUseCase.getRequisitionById(
+      final request = await requisitionUseCase.getRequisitionById(
         id: event.id ?? "",
       );
+
+      dI<FlowBloc>().add(GetFlowEvent(id: request.flowId));
+      dI<UserByIdBloc>().add(
+        GetSubtitudePersonsByIdEvent(
+          ids: request.config.subtitudePersons ?? [],
+        ),
+      );
+      dI<UserByIdBloc>().add(
+        GetUsersByIdEvent(ids: request.followerIds),
+      );
+      event.completer?.complete(RequisitionEnum.success);
       emit(state.copyWith(requisition: request, statusGetById: RequisitionEnum.success));
     } catch (e) {
       emit(state.copyWith(statusGetById: RequisitionEnum.fail));
+      event.completer?.complete(RequisitionEnum.fail);
     }
   }
 
@@ -117,7 +134,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       } else {
         await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
         emit(state.copyWith(errorCode: '', status: RequisitionEnum.success));
-        event.completer.complete(RequisitionEnum.fail);
+        event.completer.complete(RequisitionEnum.success);
       }
     } catch (e) {
       e as ResponseBase;
@@ -132,7 +149,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     }
   }
 
-  Future<List<String>> listPaths( List<File> files) async{
+  Future<List<String>> listPaths(List<File> files) async {
     List<Future<String>> futures = files.map((file) async {
       return await _requestUseCase.uploadFile(originFile: file);
     }).toList();

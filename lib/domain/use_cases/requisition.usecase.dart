@@ -14,8 +14,8 @@ abstract class RequisitionUseCase {
     int? page,
     String? flowId,
     String? departmentId,
-    String? startDate,
-    String? endDate,
+    DateTime? startDate,
+    DateTime? endDate,
     List<String>? status,
   });
 
@@ -25,8 +25,8 @@ abstract class RequisitionUseCase {
     int? page,
     String? type,
     String? departmentId,
-    String? startDate,
-    String? endDate,
+    DateTime? startDate,
+    DateTime? endDate,
     String? status
   });
 
@@ -34,8 +34,8 @@ abstract class RequisitionUseCase {
     int? page,
     String? type,
     String? departmentId,
-    String? startDate,
-    String? endDate,
+    DateTime? startDate,
+    DateTime? endDate,
     List<String>? status,
   });
 

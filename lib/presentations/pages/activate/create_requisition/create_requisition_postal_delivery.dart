@@ -1,9 +1,9 @@
-import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
@@ -14,12 +14,12 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/postal_delivery/item_create_postal_delivery_type.dart';
+import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,6 +55,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   String errorDescription = '';
   RequisitionDeliveryTypeEnum? transferType = RequisitionDeliveryTypeEnum.rush;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
+  bool checkClick = false;
 
   @override
   void initState() {
@@ -71,9 +72,13 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       reason = state.requisition.config.description ?? "";
       transferType = convertDeliveryType(state.requisition.config.deliveryType ?? "");
       reasonController.text = state.requisition.config.description ?? "";
-      followers = state.requisition.followerIds;
-      dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
+      followers = [...state.requisition.followerIds];
     }
+  }
+
+  double opacity(){
+    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    return check ? 1 : 0.3;
   }
 
   @override
@@ -97,48 +102,41 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
           builder: (context, stateUserById) {
             return Stack(
               children: [
-                SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.all(SpacingUnit.x3),
-                    margin: const EdgeInsets.all(SpacingUnit.x3),
-                    decoration: BoxDecoration(
-                      color: colors.surface,
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                      border: Border.all(
-                        width: 1,
-                        color: colors.surface,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ItemCreateReasonTransferType(
-                          onChange: (value) => _setTransferType(value),
-                          typeDefault: transferType,
-                        ),
-                        if (transferType == RequisitionDeliveryTypeEnum.rush)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
-                            child: Text(appLocalizations.notePostalDelivery,
-                                style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3)),
+                Opacity(
+                  opacity: opacity(),
+                  child: SingleChildScrollView(
+                    child: ContainerScreenMain(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ItemCreateReasonTransferType(
+                            onChange: (value) => _setTransferType(value),
+                            typeDefault: transferType,
                           ),
-                        ItemCreateInputArea(
-                          error: errorDescription,
-                          textController: reasonController,
-                          title: appLocalizations.sendingPurpose,
-                          onChange: (value) => _setReason(value),
-                        ),
-                        ItemCreateFollower(
-                            listFollower: _setListUser(
-                              stateUserById.userById,
+                          if (transferType == RequisitionDeliveryTypeEnum.rush)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+                              child: Text(appLocalizations.notePostalDelivery,
+                                  style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3)),
                             ),
-                            title: appLocalizations.follower,
-                            onChange: (value) => _setFollower(value)),
-                        ItemButton(
-                          callbackSave: () => _save(context),
-                          callbackCancel: () => _cancel(),
-                        )
-                      ],
+                          ItemCreateInputArea(
+                            error: errorDescription,
+                            textController: reasonController,
+                            title: appLocalizations.sendingPurpose,
+                            onChange: (value) => _setReason(value),
+                          ),
+                          ItemCreateFollower(
+                              listFollower: _setListUser(
+                                stateUserById.userById,
+                              ),
+                              title: appLocalizations.follower,
+                              onChange: (value) => _setFollower(value)),
+                          ItemButton(
+                            callbackSave: () => _save(context),
+                            callbackCancel: () => _cancel(),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -205,65 +203,60 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
     return check;
   }
 
+  PostRequestRequest request() {
+    return widget.requestId == null
+        ? PostRequestRequest(
+      followerIds: followers,
+      flowId: widget.flowId,
+      config: ConfigRequestModel(
+        description: reason,
+        deliveryType: transferType?.name ?? "",
+      ),
+    )
+        : PostRequestRequest(
+      id: widget.requestId,
+      followerIds: followers,
+      flowId: widget.flowId,
+      config: ConfigRequestModel(
+        description: reason,
+        deliveryType: transferType?.name ?? "",
+      ),
+    );
+  }
+
   _save(BuildContext context) async {
-    if (_checkValue(context) && widget.requestId == null) {
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        PostRequestEvent(
-          completer: completer,
-          postRequestRequest: PostRequestRequest(
-            followerIds: followers,
-            flowId: widget.flowId,
-            config: ConfigRequestModel(
-              description: reason,
-              deliveryType: transferType?.name ?? "",
-            ),
-          ),
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
-        setState(() {
-          checkLoad = false;
-          checkSuccess = true;
-        });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
-      }
-    } else if (_checkValue(context) && widget.requestId != null) {
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        EditRequestEvent(
-          completer: completer,
-          postRequestRequest: PostRequestRequest(
-            id: widget.requestId,
-            followerIds: followers,
-            flowId: widget.flowId,
-            config: ConfigRequestModel(
-              description: reason,
-              deliveryType: transferType?.name ?? "",
-            ),
-          ),
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
-        setState(() {
-          checkLoad = false;
-          checkSuccess = true;
-        });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
-      }
-    }
+    saveRequest(
+      context: context,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      postRequestRequest: request(),
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkLoadTrue: () => setCheckLoad(),
+      completerFail: () => completerFail(),
+      completerSuccess: () => completerSuccess(),
+    );
+  }
+
+  setCheckLoad() {
+    setState(() {
+      checkClick = true;
+      checkLoad = true;
+    });
+  }
+
+  completerFail() {
+    setState(() {
+      checkLoad = false;
+      checkUnSuccess = true;
+      checkClick = false;
+    });
+  }
+
+  completerSuccess() {
+    setState(() {
+      checkLoad = false;
+      checkSuccess = true;
+      checkClick = false;
+    });
   }
 
   _cancel() {}

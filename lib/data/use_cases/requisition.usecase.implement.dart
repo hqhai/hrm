@@ -61,8 +61,8 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
       {int? page,
       String? type,
       String? departmentId,
-      String? startDate,
-      String? endDate,
+        DateTime? startDate,
+        DateTime? endDate,
         String? status}) async {
     return await _requisitionRepository.getRequisitionsApproveByFilter(
       page: page,
@@ -79,8 +79,8 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
       {int? page,
       String? type,
       String? departmentId,
-      String? startDate,
-      String? endDate,
+        DateTime? startDate,
+        DateTime? endDate,
       List<String>? status}) async {
     return await _requisitionRepository.getRequisitionsFollowerByFilter(
       page: page,
@@ -97,8 +97,8 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
       {int? page,
         String? flowId,
         String? departmentId,
-        String? startDate,
-        String? endDate,
+        DateTime? startDate,
+        DateTime? endDate,
         List<String>? status}) async {
     return await _requisitionRepository.getRequisitionsByFilter(
       page: page,

@@ -5,6 +5,7 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
@@ -64,8 +65,8 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
         listStatusRequisition: listStatusFilter,
         flowId: filterData.flowId,
-        startTime: filterData.startTime,
-        endTime: filterData.endTime,
+        startTime: dateTimeLocal(filterData.startTime),
+        endTime: dateTimeLocal(filterData.endTime),
         page: pageIndex,
       ));
     }
@@ -270,6 +271,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       builder: (BuildContext context) {
         return Dialog(
           child: FilterRequestSelfDialog(
+            filter: filterData,
             sendData: (value) => setlLstFilter(value),
           ),
         );

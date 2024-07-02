@@ -1,4 +1,6 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/enum/time_keeping_enum.dart';
+import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
@@ -9,11 +11,13 @@ part 'config_request_model.g.dart';
 
 @CopyWith()
 @JsonSerializable()
+@CustomDateTimeConverter()
 class ConfigRequestModel {
   final String? description;
   final String? flowId;
   final EnumTakeLeave? takeLeaveReason;
   final double? numberValue;
+  final EditTimekeeping? editTimekeeping;
   final List<String>? subtitudePersons;
   final List<String>? attachments;
   final String? content;
@@ -25,12 +29,13 @@ class ConfigRequestModel {
   final double? subtotal;
   final double? totalAmount;
   final String? explanationReason;
-  final String? startDate;
-  final String? endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final double? total;
   final List<RequisitionOverTime>? overTimes;
 
   const ConfigRequestModel({
+    this.editTimekeeping,
     this.overTimes,
     this.flowId,
     this.description,

@@ -11,7 +11,6 @@ import 'package:base_app/data/models/navigator_extra/information_request_extra.d
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
@@ -19,8 +18,6 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_process.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_attach.dart';
@@ -62,29 +59,15 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
 
   @override
   void initState() {
-    dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
     super.initState();
-  }
-
-  _listener(BuildContext context, RequisitionState state) {
-    dI<FlowBloc>().add(GetFlowEvent(id: state.requisition.flowId));
-    if (state.requisition.config.subtitudePersons?.isNotEmpty ?? false) {
-      dI<UserByIdBloc>().add(
-        GetSubtitudePersonsByIdEvent(
-          ids: state.requisition.config.subtitudePersons ?? [],
-        ),
-      );
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(context, state),
+    return BlocBuilder<RequisitionBloc, RequisitionState>(
       buildWhen: (previous, current) => previous.requisition != current.requisition,
-      listenWhen: (previous, current) => previous.requisition != current.requisition,
       builder: (context, state) {
         return BlocBuilder<FlowBloc, FlowState>(
           builder: (context, stateFlow) {
@@ -123,8 +106,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const RequisitionInformationSenderInformation(),
-                          RequisitionInformationGeneraliInformation(
-                              followerIds: state.requisition.followerIds),
+                          const RequisitionInformationGeneraliInformation(),
                           const RequisitionInformationType(),
                           const RequisitionInformationContent(),
                           const RequisitionInformationAttach(),
@@ -266,15 +248,10 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     required InformationRequestExtra informationRequestExtra,
   }) {
     final extraData = informationRequestExtra.toJson();
-    if(type != null) {
+    if (type != null) {
       extraData.addAll({'type': type});
-      dI<AppNavigation>().pushName(
-        context,
-        page: page,
-        extra: extraData
-      );
-    }
-    else{
+      dI<AppNavigation>().pushName(context, page: page, extra: extraData);
+    } else {
       dI<AppNavigation>().pushName(
         context,
         page: page,

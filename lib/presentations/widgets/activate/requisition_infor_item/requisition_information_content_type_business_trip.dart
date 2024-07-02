@@ -50,7 +50,7 @@ class _RequisitionInformationContentTypeBusinessTripState
                       children: [
                         Text(appLocalizations.startTime,
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        Text(formatYMDHMS(state.requisition.config.startDate ?? ""),
+                        Text(formatYMDHMS((state.requisition.config.startDate ?? "").toString()),
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                       ],
                     ),
@@ -62,7 +62,7 @@ class _RequisitionInformationContentTypeBusinessTripState
                       children: [
                         Text(appLocalizations.endTime,
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        Text(formatYMDHMS(state.requisition.config.endDate ?? ""),
+                        Text(formatYMDHMS((state.requisition.config.endDate ?? "").toString()),
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
                       ],
                     ),

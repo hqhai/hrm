@@ -46,7 +46,7 @@ class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          formatYMDHMS(state.requisition.config.startDate ?? ""),
+                          formatYMDHMS((state.requisition.config.startDate ?? "").toString()),
                           style: TextStyle(
                             color: colors.text,
                             fontSize: SpacingUnit.x3,
@@ -65,7 +65,7 @@ class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                         ),
                         Text(
-                          formatYMDHMS(state.requisition.config.endDate ?? ""),
+                          formatYMDHMS((state.requisition.config.endDate ?? "").toString()),
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
                         )
                       ],

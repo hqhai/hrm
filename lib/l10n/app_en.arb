@@ -368,5 +368,15 @@
   "revoke": "Revoke",
   "leaveNumberUsed": "Leave number used",
   "leaveNumberPermission": "Leave number allowed",
-  "leaveNumberRemaining": "Leave number remaining"
+  "leaveNumberRemaining": "Leave number remaining",
+  "youEarly": "You early",
+  "youLater": "You later",
+  "timeKeepingList": "list Timekeeping",
+  "listTime": "List time",
+  "workOffset": "Work offset",
+  "reasonForRelease": "Reason for release",
+  "reasonForBusinessTrip": "Reason for business trip",
+  "unpaidLeave": "Unpaid leave",
+  "no": "No",
+  "yes": "Yes"
 }

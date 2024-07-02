@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemListOverTime extends StatelessWidget {
-  const ItemListOverTime({super.key, this.requisitionOverTime, this.index});
+  const ItemListOverTime({super.key, required this.requisitionOverTime, required this.index});
 
-  final RequisitionOverTime? requisitionOverTime;
-  final int? index;
+  final RequisitionOverTime requisitionOverTime;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ItemListOverTime extends StatelessWidget {
     return Row(
       children: [
         Text(
-          '${(index ?? 0) + 1}. ',
+          '${(index) + 1}. ',
           style: TextStyle(
             fontSize: SpacingUnit.x3_5,
             color: colors.text,
@@ -43,7 +43,7 @@ class ItemListOverTime extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                formatYMD(requisitionOverTime?.date ?? ""),
+                formatYMD(requisitionOverTime.date ?? ""),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -55,14 +55,14 @@ class ItemListOverTime extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${appLocalizations.startTime} : ${strSeconds(requisitionOverTime?.startTime ?? 0)}',
+                    '${appLocalizations.startTime} : ${strSeconds(requisitionOverTime.startTime ?? 0)}',
                     style: TextStyle(
                       fontSize: SpacingUnit.x3,
                       color: colors.text,
                     ),
                   ),
                   Text(
-                    '${appLocalizations.endTime} : ${strSeconds(requisitionOverTime?.endTime ?? 0)}',
+                    '${appLocalizations.endTime} : ${strSeconds(requisitionOverTime.endTime ?? 0)}',
                     style: TextStyle(
                       fontSize: SpacingUnit.x3,
                       color: colors.text,
