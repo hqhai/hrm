@@ -325,6 +325,7 @@
   "intoMoneyNoVAT": "Into money (excluding VAT)",
   "yearlyAndSeniorityLeave": "Yearly and seniority leave",
   "otherLeave": "Other leave",
+  "unpaidLeave": "Unpaid leave",
   "theStartTimeMustBeAfterTheCurrentTime": "The start time must be after the current time",
   "month": "Month",
   "quantityCannotBeZero": "Quantity cannot be zero",
@@ -357,12 +358,15 @@
   "theNumberOfFormsCreatedHasExceededTheLimit": "The Number Of Forms Created Has Exceeded The Limit",
   "listOvertime": "List of overtime hours",
   "totalTime": "Total time",
-  "horizontalCalendar": "Horizontal calendar",
-  "verticalCalendar": "Vertical calendar",
   "yearlyLeave": "Yearly Leave",
   "seniorityLeave": "Seniority Leave",
   "weddingLeave": "Wedding Leave",
   "mourningLeave": "Mourning Leave",
   "homeSickLeave": "Home Sick Leave",
-  "hospitalSickLeave": "Hospital Sick Leave"
+  "hospitalSickLeave": "Hospital Sick Leave",
+  "maternityLeave": "Maternity Leave",
+  "revoke": "Revoke",
+  "leaveNumberUsed": "Leave number used",
+  "leaveNumberPermission": "Leave number allowed",
+  "leaveNumberRemaining": "Leave number remaining"
 }

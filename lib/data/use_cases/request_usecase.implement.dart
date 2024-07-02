@@ -101,6 +101,12 @@ class RequestUseCaseImplement extends RequestUseCase {
   }
 
   @override
+  Future<List<String>> uploadFiles({List<File>? originFile, List<Uint8List>? imageData}) async {
+    final path = await _requestRepository.uploadFiles(originFile: originFile, imageData: imageData);
+    return path;
+  }
+
+  @override
   Future<Request> updateRequestById(
       {required String priority,
       String? title,
@@ -187,4 +193,5 @@ class RequestUseCaseImplement extends RequestUseCase {
     return await _requestRepository.deleteRoomMeeting(
         id: id);
   }
+
 }

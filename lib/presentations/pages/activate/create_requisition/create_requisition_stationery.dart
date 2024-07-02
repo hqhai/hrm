@@ -83,7 +83,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success) {
+    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
       setState(() {
         followers = state.requisition.followerIds;
         listRequisitionStationery = [...?state.requisition.config.stationeries];

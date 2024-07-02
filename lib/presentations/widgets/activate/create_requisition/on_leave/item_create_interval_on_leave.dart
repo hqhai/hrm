@@ -1,8 +1,13 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_bloc.dart';
+import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_event.dart';
+import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_state.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/custom/time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
@@ -16,13 +21,14 @@ class ItemCreateIntervalOnLeave extends StatefulWidget {
       this.startTime,
       this.endTime,
       this.title,
+      this.leave = false,
       required this.dayOrHours});
 
   final String? startTimeOld, endTimeOld;
   final ValueChanged<String>? startTime, endTime;
   final ValueChanged<int>? total;
   final String? title, error;
-  final bool dayOrHours;
+  final bool dayOrHours, leave;
 
   @override
   State<ItemCreateIntervalOnLeave> createState() => _ItemCreateIntervalOnLeaveState();
@@ -37,16 +43,16 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
     super.initState();
   }*/
 
-
   String setStartTimeOld() {
     setState(() {
       startTime = DateTime.parse(
         widget.startTimeOld ?? DateTime.now().toString(),
       );
     });
-    return widget.startTimeOld??DateFormat('yyyy-MM-dd HH:mm').format(
-      DateTime.now(),
-    );
+    return widget.startTimeOld ??
+        DateFormat('yyyy-MM-dd HH:mm').format(
+          DateTime.now(),
+        );
   }
 
   String setEndTimeOld() {
@@ -55,9 +61,10 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
         widget.endTimeOld ?? DateTime.now().toString(),
       );
     });
-    return widget.endTimeOld??DateFormat('yyyy-MM-dd HH:mm').format(
-      DateTime.now(),
-    );
+    return widget.endTimeOld ??
+        DateFormat('yyyy-MM-dd HH:mm').format(
+          DateTime.now(),
+        );
   }
 
   @override
@@ -119,39 +126,78 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: SpacingUnit.x3),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: SpacingUnit.x2,
-                ),
-                child: Text(
-                  appLocalizations.totalTime,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
+        if (!widget.leave)
+          Padding(
+            padding: const EdgeInsets.only(top: SpacingUnit.x3),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: SpacingUnit.x2,
                   ),
-                ),
-              ),
-              ContainerBorder(
-                width: width * 0.25,
-                margin: SpacingUnit.x2,
-                padding: SpacingUnit.x1,
-                child: Center(
                   child: Text(
-                    setIntervalOnLeave().toString(),
+                    appLocalizations.totalTime,
                     style: TextStyle(
                       color: colors.text,
                       fontSize: SpacingUnit.x4,
                     ),
                   ),
                 ),
-              )
-            ],
+                ContainerBorder(
+                  width: width * 0.25,
+                  margin: SpacingUnit.x2,
+                  padding: SpacingUnit.x1,
+                  child: Center(
+                    child: Text(
+                      setIntervalOnLeave().toString(),
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
+        if (widget.leave)
+          BlocBuilder<WorkAndSalaryBloc, WorkAndSalaryState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.only(top: SpacingUnit.x3),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: SpacingUnit.x2,
+                      ),
+                      child: Text(
+                        appLocalizations.workDay,
+                        style: TextStyle(
+                          color: colors.text,
+                          fontSize: SpacingUnit.x4,
+                        ),
+                      ),
+                    ),
+                    ContainerBorder(
+                      width: width * 0.25,
+                      margin: SpacingUnit.x2,
+                      padding: SpacingUnit.x1,
+                      child: Center(
+                        child: Text(
+                          state.totalWorkday.toString(),
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x4,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
         if (widget.error != '')
           Padding(
             padding: const EdgeInsets.only(top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),
@@ -174,6 +220,14 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
       widget.total?.call(widget.dayOrHours
           ? endTime.difference(startTime).inDays
           : endTime.difference(startTime).inHours);
+      if (widget.leave) {
+        dI<WorkAndSalaryBloc>().add(
+          GetTotalWorkdayEvent(
+            startTime: startTime.toString(),
+            endTime: endTime.toString(),
+          ),
+        );
+      }
     });
   }
 
@@ -184,6 +238,14 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
       widget.total?.call(widget.dayOrHours
           ? endTime.difference(startTime).inDays
           : endTime.difference(startTime).inHours);
+      if (widget.leave) {
+        dI<WorkAndSalaryBloc>().add(
+          GetTotalWorkdayEvent(
+            startTime: startTime.toString(),
+            endTime: endTime.toString(),
+          ),
+        );
+      }
     });
   }
 

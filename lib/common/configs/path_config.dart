@@ -10,6 +10,7 @@ class PathConfig {
   static String changePassword = '/user/change-password';
   static String getRequests = '/request/search-by-user';
   static String file = '/file';
+  static String files = '/file/multiple';
   static String getRequestByAdmin = '/request/get-list-request-had-type';
   static String changeListStatus = '/request/change-list-status';
   static String roomMeeting = '/room-meeting';

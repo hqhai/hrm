@@ -134,7 +134,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                               alignment: Alignment.bottomRight,
                               child: ButtonItemListRequisition(
                                 check: true,
-                                title: appLocalizations.delete,
+                                title: appLocalizations.revoke,
                                 callback: () => userRejectRequest(),
                               ),
                             ),
@@ -260,15 +260,27 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
   }
 
   _push({
+    RequisitionTypeEnum? type,
     required BuildContext context,
     required String page,
     required InformationRequestExtra informationRequestExtra,
   }) {
-    dI<AppNavigation>().pushName(
-      context,
-      page: page,
-      extra: informationRequestExtra.toJson(),
-    );
+    final extraData = informationRequestExtra.toJson();
+    if(type != null) {
+      extraData.addAll({'type': type});
+      dI<AppNavigation>().pushName(
+        context,
+        page: page,
+        extra: extraData
+      );
+    }
+    else{
+      dI<AppNavigation>().pushName(
+        context,
+        page: page,
+        extra: extraData,
+      );
+    }
   }
 
   _nextScreen(BuildContext context, FlowRequest flow, String requestId) {
@@ -292,13 +304,13 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
           page: Pages.createRequestLeavePage,
         );
       case RequisitionTypeEnum.overTime:
-      _push(
-        informationRequestExtra: InformationRequestExtra(
-          requestId: requestId,
-          flowId: flow.id,
-        ),
-        context: context,
-        page: Pages.createRequestOverTimePage,
+        _push(
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
+          context: context,
+          page: Pages.createRequestOverTimePage,
         );
       case RequisitionTypeEnum.vehicleDriver:
         _push(
@@ -345,6 +357,47 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
           context: context,
           page: Pages.createRequestBusinessPage,
         );
+      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
+        _push(
+          type: RequisitionTypeEnum.yearlyAndSeniorityLeave,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
+          context: context,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.compensatoryLeave:
+        _push(
+          type: RequisitionTypeEnum.compensatoryLeave,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
+          context: context,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.otherLeave:
+        _push(
+          type: RequisitionTypeEnum.otherLeave,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
+          context: context,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.unpaidLeave:
+        _push(
+          type: RequisitionTypeEnum.unpaidLeave,
+          informationRequestExtra: InformationRequestExtra(
+            requestId: requestId,
+            flowId: flow.id,
+          ),
+          context: context,
+          page: Pages.createRequestLeavePage,
+        );
+      case RequisitionTypeEnum.earlyDeparture:
       default:
         break;
     }

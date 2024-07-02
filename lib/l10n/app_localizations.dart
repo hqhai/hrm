@@ -2294,6 +2294,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Maternity Leave'**
   String get maternityLeave;
+
+  /// No description provided for @revoke.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke'**
+  String get revoke;
+
+  /// No description provided for @leaveNumberUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave number used'**
+  String get leaveNumberUsed;
+
+  /// No description provided for @leaveNumberPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave number allowed'**
+  String get leaveNumberPermission;
+
+  /// No description provided for @leaveNumberRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave number remaining'**
+  String get leaveNumberRemaining;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

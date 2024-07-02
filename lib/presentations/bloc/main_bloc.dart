@@ -21,6 +21,7 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
+import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,6 +52,6 @@ class MainBloc {
         BlocProvider<UserByIdBloc>(create: (BuildContext context) => dI<UserByIdBloc>()),
         BlocProvider<RequisitionFollowingBloc>(
             create: (BuildContext context) => dI<RequisitionFollowingBloc>()),
-
-      ];
+        BlocProvider<WorkAndSalaryBloc>(create: (BuildContext context) => dI<WorkAndSalaryBloc>()),
+  ];
 }

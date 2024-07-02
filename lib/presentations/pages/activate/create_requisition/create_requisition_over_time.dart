@@ -85,7 +85,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success) {
+    if (state.statusGetById == RequisitionEnum.success&& widget.requestId != null) {
       setState(() {
         followers = state.requisition.followerIds;
         requisitionOverTimes = [...?state.requisition.config.overTimes];
@@ -243,10 +243,8 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   }
 
   _save(BuildContext context) async {
-    dI<RequisitionBloc>().state;
     if (_checkValue(context) && widget.requestId != null) {
       Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().state;
       dI<RequisitionBloc>().add(
         EditRequestEvent(
           completer: completer,

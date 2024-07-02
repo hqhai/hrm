@@ -17,6 +17,7 @@ import 'package:base_app/data/models/request/room_meeting/delete_room_meeting.da
 import 'package:base_app/data/models/request/room_meeting/update_room_meeting.dart';
 import 'package:base_app/data/models/request/update_request_request.dart';
 import 'package:base_app/data/models/request/upload_file.dart';
+import 'package:base_app/data/models/request/upload_files.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -108,6 +109,40 @@ class RequestServiceImpl extends BaseService implements RequestService {
         fileName: filename);
     final responseBase = ResponseBase.fromJson(json.decode(response));
     return responseBase.result as String;
+  }
+
+  @override
+  Future<List<String>> uploadFiles({UploadFilesRequest? uploadFileRequests}) async {
+   /* final List<bool> isFile = [
+      ...uploadFileRequests!.originFiles!
+          .map((e) => e.path.endsWith('png') || e.path.endsWith('jpg'))
+    ];
+    final List<String> sendFileType = [
+      ...isFile.map(
+        (e) => e ? 'Images' : 'Files',
+      )
+    ];
+    final url = '$baseURLFile${PathConfig.files}/Files';
+    final List<String> filenames = [
+      ...uploadFileRequests.originFiles!.map(
+        (e) => e.path.split('/').last,
+      )
+    ];
+    final response = await client.postUploadFiles(url,
+        fileTypes: uploadFileRequests.originFiles!
+            .map(
+              (e) => '/${e.path.split('.').last}',
+            )
+            .toList(),
+        uploadFileBytes: uploadFileRequests.originFiles!
+            .map(
+              (e) => e.readAsBytesSync(),
+            )
+            .toList(),
+        fileNames: filenames);
+    final responseBase = ResponseBase.fromJson(json.decode(response));
+    return responseBase.result as List<String>;*/
+    return [];
   }
 
   @override

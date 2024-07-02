@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
@@ -11,7 +12,7 @@ part 'config_request_model.g.dart';
 class ConfigRequestModel {
   final String? description;
   final String? flowId;
-  final String? takeLeaveReason;
+  final EnumTakeLeave? takeLeaveReason;
   final double? numberValue;
   final List<String>? subtitudePersons;
   final List<String>? attachments;

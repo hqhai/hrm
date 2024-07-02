@@ -95,7 +95,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                           border: Border.all(color: colors.text, width: 1),
                         ),
                         child: Text(
-                          appLocalizations.delete,
+                          appLocalizations.revoke,
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                         )),
                   ),

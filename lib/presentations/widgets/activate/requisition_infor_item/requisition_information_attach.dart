@@ -40,25 +40,26 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
               const SizedBox(
                 height: SpacingUnit.x4,
               ),
-              if (state.requisition.attachments.isNotEmpty)
+              if (state.requisition.config.attachments?.isNotEmpty ?? false)
                 SizedBox(
-                  height: width * state.requisition.attachments.length * 0.3,
+                  height: width * state.requisition.config.attachments!.length * 0.3 * 0.5,
                   child: GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       mainAxisSpacing: 1,
                       crossAxisSpacing: SpacingUnit.x10,
                     ),
-                    itemCount: state.requisition.attachments.length,
+                    itemCount: state.requisition.config.attachments!.length,
                     itemBuilder: (context, index) => GestureDetector(
-                      onTap: () => _onClickFLie(context, index, state),
+                      onTap: () =>
+                          _onClickFLie(context, index, state.requisition.config.attachments!),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(SpacingUnit.x1),
                           color: colors.surface,
                           border: Border.all(color: colors.text, width: 1),
                         ),
-                        child: _checkTypeFile(index, state)
+                        child: _checkTypeFile(index, state.requisition.config.attachments!)
                             ? Center(
                                 child: Text(
                                   appLocalizations.pdf,
@@ -70,7 +71,7 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
                                 ),
                               )
                             : Image.network(
-                                state.requisition.attachments[index],
+                                state.requisition.config.attachments![index],
                                 fit: BoxFit.fill,
                               ),
                       ),
@@ -97,17 +98,17 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
     );
   }
 
-  _onClickFLie(BuildContext context, int index, RequisitionState state) {
-    if (_checkTypeFile(index, state)) {
+  _onClickFLie(BuildContext context, int index, List<String> list) {
+    if (_checkTypeFile(index, list)) {
       dI<AppNavigation>().pushName(context, page: Pages.pDFPage, extra: {
-        'url': state.requisition.attachments[index],
+        'url': list[index],
       });
     } else {}
   }
 
-  bool _checkTypeFile(int index, RequisitionState state) {
-    final int length = state.requisition.attachments[index].length;
-    final String type = state.requisition.attachments[index].substring(length - 3, length);
+  bool _checkTypeFile(int index, List<String> list) {
+    final int length = list[index].length;
+    final String type = list[index].substring(length - 3, length);
     if (type == 'pdf' || type == 'PDF') {
       return true;
     } else {

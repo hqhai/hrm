@@ -54,9 +54,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   List<String> followers = [];
   String errorDescription = '';
   RequisitionDeliveryTypeEnum? transferType = RequisitionDeliveryTypeEnum.rush;
-  bool checkLoad = false,
-      checkSuccess = false,
-      checkUnSuccess = false;
+  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
 
   @override
   void initState() {
@@ -69,7 +67,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success) {
+    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
       reason = state.requisition.config.description ?? "";
       transferType = convertDeliveryType(state.requisition.config.deliveryType ?? "");
       reasonController.text = state.requisition.config.description ?? "";
@@ -95,69 +93,67 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       body: BlocConsumer<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => _listenWhen(previous, current),
-        builder: (context, state) =>
-            BlocBuilder<UserByIdBloc, UserByIdState>(
-              builder: (context, stateUserById) {
-                return Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: Container(
-                        padding: const EdgeInsets.all(SpacingUnit.x3),
-                        margin: const EdgeInsets.all(SpacingUnit.x3),
-                        decoration: BoxDecoration(
-                          color: colors.surface,
-                          borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                          border: Border.all(
-                            width: 1,
-                            color: colors.surface,
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ItemCreateReasonTransferType(
-                              onChange: (value) => _setTransferType(value),
-                              typeDefault: transferType,
-                            ),
-                            if (transferType == RequisitionDeliveryTypeEnum.rush)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
-                                child: Text(appLocalizations.notePostalDelivery,
-                                    style: TextStyle(
-                                        color: colors.error, fontSize: SpacingUnit.x3)),
-                              ),
-                            ItemCreateInputArea(
-                              error: errorDescription,
-                              textController: reasonController,
-                              title: appLocalizations.sendingPurpose,
-                              onChange: (value) => _setReason(value),
-                            ),
-                            ItemCreateFollower(
-                                listFollower: _setListUser(
-                                  stateUserById.userById,
-                                ),
-                                title: appLocalizations.follower, onChange: (value) =>
-                                _setFollower(value)),
-                            ItemButton(
-                              callbackSave: () => _save(context),
-                              callbackCancel: () => _cancel(),
-                            )
-                          ],
-                        ),
+        builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
+          builder: (context, stateUserById) {
+            return Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.all(SpacingUnit.x3),
+                    margin: const EdgeInsets.all(SpacingUnit.x3),
+                    decoration: BoxDecoration(
+                      color: colors.surface,
+                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                      border: Border.all(
+                        width: 1,
+                        color: colors.surface,
                       ),
                     ),
-                    CheckLoadDialog(
-                      fail: setErrorValue(state.errorCode),
-                      checkLoad: checkLoad,
-                      checkSuccess: checkSuccess,
-                      checkUnSuccess: checkUnSuccess,
-                      checkSuccessChange: () => setCheckSuccess(),
-                      checkUnSuccessChange: () => setCheckUnSuccess(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ItemCreateReasonTransferType(
+                          onChange: (value) => _setTransferType(value),
+                          typeDefault: transferType,
+                        ),
+                        if (transferType == RequisitionDeliveryTypeEnum.rush)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+                            child: Text(appLocalizations.notePostalDelivery,
+                                style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3)),
+                          ),
+                        ItemCreateInputArea(
+                          error: errorDescription,
+                          textController: reasonController,
+                          title: appLocalizations.sendingPurpose,
+                          onChange: (value) => _setReason(value),
+                        ),
+                        ItemCreateFollower(
+                            listFollower: _setListUser(
+                              stateUserById.userById,
+                            ),
+                            title: appLocalizations.follower,
+                            onChange: (value) => _setFollower(value)),
+                        ItemButton(
+                          callbackSave: () => _save(context),
+                          callbackCancel: () => _cancel(),
+                        )
+                      ],
                     ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                ),
+                CheckLoadDialog(
+                  fail: setErrorValue(state.errorCode),
+                  checkLoad: checkLoad,
+                  checkSuccess: checkSuccess,
+                  checkUnSuccess: checkUnSuccess,
+                  checkSuccessChange: () => setCheckSuccess(),
+                  checkUnSuccessChange: () => setCheckUnSuccess(),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -238,8 +234,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
           checkUnSuccess = true;
         });
       }
-    }
-    else if (_checkValue(context) && widget.requestId != null) {
+    } else if (_checkValue(context) && widget.requestId != null) {
       Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionBloc>().add(
         EditRequestEvent(

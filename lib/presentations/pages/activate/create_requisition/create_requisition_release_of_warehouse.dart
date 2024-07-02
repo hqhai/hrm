@@ -70,7 +70,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
   }
 
   _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success) {
+    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
       description = state.requisition.config.description ?? "";
       scheduleController.text = state.requisition.config.description ?? "";
       followers = [...state.requisition.followerIds];
