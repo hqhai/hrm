@@ -20,8 +20,9 @@ import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dar
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/list_overtime.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/total_time.dart';
+import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/overtime/over_time_dialog.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     if (state.statusGetById == RequisitionEnum.success) {
       setState(() {
         followers = state.requisition.followerIds;
-        requisitionOverTimes = state.requisition.config.overTimes ?? [];
+        requisitionOverTimes = [...?state.requisition.config.overTimes];
         description = state.requisition.config.description ?? "";
         inputController.text = description;
         dI<UserByIdBloc>().add(GetUsersByIdEvent(ids: state.requisition.followerIds));
@@ -96,7 +97,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   }
 
   bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
-    return statusP != statusC;
+    return statusP.requisition != statusC.requisition;
   }
 
   @override
@@ -146,76 +147,18 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                             textController: inputController,
                             onChange: (value) => setDescription(value),
                           ),
-                          Text(
-                            appLocalizations.stationeryList,
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x4,
-                              fontWeight: FontWeight.w800,
-                            ),
+                          ListOverTime(
+                            error: error,
+                            requisitionOverTimes: requisitionOverTimes,
+                            onChangeList: (value) => _setChangeRequisitionOverTimes(value),
                           ),
-                          ContainerBorder(
-                            width: width,
-                            height: height * 0.1 * requisitionOverTimes.length,
-                            borderColors: colors.surface,
-                            child: ListView.builder(
-                              itemCount: requisitionOverTimes.length,
-                              itemBuilder: (context, index) => GestureDetector(
-                                onTap: () => _getStationeryInList(
-                                    context, requisitionOverTimes[index], index),
-                                child: ItemListOverTime(
-                                  requisitionOverTime: requisitionOverTimes[index],
-                                  index: index,
-                                ),
-                              ),
-                            ),
+                          ButtonAddList(
+                            title: appLocalizations.overtime,
+                            callBack: () => _addOverTime(context),
                           ),
-                          if (error != '')
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
-                              child: Text(
-                                error,
-                                style: TextStyle(
-                                  color: colors.error,
-                                  fontSize: SpacingUnit.x3,
-                                ),
-                              ),
-                            ),
-                          GestureDetector(
-                            onTap: () => _addOverTime(context),
-                            child: ContainerBorder(
-                              height: SpacingUnit.x10,
-                              backgroundColors: colors.successVariant,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  appLocalizations.overtime,
-                                  style: TextStyle(
-                                    fontSize: SpacingUnit.x3_5,
-                                    color: colors.background,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                appLocalizations.totalTime,
-                                style: TextStyle(
-                                  fontSize: SpacingUnit.x3_5,
-                                  color: colors.text,
-                                ),
-                              ),
-                              Text(
-                                timeDHM(_totalAmount().toInt()),
-                                style: TextStyle(
-                                  fontSize: SpacingUnit.x3_5,
-                                  color: colors.text,
-                                ),
-                              ),
-                            ],
+                          TotalTime(
+                            title: appLocalizations.totalTime,
+                            content: timeDHM(_totalAmount().toInt()),
                           ),
                           ItemCreateFollower(
                               listFollower: _setListUser(
@@ -300,8 +243,10 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   }
 
   _save(BuildContext context) async {
+    dI<RequisitionBloc>().state;
     if (_checkValue(context) && widget.requestId != null) {
       Completer completer = Completer<RequisitionEnum>();
+      dI<RequisitionBloc>().state;
       dI<RequisitionBloc>().add(
         EditRequestEvent(
           completer: completer,
@@ -329,7 +274,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
           checkUnSuccess = true;
         });
       }
-    } else if (_checkValue(context)) {
+    } else if (_checkValue(context) && widget.requestId == null) {
       setState(() {
         checkLoad = true;
       });
@@ -343,9 +288,6 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
             config: ConfigRequestModel(
               description: description,
               overTimes: requisitionOverTimes,
-              subtotal: _subtotal(),
-              numberValue: _numberValue(),
-              totalAmount: _totalAmount(),
             ),
           ),
         ),
@@ -390,31 +332,6 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
 
   _cancel() {}
 
-  _getStationeryInList(BuildContext context, RequisitionOverTime requisitionOverTimes, int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: OverTimeAddDialog(
-            requisitionOverTime: requisitionOverTimes,
-            onChangeOverTimes: (value) => setEdit(value, index),
-          ),
-        );
-      },
-    );
-  }
-
-  setEdit(RequisitionOverTime value, int index) {
-    setState(() {
-      requisitionOverTimes[index] = RequisitionOverTime(
-          endTime: value.endTime,
-          suggestTime: value.suggestTime,
-          note: value.note,
-          startTime: value.startTime,
-          date: value.date);
-    });
-  }
-
   _setFollower(List<User> value) {
     setState(() {
       followers = value.map((e) => e.id).toList();
@@ -426,5 +343,11 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
       return userById;
     }
     return [];
+  }
+
+  _setChangeRequisitionOverTimes(List<RequisitionOverTime> value) {
+    setState(() {
+      requisitionOverTimes = value;
+    });
   }
 }

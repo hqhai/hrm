@@ -128,7 +128,7 @@ class _ItemCreateIntervalOnLeaveState extends State<ItemCreateIntervalOnLeave> {
                   right: SpacingUnit.x2,
                 ),
                 child: Text(
-                  appLocalizations.time,
+                  appLocalizations.totalTime,
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x4,

@@ -65,7 +65,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
                         stationery: state.stationeries[index],
                       ),
                       child: Container(
-                        padding: const EdgeInsets.all(SpacingUnit.x2),
+                        padding: const EdgeInsets.all(SpacingUnit.x3),
                         margin: const EdgeInsets.all(SpacingUnit.x2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(SpacingUnit.x2),

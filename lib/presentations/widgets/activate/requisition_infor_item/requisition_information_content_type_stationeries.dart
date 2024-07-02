@@ -5,6 +5,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationeries.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationeries_extend.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -36,13 +37,14 @@ class _RequisitionInformationContentTypeStationeriesState
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final height = MediaQuery.sizeOf(context).height;
     final appLocalizations = AppLocalizations.of(context)!;
-    return BlocBuilder<RequisitionBloc, RequisitionState>(
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
+      listener: (context, state) => _listener(state),
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -55,23 +57,29 @@ class _RequisitionInformationContentTypeStationeriesState
               ),
               if (state.requisition.config.stationeries?.isNotEmpty ?? false)
                 Container(
-                    height: _customHeight(height),
-                    padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-                    child: ListView.builder(
-                      itemCount: state.requisition.config.stationeries?.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => checkSubmit(index),
-                        child: listCheck[index]
-                            ? ItemListStationeries(
-                                stationeries: state.requisition.config.stationeries?[index],
-                                index: index,
-                              )
-                            : ItemListStationeriesExtend(
-                                stationeries: state.requisition.config.stationeries?[index],
-                                index: index,
-                              ),
-                      ),
-                    )),
+                  padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+                  child: Column(
+                    children: state.requisition.config.stationeries!
+                        .mapIndexed(
+                          (index, element) => listCheck[index]
+                              ? GestureDetector(
+                                  onTap: () => onClick(index),
+                                  child: ItemListStationeries(
+                                    stationeries: state.requisition.config.stationeries?[index],
+                                    index: index,
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () => onClick(index),
+                                  child: ItemListStationeriesExtend(
+                                    stationeries: state.requisition.config.stationeries?[index],
+                                    index: index,
+                                  ),
+                                ),
+                        )
+                        .toList(),
+                  ),
+                ),
             ],
           ),
         );
@@ -85,8 +93,16 @@ class _RequisitionInformationContentTypeStationeriesState
     });
   }
 
-  double _customHeight(double height) {
-    return (height * 0.128) * listCheck.where((e) => e == true).length +
-        (height * 0.278) * listCheck.where((e) => e == false).length;
+  onClick(int index) {
+    setState(() {
+      listCheck[index] = !listCheck[index];
+    });
+  }
+
+  _listener(RequisitionState state) {
+    setState(() {
+      final int count = state.requisition.config.stationeries!.length;
+      listCheck = List.filled(count, true);
+    });
   }
 }

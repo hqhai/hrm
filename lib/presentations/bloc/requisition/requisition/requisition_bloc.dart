@@ -137,11 +137,11 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       if (e.statusCode == 400) {
         final String? errorCode = e.errorMessages.first.errorCode;
         emit(state.copyWith(errorCode: errorCode, status: RequisitionEnum.fail));
-        event.completer.complete(RequisitionEnum.fail);
+        state.requisition;
       } else {
         emit(state.copyWith(status: RequisitionEnum.fail));
-        event.completer.complete(RequisitionEnum.fail);
       }
+    event.completer.complete(RequisitionEnum.fail);
     }
   }
 }

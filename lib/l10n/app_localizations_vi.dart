@@ -680,9 +680,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get resignation => 'Từ chức';
 
   @override
-  String get maternityLeave => 'Nghỉ thai sản';
-
-  @override
   String get aboutToStart => 'Sắp bắt đầu';
 
   @override
@@ -983,9 +980,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get yearlyAndSeniorityLeave => 'Nghỉ phép năm';
 
   @override
-  String get compensatoryLeave => 'Nghỉ bù';
-
-  @override
   String get otherLeave => 'Nghỉ phép khác';
 
   @override
@@ -1086,4 +1080,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get totalTime => 'Tổng thời gian';
+
+  @override
+  String get yearlyLeave => 'Nghỉ phép năm';
+
+  @override
+  String get seniorityLeave => 'Nghỉ thâm niên';
+
+  @override
+  String get compensatoryLeave => 'Nghỉ bù';
+
+  @override
+  String get weddingLeave => 'Nghỉ cưới';
+
+  @override
+  String get mourningLeave => 'Nghỉ tang';
+
+  @override
+  String get homeSickLeave => 'Nghỉ ốm tại gia';
+
+  @override
+  String get hospitalSickLeave => 'Nghỉ ốm tại viện';
+
+  @override
+  String get maternityLeave => 'Nghỉ thai sản';
 }
