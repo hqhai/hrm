@@ -145,6 +145,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
       builder: (BuildContext context) {
         return Dialog(
           child: FilterRequisitionApproveDialog(
+            filter: filterData,
             sendData: (value) => setlLstFilter(value),
           ),
         );

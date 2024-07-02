@@ -74,7 +74,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
   setlLstFilter(FilterDialogModel value) {
     setState(() {
       filterData = value;
-      listStatusFilter = value.statuses??[];
+      listStatusFilter = value.statuses ?? [];
     });
     dI<RequisitionFollowingBloc>().add(GetRequisitionsFollowingByFilterEvent(
       listStatusRequisition: listStatusFilter,
@@ -237,6 +237,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
       builder: (BuildContext context) {
         return Dialog(
           child: FilterRequisitionDialog(
+            filter: filterData,
             sendData: (value) => setlLstFilter(value),
           ),
         );

@@ -14,10 +14,14 @@ class FilterDialogModel {
   final Department? department;
   final DateTime? startTime;
   final DateTime? endTime;
+  final String? flowName;
+  final String? departmentName;
   final List<StatusRequestEnum>? statuses;
 
   const FilterDialogModel({
+    this.departmentName,
     this.flowId,
+    this.flowName,
     this.type,
     this.startTime,
     this.endTime,

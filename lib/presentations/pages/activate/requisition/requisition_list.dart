@@ -271,6 +271,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       builder: (BuildContext context) {
         return Dialog(
           child: FilterRequestSelfDialog(
+            filter: filterData,
             sendData: (value) => setlLstFilter(value),
           ),
         );

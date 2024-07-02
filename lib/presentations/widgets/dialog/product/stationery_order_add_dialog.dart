@@ -4,13 +4,13 @@ import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_dialog.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_into_money.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_stationery.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:themes/themes.dart';
 
 class StationeryOderAddDialog extends StatefulWidget {
   const StationeryOderAddDialog({super.key, this.requisitionStationery, this.stationery});
@@ -79,7 +79,6 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final colors = AppTheme.getColors(context);
     return Container(
       padding: const EdgeInsets.all(SpacingUnit.x3),
       child: SingleChildScrollView(
@@ -87,40 +86,11 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-              child: Row(
-                children: [
-                  Text(
-                    appLocalizations.product,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: SpacingUnit.x4,
-                  ),
-                  GestureDetector(
-                    onTap: () => _showBottomSheet(context),
-                    child: Icon(
-                      Icons.add_circle,
-                      size: SpacingUnit.x8,
-                      color: colors.success,
-                    ),
-                  )
-                ],
-              ),
+            ItemAdd(
+              title: appLocalizations.product,
+              callback: () => _showBottomSheet(context),
+              errorProduct: errorProduct,
             ),
-            if (errorProduct != '')
-              Text(
-                errorProduct,
-                style: TextStyle(
-                  color: colors.error,
-                  fontSize: SpacingUnit.x3,
-                ),
-              ),
             ItemAddStationeryDialog(
                 check: true,
                 unit: unit,

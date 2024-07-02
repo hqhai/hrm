@@ -3,6 +3,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_time_sheets.dart';
@@ -72,51 +73,17 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                  child: Row(
-                    children: [
-                      Text(
-                        appLocalizations.date,
-                        style: TextStyle(
-                          color: colors.text,
-                          fontSize: SpacingUnit.x4,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: SpacingUnit.x3),
-                        child: GestureDetector(
-                          onTap: () => setTime(context),
-                          child: Icon(
-                            Icons.add_circle,
-                            color: colors.success,
-                            size: SpacingUnit.x7,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Text(
-                  formatYMD(date),
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x6,
-                  ),
-                ),
-                if (errorDate != '')
-                  Text(
-                    errorDate,
-                    style: TextStyle(
-                      color: colors.error,
-                      fontSize: SpacingUnit.x3,
-                    ),
-                  ),
-              ],
+            ItemAdd(
+              title: appLocalizations.date,
+              callback: () => setTime(context),
+              errorProduct: errorDate,
+            ),
+            Text(
+              formatYMD(date),
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x6,
+              ),
             ),
             TimeOverTime(
               dateOld: strSeconds(startTime),

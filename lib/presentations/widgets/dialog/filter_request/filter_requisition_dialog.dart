@@ -1,53 +1,67 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/pages/activate/requisition/button_request.dart';
+import 'package:base_app/presentations/pages/activate/requisition/warp_in_dialog.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_timm_ymd.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_department.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_type_flow.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class FilterRequisitionDialog extends StatefulWidget {
-  const FilterRequisitionDialog({super.key, required this.sendData});
+  const FilterRequisitionDialog({super.key, required this.sendData, this.filter});
 
   final ValueChanged<FilterDialogModel> sendData;
+  final FilterDialogModel? filter;
 
   @override
   State<FilterRequisitionDialog> createState() => _FilterRequisitionDialogState();
 }
 
 class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
-  String errorTime = '';
+  String errorTime = '', nameDepartment = '';
+  Department? department;
   DateTime startTime = DateTime.now(), endTime = DateTime.now();
-  RequisitionTypeEnum type = RequisitionTypeEnum.explanation;
+  RequisitionTypeEnum? type;
   List<StatusRequestEnum> statuses = [];
 
-  void setType({RequisitionTypeEnum? value}) {
-    type = value ?? RequisitionTypeEnum.bussiness;
+  @override
+  void initState() {
+    if (widget.filter != null) {
+      startTime = widget.filter!.startTime ?? DateTime.now();
+      endTime = widget.filter!.endTime ?? DateTime.now();
+      type = widget.filter!.type;
+      nameDepartment = widget.filter!.department?.name ?? "";
+      department =  widget.filter!.department;
+      statuses = widget.filter!.statuses ?? [];
+    }
+    super.initState();
   }
 
-  void saveDrag({required StatusRequestEnum eStatus}) {
-    if (!statuses.contains(eStatus)) {
-      setState(() {
-        statuses.add(eStatus);
-      });
-    } else {
-      setState(() {
-        statuses.remove(eStatus);
-      });
-    }
+  void setType({RequisitionTypeEnum? value}) {
+    setState(() {
+      type = value ?? RequisitionTypeEnum.bussiness;
+    });
+
+  }
+  saveDrag({List<StatusRequestEnum>? value}) {
+    setState(() {
+      statuses = value ?? [];
+    });
   }
 
   void setStartTime({required DateTime value}) {
-    startTime =value;
+    startTime = value;
   }
 
   void setEndTime({required DateTime value}) {
     endTime = value;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,102 +87,49 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  ItemAdd(
+                    callback: () => _showBottomSheet(context),
+                    title: appLocalizations.type,
+                  ),
                   Text(
-                    appLocalizations.type,
+                    type?.configTypeName ?? "",
                     textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: SpacingUnit.x4),
+                  ),
+                  ItemAdd(
+                    callback: () => _setDepartment(context),
+                    title: appLocalizations.department,
+                  ),
+                  Text(
+                    nameDepartment,
                     style: const TextStyle(
-                      fontSize: SpacingUnit.x3,
-                      fontWeight: FontWeight.w800,
+                      fontSize: SpacingUnit.x4,
                     ),
                   ),
-                  const SizedBox(height: SpacingUnit.x3),
-                  Center(
-                    child: DropdownMenu<RequisitionTypeEnum>(
-                      textStyle: const TextStyle(fontSize: SpacingUnit.x3),
-                      initialSelection: RequisitionTypeEnum.explanation,
-                      onSelected: (RequisitionTypeEnum? value) => setType(value: value),
-                      dropdownMenuEntries: RequisitionTypeEnum.values
-                          .map<DropdownMenuEntry<RequisitionTypeEnum>>((RequisitionTypeEnum value) {
-                        return DropdownMenuEntry<RequisitionTypeEnum>(
-                            value: value, label: value.configTypeName);
-                      }).toList(),
-                    ),
-                  ),
-                  const SizedBox(height: SpacingUnit.x3),
-                  Text(
-                    appLocalizations.startTime,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: SpacingUnit.x3, fontWeight: FontWeight.w800),
-                  ),
-                  const SizedBox(height: SpacingUnit.x3),
-                  DatePicker(
-                    onChange: (value) => setStartTime(value: value),
+                  ItemCreateTimeYMD(
                     check: true,
+                    title: appLocalizations.startTime,
+                    dateOfBirth: startTime,
+                    onChangeDateOfBirth: (value) => setStartTime(value: value),
                   ),
-                  const SizedBox(height: SpacingUnit.x3),
-                  Text(
-                    appLocalizations.endTime,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: SpacingUnit.x3, fontWeight: FontWeight.w800),
-                  ),
-                  const SizedBox(height: SpacingUnit.x3),
-                  DatePicker(
-                    onChange: (value) => setEndTime(value: value),
+                  ItemCreateTimeYMD(
                     check: true,
+                    title: appLocalizations.endTime,
+                    dateOfBirth: endTime,
+                    onChangeDateOfBirth: (value) => setEndTime(value: value),
                   ),
-                  const SizedBox(height: SpacingUnit.x3),
-                  Text(
-                    appLocalizations.status,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: SpacingUnit.x3, fontWeight: FontWeight.w800),
-                  ),
-                  const SizedBox(height: SpacingUnit.x3),
-                  Wrap(
-                    spacing: SpacingUnit.x4,
-                    runSpacing: SpacingUnit.x3,
-                    children: StatusRequestEnum.values
-                        .map(
-                          (eStatus) => GestureDetector(
-                            onTap: () => saveDrag(eStatus: eStatus),
-                            child: Container(
-                              padding: const EdgeInsets.all(SpacingUnit.x1),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                                color: statuses.contains(eStatus)
-                                    ? colors.error
-                                    : CustomsColor.colorBackground,
-                                border: Border.all(color: colors.text, width: SpacingUnit.x0_25),
-                              ),
-                              child: Text(eStatus.configRequestStatusName),
-                            ),
-                          ),
-                        )
-                        .toList(),
+                  WarpInDialog(
+                    statuses: statuses,
+                    onChange: (value) => saveDrag(value: value),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () => setApply(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: Text(appLocalizations.apply, style: TextStyle(color: colors.text)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => popDialog(context),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: Text(appLocalizations.cancel, style: TextStyle(color: colors.text)),
-                  ),
-                ],
-              ),
+            ButtonRequest(
+              title1: appLocalizations.apply,
+              title2: appLocalizations.cancel,
+              apply: () => setApply(context),
+              reject: () => setReject(context),
             ),
           ],
         ),
@@ -176,9 +137,52 @@ class _FilterRequisitionDialogState extends State<FilterRequisitionDialog> {
     );
   }
 
-  setApply() {
-    widget.sendData.call(
-        FilterDialogModel(type: type, endTime: endTime, startTime: startTime, statuses: statuses));
+  _setDepartment(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetDepartmentWidget(
+          onChange: (value) => setDepartment(value: value),
+        );
+      },
+    );
+  }
+
+  setReject(BuildContext context) {
+    widget.sendData.call(const FilterDialogModel());
     popDialog(context);
+  }
+
+
+  setApply(BuildContext context) {
+    widget.sendData.call(
+      FilterDialogModel(
+        type: type,
+        endTime: endTime,
+        startTime: startTime,
+        statuses: statuses,
+        department: department,
+        departmentName: nameDepartment,
+      ),
+    );
+    popDialog(context);
+  }
+
+  _showBottomSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetTypeFlowWidget(
+          onChange: (value) => setType(value: value),
+        );
+      },
+    );
+  }
+
+  setDepartment({Map? value}) {
+    setState(() {
+      nameDepartment = value?['name'].toString() ?? "";
+      department = value?['department'] ?? const Department(id: "", createdUserId: "");
+    });
   }
 }

@@ -30,36 +30,30 @@ class _ItemCreateTimeYMDState extends State<ItemCreateTimeYMD> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.title,
-              style: TextStyle(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.title,
+            style: TextStyle(
                 color: widget.check ? colors.text : colors.tertiary,
                 fontSize: SpacingUnit.x4,
-                fontWeight: widget.check? FontWeight.w800 : FontWeight.w400
-              ),
-            ),
-            const SizedBox(
-              height: SpacingUnit.x3,
-            ),
-            DatePicker(
-              onChange: (value) => _setOnChange(value),
-              oldDate: widget.dateOfBirth,
-            ),
-            const SizedBox(
-              height: SpacingUnit.x3,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: SpacingUnit.x2,
-        ),
-      ],
+                fontWeight: widget.check ? FontWeight.w800 : FontWeight.w400),
+          ),
+          const SizedBox(
+            height: SpacingUnit.x3,
+          ),
+          DatePicker(
+            onChange: (value) => _setOnChange(value),
+            oldDate: widget.dateOfBirth,
+          ),
+          const SizedBox(
+            height: SpacingUnit.x3,
+          ),
+        ],
+      ),
     );
   }
 
