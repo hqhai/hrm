@@ -5,6 +5,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
+import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/time_keeping/item_time_keeping_gps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +53,6 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(appLocalizations.timeKeeping,
@@ -60,37 +60,42 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
-          return SingleChildScrollView(
+          return ContainerScreenMain(
             child: Padding(
               padding: const EdgeInsets.all(SpacingUnit.x4),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const ItemTimeKeepingGPS(),
-                  SizedBox(
-                    height: width * 0.6,
-                    width: width,
-                    child: GoogleMap(
-                      myLocationEnabled: checkLocation,
-                      onMapCreated: (GoogleMapController controller) => setCamera(controller),
-                      markers: _markers,
-                      mapType: MapType.normal,
-                      initialCameraPosition: CameraPosition(
-                        target: latLngFsel ??locationSchool,
-                        zoom: 15,
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                      child: GoogleMap(
+                        myLocationEnabled: checkLocation,
+                        onMapCreated: (GoogleMapController controller) => setCamera(controller),
+                        markers: _markers,
+                        mapType: MapType.normal,
+                        initialCameraPosition: CameraPosition(
+                          target: latLngFsel ?? locationSchool,
+                          zoom: 15,
+                        ),
                       ),
                     ),
                   ),
-                  AppButton(
-                    onSubmit: () async => await _determinePosition(context),
-                    title: appLocalizations.timekeepingImmediately,
+                  Padding(
+                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    child: AppButton(
+                      onSubmit: () async => await _determinePosition(context),
+                      title: appLocalizations.timekeepingImmediately,
+                    ),
                   ),
-                  const SizedBox(
-                    height: SpacingUnit.x3,
+                  Padding(
+                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    child: AppButton(
+                        onSubmit: () => _nextAttendanceHistoryPage(context),
+                        title: appLocalizations.viewAttendanceHistory),
                   ),
-                  AppButton(
-                      onSubmit: () => _nextAttendanceHistoryPage(context),
-                      title: appLocalizations.viewAttendanceHistory),
                 ],
               ),
             ),
@@ -103,7 +108,6 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
   setCamera(GoogleMapController controller) {
     _controller = controller;
   }
-
 
   _nextAttendanceHistoryPage(BuildContext context) {
     dI<AppNavigation>().pushName(context, page: Pages.timekeepingGPSCheckPage, extra: {
