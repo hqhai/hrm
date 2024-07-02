@@ -23,12 +23,13 @@ class StationeryOderAddDialog extends StatefulWidget {
 }
 
 class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
-  final TextEditingController explainController = TextEditingController(),
+  final TextEditingController productController = TextEditingController(),
+      unitController = TextEditingController(),
+      unitPriceController = TextEditingController(),
       numberOfController = TextEditingController(),
-      noteController = TextEditingController(),
-      unitPriceController = TextEditingController();
-  String explain = '',
-      note = '',
+      noteController = TextEditingController();
+
+  String note = '',
       unit = '',
       product = '',
       errorExplain = '',
@@ -52,21 +53,24 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
   setStationery(Stationery value) {
     setState(() {
       stationery = value;
-      product = value.product ?? "";
       unitPrice = double.parse((value.unitPrice ?? '0').replaceAll(',', ''));
-      explain = value.product ?? "";
+      product = value.product ?? "";
       unit = value.unit ?? "";
+      productController.text = value.product ?? "";
+      unitController.text = value.unit ?? "";
+      unitPriceController.text = (value.unitPrice ?? '0').replaceAll(',', '');
       intoMoney = unitPrice * numberOf;
     });
   }
 
   @override
   void initState() {
-    explainController.text = widget.stationery?.product ?? "";
+    productController.text = widget.stationery?.product ?? "";
+    unitController.text = widget.stationery?.unit ?? "";
+    unitPriceController.text = (widget.stationery?.unitPrice ?? 0).toString();
     numberOfController.text = (widget.stationery?.quantity ?? 0).toString();
     noteController.text = widget.stationery?.note ?? "";
-    unitPriceController.text = (widget.stationery?.unitPrice ?? 0).toString();
-    explain = widget.stationery?.product ?? "";
+    product = widget.stationery?.product ?? "";
     unit = widget.stationery?.unit ?? "";
     note = widget.stationery?.note ?? "";
     numberOf = widget.stationery?.quantity ?? 0;
@@ -92,10 +96,17 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
               errorProduct: errorProduct,
             ),
             ItemAddStationeryDialog(
-                check: true,
-                unit: unit,
+              check: true,
+              onChangeProduct: (value) => setProduct(value),
+              onchangeUnit: (value) => setUnit(value),
+              onChangeUnitPrice: (value) => setUnitPrice(value),
+              productController: productController,
+              unitController: unitController,
+              unitPriceController: unitPriceController,
+              /* unit: unit,
                 unitPrice: double.parse((stationery.unitPrice ?? '0').replaceAll(',', '')),
-                product: explain),
+                product: product*/
+            ),
             ItemCreateTotalMinute(
               error: errorNumberOf,
               title: appLocalizations.numberOf,
@@ -130,7 +141,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
   setAdd(BuildContext context) {
     if (checkOnClick(context)) {
       widget.requisitionStationery?.call(Stationeries(
-          product: explain,
+          product: product,
           unitPrice: unitPrice,
           note: note,
           unit: unit,
@@ -156,5 +167,23 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
         );
       },
     );
+  }
+
+  setProduct(String value) {
+    setState(() {
+      product = value;
+    });
+  }
+
+  setUnit(String value) {
+    setState(() {
+      unit = value;
+    });
+  }
+
+  setUnitPrice(double value) {
+    setState(() {
+      unitPrice = value;
+    });
   }
 }

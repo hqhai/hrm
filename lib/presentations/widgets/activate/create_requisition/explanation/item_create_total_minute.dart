@@ -25,6 +25,7 @@ class _ItemCreateTotalMinuteState extends State<ItemCreateTotalMinute> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: SpacingUnit.x3,),
         Text(
           widget.title ?? "",
           style: TextStyle(

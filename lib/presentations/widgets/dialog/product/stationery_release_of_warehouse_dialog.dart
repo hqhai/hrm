@@ -24,6 +24,7 @@ class ReleaseOfWarehouseAddDialog extends StatefulWidget {
 
 class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialog> {
   final TextEditingController productController = TextEditingController(),
+      unitController = TextEditingController(),
       explainController = TextEditingController(),
       numberOfController = TextEditingController(),
       noteController = TextEditingController();
@@ -39,6 +40,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
 
   @override
   void initState() {
+    unitController.text = widget.releaseOfWarehouse?.unit ?? '';
     productController.text = widget.releaseOfWarehouse?.product ?? "";
     explainController.text = widget.releaseOfWarehouse?.explain ?? "";
     numberOfController.text = (widget.releaseOfWarehouse?.quantity ?? 0).toString();
@@ -69,6 +71,8 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
       stationery = value;
       product = value.product ?? "";
       unit = value.unit ?? "";
+      productController.text = value.product ?? "";
+      unitController.text = value.unit ?? "";
     });
   }
 
@@ -89,8 +93,10 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
             ),
             ItemAddStationeryDialog(
               check: false,
-              product: product,
-              unit: unit,
+              onChangeProduct: (value) => setProduct(value),
+              onchangeUnit: (value) => setUnit(value),
+              productController: productController,
+              unitController: unitController,
             ),
             ItemCreateInput(
               error: errorExplain,
@@ -161,5 +167,17 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
         );
       },
     );
+  }
+
+  setProduct(String value) {
+    setState(() {
+      product = value;
+    });
+  }
+
+  setUnit(String value) {
+    setState(() {
+      unit = value;
+    });
   }
 }
