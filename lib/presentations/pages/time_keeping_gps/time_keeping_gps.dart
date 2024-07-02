@@ -21,7 +21,8 @@ final timekeepingGPSPageRoute = GoRoute(
     builder: (context, GoRouterState state) => const TimekeepingGPSPage());
 
 class TimekeepingGPSPage extends StatefulWidget {
-  const TimekeepingGPSPage({super.key});
+  const TimekeepingGPSPage({super.key, this.latLngFsel = const LatLng(21.002850, 105.865951)});
+  final LatLng latLngFsel;
 
   @override
   State<TimekeepingGPSPage> createState() => _TimekeepingGPSPageState();
@@ -31,17 +32,18 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
   Position? _currentLocation;
   late LocationPermission permission;
   Set<Marker> _markers = {};
-  LatLng latLngFsel = const LatLng(21.002850, 105.865951);
+  LatLng latLngFsel = const LatLng(0, 0);
 
   @override
   void initState() {
-    super.initState();
+    //latLngFsel = widget.latLngFsel;
     _markers = {
       Marker(
           markerId: const MarkerId('customMarker1'),
           position: latLngFsel,
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed))
     };
+    super.initState();
   }
 
   @override
@@ -62,7 +64,7 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const ItemTimeKeepingGPS(),
-                  GoogleMapWidget(latLng: latLngFsel, markers:  _markers),
+                  GoogleMapWidget(latLng: latLngFsel, markers: _markers),
                   AppButton(
                     onSubmit: () async => await _determinePosition(context),
                     title: appLocalizations.timekeepingImmediately,
@@ -117,10 +119,12 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       _currentLocation = position;
       double lo = _currentLocation?.longitude ?? 0;
       double la = _currentLocation?.latitude ?? 0;
-      _markers.add(Marker(
+      latLngFsel = LatLng(la, lo);
+      latLngFsel;
+      _markers = {(Marker(
           markerId: const MarkerId('customMarker2'),
-          position: LatLng(lo, la),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen)));
+          position: LatLng(la, lo),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen)))};
     });
   }
 

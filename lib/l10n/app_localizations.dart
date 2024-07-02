@@ -2253,12 +2253,6 @@ abstract class AppLocalizations {
   /// **'Seniority Leave'**
   String get seniorityLeave;
 
-  /// No description provided for @compensatoryLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Compensatory Leave'**
-  String get compensatoryLeave;
-
   /// No description provided for @weddingLeave.
   ///
   /// In en, this message translates to:
@@ -2276,6 +2270,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Home Sick Leave'**
   String get homeSickLeave;
+
+  /// No description provided for @compensatoryLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Compensatory leave'**
+  String get compensatoryLeave;
 
   /// No description provided for @hospitalSickLeave.
   ///
