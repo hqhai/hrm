@@ -5,7 +5,6 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
-import 'package:base_app/presentations/widgets/time_keeping/google_map.dart';
 import 'package:base_app/presentations/widgets/time_keeping/item_time_keeping_gps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +21,7 @@ final timekeepingGPSPageRoute = GoRoute(
 
 class TimekeepingGPSPage extends StatefulWidget {
   const TimekeepingGPSPage({super.key, this.latLngFsel = const LatLng(21.002850, 105.865951)});
+
   final LatLng latLngFsel;
 
   @override
@@ -32,15 +32,17 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
   Position? _currentLocation;
   late LocationPermission permission;
   Set<Marker> _markers = {};
-  LatLng latLngFsel = const LatLng(0, 0);
+  LatLng locationSchool = const LatLng(21.003016, 105.861669);
+  LatLng? latLngFsel;
+  late GoogleMapController _controller;
+  bool checkLocation = false;
 
   @override
   void initState() {
-    //latLngFsel = widget.latLngFsel;
     _markers = {
       Marker(
           markerId: const MarkerId('customMarker1'),
-          position: latLngFsel,
+          position: locationSchool,
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed))
     };
     super.initState();
@@ -50,6 +52,7 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(appLocalizations.timeKeeping,
@@ -64,7 +67,20 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const ItemTimeKeepingGPS(),
-                  GoogleMapWidget(latLng: latLngFsel, markers: _markers),
+                  SizedBox(
+                    height: width * 0.6,
+                    width: width,
+                    child: GoogleMap(
+                      myLocationEnabled: checkLocation,
+                      onMapCreated: (GoogleMapController controller) => setCamera(controller),
+                      markers: _markers,
+                      mapType: MapType.normal,
+                      initialCameraPosition: CameraPosition(
+                        target: latLngFsel ??locationSchool,
+                        zoom: 15,
+                      ),
+                    ),
+                  ),
                   AppButton(
                     onSubmit: () async => await _determinePosition(context),
                     title: appLocalizations.timekeepingImmediately,
@@ -84,10 +100,17 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
     );
   }
 
+  setCamera(GoogleMapController controller) {
+    _controller = controller;
+  }
+
+
   _nextAttendanceHistoryPage(BuildContext context) {
-    //dI<AppNavigation>().pushName(context, page: Pages.layoutCalendarAttendanceHistoryPage);
     dI<AppNavigation>().pushName(context, page: Pages.timekeepingGPSCheckPage, extra: {
-      'latLng': LatLng(_currentLocation?.longitude ?? 0, _currentLocation?.latitude ?? 0,),
+      'latLng': LatLng(
+        _currentLocation?.longitude ?? 0,
+        _currentLocation?.latitude ?? 0,
+      ),
       'dateTime': DateTime.now()
     });
   }
@@ -116,16 +139,14 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
 
   _setCurrentLocation(Position position) {
     setState(() {
+      checkLocation = true;
       _currentLocation = position;
       double lo = _currentLocation?.longitude ?? 0;
       double la = _currentLocation?.latitude ?? 0;
       latLngFsel = LatLng(la, lo);
-      latLngFsel;
-      _markers = {(Marker(
-          markerId: const MarkerId('customMarker2'),
-          position: LatLng(la, lo),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen)))};
+      _controller.animateCamera(
+        CameraUpdate.newLatLng(LatLng(la, lo)),
+      );
     });
   }
-
 }
