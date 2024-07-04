@@ -378,5 +378,7 @@
   "reasonForBusinessTrip": "Reason for business trip",
   "unpaidLeave": "Unpaid leave",
   "no": "No",
-  "yes": "Yes"
+  "yes": "Yes",
+  "leaveManagement": "Leave management",
+  "registerShift": "Register shift"
 }

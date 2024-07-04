@@ -21,6 +21,7 @@ class Request extends Equatable {
   final DateTime? updatedDate;
   final String code;
   final String flowId;
+  final String nameFlow;
   final ConfigRequestModel config;
   final StatusRequestEnum status;
   final String createdPositionId;
@@ -51,7 +52,8 @@ class Request extends Equatable {
       this.attachments = const [],
       this.createdCode = '',
       this.nameCreatedDepartment = '',
-      this.nameCreatedPosition = ''});
+      this.nameCreatedPosition = '',
+      this.nameFlow = ''});
 
   factory Request.fromJson(Map<String, dynamic> json) => _$RequestFromJson(json);
 

@@ -2372,6 +2372,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Yes'**
   String get yes;
+
+  /// No description provided for @leaveManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave management'**
+  String get leaveManagement;
+
+  /// No description provided for @registerShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Register shift'**
+  String get registerShift;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

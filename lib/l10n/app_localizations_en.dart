@@ -1143,4 +1143,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yes => 'Yes';
+
+  @override
+  String get leaveManagement => 'Leave management';
+
+  @override
+  String get registerShift => 'Register shift';
 }

@@ -32,6 +32,7 @@ class Pages {
   static const String requisitionListPage = '/requisitionListPage';
   static const String requisitionFollowerListPage = '/requisitionFollowerListPage';
   static const String seeRequestListPage = '/seeRequestListPage';
+  static const String listSchoolsPage = '/listSchoolsPage';
   static const String requisitionInformationPage = '/requisitionInformationPage';
   static const String createRequestExplanationPage = '/createRequestExplanationPage';
   static const String createRequestPage = '/createRequestPage';

@@ -380,5 +380,7 @@
   "reasonForRelease": "Lý do xuất kho",
   "reasonForBusinessTrip": "Lý do đi công tác",
   "no": "Không",
-  "yes": "Có"
+  "yes": "Có",
+  "leaveManagement": "Quản lý phép",
+  "registerShift": "Đăng ký ca"
 }

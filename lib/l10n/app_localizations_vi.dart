@@ -1143,4 +1143,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get yes => 'Có';
+
+  @override
+  String get leaveManagement => 'Quản lý phép';
+
+  @override
+  String get registerShift => 'Đăng ký ca';
 }

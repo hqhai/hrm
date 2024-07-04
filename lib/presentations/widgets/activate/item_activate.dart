@@ -19,23 +19,27 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: widget.callback,
       child: ContainerBorder(
         height: SpacingUnit.x20,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (_check())
-              Padding(
-                padding: const EdgeInsets.only(right: SpacingUnit.x5),
-                child: SvgPicture.asset(
-                  widget.iconPath ?? "",
-                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+              Expanded(
+                flex: 15,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: SpacingUnit.x5),
+                  child: SvgPicture.asset(
+                    fit: BoxFit.fill,
+                    widget.iconPath ?? "",height: SpacingUnit.x20,
+                    colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                  ),
                 ),
               ),
-            SizedBox(
-              width: _check() ? width * 0.6 : width * 0.75,
+            Expanded(
+              flex: 75,
               child: Text(
                 widget.title,
                 maxLines: 1,
