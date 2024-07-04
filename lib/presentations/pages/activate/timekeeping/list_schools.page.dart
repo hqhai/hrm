@@ -48,30 +48,34 @@ class _ListSchoolsPageState extends State<ListSchoolsPage> {
           body: ContainerScreenMain(
             child: ListView.builder(
               itemCount: state.schools.length,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () =>
-                    _nextTimekeepingGPSScreen(context, state.schools.values.toList()[index].id),
-                child: ContainerBorder(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        state.schools[state.schoolIds[index]]?.nameSchool ?? "",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
-                      ),
-                      Text(
-                        state.schools[state.schoolIds[index]]?.addressSchool ?? "",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: colors.blue, fontSize: SpacingUnit.x3),
-                      ),
-                    ],
+              itemBuilder: (context, index) {
+                final school = state.schools[state.schoolIds[index]];
+                if (school == null) return const SizedBox();
+                return GestureDetector(
+                  onTap: () =>
+                      _nextTimekeepingGPSScreen(context, state.schools.values.toList()[index].id),
+                  child: ContainerBorder(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          school.nameSchool,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
+                        ),
+                        Text(
+                          school.addressSchool,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: colors.blue, fontSize: SpacingUnit.x3),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ),
         );
