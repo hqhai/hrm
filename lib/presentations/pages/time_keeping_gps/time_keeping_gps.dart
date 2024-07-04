@@ -89,7 +89,7 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const ItemTimeKeepingGPS(),
+                     ItemTimeKeepingGPS(schoolId: widget.idSchool),
                       Expanded(
                         flex: 2,
                         child: Padding(
