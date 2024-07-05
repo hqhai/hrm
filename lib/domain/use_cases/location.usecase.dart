@@ -16,5 +16,5 @@ abstract class LocationUseCase {
     required DateTime time,
   });
 
-  Future<GetListSchoolsUseCase> getListSchools();
+  Future<GetListSchoolsUseCase> getListSchools({String? keyword, int page});
 }

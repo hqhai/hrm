@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
@@ -7,7 +8,7 @@ sealed class UserEvent extends Equatable {
   const UserEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class GetUserInfo extends UserEvent {
@@ -20,11 +21,12 @@ class GetUserInfo extends UserEvent {
 class ChangePasswordEvent extends UserEvent {
   final String newPassword;
   final String currentPassword;
+  final Completer? completer;
 
-  const ChangePasswordEvent({this.newPassword = '', this.currentPassword = ''});
+  const ChangePasswordEvent({this.newPassword = '', this.currentPassword = '', this.completer});
 
   @override
-  List<Object> get props => [newPassword, currentPassword];
+  List<Object?> get props => [newPassword, currentPassword, completer];
 }
 
 class ResetUserEvent extends UserEvent {

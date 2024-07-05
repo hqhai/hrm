@@ -2384,6 +2384,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Register shift'**
   String get registerShift;
+
+  /// No description provided for @listSchools.
+  ///
+  /// In en, this message translates to:
+  /// **'List schools'**
+  String get listSchools;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

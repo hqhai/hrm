@@ -1,3 +1,4 @@
+import 'package:base_app/data/models/key_page_request.dart';
 import 'package:base_app/data/models/location/checkin_gps_response.dart';
 import 'package:base_app/data/models/location/checkin_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
@@ -12,5 +13,5 @@ abstract class LocationService {
   Future<CheckInGPSResponse> postCheckInGPS({
     required CheckInRequest checkInRequest,
   });
-  Future<GetListSchoolsResponse> getListSchools();
+  Future<GetListSchoolsResponse> getListSchools({required KeyPageRequest keyPageRequest});
 }

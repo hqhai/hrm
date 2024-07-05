@@ -382,5 +382,6 @@
   "no": "Không",
   "yes": "Có",
   "leaveManagement": "Quản lý phép",
-  "registerShift": "Đăng ký ca"
+  "registerShift": "Đăng ký ca",
+  "listSchools": "Danh sách trường"
 }

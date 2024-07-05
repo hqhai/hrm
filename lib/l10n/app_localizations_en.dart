@@ -1149,4 +1149,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get registerShift => 'Register shift';
+
+  @override
+  String get listSchools => 'List schools';
 }

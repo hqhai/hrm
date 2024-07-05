@@ -24,7 +24,7 @@ successFullChangePasswordDialog(BuildContext context, String content) async {
   );
 }
 
-changePasswordDialog(BuildContext context, VoidCallback callback) async {
+changePasswordDialog({required BuildContext context, required VoidCallback callback}) async {
   final appLocalizations = AppLocalizations.of(context)!;
   return showDialog(
     context: context,

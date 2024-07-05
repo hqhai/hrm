@@ -380,5 +380,6 @@
   "no": "No",
   "yes": "Yes",
   "leaveManagement": "Leave management",
-  "registerShift": "Register shift"
+  "registerShift": "Register shift",
+  "listSchools": "List schools"
 }

@@ -101,7 +101,7 @@ class _ItemTimeKeepingGPSState extends State<ItemTimeKeepingGPS> {
 
   String setAddressDepartment(Map schools) {
     final School school = schools[widget.schoolId];
-    return school.addressSchool;
+    return school.address;
   }
 
 }

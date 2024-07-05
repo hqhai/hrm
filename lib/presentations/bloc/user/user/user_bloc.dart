@@ -53,11 +53,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       bool checkChangePassword = await userUseCase.changePassword(
           newPassword: event.newPassword, currentPassword: event.currentPassword);
-      checkChangePassword
-          ? emit(state.copyWith(status: UserStatus.success))
-          : emit(state.copyWith(status: UserStatus.fail));
+      if (checkChangePassword) {
+        emit(state.copyWith(status: UserStatus.success));
+        event.completer?.complete(true);
+      } else {
+        emit(state.copyWith(status: UserStatus.fail));
+        event.completer?.complete(false);
+      }
     } catch (e) {
       emit(state.copyWith(status: UserStatus.fail));
+      event.completer?.complete(false);
     }
   }
 

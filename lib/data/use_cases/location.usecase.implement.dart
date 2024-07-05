@@ -41,9 +41,9 @@ class LocationUseCaseImpl extends LocationUseCase {
   }
 
   @override
-  Future<GetListSchoolsUseCase> getListSchools() async {
+  Future<GetListSchoolsUseCase> getListSchools({String? keyword, int page = 1}) async {
     final GetListSchoolsResponse getListSchoolsResponse =
-        await _locationRepository.getListSchools();
+        await _locationRepository.getListSchools(keyword: keyword, page: page);
     final List<School> schools = getListSchoolsResponse.items;
     final Map<String, School> mapSchools = Map.fromEntries(
       schools.map(

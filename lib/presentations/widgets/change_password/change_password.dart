@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -35,28 +37,6 @@ class _ChangePasswordState extends State<ChangePassword> {
   final TextEditingController confirmPasswordController = TextEditingController();
   String notification1 = '', notification2 = '';
 
-  _listener(BuildContext context, UserState state) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    if (state.status == UserStatus.success) {
-      successDialog(context);
-      setState(() {
-        notification1 = '';
-      });
-      currentPasswordController.text = '';
-      newPasswordController.text = '';
-      confirmPasswordController.text = '';
-      if (dI<LoginBloc>().state.status == LoginStatus.firstLoginSuccess) {
-        dI<LoginBloc>().add(const ChangePasswordSuccessEvent());
-      }
-    }
-    if (state.status == UserStatus.fail) {
-      unsuccessfulDialog(context);
-      setState(() {
-        notification1 = appLocalizations.currentPasswordIsIncorrect;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -67,10 +47,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.all(SpacingUnit.x8),
-        child: BlocConsumer<UserBloc, UserState>(
-          listener: (context, state) {
-            _listener(context, state);
-          },
+        child: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
             return SingleChildScrollView(
               child: Column(
@@ -160,10 +137,11 @@ class _ChangePasswordState extends State<ChangePassword> {
   bool _checkPass() {
     RegExp regExpPass = RegExp(checkPasswordRegexExp);
     return confirmPasswordController.text != '' &&
-        newPasswordController.text != '' && regExpPass.hasMatch(newPasswordController.text);
+        newPasswordController.text != '' &&
+        regExpPass.hasMatch(newPasswordController.text);
   }
 
-  _notificationOrDialog(UserState state, BuildContext context) {
+  _notificationOrDialog(UserState state, BuildContext context) async {
     final appLocalizations = AppLocalizations.of(context)!;
     if (newPasswordController.text != confirmPasswordController.text &&
         confirmPasswordController.text != '') {
@@ -172,13 +150,38 @@ class _ChangePasswordState extends State<ChangePassword> {
       });
     } else {
       changePasswordDialog(
-        context,
-            () => dI<UserBloc>().add(
-          ChangePasswordEvent(
-            newPassword: newPasswordController.text,
-            currentPassword: currentPasswordController.text,
-          ),
-        ),
+        context: context,
+        callback: () async {
+          final Completer completer = Completer<bool>();
+          dI<UserBloc>().add(
+            ChangePasswordEvent(
+              newPassword: newPasswordController.text,
+              currentPassword: currentPasswordController.text,
+              completer: completer,
+            ),
+          );
+          final check = await completer.future;
+          final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+          if (check) {
+            if (!currentContext.mounted) return;
+            successDialog(currentContext);
+            setState(() {
+              notification1 = '';
+            });
+            currentPasswordController.text = '';
+            newPasswordController.text = '';
+            confirmPasswordController.text = '';
+            if (dI<LoginBloc>().state.status == LoginStatus.firstLoginSuccess) {
+              dI<LoginBloc>().add(const ChangePasswordSuccessEvent());
+            }
+          } else {
+            if (!currentContext.mounted) return;
+            unsuccessfulDialog(currentContext);
+            setState(() {
+              notification1 = appLocalizations.currentPasswordIsIncorrect;
+            });
+          }
+        },
       );
     }
   }

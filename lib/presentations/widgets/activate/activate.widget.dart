@@ -1,3 +1,4 @@
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -22,10 +23,10 @@ class _ActivateWidgetState extends State<ActivateWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: listActivate
-              .mapIndexed((index, element) =>
-                 ItemActivateWidget(
+              .mapIndexed(
+                (index, element) => ItemActivateWidget(
                   iconPath: imagePathActivate(index),
-                  title: titlesActivate(index),
+                  title: titlesActivate(index, context),
                   callback: () => _nextScreen(context, index),
                 ),
               )
@@ -58,7 +59,10 @@ class _ActivateWidgetState extends State<ActivateWidget> {
     dI<AppNavigation>().pushName(context, page: Pages.createRequestPage);
   }
 
-  _nextTimekeepingGPSScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.listSchoolsPage);
+  _nextTimekeepingGPSScreen(BuildContext context) async {
+    dI<AppNavigation>().pushName(
+      context,
+      page: Pages.listSchoolsPage,
+    );
   }
 }

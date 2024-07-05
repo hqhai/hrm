@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/data/models/key_page_request.dart';
 import 'package:base_app/data/models/location/checkin_gps_response.dart';
 import 'package:base_app/data/models/location/checkin_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
@@ -43,7 +44,15 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<GetListSchoolsResponse> getListSchools() async {
-    return _locationService.getListSchools();
+  Future<GetListSchoolsResponse> getListSchools({
+    String? keyword,
+    int page = 1,
+  }) async {
+    return _locationService.getListSchools(
+      keyPageRequest: KeyPageRequest(
+        page: page,
+        keyword: keyword,
+      ),
+    );
   }
 }
