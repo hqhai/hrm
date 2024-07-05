@@ -1085,9 +1085,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get seniorityLeave => 'Nghỉ thâm niên';
 
   @override
-  String get compensatoryLeave => 'Nghỉ bù';
-
-  @override
   String get weddingLeave => 'Nghỉ cưới';
 
   @override
@@ -1095,6 +1092,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get homeSickLeave => 'Nghỉ ốm tại gia';
+
+  @override
+  String get compensatoryLeave => 'Nghỉ bù';
 
   @override
   String get hospitalSickLeave => 'Nghỉ ốm tại viện';
@@ -1143,4 +1143,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get yes => 'Có';
+
+  @override
+  String get leaveManagement => 'Quản lý phép';
+
+  @override
+  String get registerShift => 'Đăng ký ca';
 }

@@ -1085,9 +1085,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get seniorityLeave => 'Seniority Leave';
 
   @override
-  String get compensatoryLeave => 'Compensatory Leave';
-
-  @override
   String get weddingLeave => 'Wedding Leave';
 
   @override
@@ -1095,6 +1092,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeSickLeave => 'Home Sick Leave';
+
+  @override
+  String get compensatoryLeave => 'Compensatory leave';
 
   @override
   String get hospitalSickLeave => 'Hospital Sick Leave';
@@ -1143,4 +1143,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yes => 'Yes';
+
+  @override
+  String get leaveManagement => 'Leave management';
+
+  @override
+  String get registerShift => 'Register shift';
 }

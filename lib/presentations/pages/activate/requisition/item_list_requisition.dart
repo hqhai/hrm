@@ -125,7 +125,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                       children: [
                         SizedBox(
                             width: width * 0.7,
-                            child: Text(_getRequestInId(state.requisitions).config.description ?? "",
+                            child: Text(_getRequestInId(state.requisitions).nameFlow,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(

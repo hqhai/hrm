@@ -325,7 +325,6 @@
   "intoMoneyNoVAT": "Into money (excluding VAT)",
   "yearlyAndSeniorityLeave": "Yearly and seniority leave",
   "otherLeave": "Other leave",
-  "unpaidLeave": "Unpaid leave",
   "theStartTimeMustBeAfterTheCurrentTime": "The start time must be after the current time",
   "month": "Month",
   "quantityCannotBeZero": "Quantity cannot be zero",
@@ -363,6 +362,7 @@
   "weddingLeave": "Wedding Leave",
   "mourningLeave": "Mourning Leave",
   "homeSickLeave": "Home Sick Leave",
+  "compensatoryLeave": "Compensatory leave",
   "hospitalSickLeave": "Hospital Sick Leave",
   "maternityLeave": "Maternity Leave",
   "revoke": "Revoke",
@@ -378,5 +378,7 @@
   "reasonForBusinessTrip": "Reason for business trip",
   "unpaidLeave": "Unpaid leave",
   "no": "No",
-  "yes": "Yes"
+  "yes": "Yes",
+  "leaveManagement": "Leave management",
+  "registerShift": "Register shift"
 }

@@ -1,6 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/step_requests.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
@@ -21,6 +22,8 @@ class Request extends Equatable {
   final DateTime? updatedDate;
   final String code;
   final String flowId;
+  final FlowRequest flow;
+  final String nameFlow;
   final ConfigRequestModel config;
   final StatusRequestEnum status;
   final String createdPositionId;
@@ -36,6 +39,7 @@ class Request extends Equatable {
       {required this.id,
       this.createdUserId = '',
       this.updatedUserId = '',
+      this.flow = const FlowRequest(id: ''),
       this.status = StatusRequestEnum.process,
       this.updatedDate,
       this.updatedFullName = '',
@@ -51,7 +55,8 @@ class Request extends Equatable {
       this.attachments = const [],
       this.createdCode = '',
       this.nameCreatedDepartment = '',
-      this.nameCreatedPosition = ''});
+      this.nameCreatedPosition = '',
+      this.nameFlow = ''});
 
   factory Request.fromJson(Map<String, dynamic> json) => _$RequestFromJson(json);
 

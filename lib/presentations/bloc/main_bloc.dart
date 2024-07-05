@@ -2,10 +2,12 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
+import 'package:base_app/presentations/bloc/check_in_check_out_gps/check_in_check_out_gps_bloc.dart';
 import 'package:base_app/presentations/bloc/checkin_setting/check_in_setting_bloc.dart';
 import 'package:base_app/presentations/bloc/department/department_bloc.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/location/address/address_bloc.dart';
+import 'package:base_app/presentations/bloc/location/school/school_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/personnel/personnel_bloc.dart';
@@ -53,5 +55,9 @@ class MainBloc {
         BlocProvider<RequisitionFollowingBloc>(
             create: (BuildContext context) => dI<RequisitionFollowingBloc>()),
         BlocProvider<WorkAndSalaryBloc>(create: (BuildContext context) => dI<WorkAndSalaryBloc>()),
-  ];
+        BlocProvider<CheckInCheckOutGpsBloc>(
+            create: (BuildContext context) => dI<CheckInCheckOutGpsBloc>()),
+        BlocProvider<SchoolBloc>(
+            create: (BuildContext context) => dI<SchoolBloc>()),
+      ];
 }

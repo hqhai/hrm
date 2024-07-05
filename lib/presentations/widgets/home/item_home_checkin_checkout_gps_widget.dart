@@ -26,7 +26,6 @@ class _ItemHomeCheckInCheckOutGPSWidgetState extends State<ItemHomeCheckInCheckO
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    final width = MediaQuery.of(context).size.width;
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         return Column(
@@ -98,7 +97,7 @@ class _ItemHomeCheckInCheckOutGPSWidgetState extends State<ItemHomeCheckInCheckO
                                       flex: 8,
                                       child: Text(
                                         setAddressDepartment(state),
-                                        maxLines: 2,
+                                        maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           color: colors.text,
@@ -114,10 +113,9 @@ class _ItemHomeCheckInCheckOutGPSWidgetState extends State<ItemHomeCheckInCheckO
                           Expanded(
                             flex: 4,
                             child: SvgPicture.asset(
+                              fit: BoxFit.fill,
                               Assets.images.icon.home.phFingerprintFill,
                               colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                              height: width * 0.35,
-                              width: width * 0.35,
                             ),
                           ),
                         ],

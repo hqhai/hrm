@@ -136,6 +136,12 @@ class $AssetsImagesSignInGen {
 class $AssetsImagesTimeKeepingGen {
   const $AssetsImagesTimeKeepingGen();
 
+  /// File path: assets/images/time_keeping/calendar.svg
+  String get calendar => 'assets/images/time_keeping/calendar.svg';
+
+  /// File path: assets/images/time_keeping/clock.svg
+  String get clock => 'assets/images/time_keeping/clock.svg';
+
   /// File path: assets/images/time_keeping/noto_world-map.png
   AssetGenImage get notoWorldMap =>
       const AssetGenImage('assets/images/time_keeping/noto_world-map.png');
@@ -145,7 +151,7 @@ class $AssetsImagesTimeKeepingGen {
       const AssetGenImage('assets/images/time_keeping/un_world-map.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [notoWorldMap, unWorldMap];
+  List<dynamic> get values => [calendar, clock, notoWorldMap, unWorldMap];
 }
 
 class $AssetsImagesIconActivateIconGen {

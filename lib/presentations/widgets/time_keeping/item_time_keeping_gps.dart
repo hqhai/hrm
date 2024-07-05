@@ -1,16 +1,18 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/timekeeping/school.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user/user_state.dart';
+import 'package:base_app/presentations/bloc/location/school/school_bloc.dart';
+import 'package:base_app/presentations/bloc/location/school/school_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class ItemTimeKeepingGPS extends StatefulWidget {
-  const ItemTimeKeepingGPS({super.key});
+  const ItemTimeKeepingGPS({super.key, this.schoolId = ''});
+  final String schoolId;
 
   @override
   State<ItemTimeKeepingGPS> createState() => _ItemTimeKeepingGPSState();
@@ -24,7 +26,7 @@ class _ItemTimeKeepingGPSState extends State<ItemTimeKeepingGPS> {
         .of(context)
         .size
         .width;
-    return BlocBuilder<UserBloc, UserState>(
+    return BlocBuilder<SchoolBloc, SchoolState>(
       builder: (context, state) {
         return Column(
           children: [
@@ -80,7 +82,7 @@ class _ItemTimeKeepingGPSState extends State<ItemTimeKeepingGPS> {
                 Expanded(
                   flex: 8,
                   child: Text(
-                    setAddressDepartment(state),
+                    setAddressDepartment(state.schools),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -97,12 +99,9 @@ class _ItemTimeKeepingGPSState extends State<ItemTimeKeepingGPS> {
     );
   }
 
-  String setAddressDepartment(UserState state) {
-    if (state.user.userDepartmentPositions.isNotEmpty) {
-      return state.user.userDepartmentPositions.first.department?.address ?? "";
-    } else {
-      return "";
-    }
+  String setAddressDepartment(Map schools) {
+    final School school = schools[widget.schoolId];
+    return school.addressSchool;
   }
 
 }
