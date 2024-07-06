@@ -45,4 +45,8 @@ class PathConfig {
   static String changeStatus = '/request/change-status';
   static String editRequestEdit = '/request/edit-request-edit';
 
+  //CheckIn CheckOut
+  static String schools = '/school/get-schools';
+
+
 }

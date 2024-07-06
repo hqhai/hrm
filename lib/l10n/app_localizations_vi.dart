@@ -1149,4 +1149,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get registerShift => 'Đăng ký ca';
+
+  @override
+  String get listSchools => 'Danh sách trường';
 }

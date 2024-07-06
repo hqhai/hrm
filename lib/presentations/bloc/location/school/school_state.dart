@@ -10,13 +10,15 @@ class SchoolState extends Equatable {
   final Map<String, School> schools;
   final List<String> schoolIds;
   final SchoolStatus status;
+  final int totalItems;
 
   const SchoolState({
     this.schoolIds = const [],
     this.schools = const {},
     this.status = SchoolStatus.init,
+    this.totalItems = 0,
   });
 
   @override
-  List<Object> get props => [schools, status, schoolIds];
+  List<Object> get props => [schools, status, schoolIds, totalItems];
 }

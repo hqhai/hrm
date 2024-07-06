@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 
 sealed class SchoolEvent extends Equatable {
@@ -8,8 +10,11 @@ sealed class SchoolEvent extends Equatable {
 }
 
 class GetListSchoolsEvent extends SchoolEvent {
-  const GetListSchoolsEvent();
+  final String keyword;
+  final int page;
+  final Completer? completer;
+  const GetListSchoolsEvent({this.page = 1, this.keyword = '',this.completer});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [page, keyword, completer];
 }

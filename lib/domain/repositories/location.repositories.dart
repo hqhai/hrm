@@ -16,5 +16,5 @@ abstract class LocationRepository {
     required DateTime time,
   });
 
-  Future<GetListSchoolsResponse> getListSchools();
+  Future<GetListSchoolsResponse> getListSchools({String? keyword, int page});
 }

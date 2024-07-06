@@ -1,7 +1,6 @@
-import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:flutter/cupertino.dart';
 
 
 final List<int> listActivate = [0, 1, 2, 3, 4];
@@ -17,9 +16,8 @@ String imagePathActivate(int index) {
   return imagePathActivate[index] ?? '';
 }
 
-String titlesActivate(int index) {
-  final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-  final appLocalizations = AppLocalizations.of(currentContext)!;
+String titlesActivate(int index, BuildContext context) {
+  final appLocalizations = AppLocalizations.of(context)!;
   final Map<int, String> title = {
     0: appLocalizations.singleWordList,
     1: appLocalizations.createANewSingleWord,

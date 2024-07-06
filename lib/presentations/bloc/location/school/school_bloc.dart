@@ -24,16 +24,37 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
   FutureOr<void> _getListSchoolsEvent(GetListSchoolsEvent event, Emitter<SchoolState> emit) async {
     emit(state.copyWith(status: SchoolStatus.init));
     try {
-      final GetListSchoolsUseCase getListSchoolsUseCase = await _locationUseCase.getListSchools();
+      final GetListSchoolsUseCase getListSchoolsUseCase = await _locationUseCase.getListSchools(
+        page: event.page,
+        keyword: event.keyword,
+      );
       final Map<String, School> mapSchools = getListSchoolsUseCase.schools;
       final List<String> schoolsId = getListSchoolsUseCase.schoolsId;
-      emit(state.copyWith(
-        schools: mapSchools,
-        schoolIds: schoolsId,
-        status: SchoolStatus.success,
-      ));
+      final totalItems = getListSchoolsUseCase.pagingInfo;
+      if (event.page != 1) {
+        final Map<String, School> mapOld = state.schools;
+        final listIdOld = [...state.schoolIds];
+        mapOld.addAll(mapSchools);
+        listIdOld.addAll(schoolsId);
+        emit(state.copyWith(
+          totalItems: totalItems.totalItems,
+          schools: mapOld,
+          schoolIds: listIdOld,
+          status: SchoolStatus.success,
+        ));
+        event.completer?.complete(true);
+      } else {
+        emit(state.copyWith(
+          totalItems: totalItems.totalItems,
+          schools: mapSchools,
+          schoolIds: schoolsId,
+          status: SchoolStatus.success,
+        ));
+        event.completer?.complete(true);
+      }
     } catch (e) {
       emit(state.copyWith(status: SchoolStatus.fail));
+      event.completer?.complete(false);
     }
   }
 }
