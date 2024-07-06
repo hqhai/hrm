@@ -79,6 +79,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
           countItem: totalItems,
           status: RequisitionEnum.success,
         ));
+        event.completer?.complete(true);
       }
       // load more *********************
       else {
@@ -87,9 +88,11 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
           countItem: totalItems,
           status: RequisitionEnum.success,
         ));
+        event.completer?.complete(true);
       }
     } catch (e) {
       emit(state.copyWith(status: RequisitionEnum.fail));
+      event.completer?.complete(false);
     }
   }
 

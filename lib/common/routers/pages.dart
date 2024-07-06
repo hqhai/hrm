@@ -48,4 +48,5 @@ class Pages {
   static const String requisitionApproveListPage = '/requisitionApproveListPage';
   static const String createRequestOverTimePage = '/createRequestOverTimePage';
   static const String createRequestLateAndEarlyPage = '/createRequestLateAndEarlyPage';
+  static const String leavePage = '/leavePage';
 }

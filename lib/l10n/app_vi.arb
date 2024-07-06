@@ -383,5 +383,22 @@
   "yes": "Có",
   "leaveManagement": "Quản lý phép",
   "registerShift": "Đăng ký ca",
-  "listSchools": "Danh sách trường"
+  "listSchools": "Danh sách trường",
+  "overTimeLeave": "Nghỉ bù OT",
+  "leaveList": "Danh sách phép",
+  "leaveUseHistory": "Lịch sử dùng phép",
+  "total": "Tổng",
+  "used": "Đã dùng",
+  "remaining": "Còn lại",
+  "day": "Ngày",
+  "hour": "Giờ",
+  "addition": "Cộng",
+  "subtraction": "Trừ",
+  "totalLeaveOfChanges": "Tổng số phép thay đổi",
+  "actionName": "Tên hành dộng",
+  "totalRemainingLeaveDays": "Tổng số phép còn lại",
+  "vacationPeriod": "Tời gian xin nghỉ",
+  "seeRequest": "Xem đơn từ",
+  "sourceOfLeave": "Nguồn phép"
+
 }

@@ -381,5 +381,22 @@
   "yes": "Yes",
   "leaveManagement": "Leave management",
   "registerShift": "Register shift",
-  "listSchools": "List schools"
+  "listSchools": "List schools",
+  "overTimeLeave": "OverTime Leave",
+  "leaveList": "Leave list",
+  "leaveUseHistory": "Leave use history",
+  "total": "Total",
+  "used": "Used",
+  "remaining": "Remaining",
+  "day": "Day",
+  "hour": "Hour",
+  "addition": "Addition",
+  "subtraction": "Subtraction",
+  "totalLeaveOfChanges": "Total leave of changes",
+  "actionName": "Action name",
+  "totalRemainingLeaveDays": "Total remaining days of leave",
+  "vacationPeriod": "Vacation period",
+  "seeRequest": "See request",
+  "sourceOfLeave": "Source of leave"
+
 }

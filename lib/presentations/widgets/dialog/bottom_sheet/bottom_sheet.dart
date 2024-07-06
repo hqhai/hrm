@@ -145,7 +145,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   }
 
   _scrollListener() {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         status == UserStatus.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {

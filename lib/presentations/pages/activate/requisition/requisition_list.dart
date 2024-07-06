@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
@@ -41,7 +41,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   var random = Random();
   int pageIndex = 1, totalItems = 0, lengthList = 0;
   late ScrollController controller;
-  RequisitionEnum status = RequisitionEnum.init;
+  bool checkLoadMore = true;
   List<StatusRequestEnum> listStatusFilter = [];
   FilterDialogModel filterData = const FilterDialogModel();
 
@@ -54,13 +54,16 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     super.initState();
   }
 
-  _scrollListener() {
-    status;
-    if (lengthList <= totalItems &&
-        status == RequisitionEnum.success &&
+  _scrollListener() async {
+    if (lengthList < totalItems &&
+        checkLoadMore == true &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
+      });
+      final Completer completer = Completer<bool>();
+      setState(() {
+        checkLoadMore = false;
       });
       dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
         listStatusRequisition: listStatusFilter,
@@ -68,12 +71,20 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
         startTime: dateTimeLocal(filterData.startTime),
         endTime: dateTimeLocal(filterData.endTime),
         page: pageIndex,
+        completer: completer,
       ));
+      final check = await completer.future;
+      if(check){
+        setState(() {
+          checkLoadMore = true;
+        });
+      }
     }
   }
 
   setlLstFilter(FilterDialogModel value) {
     setState(() {
+      pageIndex = 1;
       filterData = value;
       listStatusFilter = value.statuses ?? [];
     });
@@ -82,13 +93,12 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       flowId: filterData.flowId,
       startTime: filterData.startTime,
       endTime: filterData.endTime,
-      page: 1,
+      page: pageIndex,
     ));
   }
 
   _listener(BuildContext context, RequisitionState state) {
     setState(() {
-      status = state.status;
       totalItems = state.countItem;
       lengthList = state.requisitions.length;
     });
@@ -253,6 +263,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
 
   removeListFilter(StatusRequestEnum e) {
     setState(() {
+      pageIndex = 1;
       listStatusFilter.remove(e);
       filterData = filterData.copyWith(statuses: listStatusFilter);
     });

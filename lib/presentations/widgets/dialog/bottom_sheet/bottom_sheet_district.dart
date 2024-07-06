@@ -111,7 +111,7 @@ class _BottomSheetDistrictWidgetState extends State<BottomSheetDistrictWidget> {
   }
 
   _scrollListener() {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         status == AddressStatus.getDistrictsSuccess &&
         controller.position.extentAfter < totalItems) {
       setState(() {

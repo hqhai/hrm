@@ -44,7 +44,7 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
   }
 
   _scrollListener() {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         status == RequisitionEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {

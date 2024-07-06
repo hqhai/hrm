@@ -44,7 +44,7 @@ class _ListSchoolsPageState extends State<ListSchoolsPage> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocConsumer<SchoolBloc, SchoolState>(
-      listener: (context, state) => _listener(state.totalItems),
+      listener: (context, state) => _listener(state.totalItems, state.schoolIds.length),
       listenWhen: (previous, current) => _listenWhen(
         previous.schoolIds,
         current.schoolIds,
@@ -75,7 +75,7 @@ class _ListSchoolsPageState extends State<ListSchoolsPage> {
   }
 
   void _scrollListener() async {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         checkLoad == true &&
         controller.position.extentAfter < totalItems) {
       setState(() {
@@ -100,8 +100,9 @@ class _ListSchoolsPageState extends State<ListSchoolsPage> {
     }
   }
 
-  _listener(int total) {
+  _listener(int total, int length) {
     setState(() {
+      lengthList = length;
       checkLoad = true;
       totalItems = total;
     });

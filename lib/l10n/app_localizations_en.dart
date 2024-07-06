@@ -1152,4 +1152,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get listSchools => 'List schools';
+
+  @override
+  String get overTimeLeave => 'OverTime Leave';
+
+  @override
+  String get leaveList => 'Leave list';
+
+  @override
+  String get leaveUseHistory => 'Leave use history';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get used => 'Used';
+
+  @override
+  String get remaining => 'Remaining';
+
+  @override
+  String get day => 'Day';
+
+  @override
+  String get hour => 'Hour';
+
+  @override
+  String get addition => 'Addition';
+
+  @override
+  String get subtraction => 'Subtraction';
+
+  @override
+  String get totalLeaveOfChanges => 'Total leave of changes';
+
+  @override
+  String get actionName => 'Action name';
+
+  @override
+  String get totalRemainingLeaveDays => 'Total remaining days of leave';
+
+  @override
+  String get vacationPeriod => 'Vacation period';
+
+  @override
+  String get seeRequest => 'See request';
+
+  @override
+  String get sourceOfLeave => 'Source of leave';
 }

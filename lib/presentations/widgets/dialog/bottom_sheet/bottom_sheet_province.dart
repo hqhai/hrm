@@ -108,7 +108,7 @@ class _BottomSheetProvinceWidgetState extends State<BottomSheetProvinceWidget> {
   }
 
   _scrollListener() {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         status == AddressStatus.getProvincesSuccess &&
         controller.position.extentAfter < totalItems) {
       setState(() {

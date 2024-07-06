@@ -111,7 +111,7 @@ class _BottomSheetWardWidgetState extends State<BottomSheetWardWidget> {
   }
 
   _scrollListener() {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         status == AddressStatus.getWardsSuccess &&
         controller.position.extentAfter < totalItems) {
       setState(() {

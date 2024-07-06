@@ -1,7 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_bloc.dart';
-import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_state.dart';
+import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart';
+import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -38,7 +38,7 @@ class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
                     width: SpacingUnit.x4,
                   ),
                   Text(
-                    state.permission.toString(),
+                    state.userLeave.total.toString(),
                     style: TextStyle(
                         color: colors.text, fontSize: SpacingUnit.x4),
                   ),
@@ -58,7 +58,7 @@ class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
                     width: SpacingUnit.x4,
                   ),
                   Text(
-                    state.used.toString(),
+                    state.userLeave.totalUsed.toString(),
                     style: TextStyle(
                         color: colors.text, fontSize: SpacingUnit.x4),
                   ),
@@ -78,7 +78,7 @@ class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
                     width: SpacingUnit.x4,
                   ),
                   Text(
-                    state.remaining.toString(),
+                    state.userLeave.totalRemaining.toString(),
                     style: TextStyle(
                         color: colors.text, fontSize: SpacingUnit.x4),
                   ),

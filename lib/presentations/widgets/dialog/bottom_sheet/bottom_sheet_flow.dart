@@ -97,7 +97,7 @@ class _BottomSheetFlowWidgetState extends State<BottomSheetFlowWidget> {
   }
 
   _scrollListener() {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         status == FlowStatusEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {

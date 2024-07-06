@@ -29,6 +29,7 @@ class PostRequestEvent extends RequisitionEvent {
 
 class UserRejectRequestEvent extends RequisitionEvent {
   const UserRejectRequestEvent({this.id});
+
   final String? id;
 
   @override
@@ -36,21 +37,28 @@ class UserRejectRequestEvent extends RequisitionEvent {
 }
 
 class GetRequisitionsByFilterEvent extends RequisitionEvent {
-  const GetRequisitionsByFilterEvent(
-      {this.flowId, this.listStatusRequisition, this.startTime, this.endTime, this.page});
-
   final int? page;
   final String? flowId;
   final List<StatusRequestEnum>? listStatusRequisition;
   final DateTime? startTime;
   final DateTime? endTime;
+  final Completer? completer;
+
+  const GetRequisitionsByFilterEvent(
+      {this.flowId,
+      this.listStatusRequisition,
+      this.startTime,
+      this.endTime,
+      this.page,
+      this.completer});
 
   @override
-  List<Object?> get props => [flowId, listStatusRequisition, startTime, endTime, page];
+  List<Object?> get props => [flowId, listStatusRequisition, startTime, endTime, page, completer];
 }
 
 class GetRequisitionByIdEvent extends RequisitionEvent {
   const GetRequisitionByIdEvent({this.id, this.completer});
+
   final Completer? completer;
   final String? id;
 
@@ -63,11 +71,10 @@ class EditRequestEvent extends RequisitionEvent {
   final Completer completer;
   final List<File> files;
 
-  const EditRequestEvent({
-    this.postRequestRequest = const PostRequestRequest(),
-    required this.completer,
-    this.files = const []
-  });
+  const EditRequestEvent(
+      {this.postRequestRequest = const PostRequestRequest(),
+      required this.completer,
+      this.files = const []});
 
   @override
   List<Object?> get props => [postRequestRequest, completer, files];

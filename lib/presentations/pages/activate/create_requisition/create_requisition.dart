@@ -44,7 +44,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
   }
 
   _scrollListener() {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         status == FlowStatusEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
