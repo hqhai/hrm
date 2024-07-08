@@ -10,9 +10,11 @@ class MonthYearDialog extends StatefulWidget {
   const MonthYearDialog({
     super.key,
     required this.onChange,
+    this.timeOld
   });
 
   final ValueChanged<DateTime> onChange;
+  final DateTime? timeOld;
 
   @override
   State<MonthYearDialog> createState() => _MonthYearDialogState();
@@ -28,6 +30,34 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
 
   bool _checkMonth(int index) {
     return index + 1 == time.month && year == time.year;
+  }
+
+  setYear(bool check) {
+    setState(
+      () {
+        if (check) {
+          year--;
+        } else {
+          year++;
+        }
+      },
+    );
+  }
+
+  setTimeMonth(int month) {
+    setState(() {
+      time = DateTime(year, month);
+
+    });
+  }
+
+  @override
+  void initState() {
+    if(widget.timeOld != null){
+      time = widget.timeOld!;
+      year = widget.timeOld!.year;
+    }
+    super.initState();
   }
 
   @override
@@ -134,31 +164,15 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
     );
   }
 
-  setYear(bool check) {
-    setState(() {
-      if (check) {
-        year--;
-      } else {
-        year++;
-      }
-    });
-  }
-
   cancel(BuildContext context) {
     popDialog(context);
   }
 
   ok(BuildContext context) {
     setState(() {
-      time = time = DateTime(year, time.month);
+      time = time = DateTime(time.year, time.month);
       widget.onChange.call(time);
     });
     popDialog(context);
-  }
-
-  setTimeMonth(int month) {
-    setState(() {
-      time = DateTime(year, month);
-    });
   }
 }

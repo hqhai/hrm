@@ -1,15 +1,23 @@
+import 'dart:async';
+
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/work_and_salary_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_bloc.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_state.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
-class ItemLeaveHistory extends StatelessWidget {
+class ItemLeaveHistory extends StatefulWidget {
   const ItemLeaveHistory({
     super.key,
     required this.userLeaveHistoryId,
@@ -18,12 +26,19 @@ class ItemLeaveHistory extends StatelessWidget {
   final String userLeaveHistoryId;
 
   @override
+  State<ItemLeaveHistory> createState() => _ItemLeaveHistoryState();
+}
+
+class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
+  bool checkOpacity = true;
+
+  @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return BlocBuilder<LeaveHistoryBloc, LeaveHistoryState>(
       builder: (context, state) {
-        final leave = state.userLeaveHistory[userLeaveHistoryId];
+        final leave = state.userLeaveHistory[widget.userLeaveHistoryId];
         return ContainerBorder(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -137,14 +152,20 @@ class ItemLeaveHistory extends StatelessWidget {
                   ],
                 ),
               ),
-              if (leave?.requestId != null)
-                Padding(
-                  padding: const EdgeInsets.all(SpacingUnit.x3),
-                  child: Text(
-                    appLocalizations.seeRequest,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x3,
+              if (leave?.requestId.isNotEmpty ?? false)
+                GestureDetector(
+                  onTap: () => _nextRequisitionInformationScreen(
+                    context,
+                    state.userLeaveHistory[widget.userLeaveHistoryId]!.requestId,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(SpacingUnit.x3),
+                    child: Text(
+                      appLocalizations.seeRequest,
+                      style: TextStyle(
+                        color: colors.success,
+                        fontSize: SpacingUnit.x3,
+                      ),
                     ),
                   ),
                 )
@@ -153,5 +174,33 @@ class ItemLeaveHistory extends StatelessWidget {
         );
       },
     );
+  }
+
+  _nextRequisitionInformationScreen(BuildContext context, String idRequest) async {
+    if (!checkOpacity) {
+      setState(() {
+        checkOpacity = true;
+      });
+      final Completer completer = Completer<RequisitionEnum>();
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: idRequest, completer: completer),
+      );
+      final statusCompleter = await completer.future;
+      if (statusCompleter == RequisitionEnum.success) {
+        setState(() {
+          checkOpacity = false;
+        });
+        if (!currentContext.mounted) return;
+        dI<AppNavigation>().pushName(
+          currentContext,
+          page: Pages.requisitionInformationPage,
+          extra: {
+            'id': idRequest,
+            'checkUser': false,
+          },
+        );
+      }
+    }
   }
 }

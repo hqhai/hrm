@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class MonthYearPicker extends StatefulWidget {
-  const MonthYearPicker({super.key, required this.onChange});
+  const MonthYearPicker({super.key, required this.onChange, this.timeOld});
+
   final ValueChanged<DateTime> onChange;
+  final DateTime? timeOld;
 
   @override
   State<MonthYearPicker> createState() => _MonthYearPickerState();
@@ -18,20 +20,25 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
   DateTime date = DateTime.now();
 
   @override
+  void initState() {
+    if (widget.timeOld != null) {
+      date = widget.timeOld!;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '${appLocalizations.time}:  ',
+            '${appLocalizations.time}  ',
             style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-            ),
+                color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w600),
           ),
           GestureDetector(
             onTap: () => dialog(context),
@@ -63,6 +70,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
       builder: (BuildContext context) {
         return Dialog(
           child: MonthYearDialog(
+            timeOld: date,
             onChange: (value) => setDate(value),
           ),
         );

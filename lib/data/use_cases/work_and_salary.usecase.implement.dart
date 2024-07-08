@@ -24,8 +24,13 @@ class WorkAndSalaryUseCaseImplement extends WorkAndSalaryUseCase {
   }
 
   @override
-  Future<UserLeaveHistoryResponseMap> totalLeaveUserHistory({DateTime? date, TypeLeaveEnum? type, int? page}) async {
-    final userLeaveHistoryResponse = await _workAndSalaryRepository.totalLeaveUserHistory();
+  Future<UserLeaveHistoryResponseMap> totalLeaveUserHistory(
+      {DateTime? date, TypeLeaveEnum? type, int? page}) async {
+    final userLeaveHistoryResponse = await _workAndSalaryRepository.totalLeaveUserHistory(
+      date: date,
+      type: type,
+      page: page,
+    );
     final Map<String, UserLeaveHistory> userLeaveHistory = Map.fromEntries(
       userLeaveHistoryResponse.items.map(
         (item) => MapEntry(
