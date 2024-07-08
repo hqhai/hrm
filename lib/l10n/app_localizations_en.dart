@@ -1200,4 +1200,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourceOfLeave => 'Source of leave';
+
+  @override
+  String get doYouWantRevokeYourRequest => 'Do you want revoke your request?';
 }

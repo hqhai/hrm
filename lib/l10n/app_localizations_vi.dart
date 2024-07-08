@@ -1200,4 +1200,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sourceOfLeave => 'Nguồn phép';
+
+  @override
+  String get doYouWantRevokeYourRequest => 'Bạn có muốn vô hiệu hóa đơn từ này không?';
 }

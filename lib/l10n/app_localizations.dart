@@ -2486,6 +2486,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Source of leave'**
   String get sourceOfLeave;
+
+  /// No description provided for @doYouWantRevokeYourRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want revoke your request?'**
+  String get doYouWantRevokeYourRequest;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

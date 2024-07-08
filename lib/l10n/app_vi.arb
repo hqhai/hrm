@@ -399,6 +399,6 @@
   "totalRemainingLeaveDays": "Tổng số phép còn lại",
   "vacationPeriod": "Tời gian xin nghỉ",
   "seeRequest": "Xem đơn từ",
-  "sourceOfLeave": "Nguồn phép"
-
+  "sourceOfLeave": "Nguồn phép",
+  "doYouWantRevokeYourRequest": "Bạn có muốn vô hiệu hóa đơn từ này không?"
 }

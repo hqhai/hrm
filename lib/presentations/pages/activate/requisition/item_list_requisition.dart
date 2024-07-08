@@ -63,7 +63,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
             border: Border.all(color: colors.text, width: 1),
           ),
           child: GestureDetector(
-            onTap: () => _nextRequisitionInformationScreen(context, state),
+            onTap: () => _nextRequisitionInformationScreen(context),
             child: Stack(
               children: [
                 Opacity(
@@ -82,44 +82,6 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                     ),
                   ),
                 ),
-                if (_getRequestInId(state.requisitions).status == StatusRequestEnum.edit)
-                  Opacity(
-                    opacity: checkOpacity ? 0.5 : 1,
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                          margin: const EdgeInsets.all(SpacingUnit.x2),
-                          padding: const EdgeInsets.all(SpacingUnit.x2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                            color: CustomsColor.colorBackground,
-                            border: Border.all(color: colors.text, width: 1),
-                          ),
-                          child: Text(
-                            appLocalizations.update,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                          )),
-                    ),
-                  ),
-                if (_getRequestInId(state.requisitions).status == StatusRequestEnum.process)
-                  Opacity(
-                    opacity: checkOpacity ? 0.5 : 1,
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                          margin: const EdgeInsets.all(SpacingUnit.x2),
-                          padding: const EdgeInsets.all(SpacingUnit.x2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                            color: CustomsColor.colorBackground,
-                            border: Border.all(color: colors.text, width: 1),
-                          ),
-                          child: Text(
-                            appLocalizations.revoke,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                          )),
-                    ),
-                  ),
                 Opacity(
                   opacity: checkOpacity ? 0.5 : 1,
                   child: Padding(
@@ -214,8 +176,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
     );
   }
 
-  _nextRequisitionInformationScreen(BuildContext context, RequisitionState state) async {
-    Request request = _getRequestInId(state.requisitions);
+  _nextRequisitionInformationScreen(BuildContext context) async {
     if (!checkOpacity) {
       setState(() {
         checkOpacity = true;
@@ -235,7 +196,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
           currentContext,
           page: Pages.requisitionInformationPage,
           extra: {
-            'id': request.id,
+            'id': widget.id,
             'checkUser': false,
           },
         );

@@ -8,7 +8,10 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
@@ -20,6 +23,7 @@ import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 class ItemRequisitionApproveList extends StatefulWidget {
@@ -38,6 +42,7 @@ class ItemRequisitionApproveList extends StatefulWidget {
 
 class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList> {
   String? note;
+  bool checkOpacity = false;
 
   @override
   void initState() {
@@ -69,60 +74,86 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
           border: Border.all(color: colors.text, width: 1),
         ),
         child: GestureDetector(
-          onTap: () => _nextRequisitionInformationScreen(context, state),
+          onTap: () => _nextRequisitionInformationScreen(context),
           child: Stack(
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  color: colors.neutralVariant40,
-                  padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child: Text(
-                    widget.status.configStepRequestStatusName,
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+              Positioned(
+                top: 1,
+                right: 1,
+                child: Opacity(
+                  opacity: checkOpacity ? 0.5 : 1,
+                  child: Container(
+                    color: colors.neutralVariant40,
+                    padding: const EdgeInsets.all(SpacingUnit.x2),
+                    child: Text(
+                      widget.status.configStepRequestStatusName,
+                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                    ),
                   ),
                 ),
               ),
               if (widget.status.configStepRequestStatusName ==
                   EnumStepRequestStatusEnum.approve.configStepRequestStatusName)
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: ButtonItemListRequisition(
-                    title: appLocalizations.cancel,
-                    callback: () {},
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Opacity(
+                    opacity: checkOpacity ? 0.5 : 1,
+                    child: ButtonItemListRequisition(
+                      title: appLocalizations.revoke,
+                      callback: () {},
+                    ),
                   ),
                 ),
+              Positioned(
+                left: 0,
+                top: 0,
+                child: Opacity(
+                  opacity: checkOpacity ? 0.5 : 1,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(SpacingUnit.x2),
+                      child: ContentItemRequisitionList(id: widget.id),
+                    ),
+                  ),
+                ),
+              ),
+              Opacity(
+                opacity: checkOpacity ? 1 : 0,
+                child: Center(
+                  child: Lottie.asset(Assets.images.icon.loading,
+                      width: SpacingUnit.x40, height: SpacingUnit.x40, fit: BoxFit.fill),
+                ),
+              ),
               if (widget.status.configStepRequestStatusName ==
                   EnumStepRequestStatusEnum.newStatus.configStepRequestStatusName)
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ButtonItemListRequisition(
-                        title: appLocalizations.approver,
-                        callback: () => _isApprover(
-                            state.requisitions, context, EnumStepRequestStatusEnum.approve),
-                      ),
-                      ButtonItemListRequisition(
-                        title: appLocalizations.refuse,
-                        callback: () => _isApprover(
-                            state.requisitions, context, EnumStepRequestStatusEnum.reject),
-                      ),
-                      ButtonItemListRequisition(
-                        title: appLocalizations.modification,
-                        callback: () => _isApprover(
-                            state.requisitions, context, EnumStepRequestStatusEnum.edit),
-                      ),
-                    ],
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Opacity(
+                    opacity: checkOpacity ? 0.5 : 1,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ButtonItemListRequisition(
+                          title: appLocalizations.approver,
+                          callback: () => _isApprover(
+                              state.requisitions, context, EnumStepRequestStatusEnum.approve),
+                        ),
+                        ButtonItemListRequisition(
+                          title: appLocalizations.refuse,
+                          callback: () => _isApprover(
+                              state.requisitions, context, EnumStepRequestStatusEnum.reject),
+                        ),
+                        ButtonItemListRequisition(
+                          title: appLocalizations.modification,
+                          callback: () => _isApprover(
+                              state.requisitions, context, EnumStepRequestStatusEnum.edit),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child: ContentItemRequisitionList(id: widget.id),
-                ),
-              )
             ],
           ),
         ),
@@ -130,11 +161,34 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
     );
   }
 
-  _nextRequisitionInformationScreen(BuildContext context, RequisitionApproveState state) {
-    dI<AppNavigation>().pushName(context, page: Pages.requisitionInformationPage, extra: {
-      'id': widget.id,
-      'checkUser': true,
-    });
+  _nextRequisitionInformationScreen(
+    BuildContext context,
+  ) async {
+    if (!checkOpacity) {
+      setState(() {
+        checkOpacity = true;
+      });
+      final Completer completer = Completer<RequisitionEnum>();
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.id, completer: completer),
+      );
+      final statusCompleter = await completer.future;
+      if (statusCompleter == RequisitionEnum.success) {
+        setState(() {
+          checkOpacity = false;
+        });
+        if (!currentContext.mounted) return;
+        dI<AppNavigation>().pushName(
+          currentContext,
+          page: Pages.requisitionInformationPage,
+          extra: {
+            'id': widget.id,
+            'checkUser': true,
+          },
+        );
+      }
+    }
   }
 
   _isApprover(List<Request> requests, BuildContext context, EnumStepRequestStatusEnum status) {

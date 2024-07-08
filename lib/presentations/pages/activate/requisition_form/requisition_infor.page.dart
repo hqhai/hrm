@@ -9,6 +9,7 @@ import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/navigator_extra/information_request_extra.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
@@ -26,6 +27,7 @@ import 'package:base_app/presentations/widgets/activate/requisition_infor_item/r
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_sender_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_type.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title_callback.dart';
 import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -117,7 +119,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                               child: ButtonItemListRequisition(
                                 check: true,
                                 title: appLocalizations.revoke,
-                                callback: () => userRejectRequest(),
+                                callback: () => rejectDialog(context),
                               ),
                             ),
                           if (state.requisition.status == StatusRequestEnum.edit &&
@@ -131,7 +133,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                                     _nextScreen(context, stateFlow.flow, state.requisition.id),
                               ),
                             ),
-                          if (state.requisition.status == StatusRequestEnum.process &&
+                          if (statusApprove(state.requisition) == EnumStepRequestStatusEnum.newStatus &&
                               widget.checkUser)
                             ItemRequestProcess(
                               callBackApprover: () => _isApprover(
@@ -198,6 +200,41 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
         }
       }
     }
+  }
+
+  EnumStepRequestStatusEnum? statusApprove(Request request){
+    String idUser = dI<UserBloc>().state.user.id;
+    if (request.stepRequests.isNotEmpty) {
+      final stepRequests = request.stepRequests;
+      final indexNewStepRequest = stepRequests
+          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      if (indexNewStepRequest != -1) {
+        final stepRequest = stepRequests[indexNewStepRequest];
+        final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
+        final int indexNewRequest =
+        stepRequestApproves.indexWhere((element) => element.approverId == idUser);
+        if (indexNewRequest != -1) {
+          EnumStepRequestStatusEnum? statusStepRequestApprove = stepRequestApproves[indexNewRequest].status;
+          return statusStepRequestApprove;
+        }
+      }
+    }
+    return null;
+  }
+
+  rejectDialog(BuildContext context){
+    final appLocalizations = AppLocalizations.of(context)!;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: TitleCallbackDialog(
+            title: appLocalizations.doYouWantRevokeYourRequest,
+            callback: () => userRejectRequest(),
+          ),
+        );
+      },
+    );
   }
 
   userRejectRequest() async {

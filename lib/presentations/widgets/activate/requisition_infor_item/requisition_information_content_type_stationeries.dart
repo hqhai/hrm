@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -47,6 +48,31 @@ class _RequisitionInformationContentTypeStationeriesState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: SpacingUnit.x3,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      appLocalizations.month,
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x3,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Text(
+                      monthTime(state.requisition.config.startDate),
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Text(
                 appLocalizations.description,
                 style: TextStyle(
@@ -84,6 +110,13 @@ class _RequisitionInformationContentTypeStationeriesState
           ),
         );
       },
+    );
+  }
+
+  String monthTime(DateTime? date) {
+    return formatYM(
+      date?.year ?? DateTime.now().year,
+      date?.month ?? DateTime.now().month,
     );
   }
 
