@@ -58,9 +58,10 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
           height: height * 0.15,
           margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingUnit.x1),
-              color: CustomsColor.colorBackground,
-              border: Border.all(color: colors.text, width: 1)),
+            borderRadius: BorderRadius.circular(SpacingUnit.x1),
+            color: CustomsColor.colorBackground,
+            border: Border.all(color: colors.text, width: 1),
+          ),
           child: GestureDetector(
             onTap: () => _nextRequisitionInformationScreen(context, state),
             child: Stack(
@@ -68,15 +69,18 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                 Opacity(
                   opacity: checkOpacity ? 0.5 : 1,
                   child: Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                          color: colors.neutralVariant40,
-                          padding: const EdgeInsets.all(SpacingUnit.x2),
-                          child: Text(
-                              StatusRequestEnum.values
-                                  .firstWhere((e) => e == _getRequestInId(state.requisitions).status)
-                                  .configRequestStatusName,
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))),
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      color: colors.neutralVariant40,
+                      padding: const EdgeInsets.all(SpacingUnit.x2),
+                      child: Text(
+                        StatusRequestEnum.values
+                            .firstWhere((e) => e == _getRequestInId(state.requisitions).status)
+                            .configRequestStatusName,
+                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                      ),
+                    ),
+                  ),
                 ),
                 if (_getRequestInId(state.requisitions).status == StatusRequestEnum.edit)
                   Opacity(
@@ -124,48 +128,71 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                            width: width * 0.7,
-                            child: Text(_getRequestInId(state.requisitions).nameFlow,
+                          width: width * 0.7,
+                          child: Text(
+                            _getRequestInId(state.requisitions).nameFlow,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: colors.text,
+                                fontSize: SpacingUnit.x3_5,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        const SizedBox(height: SpacingUnit.x3_5),
+                        Row(
+                          children: [
+                            Text(
+                              '${appLocalizations.creator} : ',
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                            ),
+                            SizedBox(
+                              width: width * 0.6,
+                              child: Text(
+                                _getRequestInId(state.requisitions).createdFullName,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '${appLocalizations.createTime} : ',
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                            ),
+                            SizedBox(
+                              width: width * 0.6,
+                              child: Text(
+                                formatYMDHMS(
+                                  dateTimeLocal(_getRequestInId(state.requisitions).createdDate)
+                                      .toString(),
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '${appLocalizations.code} : ',
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                            ),
+                            SizedBox(
+                              width: width * 0.6,
+                              child: Text(
+                                _getRequestInId(state.requisitions).code,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    color: colors.text,
-                                    fontSize: SpacingUnit.x3_5,
-                                    fontWeight: FontWeight.w700))),
-                        const SizedBox(height: SpacingUnit.x3_5),
-                        Row(children: [
-                          Text(
-                            '${appLocalizations.creator} : ',
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                          ),
-                          SizedBox(
-                              width: width * 0.6,
-                              child: Text(_getRequestInId(state.requisitions).createdFullName,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
-                        ]),
-                        Row(children: [
-                          Text('${appLocalizations.createTime} : ',
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
-                          SizedBox(
-                              width: width * 0.6,
-                              child: Text(formatYMDHMS(dateTimeLocal(_getRequestInId(state.requisitions).createdDate).toString()),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)))
-                        ]),
-                        Row(
-                          children: [
-                            Text('${appLocalizations.code} : ',
-                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5)),
-                            SizedBox(
-                                width: width * 0.6,
-                                child: Text(_getRequestInId(state.requisitions).code,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: colors.successVariant, fontSize: SpacingUnit.x3_5)))
+                                    color: colors.successVariant, fontSize: SpacingUnit.x3_5),
+                              ),
+                            ),
                           ],
                         ),
                       ],

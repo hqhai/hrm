@@ -200,8 +200,31 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     }
   }
 
-  userRejectRequest() {
-    dI<RequisitionBloc>().add(UserRejectRequestEvent(id: widget.id));
+  userRejectRequest() async {
+    setState(() {
+      checkLoad = true;
+    });
+    Completer completer = Completer<bool>();
+    dI<RequisitionBloc>().add(
+      UserRejectRequestEvent(
+        id: widget.id,
+        completer: completer,
+      ),
+    );
+    final statusCompleter = await completer.future;
+    if (statusCompleter) {
+      setState(() {
+        dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
+        checkLoad = false;
+        checkSuccess = true;
+      });
+    }
+    else if (statusCompleter) {
+      setState(() {
+        checkLoad = false;
+        checkUnSuccess = true;
+      });
+    }
   }
 
   _setNote(String value) {

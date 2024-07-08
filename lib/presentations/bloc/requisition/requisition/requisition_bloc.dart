@@ -47,11 +47,14 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       if (check) {
         requests.removeAt(requestIndex);
         emit(state.copyWith(requisitions: requests, status: RequisitionEnum.success));
+        event.completer?.complete(true);
       } else {
         emit(state.copyWith(status: RequisitionEnum.fail));
+        event.completer?.complete(false);
       }
     } catch (e) {
       emit(state.copyWith(status: RequisitionEnum.fail));
+      event.completer?.complete(false);
     }
   }
 

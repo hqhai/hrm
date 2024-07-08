@@ -28,7 +28,7 @@ class ConfigRequestModel {
   final List<Stationeries>? stationeries;
   final double? subtotal;
   final double? totalAmount;
-  final String? explanationReason;
+  final EditTimekeeping? explanationReason;
   final DateTime? startDate;
   final DateTime? endDate;
   final double? total;

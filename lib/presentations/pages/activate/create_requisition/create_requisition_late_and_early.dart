@@ -15,7 +15,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_timm_ymd.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
@@ -127,7 +127,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                         title: appLocalizations.detailedDescription,
                         onChange: (value) => _setDetailedDescription(value),
                       ),
-                      ItemCreateTimeYMD(
+                      ItemCreateTime(
                         check: true,
                         title: appLocalizations.workDay,
                         dateOfBirth: DateTime.now(),
@@ -188,6 +188,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       builder: (BuildContext context) {
         return Dialog(
           child: OverTimeAddDialog(
+            checkNote: false,
             onChangeOverTimes: (value) => setAdd(value),
           ),
         );
@@ -275,11 +276,11 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     });
   }
 
-  String explanationReason() {
+  EditTimekeeping explanationReason() {
     if (widget.type == RequisitionTypeEnum.lateArrival) {
-      return EditTimekeeping.late.name;
+      return EditTimekeeping.late;
     }
-    return EditTimekeeping.early.name;
+    return EditTimekeeping.early;
   }
 
   _cancel() {}

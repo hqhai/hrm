@@ -214,7 +214,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              editTimekeeping: EditTimekeeping.editTimekeeping,
+              explanationReason: EditTimekeeping.editTimekeeping,
               overTimes: listRequisitionOverTimes,
               description: description,
             ),
@@ -224,7 +224,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              editTimekeeping: EditTimekeeping.editTimekeeping,
+              explanationReason: EditTimekeeping.editTimekeeping,
               overTimes: listRequisitionOverTimes,
               description: description,
             ),

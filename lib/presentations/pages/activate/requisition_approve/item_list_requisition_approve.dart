@@ -9,8 +9,6 @@ import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
@@ -167,10 +165,6 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
         }
       }
     }
-  }
-
-  userRejectRequest() {
-    dI<RequisitionBloc>().add(UserRejectRequestEvent(id: widget.id));
   }
 
   _setNote(String value) {

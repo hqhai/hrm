@@ -13,10 +13,12 @@ import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class OverTimeAddDialog extends StatefulWidget {
-  const OverTimeAddDialog({super.key, this.onChangeOverTimes, this.requisitionOverTime});
+  const OverTimeAddDialog(
+      {super.key, this.onChangeOverTimes, this.requisitionOverTime, this.checkNote = true});
 
   final ValueChanged<RequisitionOverTime>? onChangeOverTimes;
   final RequisitionOverTime? requisitionOverTime;
+  final bool checkNote;
 
   @override
   State<OverTimeAddDialog> createState() => _OverTimeAddDialogState();
@@ -102,11 +104,12 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
             SuggestTimeOverTime(
               suggestTime: strSeconds((suggestTime ?? 0).toInt()),
             ),
-            ItemCreateInput(
-              title: appLocalizations.note,
-              inputController: noteController,
-              onChange: (value) => _setNote(value),
-            ),
+            if (widget.checkNote)
+              ItemCreateInput(
+                title: appLocalizations.note,
+                inputController: noteController,
+                onChange: (value) => _setNote(value),
+              ),
             ItemButtonListStationery(
               callbackCancel: () => popDialog(context),
               callbackAdd: () => setAdd(context),
