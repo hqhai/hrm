@@ -5,7 +5,7 @@ import 'package:base_app/domain/entities/leave/user_leave_hisory_types.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_state.dart';
-import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
+import 'package:base_app/presentations/pages/activate/leave/padding_row_leave.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,39 +50,19 @@ class ItemLeave extends StatelessWidget {
                   fontSize: SpacingUnit.x4,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(SpacingUnit.x3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TitleValueLeave(
-                      title: appLocalizations.total,
-                      value: leave.total.toString(),
-                    ),
-                    TitleValueLeave(
-                      title: appLocalizations.expired,
-                      value: leave.totalExpired.toString(),
-                      color: colors.error,
-                    ),
-                  ],
-                ),
+              PaddingRowLeave(
+                title1: appLocalizations.total,
+                title2: appLocalizations.expired,
+                value1: leave.total.toString(),
+                value2: leave.totalExpired.toString(),
+                color: colors.error,
               ),
-              Padding(
-                padding: const EdgeInsets.all(SpacingUnit.x3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TitleValueLeave(
-                      title: appLocalizations.used,
-                      value: leave.totalUsed.toString(),
-                    ),
-                    TitleValueLeave(
-                      title: appLocalizations.remaining,
-                      value: leave.totalRemaining.toString(),
-                      color: colors.success,
-                    ),
-                  ],
-                ),
+              PaddingRowLeave(
+                title1: appLocalizations.used,
+                title2: appLocalizations.remaining,
+                value1: leave.totalUsed.toString(),
+                value2: leave.totalRemaining.toString(),
+                color: colors.success,
               ),
             ],
           ),
