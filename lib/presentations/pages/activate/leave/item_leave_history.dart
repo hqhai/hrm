@@ -13,6 +13,7 @@ import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_bl
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
+import 'package:base_app/presentations/pages/activate/leave/padding_row_leave.dart';
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
@@ -45,48 +46,20 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(SpacingUnit.x3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: TitleValueLeave(
-                        title: appLocalizations.day,
-                        value: formatYMD((leave?.createdDate ?? "").toString()),
-                      ),
-                    ),
-                    Expanded(
-                      child: TitleValueLeave(
-                        title: appLocalizations.totalLeaveOfChanges,
-                        value: totalLeaveOfChanges(leave?.changeType, leave?.changeValue),
-                        color: check(leave?.changeType ?? ChangeTypeEnum.addition)
-                            ? colors.success
-                            : colors.error,
-                      ),
-                    ),
-                  ],
-                ),
+              PaddingRowLeave(
+                title1: appLocalizations.day,
+                title2: appLocalizations.totalLeaveOfChanges,
+                value1: formatYMD((leave?.createdDate ?? "").toString()),
+                value2: totalLeaveOfChanges(leave?.changeType, leave?.changeValue),
+                color: check(leave?.changeType ?? ChangeTypeEnum.addition)
+                    ? colors.success
+                    : colors.error,
               ),
-              Padding(
-                padding: const EdgeInsets.all(SpacingUnit.x3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: TitleValueLeave(
-                        title: appLocalizations.actionName,
-                        value: leave?.changeType.configChangeTypeEnum ?? "",
-                      ),
-                    ),
-                    Expanded(
-                      child: TitleValueLeave(
-                        title: appLocalizations.totalRemainingLeaveDays,
-                        value: (leave?.totalRemaining ?? 0).toString(),
-                      ),
-                    ),
-                  ],
-                ),
+              PaddingRowLeave(
+                title1: appLocalizations.actionName,
+                title2: appLocalizations.totalRemainingLeaveDays,
+                value1: leave?.changeType.configChangeTypeEnum ?? "",
+                value2: (leave?.totalRemaining ?? 0).toString(),
               ),
               Padding(
                 padding: const EdgeInsets.all(SpacingUnit.x3),
