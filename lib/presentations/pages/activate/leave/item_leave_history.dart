@@ -127,6 +127,7 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
     return type == ChangeTypeEnum.addition;
   }
 
+
   _nextRequisitionInformationScreen(BuildContext context, String idRequest) async {
     final RequisitionInformationExtra extra = RequisitionInformationExtra(
       id: idRequest,
