@@ -5,6 +5,7 @@ import 'package:base_app/domain/entities/leave/user_leave_hisory_types.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_state.dart';
+import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,41 +55,14 @@ class ItemLeave extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          '${appLocalizations.total}: ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          leave.total.toString(),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                      ],
+                    TitleValueLeave(
+                      title: appLocalizations.total,
+                      value: leave.total.toString(),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          '${appLocalizations.explain}: ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          leave.totalExpired.toString(),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                      ],
+                    TitleValueLeave(
+                      title: appLocalizations.expired,
+                      value: leave.totalExpired.toString(),
+                      color: colors.error,
                     ),
                   ],
                 ),
@@ -98,41 +72,14 @@ class ItemLeave extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          '${appLocalizations.used}: ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          leave.totalUsed.toString(),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                      ],
+                    TitleValueLeave(
+                      title: appLocalizations.used,
+                      value: leave.totalUsed.toString(),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          '${appLocalizations.remaining}: ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          leave.totalRemaining.toString(),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                      ],
+                    TitleValueLeave(
+                      title: appLocalizations.remaining,
+                      value: leave.totalRemaining.toString(),
+                      color: colors.success,
                     ),
                   ],
                 ),

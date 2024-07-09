@@ -13,6 +13,7 @@ import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_bl
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
+import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,41 +50,20 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          '${appLocalizations.day}: ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          formatYMD((leave?.createdDate ?? "").toString()),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                      ],
+                    Expanded(
+                      child: TitleValueLeave(
+                        title: appLocalizations.day,
+                        value: formatYMD((leave?.createdDate ?? "").toString()),
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          '${appLocalizations.totalLeaveOfChanges}: ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          (leave?.changeValue ?? 0).toString(),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                      ],
+                    Expanded(
+                      child: TitleValueLeave(
+                        title: appLocalizations.totalLeaveOfChanges,
+                        value: totalLeaveOfChanges(leave?.changeType, leave?.changeValue),
+                        color: check(leave?.changeType ?? ChangeTypeEnum.addition)
+                            ? colors.success
+                            : colors.error,
+                      ),
                     ),
                   ],
                 ),
@@ -93,64 +73,26 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          '${appLocalizations.actionName}: ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          leave?.changeType.configChangeTypeEnum ?? "",
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                      ],
+                    Expanded(
+                      child: TitleValueLeave(
+                        title: appLocalizations.actionName,
+                        value: leave?.changeType.configChangeTypeEnum ?? "",
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          '${appLocalizations.totalRemainingLeaveDays}: ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          (leave?.totalRemaining ?? 0).toString(),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                      ],
+                    Expanded(
+                      child: TitleValueLeave(
+                        title: appLocalizations.totalRemainingLeaveDays,
+                        value: (leave?.totalRemaining ?? 0).toString(),
+                      ),
                     ),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(SpacingUnit.x3),
-                child: Row(
-                  children: [
-                    Text(
-                      '${appLocalizations.sourceOfLeave}: ',
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x3,
-                      ),
-                    ),
-                    Text(
-                      leave?.type.configTypeLeaveEnum ?? "",
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x3,
-                      ),
-                    ),
-                  ],
+                child: TitleValueLeave(
+                  title: appLocalizations.sourceOfLeave,
+                  value: leave?.type.configTypeLeaveEnum ?? "",
                 ),
               ),
               if (leave?.requestId.isNotEmpty ?? false)
@@ -176,6 +118,15 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
       },
     );
   }
+
+  String totalLeaveOfChanges(ChangeTypeEnum? type, double? change) {
+    return '${check(type ?? ChangeTypeEnum.addition) ? '+' : '-'}${(change ?? 0).toString()}';
+  }
+
+  bool check(ChangeTypeEnum type) {
+    return type == ChangeTypeEnum.addition;
+  }
+
 
   _nextRequisitionInformationScreen(BuildContext context, String idRequest) async {
     final RequisitionInformationExtra extra = RequisitionInformationExtra(
