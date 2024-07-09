@@ -37,7 +37,8 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
           startTime: widget.filterData.startTime,
           endTime: widget.filterData.endTime,
           requisitionTypeEnum: widget.filterData.type,
-          status: widget.status.name),
+          status: widget.status.name,
+      createdCode: widget.filterData.user?.code),
     );
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
@@ -57,7 +58,8 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
             departmentId: widget.filterData.department?.id,
             startTime: widget.filterData.startTime,
             endTime: widget.filterData.endTime,
-            requisitionTypeEnum: widget.filterData.type),
+            requisitionTypeEnum: widget.filterData.type,
+            createdCode: widget.filterData.user?.code),
       );
     }
   }

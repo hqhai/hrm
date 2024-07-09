@@ -1,6 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/domain/entities/department.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'filter_dialog_model.g.dart';
@@ -16,6 +17,7 @@ class FilterDialogModel {
   final DateTime? endTime;
   final String? flowName;
   final String? departmentName;
+  final User? user;
   final List<StatusRequestEnum>? statuses;
 
   const FilterDialogModel({
@@ -26,7 +28,8 @@ class FilterDialogModel {
     this.startTime,
     this.endTime,
     this.statuses,
-    this.department
+    this.department,
+    this.user
   });
 
   factory FilterDialogModel.fromJson(Map<String, dynamic> json) => _$FilterDialogModelFromJson(json);

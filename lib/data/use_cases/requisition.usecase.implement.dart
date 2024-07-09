@@ -57,20 +57,23 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   }
 
   @override
-  Future<RequestsResponse> getRequisitionsApproveByFilter(
-      {int? page,
-      String? type,
-      String? departmentId,
-        DateTime? startDate,
-        DateTime? endDate,
-        String? status}) async {
+  Future<RequestsResponse> getRequisitionsApproveByFilter({
+    int? page,
+    String? type,
+    String? departmentId,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? status,
+    String? createdCode,
+  }) async {
     return await _requisitionRepository.getRequisitionsApproveByFilter(
       page: page,
       endDate: endDate,
       startDate: startDate,
       type: type,
       departmentId: departmentId,
-      status: status
+      status: status,
+      createdCode: createdCode,
     );
   }
 
@@ -79,8 +82,8 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
       {int? page,
       String? type,
       String? departmentId,
-        DateTime? startDate,
-        DateTime? endDate,
+      DateTime? startDate,
+      DateTime? endDate,
       List<String>? status}) async {
     return await _requisitionRepository.getRequisitionsFollowerByFilter(
       page: page,
@@ -95,11 +98,11 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   @override
   Future<RequestsResponse> getRequisitionsByFilter(
       {int? page,
-        String? flowId,
-        String? departmentId,
-        DateTime? startDate,
-        DateTime? endDate,
-        List<String>? status}) async {
+      String? flowId,
+      String? departmentId,
+      DateTime? startDate,
+      DateTime? endDate,
+      List<String>? status}) async {
     return await _requisitionRepository.getRequisitionsByFilter(
       page: page,
       endDate: endDate,

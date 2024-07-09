@@ -75,7 +75,7 @@ class ItemLeave extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${appLocalizations.explain}: ',
+                          '${appLocalizations.expired}: ',
                           style: TextStyle(
                             color: colors.text,
                             fontSize: SpacingUnit.x3,

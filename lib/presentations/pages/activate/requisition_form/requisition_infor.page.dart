@@ -108,7 +108,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const RequisitionInformationSenderInformation(),
-                          const RequisitionInformationGeneraliInformation(),
+                          RequisitionInformationGeneraliInformation(checkUser: widget.checkUser),
                           const RequisitionInformationType(),
                           const RequisitionInformationContent(),
                           const RequisitionInformationAttach(),

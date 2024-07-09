@@ -12,8 +12,7 @@ class GetRequestApproveFilterRequest {
   final DateTime? startDate;
   final DateTime? endDate;
   final String? statusApprove;
-
-
+  final String? createdCode;
 
   const GetRequestApproveFilterRequest({
     this.page,
@@ -22,6 +21,7 @@ class GetRequestApproveFilterRequest {
     this.type,
     this.createdDepartmentId,
     this.startDate,
+    this.createdCode,
   });
 
   factory GetRequestApproveFilterRequest.fromJson(Map<String, dynamic> json) =>

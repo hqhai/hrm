@@ -78,7 +78,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       String? type,
       String? departmentId,
       DateTime? startDate,
-        DateTime? endDate,
+      DateTime? endDate,
       List<String>? status}) async {
     if (status?.isNotEmpty ?? false) {
       return await _requestService.getRequisitionsFollowerByFilter(
@@ -102,21 +102,25 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<RequestsResponse> getRequisitionsApproveByFilter(
-      {int? page,
-      String? type,
-      String? departmentId,
-        DateTime? startDate,
-        DateTime? endDate,
-      String? status}) async {
+  Future<RequestsResponse> getRequisitionsApproveByFilter({
+    int? page,
+    String? type,
+    String? departmentId,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? status,
+    String? createdCode,
+  }) async {
     return await _requestService.getRequisitionsApproveByFilter(
       getRequestApproveFilterRequest: GetRequestApproveFilterRequest(
-          type: type,
-          page: page,
-          endDate: endDate,
-          startDate: startDate,
-          createdDepartmentId: departmentId,
-          statusApprove: status),
+        type: type,
+        page: page,
+        endDate: endDate,
+        startDate: startDate,
+        createdDepartmentId: departmentId,
+        statusApprove: status,
+        createdCode: createdCode,
+      ),
     );
   }
 
@@ -125,8 +129,8 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       {int? page,
       String? flowId,
       String? departmentId,
-        DateTime? startDate,
-        DateTime? endDate,
+      DateTime? startDate,
+      DateTime? endDate,
       List<String>? status}) async {
     if (status?.isNotEmpty ?? false) {
       return await _requestService.getRequisitionsByFilter(

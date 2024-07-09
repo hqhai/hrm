@@ -130,7 +130,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       ItemCreateTime(
                         check: true,
                         title: appLocalizations.workDay,
-                        dateOfBirth: DateTime.now(),
+                        dateOfBirth: workDate ?? DateTime.now(),
                         onChangeDateOfBirth: (value) => _setWorkDate(value),
                       ),
                       if (widget.type == RequisitionTypeEnum.earlyDeparture)

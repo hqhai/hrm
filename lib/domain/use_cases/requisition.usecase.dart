@@ -27,7 +27,8 @@ abstract class RequisitionUseCase {
     String? departmentId,
     DateTime? startDate,
     DateTime? endDate,
-    String? status
+    String? status,
+    String? createdCode,
   });
 
   Future<RequestsResponse> getRequisitionsFollowerByFilter({

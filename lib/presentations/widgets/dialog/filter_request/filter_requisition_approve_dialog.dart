@@ -2,11 +2,13 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/pages/activate/requisition/button_request.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_timm_ymd.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_department.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_personnel.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_type_flow.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +33,12 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
   DateTime startTime = DateTime.now(), endTime = DateTime.now();
   RequisitionTypeEnum? type;
   Department? department;
+  User? user;
 
   @override
   void initState() {
     if (widget.filter != null) {
+      user =  widget.filter!.user;
       startTime = widget.filter!.startTime ?? DateTime.now();
       endTime = widget.filter!.endTime ?? DateTime.now();
       type = widget.filter!.type;
@@ -113,6 +117,16 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
                     fontSize: SpacingUnit.x4,
                   ),
                 ),
+                ItemAdd(
+                  callback: () => _showBottomSheetPersonnel(context),
+                  title: appLocalizations.personnel,
+                ),
+                Text(
+                  user?.fullName ?? "",
+                  style: const TextStyle(
+                    fontSize: SpacingUnit.x4,
+                  ),
+                ),
                 ItemCreateTimeYMD(
                   check: true,
                   title: appLocalizations.startTime,
@@ -157,6 +171,7 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
         endTime: endTime,
         startTime: startTime,
         department: department,
+        user: user,
       ),
     );
     popDialog(context);
@@ -176,5 +191,22 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
   setReject(BuildContext context) {
     widget.sendData.call(const FilterDialogModel());
     popDialog(context);
+  }
+
+  _showBottomSheetPersonnel(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetPersonnelWidget(
+          onChange: (value) => setPersonnel(value: value),
+        );
+      },
+    );
+  }
+
+  setPersonnel({required User value}) {
+    setState(() {
+      user = value;
+    });
   }
 }

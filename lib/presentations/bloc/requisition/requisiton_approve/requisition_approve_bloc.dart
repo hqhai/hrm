@@ -37,6 +37,7 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
         startDate: event.startTime,
         type: event.requisitionTypeEnum?.name,
         status: event.status,
+        createdCode: event.createdCode,
       );
       final List<Request> newStationery = requestsResponse.items;
       final int totalItems = requestsResponse.pagingInfo.totalItems;
@@ -50,7 +51,9 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
         ));
       } else {
         emit(state.copyWith(
-            requisitions: newStationery, countItem: totalItems, statusGet: RequisitionEnum.success));
+            requisitions: newStationery,
+            countItem: totalItems,
+            statusGet: RequisitionEnum.success));
       }
     } catch (e) {
       emit(state.copyWith(statusGet: RequisitionEnum.fail));
