@@ -17,5 +17,5 @@ class WorkAndSalaryState extends Equatable {
       this.status = WorkAndSalaryStatusEnum.init});
 
   @override
-  List<Object?> get props => [userLeave, status];
+  List<Object?> get props => [userLeave, status, totalWorkday];
 }

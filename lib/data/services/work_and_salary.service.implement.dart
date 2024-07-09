@@ -32,7 +32,7 @@ class WorkAndSalaryServiceImpl extends BaseService implements WorkAndSalaryServi
     );
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    UserLeave userLeave = UserLeave.fromJson(data);
+    final UserLeave userLeave = UserLeave.fromJson(data);
     return userLeave;
   }
 
