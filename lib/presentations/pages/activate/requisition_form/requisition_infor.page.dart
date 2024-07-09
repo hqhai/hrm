@@ -133,7 +133,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                                     _nextScreen(context, stateFlow.flow, state.requisition.id),
                               ),
                             ),
-                          if (statusApprove(state.requisition) == EnumStepRequestStatusEnum.newStatus &&
+                          if (statusApprove(state.requisition) ==
+                                  EnumStepRequestStatusEnum.newStatus &&
                               widget.checkUser)
                             ItemRequestProcess(
                               callBackApprover: () => _isApprover(
@@ -202,7 +203,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     }
   }
 
-  EnumStepRequestStatusEnum? statusApprove(Request request){
+  EnumStepRequestStatusEnum? statusApprove(Request request) {
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests.isNotEmpty) {
       final stepRequests = request.stepRequests;
@@ -212,9 +213,10 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
         final int indexNewRequest =
-        stepRequestApproves.indexWhere((element) => element.approverId == idUser);
+            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
-          EnumStepRequestStatusEnum? statusStepRequestApprove = stepRequestApproves[indexNewRequest].status;
+          EnumStepRequestStatusEnum? statusStepRequestApprove =
+              stepRequestApproves[indexNewRequest].status;
           return statusStepRequestApprove;
         }
       }
@@ -222,7 +224,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     return null;
   }
 
-  rejectDialog(BuildContext context){
+  rejectDialog(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     showDialog(
       context: context,
@@ -238,6 +240,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
   }
 
   userRejectRequest() async {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dI<AppNavigation>().pop(currentContext);
     setState(() {
       checkLoad = true;
     });
@@ -255,8 +259,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
         checkLoad = false;
         checkSuccess = true;
       });
-    }
-    else if (statusCompleter) {
+    } else {
       setState(() {
         checkLoad = false;
         checkUnSuccess = true;

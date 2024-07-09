@@ -45,7 +45,6 @@ class TitleCallbackDialog extends StatelessWidget {
 
   setApply(BuildContext context) {
     callback.call();
-    dI<AppNavigation>().pop(context);
   }
 
   setReject(BuildContext context) {

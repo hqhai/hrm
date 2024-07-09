@@ -92,19 +92,6 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                   ),
                 ),
               ),
-              if (widget.status.configStepRequestStatusName ==
-                  EnumStepRequestStatusEnum.approve.configStepRequestStatusName)
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Opacity(
-                    opacity: checkOpacity ? 0.5 : 1,
-                    child: ButtonItemListRequisition(
-                      title: appLocalizations.revoke,
-                      callback: () {},
-                    ),
-                  ),
-                ),
               Positioned(
                 left: 0,
                 top: 0,
@@ -125,6 +112,19 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                       width: SpacingUnit.x40, height: SpacingUnit.x40, fit: BoxFit.fill),
                 ),
               ),
+              if (widget.status.configStepRequestStatusName ==
+                  EnumStepRequestStatusEnum.approve.configStepRequestStatusName)
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Opacity(
+                    opacity: checkOpacity ? 0.5 : 1,
+                    child: ButtonItemListRequisition(
+                      title: appLocalizations.revoke,
+                      callback: () => rejectDialog(context),
+                    ),
+                  ),
+                ),
               if (widget.status.configStepRequestStatusName ==
                   EnumStepRequestStatusEnum.newStatus.configStepRequestStatusName)
                 Positioned(
@@ -160,6 +160,22 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
       ),
     );
   }
+
+  rejectDialog(BuildContext context){
+    /*final appLocalizations = AppLocalizations.of(context)!;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: TitleCallbackDialog(
+            title: appLocalizations.doYouWantRevokeYourRequest,
+            callback: () => userRejectRequest(),
+          ),
+        );
+      },
+    );*/
+  }
+
 
   _nextRequisitionInformationScreen(
     BuildContext context,
@@ -238,7 +254,6 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   _setApprove(String id, EnumStepRequestStatusEnum status) async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     if (checkNote(status)) {
-      Navigator.of(currentContext).pop();
       progressIndicatorDialog(currentContext);
       final Completer completer = Completer<RequisitionEnum>();
       dI<RequisitionApproveBloc>().add(
@@ -263,4 +278,28 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
       }
     }
   }
+
+  /*userRejectRequest() async {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dI<AppNavigation>().pop(currentContext);
+    progressIndicatorDialog(currentContext);
+    Completer completer = Completer<bool>();
+    dI<RequisitionBloc>().add(
+      UserRejectRequestEvent(
+        id: widget.id,
+        completer: completer,
+      ),
+    );
+    final statusCompleter = await completer.future;
+    if (statusCompleter) {
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(currentContext);
+      successDialog(currentContext);
+    }
+    else {
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(currentContext);
+      unsuccessfulDialog(currentContext);
+    }
+  }*/
 }
