@@ -51,7 +51,7 @@ class WorkAndSalaryServiceImpl extends BaseService implements WorkAndSalaryServi
       json.decode(response.body),
     );
     final data = responseBase.result;
-    UserLeaveHistoryResponse userLeaveHistoryResponse = UserLeaveHistoryResponse.fromJson(data);
+    final UserLeaveHistoryResponse userLeaveHistoryResponse = UserLeaveHistoryResponse.fromJson(data);
     return userLeaveHistoryResponse;
   }
 }
