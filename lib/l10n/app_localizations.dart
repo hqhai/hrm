@@ -1854,7 +1854,7 @@ abstract class AppLocalizations {
   /// No description provided for @stationeryList.
   ///
   /// In en, this message translates to:
-  /// **'Stationery list'**
+  /// **'Product list'**
   String get stationeryList;
 
   /// No description provided for @product.

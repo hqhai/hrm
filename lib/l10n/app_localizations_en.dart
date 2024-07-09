@@ -884,7 +884,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pairs => 'Pairs';
 
   @override
-  String get stationeryList => 'Stationery list';
+  String get stationeryList => 'Product list';
 
   @override
   String get product => 'Product';
