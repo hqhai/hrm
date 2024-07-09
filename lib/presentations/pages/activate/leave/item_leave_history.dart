@@ -7,6 +7,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/extra/requisition_information_extra.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_bloc.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_state.dart';
@@ -127,6 +128,10 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
   }
 
   _nextRequisitionInformationScreen(BuildContext context, String idRequest) async {
+    final RequisitionInformationExtra extra = RequisitionInformationExtra(
+      id: idRequest,
+      checkUser: false,
+    );
     if (!checkOpacity) {
       setState(() {
         checkOpacity = true;
@@ -145,10 +150,7 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
         dI<AppNavigation>().pushName(
           currentContext,
           page: Pages.requisitionInformationPage,
-          extra: {
-            'id': idRequest,
-            'checkUser': false,
-          },
+          extra: extra.toJson()
         );
       }
     }
