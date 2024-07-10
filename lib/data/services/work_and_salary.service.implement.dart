@@ -1,7 +1,12 @@
+import 'dart:convert';
 
 import 'package:base_app/common/configs/app_configs.dart';
-import 'package:base_app/data/models/work_and_salary/leave_day.dart';
+import 'package:base_app/common/configs/path_config.dart';
+import 'package:base_app/data/models/response.dart';
 import 'package:base_app/data/models/work_and_salary/start_end.dart';
+import 'package:base_app/data/models/work_and_salary/user_leave_history_request.dart';
+import 'package:base_app/data/models/work_and_salary/user_leave_history_response.dart';
+import 'package:base_app/domain/entities/leave/user_leave.dart';
 import 'package:base_app/domain/services/work_and_salary.service.dart';
 import 'package:injectable/injectable.dart';
 
@@ -20,12 +25,33 @@ class WorkAndSalaryServiceImpl extends BaseService implements WorkAndSalaryServi
   }
 
   @override
-  Future<LeaveDayResponse> totalLeaveDay() async {
-    return const LeaveDayResponse(permission: 66, used: 77, remaining: 1508);
+  Future<UserLeave> totalLeaveDay() async {
+    final url = '$baseUrlUser${PathConfig.userLeave}';
+    final response = await client.get(
+      url,
+    );
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    final UserLeave userLeave = UserLeave.fromJson(data);
+    return userLeave;
   }
 
   @override
   Future<double> totalWorkday({required StartEndResponse startEndResponse}) async {
     return 1801;
+  }
+
+  @override
+  Future<UserLeaveHistoryResponse> totalLeaveUserHistory(
+      {required UserLeaveHistoryRequest userLeaveHistoryRequest}) async {
+    final url = '$baseUrlUser${PathConfig.userLeaveHistory}';
+    final params = userLeaveHistoryRequest.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(
+      json.decode(response.body),
+    );
+    final data = responseBase.result;
+    final UserLeaveHistoryResponse userLeaveHistoryResponse = UserLeaveHistoryResponse.fromJson(data);
+    return userLeaveHistoryResponse;
   }
 }

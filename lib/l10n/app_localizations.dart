@@ -2390,6 +2390,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'List schools'**
   String get listSchools;
+
+  /// No description provided for @overTimeLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'OverTime Leave'**
+  String get overTimeLeave;
+
+  /// No description provided for @leaveList.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave list'**
+  String get leaveList;
+
+  /// No description provided for @leaveUseHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave use history'**
+  String get leaveUseHistory;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @used.
+  ///
+  /// In en, this message translates to:
+  /// **'Used'**
+  String get used;
+
+  /// No description provided for @remaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get remaining;
+
+  /// No description provided for @day.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get day;
+
+  /// No description provided for @hour.
+  ///
+  /// In en, this message translates to:
+  /// **'Hour'**
+  String get hour;
+
+  /// No description provided for @addition.
+  ///
+  /// In en, this message translates to:
+  /// **'Addition'**
+  String get addition;
+
+  /// No description provided for @subtraction.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtraction'**
+  String get subtraction;
+
+  /// No description provided for @totalLeaveOfChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Total leave of changes'**
+  String get totalLeaveOfChanges;
+
+  /// No description provided for @actionName.
+  ///
+  /// In en, this message translates to:
+  /// **'Action name'**
+  String get actionName;
+
+  /// No description provided for @totalRemainingLeaveDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Total remaining days of leave'**
+  String get totalRemainingLeaveDays;
+
+  /// No description provided for @vacationPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Vacation period'**
+  String get vacationPeriod;
+
+  /// No description provided for @seeRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'See request'**
+  String get seeRequest;
+
+  /// No description provided for @sourceOfLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Source of leave'**
+  String get sourceOfLeave;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

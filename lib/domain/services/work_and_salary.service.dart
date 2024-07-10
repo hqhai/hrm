@@ -1,7 +1,14 @@
-import 'package:base_app/data/models/work_and_salary/leave_day.dart';
 import 'package:base_app/data/models/work_and_salary/start_end.dart';
+import 'package:base_app/data/models/work_and_salary/user_leave_history_request.dart';
+import 'package:base_app/data/models/work_and_salary/user_leave_history_response.dart';
+import 'package:base_app/domain/entities/leave/user_leave.dart';
 
 abstract class WorkAndSalaryService {
-  Future<LeaveDayResponse> totalLeaveDay();
+  Future<UserLeave> totalLeaveDay();
+
+  Future<UserLeaveHistoryResponse> totalLeaveUserHistory({
+    required UserLeaveHistoryRequest userLeaveHistoryRequest,
+  });
+
   Future<double> totalWorkday({required StartEndResponse startEndResponse});
 }

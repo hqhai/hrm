@@ -6,6 +6,8 @@ import 'package:base_app/presentations/bloc/check_in_check_out_gps/check_in_chec
 import 'package:base_app/presentations/bloc/checkin_setting/check_in_setting_bloc.dart';
 import 'package:base_app/presentations/bloc/department/department_bloc.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
+import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_bloc.dart';
+import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart';
 import 'package:base_app/presentations/bloc/location/address/address_bloc.dart';
 import 'package:base_app/presentations/bloc/location/school/school_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
@@ -23,7 +25,6 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
-import 'package:base_app/presentations/bloc/work_and_salary/work_and_salary_bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,5 +60,7 @@ class MainBloc {
             create: (BuildContext context) => dI<CheckInCheckOutGpsBloc>()),
         BlocProvider<SchoolBloc>(
             create: (BuildContext context) => dI<SchoolBloc>()),
+        BlocProvider<LeaveHistoryBloc>(
+            create: (BuildContext context) => dI<LeaveHistoryBloc>()),
       ];
 }

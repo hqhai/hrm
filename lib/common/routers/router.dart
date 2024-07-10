@@ -11,6 +11,7 @@ import 'package:base_app/presentations/pages/activate/create_requisition/create_
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_stationery.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_vehicle_dispatch.dart';
 import 'package:base_app/presentations/pages/activate/file/pdf.page.dart';
+import 'package:base_app/presentations/pages/activate/leave/leave.page.dart';
 import 'package:base_app/presentations/pages/activate/requisition/requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition/see_list_requisition.page.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/requisition_approve_list.dart';
@@ -92,5 +93,6 @@ class AppRouters {
     Pages.createRequestOverTimePage: createRequestOverTimePageRoute,
     Pages.createRequestLateAndEarlyPage: createRequestLateAndEarlyPageRoute,
     Pages.listSchoolsPage : listSchoolsPageRoute,
+    Pages.leavePage: leavePageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

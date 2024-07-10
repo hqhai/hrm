@@ -27,3 +27,10 @@ String titlesActivate(int index, BuildContext context) {
   };
   return title[index] ?? "";
 }
+
+List<String> titlesTabBar(BuildContext context) {
+  final appLocalizations = AppLocalizations.of(context)!;
+  final List<String> titles = [appLocalizations.leaveList, appLocalizations.leaveUseHistory];
+  return titles;
+}
+

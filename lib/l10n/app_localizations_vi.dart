@@ -1152,4 +1152,52 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get listSchools => 'Danh sách trường';
+
+  @override
+  String get overTimeLeave => 'Nghỉ bù OT';
+
+  @override
+  String get leaveList => 'Danh sách phép';
+
+  @override
+  String get leaveUseHistory => 'Lịch sử dùng phép';
+
+  @override
+  String get total => 'Tổng';
+
+  @override
+  String get used => 'Đã dùng';
+
+  @override
+  String get remaining => 'Còn lại';
+
+  @override
+  String get day => 'Ngày';
+
+  @override
+  String get hour => 'Giờ';
+
+  @override
+  String get addition => 'Cộng';
+
+  @override
+  String get subtraction => 'Trừ';
+
+  @override
+  String get totalLeaveOfChanges => 'Tổng số phép thay đổi';
+
+  @override
+  String get actionName => 'Tên hành dộng';
+
+  @override
+  String get totalRemainingLeaveDays => 'Tổng số phép còn lại';
+
+  @override
+  String get vacationPeriod => 'Tời gian xin nghỉ';
+
+  @override
+  String get seeRequest => 'Xem đơn từ';
+
+  @override
+  String get sourceOfLeave => 'Nguồn phép';
 }

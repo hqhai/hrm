@@ -53,7 +53,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
   }
 
   _scrollListener() {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         status == RequisitionEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {

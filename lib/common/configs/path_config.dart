@@ -48,5 +48,8 @@ class PathConfig {
   //CheckIn CheckOut
   static String schools = '/school/get-schools';
 
+  //leave
+  static String userLeave = '/user-leave-history/user-total';
+  static String userLeaveHistory = '/user-leave-history/get-user-leave-history';
 
 }

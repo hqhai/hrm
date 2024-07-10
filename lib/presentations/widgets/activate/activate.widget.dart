@@ -43,12 +43,16 @@ class _ActivateWidgetState extends State<ActivateWidget> {
       case 1:
         _nextCreateRequisitionScreen(context);
       case 2:
-        _nextTimekeepingGPSScreen(context);
+        _nextLeaveScreen(context);
       case 3:
         _nextTimekeepingGPSScreen(context);
       case 4:
         _nextTimekeepingGPSScreen(context);
     }
+  }
+
+  _nextLeaveScreen(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.leavePage);
   }
 
   _nextRequisitionListScreen(BuildContext context) {

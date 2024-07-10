@@ -118,7 +118,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
   }
 
   _scrollListener() {
-    if (lengthList <= totalItems &&
+    if (lengthList < totalItems &&
         status == StationeryStatus.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
