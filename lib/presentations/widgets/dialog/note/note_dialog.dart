@@ -46,6 +46,7 @@ class _NoteDialogState extends State<NoteDialog> {
             height: SpacingUnit.x4_5,
           ),
           AppInputArea(
+            onTap: () => onTap(),
             minLines: 5,
             maxLines: 5,
             placeHolder: appLocalizations.note,
@@ -87,4 +88,6 @@ class _NoteDialogState extends State<NoteDialog> {
       Navigator.of(context).pop();
     }
   }
+
+  onTap() {}
 }
