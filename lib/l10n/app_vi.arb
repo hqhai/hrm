@@ -463,6 +463,16 @@
   "usable": "Khả dụng",
   "unusable": "Không khả dụng",
   "administrativeShift": "Ca hành chính",
-  "singleShift": "Ca đơn"
-
+  "singleShift": "Ca đơn",
+  "worksheet": "Bảng công",
+  "actualWork": "Công thực tế",
+  "leaveWork": "Công nghỉ",
+  "holidayWork": "Công nghỉ lễ",
+  "noSalaryWork": "Công không lương",
+  "workTime": "Số giờ làm việc",
+  "timeEarly": "Về sớm",
+  "timeLate": "Đi muộn",
+  "salaryWork": "Công hiện tại",
+  "realWork": "Công chuẩn",
+  "seeDetails": "Xem chi tiết"
 }

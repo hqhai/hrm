@@ -28,6 +28,7 @@ import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
+import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -71,5 +72,7 @@ class MainBloc {
             create: (BuildContext context) => dI<RequestWorkSheetBloc>()),
         BlocProvider<WorkDayBloc>(
             create: (BuildContext context) => dI<WorkDayBloc>()),
+        BlocProvider<WorkSheetBloc>(
+            create: (BuildContext context) => dI<WorkSheetBloc>()),
       ];
 }
