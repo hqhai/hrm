@@ -12,18 +12,24 @@ class TitleValueLeave extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     return Row(
       children: [
-        Text(
-          '$title: ',
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x3,
+        Expanded(
+          flex: 1,
+          child: Text(
+            '$title: ',
+            style: TextStyle(
+              color: colors.text,
+              fontSize: SpacingUnit.x4,
+            ),
           ),
         ),
-        Text(
-          value,
-          style: TextStyle(
-            color: color?? colors.text,
-            fontSize: SpacingUnit.x3,
+        Expanded(
+          flex: 2,
+          child: Text(
+            value,
+            style: TextStyle(
+              color: color?? colors.text,
+              fontSize: SpacingUnit.x4,
+            ),
           ),
         ),
       ],
