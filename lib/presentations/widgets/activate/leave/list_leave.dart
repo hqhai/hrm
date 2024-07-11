@@ -22,8 +22,10 @@ class _ListLeaveWidgetState extends State<ListLeaveWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: TypeLeaveEnum.values.map((e) => ItemLeave(type: e)).toList(),
+    return SingleChildScrollView(
+      child: Column(
+          children: TypeLeaveEnum.values.map((e) => ItemLeave(type: e)).toList(),
+      ),
     );
   }
 }
