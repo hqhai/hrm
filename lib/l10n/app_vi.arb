@@ -404,5 +404,16 @@
   "start": "Bắt đầu",
   "end": "Kết thúc",
   "flow": "Luồng duyệt",
-  "trackFlowProgres": "Tiến trình duyệt"
+  "trackFlowProgres": "Tiến trình duyệt",
+  "worksheet": "Bảng công",
+  "actualWork": "Công thực tế",
+  "leaveWork": "Công nghỉ",
+  "holidayWork": "Công nghỉ lễ",
+  "noSalaryWork": "Công không lương",
+  "workTime": "Số giờ làm việc",
+  "timeEarly": "Về sớm",
+  "timeLate": "Đi muộn",
+  "salaryWork": "Công hiện tại",
+  "realWork": "Công chuẩn",
+  "seeDetails": "Xem chi tiết"
 }

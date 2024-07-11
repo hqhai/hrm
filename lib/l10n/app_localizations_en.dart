@@ -1215,4 +1215,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trackFlowProgres => 'Track flow progress';
+
+  @override
+  String get worksheet => 'Worksheet';
+
+  @override
+  String get actualWork => 'Actual work';
+
+  @override
+  String get leaveWork => 'Leave work';
+
+  @override
+  String get holidayWork => 'Holiday Work';
+
+  @override
+  String get noSalaryWork => 'No Salary Work';
+
+  @override
+  String get workTime => 'Work Time';
+
+  @override
+  String get timeEarly => 'Time Early';
+
+  @override
+  String get timeLate => 'Time Late';
+
+  @override
+  String get salaryWork => 'Salary Work';
+
+  @override
+  String get realWork => 'Real Work';
+
+  @override
+  String get seeDetails => 'See details';
 }

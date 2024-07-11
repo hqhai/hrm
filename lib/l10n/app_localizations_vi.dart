@@ -1215,4 +1215,37 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get trackFlowProgres => 'Tiến trình duyệt';
+
+  @override
+  String get worksheet => 'Bảng công';
+
+  @override
+  String get actualWork => 'Công thực tế';
+
+  @override
+  String get leaveWork => 'Công nghỉ';
+
+  @override
+  String get holidayWork => 'Công nghỉ lễ';
+
+  @override
+  String get noSalaryWork => 'Công không lương';
+
+  @override
+  String get workTime => 'Số giờ làm việc';
+
+  @override
+  String get timeEarly => 'Về sớm';
+
+  @override
+  String get timeLate => 'Đi muộn';
+
+  @override
+  String get salaryWork => 'Công hiện tại';
+
+  @override
+  String get realWork => 'Công chuẩn';
+
+  @override
+  String get seeDetails => 'Xem chi tiết';
 }

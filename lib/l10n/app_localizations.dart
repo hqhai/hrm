@@ -2516,6 +2516,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Track flow progress'**
   String get trackFlowProgres;
+
+  /// No description provided for @worksheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Worksheet'**
+  String get worksheet;
+
+  /// No description provided for @actualWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual work'**
+  String get actualWork;
+
+  /// No description provided for @leaveWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave work'**
+  String get leaveWork;
+
+  /// No description provided for @holidayWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Holiday Work'**
+  String get holidayWork;
+
+  /// No description provided for @noSalaryWork.
+  ///
+  /// In en, this message translates to:
+  /// **'No Salary Work'**
+  String get noSalaryWork;
+
+  /// No description provided for @workTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Work Time'**
+  String get workTime;
+
+  /// No description provided for @timeEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Early'**
+  String get timeEarly;
+
+  /// No description provided for @timeLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Late'**
+  String get timeLate;
+
+  /// No description provided for @salaryWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary Work'**
+  String get salaryWork;
+
+  /// No description provided for @realWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Real Work'**
+  String get realWork;
+
+  /// No description provided for @seeDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'See details'**
+  String get seeDetails;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

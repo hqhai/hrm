@@ -402,5 +402,16 @@
   "start": "Start",
   "end": "End",
   "flow": "Flow",
-  "trackFlowProgres": "Track flow progress"
+  "trackFlowProgres": "Track flow progress",
+  "worksheet": "Worksheet",
+  "actualWork": "Actual work",
+  "leaveWork": "Leave work",
+  "holidayWork": "Holiday Work",
+  "noSalaryWork": "No Salary Work",
+  "workTime": "Work Time",
+  "timeEarly": "Time Early",
+  "timeLate": "Time Late",
+  "salaryWork": "Salary Work",
+  "realWork": "Real Work",
+  "seeDetails": "See details"
 }
