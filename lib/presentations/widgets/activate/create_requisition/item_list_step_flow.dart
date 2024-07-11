@@ -76,11 +76,11 @@ class ItemListStepFlow extends StatelessWidget {
     final indexStepRequests = stepRequests.indexWhere((element) => element.stepFlowId == sFlow.id);
     if (indexStepRequests != -1 && !create) {
       final stepRequest = stepRequests[indexStepRequests];
-      final stepRequestApprovers = stepRequest.stepRequestApprovers ?? [];
+      final stepRequestApprover = stepRequest.stepRequestApprovers ?? [];
       final indexStepRequestApprove =
-          stepRequestApprovers.indexWhere((element) => element.note?.isNotEmpty ?? false);
+          stepRequestApprover.indexWhere((element) => element.note?.isNotEmpty ?? false);
       if (indexStepRequestApprove != -1 && !create) {
-        return stepRequestApprovers[indexStepRequestApprove].note ?? "";
+        return stepRequestApprover[indexStepRequestApprove].note ?? "";
       }
     }
     return '';
