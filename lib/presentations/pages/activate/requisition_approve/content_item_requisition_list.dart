@@ -25,19 +25,19 @@ class ContentItemRequisitionList extends StatelessWidget {
     return BlocBuilder<RequisitionApproveBloc, RequisitionApproveState>(
       builder: (context, state) {
         return Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              width: width * 0.7,
+              width: width * 0.8,
               child: Text(
                 _request(state.requisitions, id).nameFlow,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                    color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w700),
+                    color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
               ),
             ),
-            const SizedBox(height: SpacingUnit.x3_5),
             Row(
               children: [
                 Text(

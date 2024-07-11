@@ -1,12 +1,12 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_state.dart';
 import 'package:base_app/presentations/widgets/custom/search_input.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet/item/item_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -60,35 +60,9 @@ class _BottomSheetPersonnelWidgetState extends State<BottomSheetPersonnelWidget>
                     itemCount: state.usersByName.length,
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () => setOnChange(state.usersByName[index]),
-                      child: Container(
-                        padding: const EdgeInsets.all(SpacingUnit.x2),
-                        margin: const EdgeInsets.all(SpacingUnit.x2),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                          color: CustomsColor.colorBackground,
-                          border: Border.all(
-                            color: colors.text,
-                            width: 1,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              '${index + 1}.    ',
-                              style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x3,
-                              ),
-                            ),
-                            Text(
-                              state.usersByName[index].fullName,
-                              style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x3,
-                              ),
-                            ),
-                          ],
-                        ),
+                      child: ItemBottomSheet(
+                        index: index,
+                        value: state.usersByName[index].fullName,
                       ),
                     ),
                   ),
