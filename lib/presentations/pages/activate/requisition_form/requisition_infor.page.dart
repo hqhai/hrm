@@ -21,6 +21,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_process.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_attach.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_general_information.dart';
@@ -112,6 +113,9 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                           const RequisitionInformationType(),
                           const RequisitionInformationContent(),
                           const RequisitionInformationAttach(),
+                          const ItemListStepFlow(
+                            create: false,
+                          ),
                           if (state.requisition.status == StatusRequestEnum.process &&
                               !widget.checkUser)
                             Align(
@@ -274,7 +278,6 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
   }
 
   _setApprove(String id, EnumStepRequestStatusEnum status, BuildContext context) async {
-    Navigator.of(context).pop();
     setState(() {
       checkLoad = true;
     });
@@ -290,8 +293,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     );
     final statusCompleter = await completer.future;
     if (statusCompleter == RequisitionEnum.success) {
+      dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
       setState(() {
-        dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
         checkLoad = false;
         checkSuccess = true;
       });

@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/domain/entities/reqisition/step_flow.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -16,8 +17,10 @@ class FlowRequest {
   final int? quantityLimit;
   final String? quantityLimitType;
   final String id;
+  final List<StepFlow> stepFlows;
 
   const FlowRequest({
+    required this.id,
     this.flowType,
     this.name,
     this.timeLimitBeforeCreation,
@@ -26,7 +29,8 @@ class FlowRequest {
     this.timeLimitEdit,
     this.quantityLimit,
     this.quantityLimitType,
-    required this.id,
+    this.stepFlows = const [],
+
   });
 
   factory FlowRequest.fromJson(Map<String, dynamic> json) => _$FlowRequestFromJson(json);

@@ -19,6 +19,7 @@ import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dar
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/list_overtime.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/total_time.dart';
 import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
@@ -160,6 +161,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                                 ),
                                 title: appLocalizations.follower,
                                 onChange: (value) => _setFollower(value)),
+                            const ItemListStepFlow(),
                             Padding(
                               padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
                               child: ItemButton(

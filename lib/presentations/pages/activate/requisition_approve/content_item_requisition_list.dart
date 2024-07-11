@@ -30,7 +30,7 @@ class ContentItemRequisitionList extends StatelessWidget {
             SizedBox(
               width: width * 0.7,
               child: Text(
-                _request(state.requisitions, id).config.description ?? "",
+                _request(state.requisitions, id).nameFlow,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

@@ -189,7 +189,7 @@
   "locationPermissionsAreDenied": "Location permissions are denied",
   "locationPermissionsArePermanentlyDenied": "Location permissions are permanently denied, we cannot request permissions.",
   "validateToolLocation": "Validate tool location",
-  "step": "Step 1/1",
+  "step": "Step",
   "singleWordList": "Requisition list",
   "createANewSingleWord": "Create a new requisition",
   "deadline": "Deadline",
@@ -398,5 +398,9 @@
   "vacationPeriod": "Vacation period",
   "seeRequest": "See request",
   "sourceOfLeave": "Source of leave",
-  "doYouWantRevokeYourRequest": "Do you want revoke your request?"
+  "doYouWantRevokeYourRequest": "Do you want revoke your request?",
+  "start": "Start",
+  "end": "End",
+  "flow": "Flow",
+  "trackFlowProgres": "Track flow progress"
 }

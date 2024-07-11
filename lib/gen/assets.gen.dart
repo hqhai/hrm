@@ -81,6 +81,9 @@ class $AssetsImagesIconGen {
   $AssetsImagesIconActivateIconGen get activateIcon =>
       const $AssetsImagesIconActivateIconGen();
 
+  /// File path: assets/images/icon/attendance.svg
+  String get attendance => 'assets/images/icon/attendance.svg';
+
   /// File path: assets/images/icon/circular_progress_indicator.png
   AssetGenImage get circularProgressIndicator =>
       const AssetGenImage('assets/images/icon/circular_progress_indicator.png');
@@ -108,6 +111,7 @@ class $AssetsImagesIconGen {
         loading,
         lock,
         activate,
+        attendance,
         circularProgressIndicator,
         homeSvg,
         person,

@@ -20,6 +20,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
@@ -193,10 +194,11 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                             inputController: destinationController,
                             onChange: (value) => _setDestination(value),
                           ),
+                          const ItemListStepFlow(),
                           ItemButton(
                             callbackSave: () => _save(context),
                             callbackCancel: () => _cancel(),
-                          )
+                          ),
                         ],
                       ),
                     ),

@@ -17,6 +17,7 @@ import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_total_amount.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/list_stationeries.dart';
 import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
@@ -151,6 +152,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                                 ),
                                 title: appLocalizations.follower,
                                 onChange: (value) => _setFollower(value)),
+                            const ItemListStepFlow(),
                             Padding(
                               padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
                               child: ItemButton(

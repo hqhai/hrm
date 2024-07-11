@@ -11,8 +11,8 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/language/language_cubit.dart';
-import 'package:base_app/presentations/bloc/language/language_state.dart';
+import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
@@ -53,141 +53,142 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<RequisitionBloc, RequisitionState>(
-      builder: (context, state) => BlocBuilder<LanguageCubit, LanguageState>(
-        builder: (context, stateLanguage) => Container(
-          height: height * 0.15,
-          margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingUnit.x1),
-            color: CustomsColor.colorBackground,
-            border: Border.all(color: colors.text, width: 1),
-          ),
-          child: GestureDetector(
-            onTap: () => _nextRequisitionInformationScreen(context),
-            child: Stack(
-              children: [
-                Opacity(
-                  opacity: checkOpacity ? 0.5 : 1,
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      color: colors.neutralVariant40,
-                      padding: const EdgeInsets.all(SpacingUnit.x2),
-                      child: Text(
-                        StatusRequestEnum.values
-                            .firstWhere((e) => e == _getRequestInId(state.requisitions).status)
-                            .configRequestStatusName,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                      ),
-                    ),
-                  ),
-                ),
-                Opacity(
-                  opacity: checkOpacity ? 0.5 : 1,
-                  child: Padding(
+      builder: (context, state) => Container(
+        height: height * 0.15,
+        margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingUnit.x1),
+          color: CustomsColor.colorBackground,
+          border: Border.all(color: colors.text, width: 1),
+        ),
+        child: GestureDetector(
+          onTap: () => _nextRequisitionInformationScreen(context, _getRequestInId(state.requisitions).flowId),
+          child: Stack(
+            children: [
+              Opacity(
+                opacity: checkOpacity ? 0.5 : 1,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    color: colors.neutralVariant40,
                     padding: const EdgeInsets.all(SpacingUnit.x2),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: width * 0.7,
-                          child: Text(
-                            _getRequestInId(state.requisitions).nameFlow,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x3_5,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        const SizedBox(height: SpacingUnit.x3_5),
-                        Row(
-                          children: [
-                            Text(
-                              '${appLocalizations.creator} : ',
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                            ),
-                            SizedBox(
-                              width: width * 0.6,
-                              child: Text(
-                                _getRequestInId(state.requisitions).createdFullName,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              '${appLocalizations.createTime} : ',
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                            ),
-                            SizedBox(
-                              width: width * 0.6,
-                              child: Text(
-                                formatYMDHMS(
-                                  dateTimeLocal(_getRequestInId(state.requisitions).createdDate)
-                                      .toString(),
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              '${appLocalizations.code} : ',
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                            ),
-                            SizedBox(
-                              width: width * 0.6,
-                              child: Text(
-                                _getRequestInId(state.requisitions).code,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: colors.successVariant, fontSize: SpacingUnit.x3_5),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: Text(
+                      StatusRequestEnum.values
+                          .firstWhere((e) => e == _getRequestInId(state.requisitions).status)
+                          .configRequestStatusName,
+                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                     ),
                   ),
                 ),
-                Opacity(
-                  opacity: checkOpacity ? 1 : 0,
-                  child: Center(
-                    child: Lottie.asset(Assets.images.icon.loading,
-                        width: SpacingUnit.x40, height: SpacingUnit.x40, fit: BoxFit.fill),
+              ),
+              Opacity(
+                opacity: checkOpacity ? 0.5 : 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(SpacingUnit.x2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: width * 0.7,
+                        child: Text(
+                          _getRequestInId(state.requisitions).nameFlow,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: colors.text,
+                              fontSize: SpacingUnit.x3_5,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      const SizedBox(height: SpacingUnit.x3_5),
+                      Row(
+                        children: [
+                          Text(
+                            '${appLocalizations.creator} : ',
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                          ),
+                          SizedBox(
+                            width: width * 0.6,
+                            child: Text(
+                              _getRequestInId(state.requisitions).createdFullName,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '${appLocalizations.createTime} : ',
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                          ),
+                          SizedBox(
+                            width: width * 0.6,
+                            child: Text(
+                              formatYMDHMS(
+                                dateTimeLocal(_getRequestInId(state.requisitions).createdDate)
+                                    .toString(),
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '${appLocalizations.code} : ',
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                          ),
+                          SizedBox(
+                            width: width * 0.6,
+                            child: Text(
+                              _getRequestInId(state.requisitions).code,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: colors.successVariant, fontSize: SpacingUnit.x3_5),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                )
-              ],
-            ),
+                ),
+              ),
+              Opacity(
+                opacity: checkOpacity ? 1 : 0,
+                child: Center(
+                  child: Lottie.asset(Assets.images.icon.loading,
+                      width: SpacingUnit.x40, height: SpacingUnit.x40, fit: BoxFit.fill),
+                ),
+              )
+            ],
           ),
         ),
       ),
     );
   }
 
-  _nextRequisitionInformationScreen(BuildContext context) async {
+  _nextRequisitionInformationScreen(BuildContext context, String flowId) async {
     if (!checkOpacity) {
       setState(() {
         checkOpacity = true;
       });
+      final Completer completerFlow = Completer<bool>();
+      dI<FlowBloc>().add(GetFlowEvent(id: flowId, completer: completerFlow));
+      final checkCompleter = await completerFlow.future;
       final Completer completer = Completer<RequisitionEnum>();
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       dI<RequisitionBloc>().add(
         GetRequisitionByIdEvent(id: widget.id, completer: completer),
       );
       final statusCompleter = await completer.future;
-      if (statusCompleter == RequisitionEnum.success) {
+      if (statusCompleter == RequisitionEnum.success && checkCompleter == true) {
         setState(() {
           checkOpacity = false;
         });

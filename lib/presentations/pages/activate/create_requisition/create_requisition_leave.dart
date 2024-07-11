@@ -19,6 +19,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_load_flie.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
@@ -200,6 +201,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                               files: files,
                               onChangeFiles: (value) => _setFile(value),
                             ),
+                            const ItemListStepFlow(),
                             ItemButton(
                               callbackSave: () => _save(context),
                               callbackCancel: () => _cancel(),

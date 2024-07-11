@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 
 sealed class FlowEvent extends Equatable {
@@ -17,10 +19,14 @@ class GetFlowsEvent extends FlowEvent {
 }
 
 class GetFlowEvent extends FlowEvent {
-  const GetFlowEvent({this.id = ''});
+  const GetFlowEvent({
+    this.id = '',
+    this.completer,
+  });
 
   final String id;
+  final Completer? completer;
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, completer];
 }

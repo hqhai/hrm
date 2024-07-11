@@ -575,7 +575,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get validateToolLocation => 'Validate tool location';
 
   @override
-  String get step => 'Step 1/1';
+  String get step => 'Step';
 
   @override
   String get singleWordList => 'Requisition list';
@@ -1203,4 +1203,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get doYouWantRevokeYourRequest => 'Do you want revoke your request?';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get end => 'End';
+
+  @override
+  String get flow => 'Flow';
+
+  @override
+  String get trackFlowProgres => 'Track flow progress';
 }

@@ -189,7 +189,7 @@
   "locationPermissionsAreDenied": "Quyền truy cập bị từ chối",
   "locationPermissionsArePermanentlyDenied": "Quyền truy cập bị từ chối, chúng ti không thể yêu cầu được quyền truy cập định vị",
   "validateToolLocation": "Xác thực vị trí chấm công",
-  "step": "Bước 1/1",
+  "step": "Bước",
   "singleWordList": "Danh sách đơn từ",
   "createANewSingleWord": "Tạo mới đơn từ",
   "deadline": "Thời hạn",
@@ -400,5 +400,9 @@
   "vacationPeriod": "Tời gian xin nghỉ",
   "seeRequest": "Xem đơn từ",
   "sourceOfLeave": "Nguồn phép",
-  "doYouWantRevokeYourRequest": "Bạn có muốn vô hiệu hóa đơn từ này không?"
+  "doYouWantRevokeYourRequest": "Bạn có muốn vô hiệu hóa đơn từ này không?",
+  "start": "Bắt đầu",
+  "end": "Kết thúc",
+  "flow": "Luồng duyệt",
+  "trackFlowProgres": "Tiến trình duyệt"
 }

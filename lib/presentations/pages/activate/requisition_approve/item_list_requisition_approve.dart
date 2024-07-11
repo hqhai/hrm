@@ -10,6 +10,8 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
@@ -55,8 +57,8 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
         requisitions.status != StatusRequestEnum.process;
   }
 
-  Request _request(List<Request> requests, String id) {
-    return requests.firstWhere((element) => element.id == id);
+  Request _request(List<Request> requests) {
+    return requests.firstWhere((element) => element.id == widget.id);
   }
 
   @override
@@ -74,7 +76,7 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
           border: Border.all(color: colors.text, width: 1),
         ),
         child: GestureDetector(
-          onTap: () => _nextRequisitionInformationScreen(context),
+          onTap: () => _nextRequisitionInformationScreen(context, _request(state.requisitions).flowId),
           child: Stack(
             children: [
               Positioned(
@@ -177,20 +179,21 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   }
 
 
-  _nextRequisitionInformationScreen(
-    BuildContext context,
-  ) async {
+  _nextRequisitionInformationScreen(BuildContext context, String flowId) async {
     if (!checkOpacity) {
       setState(() {
         checkOpacity = true;
       });
+      final Completer completerFlow = Completer<bool>();
+      dI<FlowBloc>().add(GetFlowEvent(id: flowId, completer: completerFlow));
+      final checkCompleter = await completerFlow.future;
       final Completer completer = Completer<RequisitionEnum>();
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       dI<RequisitionBloc>().add(
         GetRequisitionByIdEvent(id: widget.id, completer: completer),
       );
       final statusCompleter = await completer.future;
-      if (statusCompleter == RequisitionEnum.success) {
+      if (statusCompleter == RequisitionEnum.success && checkCompleter == true) {
         setState(() {
           checkOpacity = false;
         });
@@ -209,7 +212,7 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
 
   _isApprover(List<Request> requests, BuildContext context, EnumStepRequestStatusEnum status) {
     String idUser = dI<UserBloc>().state.user.id;
-    Request request = _request(requests, widget.id);
+    Request request = _request(requests);
     if (request.stepRequests.isNotEmpty) {
       final stepRequests = request.stepRequests;
       final indexNewStepRequest = stepRequests

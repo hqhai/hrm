@@ -575,7 +575,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get validateToolLocation => 'Xác thực vị trí chấm công';
 
   @override
-  String get step => 'Bước 1/1';
+  String get step => 'Bước';
 
   @override
   String get singleWordList => 'Danh sách đơn từ';
@@ -1203,4 +1203,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get doYouWantRevokeYourRequest => 'Bạn có muốn vô hiệu hóa đơn từ này không?';
+
+  @override
+  String get start => 'Bắt đầu';
+
+  @override
+  String get end => 'Kết thúc';
+
+  @override
+  String get flow => 'Luồng duyệt';
+
+  @override
+  String get trackFlowProgres => 'Tiến trình duyệt';
 }

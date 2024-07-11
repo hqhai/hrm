@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
@@ -122,17 +124,24 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     required BuildContext context,
     required String page,
     required InformationRequestExtra informationRequestExtra,
-  }) {
+  }) async {
+
     final extraData = informationRequestExtra.toJson();
-    if(type != null) {
+    final currentContext =  dI<AppNavigation>().navigatorKey.currentContext!;
+    final Completer completer = Completer<bool>();
+    dI<FlowBloc>().add(GetFlowEvent(id: informationRequestExtra.flowId, completer: completer));
+    final checkCompleter = await completer.future;
+    if(type != null && checkCompleter) {
       extraData.addAll({'type': type});
+      if(!currentContext.mounted) return;
       dI<AppNavigation>().pushName(
           context,
           page: page,
           extra: extraData
       );
     }
-    else{
+    else if(checkCompleter){
+      if(!currentContext.mounted) return;
       dI<AppNavigation>().pushName(
         context,
         page: page,

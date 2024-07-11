@@ -1236,7 +1236,7 @@ abstract class AppLocalizations {
   /// No description provided for @step.
   ///
   /// In en, this message translates to:
-  /// **'Step 1/1'**
+  /// **'Step'**
   String get step;
 
   /// No description provided for @singleWordList.
@@ -2492,6 +2492,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want revoke your request?'**
   String get doYouWantRevokeYourRequest;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @end.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get end;
+
+  /// No description provided for @flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Flow'**
+  String get flow;
+
+  /// No description provided for @trackFlowProgres.
+  ///
+  /// In en, this message translates to:
+  /// **'Track flow progress'**
+  String get trackFlowProgres;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
