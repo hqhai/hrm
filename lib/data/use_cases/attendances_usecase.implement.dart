@@ -12,7 +12,7 @@ class AttendanceUseCaseImplement extends AttendanceUseCase {
   AttendanceUseCaseImplement() : _attendanceRepository = dI<AttendanceRepository>();
 
   @override
-  Future<List<Attendance>> getAttendances(
+  Future<Attendance> getAttendances(
       {required String month, required String year, required String id}) async {
     final attendances = await _attendanceRepository.getAttendances(
         month: month, year: year, id: id);

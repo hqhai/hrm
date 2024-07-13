@@ -1,4 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/home_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -75,7 +77,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   child: AppButton(
-                      title: appLocalizations.seeDetails, onSubmit: () => nextWorkSheet()),
+                      title: appLocalizations.seeDetails, onSubmit: () => nextWorkSheet(context)),
                 )
               ],
             ),
@@ -112,5 +114,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     dI<WorkSheetBloc>().add(GetWorkSheetEvent(time: currentDateTime));
   }
 
-  nextWorkSheet() {}
+  nextWorkSheet(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.layoutCalendarPage);
+  }
 }

@@ -6,6 +6,14 @@ import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:intl/intl.dart';
 
+String strSeconds(int time) {
+  final Duration duration = Duration(seconds: time);
+  final DateTime now = DateTime.now();
+  final DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
+  final DateTime result = startOfDay.add(duration);
+  return formatHM(result.toString());
+}
+
 String formatIso8601(String? time) {
   DateTime dateTime1 = DateTime.parse(time??DateTime.now().toString());
   String time1 = DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime1);

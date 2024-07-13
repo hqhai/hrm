@@ -20,14 +20,13 @@ class AttendanceServiceImplement extends BaseService implements AttendanceServic
   }
 
   @override
-  Future<List<Attendance>> getAttendance(GetAttendanceRequest getAttendanceRequest) async {
+  Future<Attendance> getAttendance(GetAttendanceRequest getAttendanceRequest) async {
     final url = '$baseUrl${PathConfig.getTimeKeepingByEmail}';
     final params = getAttendanceRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    List<Attendance> attendances =
-    (data as List<dynamic>).map((e) => Attendance.fromJson(e as Map<String, dynamic>)).toList();
+    Attendance attendances = Attendance.fromJson(data);
     return attendances;
   }
 

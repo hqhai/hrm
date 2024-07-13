@@ -515,10 +515,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get formOfTimekeeping => 'Hình thức châm công';
 
   @override
-  String get checkIn => 'Check in';
+  String get checkIn => 'Chấm công vào';
 
   @override
-  String get checkOut => 'Check out';
+  String get checkOut => 'Chấm công ra';
 
   @override
   String get history => 'Lịch sử';
@@ -1248,4 +1248,70 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get seeDetails => 'Xem chi tiết';
+
+  @override
+  String get onTime => 'Đúng giờ';
+
+  @override
+  String get forgotChecking => 'Quên chấm công';
+
+  @override
+  String get offWork => 'Không có ca làm';
+
+  @override
+  String get isRequest => 'Có đơn từ';
+
+  @override
+  String get holiday => 'Nghỉ lễ';
+
+  @override
+  String get noAttendance => 'Không yêu cầu chấm công';
+
+  @override
+  String get offSet => 'Làm bù';
+
+  @override
+  String get timeWork => 'Số giờ làm việc';
+
+  @override
+  String get detailWork => 'Công chi tiết';
+
+  @override
+  String get summary => 'Công tổng hợp';
+
+  @override
+  String get year => 'Năm';
+
+  @override
+  String get request => 'Đơn từ';
+
+  @override
+  String get shift => 'Ca công';
+
+  @override
+  String get workInDay => 'Công ghi nhận trong ngày';
+
+  @override
+  String get minutesToLate => 'Số phút đi muộn';
+
+  @override
+  String get minutesToEarly => 'Số phu về sớm';
+
+  @override
+  String get totalOTHours => 'Tổng số giờ OT';
+
+  @override
+  String get typeOfShift => 'Loại ca làm việc';
+
+  @override
+  String get oTCoefficient => 'Hệ số OT';
+
+  @override
+  String get dateType => 'Loại ngày';
+
+  @override
+  String get ot => 'Tăng ca';
+
+  @override
+  String get totalLeaveWork => 'Tổng số công nghỉ';
 }

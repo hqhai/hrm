@@ -1248,4 +1248,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get seeDetails => 'See details';
+
+  @override
+  String get onTime => 'On time';
+
+  @override
+  String get forgotChecking => 'Forgot checking';
+
+  @override
+  String get offWork => 'Off work';
+
+  @override
+  String get isRequest => 'Is request';
+
+  @override
+  String get holiday => 'Holiday';
+
+  @override
+  String get noAttendance => 'No attendance';
+
+  @override
+  String get offSet => 'Off set';
+
+  @override
+  String get timeWork => 'Time work';
+
+  @override
+  String get detailWork => 'Detail work';
+
+  @override
+  String get summary => 'Summary';
+
+  @override
+  String get year => 'Year';
+
+  @override
+  String get request => 'Request';
+
+  @override
+  String get shift => 'Shift';
+
+  @override
+  String get workInDay => 'Work in day';
+
+  @override
+  String get minutesToLate => 'Minutes to late';
+
+  @override
+  String get minutesToEarly => 'Minutes to early';
+
+  @override
+  String get totalOTHours => 'Total OT hours';
+
+  @override
+  String get typeOfShift => 'Type of shift';
+
+  @override
+  String get oTCoefficient => 'OT coefficient';
+
+  @override
+  String get dateType => 'Date type';
+
+  @override
+  String get ot => 'OverTime';
+
+  @override
+  String get totalLeaveWork => 'Total leave work';
 }

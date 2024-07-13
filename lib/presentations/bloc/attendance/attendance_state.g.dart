@@ -9,8 +9,6 @@ part of 'attendance_state.dart';
 abstract class _$AttendanceStateCWProxy {
   AttendanceState attendance(Attendance attendance);
 
-  AttendanceState attendances(List<Attendance> attendances);
-
   AttendanceState status(AttendanceStatus status);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AttendanceState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
@@ -21,7 +19,6 @@ abstract class _$AttendanceStateCWProxy {
   /// ````
   AttendanceState call({
     Attendance? attendance,
-    List<Attendance>? attendances,
     AttendanceStatus? status,
   });
 }
@@ -37,10 +34,6 @@ class _$AttendanceStateCWProxyImpl implements _$AttendanceStateCWProxy {
       this(attendance: attendance);
 
   @override
-  AttendanceState attendances(List<Attendance> attendances) =>
-      this(attendances: attendances);
-
-  @override
   AttendanceState status(AttendanceStatus status) => this(status: status);
 
   @override
@@ -53,7 +46,6 @@ class _$AttendanceStateCWProxyImpl implements _$AttendanceStateCWProxy {
   /// ````
   AttendanceState call({
     Object? attendance = const $CopyWithPlaceholder(),
-    Object? attendances = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
   }) {
     return AttendanceState(
@@ -62,11 +54,6 @@ class _$AttendanceStateCWProxyImpl implements _$AttendanceStateCWProxy {
               ? _value.attendance
               // ignore: cast_nullable_to_non_nullable
               : attendance as Attendance,
-      attendances:
-          attendances == const $CopyWithPlaceholder() || attendances == null
-              ? _value.attendances
-              // ignore: cast_nullable_to_non_nullable
-              : attendances as List<Attendance>,
       status: status == const $CopyWithPlaceholder() || status == null
           ? _value.status
           // ignore: cast_nullable_to_non_nullable

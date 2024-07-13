@@ -49,4 +49,5 @@ class Pages {
   static const String createRequestOverTimePage = '/createRequestOverTimePage';
   static const String createRequestLateAndEarlyPage = '/createRequestLateAndEarlyPage';
   static const String leavePage = '/leavePage';
+  static const String layoutCalendarPage = '/layoutCalendarPage';
 }

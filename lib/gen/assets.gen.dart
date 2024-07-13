@@ -218,6 +218,9 @@ class $AssetsImagesIconHomeGen {
   String get phFingerprintFill =>
       'assets/images/icon/home/ph_fingerprint-fill.svg';
 
+  $AssetsImagesIconHomeWorksheetGen get worksheet =>
+      const $AssetsImagesIconHomeWorksheetGen();
+
   /// List of all assets
   List<String> get values => [
         chevronForward,
@@ -265,6 +268,44 @@ class $AssetsImagesIconPopupAppbarGen {
         miOptionsVertical,
         ngonNgu,
         suaThongTinCaNhan
+      ];
+}
+
+class $AssetsImagesIconHomeWorksheetGen {
+  const $AssetsImagesIconHomeWorksheetGen();
+
+  /// File path: assets/images/icon/home/worksheet/Detail.svg
+  String get detail => 'assets/images/icon/home/worksheet/Detail.svg';
+
+  /// File path: assets/images/icon/home/worksheet/Summary.svg
+  String get summary => 'assets/images/icon/home/worksheet/Summary.svg';
+
+  /// File path: assets/images/icon/home/worksheet/TimelineLeft.svg
+  String get timelineLeft =>
+      'assets/images/icon/home/worksheet/TimelineLeft.svg';
+
+  /// File path: assets/images/icon/home/worksheet/TimelineRight.svg
+  String get timelineRight =>
+      'assets/images/icon/home/worksheet/TimelineRight.svg';
+
+  /// File path: assets/images/icon/home/worksheet/time check.svg
+  String get timeCheck => 'assets/images/icon/home/worksheet/time check.svg';
+
+  /// File path: assets/images/icon/home/worksheet/worksheet1.svg
+  String get worksheet1 => 'assets/images/icon/home/worksheet/worksheet1.svg';
+
+  /// File path: assets/images/icon/home/worksheet/worksheet2.svg
+  String get worksheet2 => 'assets/images/icon/home/worksheet/worksheet2.svg';
+
+  /// List of all assets
+  List<String> get values => [
+        detail,
+        summary,
+        timelineLeft,
+        timelineRight,
+        timeCheck,
+        worksheet1,
+        worksheet2
       ];
 }
 

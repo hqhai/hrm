@@ -2582,6 +2582,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'See details'**
   String get seeDetails;
+
+  /// No description provided for @onTime.
+  ///
+  /// In en, this message translates to:
+  /// **'On time'**
+  String get onTime;
+
+  /// No description provided for @forgotChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot checking'**
+  String get forgotChecking;
+
+  /// No description provided for @offWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Off work'**
+  String get offWork;
+
+  /// No description provided for @isRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Is request'**
+  String get isRequest;
+
+  /// No description provided for @holiday.
+  ///
+  /// In en, this message translates to:
+  /// **'Holiday'**
+  String get holiday;
+
+  /// No description provided for @noAttendance.
+  ///
+  /// In en, this message translates to:
+  /// **'No attendance'**
+  String get noAttendance;
+
+  /// No description provided for @offSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Off set'**
+  String get offSet;
+
+  /// No description provided for @timeWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Time work'**
+  String get timeWork;
+
+  /// No description provided for @detailWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Detail work'**
+  String get detailWork;
+
+  /// No description provided for @summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get summary;
+
+  /// No description provided for @year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get year;
+
+  /// No description provided for @request.
+  ///
+  /// In en, this message translates to:
+  /// **'Request'**
+  String get request;
+
+  /// No description provided for @shift.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift'**
+  String get shift;
+
+  /// No description provided for @workInDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Work in day'**
+  String get workInDay;
+
+  /// No description provided for @minutesToLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes to late'**
+  String get minutesToLate;
+
+  /// No description provided for @minutesToEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes to early'**
+  String get minutesToEarly;
+
+  /// No description provided for @totalOTHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Total OT hours'**
+  String get totalOTHours;
+
+  /// No description provided for @typeOfShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Type of shift'**
+  String get typeOfShift;
+
+  /// No description provided for @oTCoefficient.
+  ///
+  /// In en, this message translates to:
+  /// **'OT coefficient'**
+  String get oTCoefficient;
+
+  /// No description provided for @dateType.
+  ///
+  /// In en, this message translates to:
+  /// **'Date type'**
+  String get dateType;
+
+  /// No description provided for @ot.
+  ///
+  /// In en, this message translates to:
+  /// **'OverTime'**
+  String get ot;
+
+  /// No description provided for @totalLeaveWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Total leave work'**
+  String get totalLeaveWork;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

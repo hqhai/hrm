@@ -1,5 +1,5 @@
 
-import 'package:base_app/domain/entities/attendance.dart';
+import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
 import 'package:base_app/presentations/pages/attendance/item_calendar_attendance_history.dart';
@@ -54,15 +54,6 @@ class _BodyCalendarAttendanceHistoryState extends State<BodyCalendarAttendanceHi
     super.initState();
   }
 
-  int _checkAttendance(List<Attendance> attendances, DateTime date, int month) {
-    List<String> attendanceDates = attendances.map((e) => e.attendanceDate.toString()).toList();
-    int index = attendanceDates.indexWhere((e) {
-      DateTime dateTime = DateTime.parse(e);
-      return dateTime.month == month && dateTime.day == date.day && month == date.month;
-    });
-    return index != -1 ? index : -1;
-  }
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
@@ -96,12 +87,9 @@ class _BodyCalendarAttendanceHistoryState extends State<BodyCalendarAttendanceHi
 
   Widget _item(BuildContext context, int index, AttendanceState state) {
     return ItemCalendarAttendanceHistory(
+      userWorkingHistoryModel: const UserWorkingHistoryModel(),
       date: widget.listDate[index],
       month: widget.month,
-      attendance: _checkAttendance(state.attendances, widget.listDate[index], widget.month) != -1
-          ? state.attendances[
-              _checkAttendance(state.attendances, widget.listDate[index], widget.month)]
-          : const Attendance(attendanceDate: ''),
       itemDate: _getWidgetContent(widget.listDate[index]),
       isNowDate: _checkDateNow(widget.listDate[index]),
     );
