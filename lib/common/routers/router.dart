@@ -95,5 +95,6 @@ class AppRouters {
     Pages.leavePage: leavePageRoute,
     Pages.layoutCalendarPage: layoutCalendarPageRoute,
     Pages.registerShiftsPage: registerShiftsPageRoute,
+    Pages.layoutCalendarPage: layoutCalendarPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }
