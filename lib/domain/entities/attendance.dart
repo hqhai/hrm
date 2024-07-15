@@ -130,4 +130,19 @@ class Attendance {
   factory Attendance.fromJson(Map<String, dynamic> json) => _$AttendanceFromJson(json);
 
   Map<String, dynamic> toJson() => _$AttendanceToJson(this);
+
+  List<String> toListString() {
+    return [
+      actualRate.toString(),
+      leaveRate.toString(),
+      holidayRate.toString(),
+      noSalaryRate.toString(),
+      overTime.toString(),
+      workTimeActual.toString(),
+      timeEarly.toString(),
+      timeLate.toString(),
+      salaryWork.toString(),
+      realRate.toString(),
+    ];
+  }
 }

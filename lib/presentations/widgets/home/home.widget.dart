@@ -4,15 +4,14 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/home_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/attendance/work_sheet.dart';
+import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
+import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
-import 'package:base_app/presentations/bloc/work_sheet/work_sheet_state.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/form_change_time.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/item_work_sheet.dart';
 import 'package:collection/collection.dart';
@@ -28,24 +27,21 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  String id = '';
   DateTime currentDateTime = DateTime.now();
+  String id = '';
 
   @override
   void initState() {
-    dI<WorkSheetBloc>().add(GetWorkSheetEvent(time: currentDateTime));
-    dI<UserBloc>().add(const GetUserInfo());
     id = dI<UserBloc>().state.user.id;
-    dI<AttendanceBloc>().add(GetAttendanceNowEvent(
-      id: id,
-    ));
+    dI<AttendanceBloc>()
+        .add(GetAttendanceEvent(month: currentDateTime.month, year: currentDateTime.day, id: id));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    return BlocBuilder<WorkSheetBloc, WorkSheetState>(
+    return BlocBuilder<AttendanceBloc, AttendanceState>(
       builder: (context, state) {
         return SingleChildScrollView(
           child: Container(
@@ -66,12 +62,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                 Column(
                   children: titleHome()
                       .mapIndexed(
-                        (index, element) =>
-                        ItemWorkSheet(
+                        (index, element) => ItemWorkSheet(
                           title: element,
-                          value: listWork(state.workSheet)[index],
+                          value: listWork(state.attendance)[index],
                         ),
-                  )
+                      )
                       .toList(),
                 ),
                 Padding(
@@ -87,8 +82,8 @@ class _HomeWidgetState extends State<HomeWidget> {
     );
   }
 
-  List<String> listWork(WorkSheet workSheet){
-    List<String> list = [...workSheet.toListString()];
+  List<String> listWork(Attendance attendance) {
+    List<String> list = [...attendance.toListString()];
     return list;
   }
 
@@ -111,7 +106,8 @@ class _HomeWidgetState extends State<HomeWidget> {
         currentDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
       }
     });
-    dI<WorkSheetBloc>().add(GetWorkSheetEvent(time: currentDateTime));
+    dI<AttendanceBloc>()
+        .add(GetAttendanceEvent(month: currentDateTime.month, year: currentDateTime.day, id: id));
   }
 
   nextWorkSheet(BuildContext context) {

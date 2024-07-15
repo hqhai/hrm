@@ -1314,4 +1314,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totalLeaveWork => 'Total leave work';
+
+  @override
+  String get noShiftsWork => 'No shifts work';
+
+  @override
+  String get saturday => 'Saturday';
+
+  @override
+  String get sunday => 'Sunday';
+
+  @override
+  String get regularDay => 'Regular day';
 }

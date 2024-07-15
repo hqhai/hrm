@@ -435,5 +435,9 @@
   "oTCoefficient": "OT coefficient",
   "dateType": "Date type",
   "ot": "OverTime",
-  "totalLeaveWork": "Total leave work"
+  "totalLeaveWork": "Total leave work",
+  "noShiftsWork": "No shifts work",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  "regularDay": "Regular day"
 }

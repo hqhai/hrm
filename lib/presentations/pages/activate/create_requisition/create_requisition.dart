@@ -237,6 +237,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestLateAndEarlyPage,
         );
+      case RequisitionTypeEnum.core:
       case null:
     }
   }

@@ -1,14 +1,11 @@
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_title_value.dart';
@@ -75,11 +72,6 @@ class _RequisitionInformationGeneraliInformationState
                           dateTimeLocal(state.requisition.createdDate).toString(),
                         ),
                       ),
-                      if (checkNote(state.requisition.status))
-                        RequestInformationTitleValue(
-                          title: appLocalizations.note,
-                          value: mapApprove(state.requisition, state.requisition.status),
-                        ),
                       Padding(
                         padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
                         child: Column(
@@ -129,31 +121,5 @@ class _RequisitionInformationGeneraliInformationState
       return EnumStepRequestStatusEnum.values[index];
     }
     return null;
-  }
-
-  String mapApprove(Request request, StatusRequestEnum status) {
-    final Map<String, String> listNote = {};
-    final idUser = dI<UserBloc>().state.user.id;
-    final EnumStepRequestStatusEnum? statusSRA = setStatus(status);
-
-    if (request.stepRequests.isNotEmpty) {
-      final stepRequests = request.stepRequests;
-      final indexNewStepRequest = stepRequests.indexWhere((element) => element.status == statusSRA);
-      if (indexNewStepRequest != -1) {
-        final stepRequest = stepRequests[indexNewStepRequest];
-        final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest =
-            stepRequestApproves.indexWhere((element) => element.status == statusSRA);
-        if (indexNewRequest != -1) {
-          final Map<String, String> mapSRA = {
-            stepRequestApproves[indexNewRequest].approverId ?? "":
-                stepRequestApproves[indexNewRequest].note ?? "  "
-          };
-          listNote.addAll(mapSRA);
-        }
-      }
-    }
-
-    return widget.checkUser ? listNote[idUser] ?? "" : listNote.values.last;
   }
 }

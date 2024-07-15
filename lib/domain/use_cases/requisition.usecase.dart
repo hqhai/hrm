@@ -54,4 +54,7 @@ abstract class RequisitionUseCase {
 
   Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest});
 
+  Future<RequestsResponse> getRequestsByIds({
+    required List<String> ids,
+  });
 }

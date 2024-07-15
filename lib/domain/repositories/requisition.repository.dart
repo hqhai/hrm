@@ -53,4 +53,8 @@ abstract class RequisitionRepository {
   Future<bool> userRejectRequisitionById({required String id});
 
   Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest});
+
+  Future<RequestsResponse> getRequestsByIds({required
+    List<String> ids,
+  });
 }

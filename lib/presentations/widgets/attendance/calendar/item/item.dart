@@ -28,7 +28,7 @@ class ItemCalender extends StatelessWidget {
 
   UserWorkingHistoryModel? userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
     final int index = list.indexWhere((element) => element.date?.isAtSameMomentAs(date) ?? false);
-    if(index != -1){
+    if (index != -1) {
       return list[index];
     }
     return null;
@@ -75,24 +75,27 @@ class ItemCalender extends StatelessWidget {
                     child: value(context, userWorkingHistoryModel),
                   ),
                   Expanded(
-                    child: check(userWorkingHistoryModel) ?  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: userWorkingHistoryModel!.status!
-                          .mapIndexed(
-                            (index, element) => Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                                color: _color(context, index, userWorkingHistoryModel.status!),
-                              ),
-                              margin: const EdgeInsetsDirectional.symmetric(
-                                  horizontal: SpacingUnit.x0_5, vertical: SpacingUnit.x2),
-                              width: SpacingUnit.x1_5,
-                              height: SpacingUnit.x1_5,
-                            ),
+                    child: check(userWorkingHistoryModel)
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: userWorkingHistoryModel!.status!
+                                .mapIndexed(
+                                  (index, element) => Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                                      color:
+                                          _color(context, index, userWorkingHistoryModel.status!),
+                                    ),
+                                    margin: const EdgeInsetsDirectional.symmetric(
+                                        horizontal: SpacingUnit.x0_5, vertical: SpacingUnit.x2),
+                                    width: SpacingUnit.x1_5,
+                                    height: SpacingUnit.x1_5,
+                                  ),
+                                )
+                                .toList(),
                           )
-                          .toList(),
-                    ) : const SizedBox(),
+                        : const SizedBox(),
                   )
                 ],
               ),
@@ -103,7 +106,7 @@ class ItemCalender extends StatelessWidget {
     );
   }
 
-  bool check(UserWorkingHistoryModel? userWorkingHistoryModel){
+  bool check(UserWorkingHistoryModel? userWorkingHistoryModel) {
     return userWorkingHistoryModel != null && userWorkingHistoryModel.status != null;
   }
 
@@ -137,7 +140,8 @@ class ItemCalender extends StatelessWidget {
   }
 
   _nextItemAttendanceHistoryPage(
-    BuildContext context, UserWorkingHistoryModel? userWorkingHistoryModel,
+    BuildContext context,
+    UserWorkingHistoryModel? userWorkingHistoryModel,
   ) {
     if (userWorkingHistoryModel != null) {
       dI<AppNavigation>()
@@ -158,12 +162,12 @@ class ItemCalender extends StatelessWidget {
                 fontSize: SpacingUnit.x2_5,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
+            Padding(
+              padding: const EdgeInsets.symmetric(
                 vertical: SpacingUnit.x1,
               ),
               child: Text(
-                '-',
+                userWorkingHistoryModel?.checkIn != null ? '-' : '',
               ),
             ),
             Text(
@@ -177,7 +181,7 @@ class ItemCalender extends StatelessWidget {
         );
       case 2:
         return Text(
-          (userWorkingHistoryModel?.workTimeActual??0).toString(),
+          (userWorkingHistoryModel?.workTimeActual ?? 0).toString(),
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x2_5,
@@ -185,7 +189,7 @@ class ItemCalender extends StatelessWidget {
         );
       case 3:
         return Text(
-          (userWorkingHistoryModel?.salaryRate??0).toString(),
+          (userWorkingHistoryModel?.salaryRate ?? 0).toString(),
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x2_5,

@@ -16,6 +16,7 @@ import 'package:base_app/presentations/bloc/personnel/personnel_bloc.dart';
 import 'package:base_app/presentations/bloc/position/position_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_bloc.dart';
@@ -65,5 +66,7 @@ class MainBloc {
             create: (BuildContext context) => dI<LeaveHistoryBloc>()),
         BlocProvider<WorkSheetBloc>(
             create: (BuildContext context) => dI<WorkSheetBloc>()),
+        BlocProvider<RequestWorkSheetBloc>(
+            create: (BuildContext context) => dI<RequestWorkSheetBloc>()),
       ];
 }

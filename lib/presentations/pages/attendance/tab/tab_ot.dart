@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -39,7 +40,7 @@ class OTTab extends StatelessWidget {
             ),
             TitleValueLeave(
               title: appLocalizations.dateType,
-              value: userWorkingHistoryModel.overTimeDay.toString(),
+              value: userWorkingHistoryModel.overTimeDay?.configEnumOvertimeDayName ?? "",
               size: SpacingUnit.x4,
               padding: SpacingUnit.x3,
             ),

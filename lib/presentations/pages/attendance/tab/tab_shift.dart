@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -10,6 +11,7 @@ import 'package:themes/themes.dart';
 
 class ShiftTab extends StatelessWidget {
   const ShiftTab({super.key, required this.dateTime});
+
   final DateTime dateTime;
 
   UserWorkingHistoryModel userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
@@ -23,7 +25,7 @@ class ShiftTab extends StatelessWidget {
     return BlocBuilder<AttendanceBloc, AttendanceState>(
       builder: (context, state) {
         final userWorkingHistoryModel =
-        userWorkingHistoryModelByDate(state.attendance.userWorkingHistories);
+            userWorkingHistoryModelByDate(state.attendance.userWorkingHistories);
         return Column(
           children: [
             TitleValueLeave(
@@ -34,7 +36,7 @@ class ShiftTab extends StatelessWidget {
             ),
             TitleValueLeave(
               title: appLocalizations.minutesToLate,
-              value:  userWorkingHistoryModel.timeLate.toString(),
+              value: userWorkingHistoryModel.timeLate.toString(),
               size: SpacingUnit.x4,
               padding: SpacingUnit.x3,
             ),
@@ -61,7 +63,7 @@ class ShiftTab extends StatelessWidget {
             ),
             TitleValueLeave(
               title: appLocalizations.typeOfShift,
-              value: userWorkingHistoryModel.overTimeDay.toString(),
+              value: userWorkingHistoryModel.overTimeDay?.configEnumOvertimeDayName ?? "",
               size: SpacingUnit.x4,
               padding: SpacingUnit.x3,
               font: FontWeight.w700,

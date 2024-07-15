@@ -1,6 +1,7 @@
 import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request/get_requests_by_ids.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/approve_request.dart';
@@ -44,4 +45,6 @@ abstract class RequisitionService {
   Future<bool> userRejectRequisitionById({required String id});
 
   Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest});
+
+  Future<RequestsResponse> getRequestsByIds({required GetRequestsByIds getRequestsByIds});
 }

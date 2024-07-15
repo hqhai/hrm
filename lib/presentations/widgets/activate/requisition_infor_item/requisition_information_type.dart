@@ -62,6 +62,7 @@ Widget inFlowType(RequisitionTypeEnum? type) {
     case RequisitionTypeEnum.explanation:
       return const RequisitionInformationContentTypeExplanation();
     case null:
+    case RequisitionTypeEnum.core:
       return Container();
   }
 }

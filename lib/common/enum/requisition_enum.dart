@@ -160,6 +160,8 @@ extension ConfigStepFlowTypeExtension on EnumStepFlowType {
 }
 
 enum RequisitionTypeEnum {
+  @JsonValue('Core')
+  core('Core'),
   @JsonValue('YearlyAndSeniorityLeave')
   yearlyAndSeniorityLeave('YearlyAndSeniorityLeave'),
   @JsonValue('CompensatoryLeave')
@@ -223,6 +225,8 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
         return appLocalizations.late;
       case RequisitionTypeEnum.earlyDeparture:
         return appLocalizations.leaveEarly;
+      case RequisitionTypeEnum.core:
+    return appLocalizations.core;
     }
   }
 }

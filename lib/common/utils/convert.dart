@@ -11,11 +11,11 @@ String strSeconds(int time) {
   final DateTime now = DateTime.now();
   final DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
   final DateTime result = startOfDay.add(duration);
-  return formatHM(result.toString());
+  return time != 0 ? formatHM(result.toString()) : '';
 }
 
 String formatIso8601(String? time) {
-  DateTime dateTime1 = DateTime.parse(time??DateTime.now().toString());
+  DateTime dateTime1 = DateTime.parse(time ?? DateTime.now().toString());
   String time1 = DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime1);
   List<String> inputDateParts = time1.split(' ');
   List<String> dateParts = inputDateParts[0].split('-');
@@ -40,22 +40,20 @@ String formatYMD(String time) {
   return '';
 }
 
-String formatWeekDay(int weekDayIndex){
+String formatWeekDay(int weekDayIndex) {
   bool checkLanguage = dI<LanguageCubit>().state.languageCode == LanguageEnum.en;
-  List weekDayToString = WeekDayEnum.values.map((e) => setElementWeekDay(e, checkLanguage)).toList();
-  return weekDayToString[weekDayIndex-1];
+  List weekDayToString =
+      WeekDayEnum.values.map((e) => setElementWeekDay(e, checkLanguage)).toList();
+  return weekDayToString[weekDayIndex - 1];
 }
 
 setElementWeekDay(WeekDayEnum e, bool checkLanguage) {
-  if(checkLanguage){
+  if (checkLanguage) {
     return e.nameEn;
-  }
-  else {
+  } else {
     return e.nameVi;
   }
 }
-
-
 
 String formatDMY(String time) {
   if (time != '') {
@@ -99,7 +97,7 @@ String formatDHM(String time) {
   return '';
 }
 
-DateTime formatDateHM(String time){
+DateTime formatDateHM(String time) {
   return DateFormat('HH:mm').parse(time);
 }
 
@@ -108,8 +106,8 @@ String formatYM(int year, int month) {
   return DateFormat('yyyy-MM').format(dateTime);
 }
 
-DateTime? dateTimeLocal(DateTime? time){
-  if(time != null){
+DateTime? dateTimeLocal(DateTime? time) {
+  if (time != null) {
     return time.add(const Duration(hours: 7));
   }
   return null;

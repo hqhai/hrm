@@ -316,7 +316,7 @@
   "economy": "Giao hàng tiết kiệm",
   "rush": "Giao hàng hỏa tốc",
   "scheduled": "Giao hàng theo lịch hẹn",
-  "core": "Chính",
+  "core": "Core",
   "noBrowsingFlowYet": "Chưa có luồng duyệt",
   "cannotBeLeftBlank": "Không được để trống",
   "thereAreCurrentlyNoProducts": "Hiện tại không có sản phẩm nào",
@@ -437,5 +437,9 @@
   "oTCoefficient": "Hệ số OT",
   "dateType": "Loại ngày",
   "ot": "Tăng ca",
-  "totalLeaveWork": "Tổng số công nghỉ"
+  "totalLeaveWork": "Tổng số công nghỉ",
+  "noShiftsWork": "Không có ca làm việc",
+  "saturday": "Thứ bảy",
+  "sunday": "Chủ nhật",
+  "regularDay": "Ngày thường"
 }

@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request/get_requests_by_ids.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/approve_request.dart';
@@ -162,4 +163,13 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest}) async {
     return await _requestService.editRequestEdit(postRequestRequest: postRequestRequest);
   }
+
+  @override
+  Future<RequestsResponse> getRequestsByIds({required List<String> ids}) async {
+    return await _requestService.getRequestsByIds(
+      getRequestsByIds: GetRequestsByIds(ids: ids),
+    );
+  }
+
+
 }

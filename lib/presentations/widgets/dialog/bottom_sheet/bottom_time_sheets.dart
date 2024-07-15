@@ -155,7 +155,7 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
   addDate({required UserWorkingHistoryModel date}) {
     setState(() {
       final RequisitionOverTime dateUnit = RequisitionOverTime(
-        date: date.date.toString(),
+        date: date.date,
       );
       widget.onChange.call(dateUnit);
       Navigator.of(context).pop();

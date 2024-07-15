@@ -55,4 +55,38 @@ extension ConfigUesrWorkingHistoryStatusExtension on UserWorkingHistoryStatus {
   }
 }
 
-enum EnumOvertimeDay { holiday, noShiftsWork, saturday, sunday, regularDay }
+enum EnumOvertimeDay {
+  @JsonValue('Holiday')
+  holiday('Holiday'),
+  @JsonValue('NoShiftsWork')
+  noShiftsWork('NoShiftsWork'),
+  @JsonValue('Saturday')
+  saturday('Saturday'),
+  @JsonValue('Sunday')
+  sunday('Sunday'),
+  @JsonValue('RegularDay')
+  regularDay('RegularDay');
+
+  final String name;
+
+  const EnumOvertimeDay(this.name);
+}
+
+extension ConfigUesrEnumOvertimeDayExtension on EnumOvertimeDay {
+  String get configEnumOvertimeDayName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case EnumOvertimeDay.holiday:
+        return appLocalizations.holiday;
+      case EnumOvertimeDay.noShiftsWork:
+        return appLocalizations.noShiftsWork;
+      case EnumOvertimeDay.saturday:
+        return appLocalizations.saturday;
+      case EnumOvertimeDay.sunday:
+        return appLocalizations.sunday;
+      case EnumOvertimeDay.regularDay:
+        return appLocalizations.regularDay;
+    }
+  }
+}

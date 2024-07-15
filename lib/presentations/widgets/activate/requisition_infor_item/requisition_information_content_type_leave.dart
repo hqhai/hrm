@@ -6,6 +6,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -44,84 +45,21 @@ class _RequisitionInformationContentTypeLeaveState
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: SpacingUnit.x1,
-                      top: SpacingUnit.x2,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          appLocalizations.startTime,
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          formatYMDHMS(
-                            (state.requisition.config.startDate ?? "").toString(),
-                          ),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        )
-                      ],
+                  ItemTitleValue(
+                    title: appLocalizations.startTime,
+                    value: formatYMDHMS(
+                      (state.requisition.config.startDate ?? "").toString(),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: SpacingUnit.x1,
-                      top: SpacingUnit.x2,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          appLocalizations.endTime,
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          formatYMDHMS(
-                            (state.requisition.config.endDate ?? "").toString(),
-                          ),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        )
-                      ],
+                  ItemTitleValue(
+                    title: appLocalizations.endTime,
+                    value: formatYMDHMS(
+                      (state.requisition.config.endDate ?? "").toString(),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: SpacingUnit.x1,
-                      top: SpacingUnit.x2,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          appLocalizations.totalDays,
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          (state.requisition.config.total ?? 0).toString(),
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        )
-                      ],
-                    ),
+                  ItemTitleValue(
+                    title: appLocalizations.totalDays,
+                    value: (state.requisition.config.total ?? 0).toString(),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -188,31 +126,9 @@ class _RequisitionInformationContentTypeLeaveState
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: SpacingUnit.x1,
-                      top: SpacingUnit.x2,
-                      bottom: SpacingUnit.x4,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          appLocalizations.description,
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Text(
-                          state.requisition.config.description ?? "",
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        )
-                      ],
-                    ),
+                  ItemTitleValue(
+                    title:  appLocalizations.description,
+                    value:  state.requisition.config.description ?? "",
                   ),
                 ],
               ),

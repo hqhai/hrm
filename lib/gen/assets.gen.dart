@@ -280,6 +280,9 @@ class $AssetsImagesIconHomeWorksheetGen {
   /// File path: assets/images/icon/home/worksheet/Summary.svg
   String get summary => 'assets/images/icon/home/worksheet/Summary.svg';
 
+  /// File path: assets/images/icon/home/worksheet/Timeline.svg
+  String get timeline => 'assets/images/icon/home/worksheet/Timeline.svg';
+
   /// File path: assets/images/icon/home/worksheet/TimelineLeft.svg
   String get timelineLeft =>
       'assets/images/icon/home/worksheet/TimelineLeft.svg';
@@ -287,6 +290,9 @@ class $AssetsImagesIconHomeWorksheetGen {
   /// File path: assets/images/icon/home/worksheet/TimelineRight.svg
   String get timelineRight =>
       'assets/images/icon/home/worksheet/TimelineRight.svg';
+
+  /// File path: assets/images/icon/home/worksheet/dot.svg
+  String get dot => 'assets/images/icon/home/worksheet/dot.svg';
 
   /// File path: assets/images/icon/home/worksheet/time check.svg
   String get timeCheck => 'assets/images/icon/home/worksheet/time check.svg';
@@ -301,8 +307,10 @@ class $AssetsImagesIconHomeWorksheetGen {
   List<String> get values => [
         detail,
         summary,
+        timeline,
         timelineLeft,
         timelineRight,
+        dot,
         timeCheck,
         worksheet1,
         worksheet2

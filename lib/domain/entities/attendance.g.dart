@@ -332,9 +332,9 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
 }
 
 const _$EnumOvertimeDayEnumMap = {
-  EnumOvertimeDay.holiday: 'holiday',
-  EnumOvertimeDay.noShiftsWork: 'noShiftsWork',
-  EnumOvertimeDay.saturday: 'saturday',
-  EnumOvertimeDay.sunday: 'sunday',
-  EnumOvertimeDay.regularDay: 'regularDay',
+  EnumOvertimeDay.holiday: 'Holiday',
+  EnumOvertimeDay.noShiftsWork: 'NoShiftsWork',
+  EnumOvertimeDay.saturday: 'Saturday',
+  EnumOvertimeDay.sunday: 'Sunday',
+  EnumOvertimeDay.regularDay: 'RegularDay',
 };

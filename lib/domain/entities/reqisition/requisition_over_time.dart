@@ -6,7 +6,7 @@ part 'requisition_over_time.g.dart';
 @CopyWith()
 @JsonSerializable()
 class RequisitionOverTime {
-  final String? date;
+  final DateTime? date;
   final int? startTime;
   final int? endTime;
   final double? suggestTime;

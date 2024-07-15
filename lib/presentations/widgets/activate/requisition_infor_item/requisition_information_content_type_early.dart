@@ -1,5 +1,7 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
@@ -26,6 +28,8 @@ class _RequisitionInformationContentTypeEarlyState
 
   @override
   void initState() {
+    final Request request = dI<RequisitionBloc>().state.requisition;
+    listCheck = List.filled(request.config.overTimes?.length ?? 0, true);
     super.initState();
   }
 
@@ -36,9 +40,12 @@ class _RequisitionInformationContentTypeEarlyState
     return BlocConsumer<RequisitionBloc, RequisitionState>(
       listener: (context, state) => _listener(state),
       listenWhen: (previous, current) => previous.requisition != current.requisition,
+      buildWhen: (previous, current) => buildWhen(
+        previous.requisition,
+        current.requisition,
+      ),
       builder: (context, state) {
         final overTimes = state.requisition.config.overTimes;
-        final listCheck = List.filled(state.requisition.config.overTimes?.length ?? 0, true);
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           child: Column(
@@ -59,7 +66,7 @@ class _RequisitionInformationContentTypeEarlyState
                       ),
                     ),
                     Text(
-                      formatYMD(state.requisition.config.startDate.toString()),
+                      formatYMD((state.requisition.config.startDate ?? "").toString()),
                       style: TextStyle(
                         color: colors.text,
                         fontSize: SpacingUnit.x3,
@@ -137,5 +144,10 @@ class _RequisitionInformationContentTypeEarlyState
       final int count = state.requisition.config.overTimes!.length;
       listCheck = List.filled(count, true);
     });
+  }
+
+  buildWhen(Request requisition, Request requisition2) {
+    final check = requisition != requisition2;
+    return check;
   }
 }

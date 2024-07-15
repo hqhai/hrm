@@ -956,7 +956,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get scheduled => 'Giao hàng theo lịch hẹn';
 
   @override
-  String get core => 'Chính';
+  String get core => 'Core';
 
   @override
   String get noBrowsingFlowYet => 'Chưa có luồng duyệt';
@@ -1314,4 +1314,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get totalLeaveWork => 'Tổng số công nghỉ';
+
+  @override
+  String get noShiftsWork => 'Không có ca làm việc';
+
+  @override
+  String get saturday => 'Thứ bảy';
+
+  @override
+  String get sunday => 'Chủ nhật';
+
+  @override
+  String get regularDay => 'Ngày thường';
 }

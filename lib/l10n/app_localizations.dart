@@ -2714,6 +2714,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total leave work'**
   String get totalLeaveWork;
+
+  /// No description provided for @noShiftsWork.
+  ///
+  /// In en, this message translates to:
+  /// **'No shifts work'**
+  String get noShiftsWork;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get sunday;
+
+  /// No description provided for @regularDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular day'**
+  String get regularDay;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

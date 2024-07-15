@@ -5,6 +5,7 @@ import 'package:base_app/common/configs/path_config.dart';
 import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request/get_requests_by_ids.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/approve_request.dart';
@@ -60,7 +61,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    Request request = Request.fromJson(data);
+    final Request request = Request.fromJson(data);
     return request;
   }
 
@@ -130,7 +131,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    FlowRequest flow = FlowRequest.fromJson(data);
+    final FlowRequest flow = FlowRequest.fromJson(data);
     return flow;
   }
 
@@ -174,5 +175,17 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     final data = responseBase.result;
     final Request request = Request.fromJson(data);
     return request;
+  }
+
+  @override
+  Future<RequestsResponse> getRequestsByIds({required GetRequestsByIds getRequestsByIds}) async {
+    ///đang dùng tạm by id
+    final id = getRequestsByIds.ids[0];
+    final url = '$baseUrl${PathConfig.requestInId}/$id';
+    final response = await client.get(url);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    final Request request = Request.fromJson(data);
+    return RequestsResponse(items: [request]);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
@@ -32,7 +33,7 @@ class ContentItemMyRequisitionList extends StatelessWidget {
             SizedBox(
               width: width * 0.8,
               child: Text(
-                _request(state.requisitions, id).config.description ?? "",
+                _request(state.requisitions, id).flowType.configTypeName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

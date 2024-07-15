@@ -1,6 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_explanation.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -27,45 +28,17 @@ class RequisitionInformationContentTypeExplanation extends StatelessWidget {
               fontWeight: FontWeight.w800,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(appLocalizations.reason,
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                Text(requisitionExplanation.reason ?? "",
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
-              ],
-            ),
+          ItemTitleValue(
+            title: appLocalizations.reason,
+            value: requisitionExplanation.reason ?? "",
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(appLocalizations.reasonForExplanation,
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                Text(requisitionExplanation.reasonForExplanation ?? "",
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
-              ],
-            ),
+          ItemTitleValue(
+            title: appLocalizations.reasonForExplanation,
+            value: requisitionExplanation.reasonForExplanation ?? "",
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: SpacingUnit.x1,
-              top: SpacingUnit.x2,
-              bottom: SpacingUnit.x3,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(appLocalizations.totalMinute,
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                Text((requisitionExplanation.totalMinute ?? 0).toString(),
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
-              ],
-            ),
+          ItemTitleValue(
+            title: appLocalizations.totalMinute,
+            value: (requisitionExplanation.totalMinute ?? 0).toString(),
           ),
           Text(
             appLocalizations.detailedDescription,
