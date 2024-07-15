@@ -104,5 +104,5 @@ class MainBloc {
             create: (BuildContext context) => dI<ScheduleSchoolBloc>()),
         BlocProvider<LeaveShiftBloc>(
             create: (BuildContext context) => dI<LeaveShiftBloc>()),
-      ];
+        ];
 }
