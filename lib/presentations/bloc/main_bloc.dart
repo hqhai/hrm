@@ -74,5 +74,7 @@ class MainBloc {
             create: (BuildContext context) => dI<WorkDayBloc>()),
         BlocProvider<WorkSheetBloc>(
             create: (BuildContext context) => dI<WorkSheetBloc>()),
+        BlocProvider<RequestWorkSheetBloc>(
+            create: (BuildContext context) => dI<RequestWorkSheetBloc>()),
       ];
 }

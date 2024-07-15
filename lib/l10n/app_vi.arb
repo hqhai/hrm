@@ -496,5 +496,9 @@
   "oTCoefficient": "Hệ số OT",
   "dateType": "Loại ngày",
   "ot": "Tăng ca",
-  "totalLeaveWork": "Tổng số công nghỉ"
+  "totalLeaveWork": "Tổng số công nghỉ",
+  "noShiftsWork": "Không có ca làm việc",
+  "saturday": "Thứ bảy",
+  "sunday": "Chủ nhật",
+  "regularDay": "Ngày thường"
 }

@@ -1,37 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:intl/intl.dart';
 
-///Từ int sang String
-String? strSeconds(int? time) {
-  if (time != null) {
-    final Duration duration = Duration(seconds: time);
-    final DateTime now = DateTime.now();
-    final DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
-    final DateTime result = startOfDay.add(duration);
-    return time != 0 ? formatHM(result.toString()) : '';
-  }
-  return null;
+String strSeconds(int time) {
+  final Duration duration = Duration(seconds: time);
+  final DateTime now = DateTime.now();
+  final DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
+  final DateTime result = startOfDay.add(duration);
+  return time != 0 ? formatHM(result.toString()) : '';
 }
 
-///Ngày đầu của tháng
-DateTime getFirstDayOfMonth(DateTime time) {
-  final int year = time.year;
-  final int month = time.month;
-  return DateTime(year, month, 1);
-}
-
-///Ngày cuối của tháng
-DateTime getLastDayOfMonth(DateTime time) {
-  final int year = time.year;
-  final int month = time.month;
-  var firstDayNextMonth = (month < 12) ? DateTime(year, month + 1, 1) : DateTime(year + 1, 1, 1);
-  return firstDayNextMonth.subtract(const Duration(days: 1));
-}
-
-///Chuyển dạng Iso8601
 String formatIso8601(String? time) {
   DateTime dateTime1 = DateTime.parse(time ?? DateTime.now().toString());
   String time1 = DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime1);
@@ -50,7 +32,6 @@ String formatIso8601(String? time) {
   return dateTime.toIso8601String();
 }
 
-///Định dạng Năm Tháng Ngày
 String formatYMD(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
@@ -59,13 +40,21 @@ String formatYMD(String time) {
   return '';
 }
 
-///Từ số sang thứ trong tuần
 String formatWeekDay(int weekDayIndex) {
-  List weekDayToString = WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
+  bool checkLanguage = dI<LanguageCubit>().state.languageCode == LanguageEnum.en;
+  List weekDayToString =
+      WeekDayEnum.values.map((e) => setElementWeekDay(e, checkLanguage)).toList();
   return weekDayToString[weekDayIndex - 1];
 }
 
-///Định dạng Ngyaf Tháng Năm
+setElementWeekDay(WeekDayEnum e, bool checkLanguage) {
+  if (checkLanguage) {
+    return e.nameEn;
+  } else {
+    return e.nameVi;
+  }
+}
+
 String formatDMY(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
@@ -74,7 +63,6 @@ String formatDMY(String time) {
   return '';
 }
 
-///Định dạng Giờ Phút Giây
 String formatHMS(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
@@ -83,7 +71,6 @@ String formatHMS(String time) {
   return '';
 }
 
-///Định dạng Giờ
 String formatHMByH(String time) {
   if (time != '') {
     String dateTimeString = '2000-01-18 $time:00';
@@ -94,7 +81,6 @@ String formatHMByH(String time) {
   return '';
 }
 
-///Định dạng Giờ Phút
 String formatHM(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
@@ -103,7 +89,6 @@ String formatHM(String time) {
   return '';
 }
 
-///Định dạng Ngày Giờ Phút
 String formatDHM(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
@@ -112,18 +97,15 @@ String formatDHM(String time) {
   return '';
 }
 
-///Định dạng Giờ Phút
 DateTime formatDateHM(String time) {
   return DateFormat('HH:mm').parse(time);
 }
 
-///Định dạng Năm Tháng
 String formatYM(int year, int month) {
   DateTime dateTime = DateTime(year, month);
   return DateFormat('yyyy-MM').format(dateTime);
 }
 
-///Gừi local
 DateTime? dateTimeLocal(DateTime? time) {
   if (time != null) {
     return time.add(const Duration(hours: 7));
