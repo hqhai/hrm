@@ -450,8 +450,8 @@
   "holidayWork": "Công nghỉ lễ",
   "noSalaryWork": "Công không lương",
   "workTime": "Số giờ làm việc",
-  "timeEarly": "Về sớm",
-  "timeLate": "Đi muộn",
+  "timeEarly": "Thời gian về sớm",
+  "timeLate": "Thời gian đi muộn",
   "salaryWork": "Công hiện tại",
   "realWork": "Công chuẩn",
   "seeDetails": "Xem chi tiết",
@@ -480,5 +480,8 @@
   "noShiftsWork": "Không có ca làm việc",
   "saturday": "Thứ bảy",
   "sunday": "Chủ nhật",
-  "regularDay": "Ngày thường"
+  "regularDay": "Ngày thường",
+  "timeFrameOT": "Khung giờ OT",
+  "timeFrame": "khung thời gian"
+
 }
