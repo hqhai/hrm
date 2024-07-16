@@ -2738,6 +2738,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Regular day'**
   String get regularDay;
+
+  /// No description provided for @timeFrameOT.
+  ///
+  /// In en, this message translates to:
+  /// **'Time frame OT'**
+  String get timeFrameOT;
+
+  /// No description provided for @timeFrame.
+  ///
+  /// In en, this message translates to:
+  /// **'Time frame'**
+  String get timeFrame;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

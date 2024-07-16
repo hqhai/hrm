@@ -1,24 +1,41 @@
+import 'dart:async';
+
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/widgets/custom/app_link_next_screen.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
-class ItemRequestOnTab extends StatelessWidget {
+class ItemRequestOnTab extends StatefulWidget {
   const ItemRequestOnTab({super.key, required this.id});
 
   final String id;
 
+  @override
+  State<ItemRequestOnTab> createState() => _ItemRequestOnTabState();
+}
+
+class _ItemRequestOnTabState extends State<ItemRequestOnTab> {
+  bool checkOpacity = false;
+
   Request requestById(List<Request> requests) {
-    return requests.firstWhere((element) => element.id == id);
+    return requests.firstWhere((element) => element.id == widget.id);
   }
 
   @override
@@ -27,56 +44,70 @@ class ItemRequestOnTab extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
       builder: (context, state) {
-        final request = state.mapRequests[id];
+        final request = state.mapRequests[widget.id];
         return ContainerBorder(
             borderColors: colors.surfaceVariantHigh,
-            child: Column(
+            child: Stack(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        request?.flowType.configTypeName ?? "",
-                        style: TextStyle(
-                          color: colors.text,
-                          fontSize: SpacingUnit.x5,
-                          fontWeight: FontWeight.w600,
-                        ),
+                Opacity(
+                  opacity: checkOpacity ? 1 : 0,
+                  child: Center(
+                    child: Lottie.asset(Assets.images.icon.loading,
+                        width: SpacingUnit.x30, height: SpacingUnit.x30, fit: BoxFit.fill),
+                  ),
+                ),
+                Opacity(
+                  opacity: checkOpacity ? 0.5 : 1,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              request?.flowType.configTypeName ?? "",
+                              style: TextStyle(
+                                color: colors.text,
+                                fontSize: SpacingUnit.x5,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: AppLinkNextScreen(
+                              callback: () => _nextScreenRequest(),
+                            ),
+                          )
+                        ],
                       ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: AppLinkNextScreen(
-                        callback: () => _nextScreenRequest(context),
+                      TitleValueLeave(
+                        title: appLocalizations.intervalOnLeave,
+                        value: intervalOnLeave(request?.config.startDate, request?.config.endDate),
+                        size: SpacingUnit.x4,
+                        padding: SpacingUnit.x3,
                       ),
-                    )
-                  ],
-                ),
-                TitleValueLeave(
-                  title: appLocalizations.intervalOnLeave,
-                  value: intervalOnLeave(request?.config.startDate, request?.config.endDate),
-                  size: SpacingUnit.x4,
-                  padding: SpacingUnit.x3,
-                ),
-                TitleValueLeave(
-                  title: appLocalizations.typeRequest,
-                  value: request?.flowType.configTypeName ?? "",
-                  size: SpacingUnit.x4,
-                  padding: SpacingUnit.x3,
-                ),
-                TitleValueLeave(
-                  title: appLocalizations.reason,
-                  value: request?.config.takeLeaveReason?.configEnumTakeLeaveName ?? "",
-                  size: SpacingUnit.x4,
-                  padding: SpacingUnit.x3,
-                ),
-                TitleValueLeave(
-                  title: appLocalizations.totalLeaveWork,
-                  value: '0',
-                  size: SpacingUnit.x4,
-                  padding: SpacingUnit.x3,
+                      TitleValueLeave(
+                        title: appLocalizations.typeRequest,
+                        value: request?.flowType.configTypeName ?? "",
+                        size: SpacingUnit.x4,
+                        padding: SpacingUnit.x3,
+                      ),
+                      TitleValueLeave(
+                        title: appLocalizations.reason,
+                        value: request?.config.takeLeaveReason?.configEnumTakeLeaveName ?? "",
+                        size: SpacingUnit.x4,
+                        padding: SpacingUnit.x3,
+                      ),
+                      TitleValueLeave(
+                        title: appLocalizations.totalLeaveWork,
+                        value: '0',
+                        size: SpacingUnit.x4,
+                        padding: SpacingUnit.x3,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ));
@@ -90,5 +121,31 @@ class ItemRequestOnTab extends StatelessWidget {
     return '${formatYMD(start)} - ${formatYMD(end)}';
   }
 
-  _nextScreenRequest(BuildContext context) {}
+  _nextScreenRequest() async {
+    if (!checkOpacity) {
+      setState(() {
+        checkOpacity = true;
+      });
+      final Completer completer = Completer<RequisitionEnum>();
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.id, completer: completer),
+      );
+      final statusCompleter = await completer.future;
+      if (statusCompleter == RequisitionEnum.success) {
+        setState(() {
+          checkOpacity = false;
+        });
+        if (!currentContext.mounted) return;
+        dI<AppNavigation>().pushName(
+          currentContext,
+          page: Pages.requisitionInformationPage,
+          extra: {
+            'id': widget.id,
+            'checkUser': false,
+          },
+        );
+      }
+    }
+  }
 }

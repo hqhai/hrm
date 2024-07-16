@@ -1326,4 +1326,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get regularDay => 'Regular day';
+
+  @override
+  String get timeFrameOT => 'Time frame OT';
+
+  @override
+  String get timeFrame => 'Time frame';
 }

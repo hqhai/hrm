@@ -1118,7 +1118,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get youEarly => 'Về sớm';
 
   @override
-  String get youLater => 'Đến muộn';
+  String get youLater => 'Đi muộn';
 
   @override
   String get timeKeepingList => 'Danh sách thời gian';
@@ -1235,10 +1235,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get workTime => 'Số giờ làm việc';
 
   @override
-  String get timeEarly => 'Về sớm';
+  String get timeEarly => 'Thời gian về sớm';
 
   @override
-  String get timeLate => 'Đi muộn';
+  String get timeLate => 'Thời gian đi muộn';
 
   @override
   String get salaryWork => 'Công hiện tại';
@@ -1326,4 +1326,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get regularDay => 'Ngày thường';
+
+  @override
+  String get timeFrameOT => 'Khung giờ OT';
+
+  @override
+  String get timeFrame => 'khung thời gian';
 }

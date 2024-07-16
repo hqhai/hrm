@@ -1,10 +1,10 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/widgets/attendance/calendar/popup_menu_calender.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
@@ -38,19 +38,20 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
   DateTime currentDateTime = DateTime.now();
   DateTime oldDateTime = DateTime.now();
   DateTime lastDateTime = DateTime.now();
-  DateTime date = DateTime(DateTime.now().year, DateTime.now().month, 1);
+  DateTime startTime = DateTime.now(), endTime = DateTime.now();
   List<DateTime> listDate = const [];
-  String id = '';
+
   ///Độ mờ khi mở popup
   bool checkOpacity = false;
+
   ///Loại hiển thị
   int displayType = 1;
 
   @override
   void initState() {
-    id = dI<UserBloc>().state.user.id;
-    dI<AttendanceBloc>()
-        .add(GetAttendanceEvent(id: id, month: currentDateTime.month, year: currentDateTime.year));
+    startTime = getFirstDayOfMonth(currentDateTime);
+    endTime = getLastDayOfMonth(currentDateTime);
+    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     super.initState();
     _getListDate();
   }
@@ -62,9 +63,10 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       } else {
         currentDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
       }
+      startTime = getFirstDayOfMonth(currentDateTime);
+      endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>()
-        .add(GetAttendanceEvent(id: id, month: currentDateTime.month, year: currentDateTime.year));
+    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     _getListDate();
   }
 
@@ -75,9 +77,10 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       } else {
         currentDateTime = DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
       }
+      startTime = getFirstDayOfMonth(currentDateTime);
+      endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>()
-        .add(GetAttendanceEvent(id: id, month: currentDateTime.month, year: currentDateTime.year));
+    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     _getListDate();
   }
 
@@ -131,13 +134,17 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
               colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
             ),
           ),
-          PopupMenuCalender(onChangeCheckOpacity: (value) => _checkOpacity(value), displayType: (value) => setDisplayType(value),)
+          PopupMenuCalender(
+            onChangeCheckOpacity: (value) => _checkOpacity(value),
+            displayType: (value) => setDisplayType(value),
+          )
         ],
       ),
       body: Opacity(
-        opacity: checkOpacity? 0.5 : 1,
+        opacity: checkOpacity ? 0.5 : 1,
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x1, vertical: SpacingUnit.x0_5),
+          margin:
+              const EdgeInsets.symmetric(horizontal: SpacingUnit.x1, vertical: SpacingUnit.x0_5),
           decoration: BoxDecoration(
             color: colors.surfaceContainer,
             borderRadius: const BorderRadius.all(

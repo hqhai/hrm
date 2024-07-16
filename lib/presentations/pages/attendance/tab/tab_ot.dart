@@ -28,7 +28,7 @@ class OTTab extends StatelessWidget {
           children: [
             TitleValueLeave(
               title: appLocalizations.totalOTHours,
-              value: userWorkingHistoryModel.workTimeActual.toString(),
+              value:Duration(seconds: userWorkingHistoryModel.workTimeActual.toInt()).inHours.toString(),
               size: SpacingUnit.x4,
               padding: SpacingUnit.x3,
             ),

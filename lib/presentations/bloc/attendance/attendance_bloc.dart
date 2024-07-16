@@ -20,13 +20,14 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     on<AttendanceEvent>((event, emit) {});
     on<GetAttendanceEvent>(_getAttendanceEvent);
     on<GetAttendanceNowEvent>(_getAttendanceNowEvent);
+    on<GetWorkSheetEvent>(_getWorkSheetEvent);
   }
 
   FutureOr<void> _getAttendanceEvent(
       GetAttendanceEvent event, Emitter<AttendanceState> emit) async {
     emit(state.copyWith(status: AttendanceStatus.getAttendanceInit));
     try {
-      Attendance attendance = await _attendanceUseCase.getAttendances(
+      Attendance attendance = await _attendanceUseCase.getAttendance(
           id: event.id, year: event.year.toString(), month: event.month.toString());
       emit(state.copyWith(
           attendance: attendance,
@@ -35,6 +36,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
     }
   }
+
 
   FutureOr<void> _getAttendanceNowEvent(
       GetAttendanceNowEvent event, Emitter<AttendanceState> emit) async {
@@ -51,5 +53,17 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     } catch (e) {
       emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
     }*/
+  }
+
+  Future<FutureOr<void>> _getWorkSheetEvent(GetWorkSheetEvent event, Emitter<AttendanceState> emit) async {
+    try {
+      Attendance attendance = await _attendanceUseCase.workSheet(
+          endTime: event.endTime, startTime: event.startTime);
+      emit(state.copyWith(
+          attendance: attendance,
+          status: AttendanceStatus.getAttendanceSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
+    }
   }
 }

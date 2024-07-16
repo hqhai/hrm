@@ -79,13 +79,13 @@ class ItemCalender extends StatelessWidget {
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: userWorkingHistoryModel!.status!
+                            children: userWorkingHistoryModel!.status
                                 .mapIndexed(
                                   (index, element) => Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(SpacingUnit.x2),
                                       color:
-                                          _color(context, index, userWorkingHistoryModel.status!),
+                                          _color(context, index, userWorkingHistoryModel.status),
                                     ),
                                     margin: const EdgeInsetsDirectional.symmetric(
                                         horizontal: SpacingUnit.x0_5, vertical: SpacingUnit.x2),
@@ -107,7 +107,7 @@ class ItemCalender extends StatelessWidget {
   }
 
   bool check(UserWorkingHistoryModel? userWorkingHistoryModel) {
-    return userWorkingHistoryModel != null && userWorkingHistoryModel.status != null;
+    return userWorkingHistoryModel != null && userWorkingHistoryModel.status.isNotEmpty;
   }
 
   Color _colorText(BuildContext context) {

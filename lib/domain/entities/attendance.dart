@@ -131,16 +131,17 @@ class Attendance {
 
   Map<String, dynamic> toJson() => _$AttendanceToJson(this);
 
+
+
   List<String> toListString() {
     return [
       actualRate.toString(),
       leaveRate.toString(),
-      holidayRate.toString(),
       noSalaryRate.toString(),
       overTime.toString(),
-      workTimeActual.toString(),
-      timeEarly.toString(),
-      timeLate.toString(),
+      Duration(seconds: workTimeActual).inHours.toString(),
+      Duration(seconds: timeLate).inMinutes.toString(),
+      Duration(seconds: timeEarly).inMinutes.toString(),
       salaryWork.toString(),
       realRate.toString(),
     ];

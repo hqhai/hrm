@@ -9,7 +9,6 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +29,8 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
 
   @override
   void initState() {
-    final String id = dI<UserBloc>().state.user.id;
     final DateTime now = DateTime.now();
-    dI<AttendanceBloc>().add(GetAttendanceEvent(id: id, month: now.month, year: now.year));
+    dI<AttendanceBloc>().add(GetWorkSheetEvent(endTime: now, startTime: now));
     super.initState();
   }
 
@@ -144,8 +142,8 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
   List<UserWorkingHistoryModel> dates(List<UserWorkingHistoryModel> attendances) {
     final List<UserWorkingHistoryModel> listAttendance = [];
     attendances.forEachIndexed((index, element) {
-      if ((element.status?? []).contains(UserWorkingHistoryStatus.early) ||
-          (element.status?? []).contains(UserWorkingHistoryStatus.late)) {
+      if ((element.status).contains(UserWorkingHistoryStatus.early) ||
+          (element.status).contains(UserWorkingHistoryStatus.late)) {
         listAttendance.add(element);
       }
     });

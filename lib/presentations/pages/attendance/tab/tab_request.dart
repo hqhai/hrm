@@ -6,6 +6,8 @@ import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_event.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
+import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_business_on_tab.dart';
+import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_late_or_early_on_tab.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_leave_on_tab.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_overtime_on_tab.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class _RequestTabState extends State<RequestTab> {
     final list = dI<AttendanceBloc>().state.attendance.userWorkingHistories;
     final userWorkingHistoryModel = userWorkingHistoryModelByDate(list);
     dI<RequestWorkSheetBloc>().add(GetRequestsByIdsEvent(
-      ids: userWorkingHistoryModel.requestIds ?? [],
+      ids: userWorkingHistoryModel.requestIds,
     ));
     super.initState();
   }
@@ -64,8 +66,17 @@ class _RequestTabState extends State<RequestTab> {
         return ItemRequestOnTab(id: e);
       case RequisitionTypeEnum.explanation:
       case RequisitionTypeEnum.lateArrival:
+        return ItemRequestLateOrEarlyOnTab(
+          id: e,
+          dateTime: widget.dateTime,
+        );
       case RequisitionTypeEnum.earlyDeparture:
+        return ItemRequestLateOrEarlyOnTab(
+          id: e,
+          dateTime: widget.dateTime,
+        );
       case RequisitionTypeEnum.bussiness:
+        return ItemRequestBusinessOnTab(id: e);
       case RequisitionTypeEnum.overTime:
         return ItemRequestOverTimeOnTab(
           id: e,

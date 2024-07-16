@@ -1,23 +1,30 @@
+import 'dart:async';
+
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/enum/user_working_history_status.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/widgets/custom/app_link_next_screen.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
-class ItemRequestOverTimeOnTab extends StatelessWidget {
+class ItemRequestOverTimeOnTab extends StatefulWidget {
   const ItemRequestOverTimeOnTab({
     super.key,
     required this.id,
@@ -27,71 +34,80 @@ class ItemRequestOverTimeOnTab extends StatelessWidget {
   final String id;
   final DateTime dateTime;
 
+  @override
+  State<ItemRequestOverTimeOnTab> createState() => _ItemRequestOverTimeOnTabState();
+}
+
+class _ItemRequestOverTimeOnTabState extends State<ItemRequestOverTimeOnTab> {
+  bool checkOpacity = false;
+
   Request requestById(List<Request> requests) {
-    return requests.firstWhere((element) => element.id == id);
+    return requests.firstWhere((element) => element.id == widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return BlocBuilder<AttendanceBloc, AttendanceState>(
-      builder: (context, stateAttendance) {
-        final userWorkingHistoryModel =
-            userWorkingHistoryModelByDate(stateAttendance.attendance.userWorkingHistories);
-        return BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
-          builder: (context, state) {
-            final request = state.mapRequests[id];
-            return ContainerBorder(
-                borderColors: colors.surfaceVariantHigh,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Text(
-                            request?.flowType.configTypeName ?? "",
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x5,
-                              fontWeight: FontWeight.w600,
+    return BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
+      builder: (context, state) {
+        final request = state.mapRequests[widget.id];
+        return ContainerBorder(
+            borderColors: colors.surfaceVariantHigh,
+            child: Stack(
+              children: [
+                Opacity(
+                  opacity: checkOpacity ? 1 : 0,
+                  child: Center(
+                    child: Lottie.asset(Assets.images.icon.loading,
+                        width: SpacingUnit.x30, height: SpacingUnit.x30, fit: BoxFit.fill),
+                  ),
+                ),
+                Opacity(
+                  opacity: checkOpacity ? 0.5 : 1,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              request?.flowType.configTypeName ?? "",
+                              style: TextStyle(
+                                color: colors.text,
+                                fontSize: SpacingUnit.x5,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: AppLinkNextScreen(
-                            callback: () => _nextScreenRequest(context),
-                          ),
-                        )
-                      ],
-                    ),
-                    TitleValueLeave(
-                      title: appLocalizations.totalOTHours,
-                      value: setTotalOT(
-                        request?.config.overTimes,
+                          Expanded(
+                            flex: 2,
+                            child: AppLinkNextScreen(
+                              callback: () => _nextScreenRequest(),
+                            ),
+                          )
+                        ],
                       ),
-                      size: SpacingUnit.x4,
-                      padding: SpacingUnit.x3,
-                    ),
-                    TitleValueLeave(
-                      title: appLocalizations.dateType,
-                      value: userWorkingHistoryModel.overTimeDay?.configEnumOvertimeDayName ?? "",
-                      size: SpacingUnit.x4,
-                      padding: SpacingUnit.x3,
-                    ),
-                    TitleValueLeave(
-                      title: appLocalizations.oTCoefficient,
-                      value: userWorkingHistoryModel.overTimeRate.toString(),
-                      size: SpacingUnit.x4,
-                      padding: SpacingUnit.x3,
-                    ),
-                  ],
-                ));
-          },
-        );
+                      TitleValueLeave(
+                        title: appLocalizations.timeFrameOT,
+                        value: setOTTime(request?.config.overTimes, context),
+                        size: SpacingUnit.x4,
+                        padding: SpacingUnit.x3,
+                      ),
+                      TitleValueLeave(
+                        title: appLocalizations.totalOTHours,
+                        value: setTotalOT(
+                          request?.config.overTimes,
+                        ),
+                        size: SpacingUnit.x4,
+                        padding: SpacingUnit.x3,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ));
       },
     );
   }
@@ -103,14 +119,56 @@ class ItemRequestOverTimeOnTab extends StatelessWidget {
   }
 
   UserWorkingHistoryModel userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
-    return list.firstWhere((element) => element.date?.isAtSameMomentAs(dateTime) ?? false);
+    return list.firstWhere((element) => element.date?.isAtSameMomentAs(widget.dateTime) ?? false);
   }
 
-  _nextScreenRequest(BuildContext context) {}
+  _nextScreenRequest() async {
+    if (!checkOpacity) {
+      setState(() {
+        checkOpacity = true;
+      });
+      final Completer completer = Completer<RequisitionEnum>();
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      dI<RequisitionBloc>().add(
+        GetRequisitionByIdEvent(id: widget.id, completer: completer),
+      );
+      final statusCompleter = await completer.future;
+      if (statusCompleter == RequisitionEnum.success) {
+        setState(() {
+          checkOpacity = false;
+        });
+        if (!currentContext.mounted) return;
+        dI<AppNavigation>().pushName(
+          currentContext,
+          page: Pages.requisitionInformationPage,
+          extra: {
+            'id': widget.id,
+            'checkUser': false,
+          },
+        );
+      }
+    }
+  }
+
+  String setOTTime(List<RequisitionOverTime>? overTimes, BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final listOT = overTimes ?? [];
+    final index = listOT.indexWhere((element) => element.date == widget.dateTime);
+    if (index != -1) {
+      final startTime = listOT[index].startTime != null
+          ? strSeconds(listOT[index].startTime!)
+          : appLocalizations.forgotChecking;
+      final endTime = listOT[index].startTime != null
+          ? strSeconds(listOT[index].endTime!)
+          : appLocalizations.forgotChecking;
+      return '$startTime - $endTime';
+    }
+    return '';
+  }
 
   String setTotalOT(List<RequisitionOverTime>? overTimes) {
     final listOT = overTimes ?? [];
-    final index = listOT.indexWhere((element) => element.date == dateTime);
+    final index = listOT.indexWhere((element) => element.date == widget.dateTime);
     if (index != -1) {
       final time = listOT[index].suggestTime ?? 0;
       return (time / 3600).toString();

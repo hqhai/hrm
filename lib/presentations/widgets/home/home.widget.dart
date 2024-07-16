@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/home_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/attendance.dart';
@@ -9,9 +10,6 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
-import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
-import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/form_change_time.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/item_work_sheet.dart';
 import 'package:collection/collection.dart';
@@ -27,14 +25,17 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  DateTime currentDateTime = DateTime.now();
-  String id = '';
+  DateTime now = DateTime.now(),
+      currentDateTime = DateTime.now(),
+      startTime = DateTime.now(),
+      endTime = DateTime.now();
 
   @override
   void initState() {
-    id = dI<UserBloc>().state.user.id;
+    startTime = getFirstDayOfMonth(currentDateTime);
+    endTime = getLastDayOfMonth(currentDateTime);
     dI<AttendanceBloc>()
-        .add(GetAttendanceEvent(month: currentDateTime.month, year: currentDateTime.day, id: id));
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     super.initState();
   }
 
@@ -94,8 +95,11 @@ class _HomeWidgetState extends State<HomeWidget> {
       } else {
         currentDateTime = DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
       }
+      startTime = getFirstDayOfMonth(currentDateTime);
+      endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<WorkSheetBloc>().add(GetWorkSheetEvent(time: currentDateTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
   }
 
   upMonth() {
@@ -105,9 +109,11 @@ class _HomeWidgetState extends State<HomeWidget> {
       } else {
         currentDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
       }
+      startTime = getFirstDayOfMonth(currentDateTime);
+      endTime = getLastDayOfMonth(currentDateTime);
     });
     dI<AttendanceBloc>()
-        .add(GetAttendanceEvent(month: currentDateTime.month, year: currentDateTime.day, id: id));
+        .add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
   }
 
   nextWorkSheet(BuildContext context) {

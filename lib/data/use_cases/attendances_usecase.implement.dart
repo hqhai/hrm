@@ -12,10 +12,11 @@ class AttendanceUseCaseImplement extends AttendanceUseCase {
   AttendanceUseCaseImplement() : _attendanceRepository = dI<AttendanceRepository>();
 
   @override
-  Future<Attendance> getAttendances(
-      {required String month, required String year, required String id}) async {
-    final attendances = await _attendanceRepository.getAttendances(
-        month: month, year: year, id: id);
+  Future<Attendance> workSheet(
+      {required DateTime startTime,
+        required DateTime endTime,}) async {
+    final attendances = await _attendanceRepository.workSheet(
+        endTime: endTime, startTime: startTime);
     return attendances;
   }
 
@@ -23,4 +24,13 @@ class AttendanceUseCaseImplement extends AttendanceUseCase {
   Future<WorkSheet> getWorkSheet({required DateTime time}) async {
     return await _attendanceRepository.getWorkSheet(time: time);
   }
+
+  @override
+  Future<Attendance> getAttendance(
+      {required String month, required String year, required String id}) async {
+    final attendances = await _attendanceRepository.getAttendance(
+        month: month, year: year, id: id);
+    return attendances;
+  }
+
 }

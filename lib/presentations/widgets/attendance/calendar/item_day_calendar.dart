@@ -1,9 +1,9 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/widgets/attendance/calendar/item/item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +37,7 @@ class BodyCalendar extends StatefulWidget {
 
 class _BodyCalendarState extends State<BodyCalendar> {
   late String token;
-  DateTime day = DateTime.now();
+  DateTime day = DateTime.now(), startTime = DateTime.now(), endTime = DateTime.now();
   int checkIn = 3;
   Attendance attendance = const Attendance();
 
@@ -52,8 +52,10 @@ class _BodyCalendarState extends State<BodyCalendar> {
   @override
   void initState() {
     super.initState();
-    dI<AttendanceBloc>().add(GetAttendanceEvent(
-        id: dI<UserBloc>().state.user.id, month: widget.month, year: widget.year));
+    startTime = getFirstDayOfMonth(day);
+    endTime = getLastDayOfMonth(day);
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
   }
 
   @override

@@ -439,5 +439,7 @@
   "noShiftsWork": "No shifts work",
   "saturday": "Saturday",
   "sunday": "Sunday",
-  "regularDay": "Regular day"
+  "regularDay": "Regular day",
+  "timeFrameOT": "Time frame OT",
+  "timeFrame": "Time frame"
 }

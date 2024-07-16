@@ -22,42 +22,42 @@ class UserWorkingHistoryModel {
   /// <summary>
   /// trạng thái của ngày
   /// </summary>
-  final List<UserWorkingHistoryStatus>? status;
+  final List<UserWorkingHistoryStatus> status;
 
   /// <summary>
   /// công chuẩn
   /// </summary>
-  final double? realRate;
+  final double realRate;
 
   /// <summary>
   /// công thực tế
   /// </summary>
-  final double? actualRate;
+  final double actualRate;
 
   /// <summary>
   /// công nghỉ phép
   /// </summary>
-  final double? leaveRate;
+  final double leaveRate;
 
   /// <summary>
   /// công nghỉ lễ
   /// </summary>
-  final double? holidayRate;
+  final double holidayRate;
 
   /// <summary>
   /// công không tính lương
   /// </summary>
-  final double? noSalaryRate;
+  final double noSalaryRate;
 
   /// <summary>
   /// số giờ tăng ca
   /// </summary>
-  final double? overTime;
+  final double overTime;
 
   /// <summary>
   /// hệ số
   /// </summary>
-  final double? overTimeRate;
+  final double overTimeRate;
 
   /// <summary>
   /// loại tăng ca
@@ -67,42 +67,42 @@ class UserWorkingHistoryModel {
   /// <summary>
   /// số giờ thực tế
   /// </summary>
-  final double? workTimeActual;
+  final double workTimeActual;
 
   /// <summary>
   /// số giờ chuẩn
   /// </summary>
-  final double? workTimeReal;
+  final double workTimeReal;
 
   /// <summary>
   /// số phút về sớm
   /// </summary>
-  final double? timeEarly;
+  final double timeEarly;
 
   /// <summary>
   /// số phút đi muộn
   /// </summary>
-  final double? timeLate;
+  final double timeLate;
 
   /// <summary>
   /// công được tính lương
   /// </summary>
-  final double? salaryRate;
+  final double salaryRate;
 
   /// <summary>
   /// các đơn từ
   /// </summary>
-  final List<String>? requestIds;
+  final List<String> requestIds;
 
   /// <summary>
   /// ca làm việc
   /// </summary>
-  final String? workShiftId;
+  final String workShiftId;
 
   /// <summary>
   /// ca chi tiết
   /// </summary>
-  final String? workShiftDetailId;
+  final String workShiftDetailId;
 
   /// <summary>
   /// giờ checkin
@@ -118,24 +118,24 @@ class UserWorkingHistoryModel {
     this.checkIn,
     this.date,
     this.checkOut,
-    this.timeEarly,
-    this.timeLate,
-    this.overTime,
-    this.status,
+    this.timeEarly = 0,
+    this.timeLate = 0,
+    this.overTime = 0,
+    this.status = const [],
     this.userId = '',
-    this.actualRate,
-    this.holidayRate,
-    this.leaveRate,
-    this.noSalaryRate,
+    this.actualRate = 0,
+    this.holidayRate = 0,
+    this.leaveRate = 0,
+    this.noSalaryRate = 0,
     this.overTimeDay,
-    this.overTimeRate,
-    this.realRate,
-    this.requestIds,
-    this.salaryRate,
-    this.workShiftDetailId,
-    this.workShiftId,
-    this.workTimeActual,
-    this.workTimeReal,
+    this.overTimeRate = 0,
+    this.realRate = 0,
+    this.requestIds = const [],
+    this.salaryRate = 0,
+    this.workShiftDetailId = '0',
+    this.workShiftId = '',
+    this.workTimeActual = 0,
+    this.workTimeReal = 0,
   });
 
   factory UserWorkingHistoryModel.fromJson(Map<String, dynamic> json) =>
