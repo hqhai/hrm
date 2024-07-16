@@ -8,7 +8,7 @@ import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/widgets/attendance/calendar/popup_menu_calender.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
@@ -45,7 +45,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
   bool checkOpacity = false;
 
   ///Loại hiển thị
-  int displayType = 1;
+  int displayType = 2;
 
   @override
   void initState() {
@@ -101,12 +101,26 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
         oldDateTime = DateTime(date.year, date.month, date.day - oldDaysCount);
       });
     }
+    if (fistDate == 0) {
+      int oldDaysCount = fistDate - 2;
+      DateTime date = DateTime(currentDateTime.year, currentDateTime.month, 0);
+      setState(() {
+        oldDateTime = DateTime(date.year, date.month, date.day - oldDaysCount - 7);
+      });
+    }
     if (lastDate != 7) {
+      int nextDaysCount = 7 - lastDate;
+      setState(() {
+        lastDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
+      });
+    }
+    if (lastDate == 0) {
       int nextDaysCount = 6 - lastDate;
       setState(() {
         lastDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
       });
     }
+
     setState(() {
       listDate = getDaysInBetween(oldDateTime, lastDateTime);
     });
@@ -192,7 +206,15 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
     );
   }
 
-  setting() {}
+  setting() {
+    setState(() {
+      currentDateTime = DateTime.now();
+      startTime = getFirstDayOfMonth(currentDateTime);
+      endTime = getLastDayOfMonth(currentDateTime);
+    });
+    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    _getListDate();
+  }
 
   _checkOpacity(bool value) {
     setState(() {
@@ -211,6 +233,10 @@ List<DateTime> getDaysInBetween(DateTime startDate, DateTime endDate) {
   List<DateTime> days = [];
   for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
     days.add(startDate.add(Duration(days: i)));
+  }
+  final int residual = days.length%7;
+  if(residual != 0){
+    days.removeRange(days.length - residual, days.length);
   }
   return days;
 }

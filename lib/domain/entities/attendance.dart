@@ -135,15 +135,17 @@ class Attendance {
 
   List<String> toListString() {
     return [
-      actualRate.toString(),
-      leaveRate.toString(),
-      noSalaryRate.toString(),
-      overTime.toString(),
-      Duration(seconds: workTimeActual).inHours.toString(),
-      Duration(seconds: timeLate).inMinutes.toString(),
-      Duration(seconds: timeEarly).inMinutes.toString(),
-      salaryWork.toString(),
-      realRate.toString(),
+      realRate.toString(),///Công chuẩn
+      actualRate.toString(),///Công thực tế
+      leaveRate.toString(),///Công nghỉ
+      holidayRate.toString(),///Công nghỉ lễ
+      noSalaryRate.toString(),///Nghỉ không lương
+      overTime.toString(),///Số giờ OT
+      Duration(seconds: workTimeActual).inHours.toString(),///Số giờ làm việc
+      Duration(seconds: timeLate).inMinutes.toString(),///Số phút đi muôn
+      Duration(seconds: timeEarly).inMinutes.toString(),///Số phút về sớm
+      countEarly.toString(),///Số lần về sớm
+      countLate.toString(),///Số lần đi muộn
     ];
   }
 }

@@ -413,7 +413,7 @@
   "workTime": "Số giờ làm việc",
   "timeEarly": "Thời gian về sớm",
   "timeLate": "Thời gian đi muộn",
-  "salaryWork": "Công hiện tại",
+  "salaryWork": "Công tính lương",
   "realWork": "Công chuẩn",
   "seeDetails": "Xem chi tiết",
   "onTime": "Đúng giờ",
@@ -436,13 +436,18 @@
   "typeOfShift": "Loại ca làm việc",
   "oTCoefficient": "Hệ số OT",
   "dateType": "Loại ngày",
-  "ot": "Tăng ca",
+  "ot": "Làm thêm giờ",
   "totalLeaveWork": "Tổng số công nghỉ",
   "noShiftsWork": "Không có ca làm việc",
   "saturday": "Thứ bảy",
   "sunday": "Chủ nhật",
   "regularDay": "Ngày thường",
   "timeFrameOT": "Khung giờ OT",
-  "timeFrame": "khung thời gian"
-
+  "timeFrame": "khung thời gian",
+  "numberOfLate": "Số lần về sớm",
+  "numberOfEarly": "Số lần đi muộn",
+  "workOT": "Công tăng ca",
+  "historyTimekeeping": "Lịch sử chấm công",
+  "totalTimeWork": "Tổng số giờ làm việc",
+  "totalTimeWorkCompensatory": "Tổng số giờ làm bù"
 }

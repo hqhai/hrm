@@ -1241,7 +1241,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get timeLate => 'Thời gian đi muộn';
 
   @override
-  String get salaryWork => 'Công hiện tại';
+  String get salaryWork => 'Công tính lương';
 
   @override
   String get realWork => 'Công chuẩn';
@@ -1310,7 +1310,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get dateType => 'Loại ngày';
 
   @override
-  String get ot => 'Tăng ca';
+  String get ot => 'Làm thêm giờ';
 
   @override
   String get totalLeaveWork => 'Tổng số công nghỉ';
@@ -1332,4 +1332,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get timeFrame => 'khung thời gian';
+
+  @override
+  String get numberOfLate => 'Số lần về sớm';
+
+  @override
+  String get numberOfEarly => 'Số lần đi muộn';
+
+  @override
+  String get workOT => 'Công tăng ca';
+
+  @override
+  String get historyTimekeeping => 'Lịch sử chấm công';
+
+  @override
+  String get totalTimeWork => 'Tổng số giờ làm việc';
+
+  @override
+  String get totalTimeWorkCompensatory => 'Tổng số giờ làm bù';
 }

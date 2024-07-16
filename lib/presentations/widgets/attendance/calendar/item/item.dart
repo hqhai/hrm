@@ -84,8 +84,7 @@ class ItemCalender extends StatelessWidget {
                                   (index, element) => Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                                      color:
-                                          _color(context, index, userWorkingHistoryModel.status),
+                                      color: _color(context, index, userWorkingHistoryModel.status),
                                     ),
                                     margin: const EdgeInsetsDirectional.symmetric(
                                         horizontal: SpacingUnit.x0_5, vertical: SpacingUnit.x2),
@@ -152,7 +151,7 @@ class ItemCalender extends StatelessWidget {
   Widget value(BuildContext context, UserWorkingHistoryModel? userWorkingHistoryModel) {
     final colors = AppTheme.getColors(context);
     switch (displayType) {
-      case 1:
+      case 2:
         return Column(
           children: [
             Text(
@@ -179,9 +178,11 @@ class ItemCalender extends StatelessWidget {
             ),
           ],
         );
-      case 2:
+      case 1:
         return Text(
-          (userWorkingHistoryModel?.workTimeActual ?? 0).toString(),
+          Duration(seconds: userWorkingHistoryModel?.workTimeActual.toInt() ?? 0)
+              .inHours
+              .toString(),
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x2_5,

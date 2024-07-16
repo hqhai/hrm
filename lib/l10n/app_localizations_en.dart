@@ -1332,4 +1332,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timeFrame => 'Time frame';
+
+  @override
+  String get numberOfLate => 'Number Of Late';
+
+  @override
+  String get numberOfEarly => 'Number Of Early';
+
+  @override
+  String get workOT => 'Overtime work';
+
+  @override
+  String get historyTimekeeping => 'History timekeeping';
+
+  @override
+  String get totalTimeWork => 'Total Time Work';
+
+  @override
+  String get totalTimeWorkCompensatory => 'Total number of compensatory hours';
 }

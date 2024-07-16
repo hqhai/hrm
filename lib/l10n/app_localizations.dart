@@ -2750,6 +2750,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Time frame'**
   String get timeFrame;
+
+  /// No description provided for @numberOfLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Number Of Late'**
+  String get numberOfLate;
+
+  /// No description provided for @numberOfEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Number Of Early'**
+  String get numberOfEarly;
+
+  /// No description provided for @workOT.
+  ///
+  /// In en, this message translates to:
+  /// **'Overtime work'**
+  String get workOT;
+
+  /// No description provided for @historyTimekeeping.
+  ///
+  /// In en, this message translates to:
+  /// **'History timekeeping'**
+  String get historyTimekeeping;
+
+  /// No description provided for @totalTimeWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Time Work'**
+  String get totalTimeWork;
+
+  /// No description provided for @totalTimeWorkCompensatory.
+  ///
+  /// In en, this message translates to:
+  /// **'Total number of compensatory hours'**
+  String get totalTimeWorkCompensatory;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

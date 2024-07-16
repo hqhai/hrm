@@ -38,7 +38,6 @@ class BodyCalendar extends StatefulWidget {
 class _BodyCalendarState extends State<BodyCalendar> {
   late String token;
   DateTime day = DateTime.now(), startTime = DateTime.now(), endTime = DateTime.now();
-  int checkIn = 3;
   Attendance attendance = const Attendance();
 
   bool _checkDateNow(DateTime date) {
@@ -67,7 +66,7 @@ class _BodyCalendarState extends State<BodyCalendar> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 3),
               width: MediaQuery.sizeOf(context).width,
-              height: MediaQuery.sizeOf(context).height * 0.81,
+              height: MediaQuery.sizeOf(context).height * 0.8,
               child: GridView.builder(
                 itemCount: widget.listDate.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

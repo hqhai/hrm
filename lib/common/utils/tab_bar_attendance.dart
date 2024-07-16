@@ -9,10 +9,10 @@ List<String> tabBarAttendance(BuildContext context) {
   final appLocalizations = AppLocalizations.of(context)!;
 
   final List<String> titles = [
-    appLocalizations.timeWorking,
+    appLocalizations.shift,
     appLocalizations.ot,
     appLocalizations.request,
-    appLocalizations.history
+    appLocalizations.historyTimekeeping
   ];
   return titles;
 }

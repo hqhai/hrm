@@ -441,5 +441,13 @@
   "sunday": "Sunday",
   "regularDay": "Regular day",
   "timeFrameOT": "Time frame OT",
-  "timeFrame": "Time frame"
+  "timeFrame": "Time frame",
+  "numberOfLate": "Number Of Late",
+  "numberOfEarly": "Number Of Early",
+  "workOT": "Overtime work",
+  "historyTimekeeping": "History timekeeping",
+  "totalTimeWork": "Total Time Work",
+  "totalTimeWorkCompensatory": "Total number of compensatory hours"
+
+
 }
