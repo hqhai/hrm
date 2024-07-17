@@ -513,5 +513,8 @@
   "thursday":"Thứ năm",
   "friday":"Thứ sáu",
   "saturday":"Thứ bảy",
-  "sunday":"Chủ nhật"
+  "sunday":"Chủ nhật",
+  "calendarWork": "Lịch làm việc",
+  "shiftManagement": "Quản lý lịch làm việc",
+  "week": "Tuần"
 }
