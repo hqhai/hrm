@@ -467,5 +467,7 @@
   "cancelShiftReceiveRegistration": "Cancel shift receive registration",
   "cancelShiftCancellationRequest": "Cancel shift cancellation request",
   "registerForShifts": "Register for shifts",
-  "reasonForCancelingRequest": "Reason for canceling request"
+  "reasonForCancelingRequest": "Reason for canceling request",
+  "youDoNotHaveAShiftToday": "You don't have a shift today!",
+  "distanceNotEnough": "Distance Not Enough"
 }

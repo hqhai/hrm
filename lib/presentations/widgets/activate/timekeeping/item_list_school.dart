@@ -2,8 +2,8 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/presentations/bloc/location/school/school_bloc.dart';
-import 'package:base_app/presentations/bloc/location/school/school_state.dart';
+import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
+import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_state.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,9 +19,9 @@ class ItemListSchool extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SchoolBloc, SchoolState>(
+    return BlocBuilder<ScheduleSchoolBloc,ScheduleSchoolState>(
       builder: (context, state) {
-        final school = state.schools[schoolId];
+        final school = state.scheduleSchool.school;
         final colors = AppTheme.getColors(context);
         if (school == null) return const SizedBox();
         return GestureDetector(
@@ -55,9 +55,6 @@ class ItemListSchool extends StatelessWidget {
     dI<AppNavigation>().pushName(
       context,
       page: Pages.timekeepingGPSPage,
-      extra: {
-        'idSchool': schoolId,
-      },
     );
   }
 }

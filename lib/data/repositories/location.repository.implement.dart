@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/data/models/key_page_request.dart';
 import 'package:base_app/data/models/location/checkin_gps_response.dart';
 import 'package:base_app/data/models/location/checkin_request.dart';
+import 'package:base_app/data/models/location/datetime_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
@@ -11,6 +12,7 @@ import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
+import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
 import 'package:base_app/domain/repositories/location.repositories.dart';
 import 'package:base_app/domain/services/location.service.dart';
 import 'package:injectable/injectable.dart';
@@ -39,14 +41,12 @@ class LocationRepositoryImpl extends LocationRepository {
 
   @override
   Future<CheckInGPSResponse> postCheckInGPS(
-      {required double longitude,
-      required double latitude,
-      required DateTime time}) async {
+      {required double longitude, required double latitude, required String scheduleSchoolId}) async {
     return _locationService.postCheckInGPS(
       checkInRequest: CheckInRequest(
         longitude: longitude,
         latitude: latitude,
-        time: time,
+        scheduleSchoolId: scheduleSchoolId,
       ),
     );
   }
@@ -114,5 +114,12 @@ class LocationRepositoryImpl extends LocationRepository {
   @override
   Future<void> addApprove({required ApproveRequest request}) async {
     await _locationService.addApprove(request: request);
+  }
+
+  @override
+  Future<ScheduleSchool> getScheduleSchool({required DateTime workDate}) async {
+    return await _locationService.getScheduleSchool(
+      datetimeRequest: DatetimeRequest(workDate: workDate),
+    );
   }
 }

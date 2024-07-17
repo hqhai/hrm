@@ -7,13 +7,15 @@ part 'check_in_check_out_gps_state.g.dart';
 @CopyWith()
 class CheckInCheckOutGpsState extends Equatable {
   final bool checkTimekeeping;
+  final String errorCode;
   final TimekeepingStatus status;
 
   const CheckInCheckOutGpsState({
     this.status = TimekeepingStatus.init,
-    this.checkTimekeeping = false
+    this.checkTimekeeping = false,
+    this.errorCode = '',
   });
 
   @override
-  List<Object> get props => [status, checkTimekeeping];
+  List<Object> get props => [status, checkTimekeeping, errorCode];
 }

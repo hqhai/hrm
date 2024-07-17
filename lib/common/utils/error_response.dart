@@ -2,7 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 
-Map errorResponse(){
+Map errorResponse() {
   final context = dI<AppNavigation>().navigatorKey.currentContext!;
   final appLocalizations = AppLocalizations.of(context)!;
   return {
@@ -32,14 +32,16 @@ Map errorResponse(){
     "DuplicateTaxNumber": appLocalizations.duplicateTaxNumber,
     "DuplicateBankAccountNumber": appLocalizations.duplicateBankAccountNumber,
     "TimeSlotAlreadyPleaseChooseAnother": appLocalizations.timeSlotAlreadyPleaseChooseAnother,
-    "TheNumberOfFormsCreatedHasExceededTheLimit": appLocalizations.theNumberOfFormsCreatedHasExceededTheLimit
+    "TheNumberOfFormsCreatedHasExceededTheLimit":
+        appLocalizations.theNumberOfFormsCreatedHasExceededTheLimit,
+    "DistanceNotEnough": appLocalizations.distanceNotEnough,
   };
 }
 
 String? setErrorValue(String value) {
   if (value != '') {
     final String? errorCode = errorResponse()[value];
-    if(errorCode == null){
+    if (errorCode == null) {
       return null;
     }
     return errorCode;
