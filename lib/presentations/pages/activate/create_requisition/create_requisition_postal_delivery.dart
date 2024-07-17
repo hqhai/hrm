@@ -54,7 +54,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   String reason = '';
   List<String> followers = [];
   String errorDescription = '';
-  RequisitionDeliveryTypeEnum? transferType = RequisitionDeliveryTypeEnum.rush;
+  RequisitionDeliveryTypeEnum? transferType = RequisitionDeliveryTypeEnum.express;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
 
@@ -114,7 +114,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
                             onChange: (value) => _setTransferType(value),
                             typeDefault: transferType,
                           ),
-                          if (transferType == RequisitionDeliveryTypeEnum.rush)
+                          if (transferType == RequisitionDeliveryTypeEnum.express)
                             Padding(
                               padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
                               child: Text(appLocalizations.notePostalDelivery,

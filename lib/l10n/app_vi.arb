@@ -382,7 +382,7 @@
   "no": "Không",
   "yes": "Có",
   "leaveManagement": "Quản lý phép",
-  "registerShift": "Đăng ký ca",
+  "registerShift": "Đăng ký lịch làm việc",
   "listSchools": "Danh sách trường",
   "overTimeLeave": "Nghỉ bù OT",
   "leaveList": "Danh sách phép",
@@ -454,5 +454,8 @@
   "thursday":"Thứ năm",
   "friday":"Thứ sáu",
   "saturday":"Thứ bảy",
-  "sunday":"Chủ nhật"
+  "sunday":"Chủ nhật",
+  "calendarWork": "Lịch làm việc",
+  "shiftManagement": "Quản lý lịch làm việc",
+  "week": "Tuần"
 }

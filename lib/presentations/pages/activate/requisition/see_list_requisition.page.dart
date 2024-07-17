@@ -3,7 +3,6 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/item_activate.dart';
 import 'package:flutter/material.dart';
@@ -48,15 +47,12 @@ class _SeeListRequisitionPageState extends State<SeeListRequisitionPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ItemActivateWidget(
-                iconPath: Assets.images.icon.activateIcon.materialSymbolsLightListAltOutline,
                 title: appLocalizations.yourRequisition,
                 callback: () => _nextRequisitionListScreen(context),),
             ItemActivateWidget(
-                iconPath: Assets.images.icon.activateIcon.materialSymbolsLightListAltOutline,
                 title: appLocalizations.requisitionYouApproval,
                 callback: () => _nextRequisitionApproveListScreen(context),),
             ItemActivateWidget(
-                iconPath: Assets.images.icon.activateIcon.materialSymbolsLightListAltOutline,
                 title: appLocalizations.requisitionYouFollow,
                 callback: () => _nextRequisitionFollowerListScreen(context)),
           ],

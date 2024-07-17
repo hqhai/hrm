@@ -25,7 +25,6 @@ class _ActivateWidgetState extends State<ActivateWidget> {
           children: listActivate
               .mapIndexed(
                 (index, element) => ItemActivateWidget(
-                  iconPath: imagePathActivate(index),
                   title: titlesActivate(index, context),
                   callback: () => _nextScreen(context, index),
                 ),

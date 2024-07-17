@@ -16,7 +16,7 @@ class ItemCreateReasonTransferType extends StatefulWidget {
 }
 
 class _ItemCreateReasonTransferTypeState extends State<ItemCreateReasonTransferType> {
-  RequisitionDeliveryTypeEnum type = RequisitionDeliveryTypeEnum.rush;
+  RequisitionDeliveryTypeEnum type = RequisitionDeliveryTypeEnum.express;
 
   @override
   Widget build(BuildContext context) {

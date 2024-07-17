@@ -20,6 +20,7 @@ import 'package:base_app/presentations/pages/activate/requisition_form/requisiti
 import 'package:base_app/presentations/pages/activate/timekeeping/list_schools.page.dart';
 import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
+import 'package:base_app/presentations/pages/calendar_work/register_shifts.dart';
 import 'package:base_app/presentations/pages/department/infor_department.page.dart';
 import 'package:base_app/presentations/pages/department/update_department.page.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
@@ -50,11 +51,8 @@ class AppRouters {
 
   AppRouters() : goRouter = _router;
 
-  static GoRouter get _router =>
-      GoRouter(
-          routes: routerPages,
-          navigatorKey: dI<AppNavigation>().navigatorKey,
-          initialLocation: '/');
+  static GoRouter get _router => GoRouter(
+      routes: routerPages, navigatorKey: dI<AppNavigation>().navigatorKey, initialLocation: '/');
 
   static List<GoRoute> routerPages = {
     Pages.main: mainPageRoute,
@@ -93,8 +91,9 @@ class AppRouters {
     Pages.requisitionFollowerListPage: requisitionFollowerListPageRoute,
     Pages.createRequestOverTimePage: createRequestOverTimePageRoute,
     Pages.createRequestLateAndEarlyPage: createRequestLateAndEarlyPageRoute,
-    Pages.listSchoolsPage : listSchoolsPageRoute,
+    Pages.listSchoolsPage: listSchoolsPageRoute,
     Pages.leavePage: leavePageRoute,
     Pages.layoutCalendarPage: layoutCalendarPageRoute,
+    Pages.registerShiftsPage: registerShiftsPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

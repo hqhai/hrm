@@ -26,38 +26,29 @@ class _BottomBarDefaultState extends State<BottomBarDefault> {
       unselectedFontSize: 12,
       type: BottomNavigationBarType.fixed,
       items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            Assets.images.icon.activate,
-            colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
-          ),
-          label: appLocalizations.activate,
-          activeIcon: SvgPicture.asset(
-            Assets.images.icon.activate,
-            colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-          ),
+        item(
+          title: appLocalizations.activate,
+          icon: Assets.images.icon.activate,
+          color1: colors.outline,
+          color2: colors.text,
         ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            Assets.images.icon.homeSvg,
-            colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
-          ),
-          label: appLocalizations.home,
-          activeIcon: SvgPicture.asset(
-            Assets.images.icon.homeSvg,
-            colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-          ),
+        item(
+          title: appLocalizations.home,
+          icon:  Assets.images.icon.homeSvg,
+          color1: colors.outline,
+          color2: colors.text,
         ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            Assets.images.icon.profile,
-            colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
-          ),
-          label: appLocalizations.account,
-          activeIcon: SvgPicture.asset(
-            Assets.images.icon.profile,
-            colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-          ),
+        item(
+          title: appLocalizations.calendarWork,
+          icon:  Assets.images.timeKeeping.calendar,
+          color1: colors.outline,
+          color2: colors.text,
+        ),
+        item(
+          title: appLocalizations.account,
+          icon:  Assets.images.icon.profile,
+          color1: colors.outline,
+          color2: colors.text,
         ),
       ],
       currentIndex: widget.selectedIndex,
@@ -69,5 +60,24 @@ class _BottomBarDefaultState extends State<BottomBarDefault> {
 
   _setSelectedIndex(int value) {
     widget.onChangeSelectedIndex.call(value);
+  }
+
+  BottomNavigationBarItem item({
+    required String icon,
+    required String title,
+    required Color color1,
+    required Color color2,
+  }) {
+    return BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        icon,
+        colorFilter: ColorFilter.mode(color1, BlendMode.srcIn),
+      ),
+      label: title,
+      activeIcon: SvgPicture.asset(
+        icon,
+        colorFilter: ColorFilter.mode(color2, BlendMode.srcIn),
+      ),
+    );
   }
 }

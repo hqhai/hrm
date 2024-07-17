@@ -39,15 +39,14 @@ class Pages {
   static const String createRequestLeavePage = '/createRequestLeavePage';
   static const String pDFPage = '/pDFPage';
   static const String createRequestBusinessPage = '/createRequestBusinessPage';
-  static const String createRequestVehicleDispatchPage =
-      '/createRequestVehicleDispatchPage';
+  static const String createRequestVehicleDispatchPage = '/createRequestVehicleDispatchPage';
   static const String createRequestPostalDeliveryPage = '/createRequestPostalDeliveryPage';
   static const String createRequestStationeryOderPage = '/createRequestStationeryOderPage';
-  static const String createRequestReleaseOfWarehousePage =
-      '/createRequestReleaseOfWarehousePage';
+  static const String createRequestReleaseOfWarehousePage = '/createRequestReleaseOfWarehousePage';
   static const String requisitionApproveListPage = '/requisitionApproveListPage';
   static const String createRequestOverTimePage = '/createRequestOverTimePage';
   static const String createRequestLateAndEarlyPage = '/createRequestLateAndEarlyPage';
   static const String leavePage = '/leavePage';
   static const String layoutCalendarPage = '/layoutCalendarPage';
+  static const String registerShiftsPage = '/registerShiftsPage';
 }
