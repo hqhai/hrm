@@ -12,13 +12,15 @@ sealed class RequisitionApproveEvent extends Equatable {
 }
 
 class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
-  const GetRequisitionsApproveByFilterEvent(
-      {this.requisitionTypeEnum,
-      this.startTime,
-      this.endTime,
-      this.page = 0,
-      this.departmentId,
-      this.status,});
+  const GetRequisitionsApproveByFilterEvent({
+    this.requisitionTypeEnum,
+    this.startTime,
+    this.endTime,
+    this.page = 0,
+    this.departmentId,
+    this.status,
+    this.createdCode,
+  });
 
   final RequisitionTypeEnum? requisitionTypeEnum;
   final DateTime? startTime;
@@ -26,6 +28,7 @@ class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
   final int page;
   final String? departmentId;
   final String? status;
+  final String? createdCode;
 
   @override
   List<Object?> get props => [requisitionTypeEnum, startTime, endTime, page, departmentId, status];
@@ -47,13 +50,8 @@ class ApproveRequestEvent extends RequisitionApproveEvent {
   final String requestId;
   final Completer completer;
 
-  const ApproveRequestEvent({
-    this.id = '',
-    this.note,
-    this.status,
-    this.requestId = '',
-    required this.completer
-  });
+  const ApproveRequestEvent(
+      {this.id = '', this.note, this.status, this.requestId = '', required this.completer});
 
   @override
   List<Object?> get props => [id, note, status, requestId, completer];

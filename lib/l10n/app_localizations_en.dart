@@ -884,7 +884,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pairs => 'Pairs';
 
   @override
-  String get stationeryList => 'Stationery list';
+  String get stationeryList => 'Product list';
 
   @override
   String get product => 'Product';
@@ -1200,4 +1200,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourceOfLeave => 'Source of leave';
+
+  @override
+  String get doYouWantRevokeYourRequest => 'Do you want revoke your request?';
 }

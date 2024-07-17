@@ -107,11 +107,12 @@ class _BodyCalendarState extends State<BodyCalendar> {
               margin: const EdgeInsets.symmetric(horizontal: 3),
               width: MediaQuery.sizeOf(context).width,
               height: widget.listDate.length < 42
-                  ? MediaQuery.sizeOf(context).width * 4.7 / 7
-                  : MediaQuery.sizeOf(context).width * 6 / 7,
+                  ? MediaQuery.sizeOf(context).height * 4.7 / 7
+                  : MediaQuery.sizeOf(context).height * 6 / 7,
               child: GridView.builder(
                 itemCount: widget.listDate.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 0.5,
                   crossAxisCount: 7,
                   mainAxisSpacing: 1,
                   crossAxisSpacing: 1,

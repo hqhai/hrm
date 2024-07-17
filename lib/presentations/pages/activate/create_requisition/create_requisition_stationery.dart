@@ -16,12 +16,12 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_month_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_total_amount.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/list_stationeries.dart';
 import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
+import 'package:base_app/presentations/widgets/custom/app_month_year_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_order_add_dialog.dart';
 import 'package:flutter/material.dart';
@@ -58,10 +58,9 @@ class CreateRequisitionStationeryOderPage extends StatefulWidget {
 class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionStationeryOderPage> {
   List<Stationeries> listRequisitionStationery = [];
   List<String> followers = [];
-  String month = "1";
+  DateTime month = DateTime.now();
   String error = '', errorMonth = '';
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
-  final TextEditingController inputController = TextEditingController(text: '1');
   bool checkClick = false;
 
   @override
@@ -88,8 +87,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
       setState(() {
         followers = [...state.requisition.followerIds];
         listRequisitionStationery = [...?state.requisition.config.stationeries];
-        month = state.requisition.config.description ?? "";
-        inputController.text = month;
+        month = state.requisition.config.startDate??DateTime.now();
       });
     }
   }
@@ -129,10 +127,9 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ItemMonthInput(
+                            MonthYearPicker(
                               title: appLocalizations.month,
-                              error: errorMonth,
-                              inputController: inputController,
+                              timeOld: month,
                               onChange: (value) => setMonth(value),
                             ),
                             ListStationeries(
@@ -220,7 +217,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              description: month,
+              startDate: month,
               stationeries: listRequisitionStationery,
               subtotal: _subtotal(),
               numberValue: _numberValue(),
@@ -232,7 +229,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              description: month,
+              startDate: month,
               stationeries: listRequisitionStationery,
               subtotal: _subtotal(),
               numberValue: _numberValue(),
@@ -276,7 +273,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     });
   }
 
-  setMonth(String value) {
+  setMonth(DateTime value) {
     setState(() {
       month = value;
     });

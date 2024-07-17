@@ -28,12 +28,13 @@ class PostRequestEvent extends RequisitionEvent {
 }
 
 class UserRejectRequestEvent extends RequisitionEvent {
-  const UserRejectRequestEvent({this.id});
+  const UserRejectRequestEvent({this.id, this.completer,});
 
   final String? id;
+  final Completer? completer;
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, completer];
 }
 
 class GetRequisitionsByFilterEvent extends RequisitionEvent {

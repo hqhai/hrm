@@ -29,6 +29,7 @@ class _ListStationeriesState extends State<ListStationeries> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           widget.title,

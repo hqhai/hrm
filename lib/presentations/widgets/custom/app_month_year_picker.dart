@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class MonthYearPicker extends StatefulWidget {
-  const MonthYearPicker({super.key, required this.onChange, this.timeOld});
+  const MonthYearPicker({super.key, required this.onChange, this.timeOld, this.title});
 
   final ValueChanged<DateTime> onChange;
   final DateTime? timeOld;
+  final String? title;
 
   @override
   State<MonthYearPicker> createState() => _MonthYearPickerState();
@@ -36,7 +37,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
       child: Row(
         children: [
           Text(
-            '${appLocalizations.time}  ',
+            '${widget.title ?? appLocalizations.time}  ',
             style: TextStyle(
                 color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w600),
           ),

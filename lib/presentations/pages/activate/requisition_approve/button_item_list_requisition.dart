@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ButtonItemListRequisition extends StatelessWidget {
-  const ButtonItemListRequisition({super.key, this.title = '', required this.callback, this.check = false});
+  const ButtonItemListRequisition(
+      {super.key, this.title = '', required this.callback, this.check = false});
+
   final String title;
   final VoidCallback callback;
   final bool check;
@@ -12,8 +14,8 @@ class ButtonItemListRequisition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return GestureDetector(
-      onTap: () => callback(),
+    return InkWell(
+      onTap: () => callback.call(),
       child: Container(
         margin: const EdgeInsets.all(SpacingUnit.x2),
         padding: const EdgeInsets.all(SpacingUnit.x2),
@@ -24,10 +26,9 @@ class ButtonItemListRequisition extends StatelessWidget {
         ),
         child: Text(
           title,
-          style: TextStyle(color: colors.text, fontSize: check? SpacingUnit.x4: SpacingUnit.x2_5),
+          style: TextStyle(color: colors.text, fontSize: check ? SpacingUnit.x4 : SpacingUnit.x2_5),
         ),
       ),
     );
   }
-
 }

@@ -119,11 +119,11 @@ class _CreateRequisitionReleaseOfWarehousePageState
                               ItemCreateInputArea(
                                 error: errorDescription,
                                 textController: scheduleController,
-                                title: appLocalizations.description,
+                                title: appLocalizations.reasonForRelease,
                                 onChange: (value) => _setSchedule(value),
                               ),
                               ListProducts(
-                                  title: appLocalizations.releaseOfWarehouse,
+                                  title: appLocalizations.stationeryList,
                                 error: errorList,
                                 listProducts: requisitionReleaseOfWarehouse,
                                 onChangeList: (value) => _setList(value),

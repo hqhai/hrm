@@ -136,6 +136,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
       startTime: value.startTime,
       endTime: value.endTime,
       requisitionTypeEnum: value.type,
+      createdCode: value.user?.code,
     ));
   }
 
@@ -166,6 +167,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
           startTime: filterData.startTime,
           endTime: filterData.endTime,
           requisitionTypeEnum: filterData.type,
+          createdCode: filterData.user?.code,
         ),
       );
     }

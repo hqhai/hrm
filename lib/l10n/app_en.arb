@@ -292,7 +292,7 @@
   "bags": "Bags",
   "blisters": "blisters",
   "pairs": "Pairs",
-  "stationeryList": "Stationery list",
+  "stationeryList": "Product list",
   "product": "Product",
   "addProducts": "Add products",
   "car": "Car",
@@ -397,6 +397,6 @@
   "totalRemainingLeaveDays": "Total remaining days of leave",
   "vacationPeriod": "Vacation period",
   "seeRequest": "See request",
-  "sourceOfLeave": "Source of leave"
-
+  "sourceOfLeave": "Source of leave",
+  "doYouWantRevokeYourRequest": "Do you want revoke your request?"
 }

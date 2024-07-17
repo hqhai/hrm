@@ -84,6 +84,7 @@ class _NoteDialogState extends State<NoteDialog> {
   _setCall(BuildContext context) {
     if (checkNote(context)) {
       widget.callback.call();
+      Navigator.of(context).pop();
     }
   }
 }

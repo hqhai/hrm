@@ -21,13 +21,15 @@ abstract class RequisitionRepository {
 
   Future<RequestsResponse> getRequisitionsApprove({int? page});
 
-  Future<RequestsResponse> getRequisitionsApproveByFilter(
-      {int? page,
-      String? type,
-      String? departmentId,
-        DateTime? startDate,
-        DateTime? endDate,
-      String? status});
+  Future<RequestsResponse> getRequisitionsApproveByFilter({
+    int? page,
+    String? type,
+    String? departmentId,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? status,
+    String? createdCode,
+  });
 
   Future<RequestsResponse> getRequisitionsFollowerByFilter({
     int? page,
