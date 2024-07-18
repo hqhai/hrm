@@ -2721,18 +2721,6 @@ abstract class AppLocalizations {
   /// **'No shifts work'**
   String get noShiftsWork;
 
-  /// No description provided for @saturday.
-  ///
-  /// In en, this message translates to:
-  /// **'Saturday'**
-  String get saturday;
-
-  /// No description provided for @sunday.
-  ///
-  /// In en, this message translates to:
-  /// **'Sunday'**
-  String get sunday;
-
   /// No description provided for @regularDay.
   ///
   /// In en, this message translates to:
@@ -2786,6 +2774,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total number of compensatory hours'**
   String get totalTimeWorkCompensatory;
+
+  /// No description provided for @monday.
+  ///
+  /// In en, this message translates to:
+  /// **'monday'**
+  String get monday;
+
+  /// No description provided for @tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'tuesday'**
+  String get tuesday;
+
+  /// No description provided for @wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'wednesday'**
+  String get wednesday;
+
+  /// No description provided for @thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'thursday'**
+  String get thursday;
+
+  /// No description provided for @friday.
+  ///
+  /// In en, this message translates to:
+  /// **'friday'**
+  String get friday;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'sunday'**
+  String get sunday;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

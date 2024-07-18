@@ -1,29 +1,15 @@
-import 'dart:async';
-
-import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
-import 'package:base_app/presentations/widgets/custom/app_link_next_screen.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_on_tab_common.dart';
+import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_type_on_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:themes/themes.dart';
 
 class ItemRequestExplanationOnTab extends StatefulWidget {
   const ItemRequestExplanationOnTab({
@@ -40,110 +26,43 @@ class ItemRequestExplanationOnTab extends StatefulWidget {
 class _ItemRequestExplanationOnTabState extends State<ItemRequestExplanationOnTab> {
   bool checkOpacity = false;
 
-  Request requestById(List<Request> requests) {
-    return requests.firstWhere((element) => element.id == widget.id);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return BlocBuilder<AttendanceBloc, AttendanceState>(
-      builder: (context, stateAttendance) {
-        return BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
-          builder: (context, state) {
-            final request = state.mapRequests[widget.id];
-            return ContainerBorder(
-                borderColors: colors.surfaceVariantHigh,
-                child: Stack(
-                  children: [
-                    Opacity(
-                      opacity: checkOpacity ? 1 : 0,
-                      child: Center(
-                        child: Lottie.asset(Assets.images.icon.loading,
-                            width: SpacingUnit.x30, height: SpacingUnit.x30, fit: BoxFit.fill),
-                      ),
-                    ),
-                    Opacity(
-                      opacity: checkOpacity ? 0.5 : 1,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Text(
-                                  request?.flowType.configTypeName ?? "",
-                                  style: TextStyle(
-                                    color: colors.text,
-                                    fontSize: SpacingUnit.x5,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: AppLinkNextScreen(
-                                  callback: () => _nextScreenRequest(),
-                                ),
-                              )
-                            ],
-                          ),
-                          TitleValueLeave(
-                            title: appLocalizations.reason,
-                            value: request?.config.explanationReason?.configEditTimekeepingName??"",
-                            size: SpacingUnit.x4,
-                            padding: SpacingUnit.x3,
-                          ),
-                          TitleValueLeave(
-                            title: appLocalizations.totalTime,
-                            value: request?.config.total.toString() ?? "",
-                            size: SpacingUnit.x4,
-                            padding: SpacingUnit.x3,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ));
-          },
-        );
-      },
+    return ItemRequestOnTabCommon(
+      checkOpacity: checkOpacity,
+      child: BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
+        builder: (context, state) {
+          final request = state.mapRequests[widget.id];
+          return Column(
+            children: [
+              ItemTypeOnTab(
+                type: request?.flowType.configTypeName ?? "",
+                callback: () => nextScreenRequest(
+                    id: widget.id, checkOpacity: checkOpacity, setState: () => setOpacity()),
+              ),
+              TitleValueLeave(
+                title: appLocalizations.reason,
+                value: request?.config.explanationReason?.configEditTimekeepingName ?? "",
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.totalTime,
+                value: request?.config.total.toString() ?? "",
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
-  String intervalOnLeave(DateTime? startDate, DateTime? endDate) {
-    String start = (startDate ?? '').toString();
-    String end = (endDate ?? '').toString();
-    return '${formatYMD(start)} - ${formatYMD(end)}';
-  }
-
-  _nextScreenRequest() async {
-    if (!checkOpacity) {
-      setState(() {
-        checkOpacity = true;
-      });
-      final Completer completer = Completer<RequisitionEnum>();
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.id, completer: completer),
-      );
-      final statusCompleter = await completer.future;
-      if (statusCompleter == RequisitionEnum.success) {
-        setState(() {
-          checkOpacity = false;
-        });
-        if (!currentContext.mounted) return;
-        dI<AppNavigation>().pushName(
-          currentContext,
-          page: Pages.requisitionInformationPage,
-          extra: {
-            'id': widget.id,
-            'checkUser': false,
-          },
-        );
-      }
-    }
+  setOpacity() {
+    setState(() {
+      checkOpacity = !checkOpacity;
+    });
   }
 }

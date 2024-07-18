@@ -1,5 +1,6 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:themes/themes.dart';
@@ -9,7 +10,8 @@ class ItemShiftOnTab extends StatelessWidget {
     super.key,
     required this.icon,
     required this.title,
-    this.value, required this.color,
+    this.value,
+    required this.color,
   });
 
   final String title;
@@ -20,6 +22,7 @@ class ItemShiftOnTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x6, vertical: SpacingUnit.x1),
       child: Row(
@@ -39,7 +42,7 @@ class ItemShiftOnTab extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: SpacingUnit.x2_5),
             child: Text(
-              value ?? "",
+              value ?? appLocalizations.forgotChecking,
               style: TextStyle(
                 color: color,
                 fontSize: SpacingUnit.x4,

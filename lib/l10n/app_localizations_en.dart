@@ -1319,12 +1319,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noShiftsWork => 'No shifts work';
 
   @override
-  String get saturday => 'Saturday';
-
-  @override
-  String get sunday => 'Sunday';
-
-  @override
   String get regularDay => 'Regular day';
 
   @override
@@ -1350,4 +1344,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totalTimeWorkCompensatory => 'Total number of compensatory hours';
+
+  @override
+  String get monday => 'monday';
+
+  @override
+  String get tuesday => 'tuesday';
+
+  @override
+  String get wednesday => 'wednesday';
+
+  @override
+  String get thursday => 'thursday';
+
+  @override
+  String get friday => 'friday';
+
+  @override
+  String get saturday => 'saturday';
+
+  @override
+  String get sunday => 'sunday';
 }

@@ -8,28 +8,28 @@ class TitleValueLeave extends StatelessWidget {
     required this.title,
     required this.value,
     this.color,
-    this.size,
-    this.font,
-    this.padding,
+    this.size = SpacingUnit.x3,
+    this.font = FontWeight.normal,
+    this.padding = 0,
   });
 
   final String title, value;
   final Color? color;
-  final double? size, padding;
-  final FontWeight? font;
+  final double size, padding;
+  final FontWeight font;
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: padding ?? 0),
+      padding: EdgeInsets.symmetric(vertical: padding),
       child: Row(
         children: [
           Text(
             '$title: ',
             style: TextStyle(
               color: colors.text,
-              fontSize: size ?? SpacingUnit.x3,
+              fontSize: size ,
               fontWeight: font,
             ),
           ),
@@ -39,7 +39,7 @@ class TitleValueLeave extends StatelessWidget {
               value,
               style: TextStyle(
                 color: color ?? colors.text,
-                fontSize: size ?? SpacingUnit.x3,
+                fontSize: size,
               ),
             ),
           ),

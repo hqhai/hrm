@@ -437,8 +437,6 @@
   "ot": "OverTime",
   "totalLeaveWork": "Total leave work",
   "noShiftsWork": "No shifts work",
-  "saturday": "Saturday",
-  "sunday": "Sunday",
   "regularDay": "Regular day",
   "timeFrameOT": "Time frame OT",
   "timeFrame": "Time frame",
@@ -447,7 +445,14 @@
   "workOT": "Overtime work",
   "historyTimekeeping": "History timekeeping",
   "totalTimeWork": "Total Time Work",
-  "totalTimeWorkCompensatory": "Total number of compensatory hours"
+  "totalTimeWorkCompensatory": "Total number of compensatory hours",
+  "monday":"monday",
+  "tuesday":"tuesday",
+  "wednesday":"wednesday",
+  "thursday":"thursday",
+  "friday":"friday",
+  "saturday":"saturday",
+  "sunday":"sunday"
 
 
 }

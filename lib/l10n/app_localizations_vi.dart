@@ -1319,12 +1319,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noShiftsWork => 'Không có ca làm việc';
 
   @override
-  String get saturday => 'Thứ bảy';
-
-  @override
-  String get sunday => 'Chủ nhật';
-
-  @override
   String get regularDay => 'Ngày thường';
 
   @override
@@ -1350,4 +1344,25 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get totalTimeWorkCompensatory => 'Tổng số giờ làm bù';
+
+  @override
+  String get monday => 'Thứ hai';
+
+  @override
+  String get tuesday => 'Thứ ba';
+
+  @override
+  String get wednesday => 'Thứ tư';
+
+  @override
+  String get thursday => 'Thứ năm';
+
+  @override
+  String get friday => 'Thứ sáu';
+
+  @override
+  String get saturday => 'Thứ bảy';
+
+  @override
+  String get sunday => 'Chủ nhật';
 }

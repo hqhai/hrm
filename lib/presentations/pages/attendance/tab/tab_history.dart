@@ -40,7 +40,7 @@ class OTHistory extends StatelessWidget {
                     color: colors.navy,
                     title: appLocalizations.checkIn,
                     icon: Icons.login,
-                    value: strSeconds(userWorkingHistoryModel.checkIn ?? 0),
+                    value: strSeconds(userWorkingHistoryModel.checkIn),
                   ),
                   Container(
                     height: SpacingUnit.x11,

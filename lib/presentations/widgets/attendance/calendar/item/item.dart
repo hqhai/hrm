@@ -155,7 +155,7 @@ class ItemCalender extends StatelessWidget {
         return Column(
           children: [
             Text(
-              strSeconds(userWorkingHistoryModel?.checkIn ?? 0),
+              strSeconds(userWorkingHistoryModel?.checkIn) ?? '',
               style: TextStyle(
                 color: colors.text,
                 fontSize: SpacingUnit.x2_5,
@@ -170,7 +170,7 @@ class ItemCalender extends StatelessWidget {
               ),
             ),
             Text(
-              strSeconds(userWorkingHistoryModel?.checkOut ?? 0),
+              strSeconds(userWorkingHistoryModel?.checkOut) ?? '',
               style: TextStyle(
                 color: colors.text,
                 fontSize: SpacingUnit.x2_5,
