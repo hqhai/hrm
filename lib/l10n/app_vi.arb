@@ -498,8 +498,6 @@
   "ot": "Làm thêm giờ",
   "totalLeaveWork": "Tổng số công nghỉ",
   "noShiftsWork": "Không có ca làm việc",
-  "saturday": "Thứ bảy",
-  "sunday": "Chủ nhật",
   "regularDay": "Ngày thường",
   "timeFrameOT": "Khung giờ OT",
   "timeFrame": "khung thời gian",
@@ -508,5 +506,12 @@
   "workOT": "Công tăng ca",
   "historyTimekeeping": "Lịch sử chấm công",
   "totalTimeWork": "Tổng số giờ làm việc",
-  "totalTimeWorkCompensatory": "Tổng số giờ làm bù"
+  "totalTimeWorkCompensatory": "Tổng số giờ làm bù",
+  "monday":"Thứ hai",
+  "tuesday":"Thứ ba",
+  "wednesday":"Thứ tư",
+  "thursday":"Thứ năm",
+  "friday":"Thứ sáu",
+  "saturday":"Thứ bảy",
+  "sunday":"Chủ nhật"
 }
