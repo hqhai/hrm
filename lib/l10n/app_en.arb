@@ -487,5 +487,12 @@
   "usable": "Usable",
   "unusable": "Unusable",
   "administrativeShift": "Administrative shift",
-  "singleShift": "Single shift"
+  "singleShift": "Single shift",
+  "monday": "monday",
+  "tuesday": "tuesday",
+  "wednesday": "wednesday",
+  "thursday": "thursday",
+  "friday": "friday",
+  "saturday": "saturday",
+  "sunday": "sunday"
 }
