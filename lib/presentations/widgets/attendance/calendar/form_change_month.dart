@@ -1,3 +1,4 @@
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -16,37 +17,36 @@ class FormChangeMonth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return Container(
       alignment: Alignment.center,
       height: SpacingUnit.x16,
-      padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x6),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
-            child: Text(
-              "$month / $year",
-              style: theme.textTheme.titleLarge,
+          InkWell(
+            onTap: () => downMonth.call(),
+            child: Icon(
+              Icons.arrow_left,
+              color: colors.textTertiary,
+              size: SpacingUnit.x8,
+            ),
+          ),
+          Text(
+            "${appLocalizations.month} $month, $year",
+            style: TextStyle(
+              color: colors.text,
+              fontSize: SpacingUnit.x5,
             ),
           ),
           InkWell(
             onTap: () => upMonth.call(),
             child: Icon(
-              Icons.arrow_drop_up,
+              Icons.arrow_right,
               color: colors.textTertiary,
-              size: 50,
-            ),
-          ),
-          const SizedBox(
-            width: SpacingUnit.x4,
-          ),
-          InkWell(
-            onTap: () => downMonth.call(),
-            child: Icon(
-              Icons.arrow_drop_down,
-              color: colors.textTertiary,
-              size: 50,
+              size: SpacingUnit.x8,
             ),
           ),
         ],

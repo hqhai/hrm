@@ -1236,7 +1236,7 @@ abstract class AppLocalizations {
   /// No description provided for @step.
   ///
   /// In en, this message translates to:
-  /// **'Step 1/1'**
+  /// **'Step'**
   String get step;
 
   /// No description provided for @singleWordList.
@@ -2492,6 +2492,330 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want revoke your request?'**
   String get doYouWantRevokeYourRequest;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @end.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get end;
+
+  /// No description provided for @flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Flow'**
+  String get flow;
+
+  /// No description provided for @trackFlowProgres.
+  ///
+  /// In en, this message translates to:
+  /// **'Track flow progress'**
+  String get trackFlowProgres;
+
+  /// No description provided for @worksheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Worksheet'**
+  String get worksheet;
+
+  /// No description provided for @actualWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual work'**
+  String get actualWork;
+
+  /// No description provided for @leaveWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave work'**
+  String get leaveWork;
+
+  /// No description provided for @holidayWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Holiday Work'**
+  String get holidayWork;
+
+  /// No description provided for @noSalaryWork.
+  ///
+  /// In en, this message translates to:
+  /// **'No Salary Work'**
+  String get noSalaryWork;
+
+  /// No description provided for @workTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Work Time'**
+  String get workTime;
+
+  /// No description provided for @timeEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Early'**
+  String get timeEarly;
+
+  /// No description provided for @timeLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Late'**
+  String get timeLate;
+
+  /// No description provided for @salaryWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary Work'**
+  String get salaryWork;
+
+  /// No description provided for @realWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Real Work'**
+  String get realWork;
+
+  /// No description provided for @seeDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'See details'**
+  String get seeDetails;
+
+  /// No description provided for @onTime.
+  ///
+  /// In en, this message translates to:
+  /// **'On time'**
+  String get onTime;
+
+  /// No description provided for @forgotChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot checking'**
+  String get forgotChecking;
+
+  /// No description provided for @offWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Off work'**
+  String get offWork;
+
+  /// No description provided for @isRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Is request'**
+  String get isRequest;
+
+  /// No description provided for @holiday.
+  ///
+  /// In en, this message translates to:
+  /// **'Holiday'**
+  String get holiday;
+
+  /// No description provided for @noAttendance.
+  ///
+  /// In en, this message translates to:
+  /// **'No attendance'**
+  String get noAttendance;
+
+  /// No description provided for @offSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Off set'**
+  String get offSet;
+
+  /// No description provided for @timeWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Time work'**
+  String get timeWork;
+
+  /// No description provided for @detailWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Detail work'**
+  String get detailWork;
+
+  /// No description provided for @summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get summary;
+
+  /// No description provided for @year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get year;
+
+  /// No description provided for @request.
+  ///
+  /// In en, this message translates to:
+  /// **'Request'**
+  String get request;
+
+  /// No description provided for @shift.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift'**
+  String get shift;
+
+  /// No description provided for @workInDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Work in day'**
+  String get workInDay;
+
+  /// No description provided for @minutesToLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes to late'**
+  String get minutesToLate;
+
+  /// No description provided for @minutesToEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes to early'**
+  String get minutesToEarly;
+
+  /// No description provided for @totalOTHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Total OT hours'**
+  String get totalOTHours;
+
+  /// No description provided for @typeOfShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Type of shift'**
+  String get typeOfShift;
+
+  /// No description provided for @oTCoefficient.
+  ///
+  /// In en, this message translates to:
+  /// **'OT coefficient'**
+  String get oTCoefficient;
+
+  /// No description provided for @dateType.
+  ///
+  /// In en, this message translates to:
+  /// **'Date type'**
+  String get dateType;
+
+  /// No description provided for @ot.
+  ///
+  /// In en, this message translates to:
+  /// **'OverTime'**
+  String get ot;
+
+  /// No description provided for @totalLeaveWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Total leave work'**
+  String get totalLeaveWork;
+
+  /// No description provided for @noShiftsWork.
+  ///
+  /// In en, this message translates to:
+  /// **'No shifts work'**
+  String get noShiftsWork;
+
+  /// No description provided for @regularDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular day'**
+  String get regularDay;
+
+  /// No description provided for @timeFrameOT.
+  ///
+  /// In en, this message translates to:
+  /// **'Time frame OT'**
+  String get timeFrameOT;
+
+  /// No description provided for @timeFrame.
+  ///
+  /// In en, this message translates to:
+  /// **'Time frame'**
+  String get timeFrame;
+
+  /// No description provided for @numberOfLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Number Of Late'**
+  String get numberOfLate;
+
+  /// No description provided for @numberOfEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Number Of Early'**
+  String get numberOfEarly;
+
+  /// No description provided for @workOT.
+  ///
+  /// In en, this message translates to:
+  /// **'Overtime work'**
+  String get workOT;
+
+  /// No description provided for @historyTimekeeping.
+  ///
+  /// In en, this message translates to:
+  /// **'History timekeeping'**
+  String get historyTimekeeping;
+
+  /// No description provided for @totalTimeWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Time Work'**
+  String get totalTimeWork;
+
+  /// No description provided for @totalTimeWorkCompensatory.
+  ///
+  /// In en, this message translates to:
+  /// **'Total number of compensatory hours'**
+  String get totalTimeWorkCompensatory;
+
+  /// No description provided for @monday.
+  ///
+  /// In en, this message translates to:
+  /// **'monday'**
+  String get monday;
+
+  /// No description provided for @tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'tuesday'**
+  String get tuesday;
+
+  /// No description provided for @wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'wednesday'**
+  String get wednesday;
+
+  /// No description provided for @thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'thursday'**
+  String get thursday;
+
+  /// No description provided for @friday.
+  ///
+  /// In en, this message translates to:
+  /// **'friday'**
+  String get friday;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'sunday'**
+  String get sunday;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

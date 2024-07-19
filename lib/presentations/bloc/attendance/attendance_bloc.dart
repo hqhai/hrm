@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/use_cases/attendances_usecase.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
@@ -10,7 +9,6 @@ import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
 import 'package:bloc/bloc.dart';
 
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 
 @lazySingleton
 class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
@@ -22,34 +20,48 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     on<AttendanceEvent>((event, emit) {});
     on<GetAttendanceEvent>(_getAttendanceEvent);
     on<GetAttendanceNowEvent>(_getAttendanceNowEvent);
+    on<GetWorkSheetEvent>(_getWorkSheetEvent);
   }
 
   FutureOr<void> _getAttendanceEvent(
       GetAttendanceEvent event, Emitter<AttendanceState> emit) async {
     emit(state.copyWith(status: AttendanceStatus.getAttendanceInit));
     try {
-      List<Attendance> attendances = await _attendanceUseCase.getAttendances(
+      Attendance attendance = await _attendanceUseCase.getAttendance(
           id: event.id, year: event.year.toString(), month: event.month.toString());
       emit(state.copyWith(
-          attendances: attendances,
+          attendance: attendance,
           status: AttendanceStatus.getAttendanceSuccess));
     } catch (e) {
       emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
     }
   }
 
+
   FutureOr<void> _getAttendanceNowEvent(
       GetAttendanceNowEvent event, Emitter<AttendanceState> emit) async {
-    emit(state.copyWith(status: AttendanceStatus.getAttendanceInit));
+   /* emit(state.copyWith(status: AttendanceStatus.getAttendanceInit));
     try {
       DateTime dateDime = DateTime.now();
       String time = DateFormat('yyyy-MM-dd').format(dateDime);
       List<Attendance> attendancesNow = await _attendanceUseCase.getAttendances(
           id: event.id, year: dateDime.year.toString(), month: dateDime.month.toString());
       Attendance attendanceNow =
-          attendancesNow.where((e) => formatYMD(e.attendanceDate).contains(time)).first;
+          attendancesNow.where((e) => formatYMD(e.attendanceDate.toString()).contains(time)).first;
       emit(
           state.copyWith(attendance: attendanceNow, status: AttendanceStatus.getAttendanceSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
+    }*/
+  }
+
+  Future<FutureOr<void>> _getWorkSheetEvent(GetWorkSheetEvent event, Emitter<AttendanceState> emit) async {
+    try {
+      Attendance attendance = await _attendanceUseCase.workSheet(
+          endTime: event.endTime, startTime: event.startTime);
+      emit(state.copyWith(
+          attendance: attendance,
+          status: AttendanceStatus.getAttendanceSuccess));
     } catch (e) {
       emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
     }

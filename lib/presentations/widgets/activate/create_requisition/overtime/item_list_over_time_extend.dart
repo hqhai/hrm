@@ -43,7 +43,7 @@ class ItemListOverTimeExtend extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                requisitionOverTime?.date ?? "",
+                formatYMD((requisitionOverTime?.date ?? "").toString()),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

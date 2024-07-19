@@ -1,3 +1,4 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -25,10 +26,10 @@ class _RequisitionInformationContentTypeOverTimeState
 
   @override
   void initState() {
-    /*if (dI<RequisitionBloc>().state.requisition.config.overTimes?.isNotEmpty ?? false) {
+    if (dI<RequisitionBloc>().state.requisition.config.overTimes?.isNotEmpty ?? false) {
       final int count = dI<RequisitionBloc>().state.requisition.config.overTimes!.length;
       listCheck = List.filled(count, true);
-    }*/
+    }
     super.initState();
   }
 
@@ -41,7 +42,6 @@ class _RequisitionInformationContentTypeOverTimeState
       listenWhen: (previous, current) => previous.requisition != current.requisition,
       builder: (context, state) {
         final overTimes = state.requisition.config.overTimes;
-        final listCheck = List.filled(state.requisition.config.overTimes?.length??0, true);
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           child: Column(
@@ -89,12 +89,6 @@ class _RequisitionInformationContentTypeOverTimeState
         );
       },
     );
-  }
-
-  checkSubmit(int index) {
-    setState(() {
-      listCheck[index] = !listCheck[index];
-    });
   }
 
   onClick(int index) {

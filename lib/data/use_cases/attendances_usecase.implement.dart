@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/domain/entities/attendance.dart';
+import 'package:base_app/domain/entities/attendance/work_sheet.dart';
 import 'package:base_app/domain/repositories/attendances.repository.dart';
 import 'package:base_app/domain/use_cases/attendances_usecase.dart';
 import 'package:injectable/injectable.dart';
@@ -11,10 +12,25 @@ class AttendanceUseCaseImplement extends AttendanceUseCase {
   AttendanceUseCaseImplement() : _attendanceRepository = dI<AttendanceRepository>();
 
   @override
-  Future<List<Attendance>> getAttendances(
+  Future<Attendance> workSheet(
+      {required DateTime startTime,
+        required DateTime endTime,}) async {
+    final attendances = await _attendanceRepository.workSheet(
+        endTime: endTime, startTime: startTime);
+    return attendances;
+  }
+
+  @override
+  Future<WorkSheet> getWorkSheet({required DateTime time}) async {
+    return await _attendanceRepository.getWorkSheet(time: time);
+  }
+
+  @override
+  Future<Attendance> getAttendance(
       {required String month, required String year, required String id}) async {
-    final attendances = await _attendanceRepository.getAttendances(
+    final attendances = await _attendanceRepository.getAttendance(
         month: month, year: year, id: id);
     return attendances;
   }
+
 }

@@ -3,21 +3,21 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/attendance.dart';
+import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCalendarAttendanceHistory extends StatelessWidget {
   final bool isNowDate;
-  final Attendance attendance;
+  final UserWorkingHistoryModel userWorkingHistoryModel;
   final int month;
   final DateTime date;
   final Widget itemDate;
 
   const ItemCalendarAttendanceHistory({
     super.key,
-    required this.attendance,
+    required this.userWorkingHistoryModel,
     required this.date,
     required this.month,
     required this.itemDate,
@@ -25,10 +25,14 @@ class ItemCalendarAttendanceHistory extends StatelessWidget {
   });
 
   _nextItemAttendanceHistoryPage(BuildContext context,) {
-    if(attendance.attendanceDate != '') {
+    if(userWorkingHistoryModel.date != null) {
       dI<AppNavigation>().pushName(context, page: Pages.historyAttendancePage, extra: {
-      'attendance': attendance});
+      'dateTime': date});
     }
+  }
+
+  UserWorkingHistoryModel userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
+    return list.firstWhere((element) => element.date?.isAtSameMomentAs(date) ?? false);
   }
 
   @override
@@ -69,7 +73,7 @@ class ItemCalendarAttendanceHistory extends StatelessWidget {
                         const Icon(Icons.circle, color: Colors.white, size: SpacingUnit.x1),
                         const SizedBox(width: SpacingUnit.x1,),
                         Text(
-                          attendance.checkIn ?? appLocalizations.noData,
+                          'attendance.checkIn ?? appLocalizations.noData',
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                         ),
                       ],
@@ -89,7 +93,7 @@ class ItemCalendarAttendanceHistory extends StatelessWidget {
                         const Icon(Icons.circle, color: Colors.white, size: SpacingUnit.x1),
                         const SizedBox(width: SpacingUnit.x1,),
                         Text(
-                          attendance.checkOut ?? appLocalizations.noData,
+                          'attendance.checkOut ?? appLocalizations.noData',
                           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                         ),
                       ],
@@ -116,6 +120,6 @@ class ItemCalendarAttendanceHistory extends StatelessWidget {
   }
 
   bool _checkAttendanceEmpty(){
-    return attendance.attendanceDate != "";
+    return userWorkingHistoryModel.date != null;
   }
 }

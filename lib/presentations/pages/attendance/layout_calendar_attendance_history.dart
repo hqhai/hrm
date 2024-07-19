@@ -41,7 +41,7 @@ class _LayoutCalendarAttendanceHistoryState extends State<LayoutCalendarAttendan
   void initState() {
     id = dI<UserBloc>().state.user.id;
     dI<AttendanceBloc>().add(
-        GetAttendanceEvent(id: id, month: currentDateTime.month, year: currentDateTime.year));
+        GetWorkSheetEvent(startTime: currentDateTime, endTime: currentDateTime));
     super.initState();
     _getListDate();
   }
@@ -55,7 +55,7 @@ class _LayoutCalendarAttendanceHistoryState extends State<LayoutCalendarAttendan
       }
     });
     dI<AttendanceBloc>().add(
-        GetAttendanceEvent(id: id, month: currentDateTime.month, year: currentDateTime.year));
+        GetWorkSheetEvent(startTime: currentDateTime, endTime: currentDateTime));
     _getListDate();
   }
 
@@ -68,7 +68,7 @@ class _LayoutCalendarAttendanceHistoryState extends State<LayoutCalendarAttendan
       }
     });
     dI<AttendanceBloc>().add(
-        GetAttendanceEvent(id: id, month: currentDateTime.month, year: currentDateTime.year));
+        GetWorkSheetEvent(startTime: currentDateTime, endTime: currentDateTime));
     _getListDate();
   }
 

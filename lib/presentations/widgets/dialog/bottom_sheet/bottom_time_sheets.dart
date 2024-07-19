@@ -1,14 +1,14 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +29,8 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
 
   @override
   void initState() {
-    final String id = dI<UserBloc>().state.user.id;
     final DateTime now = DateTime.now();
-    dI<AttendanceBloc>().add(GetAttendanceEvent(id: id, month: now.month, year: now.year));
+    dI<AttendanceBloc>().add(GetWorkSheetEvent(endTime: now, startTime: now));
     super.initState();
   }
 
@@ -72,9 +71,9 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: dates(state.attendances)
+                      children: dates(state.attendance.userWorkingHistories)
                           .mapIndexed((index, element) => GestureDetector(
-                                onTap: () => addDate(date: dates(state.attendances)[index]),
+                                onTap: () => addDate(date: dates(state.attendance.userWorkingHistories)[index]),
                                 child: Container(
                                   padding: const EdgeInsets.all(SpacingUnit.x2),
                                   margin: const EdgeInsets.all(SpacingUnit.x2),
@@ -96,7 +95,9 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
                                         ),
                                       ),
                                       Text(
-                                        formatYMD(dates(state.attendances)[index].attendanceDate),
+                                        formatYMD(dates(state.attendance.userWorkingHistories)[index]
+                                            .date
+                                            .toString()),
                                         style: TextStyle(
                                           color: colors.text,
                                           fontSize: SpacingUnit.x3,
@@ -138,22 +139,22 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
     return hourOut < 18 || (hourOut == 18 && minuteOut < 20);
   }
 
-  List<Attendance> dates(List<Attendance> attendances) {
-    final List<Attendance> listAttendance = [];
+  List<UserWorkingHistoryModel> dates(List<UserWorkingHistoryModel> attendances) {
+    final List<UserWorkingHistoryModel> listAttendance = [];
     attendances.forEachIndexed((index, element) {
-      if (checkCheckIn(element.checkIn ?? "") && checkInOrOut) {
-        listAttendance.add(element);
-      } else if (checkCheckOut(element.checkOut ?? "") && !checkInOrOut) {
+      if ((element.status).contains(UserWorkingHistoryStatus.early) ||
+          (element.status).contains(UserWorkingHistoryStatus.late)) {
         listAttendance.add(element);
       }
     });
     return listAttendance;
   }
 
-  addDate({required Attendance date}) {
+  addDate({required UserWorkingHistoryModel date}) {
     setState(() {
       final RequisitionOverTime dateUnit = RequisitionOverTime(
-          date: date.attendanceDate,);
+        date: date.date,
+      );
       widget.onChange.call(dateUnit);
       Navigator.of(context).pop();
     });

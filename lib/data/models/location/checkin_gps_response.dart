@@ -11,7 +11,6 @@ class CheckInGPSResponse {
 
   const CheckInGPSResponse({
     required this.checkIn,
-
   });
 
   factory CheckInGPSResponse.fromJson(Map<String, dynamic> json) =>

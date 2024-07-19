@@ -2,17 +2,20 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/color_utils.dart';
+import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/common/utils/home_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user/user_event.dart';
-import 'package:base_app/presentations/widgets/attendance/layout_calendar.dart';
-import 'package:base_app/presentations/widgets/home/item_home_checkin_checkout_gps_widget.dart';
-import 'package:base_app/presentations/widgets/home/item_home_infor_widget.dart';
+import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
+import 'package:base_app/presentations/widgets/attendance/attendance/form_change_time.dart';
+import 'package:base_app/presentations/widgets/attendance/attendance/item_work_sheet.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:themes/themes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widgets/app_button.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -22,67 +25,98 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  String id = '';
+  DateTime now = DateTime.now(),
+      currentDateTime = DateTime.now(),
+      startTime = DateTime.now(),
+      endTime = DateTime.now();
 
   @override
   void initState() {
-    dI<UserBloc>().add(const GetUserInfo());
-    id = dI<UserBloc>().state.user.id;
+    startTime = getFirstDayOfMonth(currentDateTime);
+    endTime = getLastDayOfMonth(currentDateTime);
     dI<AttendanceBloc>()
-        .add(GetAttendanceNowEvent(id: id,));
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-        margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-        decoration: BoxDecoration(
-          color: CustomsColor.colorBackground,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(SpacingUnit.x4),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ItemHomeInforWidget(),
-            //const ItemHomeCheckInCheckOutWidget(),
-            const ItemHomeCheckInCheckOutGPSWidget(),
-            const SizedBox(height: SpacingUnit.x4_5),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocBuilder<AttendanceBloc, AttendanceState>(
+      builder: (context, state) {
+        return SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(SpacingUnit.x0_5),
+            margin: const EdgeInsets.all(SpacingUnit.x0_5),
+            decoration: BoxDecoration(
+              color: CustomsColor.colorBackground,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  appLocalizations.calendar,
-                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+                FormChangeTime(
+                  month: currentDateTime.month.toString(),
+                  year: currentDateTime.year.toString(),
+                  downMonth: () => downMonth(),
+                  upMonth: () => upMonth(),
                 ),
-                GestureDetector(
-                  onTap: () => _nextAttendanceHistoryPage(context),
-                  child: Text(
-                    appLocalizations.viewAttendanceHistory,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x3,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
+                Column(
+                  children: titleHome()
+                      .mapIndexed(
+                        (index, element) => ItemWorkSheet(
+                          title: element,
+                          value: listWork(state.attendance)[index],
+                        ),
+                      )
+                      .toList(),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(SpacingUnit.x4),
+                  child: AppButton(
+                      title: appLocalizations.seeDetails, onSubmit: () => nextWorkSheet(context)),
+                )
               ],
             ),
-            const LayoutCalendar(),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
-  _nextAttendanceHistoryPage(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.layoutCalendarAttendanceHistoryPage);
+  List<String> listWork(Attendance attendance) {
+    List<String> list = [...attendance.toListString()];
+    return list;
+  }
+
+  downMonth() {
+    setState(() {
+      if (currentDateTime.month == 1) {
+        currentDateTime = DateTime(currentDateTime.year - 1, 12, 1);
+      } else {
+        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
+      }
+      startTime = getFirstDayOfMonth(currentDateTime);
+      endTime = getLastDayOfMonth(currentDateTime);
+    });
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
+  }
+
+  upMonth() {
+    setState(() {
+      if (currentDateTime.month == 12) {
+        currentDateTime = DateTime(currentDateTime.year + 1, 1, 1);
+      } else {
+        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
+      }
+      startTime = getFirstDayOfMonth(currentDateTime);
+      endTime = getLastDayOfMonth(currentDateTime);
+    });
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
+  }
+
+  nextWorkSheet(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.layoutCalendarPage);
   }
 }

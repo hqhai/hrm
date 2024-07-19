@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:themes/themes.dart';
 
 class AppInputArea extends StatefulWidget {
+  final VoidCallback? onTap;
   final String placeHolder;
   final TextAlign textAlign;
   final TextInputType keyboardType;
@@ -31,6 +32,7 @@ class AppInputArea extends StatefulWidget {
 
   const AppInputArea(
       {super.key,
+      this.onTap,
       this.placeHolder = "",
       this.textAlign = TextAlign.start,
       this.keyboardType = TextInputType.text,
@@ -85,6 +87,7 @@ class _AppInputAreaState extends State<AppInputArea> {
               }
             },
             child: TextField(
+              onTap: widget.onTap,
               maxLines: widget.maxLines,
               minLines: widget.minLines,
               onChanged: (value) {

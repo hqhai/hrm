@@ -38,7 +38,7 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
   @override
   void initState() {
     if (widget.filter != null) {
-      user =  widget.filter!.user;
+      user = widget.filter!.user;
       startTime = widget.filter!.startTime ?? DateTime.now();
       endTime = widget.filter!.endTime ?? DateTime.now();
       type = widget.filter!.type;
@@ -49,15 +49,21 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
   }
 
   void setType({RequisitionTypeEnum? value}) {
-    type = value ?? RequisitionTypeEnum.bussiness;
+    setState(() {
+      type = value ?? RequisitionTypeEnum.bussiness;
+    });
   }
 
   void setStartTime({required DateTime value}) {
-    startTime = value;
+    setState(() {
+      startTime = value;
+    });
   }
 
   void setEndTime({required DateTime value}) {
-    endTime = value;
+    setState(() {
+      endTime = value;
+    });
   }
 
   setDepartment({Map? value}) {

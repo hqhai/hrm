@@ -3,36 +3,48 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class TitleValueLeave extends StatelessWidget {
-  const TitleValueLeave({super.key, required this.title, required this.value, this.color});
+  const TitleValueLeave({
+    super.key,
+    required this.title,
+    required this.value,
+    this.color,
+    this.size = SpacingUnit.x3,
+    this.font = FontWeight.normal,
+    this.padding = 0,
+  });
+
   final String title, value;
   final Color? color;
+  final double size, padding;
+  final FontWeight font;
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: Text(
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: padding),
+      child: Row(
+        children: [
+          Text(
             '$title: ',
             style: TextStyle(
               color: colors.text,
-              fontSize: SpacingUnit.x4,
+              fontSize: size ,
+              fontWeight: font,
             ),
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Text(
-            value,
-            style: TextStyle(
-              color: color?? colors.text,
-              fontSize: SpacingUnit.x4,
+          Expanded(
+            flex: 1,
+            child: Text(
+              value,
+              style: TextStyle(
+                color: color ?? colors.text,
+                fontSize: size,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -37,6 +37,7 @@ import 'package:base_app/presentations/pages/department/create_department.page.d
 import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps.dart';
 import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps_check.dart';
 import 'package:base_app/presentations/pages/trash_app/update_note.dart';
+import 'package:base_app/presentations/widgets/attendance/calendar/layout_calendar.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
@@ -94,5 +95,6 @@ class AppRouters {
     Pages.createRequestLateAndEarlyPage: createRequestLateAndEarlyPageRoute,
     Pages.listSchoolsPage : listSchoolsPageRoute,
     Pages.leavePage: leavePageRoute,
+    Pages.layoutCalendarPage: layoutCalendarPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

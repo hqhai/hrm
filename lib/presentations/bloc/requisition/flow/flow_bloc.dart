@@ -52,14 +52,14 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
     emit(state.copyWith(statusGetById: FlowStatusEnum.init));
     try {
       final FlowRequest flow = await requisitionUseCase.getFlowById(id: event.id);
-      emit(
-        state.copyWith(
-          flow: flow,
-          statusGetById: FlowStatusEnum.success,
-        ),
-      );
+      emit(state.copyWith(
+        flow: flow,
+        statusGetById: FlowStatusEnum.success,
+      ));
+      event.completer?.complete(true);
     } catch (e) {
       emit(state.copyWith(statusGetById: FlowStatusEnum.fail));
+      event.completer?.complete(false);
     }
   }
 }

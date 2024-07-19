@@ -56,7 +56,7 @@ class _ItemTimeKeepingGPSState extends State<ItemTimeKeepingGPS> {
                     return Expanded(
                       flex: 8,
                       child: Text(
-                        stateAttendance.attendance.checkIn ?? "---------",
+                        "---------",
                         style: TextStyle(
                           color: colors.text,
                           fontSize: SpacingUnit.x3,

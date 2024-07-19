@@ -24,7 +24,8 @@ class TimeKeepingDialog extends StatefulWidget {
 
 class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
   final TextEditingController noteController = TextEditingController();
-  String date = '', errorTime = '', errorDate = '';
+  String errorTime = '', errorDate = '';
+  DateTime? date;
   int startTime = 0, endTime = 0;
   double? suggestTime;
   String? note;
@@ -32,7 +33,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
 
   bool checkOnClick(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkDate = date.isNotEmpty;
+    final bool checkDate = date?.isAfter(DateTime.now())??false;
     setState(() {
       errorDate = checkDate ? "" : appLocalizations.cannotBeLeftBlank;
     });
@@ -42,7 +43,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
   setRequisitionOverTime(RequisitionOverTime value) {
     setState(() {
       requisitionOverTime = value;
-      date = value.date ?? "";
+      date = value.date;
       startTime = value.startTime ?? 0;
       endTime = value.endTime ?? 0;
       suggestTime = double.parse((endTime - startTime).toString());
@@ -54,7 +55,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
   void initState() {
     noteController.text = widget.requisitionOverTime?.note ?? "";
     requisitionOverTime = widget.requisitionOverTime ?? const RequisitionOverTime();
-    date = formatYMD(widget.requisitionOverTime?.date ?? '');
+    date = widget.requisitionOverTime?.date;
     startTime = widget.requisitionOverTime?.startTime ?? 0;
     endTime = widget.requisitionOverTime?.endTime ?? 0;
     suggestTime = double.parse((endTime - startTime).toString());
@@ -79,7 +80,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
               errorProduct: errorDate,
             ),
             Text(
-              formatYMD(date),
+              formatYMD(date.toString()),
               style: TextStyle(
                 color: colors.text,
                 fontSize: SpacingUnit.x6,
@@ -136,10 +137,10 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
   setAdd(BuildContext context) {
     if (checkOnClick(context)) {
       widget.onChangeOverTimes?.call(RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
+        date: date,
+        endTime: endTime,
+        startTime: startTime,
+        note: note,
       ));
       Navigator.of(context).pop();
     }
@@ -153,7 +154,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
 
   setDate(DateTime value) {
     setState(() {
-      date = formatYMD(value.toString());
+      date = value;
     });
   }
 
@@ -186,7 +187,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
 
   setListTime(RequisitionOverTime value) {
     setState(() {
-      date = value.date??'';
+      date = value.date;
     });
   }
 }

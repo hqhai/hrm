@@ -122,4 +122,9 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest}) async {
     return await _requisitionRepository.editRequestEdit(postRequestRequest: postRequestRequest);
   }
+
+  @override
+  Future<RequestsResponse> getRequestsByIds({required List<String> ids}) async {
+    return await _requisitionRepository.getRequestsByIds(ids: ids);
+  }
 }

@@ -131,7 +131,37 @@ extension ConfigRequestStatusExtension on StatusRequestEnum {
   }
 }
 
+enum EnumStepFlowType {
+  @JsonValue('Start')
+  start('Start'),
+  @JsonValue('Step')
+  step('Step'),
+  @JsonValue('End')
+  end('End');
+
+  final String name;
+
+  const EnumStepFlowType(this.name);
+}
+
+extension ConfigStepFlowTypeExtension on EnumStepFlowType {
+  String get configStepFlowTypeName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case EnumStepFlowType.start:
+        return appLocalizations.start;
+      case EnumStepFlowType.step:
+        return appLocalizations.step;
+      case EnumStepFlowType.end:
+        return appLocalizations.end;
+    }
+  }
+}
+
 enum RequisitionTypeEnum {
+  @JsonValue('Core')
+  core('Core'),
   @JsonValue('YearlyAndSeniorityLeave')
   yearlyAndSeniorityLeave('YearlyAndSeniorityLeave'),
   @JsonValue('CompensatoryLeave')
@@ -195,6 +225,8 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
         return appLocalizations.late;
       case RequisitionTypeEnum.earlyDeparture:
         return appLocalizations.leaveEarly;
+      case RequisitionTypeEnum.core:
+    return appLocalizations.core;
     }
   }
 }

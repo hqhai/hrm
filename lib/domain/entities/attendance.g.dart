@@ -3,20 +3,305 @@
 part of 'attendance.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+abstract class _$AttendanceCWProxy {
+  Attendance actualRate(double actualRate);
+
+  Attendance code(String? code);
+
+  Attendance countEarly(int countEarly);
+
+  Attendance countLate(int countLate);
+
+  Attendance holidayRate(double holidayRate);
+
+  Attendance leaveRate(double leaveRate);
+
+  Attendance name(String? name);
+
+  Attendance noSalaryRate(double noSalaryRate);
+
+  Attendance overTime(int overTime);
+
+  Attendance overTimeDay(EnumOvertimeDay? overTimeDay);
+
+  Attendance overTimeRate(int overTimeRate);
+
+  Attendance realRate(double realRate);
+
+  Attendance salaryWork(double salaryWork);
+
+  Attendance timeEarly(int timeEarly);
+
+  Attendance timeLate(int timeLate);
+
+  Attendance userId(String? userId);
+
+  Attendance userWorkingHistories(
+      List<UserWorkingHistoryModel> userWorkingHistories);
+
+  Attendance workTimeActual(int workTimeActual);
+
+  Attendance workTimeReal(int workTimeReal);
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Attendance(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// Attendance(...).copyWith(id: 12, name: "My name")
+  /// ````
+  Attendance call({
+    double? actualRate,
+    String? code,
+    int? countEarly,
+    int? countLate,
+    double? holidayRate,
+    double? leaveRate,
+    String? name,
+    double? noSalaryRate,
+    int? overTime,
+    EnumOvertimeDay? overTimeDay,
+    int? overTimeRate,
+    double? realRate,
+    double? salaryWork,
+    int? timeEarly,
+    int? timeLate,
+    String? userId,
+    List<UserWorkingHistoryModel>? userWorkingHistories,
+    int? workTimeActual,
+    int? workTimeReal,
+  });
+}
+
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfAttendance.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfAttendance.copyWith.fieldName(...)`
+class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
+  final Attendance _value;
+
+  const _$AttendanceCWProxyImpl(this._value);
+
+  @override
+  Attendance actualRate(double actualRate) => this(actualRate: actualRate);
+
+  @override
+  Attendance code(String? code) => this(code: code);
+
+  @override
+  Attendance countEarly(int countEarly) => this(countEarly: countEarly);
+
+  @override
+  Attendance countLate(int countLate) => this(countLate: countLate);
+
+  @override
+  Attendance holidayRate(double holidayRate) => this(holidayRate: holidayRate);
+
+  @override
+  Attendance leaveRate(double leaveRate) => this(leaveRate: leaveRate);
+
+  @override
+  Attendance name(String? name) => this(name: name);
+
+  @override
+  Attendance noSalaryRate(double noSalaryRate) =>
+      this(noSalaryRate: noSalaryRate);
+
+  @override
+  Attendance overTime(int overTime) => this(overTime: overTime);
+
+  @override
+  Attendance overTimeDay(EnumOvertimeDay? overTimeDay) =>
+      this(overTimeDay: overTimeDay);
+
+  @override
+  Attendance overTimeRate(int overTimeRate) => this(overTimeRate: overTimeRate);
+
+  @override
+  Attendance realRate(double realRate) => this(realRate: realRate);
+
+  @override
+  Attendance salaryWork(double salaryWork) => this(salaryWork: salaryWork);
+
+  @override
+  Attendance timeEarly(int timeEarly) => this(timeEarly: timeEarly);
+
+  @override
+  Attendance timeLate(int timeLate) => this(timeLate: timeLate);
+
+  @override
+  Attendance userId(String? userId) => this(userId: userId);
+
+  @override
+  Attendance userWorkingHistories(
+          List<UserWorkingHistoryModel> userWorkingHistories) =>
+      this(userWorkingHistories: userWorkingHistories);
+
+  @override
+  Attendance workTimeActual(int workTimeActual) =>
+      this(workTimeActual: workTimeActual);
+
+  @override
+  Attendance workTimeReal(int workTimeReal) => this(workTimeReal: workTimeReal);
+
+  @override
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Attendance(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// Attendance(...).copyWith(id: 12, name: "My name")
+  /// ````
+  Attendance call({
+    Object? actualRate = const $CopyWithPlaceholder(),
+    Object? code = const $CopyWithPlaceholder(),
+    Object? countEarly = const $CopyWithPlaceholder(),
+    Object? countLate = const $CopyWithPlaceholder(),
+    Object? holidayRate = const $CopyWithPlaceholder(),
+    Object? leaveRate = const $CopyWithPlaceholder(),
+    Object? name = const $CopyWithPlaceholder(),
+    Object? noSalaryRate = const $CopyWithPlaceholder(),
+    Object? overTime = const $CopyWithPlaceholder(),
+    Object? overTimeDay = const $CopyWithPlaceholder(),
+    Object? overTimeRate = const $CopyWithPlaceholder(),
+    Object? realRate = const $CopyWithPlaceholder(),
+    Object? salaryWork = const $CopyWithPlaceholder(),
+    Object? timeEarly = const $CopyWithPlaceholder(),
+    Object? timeLate = const $CopyWithPlaceholder(),
+    Object? userId = const $CopyWithPlaceholder(),
+    Object? userWorkingHistories = const $CopyWithPlaceholder(),
+    Object? workTimeActual = const $CopyWithPlaceholder(),
+    Object? workTimeReal = const $CopyWithPlaceholder(),
+  }) {
+    return Attendance(
+      actualRate:
+          actualRate == const $CopyWithPlaceholder() || actualRate == null
+              ? _value.actualRate
+              // ignore: cast_nullable_to_non_nullable
+              : actualRate as double,
+      code: code == const $CopyWithPlaceholder()
+          ? _value.code
+          // ignore: cast_nullable_to_non_nullable
+          : code as String?,
+      countEarly:
+          countEarly == const $CopyWithPlaceholder() || countEarly == null
+              ? _value.countEarly
+              // ignore: cast_nullable_to_non_nullable
+              : countEarly as int,
+      countLate: countLate == const $CopyWithPlaceholder() || countLate == null
+          ? _value.countLate
+          // ignore: cast_nullable_to_non_nullable
+          : countLate as int,
+      holidayRate:
+          holidayRate == const $CopyWithPlaceholder() || holidayRate == null
+              ? _value.holidayRate
+              // ignore: cast_nullable_to_non_nullable
+              : holidayRate as double,
+      leaveRate: leaveRate == const $CopyWithPlaceholder() || leaveRate == null
+          ? _value.leaveRate
+          // ignore: cast_nullable_to_non_nullable
+          : leaveRate as double,
+      name: name == const $CopyWithPlaceholder()
+          ? _value.name
+          // ignore: cast_nullable_to_non_nullable
+          : name as String?,
+      noSalaryRate:
+          noSalaryRate == const $CopyWithPlaceholder() || noSalaryRate == null
+              ? _value.noSalaryRate
+              // ignore: cast_nullable_to_non_nullable
+              : noSalaryRate as double,
+      overTime: overTime == const $CopyWithPlaceholder() || overTime == null
+          ? _value.overTime
+          // ignore: cast_nullable_to_non_nullable
+          : overTime as int,
+      overTimeDay: overTimeDay == const $CopyWithPlaceholder()
+          ? _value.overTimeDay
+          // ignore: cast_nullable_to_non_nullable
+          : overTimeDay as EnumOvertimeDay?,
+      overTimeRate:
+          overTimeRate == const $CopyWithPlaceholder() || overTimeRate == null
+              ? _value.overTimeRate
+              // ignore: cast_nullable_to_non_nullable
+              : overTimeRate as int,
+      realRate: realRate == const $CopyWithPlaceholder() || realRate == null
+          ? _value.realRate
+          // ignore: cast_nullable_to_non_nullable
+          : realRate as double,
+      salaryWork:
+          salaryWork == const $CopyWithPlaceholder() || salaryWork == null
+              ? _value.salaryWork
+              // ignore: cast_nullable_to_non_nullable
+              : salaryWork as double,
+      timeEarly: timeEarly == const $CopyWithPlaceholder() || timeEarly == null
+          ? _value.timeEarly
+          // ignore: cast_nullable_to_non_nullable
+          : timeEarly as int,
+      timeLate: timeLate == const $CopyWithPlaceholder() || timeLate == null
+          ? _value.timeLate
+          // ignore: cast_nullable_to_non_nullable
+          : timeLate as int,
+      userId: userId == const $CopyWithPlaceholder()
+          ? _value.userId
+          // ignore: cast_nullable_to_non_nullable
+          : userId as String?,
+      userWorkingHistories:
+          userWorkingHistories == const $CopyWithPlaceholder() ||
+                  userWorkingHistories == null
+              ? _value.userWorkingHistories
+              // ignore: cast_nullable_to_non_nullable
+              : userWorkingHistories as List<UserWorkingHistoryModel>,
+      workTimeActual: workTimeActual == const $CopyWithPlaceholder() ||
+              workTimeActual == null
+          ? _value.workTimeActual
+          // ignore: cast_nullable_to_non_nullable
+          : workTimeActual as int,
+      workTimeReal:
+          workTimeReal == const $CopyWithPlaceholder() || workTimeReal == null
+              ? _value.workTimeReal
+              // ignore: cast_nullable_to_non_nullable
+              : workTimeReal as int,
+    );
+  }
+}
+
+extension $AttendanceCopyWith on Attendance {
+  /// Returns a callable class that can be used as follows: `instanceOfAttendance.copyWith(...)` or like so:`instanceOfAttendance.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
+  _$AttendanceCWProxy get copyWith => _$AttendanceCWProxyImpl(this);
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
 Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
-      attendanceDate: json['attendanceDate'] as String,
-      checkIn: json['checkIn'] as String?,
-      checkOut: json['checkOut'] as String?,
-      note: json['note'] as String?,
+      workTimeReal: json['workTimeReal'] as int? ?? 0,
+      workTimeActual: json['workTimeActual'] as int? ?? 0,
+      overTime: json['overTime'] as int? ?? 0,
+      realRate: (json['realRate'] as num?)?.toDouble() ?? 0,
+      overTimeRate: json['overTimeRate'] as int? ?? 0,
+      overTimeDay:
+          $enumDecodeNullable(_$EnumOvertimeDayEnumMap, json['overTimeDay']),
+      noSalaryRate: (json['noSalaryRate'] as num?)?.toDouble() ?? 0,
+      leaveRate: (json['leaveRate'] as num?)?.toDouble() ?? 0,
+      holidayRate: (json['holidayRate'] as num?)?.toDouble() ?? 0,
+      actualRate: (json['actualRate'] as num?)?.toDouble() ?? 0,
+      userId: json['userId'] as String?,
+      timeLate: json['timeLate'] as int? ?? 0,
+      salaryWork: (json['salaryWork'] as num?)?.toDouble() ?? 0,
+      name: json['name'] as String?,
+      code: json['code'] as String?,
+      countEarly: json['countEarly'] as int? ?? 0,
+      countLate: json['countLate'] as int? ?? 0,
+      timeEarly: json['timeEarly'] as int? ?? 0,
+      userWorkingHistories: (json['userWorkingHistories'] as List<dynamic>?)
+              ?.map((e) =>
+                  UserWorkingHistoryModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
-  final val = <String, dynamic>{
-    'attendanceDate': instance.attendanceDate,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -24,8 +309,32 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
     }
   }
 
-  writeNotNull('checkIn', instance.checkIn);
-  writeNotNull('checkOut', instance.checkOut);
-  writeNotNull('note', instance.note);
+  writeNotNull('name', instance.name);
+  writeNotNull('code', instance.code);
+  writeNotNull('userId', instance.userId);
+  val['actualRate'] = instance.actualRate;
+  val['leaveRate'] = instance.leaveRate;
+  val['holidayRate'] = instance.holidayRate;
+  val['noSalaryRate'] = instance.noSalaryRate;
+  val['overTime'] = instance.overTime;
+  val['overTimeRate'] = instance.overTimeRate;
+  writeNotNull('overTimeDay', _$EnumOvertimeDayEnumMap[instance.overTimeDay]);
+  val['workTimeReal'] = instance.workTimeReal;
+  val['workTimeActual'] = instance.workTimeActual;
+  val['timeEarly'] = instance.timeEarly;
+  val['timeLate'] = instance.timeLate;
+  val['countEarly'] = instance.countEarly;
+  val['countLate'] = instance.countLate;
+  val['salaryWork'] = instance.salaryWork;
+  val['realRate'] = instance.realRate;
+  val['userWorkingHistories'] = instance.userWorkingHistories;
   return val;
 }
+
+const _$EnumOvertimeDayEnumMap = {
+  EnumOvertimeDay.holiday: 'Holiday',
+  EnumOvertimeDay.noShiftsWork: 'NoShiftsWork',
+  EnumOvertimeDay.saturday: 'Saturday',
+  EnumOvertimeDay.sunday: 'Sunday',
+  EnumOvertimeDay.regularDay: 'RegularDay',
+};

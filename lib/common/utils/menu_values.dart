@@ -5,7 +5,7 @@ import 'package:base_app/presentations/widgets/admin/check_in_setting/check_in_s
 import 'package:base_app/presentations/widgets/admin/department/department.widget.dart';
 import 'package:base_app/presentations/widgets/admin/personnel/personnel.widget.dart';
 import 'package:base_app/presentations/widgets/admin/position/position.widget.dart';
-import 'package:base_app/presentations/widgets/attendance/timekeeping.dart';
+import 'package:base_app/presentations/widgets/attendance/calendar/timekeeping.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
 import 'package:base_app/presentations/widgets/home/home.widget.dart';
 import 'package:base_app/presentations/widgets/profile/profile.widget.dart';
@@ -14,7 +14,7 @@ import 'package:base_app/presentations/widgets/trash_app/create_note/create_note
 import 'package:base_app/presentations/widgets/trash_app/delete_account/delete_account.dart';
 import 'package:flutter/material.dart';
 
-import '../../presentations/widgets/attendance/layout_calendar.dart';
+import '../../presentations/widgets/attendance/calendar/layout_calendar.dart';
 
 class MenuValues {
   static List<Map<String, dynamic>> menuValues(BuildContext context) {
@@ -134,6 +134,7 @@ class MenuValues {
     ActivateWidget(),
     HomeWidget(),
     ProfileWidget(),
+
   ];
 
   static const List<Widget> widgetOptionsUserSystem = <Widget>[

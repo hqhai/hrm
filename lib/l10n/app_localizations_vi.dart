@@ -515,10 +515,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get formOfTimekeeping => 'Hình thức châm công';
 
   @override
-  String get checkIn => 'Check in';
+  String get checkIn => 'Chấm công vào';
 
   @override
-  String get checkOut => 'Check out';
+  String get checkOut => 'Chấm công ra';
 
   @override
   String get history => 'Lịch sử';
@@ -575,7 +575,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get validateToolLocation => 'Xác thực vị trí chấm công';
 
   @override
-  String get step => 'Bước 1/1';
+  String get step => 'Bước';
 
   @override
   String get singleWordList => 'Danh sách đơn từ';
@@ -956,7 +956,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get scheduled => 'Giao hàng theo lịch hẹn';
 
   @override
-  String get core => 'Chính';
+  String get core => 'Core';
 
   @override
   String get noBrowsingFlowYet => 'Chưa có luồng duyệt';
@@ -1118,7 +1118,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get youEarly => 'Về sớm';
 
   @override
-  String get youLater => 'Đến muộn';
+  String get youLater => 'Đi muộn';
 
   @override
   String get timeKeepingList => 'Danh sách thời gian';
@@ -1203,4 +1203,166 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get doYouWantRevokeYourRequest => 'Bạn có muốn vô hiệu hóa đơn từ này không?';
+
+  @override
+  String get start => 'Bắt đầu';
+
+  @override
+  String get end => 'Kết thúc';
+
+  @override
+  String get flow => 'Luồng duyệt';
+
+  @override
+  String get trackFlowProgres => 'Tiến trình duyệt';
+
+  @override
+  String get worksheet => 'Bảng công';
+
+  @override
+  String get actualWork => 'Công thực tế';
+
+  @override
+  String get leaveWork => 'Công nghỉ';
+
+  @override
+  String get holidayWork => 'Công nghỉ lễ';
+
+  @override
+  String get noSalaryWork => 'Công không lương';
+
+  @override
+  String get workTime => 'Số giờ làm việc';
+
+  @override
+  String get timeEarly => 'Thời gian về sớm';
+
+  @override
+  String get timeLate => 'Thời gian đi muộn';
+
+  @override
+  String get salaryWork => 'Công tính lương';
+
+  @override
+  String get realWork => 'Công chuẩn';
+
+  @override
+  String get seeDetails => 'Xem chi tiết';
+
+  @override
+  String get onTime => 'Đúng giờ';
+
+  @override
+  String get forgotChecking => 'Quên chấm công';
+
+  @override
+  String get offWork => 'Không có ca làm';
+
+  @override
+  String get isRequest => 'Có đơn từ';
+
+  @override
+  String get holiday => 'Nghỉ lễ';
+
+  @override
+  String get noAttendance => 'Không yêu cầu chấm công';
+
+  @override
+  String get offSet => 'Làm bù';
+
+  @override
+  String get timeWork => 'Số giờ làm việc';
+
+  @override
+  String get detailWork => 'Công chi tiết';
+
+  @override
+  String get summary => 'Công tổng hợp';
+
+  @override
+  String get year => 'Năm';
+
+  @override
+  String get request => 'Đơn từ';
+
+  @override
+  String get shift => 'Ca công';
+
+  @override
+  String get workInDay => 'Công ghi nhận trong ngày';
+
+  @override
+  String get minutesToLate => 'Số phút đi muộn';
+
+  @override
+  String get minutesToEarly => 'Số phu về sớm';
+
+  @override
+  String get totalOTHours => 'Tổng số giờ OT';
+
+  @override
+  String get typeOfShift => 'Loại ca làm việc';
+
+  @override
+  String get oTCoefficient => 'Hệ số OT';
+
+  @override
+  String get dateType => 'Loại ngày';
+
+  @override
+  String get ot => 'Làm thêm giờ';
+
+  @override
+  String get totalLeaveWork => 'Tổng số công nghỉ';
+
+  @override
+  String get noShiftsWork => 'Không có ca làm việc';
+
+  @override
+  String get regularDay => 'Ngày thường';
+
+  @override
+  String get timeFrameOT => 'Khung giờ OT';
+
+  @override
+  String get timeFrame => 'khung thời gian';
+
+  @override
+  String get numberOfLate => 'Số lần về sớm';
+
+  @override
+  String get numberOfEarly => 'Số lần đi muộn';
+
+  @override
+  String get workOT => 'Công tăng ca';
+
+  @override
+  String get historyTimekeeping => 'Lịch sử chấm công';
+
+  @override
+  String get totalTimeWork => 'Tổng số giờ làm việc';
+
+  @override
+  String get totalTimeWorkCompensatory => 'Tổng số giờ làm bù';
+
+  @override
+  String get monday => 'Thứ hai';
+
+  @override
+  String get tuesday => 'Thứ ba';
+
+  @override
+  String get wednesday => 'Thứ tư';
+
+  @override
+  String get thursday => 'Thứ năm';
+
+  @override
+  String get friday => 'Thứ sáu';
+
+  @override
+  String get saturday => 'Thứ bảy';
+
+  @override
+  String get sunday => 'Chủ nhật';
 }

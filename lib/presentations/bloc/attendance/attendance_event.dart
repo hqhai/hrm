@@ -18,6 +18,17 @@ class GetAttendanceEvent extends AttendanceEvent {
   List<Object> get props => [id, year, month];
 }
 
+
+class GetWorkSheetEvent extends AttendanceEvent {
+  final DateTime startTime;
+  final DateTime endTime;
+
+  const GetWorkSheetEvent({required this.startTime, required this.endTime});
+
+  @override
+  List<Object> get props => [startTime, endTime];
+}
+
 class GetAttendanceNowEvent extends AttendanceEvent {
   final String id;
   const GetAttendanceNowEvent({this.id = ''});
