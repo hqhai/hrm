@@ -124,7 +124,8 @@ import '../../presentations/bloc/user/user_by_name/user_by_name_bloc.dart'
     as _i90;
 import '../../presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart'
     as _i91;
-import '../../presentations/bloc/work_sheet/work_sheet_bloc.dart' as _i105;
+import '../../presentations/bloc/work_day/work_day_bloc.dart' as _i105;
+import '../../presentations/bloc/work_sheet/work_sheet_bloc.dart' as _i106;
 import '../routers/navigation.dart' as _i4;
 import '../routers/router.dart' as _i5;
 
@@ -228,7 +229,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i102.WorkAndSalaryServiceImpl());
     gh.lazySingleton<_i103.WorkAndSalaryUseCase>(
         () => _i104.WorkAndSalaryUseCaseImplement());
-    gh.lazySingleton<_i105.WorkSheetBloc>(() => _i105.WorkSheetBloc());
+    gh.lazySingleton<_i105.WorkDayBloc>(() => _i105.WorkDayBloc());
+    gh.lazySingleton<_i106.WorkSheetBloc>(() => _i106.WorkSheetBloc());
     return this;
   }
 }
