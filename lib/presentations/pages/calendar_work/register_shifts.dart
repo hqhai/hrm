@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -13,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:themes/themes.dart';
 
 final registerShiftsPageRoute = GoRoute(
@@ -33,15 +33,24 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   DateTime currentDateTime = DateTime.now();
   List<DateTime> listDayBottom = [];
   late RefreshController _refreshController;
-  late ItemScrollController itemScrollController;
+  late ScrollController itemScrollController;
   double scrollOffset = 0.0;
   int indexLocal = 6;
+  List<GlobalKey> keys = [];
 
   @override
   void initState() {
     listDayBottom = [...listDays()];
-    itemScrollController = ItemScrollController();
+    itemScrollController = ScrollController();
     _refreshController = RefreshController(initialRefresh: false);
+    keys = List.generate(
+      listDayBottom.length,
+      (index) => GlobalKey(
+        debugLabel: formatYMD(
+          listDayBottom[index].toString(),
+        ),
+      ),
+    );
     super.initState();
   }
 
@@ -110,10 +119,11 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                 controller: _refreshController,
                 onLoading: _onLoading,
                 onRefresh: _onRefresh,
-                child: ScrollablePositionedList.builder(
-                  itemScrollController: itemScrollController,
+                child: ListView.builder(
+                  controller: itemScrollController,
                   itemCount: listDayBottom.length,
                   itemBuilder: (context, index) => ItemDayOfList(
+                    key: keys[index],
                     dateTime: listDayBottom[index],
                   ),
                 ),
@@ -135,6 +145,14 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     setState(() {
       currentDateTime = currentDateTime.subtract(const Duration(days: 7));
       listDayBottom = [...listDays(), ...listDayBottom];
+      keys = List.generate(
+        listDayBottom.length,
+            (index) => GlobalKey(
+          debugLabel: formatYMD(
+            listDayBottom[index].toString(),
+          ),
+        ),
+      );
     });
   }
 
@@ -142,13 +160,20 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     setState(() {
       currentDateTime = currentDateTime.add(const Duration(days: 7));
       listDayBottom = [...listDayBottom, ...listDays()];
+      keys = List.generate(
+        listDayBottom.length,
+            (index) => GlobalKey(
+          debugLabel: formatYMD(
+            listDayBottom[index].toString(),
+          ),
+        ),
+      );
     });
   }
 
   void _onRefresh() async {
     setDownWeek();
     _refreshController.refreshCompleted();
-    itemScrollController.jumpTo(index: 7);
   }
 
   void _onLoading() async {
@@ -156,14 +181,11 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     _refreshController.loadComplete();
   }
 
-  void _scrollToPosition() {}
-
   onClickDay(DateTime date) {
     final index = listDayBottom.indexWhere((element) => element.isAtSameMomentAs(date));
-    itemScrollController.scrollTo(
-      index: index,
-      duration: const Duration(seconds: 1),
-      curve: Curves.easeInOutCubic,
-    );
+    index;
+    final RenderBox renderBox = keys[index].currentContext?.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero).dy;
+    itemScrollController.jumpTo(position);
   }
 }
