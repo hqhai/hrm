@@ -4,6 +4,7 @@ import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_list_schools_usecase.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/response/paging_infor_request.dart';
+import 'package:base_app/data/models/shifts/shifts_response.dart';
 import 'package:base_app/domain/entities/timekeeping/school.dart';
 import 'package:base_app/domain/repositories/location.repositories.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
@@ -61,5 +62,10 @@ class LocationUseCaseImpl extends LocationUseCase {
       pagingInfo: pagingInfoRequest
     );
     return getListSchoolsUseCase;
+  }
+
+  @override
+  Future<ShiftsResponse> getWorkDays({required DateTime startDate, required DateTime endDate}) async {
+    return await _locationRepository.getWorkDays(startDate: startDate, endDate: endDate);
   }
 }

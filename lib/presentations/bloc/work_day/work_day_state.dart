@@ -6,8 +6,8 @@ part 'work_day_state.g.dart';
 
 @CopyWith()
 class WorkDayState extends Equatable {
-  final Map<String, WorkDay> workDays;
-  final List<String> workDayIds;
+  final Map<DateTime, WorkDay> workDays;
+  final List<DateTime> workDayIds;
 
   const WorkDayState({
     this.workDays = const {},

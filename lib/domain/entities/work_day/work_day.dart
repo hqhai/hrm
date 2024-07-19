@@ -10,12 +10,12 @@ part 'work_day.g.dart';
 @CustomDateTimeConverter()
 class WorkDay {
   final String id;
-  final DateTime? date;
+  final DateTime date;
   final List<Shift> shifts;
 
   const WorkDay({
     this.id = '',
-    this.date,
+    required this.date,
     this.shifts = const [],
   });
 

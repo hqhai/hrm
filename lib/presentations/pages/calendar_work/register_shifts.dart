@@ -1,10 +1,13 @@
 import 'dart:core';
 
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
+import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
 import 'package:base_app/presentations/pages/calendar_work/item_day_of_list.dart';
 import 'package:base_app/presentations/pages/calendar_work/item_day_of_week.dart';
 import 'package:base_app/presentations/pages/calendar_work/week_on_calendar.dart';
@@ -13,6 +16,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:themes/themes.dart';
 
@@ -33,30 +37,24 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   DateTime currentDateTime = DateTime.now();
   List<DateTime> listDayBottom = [];
   late RefreshController _refreshController;
-  late ScrollController itemScrollController;
   double scrollOffset = 0.0;
   int indexLocal = 6;
-  List<GlobalKey> keys = [];
+  late ScrollController _scrollController;
+  List<double> positions = [];
 
   @override
   void initState() {
     listDayBottom = [...listDays()];
-    itemScrollController = ScrollController();
     _refreshController = RefreshController(initialRefresh: false);
-    keys = List.generate(
-      listDayBottom.length,
-      (index) => GlobalKey(
-        debugLabel: formatYMD(
-          listDayBottom[index].toString(),
-        ),
-      ),
-    );
+    _scrollController = ScrollController();
     super.initState();
   }
 
   List<DateTime> listDays() {
     int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(currentDateTime)] ?? 0;
     DateTime startOfWeek = currentDateTime.subtract(Duration(days: nowOfWeek - 1));
+    DateTime endOfWeek = startOfWeek.add(const Duration(days: 7));
+    dI<WorkDayBloc>().add(GetWorkDaysEvent(startDate: startOfWeek, endDate: endOfWeek));
     List<DateTime> daysOfWeek = [];
     for (int i = 0; i < 7; i++) {
       DateTime day = startOfWeek.add(Duration(days: i));
@@ -95,7 +93,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                     (index, element) => Expanded(
                       flex: 1,
                       child: InkWell(
-                        onTap: () => onClickDay(element),
+                        onTap: () => onClick(element),
                         child: ItemDayOfWeek(
                           index: index,
                           time: element,
@@ -109,22 +107,22 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
               child: SmartRefresher(
                 cacheExtent: 0,
                 header: CustomHeader(
-                  builder: (context, mode) => Container(),
+                  builder: (context, mode) => load(),
                 ),
                 footer: CustomFooter(
-                  builder: (context, mode) => Container(),
+                  builder: (context, mode) => load(),
                 ),
                 enablePullDown: true,
                 enablePullUp: true,
                 controller: _refreshController,
+                scrollController: _scrollController,
                 onLoading: _onLoading,
                 onRefresh: _onRefresh,
                 child: ListView.builder(
-                  controller: itemScrollController,
                   itemCount: listDayBottom.length,
                   itemBuilder: (context, index) => ItemDayOfList(
-                    key: keys[index],
                     dateTime: listDayBottom[index],
+                    type: (value) => _setPosition(value),
                   ),
                 ),
               ),
@@ -145,14 +143,6 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     setState(() {
       currentDateTime = currentDateTime.subtract(const Duration(days: 7));
       listDayBottom = [...listDays(), ...listDayBottom];
-      keys = List.generate(
-        listDayBottom.length,
-            (index) => GlobalKey(
-          debugLabel: formatYMD(
-            listDayBottom[index].toString(),
-          ),
-        ),
-      );
     });
   }
 
@@ -160,15 +150,15 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     setState(() {
       currentDateTime = currentDateTime.add(const Duration(days: 7));
       listDayBottom = [...listDayBottom, ...listDays()];
-      keys = List.generate(
-        listDayBottom.length,
-            (index) => GlobalKey(
-          debugLabel: formatYMD(
-            listDayBottom[index].toString(),
-          ),
-        ),
-      );
     });
+  }
+
+  double positionByIndex(int index) {
+    double sum = 0;
+    for (int i = 0; i < index; i++) {
+      sum += positions[i];
+    }
+    return sum;
   }
 
   void _onRefresh() async {
@@ -181,11 +171,26 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     _refreshController.loadComplete();
   }
 
-  onClickDay(DateTime date) {
+  onClick(DateTime date) {
     final index = listDayBottom.indexWhere((element) => element.isAtSameMomentAs(date));
-    index;
-    final RenderBox renderBox = keys[index].currentContext?.findRenderObject() as RenderBox;
-    final position = renderBox.localToGlobal(Offset.zero).dy;
-    itemScrollController.jumpTo(position);
+    _scrollController.animateTo(
+      positionByIndex(index),
+      duration: const Duration(seconds: 1),
+      curve: Curves.linear,
+    );
+  }
+
+  Widget load() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Lottie.asset(Assets.images.icon.loading,
+            width: SpacingUnit.x25, height: SpacingUnit.x25, fit: BoxFit.fill),
+      ],
+    );
+  }
+
+  _setPosition(double value) {
+    positions.add(value);
   }
 }

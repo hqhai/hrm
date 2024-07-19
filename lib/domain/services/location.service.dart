@@ -4,6 +4,8 @@ import 'package:base_app/data/models/location/checkin_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
+import 'package:base_app/data/models/shifts/shifts_request.dart';
+import 'package:base_app/data/models/shifts/shifts_response.dart';
 
 abstract class LocationService {
   Future<GetLocationResponse> getAddress({
@@ -14,4 +16,6 @@ abstract class LocationService {
     required CheckInRequest checkInRequest,
   });
   Future<GetListSchoolsResponse> getListSchools({required KeyPageRequest keyPageRequest});
+
+  Future<ShiftsResponse> getWorkDays({required ShiftsRequest shiftsRequest});
 }

@@ -1,6 +1,7 @@
 import 'package:base_app/data/models/location/checkin_gps_response.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
+import 'package:base_app/data/models/shifts/shifts_response.dart';
 
 abstract class LocationRepository {
   Future<GetLocationResponse> getAddress(
@@ -17,4 +18,6 @@ abstract class LocationRepository {
   });
 
   Future<GetListSchoolsResponse> getListSchools({String? keyword, int page});
+
+  Future<ShiftsResponse> getWorkDays({required DateTime startDate, required DateTime endDate});
 }

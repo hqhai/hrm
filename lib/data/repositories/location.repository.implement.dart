@@ -5,6 +5,8 @@ import 'package:base_app/data/models/location/checkin_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
+import 'package:base_app/data/models/shifts/shifts_request.dart';
+import 'package:base_app/data/models/shifts/shifts_response.dart';
 import 'package:base_app/domain/repositories/location.repositories.dart';
 import 'package:base_app/domain/services/location.service.dart';
 import 'package:injectable/injectable.dart';
@@ -54,5 +56,10 @@ class LocationRepositoryImpl extends LocationRepository {
         keyword: keyword,
       ),
     );
+  }
+
+  @override
+  Future<ShiftsResponse> getWorkDays({required DateTime startDate, required DateTime endDate}) async {
+    return await _locationService.getWorkDays(shiftsRequest: ShiftsRequest(startTime: startDate, endTime: endDate));
   }
 }
