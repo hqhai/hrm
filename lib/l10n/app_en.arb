@@ -455,5 +455,11 @@
   "sunday":"sunday",
   "calendarWork": "Calendar work",
   "shiftManagement": "Shift management",
-  "week": "Week"
+  "week": "Week",
+  "pendingCancel": "Pending cancel",
+  "remove": "Remove",
+  "usable": "Usable",
+  "unusable": "Unusable",
+  "administrativeShift": "Administrative shift",
+  "singleShift": "Single shift"
 }

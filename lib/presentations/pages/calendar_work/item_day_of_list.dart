@@ -65,7 +65,7 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
               ),
               workDay != null
                   ? Column(
-                      children: workDay.shifts
+                      children: workDay.workShifts
                           .map(
                             (e) => Container(
                               margin: const EdgeInsets.all(SpacingUnit.x2),

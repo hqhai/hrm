@@ -1203,4 +1203,31 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get doYouWantRevokeYourRequest => 'Bạn có muốn vô hiệu hóa đơn từ này không?';
+
+  @override
+  String get calendarWork => 'Lịch làm việc';
+
+  @override
+  String get shiftManagement => 'Quản lý lịch làm việc';
+
+  @override
+  String get week => 'Tuần';
+
+  @override
+  String get pendingCancel => 'Đang chờ hủy';
+
+  @override
+  String get remove => 'Dừng';
+
+  @override
+  String get usable => 'Khả dụng';
+
+  @override
+  String get unusable => 'Không khả dụng';
+
+  @override
+  String get administrativeShift => 'Ca hành chính';
+
+  @override
+  String get singleShift => 'Ca đơn';
 }

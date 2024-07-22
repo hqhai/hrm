@@ -28,7 +28,7 @@ class WeekOnCalendar extends StatelessWidget {
             width: SpacingUnit.x1,
           ),
           Text(
-            '${appLocalizations.week} ${weekOfMonth()}',
+            '${appLocalizations.week} ${weekOfYear()}',
             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
           ),
           const SizedBox(
@@ -63,13 +63,15 @@ class WeekOnCalendar extends StatelessWidget {
     );
   }
 
-  int weekOfMonth() {
-    final DateTime firstDayOfMonth = DateTime(currentDateTime.year, currentDateTime.month, 1);
-    final int daysSinceFirstDay = currentDateTime.difference(firstDayOfMonth).inDays;
-    int weekOfMonth = (daysSinceFirstDay / 7).ceil();
-    if (currentDateTime.day == 1) {
-      weekOfMonth++;
+  int weekOfYear() {
+    final startOfYear = DateTime(currentDateTime.year, 1, 1);
+    final firstMonday = startOfYear.weekday;
+    final daysInFirstWeek = 8 - firstMonday;
+    final diff = currentDateTime.difference(startOfYear);
+    var weekNumber = ((diff.inDays - daysInFirstWeek) / 7).ceil();
+    if(daysInFirstWeek > 3) {
+      weekNumber ++;
     }
-    return weekOfMonth;
+    return weekNumber;
   }
 }

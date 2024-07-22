@@ -52,4 +52,7 @@ class PathConfig {
   static String userLeave = '/user-leave-history/user-total';
   static String userLeaveHistory = '/user-leave-history/get-user-leave-history';
 
+  //workDate
+static String getWorkShifts = '/workshift-request/get-workshift-requests';
+
 }

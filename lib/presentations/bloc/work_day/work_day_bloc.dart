@@ -24,21 +24,24 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
       final shiftsResponse =
           await _locationUseCase.getWorkDays(startDate: event.startDate, endDate: event.endDate);
       final List<WorkDay> workDays = shiftsResponse.items;
-      final List<DateTime> workDayId = workDays.map((e) => e.date).toList();
+      final List<DateTime> workDayId =
+          workDays.map((e) => id(e.workDate ?? DateTime.now())).toList();
       final Map<DateTime, WorkDay> mapWorkDays = Map.fromEntries(
         workDays.map(
           (item) => MapEntry(
-            item.date,
+            id(item.workDate ?? DateTime.now()),
             item,
           ),
         ),
       );
-      emit(
-        state.copyWith(workDays: mapWorkDays, workDayIds: workDayId),
-      );
+      emit(state.copyWith(workDays: mapWorkDays, workDayIds: workDayId));
       event.completer?.complete(true);
     } catch (e) {
       event.completer?.complete(false);
     }
+  }
+
+  DateTime id(DateTime time) {
+    return DateTime(time.year, time.month, time.day);
   }
 }

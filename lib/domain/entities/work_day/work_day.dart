@@ -1,5 +1,7 @@
+import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
+import 'package:base_app/domain/entities/work_day/work_shift_approve.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -10,13 +12,25 @@ part 'work_day.g.dart';
 @CustomDateTimeConverter()
 class WorkDay {
   final String id;
-  final DateTime date;
-  final List<Shift> shifts;
+  final WorkShiftRequestStatus status;
+  final DateTime? workDate;
+  final List<WorkShiftApprove> workShiftApproves;
+  final WorkShiftApprove workShiftApprove;
+  final String createdUserId;
+  final String createdFullName;
+  final DateTime? createdDate;
+  final List<Shift> workShifts;
 
   const WorkDay({
     this.id = '',
-    required this.date,
-    this.shifts = const [],
+    this.createdFullName = '',
+    this.createdUserId = '',
+    this.status = WorkShiftRequestStatus.pending,
+    this.createdDate,
+    this.workShifts = const [],
+    this.workDate,
+    this.workShiftApprove = const WorkShiftApprove(),
+    this.workShiftApproves = const [],
   });
 
   factory WorkDay.fromJson(Map<String, dynamic> json) => _$WorkDayFromJson(json);

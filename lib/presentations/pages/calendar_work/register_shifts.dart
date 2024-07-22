@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:themes/themes.dart';
 
 final registerShiftsPageRoute = GoRoute(
@@ -36,7 +35,6 @@ class RegisterShiftsPage extends StatefulWidget {
 class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   DateTime currentDateTime = DateTime.now();
   List<DateTime> listDayBottom = [];
-  late RefreshController _refreshController;
   double scrollOffset = 0.0;
   int indexLocal = 6;
   late ScrollController _scrollController;
@@ -45,15 +43,14 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   @override
   void initState() {
     listDayBottom = [...listDays()];
-    _refreshController = RefreshController(initialRefresh: false);
     _scrollController = ScrollController();
     super.initState();
   }
 
   List<DateTime> listDays() {
-    int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(currentDateTime)] ?? 0;
-    DateTime startOfWeek = currentDateTime.subtract(Duration(days: nowOfWeek - 1));
-    DateTime endOfWeek = startOfWeek.add(const Duration(days: 7));
+    final int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(currentDateTime)] ?? 0;
+    final DateTime startOfWeek = currentDateTime.subtract(Duration(days: nowOfWeek - 1));
+    final DateTime endOfWeek = startOfWeek.add(const Duration(days: 7));
     dI<WorkDayBloc>().add(GetWorkDaysEvent(startDate: startOfWeek, endDate: endOfWeek));
     List<DateTime> daysOfWeek = [];
     for (int i = 0; i < 7; i++) {
@@ -104,26 +101,12 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                   .toList(),
             ),
             Expanded(
-              child: SmartRefresher(
-                cacheExtent: 0,
-                header: CustomHeader(
-                  builder: (context, mode) => load(),
-                ),
-                footer: CustomFooter(
-                  builder: (context, mode) => load(),
-                ),
-                enablePullDown: true,
-                enablePullUp: true,
-                controller: _refreshController,
-                scrollController: _scrollController,
-                onLoading: _onLoading,
-                onRefresh: _onRefresh,
-                child: ListView.builder(
-                  itemCount: listDayBottom.length,
-                  itemBuilder: (context, index) => ItemDayOfList(
-                    dateTime: listDayBottom[index],
-                    type: (value) => _setPosition(value),
-                  ),
+              child: ListView.builder(
+                controller: _scrollController,
+                itemCount: listDayBottom.length,
+                itemBuilder: (context, index) => ItemDayOfList(
+                  dateTime: listDayBottom[index],
+                  type: (value) => _setPosition(value),
                 ),
               ),
             ),
@@ -135,21 +118,21 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
 
   @override
   void dispose() {
-    _refreshController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
   setDownWeek() {
     setState(() {
       currentDateTime = currentDateTime.subtract(const Duration(days: 7));
-      listDayBottom = [...listDays(), ...listDayBottom];
+      listDayBottom = [...listDays(),];
     });
   }
 
   setUpWeek() {
     setState(() {
       currentDateTime = currentDateTime.add(const Duration(days: 7));
-      listDayBottom = [...listDayBottom, ...listDays()];
+      listDayBottom = [...listDays()];
     });
   }
 
@@ -161,21 +144,11 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     return sum;
   }
 
-  void _onRefresh() async {
-    setDownWeek();
-    _refreshController.refreshCompleted();
-  }
-
-  void _onLoading() async {
-    setUpWeek();
-    _refreshController.loadComplete();
-  }
-
   onClick(DateTime date) {
     final index = listDayBottom.indexWhere((element) => element.isAtSameMomentAs(date));
     _scrollController.animateTo(
       positionByIndex(index),
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 300,),
       curve: Curves.linear,
     );
   }

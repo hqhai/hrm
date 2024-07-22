@@ -2492,6 +2492,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want revoke your request?'**
   String get doYouWantRevokeYourRequest;
+
+  /// No description provided for @calendarWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar work'**
+  String get calendarWork;
+
+  /// No description provided for @shiftManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift management'**
+  String get shiftManagement;
+
+  /// No description provided for @week.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get week;
+
+  /// No description provided for @pendingCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending cancel'**
+  String get pendingCancel;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @usable.
+  ///
+  /// In en, this message translates to:
+  /// **'Usable'**
+  String get usable;
+
+  /// No description provided for @unusable.
+  ///
+  /// In en, this message translates to:
+  /// **'Unusable'**
+  String get unusable;
+
+  /// No description provided for @administrativeShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrative shift'**
+  String get administrativeShift;
+
+  /// No description provided for @singleShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Single shift'**
+  String get singleShift;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

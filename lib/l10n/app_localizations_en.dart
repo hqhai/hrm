@@ -1203,4 +1203,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get doYouWantRevokeYourRequest => 'Do you want revoke your request?';
+
+  @override
+  String get calendarWork => 'Calendar work';
+
+  @override
+  String get shiftManagement => 'Shift management';
+
+  @override
+  String get week => 'Week';
+
+  @override
+  String get pendingCancel => 'Pending cancel';
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String get usable => 'Usable';
+
+  @override
+  String get unusable => 'Unusable';
+
+  @override
+  String get administrativeShift => 'Administrative shift';
+
+  @override
+  String get singleShift => 'Single shift';
 }
