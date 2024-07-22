@@ -39,19 +39,22 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   int indexLocal = 6;
   late ScrollController _scrollController;
   List<double> positions = [];
+  late DateTime startOfWeek, endOfWeek;
 
   @override
   void initState() {
     listDayBottom = [...listDays()];
+    dI<WorkDayBloc>().add(GetWorkDaysEvent(startDate: startOfWeek, endDate: endOfWeek));
     _scrollController = ScrollController();
     super.initState();
   }
 
   List<DateTime> listDays() {
     final int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(currentDateTime)] ?? 0;
-    final DateTime startOfWeek = currentDateTime.subtract(Duration(days: nowOfWeek - 1));
-    final DateTime endOfWeek = startOfWeek.add(const Duration(days: 7));
-    dI<WorkDayBloc>().add(GetWorkDaysEvent(startDate: startOfWeek, endDate: endOfWeek));
+    setState(() {
+      startOfWeek = currentDateTime.subtract(Duration(days: nowOfWeek - 1));
+      endOfWeek = startOfWeek.add(const Duration(days: 7));
+    });
     List<DateTime> daysOfWeek = [];
     for (int i = 0; i < 7; i++) {
       DateTime day = startOfWeek.add(Duration(days: i));
@@ -64,6 +67,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -74,44 +78,66 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
           ),
         ),
       ),
-      body: ContainerScreenMain(
-        padding: 0,
-        margin: 0,
-        child: Column(
-          children: [
-            WeekOnCalendar(
-              currentDateTime: currentDateTime,
-              downWeek: () => setDownWeek(),
-              upWeek: () => setUpWeek(),
-            ),
-            Row(
-              children: listDays()
-                  .mapIndexed(
-                    (index, element) => Expanded(
-                      flex: 1,
-                      child: InkWell(
-                        onTap: () => onClick(element),
-                        child: ItemDayOfWeek(
-                          index: index,
-                          time: element,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-            Expanded(
-              child: ListView.builder(
-                controller: _scrollController,
-                itemCount: listDayBottom.length,
-                itemBuilder: (context, index) => ItemDayOfList(
-                  dateTime: listDayBottom[index],
-                  type: (value) => _setPosition(value),
+      body: Stack(
+        children: [
+          ContainerScreenMain(
+            padding: 0,
+            margin: 0,
+            child: Column(
+              children: [
+                WeekOnCalendar(
+                  currentDateTime: currentDateTime,
+                  downWeek: () => setDownWeek(),
+                  upWeek: () => setUpWeek(),
                 ),
+                SizedBox(
+                  width: width,
+                  child: Row(
+                    children: listDays()
+                        .mapIndexed(
+                          (index, element) => Expanded(
+                            child: InkWell(
+                              onTap: () => onClick(element),
+                              child: ItemDayOfWeek(
+                                index: index,
+                                time: element,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: listDayBottom.length,
+                    itemBuilder: (context, index) => ItemDayOfList(
+                      dateTime: listDayBottom[index],
+                      type: (value) => _setPosition(value),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            right: SpacingUnit.x3,
+            bottom: SpacingUnit.x6,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(SpacingUnit.x13),
+                color: colors.blue,
+                border: Border.all(color: colors.blue, width: 1),
+              ),
+              child: Icon(
+                Icons.add,
+                color: colors.text,
+                size: SpacingUnit.x10,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -125,7 +151,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   setDownWeek() {
     setState(() {
       currentDateTime = currentDateTime.subtract(const Duration(days: 7));
-      listDayBottom = [...listDays(),];
+      listDayBottom = [
+        ...listDays(),
+      ];
     });
   }
 
@@ -148,7 +176,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     final index = listDayBottom.indexWhere((element) => element.isAtSameMomentAs(date));
     _scrollController.animateTo(
       positionByIndex(index),
-      duration: const Duration(milliseconds: 300,),
+      duration: const Duration(
+        milliseconds: 300,
+      ),
       curve: Curves.linear,
     );
   }

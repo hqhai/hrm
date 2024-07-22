@@ -11,6 +11,7 @@ import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
+import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/domain/services/location.service.dart';
 import 'package:injectable/injectable.dart';
 
@@ -64,7 +65,8 @@ class LocationServiceImpl extends BaseService implements LocationService {
     final response = await client.post(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    final ShiftsResponse shiftsResponse = ShiftsResponse.fromJson(data);
+    final list = (data as List<dynamic>).map((e) => WorkDay.fromJson(e)).toList();
+    final ShiftsResponse shiftsResponse = ShiftsResponse(items: list);
     return shiftsResponse;
   }
 }

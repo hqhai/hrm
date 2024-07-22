@@ -15,18 +15,25 @@ class ItemDayOfWeek extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
       borderColors: colors.surface,
+      padding: SpacingUnit.x1_5,
+      margin: 0,
       backgroundColors: check() ? colors.surfaceVariant : colors.surface,
-      child: Column(
-        children: [
-          Text(
-            mapNameInWeek[index + 1] ?? "",
-            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-          ),
-          Text(
-            time.day.toString(),
-            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-          ),
-        ],
+      child: SizedBox(
+        child: Column(
+          children: [
+            Text(
+              mapNameInWeek[index + 1] ?? "",
+              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+            ),
+            const SizedBox(
+              height: SpacingUnit.x1,
+            ),
+            Text(
+              time.day.toString(),
+              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
+            ),
+          ],
+        ),
       ),
     );
   }

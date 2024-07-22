@@ -38,25 +38,21 @@ class WeekOnCalendar extends StatelessWidget {
             '${appLocalizations.month} ${currentDateTime.month}',
             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
           ),
-          Column(
-            children: [
-              InkWell(
-                onTap: () => upWeek.call(),
-                child: Icon(
-                  Icons.arrow_drop_up_sharp,
-                  size: SpacingUnit.x5,
-                  color: colors.text,
-                ),
-              ),
-              InkWell(
-                onTap: () => downWeek.call(),
-                child: Icon(
-                  Icons.arrow_drop_down_sharp,
-                  size: SpacingUnit.x5,
-                  color: colors.text,
-                ),
-              ),
-            ],
+          InkWell(
+            onTap: () => upWeek.call(),
+            child: Icon(
+              Icons.arrow_drop_up_sharp,
+              size: SpacingUnit.x10,
+              color: colors.outline,
+            ),
+          ),
+          InkWell(
+            onTap: () => downWeek.call(),
+            child: Icon(
+              Icons.arrow_drop_down_sharp,
+              size: SpacingUnit.x10,
+              color: colors.outline,
+            ),
           ),
         ],
       ),
