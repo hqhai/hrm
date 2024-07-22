@@ -68,4 +68,5 @@ class PathConfig {
       '/workshift-setting/get-elective-shift';
   static String workshiftRequest = '/workshift-request';
   static String workshiftSettingGetUser = '/workshift-setting/get-user';
+
 }

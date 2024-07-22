@@ -478,5 +478,14 @@
   "socialInsuranceLeave": "Social Insurance Leave",
   "leaveHalfDayToOneDay": "leave Half Day To One Day",
   "leaveTwoDayToFourDay": "leave Two Day To Four Day",
-  "leaveFiveDaysOrMore": "leave Five Days Or More"
+  "leaveFiveDaysOrMore": "leave Five Days Or More",
+  "calendarWork": "Calendar work",
+  "shiftManagement": "Shift management",
+  "week": "Week",
+  "pendingCancel": "Pending cancel",
+  "remove": "Remove",
+  "usable": "Usable",
+  "unusable": "Unusable",
+  "administrativeShift": "Administrative shift",
+  "singleShift": "Single shift"
 }

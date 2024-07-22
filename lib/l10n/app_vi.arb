@@ -480,5 +480,15 @@
   "socialInsuranceLeave": "BHXH chi trả",
   "leaveHalfDayToOneDay": "Nghỉ 0,5 đến 1 ngày",
   "leaveTwoDayToFourDay": "Nghỉ 2 đến 4 ngày",
-  "leaveFiveDaysOrMore": "Nghỉ 5 ngày trở lên"
+  "leaveFiveDaysOrMore": "Nghỉ 5 ngày trở lên",
+  "calendarWork": "Lịch làm việc",
+  "shiftManagement": "Quản lý lịch làm việc",
+  "week": "Tuần",
+  "pendingCancel": "Đang chờ hủy",
+  "remove": "Dừng",
+  "usable": "Khả dụng",
+  "unusable": "Không khả dụng",
+  "administrativeShift": "Ca hành chính",
+  "singleShift": "Ca đơn"
+
 }
