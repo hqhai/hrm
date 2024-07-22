@@ -1230,4 +1230,166 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get singleShift => 'Single shift';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get end => 'End';
+
+  @override
+  String get flow => 'Flow';
+
+  @override
+  String get trackFlowProgres => 'Track flow progress';
+
+  @override
+  String get worksheet => 'Worksheet';
+
+  @override
+  String get actualWork => 'Actual work';
+
+  @override
+  String get leaveWork => 'Leave work';
+
+  @override
+  String get holidayWork => 'Holiday Work';
+
+  @override
+  String get noSalaryWork => 'No Salary Work';
+
+  @override
+  String get workTime => 'Work Time';
+
+  @override
+  String get timeEarly => 'Time Early';
+
+  @override
+  String get timeLate => 'Time Late';
+
+  @override
+  String get salaryWork => 'Salary Work';
+
+  @override
+  String get realWork => 'Real Work';
+
+  @override
+  String get seeDetails => 'See details';
+
+  @override
+  String get onTime => 'On time';
+
+  @override
+  String get forgotChecking => 'Forgot checking';
+
+  @override
+  String get offWork => 'Off work';
+
+  @override
+  String get isRequest => 'Is request';
+
+  @override
+  String get holiday => 'Holiday';
+
+  @override
+  String get noAttendance => 'No attendance';
+
+  @override
+  String get offSet => 'Off set';
+
+  @override
+  String get timeWork => 'Time work';
+
+  @override
+  String get detailWork => 'Detail work';
+
+  @override
+  String get summary => 'Summary';
+
+  @override
+  String get year => 'Year';
+
+  @override
+  String get request => 'Request';
+
+  @override
+  String get shift => 'Shift';
+
+  @override
+  String get workInDay => 'Work in day';
+
+  @override
+  String get minutesToLate => 'Minutes to late';
+
+  @override
+  String get minutesToEarly => 'Minutes to early';
+
+  @override
+  String get totalOTHours => 'Total OT hours';
+
+  @override
+  String get typeOfShift => 'Type of shift';
+
+  @override
+  String get oTCoefficient => 'OT coefficient';
+
+  @override
+  String get dateType => 'Date type';
+
+  @override
+  String get ot => 'OverTime';
+
+  @override
+  String get totalLeaveWork => 'Total leave work';
+
+  @override
+  String get noShiftsWork => 'No shifts work';
+
+  @override
+  String get regularDay => 'Regular day';
+
+  @override
+  String get timeFrameOT => 'Time frame OT';
+
+  @override
+  String get timeFrame => 'Time frame';
+
+  @override
+  String get numberOfLate => 'Number Of Late';
+
+  @override
+  String get numberOfEarly => 'Number Of Early';
+
+  @override
+  String get workOT => 'Overtime work';
+
+  @override
+  String get historyTimekeeping => 'History timekeeping';
+
+  @override
+  String get totalTimeWork => 'Total Time Work';
+
+  @override
+  String get totalTimeWorkCompensatory => 'Total number of compensatory hours';
+
+  @override
+  String get monday => 'monday';
+
+  @override
+  String get tuesday => 'tuesday';
+
+  @override
+  String get wednesday => 'wednesday';
+
+  @override
+  String get thursday => 'thursday';
+
+  @override
+  String get friday => 'friday';
+
+  @override
+  String get saturday => 'saturday';
+
+  @override
+  String get sunday => 'sunday';
 }
