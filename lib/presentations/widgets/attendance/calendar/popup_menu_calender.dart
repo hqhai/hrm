@@ -79,7 +79,7 @@ class PopUpMenuWorkSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return GestureDetector(
+    return InkWell(
         onTap: () => callBack.call(),
         child: Row(
           children: [
