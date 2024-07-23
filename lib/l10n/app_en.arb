@@ -462,6 +462,8 @@
   "leaveHalfDayToOneDay": "leave Half Day To One Day",
   "leaveTwoDayToFourDay": "leave Two Day To Four Day",
   "leaveFiveDaysOrMore": "leave Five Days Or More",
+  "lateOrEarly": "Late/Early",
+  "timekeepingError": "Timekeeping error",
   "calendarWork": "Calendar work",
   "shiftManagement": "Shift management",
   "week": "Week",
