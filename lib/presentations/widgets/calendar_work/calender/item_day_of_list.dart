@@ -19,8 +19,10 @@ class ItemDayOfList extends StatefulWidget {
 }
 
 class _ItemDayOfListState extends State<ItemDayOfList> {
-  late GlobalKey _key ;
+  late GlobalKey _key;
+
   double heightWidget = 0;
+
   @override
   void initState() {
     _key = GlobalKey(debugLabel: widget.dateTime.toString());
@@ -31,7 +33,6 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
     final dateType = DateTime(widget.dateTime.year, widget.dateTime.month, widget.dateTime.day);
     return dateType;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +60,15 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                   child: Text(
                     formatYMD(widget.dateTime.toString()),
                     style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w600),
+                        color: colors.text,
+                        fontSize: SpacingUnit.x3_5,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
               workDay != null
                   ? Column(
-                      children: workDay.workShifts
+                      children: workDay.items
                           .map(
                             (e) => Container(
                               margin: const EdgeInsets.all(SpacingUnit.x2),
@@ -79,12 +82,17 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                                   width: 1,
                                 ),
                               ),
-                              child: Text(
-                                '${formatYMD(e.startTime.toString())} - ${formatYMD(e.endTime.toString())}',
-                                style: TextStyle(
-                                  color: colors.text,
-                                  fontSize: SpacingUnit.x3,
-                                ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${formatYMD(e.startTime.toString())} - ${formatYMD(e.endTime.toString())}',
+                                    style: TextStyle(
+                                      color: colors.text,
+                                      fontSize: SpacingUnit.x3,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           )
