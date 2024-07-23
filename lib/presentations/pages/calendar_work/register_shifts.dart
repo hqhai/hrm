@@ -1,16 +1,20 @@
+import 'dart:async';
 import 'dart:core';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/ahift/shift_bloc.dart';
+import 'package:base_app/presentations/bloc/ahift/shift_event.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
-import 'package:base_app/presentations/pages/calendar_work/item_day_of_list.dart';
-import 'package:base_app/presentations/pages/calendar_work/item_day_of_week.dart';
-import 'package:base_app/presentations/pages/calendar_work/week_on_calendar.dart';
+import 'package:base_app/presentations/widgets/calendar_work/calender/item_day_of_list.dart';
+import 'package:base_app/presentations/widgets/calendar_work/calender/item_day_of_week.dart';
+import 'package:base_app/presentations/widgets/calendar_work/calender/week_on_calendar.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +44,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   late ScrollController _scrollController;
   List<double> positions = [];
   late DateTime startOfWeek, endOfWeek;
+  double positionEnd = 0;
 
   @override
   void initState() {
@@ -67,7 +72,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
+    //final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -90,23 +95,20 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                   downWeek: () => setDownWeek(),
                   upWeek: () => setUpWeek(),
                 ),
-                SizedBox(
-                  width: width,
-                  child: Row(
-                    children: listDays()
-                        .mapIndexed(
-                          (index, element) => Expanded(
-                            child: InkWell(
-                              onTap: () => onClick(element),
-                              child: ItemDayOfWeek(
-                                index: index,
-                                time: element,
-                              ),
+                Row(
+                  children: listDays()
+                      .mapIndexed(
+                        (index, element) => Expanded(
+                          child: InkWell(
+                            onTap: () => onClick(element),
+                            child: ItemDayOfWeek(
+                              index: index,
+                              time: element,
                             ),
                           ),
-                        )
-                        .toList(),
-                  ),
+                        ),
+                      )
+                      .toList(),
                 ),
                 Expanded(
                   child: ListView.builder(
@@ -124,16 +126,19 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
           Positioned(
             right: SpacingUnit.x3,
             bottom: SpacingUnit.x6,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(SpacingUnit.x13),
-                color: colors.blue,
-                border: Border.all(color: colors.blue, width: 1),
-              ),
-              child: Icon(
-                Icons.add,
-                color: colors.text,
-                size: SpacingUnit.x10,
+            child: InkWell(
+              onTap: () => _nextShiftsScreen(id: ''),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(SpacingUnit.x13),
+                  color: colors.blue,
+                  border: Border.all(color: colors.blue, width: 1),
+                ),
+                child: Icon(
+                  Icons.add,
+                  color: colors.text,
+                  size: SpacingUnit.x10,
+                ),
               ),
             ),
           ),
@@ -196,4 +201,29 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   _setPosition(double value) {
     positions.add(value);
   }
+
+  _nextShiftsScreen({required String id}) async {
+    final Completer completer = Completer<bool>();
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dI<ShiftBloc>().add(
+      GetShiftByIdEvent(id: id, completer: completer),
+    );
+    final statusCompleter = await completer.future;
+    if (statusCompleter == true) {
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pushName(
+        currentContext,
+        page: Pages.shiftsPage,
+        extra: {
+          'id': id,
+        },
+      );
+    }
+  }
+
+  /*_setPositionEnd({required DragStartDetails details}) {
+    setState(() {
+      positionEnd = details.localPosition.dx;
+    });
+  }*/
 }

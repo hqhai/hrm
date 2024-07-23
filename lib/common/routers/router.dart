@@ -21,6 +21,7 @@ import 'package:base_app/presentations/pages/activate/timekeeping/list_schools.p
 import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shifts.dart';
+import 'package:base_app/presentations/pages/calendar_work/shifts.page.dart';
 import 'package:base_app/presentations/pages/department/infor_department.page.dart';
 import 'package:base_app/presentations/pages/department/update_department.page.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
@@ -96,5 +97,6 @@ class AppRouters {
     Pages.layoutCalendarPage: layoutCalendarPageRoute,
     Pages.registerShiftsPage: registerShiftsPageRoute,
     Pages.layoutCalendarPage : layoutCalendarPageRoute,
+    Pages.shiftsPage: shiftsPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

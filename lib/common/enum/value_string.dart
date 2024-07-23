@@ -1,6 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 enum TypeRequestStatus {
   overTime('OverTime'),
@@ -57,12 +58,19 @@ enum LocationEnum {
 }
 
 enum WeekDayEnum {
+  @JsonValue('Monday')
   monday('Monday'),
+  @JsonValue('Tuesday')
   tuesday('Tuesday'),
+  @JsonValue('Wednesday')
   wednesday('Wednesday'),
+  @JsonValue('Thursday')
   thursday('Thursday'),
+  @JsonValue('Friday')
   friday('Friday'),
+  @JsonValue('Saturday')
   saturday('Saturday'),
+  @JsonValue('Sunday')
   sunday('Sunday');
 
   final String name;

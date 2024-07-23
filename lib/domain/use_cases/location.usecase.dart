@@ -2,6 +2,7 @@ import 'package:base_app/data/models/location/checkin_gps_response.dart';
 import 'package:base_app/data/models/location/get_list_schools_usecase.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
 
 abstract class LocationUseCase {
   Future<GetLocationResponse> getAddress(
@@ -20,4 +21,6 @@ abstract class LocationUseCase {
   Future<GetListSchoolsUseCase> getListSchools({String? keyword, int page});
 
   Future<ShiftsResponse> getWorkDays({required DateTime startDate, required DateTime endDate});
+
+  Future<Shift> getShift({required String id});
 }

@@ -5,15 +5,14 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/ahift/shift_bloc.dart';
 import 'package:base_app/presentations/bloc/ahift/shift_state.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:themes/themes.dart';
 
-class ShiftsWidget extends StatelessWidget {
-  const ShiftsWidget({super.key, required this.id});
+class ShiftsContentWidget extends StatelessWidget {
+  const ShiftsContentWidget({super.key, required this.id});
 
   final String id;
 
@@ -24,52 +23,81 @@ class ShiftsWidget extends StatelessWidget {
     return BlocBuilder<ShiftBloc, ShiftState>(
       builder: (context, state) {
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${nameWeekDay(state.shift.workDate)}, ${dayMonthYear(
-                time: state.shift.workDate,
-                context: context,
-              )}',
-              style: TextStyle(
-                fontSize: SpacingUnit.x4,
-                color: colors.text,
+            Padding(
+              padding: const EdgeInsets.only(bottom: SpacingUnit.x2),
+              child: Text(
+                '${nameWeekDay(state.shift.workDate)}, ${dayMonthYear(
+                  time: state.shift.workDate,
+                  context: context,
+                )}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: SpacingUnit.x4,
+                  color: colors.text,
+                ),
               ),
             ),
-            ItemTitleValue(
+            TitleValueLeave(
+              padding: SpacingUnit.x2,
+              font: FontWeight.w700,
               title: appLocalizations.timeWorking,
-              value: strSeconds(state.shift.endTime - state.shift.endTime) ?? '',
+              value: strSeconds((state.shift.endTime - state.shift.startTime).toInt()) ?? '',
             ),
-            ItemTitleValue(
+            TitleValueLeave(
+              padding: SpacingUnit.x2,
+              font: FontWeight.w700,
               title: appLocalizations.code,
               value: state.shift.code,
             ),
-            ItemTitleValue(
+            TitleValueLeave(
+              padding: SpacingUnit.x2,
+              font: FontWeight.w700,
               title: appLocalizations.time,
               value:
                   '${strSeconds(state.shift.endTime) ?? ''} - ${strSeconds(state.shift.startTime) ?? ''}',
             ),
-            ItemTitleValue(
+            TitleValueLeave(
+              padding: SpacingUnit.x2,
+              font: FontWeight.w700,
               title: appLocalizations.code,
               value: state.shift.code,
             ),
             Divider(
-              color: colors.tertiary,
+              color: colors.textTertiary,
               height: SpacingUnit.x0_25,
             ),
-            Row(
-              children: [
-                SvgPicture.asset(
-                  _setIcon(status: state.shift.status),
-                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                ),
-                Text(
-                  state.shift.status.configWorkShiftRequestStatusName,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: setColor(context: context, status: state.shift.status),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: SpacingUnit.x2,
+              ),
+              child: Row(
+                children: [
+                  if (checkType(state.shift.status))
+                    SvgPicture.asset(
+                      _setIcon(status: state.shift.status),
+                      colorFilter: ColorFilter.mode(
+                          setColor(
+                            context: context,
+                            status: state.shift.status,
+                          ),
+                          BlendMode.srcIn),
+                    ),
+                  const SizedBox(width: SpacingUnit.x2,),
+                  Text(
+                    state.shift.status.configWorkShiftRequestStatusName,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: SpacingUnit.x4,
+                      color: setColor(
+                        context: context,
+                        status: state.shift.status,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         );
@@ -84,7 +112,7 @@ class ShiftsWidget extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     switch (status) {
       case WorkShiftRequestStatus.pending:
-        return colors.error.withOpacity(0.16);
+        return colors.goldenPurple;
       case WorkShiftRequestStatus.approve:
         return colors.success;
       case WorkShiftRequestStatus.reject:

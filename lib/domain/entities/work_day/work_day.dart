@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
@@ -13,13 +14,14 @@ part 'work_day.g.dart';
 class WorkDay {
   final String id;
   final WorkShiftRequestStatus status;
+  final WeekDayEnum dayOfWeek;
   final DateTime? workDate;
   final List<WorkShiftApprove> workShiftApproves;
   final WorkShiftApprove workShiftApprove;
   final String createdUserId;
   final String createdFullName;
   final DateTime? createdDate;
-  final List<Shift> workShifts;
+  final List<Shift> items;
 
   const WorkDay({
     this.id = '',
@@ -27,10 +29,11 @@ class WorkDay {
     this.createdUserId = '',
     this.status = WorkShiftRequestStatus.pending,
     this.createdDate,
-    this.workShifts = const [],
+    this.items = const [],
     this.workDate,
     this.workShiftApprove = const WorkShiftApprove(),
     this.workShiftApproves = const [],
+    this.dayOfWeek = WeekDayEnum.monday,
   });
 
   factory WorkDay.fromJson(Map<String, dynamic> json) => _$WorkDayFromJson(json);

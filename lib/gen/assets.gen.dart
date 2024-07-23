@@ -102,6 +102,8 @@ class $AssetsImagesIconGen {
   /// File path: assets/images/icon/profile.svg
   String get profile => 'assets/images/icon/profile.svg';
 
+  $AssetsImagesIconWorkGen get work => const $AssetsImagesIconWorkGen();
+
   /// List of all assets
   List<dynamic> get values => [
         check,
@@ -269,6 +271,22 @@ class $AssetsImagesIconPopupAppbarGen {
         ngonNgu,
         suaThongTinCaNhan
       ];
+}
+
+class $AssetsImagesIconWorkGen {
+  const $AssetsImagesIconWorkGen();
+
+  /// File path: assets/images/icon/work/loading.svg
+  String get loading => 'assets/images/icon/work/loading.svg';
+
+  /// File path: assets/images/icon/work/reject.svg
+  String get reject => 'assets/images/icon/work/reject.svg';
+
+  /// File path: assets/images/icon/work/success.svg
+  String get success => 'assets/images/icon/work/success.svg';
+
+  /// List of all assets
+  List<String> get values => [loading, reject, success];
 }
 
 class $AssetsImagesIconHomeWorksheetGen {

@@ -50,4 +50,5 @@ class Pages {
   static const String layoutCalendarPage = '/layoutCalendarPage';
   static const String registerShiftsPage = '/registerShiftsPage';
   static const String layoutCalendarPage = '/layoutCalendarPage';
+  static const String shiftsPage = '/shiftsPage';
 }

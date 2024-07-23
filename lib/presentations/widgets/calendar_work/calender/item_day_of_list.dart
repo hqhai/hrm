@@ -58,7 +58,10 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                 child: Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x3),
                   child: Text(
-                    formatYMD(widget.dateTime.toString()),
+                    '${nameWeekDay(widget.dateTime)}, ${dayMonthYear(
+                      time: widget.dateTime,
+                      context: context,
+                    )}',
                     style: TextStyle(
                         color: colors.text,
                         fontSize: SpacingUnit.x3_5,

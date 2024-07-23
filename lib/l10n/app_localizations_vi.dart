@@ -1205,33 +1205,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get doYouWantRevokeYourRequest => 'Bạn có muốn vô hiệu hóa đơn từ này không?';
 
   @override
-  String get calendarWork => 'Lịch làm việc';
-
-  @override
-  String get shiftManagement => 'Quản lý lịch làm việc';
-
-  @override
-  String get week => 'Tuần';
-
-  @override
-  String get pendingCancel => 'Đang chờ hủy';
-
-  @override
-  String get remove => 'Dừng';
-
-  @override
-  String get usable => 'Khả dụng';
-
-  @override
-  String get unusable => 'Không khả dụng';
-
-  @override
-  String get administrativeShift => 'Ca hành chính';
-
-  @override
-  String get singleShift => 'Ca đơn';
-
-  @override
   String get start => 'Bắt đầu';
 
   @override
@@ -1373,6 +1346,33 @@ class AppLocalizationsVi extends AppLocalizations {
   String get totalTimeWorkCompensatory => 'Tổng số giờ làm bù';
 
   @override
+  String get calendarWork => 'Lịch làm việc';
+
+  @override
+  String get shiftManagement => 'Quản lý lịch làm việc';
+
+  @override
+  String get week => 'Tuần';
+
+  @override
+  String get pendingCancel => 'Đang chờ hủy';
+
+  @override
+  String get remove => 'Dừng';
+
+  @override
+  String get usable => 'Khả dụng';
+
+  @override
+  String get unusable => 'Không khả dụng';
+
+  @override
+  String get administrativeShift => 'Ca hành chính';
+
+  @override
+  String get singleShift => 'Ca đơn';
+
+  @override
   String get monday => 'Thứ hai';
 
   @override
@@ -1392,4 +1392,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sunday => 'Chủ nhật';
+
+  @override
+  String get unregistered => 'Chưa đăng ký';
 }

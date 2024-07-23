@@ -6,6 +6,7 @@ import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/response/paging_infor_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
 import 'package:base_app/domain/entities/timekeeping/school.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/repositories/location.repositories.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:injectable/injectable.dart';
@@ -57,15 +58,18 @@ class LocationUseCaseImpl extends LocationUseCase {
     final List<String> schoolsId = schools.map((e) => e.id).toList();
     final PagingInfoRequest pagingInfoRequest = getListSchoolsResponse.pagingInfo;
     final GetListSchoolsUseCase getListSchoolsUseCase = GetListSchoolsUseCase(
-      schools: mapSchools,
-      schoolsId: schoolsId,
-      pagingInfo: pagingInfoRequest
-    );
+        schools: mapSchools, schoolsId: schoolsId, pagingInfo: pagingInfoRequest);
     return getListSchoolsUseCase;
   }
 
   @override
-  Future<ShiftsResponse> getWorkDays({required DateTime startDate, required DateTime endDate}) async {
+  Future<ShiftsResponse> getWorkDays(
+      {required DateTime startDate, required DateTime endDate}) async {
     return await _locationRepository.getWorkDays(startDate: startDate, endDate: endDate);
+  }
+
+  @override
+  Future<Shift> getShift({required String id}) async {
+    return await _locationRepository.getShift(id: id);
   }
 }

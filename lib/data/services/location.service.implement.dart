@@ -2,15 +2,18 @@ import 'dart:convert';
 
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
+import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/data/models/key_page_request.dart';
 import 'package:base_app/data/models/location/checkin_gps_response.dart';
 import 'package:base_app/data/models/location/checkin_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
+import 'package:base_app/data/models/object_by_id_request.dart';
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/domain/services/location.service.dart';
 import 'package:injectable/injectable.dart';
@@ -68,5 +71,25 @@ class LocationServiceImpl extends BaseService implements LocationService {
     final list = (data as List<dynamic>).map((e) => WorkDay.fromJson(e)).toList();
     final ShiftsResponse shiftsResponse = ShiftsResponse(items: list);
     return shiftsResponse;
+  }
+
+  @override
+  Future<Shift> getShift({required ObjectByIdRequest objectByIdRequest}) async {
+    return Shift(
+      id: 'dsgfhsdhgd',
+      startTime: 2000,
+      endTime: 10000,
+      type: ShiftType.administrativeShift,
+      status: WorkShiftRequestStatus.pending,
+      code: 'shdgfhds',
+      name: 'Hieu',
+      checkInEndTimeValid: 10000,
+      checkInStartTimeValid: 2000,
+      checkOutEndTimeValid: 10000,
+      checkOutStartTimeValid: 2000,
+      workDate: DateTime(2024, 07, 25),
+      createdDate: DateTime(2024, 07, 25),
+      workEffort: 1,
+    );
   }
 }

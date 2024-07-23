@@ -44,7 +44,7 @@ extension ConfigWorkShiftRequestStatusExtension on WorkShiftRequestStatus {
       case WorkShiftRequestStatus.remove:
         return appLocalizations.remove;
       case WorkShiftRequestStatus.usable:
-        return appLocalizations.usable;
+        return appLocalizations.unregistered;
       case WorkShiftRequestStatus.unusable:
         return appLocalizations.unusable;
     }
