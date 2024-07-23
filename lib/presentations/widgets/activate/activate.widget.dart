@@ -51,8 +51,6 @@ class _ActivateWidgetState extends State<ActivateWidget> {
         _nextLeaveScreen(context);
       case 3:
         _nextTimekeepingGPSScreen(context);
-      case 4:
-        _nextTimekeepingGPSScreen(context);
     }
   }
 

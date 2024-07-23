@@ -2,7 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/pages/activate/requisition/button_request.dart';
+import 'package:base_app/presentations/pages/activate/requisition_self/button_request.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';

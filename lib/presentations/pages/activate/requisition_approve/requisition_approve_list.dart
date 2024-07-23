@@ -9,7 +9,7 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
-import 'package:base_app/presentations/pages/activate/requisition/popup_menu_requisition_list.dart';
+import 'package:base_app/presentations/pages/activate/requisition_self/popup_menu_requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/listview_request_approve.dart';
 import 'package:base_app/presentations/widgets/dialog/filter_request/filter_requisition_approve_dialog.dart';
 import 'package:flutter/material.dart';

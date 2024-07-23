@@ -20,12 +20,12 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
     return GestureDetector(
       onTap: widget.callback,
       child: ContainerBorder(
-        height: SpacingUnit.x20,
+        padding: SpacingUnit.x5,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 75,
               child: Text(
                 widget.title,
                 maxLines: 1,
@@ -33,18 +33,10 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
               ),
             ),
-            Expanded(
-              flex: 15,
-              child: Padding(
-                padding: const EdgeInsets.only(right: SpacingUnit.x5),
-                child: Center(
-                  child: Icon(
-                    Icons.chevron_right_outlined,
-                    color: colors.text,
-                    size: SpacingUnit.x10,
-                  ),
-                ),
-              ),
+            Icon(
+              Icons.chevron_right,
+              color: colors.text,
+              size: SpacingUnit.x10,
             ),
           ],
         ),

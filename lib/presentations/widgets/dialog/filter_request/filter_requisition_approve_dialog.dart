@@ -4,7 +4,7 @@ import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/pages/activate/requisition/button_request.dart';
+import 'package:base_app/presentations/pages/activate/requisition_self/button_request.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_timm_ymd.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_department.dart';

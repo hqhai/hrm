@@ -12,11 +12,11 @@ import 'package:base_app/presentations/pages/activate/create_requisition/create_
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_vehicle_dispatch.dart';
 import 'package:base_app/presentations/pages/activate/file/pdf.page.dart';
 import 'package:base_app/presentations/pages/activate/leave/leave.page.dart';
-import 'package:base_app/presentations/pages/activate/requisition/requisition_list.dart';
-import 'package:base_app/presentations/pages/activate/requisition/see_list_requisition.page.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/requisition_approve_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition_follower/requisition_follower_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/requisition_infor.page.dart';
+import 'package:base_app/presentations/pages/activate/requisition_self/requisition_list.dart';
+import 'package:base_app/presentations/pages/activate/requisition_self/see_list_requisition.page.dart';
 import 'package:base_app/presentations/pages/activate/timekeeping/list_schools.page.dart';
 import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
