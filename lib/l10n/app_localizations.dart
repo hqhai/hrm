@@ -2876,6 +2876,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unregistered'**
   String get unregistered;
+
+  /// No description provided for @cancelShiftRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift registration'**
+  String get cancelShiftRegistration;
+
+  /// No description provided for @cancelShiftReceiveRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift receive registration'**
+  String get cancelShiftReceiveRegistration;
+
+  /// No description provided for @cancelShiftCancellationRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift cancellation request'**
+  String get cancelShiftCancellationRequest;
+
+  /// No description provided for @registerForShifts.
+  ///
+  /// In en, this message translates to:
+  /// **'Register for shifts'**
+  String get registerForShifts;
+
+  /// No description provided for @reasonForCancelingRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for canceling request'**
+  String get reasonForCancelingRequest;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

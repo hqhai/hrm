@@ -1395,4 +1395,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unregistered => 'Unregistered';
+
+  @override
+  String get cancelShiftRegistration => 'Cancel shift registration';
+
+  @override
+  String get cancelShiftReceiveRegistration => 'Cancel shift receive registration';
+
+  @override
+  String get cancelShiftCancellationRequest => 'Cancel shift cancellation request';
+
+  @override
+  String get registerForShifts => 'Register for shifts';
+
+  @override
+  String get reasonForCancelingRequest => 'Reason for canceling request';
 }

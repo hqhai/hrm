@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ContainerScreenMain extends StatelessWidget {
-  const ContainerScreenMain({super.key, required this.child, this.padding, this.margin});
+  const ContainerScreenMain({super.key, required this.child, this.padding, this.margin, this.height});
 
-  final double? padding, margin;
+  final double? padding, margin, height;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Container(
+      height: height,
       padding: EdgeInsets.all(padding ?? SpacingUnit.x3),
       margin: EdgeInsets.all(margin ?? SpacingUnit.x3),
       decoration: BoxDecoration(

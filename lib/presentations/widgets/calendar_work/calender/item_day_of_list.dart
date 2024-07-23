@@ -35,14 +35,19 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    /*WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox renderBox = _key.currentContext?.findRenderObject() as RenderBox;
       setState(() {
         heightWidget = renderBox.size.height;
         widget.type.call(heightWidget);
       });
-    });
+    });*/
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<WorkDayBloc, WorkDayState>(

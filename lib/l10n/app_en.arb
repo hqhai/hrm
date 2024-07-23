@@ -462,5 +462,10 @@
   "friday": "friday",
   "saturday": "saturday",
   "sunday": "sunday",
-  "unregistered": "Unregistered"
+  "unregistered": "Unregistered",
+  "cancelShiftRegistration": "Cancel shift registration",
+  "cancelShiftReceiveRegistration": "Cancel shift receive registration",
+  "cancelShiftCancellationRequest": "Cancel shift cancellation request",
+  "registerForShifts": "Register for shifts",
+  "reasonForCancelingRequest": "Reason for canceling request"
 }

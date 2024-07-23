@@ -116,7 +116,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                     itemCount: listDayBottom.length,
                     itemBuilder: (context, index) => ItemDayOfList(
                       dateTime: listDayBottom[index],
-                      type: (value) => _setPosition(value),
+                      type: (value) => _setPosition(value: value),
                     ),
                   ),
                 ),
@@ -198,7 +198,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     );
   }
 
-  _setPosition(double value) {
+  _setPosition({double value = 0}) {
     positions.add(value);
   }
 

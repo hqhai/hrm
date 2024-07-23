@@ -1395,4 +1395,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get unregistered => 'Chưa đăng ký';
+
+  @override
+  String get cancelShiftRegistration => 'Hủy đăng ký ca';
+
+  @override
+  String get cancelShiftReceiveRegistration => 'Hủy đăng ký nhận ca';
+
+  @override
+  String get cancelShiftCancellationRequest => 'Hủy yêu cầu hủy ca';
+
+  @override
+  String get registerForShifts => 'Đăng ký ca';
+
+  @override
+  String get reasonForCancelingRequest => 'Lý do hủy yêu cầu';
 }
