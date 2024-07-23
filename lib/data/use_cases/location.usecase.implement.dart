@@ -124,4 +124,9 @@ class LocationUseCaseImpl extends LocationUseCase {
   Future<void> addApprove({required ApproveRequest request}) async {
     await _locationRepository.addApprove(request: request);
   }
+
+  @override
+  Future<Shift> getShift({required String id}) async {
+    return await _locationRepository.getShift(id: id);
+  }
 }

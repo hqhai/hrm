@@ -430,7 +430,6 @@
   "usable": "Khả dụng",
   "unusable": "Không khả dụng",
   "administrativeShift": "Ca hành chính",
-  "singleShift": "Ca đơn",
   "worksheet": "Bảng công",
   "actualWork": "Công thực tế",
   "leaveWork": "Công nghỉ",
@@ -480,5 +479,7 @@
   "thursday":"Thứ năm",
   "friday":"Thứ sáu",
   "saturday":"Thứ bảy",
-  "sunday":"Chủ nhật"
+  "sunday":"Chủ nhật",
+  "singleShift": "Ca đơn"
+
 }
