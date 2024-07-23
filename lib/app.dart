@@ -50,9 +50,11 @@ class _AppState extends State<App> {
                   routerConfig: dI<AppRouters>().goRouter,
                   themeMode: ThemeMode.light,
                   theme: const AppTheme().lightTheme(context),
+                  darkTheme: const AppTheme().lightTheme(context),
                   localizationsDelegates: _getLocalizationsDelegates,
                   localeResolutionCallback: _localeResolutionCallback,
-                  locale: Locale.fromSubtags(languageCode: languageCode.languageCode.code),
+                  locale: Locale.fromSubtags(
+                      languageCode: languageCode.languageCode.code),
                   supportedLocales: const [
                     Locale('en'),
                     Locale('vi') // us

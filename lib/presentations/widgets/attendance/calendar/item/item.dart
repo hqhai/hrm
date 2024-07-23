@@ -26,8 +26,10 @@ class ItemCalender extends StatelessWidget {
     required this.displayType,
   });
 
-  UserWorkingHistoryModel? userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
-    final int index = list.indexWhere((element) => element.date?.isAtSameMomentAs(date) ?? false);
+  UserWorkingHistoryModel? userWorkingHistoryModelByDate(
+      List<UserWorkingHistoryModel> list) {
+    final int index = list
+        .indexWhere((element) => element.date?.isAtSameMomentAs(date) ?? false);
     if (index != -1) {
       return list[index];
     }
@@ -43,9 +45,10 @@ class ItemCalender extends StatelessWidget {
           state.attendance.userWorkingHistories,
         );
         return GestureDetector(
-          onTap: () => _nextItemAttendanceHistoryPage(context, userWorkingHistoryModel),
+          onTap: () =>
+              _nextItemAttendanceHistoryPage(context, userWorkingHistoryModel),
           child: Container(
-            color: colors.surfaceDim,
+            color: colors.background,
             child: Padding(
               padding: const EdgeInsets.all(SpacingUnit.x1),
               child: Column(
@@ -56,7 +59,8 @@ class ItemCalender extends StatelessWidget {
                     flex: 2,
                     child: Container(
                       padding: const EdgeInsets.all(SpacingUnit.x1),
-                      margin: const EdgeInsets.only(top: SpacingUnit.x1, bottom: SpacingUnit.x3),
+                      margin: const EdgeInsets.only(
+                          top: SpacingUnit.x1, bottom: SpacingUnit.x3),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(SpacingUnit.x10),
                         color: isNowDate ? colors.primary : Colors.transparent,
@@ -83,11 +87,15 @@ class ItemCalender extends StatelessWidget {
                                 .mapIndexed(
                                   (index, element) => Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                                      color: _color(context, index, userWorkingHistoryModel.status),
+                                      borderRadius:
+                                          BorderRadius.circular(SpacingUnit.x2),
+                                      color: _color(context, index,
+                                          userWorkingHistoryModel.status),
                                     ),
-                                    margin: const EdgeInsetsDirectional.symmetric(
-                                        horizontal: SpacingUnit.x0_5, vertical: SpacingUnit.x2),
+                                    margin:
+                                        const EdgeInsetsDirectional.symmetric(
+                                            horizontal: SpacingUnit.x0_5,
+                                            vertical: SpacingUnit.x2),
                                     width: SpacingUnit.x1_5,
                                     height: SpacingUnit.x1_5,
                                   ),
@@ -106,15 +114,19 @@ class ItemCalender extends StatelessWidget {
   }
 
   bool check(UserWorkingHistoryModel? userWorkingHistoryModel) {
-    return userWorkingHistoryModel != null && userWorkingHistoryModel.status.isNotEmpty;
+    return userWorkingHistoryModel != null &&
+        userWorkingHistoryModel.status.isNotEmpty;
   }
 
   Color _colorText(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return month != date.month ? colors.neutralVariant40 : colors.text;
+    return month != date.month
+        ? colors.neutralVariant40
+        : (isNowDate ? Colors.white : colors.text);
   }
 
-  Color _color(BuildContext context, int index, List<UserWorkingHistoryStatus> list) {
+  Color _color(
+      BuildContext context, int index, List<UserWorkingHistoryStatus> list) {
     final colors = AppTheme.getColors(context);
     switch (list[index]) {
       case UserWorkingHistoryStatus.onTime:
@@ -143,12 +155,13 @@ class ItemCalender extends StatelessWidget {
     UserWorkingHistoryModel? userWorkingHistoryModel,
   ) {
     if (userWorkingHistoryModel != null) {
-      dI<AppNavigation>()
-          .pushName(context, page: Pages.historyAttendancePage, extra: {'dateTime': date});
+      dI<AppNavigation>().pushName(context,
+          page: Pages.historyAttendancePage, extra: {'dateTime': date});
     }
   }
 
-  Widget value(BuildContext context, UserWorkingHistoryModel? userWorkingHistoryModel) {
+  Widget value(
+      BuildContext context, UserWorkingHistoryModel? userWorkingHistoryModel) {
     final colors = AppTheme.getColors(context);
     switch (displayType) {
       case 2:
@@ -180,7 +193,8 @@ class ItemCalender extends StatelessWidget {
         );
       case 1:
         return Text(
-          Duration(seconds: userWorkingHistoryModel?.workTimeActual.toInt() ?? 0)
+          Duration(
+                  seconds: userWorkingHistoryModel?.workTimeActual.toInt() ?? 0)
               .inHours
               .toString(),
           style: TextStyle(

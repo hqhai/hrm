@@ -12,6 +12,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
+
 import 'form_change_month.dart';
 import 'item_day_calendar.dart';
 
@@ -28,7 +29,11 @@ class LayoutCalendar extends StatefulWidget {
   final Map<DateTime, Widget>? item;
 
   const LayoutCalendar(
-      {super.key, this.getCurrentDate, this.listDate, this.item, this.listItemDate});
+      {super.key,
+      this.getCurrentDate,
+      this.listDate,
+      this.item,
+      this.listItemDate});
 
   @override
   State<LayoutCalendar> createState() => _LayoutCalendarState();
@@ -51,7 +56,8 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
   void initState() {
     startTime = getFirstDayOfMonth(currentDateTime);
     endTime = getLastDayOfMonth(currentDateTime);
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     super.initState();
     _getListDate();
   }
@@ -61,12 +67,14 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       if (currentDateTime.month == 12) {
         currentDateTime = DateTime(currentDateTime.year + 1, 1, 1);
       } else {
-        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
+        currentDateTime =
+            DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
       }
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     _getListDate();
   }
 
@@ -75,21 +83,23 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       if (currentDateTime.month == 1) {
         currentDateTime = DateTime(currentDateTime.year - 1, 12, 1);
       } else {
-        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
+        currentDateTime =
+            DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
       }
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     _getListDate();
   }
 
   _getListDate() {
-    int fistDate = MenuValues.mapNumberDayInWeek[
-            DateFormat('EEE').format(DateTime(currentDateTime.year, currentDateTime.month, 1))] ??
+    int fistDate = MenuValues.mapNumberDayInWeek[DateFormat('EEE').format(
+            DateTime(currentDateTime.year, currentDateTime.month, 1))] ??
         0;
-    int lastDate = MenuValues.mapNumberDayInWeek[DateFormat('EEE')
-            .format(DateTime(currentDateTime.year, currentDateTime.month + 1, 0))] ??
+    int lastDate = MenuValues.mapNumberDayInWeek[DateFormat('EEE').format(
+            DateTime(currentDateTime.year, currentDateTime.month + 1, 0))] ??
         0;
     widget.getCurrentDate?.call(getDaysInBetween(
         DateTime(currentDateTime.year, currentDateTime.month, 1),
@@ -105,19 +115,22 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       int oldDaysCount = fistDate - 2;
       DateTime date = DateTime(currentDateTime.year, currentDateTime.month, 0);
       setState(() {
-        oldDateTime = DateTime(date.year, date.month, date.day - oldDaysCount - 7);
+        oldDateTime =
+            DateTime(date.year, date.month, date.day - oldDaysCount - 7);
       });
     }
     if (lastDate != 7) {
       int nextDaysCount = 7 - lastDate;
       setState(() {
-        lastDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
+        lastDateTime = DateTime(
+            currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
       });
     }
     if (lastDate == 0) {
       int nextDaysCount = 6 - lastDate;
       setState(() {
-        lastDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
+        lastDateTime = DateTime(
+            currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
       });
     }
 
@@ -157,10 +170,10 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       body: Opacity(
         opacity: checkOpacity ? 0.5 : 1,
         child: Container(
-          margin:
-              const EdgeInsets.symmetric(horizontal: SpacingUnit.x1, vertical: SpacingUnit.x0_5),
+          margin: const EdgeInsets.symmetric(
+              horizontal: SpacingUnit.x1, vertical: SpacingUnit.x0_5),
           decoration: BoxDecoration(
-            color: colors.surfaceContainer,
+            color: colors.background,
             borderRadius: const BorderRadius.all(
               Radius.circular(SpacingUnit.x1),
             ),
@@ -171,7 +184,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
                 Container(
                   height: SpacingUnit.x12_5,
                   width: MediaQuery.sizeOf(context).width,
-                  color: colors.surfaceContainerLow,
+                  color: colors.background,
                   child: Row(
                     children: MenuValues.mapDayInWeek.values
                         .map(
@@ -212,7 +225,8 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     _getListDate();
   }
 
@@ -234,8 +248,8 @@ List<DateTime> getDaysInBetween(DateTime startDate, DateTime endDate) {
   for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
     days.add(startDate.add(Duration(days: i)));
   }
-  final int residual = days.length%7;
-  if(residual != 0){
+  final int residual = days.length % 7;
+  if (residual != 0) {
     days.removeRange(days.length - residual, days.length);
   }
   return days;

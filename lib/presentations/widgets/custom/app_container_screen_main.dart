@@ -14,7 +14,7 @@ class ContainerScreenMain extends StatelessWidget {
       padding: const EdgeInsets.all(SpacingUnit.x3),
       margin: const EdgeInsets.all(SpacingUnit.x3),
       decoration: BoxDecoration(
-        color: colors.surface,
+        color: colors.background,
         borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
         border: Border.all(
           width: 1,
