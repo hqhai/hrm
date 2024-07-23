@@ -481,4 +481,7 @@
   "leaveHalfDayToOneDay": "Nghỉ 0,5 đến 1 ngày",
   "leaveTwoDayToFourDay": "Nghỉ 2 đến 4 ngày",
   "leaveFiveDaysOrMore": "Nghỉ 5 ngày trở lên"
+  "sunday":"Chủ nhật",
+  "lateOrEarly": "Đi muộn/Về sớm",
+  "timekeepingError": "Chấm công lỗi"
 }
