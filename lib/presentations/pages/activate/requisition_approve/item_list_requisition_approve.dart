@@ -5,7 +5,6 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -62,7 +61,7 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
         margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SpacingUnit.x1),
-          color: CustomsColor.colorBackground,
+          color: colors.background,
           border: Border.all(color: colors.text, width: 1),
         ),
         child: GestureDetector(

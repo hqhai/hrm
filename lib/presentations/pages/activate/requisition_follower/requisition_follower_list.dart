@@ -4,7 +4,6 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -129,7 +128,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
                             borderRadius: BorderRadius.circular(
                               SpacingUnit.x1,
                             ),
-                            color: CustomsColor.colorBackground,
+                            color: colors.background,
                             border: Border.all(
                               color: colors.text,
                               width: SpacingUnit.x0_25,
@@ -172,7 +171,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
                       horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
                   height: height * 0.78,
                   decoration: BoxDecoration(
-                    color: CustomsColor.colorBackground,
+                    color: colors.background,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(SpacingUnit.x1),
                     ),
@@ -193,7 +192,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(SpacingUnit.x20),
-                                  color: CustomsColor.colorBackground,
+                                  color: colors.background,
                                   border: Border.all(color: colors.polarGreen, width: 1)),
                               child: Icon(Icons.add, color: colors.polarGreen, size: width * 0.1),
                             ),

@@ -1,4 +1,3 @@
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -16,7 +15,7 @@ class ItemBottomSheet extends StatelessWidget {
       margin: const EdgeInsets.all(SpacingUnit.x2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingUnit.x2),
-        color: CustomsColor.colorBackground,
+        color: colors.background,
         border: Border.all(
           color: colors.text,
           width: 1,

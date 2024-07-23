@@ -1,7 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -100,7 +99,7 @@ class _CreatePersonnelWidgetState extends State<CreatePersonnelWidget> {
           padding: const EdgeInsets.all(SpacingUnit.x2),
           height: height,
           decoration: BoxDecoration(
-            color: CustomsColor.colorBackground,
+            color: colors.background,
             borderRadius: const BorderRadius.all(
               Radius.circular(SpacingUnit.x4),
             ),
@@ -177,7 +176,7 @@ class _CreatePersonnelWidgetState extends State<CreatePersonnelWidget> {
                           onPressed: () => _removeListDepartmentName(index),
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(CustomsColor.colorBackground),
+                                MaterialStateProperty.all<Color>(colors.background),
                             overlayColor: MaterialStateProperty.all<Color>(Colors.indigo),
                           ),
                           icon: const Icon(Icons.delete, color: Colors.red, size: SpacingUnit.x7_5),
@@ -215,7 +214,7 @@ class _CreatePersonnelWidgetState extends State<CreatePersonnelWidget> {
                           onPressed: () => _removeListPositionName(index),
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(CustomsColor.colorBackground),
+                                MaterialStateProperty.all<Color>(colors.background),
                             overlayColor: MaterialStateProperty.all<Color>(Colors.indigo),
                           ),
                           icon: const Icon(Icons.delete, color: Colors.red, size: SpacingUnit.x7_5),

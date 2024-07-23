@@ -5,7 +5,6 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/navigator_extra/information_request_extra.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
@@ -99,7 +98,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                     margin: const EdgeInsets.symmetric(
                         horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
                     decoration: BoxDecoration(
-                      color: CustomsColor.colorBackground,
+                      color: colors.background,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(SpacingUnit.x4),
                       ),

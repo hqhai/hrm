@@ -7,6 +7,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,11 +45,15 @@ class ItemCalender extends StatelessWidget {
         final userWorkingHistoryModel = userWorkingHistoryModelByDate(
           state.attendance.userWorkingHistories,
         );
-        return GestureDetector(
+        return InkWell(
           onTap: () =>
               _nextItemAttendanceHistoryPage(context, userWorkingHistoryModel),
-          child: Container(
-            color: colors.background,
+          child: ContainerBorder(
+            margin: 0,
+            padding: 0,
+            circular: 0,
+            widthBorder: 0.5,
+            borderColors: colors.outlineVariant.withOpacity(0.2),
             child: Padding(
               padding: const EdgeInsets.all(SpacingUnit.x1),
               child: Column(
@@ -180,6 +185,10 @@ class ItemCalender extends StatelessWidget {
               ),
               child: Text(
                 userWorkingHistoryModel?.checkIn != null ? '-' : '',
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x3,
+                ),
               ),
             ),
             Text(

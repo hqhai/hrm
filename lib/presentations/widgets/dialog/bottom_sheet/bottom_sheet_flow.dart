@@ -1,6 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
@@ -58,7 +57,7 @@ class _BottomSheetFlowWidgetState extends State<BottomSheetFlowWidget> {
                   margin: const EdgeInsets.all(SpacingUnit.x2),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                    color: CustomsColor.colorBackground,
+                    color: colors.background,
                     border: Border.all(
                       color: colors.text,
                       width: 1,

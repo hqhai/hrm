@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:themes/color_style.dart';
 
 class ColorUtils {
   static Color shiftHsl(Color c, [double amt = 0]) {
@@ -35,12 +34,4 @@ class HexColor extends Color {
   }
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
-}
-
-class CustomsColor {
-  static Color colorBackground = AppColors.tonalPalettes.neutralVariant.tp100;
-  static Color colorText = AppColors.tonalPalettes.primary.tp0;
-  static Color colorButtonSelect = const Color(0xff2C5FD3);
-  static Color colorUnButtonSelect = const Color(0xff293656);
-  static Color colorTextUnButtonSelect = const Color(0xff293656);
 }

@@ -6,6 +6,7 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/widgets/attendance/calendar/popup_menu_calender.dart';
+import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -145,6 +146,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: FormChangeMonth(
           year: currentDateTime.year.toString(),
           month: currentDateTime.month.toString(),
@@ -169,15 +171,9 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       ),
       body: Opacity(
         opacity: checkOpacity ? 0.5 : 1,
-        child: Container(
-          margin: const EdgeInsets.symmetric(
-              horizontal: SpacingUnit.x1, vertical: SpacingUnit.x0_5),
-          decoration: BoxDecoration(
-            color: colors.background,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(SpacingUnit.x1),
-            ),
-          ),
+        child: ContainerScreenMain(
+          padding: 0,
+          margin: 0,
           child: SingleChildScrollView(
             child: Column(
               children: [

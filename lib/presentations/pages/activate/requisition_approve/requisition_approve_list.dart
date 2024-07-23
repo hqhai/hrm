@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -78,7 +77,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
                         padding: const EdgeInsets.all(SpacingUnit.x1),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                          color: CustomsColor.colorBackground,
+                          color: colors.background,
                           border: Border.all(
                             color: colors.text,
                             width: SpacingUnit.x0_25,

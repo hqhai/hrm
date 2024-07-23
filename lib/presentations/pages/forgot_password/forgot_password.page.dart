@@ -1,7 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -75,7 +74,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             child: Container(
               width: width,
               height: height,
-              color: CustomsColor.colorBackground,
+              color: colors.background,
               margin: const EdgeInsets.all(SpacingUnit.x2),
               child: Padding(
                 padding: const EdgeInsets.all(SpacingUnit.x4),
@@ -102,9 +101,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     title: appLocalizations.forgotPassword,
                     onSubmit: () => onSubmit(),
                     color: checkInput()
-                        ? CustomsColor.colorButtonSelect
-                        : CustomsColor.colorUnButtonSelect,
-                    colorText: checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect,
+                        ? colors.blue
+                        : colors.navy,
+                    colorText: checkInput() ? colors.text : colors.background,
                   ),
                 ]),
               ),

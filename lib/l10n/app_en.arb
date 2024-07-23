@@ -467,7 +467,9 @@
   "cancelShiftReceiveRegistration": "Cancel shift receive registration",
   "cancelShiftCancellationRequest": "Cancel shift cancellation request",
   "registerForShifts": "Register for shifts",
-  "reasonForCancelingRequest": "Reason for canceling request",
   "youDoNotHaveAShiftToday": "You don't have a shift today!",
-  "distanceNotEnough": "Distance Not Enough"
+  "distanceNotEnough": "Distance Not Enough",
+  "reasonForCancelingRequest": "Reason for canceling request",
+  "lateOrEarly": "Late/Early",
+  "timekeepingError": "Timekeeping error"
 }

@@ -1,7 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/request/login_request.dart';
@@ -68,32 +67,31 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
           width: width,
           height: height,
           decoration: BoxDecoration(
-            color: CustomsColor.colorBackground,
+            color: colors.background,
             borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-            border: Border.all(width: 1, color: CustomsColor.colorBackground),
+            border: Border.all(width: 1, color: colors.background),
           ),
           margin: const EdgeInsets.all(SpacingUnit.x2),
           child: Padding(
             padding: const EdgeInsets.all(SpacingUnit.x4),
-            child: Column(children: [
-              const SizedBox(height: SpacingUnit.x4),
-              Text(appLocalizations.pleaseEnterYourUsernameAndPasswordHere,
-                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
-              EmailAndPasswordWidget(
-                emailController: emailController,
-                passwordController: passwordController,
-                onChangeEmail: (value) => onChangeEmail(value),
-                onChangePass: (value) => onChangePassword(value),
-              ),
-              AppButton(
-                  title: appLocalizations.save,
-                  onSubmit: () => onSubmit(),
-                  color: checkInput()
-                      ? CustomsColor.colorButtonSelect
-                      : CustomsColor.colorUnButtonSelect,
-                  colorText:
-                      checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect)
-            ]),
+            child: Column(
+              children: [
+                const SizedBox(height: SpacingUnit.x4),
+                Text(appLocalizations.pleaseEnterYourUsernameAndPasswordHere,
+                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                EmailAndPasswordWidget(
+                  emailController: emailController,
+                  passwordController: passwordController,
+                  onChangeEmail: (value) => onChangeEmail(value),
+                  onChangePass: (value) => onChangePassword(value),
+                ),
+                AppButton(
+                    title: appLocalizations.save,
+                    onSubmit: () => onSubmit(),
+                    color: checkInput() ? colors.blue : colors.navy,
+                    colorText: colors.text),
+              ],
+            ),
           ),
         ),
       ),
@@ -133,6 +131,4 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
       checkPassword = value;
     });
   }
-
-
 }

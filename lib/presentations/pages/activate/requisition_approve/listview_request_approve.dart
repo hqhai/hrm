@@ -1,5 +1,4 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
@@ -41,7 +40,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
           margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
           height: height * 0.78,
           decoration: BoxDecoration(
-            color: CustomsColor.colorBackground,
+            color: colors.background,
             borderRadius: const BorderRadius.all(
               Radius.circular(SpacingUnit.x1),
             ),

@@ -1,6 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/stationery_enum.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
 import 'package:base_app/presentations/bloc/requisition/stationery/stationery_bloc.dart';
@@ -69,7 +68,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
                         margin: const EdgeInsets.all(SpacingUnit.x2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                          color: CustomsColor.colorBackground,
+                          color: colors.background,
                           border: Border.all(
                             color: colors.text,
                             width: 1,

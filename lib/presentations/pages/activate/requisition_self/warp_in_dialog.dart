@@ -1,5 +1,4 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,7 @@ class WarpInDialog extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(SpacingUnit.x1),
                       color:
-                          statuses.contains(eStatus) ? colors.error : CustomsColor.colorBackground,
+                          statuses.contains(eStatus) ? colors.error : colors.background,
                       border: Border.all(color: colors.text, width: SpacingUnit.x0_25),
                     ),
                     child: Text(eStatus.configRequestStatusName),

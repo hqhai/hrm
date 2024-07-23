@@ -88,7 +88,7 @@ class ContentItemMyRequisitionList extends StatelessWidget {
     switch (status) {
       case StatusRequestEnum.process:
         return {
-          'color': colors.error,
+          'color': colors.goldenPurple,
           'icon': Assets.images.icon.work.loading,
         };
       case StatusRequestEnum.reject:

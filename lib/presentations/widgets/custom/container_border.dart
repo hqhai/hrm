@@ -1,4 +1,3 @@
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -13,12 +12,16 @@ class ContainerBorder extends StatelessWidget {
     this.padding,
     this.borderColors,
     this.backgroundColors,
+    this.circular,
+    this.widthBorder,
   });
 
   final Widget child;
   final double? height, width, margin, padding;
   final Color? borderColors;
   final Color? backgroundColors;
+  final double? circular;
+  final double? widthBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +32,11 @@ class ContainerBorder extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: margin ?? SpacingUnit.x3),
       padding: EdgeInsets.all(padding ?? SpacingUnit.x2),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingUnit.x2),
-        color: backgroundColors ?? CustomsColor.colorBackground,
+        borderRadius: BorderRadius.circular(circular ?? SpacingUnit.x2),
+        color: backgroundColors ?? colors.background,
         border: Border.all(
           color: borderColors ?? colors.text,
-          width: 1,
+          width: widthBorder ?? 1,
         ),
       ),
       child: child,

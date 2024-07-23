@@ -1,4 +1,3 @@
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -22,7 +21,7 @@ class ItemHomeInforWidget extends StatelessWidget {
           padding: const EdgeInsets.all(SpacingUnit.x3),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingUnit.x2),
-            color: CustomsColor.colorBackground,
+            color: colors.background,
             border: Border.all(
               color: colors.text,
               width: 1,

@@ -1,6 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
@@ -54,7 +53,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
         padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
         height: MediaQuery.sizeOf(context).height,
         decoration: BoxDecoration(
-          color: CustomsColor.colorBackground,
+          color: colors.background,
           borderRadius: const BorderRadius.all(
             Radius.circular(SpacingUnit.x4),
           ),

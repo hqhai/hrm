@@ -1,6 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -73,7 +72,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                           borderRadius: BorderRadius.circular(SpacingUnit.x2),
                           color: listPerson.contains(state.usersByName[index].id)
                               ? colors.tertiary
-                              : CustomsColor.colorBackground,
+                              : colors.background,
                           border: Border.all(
                             color: colors.text,
                             width: 1,

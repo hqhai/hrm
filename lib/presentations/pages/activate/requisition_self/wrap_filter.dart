@@ -1,5 +1,4 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -33,7 +32,7 @@ class _WrapFilterState extends State<WrapFilter> {
               borderRadius: BorderRadius.circular(
                 SpacingUnit.x1,
               ),
-              color: CustomsColor.colorBackground,
+              color: colors.background,
               border: Border.all(
                 color: colors.text,
                 width: SpacingUnit.x0_25,

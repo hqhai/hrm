@@ -3,7 +3,6 @@ import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/log/logger.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -227,9 +226,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                     width: _animationWidth.value,
                     height: _animationHeight.value,
                     decoration: BoxDecoration(
-                      color: CustomsColor.colorBackground,
+                      color: colors.background,
                       borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                      border: Border.all(width: 1, color: CustomsColor.colorBackground),
+                      border: Border.all(width: 1, color: colors.background),
                     ),
                     margin: const EdgeInsets.only(
                         left: SpacingUnit.x8,
@@ -260,27 +259,25 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                                 onChanged: (bool? value) => setCheckSaveLogin(value),
                                 label: appLocalizations.staySignedIn,
                                 value: checkSaveLogin,
-                                color: CustomsColor.colorText,
+                                color: colors.text,
                                 checkColor: Colors.white),
                             GestureDetector(
                               onTap: () => onClickForgotPassword(),
                               child: Text(appLocalizations.forgotPassword,
                                   style: TextStyle(
                                     fontSize: SpacingUnit.x3_5,
-                                    color: CustomsColor.colorText,
+                                    color: colors.text,
                                   )),
                             ),
                           ],
                         ),
                         const SizedBox(height: SpacingUnit.x4),
                         AppButton(
-                            title: appLocalizations.login,
-                            onSubmit: () => onSubmit(),
-                            color: checkInput()
-                                ? CustomsColor.colorButtonSelect
-                                : CustomsColor.colorUnButtonSelect,
-                            colorText:
-                                checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect),
+                          title: appLocalizations.login,
+                          onSubmit: () => onSubmit(),
+                          color: checkInput() ? colors.blue : colors.navy,
+                          colorText: checkInput() ? colors.text : colors.background,
+                        ),
                         const SizedBox(height: SpacingUnit.x4),
                         Container(
                           decoration: BoxDecoration(
