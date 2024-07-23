@@ -8,11 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ItemDayOfList extends StatefulWidget {
-  const ItemDayOfList({super.key, required this.dateTime, this.workDayId, required this.type});
+  const ItemDayOfList({super.key, required this.dateTime, this.workDayId,});
 
   final DateTime dateTime;
   final String? workDayId;
-  final ValueChanged<double> type;
 
   @override
   State<ItemDayOfList> createState() => _ItemDayOfListState();
@@ -41,13 +40,6 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
 
   @override
   Widget build(BuildContext context) {
-    /*WidgetsBinding.instance.addPostFrameCallback((_) {
-      final RenderBox renderBox = _key.currentContext?.findRenderObject() as RenderBox;
-      setState(() {
-        heightWidget = renderBox.size.height;
-        widget.type.call(heightWidget);
-      });
-    });*/
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<WorkDayBloc, WorkDayState>(

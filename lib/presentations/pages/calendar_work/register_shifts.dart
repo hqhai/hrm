@@ -111,12 +111,16 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                       .toList(),
                 ),
                 Expanded(
-                  child: ListView.builder(
+                  child: SingleChildScrollView(
                     controller: _scrollController,
-                    itemCount: listDayBottom.length,
-                    itemBuilder: (context, index) => ItemDayOfList(
-                      dateTime: listDayBottom[index],
-                      type: (value) => _setPosition(value: value),
+                    child: Column(
+                      children: listDayBottom
+                          .map(
+                            (e) => ItemDayOfList(
+                              dateTime: e,
+                            ),
+                          )
+                          .toList(),
                     ),
                   ),
                 ),
@@ -127,7 +131,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
             right: SpacingUnit.x3,
             bottom: SpacingUnit.x6,
             child: InkWell(
-              onTap: () => _nextShiftsScreen(id: ''),
+              onTap: () => addShift(),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(SpacingUnit.x13),
@@ -188,7 +192,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     );
   }
 
-  Widget load() {
+  Widget loadDing() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -196,10 +200,6 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
             width: SpacingUnit.x25, height: SpacingUnit.x25, fit: BoxFit.fill),
       ],
     );
-  }
-
-  _setPosition({double value = 0}) {
-    positions.add(value);
   }
 
   _nextShiftsScreen({required String id}) async {
@@ -221,7 +221,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     }
   }
 
-  /*_setPositionEnd({required DragStartDetails details}) {
+  addShift() {}
+
+/*_setPositionEnd({required DragStartDetails details}) {
     setState(() {
       positionEnd = details.localPosition.dx;
     });
