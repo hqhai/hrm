@@ -20,6 +20,8 @@ import 'package:base_app/presentations/pages/activate/requisition_self/see_list_
 import 'package:base_app/presentations/pages/activate/timekeeping/list_schools.page.dart';
 import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
+import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin.dart';
+import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin_detail.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shifts.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin_detail.dart';
