@@ -1,107 +1,103 @@
 import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/ahift/shift_bloc.dart';
-import 'package:base_app/presentations/bloc/ahift/shift_state.dart';
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:themes/themes.dart';
 
 class ShiftsContentWidget extends StatelessWidget {
-  const ShiftsContentWidget({super.key, required this.id});
+  const ShiftsContentWidget({super.key, required this.data});
 
-  final String id;
+  final Shift data;
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return BlocBuilder<ShiftBloc, ShiftState>(
-      builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: SpacingUnit.x2),
-              child: Text(
-                '${nameWeekDay(state.shift.workDate)}, ${dayMonthYear(
-                  time: state.shift.workDate,
-                  context: context,
-                )}',
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: SpacingUnit.x2),
+          child: Text(
+            '${nameWeekDay(data.workDate)}, ${dayMonthYear(
+              time: data.workDate,
+              context: context,
+            )}',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: SpacingUnit.x4,
+              color: colors.text,
+            ),
+          ),
+        ),
+        TitleValueLeave(
+          padding: SpacingUnit.x2,
+          font: FontWeight.w700,
+          title: appLocalizations.timeWorking,
+          value: strSeconds((data.endTime - data.startTime).toInt()) ?? '',
+        ),
+        TitleValueLeave(
+          padding: SpacingUnit.x2,
+          font: FontWeight.w700,
+          title: appLocalizations.code,
+          value: data.code,
+        ),
+        TitleValueLeave(
+          padding: SpacingUnit.x2,
+          font: FontWeight.w700,
+          title: appLocalizations.time,
+          value:
+              '${strSeconds(data.endTime) ?? ''} - ${strSeconds(data.startTime) ?? ''}',
+        ),
+        TitleValueLeave(
+          padding: SpacingUnit.x2,
+          font: FontWeight.w700,
+          title: appLocalizations.code,
+          value: data.code,
+        ),
+        Divider(
+          color: colors.textTertiary,
+          height: SpacingUnit.x0_25,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: SpacingUnit.x2,
+          ),
+          child: Row(
+            children: [
+              if (checkType(data.status))
+                SvgPicture.asset(
+                  _setIcon(status: data.status),
+                  colorFilter: ColorFilter.mode(
+                      setColor(
+                        context: context,
+                        status: data.status,
+                      ),
+                      BlendMode.srcIn),
+                ),
+              const SizedBox(
+                width: SpacingUnit.x2,
+              ),
+              Text(
+                data.status.configWorkShiftRequestStatusName,
                 style: TextStyle(
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w400,
                   fontSize: SpacingUnit.x4,
-                  color: colors.text,
+                  color: setColor(
+                    context: context,
+                    status: data.status,
+                  ),
                 ),
               ),
-            ),
-            TitleValueLeave(
-              padding: SpacingUnit.x2,
-              font: FontWeight.w700,
-              title: appLocalizations.timeWorking,
-              value: strSeconds((state.shift.endTime - state.shift.startTime).toInt()) ?? '',
-            ),
-            TitleValueLeave(
-              padding: SpacingUnit.x2,
-              font: FontWeight.w700,
-              title: appLocalizations.code,
-              value: state.shift.code,
-            ),
-            TitleValueLeave(
-              padding: SpacingUnit.x2,
-              font: FontWeight.w700,
-              title: appLocalizations.time,
-              value:
-                  '${strSeconds(state.shift.endTime) ?? ''} - ${strSeconds(state.shift.startTime) ?? ''}',
-            ),
-            TitleValueLeave(
-              padding: SpacingUnit.x2,
-              font: FontWeight.w700,
-              title: appLocalizations.code,
-              value: state.shift.code,
-            ),
-            Divider(
-              color: colors.textTertiary,
-              height: SpacingUnit.x0_25,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: SpacingUnit.x2,
-              ),
-              child: Row(
-                children: [
-                  if (checkType(state.shift.status))
-                    SvgPicture.asset(
-                      _setIcon(status: state.shift.status),
-                      colorFilter: ColorFilter.mode(
-                          setColor(
-                            context: context,
-                            status: state.shift.status,
-                          ),
-                          BlendMode.srcIn),
-                    ),
-                  const SizedBox(width: SpacingUnit.x2,),
-                  Text(
-                    state.shift.status.configWorkShiftRequestStatusName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: SpacingUnit.x4,
-                      color: setColor(
-                        context: context,
-                        status: state.shift.status,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
+            ],
+          ),
+        ),
+      ],
     );
   }
 

@@ -1,4 +1,3 @@
-
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -49,7 +48,6 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
   }
 
   _nextCreateRequisitionScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.createRequestPage);
+    dI<AppNavigation>().pushName(context, page: Pages.registerWorkDayAdmin);
   }
-
 }

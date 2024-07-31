@@ -17,31 +17,38 @@ class ShiftReasonWidget extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<ShiftBloc, ShiftState>(
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                child: Text(
-                  appLocalizations.reasonForCancelingRequest,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
-                  ),
-                ),
-              ),
-              Text(
-                state.shift.workShiftApprove.note,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+              child: Text(
+                appLocalizations.reasonForCancelingRequest,
                 style: TextStyle(
-                  fontSize: SpacingUnit.x3,
+                  fontWeight: FontWeight.w700,
+                  fontSize: SpacingUnit.x4,
                   color: colors.text,
                 ),
               ),
-            ],
-          ),
+            ),
+            Text(
+              state.shift.workShiftApprove.note,
+              style: TextStyle(
+                fontSize: SpacingUnit.x3,
+                color: colors.text,
+              ),
+            ),
+            TextField(
+              controller: reasonController,
+              maxLines: 11,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: colors.outline)),
+                suffixStyle: const TextStyle(color: Colors.green),
+                hintText: "Nhập lý do...",
+              ),
+            ),
+          ],
         );
       },
     );

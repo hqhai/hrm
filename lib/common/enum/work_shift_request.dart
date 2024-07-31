@@ -4,22 +4,22 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 enum WorkShiftRequestStatus {
-  @JsonValue('Pending')
-  pending('Pending'),
   @JsonValue('Approve')
   approve('Approve'),
-  @JsonValue('Reject')
-  reject('Reject'),
   @JsonValue('PendingCancel')
   pendingCancel('PendingCancel'),
+  @JsonValue('Pending')
+  pending('Pending'),
+  @JsonValue('Unusable')
+  unusable('Unusable'),
+  @JsonValue('Reject')
+  reject('Reject'),
   @JsonValue('Cancel')
   cancel('Cancel'),
   @JsonValue('Remove')
   remove('Remove'),
   @JsonValue('Usable')
-  usable('Usable'),
-  @JsonValue('Unusable')
-  unusable('Unusable');
+  usable('Usable');
 
   final String name;
 
@@ -71,7 +71,6 @@ extension ConfigWorkShiftApproveStatusExtension on WorkShiftApproveStatus {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
     switch (this) {
-
       case WorkShiftApproveStatus.pending:
         return appLocalizations.pending;
       case WorkShiftApproveStatus.approve:
@@ -107,5 +106,3 @@ extension ConfigShiftTypeExtension on ShiftType {
     }
   }
 }
-
-

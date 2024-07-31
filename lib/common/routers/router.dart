@@ -20,6 +20,8 @@ import 'package:base_app/presentations/pages/activate/requisition_form/requisiti
 import 'package:base_app/presentations/pages/activate/timekeeping/list_schools.page.dart';
 import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
+import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin.dart';
+import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin_detail.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shifts.dart';
 import 'package:base_app/presentations/pages/calendar_work/shifts.page.dart';
 import 'package:base_app/presentations/pages/department/infor_department.page.dart';
@@ -53,7 +55,9 @@ class AppRouters {
   AppRouters() : goRouter = _router;
 
   static GoRouter get _router => GoRouter(
-      routes: routerPages, navigatorKey: dI<AppNavigation>().navigatorKey, initialLocation: '/');
+      routes: routerPages,
+      navigatorKey: dI<AppNavigation>().navigatorKey,
+      initialLocation: '/');
 
   static List<GoRoute> routerPages = {
     Pages.main: mainPageRoute,
@@ -71,7 +75,8 @@ class AppRouters {
     Pages.updateNotesPage: updateNotePageRoute,
     Pages.changePasswordPage: changePasswordPageRoute,
     Pages.updateProfilePage: updateProfilePageRoute,
-    Pages.layoutCalendarAttendanceHistoryPage: layoutCalendarAttendanceHistoryPageRoute,
+    Pages.layoutCalendarAttendanceHistoryPage:
+        layoutCalendarAttendanceHistoryPageRoute,
     Pages.historyAttendancePage: historyAttendancePageRoute,
     Pages.biometricRegister: registerBiometricPageRoute,
     Pages.timekeepingGPSPage: timekeepingGPSPageRoute,
@@ -85,9 +90,11 @@ class AppRouters {
     Pages.pDFPage: pDFPageRoute,
     Pages.createRequestBusinessPage: createRequestBusinessPageRoute,
     Pages.createRequestPostalDeliveryPage: createRequestPostalDeliveryPageRoute,
-    Pages.createRequestVehicleDispatchPage: createRequestVehicleDispatchPageRoute,
+    Pages.createRequestVehicleDispatchPage:
+        createRequestVehicleDispatchPageRoute,
     Pages.createRequestStationeryOderPage: createRequestStationeryOderPageRoute,
-    Pages.createRequestReleaseOfWarehousePage: createRequestReleaseOfWarehousePageRoute,
+    Pages.createRequestReleaseOfWarehousePage:
+        createRequestReleaseOfWarehousePageRoute,
     Pages.requisitionApproveListPage: requisitionApproveListPageRoute,
     Pages.requisitionFollowerListPage: requisitionFollowerListPageRoute,
     Pages.createRequestOverTimePage: createRequestOverTimePageRoute,
@@ -96,7 +103,9 @@ class AppRouters {
     Pages.leavePage: leavePageRoute,
     Pages.layoutCalendarPage: layoutCalendarPageRoute,
     Pages.registerShiftsPage: registerShiftsPageRoute,
-    Pages.layoutCalendarPage : layoutCalendarPageRoute,
+    Pages.layoutCalendarPage: layoutCalendarPageRoute,
     Pages.shiftsPage: shiftsPageRoute,
+    Pages.registerWorkDayAdmin: registerWorkDayPageRoute,
+    Pages.registerWorkDayAdminDetail: registerWorkDayAdminDetailPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

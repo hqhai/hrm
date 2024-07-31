@@ -17,6 +17,7 @@ class Shift {
   final int checkInEndTimeValid;
   final int checkOutStartTimeValid;
   final int checkOutEndTimeValid;
+  final String workShiftSettingDetailId;
   final String code;
   final String name;
   final WorkShiftApprove workShiftApprove;
@@ -27,6 +28,7 @@ class Shift {
   final int workEffort;
 
   const Shift({
+    this.workShiftSettingDetailId = '',
     this.id = '',
     this.createdDate,
     this.type = ShiftType.administrativeShift,

@@ -1,11 +1,18 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
+import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/ahift/shift_bloc.dart';
-import 'package:base_app/presentations/bloc/ahift/shift_state.dart';
+import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
+import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
+import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
+import 'package:base_app/presentations/pages/error.page.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calender/shift_reason.widget.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calender/shifts_content.widget.dart';
-import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,16 +23,20 @@ final shiftsPageRoute = GoRoute(
     path: Pages.shiftsPage,
     name: Pages.shiftsPage,
     builder: (context, GoRouterState state) {
-      Map data = state.extra as Map;
-      return ShiftsPage(
-        id: data['id'],
-      );
+      if (state.uri.hasQuery) {
+        final query = state.uri.queryParameters;
+        final data = ShiftsQueryParams.fromJson(query);
+        return ShiftsPage(
+          date: data.date,
+        );
+      }
+      return const ErrorPage();
     });
 
 class ShiftsPage extends StatefulWidget {
-  const ShiftsPage({super.key, required this.id});
+  const ShiftsPage({super.key, required this.date});
 
-  final String id;
+  final DateTime date;
 
   @override
   State<ShiftsPage> createState() => _ShiftsPageState();
@@ -34,30 +45,91 @@ class ShiftsPage extends StatefulWidget {
 class _ShiftsPageState extends State<ShiftsPage> {
   final TextEditingController reasonController = TextEditingController();
 
+  _onBack() {
+    Navigator.pop(context);
+  }
+
+  DateTime date(WorkDayState state) {
+    final dateType =
+        DateTime(widget.date.year, widget.date.month, widget.date.day);
+    return dateType;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ShiftBloc, ShiftState>(
+    final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
+    final theme = Theme.of(context);
+    return BlocBuilder<WorkDayBloc, WorkDayState>(
       builder: (context, state) {
+        final data = state.workDays[date(state)]?.items.first;
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(),
-          body: ContainerScreenMain(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ShiftsContentWidget(
-                  id: widget.id,
+          appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(SpacingUnit.x12),
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: SpacingUnit.x5,
+                          right: SpacingUnit.x5,
+                          bottom: SpacingUnit.x5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () => _onBack(),
+                            child: Icon(
+                              Icons.clear,
+                              color: colors.text,
+                              size: SpacingUnit.x7,
+                            ),
+                          ),
+                          const SizedBox(width: SpacingUnit.x4),
+                          Text(
+                            appLocalizations.registerShift,
+                            style: theme.textTheme.titleLarge!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                ShiftReasonWidget(reasonController: reasonController),
-                const Spacer(),
-                if (checkType(state.shift.status))
-                  AppButton(
-                    title:
-                    mapByStatus(context: context, status: state.shift.status)['titleButton'],
-                    onSubmit: () => onSubmit(),
-                    color: mapByStatus(context: context, status: state.shift.status)['color'],
+              )),
+          body: SizedBox(
+            width: MediaQuery.sizeOf(context).width,
+            height: MediaQuery.sizeOf(context).height,
+            child: Padding(
+              padding: const EdgeInsets.all(SpacingUnit.x4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ShiftsContentWidget(
+                    data: data ?? const Shift(),
                   ),
-              ],
+                  if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
+                    ShiftReasonWidget(reasonController: reasonController),
+                  const Spacer(),
+                  if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
+                    AppButton(
+                      title: mapByStatus(
+                          context: context,
+                          status: data?.status ??
+                              WorkShiftRequestStatus.usable)['titleButton'],
+                      onSubmit: () => onSubmit(
+                        note: reasonController.text,
+                        id: data?.id ?? '',
+                        map: state.workDays,
+                      ),
+                      color: mapByStatus(
+                          context: context,
+                          status: data?.status ??
+                              WorkShiftRequestStatus.usable)['color'],
+                    ),
+                ],
+              ),
             ),
           ),
         );
@@ -107,5 +179,15 @@ class _ShiftsPageState extends State<ShiftsPage> {
     }
   }
 
-  onSubmit() {}
+  onSubmit(
+      {required String note,
+      required String id,
+      required Map<DateTime, WorkDay> map}) {
+    dI<WorkDayBloc>().add(
+        CancelRegisterWorkDay(data: CancelWorkDayRequest(note: note, id: id)));
+    dI<WorkDayBloc>().add(const ChangeLoading(status: true));
+    dI<WorkDayBloc>().add(
+        GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+    // Navigator.pop(context);
+  }
 }

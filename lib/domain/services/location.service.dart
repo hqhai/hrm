@@ -5,8 +5,10 @@ import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/object_by_id_request.dart';
+import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
+import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
 
 abstract class LocationService {
@@ -18,9 +20,29 @@ abstract class LocationService {
     required CheckInRequest checkInRequest,
   });
 
-  Future<GetListSchoolsResponse> getListSchools({required KeyPageRequest keyPageRequest});
+  Future<GetListSchoolsResponse> getListSchools(
+      {required KeyPageRequest keyPageRequest});
 
   Future<ShiftsResponse> getWorkDays({required ShiftsRequest shiftsRequest});
 
+  Future<ShiftsAdminResponse> getWorkDaysAdmin(
+      {required WorkDayAdminRequest request});
+
+  Future<void> registerWorkDays({required WorkDaysRequest request});
+
+  Future<void> cancelRegisterWorkDays({required CancelWorkDayRequest request});
+
+  Future<GetElectiveShiftResponse> workDayGetElectiveShift(
+      {required WorkDayGetElectiveShiftRequest request});
+
   Future<Shift> getShift({required ObjectByIdRequest objectByIdRequest});
+
+  Future<ShiftsAdminResponse> getElectiveShiftDetail(
+      {required GetElectiveShiftDetailRequest request});
+
+  Future<void> cancelWorkDay({
+    required CancelWorkDayAdminRequest request,
+  });
+
+  Future<void> addApprove({required ApproveRequest request});
 }

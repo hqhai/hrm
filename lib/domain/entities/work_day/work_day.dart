@@ -36,7 +36,95 @@ class WorkDay {
     this.dayOfWeek = WeekDayEnum.monday,
   });
 
-  factory WorkDay.fromJson(Map<String, dynamic> json) => _$WorkDayFromJson(json);
+  factory WorkDay.fromJson(Map<String, dynamic> json) =>
+      _$WorkDayFromJson(json);
 
   Map<String, dynamic> toJson() => _$WorkDayToJson(this);
+}
+
+@CopyWith()
+@JsonSerializable()
+class WorkDayAdmin {
+  final String workShiftApproveId;
+  final DateTime? workDate;
+  final String nameWorkShift;
+  final int startTime;
+  final int endTime;
+  final WorkShiftRequestStatus status;
+  final String name;
+  final String code;
+  final String email;
+  final String companyEmail;
+  final String phoneNumber;
+  final String namePosition;
+  final String positionId;
+  final DateTime? createdDate;
+  final String content;
+  final String note;
+  final String workShiftRequestId;
+
+  const WorkDayAdmin({
+    this.workShiftApproveId = '',
+    this.workDate,
+    this.nameWorkShift = '',
+    this.startTime = 0,
+    this.endTime = 0,
+    this.status = WorkShiftRequestStatus.unusable,
+    this.name = '',
+    this.code = '',
+    this.email = '',
+    this.companyEmail = '',
+    this.phoneNumber = '',
+    this.namePosition = '',
+    this.positionId = '',
+    this.createdDate,
+    this.content = '',
+    this.note = '',
+    this.workShiftRequestId = '',
+  });
+
+  factory WorkDayAdmin.fromJson(Map<String, dynamic> json) =>
+      _$WorkDayAdminFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WorkDayAdminToJson(this);
+}
+
+@CopyWith()
+@JsonSerializable()
+class UsableAdmin {
+  final DateTime? workDate;
+  final List<WorkShiftRegisteredDetails> workShiftRegisteredDetails;
+
+  const UsableAdmin({
+    this.workDate,
+    this.workShiftRegisteredDetails = const [],
+  });
+
+  factory UsableAdmin.fromJson(Map<String, dynamic> json) =>
+      _$UsableAdminFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UsableAdminToJson(this);
+}
+
+@CopyWith()
+@JsonSerializable()
+class WorkShiftRegisteredDetails {
+  final DateTime? workDate;
+  final String workShiftSettingDetailId;
+  final String nameWorkShift;
+  final int startTime;
+  final int endTime;
+
+  const WorkShiftRegisteredDetails({
+    this.nameWorkShift = '',
+    this.workShiftSettingDetailId = '',
+    this.workDate,
+    this.startTime = 0,
+    this.endTime = 0,
+  });
+
+  factory WorkShiftRegisteredDetails.fromJson(Map<String, dynamic> json) =>
+      _$WorkShiftRegisteredDetailsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WorkShiftRegisteredDetailsToJson(this);
 }
