@@ -74,7 +74,7 @@ class _UpdateNoteWidgetState extends State<UpdateNoteWidget> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(iconTheme: IconThemeData(color: colors.text),),
       body: BlocConsumer<NotesBloc, NotesState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => previous.status != current.status,

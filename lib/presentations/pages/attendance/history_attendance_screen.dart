@@ -46,6 +46,7 @@ class _HistoryAttendancePageState extends State<HistoryAttendancePage>
     final height = MediaQuery.sizeOf(context).height;
     return BasePage(
       appbar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(
           convertDate(context),
           style: TextStyle(

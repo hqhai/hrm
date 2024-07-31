@@ -1,7 +1,6 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/overtime/over_time_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/timekeeping_dialog/timekeeping_dialog.dart';
 import 'package:collection/collection.dart';
@@ -42,9 +41,8 @@ class _ListOverTimeState extends State<ListOverTime> {
             fontWeight: FontWeight.w800,
           ),
         ),
-        ContainerBorder(
+        SizedBox(
           width: width,
-          borderColors: colors.surface,
           child: Column(
             children: widget.requisitionOverTimes
                 .mapIndexed(

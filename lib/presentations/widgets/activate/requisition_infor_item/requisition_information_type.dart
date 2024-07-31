@@ -4,7 +4,6 @@ import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_business_trip.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_early.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_explanation.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_late.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_leave.dart';
@@ -35,18 +34,14 @@ class RequisitionInformationType extends StatelessWidget {
 
 Widget inFlowType(RequisitionTypeEnum? type) {
   switch (type) {
-    case RequisitionTypeEnum.yearlyAndSeniorityLeave:
+    case RequisitionTypeEnum.leaveFiveDaysOrMore:
       return const RequisitionInformationContentTypeLeave();
-    case RequisitionTypeEnum.compensatoryLeave:
+    case RequisitionTypeEnum.leaveTwoDayToFourDay:
       return const RequisitionInformationContentTypeLeave();
-    case RequisitionTypeEnum.otherLeave:
+    case RequisitionTypeEnum.leaveHalfDayToOneDay:
       return const RequisitionInformationContentTypeLeave();
-    case RequisitionTypeEnum.unpaidLeave:
-      return const RequisitionInformationContentTypeLeave();
-    case RequisitionTypeEnum.lateArrival:
+    case RequisitionTypeEnum.lateOrEarly:
       return const RequisitionInformationContentTypeLate();
-    case RequisitionTypeEnum.earlyDeparture:
-      return const RequisitionInformationContentTypeEarly();
     case RequisitionTypeEnum.overTime:
       return const RequisitionInformationContentTypeOverTime();
     case RequisitionTypeEnum.bussiness:

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -12,9 +11,8 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_following/req
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/popup_menu_requisition_list.dart';
-import 'package:base_app/presentations/pages/activate/requisition_self/wrap_filter.dart';
 import 'package:base_app/presentations/pages/activate/requisition_follower/item_list_requisition_follower.dart';
-import 'package:base_app/presentations/widgets/dialog/filter_request/filter_requisition_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/filter_requisition_approve_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -38,30 +36,28 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
   var random = Random();
   int pageIndex = 1, totalItems = 0, lengthList = 0;
   late ScrollController controller;
-  RequisitionEnum status = RequisitionEnum.init;
   FilterDialogModel filterData = const FilterDialogModel();
   List<StatusRequestEnum> listStatusFilter = [];
 
   @override
   void initState() {
-    dI<RequisitionFollowingBloc>().add(GetRequisitionsFollowingByFilterEvent(
-      page: pageIndex,
-    ));
+    dI<RequisitionFollowingBloc>().add(const GetRequisitionsFollowingByFilterEvent());
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
 
   _scrollListener() {
     if (lengthList < totalItems &&
-        status == RequisitionEnum.success &&
         controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
       });
       dI<RequisitionFollowingBloc>().add(
         GetRequisitionsFollowingByFilterEvent(
-          listStatusRequisition: listStatusFilter,
-          requisitionTypeEnum: filterData.type,
+          type: filterData.types,
+          status: filterData.status,
+          departmentId: filterData.department?.id,
+          userIds: filterData.user?.id,
           startTime: filterData.startTime,
           endTime: filterData.endTime,
           page: pageIndex,
@@ -73,11 +69,8 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
   setlLstFilter(FilterDialogModel value) {
     setState(() {
       filterData = value;
-      listStatusFilter = value.statuses ?? [];
     });
     dI<RequisitionFollowingBloc>().add(GetRequisitionsFollowingByFilterEvent(
-      listStatusRequisition: listStatusFilter,
-      requisitionTypeEnum: filterData.type,
       startTime: filterData.startTime,
       endTime: filterData.endTime,
       page: 1,
@@ -86,7 +79,6 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
 
   _listener(BuildContext context, RequisitionFollowingState state) {
     setState(() {
-      status = state.status;
       totalItems = state.countItem;
       lengthList = state.requisitions.length;
     });
@@ -100,6 +92,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
     final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: (Text(
           appLocalizations.singleWordList,
           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
@@ -117,51 +110,19 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
                   height: height * 0.04,
                   margin: const EdgeInsets.symmetric(
                       horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                  child: Stack(
-                    children: [
-                      if (listStatusFilter.isEmpty)
-                        Container(
-                          padding: const EdgeInsets.all(
-                            SpacingUnit.x1,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              SpacingUnit.x1,
-                            ),
-                            color: colors.background,
-                            border: Border.all(
-                              color: colors.text,
-                              width: SpacingUnit.x0_25,
-                            ),
-                          ),
-                          child: Text(appLocalizations.all,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                        ),
-                      if (listStatusFilter.isNotEmpty)
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: WrapFilter(
-                            listFilter: listStatusFilter,
-                            onChange: (value) => removeListFilter(value),
-                          ),
-                        ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () => dialog(context),
-                          child: Container(
-                            color: colors.background,
-                            height: height * 0.04,
-                            child: SvgPicture.asset(
-                              Assets.images.icon.activateIcon.iconamoonOptionsThin,
-                              colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                            ),
-                          ),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () => dialog(context),
+                      child: Container(
+                        color: colors.background,
+                        height: height * 0.04,
+                        child: SvgPicture.asset(
+                          Assets.images.icon.activateIcon.iconamoonOptionsThin,
+                          colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
                 Container(
@@ -185,7 +146,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
                             controller: controller,
                             itemCount: state.requisitions.length,
                             itemBuilder: (context, index) =>
-                                ItemRequisitionFollowerList(id: state.requisitions[index].id),
+                                ItemRequisitionFollowerList(id: state.requisitionIds[index]),
                           ),
                           Align(
                             alignment: Alignment.bottomRight,
@@ -216,26 +177,12 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
     });
   }
 
-  removeListFilter(StatusRequestEnum e) {
-    setState(() {
-      listStatusFilter.remove(e);
-      filterData = filterData.copyWith(statuses: listStatusFilter);
-    });
-    dI<RequisitionFollowingBloc>().add(GetRequisitionsFollowingByFilterEvent(
-      listStatusRequisition: listStatusFilter,
-      requisitionTypeEnum: filterData.type,
-      startTime: filterData.startTime,
-      endTime: filterData.endTime,
-      page: 1,
-    ));
-  }
-
   dialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          child: FilterRequisitionDialog(
+          child: FilterRequisitionApproveDialog(
             filter: filterData,
             sendData: (value) => setlLstFilter(value),
           ),

@@ -3,6 +3,7 @@ import 'package:base_app/common/enum/work_and_salary_enum.dart';
 import 'package:base_app/data/models/work_and_salary/start_end.dart';
 import 'package:base_app/data/models/work_and_salary/user_leave_history_request.dart';
 import 'package:base_app/data/models/work_and_salary/user_leave_history_response.dart';
+import 'package:base_app/data/models/work_and_salary/work_shifts_response.dart';
 import 'package:base_app/domain/entities/leave/user_leave.dart';
 import 'package:base_app/domain/repositories/work_and_salary.repositories.dart';
 import 'package:base_app/domain/services/work_and_salary.service.dart';
@@ -23,8 +24,8 @@ class WorkAndSalaryRepositoryImplement extends WorkAndSalaryRepository {
   Future<double> totalWorkday({required String startTime, required String endTime}) async {
     return await _workAndSalaryService.totalWorkday(
         startEndResponse: StartEndResponse(
-      endTime: DateTime.parse(endTime),
-      startTime: DateTime.parse(startTime),
+      endDate: DateTime.parse(endTime),
+      startDate: DateTime.parse(startTime),
     ));
   }
 
@@ -38,5 +39,15 @@ class WorkAndSalaryRepositoryImplement extends WorkAndSalaryRepository {
         date: date,
       ),
     );
+  }
+
+  @override
+  Future<List<WorkShiftsResponse>> workShiftLeave(
+      {required DateTime startTime, required DateTime endTime}) async {
+    return await _workAndSalaryService.workShiftLeave(
+        startEndResponse: StartEndResponse(
+      endDate: endTime,
+      startDate: startTime,
+    ));
   }
 }

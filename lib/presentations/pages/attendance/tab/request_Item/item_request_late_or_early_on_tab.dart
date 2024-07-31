@@ -96,6 +96,6 @@ class _ItemRequestLateOrEarlyOnTabState extends State<ItemRequestLateOrEarlyOnTa
   }
 
   bool checkType(RequisitionTypeEnum? flowType) {
-    return flowType == RequisitionTypeEnum.lateArrival;
+    return flowType == RequisitionTypeEnum.lateOrEarly;
   }
 }

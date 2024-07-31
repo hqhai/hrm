@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -12,6 +11,7 @@ import 'package:base_app/presentations/pages/activate/requisition_self/content_i
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:themes/themes.dart';
 
 class ItemRequisitionList extends StatefulWidget {
   const ItemRequisitionList({
@@ -35,9 +35,12 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppTheme.getColors(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
       child: ContainerBorder(
+        borderColors: colors.background,
+        backgroundColors: colors.background,
         child: GestureDetector(
           onTap: () => _nextRequisitionInformationScreen(context),
           child: Stack(
@@ -71,13 +74,13 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
       setState(() {
         checkOpacity = true;
       });
-      final Completer completer = Completer<RequisitionEnum>();
+      final Completer completer = Completer<bool>();
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       dI<RequisitionBloc>().add(
         GetRequisitionByIdEvent(id: widget.id, completer: completer),
       );
       final statusCompleter = await completer.future;
-      if (statusCompleter == RequisitionEnum.success) {
+      if (statusCompleter == true) {
         setState(() {
           checkOpacity = false;
         });

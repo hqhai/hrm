@@ -48,6 +48,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
     final appLocalizations = AppLocalizations.of(context)!;
     return BasePage(
       appbar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.updateDepartment,
             style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),

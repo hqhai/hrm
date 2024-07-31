@@ -28,6 +28,7 @@ class _SeeListRequisitionPageState extends State<SeeListRequisitionPage> {
     final colors = AppTheme.getColors(context);
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.singleWordList,
             style: TextStyle(
               color: colors.text,

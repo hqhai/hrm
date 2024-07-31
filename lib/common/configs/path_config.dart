@@ -56,6 +56,7 @@ class PathConfig {
   static String scheduleSchool = '/schedule-school/schedule-school-by-user';
   static String userLeave = '/user-leave-history/user-total';
   static String userLeaveHistory = '/user-leave-history/get-user-leave-history';
+  static String workShiftByDate = '/workshift-setting/workshift-setting-by-date';
 
   //workDate
   static String getWorkShifts = '/workshift-request/get-workshift-requests';

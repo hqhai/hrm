@@ -67,7 +67,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         current.status,
       ),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: colors.text),
+        ),
         body: Container(
           alignment: Alignment.topCenter,
           child: Center(
@@ -100,9 +102,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   AppButton(
                     title: appLocalizations.forgotPassword,
                     onSubmit: () => onSubmit(),
-                    color: checkInput()
-                        ? colors.blue
-                        : colors.navy,
+                    color: checkInput() ? colors.blue : colors.navy,
                     colorText: checkInput() ? colors.text : colors.background,
                   ),
                 ]),

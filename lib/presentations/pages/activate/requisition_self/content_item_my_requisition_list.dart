@@ -1,7 +1,6 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -20,17 +19,13 @@ class ContentItemMyRequisitionList extends StatelessWidget {
   ///Có phải đơn của mình không
   final bool self;
 
-  Request _request(List<Request> requisitions, String id) {
-    return requisitions.firstWhere((element) => element.id == id);
-  }
-
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
-        final request = _request(state.requisitions, id);
+        final request = state.requisitions[id];
         return Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +34,7 @@ class ContentItemMyRequisitionList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  request.flowType.configTypeName,
+                  request?.flowType.configTypeName ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -55,26 +50,26 @@ class ContentItemMyRequisitionList extends StatelessWidget {
             if (self)
               TitleValueLeave(
                 title: appLocalizations.creator,
-                value: request.createdFullName,
+                value: request?.createdFullName ?? "",
               ),
             TitleValueLeave(
               title: appLocalizations.createTime,
               value: formatYMDHMS(
-                dateTimeLocal(request.createdDate).toString(),
+                dateTimeLocal(request?.createdDate).toString(),
               ),
             ),
             TitleValueLeave(
               title: appLocalizations.code,
-              value: request.code,
+              value: request?.code ?? "",
               color: colors.success,
             ),
             const SizedBox(
               height: SpacingUnit.x2,
             ),
             AppIconStatus(
-              color: colors.text,
-              icon: Assets.images.icon.work.loading,
-              status: request.status.configRequestStatusName,
+              color: statusRequest(context: context, status: request?.status?? StatusRequestEnum.process)['color'],
+              icon: statusRequest(context: context, status: request?.status?? StatusRequestEnum.process)['icon'],
+              status: request?.status.configRequestStatusName ?? "",
             ),
           ],
         );
@@ -94,32 +89,32 @@ class ContentItemMyRequisitionList extends StatelessWidget {
       case StatusRequestEnum.reject:
         return {
           'color': colors.error,
-          'icon': Assets.images.icon.work.loading,
+          'icon': Assets.images.icon.work.reject,
         };
       case StatusRequestEnum.edit:
         return {
-          'color': colors.error,
-          'icon': Assets.images.icon.work.loading,
+          'color': colors.tertiary,
+          'icon': Assets.images.icon.work.edit,
         };
       case StatusRequestEnum.approve:
         return {
-          'color': colors.error,
-          'icon': Assets.images.icon.work.loading,
+          'color': colors.success,
+          'icon': Assets.images.icon.work.success,
         };
       case StatusRequestEnum.cancel:
         return {
           'color': colors.error,
-          'icon': Assets.images.icon.work.loading,
+          'icon': Assets.images.icon.work.reject,
         };
       case StatusRequestEnum.overdueEdit:
         return {
           'color': colors.error,
-          'icon': Assets.images.icon.work.loading,
+          'icon': Assets.images.icon.work.outDate,
         };
       case StatusRequestEnum.overdueApprove:
         return {
           'color': colors.error,
-          'icon': Assets.images.icon.work.loading,
+          'icon': Assets.images.icon.work.outDate,
         };
     }
   }

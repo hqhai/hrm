@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -49,19 +50,6 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<RequestsResponse> getRequisitions({int? page}) {
-    return _requestService.getRequisitions(
-      requestsRequest: GetRequestRequest(page: page ?? 0),
-    );
-  }
-
-  @override
-  Future<RequestsResponse> getRequisitionsApprove({int? page}) async {
-    return await _requestService.getRequisitionsApprove(
-        requestsRequest: GetRequestRequest(page: page ?? 0));
-  }
-
-  @override
   Future<SearchStationeryByNameResponse> getStationery(
       {required String name, required int page}) async {
     return await _requestService.getStationery(
@@ -74,83 +62,65 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<RequestsResponse> getRequisitionsFollowerByFilter(
+  Future<RequestsResponse> getRequisitionsApproveByFilter(
       {int? page,
-      String? type,
+      List<RequisitionTypeEnum>? type,
       String? departmentId,
+      String? userId,
       DateTime? startDate,
       DateTime? endDate,
-      List<String>? status}) async {
-    if (status?.isNotEmpty ?? false) {
-      return await _requestService.getRequisitionsFollowerByFilter(
-        getRequestFilterRequest: GetRequestFilterRequest(
-            type: type,
-            page: page,
-            endDate: endDate,
-            startDate: startDate,
-            statuses: status?.join(','),
-            createdDepartmentId: departmentId),
-      );
-    }
-    return await _requestService.getRequisitionsFollowerByFilter(
-      getRequestFilterRequest: GetRequestFilterRequest(
-          type: type,
-          page: page,
-          endDate: endDate,
-          startDate: startDate,
-          createdDepartmentId: departmentId),
-    );
-  }
-
-  @override
-  Future<RequestsResponse> getRequisitionsApproveByFilter({
-    int? page,
-    String? type,
-    String? departmentId,
-    DateTime? startDate,
-    DateTime? endDate,
-    String? status,
-    String? createdCode,
-  }) async {
+      EnumStepRequestStatusEnum? status}) async {
     return await _requestService.getRequisitionsApproveByFilter(
       getRequestApproveFilterRequest: GetRequestApproveFilterRequest(
-        type: type,
-        page: page,
-        endDate: endDate,
+        createdCode: userId,
         startDate: startDate,
-        createdDepartmentId: departmentId,
+        endDate: endDate,
         statusApprove: status,
-        createdCode: createdCode,
+        page: page,
+        createdDepartmentId: departmentId,
+        listTypes: type,
       ),
     );
   }
 
   @override
-  Future<RequestsResponse> getRequisitionsByFilter(
+  Future<RequestsResponse> getRequisitionsFollowerByFilter(
       {int? page,
-      String? flowId,
+      List<RequisitionTypeEnum>? type,
       String? departmentId,
+      String? userId,
       DateTime? startDate,
       DateTime? endDate,
-      List<String>? status}) async {
-    if (status?.isNotEmpty ?? false) {
-      return await _requestService.getRequisitionsByFilter(
-        getRequestFilterRequest: GetRequestFilterRequest(
-            flowId: flowId,
-            page: page,
-            endDate: endDate,
-            startDate: startDate,
-            statuses: status?.join(','),
-            createdDepartmentId: departmentId),
-      );
-    }
-    return await _requestService.getRequisitionsByFilter(
+      StatusRequestEnum? status}) async {
+    return await _requestService.getRequisitionsFollowerByFilter(
       getRequestFilterRequest: GetRequestFilterRequest(
-          flowId: flowId,
-          page: page,
-          endDate: endDate,
-          startDate: startDate,
-          createdDepartmentId: departmentId),
+        userId: userId,
+        startDate: startDate,
+        endDate: endDate,
+        statuses: status,
+        page: page,
+        departmentIds: departmentId,
+        type: type,
+      ),
+    );
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsSelfByFilter({
+    int? page,
+    List<String>? flowId,
+    DateTime? startDate,
+    DateTime? endDate,
+    StatusRequestEnum? status,
+  }) async {
+    return await _requestService.getRequisitionsSelfByFilter(
+      getRequestFilterRequest: GetRequestFilterRequest(
+        listFlowIds: flowId,
+        page: page,
+        endDate: endDate,
+        startDate: startDate,
+        statuses: status,
+      ),
     );
   }
 
@@ -170,6 +140,4 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       getRequestsByIds: GetRequestsByIds(ids: ids),
     );
   }
-
-
 }

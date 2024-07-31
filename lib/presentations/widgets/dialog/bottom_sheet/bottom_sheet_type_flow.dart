@@ -22,7 +22,7 @@ class _BottomSheetTypeFlowWidgetState extends State<BottomSheetTypeFlowWidget> {
     final height = MediaQuery.of(context).size.height;
     return Container(
       height: height * 0.4,
-      color: colors.surface,
+      color: colors.background,
       child: Center(
         child: ListView.builder(
           itemCount: RequisitionTypeEnum.values.length,

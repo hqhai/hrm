@@ -11,7 +11,6 @@ import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
@@ -46,13 +45,13 @@ class CreateRequisitionExplanationPage extends StatefulWidget {
   const CreateRequisitionExplanationPage({
     super.key,
     this.flowId = '',
-    this.requestId,
+    this.requestId = '',
     this.type = RequisitionTypeEnum.explanation,
   });
 
   final RequisitionTypeEnum type;
   final String flowId;
-  final String? requestId;
+  final String requestId;
 
   @override
   State<CreateRequisitionExplanationPage> createState() => _CreateRequisitionExplanationPageState();
@@ -69,21 +68,14 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
 
   @override
   void initState() {
-    if (widget.requestId?.isNotEmpty ?? false) {
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.requestId),
-      );
+    if (widget.requestId.isNotEmpty) {
+      final request = dI<RequisitionBloc>().state.requisition;
+      listRequisitionOverTimes = [...?request.config.overTimes];
+      followers = [...request.followerIds];
+      description = request.config.description;
+      detailedDescriptionController.text = description ?? "";
     }
     super.initState();
-  }
-
-  _listener(BuildContext context, RequisitionState state) {
-    setState(() {
-      listRequisitionOverTimes = [...?state.requisition.config.overTimes];
-      followers = [...state.requisition.followerIds];
-      description = state.requisition.config.description;
-      detailedDescriptionController.text = description ?? "";
-    });
   }
 
   double opacity() {
@@ -95,13 +87,12 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => _listenWhen(previous, current),
+    return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
             appBar: AppBar(
+              iconTheme: IconThemeData(color: colors.text),
               title: Text(
                 widget.type.configTypeName,
                 style: TextStyle(
@@ -181,7 +172,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   }
 
   List<User> _setListUser(List<User> userById) {
-    if (widget.requestId != null) {
+    if (widget.requestId.isNotEmpty) {
       return userById;
     }
     return [];
@@ -211,7 +202,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   }
 
   PostRequestRequest request() {
-    return widget.requestId == null
+    return widget.requestId.isEmpty
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
@@ -236,9 +227,9 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(),
       completerSuccess: () => completerSuccess(),
@@ -266,10 +257,6 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       checkSuccess = true;
       checkClick = false;
     });
-  }
-
-  _listenWhen(RequisitionState previous, RequisitionState current) {
-    return previous.requisition != current.requisition;
   }
 
   _addTime(BuildContext context) {

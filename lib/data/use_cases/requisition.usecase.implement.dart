@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
@@ -21,18 +22,8 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   }
 
   @override
-  Future<RequestsResponse> getRequests({int? page}) async {
-    return await _requisitionRepository.getRequisitions(page: page);
-  }
-
-  @override
   Future<Request> getRequisitionById({required String id}) async {
     return await _requisitionRepository.getRequisitionById(id: id);
-  }
-
-  @override
-  Future<RequestsResponse> getRequisitionsApprove({int? page}) async {
-    return await _requisitionRepository.getRequisitionsApprove(page: page);
   }
 
   @override
@@ -59,32 +50,33 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   @override
   Future<RequestsResponse> getRequisitionsApproveByFilter({
     int? page,
-    String? type,
+    List<RequisitionTypeEnum>? type,
     String? departmentId,
+    String? userId,
     DateTime? startDate,
     DateTime? endDate,
-    String? status,
-    String? createdCode,
+    EnumStepRequestStatusEnum? status,
   }) async {
     return await _requisitionRepository.getRequisitionsApproveByFilter(
       page: page,
+      status: status,
       endDate: endDate,
       startDate: startDate,
+      userId: userId,
       type: type,
       departmentId: departmentId,
-      status: status,
-      createdCode: createdCode,
     );
   }
 
   @override
   Future<RequestsResponse> getRequisitionsFollowerByFilter(
       {int? page,
-      String? type,
+      List<RequisitionTypeEnum>? type,
       String? departmentId,
+      String? userId,
       DateTime? startDate,
       DateTime? endDate,
-      List<String>? status}) async {
+      StatusRequestEnum? status}) async {
     return await _requisitionRepository.getRequisitionsFollowerByFilter(
       page: page,
       endDate: endDate,
@@ -92,24 +84,24 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
       status: status,
       type: type,
       departmentId: departmentId,
+      userId: userId,
     );
   }
 
   @override
-  Future<RequestsResponse> getRequisitionsByFilter(
-      {int? page,
-      String? flowId,
-      String? departmentId,
-      DateTime? startDate,
-      DateTime? endDate,
-      List<String>? status}) async {
-    return await _requisitionRepository.getRequisitionsByFilter(
+  Future<RequestsResponse> getRequisitionsSelfByFilter({
+    int? page,
+    List<String>? flowId,
+    DateTime? startDate,
+    DateTime? endDate,
+    StatusRequestEnum? status,
+  }) async {
+    return await _requisitionRepository.getRequisitionsSelfByFilter(
       page: page,
       endDate: endDate,
       startDate: startDate,
       status: status,
       flowId: flowId,
-      departmentId: departmentId,
     );
   }
 

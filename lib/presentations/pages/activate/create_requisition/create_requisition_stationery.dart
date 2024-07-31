@@ -1,5 +1,4 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
@@ -11,7 +10,6 @@ import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
@@ -45,11 +43,11 @@ class CreateRequisitionStationeryOderPage extends StatefulWidget {
   const CreateRequisitionStationeryOderPage({
     super.key,
     this.flowId = '',
-    this.requestId,
+    this.requestId = '',
   });
 
   final String flowId;
-  final String? requestId;
+  final String requestId;
 
   @override
   State<CreateRequisitionStationeryOderPage> createState() =>
@@ -66,10 +64,11 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
 
   @override
   void initState() {
-    if (widget.requestId?.isNotEmpty ?? false) {
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.requestId),
-      );
+    if (widget.requestId.isNotEmpty) {
+      final request = dI<RequisitionBloc>().state.requisition;
+      followers = [...request.followerIds];
+      listRequisitionStationery = [...?request.config.stationeries];
+      month = request.config.startDate??DateTime.now();
     }
     super.initState();
   }
@@ -83,20 +82,6 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     return check;
   }
 
-  _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
-      setState(() {
-        followers = [...state.requisition.followerIds];
-        listRequisitionStationery = [...?state.requisition.config.stationeries];
-        month = state.requisition.config.startDate??DateTime.now();
-      });
-    }
-  }
-
-  bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
-    return statusP.requisition != statusC.requisition;
-  }
-
   double opacity() {
     bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
@@ -106,13 +91,12 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => _listenWhen(previous, current),
+    return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
             appBar: AppBar(
+              iconTheme: IconThemeData(color: colors.text),
               title: Text(
                 RequisitionTypeEnum.stationery.configTypeName,
                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
@@ -214,7 +198,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
 
   PostRequestRequest request() {
-    return widget.requestId == null
+    return widget.requestId.isEmpty
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
@@ -243,9 +227,9 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(),
       completerSuccess: () => completerSuccess(),
@@ -306,7 +290,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
 
   List<User> _setListUser(List<User> userById) {
-    if (widget.requestId != null) {
+    if (widget.requestId.isNotEmpty) {
       return userById;
     }
     return [];

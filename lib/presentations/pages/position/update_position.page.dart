@@ -71,6 +71,7 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
     final appLocalizations = AppLocalizations.of(context)!;
     return BasePage(
       appbar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.updatePosition,
             style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),

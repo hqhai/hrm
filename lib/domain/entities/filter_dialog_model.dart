@@ -1,6 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/domain/entities/department.dart';
+import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -10,26 +11,24 @@ part 'filter_dialog_model.g.dart';
 @JsonSerializable()
 @CustomDateTimeConverter()
 class FilterDialogModel {
-  final String? flowId;
-  final RequisitionTypeEnum? type;
+  final List<FlowRequest>? flows;
+  final List<RequisitionTypeEnum>? types;
   final Department? department;
   final DateTime? startTime;
   final DateTime? endTime;
-  final String? flowName;
-  final String? departmentName;
   final User? user;
-  final List<StatusRequestEnum>? statuses;
+  final StatusRequestEnum? status;
+  final EnumStepRequestStatusEnum? statusApprove;
 
   const FilterDialogModel({
-    this.departmentName,
-    this.flowId,
-    this.flowName,
-    this.type,
+    this.flows,
+    this.types,
     this.startTime,
     this.endTime,
-    this.statuses,
+    this.status,
     this.department,
-    this.user
+    this.user,
+    this.statusApprove
   });
 
   factory FilterDialogModel.fromJson(Map<String, dynamic> json) => _$FilterDialogModelFromJson(json);

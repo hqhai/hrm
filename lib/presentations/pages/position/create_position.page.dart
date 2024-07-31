@@ -62,6 +62,7 @@ class _CreatePositionWidgetState extends State<CreatePositionWidget> {
     final height = MediaQuery.sizeOf(context).height;
     return BasePage(
       appbar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.createPosition,
             style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),

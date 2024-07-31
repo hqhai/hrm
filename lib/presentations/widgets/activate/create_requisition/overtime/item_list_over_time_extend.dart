@@ -30,7 +30,7 @@ class ItemListOverTimeExtend extends StatelessWidget {
           padding: const EdgeInsets.all(SpacingUnit.x2_5),
           margin: const EdgeInsets.only(left: SpacingUnit.x2_5, top: SpacingUnit.x4),
           decoration: BoxDecoration(
-            color: colors.surface,
+            color: colors.background,
             borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
             border: Border.all(
               width: 1,

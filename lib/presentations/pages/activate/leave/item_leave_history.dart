@@ -1,18 +1,11 @@
-import 'dart:async';
 
-import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/work_and_salary_enum.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/extra/requisition_information_extra.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_bloc.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_state.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/pages/activate/leave/padding_row_leave.dart';
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
@@ -70,10 +63,10 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
               ),
               if (leave?.requestId.isNotEmpty ?? false)
                 GestureDetector(
-                  onTap: () => _nextRequisitionInformationScreen(
-                    context,
-                    state.userLeaveHistory[widget.userLeaveHistoryId]!.requestId,
-                  ),
+                  onTap: () => nextScreenRequest(
+                      id: state.userLeaveHistory[widget.userLeaveHistoryId]!.requestId,
+                      checkOpacity: checkOpacity,
+                      setState: () => setOpacity()),
                   child: Padding(
                     padding: const EdgeInsets.all(SpacingUnit.x3),
                     child: Text(
@@ -100,33 +93,9 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
     return type == ChangeTypeEnum.addition;
   }
 
-
-  _nextRequisitionInformationScreen(BuildContext context, String idRequest) async {
-    final RequisitionInformationExtra extra = RequisitionInformationExtra(
-      id: idRequest,
-      checkUser: false,
-    );
-    if (!checkOpacity) {
-      setState(() {
-        checkOpacity = true;
-      });
-      final Completer completer = Completer<RequisitionEnum>();
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: idRequest, completer: completer),
-      );
-      final statusCompleter = await completer.future;
-      if (statusCompleter == RequisitionEnum.success) {
-        setState(() {
-          checkOpacity = false;
-        });
-        if (!currentContext.mounted) return;
-        dI<AppNavigation>().pushName(
-          currentContext,
-          page: Pages.requisitionInformationPage,
-          extra: extra.toJson()
-        );
-      }
-    }
+  setOpacity() {
+    setState(() {
+      checkOpacity = !checkOpacity;
+    });
   }
 }

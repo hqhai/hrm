@@ -15,7 +15,7 @@ part 'config_request_model.g.dart';
 class ConfigRequestModel {
   final String? description;
   final String? flowId;
-  final EnumTakeLeave? takeLeaveReason;
+  final EnumReasonLeave? takeLeaveReason;
   final double? numberValue;
   final EditTimekeeping? editTimekeeping;
   final List<String>? subtitudePersons;
@@ -33,6 +33,10 @@ class ConfigRequestModel {
   final DateTime? endDate;
   final double? total;
   final List<RequisitionOverTime>? overTimes;
+  final EnumTakeLeaveType? takeLeaveType;
+  final EnumReasonLeave? reasonLeave;
+  final EnumSocialInsuranceLeave? socialInsuranceLeave;
+  final List<String>? workShiftSettingDetailIds;
 
   const ConfigRequestModel({
     this.editTimekeeping,
@@ -55,6 +59,10 @@ class ConfigRequestModel {
     this.takeLeaveReason,
     this.total,
     this.warehourseReleaseds,
+    this.socialInsuranceLeave,
+    this.reasonLeave,
+    this.takeLeaveType,
+    this.workShiftSettingDetailIds,
   });
 
   factory ConfigRequestModel.fromJson(Map<String, dynamic> json) =>

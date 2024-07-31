@@ -471,5 +471,12 @@
   "distanceNotEnough": "Distance Not Enough",
   "reasonForCancelingRequest": "Reason for canceling request",
   "lateOrEarly": "Late/Early",
-  "timekeepingError": "Timekeeping error"
+  "timekeepingError": "Timekeeping error",
+  "titleBusiness": "Title business",
+  "timeStart": "Thời gian đi",
+  "timeEnd": "Thời gian về",
+  "socialInsuranceLeave": "Social Insurance Leave",
+  "leaveHalfDayToOneDay": "leave Half Day To One Day",
+  "leaveTwoDayToFourDay": "leave Two Day To Four Day",
+  "leaveFiveDaysOrMore": "leave Five Days Or More"
 }

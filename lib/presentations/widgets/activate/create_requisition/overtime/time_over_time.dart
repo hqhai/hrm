@@ -14,7 +14,7 @@ class TimeOverTime extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
       child: Row(
         children: [
           Expanded(
@@ -23,7 +23,7 @@ class TimeOverTime extends StatelessWidget {
               style: TextStyle(
                 color: colors.text,
                 fontSize: SpacingUnit.x4,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

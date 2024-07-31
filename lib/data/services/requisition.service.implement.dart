@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -36,6 +37,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   @override
   Future<FlowResponse> getFlowByUser({required GetRequestRequest getRequestRequest}) async {
     final url = '$baseUrl${PathConfig.getFlowByUser}';
+    getRequestRequest = getRequestRequest.copyWith(pageSize: RequisitionTypeEnum.values.length);
     final params = getRequestRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
@@ -66,30 +68,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<RequestsResponse> getRequisitions({required GetRequestRequest requestsRequest}) async {
-    final url = '$baseUrl${PathConfig.getRequestSelf}';
-    final params = requestsRequest.toJson();
-    final response = await client.get(url, params: params);
-    final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result;
-    final RequestsResponse requestsResponse = RequestsResponse.fromJson(data);
-    return requestsResponse;
-  }
-
-  @override
-  Future<RequestsResponse> getRequisitionsApprove(
-      {required GetRequestRequest requestsRequest}) async {
-    final url = '$baseUrl${PathConfig.getRequestApprove}';
-    final params = requestsRequest.toJson();
-    final response = await client.get(url, params: params);
-    final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result;
-    final RequestsResponse requestsResponse = RequestsResponse.fromJson(data);
-    return requestsResponse;
-  }
-
-  @override
-  Future<RequestsResponse> getRequisitionsByFilter(
+  Future<RequestsResponse> getRequisitionsSelfByFilter(
       {required GetRequestFilterRequest getRequestFilterRequest}) async {
     final url = '$baseUrl${PathConfig.getRequestSelf}';
     final params = getRequestFilterRequest.toJson();
@@ -105,6 +84,18 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
       {required GetRequestApproveFilterRequest getRequestApproveFilterRequest}) async {
     final url = '$baseUrl${PathConfig.getRequestApprove}';
     final params = getRequestApproveFilterRequest.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    final RequestsResponse requestsResponse = RequestsResponse.fromJson(data);
+    return requestsResponse;
+  }
+
+  @override
+  Future<RequestsResponse> getRequisitionsFollowerByFilter(
+      {required GetRequestFilterRequest getRequestFilterRequest}) async {
+    final url = '$baseUrl${PathConfig.getRequestFollower}';
+    final params = getRequestFilterRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
@@ -135,17 +126,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     return flow;
   }
 
-  @override
-  Future<RequestsResponse> getRequisitionsFollowerByFilter(
-      {required GetRequestFilterRequest getRequestFilterRequest}) async {
-    final url = '$baseUrl${PathConfig.getRequestFollower}';
-    final params = getRequestFilterRequest.toJson();
-    final response = await client.get(url, params: params);
-    final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result;
-    final RequestsResponse requestsResponse = RequestsResponse.fromJson(data);
-    return requestsResponse;
-  }
+
 
   @override
   Future<bool> approveRequisition({required ApproveRequest approveRequest}) async {

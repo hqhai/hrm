@@ -61,7 +61,7 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return BasePage(
-      appbar: AppBar(),
+      appbar: AppBar(iconTheme: IconThemeData(color: colors.text),),
       body: Center(
         child: Container(
           width: width,

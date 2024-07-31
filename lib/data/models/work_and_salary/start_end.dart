@@ -6,11 +6,11 @@ part 'start_end.g.dart';
 @JsonSerializable()
 @CustomDateTimeConverter()
 class StartEndResponse {
-  final DateTime? startTime;
-  final DateTime? endTime;
+  final DateTime? startDate;
+  final DateTime? endDate;
 
   const StartEndResponse(
-      {this.startTime , this.endTime});
+      {this.startDate , this.endDate});
 
   factory StartEndResponse.fromJson(Map<String, dynamic> json) =>
       _$StartEndResponseFromJson(json);

@@ -45,7 +45,7 @@ class _ListStationeriesState extends State<ListStationeries> {
           padding: const EdgeInsets.all(SpacingUnit.x1),
           margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
           decoration: BoxDecoration(
-            color: colors.surface,
+            color: colors.background,
             borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
           ),
           child: ListView.builder(

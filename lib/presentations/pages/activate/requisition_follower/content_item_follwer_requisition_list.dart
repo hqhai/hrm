@@ -1,6 +1,5 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_state.dart';
@@ -14,10 +13,6 @@ class ContentItemFollowingRequisitionList extends StatelessWidget {
 
   final String id;
 
-  Request _request(List<Request> requisitions, String id) {
-    return requisitions.firstWhere((element) => element.id == id);
-  }
-
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -25,6 +20,7 @@ class ContentItemFollowingRequisitionList extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<RequisitionFollowingBloc, RequisitionFollowingState>(
       builder: (context, state) {
+        final request = state.requisitions[id];
         return Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +28,7 @@ class ContentItemFollowingRequisitionList extends StatelessWidget {
             SizedBox(
               width: width * 0.8,
               child: Text(
-                _request(state.requisitions, id).config.description ?? "",
+                request?.config.description ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -41,17 +37,17 @@ class ContentItemFollowingRequisitionList extends StatelessWidget {
             ),
             TitleValueLeave(
               title: appLocalizations.creator,
-              value: _request(state.requisitions, id).createdFullName,
+              value: request?.createdFullName ?? "",
             ),
             TitleValueLeave(
               title: appLocalizations.createTime,
               value: formatYMDHMS(
-                dateTimeLocal(_request(state.requisitions, id).createdDate).toString(),
+                dateTimeLocal(request?.createdDate).toString(),
               ),
             ),
             TitleValueLeave(
               title: appLocalizations.code,
-              value: _request(state.requisitions, id).code,
+              value: request?.code ?? "",
               color: colors.success,
             ),
           ],

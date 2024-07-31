@@ -91,7 +91,7 @@ class _LayoutCalendarAttendanceHistoryState extends State<LayoutCalendarAttendan
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(iconTheme: IconThemeData(color: colors.text),),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
         height: MediaQuery.sizeOf(context).height,

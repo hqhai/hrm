@@ -1,6 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
+import 'package:widgets/app_button.dart';
 
 class ButtonRequest extends StatelessWidget {
   const ButtonRequest({
@@ -19,23 +20,38 @@ class ButtonRequest extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ElevatedButton(
-            onPressed: () => apply.call(),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: colors.navy,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                right: SpacingUnit.x2,
+                left: SpacingUnit.x4,
+                bottom: SpacingUnit.x8,
+              ),
+              child: AppButton(
+                onSubmit: () => apply.call(),
+                title: title1,
+                colorText: colors.background,
+                color: colors.primary,
+              ),
             ),
-            child: Text(title1, style: TextStyle(color: colors.text)),
           ),
-          ElevatedButton(
-            onPressed: () => reject.call(),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: colors.navy,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                right: SpacingUnit.x4,
+                left: SpacingUnit.x2,
+                bottom: SpacingUnit.x8,
+              ),
+              child: AppButton(
+                onSubmit: () => reject.call(),
+                title: title2,
+                color: colors.background,
+              ),
             ),
-            child: Text(title2, style: TextStyle(color: colors.text)),
           ),
         ],
       ),

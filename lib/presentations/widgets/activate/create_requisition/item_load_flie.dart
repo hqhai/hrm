@@ -58,7 +58,7 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
             padding: const EdgeInsets.all(SpacingUnit.x3),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(SpacingUnit.x1),
-              color: colors.surface,
+              color: colors.background,
               border: Border.all(color: colors.text, width: 1),
             ),
             child: SvgPicture.asset(
@@ -82,7 +82,7 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                    color: colors.surface,
+                    color: colors.background,
                     border: Border.all(color: colors.text, width: 1),
                   ),
                   child: _checkTypeFile(index)

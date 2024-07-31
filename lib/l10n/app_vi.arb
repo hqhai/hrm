@@ -323,7 +323,7 @@
   "removeFilter": "Xóa bộ lọc",
   "paymentAfterTax": "Thanh toán sau thuế",
   "intoMoneyNoVAT": "Thành tiền chưa VAT",
-  "yearlyAndSeniorityLeave": "Nghỉ phép năm",
+  "yearlyAndSeniorityLeave": "Nghỉ phép năm và nghỉ thâm niên",
   "otherLeave": "Nghỉ phép khác",
   "horizontalCalendar": "Lịch ngang",
   "verticalCalendar": "Lịch dọc",
@@ -473,5 +473,12 @@
   "distanceNotEnough": "Khoảng cách không đủ",
   "reasonForCancelingRequest": "Lý do hủy yêu cầu",
   "lateOrEarly": "Đi muộn/Về sớm",
-  "timekeepingError": "Chấm công lỗi"
+  "timekeepingError": "Chấm công lỗi",
+  "titleBusiness": "Thời gian đi công tác",
+  "timeStart": "Thời gian đi",
+  "timeEnd": "Thời gian về",
+  "socialInsuranceLeave": "BHXH chi trả",
+  "leaveHalfDayToOneDay": "Nghỉ 0,5 đến 1 ngày",
+  "leaveTwoDayToFourDay": "Nghỉ 2 đến 4 ngày",
+  "leaveFiveDaysOrMore": "Nghỉ 5 ngày trở lên"
 }

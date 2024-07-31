@@ -7,87 +7,64 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ItemTakeLeaveWork extends StatefulWidget {
-  const ItemTakeLeaveWork({super.key,});
-
+  const ItemTakeLeaveWork({
+    super.key,
+  });
 
   @override
   State<ItemTakeLeaveWork> createState() => _ItemTakeLeaveWorkState();
 }
 
 class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
-
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final colors = AppTheme.getColors(context);
     return BlocBuilder<WorkAndSalaryBloc, WorkAndSalaryState>(
       builder: (context, state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-              child: Row(
-                children: [
-                  Text(
-                    appLocalizations.leaveNumberPermission,
-                    style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    width: SpacingUnit.x4,
-                  ),
-                  Text(
-                    state.userLeave.total.toString(),
-                    style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4),
-                  ),
-                ],
-              ),
+            item(
+              context: context,
+              title: appLocalizations.leaveNumberPermission,
+              value: state.userLeave.total.toString(),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-              child: Row(
-                children: [
-                  Text(
-                    appLocalizations.leaveNumberUsed,
-                    style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    width: SpacingUnit.x4,
-                  ),
-                  Text(
-                    state.userLeave.totalUsed.toString(),
-                    style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4),
-                  ),
-                ],
-              ),
+            item(
+              context: context,
+              title: appLocalizations.leaveNumberUsed,
+              value: state.userLeave.totalUsed.toString(),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-              child: Row(
-                children: [
-                  Text(
-                    appLocalizations.leaveNumberRemaining,
-                    style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    width: SpacingUnit.x4,
-                  ),
-                  Text(
-                    state.userLeave.totalRemaining.toString(),
-                    style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4),
-                  ),
-                ],
-              ),
+            item(
+              context: context,
+              title: appLocalizations.leaveNumberRemaining,
+              value: state.userLeave.totalRemaining.toString(),
             ),
           ],
         );
       },
+    );
+  }
+
+  Widget item({required BuildContext context, required String title, required String value}) {
+    final colors = AppTheme.getColors(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              title,
+              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -75,6 +74,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
           builder: (context, stateFlow) {
             return Scaffold(
               appBar: AppBar(
+                iconTheme: IconThemeData(color: colors.text),
                 title: Center(
                   child: Column(
                     children: [
@@ -132,8 +132,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                               child: ButtonItemListRequisition(
                                 check: true,
                                 title: appLocalizations.update,
-                                callback: () =>
-                                    _nextScreen(context, stateFlow.flow, state.requisition.id),
+                                callback: () => _nextScreen(stateFlow.flow),
                               ),
                             ),
                           if (statusApprove(state.requisition) ==
@@ -280,7 +279,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     setState(() {
       checkLoad = true;
     });
-    final Completer completer = Completer<RequisitionEnum>();
+    final Completer completer = Completer<bool>();
     dI<RequisitionApproveBloc>().add(
       ApproveRequestEvent(
         id: id,
@@ -291,14 +290,14 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       ),
     );
     final statusCompleter = await completer.future;
-    if (statusCompleter == RequisitionEnum.success) {
+    if (statusCompleter == true) {
       dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
       setState(() {
         checkLoad = false;
         checkSuccess = true;
       });
     }
-    if (statusCompleter == RequisitionEnum.fail) {
+    if (statusCompleter == false) {
       setState(() {
         checkLoad = false;
         checkUnSuccess = true;
@@ -325,123 +324,122 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     }
   }
 
-  _nextScreen(BuildContext context, FlowRequest flow, String requestId) {
-    switch (flow.flowType) {
-      case RequisitionTypeEnum.explanation:
-        _push(
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestExplanationPage,
-        );
-      case RequisitionTypeEnum.lateArrival:
-        _push(
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestLeavePage,
-        );
-      case RequisitionTypeEnum.overTime:
-        _push(
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestOverTimePage,
-        );
-      case RequisitionTypeEnum.vehicleDriver:
-        _push(
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestVehicleDispatchPage,
-        );
-      case RequisitionTypeEnum.postalDelivery:
-        _push(
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestPostalDeliveryPage,
-        );
-      case RequisitionTypeEnum.warehouseReleased:
-        _push(
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestReleaseOfWarehousePage,
-        );
-      case RequisitionTypeEnum.stationery:
-        _push(
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestStationeryOderPage,
-        );
-      case RequisitionTypeEnum.bussiness:
-        _push(
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestBusinessPage,
-        );
-      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
-        _push(
-          type: RequisitionTypeEnum.yearlyAndSeniorityLeave,
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestLeavePage,
-        );
-      case RequisitionTypeEnum.compensatoryLeave:
-        _push(
-          type: RequisitionTypeEnum.compensatoryLeave,
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestLeavePage,
-        );
-      case RequisitionTypeEnum.otherLeave:
-        _push(
-          type: RequisitionTypeEnum.otherLeave,
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestLeavePage,
-        );
-      case RequisitionTypeEnum.unpaidLeave:
-        _push(
-          type: RequisitionTypeEnum.unpaidLeave,
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestLeavePage,
-        );
-      case RequisitionTypeEnum.earlyDeparture:
-      default:
-        break;
+  _nextScreen(FlowRequest flow) async {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      if (!currentContext.mounted) return;
+      switch (flow.flowType) {
+        case RequisitionTypeEnum.explanation:
+          _push(
+            type: RequisitionTypeEnum.explanation,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestExplanationPage,
+          );
+        case RequisitionTypeEnum.lateOrEarly:
+          _push(
+            type: RequisitionTypeEnum.lateOrEarly,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestLateAndEarlyPage,
+          );
+        case RequisitionTypeEnum.overTime:
+          _push(
+            type: RequisitionTypeEnum.overTime,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestOverTimePage,
+          );
+        case RequisitionTypeEnum.vehicleDriver:
+          _push(
+            type: RequisitionTypeEnum.vehicleDriver,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestVehicleDispatchPage,
+          );
+        case RequisitionTypeEnum.postalDelivery:
+          _push(
+            type: RequisitionTypeEnum.postalDelivery,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestPostalDeliveryPage,
+          );
+        case RequisitionTypeEnum.warehouseReleased:
+          _push(
+            type: RequisitionTypeEnum.warehouseReleased,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestReleaseOfWarehousePage,
+          );
+        case RequisitionTypeEnum.stationery:
+          _push(
+            type: RequisitionTypeEnum.stationery,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestStationeryOderPage,
+          );
+        case RequisitionTypeEnum.bussiness:
+          _push(
+            type: RequisitionTypeEnum.bussiness,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestBusinessPage,
+          );
+        case RequisitionTypeEnum.leaveFiveDaysOrMore:
+          _push(
+            type: RequisitionTypeEnum.leaveFiveDaysOrMore,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestLeavePage,
+          );
+        case RequisitionTypeEnum.leaveTwoDayToFourDay:
+          _push(
+            type: RequisitionTypeEnum.leaveTwoDayToFourDay,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestLeavePage,
+          );
+        case RequisitionTypeEnum.leaveHalfDayToOneDay:
+          _push(
+            type: RequisitionTypeEnum.leaveHalfDayToOneDay,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestLeavePage,
+          );
+        default:
+          break;
     }
   }
 

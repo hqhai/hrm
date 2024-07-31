@@ -82,7 +82,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(iconTheme: IconThemeData(color: colors.text),),
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => checkListenWhen(

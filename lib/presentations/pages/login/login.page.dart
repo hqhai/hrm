@@ -1,5 +1,4 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/log/logger.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -10,11 +9,11 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_state.dart';
-import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/biometric/biometric_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/biometric/permission_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/password/wrong_password_many.dart';
@@ -171,28 +170,12 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     }
   }
 
-  _language(LanguageEnum? value) {
-    if (value != null && value == LanguageEnum.vi) {
-      dI<LanguageCubit>().changeLocale(LanguageEnum.vi);
-    } else {
-      dI<LanguageCubit>().changeLocale(LanguageEnum.en);
-    }
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    if (checkPermission) {
-      permissionDialog(context, () => _setPermission);
-    }
-    super.setState(fn);
-  }
-
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    /* final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;*/
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         _loginListener(context, state);
@@ -200,15 +183,10 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       child: BasePage(
         body: Stack(
           children: [
-            Image.asset(
-              Assets.images.signIn.background.path,
-              fit: BoxFit.fill,
-              width: width,
-              height: height,
+            Container(
+              color: colors.surface.withOpacity(0.5),
             ),
-            DropdownMenuWidget(
-              onSelected: (LanguageEnum? value) => _language(value),
-            ),
+            const DropdownMenuWidget(),
             Center(
               child: SizedBox(
                 height: SpacingUnit.x50,
@@ -237,92 +215,95 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         top: SpacingUnit.x30),
                     child: Padding(
                       padding: const EdgeInsets.all(SpacingUnit.x4),
-                      child: Column(children: [
-                        const SizedBox(height: SpacingUnit.x4),
-                        Text(appLocalizations.login2,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x6)),
-                        Text(appLocalizations.enterYourRegisteredUsernameAndPassword,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
-                        EmailAndPasswordWidget(
-                          emailController: emailController,
-                          passwordController: passwordController,
-                          errorEmail: errorEmail,
-                          errorPass: errorPass,
-                          onChangeEmail: (value) => onChangeEmail(value),
-                          onChangePass: (value) => onChangePassword(value),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AppCheckbox(
-                                onChanged: (bool? value) => setCheckSaveLogin(value),
-                                label: appLocalizations.staySignedIn,
-                                value: checkSaveLogin,
-                                color: colors.text,
-                                checkColor: Colors.white),
-                            GestureDetector(
-                              onTap: () => onClickForgotPassword(),
-                              child: Text(appLocalizations.forgotPassword,
-                                  style: TextStyle(
-                                    fontSize: SpacingUnit.x3_5,
-                                    color: colors.text,
-                                  )),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: SpacingUnit.x4),
-                        AppButton(
-                          title: appLocalizations.login,
-                          onSubmit: () => onSubmit(),
-                          color: checkInput() ? colors.blue : colors.navy,
-                          colorText: checkInput() ? colors.text : colors.background,
-                        ),
-                        const SizedBox(height: SpacingUnit.x4),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: colors.onSurfaceVariant,
-                            borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
-                            border: Border.all(color: colors.outline, width: 1),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: SpacingUnit.x4),
+                          Text(appLocalizations.login2,
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x6)),
+                          Text(appLocalizations.enterYourRegisteredUsernameAndPassword,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
+                          EmailAndPasswordWidget(
+                            emailController: emailController,
+                            passwordController: passwordController,
+                            errorEmail: errorEmail,
+                            errorPass: errorPass,
+                            onChangeEmail: (value) => onChangeEmail(value),
+                            onChangePass: (value) => onChangePassword(value),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(SpacingUnit.x0_5),
-                            child: BlocBuilder<BiometricCubit, BiometricState>(
-                              builder: (context, stateBiometric) {
-                                return GestureDetector(
-                                  onTap: () => _getBiometric(context, stateBiometric),
-                                  child: SvgPicture.asset(
-                                    height: SpacingUnit.x8,
-                                    width: SpacingUnit.x8,
-                                    Assets.images.signIn.biometric,
-                                    colorFilter:
-                                        ColorFilter.mode(colors.background, BlendMode.srcIn),
-                                  ),
-                                );
-                              },
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppCheckbox(
+                                  onChanged: (bool? value) => setCheckSaveLogin(value),
+                                  label: appLocalizations.staySignedIn,
+                                  value: checkSaveLogin,
+                                  color: colors.text,
+                                  checkColor: Colors.white),
+                              GestureDetector(
+                                onTap: () => onClickForgotPassword(),
+                                child: Text(appLocalizations.forgotPassword,
+                                    style: TextStyle(
+                                      fontSize: SpacingUnit.x3_5,
+                                      color: colors.text,
+                                    )),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: SpacingUnit.x4),
+                          AppButton(
+                            title: appLocalizations.login,
+                            onSubmit: () => onSubmit(),
+                            color: checkInput() ? colors.blue : colors.navy,
+                            colorText: checkInput() ? colors.text : colors.background,
+                          ),
+                          const SizedBox(height: SpacingUnit.x4),
+                          ContainerBorder(
+                            backgroundColors: colors.surface.withOpacity(0.5),
+                            child: Padding(
+                              padding: const EdgeInsets.all(SpacingUnit.x0_5),
+                              child: BlocBuilder<BiometricCubit, BiometricState>(
+                                builder: (context, stateBiometric) {
+                                  return GestureDetector(
+                                    onTap: () => _getBiometric(context, stateBiometric),
+                                    child: SvgPicture.asset(
+                                      height: SpacingUnit.x8,
+                                      width: SpacingUnit.x8,
+                                      Assets.images.signIn.biometric,
+                                      colorFilter:
+                                          ColorFilter.mode(colors.background, BlendMode.srcIn),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        const Expanded(flex: 5, child: SizedBox()),
-                        const SizedBox(height: SpacingUnit.x4),
-                        //const ContactHelpWidget(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              appLocalizations.notAMember,
-                              style: TextStyle(fontSize: 16, color: colors.text),
-                            ),
-                            GestureDetector(
+                          const Expanded(flex: 5, child: SizedBox()),
+                          const SizedBox(height: SpacingUnit.x4),
+                          //const ContactHelpWidget(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                appLocalizations.notAMember,
+                                style: TextStyle(fontSize: 16, color: colors.text),
+                              ),
+                              GestureDetector(
                                 onTap: () {
                                   onRegister(context);
                                 },
-                                child: Text(appLocalizations.signUpNow,
-                                    style:
-                                        const TextStyle(fontSize: 16, color: Color(0xffABBFED)))),
-                          ],
-                        ),
-                      ]),
+                                child: Text(
+                                  appLocalizations.signUpNow,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Color(0xffABBFED),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -361,6 +342,17 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     if (!canAuthenticate) {
       setState(() {
         checkPermission = true;
+        final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+        showDialog(
+          context: currentContext,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: PermissionDialog(
+                callBack: () => _setPermission(),
+              ),
+            );
+          },
+        );
       });
     } else if (availableBiometrics.isNotEmpty && canAuthenticate) {
       final bool didAuthenticate = await auth.authenticate(
@@ -375,6 +367,17 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     } else {
       setState(() {
         checkPermission = true;
+        final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+        showDialog(
+          context: currentContext,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: PermissionDialog(
+                callBack: () => _setPermission(),
+              ),
+            );
+          },
+        );
       });
       try {} on PlatformException catch (e) {
         logger.w(e.message);

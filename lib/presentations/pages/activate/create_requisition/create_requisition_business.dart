@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
@@ -12,7 +11,6 @@ import 'package:base_app/data/models/requisition/requisition/post_request_reques
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
@@ -21,7 +19,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_common/item_create_time_start_and_end.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
@@ -41,10 +39,10 @@ final createRequestBusinessPageRoute = GoRoute(
     });
 
 class CreateRequisitionBusinessPage extends StatefulWidget {
-  const CreateRequisitionBusinessPage({super.key, this.flowId = '', this.requestId});
+  const CreateRequisitionBusinessPage({super.key, this.flowId = '', this.requestId = ''});
 
   final String flowId;
-  final String? requestId;
+  final String requestId;
 
   @override
   State<CreateRequisitionBusinessPage> createState() => _CreateRequisitionBusinessPageState();
@@ -72,10 +70,21 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   @override
   void initState() {
-    if (widget.requestId?.isNotEmpty ?? false) {
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.requestId),
-      );
+    if (widget.requestId.isNotEmpty) {
+      final request = dI<RequisitionBloc>().state.requisition;
+      startTime = request.config.startDate;
+      endTime = request.config.endDate;
+      content = request.config.content ?? "";
+      contentController.text = content ?? "";
+      reason = request.config.description ?? "";
+      detailedDescriptionController.text = reason ?? "";
+      vehicle = request.config.vehicle ?? "";
+      vehicleController.text = vehicle ?? "";
+      destination = request.config.description ?? "";
+      destinationController.text = destination ?? "";
+      followers = [...request.followerIds];
+      substitutes = [...?request.config.subtitudePersons];
+      total = request.config.total ?? 0;
     }
     super.initState();
   }
@@ -83,45 +92,20 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkTime = (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
-    final bool checkStartTime = (startTime ?? now).difference(now).inSeconds > 0;
     final bool check = reason != null && vehicle != null && destination != null && content != null;
     setState(() {
-      errorTime = !checkStartTime
-          ? appLocalizations.theStartTimeMustBeAfterTheCurrentTime
-          : !checkTime
-              ? appLocalizations.endTimeMustBeAfterStartTime
-              : "";
+      errorTime = !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
       errorReason = reason != null ? '' : appLocalizations.cannotBeLeftBlank;
       errorContent = content != null ? '' : appLocalizations.cannotBeLeftBlank;
       errorVehicle = vehicle != null ? '' : appLocalizations.cannotBeLeftBlank;
       errorDestination = destination != null ? '' : appLocalizations.cannotBeLeftBlank;
     });
-    return check && checkStartTime && checkTime;
+    return check && checkTime;
   }
 
   double opacity() {
     bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
-  }
-
-  _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
-      setState(() {
-        startTime = state.requisition.config.startDate;
-        endTime = state.requisition.config.endDate;
-        content = state.requisition.config.content ?? "";
-        contentController.text = content ?? "";
-        reason = state.requisition.config.description ?? "";
-        detailedDescriptionController.text = reason ?? "";
-        vehicle = state.requisition.config.vehicle ?? "";
-        vehicleController.text = vehicle ?? "";
-        destination = state.requisition.config.description ?? "";
-        destinationController.text = destination ?? "";
-        followers = [...state.requisition.followerIds];
-        substitutes = [...?state.requisition.config.subtitudePersons];
-        total = state.requisition.config.total ?? 0;
-      });
-    }
   }
 
   @override
@@ -130,6 +114,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     final colors = AppTheme.getColors(context);
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(
           RequisitionTypeEnum.bussiness.configTypeName,
           style: TextStyle(
@@ -138,9 +123,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
           ),
         ),
       ),
-      body: BlocConsumer<RequisitionBloc, RequisitionState>(
-        listener: (context, state) => _listener(context, state),
-        listenWhen: (previous, current) => _listenWhen(previous, current),
+      body: BlocBuilder<RequisitionBloc, RequisitionState>(
+        buildWhen: (previous, current) => previous.requisition != current.requisition,
         builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
             return Stack(
@@ -152,47 +136,52 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ItemCreateIntervalOnLeave(
-                            endTimeOld: endTime,
-                            startTimeOld: startTime,
-                            error: errorTime,
-                            dayOrHours: false,
-                            title: appLocalizations.intervalOnLeave,
-                            startTime: (value) => setStartTime(value),
-                            endTime: (value) => setEndTime(value),
-                            total: (value) => setTotal(value),
-                          ),
                           ItemCreateInputArea(
                             error: errorDestination,
                             textController: detailedDescriptionController,
                             title: appLocalizations.reasonForBusinessTrip,
                             onChange: (value) => _setReason(value),
                           ),
+                          ItemCreateTimeStartAndEnd(
+                            title1: appLocalizations.timeStart,
+                            title2: appLocalizations.timeEnd,
+                            title3: appLocalizations.totalDays,
+                            endTimeOld: endTime,
+                            startTimeOld: startTime,
+                            error: errorTime,
+                            dayOrHours: true,
+                            title: appLocalizations.titleBusiness,
+                            startTime: (value) => setStartTime(value),
+                            endTime: (value) => setEndTime(value),
+                            total: (value) => setTotal(value),
+                          ),
                           ItemCreateInputArea(
                             error: errorContent,
                             textController: contentController,
-                            title: appLocalizations.content,
+                            title: appLocalizations.workingContent,
                             onChange: (value) => _setContent(value),
                           ),
                           ItemCreateFollower(
-                              listFollower: _setListUser(stateUserById.subtitudePersons),
-                              title: appLocalizations.accompanyingPerson,
-                              onChange: (value) => _setSubstitute(value)),
-                          ItemCreateFollower(
-                              listFollower: _setListUser(stateUserById.userById),
-                              title: appLocalizations.follower,
-                              onChange: (value) => _setFollower(value)),
+                            listFollower: _setListUser(stateUserById.subtitudePersons),
+                            title: appLocalizations.accompanyingPerson,
+                            onChange: (value) => _setSubstitute(value),
+                          ),
                           ItemCreateInput(
                             error: errorVehicle,
                             title: appLocalizations.vehicle,
                             inputController: vehicleController,
                             onChange: (value) => _setVehicle(value),
                           ),
-                          ItemCreateInput(
+                          ItemCreateInputArea(
                             error: errorDestination,
                             title: appLocalizations.destination,
-                            inputController: destinationController,
+                            textController: destinationController,
                             onChange: (value) => _setDestination(value),
+                          ),
+                          ItemCreateFollower(
+                            listFollower: _setListUser(stateUserById.userById),
+                            title: appLocalizations.follower,
+                            onChange: (value) => _setFollower(value),
                           ),
                           const ItemListStepFlow(),
                           ItemButton(
@@ -221,7 +210,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   }
 
   List<User> _setListUser(List<User> userById) {
-    if (widget.requestId != null) {
+    if (widget.requestId.isNotEmpty) {
       return userById;
     }
     return [];
@@ -252,7 +241,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   }
 
   PostRequestRequest request() {
-    return widget.requestId == null
+    return widget.requestId.isEmpty
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
@@ -268,6 +257,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
             ),
           )
         : PostRequestRequest(
+            id: widget.requestId,
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
@@ -286,9 +276,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(),
       completerSuccess: () => completerSuccess(),
@@ -356,13 +346,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  setTotal(int value) {
+  setTotal(double value) {
     setState(() {
       total = double.parse(value.toString());
     });
-  }
-
-  bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
-    return statusP != statusC;
   }
 }

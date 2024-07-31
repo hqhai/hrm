@@ -1,14 +1,22 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:themes/themes.dart';
 
 class TimePicker extends StatefulWidget {
-  const TimePicker({super.key, required this.onChange, required this.timeSlot});
+  const TimePicker({
+    super.key,
+    required this.onChange,
+    required this.timeSlot,
+    this.checkType = true,
+  });
 
   final ValueChanged<DateTime> onChange;
   final DateTime? timeSlot;
+  final bool checkType;
 
   @override
   State<TimePicker> createState() => _TimePickerState();
@@ -34,28 +42,61 @@ class _TimePickerState extends State<TimePicker> {
       },
       child: Container(
         padding: const EdgeInsets.all(4),
-        height: 55,
+        height: SpacingUnit.x14,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
           border: Border.all(
-            color: const Color(0xff2a6067),
-            width: 2,
+            color: colors.text.withOpacity(0.3),
+            width: SpacingUnit.x0_25,
           ),
         ),
-        child: Column(
-          children: [
-            Text(DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
-                style: TextStyle(fontSize: SpacingUnit.x3_5, color: colors.text)),
-            Text(DateFormat('HH:mm:ss').format(setStartTimeOld()),
-                style: TextStyle(fontSize: SpacingUnit.x3_5, color: colors.text)),
-          ],
-        ),
+        child: widget.checkType
+            ? Column(
+                children: [
+                  Text(
+                    DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
+                    style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                  ),
+                  Text(
+                    DateFormat('HH:mm:ss').format(setStartTimeOld()),
+                    style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                  ),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
+                      style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      DateFormat('HH:mm:ss').format(setStartTimeOld()),
+                      style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                    ),
+                  ),
+                  Expanded(
+                    child: SvgPicture.asset(
+                      Assets.images.timeKeeping.calendar,
+                      colorFilter: ColorFilter.mode(
+                        colors.text.withOpacity(0.3),
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }
 
   showTimePicker(DateTime time) async {
+    final colors = AppTheme.getColors(context);
     DateTime? dateTime = time;
     dateTime = await showOmniDateTimePicker(
       context: context,
@@ -64,14 +105,29 @@ class _TimePickerState extends State<TimePicker> {
       lastDate: DateTime.now().add(
         const Duration(days: 3652),
       ),
-      is24HourMode: false,
+      theme: Theme.of(context).copyWith(
+        colorScheme: ColorScheme(
+          onSurface: colors.text,
+          primary: colors.primary,
+          onPrimary: colors.onPrimary,
+          secondary: colors.secondary,
+          brightness: Brightness.dark,
+          onSecondary: colors.onSecondary,
+          error: colors.error,
+          onError: colors.onError,
+          background: colors.background,
+          onBackground: colors.onBackground,
+          surface: colors.background,
+        ),
+      ),
+      is24HourMode: true,
       isShowSeconds: false,
       minutesInterval: 1,
       secondsInterval: 1,
-      borderRadius: const BorderRadius.all(Radius.circular(16)),
+      borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x3)),
       constraints: const BoxConstraints(
-        maxWidth: 350,
-        maxHeight: 650,
+        maxWidth: SpacingUnit.x87,
+        maxHeight: SpacingUnit.x100 + SpacingUnit.x62,
       ),
       transitionBuilder: (context, anim1, anim2, child) {
         return FadeTransition(
@@ -86,13 +142,6 @@ class _TimePickerState extends State<TimePicker> {
       },
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: true,
-      selectableDayPredicate: (dateTime) {
-        if (dateTime == DateTime(2023, 2, 25)) {
-          return false;
-        } else {
-          return true;
-        }
-      },
     );
     setState(() {
       dateTime != null ? timeValue = dateTime : timeValue = now;

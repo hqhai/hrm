@@ -75,6 +75,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
     final height = MediaQuery.sizeOf(context).height;
     return BasePage(
       appbar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.createDepartment,
             style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),

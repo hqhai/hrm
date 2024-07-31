@@ -15,13 +15,10 @@ import 'package:base_app/domain/entities/reqisition/request.dart';
 abstract class RequisitionService {
   Future<Request> postRequest({required PostRequestRequest postRequestRequest});
 
-  Future<RequestsResponse> getRequisitions({required GetRequestRequest requestsRequest});
 
-  Future<RequestsResponse> getRequisitionsByFilter({
+  Future<RequestsResponse> getRequisitionsSelfByFilter({
     required GetRequestFilterRequest getRequestFilterRequest,
   });
-
-  Future<RequestsResponse> getRequisitionsApprove({required GetRequestRequest requestsRequest});
 
   Future<RequestsResponse> getRequisitionsApproveByFilter({
     required GetRequestApproveFilterRequest getRequestApproveFilterRequest,

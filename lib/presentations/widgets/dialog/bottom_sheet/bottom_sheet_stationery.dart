@@ -46,7 +46,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.surface,
+          color: colors.background,
           child: Center(
             child: Column(
               children: [

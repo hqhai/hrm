@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, stateUser) {
         return Scaffold(
           appBar: AppBar(
+            iconTheme: IconThemeData(color: colors.text),
             centerTitle: true,
             title: Text(titleValue(context, selectedIndex),
                 style: TextStyle(fontSize: SpacingUnit.x6_5, color: colors.text)),

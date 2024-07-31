@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class TimePickerHourMinute extends StatefulWidget {
-  const TimePickerHourMinute({super.key, required this.onChange, this.timeSlot});
+  const TimePickerHourMinute({super.key, required this.onChange, this.timeSlot = ''});
 
   final ValueChanged<String> onChange;
-  final String? timeSlot;
+  final String timeSlot;
 
   @override
   State<TimePickerHourMinute> createState() => _TimePickerHourMinuteState();
@@ -17,8 +17,8 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
   TimeOfDay? selectedTime;
 
   TimeOfDay? timeOfDay(){
-    if(widget.timeSlot != null){
-      DateTime parsedTime = formatDateHM(widget.timeSlot?? formatHM(DateTime.now().toString()));
+    if(widget.timeSlot.isNotEmpty){
+      DateTime parsedTime = formatDateHM(widget.timeSlot);
       setState(() {
         selectedTime = TimeOfDay.fromDateTime(DateTime.parse(parsedTime.toString()));
       });
@@ -32,13 +32,15 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
       child: Container(
-        width: SpacingUnit.x30,
-        height: SpacingUnit.x12_5,
+        width: SpacingUnit.x25,
+        height: SpacingUnit.x8,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(
+            SpacingUnit.x2_5,
+          ),
           border: Border.all(
-            color: const Color(0xff2a6067),
+            color: colors.outline.withOpacity(0.2),
             width: 2,
           ),
         ),
@@ -48,7 +50,7 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
                         selectedTime!.hour, selectedTime!.minute)
                     .toString())
                 : formatHM(DateTime.now().toString()),
-            style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
+            style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text)),
       ),
       onTap: () async {
         final TimeOfDay? time = await showTimePicker(

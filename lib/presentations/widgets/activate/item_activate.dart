@@ -17,20 +17,25 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: widget.callback,
       child: ContainerBorder(
+        width: width,
         padding: SpacingUnit.x5,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Text(
-                widget.title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
+              child: Padding(
+                padding: const EdgeInsets.all(SpacingUnit.x2),
+                child: Text(
+                  widget.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
+                ),
               ),
             ),
             Icon(

@@ -42,7 +42,7 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.4,
-          color: colors.surface,
+          color: colors.background,
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,

@@ -89,6 +89,7 @@ class _CreatePersonnelWidgetState extends State<CreatePersonnelWidget> {
     final height = MediaQuery.sizeOf(context).height;
     return BasePage(
       appbar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.createPersonnel,
             style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),

@@ -30,7 +30,7 @@ class ItemListOverTime extends StatelessWidget {
           padding: const EdgeInsets.all(SpacingUnit.x2_5),
           margin: const EdgeInsets.only(left: SpacingUnit.x2_5, top: SpacingUnit.x4),
           decoration: BoxDecoration(
-            color: colors.surface,
+            color: colors.background,
             borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
             border: Border.all(
               width: 1,
@@ -51,25 +51,13 @@ class ItemListOverTime extends StatelessWidget {
                   color: colors.text,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${appLocalizations.startTime} : ${strSeconds(requisitionOverTime.startTime ?? 0)}',
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x3,
-                      color: colors.text,
-                    ),
-                  ),
-                  Text(
-                    '${appLocalizations.endTime} : ${strSeconds(requisitionOverTime.endTime ?? 0)}',
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x3,
-                      color: colors.text,
-                    ),
-                  ),
-                ],
-              )
+              Text(
+                '${appLocalizations.time} : ${strSeconds(requisitionOverTime.startTime ?? 0)} - ${strSeconds(requisitionOverTime.endTime ?? 0)}',
+                style: TextStyle(
+                  fontSize: SpacingUnit.x3_5,
+                  color: colors.text,
+                ),
+              ),
             ],
           ),
         ),

@@ -74,6 +74,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(
           appLocalizations.createANewSingleWord,
           style: TextStyle(
@@ -89,23 +90,31 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
             child: Container(
               width: width,
               height: height * 0.85,
-              color: colors.surface,
+              color: colors.background,
               padding: const EdgeInsets.all(SpacingUnit.x4),
               margin: const EdgeInsets.all(SpacingUnit.x4),
               child: state.statusGet == FlowStatusEnum.init && state.flows.isEmpty
                   ? Center(
                       child: SizedBox(
-                      height: SpacingUnit.x50,
-                      width: SpacingUnit.x50,
-                      child: Lottie.asset(Assets.images.icon.loading,
-                          width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
-                    ))
+                        height: SpacingUnit.x50,
+                        width: SpacingUnit.x50,
+                        child: Lottie.asset(
+                          Assets.images.icon.loading,
+                          width: SpacingUnit.x50,
+                          height: SpacingUnit.x50,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    )
                   : ListView.builder(
                       controller: controller,
                       itemCount: state.flows.length,
                       itemBuilder: (context, index) => ItemActivateWidget(
                         title: _setTitle(context, state, index),
-                        callback: () => _nextScreen(context, state.flows[index]),
+                        callback: () => _nextScreen(
+                          context,
+                          state.flows[index],
+                        ),
                       ),
                     ),
             ),
@@ -125,23 +134,17 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     required String page,
     required InformationRequestExtra informationRequestExtra,
   }) async {
-
     final extraData = informationRequestExtra.toJson();
-    final currentContext =  dI<AppNavigation>().navigatorKey.currentContext!;
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final Completer completer = Completer<bool>();
     dI<FlowBloc>().add(GetFlowEvent(id: informationRequestExtra.flowId, completer: completer));
     final checkCompleter = await completer.future;
-    if(type != null && checkCompleter) {
+    if (type != null && checkCompleter) {
       extraData.addAll({'type': type});
-      if(!currentContext.mounted) return;
-      dI<AppNavigation>().pushName(
-          context,
-          page: page,
-          extra: extraData
-      );
-    }
-    else if(checkCompleter){
-      if(!currentContext.mounted) return;
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pushName(context, page: page, extra: extraData);
+    } else if (checkCompleter) {
+      if (!currentContext.mounted) return;
       dI<AppNavigation>().pushName(
         context,
         page: page,
@@ -159,9 +162,9 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestExplanationPage,
         );
-      case RequisitionTypeEnum.lateArrival:
+      case RequisitionTypeEnum.lateOrEarly:
         _push(
-          type: RequisitionTypeEnum.lateArrival,
+          type: RequisitionTypeEnum.lateOrEarly,
           context: context,
           informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestLateAndEarlyPage,
@@ -202,40 +205,26 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           informationRequestExtra: InformationRequestExtra(flowId: flow.id),
           page: Pages.createRequestBusinessPage,
         );
-      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
+      case RequisitionTypeEnum.leaveFiveDaysOrMore:
         _push(
           context: context,
           informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          type: RequisitionTypeEnum.yearlyAndSeniorityLeave,
+          type: RequisitionTypeEnum.leaveFiveDaysOrMore,
           page: Pages.createRequestLeavePage,
         );
-      case RequisitionTypeEnum.compensatoryLeave:
+      case RequisitionTypeEnum.leaveHalfDayToOneDay:
         _push(
           context: context,
           informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          type: RequisitionTypeEnum.compensatoryLeave,
+          type: RequisitionTypeEnum.leaveHalfDayToOneDay,
           page: Pages.createRequestLeavePage,
         );
-      case RequisitionTypeEnum.otherLeave:
+      case RequisitionTypeEnum.leaveTwoDayToFourDay:
         _push(
           context: context,
           informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          type: RequisitionTypeEnum.otherLeave,
+          type: RequisitionTypeEnum.leaveTwoDayToFourDay,
           page: Pages.createRequestLeavePage,
-        );
-      case RequisitionTypeEnum.unpaidLeave:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          type: RequisitionTypeEnum.unpaidLeave,
-          page: Pages.createRequestLeavePage,
-        );
-      case RequisitionTypeEnum.earlyDeparture:
-        _push(
-          type: RequisitionTypeEnum.earlyDeparture,
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestLateAndEarlyPage,
         );
       case RequisitionTypeEnum.core:
       case null:

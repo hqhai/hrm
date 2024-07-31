@@ -8,11 +8,11 @@ class BottomSheetLeaveWidget extends StatefulWidget {
   const BottomSheetLeaveWidget({
     super.key,
     required this.onChange,
-    this.listEnumTakeLeave = const [],
+    this.listEnumTakeLeave = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave,
   });
 
-  final ValueChanged<EnumTakeLeave> onChange;
-  final List<EnumTakeLeave> listEnumTakeLeave;
+  final ValueChanged<EnumTakeLeaveType> onChange;
+  final EnumTakeLeaveType listEnumTakeLeave;
 
   @override
   State<BottomSheetLeaveWidget> createState() => _BottomSheetLeaveWidgetState();
@@ -22,20 +22,13 @@ class _BottomSheetLeaveWidgetState extends State<BottomSheetLeaveWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final height = MediaQuery.of(context).size.height;
-    return Container(
-      height: height * 0.25,
-      color: colors.surface,
-      child: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: widget.listEnumTakeLeave
-                .mapIndexed(
-                  (index, element) => GestureDetector(
-                    onTap: () => setOnChange(
-                      type: widget.listEnumTakeLeave[index],
-                    ),
+    return Padding(
+      padding: const EdgeInsets.all(SpacingUnit.x3),
+      child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: EnumTakeLeaveType.values
+              .mapIndexed((index, element) => GestureDetector(
+                    onTap: () => setOnChange(type: element),
                     child: Container(
                       padding: const EdgeInsets.all(SpacingUnit.x3),
                       margin: const EdgeInsets.all(SpacingUnit.x2),
@@ -57,7 +50,7 @@ class _BottomSheetLeaveWidgetState extends State<BottomSheetLeaveWidget> {
                             ),
                           ),
                           Text(
-                            widget.listEnumTakeLeave[index].configEnumTakeLeaveName,
+                            element.configTakeLeaveTypeName,
                             style: TextStyle(
                               color: colors.text,
                               fontSize: SpacingUnit.x3,
@@ -66,16 +59,12 @@ class _BottomSheetLeaveWidgetState extends State<BottomSheetLeaveWidget> {
                         ],
                       ),
                     ),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-      ),
+                  ))
+              .toList()),
     );
   }
 
-  setOnChange({required EnumTakeLeave type}) {
+  setOnChange({required EnumTakeLeaveType type}) {
     widget.onChange.call(type);
     Navigator.of(context).pop();
   }

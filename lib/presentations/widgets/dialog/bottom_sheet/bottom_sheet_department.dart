@@ -83,7 +83,7 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
       listener: (context, state) => _listener(context, state),
       child: Container(
           height: height * 0.6,
-          color: colors.surface,
+          color: colors.background,
           child: Center(
             child: SizedBox(
               height: height * 0.4,

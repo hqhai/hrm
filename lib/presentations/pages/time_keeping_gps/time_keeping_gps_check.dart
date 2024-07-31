@@ -55,6 +55,7 @@ class _TimekeepingGPSCheckPageState extends State<TimekeepingGPSCheckPage> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.timeKeeping,
             style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),

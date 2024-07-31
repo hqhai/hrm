@@ -1,16 +1,17 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/button_request.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_timm_ymd.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
-import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_department.dart';
-import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_personnel.dart';
-import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_type_flow.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/item/header_filter.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/item/item_time.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/item/list_checkbox_department_filter.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/item/list_checkbox_type_request_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -29,10 +30,11 @@ class FilterRequisitionApproveDialog extends StatefulWidget {
 }
 
 class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApproveDialog> {
-  String nameDepartment = '';
+  String errorTime = '';
   DateTime startTime = DateTime.now(), endTime = DateTime.now();
-  RequisitionTypeEnum? type;
-  Department? department;
+  StatusRequestEnum status = StatusRequestEnum.process;
+  List<RequisitionTypeEnum>? types;
+  Department? departments;
   User? user;
 
   @override
@@ -41,109 +43,55 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
       user = widget.filter!.user;
       startTime = widget.filter!.startTime ?? DateTime.now();
       endTime = widget.filter!.endTime ?? DateTime.now();
-      type = widget.filter!.type;
-      department = widget.filter!.department;
-      nameDepartment = widget.filter!.department?.name ?? "";
+      types = widget.filter!.types;
+      departments = widget.filter!.department;
     }
     super.initState();
-  }
-
-  void setType({RequisitionTypeEnum? value}) {
-    setState(() {
-      type = value ?? RequisitionTypeEnum.bussiness;
-    });
-  }
-
-  void setStartTime({required DateTime value}) {
-    setState(() {
-      startTime = value;
-    });
-  }
-
-  void setEndTime({required DateTime value}) {
-    setState(() {
-      endTime = value;
-    });
-  }
-
-  setDepartment({Map? value}) {
-    setState(() {
-      nameDepartment = value?['name'].toString() ?? "";
-      department = value?['department'] ?? const Department(id: "", createdUserId: "");
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return SingleChildScrollView(
+    final height = MediaQuery.of(context).size.height;
+    return SizedBox(
+      height: height * 0.95,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: SpacingUnit.x4),
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(appLocalizations.filter,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x6,
-                    color: colors.text,
-                    fontWeight: FontWeight.w800,
-                  )),
+          HeaderFilter(callback: () => close(context)),
+          Divider(
+            color: colors.outline.withOpacity(0.5),
+            thickness: 1,
+          ),
+          Expanded(
+            child: ListCheckboxTypeRequestFilter(
+              onChange: (value) => _setListType(value),
             ),
           ),
-          Divider(
-            color: colors.text,
-            thickness: 1,
+          ListCheckboxDepartmentFilter(
+            onChange: (value) => _setDepartment(value),
           ),
           Padding(
             padding: const EdgeInsets.all(SpacingUnit.x2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ItemAdd(
-                  callback: () => _showBottomSheet(context),
-                  title: appLocalizations.type,
-                ),
-                Text(
-                  type?.configTypeName ?? "",
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: SpacingUnit.x4),
-                ),
-                ItemAdd(
-                  callback: () => _setDepartment(context),
-                  title: appLocalizations.department,
-                ),
-                Text(
-                  nameDepartment,
-                  style: const TextStyle(
-                    fontSize: SpacingUnit.x4,
-                  ),
-                ),
-                ItemAdd(
-                  callback: () => _showBottomSheetPersonnel(context),
-                  title: appLocalizations.personnel,
-                ),
-                Text(
-                  user?.fullName ?? "",
-                  style: const TextStyle(
-                    fontSize: SpacingUnit.x4,
-                  ),
-                ),
-                ItemCreateTimeYMD(
-                  check: true,
-                  title: appLocalizations.startTime,
-                  dateOfBirth: startTime,
-                  onChangeDateOfBirth: (value) => setStartTime(value: value),
-                ),
-                ItemCreateTimeYMD(
-                  check: true,
-                  title: appLocalizations.endTime,
-                  dateOfBirth: endTime,
-                  onChangeDateOfBirth: (value) => setEndTime(value: value),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ItemTimeFilter(
+                      title: appLocalizations.startTime,
+                      dateOfBirth: startTime,
+                      onChangeDateOfBirth: (value) => setStartTime(value: value),
+                    ),
+                    ItemTimeFilter(
+                      title: appLocalizations.endTime,
+                      dateOfBirth: endTime,
+                      onChangeDateOfBirth: (value) => setEndTime(value: value),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -159,55 +107,48 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
     );
   }
 
-  _setDepartment(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return BottomSheetDepartmentWidget(
-          onChange: (value) => setDepartment(value: value),
-        );
-      },
-    );
+  close(BuildContext context) {
+    dI<AppNavigation>().pop(context);
+  }
+
+  _setListType(List<RequisitionTypeEnum> value) {
+    setState(() {
+      types = value;
+    });
+  }
+
+  void setStartTime({required DateTime value}) {
+    setState(() {
+      startTime = value;
+    });
+  }
+
+  void setEndTime({required DateTime value}) {
+    setState(() {
+      endTime = value;
+    });
+  }
+
+  _setDepartment(List<Department> value) {
+
   }
 
   setApply(BuildContext context) {
     widget.sendData.call(
       FilterDialogModel(
-        type: type,
+        types: types,
         endTime: endTime,
         startTime: startTime,
-        department: department,
+        department: departments,
         user: user,
       ),
     );
     popDialog(context);
   }
 
-  _showBottomSheet(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return BottomSheetTypeFlowWidget(
-          onChange: (value) => setType(value: value),
-        );
-      },
-    );
-  }
-
   setReject(BuildContext context) {
     widget.sendData.call(const FilterDialogModel());
     popDialog(context);
-  }
-
-  _showBottomSheetPersonnel(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return BottomSheetPersonnelWidget(
-          onChange: (value) => setPersonnel(value: value),
-        );
-      },
-    );
   }
 
   setPersonnel({required User value}) {

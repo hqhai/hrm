@@ -34,8 +34,10 @@ class _LeavePageState extends State<LeavePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
+    final height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(
           appLocalizations.leaveManagement,
           style: TextStyle(
@@ -44,34 +46,43 @@ class _LeavePageState extends State<LeavePage> with TickerProviderStateMixin {
           ),
         ),
       ),
-      body: ContainerScreenMain(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TabBar(
-            controller: _tabController,
-            tabs: titlesTabBar(context)
-                .map(
-                  (element) => Tab(
-                    child: Text(
-                      element,
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+      body: SingleChildScrollView(
+        child: ContainerScreenMain(
+          child: SizedBox(
+            height: height * 0.8,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TabBar(
+                  controller: _tabController,
+                  tabs: titlesTabBar(context)
+                      .map(
+                        (element) => Tab(
+                          child: Text(
+                            element,
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: SizedBox(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: const [
+                        ListLeaveWidget(),
+                        ListLeaveHistoryWidget(),
+                      ],
                     ),
                   ),
-                )
-                .toList(),
-          ),
-          Expanded(
-            flex: 7,
-            child: SizedBox(
-              child: TabBarView(
-                controller: _tabController,
-                children: const [ListLeaveWidget(), ListLeaveHistoryWidget(),],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
-      )),
+        ),
+      ),
     );
   }
 

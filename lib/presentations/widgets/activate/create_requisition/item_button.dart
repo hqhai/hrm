@@ -2,6 +2,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
+import 'package:widgets/app_button.dart';
 
 class ItemButton extends StatelessWidget {
   const ItemButton({super.key, this.callbackSave, this.callbackCancel});
@@ -13,24 +14,40 @@ class ItemButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return Center(
-      child: ElevatedButton(
-        onPressed: () => _save(),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: colors.blue,
-        ),
-        child: Text(
-          appLocalizations.save,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x5,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+            child: AppButton(
+              title: appLocalizations.cancel,
+              onSubmit: () => _cancel(),
+              color: colors.outline.withOpacity(0.2),
+              colorText: colors.text,
+            ),
           ),
         ),
-      ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+            child: AppButton(
+              title: appLocalizations.save,
+              onSubmit: () => _save(),
+              color: colors.blue,
+              colorText: colors.text,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   _save() {
     callbackSave?.call();
+  }
+
+  _cancel() {
+    callbackCancel?.call();
   }
 }

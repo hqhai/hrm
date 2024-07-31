@@ -22,7 +22,7 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: SpacingUnit.x3),
+          padding: const EdgeInsets.only(top: SpacingUnit.x2),
           child: Text(
             widget.title ?? "",
             style: TextStyle(

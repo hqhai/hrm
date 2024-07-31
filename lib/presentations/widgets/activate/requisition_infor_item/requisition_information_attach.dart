@@ -56,7 +56,7 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                          color: colors.surface,
+                          color: colors.background,
                           border: Border.all(color: colors.text, width: 1),
                         ),
                         child: _checkTypeFile(index, state.requisition.config.attachments!)

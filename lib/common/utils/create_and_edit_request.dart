@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
@@ -17,7 +16,7 @@ saveRequest(
     required PostRequestRequest postRequestRequest,}) async {
   if (checkCreate) {
     checkLoadTrue.call();
-    final Completer completer = Completer<RequisitionEnum>();
+    final Completer completer = Completer<bool>();
     dI<RequisitionBloc>().add(
       PostRequestEvent(
         completer: completer,
@@ -25,15 +24,15 @@ saveRequest(
       ),
     );
     final status = await completer.future;
-    if (status == RequisitionEnum.success) {
+    if (status == true) {
           completerSuccess.call();
     }
-    if (status == RequisitionEnum.fail) {
+    if (status == false) {
           completerFail.call();
     }
   } else if (checkEdit) {
         checkLoadTrue.call();
-    final Completer completer = Completer<RequisitionEnum>();
+    final Completer completer = Completer<bool>();
     dI<RequisitionBloc>().add(
       EditRequestEvent(
         completer: completer,
@@ -41,10 +40,10 @@ saveRequest(
       ),
     );
     final status = await completer.future;
-    if (status == RequisitionEnum.success) {
+    if (status == true) {
           completerSuccess.call();
     }
-    if (status == RequisitionEnum.fail) {
+    if (status == false) {
           completerFail.call();
     }
   }

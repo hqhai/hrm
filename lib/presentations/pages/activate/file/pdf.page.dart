@@ -3,6 +3,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:go_router/go_router.dart';
+import 'package:themes/themes.dart';
 
 final pDFPageRoute = GoRoute(
     path: Pages.pDFPage,
@@ -22,8 +23,10 @@ class PDFPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.pdf),
       ),
       body: PDFView(filePath: url,)

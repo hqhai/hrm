@@ -43,7 +43,7 @@ class _BottomSheetFlowWidgetState extends State<BottomSheetFlowWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.4,
-          color: colors.surface,
+          color: colors.background,
           child: Center(
             child: ListView.builder(
               controller: controller,

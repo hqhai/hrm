@@ -156,9 +156,3 @@ enum BiometricEnum {
   notRegistered,
 }
 
-enum RequisitionEnum {
-  init,
-  start,
-  success,
-  fail,
-}

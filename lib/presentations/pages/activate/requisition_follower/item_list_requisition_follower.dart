@@ -1,12 +1,10 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/language/language_state.dart';
@@ -40,22 +38,20 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
     super.initState();
   }
 
-  Request _getRequestInId(List<Request> requisitions) {
-    Request request = requisitions.firstWhere((element) => element.id == widget.id);
-    return request;
-  }
-
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return BlocBuilder<RequisitionFollowingBloc, RequisitionFollowingState>(
-      builder: (context, state) => BlocBuilder<LanguageCubit, LanguageState>(
-        builder: (context, stateLanguage) => Container(
+      builder: (context, state) =>
+          BlocBuilder<LanguageCubit, LanguageState>(builder: (context, stateLanguage) {
+        final request = state.requisitions[widget.id];
+        return Container(
           margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingUnit.x1),
-              color: colors.background,
-              border: Border.all(color: colors.text, width: 1)),
+            borderRadius: BorderRadius.circular(SpacingUnit.x1),
+            color: colors.background,
+            border: Border.all(color: colors.text, width: 1),
+          ),
           child: GestureDetector(
             onTap: () => _nextRequisitionInformationScreen(context),
             child: Stack(
@@ -79,7 +75,7 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
                           padding: const EdgeInsets.all(SpacingUnit.x2),
                           child: Text(
                             StatusRequestEnum.values
-                                .firstWhere((e) => e == _getRequestInId(state.requisitions).status)
+                                .firstWhere((e) => e == request?.status)
                                 .configRequestStatusName,
                             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                           ),
@@ -95,8 +91,8 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
               ],
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -105,13 +101,13 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
       setState(() {
         checkOpacity = true;
       });
-      final Completer completer = Completer<RequisitionEnum>();
+      final Completer completer = Completer<bool>();
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       dI<RequisitionBloc>().add(
         GetRequisitionByIdEvent(id: widget.id, completer: completer),
       );
       final statusCompleter = await completer.future;
-      if (statusCompleter == RequisitionEnum.success) {
+      if (statusCompleter == true) {
         setState(() {
           checkOpacity = false;
         });

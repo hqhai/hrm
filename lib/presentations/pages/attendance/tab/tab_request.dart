@@ -56,21 +56,14 @@ class _RequestTabState extends State<RequestTab> {
 
   Widget item(Request? request, String e) {
     switch (request?.flowType) {
-      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
+      case RequisitionTypeEnum.leaveTwoDayToFourDay:
         return ItemRequestOnTab(id: e);
-      case RequisitionTypeEnum.compensatoryLeave:
+      case RequisitionTypeEnum.leaveFiveDaysOrMore:
         return ItemRequestOnTab(id: e);
-      case RequisitionTypeEnum.otherLeave:
-        return ItemRequestOnTab(id: e);
-      case RequisitionTypeEnum.unpaidLeave:
+      case RequisitionTypeEnum.leaveHalfDayToOneDay:
         return ItemRequestOnTab(id: e);
       case RequisitionTypeEnum.explanation:
-      case RequisitionTypeEnum.lateArrival:
-        return ItemRequestLateOrEarlyOnTab(
-          id: e,
-          dateTime: widget.dateTime,
-        );
-      case RequisitionTypeEnum.earlyDeparture:
+      case RequisitionTypeEnum.lateOrEarly:
         return ItemRequestLateOrEarlyOnTab(
           id: e,
           dateTime: widget.dateTime,

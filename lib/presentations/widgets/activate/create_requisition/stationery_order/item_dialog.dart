@@ -37,6 +37,7 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
           child: AppInput(
+            placeHolder: appLocalizations.product,
             controller: widget.productController,
             onChange: (value) => setProduct(value),
           ),
@@ -55,6 +56,7 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
           child: AppInput(
+            placeHolder: appLocalizations.unit,
             controller: widget.unitController,
             onChange: (value) => setUnit(value),
           ),

@@ -90,7 +90,7 @@ class _ListLeaveHistoryWidgetState extends State<ListLeaveHistoryWidget> {
                 child: GestureDetector(
                   onTap: () => _addType(context),
                   child: Container(
-                    color: colors.surface,
+                    color: colors.background,
                     child: SvgPicture.asset(
                       Assets.images.icon.activateIcon.iconamoonOptionsThin,
                       colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),

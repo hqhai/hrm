@@ -1,27 +1,31 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_take_leave.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemTakeLeave extends StatefulWidget {
-  const ItemTakeLeave({super.key, required this.type, required this.onChange});
+  const ItemTakeLeave(
+      {super.key,
+      required this.type,
+      required this.onChangeType,
+     });
 
-  final RequisitionTypeEnum type;
-  final ValueChanged<EnumTakeLeave> onChange;
+  final EnumTakeLeaveType type;
+  final ValueChanged<EnumTakeLeaveType> onChangeType;
 
   @override
   State<ItemTakeLeave> createState() => _ItemTakeLeaveState();
 }
 
 class _ItemTakeLeaveState extends State<ItemTakeLeave> {
-  EnumTakeLeave takeLeave = EnumTakeLeave.yearlyLeave;
-  List<EnumTakeLeave> listTakeLeave = [];
+  EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
 
   @override
   void initState() {
-    takeLeave = listEnumTakeLeave();
+    takeLeaveType = widget.type;
     super.initState();
   }
 
@@ -29,72 +33,36 @@ class _ItemTakeLeaveState extends State<ItemTakeLeave> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
+    final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: SpacingUnit.x4,
+        vertical: SpacingUnit.x2,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text(
-                appLocalizations.detailedReason,
+          Text(
+            appLocalizations.detailedReason,
+            style: TextStyle(
+                color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w800),
+          ),
+          GestureDetector(
+            onTap: () => setTakeLeave(context),
+            child: ContainerBorder(
+              width: width,
+              borderColors: colors.outline.withOpacity(0.3),
+              child: Text(
+                takeLeaveType.configTakeLeaveTypeName,
                 style: TextStyle(
-                    color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(
-                width: SpacingUnit.x4,
-              ),
-              GestureDetector(
-                onTap: () => setTakeLeave(context),
-                child: Icon(
-                  Icons.add_circle,
-                  color: colors.success,
-                  size: SpacingUnit.x6,
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
                 ),
               ),
-            ],
-          ),
-          const SizedBox(
-            height: SpacingUnit.x3,
-          ),
-          Text(
-            takeLeave.configEnumTakeLeaveName,
-            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+            ),
           ),
         ],
       ),
     );
-  }
-
-  EnumTakeLeave listEnumTakeLeave() {
-    switch (widget.type) {
-      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
-        listTakeLeave = [
-          EnumTakeLeave.yearlyLeave,
-          EnumTakeLeave.seniorityLeave,
-        ];
-        return EnumTakeLeave.yearlyLeave;
-      case RequisitionTypeEnum.compensatoryLeave:
-        listTakeLeave = [EnumTakeLeave.compensatoryLeave];
-        return EnumTakeLeave.compensatoryLeave;
-      case RequisitionTypeEnum.otherLeave:
-        listTakeLeave = [
-          EnumTakeLeave.weddingLeave,
-          EnumTakeLeave.mourningLeave,
-        ];
-        return EnumTakeLeave.weddingLeave;
-      case RequisitionTypeEnum.unpaidLeave:
-        listTakeLeave = [
-          EnumTakeLeave.homeSickLeave,
-          EnumTakeLeave.hospitalSickLeave,
-          EnumTakeLeave.maternityLeave,
-        ];
-        return EnumTakeLeave.homeSickLeave;
-      default:
-        return EnumTakeLeave.yearlyLeave;
-    }
   }
 
   setTakeLeave(BuildContext context) {
@@ -102,17 +70,17 @@ class _ItemTakeLeaveState extends State<ItemTakeLeave> {
       context: context,
       builder: (BuildContext context) {
         return BottomSheetLeaveWidget(
-          listEnumTakeLeave: listTakeLeave,
+          listEnumTakeLeave: takeLeaveType,
           onChange: (value) => setEnumTakeLeave(value),
         );
       },
     );
   }
 
-  setEnumTakeLeave(EnumTakeLeave value) {
+  setEnumTakeLeave(EnumTakeLeaveType value) {
     setState(() {
-      takeLeave = value;
-      widget.onChange.call(takeLeave);
+      takeLeaveType = value;
+      widget.onChangeType.call(takeLeaveType);
     });
   }
 }

@@ -15,6 +15,7 @@ class ItemAdd extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 title,
@@ -23,9 +24,6 @@ class ItemAdd extends StatelessWidget {
                   fontSize: SpacingUnit.x4,
                   fontWeight: FontWeight.w800,
                 ),
-              ),
-              const SizedBox(
-                width: SpacingUnit.x4,
               ),
               GestureDetector(
                 onTap: () => callback.call(),

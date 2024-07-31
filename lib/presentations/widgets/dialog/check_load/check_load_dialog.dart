@@ -37,6 +37,7 @@ class _CheckLoadDialogState extends State<CheckLoadDialog> {
         if (widget.checkLoad)
           Center(
             child: ContainerBorder(
+              backgroundColors: colors.surface,
               height: SpacingUnit.x50,
               width: SpacingUnit.x50,
               child: Lottie.asset(Assets.images.icon.loading,
@@ -46,6 +47,7 @@ class _CheckLoadDialogState extends State<CheckLoadDialog> {
         if (widget.checkSuccess)
           Center(
             child: ContainerBorder(
+              backgroundColors: colors.background,
               margin: SpacingUnit.x8,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -78,6 +80,7 @@ class _CheckLoadDialogState extends State<CheckLoadDialog> {
             child: BlocBuilder<RequisitionBloc, RequisitionState>(
               builder: (context, state) {
                 return ContainerBorder(
+                  backgroundColors: colors.background,
                   margin: SpacingUnit.x8,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,

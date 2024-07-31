@@ -33,7 +33,7 @@ class ContainerBorder extends StatelessWidget {
       padding: EdgeInsets.all(padding ?? SpacingUnit.x2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(circular ?? SpacingUnit.x2),
-        color: backgroundColors ?? colors.background,
+        color: backgroundColors,
         border: Border.all(
           color: borderColors ?? colors.text,
           width: widthBorder ?? 1,
