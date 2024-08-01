@@ -6,6 +6,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_person_information_request.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,6 @@ class _RequisitionInformationContentTypeLeaveState
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    final width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<UserByIdBloc, UserByIdState>(
       builder: (context, stateUserById) {
         return BlocBuilder<RequisitionBloc, RequisitionState>(
@@ -41,95 +41,57 @@ class _RequisitionInformationContentTypeLeaveState
                     appLocalizations.contentOfApplication,
                     style: TextStyle(
                       color: colors.text,
-                      fontSize: SpacingUnit.x3,
-                      fontWeight: FontWeight.w800,
+                      fontSize: SpacingUnit.x4,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   ItemTitleValue(
+                    size: SpacingUnit.x4,
+                    title: appLocalizations.detailedReason,
+                    value: state.requisition.config.takeLeaveType?.configTakeLeaveTypeName ?? "",
+                  ),
+                  if (state.requisition.config.reasonLeave != null)
+                    ItemTitleValue(
+                      size: SpacingUnit.x4,
+                      title: appLocalizations.reason,
+                      value: state.requisition.config.reasonLeave?.configEnumTakeLeaveName ?? "",
+                    ),
+                  if (state.requisition.config.socialInsuranceLeave != null)
+                    ItemTitleValue(
+                      size: SpacingUnit.x4,
+                      title: appLocalizations.reason,
+                      value: state.requisition.config.socialInsuranceLeave
+                              ?.configSocialInsuranceLeaveName ??
+                          "",
+                    ),
+                  ItemTitleValue(
+                    size: SpacingUnit.x4,
                     title: appLocalizations.startTime,
                     value: formatYMDHMS(
                       (state.requisition.config.startDate ?? "").toString(),
                     ),
                   ),
                   ItemTitleValue(
+                    size: SpacingUnit.x4,
                     title: appLocalizations.endTime,
                     value: formatYMDHMS(
                       (state.requisition.config.endDate ?? "").toString(),
                     ),
                   ),
                   ItemTitleValue(
-                    title: appLocalizations.totalDays,
-                    value: (state.requisition.config.total ?? 0).toString(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: SpacingUnit.x1,
-                      top: SpacingUnit.x2,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          appLocalizations.substitute,
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        if (stateUserById.subtitudePersons.isNotEmpty)
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                            height: SpacingUnit.x6 * stateUserById.subtitudePersons.length,
-                            child: ListView.builder(
-                              itemCount: stateUserById.subtitudePersons.length,
-                              itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
-                                child: Text(
-                                  stateUserById.subtitudePersons[index].fullName,
-                                  style: TextStyle(
-                                    color: colors.blue,
-                                    fontSize: SpacingUnit.x3,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          appLocalizations.reason,
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.topRight,
-                          width: width * 0.5,
-                          child: Text(
-                            state.requisition.config.takeLeaveReason?.configEnumTakeLeaveName ?? "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x3,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                    size: SpacingUnit.x4,
+                    title: appLocalizations.totalLeaveWork,
+                    value: (state.requisition.config.numberValue ?? 0).toString(),
                   ),
                   ItemTitleValue(
-                    title:  appLocalizations.description,
-                    value:  state.requisition.config.description ?? "",
+                    size: SpacingUnit.x4,
+                    title: appLocalizations.description,
+                    value: state.requisition.config.description ?? "",
                   ),
+                  if (state.requisition.config.subtitudePersons?.isNotEmpty ?? false)
+                    ItemPersonInformationRequest(
+                      title: appLocalizations.substitute,
+                    ),
                 ],
               ),
             );

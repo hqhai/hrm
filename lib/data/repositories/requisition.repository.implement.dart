@@ -78,7 +78,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
         statusApprove: status,
         page: page,
         createdDepartmentId: departmentId,
-        listTypes: type,
+        types: type,
       ),
     );
   }
@@ -98,7 +98,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
         startDate: startDate,
         endDate: endDate,
         statuses: status,
-        page: page,
+        page: page??1,
         departmentIds: departmentId,
         type: type,
       ),
@@ -115,8 +115,8 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }) async {
     return await _requestService.getRequisitionsSelfByFilter(
       getRequestFilterRequest: GetRequestFilterRequest(
-        listFlowIds: flowId,
-        page: page,
+        flowIds: flowId,
+        page: page??1,
         endDate: endDate,
         startDate: startDate,
         statuses: status,

@@ -3,19 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemBottomSheet extends StatelessWidget {
-  const ItemBottomSheet({super.key, this.index = 0, this.value = ''});
+  const ItemBottomSheet({super.key, this.index = 0, this.value = '', required this.check});
+
   final int index;
   final String value;
+  final bool check;
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Container(
-      padding: const EdgeInsets.all(SpacingUnit.x2),
-      margin: const EdgeInsets.all(SpacingUnit.x2),
+      padding: const EdgeInsets.all(SpacingUnit.x3),
+      margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x6, vertical: SpacingUnit.x2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingUnit.x2),
-        color: colors.background,
+        color: check ? colors.tertiary.withOpacity(0.4) : colors.background,
         border: Border.all(
           color: colors.text,
           width: 1,

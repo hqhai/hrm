@@ -5,6 +5,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
+import 'package:base_app/presentations/widgets/dialog/image_dialog/image_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -50,7 +51,7 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
                       crossAxisSpacing: SpacingUnit.x10,
                     ),
                     itemCount: state.requisition.config.attachments!.length,
-                    itemBuilder: (context, index) => GestureDetector(
+                    itemBuilder: (context, index) => InkWell(
                       onTap: () =>
                           _onClickFLie(context, index, state.requisition.config.attachments!),
                       child: Container(
@@ -103,7 +104,18 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
       dI<AppNavigation>().pushName(context, page: Pages.pDFPage, extra: {
         'url': list[index],
       });
-    } else {}
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: ImageDialog(
+              url: list[index],
+            ),
+          );
+        },
+      );
+    }
   }
 
   bool _checkTypeFile(int index, List<String> list) {

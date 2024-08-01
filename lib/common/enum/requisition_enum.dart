@@ -128,7 +128,7 @@ extension ConfigStepRequestStatusExtension on EnumStepRequestStatusEnum {
     final appLocalizations = AppLocalizations.of(currentContext)!;
     switch (this) {
       case EnumStepRequestStatusEnum.newStatus:
-        return appLocalizations.newStatus;
+        return appLocalizations.process;
       case EnumStepRequestStatusEnum.approve:
         return appLocalizations.done;
       case EnumStepRequestStatusEnum.reject:

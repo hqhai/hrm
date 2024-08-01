@@ -16,8 +16,7 @@ abstract class BaseService {
   static final CustomClient defaultClient = CustomClient();
   static GetErrorMessage? _getErrorMessage;
 
-  static GetErrorMessage get getErrorMessage =>
-      _getErrorMessage ?? (err) => '$err';
+  static GetErrorMessage get getErrorMessage => _getErrorMessage ?? (err) => '$err';
 
   static set getErrorMessage(GetErrorMessage value) => _getErrorMessage = value;
 
@@ -67,8 +66,7 @@ void setDefaultHeaders(String userAgent, DeviceInfoModel deviceInfo) {
   };
 }
 
-Future<Response> catchError(Future<Response> request, Uri url,
-    {bool isCached = false}) async {
+Future<Response> catchError(Future<Response> request, Uri url, {bool isCached = false}) async {
   final startTime = DateTime.now().millisecondsSinceEpoch;
   try {
     Response response;
@@ -125,8 +123,7 @@ Future<Response> catchError(Future<Response> request, Uri url,
 //   return newData;
 // }
 
-_trackingError(
-    BaseRequest? request, Response response, ResponseBase error) async {
+_trackingError(BaseRequest? request, Response response, ResponseBase error) async {
   final req = response.request;
   logger.e(response.request?.headers.toString());
   if (response.statusCode == 401) return;
@@ -139,14 +136,12 @@ class CustomClient {
   final Client client = Client();
 
   // final _cacheManager = DefaultDataCacheManager.instance;
-  Map<String, String> _addDefaultPropertiesToHeader(
-      Map<String, String>? currentHeaders) {
+  Map<String, String> _addDefaultPropertiesToHeader(Map<String, String>? currentHeaders) {
     final headers = currentHeaders ?? {};
     return {
       ..._defaultHeaders,
       ...headers,
-      if (AppConfig.getToken.isNotEmpty)
-        'Authorization': '$jwtPrefixToken${AppConfig.getToken}'
+      if (AppConfig.getToken.isNotEmpty) 'Authorization': '$jwtPrefixToken${AppConfig.getToken}'
     };
   }
 
@@ -155,7 +150,12 @@ class CustomClient {
     if (params == null || params.isEmpty) return uri;
     final params0 = <String, dynamic>{};
     params0.addAll(uri.queryParameters);
-    params0.addAll(params.map((key, value) => MapEntry(key, value)));
+    params0.addAll(params.map((key, value) {
+      if (value is List) {
+        return MapEntry(key, value);
+      }
+      return MapEntry(key, value.toString());
+    }));
     if (uri.scheme == 'https') {
       return Uri.https(uri.authority, uri.path, params0);
     }
@@ -185,9 +185,7 @@ class CustomClient {
     final headers = _addDefaultPropertiesToHeader(customHeaders);
     await _validateToken(headers);
     final urlWithParams = getUrlWithParams(url, params);
-    return catchError(
-        client.post(urlWithParams,
-            headers: headers, body: body, encoding: encoding),
+    return catchError(client.post(urlWithParams, headers: headers, body: body, encoding: encoding),
         urlWithParams);
   }
 
@@ -199,9 +197,7 @@ class CustomClient {
     final headers = _addDefaultPropertiesToHeader(customHeaders);
     await _validateToken(headers);
     final urlWithParams = getUrlWithParams(url, params);
-    return catchError(
-        client.patch(urlWithParams,
-            headers: headers, body: body, encoding: encoding),
+    return catchError(client.patch(urlWithParams, headers: headers, body: body, encoding: encoding),
         urlWithParams);
   }
 
@@ -214,9 +210,7 @@ class CustomClient {
     await _validateToken(headers);
     final urlWithParams = getUrlWithParams(url, params);
     return catchError(
-        client.put(urlWithParams,
-            headers: headers, body: body, encoding: encoding),
-        urlWithParams);
+        client.put(urlWithParams, headers: headers, body: body, encoding: encoding), urlWithParams);
   }
 
   Future<Response> delete(String url,
@@ -227,8 +221,7 @@ class CustomClient {
     final headers = _addDefaultPropertiesToHeader(customHeaders);
     await _validateToken(headers);
     final urlWithParams = getUrlWithParams(url, params);
-    return catchError(
-        client.delete(urlWithParams, headers: headers), urlWithParams);
+    return catchError(client.delete(urlWithParams, headers: headers), urlWithParams);
   }
 
   Future<String> postUploadFile(
@@ -273,8 +266,7 @@ class CustomClient {
     final request = MultipartRequest('POST', Uri.parse(url));
 
     uploadFileBytes.forEachIndexed((index, element) {
-      request.fields
-          .addAll({'${UploadFileBody.fileType}$index': fileTypes[index]});
+      request.fields.addAll({'${UploadFileBody.fileType}$index': fileTypes[index]});
       request.files.add(
         MultipartFile.fromBytes(
           '${UploadFileBody.fileType}$index',

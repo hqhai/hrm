@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
@@ -24,6 +26,7 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
   late ScrollController controller;
   bool loadMore = true;
   int pageIndex = 1, totalItems = 0, lengthList = 0;
+  bool checkLoad = true;
 
   @override
   void initState() {
@@ -40,14 +43,17 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
     super.initState();
   }
 
-  _scrollListener() {
+  _scrollListener() async {
     if (lengthList < totalItems &&
-        controller.position.extentAfter < totalItems) {
+        controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
+        checkLoad = false;
         pageIndex++;
       });
+      Completer completer = Completer<bool>();
       dI<RequisitionBloc>().add(
         GetRequisitionsByFilterEvent(
+          completer: completer,
           page: pageIndex,
           startTime: widget.filterData.startTime,
           endTime: widget.filterData.endTime,
@@ -55,6 +61,12 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
           status: widget.status,
         ),
       );
+      final check = await completer.future;
+      if (check){
+        setState(() {
+          checkLoad = true;
+        });
+      }
     }
   }
 

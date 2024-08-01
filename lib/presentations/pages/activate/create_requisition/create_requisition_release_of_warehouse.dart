@@ -84,7 +84,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return Scaffold(
-
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
         title: Text(
@@ -103,42 +103,44 @@ class _CreateRequisitionReleaseOfWarehousePageState
                   children: [
                     Opacity(
                       opacity: opacity(),
-                      child: ContainerScreenMain(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ItemCreateInputArea(
-                                error: errorDescription,
-                                textController: scheduleController,
-                                title: appLocalizations.reasonForRelease,
-                                onChange: (value) => _setSchedule(value),
-                              ),
-                              ListProducts(
-                                  title: appLocalizations.stationeryList,
-                                error: errorList,
-                                listProducts: requisitionReleaseOfWarehouse,
-                                onChangeList: (value) => _setList(value),
-                              ),
-                              ButtonAddList(
-                                title: appLocalizations.addProducts,
-                                callBack: () => _addStationery(context),
-                              ),
-                              ItemCreateFollower(
-                                  listFollower: _setListUser(
-                                    stateUserById.userById,
-                                  ),
-                                  title: appLocalizations.follower,
-                                  onChange: (value) => _setFollower(value)),
-                              const ItemListStepFlow(),
-                              Padding(
-                                padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
-                                child: ItemButton(
-                                  callbackSave: () => _save(context),
-                                  callbackCancel: () => _cancel(),
+                      child: SingleChildScrollView(
+                        child: ContainerScreenMain(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ItemCreateInputArea(
+                                  error: errorDescription,
+                                  textController: scheduleController,
+                                  title: appLocalizations.reasonForRelease,
+                                  onChange: (value) => _setSchedule(value),
                                 ),
-                              )
-                            ],
+                                ListProducts(
+                                    title: appLocalizations.stationeryList,
+                                  error: errorList,
+                                  listProducts: requisitionReleaseOfWarehouse,
+                                  onChangeList: (value) => _setList(value),
+                                ),
+                                ButtonAddList(
+                                  title: appLocalizations.addProducts,
+                                  callBack: () => _addStationery(context),
+                                ),
+                                ItemCreateFollower(
+                                    listFollower: _setListUser(
+                                      stateUserById.userById,
+                                    ),
+                                    title: appLocalizations.follower,
+                                    onChange: (value) => _setFollower(value)),
+                                const ItemListStepFlow(),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
+                                  child: ItemButton(
+                                    callbackSave: () => _save(context),
+                                    callbackCancel: () => _cancel(),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

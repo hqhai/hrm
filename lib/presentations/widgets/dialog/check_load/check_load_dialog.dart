@@ -1,12 +1,11 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 class CheckLoadDialog extends StatefulWidget {
@@ -35,13 +34,11 @@ class _CheckLoadDialogState extends State<CheckLoadDialog> {
     return Stack(
       children: [
         if (widget.checkLoad)
-          Center(
-            child: ContainerBorder(
-              backgroundColors: colors.surface,
-              height: SpacingUnit.x50,
-              width: SpacingUnit.x50,
-              child: Lottie.asset(Assets.images.icon.loading,
-                  width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
+          const Center(
+            child: SizedBox(
+              height: SpacingUnit.x20,
+              width: SpacingUnit.x20,
+              child: ProgressIndicatorDialog()
             ),
           ),
         if (widget.checkSuccess)

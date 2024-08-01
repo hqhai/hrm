@@ -478,8 +478,5 @@
   "socialInsuranceLeave": "Social Insurance Leave",
   "leaveHalfDayToOneDay": "leave Half Day To One Day",
   "leaveTwoDayToFourDay": "leave Two Day To Four Day",
-  "leaveFiveDaysOrMore": "leave Five Days Or More",
-  "sunday":"sunday",
-  "lateOrEarly": "Late/Early",
-  "timekeepingError": "Timekeeping error"
+  "leaveFiveDaysOrMore": "leave Five Days Or More"
 }

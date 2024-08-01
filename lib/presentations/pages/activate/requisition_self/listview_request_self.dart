@@ -13,20 +13,20 @@ class ListviewRequestSelf extends StatefulWidget {
   const ListviewRequestSelf(
       {super.key, required this.onChangeStatus, this.filterData = const FilterDialogModel()});
 
-  final ValueChanged<String> onChangeStatus;
+  final ValueChanged<StatusRequestEnum> onChangeStatus;
   final FilterDialogModel filterData;
 
   @override
   State<ListviewRequestSelf> createState() => _ListviewRequestSelfState();
 }
 
-class _ListviewRequestSelfState extends State<ListviewRequestSelf>
-    with TickerProviderStateMixin {
+class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerProviderStateMixin {
   late final TabController _tabController;
 
   @override
   void initState() {
-    _tabController = TabController(length: 7, vsync: this)..addListener(_scrollListener);
+    _tabController = TabController(length: StatusRequestEnum.values.length, vsync: this)
+      ..addListener(_scrollListener);
     super.initState();
   }
 
@@ -87,7 +87,7 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf>
 
   void _scrollListener() {
     widget.onChangeStatus.call(
-      StatusRequestEnum.values[_tabController.index].name,
+      StatusRequestEnum.values[_tabController.index],
     );
   }
 }

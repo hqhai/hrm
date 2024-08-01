@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -58,7 +59,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
                   padding: const EdgeInsets.only(left: SpacingUnit.x2),
                   child: ContentItemMyRequisitionList(
                     id: widget.id,
-                    self: true,
+                    self: RequestSeeByWho.user,
                   ),
                 ),
               ),
@@ -90,7 +91,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
           page: Pages.requisitionInformationPage,
           extra: {
             'id': widget.id,
-            'checkUser': false,
+            'checkUser': RequestSeeByWho.user,
           },
         );
       }

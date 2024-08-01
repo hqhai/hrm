@@ -70,7 +70,7 @@
   "currentPassword": "Mật khẩu cũ",
   "noteRoomLeader": "Ghi chú của trưởng phòng",
   "noteManager": "Ghi chú của quản lý",
-  "explanation": "Giải trình",
+  "explanation": "Đơn xin sửa chấm công",
   "startDay": "Ngày bắt đầu",
   "endDay": "Ngày kết thúc",
   "roomName": "Tên phòng",
@@ -481,7 +481,4 @@
   "leaveHalfDayToOneDay": "Nghỉ 0,5 đến 1 ngày",
   "leaveTwoDayToFourDay": "Nghỉ 2 đến 4 ngày",
   "leaveFiveDaysOrMore": "Nghỉ 5 ngày trở lên"
-  "sunday":"Chủ nhật",
-  "lateOrEarly": "Đi muộn/Về sớm",
-  "timekeepingError": "Chấm công lỗi"
 }

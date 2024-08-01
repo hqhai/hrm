@@ -1,14 +1,12 @@
-import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/listview_request_self.dart';
@@ -32,20 +30,17 @@ class RequisitionListPage extends StatefulWidget {
 
 class _RequisitionListPageState extends State<RequisitionListPage> {
   bool checkOpacity = false;
-  var random = Random();
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
   bool checkLoadMore = true;
   FilterDialogModel filterData = const FilterDialogModel();
+  StatusRequestEnum status = StatusRequestEnum.process;
 
   @override
   void initState() {
-    dI<FlowBloc>().add(const GetFlowsEvent());
     super.initState();
   }
 
   setlLstFilter(FilterDialogModel value) {
     setState(() {
-      pageIndex = 1;
       filterData = value;
     });
     dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
@@ -53,7 +48,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       status: filterData.status,
       startTime: dateTimeLocal(filterData.startTime),
       endTime: dateTimeLocal(filterData.endTime),
-      page: pageIndex,
+      page: 1,
     ));
   }
 
@@ -91,8 +86,10 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     );
   }
 
-  setStatus(String value) {
-    setState(() {});
+  setStatus(StatusRequestEnum value) {
+    setState(() {
+      status = value;
+    });
   }
 
   _showBottomSheet(BuildContext context) async {

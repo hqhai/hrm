@@ -9,7 +9,7 @@ part 'get_request_approve_filter_request.g.dart';
 class GetRequestApproveFilterRequest {
   final int? page;
   final List<String>? flowIds;
-  final List<RequisitionTypeEnum>? listTypes;
+  final List<RequisitionTypeEnum>? types;
   final String? createdCode;
   final String? createdDepartmentId;
   final DateTime? startDate;
@@ -17,7 +17,7 @@ class GetRequestApproveFilterRequest {
   final EnumStepRequestStatusEnum? statusApprove;
 
   const GetRequestApproveFilterRequest({
-    this.listTypes,
+    this.types,
     this.page,
     this.endDate,
     this.statusApprove,

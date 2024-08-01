@@ -110,7 +110,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                       controller: controller,
                       itemCount: state.flows.length,
                       itemBuilder: (context, index) => ItemActivateWidget(
-                        title: _setTitle(context, state, index),
+                        title: state.flows[index].flowType?.configTypeName??"",
                         callback: () => _nextScreen(
                           context,
                           state.flows[index],
@@ -122,10 +122,6 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
         },
       ),
     );
-  }
-
-  String _setTitle(BuildContext context, FlowState state, int index) {
-    return state.flows[index].name ?? "";
   }
 
   _push({

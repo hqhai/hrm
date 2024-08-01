@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
@@ -22,7 +24,10 @@ class TabBarViewListRequistionApprove extends StatefulWidget {
 
 class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequistionApprove> {
   late ScrollController controller;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1,
+      totalItems = 0,
+      lengthList = 0;
+  bool checkLoad = true;
 
   @override
   void initState() {
@@ -37,18 +42,22 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
         userIds: widget.filterData.user?.id,
       ),
     );
-    controller = ScrollController()..addListener(_scrollListener);
+    controller = ScrollController()
+      ..addListener(_scrollListener);
     super.initState();
   }
 
-  _scrollListener() {
+  _scrollListener() async {
     if (lengthList < totalItems &&
-        controller.position.extentAfter < totalItems) {
+        controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
         pageIndex++;
+        checkLoad = false;
       });
+      Completer completer = Completer<bool>();
       dI<RequisitionApproveBloc>().add(
         GetRequisitionsApproveByFilterEvent(
+          completer: completer,
           page: pageIndex,
           departmentId: widget.filterData.department?.id,
           startTime: widget.filterData.startTime,
@@ -58,6 +67,12 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
           userIds: widget.filterData.user?.id,
         ),
       );
+      final check = await completer.future;
+      if (check){
+        setState(() {
+          checkLoad = true;
+        });
+      }
     }
   }
 
@@ -70,7 +85,9 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
+    final height = MediaQuery
+        .sizeOf(context)
+        .height;
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, state) => _listener(context, state),
@@ -83,10 +100,11 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
             child: ListView.builder(
               controller: controller,
               itemCount: state.requisitions.length,
-              itemBuilder: (context, index) => ItemRequisitionApproveList(
-                id: state.requisitionIds[index],
-                status: widget.status,
-              ),
+              itemBuilder: (context, index) =>
+                  ItemRequisitionApproveList(
+                    id: state.requisitionIds[index],
+                    status: widget.status,
+                  ),
             ),
           ),
         );

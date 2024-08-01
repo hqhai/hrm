@@ -218,7 +218,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noteManager => 'Ghi chú của quản lý';
 
   @override
-  String get explanation => 'Giải trình';
+  String get explanation => 'Đơn xin sửa chấm công';
 
   @override
   String get startDay => 'Ngày bắt đầu';

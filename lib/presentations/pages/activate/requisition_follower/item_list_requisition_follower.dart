@@ -1,22 +1,19 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
-import 'package:base_app/presentations/bloc/language/language_cubit.dart';
-import 'package:base_app/presentations/bloc/language/language_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
-import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_follower/content_item_follwer_requisition_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
+
+import '../../../widgets/custom/container_border.dart';
 
 class ItemRequisitionFollowerList extends StatefulWidget {
   const ItemRequisitionFollowerList({
@@ -41,17 +38,11 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<RequisitionFollowingBloc, RequisitionFollowingState>(
-      builder: (context, state) =>
-          BlocBuilder<LanguageCubit, LanguageState>(builder: (context, stateLanguage) {
-        final request = state.requisitions[widget.id];
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingUnit.x1),
-            color: colors.background,
-            border: Border.all(color: colors.text, width: 1),
-          ),
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+        child: ContainerBorder(
+          borderColors: colors.background,
+          backgroundColors: colors.background,
           child: GestureDetector(
             onTap: () => _nextRequisitionInformationScreen(context),
             child: Stack(
@@ -60,40 +51,23 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
                   opacity: checkOpacity ? 1 : 0,
                   child: Center(
                     child: Lottie.asset(Assets.images.icon.loading,
-                        width: SpacingUnit.x40, height: SpacingUnit.x40, fit: BoxFit.fill),
+                        width: SpacingUnit.x20, height: SpacingUnit.x20, fit: BoxFit.fill),
                   ),
                 ),
                 Opacity(
                   opacity: checkOpacity ? 0.5 : 1,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Container(
-                          color: colors.neutralVariant40,
-                          padding: const EdgeInsets.all(SpacingUnit.x2),
-                          child: Text(
-                            StatusRequestEnum.values
-                                .firstWhere((e) => e == request?.status)
-                                .configRequestStatusName,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: SpacingUnit.x2),
-                        child: ContentItemFollowingRequisitionList(id: widget.id),
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: SpacingUnit.x2),
+                    child: ContentItemRequestFollowerList(
+                      id: widget.id,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-        );
-      }),
-    );
+        ),
+      );
   }
 
   _nextRequisitionInformationScreen(BuildContext context) async {
@@ -117,7 +91,7 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
           page: Pages.requisitionInformationPage,
           extra: {
             'id': widget.id,
-            'checkUser': false,
+            'checkUser': RequestSeeByWho.followers,
           },
         );
       }

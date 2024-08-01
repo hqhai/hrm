@@ -7,8 +7,8 @@ part 'get_request_filter_request.g.dart';
 @JsonSerializable()
 @CustomDateTimeConverter()
 class GetRequestFilterRequest {
-  final int? page;
-  final List<String>? listFlowIds;
+  final int page;
+  final List<String>? flowIds;
   final List<RequisitionTypeEnum>? type;
   final String? userId;
   final String? departmentIds;
@@ -18,10 +18,10 @@ class GetRequestFilterRequest {
 
   const GetRequestFilterRequest({
     this.type,
-    this.page,
+    this.page = 1,
     this.endDate,
     this.statuses,
-    this.listFlowIds,
+    this.flowIds,
     this.departmentIds,
     this.startDate,
     this.userId,

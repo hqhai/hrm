@@ -65,7 +65,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   final TextEditingController detailedDescriptionController = TextEditingController();
   String? description;
   DateTime? startTime, endTime;
-
+  double numberValue = 0;
   List<File> files = [];
   List<String> followers = [], substitutes = [], listIdShift = [];
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
@@ -199,6 +199,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                                 ),
                               ),
                             ItemWorkShift(
+                              numberValue: (value) => setNumberValue(value),
                               ids: (value) => setListIds(value),
                             ),
                             ItemCreateFollower(
@@ -287,7 +288,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                 reasonLeave: reason,
                 socialInsuranceLeave: socialInsuranceLeave,
                 takeLeaveType: takeLeaveType,
-                numberValue: 10),
+                numberValue: numberValue,),
           )
         : PostRequestRequest(
             id: widget.requestId,
@@ -303,12 +304,13 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                 reasonLeave: reason,
                 socialInsuranceLeave: socialInsuranceLeave,
                 takeLeaveType: takeLeaveType,
-                numberValue: 10),
+                numberValue: numberValue),
           );
   }
 
   _save(BuildContext context) async {
     saveRequest(
+      files: files,
       context: context,
       checkCreate: !checkClick && widget.requestId.isEmpty,
       postRequestRequest: request(),
@@ -401,6 +403,12 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   setSocialInsurance(EnumSocialInsuranceLeave? value) {
     setState(() {
       socialInsuranceLeave = value;
+    });
+  }
+
+  setNumberValue(double value) {
+    setState(() {
+      numberValue = value;
     });
   }
 }

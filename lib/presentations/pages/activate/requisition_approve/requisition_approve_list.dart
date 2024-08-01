@@ -1,15 +1,13 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/listview_request_approve.dart';
@@ -35,7 +33,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
   bool checkOpacity = false;
   var random = Random();
   FilterDialogModel filterData = const FilterDialogModel();
-  String? status;
+  EnumStepRequestStatusEnum status = EnumStepRequestStatusEnum.newStatus;
 
   @override
   void initState() {
@@ -83,21 +81,17 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
       GetRequisitionsApproveByFilterEvent(
         page: 1,
         type: value.types,
-        status: value.statusApprove,
+        status: status,
         departmentId: value.department?.code,
         startTime: value.startTime,
         endTime: value.endTime,
-        userIds: value.user?.id,
+        userIds: value.user?.code,
       ),
     );
   }
 
   _showBottomSheet() async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    final Completer completer = Completer<bool>();
-    dI<FlowBloc>().add(GetFlowsEvent(completer: completer));
-    final check = await completer.future;
-    if (check) {
       if (!currentContext.mounted) return;
       showModalBottomSheet<void>(
         isScrollControlled: true,
@@ -110,10 +104,9 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
           );
         },
       );
-    }
   }
 
-  setStatus(String value) {
+  setStatus(EnumStepRequestStatusEnum value) {
     setState(() {
       status = value;
     });

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
@@ -9,7 +10,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:flutter/animation.dart';
 
 nextScreenRequest(
-    {required VoidCallback setState, required String id, required bool checkOpacity, bool? checkUser}) async {
+    {required VoidCallback setState, required String id, required bool checkOpacity, required RequestSeeByWho checkUser}) async {
   if (!checkOpacity) {
     setState.call();
     final Completer completer = Completer<bool>();
@@ -26,7 +27,7 @@ nextScreenRequest(
         page: Pages.requisitionInformationPage,
         extra: {
           'id': id,
-          'checkUser': checkUser ?? true,
+          'checkUser': checkUser,
         },
       );
     }

@@ -49,8 +49,8 @@ class _RequisitionInformationContentTypeWarehouseReleasedsState
                 appLocalizations.description,
                 style: TextStyle(
                   color: colors.text,
-                  fontSize: SpacingUnit.x3,
-                  fontWeight: FontWeight.w800,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               if (state.requisition.config.warehourseReleaseds?.isNotEmpty ?? false)

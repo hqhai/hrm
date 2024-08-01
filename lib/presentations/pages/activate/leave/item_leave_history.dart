@@ -1,4 +1,4 @@
-
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/work_and_salary_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
@@ -64,6 +64,7 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
               if (leave?.requestId.isNotEmpty ?? false)
                 GestureDetector(
                   onTap: () => nextScreenRequest(
+                      checkUser: RequestSeeByWho.user,
                       id: state.userLeaveHistory[widget.userLeaveHistoryId]!.requestId,
                       checkOpacity: checkOpacity,
                       setState: () => setOpacity()),

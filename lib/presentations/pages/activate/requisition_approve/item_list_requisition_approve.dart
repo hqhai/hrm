@@ -1,4 +1,4 @@
-
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -39,32 +39,40 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return BlocBuilder<RequisitionApproveBloc, RequisitionApproveState>(builder: (context, state) {
-      return ContainerBorder(
-        backgroundColors: colors.background,
-        child: GestureDetector(
-          onTap: () => nextScreenRequest(
-              id: widget.id, checkOpacity: checkOpacity, setState: () => setOpacity()),
-          child: Stack(
-            children: [
-              Opacity(
-                opacity: checkOpacity ? 1 : 0,
-                child: Center(
-                  child: Lottie.asset(Assets.images.icon.loading,
-                      width: SpacingUnit.x20, height: SpacingUnit.x20, fit: BoxFit.fill),
-                ),
-              ),
-              Opacity(
-                opacity: checkOpacity ? 0.5 : 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: SpacingUnit.x2),
-                  child: ContentItemRequestApproveList(
-                    id: widget.id,
-                    self: false,
-                    status: widget.status,
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+        child: ContainerBorder(
+          backgroundColors: colors.background,
+          borderColors: colors.background,
+          child: GestureDetector(
+            onTap: () => nextScreenRequest(
+              id: widget.id,
+              checkOpacity: checkOpacity,
+              setState: () => setOpacity(),
+              checkUser: RequestSeeByWho.manager,
+            ),
+            child: Stack(
+              children: [
+                Opacity(
+                  opacity: checkOpacity ? 1 : 0,
+                  child: Center(
+                    child: Lottie.asset(Assets.images.icon.loading,
+                        width: SpacingUnit.x20, height: SpacingUnit.x20, fit: BoxFit.fill),
                   ),
                 ),
-              ),
-            ],
+                Opacity(
+                  opacity: checkOpacity ? 0.5 : 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: SpacingUnit.x2),
+                    child: ContentItemRequestApproveList(
+                      id: widget.id,
+                      self: false,
+                      status: widget.status,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -84,6 +92,4 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
     }
     return true;
   }
-
-
 }

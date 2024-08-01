@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -12,12 +13,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ContentItemMyRequisitionList extends StatelessWidget {
-  const ContentItemMyRequisitionList({super.key, required this.id, this.self = false});
+
+  const ContentItemMyRequisitionList({super.key, required this.id, required this.self});
 
   final String id;
 
   ///Có phải đơn của mình không
-  final bool self;
+  final RequestSeeByWho self;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class ContentItemMyRequisitionList extends StatelessWidget {
                 ),
               ],
             ),
-            if (self)
+            if (self != RequestSeeByWho.user)
               TitleValueLeave(
                 title: appLocalizations.creator,
                 value: request?.createdFullName ?? "",

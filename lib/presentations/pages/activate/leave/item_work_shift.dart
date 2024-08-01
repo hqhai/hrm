@@ -12,9 +12,11 @@ class ItemWorkShift extends StatefulWidget {
   const ItemWorkShift({
     super.key,
     required this.ids,
+    required this.numberValue,
   });
 
   final ValueChanged<List<String>> ids;
+  final ValueChanged<double> numberValue;
 
   @override
   State<ItemWorkShift> createState() => _ItemWorkShiftState();
@@ -22,6 +24,7 @@ class ItemWorkShift extends StatefulWidget {
 
 class _ItemWorkShiftState extends State<ItemWorkShift> {
   List<String> ids = [];
+  double numberValue = 0;
 
   @override
   void initState() {
@@ -31,10 +34,7 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
     return BlocConsumer<LeaveShiftBloc, LeaveShiftState>(
       listener: (context, state) => _listener(state),
       listenWhen: (previous, current) => previous.keys != current.keys,
@@ -42,7 +42,7 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: state.keys.mapIndexed(
-                (index, element) {
+            (index, element) {
               final date = DateTime.fromMicrosecondsSinceEpoch(element);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,31 +55,29 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
                   Column(
                     children: state.mapKeyDate[element] != null
                         ? state.mapKeyDate[element]!.map((e) {
-                      final workShift = state.workShifts[e];
-                      return ContainerBorder(
-                        borderColors: colors.outline.withOpacity(0.4),
-                        width: width,
-                        padding: 0,
-                        child: CheckboxListTile(
-                          value: check(dateInt: element, keyDate: state.keys, id: e),
-                          onChanged: (value) =>
-                              _onChange(
-                                  value: value,
-                                  id: e,
-                                  dateInt: element,
-                                  keyDate: state.keys,
-                                  state: state),
-                          title: Text(
-                            '${strSeconds(workShift?.startTime)} - ${strSeconds(
-                                workShift?.endTime)}',
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x3,
-                            ),
-                          ),
-                        ),
-                      );
-                    }).toList()
+                            final workShift = state.workShifts[e];
+                            return ContainerBorder(
+                              borderColors: colors.outline.withOpacity(0.4),
+                              width: width,
+                              padding: 0,
+                              child: CheckboxListTile(
+                                value: check(dateInt: element, keyDate: state.keys, id: e),
+                                onChanged: (value) => _onChange(
+                                    value: value,
+                                    id: e,
+                                    dateInt: element,
+                                    keyDate: state.keys,
+                                    state: state),
+                                title: Text(
+                                  '${strSeconds(workShift?.startTime)} - ${strSeconds(workShift?.endTime)}',
+                                  style: TextStyle(
+                                    color: colors.text,
+                                    fontSize: SpacingUnit.x3,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList()
                         : [],
                   ),
                 ],
@@ -91,16 +89,26 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
     );
   }
 
-  _onChange({bool? value, required String id, required int dateInt, required List<
-      int> keyDate, required LeaveShiftState state}) {
-    if (!ids.contains(id)) {
+  _onChange(
+      {bool? value,
+      required String id,
+      required int dateInt,
+      required List<int> keyDate,
+      required LeaveShiftState state}) {
+    final firstOrLast = state.workShifts[id]?.workDate.microsecondsSinceEpoch == state.keys.first ||
+        state.workShifts[id]?.workDate.microsecondsSinceEpoch == state.keys.last;
+    if (!ids.contains(id) && firstOrLast) {
       setState(() {
         ids.add(id);
+        numberValue = numberValue + (state.workShifts[id]?.workEffort ?? 0);
+        widget.numberValue.call(numberValue);
         widget.ids.call(ids);
       });
-    } else if (ids.contains(id)) {
+    } else if (ids.contains(id) && firstOrLast) {
       setState(() {
         ids.remove(id);
+        numberValue = numberValue - (state.workShifts[id]?.workEffort ?? 0);
+        widget.numberValue.call(numberValue);
         widget.ids.call(ids);
       });
     }
@@ -117,6 +125,7 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
       if (state.keys.first < element && state.keys.last > element) {
         state.mapKeyDate[element]?.forEach((e) {
           setState(() {
+            numberValue = numberValue + (state.workShifts[e]?.workEffort ?? 0);
             ids.add(state.workShifts[e]?.workShiftSettingDetailId ?? "");
           });
         });

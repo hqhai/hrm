@@ -11,7 +11,7 @@ part 'work_shift_registered_details.g.dart';
 class WorkShiftRegisteredDetail {
   final String workShiftSettingDetailId;
   final DateTime workDate;
-  final int workEffort;
+  final double workEffort;
   final String nameWorkShift;
   final int startTime;
   final int endTime;

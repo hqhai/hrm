@@ -30,3 +30,13 @@ progressIndicatorDialog(BuildContext context) async {
     },
   );
 }
+
+class ProgressIndicatorDialog extends StatelessWidget {
+  const ProgressIndicatorDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const CircularProgressIndicator();
+  }
+}
+

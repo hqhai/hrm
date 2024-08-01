@@ -13,7 +13,7 @@ class ListviewRequestApprove extends StatefulWidget {
   const ListviewRequestApprove(
       {super.key, required this.onChangeStatus, this.filterData = const FilterDialogModel()});
 
-  final ValueChanged<String> onChangeStatus;
+  final ValueChanged<EnumStepRequestStatusEnum> onChangeStatus;
   final FilterDialogModel filterData;
 
   @override
@@ -84,7 +84,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
 
   void _scrollListener() {
     widget.onChangeStatus.call(
-      EnumStepRequestStatusEnum.values[_tabController.index].name,
+      EnumStepRequestStatusEnum.values[_tabController.index],
     );
   }
 }
