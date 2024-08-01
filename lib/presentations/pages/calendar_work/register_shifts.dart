@@ -326,21 +326,21 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                       itemPositionsListener: itemPositionsListenerBody,
                       scrollOffsetListener: scrollOffsetListenerBody,
                       itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () => dI<AppNavigation>().push(context,
-                              page: Pages.shiftsPage,
-                              paramsQuerry:
-                                  ShiftsQueryParams(date: listDateAppBar[index])
-                                      .toJson()),
-                          child: ItemDayOfList(
-                            selected:
-                                workDays[listDateAppBar[index].toString()] !=
-                                    null,
-                            isCheckBox: isShowCheckBox,
-                            dateTime: listDateAppBar[index],
-                            onChange: (WorkDayRequest value) =>
-                                _addItemRegister(value),
-                          ),
+                        return ItemDayOfList(
+                          selected:
+                              workDays[listDateAppBar[index].toString()] !=
+                                  null,
+                          isCheckBox: isShowCheckBox,
+                          dateTime: listDateAppBar[index],
+                          onChange: (WorkDayRequest value) =>
+                              _addItemRegister(value),
+                          onTap: () {
+                            dI<AppNavigation>().push(context,
+                                page: Pages.shiftsPage,
+                                paramsQuerry: ShiftsQueryParams(
+                                        date: listDateAppBar[index])
+                                    .toJson());
+                          },
                         );
                       },
                     ),
@@ -433,8 +433,11 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
 
   _register() {
     if (isShowCheckBox) {
-      setState(() {
-        dI<WorkDayBloc>().add(RegisterWorkDay(data: workDays));
+      setState(() async {
+        Completer completer = Completer();
+        dI<WorkDayBloc>()
+            .add(RegisterWorkDay(request: workDays, completer: completer));
+        await completer.future;
         isShowCheckBox = false;
         dI<WorkDayBloc>().add(const ChangeLoading(status: true));
         workDays.clear();

@@ -55,14 +55,17 @@ class ChangeLoading extends WorkDayEvent {
 }
 
 class RegisterWorkDay extends WorkDayEvent {
-  final Map<String, WorkDayRequest> data;
+  final Completer completer;
+  final Map<String, WorkDayRequest> request;
   const RegisterWorkDay({
-    required this.data,
+    required this.request,
+    required this.completer,
   });
 
   @override
   List<Object?> get props => [
-        data,
+        request,
+        completer,
       ];
 }
 

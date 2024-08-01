@@ -65,7 +65,7 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
   FutureOr<void> _registerWorkDay(
       RegisterWorkDay event, Emitter<WorkDayState> emit) async {
     try {
-      List<WorkDayRequest> list = event.data.values.map((e) => e).toList();
+      List<WorkDayRequest> list = event.request.values.toList();
       await _locationUseCase.registerWorkDays(
           request: WorkDaysRequest(workShiftRequestList: list));
     } catch (e) {
@@ -73,6 +73,7 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
         print(e);
       }
     }
+    event.completer.complete();
   }
 
   Future<FutureOr<void>> _cancelRegisterWorkDay(
