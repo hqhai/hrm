@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:base_app/common/enum/value_string.dart';
+import 'package:base_app/common/utils/menu_values.dart';
+import 'package:base_app/l10n/app_localizations.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 ///Từ int sang String
@@ -63,6 +66,27 @@ String formatYMD(String time) {
 String formatWeekDay(int weekDayIndex) {
   List weekDayToString = WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
   return weekDayToString[weekDayIndex - 1];
+}
+
+///Từ date sang thứ trong tuần
+
+String nameWeekDay(DateTime? time) {
+  if (time != null) {
+    final int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(time)] ?? 0;
+    final List<String> weekDayToString =
+        WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
+    return weekDayToString[nowOfWeek - 1];
+  }
+  return '';
+}
+
+///Ngày, tháng, năm
+String dayMonthYear({DateTime? time, required BuildContext context}) {
+  final appLocalizations = AppLocalizations.of(context)!;
+  if (time != null) {
+    return ' ${appLocalizations.day} ${time.day} ${appLocalizations.month} ${time.month} ${appLocalizations.year} ${time.year}';
+  }
+  return '';
 }
 
 ///Định dạng Ngyaf Tháng Năm

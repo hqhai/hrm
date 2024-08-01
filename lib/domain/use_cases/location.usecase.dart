@@ -1,6 +1,10 @@
 import 'package:base_app/data/models/location/checkin_gps_response.dart';
 import 'package:base_app/data/models/location/get_list_schools_usecase.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
+import 'package:base_app/data/models/request/cancel_work_day_request.dart';
+import 'package:base_app/data/models/shifts/shifts_response.dart';
+import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
 
 abstract class LocationUseCase {
   Future<GetLocationResponse> getAddress(
@@ -17,4 +21,28 @@ abstract class LocationUseCase {
   });
 
   Future<GetListSchoolsUseCase> getListSchools({String? keyword, int page});
+
+  Future<ShiftsResponse> getWorkDays(
+      {required DateTime startDate, required DateTime endDate});
+
+  Future<void> registerWorkDays({required WorkDaysRequest request});
+
+  Future<ShiftsAdminResponse> getWorkDaysAdmin(
+      {required WorkDayAdminRequest request});
+
+  Future<void> cancelRegisterWorkDays({required CancelWorkDayRequest request});
+
+  Future<GetElectiveShiftResponse> workDayGetElectiveShift(
+      {required WorkDayGetElectiveShiftRequest request});
+
+  Future<Shift> getShift({required String id});
+
+  Future<ShiftsAdminResponse> getElectiveShiftDetail(
+      {required GetElectiveShiftDetailRequest request});
+
+  Future<void> cancelWorkDay({
+    required CancelWorkDayAdminRequest request,
+  });
+
+  Future<void> addApprove({required ApproveRequest request});
 }

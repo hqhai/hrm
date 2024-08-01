@@ -294,19 +294,7 @@ enum RequisitionDeliveryTypeEnum {
   @JsonValue('Standard')
   standard("Standard"),
   @JsonValue('Express')
-  express("Express"),
-  @JsonValue('SameDay')
-  sameDay("SameDay"),
-  @JsonValue('Overnight')
-  overnight("Overnight"),
-  @JsonValue('TwoDay')
-  twoDay("TwoDay"),
-  @JsonValue('Economy')
-  economy("Economy"),
-  @JsonValue('Rush')
-  rush("Rush"),
-  @JsonValue('Scheduled')
-  scheduled("Scheduled");
+  express("Express");
 
   final String name;
 
@@ -322,18 +310,6 @@ extension ConfigDeliveryTypeExtension on RequisitionDeliveryTypeEnum {
         return appLocalizations.standard;
       case RequisitionDeliveryTypeEnum.express:
         return appLocalizations.express;
-      case RequisitionDeliveryTypeEnum.sameDay:
-        return appLocalizations.sameDay;
-      case RequisitionDeliveryTypeEnum.overnight:
-        return appLocalizations.overnight;
-      case RequisitionDeliveryTypeEnum.twoDay:
-        return appLocalizations.twoDay;
-      case RequisitionDeliveryTypeEnum.economy:
-        return appLocalizations.economy;
-      case RequisitionDeliveryTypeEnum.rush:
-        return appLocalizations.rush;
-      case RequisitionDeliveryTypeEnum.scheduled:
-        return appLocalizations.scheduled;
     }
   }
 }

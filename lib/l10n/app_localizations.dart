@@ -2775,6 +2775,60 @@ abstract class AppLocalizations {
   /// **'Total number of compensatory hours'**
   String get totalTimeWorkCompensatory;
 
+  /// No description provided for @calendarWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar work'**
+  String get calendarWork;
+
+  /// No description provided for @shiftManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift management'**
+  String get shiftManagement;
+
+  /// No description provided for @week.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get week;
+
+  /// No description provided for @pendingCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending cancel'**
+  String get pendingCancel;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @usable.
+  ///
+  /// In en, this message translates to:
+  /// **'Usable'**
+  String get usable;
+
+  /// No description provided for @unusable.
+  ///
+  /// In en, this message translates to:
+  /// **'Unusable'**
+  String get unusable;
+
+  /// No description provided for @administrativeShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrative shift'**
+  String get administrativeShift;
+
+  /// No description provided for @singleShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Single shift'**
+  String get singleShift;
+
   /// No description provided for @monday.
   ///
   /// In en, this message translates to:
@@ -2816,6 +2870,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'sunday'**
   String get sunday;
+
+  /// No description provided for @unregistered.
+  ///
+  /// In en, this message translates to:
+  /// **'Unregistered'**
+  String get unregistered;
+
+  /// No description provided for @cancelShiftRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift registration'**
+  String get cancelShiftRegistration;
+
+  /// No description provided for @cancelShiftReceiveRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift receive registration'**
+  String get cancelShiftReceiveRegistration;
+
+  /// No description provided for @cancelShiftCancellationRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift cancellation request'**
+  String get cancelShiftCancellationRequest;
+
+  /// No description provided for @registerForShifts.
+  ///
+  /// In en, this message translates to:
+  /// **'Register for shifts'**
+  String get registerForShifts;
+
+  /// No description provided for @reasonForCancelingRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for canceling request'**
+  String get reasonForCancelingRequest;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

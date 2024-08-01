@@ -62,7 +62,7 @@ class _PopupMenuHomeState extends State<PopupMenuHome> {
         PopupMenuItem(
           child: BlocBuilder<LanguageCubit, LanguageState>(
             builder: (context, stateLanguage) {
-              return GestureDetector(
+              return InkWell(
                 onTap: () => _language(context, stateLanguage),
                 child: Row(
                   children: [
@@ -86,7 +86,7 @@ class _PopupMenuHomeState extends State<PopupMenuHome> {
           ),
         ),
         PopupMenuItem(
-          child: GestureDetector(
+          child: InkWell(
             onTap: () => logoutFunction(),
             child: Row(
               children: [

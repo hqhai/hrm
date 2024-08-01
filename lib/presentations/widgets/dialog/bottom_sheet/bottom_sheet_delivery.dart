@@ -1,6 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -20,19 +21,14 @@ class _BottomSheetDeliveryWidgetState extends State<BottomSheetDeliveryWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final height = MediaQuery.of(context).size.height;
-    return Container(
-      height: height * 0.4,
-      color: colors.surface,
-      child: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: height * 0.4,
-              child: ListView.builder(
-                itemCount: RequisitionDeliveryTypeEnum.values.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () => addType(type: RequisitionDeliveryTypeEnum.values[index]),
+    return Padding(
+      padding: const EdgeInsets.all(SpacingUnit.x5,),
+      child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: RequisitionDeliveryTypeEnum.values
+              .mapIndexed(
+                (index, element) => GestureDetector(
+                  onTap: () => addType(type: element),
                   child: ContainerBorder(
                     padding: SpacingUnit.x2,
                     margin: SpacingUnit.x2,
@@ -46,7 +42,7 @@ class _BottomSheetDeliveryWidgetState extends State<BottomSheetDeliveryWidget> {
                           ),
                         ),
                         Text(
-                          RequisitionDeliveryTypeEnum.values[index].configDeliveryTypeName,
+                          element.configDeliveryTypeName,
                           style: TextStyle(
                             color: colors.text,
                             fontSize: SpacingUnit.x3,
@@ -56,11 +52,8 @@ class _BottomSheetDeliveryWidgetState extends State<BottomSheetDeliveryWidget> {
                     ),
                   ),
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
+              )
+              .toList()),
     );
   }
 

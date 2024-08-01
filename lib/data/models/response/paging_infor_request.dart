@@ -9,9 +9,9 @@ class PagingInfoRequest {
   final int totalItems;
 
   const PagingInfoRequest({
-    required this.totalItems,
-    required this.pageSize,
-    required this.page,
+    this.totalItems = 0,
+    this.pageSize = 0,
+    this.page = 0,
   });
 
   factory PagingInfoRequest.fromJson(Map<String, dynamic> json) =>

@@ -67,6 +67,7 @@ dependencies:
   shimmer: ^3.0.0
   lottie: ^3.1.0
   geolocator: ^11.0.0
+  pull_to_refresh: ^2.0.0
   collection: ^1.18.0
   flutter_pdfview: ^1.3.2
   permission_handler: ^11.3.1
@@ -77,6 +78,7 @@ dependencies:
   geocoding: ^3.0.0
   google_maps_flutter: ^2.5.3
   local_auth: ^2.1.8
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_test:
@@ -104,4 +106,5 @@ flutter:
     - assets/images/time_keeping/
     - assets/images/error/
     - assets/env/
+    - assets/images/icon/work/
   # fonts:

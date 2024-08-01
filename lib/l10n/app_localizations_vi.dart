@@ -1148,7 +1148,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get leaveManagement => 'Quản lý phép';
 
   @override
-  String get registerShift => 'Đăng ký ca';
+  String get registerShift => 'Đăng ký lịch làm việc';
 
   @override
   String get listSchools => 'Danh sách trường';
@@ -1346,6 +1346,33 @@ class AppLocalizationsVi extends AppLocalizations {
   String get totalTimeWorkCompensatory => 'Tổng số giờ làm bù';
 
   @override
+  String get calendarWork => 'Lịch làm việc';
+
+  @override
+  String get shiftManagement => 'Quản lý lịch làm việc';
+
+  @override
+  String get week => 'Tuần';
+
+  @override
+  String get pendingCancel => 'Đang chờ hủy';
+
+  @override
+  String get remove => 'Dừng';
+
+  @override
+  String get usable => 'Khả dụng';
+
+  @override
+  String get unusable => 'Không khả dụng';
+
+  @override
+  String get administrativeShift => 'Ca hành chính';
+
+  @override
+  String get singleShift => 'Ca đơn';
+
+  @override
   String get monday => 'Thứ hai';
 
   @override
@@ -1365,4 +1392,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sunday => 'Chủ nhật';
+
+  @override
+  String get unregistered => 'Chưa đăng ký';
+
+  @override
+  String get cancelShiftRegistration => 'Hủy đăng ký ca';
+
+  @override
+  String get cancelShiftReceiveRegistration => 'Hủy đăng ký nhận ca';
+
+  @override
+  String get cancelShiftCancellationRequest => 'Hủy yêu cầu hủy ca';
+
+  @override
+  String get registerForShifts => 'Đăng ký ca';
+
+  @override
+  String get reasonForCancelingRequest => 'Lý do hủy yêu cầu';
 }

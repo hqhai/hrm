@@ -73,7 +73,7 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
       onCanceled: () => widget.onChangeCheckOpacity(checkOpacity),
       itemBuilder: (_) => [
         PopupMenuItem(
-          child: GestureDetector(
+          child: InkWell(
             onTap: () => _editPersonalInformation(),
             child: Row(
               children: [
@@ -95,7 +95,7 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
           ),
         ),
         PopupMenuItem(
-          child: GestureDetector(
+          child: InkWell(
             onTap: () => _setting(context),
             child: Row(
               children: [
@@ -117,7 +117,7 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
           ),
         ),
         PopupMenuItem(
-          child: GestureDetector(
+          child: InkWell(
             onTap: () => _changePassword(context),
             child: Row(
               children: [
@@ -141,7 +141,7 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
         PopupMenuItem(
           child: BlocBuilder<LanguageCubit, LanguageState>(
             builder: (context, stateLanguage) {
-              return GestureDetector(
+              return InkWell(
                 onTap: () => _language(context, stateLanguage),
                 child: Row(
                   children: [
@@ -165,7 +165,7 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
           ),
         ),
         PopupMenuItem(
-          child: GestureDetector(
+          child: InkWell(
             onTap: () => logoutFunction(),
             child: Row(
               children: [

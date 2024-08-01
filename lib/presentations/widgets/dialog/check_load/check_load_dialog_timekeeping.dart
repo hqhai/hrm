@@ -1,11 +1,8 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
@@ -51,7 +48,7 @@ class _CheckLoadTimekeepingDialogState extends State<CheckLoadTimekeepingDialog>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
-                    Assets.images.timeKeeping.unWorldMap.path,
+                    Assets.images.timeKeeping.notoWorldMap.path,
                     fit: BoxFit.fill,
                     height: SpacingUnit.x50,
                     width: SpacingUnit.x50,
@@ -76,42 +73,38 @@ class _CheckLoadTimekeepingDialogState extends State<CheckLoadTimekeepingDialog>
           ),
         if (widget.checkUnSuccess)
           Center(
-            child: BlocBuilder<RequisitionBloc, RequisitionState>(
-              builder: (context, state) {
-                return ContainerBorder(
-                  margin: SpacingUnit.x8,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(
-                        Assets.images.timeKeeping.notoWorldMap.path,
-                        fit: BoxFit.fill,
-                        height: SpacingUnit.x50,
-                        width: SpacingUnit.x50,
-                      ),
-                      Text(
-                        widget.fail ?? appLocalizations.unsuccessful,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: SpacingUnit.x8, color: colors.error),
-                      ),
-                      GestureDetector(
-                        onTap: widget.checkUnSuccessChange,
-                        child: ContainerBorder(
-                          margin: SpacingUnit.x1,
-                          padding: SpacingUnit.x1,
-                          height: SpacingUnit.x10,
-                          width: SpacingUnit.x20,
-                          child: Text(
-                            appLocalizations.ok,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
-                          ),
-                        ),
-                      )
-                    ],
+            child: ContainerBorder(
+              margin: SpacingUnit.x8,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    Assets.images.timeKeeping.unWorldMap.path,
+                    fit: BoxFit.fill,
+                    height: SpacingUnit.x50,
+                    width: SpacingUnit.x50,
                   ),
-                );
-              },
+                  Text(
+                    widget.fail ?? appLocalizations.unsuccessful,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: SpacingUnit.x8, color: colors.error),
+                  ),
+                  GestureDetector(
+                    onTap: widget.checkUnSuccessChange,
+                    child: ContainerBorder(
+                      margin: SpacingUnit.x1,
+                      padding: SpacingUnit.x1,
+                      height: SpacingUnit.x10,
+                      width: SpacingUnit.x20,
+                      child: Text(
+                        appLocalizations.ok,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
       ],

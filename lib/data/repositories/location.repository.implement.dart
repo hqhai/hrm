@@ -5,6 +5,12 @@ import 'package:base_app/data/models/location/checkin_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
+import 'package:base_app/data/models/object_by_id_request.dart';
+import 'package:base_app/data/models/request/cancel_work_day_request.dart';
+import 'package:base_app/data/models/shifts/shifts_request.dart';
+import 'package:base_app/data/models/shifts/shifts_response.dart';
+import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/repositories/location.repositories.dart';
 import 'package:base_app/domain/services/location.service.dart';
 import 'package:injectable/injectable.dart';
@@ -33,7 +39,9 @@ class LocationRepositoryImpl extends LocationRepository {
 
   @override
   Future<CheckInGPSResponse> postCheckInGPS(
-      {required double longitude, required double latitude, required DateTime time}) async {
+      {required double longitude,
+      required double latitude,
+      required DateTime time}) async {
     return _locationService.postCheckInGPS(
       checkInRequest: CheckInRequest(
         longitude: longitude,
@@ -54,5 +62,57 @@ class LocationRepositoryImpl extends LocationRepository {
         keyword: keyword,
       ),
     );
+  }
+
+  @override
+  Future<ShiftsResponse> getWorkDays(
+      {required DateTime startDate, required DateTime endDate}) async {
+    return await _locationService.getWorkDays(
+        shiftsRequest: ShiftsRequest(startTime: startDate, endTime: endDate));
+  }
+
+  @override
+  Future<Shift> getShift({required String id}) async {
+    return await _locationService.getShift(
+        objectByIdRequest: ObjectByIdRequest(id: id));
+  }
+
+  @override
+  Future<void> registerWorkDays({required WorkDaysRequest request}) async {
+    await _locationService.registerWorkDays(request: request);
+  }
+
+  @override
+  Future<void> cancelRegisterWorkDays(
+      {required CancelWorkDayRequest request}) async {
+    await _locationService.cancelRegisterWorkDays(request: request);
+  }
+
+  @override
+  Future<ShiftsAdminResponse> getWorkDaysAdmin(
+      {required WorkDayAdminRequest request}) async {
+    return await _locationService.getWorkDaysAdmin(request: request);
+  }
+
+  @override
+  Future<GetElectiveShiftResponse> workDayGetElectiveShift(
+      {required WorkDayGetElectiveShiftRequest request}) async {
+    return await _locationService.workDayGetElectiveShift(request: request);
+  }
+
+  @override
+  Future<ShiftsAdminResponse> getElectiveShiftDetail(
+      {required GetElectiveShiftDetailRequest request}) async {
+    return await _locationService.getElectiveShiftDetail(request: request);
+  }
+
+  @override
+  Future<void> cancelWorkDay({required CancelWorkDayAdminRequest request}) async {
+    await _locationService.cancelWorkDay(request: request);
+  }
+
+  @override
+  Future<void> addApprove({required ApproveRequest request}) async {
+    await _locationService.addApprove(request: request);
   }
 }

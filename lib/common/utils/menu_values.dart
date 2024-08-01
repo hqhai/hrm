@@ -6,6 +6,7 @@ import 'package:base_app/presentations/widgets/admin/department/department.widge
 import 'package:base_app/presentations/widgets/admin/personnel/personnel.widget.dart';
 import 'package:base_app/presentations/widgets/admin/position/position.widget.dart';
 import 'package:base_app/presentations/widgets/attendance/calendar/timekeeping.dart';
+import 'package:base_app/presentations/widgets/calendar_work/calendar_work.widget.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
 import 'package:base_app/presentations/widgets/home/home.widget.dart';
 import 'package:base_app/presentations/widgets/profile/profile.widget.dart';
@@ -133,6 +134,7 @@ class MenuValues {
   static const List<Widget> widgetOptionsUser = <Widget>[
     ActivateWidget(),
     HomeWidget(),
+    CalendarWorkWidget(),
     ProfileWidget(),
 
   ];
@@ -250,10 +252,31 @@ class MenuValues {
 class TitleAppbarValues {
   static List<String> listTitleAppbar(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    return[
+    return [
       appLocalizations.activate,
       appLocalizations.home,
+      appLocalizations.calendarWork,
       appLocalizations.userInformation,
     ];
   }
 }
+
+final Map<String, int> mapNumberDayInWeek = {
+  'Sun': 7,
+  'Mon': 1,
+  'Tue': 2,
+  'Wed': 3,
+  'Thu': 4,
+  'Fri': 5,
+  'Sat': 6,
+};
+
+final Map<int, String> mapNameInWeek = {
+  7: 'Sun',
+  1: 'Mon',
+  2: 'Tue',
+  3: 'Wed',
+  4: 'Thu',
+  5: 'Fri',
+  6: 'Sat',
+};

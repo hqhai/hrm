@@ -2,14 +2,23 @@ import 'dart:convert';
 
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
+import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/data/models/key_page_request.dart';
 import 'package:base_app/data/models/location/checkin_gps_response.dart';
 import 'package:base_app/data/models/location/checkin_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
+import 'package:base_app/data/models/object_by_id_request.dart';
+import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/response.dart';
+import 'package:base_app/data/models/shifts/shifts_request.dart';
+import 'package:base_app/data/models/shifts/shifts_response.dart';
+import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
+import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/domain/services/location.service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 import 'base.service.dart';
@@ -19,15 +28,18 @@ class LocationServiceImpl extends BaseService implements LocationService {
   late String baseUrl;
   late String baseSystemGatewayUrl;
   late String baseUrlUser;
+  late String baseSystem;
 
   LocationServiceImpl() : super() {
     baseUrl = appConfig.baseAuthUrl;
     baseSystemGatewayUrl = appConfig.baseSystemGatewayUrl;
     baseUrlUser = appConfig.baseUserUrl;
+    baseSystem = appConfig.baseSystemUrl;
   }
 
   @override
-  Future<GetLocationResponse> getAddress({required GetLocationRequest getLocationRequest}) async {
+  Future<GetLocationResponse> getAddress(
+      {required GetLocationRequest getLocationRequest}) async {
     final url = '$baseSystemGatewayUrl${PathConfig.location}';
     final params = getLocationRequest.toJson();
     final response = await client.get(url, params: params);
@@ -38,18 +50,141 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<CheckInGPSResponse> postCheckInGPS({required CheckInRequest checkInRequest}) async {
+  Future<CheckInGPSResponse> postCheckInGPS(
+      {required CheckInRequest checkInRequest}) async {
     return const CheckInGPSResponse(checkIn: true);
   }
 
   @override
-  Future<GetListSchoolsResponse> getListSchools({required KeyPageRequest keyPageRequest}) async {
+  Future<GetListSchoolsResponse> getListSchools(
+      {required KeyPageRequest keyPageRequest}) async {
     final url = '$baseUrlUser${PathConfig.schools}';
     final params = keyPageRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    final GetListSchoolsResponse getListSchoolsResponse = GetListSchoolsResponse.fromJson(data);
+    final GetListSchoolsResponse getListSchoolsResponse =
+        GetListSchoolsResponse.fromJson(data);
     return getListSchoolsResponse;
+  }
+
+  @override
+  Future<ShiftsResponse> getWorkDays(
+      {required ShiftsRequest shiftsRequest}) async {
+    final url = '$baseSystem${PathConfig.getWorkShifts}';
+    final body = jsonEncode(shiftsRequest.toJson());
+    final response = await client.post(url, body: body);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    final list =
+        (data as List<dynamic>).map((e) => WorkDay.fromJson(e)).toList();
+    final ShiftsResponse shiftsResponse = ShiftsResponse(items: list);
+    return shiftsResponse;
+  }
+
+  @override
+  Future<Shift> getShift({required ObjectByIdRequest objectByIdRequest}) async {
+    return Shift(
+      id: 'dsgfhsdhgd',
+      startTime: 2000,
+      endTime: 10000,
+      type: ShiftType.administrativeShift,
+      status: WorkShiftRequestStatus.pending,
+      code: 'shdgfhds',
+      name: 'Hieu',
+      checkInEndTimeValid: 10000,
+      checkInStartTimeValid: 2000,
+      checkOutEndTimeValid: 10000,
+      checkOutStartTimeValid: 2000,
+      workDate: DateTime(2024, 07, 25),
+      createdDate: DateTime(2024, 07, 25),
+      workEffort: 1,
+    );
+  }
+
+  @override
+  Future<void> registerWorkDays({required WorkDaysRequest request}) async {
+    try {
+      final url = '$baseSystem${PathConfig.registerWorkShifts}';
+      final body = jsonEncode(request.toJson());
+      await client.post(url, body: body);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  Future<void> cancelRegisterWorkDays(
+      {required CancelWorkDayRequest request}) async {
+    try {
+      final url = '$baseSystem${PathConfig.cancelRegisterWorkShifts}';
+      final body = jsonEncode(request.toJson());
+
+      await client.put(url, body: body);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  Future<ShiftsAdminResponse> getWorkDaysAdmin(
+      {required WorkDayAdminRequest request}) async {
+    final url = '$baseSystem${PathConfig.workShiftApprove}';
+    final params = request.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+
+    return ShiftsAdminResponse.fromJson(responseBase.result);
+  }
+
+  @override
+  Future<GetElectiveShiftResponse> workDayGetElectiveShift(
+      {required WorkDayGetElectiveShiftRequest request}) async {
+    final url = '$baseSystem${PathConfig.workshiftSettingGetElectiveShift}';
+    final params = request.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    return GetElectiveShiftResponse.fromJson(responseBase.result);
+  }
+
+  @override
+  Future<ShiftsAdminResponse> getElectiveShiftDetail(
+      {required GetElectiveShiftDetailRequest request}) async {
+    final url = '$baseSystem${PathConfig.workshiftSettingGetUser}';
+    final params = request.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    return ShiftsAdminResponse.fromJson(responseBase.result);
+  }
+
+  @override
+  Future<void> cancelWorkDay(
+      {required CancelWorkDayAdminRequest request}) async {
+    try {
+      final url = '$baseSystem${PathConfig.workshiftRequest}';
+      final body = jsonEncode(request.toJson());
+      await client.put(url, body: body);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  Future<void> addApprove({required ApproveRequest request}) async {
+    try {
+      final url = '$baseSystem${PathConfig.workShiftApprove}';
+      final body = jsonEncode(request.toJson());
+      await client.put(url, body: body);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 }

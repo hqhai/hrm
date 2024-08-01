@@ -22,9 +22,9 @@ import '../../data/repositories/personnel.repository.implement.dart' as _i56;
 import '../../data/repositories/position.repository.implement.dart' as _i63;
 import '../../data/repositories/request.repository.implement.dart' as _i70;
 import '../../data/repositories/requisition.repository.implement.dart' as _i80;
-import '../../data/repositories/user.repository.implement.dart' as _i93;
+import '../../data/repositories/user.repository.implement.dart' as _i94;
 import '../../data/repositories/work_and_salary.repository.implement.dart'
-    as _i100;
+    as _i101;
 import '../../data/services/attendances.service.implement.dart' as _i10;
 import '../../data/services/auth.service.implement.dart' as _i17;
 import '../../data/services/base.service.dart' as _i27;
@@ -36,8 +36,8 @@ import '../../data/services/personnel.service.implement.dart' as _i58;
 import '../../data/services/position.service.implement.dart' as _i65;
 import '../../data/services/request.service.implement.dart' as _i72;
 import '../../data/services/requisition.service.implement.dart' as _i82;
-import '../../data/services/user.service.implement.dart' as _i95;
-import '../../data/services/work_and_salary.service.implement.dart' as _i102;
+import '../../data/services/user.service.implement.dart' as _i96;
+import '../../data/services/work_and_salary.service.implement.dart' as _i103;
 import '../../data/use_cases/attendances_usecase.implement.dart' as _i12;
 import '../../data/use_cases/check_in_setting_usecase.implement.dart' as _i26;
 import '../../data/use_cases/department_usecase.implement.dart' as _i34;
@@ -48,8 +48,8 @@ import '../../data/use_cases/personnel_usecase.implement.dart' as _i60;
 import '../../data/use_cases/position_usecase.implement.dart' as _i67;
 import '../../data/use_cases/request_usecase.implement.dart' as _i74;
 import '../../data/use_cases/requisition.usecase.implement.dart' as _i84;
-import '../../data/use_cases/user_usecase.implement.dart' as _i97;
-import '../../data/use_cases/work_and_salary.usecase.implement.dart' as _i104;
+import '../../data/use_cases/user_usecase.implement.dart' as _i98;
+import '../../data/use_cases/work_and_salary.usecase.implement.dart' as _i105;
 import '../../domain/repositories/attendances.repository.dart' as _i7;
 import '../../domain/repositories/auth.repository.dart' as _i14;
 import '../../domain/repositories/check_in_setting.repository.dart' as _i21;
@@ -60,8 +60,8 @@ import '../../domain/repositories/personnel.repository.dart' as _i55;
 import '../../domain/repositories/position.repository.dart' as _i62;
 import '../../domain/repositories/request.repository.dart' as _i69;
 import '../../domain/repositories/requisition.repository.dart' as _i79;
-import '../../domain/repositories/user.repositories.dart' as _i92;
-import '../../domain/repositories/work_and_salary.repositories.dart' as _i99;
+import '../../domain/repositories/user.repositories.dart' as _i93;
+import '../../domain/repositories/work_and_salary.repositories.dart' as _i100;
 import '../../domain/services/attendances.service.dart' as _i9;
 import '../../domain/services/auth.service.dart' as _i16;
 import '../../domain/services/check_in_setting.service.dart' as _i23;
@@ -72,8 +72,8 @@ import '../../domain/services/personnel.service.dart' as _i57;
 import '../../domain/services/position.service.dart' as _i64;
 import '../../domain/services/request.service.dart' as _i71;
 import '../../domain/services/requisition.service.dart' as _i81;
-import '../../domain/services/user.service.dart' as _i94;
-import '../../domain/services/work_and_salary.service.dart' as _i101;
+import '../../domain/services/user.service.dart' as _i95;
+import '../../domain/services/work_and_salary.service.dart' as _i102;
 import '../../domain/use_cases/attendances_usecase.dart' as _i11;
 import '../../domain/use_cases/check_in_setting_usecase.dart' as _i25;
 import '../../domain/use_cases/departments_usecase.dart' as _i33;
@@ -84,8 +84,9 @@ import '../../domain/use_cases/personnel_usecase.dart' as _i59;
 import '../../domain/use_cases/position_usecase.dart' as _i66;
 import '../../domain/use_cases/request_usecase.dart' as _i73;
 import '../../domain/use_cases/requisition.usecase.dart' as _i83;
-import '../../domain/use_cases/user_usecase.dart' as _i96;
-import '../../domain/use_cases/work_and_salary.usecase.dart' as _i103;
+import '../../domain/use_cases/user_usecase.dart' as _i97;
+import '../../domain/use_cases/work_and_salary.usecase.dart' as _i104;
+import '../../presentations/bloc/ahift/shift_bloc.dart' as _i86;
 import '../../presentations/bloc/attendance/attendance_bloc.dart' as _i6;
 import '../../presentations/bloc/auth/auth_bloc.dart' as _i13;
 import '../../presentations/bloc/biometric/biometric_cubit.dart' as _i18;
@@ -98,7 +99,7 @@ import '../../presentations/bloc/language/language_cubit.dart' as _i36;
 import '../../presentations/bloc/leave/leave_history/leave_history_bloc.dart'
     as _i37;
 import '../../presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart'
-    as _i98;
+    as _i99;
 import '../../presentations/bloc/location/address/address_bloc.dart' as _i3;
 import '../../presentations/bloc/location/school/school_bloc.dart' as _i85;
 import '../../presentations/bloc/login/login_bloc.dart' as _i44;
@@ -116,15 +117,16 @@ import '../../presentations/bloc/requisition/requisiton_approve/requisition_appr
 import '../../presentations/bloc/requisition/requisiton_following/requisition_following_bloc.dart'
     as _i78;
 import '../../presentations/bloc/requisition/stationery/stationery_bloc.dart'
-    as _i86;
-import '../../presentations/bloc/themes/theme_cubit.dart' as _i87;
-import '../../presentations/bloc/user/user/user_bloc.dart' as _i88;
-import '../../presentations/bloc/user/user_by_id/user_by_id_bloc.dart' as _i89;
+    as _i87;
+import '../../presentations/bloc/themes/theme_cubit.dart' as _i88;
+import '../../presentations/bloc/user/user/user_bloc.dart' as _i89;
+import '../../presentations/bloc/user/user_by_id/user_by_id_bloc.dart' as _i90;
 import '../../presentations/bloc/user/user_by_name/user_by_name_bloc.dart'
-    as _i90;
-import '../../presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart'
     as _i91;
-import '../../presentations/bloc/work_sheet/work_sheet_bloc.dart' as _i105;
+import '../../presentations/bloc/user/user_by_roles/user_by_roles_bloc.dart'
+    as _i92;
+import '../../presentations/bloc/work_day/work_day_bloc.dart' as _i106;
+import '../../presentations/bloc/work_sheet/work_sheet_bloc.dart' as _i107;
 import '../routers/navigation.dart' as _i4;
 import '../routers/router.dart' as _i5;
 
@@ -212,23 +214,25 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i83.RequisitionUseCase>(
         () => _i84.RequisitionUseCaseImpl());
     gh.lazySingleton<_i85.SchoolBloc>(() => _i85.SchoolBloc());
-    gh.lazySingleton<_i86.StationeryBloc>(() => _i86.StationeryBloc());
-    gh.lazySingleton<_i87.ThemeCubit>(() => _i87.ThemeCubit());
-    gh.lazySingleton<_i88.UserBloc>(() => _i88.UserBloc());
-    gh.lazySingleton<_i89.UserByIdBloc>(() => _i89.UserByIdBloc());
-    gh.lazySingleton<_i90.UserByNameBloc>(() => _i90.UserByNameBloc());
-    gh.lazySingleton<_i91.UserByRolesBloc>(() => _i91.UserByRolesBloc());
-    gh.lazySingleton<_i92.UserRepository>(() => _i93.UserRepositoryImpl());
-    gh.lazySingleton<_i94.UserService>(() => _i95.UserServiceImpl());
-    gh.lazySingleton<_i96.UserUseCase>(() => _i97.UserUseCaseImpl());
-    gh.lazySingleton<_i98.WorkAndSalaryBloc>(() => _i98.WorkAndSalaryBloc());
-    gh.lazySingleton<_i99.WorkAndSalaryRepository>(
-        () => _i100.WorkAndSalaryRepositoryImplement());
-    gh.lazySingleton<_i101.WorkAndSalaryService>(
-        () => _i102.WorkAndSalaryServiceImpl());
-    gh.lazySingleton<_i103.WorkAndSalaryUseCase>(
-        () => _i104.WorkAndSalaryUseCaseImplement());
-    gh.lazySingleton<_i105.WorkSheetBloc>(() => _i105.WorkSheetBloc());
+    gh.lazySingleton<_i86.ShiftBloc>(() => _i86.ShiftBloc());
+    gh.lazySingleton<_i87.StationeryBloc>(() => _i87.StationeryBloc());
+    gh.lazySingleton<_i88.ThemeCubit>(() => _i88.ThemeCubit());
+    gh.lazySingleton<_i89.UserBloc>(() => _i89.UserBloc());
+    gh.lazySingleton<_i90.UserByIdBloc>(() => _i90.UserByIdBloc());
+    gh.lazySingleton<_i91.UserByNameBloc>(() => _i91.UserByNameBloc());
+    gh.lazySingleton<_i92.UserByRolesBloc>(() => _i92.UserByRolesBloc());
+    gh.lazySingleton<_i93.UserRepository>(() => _i94.UserRepositoryImpl());
+    gh.lazySingleton<_i95.UserService>(() => _i96.UserServiceImpl());
+    gh.lazySingleton<_i97.UserUseCase>(() => _i98.UserUseCaseImpl());
+    gh.lazySingleton<_i99.WorkAndSalaryBloc>(() => _i99.WorkAndSalaryBloc());
+    gh.lazySingleton<_i100.WorkAndSalaryRepository>(
+        () => _i101.WorkAndSalaryRepositoryImplement());
+    gh.lazySingleton<_i102.WorkAndSalaryService>(
+        () => _i103.WorkAndSalaryServiceImpl());
+    gh.lazySingleton<_i104.WorkAndSalaryUseCase>(
+        () => _i105.WorkAndSalaryUseCaseImplement());
+    gh.lazySingleton<_i106.WorkDayBloc>(() => _i106.WorkDayBloc());
+    gh.lazySingleton<_i107.WorkSheetBloc>(() => _i107.WorkSheetBloc());
     return this;
   }
 }
