@@ -1410,4 +1410,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get reasonForCancelingRequest => 'Lý do hủy yêu cầu';
+
+  @override
+  String get youDoNotHaveAShiftToday => 'Bạn không có ca làm việc vào hôm nay!';
+
+  @override
+  String get distanceNotEnough => 'Khoảng cách không đủ';
 }

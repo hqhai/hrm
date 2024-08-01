@@ -50,5 +50,4 @@ abstract class LocationService {
 
   Future<ScheduleSchool> getScheduleSchool({required DatetimeRequest datetimeRequest});
 
-  Future<GetListSchoolsResponse> getListSchools({required KeyPageRequest keyPageRequest});
 }
