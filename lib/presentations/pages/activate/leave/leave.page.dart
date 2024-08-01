@@ -55,7 +55,7 @@ class _LeavePageState extends State<LeavePage> with TickerProviderStateMixin {
               children: [
                 TabBar(
                   controller: _tabController,
-                  tabs: titlesTabBar(context)
+                  tabs: ItemUtils.titlesTabBar(context)
                       .map(
                         (element) => Tab(
                           child: Text(

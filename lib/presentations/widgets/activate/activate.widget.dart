@@ -28,10 +28,10 @@ class _ActivateWidgetState extends State<ActivateWidget> {
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: listActivate
+          children: ItemUtils.listActivate
               .mapIndexed(
                 (index, element) => ItemActivateWidget(
-                  title: titlesActivate(index, context),
+                  title: ItemUtils.titlesActivate(index, context),
                   callback: () => _nextScreen(context, index),
                 ),
               )

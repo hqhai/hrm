@@ -18,7 +18,7 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
-    return GestureDetector(
+    return InkWell(
       onTap: widget.callback,
       child: ContainerBorder(
         width: width,
@@ -28,20 +28,28 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
+              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.all(SpacingUnit.x2),
                 child: Text(
                   widget.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
+                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w700),
                 ),
               ),
             ),
-            Icon(
-              Icons.chevron_right,
-              color: colors.text,
-              size: SpacingUnit.x10,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: SpacingUnit.x5),
+                child: Center(
+                  child: Icon(
+                    Icons.chevron_right_outlined,
+                    color: colors.text,
+                    size: SpacingUnit.x10,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
