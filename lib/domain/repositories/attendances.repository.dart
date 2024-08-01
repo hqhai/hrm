@@ -17,7 +17,4 @@ abstract class AttendanceRepository {
     required String id,
   });
 
-  Future<WorkSheet> getWorkSheet({
-    required DateTime time
-  });
 }

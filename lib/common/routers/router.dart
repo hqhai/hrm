@@ -103,7 +103,6 @@ class AppRouters {
     Pages.leavePage: leavePageRoute,
     Pages.layoutCalendarPage: layoutCalendarPageRoute,
     Pages.registerShiftsPage: registerShiftsPageRoute,
-    Pages.layoutCalendarPage: layoutCalendarPageRoute,
     Pages.shiftsPage: shiftsPageRoute,
     Pages.registerWorkDayAdmin: registerWorkDayPageRoute,
     Pages.registerWorkDayAdminDetail: registerWorkDayAdminDetailPageRoute,

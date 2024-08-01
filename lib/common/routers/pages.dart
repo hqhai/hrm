@@ -60,7 +60,6 @@ class Pages {
   static const String leavePage = '/leavePage';
   static const String layoutCalendarPage = '/layoutCalendarPage';
   static const String registerShiftsPage = '/registerShiftsPage';
-  static const String layoutCalendarPage = '/layoutCalendarPage';
   static const String shiftsPage = '/shiftsPage';
   static const String registerWorkDayAdmin = '/registerWorkDayAdmin';
   static const String registerWorkDayAdminDetail =
