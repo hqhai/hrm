@@ -2906,6 +2906,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reason for canceling request'**
   String get reasonForCancelingRequest;
+
+  /// No description provided for @youDoNotHaveAShiftToday.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have a shift today!'**
+  String get youDoNotHaveAShiftToday;
+
+  /// No description provided for @distanceNotEnough.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance Not Enough'**
+  String get distanceNotEnough;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

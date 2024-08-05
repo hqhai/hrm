@@ -50,8 +50,10 @@ class PathConfig {
 
   //CheckIn CheckOut
   static String schools = '/school/get-schools';
+  static String checkIn = '/check-in';
 
   //leave
+  static String scheduleSchool = '/schedule-school/schedule-school-by-user';
   static String userLeave = '/user-leave-history/user-total';
   static String userLeaveHistory = '/user-leave-history/get-user-leave-history';
 

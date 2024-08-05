@@ -1,12 +1,18 @@
+import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/item_data.dart';
+import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
+import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_event.dart';
 import 'package:base_app/presentations/widgets/activate/item_activate.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:themes/themes.dart';
 
 class ActivateWidget extends StatefulWidget {
   const ActivateWidget({super.key});
@@ -63,9 +69,39 @@ class _ActivateWidgetState extends State<ActivateWidget> {
   }
 
   _nextTimekeepingGPSScreen(BuildContext context) async {
-    dI<AppNavigation>().pushName(
-      context,
-      page: Pages.listSchoolsPage,
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final Completer completer = Completer<bool?>();
+    dI<ScheduleSchoolBloc>().add(GetScheduleSchoolEvent(
+      dateTime: DateTime.now(),
+      completer: completer,
+    ));
+    final completerCheck = await completer.future;
+    if(completerCheck == true){
+      if(!currentContext.mounted) return;
+      dI<AppNavigation>().pushName(
+        currentContext,
+        page: Pages.timekeepingGPSPage,
+      );
+    }
+    else if(completerCheck == null){
+      if(!currentContext.mounted) return;
+      getNote(currentContext);
+    }
+  }
+
+  getNote(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        final appLocalizations = AppLocalizations.of(context)!;
+        final colors = AppTheme.getColors(context);
+        return Dialog(
+          backgroundColor: colors.background,
+          child: TitleDialog(
+            title: appLocalizations.youDoNotHaveAShiftToday,
+          ),
+        );
+      },
     );
   }
 }

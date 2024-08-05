@@ -7,6 +7,7 @@ import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/response/paging_infor_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
 import 'package:base_app/domain/entities/timekeeping/school.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/repositories/location.repositories.dart';
@@ -36,13 +37,11 @@ class LocationUseCaseImpl extends LocationUseCase {
 
   @override
   Future<CheckInGPSResponse> postCheckInGPS(
-      {required double longitude,
-      required double latitude,
-      required DateTime time}) async {
+      {required double longitude, required double latitude, required String scheduleSchoolId}) async {
     return _locationRepository.postCheckInGPS(
       longitude: longitude,
       latitude: latitude,
-      time: time,
+      scheduleSchoolId: scheduleSchoolId,
     );
   }
 
@@ -64,10 +63,13 @@ class LocationUseCaseImpl extends LocationUseCase {
     final PagingInfoRequest pagingInfoRequest =
         getListSchoolsResponse.pagingInfo;
     final GetListSchoolsUseCase getListSchoolsUseCase = GetListSchoolsUseCase(
-        schools: mapSchools,
-        schoolsId: schoolsId,
-        pagingInfo: pagingInfoRequest);
+        schools: mapSchools, schoolsId: schoolsId, pagingInfo: pagingInfoRequest);
     return getListSchoolsUseCase;
+  }
+
+  @override
+  Future<ScheduleSchool> getScheduleSchool({required DateTime workDate}) async {
+    return await _locationRepository.getScheduleSchool(workDate: workDate);
   }
 
   @override

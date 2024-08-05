@@ -1410,4 +1410,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reasonForCancelingRequest => 'Reason for canceling request';
+
+  @override
+  String get youDoNotHaveAShiftToday => 'You don\'t have a shift today!';
+
+  @override
+  String get distanceNotEnough => 'Distance Not Enough';
 }

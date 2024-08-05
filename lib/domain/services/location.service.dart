@@ -1,9 +1,11 @@
 import 'package:base_app/data/models/key_page_request.dart';
 import 'package:base_app/data/models/location/checkin_gps_response.dart';
 import 'package:base_app/data/models/location/checkin_request.dart';
+import 'package:base_app/data/models/location/datetime_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
+import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
 import 'package:base_app/data/models/object_by_id_request.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
@@ -45,4 +47,7 @@ abstract class LocationService {
   });
 
   Future<void> addApprove({required ApproveRequest request});
+
+  Future<ScheduleSchool> getScheduleSchool({required DatetimeRequest datetimeRequest});
+
 }

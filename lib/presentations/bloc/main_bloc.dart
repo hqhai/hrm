@@ -10,6 +10,7 @@ import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_bloc.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart';
 import 'package:base_app/presentations/bloc/location/address/address_bloc.dart';
+import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
 import 'package:base_app/presentations/bloc/location/school/school_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
@@ -98,5 +99,7 @@ class MainBloc {
             create: (BuildContext context) => dI<RequestWorkSheetBloc>()),
         BlocProvider<ShiftBloc>(
             create: (BuildContext context) => dI<ShiftBloc>()),
+        BlocProvider<ScheduleSchoolBloc>(
+            create: (BuildContext context) => dI<ScheduleSchoolBloc>()),
       ];
 }

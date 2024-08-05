@@ -2,7 +2,6 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -18,7 +17,8 @@ class TitleDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return ContainerBorder(
+    return Padding(
+      padding: const EdgeInsets.all(SpacingUnit.x5),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -32,11 +32,11 @@ class TitleDialog extends StatelessWidget {
           ElevatedButton(
             onPressed: () => setApply(),
             style: ElevatedButton.styleFrom(
-              backgroundColor: colors.navy,
+              backgroundColor: colors.blue,
             ),
             child: Text(
               appLocalizations.ok,
-              style: TextStyle(color: colors.text),
+              style: TextStyle(color: colors.background),
             ),
           ),
         ],

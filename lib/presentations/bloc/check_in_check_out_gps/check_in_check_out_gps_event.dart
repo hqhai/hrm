@@ -12,16 +12,16 @@ sealed class CheckInCheckOutGpsEvent extends Equatable {
 class PostTimekeepingGPSRequestEvent extends CheckInCheckOutGpsEvent {
   final double longitude;
   final double latitude;
-  final DateTime time;
+  final String scheduleSchoolId;
   final Completer completer;
 
   const PostTimekeepingGPSRequestEvent({
     this.longitude = 0,
     this.latitude = 0,
-    required this.time,
+    required this.scheduleSchoolId,
     required this.completer
   });
 
   @override
-  List<Object?> get props => [longitude, latitude, time, completer];
+  List<Object?> get props => [longitude, latitude, scheduleSchoolId, completer];
 }

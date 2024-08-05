@@ -469,5 +469,7 @@
   "cancelShiftReceiveRegistration": "Hủy đăng ký nhận ca",
   "cancelShiftCancellationRequest": "Hủy yêu cầu hủy ca",
   "registerForShifts": "Đăng ký ca",
-  "reasonForCancelingRequest": "Lý do hủy yêu cầu"
+  "reasonForCancelingRequest": "Lý do hủy yêu cầu",
+  "youDoNotHaveAShiftToday": "Bạn không có ca làm việc vào hôm nay!",
+  "distanceNotEnough": "Khoảng cách không đủ"
 }
