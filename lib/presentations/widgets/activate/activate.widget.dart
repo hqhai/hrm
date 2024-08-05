@@ -96,7 +96,7 @@ class _ActivateWidgetState extends State<ActivateWidget> {
         final appLocalizations = AppLocalizations.of(context)!;
         final colors = AppTheme.getColors(context);
         return Dialog(
-          backgroundColor: colors.surface,
+          backgroundColor: colors.background,
           child: TitleDialog(
             title: appLocalizations.youDoNotHaveAShiftToday,
           ),

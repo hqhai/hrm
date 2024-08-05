@@ -32,11 +32,11 @@ class TitleDialog extends StatelessWidget {
           ElevatedButton(
             onPressed: () => setApply(),
             style: ElevatedButton.styleFrom(
-              backgroundColor: colors.navy,
+              backgroundColor: colors.blue,
             ),
             child: Text(
               appLocalizations.ok,
-              style: TextStyle(color: colors.text),
+              style: TextStyle(color: colors.background),
             ),
           ),
         ],
