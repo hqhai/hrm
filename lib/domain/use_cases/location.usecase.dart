@@ -1,4 +1,4 @@
-import 'package:base_app/data/models/location/checkin_gps_response.dart';
+import 'package:base_app/data/models/location/check_in_gps_response.dart';
 import 'package:base_app/data/models/location/get_list_schools_usecase.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';

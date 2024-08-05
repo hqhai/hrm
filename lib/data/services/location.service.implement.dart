@@ -4,19 +4,19 @@ import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/data/models/key_page_request.dart';
-import 'package:base_app/data/models/location/checkin_gps_response.dart';
-import 'package:base_app/data/models/location/checkin_request.dart';
+import 'package:base_app/data/models/location/check_in_gps_response.dart';
+import 'package:base_app/data/models/location/check_in_request.dart';
 import 'package:base_app/data/models/location/datetime_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/object_by_id_request.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';
+import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/data/models/response.dart';
-import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
-import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/domain/services/location.service.dart';
@@ -52,7 +52,8 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<CheckInGPSResponse> postCheckInGPS({required CheckInRequest checkInRequest}) async {
+  Future<CheckInGPSResponse> postCheckInGPS(
+      {required CheckInRequest checkInRequest}) async {
     final url = '$baseUrlUser${PathConfig.checkIn}';
     final body = jsonEncode(checkInRequest.toJson());
     final response = await client.post(url, body: body);
@@ -76,7 +77,8 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<ScheduleSchool> getScheduleSchool({required DatetimeRequest datetimeRequest}) async {
+  Future<ScheduleSchool> getScheduleSchool(
+      {required DatetimeRequest datetimeRequest}) async {
     final url = '$baseUrlUser${PathConfig.scheduleSchool}';
     final params = datetimeRequest.toJson();
     final response = await client.get(url, params: params);
@@ -103,12 +105,12 @@ class LocationServiceImpl extends BaseService implements LocationService {
   @override
   Future<Shift> getShift({required ObjectByIdRequest objectByIdRequest}) async {
     return Shift(
-      id: 'dsgfhsdhgd',
+      id: '314b3431-1e80-480c-970a-3ae20e5993fd',
       startTime: 2000,
       endTime: 10000,
       type: ShiftType.administrativeShift,
       status: WorkShiftRequestStatus.pending,
-      code: 'shdgfhds',
+      code: '96e1035f-03ab-4436-94fa-982b468c8237',
       name: 'Hieu',
       checkInEndTimeValid: 10000,
       checkInStartTimeValid: 2000,
