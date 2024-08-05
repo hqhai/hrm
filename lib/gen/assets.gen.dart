@@ -276,8 +276,14 @@ class $AssetsImagesIconPopupAppbarGen {
 class $AssetsImagesIconWorkGen {
   const $AssetsImagesIconWorkGen();
 
+  /// File path: assets/images/icon/work/edit.svg
+  String get edit => 'assets/images/icon/work/edit.svg';
+
   /// File path: assets/images/icon/work/loading.svg
   String get loading => 'assets/images/icon/work/loading.svg';
+
+  /// File path: assets/images/icon/work/out_date.svg
+  String get outDate => 'assets/images/icon/work/out_date.svg';
 
   /// File path: assets/images/icon/work/reject.svg
   String get reject => 'assets/images/icon/work/reject.svg';
@@ -286,7 +292,7 @@ class $AssetsImagesIconWorkGen {
   String get success => 'assets/images/icon/work/success.svg';
 
   /// List of all assets
-  List<String> get values => [loading, reject, success];
+  List<String> get values => [edit, loading, outDate, reject, success];
 }
 
 class $AssetsImagesIconHomeWorksheetGen {
