@@ -6,7 +6,6 @@ import 'package:base_app/presentations/widgets/custom/app_container_screen_main.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:themes/themes.dart';
 
 final listSchoolsPageRoute = GoRoute(
     path: Pages.listSchoolsPage,
