@@ -977,7 +977,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get intoMoneyNoVAT => 'Thành tiền chưa VAT';
 
   @override
-  String get yearlyAndSeniorityLeave => 'Nghỉ phép năm';
+  String get yearlyAndSeniorityLeave => 'Nghỉ phép năm và nghỉ thâm niên';
 
   @override
   String get otherLeave => 'Nghỉ phép khác';
@@ -1241,7 +1241,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get timeLate => 'Thời gian đi muộn';
 
   @override
-  String get salaryWork => 'Công tính lương';
+  String get salaryWork => 'Công hiện tại';
 
   @override
   String get realWork => 'Công chuẩn';
@@ -1310,7 +1310,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get dateType => 'Loại ngày';
 
   @override
-  String get ot => 'Làm thêm giờ';
+  String get ot => 'Tăng ca';
 
   @override
   String get totalLeaveWork => 'Tổng số công nghỉ';
@@ -1344,6 +1344,54 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get totalTimeWorkCompensatory => 'Tổng số giờ làm bù';
+
+  @override
+  String get cancelShiftRegistration => 'Hủy đăng ký ca';
+
+  @override
+  String get cancelShiftReceiveRegistration => 'Hủy đăng ký nhận ca';
+
+  @override
+  String get cancelShiftCancellationRequest => 'Hủy yêu cầu hủy ca';
+
+  @override
+  String get registerForShifts => 'Đăng ký ca';
+
+  @override
+  String get youDoNotHaveAShiftToday => 'Bạn không có ca làm việc vào hôm nay!';
+
+  @override
+  String get distanceNotEnough => 'Khoảng cách không đủ';
+
+  @override
+  String get reasonForCancelingRequest => 'Lý do hủy yêu cầu';
+
+  @override
+  String get lateOrEarly => 'Đi muộn/Về sớm';
+
+  @override
+  String get timekeepingError => 'Chấm công lỗi';
+
+  @override
+  String get titleBusiness => 'Thời gian đi công tác';
+
+  @override
+  String get timeStart => 'Thời gian đi';
+
+  @override
+  String get timeEnd => 'Thời gian về';
+
+  @override
+  String get socialInsuranceLeave => 'BHXH chi trả';
+
+  @override
+  String get leaveHalfDayToOneDay => 'Nghỉ 0,5 đến 1 ngày';
+
+  @override
+  String get leaveTwoDayToFourDay => 'Nghỉ 2 đến 4 ngày';
+
+  @override
+  String get leaveFiveDaysOrMore => 'Nghỉ 5 ngày trở lên';
 
   @override
   String get calendarWork => 'Lịch làm việc';
@@ -1395,25 +1443,4 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get unregistered => 'Chưa đăng ký';
-
-  @override
-  String get cancelShiftRegistration => 'Hủy đăng ký ca';
-
-  @override
-  String get cancelShiftReceiveRegistration => 'Hủy đăng ký nhận ca';
-
-  @override
-  String get cancelShiftCancellationRequest => 'Hủy yêu cầu hủy ca';
-
-  @override
-  String get registerForShifts => 'Đăng ký ca';
-
-  @override
-  String get reasonForCancelingRequest => 'Lý do hủy yêu cầu';
-
-  @override
-  String get youDoNotHaveAShiftToday => 'Bạn không có ca làm việc vào hôm nay!';
-
-  @override
-  String get distanceNotEnough => 'Khoảng cách không đủ';
 }
