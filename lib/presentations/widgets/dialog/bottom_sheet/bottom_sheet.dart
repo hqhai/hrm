@@ -1,6 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -11,6 +10,7 @@ import 'package:base_app/presentations/widgets/custom/search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
+import 'package:widgets/app_button.dart';
 
 class BottomSheetWidget extends StatefulWidget {
   const BottomSheetWidget({
@@ -42,74 +42,72 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final height = MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocConsumer<UserByNameBloc, UserByNameState>(
       listener: (context, state) => _listener(context, state),
       builder: (context, state) {
         return Container(
-          height: height * 0.6,
-          color: colors.surface,
+          color: colors.background,
           child: Center(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x2),
                   child: SearchInput(onChange: (value) => _onChangeSearch(value)),
                 ),
-                SizedBox(
-                  height: height * 0.4,
-                  child: ListView.builder(
-                    controller: controller,
-                    itemCount: state.usersByName.length,
-                    itemBuilder: (context, index) => GestureDetector(
-                      onTap: () => addListPerson(
-                          user: state.usersByName[index],
-                          listValueByIndex: state.usersByName[index].id),
-                      child: Container(
-                        padding: const EdgeInsets.all(SpacingUnit.x2),
-                        margin: const EdgeInsets.all(SpacingUnit.x2),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                          color: listPerson.contains(state.usersByName[index].id)
-                              ? colors.tertiary
-                              : CustomsColor.colorBackground,
-                          border: Border.all(
-                            color: colors.text,
-                            width: 1,
+                Expanded(
+                  child: SizedBox(
+                    child: ListView.builder(
+                      controller: controller,
+                      itemCount: state.usersByName.length,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () => addListPerson(
+                            user: state.usersByName[index],
+                            listValueByIndex: state.usersByName[index].id),
+                        child: Container(
+                          padding: const EdgeInsets.all(SpacingUnit.x2),
+                          margin: const EdgeInsets.all(SpacingUnit.x2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                            color: listPerson.contains(state.usersByName[index].id)
+                                ? colors.success
+                                : colors.background,
+                            border: Border.all(
+                              color: colors.text,
+                              width: 1,
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                             '${index+1}.    ',
-                              style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x3,
+                          child: Row(
+                            children: [
+                              Text(
+                                '${index + 1}.    ',
+                                style: TextStyle(
+                                  color: colors.text,
+                                  fontSize: SpacingUnit.x3,
+                                ),
                               ),
-                            ),
-                            Text(
-                              state.usersByName[index].fullName,
-                              style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x3,
+                              Text(
+                                state.usersByName[index].fullName,
+                                style: TextStyle(
+                                  color: colors.text,
+                                  fontSize: SpacingUnit.x3,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () => setOnChange(),
-                  style: ElevatedButton.styleFrom(backgroundColor: colors.blue),
-                  child: Text(
-                    appLocalizations.add,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x3,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(SpacingUnit.x4),
+                  child: AppButton(
+                    color: colors.blue.withOpacity(0.8),
+                    colorText: colors.background,
+                    title: appLocalizations.add,
+                    onSubmit: () => setOnChange(),
                   ),
                 )
               ],
@@ -151,8 +149,10 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       setState(() {
         pageIndex++;
       });
-      dI<UserByNameBloc>()
-          .add(GetUserByNameEvent(name: searchStr, page: pageIndex,));
+      dI<UserByNameBloc>().add(GetUserByNameEvent(
+        name: searchStr,
+        page: pageIndex,
+      ));
     }
   }
 

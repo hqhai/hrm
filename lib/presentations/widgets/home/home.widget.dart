@@ -1,7 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/home_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -12,9 +11,11 @@ import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/form_change_time.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/item_work_sheet.dart';
+import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:themes/themes.dart';
 import 'package:widgets/app_button.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -34,23 +35,20 @@ class _HomeWidgetState extends State<HomeWidget> {
   void initState() {
     startTime = getFirstDayOfMonth(currentDateTime);
     endTime = getLastDayOfMonth(currentDateTime);
-    dI<AttendanceBloc>()
-        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
     return BlocBuilder<AttendanceBloc, AttendanceState>(
       builder: (context, state) {
         return SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(SpacingUnit.x0_5),
-            margin: const EdgeInsets.all(SpacingUnit.x0_5),
-            decoration: BoxDecoration(
-              color: CustomsColor.colorBackground,
-            ),
+          child: ContainerScreenMain(
+            padding: 0,
+            margin: 0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -73,7 +71,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   child: AppButton(
-                      title: appLocalizations.seeDetails, onSubmit: () => nextWorkSheet(context)),
+                    title: appLocalizations.seeDetails,
+                    onSubmit: () => nextWorkSheet(context),
+                    color: colors.navy.withOpacity(0.15),
+                  ),
                 )
               ],
             ),
@@ -98,8 +99,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>()
-        .add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
+    dI<AttendanceBloc>().add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
   }
 
   upMonth() {
@@ -112,8 +112,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>()
-        .add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
+    dI<AttendanceBloc>().add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
   }
 
   nextWorkSheet(BuildContext context) {

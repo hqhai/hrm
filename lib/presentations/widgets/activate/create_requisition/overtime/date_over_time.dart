@@ -33,7 +33,7 @@ class DateOverTime extends StatelessWidget {
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x4,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

@@ -8,6 +8,7 @@ import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_step_flow.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -39,11 +40,13 @@ class ItemListStepFlow extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                     child: Column(
                       children: state.flow.stepFlows
-                          .map(
-                            (element) => ItemStepFlow(
+                          .mapIndexed(
+                            (index, element) => ItemStepFlow(
                               note: setNote(stateRequisition.requisition.stepRequests, element),
                               checkApprove: setCheckAppRove(
-                                  stateRequisition.requisition.stepRequests, element),
+                                  stateRequisition.requisition.stepRequests,
+                                  element,
+                                  state.flow.stepFlows),
                               nameUserApprove: element.name,
                               isNotFirst: element.type != EnumStepFlowType.end,
                             ),
@@ -60,7 +63,11 @@ class ItemListStepFlow extends StatelessWidget {
     );
   }
 
-  bool setCheckAppRove(List<StepRequests> stepRequests, StepFlow sFlow) {
+  bool setCheckAppRove(List<StepRequests> stepRequests, StepFlow sFlow, List<StepFlow> stepFlows) {
+    if (sFlow.type == EnumStepFlowType.end &&
+        setCheckAppRove(stepRequests, stepFlows[stepFlows.length - 2], stepFlows)) {
+      return true;
+    }
     final indexStepRequests = stepRequests.indexWhere((element) => element.stepFlowId == sFlow.id);
     if (sFlow.type == EnumStepFlowType.start) {
       return true;

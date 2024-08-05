@@ -3,17 +3,39 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-enum EnumTakeLeave {
-  @JsonValue('YearlyLeave')
-  yearlyLeave('YearlyLeave'),
-  @JsonValue('SeniorityLeave')
-  seniorityLeave('SeniorityLeave'),
+enum EnumTakeLeaveType {
+  @JsonValue('YearlyLeaveAndSeniorityLeave')
+  yearlyLeaveAndSeniorityLeave('YearlyLeaveAndSeniorityLeave'),
+  @JsonValue('UnpaidLeave')
+  unpaidLeave('UnpaidLeave'),
   @JsonValue('CompensatoryLeave')
   compensatoryLeave('CompensatoryLeave'),
-  @JsonValue('WeddingLeave')
-  weddingLeave('WeddingLeave'),
-  @JsonValue('MourningLeave')
-  mourningLeave('MourningLeave'),
+  @JsonValue('OtherPaidLeave')
+  otherPaidLeave('OtherPaidLeave');
+
+  final String name;
+
+  const EnumTakeLeaveType(this.name);
+}
+
+extension ConfigTakeLeaveTypeExtension on EnumTakeLeaveType {
+  String get configTakeLeaveTypeName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave:
+        return appLocalizations.yearlyAndSeniorityLeave;
+      case EnumTakeLeaveType.unpaidLeave:
+        return appLocalizations.unpaidLeave;
+      case EnumTakeLeaveType.compensatoryLeave:
+        return appLocalizations.compensatoryLeave;
+      case EnumTakeLeaveType.otherPaidLeave:
+        return appLocalizations.otherPaidLeave;
+    }
+  }
+}
+
+enum EnumSocialInsuranceLeave {
   @JsonValue('HomeSickLeave')
   homeSickLeave('HomeSickLeave'),
   @JsonValue('HospitalSickLeave')
@@ -23,30 +45,60 @@ enum EnumTakeLeave {
 
   final String name;
 
-  const EnumTakeLeave(this.name);
+  const EnumSocialInsuranceLeave(this.name);
 }
 
-extension ConfigEnumTakeLeaveExtension on EnumTakeLeave {
+extension ConfigSocialInsuranceLeaveExtension on EnumSocialInsuranceLeave {
+  String get configSocialInsuranceLeaveName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case EnumSocialInsuranceLeave.homeSickLeave:
+        return appLocalizations.homeSickLeave;
+      case EnumSocialInsuranceLeave.hospitalSickLeave:
+        return appLocalizations.hospitalSickLeave;
+      case EnumSocialInsuranceLeave.maternityLeave:
+        return appLocalizations.maternityLeave;
+    }
+  }
+}
+
+enum EnumReasonLeave {
+  @JsonValue('YearlyLeave')
+  yearlyLeave('YearlyLeave'),
+  @JsonValue('SeniorityLeave')
+  seniorityLeave('SeniorityLeave'),
+  @JsonValue('NoSalaryLeave')
+  noSalaryLeave('NoSalaryLeave'),
+  @JsonValue('SocialInsuranceLeave')
+  socialInsuranceLeave('SocialInsuranceLeave'),
+  @JsonValue('WeddingLeave')
+  weddingLeave('WeddingLeave'),
+  @JsonValue('MourningLeave')
+  mourningLeave('MourningLeave');
+
+  final String name;
+
+  const EnumReasonLeave(this.name);
+}
+
+extension ConfigEnumTakeLeaveExtension on EnumReasonLeave {
   String get configEnumTakeLeaveName {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
     switch (this) {
-      case EnumTakeLeave.yearlyLeave:
+      case EnumReasonLeave.yearlyLeave:
         return appLocalizations.yearlyLeave;
-      case EnumTakeLeave.seniorityLeave:
+      case EnumReasonLeave.seniorityLeave:
         return appLocalizations.seniorityLeave;
-      case EnumTakeLeave.compensatoryLeave:
-        return appLocalizations.compensatoryLeave;
-      case EnumTakeLeave.weddingLeave:
+      case EnumReasonLeave.weddingLeave:
         return appLocalizations.weddingLeave;
-      case EnumTakeLeave.mourningLeave:
+      case EnumReasonLeave.mourningLeave:
         return appLocalizations.mourningLeave;
-      case EnumTakeLeave.homeSickLeave:
-        return appLocalizations.homeSickLeave;
-      case EnumTakeLeave.hospitalSickLeave:
-        return appLocalizations.hospitalSickLeave;
-      case EnumTakeLeave.maternityLeave:
-        return appLocalizations.maternityLeave;
+      case EnumReasonLeave.noSalaryLeave:
+        return appLocalizations.leaveWithoutPay;
+      case EnumReasonLeave.socialInsuranceLeave:
+        return appLocalizations.socialInsuranceLeave;
     }
   }
 }
@@ -61,7 +113,9 @@ enum EnumStepRequestStatusEnum {
   @JsonValue('Edit')
   edit('Edit'),
   @JsonValue('OverdueApprove')
-  overdueApprove('OverdueApprove');
+  overdueApprove('OverdueApprove'),
+  @JsonValue('Cancel')
+  cancel('Cancel');
 
   final String name;
 
@@ -74,7 +128,7 @@ extension ConfigStepRequestStatusExtension on EnumStepRequestStatusEnum {
     final appLocalizations = AppLocalizations.of(currentContext)!;
     switch (this) {
       case EnumStepRequestStatusEnum.newStatus:
-        return appLocalizations.newStatus;
+        return appLocalizations.process;
       case EnumStepRequestStatusEnum.approve:
         return appLocalizations.done;
       case EnumStepRequestStatusEnum.reject:
@@ -83,6 +137,8 @@ extension ConfigStepRequestStatusExtension on EnumStepRequestStatusEnum {
         return appLocalizations.edit;
       case EnumStepRequestStatusEnum.overdueApprove:
         return appLocalizations.overdueApprove;
+      case EnumStepRequestStatusEnum.cancel:
+        return appLocalizations.cancel;
     }
   }
 }
@@ -162,18 +218,14 @@ extension ConfigStepFlowTypeExtension on EnumStepFlowType {
 enum RequisitionTypeEnum {
   @JsonValue('Core')
   core('Core'),
-  @JsonValue('YearlyAndSeniorityLeave')
-  yearlyAndSeniorityLeave('YearlyAndSeniorityLeave'),
-  @JsonValue('CompensatoryLeave')
-  compensatoryLeave('CompensatoryLeave'),
-  @JsonValue('OtherLeave')
-  otherLeave('OtherLeave'),
-  @JsonValue('UnpaidLeave')
-  unpaidLeave('UnpaidLeave'),
-  @JsonValue('LateArrival')
-  lateArrival('LateArrival'),
-  @JsonValue('EarlyDeparture')
-  earlyDeparture('EarlyDeparture'),
+  @JsonValue('LeaveHalfDayToOneDay')
+  leaveHalfDayToOneDay('LeaveHalfDayToOneDay'),
+  @JsonValue('LeaveTwoDayToFourDay')
+  leaveTwoDayToFourDay('LeaveTwoDayToFourDay'),
+  @JsonValue('LeaveFiveDaysOrMore')
+  leaveFiveDaysOrMore('LeaveFiveDaysOrMore'),
+  @JsonValue('LateOrEarly')
+  lateOrEarly('LateOrEarly'),
   @JsonValue('Bussiness')
   bussiness('Bussiness'),
   @JsonValue('OverTime')
@@ -199,8 +251,6 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
     switch (this) {
-      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
-        return appLocalizations.yearlyAndSeniorityLeave;
       case RequisitionTypeEnum.explanation:
         return appLocalizations.explanation;
       case RequisitionTypeEnum.overTime:
@@ -215,18 +265,16 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
         return appLocalizations.stationeryOrder;
       case RequisitionTypeEnum.bussiness:
         return appLocalizations.business;
-      case RequisitionTypeEnum.compensatoryLeave:
-        return appLocalizations.compensatoryLeave;
-      case RequisitionTypeEnum.otherLeave:
-        return appLocalizations.otherLeave;
-      case RequisitionTypeEnum.unpaidLeave:
-        return appLocalizations.unpaidLeave;
-      case RequisitionTypeEnum.lateArrival:
-        return appLocalizations.late;
-      case RequisitionTypeEnum.earlyDeparture:
-        return appLocalizations.leaveEarly;
+      case RequisitionTypeEnum.leaveHalfDayToOneDay:
+        return appLocalizations.leaveHalfDayToOneDay;
+      case RequisitionTypeEnum.leaveTwoDayToFourDay:
+        return appLocalizations.leaveTwoDayToFourDay;
+      case RequisitionTypeEnum.leaveFiveDaysOrMore:
+        return appLocalizations.leaveFiveDaysOrMore;
+      case RequisitionTypeEnum.lateOrEarly:
+        return appLocalizations.lateOrEarly;
       case RequisitionTypeEnum.core:
-    return appLocalizations.core;
+        return appLocalizations.core;
     }
   }
 }

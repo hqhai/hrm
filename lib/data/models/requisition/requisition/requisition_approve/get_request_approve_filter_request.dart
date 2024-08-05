@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -7,18 +8,20 @@ part 'get_request_approve_filter_request.g.dart';
 @CustomDateTimeConverter()
 class GetRequestApproveFilterRequest {
   final int? page;
-  final String? type;
+  final List<String>? flowIds;
+  final List<RequisitionTypeEnum>? types;
+  final String? createdCode;
   final String? createdDepartmentId;
   final DateTime? startDate;
   final DateTime? endDate;
-  final String? statusApprove;
-  final String? createdCode;
+  final EnumStepRequestStatusEnum? statusApprove;
 
   const GetRequestApproveFilterRequest({
+    this.types,
     this.page,
     this.endDate,
     this.statusApprove,
-    this.type,
+    this.flowIds,
     this.createdDepartmentId,
     this.startDate,
     this.createdCode,

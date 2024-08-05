@@ -14,12 +14,12 @@ sealed class RequisitionEvent extends Equatable {
 
 class PostRequestEvent extends RequisitionEvent {
   final PostRequestRequest postRequestRequest;
-  final Completer completer;
+  final Completer? completer;
   final List<File> files;
 
   const PostRequestEvent({
     this.postRequestRequest = const PostRequestRequest(),
-    required this.completer,
+    this.completer,
     this.files = const [],
   });
 
@@ -39,22 +39,22 @@ class UserRejectRequestEvent extends RequisitionEvent {
 
 class GetRequisitionsByFilterEvent extends RequisitionEvent {
   final int? page;
-  final String? flowId;
-  final List<StatusRequestEnum>? listStatusRequisition;
+  final List<String>? flowIds;
+  final StatusRequestEnum? status;
   final DateTime? startTime;
   final DateTime? endTime;
   final Completer? completer;
 
   const GetRequisitionsByFilterEvent(
-      {this.flowId,
-      this.listStatusRequisition,
+      {this.flowIds,
+      this.status,
       this.startTime,
       this.endTime,
       this.page,
       this.completer});
 
   @override
-  List<Object?> get props => [flowId, listStatusRequisition, startTime, endTime, page, completer];
+  List<Object?> get props => [flowIds, status, startTime, endTime, page, completer];
 }
 
 class GetRequisitionByIdEvent extends RequisitionEvent {
@@ -69,7 +69,7 @@ class GetRequisitionByIdEvent extends RequisitionEvent {
 
 class EditRequestEvent extends RequisitionEvent {
   final PostRequestRequest postRequestRequest;
-  final Completer completer;
+  final Completer? completer;
   final List<File> files;
 
   const EditRequestEvent(

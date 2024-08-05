@@ -1,32 +1,32 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart';
-import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_event.dart';
+import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
+import 'package:base_app/presentations/pages/activate/leave/item_work_shift.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_load_flie.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create.work.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_take_leave.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_year_leave.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
+import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,48 +49,49 @@ class CreateRequisitionLeavePage extends StatefulWidget {
   const CreateRequisitionLeavePage({
     super.key,
     this.flowId = '',
-    this.requestId,
-    this.type = RequisitionTypeEnum.yearlyAndSeniorityLeave,
+    this.requestId = '',
+    this.type = RequisitionTypeEnum.leaveHalfDayToOneDay,
   });
 
   final RequisitionTypeEnum type;
   final String flowId;
-  final String? requestId;
+  final String requestId;
 
   @override
   State<CreateRequisitionLeavePage> createState() => _CreateRequisitionLeavePageState();
 }
 
 class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage> {
-  final TextEditingController detailedDescriptionController = TextEditingController(),
-      detailedReasonController = TextEditingController();
-  int totalMinute = 0;
-  String? description, detailedReason;
+  final TextEditingController detailedDescriptionController = TextEditingController();
+  String? description;
   DateTime? startTime, endTime;
-  EnumTakeLeave? reason;
+  double numberValue = 0;
   List<File> files = [];
-  List<String> followers = [], substitutes = [];
-  RequisitionTypeEnum? reasonForOnLeave = RequisitionTypeEnum.yearlyAndSeniorityLeave;
+  List<String> followers = [], substitutes = [], listIdShift = [];
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   String errorTime = '';
   bool checkClick = false;
   final DateTime now = DateTime.now();
+  EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
+  EnumSocialInsuranceLeave? socialInsuranceLeave;
+  EnumReasonLeave? reason;
 
   @override
   void initState() {
-    reasonForOnLeave = widget.type;
-    reason = listEnumTakeLeave();
-    dI<WorkAndSalaryBloc>().add(const GetTotalLeaveDayEvent());
-    if (widget.requestId?.isNotEmpty ?? false) {
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.requestId),
-      );
+    final request = dI<RequisitionBloc>().state.requisition;
+    if (widget.requestId.isNotEmpty) {
+      setState(() {
+        startTime = request.config.startDate;
+        endTime = request.config.endDate;
+        description = request.config.description;
+        detailedDescriptionController.text = description ?? "";
+        reason = request.config.reasonLeave;
+        followers = [...request.followerIds];
+        files = [...setListFiles(request.config.attachments ?? [])];
+        substitutes = [...?request.config.subtitudePersons];
+      });
     }
     super.initState();
-  }
-
-  bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
-    return statusP != statusC;
   }
 
   List<File> setListFiles(List<String> paths) {
@@ -102,48 +103,51 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     return check ? 1 : 0.3;
   }
 
-  _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
-      setState(() {
-        startTime = state.requisition.config.startDate;
-        endTime = state.requisition.config.endDate;
-        description = state.requisition.config.description;
-        detailedDescriptionController.text = description ?? "";
-        reason = state.requisition.config.takeLeaveReason;
-        followers = [...state.requisition.followerIds];
-        files = [...setListFiles(state.requisition.config.attachments ?? [])];
-        substitutes = [...?state.requisition.config.subtitudePersons];
-      });
+  bool checkShift() {
+    if (startTime == null || endTime == null) {
+      return false;
     }
+    final number = (endTime!).difference(startTime!).inHours;
+    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
+      return false;
+    }
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && number > 96 && number < 24) {
+      return false;
+    }
+    if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
+      return false;
+    }
+    return true;
   }
 
-  bool _checkValue(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    final DateTime now = DateTime.now();
-    final bool checkTime = (startTime ?? now).difference(endTime ?? now).inSeconds < 0;
-    final bool checkStartTime = (startTime ?? now).difference(now).inSeconds > 0;
-    setState(() {
-      errorTime = !checkStartTime
-          ? appLocalizations.theStartTimeMustBeAfterTheCurrentTime
-          : !checkTime
-              ? appLocalizations.endTimeMustBeAfterStartTime
-              : "";
-    });
-    return checkTime && checkStartTime;
+  String errorDate() {
+    if (startTime == null || endTime == null) {
+      return '';
+    }
+    final number = (endTime!).difference(startTime!).inHours;
+    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
+      return RequisitionTypeEnum.leaveHalfDayToOneDay.configTypeName;
+    }
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && number > 96 && number < 24) {
+      return RequisitionTypeEnum.leaveTwoDayToFourDay.configTypeName;
+    }
+    if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
+      return RequisitionTypeEnum.leaveFiveDaysOrMore.configTypeName;
+    }
+    return '';
   }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listenWhen: (previous, current) => _listenWhen(previous, current),
-      listener: (context, state) => _listener(context, state),
+    return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
         return BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
             return Scaffold(
               appBar: AppBar(
+                iconTheme: IconThemeData(color: colors.text),
                 title: Text(
                   widget.type.configTypeName,
                   style: TextStyle(
@@ -161,27 +165,43 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ItemCreateIntervalOnLeave(
-                              leave: true,
-                              error: errorTime,
-                              startTimeOld: startTime,
-                              endTimeOld: endTime,
-                              dayOrHours: true,
-                              title: appLocalizations.intervalOnLeave,
-                              startTime: (value) => setStartTime(value),
-                              endTime: (value) => setEndTime(value),
-                            ),
                             ItemTakeLeave(
-                              type: widget.type,
-                              onChange: (value) => _setReason(value),
+                              type: takeLeaveType,
+                              onChangeType: (value) => _setType(value),
                             ),
-                            const ItemTakeLeaveWork(),
-                            if (_checkType())
-                              ItemCreateInputArea(
-                                textController: detailedReasonController,
-                                title: appLocalizations.detailedReason,
-                                onChange: (value) => _setDetailedReason(value),
+                            ItemYearLeave(
+                              typeReason: reason,
+                              typeSocialInsurance: socialInsuranceLeave,
+                              onChange: (value) => _setReason(value),
+                              type: takeLeaveType,
+                              onChangeSocialInsurance: (value) => setSocialInsurance(value),
+                            ),
+                            if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
+                              const ItemTakeLeaveWork(),
+                            PeriodTimePicker(
+                              oldEndTime: endTime,
+                              oldStarTime: startTime,
+                              fontSizeTitle: SpacingUnit.x4,
+                              title: appLocalizations.intervalOnLeave,
+                              setStarTime: (value) => setStartTime(value ?? DateTime.now()),
+                              setEndTime: (value) => setEndTime(value ?? DateTime.now()),
+                              fontWeightTitle: FontWeight.w600,
+                            ),
+                            if (errorDate().isNotEmpty)
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  errorDate(),
+                                  style: TextStyle(
+                                    color: colors.error,
+                                    fontSize: SpacingUnit.x3,
+                                  ),
+                                ),
                               ),
+                            ItemWorkShift(
+                              numberValue: (value) => setNumberValue(value),
+                              ids: (value) => setListIds(value),
+                            ),
                             ItemCreateFollower(
                               listFollower: _setListUser(stateUserById.subtitudePersons),
                               title: appLocalizations.substitute,
@@ -229,16 +249,10 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   }
 
   List<User> _setListUser(List<User> userById) {
-    if (widget.requestId != null) {
+    if (widget.requestId.isNotEmpty) {
       return userById;
     }
     return [];
-  }
-
-  bool _checkType() {
-    return reasonForOnLeave == RequisitionTypeEnum.yearlyAndSeniorityLeave ||
-        reasonForOnLeave == RequisitionTypeEnum.compensatoryLeave ||
-        reasonForOnLeave == RequisitionTypeEnum.otherLeave;
   }
 
   _setFollower(List<User> value) {
@@ -259,79 +273,75 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     });
   }
 
-  _save(BuildContext context) async {
-    if (_checkValue(context) && widget.requestId == null) {
-      setState(() {
-        checkLoad = true;
-      });
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        PostRequestEvent(
-          files: files,
-          postRequestRequest: PostRequestRequest(
+  PostRequestRequest request() {
+    return widget.requestId.isEmpty
+        ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              takeLeaveReason: reason,
-              description: detailedDescriptionController.text,
-              subtitudePersons: substitutes,
-              endDate: endTime,
-              startDate: startTime,
-            ),
-          ),
-          completer: completer,
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
-        setState(() {
-          checkLoad = false;
-          checkSuccess = true;
-        });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
-      }
-    } else if (_checkValue(context) && widget.requestId != null) {
-      setState(() {
-        checkLoad = true;
-      });
-      Completer completer = Completer<RequisitionEnum>();
-      dI<RequisitionBloc>().add(
-        EditRequestEvent(
-          files: files,
-          postRequestRequest: PostRequestRequest(
-            followerIds: followers,
+                takeLeaveReason: reason,
+                description: detailedDescriptionController.text,
+                subtitudePersons: substitutes,
+                endDate: endTime,
+                startDate: startTime,
+                workShiftSettingDetailIds: listIdShift,
+                reasonLeave: reason,
+                socialInsuranceLeave: socialInsuranceLeave,
+                takeLeaveType: takeLeaveType,
+                numberValue: numberValue,),
+          )
+        : PostRequestRequest(
             id: widget.requestId,
+            followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              takeLeaveReason: reason,
-              description: detailedDescriptionController.text,
-              subtitudePersons: substitutes,
-              endDate: endTime,
-              startDate: startTime,
-            ),
-          ),
-          completer: completer,
-        ),
-      );
-      final status = await completer.future;
-      if (status == RequisitionEnum.success) {
-        setState(() {
-          checkLoad = false;
-          checkSuccess = true;
-        });
-      }
-      if (status == RequisitionEnum.fail) {
-        setState(() {
-          checkLoad = false;
-          checkUnSuccess = true;
-        });
-      }
-    }
+                takeLeaveReason: reason,
+                description: detailedDescriptionController.text,
+                subtitudePersons: substitutes,
+                endDate: endTime,
+                startDate: startTime,
+                workShiftSettingDetailIds: listIdShift,
+                reasonLeave: reason,
+                socialInsuranceLeave: socialInsuranceLeave,
+                takeLeaveType: takeLeaveType,
+                numberValue: numberValue),
+          );
+  }
+
+  _save(BuildContext context) async {
+    saveRequest(
+      files: files,
+      context: context,
+      checkCreate: !checkClick && widget.requestId.isEmpty,
+      postRequestRequest: request(),
+      checkEdit: !checkClick && widget.requestId.isNotEmpty,
+      checkLoadTrue: () => setCheckLoad(),
+      completerFail: () => completerFail(),
+      completerSuccess: () => completerSuccess(),
+    );
+  }
+
+  setCheckLoad() {
+    setState(() {
+      checkClick = true;
+      checkLoad = true;
+    });
+  }
+
+  completerFail() {
+    setState(() {
+      checkLoad = false;
+      checkUnSuccess = true;
+      checkClick = false;
+    });
+  }
+
+  completerSuccess() {
+    setState(() {
+      checkLoad = false;
+      checkSuccess = true;
+      checkClick = false;
+    });
   }
 
   setCheckSuccess() {
@@ -360,36 +370,45 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     });
   }
 
-  setEndTime(DateTime value) {
+  setEndTime(DateTime value) async {
     setState(() {
       endTime = value;
     });
+    if (startTime != null && endTime != null && checkShift()) {
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+        endDate: endTime!,
+        startDate: startTime!,
+      ));
+    }
   }
 
-  _setDetailedReason(String value) {
-    setState(() {
-      detailedReason = value;
-    });
-  }
-
-  _setReason(EnumTakeLeave value) {
+  _setReason(EnumReasonLeave? value) {
     setState(() {
       reason = value;
     });
   }
 
-  EnumTakeLeave listEnumTakeLeave() {
-    switch (widget.type) {
-      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
-        return EnumTakeLeave.yearlyLeave;
-      case RequisitionTypeEnum.compensatoryLeave:
-        return EnumTakeLeave.compensatoryLeave;
-      case RequisitionTypeEnum.otherLeave:
-        return EnumTakeLeave.weddingLeave;
-      case RequisitionTypeEnum.unpaidLeave:
-        return EnumTakeLeave.homeSickLeave;
-      default:
-        return EnumTakeLeave.yearlyLeave;
-    }
+  _setType(EnumTakeLeaveType value) {
+    setState(() {
+      takeLeaveType = value;
+    });
+  }
+
+  setListIds(List<String> value) {
+    setState(() {
+      listIdShift = value;
+    });
+  }
+
+  setSocialInsurance(EnumSocialInsuranceLeave? value) {
+    setState(() {
+      socialInsuranceLeave = value;
+    });
+  }
+
+  setNumberValue(double value) {
+    setState(() {
+      numberValue = value;
+    });
   }
 }

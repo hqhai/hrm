@@ -7,9 +7,11 @@ class RequestInformationTitleValue extends StatelessWidget {
     super.key,
     required this.title,
     required this.value,
+    this.size,
   });
 
   final String title, value;
+  final double? size;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,14 @@ class RequestInformationTitleValue extends StatelessWidget {
             title,
             style: TextStyle(
               color: colors.text,
-              fontSize: SpacingUnit.x3,
+              fontSize: size ?? SpacingUnit.x3,
             ),
           ),
           Text(
             value,
             style: TextStyle(
               color: colors.text,
-              fontSize: SpacingUnit.x3,
+              fontSize: size ?? SpacingUnit.x3,
             ),
           ),
         ],

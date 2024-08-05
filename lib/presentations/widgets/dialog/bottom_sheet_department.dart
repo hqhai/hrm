@@ -1,6 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/presentations/bloc/department/department_bloc.dart';
@@ -84,7 +83,7 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
       listener: (context, state) => _listener(context, state),
       child: Container(
           height: height * 0.6,
-          color: colors.surface,
+          color: colors.background,
           child: Center(
             child: SizedBox(
               height: height * 0.4,
@@ -99,7 +98,7 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
                     margin: const EdgeInsets.all(SpacingUnit.x2),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                      color: CustomsColor.colorBackground,
+                      color: colors.background,
                       border: Border.all(
                         color: colors.text,
                         width: 1,

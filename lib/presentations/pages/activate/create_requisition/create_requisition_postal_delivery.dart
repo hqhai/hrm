@@ -1,6 +1,5 @@
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
@@ -11,7 +10,6 @@ import 'package:base_app/data/models/requisition/requisition/post_request_reques
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
@@ -39,10 +37,10 @@ final createRequestPostalDeliveryPageRoute = GoRoute(
     });
 
 class CreateRequisitionPostalDeliveryPage extends StatefulWidget {
-  const CreateRequisitionPostalDeliveryPage({super.key, this.flowId, this.requestId});
+  const CreateRequisitionPostalDeliveryPage({super.key, this.flowId, this.requestId =''});
 
   final String? flowId;
-  final String? requestId;
+  final String requestId;
 
   @override
   State<CreateRequisitionPostalDeliveryPage> createState() =>
@@ -60,21 +58,14 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
 
   @override
   void initState() {
-    if (widget.requestId?.isNotEmpty ?? false) {
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.requestId),
-      );
+    if (widget.requestId.isNotEmpty) {
+      final request = dI<RequisitionBloc>().state.requisition;
+      reason = request.config.description ?? "";
+      transferType = convertDeliveryType(request.config.deliveryType ?? "");
+      reasonController.text = request.config.description ?? "";
+      followers = [...request.followerIds];
     }
     super.initState();
-  }
-
-  _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
-      reason = state.requisition.config.description ?? "";
-      transferType = convertDeliveryType(state.requisition.config.deliveryType ?? "");
-      reasonController.text = state.requisition.config.description ?? "";
-      followers = [...state.requisition.followerIds];
-    }
   }
 
   double opacity(){
@@ -88,6 +79,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
     final colors = AppTheme.getColors(context);
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(
           RequisitionTypeEnum.postalDelivery.configTypeName,
           style: TextStyle(
@@ -96,9 +88,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
           ),
         ),
       ),
-      body: BlocConsumer<RequisitionBloc, RequisitionState>(
-        listener: (context, state) => _listener(context, state),
-        listenWhen: (previous, current) => _listenWhen(previous, current),
+      body: BlocBuilder<RequisitionBloc, RequisitionState>(
         builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
             return Stack(
@@ -159,7 +149,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   }
 
   List<User> _setListUser(List<User> userById) {
-    if (widget.requestId != null) {
+    if (widget.requestId.isNotEmpty) {
       return userById;
     }
     return [];
@@ -206,7 +196,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   }
 
   PostRequestRequest request() {
-    return widget.requestId == null
+    return widget.requestId.isEmpty
         ? PostRequestRequest(
       followerIds: followers,
       flowId: widget.flowId,
@@ -229,9 +219,9 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(),
       completerSuccess: () => completerSuccess(),
@@ -267,9 +257,5 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
     setState(() {
       transferType = value;
     });
-  }
-
-  _listenWhen(RequisitionState previous, RequisitionState current) {
-    return previous != current;
   }
 }

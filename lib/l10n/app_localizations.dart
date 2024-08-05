@@ -2775,6 +2775,102 @@ abstract class AppLocalizations {
   /// **'Total number of compensatory hours'**
   String get totalTimeWorkCompensatory;
 
+  /// No description provided for @cancelShiftRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift registration'**
+  String get cancelShiftRegistration;
+
+  /// No description provided for @cancelShiftReceiveRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift receive registration'**
+  String get cancelShiftReceiveRegistration;
+
+  /// No description provided for @cancelShiftCancellationRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift cancellation request'**
+  String get cancelShiftCancellationRequest;
+
+  /// No description provided for @registerForShifts.
+  ///
+  /// In en, this message translates to:
+  /// **'Register for shifts'**
+  String get registerForShifts;
+
+  /// No description provided for @youDoNotHaveAShiftToday.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have a shift today!'**
+  String get youDoNotHaveAShiftToday;
+
+  /// No description provided for @distanceNotEnough.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance Not Enough'**
+  String get distanceNotEnough;
+
+  /// No description provided for @reasonForCancelingRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for canceling request'**
+  String get reasonForCancelingRequest;
+
+  /// No description provided for @lateOrEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Late/Early'**
+  String get lateOrEarly;
+
+  /// No description provided for @timekeepingError.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping error'**
+  String get timekeepingError;
+
+  /// No description provided for @titleBusiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Title business'**
+  String get titleBusiness;
+
+  /// No description provided for @timeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Thời gian đi'**
+  String get timeStart;
+
+  /// No description provided for @timeEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'Thời gian về'**
+  String get timeEnd;
+
+  /// No description provided for @socialInsuranceLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Social Insurance Leave'**
+  String get socialInsuranceLeave;
+
+  /// No description provided for @leaveHalfDayToOneDay.
+  ///
+  /// In en, this message translates to:
+  /// **'leave Half Day To One Day'**
+  String get leaveHalfDayToOneDay;
+
+  /// No description provided for @leaveTwoDayToFourDay.
+  ///
+  /// In en, this message translates to:
+  /// **'leave Two Day To Four Day'**
+  String get leaveTwoDayToFourDay;
+
+  /// No description provided for @leaveFiveDaysOrMore.
+  ///
+  /// In en, this message translates to:
+  /// **'leave Five Days Or More'**
+  String get leaveFiveDaysOrMore;
+
   /// No description provided for @calendarWork.
   ///
   /// In en, this message translates to:
@@ -2876,48 +2972,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unregistered'**
   String get unregistered;
-
-  /// No description provided for @cancelShiftRegistration.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel shift registration'**
-  String get cancelShiftRegistration;
-
-  /// No description provided for @cancelShiftReceiveRegistration.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel shift receive registration'**
-  String get cancelShiftReceiveRegistration;
-
-  /// No description provided for @cancelShiftCancellationRequest.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel shift cancellation request'**
-  String get cancelShiftCancellationRequest;
-
-  /// No description provided for @registerForShifts.
-  ///
-  /// In en, this message translates to:
-  /// **'Register for shifts'**
-  String get registerForShifts;
-
-  /// No description provided for @reasonForCancelingRequest.
-  ///
-  /// In en, this message translates to:
-  /// **'Reason for canceling request'**
-  String get reasonForCancelingRequest;
-
-  /// No description provided for @youDoNotHaveAShiftToday.
-  ///
-  /// In en, this message translates to:
-  /// **'You don\'t have a shift today!'**
-  String get youDoNotHaveAShiftToday;
-
-  /// No description provided for @distanceNotEnough.
-  ///
-  /// In en, this message translates to:
-  /// **'Distance Not Enough'**
-  String get distanceNotEnough;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

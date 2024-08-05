@@ -21,7 +21,7 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4,),
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2,),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

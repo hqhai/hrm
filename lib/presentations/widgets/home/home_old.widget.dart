@@ -1,7 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
@@ -41,7 +40,7 @@ class _HomeOldWidgetState extends State<HomeOldWidget> {
         padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
         margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
         decoration: BoxDecoration(
-          color: CustomsColor.colorBackground,
+          color: colors.background,
           borderRadius: const BorderRadius.all(
             Radius.circular(SpacingUnit.x4),
           ),

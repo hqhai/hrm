@@ -47,7 +47,7 @@ class _BottomSheetProvinceWidgetState extends State<BottomSheetProvinceWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.surface,
+          color: colors.background,
           child: Center(
             child: Column(
               children: [

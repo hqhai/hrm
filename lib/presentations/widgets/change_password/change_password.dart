@@ -42,7 +42,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(iconTheme: IconThemeData(color: colors.text),),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -104,7 +104,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: _checkPass() ? Colors.blue : Colors.black),
+                        backgroundColor: _checkPass() ? colors.outline.withOpacity(0.4) : colors.navy),
                     child: Text(
                       appLocalizations.save,
                       style: TextStyle(color: colors.text),

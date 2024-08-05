@@ -18,6 +18,7 @@ import 'package:base_app/presentations/bloc/personnel/personnel_bloc.dart';
 import 'package:base_app/presentations/bloc/position/position_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
@@ -101,5 +102,7 @@ class MainBloc {
             create: (BuildContext context) => dI<ShiftBloc>()),
         BlocProvider<ScheduleSchoolBloc>(
             create: (BuildContext context) => dI<ScheduleSchoolBloc>()),
-      ];
+        BlocProvider<LeaveShiftBloc>(
+            create: (BuildContext context) => dI<LeaveShiftBloc>()),
+        ];
 }

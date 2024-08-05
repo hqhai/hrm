@@ -52,8 +52,8 @@ class _RequisitionInformationContentTypeOverTimeState
                 appLocalizations.description,
                 style: TextStyle(
                   color: colors.text,
-                  fontSize: SpacingUnit.x3,
-                  fontWeight: FontWeight.w800,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               (overTimes != null && overTimes.isNotEmpty)

@@ -1,6 +1,4 @@
-
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -13,12 +11,14 @@ import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time_keeping_type.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_common/item_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/list_overtime.dart';
 import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
@@ -47,13 +47,13 @@ class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
   const CreateRequisitionLateAndEarlyPage({
     super.key,
     this.flowId = '',
-    this.requestId,
-    this.type = RequisitionTypeEnum.lateArrival,
+    this.requestId = '',
+    this.type = RequisitionTypeEnum.lateOrEarly,
   });
 
   final RequisitionTypeEnum type;
   final String flowId;
-  final String? requestId;
+  final String requestId;
 
   @override
   State<CreateRequisitionLateAndEarlyPage> createState() =>
@@ -69,26 +69,19 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   List<String> followers = [];
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
+  EditTimekeeping type = EditTimekeeping.late;
 
   @override
   void initState() {
-    if (widget.requestId?.isNotEmpty ?? false) {
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.requestId),
-      );
+    if (widget.requestId.isNotEmpty) {
+      final request = dI<RequisitionBloc>().state.requisition;
+      workDate = request.config.startDate;
+      description = request.config.description ?? "";
+      detailedDescriptionController.text = description ?? "";
+      listRequisitionOverTimes = [...?request.config.overTimes];
+      followers = [...request.followerIds];
     }
     super.initState();
-  }
-
-  _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
-      setState(() {
-        workDate = state.requisition.config.startDate;
-        description = state.requisition.config.description ?? "";
-        listRequisitionOverTimes = [...?state.requisition.config.overTimes];
-        followers = [...state.requisition.followerIds];
-      });
-    }
   }
 
   double opacity() {
@@ -100,11 +93,12 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => _listenWhen(previous, current),
+    return BlocBuilder<UserByIdBloc, UserByIdState>(
+  builder: (context, stateUserById) {
+    return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) => Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: colors.text),
           title: Text(
             widget.type.configTypeName,
             style: TextStyle(
@@ -122,30 +116,34 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      ItemCreateTimeKeepingType(
+                        typeDefault: EditTimekeeping.early,
+                        onChange: (value) => _setType(value),
+                      ),
+                      ItemTime(
+                        title: '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
+                        setTime: (value) => _setWorkDate(value),
+                        timeOld: workDate ?? DateTime.now(),
+                      ),
                       ItemCreateInputArea(
                         error: errorDestination,
                         textController: detailedDescriptionController,
                         title: appLocalizations.detailedDescription,
                         onChange: (value) => _setDetailedDescription(value),
                       ),
-                      ItemCreateTime(
-                        check: true,
-                        title: appLocalizations.workDay,
-                        dateOfBirth: workDate ?? DateTime.now(),
-                        onChangeDateOfBirth: (value) => _setWorkDate(value),
-                      ),
-                      if (widget.type == RequisitionTypeEnum.earlyDeparture)
+                      if (type == EditTimekeeping.early)
                         ListOverTime(
                           title: appLocalizations.listTime,
                           requisitionOverTimes: listRequisitionOverTimes,
                           onChangeList: (value) => _setChangeRequisitionOverTimes(value),
                         ),
-                      if (widget.type == RequisitionTypeEnum.earlyDeparture)
+                      if (type == EditTimekeeping.early)
                         ButtonAddList(
                           title: appLocalizations.workOffset,
                           callBack: () => _addOverTime(context),
                         ),
                       ItemCreateFollower(
+                        listFollower: _setListUser(stateUserById.userById),
                           title: appLocalizations.follower,
                           onChange: (value) => _setFollower(value)),
                       const ItemListStepFlow(),
@@ -170,6 +168,15 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
         ),
       ),
     );
+  },
+);
+  }
+
+  List<User> _setListUser(List<User> userById) {
+    if (widget.requestId.isNotEmpty) {
+      return userById;
+    }
+    return [];
   }
 
   setCheckSuccess() {
@@ -220,12 +227,12 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   }
 
   PostRequestRequest request() {
-    return widget.requestId == null
+    return widget.requestId.isEmpty
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              explanationReason: explanationReason(),
+              explanationReason: type,
               startDate: workDate,
               overTimes: listRequisitionOverTimes,
               description: description,
@@ -235,7 +242,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-              explanationReason: explanationReason(),
+              explanationReason: type,
               startDate: workDate,
               overTimes: listRequisitionOverTimes,
               description: description,
@@ -246,9 +253,9 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(),
       completerSuccess: () => completerSuccess(),
@@ -278,23 +285,12 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     });
   }
 
-  EditTimekeeping explanationReason() {
-    if (widget.type == RequisitionTypeEnum.lateArrival) {
-      return EditTimekeeping.late;
-    }
-    return EditTimekeeping.early;
-  }
-
   _cancel() {}
 
   _setWorkDate(DateTime value) {
     setState(() {
       workDate = value;
     });
-  }
-
-  _listenWhen(RequisitionState previous, RequisitionState current) {
-    return previous != current;
   }
 
   setListTime(RequisitionOverTime value) {
@@ -312,6 +308,12 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   _setChangeRequisitionOverTimes(List<RequisitionOverTime> value) {
     setState(() {
       listRequisitionOverTimes = value;
+    });
+  }
+
+  _setType(EditTimekeeping value) {
+    setState(() {
+      type = value;
     });
   }
 }

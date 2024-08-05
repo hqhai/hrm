@@ -6,6 +6,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationeries.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationeries_extend.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,37 +49,18 @@ class _RequisitionInformationContentTypeStationeriesState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: SpacingUnit.x3,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      appLocalizations.month,
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x3,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    Text(
-                      monthTime(state.requisition.config.startDate),
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x3,
-                      ),
-                    ),
-                  ],
-                ),
+              ItemTitleValue(
+                size: SpacingUnit.x4,
+                title: appLocalizations.month,
+                value: monthTime(state.requisition.config.startDate),
+                font: FontWeight.w600,
               ),
               Text(
                 appLocalizations.description,
                 style: TextStyle(
                   color: colors.text,
-                  fontSize: SpacingUnit.x3,
-                  fontWeight: FontWeight.w800,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               if (state.requisition.config.stationeries?.isNotEmpty ?? false)

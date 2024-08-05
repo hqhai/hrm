@@ -26,25 +26,17 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
     emit(state.copyWith(statusGet: FlowStatusEnum.init));
     try {
       final FlowResponse flowResponse = await requisitionUseCase.getFlowByUser(page: event.page);
-      final List<FlowRequest> newFlows = flowResponse.items;
+      final newFlows = flowResponse.items;
       final int total = flowResponse.pagingInfo.totalItems;
-      if (event.page != 1) {
-        final List<FlowRequest> flows = [...state.flows];
-        flows.addAll(newFlows);
-        emit(state.copyWith(
-          flows: flows,
-          statusGet: FlowStatusEnum.success,
-          totalItems: total,
-        ));
-      } else {
-        emit(state.copyWith(
-          flows: newFlows,
-          statusGet: FlowStatusEnum.success,
-          totalItems: total,
-        ));
-      }
+      emit(state.copyWith(
+        flows: newFlows,
+        statusGet: FlowStatusEnum.success,
+        totalItems: total,
+      ));
+      event.completer?.complete(true);
     } catch (e) {
       emit(state.copyWith(statusGet: FlowStatusEnum.fail));
+      event.completer?.complete(false);
     }
   }
 

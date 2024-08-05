@@ -10,7 +10,7 @@ extension AppModeX on AppMode {
 
 @lazySingleton
 class ThemeCubit extends HydratedCubit<AppMode> {
-  ThemeCubit() : super(AppMode.lightMode);
+  ThemeCubit() : super(AppMode.darkMode);
 
   void changeThemeMode() {
     if (state == AppMode.lightMode) {

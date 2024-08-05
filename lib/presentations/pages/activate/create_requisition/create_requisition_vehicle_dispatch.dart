@@ -1,6 +1,4 @@
-
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
@@ -11,7 +9,6 @@ import 'package:base_app/data/models/requisition/requisition/post_request_reques
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
@@ -19,7 +16,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_interval_on_leave.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_common/item_create_time_start_and_end.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
@@ -40,10 +37,10 @@ final createRequestVehicleDispatchPageRoute = GoRoute(
     });
 
 class CreateRequestVehicleDispatchPage extends StatefulWidget {
-  const CreateRequestVehicleDispatchPage({super.key, this.flowId, this.requestId});
+  const CreateRequestVehicleDispatchPage({super.key, this.flowId, this.requestId = ''});
 
   final String? flowId;
-  final String? requestId;
+  final String requestId;
 
   @override
   State<CreateRequestVehicleDispatchPage> createState() => _CreateRequestVehicleDispatchPageState();
@@ -52,7 +49,7 @@ class CreateRequestVehicleDispatchPage extends StatefulWidget {
 class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleDispatchPage> {
   final TextEditingController descriptionController = TextEditingController(),
       contentController = TextEditingController();
-  int totalMinute = 0;
+  double totalMinute = 0;
   String errorTime = '', errorSchedule = '', errorContent = '', errorSubtitude = '';
   String? description, content;
   DateTime? startTime, endTime;
@@ -64,49 +61,35 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
 
   @override
   void initState() {
-    if (widget.requestId?.isNotEmpty ?? false) {
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.requestId),
-      );
+    if (widget.requestId.isNotEmpty) {
+      final request = dI<RequisitionBloc>().state.requisition;
+      content = request.config.content ?? "";
+      contentController.text = request.config.content ?? "";
+      subtitudePersons = [...?request.config.subtitudePersons];
+      description = request.config.description ?? "";
+      descriptionController.text = request.config.description ?? "";
+      startTime = request.config.startDate;
+      endTime = request.config.endDate;
+      followers = [...request.followerIds];
     }
     super.initState();
-  }
-
-  _listener(BuildContext context, RequisitionState state) {
-    if (state.status == RequisitionEnum.success && widget.requestId != null) {
-      setState(() {
-        content = state.requisition.config.content ?? "";
-        contentController.text = state.requisition.config.content ?? "";
-        subtitudePersons = [...?state.requisition.config.subtitudePersons];
-        description = state.requisition.config.description ?? "";
-        descriptionController.text = state.requisition.config.description ?? "";
-        startTime = state.requisition.config.startDate;
-        endTime = state.requisition.config.endDate;
-        followers = [...state.requisition.followerIds];
-      });
-    }
   }
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkTime =
         totalMinute > 0 || (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
-    final bool checkStart = (endTime ?? now).difference(DateTime.now()).inSeconds > 0;
     final bool checkDescription = description != '' && description != null;
     final bool checkContent = content != '' && content != null;
     final bool check = checkDescription && checkContent && subtitudePersons.isNotEmpty;
     setState(() {
       errorSubtitude = subtitudePersons.isNotEmpty ? '' : appLocalizations.cannotBeLeftBlank;
-      errorTime = !checkStart
-          ? appLocalizations.theStartTimeMustBeAfterTheCurrentTime
-          : !checkTime
-              ? appLocalizations.endTimeMustBeAfterStartTime
-              : "";
+      errorTime = !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
       errorSchedule = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
       errorContent = checkContent ? '' : appLocalizations.cannotBeLeftBlank;
     });
 
-    return check && checkTime && checkStart;
+    return check && checkTime;
   }
 
   double opacity() {
@@ -118,13 +101,12 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => previous.requisition != current.requisition,
+    return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
             appBar: AppBar(
+              iconTheme: IconThemeData(color: colors.text),
               title: Text(
                 RequisitionTypeEnum.vehicleDriver.configTypeName,
                 style: TextStyle(
@@ -142,22 +124,6 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ItemCreateIntervalOnLeave(
-                            endTimeOld: endTime,
-                            startTimeOld: startTime,
-                            error: errorTime,
-                            dayOrHours: false,
-                            title: appLocalizations.drivingTime,
-                            startTime: (value) => setStartTime(value),
-                            endTime: (value) => setEndTime(value),
-                            total: (value) => setTotal(value),
-                          ),
-                          ItemCreateInputArea(
-                            error: errorSchedule,
-                            textController: descriptionController,
-                            title: appLocalizations.schedule,
-                            onChange: (value) => _setSchedule(value),
-                          ),
                           ItemCreateInputArea(
                             error: errorContent,
                             textController: contentController,
@@ -169,6 +135,25 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                             listFollower: _setListUser(stateUserById.subtitudePersons),
                             title: appLocalizations.walker,
                             onChange: (value) => _setWalker(value),
+                          ),
+                          ItemCreateInputArea(
+                            error: errorSchedule,
+                            textController: descriptionController,
+                            title: appLocalizations.schedule,
+                            onChange: (value) => _setSchedule(value),
+                          ),
+                          ItemCreateTimeStartAndEnd(
+                            title1: appLocalizations.timeStart,
+                            title2: appLocalizations.timeEnd,
+                            title3: appLocalizations.totalTime,
+                            endTimeOld: endTime,
+                            startTimeOld: startTime,
+                            error: errorTime,
+                            dayOrHours: false,
+                            title: appLocalizations.drivingTime,
+                            startTime: (value) => setStartTime(value),
+                            endTime: (value) => setEndTime(value),
+                            total: (value) => setTotal(value),
                           ),
                           ItemCreateFollower(
                             listFollower: _setListUser(stateUserById.userById),
@@ -252,38 +237,38 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   PostRequestRequest request() {
-    return widget.requestId == null
+    return widget.requestId.isEmpty
         ? PostRequestRequest(
-      followerIds: followers,
-      flowId: widget.flowId,
-      config: ConfigRequestModel(
-        description: descriptionController.text,
-        content: contentController.text,
-        endDate: endTime,
-        startDate: startTime,
-        subtitudePersons: subtitudePersons,
-      ),
-    )
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              description: descriptionController.text,
+              content: contentController.text,
+              endDate: endTime,
+              startDate: startTime,
+              subtitudePersons: subtitudePersons,
+            ),
+          )
         : PostRequestRequest(
-      id: widget.requestId,
-      followerIds: followers,
-      flowId: widget.flowId,
-      config: ConfigRequestModel(
-        description: descriptionController.text,
-        content: contentController.text,
-        endDate: endTime,
-        startDate: startTime,
-        subtitudePersons: subtitudePersons,
-      ),
-    );
+            id: widget.requestId,
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigRequestModel(
+              description: descriptionController.text,
+              content: contentController.text,
+              endDate: endTime,
+              startDate: startTime,
+              subtitudePersons: subtitudePersons,
+            ),
+          );
   }
 
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(),
       completerSuccess: () => completerSuccess(),
@@ -317,14 +302,14 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     popDialog(context);
   }
 
-  setTotal(int value) {
+  setTotal(double value) {
     setState(() {
       totalMinute = value;
     });
   }
 
   List<User> _setListUser(List<User> userById) {
-    if (widget.requestId != null) {
+    if (widget.requestId.isNotEmpty) {
       return userById;
     }
     return [];

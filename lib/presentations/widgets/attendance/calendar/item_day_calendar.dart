@@ -63,8 +63,7 @@ class _BodyCalendarState extends State<BodyCalendar> {
       builder: (context, state) {
         return Column(
           children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+            SizedBox(
               width: MediaQuery.sizeOf(context).width,
               height: MediaQuery.sizeOf(context).height * 0.8,
               child: GridView.builder(
@@ -72,8 +71,6 @@ class _BodyCalendarState extends State<BodyCalendar> {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 0.4,
                   crossAxisCount: 7,
-                  mainAxisSpacing: 1,
-                  crossAxisSpacing: 1,
                 ),
                 itemBuilder: (context, index) {
                   return _item(context, index, state);

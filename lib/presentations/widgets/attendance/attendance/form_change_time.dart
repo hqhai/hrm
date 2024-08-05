@@ -31,8 +31,8 @@ class FormChangeTime extends StatelessWidget {
           InkWell(
             onTap: () => downMonth.call(),
             child: Icon(
-              Icons.arrow_left_outlined,
-              color: colors.textTertiary,
+              Icons.chevron_left,
+              color: colors.text,
               size: 50,
             ),
           ),
@@ -46,8 +46,8 @@ class FormChangeTime extends StatelessWidget {
           InkWell(
             onTap: () => upMonth.call(),
             child: Icon(
-              Icons.arrow_right_outlined,
-              color: colors.textTertiary,
+              Icons.chevron_right,
+              color: colors.text,
               size: 50,
             ),
           ),

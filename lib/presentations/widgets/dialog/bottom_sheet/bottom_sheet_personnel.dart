@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_state.dart';
@@ -14,10 +15,11 @@ import 'package:themes/themes.dart';
 class BottomSheetPersonnelWidget extends StatefulWidget {
   const BottomSheetPersonnelWidget({
     super.key,
-    required this.onChange,
+    required this.onChange, this.user,
   });
 
   final ValueChanged<User> onChange;
+  final User? user;
 
   @override
   State<BottomSheetPersonnelWidget> createState() => _BottomSheetPersonnelWidgetState();
@@ -38,41 +40,52 @@ class _BottomSheetPersonnelWidgetState extends State<BottomSheetPersonnelWidget>
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final height = MediaQuery.of(context).size.height;
     return BlocConsumer<UserByNameBloc, UserByNameState>(
       listener: (context, state) => _listener(context, state),
       builder: (context, state) {
-        return Container(
-          height: height * 0.6,
-          color: colors.surface,
-          child: Center(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child: SearchInput(onChange: (value) => _onChangeSearch(value)),
+        return Center(
+          child: Column(
+            children: [
+              Text(
+                appLocalizations.personnel,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x5,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(
-                  height: height * 0.4,
-                  child: ListView.builder(
-                    controller: controller,
-                    itemCount: state.usersByName.length,
-                    itemBuilder: (context, index) => GestureDetector(
-                      onTap: () => setOnChange(state.usersByName[index]),
-                      child: ItemBottomSheet(
-                        index: index,
-                        value: state.usersByName[index].fullName,
-                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(SpacingUnit.x2),
+                child: SearchInput(onChange: (value) => _onChangeSearch(value)),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  controller: controller,
+                  itemCount: state.usersByName.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () => setOnChange(state.usersByName[index]),
+                    child: ItemBottomSheet(
+                      check: check(state.usersByName[index]),
+                      index: index,
+                      value: state.usersByName[index].fullName,
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
     );
+  }
+
+  bool check(User userSelect){
+    if(userSelect.id == widget.user?.id){
+      return true;
+    }
+    return false;
   }
 
   _onChangeSearch(String value) {
@@ -107,6 +120,5 @@ class _BottomSheetPersonnelWidgetState extends State<BottomSheetPersonnelWidget>
 
   setOnChange(User usersByName) {
     widget.onChange.call(usersByName);
-    Navigator.of(context).pop();
   }
 }

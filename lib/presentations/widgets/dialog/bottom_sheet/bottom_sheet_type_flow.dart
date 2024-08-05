@@ -1,5 +1,4 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -23,7 +22,7 @@ class _BottomSheetTypeFlowWidgetState extends State<BottomSheetTypeFlowWidget> {
     final height = MediaQuery.of(context).size.height;
     return Container(
       height: height * 0.4,
-      color: colors.surface,
+      color: colors.background,
       child: Center(
         child: ListView.builder(
           itemCount: RequisitionTypeEnum.values.length,
@@ -36,7 +35,7 @@ class _BottomSheetTypeFlowWidgetState extends State<BottomSheetTypeFlowWidget> {
               margin: const EdgeInsets.all(SpacingUnit.x2),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                color: CustomsColor.colorBackground,
+                color: colors.background,
                 border: Border.all(
                   color: colors.text,
                   width: 1,

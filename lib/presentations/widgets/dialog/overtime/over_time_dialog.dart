@@ -2,7 +2,7 @@ import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/date_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/suggest_time_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
@@ -94,7 +94,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
               changeValue: (value) => _setEnd(value),
               title: appLocalizations.endTime,
             ),
-            if (errorTime != '')
+            if (errorTime.isNotEmpty)
               Text(
                 errorTime,
                 style: TextStyle(
@@ -106,9 +106,10 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
               suggestTime: strSeconds((suggestTime ?? 0).toInt()),
             ),
             if (widget.checkNote)
-              ItemCreateInput(
+              ItemCreateInputArea(
                 title: appLocalizations.note,
-                inputController: noteController,
+                error: '',
+                textController: noteController,
                 onChange: (value) => _setNote(value),
               ),
             ItemButtonListStationery(

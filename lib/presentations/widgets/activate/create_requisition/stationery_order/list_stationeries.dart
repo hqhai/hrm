@@ -1,7 +1,9 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationery_order.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_order_add_dialog.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -26,8 +28,6 @@ class _ListStationeriesState extends State<ListStationeries> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -39,24 +39,21 @@ class _ListStationeriesState extends State<ListStationeries> {
             fontWeight: FontWeight.w800,
           ),
         ),
-        Container(
-          width: width,
-          height: height * 0.14 * widget.listRequisitionStationery.length,
-          padding: const EdgeInsets.all(SpacingUnit.x1),
-          margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-          decoration: BoxDecoration(
-            color: colors.surface,
-            borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-          ),
-          child: ListView.builder(
-            itemCount: widget.listRequisitionStationery.length,
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () => _getStationeryInList(context, widget.listRequisitionStationery[index], index),
-              child: ItemListStationery(
-                requisitionStationery: widget.listRequisitionStationery[index],
-                index: index,
-              ),
-            ),
+        ContainerBorder(
+          borderColors: colors.background,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: widget.listRequisitionStationery
+                .mapIndexed(
+                  (index, element) => GestureDetector(
+                    onTap: () => _getStationeryInList(context, element, index),
+                    child: ItemListStationery(
+                      requisitionStationery: element,
+                      index: index,
+                    ),
+                  ),
+                )
+                .toList(),
           ),
         ),
         if (widget.error != '')

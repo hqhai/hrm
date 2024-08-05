@@ -3,7 +3,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/user_enum.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -58,7 +57,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
             height: MediaQuery.sizeOf(context).height,
             decoration: BoxDecoration(
-              color: CustomsColor.colorBackground,
+              color: colors.background,
               borderRadius: const BorderRadius.all(
                 Radius.circular(SpacingUnit.x4),
               ),
@@ -74,7 +73,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                      color: CustomsColor.colorBackground,
+                      color: colors.background,
                       border: Border.all(
                         color: colors.text,
                         width: 1,

@@ -1,4 +1,3 @@
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -19,7 +18,7 @@ class DataNotExist extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
         height: MediaQuery.sizeOf(context).height,
         decoration: BoxDecoration(
-          color: CustomsColor.colorBackground,
+          color: colors.background,
           borderRadius: const BorderRadius.all(
             Radius.circular(SpacingUnit.x4),
           ),

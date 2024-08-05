@@ -64,13 +64,15 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
+    final width = MediaQuery.of(context).size.width;
     return ContainerBorder(
-      height: MediaQuery.of(context).size.height * 0.4,
+      borderColors: colors.text.withOpacity(0.1),
+      height: width,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            color: colors.surfaceVariant,
+            color: colors.outline.withOpacity(0.2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -118,8 +120,8 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () => setTimeMonth(index + 1),
                 child: ContainerBorder(
-                  backgroundColors: _checkMonth(index) ? colors.error : null,
-                  borderColors: _checkMonthNow(index) ? colors.blue : colors.surface,
+                  backgroundColors: _checkMonth(index) ? colors.tertiary.withOpacity(0.2) : null,
+                  borderColors: _checkMonthNow(index) ? colors.error : colors.outline.withOpacity(0.5),
                   child: Center(
                     child: Text(
                       textAlign: TextAlign.center,

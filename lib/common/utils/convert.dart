@@ -19,6 +19,17 @@ String? strSeconds(int? time) {
   return null;
 }
 
+///SO sánh có cùng ngày không
+bool isAtSameMomentAsDay({
+  DateTime? start,
+  DateTime? end,
+}) {
+  if (start != null && end != null) {
+    return start.year == end.year && start.month == end.month && start.day == end.day;
+  }
+  return false;
+}
+
 ///Ngày đầu của tháng
 DateTime getFirstDayOfMonth(DateTime time) {
   final int year = time.year;
@@ -197,3 +208,5 @@ bool listStatusRequestEquals<StatusRequestEnum>(
   }
   return true;
 }
+
+

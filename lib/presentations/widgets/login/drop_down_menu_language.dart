@@ -1,3 +1,4 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
@@ -7,17 +8,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class DropdownMenuWidget extends StatefulWidget {
-  const DropdownMenuWidget(
-      {super.key, this.onSelected,});
+  const DropdownMenuWidget({
+    super.key,
+  });
 
-  final ValueChanged<LanguageEnum?>? onSelected;
 
   @override
   State<DropdownMenuWidget> createState() => _DropdownMenuWidgetState();
 }
 
 class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
-
   LanguageEnum getDropdownLanguageValue(LanguageEnum? languageCode) {
     if (languageCode == LanguageEnum.en) {
       return LanguageEnum.en;
@@ -35,28 +35,37 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
         alignment: Alignment.topRight,
         child: BlocBuilder<LanguageCubit, LanguageState>(
           builder: (context, state) {
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
-                border: Border.all(
-                  color: colors.outline,
-                  width: 1,
+            return InkWell(
+              onTap: () => _language(context, state),
+              child: Container(
+                padding: const EdgeInsetsDirectional.all(SpacingUnit.x4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
+                  border: Border.all(
+                    color: colors.background,
+                    width: 1,
+                  ),
                 ),
-              ),
-              child: DropdownMenu<LanguageEnum>(
-                width: SpacingUnit.x34,
-                textStyle: TextStyle(color: colors.text, fontSize: SpacingUnit.x3),
-                initialSelection: getDropdownLanguageValue(state.languageCode),
-                onSelected: widget.onSelected,
-                dropdownMenuEntries: LanguageEnum.values
-                    .map<DropdownMenuEntry<LanguageEnum>>((LanguageEnum value) {
-                  return DropdownMenuEntry<LanguageEnum>(value: value, label: value.name);
-                }).toList(),
+                child: Text(
+                  state.languageCode.name,
+                  style: TextStyle(
+                    color: colors.background,
+                    fontSize: SpacingUnit.x4,
+                  ),
+                ),
               ),
             );
           },
         ),
       ),
     );
+  }
+
+  _language(BuildContext context, LanguageState state) {
+    if (state.languageCode == LanguageEnum.en) {
+      dI<LanguageCubit>().changeLocale(LanguageEnum.vi);
+    } else {
+      dI<LanguageCubit>().changeLocale(LanguageEnum.en);
+    }
   }
 }

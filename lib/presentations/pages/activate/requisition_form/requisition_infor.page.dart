@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/navigator_extra/information_request_extra.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
@@ -22,6 +21,7 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_process.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_followes_information_request.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_attach.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_general_information.dart';
@@ -47,10 +47,12 @@ final requisitionInformationPageRoute = GoRoute(
     });
 
 class RequisitionInformationPage extends StatefulWidget {
-  const RequisitionInformationPage({super.key, this.id = '', this.checkUser = false});
+  const RequisitionInformationPage({super.key, this.id = '', required this.checkUser});
 
   final String id;
-  final bool checkUser;
+
+  ///Đối tượng đang xem là người dùng, người duyệt hay người theo dõi
+  final RequestSeeByWho checkUser;
 
   @override
   State<RequisitionInformationPage> createState() => _RequisitionInformationPageState();
@@ -76,6 +78,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
           builder: (context, stateFlow) {
             return Scaffold(
               appBar: AppBar(
+                iconTheme: IconThemeData(color: colors.text),
                 title: Center(
                   child: Column(
                     children: [
@@ -99,7 +102,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                     margin: const EdgeInsets.symmetric(
                         horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
                     decoration: BoxDecoration(
-                      color: CustomsColor.colorBackground,
+                      color: colors.background,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(SpacingUnit.x4),
                       ),
@@ -108,16 +111,20 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const RequisitionInformationSenderInformation(),
-                          RequisitionInformationGeneraliInformation(checkUser: widget.checkUser),
+                          if (widget.checkUser != RequestSeeByWho.user)
+                            const RequisitionInformationSenderInformation(),
+                          const RequisitionInformationGeneraliInformation(),
                           const RequisitionInformationType(),
-                          const RequisitionInformationContent(),
-                          const RequisitionInformationAttach(),
+                          if (state.requisition.flowType != RequisitionTypeEnum.stationery)
+                            const RequisitionInformationContent(),
+                          if (state.requisition.config.attachments?.isNotEmpty ?? false)
+                            const RequisitionInformationAttach(),
+                          const ItemFollowersInformationRequest(),
                           const ItemListStepFlow(
                             create: false,
                           ),
                           if (state.requisition.status == StatusRequestEnum.process &&
-                              !widget.checkUser)
+                              widget.checkUser == RequestSeeByWho.user)
                             Align(
                               alignment: Alignment.bottomRight,
                               child: ButtonItemListRequisition(
@@ -127,19 +134,18 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                               ),
                             ),
                           if (state.requisition.status == StatusRequestEnum.edit &&
-                              !widget.checkUser)
+                              widget.checkUser == RequestSeeByWho.user)
                             Align(
                               alignment: Alignment.bottomRight,
                               child: ButtonItemListRequisition(
                                 check: true,
                                 title: appLocalizations.update,
-                                callback: () =>
-                                    _nextScreen(context, stateFlow.flow, state.requisition.id),
+                                callback: () => _nextScreen(stateFlow.flow),
                               ),
                             ),
                           if (statusApprove(state.requisition) ==
                                   EnumStepRequestStatusEnum.newStatus &&
-                              widget.checkUser)
+                              widget.checkUser == RequestSeeByWho.manager)
                             ItemRequestProcess(
                               callBackApprover: () => _isApprover(
                                   state.requisition, context, EnumStepRequestStatusEnum.approve),
@@ -149,7 +155,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                                   state.requisition, context, EnumStepRequestStatusEnum.reject),
                             ),
                           if (state.requisition.status == StatusRequestEnum.approve &&
-                              widget.checkUser)
+                              widget.checkUser == RequestSeeByWho.manager)
                             Align(
                               alignment: Alignment.bottomRight,
                               child: ButtonItemListRequisition(
@@ -281,7 +287,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     setState(() {
       checkLoad = true;
     });
-    final Completer completer = Completer<RequisitionEnum>();
+    final Completer completer = Completer<bool>();
     dI<RequisitionApproveBloc>().add(
       ApproveRequestEvent(
         id: id,
@@ -292,14 +298,14 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       ),
     );
     final statusCompleter = await completer.future;
-    if (statusCompleter == RequisitionEnum.success) {
+    if (statusCompleter == true) {
       dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
       setState(() {
         checkLoad = false;
         checkSuccess = true;
       });
     }
-    if (statusCompleter == RequisitionEnum.fail) {
+    if (statusCompleter == false) {
       setState(() {
         checkLoad = false;
         checkUnSuccess = true;
@@ -326,121 +332,120 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     }
   }
 
-  _nextScreen(BuildContext context, FlowRequest flow, String requestId) {
+  _nextScreen(FlowRequest flow) async {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    if (!currentContext.mounted) return;
     switch (flow.flowType) {
       case RequisitionTypeEnum.explanation:
         _push(
+          type: RequisitionTypeEnum.explanation,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestExplanationPage,
         );
-      case RequisitionTypeEnum.lateArrival:
+      case RequisitionTypeEnum.lateOrEarly:
         _push(
+          type: RequisitionTypeEnum.lateOrEarly,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
-          page: Pages.createRequestLeavePage,
+          context: currentContext,
+          page: Pages.createRequestLateAndEarlyPage,
         );
       case RequisitionTypeEnum.overTime:
         _push(
+          type: RequisitionTypeEnum.overTime,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestOverTimePage,
         );
       case RequisitionTypeEnum.vehicleDriver:
         _push(
+          type: RequisitionTypeEnum.vehicleDriver,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestVehicleDispatchPage,
         );
       case RequisitionTypeEnum.postalDelivery:
         _push(
+          type: RequisitionTypeEnum.postalDelivery,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestPostalDeliveryPage,
         );
       case RequisitionTypeEnum.warehouseReleased:
         _push(
+          type: RequisitionTypeEnum.warehouseReleased,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestReleaseOfWarehousePage,
         );
       case RequisitionTypeEnum.stationery:
         _push(
+          type: RequisitionTypeEnum.stationery,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestStationeryOderPage,
         );
       case RequisitionTypeEnum.bussiness:
         _push(
+          type: RequisitionTypeEnum.bussiness,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestBusinessPage,
         );
-      case RequisitionTypeEnum.yearlyAndSeniorityLeave:
+      case RequisitionTypeEnum.leaveFiveDaysOrMore:
         _push(
-          type: RequisitionTypeEnum.yearlyAndSeniorityLeave,
+          type: RequisitionTypeEnum.leaveFiveDaysOrMore,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestLeavePage,
         );
-      case RequisitionTypeEnum.compensatoryLeave:
+      case RequisitionTypeEnum.leaveTwoDayToFourDay:
         _push(
-          type: RequisitionTypeEnum.compensatoryLeave,
+          type: RequisitionTypeEnum.leaveTwoDayToFourDay,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestLeavePage,
         );
-      case RequisitionTypeEnum.otherLeave:
+      case RequisitionTypeEnum.leaveHalfDayToOneDay:
         _push(
-          type: RequisitionTypeEnum.otherLeave,
+          type: RequisitionTypeEnum.leaveHalfDayToOneDay,
           informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
+            requestId: widget.id,
             flowId: flow.id,
           ),
-          context: context,
+          context: currentContext,
           page: Pages.createRequestLeavePage,
         );
-      case RequisitionTypeEnum.unpaidLeave:
-        _push(
-          type: RequisitionTypeEnum.unpaidLeave,
-          informationRequestExtra: InformationRequestExtra(
-            requestId: requestId,
-            flowId: flow.id,
-          ),
-          context: context,
-          page: Pages.createRequestLeavePage,
-        );
-      case RequisitionTypeEnum.earlyDeparture:
       default:
         break;
     }

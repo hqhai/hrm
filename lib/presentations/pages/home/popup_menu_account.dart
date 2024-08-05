@@ -52,7 +52,6 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
     dI<AppNavigation>().push(context, page: Pages.changePasswordPage);
   }
 
-
   void logoutFunction() {
     dI<AuthBloc>().add(const LogoutEvent());
     dI<UserBloc>().add(const ResetUserEvent());
@@ -72,71 +71,23 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
       onOpened: () => widget.onChangeCheckOpacity(!checkOpacity),
       onCanceled: () => widget.onChangeCheckOpacity(checkOpacity),
       itemBuilder: (_) => [
-        PopupMenuItem(
-          child: InkWell(
-            onTap: () => _editPersonalInformation(),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Assets.images.icon.popupAppbar.suaThongTinCaNhan,
-                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                ),
-                const SizedBox(
-                  width: SpacingUnit.x3,
-                ),
-                Text(
-                  appLocalizations.editPersonalInformation,
-                  style: const TextStyle(
-                    fontSize: SpacingUnit.x3_5,
-                  ),
-                ),
-              ],
-            ),
-          ),
+        item(
+          context: context,
+          title: appLocalizations.editPersonalInformation,
+          icon: Assets.images.icon.popupAppbar.suaThongTinCaNhan,
+          callBack: () => _editPersonalInformation(),
         ),
-        PopupMenuItem(
-          child: InkWell(
-            onTap: () => _setting(context),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Assets.images.icon.popupAppbar.caiDat,
-                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                ),
-                const SizedBox(
-                  width: SpacingUnit.x3,
-                ),
-                Text(
-                  appLocalizations.setting,
-                  style: const TextStyle(
-                    fontSize: SpacingUnit.x3_5,
-                  ),
-                ),
-              ],
-            ),
-          ),
+        item(
+          context: context,
+          title: appLocalizations.setting,
+          icon: Assets.images.icon.popupAppbar.caiDat,
+          callBack: () => _setting(context),
         ),
-        PopupMenuItem(
-          child: InkWell(
-            onTap: () => _changePassword(context),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Assets.images.icon.popupAppbar.doiMatKhau,
-                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                ),
-                const SizedBox(
-                  width: SpacingUnit.x3,
-                ),
-                Text(
-                  appLocalizations.changePassword,
-                  style: const TextStyle(
-                    fontSize: SpacingUnit.x3_5,
-                  ),
-                ),
-              ],
-            ),
-          ),
+        item(
+          context: context,
+          title: appLocalizations.changePassword,
+          icon: Assets.images.icon.popupAppbar.doiMatKhau,
+          callBack: () => _changePassword(context),
         ),
         PopupMenuItem(
           child: BlocBuilder<LanguageCubit, LanguageState>(
@@ -154,8 +105,9 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
                     ),
                     Text(
                       stateLanguage.languageCode.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: SpacingUnit.x3_5,
+                        color: colors.text,
                       ),
                     ),
                   ],
@@ -164,29 +116,45 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
             },
           ),
         ),
-        PopupMenuItem(
-          child: InkWell(
-            onTap: () => logoutFunction(),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Assets.images.icon.popupAppbar.dangXuat,
-                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-                ),
-                const SizedBox(
-                  width: SpacingUnit.x3,
-                ),
-                Text(
-                  appLocalizations.logout,
-                  style: const TextStyle(
-                    fontSize: SpacingUnit.x3_5,
-                  ),
-                ),
-              ],
-            ),
-          ),
+        item(
+          context: context,
+          title: appLocalizations.logout,
+          icon: Assets.images.icon.popupAppbar.dangXuat,
+          callBack: () => logoutFunction(),
         ),
       ],
+    );
+  }
+
+  PopupMenuItem item({
+    required VoidCallback callBack,
+    required BuildContext context,
+    required String title,
+    required String icon,
+  }) {
+    final colors = AppTheme.getColors(context);
+    return PopupMenuItem(
+      child: InkWell(
+        onTap: () => callBack.call(),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              icon,
+              colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+            ),
+            const SizedBox(
+              width: SpacingUnit.x3,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: SpacingUnit.x3_5,
+                color: colors.text,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

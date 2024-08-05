@@ -50,7 +50,7 @@ class _BottomSheetDistrictWidgetState extends State<BottomSheetDistrictWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.surface,
+          color: colors.background,
           child: Center(
             child: Column(
               children: [

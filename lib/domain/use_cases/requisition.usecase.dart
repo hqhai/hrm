@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
@@ -8,36 +9,32 @@ import 'package:base_app/domain/entities/reqisition/request.dart';
 abstract class RequisitionUseCase {
   Future<Request> postRequest({required PostRequestRequest postRequestRequest});
 
-  Future<RequestsResponse> getRequests({int? page});
-
-  Future<RequestsResponse> getRequisitionsByFilter({
+  Future<RequestsResponse> getRequisitionsSelfByFilter({
     int? page,
-    String? flowId,
-    String? departmentId,
+    List<String>? flowId,
     DateTime? startDate,
     DateTime? endDate,
-    List<String>? status,
+    StatusRequestEnum? status,
   });
-
-  Future<RequestsResponse> getRequisitionsApprove({int? page});
 
   Future<RequestsResponse> getRequisitionsApproveByFilter({
     int? page,
-    String? type,
+    List<RequisitionTypeEnum>? type,
     String? departmentId,
+    String? userId,
     DateTime? startDate,
     DateTime? endDate,
-    String? status,
-    String? createdCode,
+    EnumStepRequestStatusEnum? status,
   });
 
   Future<RequestsResponse> getRequisitionsFollowerByFilter({
     int? page,
-    String? type,
+    List<RequisitionTypeEnum>? type,
     String? departmentId,
+    String? userId,
     DateTime? startDate,
     DateTime? endDate,
-    List<String>? status,
+    StatusRequestEnum? status,
   });
 
   Future<Request> getRequisitionById({required String id});

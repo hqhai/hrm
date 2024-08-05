@@ -53,9 +53,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void logoutFunction() {
-      dI<AuthBloc>().add(const LogoutEvent());
-      dI<UserBloc>().add(const ResetUserEvent());
-      dI<UserByRolesBloc>().add(const ResetUsersEvent());
+    dI<AuthBloc>().add(const LogoutEvent());
+    dI<UserBloc>().add(const ResetUserEvent());
+    dI<UserByRolesBloc>().add(const ResetUsersEvent());
   }
 
   _listener(BuildContext context, UserState state) {
@@ -83,8 +83,10 @@ class _HomePageState extends State<HomePage> {
       builder: (context, stateUser) {
         return Scaffold(
           appBar: AppBar(
+            iconTheme: IconThemeData(color: colors.text),
+            centerTitle: true,
             title: Text(titleValue(context, selectedIndex),
-                style: const TextStyle(fontSize: SpacingUnit.x6_5)),
+                style: TextStyle(fontSize: SpacingUnit.x6_5, color: colors.text)),
             actions: !_checkRole() ? [popupMenu(selectedIndex)] : null,
           ),
           drawer: _checkRole()
@@ -130,7 +132,10 @@ class _HomePageState extends State<HomePage> {
                 )
               : null,
           bottomNavigationBar: !_checkRole()
-              ? BottomBarDefault(selectedIndex: selectedIndex, onChangeSelectedIndex: (value) => _onItemTapped(value),)
+              ? BottomBarDefault(
+                  selectedIndex: selectedIndex,
+                  onChangeSelectedIndex: (value) => _onItemTapped(value),
+                )
               : null,
           body: Opacity(
             opacity: checkOpacity ? 0.5 : 1,

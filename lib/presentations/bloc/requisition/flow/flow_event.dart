@@ -11,11 +11,12 @@ sealed class FlowEvent extends Equatable {
 
 class GetFlowsEvent extends FlowEvent {
   final int page;
+  final Completer? completer;
 
-  const GetFlowsEvent({this.page = 1});
+  const GetFlowsEvent({this.page = 1, this.completer});
 
   @override
-  List<Object?> get props => [page];
+  List<Object?> get props => [page, completer];
 }
 
 class GetFlowEvent extends FlowEvent {

@@ -17,24 +17,29 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return GestureDetector(
+    final width = MediaQuery.of(context).size.width;
+    return InkWell(
       onTap: widget.callback,
       child: ContainerBorder(
-        height: SpacingUnit.x20,
+        width: width,
+        padding: SpacingUnit.x5,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 75,
-              child: Text(
-                widget.title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(SpacingUnit.x2),
+                child: Text(
+                  widget.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w700),
+                ),
               ),
             ),
             Expanded(
-              flex: 15,
               child: Padding(
                 padding: const EdgeInsets.only(right: SpacingUnit.x5),
                 child: Center(

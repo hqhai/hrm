@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
@@ -7,6 +8,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time_extend.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,74 +54,65 @@ class _RequisitionInformationContentTypeEarlyState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      appLocalizations.time,
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x3,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    Text(
-                      formatYMD((state.requisition.config.startDate ?? "").toString()),
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x3,
-                      ),
-                    ),
-                  ],
-                ),
+              ItemTitleValue(
+                size: SpacingUnit.x4,
+                title: appLocalizations.time,
+                value: formatYMD((state.requisition.config.startDate ?? "").toString()),
+                font: FontWeight.w600,
               ),
-              Text(
-                appLocalizations.workOffset,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x3,
-                  fontWeight: FontWeight.w800,
-                ),
+              ItemTitleValue(
+                size: SpacingUnit.x4,
+                title: appLocalizations.reason,
+                value: state.requisition.config.explanationReason?.configEditTimekeepingName ?? "",
+                font: FontWeight.w600,
               ),
-              (overTimes != null && overTimes.isNotEmpty)
-                  ? Container(
-                      padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-                      child: Column(
-                        children: overTimes
-                            .mapIndexed(
-                              (index, element) => listCheck[index]
-                                  ? GestureDetector(
-                                      onTap: () => onClick(index),
-                                      child: ItemListOverTime(
-                                        requisitionOverTime:
-                                            state.requisition.config.overTimes![index],
-                                        index: index,
+              if (state.requisition.config.explanationReason == EditTimekeeping.early)
+                Text(
+                  appLocalizations.workOffset,
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              if (state.requisition.config.explanationReason == EditTimekeeping.early)
+                (overTimes != null && overTimes.isNotEmpty)
+                    ? Container(
+                        padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+                        child: Column(
+                          children: overTimes
+                              .mapIndexed(
+                                (index, element) => listCheck[index]
+                                    ? GestureDetector(
+                                        onTap: () => onClick(index),
+                                        child: ItemListOverTime(
+                                          requisitionOverTime:
+                                              state.requisition.config.overTimes![index],
+                                          index: index,
+                                        ),
+                                      )
+                                    : GestureDetector(
+                                        onTap: () => onClick(index),
+                                        child: ItemListOverTimeExtend(
+                                          requisitionOverTime:
+                                              state.requisition.config.overTimes?[index],
+                                          index: index,
+                                        ),
                                       ),
-                                    )
-                                  : GestureDetector(
-                                      onTap: () => onClick(index),
-                                      child: ItemListOverTimeExtend(
-                                        requisitionOverTime:
-                                            state.requisition.config.overTimes?[index],
-                                        index: index,
-                                      ),
-                                    ),
-                            )
-                            .toList(),
-                      ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                      child: Text(
-                        appLocalizations.no,
-                        style: TextStyle(
-                          color: colors.text,
-                          fontSize: SpacingUnit.x3,
+                              )
+                              .toList(),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                        child: Text(
+                          appLocalizations.no,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
                         ),
                       ),
-                    ),
             ],
           ),
         );

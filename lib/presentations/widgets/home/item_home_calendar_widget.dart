@@ -1,4 +1,3 @@
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
@@ -18,7 +17,7 @@ class ItemHomeCalenderWidget extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingUnit.x2),
-            color: CustomsColor.colorBackground,
+            color: colors.background,
             border: Border.all(
               color: colors.text,
               width: 1,

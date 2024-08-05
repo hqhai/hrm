@@ -1346,6 +1346,54 @@ class AppLocalizationsEn extends AppLocalizations {
   String get totalTimeWorkCompensatory => 'Total number of compensatory hours';
 
   @override
+  String get cancelShiftRegistration => 'Cancel shift registration';
+
+  @override
+  String get cancelShiftReceiveRegistration => 'Cancel shift receive registration';
+
+  @override
+  String get cancelShiftCancellationRequest => 'Cancel shift cancellation request';
+
+  @override
+  String get registerForShifts => 'Register for shifts';
+
+  @override
+  String get youDoNotHaveAShiftToday => 'You don\'t have a shift today!';
+
+  @override
+  String get distanceNotEnough => 'Distance Not Enough';
+
+  @override
+  String get reasonForCancelingRequest => 'Reason for canceling request';
+
+  @override
+  String get lateOrEarly => 'Late/Early';
+
+  @override
+  String get timekeepingError => 'Timekeeping error';
+
+  @override
+  String get titleBusiness => 'Title business';
+
+  @override
+  String get timeStart => 'Thời gian đi';
+
+  @override
+  String get timeEnd => 'Thời gian về';
+
+  @override
+  String get socialInsuranceLeave => 'Social Insurance Leave';
+
+  @override
+  String get leaveHalfDayToOneDay => 'leave Half Day To One Day';
+
+  @override
+  String get leaveTwoDayToFourDay => 'leave Two Day To Four Day';
+
+  @override
+  String get leaveFiveDaysOrMore => 'leave Five Days Or More';
+
+  @override
   String get calendarWork => 'Calendar work';
 
   @override
@@ -1395,25 +1443,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unregistered => 'Unregistered';
-
-  @override
-  String get cancelShiftRegistration => 'Cancel shift registration';
-
-  @override
-  String get cancelShiftReceiveRegistration => 'Cancel shift receive registration';
-
-  @override
-  String get cancelShiftCancellationRequest => 'Cancel shift cancellation request';
-
-  @override
-  String get registerForShifts => 'Register for shifts';
-
-  @override
-  String get reasonForCancelingRequest => 'Reason for canceling request';
-
-  @override
-  String get youDoNotHaveAShiftToday => 'You don\'t have a shift today!';
-
-  @override
-  String get distanceNotEnough => 'Distance Not Enough';
 }

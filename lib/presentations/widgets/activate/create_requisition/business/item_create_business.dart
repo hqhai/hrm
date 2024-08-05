@@ -94,7 +94,7 @@ class _ItemCreateBusinessDayState extends State<ItemCreateBusinessDay> {
                 padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x3),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                  color: colors.surface,
+                  color: colors.background,
                   border: Border.all(color: colors.text, width: 1),
                 ),
                 child: Center(

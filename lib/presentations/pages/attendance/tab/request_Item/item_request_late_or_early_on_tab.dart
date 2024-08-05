@@ -1,4 +1,4 @@
-
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
@@ -43,7 +43,10 @@ class _ItemRequestLateOrEarlyOnTabState extends State<ItemRequestLateOrEarlyOnTa
               ItemTypeOnTab(
                 type: request?.flowType.configTypeName ?? "",
                 callback: () => nextScreenRequest(
-                    id: widget.id, checkOpacity: checkOpacity, setState: () => setOpacity()),
+                    checkUser: RequestSeeByWho.user,
+                    id: widget.id,
+                    checkOpacity: checkOpacity,
+                    setState: () => setOpacity()),
               ),
               TitleValueLeave(
                 title: checkType(request?.flowType)
@@ -96,6 +99,6 @@ class _ItemRequestLateOrEarlyOnTabState extends State<ItemRequestLateOrEarlyOnTa
   }
 
   bool checkType(RequisitionTypeEnum? flowType) {
-    return flowType == RequisitionTypeEnum.lateArrival;
+    return flowType == RequisitionTypeEnum.lateOrEarly;
   }
 }

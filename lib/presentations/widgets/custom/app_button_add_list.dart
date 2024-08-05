@@ -25,10 +25,7 @@ class ButtonAddList extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             title,
-            style: TextStyle(
-              fontSize: SpacingUnit.x3_5,
-              color: colors.background,
-            ),
+            style: TextStyle(fontSize: SpacingUnit.x3_5, color: colors.background),
           ),
         ),
       ),

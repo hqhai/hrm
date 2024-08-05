@@ -75,7 +75,8 @@ class _PopupMenuHomeState extends State<PopupMenuHome> {
                     ),
                     Text(
                       stateLanguage.languageCode.name,
-                      style: const TextStyle(
+                      style: TextStyle(
+                        color: colors.text,
                         fontSize: SpacingUnit.x3_5,
                       ),
                     ),
@@ -99,7 +100,8 @@ class _PopupMenuHomeState extends State<PopupMenuHome> {
                 ),
                 Text(
                   appLocalizations.logout,
-                  style: const TextStyle(
+                  style: TextStyle(
+                    color: colors.text,
                     fontSize: SpacingUnit.x3_5,
                   ),
                 ),

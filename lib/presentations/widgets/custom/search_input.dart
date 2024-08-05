@@ -21,7 +21,7 @@ class _SearchInputState extends State<SearchInput> {
     final appLocalizations = AppLocalizations.of(context)!;
     final width = MediaQuery.of(context).size.width;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x3_5),
@@ -40,7 +40,6 @@ class _SearchInputState extends State<SearchInput> {
             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
             onChanged: (value) => _setOnChange(value),
             decoration: InputDecoration(
-
               labelText: appLocalizations.search,
               contentPadding: const EdgeInsets.only(
                   bottom: 0,

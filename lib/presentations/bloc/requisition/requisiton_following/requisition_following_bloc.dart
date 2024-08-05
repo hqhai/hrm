@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
+import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_event.dart';
@@ -21,37 +21,56 @@ class RequisitionFollowingBloc extends Bloc<RequisitionFollowingEvent, Requisiti
     on<GetRequisitionsFollowingByFilterEvent>(_getRequisitionsFollowingByFilterEvent);
   }
 
+  ///get by filter ***********************************************
   FutureOr<void> _getRequisitionsFollowingByFilterEvent(
       GetRequisitionsFollowingByFilterEvent event, Emitter<RequisitionFollowingState> emit) async {
-    emit(state.copyWith(status: RequisitionEnum.init));
     try {
-
-      final RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsFollowerByFilter(
+      final RequestsResponse requestsResponse =
+          await requisitionUseCase.getRequisitionsFollowerByFilter(
         page: event.page,
-        type: event.requisitionTypeEnum?.name,
-        status: event.listStatusRequisition?.map((e) => e.name).toList(),
-        startDate: event.startTime,
+        departmentId: event.departmentId,
         endDate: event.endTime,
+        startDate: event.startTime,
+        type: event.type,
+        userId: event.userIds,
+        status: event.status,
       );
       final List<Request> newRequest = requestsResponse.items;
       final int totalItems = requestsResponse.pagingInfo.totalItems;
+      final Map<String, Request> mapRequests = Map.fromEntries(
+        newRequest.map(
+          (item) => MapEntry(
+            item.id,
+            item,
+          ),
+        ),
+      );
+      final List<String> requestsIds = newRequest.map((e) => e.id).toList();
       if (event.page != 1) {
-        final List<Request> requests = [...state.requisitions];
-        requests.addAll(newRequest);
+        final Map<String, Request> requests = state.requisitions;
+        requests.addAll(mapRequests);
+        final oldRequestsIds = [...state.requisitionIds, ...requestsIds];
         emit(state.copyWith(
-            requisitions: requests,
-            countItem: totalItems,
-            status: RequisitionEnum.success));
+          errorCode: '',
+          requisitionIds: oldRequestsIds,
+          requisitions: requests,
+          countItem: totalItems,
+        ));
+        event.completer?.complete(true);
       } else {
         emit(state.copyWith(
-            requisitions: newRequest,
-            countItem: totalItems,
-            status: RequisitionEnum.success));
+          errorCode: '',
+          requisitionIds: requestsIds,
+          requisitions: mapRequests,
+          countItem: totalItems,
+        ));
+        event.completer?.complete(true);
       }
     } catch (e) {
-      emit(state.copyWith(status: RequisitionEnum.fail));
+      e as ResponseBase;
+      final String? errorCode = e.errorMessages.first.errorCode;
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer?.complete(false);
     }
   }
-
-
 }

@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
@@ -39,7 +40,10 @@ class _ItemRequestExplanationOnTabState extends State<ItemRequestExplanationOnTa
               ItemTypeOnTab(
                 type: request?.flowType.configTypeName ?? "",
                 callback: () => nextScreenRequest(
-                    id: widget.id, checkOpacity: checkOpacity, setState: () => setOpacity()),
+                    checkUser: RequestSeeByWho.user,
+                    id: widget.id,
+                    checkOpacity: checkOpacity,
+                    setState: () => setOpacity()),
               ),
               TitleValueLeave(
                 title: appLocalizations.reason,

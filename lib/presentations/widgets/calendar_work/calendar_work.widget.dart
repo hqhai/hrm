@@ -21,10 +21,10 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: listCalendarWork
+          children: ItemUtils.listCalendarWork
               .mapIndexed(
                 (index, element) => ItemActivateWidget(
-                  title: titlesCalendarWork(index, context),
+                  title: ItemUtils.titlesCalendarWork(index, context),
                   callback: () => _nextScreen(context, index),
                 ),
               )

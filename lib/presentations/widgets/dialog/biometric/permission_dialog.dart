@@ -1,42 +1,54 @@
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:open_settings/open_settings.dart';
 
-permissionDialog(BuildContext context, VoidCallback callBack) async {
-  final appLocalizations = AppLocalizations.of(context)!;
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        content: Scrollbar(
-          child: Text(appLocalizations.permissionBiometric,
-              textAlign: TextAlign.center, style: const TextStyle(fontSize: SpacingUnit.x5)),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () => _ok(context, callBack),
-            child: Text(appLocalizations.ok),
+class PermissionDialog extends StatelessWidget {
+  const PermissionDialog({super.key, required this.callBack});
+  final VoidCallback callBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.all(SpacingUnit.x3),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            appLocalizations.permissionBiometric,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: SpacingUnit.x5),
           ),
-          ElevatedButton(
-            onPressed: () => _setting(context, callBack),
-            child: Text(appLocalizations.setting),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () => _ok(context, callBack),
+                child: Text(appLocalizations.ok),
+              ),
+              ElevatedButton(
+                onPressed: () => _setting(context, callBack),
+                child: Text(appLocalizations.setting),
+              ),
+            ],
+          )
         ],
-      );
-    },
-  );
+      ),
+    );
+  }
+  _setting(BuildContext context, VoidCallback callBack) {
+    OpenSettings.openBiometricEnrollSetting();
+    callBack.call();
+    dI<AppNavigation>().pop(context);
+  }
+
+  _ok(BuildContext context, VoidCallback callBack) {
+    dI<AppNavigation>().pop(context);
+  }
+
 }
 
-_setting(BuildContext context, VoidCallback callBack) {
-  OpenSettings.openBiometricEnrollSetting();
-  callBack.call();
-  popDialog(context);
-}
 
-
-_ok(BuildContext context, VoidCallback callBack) {
-  callBack.call();
-  popDialog(context);
-}

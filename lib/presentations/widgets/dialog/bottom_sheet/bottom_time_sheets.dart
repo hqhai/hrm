@@ -1,6 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/user_working_history_status.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
@@ -43,7 +42,7 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.4,
-          color: colors.surface,
+          color: colors.background,
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -79,7 +78,7 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
                                   margin: const EdgeInsets.all(SpacingUnit.x2),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                                    color: CustomsColor.colorBackground,
+                                    color: colors.background,
                                     border: Border.all(
                                       color: colors.text,
                                       width: 1,

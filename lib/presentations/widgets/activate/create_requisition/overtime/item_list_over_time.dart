@@ -2,6 +2,7 @@ import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -15,62 +16,48 @@ class ItemListOverTime extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    final width = MediaQuery.of(context).size.width;
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           '${(index) + 1}. ',
-          style: TextStyle(
-            fontSize: SpacingUnit.x3_5,
-            color: colors.text,
-          ),
+          style:
+              TextStyle(fontSize: SpacingUnit.x5, color: colors.text, fontWeight: FontWeight.w600),
         ),
-        Container(
-          width: width * 0.75,
-          padding: const EdgeInsets.all(SpacingUnit.x2_5),
-          margin: const EdgeInsets.only(left: SpacingUnit.x2_5, top: SpacingUnit.x4),
-          decoration: BoxDecoration(
-            color: colors.surface,
-            borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-            border: Border.all(
-              width: 1,
-              color: colors.text,
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                formatYMD((requisitionOverTime.date ?? "").toString()),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: SpacingUnit.x3_5,
-                  color: colors.text,
+        Expanded(
+          child: ContainerBorder(
+            padding: SpacingUnit.x2_5,
+            margin: SpacingUnit.x2_5,
+            borderColors: colors.text.withOpacity(0.5),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                  child: Text(
+                    '${appLocalizations.date} ${formatYMD((requisitionOverTime.date ?? "").toString())}',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: SpacingUnit.x3_5,
+                      color: colors.text,
+                    ),
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${appLocalizations.startTime} : ${strSeconds(requisitionOverTime.startTime ?? 0)}',
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                  child: Text(
+                    '${appLocalizations.time} : ${strSeconds(requisitionOverTime.startTime ?? 0)} - ${strSeconds(requisitionOverTime.endTime ?? 0)}',
                     style: TextStyle(
-                      fontSize: SpacingUnit.x3,
+                      fontSize: SpacingUnit.x3_5,
                       color: colors.text,
                     ),
                   ),
-                  Text(
-                    '${appLocalizations.endTime} : ${strSeconds(requisitionOverTime.endTime ?? 0)}',
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x3,
-                      color: colors.text,
-                    ),
-                  ),
-                ],
-              )
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ],

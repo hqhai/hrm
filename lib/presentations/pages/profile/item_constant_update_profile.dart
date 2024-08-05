@@ -1,4 +1,3 @@
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -25,7 +24,7 @@ class ItemUpdateProfileConstant extends StatelessWidget {
           padding: const EdgeInsets.all(SpacingUnit.x2_5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingUnit.x2),
-            color: CustomsColor.colorBackground,
+            color: colors.background,
             border: Border.all(
               color: colors.surfaceBright,
               width: 1,

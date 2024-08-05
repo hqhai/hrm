@@ -1,13 +1,11 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:themes/themes.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker(
-      {super.key, this.check = true, this.restorationId, required this.onChange, this.oldDate});
+  const DatePicker({super.key, this.check = true, required this.onChange, this.oldDate});
 
-  final String? restorationId;
   final ValueChanged<DateTime> onChange;
   final DateTime? oldDate;
   final bool check;
@@ -16,92 +14,79 @@ class DatePicker extends StatefulWidget {
   State<DatePicker> createState() => _DatePickerState();
 }
 
-class _DatePickerState extends State<DatePicker> with RestorationMixin {
-  //RestorationMixin hỗ trợ khôi phục trạng thái của các widget, giảm bớt mất mát dữ liệu (Thư viện nó bảo thế)
+class _DatePickerState extends State<DatePicker> {
+  late DateTime currentDate;
+
   @override
-  String? get restorationId => widget.restorationId;
+  void initState() {
+    currentDate = widget.oldDate ?? DateTime.now();
+    super.initState();
+  }
 
-  final RestorableDateTime _selectedDate = RestorableDateTime(DateTime.now());
-
-  late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
-      RestorableRouteFuture<DateTime?>(
-    onComplete: _selectDate,
-    onPresent: (NavigatorState navigator, Object? arguments) {
-      return navigator.restorablePush(
-        _datePickerRoute,
-        arguments: _selectedDate.value.millisecondsSinceEpoch,
-      );
-    },
-  );
-
-  @pragma('vm:entry-point')
-  static Route<DateTime> _datePickerRoute(BuildContext context, Object? arguments) {
-    return DialogRoute<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return DatePickerDialog(
-          restorationId: 'date_picker_dialog',
-          initialEntryMode: DatePickerEntryMode.calendarOnly,
-          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(1900),
-          lastDate: DateTime(2100),
+  dialog({required BuildContext context, required DateTime currentTime}) async {
+    final colors = AppTheme.getColors(context);
+    DateTime? time = await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+           data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme(
+              onSurface: colors.text,
+              primary: colors.primary,
+              onPrimary: colors.onPrimary,
+              secondary:colors.secondary,
+              brightness: Brightness.dark,
+              onSecondary: colors.onSecondary,
+              error: colors.error,
+              onError: colors.onError,
+              background: colors.background,
+              onBackground: colors.onBackground,
+              surface: colors.background,
+            ),
+          ),
+          child: child!,
         );
       },
+      context: context,
+      initialEntryMode: DatePickerEntryMode.calendar,
+      barrierColor: colors.outline.withOpacity(0.2),
+      initialDate: currentTime,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+      currentDate: DateTime.now(),
     );
-  }
 
-  @override
-  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_selectedDate, 'selected_date');
-    registerForRestoration(_restorableDatePickerRouteFuture, 'date_picker_route_future');
-  }
-
-  void _selectDate(DateTime? newSelectedDate) {
-    if (newSelectedDate != null) {
+    if (time != null) {
       setState(() {
-        _selectedDate.value = newSelectedDate;
-        widget.onChange.call(newSelectedDate);
+        currentDate = time;
+        widget.onChange(currentDate);
       });
-    }
-    if (newSelectedDate == null && widget.oldDate != null) {
-      _selectedDate.value = widget.oldDate ?? DateTime.now();
-      widget.onChange.call(widget.oldDate ?? DateTime.now());
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppTheme.getColors(context);
     return GestureDetector(
-      onTap: () {
-        _restorableDatePickerRouteFuture.present();
-      },
+      onTap: () => dialog(context: context, currentTime: widget.oldDate ?? DateTime.now()),
       child: Container(
-          width: SpacingUnit.x40,
-          height: SpacingUnit.x12_5,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              SpacingUnit.x2_5,
-            ),
-            border: Border.all(
-              color: const Color(0xff2a6067),
-              width: 2,
-            ),
+        width: SpacingUnit.x25,
+        height: SpacingUnit.x8,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            SpacingUnit.x2_5,
           ),
-          child: Text(
-            getTimeDisplay(),
-            style: TextStyle(
-                fontSize: widget.check ? SpacingUnit.x5 : SpacingUnit.x4, color: Colors.white),
-          )),
+          border: Border.all(
+            color: colors.outline.withOpacity(0.2),
+            width: 2,
+          ),
+        ),
+        child: Text(
+          formatYMD(currentDate.toString()),
+          style: TextStyle(
+              fontSize: SpacingUnit.x4, color: colors.text),
+        ),
+      ),
     );
-  }
-
-  String getTimeDisplay() {
-    if (_selectedDate.value.day == DateTime.now().day &&
-        _selectedDate.value.month == DateTime.now().month &&
-        widget.oldDate != null) {
-      return formatYMD(DateFormat('yyyy-MM-dd').format(widget.oldDate ?? DateTime.now()));
-    }
-    return formatYMD(DateFormat('yyyy-MM-dd').format(_selectedDate.value));
   }
 }

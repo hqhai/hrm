@@ -3,6 +3,7 @@ import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds
 import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
@@ -110,9 +111,9 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
               totalMinuteController: numberOfController,
               onChange: (value) => _setNumber(value),
             ),
-            ItemCreateInput(
+            ItemCreateInputArea(
+              textController: noteController,
               title: appLocalizations.note,
-              inputController: noteController,
               onChange: (value) => _setNote(value),
             ),
             ItemButtonListStationery(

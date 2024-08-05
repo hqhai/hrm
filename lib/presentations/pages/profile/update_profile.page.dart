@@ -6,7 +6,6 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
@@ -83,7 +82,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(iconTheme: IconThemeData(color: colors.text),),
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => checkListenWhen(
@@ -99,7 +98,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
             height: MediaQuery.sizeOf(context).height,
             decoration: BoxDecoration(
-              color: CustomsColor.colorBackground,
+              color: colors.background,
               borderRadius: const BorderRadius.all(
                 Radius.circular(SpacingUnit.x4),
               ),
@@ -115,7 +114,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                      color: CustomsColor.colorBackground,
+                      color: colors.background,
                       border: Border.all(
                         color: colors.text,
                         width: 1,

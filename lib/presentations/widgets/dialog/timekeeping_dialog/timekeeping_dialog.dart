@@ -3,7 +3,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_add_error_day.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_time_sheets.dart';
@@ -33,7 +33,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
 
   bool checkOnClick(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkDate = date?.isAfter(DateTime.now())??false;
+    final bool checkDate = date?.isBefore(DateTime.now()) ?? false;
     setState(() {
       errorDate = checkDate ? "" : appLocalizations.cannotBeLeftBlank;
     });
@@ -74,25 +74,19 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ItemAdd(
+            ItemAddErrorDay(
+              date: date,
               title: appLocalizations.date,
               callback: () => setTime(context),
               errorProduct: errorDate,
             ),
-            Text(
-              formatYMD(date.toString()),
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x6,
-              ),
-            ),
             TimeOverTime(
-              dateOld: strSeconds(startTime),
+              dateOld: strSeconds(startTime)??"",
               changeValue: (value) => _setStart(value),
               title: appLocalizations.startTime,
             ),
             TimeOverTime(
-              dateOld: strSeconds(endTime),
+              dateOld: strSeconds(endTime) ?? "",
               changeValue: (value) => _setEnd(value),
               title: appLocalizations.endTime,
             ),
@@ -124,14 +118,6 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
     final DateTime t1 = format.parse(time);
     final DateTime t2 = format.parse("00:00:00");
     return t1.difference(t2).inSeconds;
-  }
-
-  String strSeconds(int time) {
-    final Duration duration = Duration(seconds: time);
-    final DateTime now = DateTime.now();
-    final DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
-    final DateTime result = startOfDay.add(duration);
-    return formatHM(result.toString());
   }
 
   setAdd(BuildContext context) {

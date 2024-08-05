@@ -23,7 +23,7 @@ class FormChangeMonth extends StatelessWidget {
       alignment: Alignment.center,
       height: SpacingUnit.x16,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           InkWell(

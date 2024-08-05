@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -38,6 +39,7 @@ class _ItemRequestBusinessOnTabState extends State<ItemRequestBusinessOnTab> {
               ItemTypeOnTab(
                 type: request?.flowType.configTypeName ?? "",
                 callback: () => nextScreenRequest(
+                  checkUser: RequestSeeByWho.user,
                     id: widget.id, checkOpacity: checkOpacity, setState: () => setOpacity()),
               ),
               TitleValueLeave(

@@ -1,7 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/position/position_bloc.dart';
@@ -63,6 +62,7 @@ class _CreatePositionWidgetState extends State<CreatePositionWidget> {
     final height = MediaQuery.sizeOf(context).height;
     return BasePage(
       appbar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.createPosition,
             style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),
@@ -75,7 +75,7 @@ class _CreatePositionWidgetState extends State<CreatePositionWidget> {
           padding: const EdgeInsets.all(SpacingUnit.x2),
           height: height,
           decoration: BoxDecoration(
-            color: CustomsColor.colorBackground,
+            color: colors.background,
             borderRadius: const BorderRadius.all(
               Radius.circular(SpacingUnit.x4),
             ),

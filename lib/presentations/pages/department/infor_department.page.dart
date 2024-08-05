@@ -1,6 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/department/department_bloc.dart';
@@ -49,6 +48,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
     final appLocalizations = AppLocalizations.of(context)!;
     return BasePage(
       appbar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
         title: Text(appLocalizations.updateDepartment,
             style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),
@@ -58,7 +58,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
           padding: const EdgeInsets.all(SpacingUnit.x2),
           height: height,
           decoration: BoxDecoration(
-            color: CustomsColor.colorBackground,
+            color: colors.background,
             borderRadius: const BorderRadius.all(
               Radius.circular(SpacingUnit.x4),
             ),

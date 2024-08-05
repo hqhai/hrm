@@ -1,4 +1,3 @@
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -51,13 +50,37 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.title ?? "",
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-              fontWeight: FontWeight.w800,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  widget.title ?? "",
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => _add(context),
+                child: ContainerBorder(
+                  backgroundColors: colors.success,
+                  width: SpacingUnit.x15,
+                  padding: SpacingUnit.x1,
+                  borderColors: colors.success,
+                  child: Text(
+                    appLocalizations.add,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: colors.background,
+                      fontSize: SpacingUnit.x3_5,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: height * 0.08 * setListFollower().length,
@@ -67,7 +90,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       width: width * 0.7,
@@ -75,7 +98,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
                       padding: const EdgeInsets.all(SpacingUnit.x3),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                        color: CustomsColor.colorBackground,
+                        color: colors.background,
                         border: Border.all(
                           color: colors.text,
                           width: 1,
@@ -106,23 +129,6 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
                 fontSize: SpacingUnit.x3,
               ),
             ),
-          GestureDetector(
-            onTap: () => _add(context),
-            child: ContainerBorder(
-              backgroundColors: colors.success,
-              width: SpacingUnit.x20,
-              padding: SpacingUnit.x1,
-              borderColors: colors.success,
-              child: Text(
-                appLocalizations.add,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: colors.background,
-                  fontSize: SpacingUnit.x5,
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );

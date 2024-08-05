@@ -1,6 +1,5 @@
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
@@ -12,7 +11,6 @@ import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
@@ -46,11 +44,11 @@ class CreateRequisitionOverTimePage extends StatefulWidget {
   const CreateRequisitionOverTimePage({
     super.key,
     this.flowId = '',
-    this.requestId,
+    this.requestId = '',
   });
 
   final String flowId;
-  final String? requestId;
+  final String requestId;
 
   @override
   State<CreateRequisitionOverTimePage> createState() => _CreateRequisitionOverTimePageState();
@@ -67,10 +65,12 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
 
   @override
   void initState() {
-    if (widget.requestId?.isNotEmpty ?? false) {
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.requestId),
-      );
+    if (widget.requestId.isNotEmpty) {
+      final request = dI<RequisitionBloc>().state.requisition;
+      followers = request.followerIds;
+      requisitionOverTimes = [...?request.config.overTimes];
+      description = request.config.description ?? "";
+      inputController.text = description;
     }
     super.initState();
   }
@@ -86,21 +86,6 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     return check && checkDescription;
   }
 
-  _listener(BuildContext context, RequisitionState state) {
-    if (state.statusGetById == RequisitionEnum.success && widget.requestId != null) {
-      setState(() {
-        followers = state.requisition.followerIds;
-        requisitionOverTimes = [...?state.requisition.config.overTimes];
-        description = state.requisition.config.description ?? "";
-        inputController.text = description;
-      });
-    }
-  }
-
-  bool _listenWhen(RequisitionState statusP, RequisitionState statusC) {
-    return statusP.requisition != statusC.requisition;
-  }
-
   double opacity() {
     bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
@@ -110,13 +95,12 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => _listenWhen(previous, current),
+    return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
             appBar: AppBar(
+              iconTheme: IconThemeData(color: colors.text),
               title: Text(
                 RequisitionTypeEnum.overTime.configTypeName,
                 style: TextStyle(
@@ -240,7 +224,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   }
 
   PostRequestRequest request() {
-    return widget.requestId == null
+    return widget.requestId.isEmpty
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
@@ -263,9 +247,9 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId == null,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId != null,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(),
       completerSuccess: () => completerSuccess(),
@@ -326,7 +310,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   }
 
   List<User> _setListUser(List<User> userById) {
-    if (widget.requestId != null) {
+    if (widget.requestId.isNotEmpty) {
       return userById;
     }
     return [];

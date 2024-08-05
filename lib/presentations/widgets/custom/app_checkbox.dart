@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:themes/themes.dart';
 
 class AppCheckbox extends StatelessWidget {
   const AppCheckbox({
@@ -18,6 +19,7 @@ class AppCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppTheme.getColors(context);
     return GestureDetector(
       onTap: () {
         onChanged(!value);
@@ -42,7 +44,7 @@ class AppCheckbox extends StatelessWidget {
               ),
             ],
           ),
-          Text(label, style: const TextStyle(fontSize: 14, color: Colors.white)),
+          Text(label, style: TextStyle(fontSize: 14, color: colors.text)),
         ],
       ),
     );

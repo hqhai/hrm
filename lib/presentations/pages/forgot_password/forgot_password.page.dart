@@ -1,7 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -68,14 +67,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         current.status,
       ),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: colors.text),
+        ),
         body: Container(
           alignment: Alignment.topCenter,
           child: Center(
             child: Container(
               width: width,
               height: height,
-              color: CustomsColor.colorBackground,
+              color: colors.background,
               margin: const EdgeInsets.all(SpacingUnit.x2),
               child: Padding(
                 padding: const EdgeInsets.all(SpacingUnit.x4),
@@ -101,10 +102,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   AppButton(
                     title: appLocalizations.forgotPassword,
                     onSubmit: () => onSubmit(),
-                    color: checkInput()
-                        ? CustomsColor.colorButtonSelect
-                        : CustomsColor.colorUnButtonSelect,
-                    colorText: checkInput() ? colors.text : CustomsColor.colorTextUnButtonSelect,
+                    color: checkInput() ? colors.blue : colors.navy,
+                    colorText: checkInput() ? colors.text : colors.background,
                   ),
                 ]),
               ),

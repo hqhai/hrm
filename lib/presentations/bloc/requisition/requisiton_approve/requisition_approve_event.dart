@@ -12,26 +12,28 @@ sealed class RequisitionApproveEvent extends Equatable {
 }
 
 class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
-  const GetRequisitionsApproveByFilterEvent({
-    this.requisitionTypeEnum,
-    this.startTime,
-    this.endTime,
-    this.page = 0,
-    this.departmentId,
-    this.status,
-    this.createdCode,
-  });
-
-  final RequisitionTypeEnum? requisitionTypeEnum;
+  final int? page;
+  final List<RequisitionTypeEnum>? type;
+  final String? userIds;
+  final String? departmentId;
+  final EnumStepRequestStatusEnum? status;
   final DateTime? startTime;
   final DateTime? endTime;
-  final int page;
-  final String? departmentId;
-  final String? status;
-  final String? createdCode;
+  final Completer? completer;
+
+  const GetRequisitionsApproveByFilterEvent({
+    this.startTime,
+    this.endTime,
+    this.page = 1,
+    this.departmentId,
+    this.status,
+    this.type,
+    this.completer,
+    this.userIds
+  });
 
   @override
-  List<Object?> get props => [requisitionTypeEnum, startTime, endTime, page, departmentId, status];
+  List<Object?> get props => [ startTime, endTime, page, departmentId, status, userIds, completer, type];
 }
 
 class GetRequisitionApproveByIdEvent extends RequisitionApproveEvent {
@@ -48,10 +50,10 @@ class ApproveRequestEvent extends RequisitionApproveEvent {
   final String? note;
   final EnumStepRequestStatusEnum? status;
   final String requestId;
-  final Completer completer;
+  final Completer? completer;
 
   const ApproveRequestEvent(
-      {this.id = '', this.note, this.status, this.requestId = '', required this.completer});
+      {this.id = '', this.note, this.status, this.requestId = '', this.completer});
 
   @override
   List<Object?> get props => [id, note, status, requestId, completer];
