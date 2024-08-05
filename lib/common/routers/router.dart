@@ -23,9 +23,6 @@ import 'package:base_app/presentations/pages/attendance/layout_calendar_attendan
 import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin_detail.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shifts.dart';
-import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin.dart';
-import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin_detail.dart';
-import 'package:base_app/presentations/pages/calendar_work/register_shifts.dart';
 import 'package:base_app/presentations/pages/calendar_work/shifts.page.dart';
 import 'package:base_app/presentations/pages/department/infor_department.page.dart';
 import 'package:base_app/presentations/pages/department/update_department.page.dart';
