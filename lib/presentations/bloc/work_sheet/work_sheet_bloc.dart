@@ -16,12 +16,27 @@ class WorkSheetBloc extends Bloc<WorkSheetEvent, WorkSheetState> {
         super(const WorkSheetState()) {
     on<WorkSheetEvent>((event, emit) {});
     on<GetWorkSheetEvent>(_getWorkSheetEvent);
+    on<GetAttendancesByDateEvent>(_getAttendancesByDateEvent);
   }
 
   FutureOr<void> _getWorkSheetEvent(GetWorkSheetEvent event, Emitter<WorkSheetState> emit) async {
     try {
       final workSheet = await _attendanceUseCase.getWorkSheet(time: event.time);
       emit(state.copyWith(workSheet: workSheet));
+      event.completer?.complete(true);
+    } catch (e) {
+      event.completer?.complete(false);
+    }
+  }
+
+  FutureOr<void> _getAttendancesByDateEvent(
+      GetAttendancesByDateEvent event, Emitter<WorkSheetState> emit) async {
+    try {
+      final workSheet = await _attendanceUseCase.getAttendancesByDate(time: event.date);
+      emit(state.copyWith(
+        attendances: workSheet.attendances,
+        keys: workSheet.keys,
+      ));
       event.completer?.complete(true);
     } catch (e) {
       event.completer?.complete(false);

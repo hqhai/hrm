@@ -11,12 +11,12 @@ import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/form_change_time.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/item_work_sheet.dart';
+import 'package:base_app/presentations/widgets/custom/app_button_next_screen.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
-import 'package:widgets/app_button.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -70,10 +70,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x4),
-                  child: AppButton(
+                  child: AppButtonNextScreen(
                     title: appLocalizations.seeDetails,
                     onSubmit: () => nextWorkSheet(context),
                     color: colors.navy.withOpacity(0.15),
+                    colorText: colors.primary,
                   ),
                 )
               ],

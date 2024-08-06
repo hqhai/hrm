@@ -453,8 +453,6 @@
   "youDoNotHaveAShiftToday": "You don't have a shift today!",
   "distanceNotEnough": "Distance Not Enough",
   "reasonForCancelingRequest": "Reason for canceling request",
-  "lateOrEarly": "Late/Early",
-  "timekeepingError": "Timekeeping error",
   "titleBusiness": "Title business",
   "timeStart": "Thời gian đi",
   "timeEnd": "Thời gian về",
@@ -480,5 +478,16 @@
   "friday": "friday",
   "saturday": "saturday",
   "sunday": "sunday",
-  "unregistered": "Unregistered"
+  "unregistered": "Unregistered",
+  "mon": "Mon",
+  "tue": "Tue",
+  "wed": "Wed",
+  "thu": "Thu",
+  "fri": "Fri",
+  "sat": "Sat",
+  "sun": "San",
+  "invalid": "Invalid",
+  "fingerprint": "Fingerprint",
+  "gPS": "GPS",
+  "none": "None"
 }

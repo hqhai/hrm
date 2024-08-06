@@ -7,14 +7,21 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
-import 'package:flutter/animation.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
+import 'package:flutter/cupertino.dart';
 
-nextScreenRequest(
-    {required VoidCallback setState, required String id, required bool checkOpacity, required RequestSeeByWho checkUser}) async {
+nextScreenRequest({
+  required VoidCallback setState,
+  required String id,
+  required bool checkOpacity,
+  required RequestSeeByWho checkUser,
+  required BuildContext context,
+}) async {
   if (!checkOpacity) {
     setState.call();
     final Completer completer = Completer<bool>();
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dialogIndicator(context: currentContext);
     dI<RequisitionBloc>().add(
       GetRequisitionByIdEvent(id: id, completer: completer),
     );
@@ -22,6 +29,7 @@ nextScreenRequest(
     if (statusCompleter == true) {
       setState.call();
       if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(currentContext);
       dI<AppNavigation>().pushName(
         currentContext,
         page: Pages.requisitionInformationPage,

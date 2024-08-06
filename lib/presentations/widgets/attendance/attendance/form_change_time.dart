@@ -33,7 +33,7 @@ class FormChangeTime extends StatelessWidget {
             child: Icon(
               Icons.chevron_left,
               color: colors.text,
-              size: 50,
+              size: SpacingUnit.x12,
             ),
           ),
           Expanded(
@@ -48,7 +48,7 @@ class FormChangeTime extends StatelessWidget {
             child: Icon(
               Icons.chevron_right,
               color: colors.text,
-              size: 50,
+              size: SpacingUnit.x12,
             ),
           ),
         ],

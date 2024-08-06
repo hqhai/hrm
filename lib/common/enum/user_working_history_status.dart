@@ -21,7 +21,9 @@ enum UserWorkingHistoryStatus {
   @JsonValue('NoAttendance')
   noAttendance('NoAttendance'),
   @JsonValue('OffSet')
-  offSet('OffSet');
+  offSet('OffSet'),
+  @JsonValue('Invalid')
+  invalid('Invalid');
 
   final String name;
 
@@ -51,6 +53,8 @@ extension ConfigUesrWorkingHistoryStatusExtension on UserWorkingHistoryStatus {
         return appLocalizations.noAttendance;
       case UserWorkingHistoryStatus.offSet:
         return appLocalizations.offSet;
+      case UserWorkingHistoryStatus.invalid:
+        return appLocalizations.invalid;
     }
   }
 }
@@ -87,6 +91,38 @@ extension ConfigUesrEnumOvertimeDayExtension on EnumOvertimeDay {
         return appLocalizations.sunday;
       case EnumOvertimeDay.regularDay:
         return appLocalizations.regularDay;
+    }
+  }
+}
+
+enum CheckInMethodEnum {
+  @JsonValue('Fingerprint')
+  fingerprint('Fingerprint'),
+  @JsonValue('GPS')
+  gPS('GPS'),
+  @JsonValue('All')
+  all('All'),
+  @JsonValue('None')
+  none('None');
+
+  final String name;
+
+  const CheckInMethodEnum(this.name);
+}
+
+extension ConfigCheckInMethodEnumExtension on CheckInMethodEnum {
+  String get configCheckInMethodEnumName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case CheckInMethodEnum.fingerprint:
+        return appLocalizations.fingerprint;
+      case CheckInMethodEnum.gPS:
+        return appLocalizations.gPS;
+      case CheckInMethodEnum.all:
+        return appLocalizations.all;
+      case CheckInMethodEnum.none:
+        return appLocalizations.none;
     }
   }
 }

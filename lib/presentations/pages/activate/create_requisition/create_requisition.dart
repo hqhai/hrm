@@ -110,7 +110,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                       controller: controller,
                       itemCount: state.flows.length,
                       itemBuilder: (context, index) => ItemActivateWidget(
-                        title: state.flows[index].flowType?.configTypeName??"",
+                        title: state.flows[index].flowType?.configTypeName ?? "",
                         callback: () => _nextScreen(
                           context,
                           state.flows[index],
@@ -224,6 +224,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
         );
       case RequisitionTypeEnum.core:
       case null:
+      case RequisitionTypeEnum.unknown:
+      default:
     }
   }
 }

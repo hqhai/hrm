@@ -11,7 +11,7 @@ class ItemWorkSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return SizedBox(
-      height: SpacingUnit.x15,
+      height: SpacingUnit.x16,
       child: Row(
         children: [
           Expanded(
@@ -39,7 +39,7 @@ class ItemWorkSheet extends StatelessWidget {
           Container(
             width: 1,
             color: colors.surfaceVariantHigh,
-            height: SpacingUnit.x15,
+            height: SpacingUnit.x16,
           ),
           Expanded(
             child: Container(

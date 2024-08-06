@@ -320,6 +320,10 @@ class $AssetsImagesIconHomeBottomBarGen {
 class $AssetsImagesIconHomeWorksheetGen {
   const $AssetsImagesIconHomeWorksheetGen();
 
+  /// File path: assets/images/icon/home/worksheet/Arrow - Right.svg
+  String get arrowRight =>
+      'assets/images/icon/home/worksheet/Arrow - Right.svg';
+
   /// File path: assets/images/icon/home/worksheet/Detail.svg
   String get detail => 'assets/images/icon/home/worksheet/Detail.svg';
 
@@ -351,6 +355,7 @@ class $AssetsImagesIconHomeWorksheetGen {
 
   /// List of all assets
   List<String> get values => [
+        arrowRight,
         detail,
         summary,
         timeline,

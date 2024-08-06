@@ -6,8 +6,10 @@ import 'package:base_app/data/models/request/attendances/get_attendance_request.
 import 'package:base_app/data/models/request/attendances/get_attendances_request.dart';
 import 'package:base_app/data/models/request/attendances/get_work_sheet_request.dart';
 import 'package:base_app/data/models/response.dart';
+import 'package:base_app/data/models/work_and_salary/work_sheet_history_request.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/attendance/work_sheet.dart';
+import 'package:base_app/domain/entities/work_day/attendance_by_date.dart';
 import 'package:base_app/domain/services/attendances.service.dart';
 import 'package:injectable/injectable.dart';
 
@@ -23,7 +25,7 @@ class AttendanceServiceImplement extends BaseService implements AttendanceServic
 
   @override
   Future<Attendance> getAttendance(GetAttendancesRequest getAttendanceRequest) async {
-    final url = '$baseUrl${PathConfig.getTimeKeepingByEmail}';
+    final url = '$baseUrl${PathConfig.worksheet}';
     final params = getAttendanceRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
@@ -50,12 +52,26 @@ class AttendanceServiceImplement extends BaseService implements AttendanceServic
 
   @override
   Future<Attendance> workSheet(GetAttendanceRequest getAttendanceRequest) async {
-    final url = '$baseUrl${PathConfig.getTimeKeepingByEmail}';
+    final url = '$baseUrl${PathConfig.worksheet}';
     final params = getAttendanceRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
     final Attendance attendances = Attendance.fromJson(data);
     return attendances;
+  }
+
+  @override
+  Future<List<AttendanceByDate>> getAttendancesByDate(
+      {required WorkSheetHistoryRequest workSheetHistoryRequest}) async {
+    final url = '$baseUrl${PathConfig.attendanceByDate}';
+    final params = workSheetHistoryRequest.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    final attendanceByDates = (data as List<dynamic>)
+        .map((e) => AttendanceByDate.fromJson(e as Map<String, dynamic>))
+        .toList();
+    return attendanceByDates;
   }
 }

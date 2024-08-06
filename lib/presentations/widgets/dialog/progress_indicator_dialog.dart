@@ -36,7 +36,32 @@ class ProgressIndicatorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CircularProgressIndicator();
+    return const Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: SpacingUnit.x20,
+          width: SpacingUnit.x20,
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.transparent,
+          ),
+        ),
+      ],
+    );
   }
 }
 
+dialogIndicator({required BuildContext context}) {
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return const Dialog(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        child: ProgressIndicatorDialog(),
+      );
+    },
+  );
+}
