@@ -34,11 +34,16 @@ class FormChangeMonth extends StatelessWidget {
               size: SpacingUnit.x8,
             ),
           ),
-          Text(
-            "${appLocalizations.month} $month, $year",
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x5,
+          Expanded(
+            child: Center(
+              child: Text(
+                "${appLocalizations.month} $month, $year",
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w600
+                ),
+              ),
             ),
           ),
           InkWell(

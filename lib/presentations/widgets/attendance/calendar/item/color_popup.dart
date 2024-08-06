@@ -18,9 +18,9 @@ class ColorPopUp extends StatelessWidget {
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: mapColorAndTitle(context)
+          children: ColorAndTitle.mapColorAndTitle(context)
               .map(
-                (e) => statusNote(title: e['title'], color: e['color'], context: context),
+                (e) => statusNote(title: e.title, color: e.color, context: context),
               )
               .toList(),
         ),

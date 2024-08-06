@@ -1367,12 +1367,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reasonForCancelingRequest => 'Reason for canceling request';
 
   @override
-  String get lateOrEarly => 'Late/Early';
-
-  @override
-  String get timekeepingError => 'Timekeeping error';
-
-  @override
   String get titleBusiness => 'Title business';
 
   @override
@@ -1392,6 +1386,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get leaveFiveDaysOrMore => 'leave Five Days Or More';
+
+  @override
+  String get lateOrEarly => 'Late/Early';
+
+  @override
+  String get timekeepingError => 'Timekeeping error';
 
   @override
   String get calendarWork => 'Calendar work';
@@ -1443,4 +1443,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unregistered => 'Unregistered';
+
+  @override
+  String get mon => 'Mon';
+
+  @override
+  String get tue => 'Tue';
+
+  @override
+  String get wed => 'Wed';
+
+  @override
+  String get thu => 'Thu';
+
+  @override
+  String get fri => 'Fri';
+
+  @override
+  String get sat => 'Sat';
+
+  @override
+  String get sun => 'San';
+
+  @override
+  String get invalid => 'Invalid';
+
+  @override
+  String get fingerprint => 'Fingerprint';
+
+  @override
+  String get gPS => 'GPS';
+
+  @override
+  String get none => 'None';
 }

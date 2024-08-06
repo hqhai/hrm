@@ -160,13 +160,14 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
 
   @override
   Future<RequestsResponse> getRequestsByIds({required GetRequestsByIds getRequestsByIds}) async {
-    ///đang dùng tạm by id
-    final id = getRequestsByIds.ids[0];
-    final url = '$baseUrl${PathConfig.requestInId}/$id';
-    final response = await client.get(url);
+    final url = '$baseUrl${PathConfig.requestByIds}';
+    final body = jsonEncode(getRequestsByIds.toJson());
+    final response = await client.post(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    final Request request = Request.fromJson(data);
-    return RequestsResponse(items: [request]);
+    final requests =
+    (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
+    final requestsResponse = RequestsResponse(items: requests);
+    return requestsResponse;
   }
 }

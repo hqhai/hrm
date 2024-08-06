@@ -44,24 +44,25 @@ class _ItemRequestOverTimeOnTabState extends State<ItemRequestOverTimeOnTab> {
       checkOpacity: checkOpacity,
       child: BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
         builder: (context, state) {
-          final request = state.mapRequests[widget.id];
+          final request = state.mapRequests[widget.id]?? const Request(id: '');
           return Column(
             children: [
               ItemTypeOnTab(
-                type: request?.flowType.configTypeName ?? "",
+                type: request.flowType.configTypeName,
                 callback: () => nextScreenRequest(
+                  context: context,
                     checkUser: RequestSeeByWho.user,
                     id: widget.id, checkOpacity: checkOpacity, setState: () => setOpacity()),
               ),
               TitleValueLeave(
                 title: appLocalizations.timeFrameOT,
-                value: setOTTime(request?.config.overTimes, context),
+                value: setOTTime(request.config.overTimes, context),
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
               ),
               TitleValueLeave(
                 title: appLocalizations.totalOTHours,
-                value: setTotalOT(request?.config.overTimes),
+                value: setTotalOT(request.config.overTimes),
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
               ),

@@ -1,5 +1,3 @@
-import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -9,11 +7,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class PopupMenuCalender extends StatefulWidget {
-  const PopupMenuCalender(
-      {super.key, required this.onChangeCheckOpacity, required this.displayType});
+  const PopupMenuCalender({super.key,
+    required this.onChangeCheckOpacity,
+    required this.displayType,
+    required this.index});
 
   final ValueChanged<bool> onChangeCheckOpacity;
   final ValueChanged<int> displayType;
+  final int index;
 
   @override
   State<PopupMenuCalender> createState() => _PopupMenuCalenderState();
@@ -26,92 +27,86 @@ class _PopupMenuCalenderState extends State<PopupMenuCalender> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return PopupMenuButton(
+    return PopupMenuButton<int>(
+      color: colors.background,
+      initialValue: widget.index,
       icon: SvgPicture.asset(
         Assets.images.icon.home.worksheet.worksheet1,
         colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
       ),
       onOpened: () => widget.onChangeCheckOpacity(!checkOpacity),
       onCanceled: () => widget.onChangeCheckOpacity(checkOpacity),
-      itemBuilder: (_) => [
-        PopupMenuItem(
+      onSelected: (value) => setClick(value),
+      itemBuilder: (context) =>
+      [
+        PopupMenuItem<int>(
+          value: 1,
+          height: SpacingUnit.x9,
           child: PopUpMenuWorkSheet(
             title: appLocalizations.timeWork,
-            callBack: () => _timeWork(context),
             icon: Assets.images.icon.home.worksheet.timeCheck,
           ),
         ),
-        PopupMenuItem(
+        PopupMenuItem<int>(
+          value: 2,
+          height: SpacingUnit.x9,
           child: PopUpMenuWorkSheet(
             title: appLocalizations.detailWork,
-            callBack: () => () => _detail(context),
             icon: Assets.images.icon.home.worksheet.detail,
           ),
         ),
-        PopupMenuItem(
+        PopupMenuItem<int>(
+          value: 3,
+          height: SpacingUnit.x9,
           child: PopUpMenuWorkSheet(
             title: appLocalizations.summary,
-            callBack: () => _synthetic(context),
             icon: Assets.images.icon.home.worksheet.summary,
           ),
         ),
-        const PopupMenuItem(
-          child: ColorPopUp()
-        ),
+        const PopupMenuItem(child: ColorPopUp()),
       ],
     );
   }
 
-  _timeWork(BuildContext context) {
-    widget.displayType.call(1);
-    dI<AppNavigation>().pop(context);
-  }
-
-  _detail(BuildContext context) {
-    widget.displayType.call(2);
-    dI<AppNavigation>().pop(context);
-  }
-
-  _synthetic(BuildContext context) {
-    widget.displayType.call(3);
-    dI<AppNavigation>().pop(context);
+  setClick(int value) {
+    widget.displayType.call(value);
+    widget.onChangeCheckOpacity(checkOpacity);
   }
 }
 
 class PopUpMenuWorkSheet extends StatelessWidget {
-  const PopUpMenuWorkSheet(
-      {super.key, required this.title, required this.icon, required this.callBack});
+  const PopUpMenuWorkSheet({
+    super.key,
+    required this.title,
+    required this.icon,
+  });
 
   final String title;
   final String icon;
-  final VoidCallback callBack;
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return InkWell(
-      onTap: () => callBack.call(),
-      child: Row(
-        children: [
-          SvgPicture.asset(
-            icon,
-            colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+    return Row(
+      children: [
+        SvgPicture.asset(
+          icon,
+          colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+        ),
+        const SizedBox(
+          width: SpacingUnit.x3,
+        ),
+        Text(
+          title,
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x3_5,
           ),
-          const SizedBox(
-            width: SpacingUnit.x3,
-          ),
-          Text(
-            title,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x3_5,
-            ),
-          ),
-          const SizedBox(
-            width: SpacingUnit.x6,
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(
+          width: SpacingUnit.x6,
+        ),
+      ],
     );
   }
 }

@@ -9,10 +9,8 @@ import 'package:base_app/presentations/bloc/requisition/request_history_work_she
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_on_tab_common.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_type_on_tab.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:themes/themes.dart';
 
 class ItemRequestOnTab extends StatefulWidget {
   const ItemRequestOnTab({super.key, required this.id});
@@ -32,51 +30,53 @@ class _ItemRequestOnTabState extends State<ItemRequestOnTab> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return ItemRequestOnTabCommon(
       checkOpacity: checkOpacity,
       child: BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
         builder: (context, state) {
-          final request = state.mapRequests[widget.id];
-          return ContainerBorder(
-              borderColors: colors.surfaceVariantHigh,
-              child: Column(
-                children: [
-                  ItemTypeOnTab(
-                    type: request?.flowType.configTypeName ?? "",
-                    callback: () => nextScreenRequest(
-                        checkUser: RequestSeeByWho.user,
-                        id: widget.id,
-                        checkOpacity: checkOpacity,
-                        setState: () => setOpacity()),
-                  ),
-                  TitleValueLeave(
-                    title: appLocalizations.intervalOnLeave,
-                    value: intervalOnLeave(request?.config.startDate, request?.config.endDate),
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),
-                  TitleValueLeave(
-                    title: appLocalizations.typeRequest,
-                    value: request?.flowType.configTypeName ?? "",
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),
-                  TitleValueLeave(
-                    title: appLocalizations.reason,
-                    value: request?.config.takeLeaveReason?.configEnumTakeLeaveName ?? "",
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),
-                  TitleValueLeave(
-                    title: appLocalizations.totalLeaveWork,
-                    value: '0',
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),
-                ],
-              ));
+          final request = state.mapRequests[widget.id] ?? const Request(id: '');
+          return Column(
+            children: [
+              ItemTypeOnTab(
+                type: request.flowType.configTypeName,
+                callback: () => nextScreenRequest(
+                    context: context,
+                    checkUser: RequestSeeByWho.user,
+                    id: widget.id,
+                    checkOpacity: checkOpacity,
+                    setState: () => setOpacity()),
+              ),
+              TitleValueLeave(
+                title: appLocalizations.intervalOnLeave,
+                value: intervalOnLeave(request.config.startDate, request.config.endDate),
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+                font: FontWeight.w600,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.typeRequest,
+                value: request.flowType.configTypeName,
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+                font: FontWeight.w600,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.reason,
+                value: request.config.takeLeaveType.configTakeLeaveTypeName,
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+                font: FontWeight.w600,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.totalLeaveWork,
+                value: (request.config.numberValue ?? 0).toString(),
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+                font: FontWeight.w600,
+              ),
+            ],
+          );
         },
       ),
     );

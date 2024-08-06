@@ -433,12 +433,12 @@
   "shift": "Ca công",
   "workInDay": "Công ghi nhận trong ngày",
   "minutesToLate": "Số phút đi muộn",
-  "minutesToEarly": "Số phu về sớm",
+  "minutesToEarly": "Số phút về sớm",
   "totalOTHours": "Tổng số giờ OT",
   "typeOfShift": "Loại ca làm việc",
   "oTCoefficient": "Hệ số OT",
   "dateType": "Loại ngày",
-  "ot": "Tăng ca",
+  "ot": "Làm thêm giờ",
   "totalLeaveWork": "Tổng số công nghỉ",
   "noShiftsWork": "Không có ca làm việc",
   "regularDay": "Ngày thường",
@@ -480,5 +480,9 @@
   "cancelShiftReceiveRegistration": "Hủy đăng ký nhận ca",
   "cancelShiftCancellationRequest": "Hủy yêu cầu hủy ca",
   "registerForShifts": "Đăng ký ca",
-  "reasonForCancelingRequest": "Lý do hủy yêu cầu"
+  "reasonForCancelingRequest": "Lý do hủy yêu cầu",
+  "invalid": "Không hợp lệ",
+  "fingerprint": "Dấu vân tay",
+  "gPS": "GPS",
+  "none": "Không"
 }

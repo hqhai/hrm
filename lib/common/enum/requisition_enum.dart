@@ -11,7 +11,8 @@ enum EnumTakeLeaveType {
   @JsonValue('CompensatoryLeave')
   compensatoryLeave('CompensatoryLeave'),
   @JsonValue('OtherPaidLeave')
-  otherPaidLeave('OtherPaidLeave');
+  otherPaidLeave('OtherPaidLeave'),
+  unknown('');
 
   final String name;
 
@@ -31,6 +32,9 @@ extension ConfigTakeLeaveTypeExtension on EnumTakeLeaveType {
         return appLocalizations.compensatoryLeave;
       case EnumTakeLeaveType.otherPaidLeave:
         return appLocalizations.otherPaidLeave;
+      case EnumTakeLeaveType.unknown:
+      default:
+        return '';
     }
   }
 }
@@ -239,7 +243,8 @@ enum RequisitionTypeEnum {
   @JsonValue('Stationery')
   stationery('Stationery'),
   @JsonValue('Explanation')
-  explanation('Explanation');
+  explanation('Explanation'),
+  unknown('');
 
   final String name;
 
@@ -275,6 +280,9 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
         return appLocalizations.lateOrEarly;
       case RequisitionTypeEnum.core:
         return appLocalizations.core;
+      case RequisitionTypeEnum.unknown:
+      default:
+        return '';
     }
   }
 }

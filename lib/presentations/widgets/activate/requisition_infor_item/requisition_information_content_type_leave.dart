@@ -48,7 +48,7 @@ class _RequisitionInformationContentTypeLeaveState
                   ItemTitleValue(
                     size: SpacingUnit.x4,
                     title: appLocalizations.detailedReason,
-                    value: state.requisition.config.takeLeaveType?.configTakeLeaveTypeName ?? "",
+                    value: state.requisition.config.takeLeaveType.configTakeLeaveTypeName,
                   ),
                   if (state.requisition.config.reasonLeave != null)
                     ItemTitleValue(

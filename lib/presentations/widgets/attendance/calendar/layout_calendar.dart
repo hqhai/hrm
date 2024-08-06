@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/emun_time.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/menu_values.dart';
@@ -152,6 +153,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
             ),
           ),
           PopupMenuCalender(
+            index: displayType,
             onChangeCheckOpacity: (value) => _checkOpacity(value),
             displayType: (value) => setDisplayType(value),
           )
@@ -170,11 +172,12 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
                   width: MediaQuery.sizeOf(context).width,
                   color: colors.background,
                   child: Row(
-                    children: MenuValues.mapDayInWeek.values
+                    children: DayOfWeekEnum.values
                         .map(
                           (e) => Expanded(
                             child: Center(
-                              child: Text(e, style: theme.textTheme.titleMedium),
+                              child:
+                                  Text(e.configDayOfWeekName, style: theme.textTheme.titleMedium),
                             ),
                           ),
                         )

@@ -64,6 +64,7 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
               if (leave?.requestId.isNotEmpty ?? false)
                 GestureDetector(
                   onTap: () => nextScreenRequest(
+                    context: context,
                       checkUser: RequestSeeByWho.user,
                       id: state.userLeaveHistory[widget.userLeaveHistoryId]!.requestId,
                       checkOpacity: checkOpacity,

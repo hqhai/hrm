@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
@@ -19,4 +17,17 @@ class GetWorkSheetEvent extends WorkSheetEvent {
 
   @override
   List<Object?> get props => [time, completer];
+}
+
+class GetAttendancesByDateEvent extends WorkSheetEvent {
+  final DateTime date;
+  final Completer? completer;
+
+  const GetAttendancesByDateEvent({
+    required this.date,
+    this.completer,
+  });
+
+  @override
+  List<Object?> get props => [date, completer];
 }

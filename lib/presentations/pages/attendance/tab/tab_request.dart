@@ -45,7 +45,10 @@ class _RequestTabState extends State<RequestTab> {
           child: Column(
             children: state.requestIds
                 .map(
-                  (e) => item(state.mapRequests[e], e),
+                  (e) => item(
+                    state.mapRequests[e],
+                    e,
+                  ),
                 )
                 .toList(),
           ),
@@ -81,6 +84,8 @@ class _RequestTabState extends State<RequestTab> {
       case RequisitionTypeEnum.stationery:
       case RequisitionTypeEnum.core:
       case null:
+      case RequisitionTypeEnum.unknown:
+      default:
         return const SizedBox();
     }
   }

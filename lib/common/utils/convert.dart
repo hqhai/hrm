@@ -110,8 +110,8 @@ String formatDMY(String time) {
 }
 
 ///Định dạng Giờ Phút Giây
-String formatHMS(String time) {
-  if (time != '') {
+String formatHMS(String? time) {
+  if (time != '' && time != null) {
     DateTime dateTime = DateTime.parse(time);
     return DateFormat('HH:mm:ss').format(dateTime);
   }
@@ -130,8 +130,8 @@ String formatHMByH(String time) {
 }
 
 ///Định dạng Giờ Phút
-String formatHM(String time) {
-  if (time != '') {
+String formatHM(String? time) {
+  if (time != '' && time != null) {
     DateTime dateTime = DateTime.parse(time);
     return DateFormat('HH:mm').format(dateTime);
   }

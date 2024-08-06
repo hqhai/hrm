@@ -46,6 +46,7 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
           borderColors: colors.background,
           child: GestureDetector(
             onTap: () => nextScreenRequest(
+              context: context,
               id: widget.id,
               checkOpacity: checkOpacity,
               setState: () => setOpacity(),

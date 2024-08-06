@@ -41,12 +41,6 @@ class ShiftTab extends StatelessWidget {
               padding: SpacingUnit.x3,
             ),
             TitleValueLeave(
-              title: appLocalizations.timeWorking,
-              value: userWorkingHistoryModel.workShiftId.toString(),
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-            ),
-            TitleValueLeave(
               title: appLocalizations.minutesToEarly,
               value: userWorkingHistoryModel.timeEarly.toString(),
               size: SpacingUnit.x4,

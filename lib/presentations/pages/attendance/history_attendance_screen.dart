@@ -2,10 +2,10 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/common/utils/tab_bar_attendance.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/base_page.dart';
-import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
+import 'package:base_app/presentations/pages/attendance/tab/tab_bar_work_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:themes/themes.dart';
 
 final historyAttendancePageRoute = GoRoute(
@@ -29,23 +29,43 @@ class HistoryAttendancePage extends StatefulWidget {
 
 class _HistoryAttendancePageState extends State<HistoryAttendancePage>
     with TickerProviderStateMixin {
-  late final TabController _tabController;
-  final TextEditingController noteController = TextEditingController();
+  late final ItemScrollController itemScrollController;
+  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
+  int checkIndex = 0;
 
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this)..addListener(_scrollListener);
+    itemScrollController = ItemScrollController();
+    itemPositionsListener.itemPositions.addListener(_scrollListener);
     super.initState();
   }
 
-  void _scrollListener() {}
+  void _scrollListener() {
+    final positions = itemPositionsListener.itemPositions.value;
+
+    /// Lọc các item có itemLeadingEdge >= 0 và visiblePositions không null để tránh lỗi ở hàm reduce
+    final visiblePositions =
+        positions.where((ItemPosition position) => position.itemLeadingEdge >= 0).toList();
+    if (visiblePositions.isNotEmpty) {
+      int minIndex = visiblePositions
+          .map((ItemPosition position) => position.index)
+          .reduce((min, index) => index < min ? index : min);
+
+      /// reduce để giảm danh sách các index xuống còn một giá trị duy nhất, là index nhỏ nhất.
+
+      setState(() {
+        checkIndex = minIndex;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final height = MediaQuery.sizeOf(context).height;
-    return BasePage(
-      appbar: AppBar(
+    final width = MediaQuery.sizeOf(context).width;
+    return Scaffold(
+      appBar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
         title: Text(
           convertDate(context),
@@ -55,43 +75,44 @@ class _HistoryAttendancePageState extends State<HistoryAttendancePage>
           ),
         ),
       ),
-      body: ContainerScreenMain(
-        child: SingleChildScrollView(
-          child: DefaultTabController(
-            length: 5,
-            initialIndex: 1,
+      body: Column(
+        children: [
+          Divider(
+            color: colors.outline.withOpacity(0.2),
+            height: SpacingUnit.x0_25,
+          ),
+          SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TabBar(
-                  isScrollable: true,
-                  controller: _tabController,
-                  tabs: tabBarAttendance(context)
-                      .map(
-                        (e) => Tab(
-                          child: Text(
-                            e,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                          ),
-                        ),
-                      )
-                      .toList(),
+                SizedBox(
+                  width: width,
+                  height: SpacingUnit.x15,
+                  child: TabBarWorkSheet(index: checkIndex, setIndex: (value) => _setIndex(value)),
                 ),
                 SizedBox(
+                  width: width,
                   height: height * 0.7,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: tabAttendance(widget.dateTime)
-                        .map(
-                          (e) => e,
-                        )
-                        .toList(),
+                  child: ScrollablePositionedList.builder(
+                    itemScrollController: itemScrollController,
+                    itemPositionsListener: itemPositionsListener,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: tabBarAttendance(context).length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(SpacingUnit.x4),
+                        child: SizedBox(
+                          width: width,
+                          child: tabAttendance(widget.dateTime)[index],
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -99,5 +120,13 @@ class _HistoryAttendancePageState extends State<HistoryAttendancePage>
   String convertDate(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return '${appLocalizations.day} ${widget.dateTime.day}, ${appLocalizations.month} ${widget.dateTime.month}, ${appLocalizations.year} ${widget.dateTime.year}';
+  }
+
+  _setIndex(int index) {
+    setState(() {
+      checkIndex = index;
+      itemScrollController.scrollTo(
+          index: index, duration: const Duration(milliseconds: 500), curve: Curves.linear);
+    });
   }
 }

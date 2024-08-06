@@ -1295,7 +1295,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get minutesToLate => 'Số phút đi muộn';
 
   @override
-  String get minutesToEarly => 'Số phu về sớm';
+  String get minutesToEarly => 'Số phút về sớm';
 
   @override
   String get totalOTHours => 'Tổng số giờ OT';
@@ -1310,7 +1310,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get dateType => 'Loại ngày';
 
   @override
-  String get ot => 'Tăng ca';
+  String get ot => 'Làm thêm giờ';
 
   @override
   String get totalLeaveWork => 'Tổng số công nghỉ';
@@ -1367,12 +1367,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get reasonForCancelingRequest => 'Lý do hủy yêu cầu';
 
   @override
-  String get lateOrEarly => 'Đi muộn/Về sớm';
-
-  @override
-  String get timekeepingError => 'Chấm công lỗi';
-
-  @override
   String get titleBusiness => 'Thời gian đi công tác';
 
   @override
@@ -1392,6 +1386,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get leaveFiveDaysOrMore => 'Nghỉ 5 ngày trở lên';
+
+  @override
+  String get lateOrEarly => 'Đi muộn/Về sớm';
+
+  @override
+  String get timekeepingError => 'Chấm công lỗi';
 
   @override
   String get calendarWork => 'Lịch làm việc';
@@ -1443,4 +1443,37 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get unregistered => 'Chưa đăng ký';
+
+  @override
+  String get mon => 'Mon';
+
+  @override
+  String get tue => 'Tue';
+
+  @override
+  String get wed => 'Wed';
+
+  @override
+  String get thu => 'Thu';
+
+  @override
+  String get fri => 'Fri';
+
+  @override
+  String get sat => 'Sat';
+
+  @override
+  String get sun => 'San';
+
+  @override
+  String get invalid => 'Không hợp lệ';
+
+  @override
+  String get fingerprint => 'Dấu vân tay';
+
+  @override
+  String get gPS => 'GPS';
+
+  @override
+  String get none => 'Không';
 }

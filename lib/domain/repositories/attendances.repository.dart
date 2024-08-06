@@ -1,5 +1,6 @@
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/attendance/work_sheet.dart';
+import 'package:base_app/domain/entities/work_day/attendance_by_date.dart';
 
 abstract class AttendanceRepository {
   Future<Attendance> workSheet({
@@ -16,5 +17,7 @@ abstract class AttendanceRepository {
     required String year,
     required String id,
   });
+
+  Future<List<AttendanceByDate>> getAttendancesByDate({required DateTime time});
 
 }
