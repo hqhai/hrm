@@ -16,7 +16,6 @@ import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_eve
 import 'package:base_app/presentations/pages/home/avatar_system_user.dart';
 import 'package:base_app/presentations/pages/home/bottom_bar.dart';
 import 'package:base_app/presentations/pages/home/popup_menu_account.dart';
-import 'package:base_app/presentations/pages/home/popup_menu_home.dart';
 import 'package:base_app/presentations/pages/home/side_menu_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -85,8 +84,11 @@ class _HomePageState extends State<HomePage> {
           appBar: AppBar(
             iconTheme: IconThemeData(color: colors.text),
             centerTitle: true,
-            title: Text(titleValue(context, selectedIndex),
-                style: TextStyle(fontSize: SpacingUnit.x6_5, color: colors.text)),
+            title: Text(
+              titleValue(context, selectedIndex),
+              style: TextStyle(
+                  fontSize: SpacingUnit.x4_5, color: colors.text, fontWeight: FontWeight.w600),
+            ),
             actions: !_checkRole() ? [popupMenu(selectedIndex)] : null,
           ),
           drawer: _checkRole()
@@ -155,11 +157,8 @@ class _HomePageState extends State<HomePage> {
   Widget popupMenu(int selectedIndex) {
     if (selectedIndex == 0) {
       return PopupMenuAccount(onChangeCheckOpacity: (value) => _opacity(value));
-    } else if (selectedIndex == 1) {
-      return PopupMenuHome(onChangeCheckOpacity: (value) => _opacity(value));
-    } else {
-      return PopupMenuAccount(onChangeCheckOpacity: (value) => _opacity(value));
     }
+    return const SizedBox();
   }
 
   _onItemTapped(int index) {
