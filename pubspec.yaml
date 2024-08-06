@@ -103,6 +103,7 @@ flutter:
     - assets/images/icon/
     - assets/images/icon/activate_icon/
     - assets/images/icon/home/
+    - assets/images/icon/home/bottom_bar/
     - assets/images/icon/home/worksheet/
     - assets/images/time_keeping/
     - assets/images/error/

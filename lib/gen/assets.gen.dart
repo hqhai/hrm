@@ -199,6 +199,9 @@ class $AssetsImagesIconActivateIconGen {
 class $AssetsImagesIconHomeGen {
   const $AssetsImagesIconHomeGen();
 
+  $AssetsImagesIconHomeBottomBarGen get bottomBar =>
+      const $AssetsImagesIconHomeBottomBarGen();
+
   /// File path: assets/images/icon/home/chevron.forward.svg
   String get chevronForward => 'assets/images/icon/home/chevron.forward.svg';
 
@@ -293,6 +296,25 @@ class $AssetsImagesIconWorkGen {
 
   /// List of all assets
   List<String> get values => [edit, loading, outDate, reject, success];
+}
+
+class $AssetsImagesIconHomeBottomBarGen {
+  const $AssetsImagesIconHomeBottomBarGen();
+
+  /// File path: assets/images/icon/home/bottom_bar/Calendar.svg
+  String get calendar => 'assets/images/icon/home/bottom_bar/Calendar.svg';
+
+  /// File path: assets/images/icon/home/bottom_bar/Document.svg
+  String get document => 'assets/images/icon/home/bottom_bar/Document.svg';
+
+  /// File path: assets/images/icon/home/bottom_bar/Home.svg
+  String get home => 'assets/images/icon/home/bottom_bar/Home.svg';
+
+  /// File path: assets/images/icon/home/bottom_bar/Profile.svg
+  String get profile => 'assets/images/icon/home/bottom_bar/Profile.svg';
+
+  /// List of all assets
+  List<String> get values => [calendar, document, home, profile];
 }
 
 class $AssetsImagesIconHomeWorksheetGen {

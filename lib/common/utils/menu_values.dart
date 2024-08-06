@@ -132,8 +132,8 @@ class MenuValues {
   }
 
   static const List<Widget> widgetOptionsUser = <Widget>[
-    ActivateWidget(),
     HomeWidget(),
+    ActivateWidget(),
     CalendarWorkWidget(),
     ProfileWidget(),
 
@@ -253,7 +253,7 @@ class TitleAppbarValues {
   static List<String> listTitleAppbar(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
-      appLocalizations.activate,
+      appLocalizations.worksheet,
       appLocalizations.home,
       appLocalizations.calendarWork,
       appLocalizations.userInformation,
