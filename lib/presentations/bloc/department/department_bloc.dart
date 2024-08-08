@@ -22,6 +22,7 @@ class DepartmentBloc extends Bloc<DepartmentEvent, DepartmentState> {
     on<DeleteDepartmentsEvent>(_deleteDepartmentsEvent);
     on<UpdateDepartmentEvent>(_updateDepartmentEvent);
     on<GetDepartmentByIdEvent>(_getDepartmentByIdEvent);
+    on<GetListDepartmentEvent>(_getListDepartmentEvent);
   }
 
   FutureOr<void> _createDepartmentEvent(
@@ -94,6 +95,28 @@ class DepartmentBloc extends Bloc<DepartmentEvent, DepartmentState> {
           department: department, status: DepartmentStatus.getDepartmentByIdSuccess));
     } catch (e) {
       emit(state.copyWith(status: DepartmentStatus.getDepartmentByIdError));
+    }
+  }
+
+  FutureOr<void> _getListDepartmentEvent(
+      GetListDepartmentEvent event, Emitter<DepartmentState> emit) async {
+    try {
+      final response = await departmentUseCase.getListDepartment(
+        key: event.key,
+        page: event.page,
+      );
+      final departments = response.items;
+      final totalItems = response.pagingInfo.totalItems;
+      if (event.page != 1) {
+        final oldDepartments = [...state.departments, ...departments];
+        emit(state.copyWith(departments: oldDepartments, totalItems: totalItems));
+        event.completer?.complete(true);
+      } else {
+        emit(state.copyWith(departments: departments, totalItems: totalItems));
+        event.completer?.complete(true);
+      }
+    } catch (e) {
+      event.completer?.complete(false);
     }
   }
 }

@@ -12,12 +12,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ContentItemRequestApproveList extends StatelessWidget {
-  const ContentItemRequestApproveList({super.key, required this.id, this.self = false, required this.status});
+  const ContentItemRequestApproveList({super.key, required this.id, required this.status});
+
   final EnumStepRequestStatusEnum status;
   final String id;
-
-  ///Có phải đơn của mình không
-  final bool self;
 
   @override
   Widget build(BuildContext context) {
@@ -30,46 +28,54 @@ class ContentItemRequestApproveList extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  request?.flowType.configTypeName ?? "",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
-                ),
-                Icon(
-                  Icons.chevron_right,
-                  color: colors.text,
-                  size: SpacingUnit.x6,
-                ),
-              ],
-            ),
-            if (self)
-              TitleValueLeave(
-                title: appLocalizations.creator,
-                value: request?.createdFullName ?? "",
+            Padding(
+              padding: const EdgeInsets.only(bottom: SpacingUnit.x2_5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    request?.flowType.configTypeName ?? "",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
+                  ),
+                  Icon(
+                    Icons.chevron_right,
+                    color: colors.text,
+                    size: SpacingUnit.x6,
+                  ),
+                ],
               ),
+            ),
             TitleValueLeave(
+              size: SpacingUnit.x3_5,
+              padding: SpacingUnit.x1_5,
+              title: appLocalizations.creator,
+              value: request?.createdFullName ?? "",
+            ),
+            TitleValueLeave(
+              size: SpacingUnit.x3_5,
+              padding: SpacingUnit.x1_5,
               title: appLocalizations.createTime,
               value: formatYMDHMS(
                 dateTimeLocal(request?.createdDate).toString(),
               ),
             ),
             TitleValueLeave(
+              size: SpacingUnit.x3_5,
+              padding: SpacingUnit.x1_5,
               title: appLocalizations.code,
               value: request?.code ?? "",
               color: colors.success,
             ),
-            const SizedBox(
-              height: SpacingUnit.x2,
-            ),
-            AppIconStatus(
-              color: statusRequest(context: context)['color'],
-              icon: statusRequest(context: context)['icon'],
-              status: status.configStepRequestStatusName,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2_5),
+              child: AppIconStatus(
+                color: statusRequest(context: context)['color'],
+                icon: statusRequest(context: context)['icon'],
+                status: status.configStepRequestStatusName,
+              ),
             ),
           ],
         );
@@ -77,8 +83,9 @@ class ContentItemRequestApproveList extends StatelessWidget {
     );
   }
 
-  Map<String, dynamic> statusRequest(
-      {required BuildContext context,}) {
+  Map<String, dynamic> statusRequest({
+    required BuildContext context,
+  }) {
     final colors = AppTheme.getColors(context);
     switch (status) {
       case EnumStepRequestStatusEnum.newStatus:

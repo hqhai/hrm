@@ -7,16 +7,21 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/item_list_requisition_approve.dart';
+import 'package:base_app/presentations/widgets/custom/shimmer_load.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class TabBarViewListRequistionApprove extends StatefulWidget {
   const TabBarViewListRequistionApprove(
-      {super.key, required this.status, this.filterData = const FilterDialogModel()});
+      {super.key,
+      required this.status,
+      this.filterData = const FilterDialogModel(),
+      required this.checkLoad});
 
   final EnumStepRequestStatusEnum status;
   final FilterDialogModel filterData;
+  final bool checkLoad;
 
   @override
   State<TabBarViewListRequistionApprove> createState() => _TabBarViewListRequistionApproveState();
@@ -24,32 +29,17 @@ class TabBarViewListRequistionApprove extends StatefulWidget {
 
 class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequistionApprove> {
   late ScrollController controller;
-  int pageIndex = 1,
-      totalItems = 0,
-      lengthList = 0;
+  int pageIndex = 1, totalItems = 0, lengthList = 0;
   bool checkLoad = true;
 
   @override
   void initState() {
-    dI<RequisitionApproveBloc>().add(
-      GetRequisitionsApproveByFilterEvent(
-        page: 1,
-        departmentId: widget.filterData.department?.id,
-        startTime: widget.filterData.startTime,
-        endTime: widget.filterData.endTime,
-        type: widget.filterData.types,
-        status: widget.status,
-        userIds: widget.filterData.user?.id,
-      ),
-    );
-    controller = ScrollController()
-      ..addListener(_scrollListener);
+    controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems &&
-        controller.position.extentAfter < totalItems && checkLoad) {
+    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
@@ -68,7 +58,7 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
         ),
       );
       final check = await completer.future;
-      if (check){
+      if (check) {
         setState(() {
           checkLoad = true;
         });
@@ -85,9 +75,7 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery
-        .sizeOf(context)
-        .height;
+    final height = MediaQuery.sizeOf(context).height;
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, state) => _listener(context, state),
@@ -97,15 +85,16 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
           child: Container(
             color: colors.outlineVariant.withOpacity(0.1),
             height: height * 0.85,
-            child: ListView.builder(
-              controller: controller,
-              itemCount: state.requisitions.length,
-              itemBuilder: (context, index) =>
-                  ItemRequisitionApproveList(
-                    id: state.requisitionIds[index],
-                    status: widget.status,
-                  ),
-            ),
+            child: widget.checkLoad
+                ? ListView.builder(
+                    controller: controller,
+                    itemCount: state.requisitions.length,
+                    itemBuilder: (context, index) => ItemRequisitionApproveList(
+                      id: state.requisitionIds[index],
+                      status: widget.status,
+                    ),
+                  )
+                :  const ShimmerLoad(),
           ),
         );
       },

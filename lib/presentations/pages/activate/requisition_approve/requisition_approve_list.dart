@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:base_app/common/configs/locators.dart';
@@ -31,6 +32,7 @@ class RequisitionApproveListPage extends StatefulWidget {
 
 class _RequisitionApproveListPageState extends State<RequisitionApproveListPage> {
   bool checkOpacity = false;
+  bool checkLoad = true;
   var random = Random();
   FilterDialogModel filterData = const FilterDialogModel();
   EnumStepRequestStatusEnum status = EnumStepRequestStatusEnum.newStatus;
@@ -46,13 +48,20 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
     final colors = AppTheme.getColors(context);
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: colors.outline.withOpacity(0.3),
+            height: SpacingUnit.x0_5,
+          ),
+        ),
         iconTheme: IconThemeData(color: colors.text),
         title: (Text(
-          appLocalizations.singleWordList,
+          appLocalizations.requisitionYouApproval,
           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
         )),
         actions: [
-          GestureDetector(
+          InkWell(
             onTap: () => _showBottomSheet(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
@@ -67,27 +76,37 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
         ],
       ),
       body: ListviewRequestApprove(
+        checkLoad: checkLoad,
         onChangeStatus: (value) => setStatus(value),
         filterData: filterData,
       ),
     );
   }
 
-  setlLstFilter(FilterDialogModel value) {
+  setlLstFilter(FilterDialogModel value) async {
     setState(() {
       filterData = value;
+      checkLoad = false;
     });
+    Completer completer = Completer<bool>();
     dI<RequisitionApproveBloc>().add(
       GetRequisitionsApproveByFilterEvent(
+        completer: completer,
         page: 1,
         type: value.types,
         status: status,
-        departmentId: value.department?.code,
+        departmentId: value.department?.id,
         startTime: value.startTime,
         endTime: value.endTime,
         userIds: value.user?.code,
       ),
     );
+    final checkCompleter = await completer.future;
+    if(checkCompleter){
+      setState(() {
+        checkLoad = true;
+      });
+    }
   }
 
   _showBottomSheet() async {

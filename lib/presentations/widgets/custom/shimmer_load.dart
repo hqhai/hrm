@@ -1,25 +1,31 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:themes/themes.dart';
 
 class ShimmerLoad extends StatelessWidget {
   const ShimmerLoad({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.indigo,
-      highlightColor: Colors.indigoAccent,
-      child: ListView.builder(
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return Container(
-            height: 100,
-            width: MediaQuery.sizeOf(context).width,
-            color: Colors.amber,
-            margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-          );
-        },
+    final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
+    return Center(
+      child: Shimmer.fromColors(
+        baseColor: colors.blue,
+        highlightColor: colors.background,
+        child: SizedBox(
+          height: SpacingUnit.x34,
+          child: Text(
+            appLocalizations.loading,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: SpacingUnit.x7,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
     );
   }

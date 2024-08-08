@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 
 sealed class DepartmentEvent extends Equatable {
@@ -28,6 +30,21 @@ class CreateDepartmentEvent extends DepartmentEvent {
 
   @override
   List<Object?> get props => [name, code, phoneNumber, email, address, description, parentId];
+}
+
+class GetListDepartmentEvent extends DepartmentEvent {
+  final Completer? completer;
+  final int page;
+  final String key;
+
+  const GetListDepartmentEvent({
+    this.completer,
+    this.page = 1,
+    this.key = '',
+  });
+
+  @override
+  List<Object?> get props => [completer, page, key];
 }
 
 class GetDepartmentsEvent extends DepartmentEvent {

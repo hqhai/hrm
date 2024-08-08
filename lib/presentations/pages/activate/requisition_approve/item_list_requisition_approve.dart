@@ -67,7 +67,6 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                     padding: const EdgeInsets.only(left: SpacingUnit.x2),
                     child: ContentItemRequestApproveList(
                       id: widget.id,
-                      self: false,
                       status: widget.status,
                     ),
                   ),

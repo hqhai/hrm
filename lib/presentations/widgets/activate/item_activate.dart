@@ -21,21 +21,24 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
     return InkWell(
       onTap: widget.callback,
       child: ContainerBorder(
+        backgroundColors: colors.background,
+        borderColors: colors.background,
         width: width,
-        padding: SpacingUnit.x5,
+        padding: SpacingUnit.x2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 3,
+              flex: 7,
               child: Padding(
                 padding: const EdgeInsets.all(SpacingUnit.x2),
                 child: Text(
                   widget.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                      color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w700),
                 ),
               ),
             ),

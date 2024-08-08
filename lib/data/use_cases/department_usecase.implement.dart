@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/data/models/department/department_response.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/repositories/department.repository.dart';
 import 'package:base_app/domain/use_cases/departments_usecase.dart';
@@ -64,6 +65,11 @@ class DepartmentUseCaseImpl extends DepartmentUseCase {
         address: address,
         description: description,
         parentId: parentId);
+  }
+
+  @override
+  Future<DepartmentResponse> getListDepartment({required String key, required int page}) async {
+    return await _departmentRepository.getListDepartment(key: key, page: page);
   }
 
 }

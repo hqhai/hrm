@@ -40,7 +40,6 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
 
   @override
   void initState() {
-    dI<FlowBloc>().add(const GetFlowsEvent());
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }

@@ -1,6 +1,8 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/data/models/department/create_department_request.dart';
+import 'package:base_app/data/models/department/department_response.dart';
 import 'package:base_app/data/models/department/update_department_request.dart';
+import 'package:base_app/data/models/name_page_request.dart';
 import 'package:base_app/data/models/object_by_id_request.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/repositories/department.repository.dart';
@@ -42,7 +44,7 @@ class DepartmentRepositoryImpl extends DepartmentRepository {
   @override
   Future<Department> getDepartment({required String id}) async {
     return await departmentService.getDepartment(
-        deleteDepartmentRequest: ObjectByIdRequest(id: id));
+        id: id);
   }
 
   @override
@@ -71,5 +73,11 @@ class DepartmentRepositoryImpl extends DepartmentRepository {
             address: address,
             parentId: parentId,
             description: description));
+  }
+
+  @override
+  Future<DepartmentResponse> getListDepartment({required String key, required int page}) async {
+    return await departmentService.getListDepartment(
+        keyPageRequest: NamePageRequest(page: page, name: key));
   }
 }

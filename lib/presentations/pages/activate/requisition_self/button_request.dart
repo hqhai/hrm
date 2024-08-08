@@ -1,7 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
-import 'package:widgets/app_button.dart';
 
 class ButtonRequest extends StatelessWidget {
   const ButtonRequest({
@@ -27,6 +27,21 @@ class ButtonRequest extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
+                right: SpacingUnit.x4,
+                left: SpacingUnit.x2,
+                bottom: SpacingUnit.x8,
+              ),
+              child: AppButton(
+                onSubmit: () => reject.call(),
+                title: title2,
+                colorText: colors.text,
+                color: colors.background,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
                 right: SpacingUnit.x2,
                 left: SpacingUnit.x4,
                 bottom: SpacingUnit.x8,
@@ -36,20 +51,6 @@ class ButtonRequest extends StatelessWidget {
                 title: title1,
                 colorText: colors.background,
                 color: colors.primary,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                right: SpacingUnit.x4,
-                left: SpacingUnit.x2,
-                bottom: SpacingUnit.x8,
-              ),
-              child: AppButton(
-                onSubmit: () => reject.call(),
-                title: title2,
-                color: colors.background,
               ),
             ),
           ),

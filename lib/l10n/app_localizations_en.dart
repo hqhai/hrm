@@ -1442,9 +1442,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sunday => 'sunday';
 
   @override
-  String get unregistered => 'Unregistered';
-
-  @override
   String get mon => 'Mon';
 
   @override
@@ -1475,8 +1472,50 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gPS => 'GPS';
 
   @override
+  String get wrongPassword => 'Wrong password';
+
+  @override
   String get none => 'None';
 
   @override
-  String get wrongPassword => 'Wrong password';
+  String get unregistered => 'Unregistered';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get halfDayToOneDay => '0,5 to 1 day';
+
+  @override
+  String get twoDayToFourDay => '2 to 4 day';
+
+  @override
+  String get fiveDaysOrMore => 'More 5 day';
+
+  @override
+  String get earlyLate => 'Early/Late';
+
+  @override
+  String get vehicleF => 'book vehicle';
+
+  @override
+  String get businessF => 'Business';
+
+  @override
+  String get releaseOfWarehouseF => 'Exported warehouse';
+
+  @override
+  String get stationery => 'Stationery';
+
+  @override
+  String get explanationF => 'Explanation';
+
+  @override
+  String get oT => 'OverTime';
+
+  @override
+  String get postal => 'Bưu điện';
+
+  @override
+  String get requestType => 'Request type';
 }

@@ -13,6 +13,8 @@ abstract class _$DepartmentStateCWProxy {
 
   DepartmentState status(DepartmentStatus status);
 
+  DepartmentState totalItems(int totalItems);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `DepartmentState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -23,6 +25,7 @@ abstract class _$DepartmentStateCWProxy {
     Department? department,
     List<Department>? departments,
     DepartmentStatus? status,
+    int? totalItems,
   });
 }
 
@@ -44,6 +47,9 @@ class _$DepartmentStateCWProxyImpl implements _$DepartmentStateCWProxy {
   DepartmentState status(DepartmentStatus status) => this(status: status);
 
   @override
+  DepartmentState totalItems(int totalItems) => this(totalItems: totalItems);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `DepartmentState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -55,6 +61,7 @@ class _$DepartmentStateCWProxyImpl implements _$DepartmentStateCWProxy {
     Object? department = const $CopyWithPlaceholder(),
     Object? departments = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
+    Object? totalItems = const $CopyWithPlaceholder(),
   }) {
     return DepartmentState(
       department:
@@ -71,6 +78,11 @@ class _$DepartmentStateCWProxyImpl implements _$DepartmentStateCWProxy {
           ? _value.status
           // ignore: cast_nullable_to_non_nullable
           : status as DepartmentStatus,
+      totalItems:
+          totalItems == const $CopyWithPlaceholder() || totalItems == null
+              ? _value.totalItems
+              // ignore: cast_nullable_to_non_nullable
+              : totalItems as int,
     );
   }
 }

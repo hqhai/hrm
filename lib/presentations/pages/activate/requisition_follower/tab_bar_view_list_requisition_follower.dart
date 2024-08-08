@@ -7,16 +7,21 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_following/req
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_follower/item_list_requisition_follower.dart';
+import 'package:base_app/presentations/widgets/custom/shimmer_load.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class TabBarViewListRequestFollower extends StatefulWidget {
   const TabBarViewListRequestFollower(
-      {super.key, required this.status, this.filterData = const FilterDialogModel()});
+      {super.key,
+      required this.status,
+      this.filterData = const FilterDialogModel(),
+      required this.checkLoad});
 
   final StatusRequestEnum status;
   final FilterDialogModel filterData;
+  final bool checkLoad;
 
   @override
   State<TabBarViewListRequestFollower> createState() => _TabBarViewListRequestFollowerState();
@@ -30,24 +35,12 @@ class _TabBarViewListRequestFollowerState extends State<TabBarViewListRequestFol
 
   @override
   void initState() {
-    dI<RequisitionFollowingBloc>().add(
-      GetRequisitionsFollowingByFilterEvent(
-        page: 1,
-        startTime: widget.filterData.startTime,
-        endTime: widget.filterData.endTime,
-        userIds: widget.filterData.user?.code,
-        departmentId: widget.filterData.department?.id,
-        type: widget.filterData.types,
-        status: widget.status,
-      ),
-    );
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems &&
-        controller.position.extentAfter < totalItems && checkLoad) {
+    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
@@ -66,7 +59,7 @@ class _TabBarViewListRequestFollowerState extends State<TabBarViewListRequestFol
         ),
       );
       final check = await completer.future;
-      if (check){
+      if (check) {
         setState(() {
           checkLoad = true;
         });
@@ -84,13 +77,15 @@ class _TabBarViewListRequestFollowerState extends State<TabBarViewListRequestFol
           child: Container(
             color: colors.outlineVariant.withOpacity(0.1),
             height: height * 0.85,
-            child: ListView.builder(
-              controller: controller,
-              itemCount: state.requisitions.length,
-              itemBuilder: (context, index) => ItemRequisitionFollowerList(
-                id: state.requisitionIds[index],
-              ),
-            ),
+            child: widget.checkLoad
+                ? ListView.builder(
+                    controller: controller,
+                    itemCount: state.requisitions.length,
+                    itemBuilder: (context, index) => ItemRequisitionFollowerList(
+                      id: state.requisitionIds[index],
+                    ),
+                  )
+                : const ShimmerLoad(),
           ),
         );
       },

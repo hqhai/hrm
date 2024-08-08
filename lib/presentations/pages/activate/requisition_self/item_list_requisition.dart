@@ -38,7 +38,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+      padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4,),
       child: ContainerBorder(
         borderColors: colors.background,
         backgroundColors: colors.background,

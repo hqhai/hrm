@@ -8,9 +8,8 @@ import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/button_request.dart';
 import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
-import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_department.dart';
-import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_personnel.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/item/add_department_and_user.dart';
 import 'package:base_app/presentations/widgets/dialog/filter_request/item/header_filter.dart';
 import 'package:base_app/presentations/widgets/dialog/filter_request/item/list_checkbox_type_request_filter.dart';
 import 'package:flutter/material.dart';
@@ -70,23 +69,16 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListCheckboxTypeRequestFilter(
                     onChange: (value) => _setListType(value),
                   ),
-                  SizedBox(
-                    height: height * 0.6,
-                    child: BottomSheetDepartmentWidget(
-                      department: departments,
-                      onChange: (value) => _setDepartment(value),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * 0.6,
-                    child: BottomSheetPersonnelWidget(
-                      user: user,
-                      onChange: (value) => _setPersonnel(value),
-                    ),
+                  AddDepartmentAndUser(
+                    setDepartment: (value) => _setDepartment(value),
+                    setUser: (value) => _setPersonnel(value),
+                    user: user,
+                    department: departments,
                   ),
                 ],
               ),
@@ -157,9 +149,9 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
     });
   }
 
-  _setDepartment(Map value) {
+  _setDepartment(Department value) {
     setState(() {
-      departments = value['department'];
+      departments = value;
     });
   }
 

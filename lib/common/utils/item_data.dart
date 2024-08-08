@@ -19,10 +19,10 @@ class ItemUtils {
   static String titlesActivate(int index, BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final Map<int, String> title = {
-      0: appLocalizations.singleWordList,
-      1: appLocalizations.createANewSingleWord,
-      2: appLocalizations.leaveManagement,
-      3: appLocalizations.timeKeeping,
+      0: appLocalizations.leaveManagement,
+      1: appLocalizations.yourRequisition,
+      2: appLocalizations.requisitionYouApproval,
+      3: appLocalizations.requisitionYouFollow,
     };
     return title[index] ?? "";
   }
