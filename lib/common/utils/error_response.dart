@@ -35,6 +35,7 @@ Map errorResponse() {
     "TheNumberOfFormsCreatedHasExceededTheLimit":
         appLocalizations.theNumberOfFormsCreatedHasExceededTheLimit,
     "DistanceNotEnough": appLocalizations.distanceNotEnough,
+    "UserNameNotExist": appLocalizations.userDoesNotExist
   };
 }
 

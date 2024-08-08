@@ -11,12 +11,13 @@ import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_state.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
+import 'package:base_app/presentations/pages/login/save_forgot_pass.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
-import 'package:base_app/presentations/widgets/custom/app_checkbox.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/dialog/biometric/biometric_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/biometric/permission_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/password/wrong_password_many.dart';
+import 'package:base_app/presentations/widgets/dialog/forgot_pass/forgot_pass_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
 import 'package:base_app/presentations/widgets/login/drop_down_menu_language.dart';
 import 'package:flutter/material.dart';
@@ -25,15 +26,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
-import 'package:widgets/app_button.dart';
 import 'package:widgets/app_show_dialog.dart';
 
 final loginPageRoute =
     GoRoute(path: Pages.login, builder: (context, GoRouterState state) => const LoginPage());
 
-//User: huukhoa@atlantic.edu.vn1            Admin@123
+//User: minhchien@atlantic.edu.vn          Admin@123
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -113,7 +112,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     final appLocalizations = AppLocalizations.of(context)!;
     switch (state.status) {
       case LoginStatus.userLocked:
-        wrongPasswordManyDialog(context, emailController.text);
+        lockUpAccount(context: context, email: emailController.text);
         setState(() {
           _animationHeight = AlwaysStoppedAnimation<double>(height * 0.9);
           _animationWidth = AlwaysStoppedAnimation<double>(width * 0.9);
@@ -174,8 +173,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    /* final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;*/
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         _loginListener(context, state);
@@ -184,15 +181,14 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         body: Stack(
           children: [
             Container(
-              color: colors.surface.withOpacity(0.5),
+              color: colors.background,
             ),
-            const DropdownMenuWidget(),
-            Center(
+            const LanguageWidget(),
+            const Center(
               child: SizedBox(
                 height: SpacingUnit.x50,
                 width: SpacingUnit.x50,
-                child: Lottie.asset(Assets.images.icon.loading,
-                    width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
+                child: ProgressIndicatorDialog(),
               ),
             ),
             Container(
@@ -209,101 +205,80 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                       border: Border.all(width: 1, color: colors.background),
                     ),
                     margin: const EdgeInsets.only(
-                        left: SpacingUnit.x8,
-                        right: SpacingUnit.x8,
-                        bottom: SpacingUnit.x8,
+                        left: SpacingUnit.x4,
+                        right: SpacingUnit.x4,
+                        bottom: SpacingUnit.x4,
                         top: SpacingUnit.x30),
-                    child: Padding(
-                      padding: const EdgeInsets.all(SpacingUnit.x4),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: SpacingUnit.x4),
-                          Text(appLocalizations.login2,
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x6)),
-                          Text(appLocalizations.enterYourRegisteredUsernameAndPassword,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4)),
-                          EmailAndPasswordWidget(
-                            emailController: emailController,
-                            passwordController: passwordController,
-                            errorEmail: errorEmail,
-                            errorPass: errorPass,
-                            onChangeEmail: (value) => onChangeEmail(value),
-                            onChangePass: (value) => onChangePassword(value),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          Assets.images.signIn.logo.path,
+                          fit: BoxFit.fill,
+                        ),
+                        EmailAndPasswordWidget(
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          errorEmail: errorEmail,
+                          errorPass: errorPass,
+                          onChangeEmail: (value) => onChangeEmail(value),
+                          onChangePass: (value) => onChangePassword(value),
+                        ),
+                        SaveForgotPass(
+                          check: checkSaveLogin,
+                          callback: () => onClickForgotPassword(),
+                          setCheck: (bool? value) => setCheckSaveLogin(value),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x8),
+                          child: BlocBuilder<BiometricCubit, BiometricState>(
+                            builder: (context, stateBiometric) {
+                              return GestureDetector(
+                                onTap: () => _getBiometric(context, stateBiometric),
+                                child: SvgPicture.asset(
+                                  height: SpacingUnit.x12,
+                                  width: SpacingUnit.x12,
+                                  Assets.images.signIn.biometric,
+                                  colorFilter: ColorFilter.mode(
+                                      colors.text.withOpacity(0.5), BlendMode.srcIn),
+                                ),
+                              );
+                            },
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              AppCheckbox(
-                                  onChanged: (bool? value) => setCheckSaveLogin(value),
-                                  label: appLocalizations.staySignedIn,
-                                  value: checkSaveLogin,
-                                  color: colors.text,
-                                  checkColor: Colors.white),
-                              GestureDetector(
-                                onTap: () => onClickForgotPassword(),
-                                child: Text(appLocalizations.forgotPassword,
-                                    style: TextStyle(
-                                      fontSize: SpacingUnit.x3_5,
-                                      color: colors.text,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: SpacingUnit.x4),
-                          AppButton(
-                            title: appLocalizations.login,
-                            onSubmit: () => onSubmit(),
-                            color: checkInput() ? colors.blue : colors.navy,
-                            colorText: checkInput() ? colors.text : colors.background,
-                          ),
-                          const SizedBox(height: SpacingUnit.x4),
-                          ContainerBorder(
-                            backgroundColors: colors.surface.withOpacity(0.5),
-                            child: Padding(
-                              padding: const EdgeInsets.all(SpacingUnit.x0_5),
-                              child: BlocBuilder<BiometricCubit, BiometricState>(
-                                builder: (context, stateBiometric) {
-                                  return GestureDetector(
-                                    onTap: () => _getBiometric(context, stateBiometric),
-                                    child: SvgPicture.asset(
-                                      height: SpacingUnit.x8,
-                                      width: SpacingUnit.x8,
-                                      Assets.images.signIn.biometric,
-                                      colorFilter:
-                                          ColorFilter.mode(colors.background, BlendMode.srcIn),
-                                    ),
-                                  );
-                                },
+                        ),
+                        AppButton(
+                          title: appLocalizations.login,
+                          onSubmit: () => onSubmit(),
+                          color: checkInput() ? colors.blue : colors.navy,
+                          colorText: checkInput() ? colors.text : colors.background,
+                        ),
+
+                        const Expanded(flex: 5, child: SizedBox()),
+                        //const ContactHelpWidget(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              appLocalizations.notAMember,
+                              style: TextStyle(
+                                fontSize: SpacingUnit.x4,
+                                color: colors.text.withOpacity(0.6),
                               ),
                             ),
-                          ),
-                          const Expanded(flex: 5, child: SizedBox()),
-                          const SizedBox(height: SpacingUnit.x4),
-                          //const ContactHelpWidget(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                appLocalizations.notAMember,
-                                style: TextStyle(fontSize: 16, color: colors.text),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  onRegister(context);
-                                },
-                                child: Text(
-                                  appLocalizations.signUpNow,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Color(0xffABBFED),
-                                  ),
+                            GestureDetector(
+                              onTap: () {
+                                onRegister(context);
+                              },
+                              child: Text(
+                                appLocalizations.signUpNow,
+                                style: TextStyle(
+                                  fontSize: SpacingUnit.x4,
+                                  color: colors.blue,
                                 ),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),

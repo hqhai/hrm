@@ -38,11 +38,12 @@ class ResetUserEvent extends UserEvent {
 
 class ForgotPasswordEvent extends UserEvent {
   final String email;
+  final Completer? completer;
 
-  const ForgotPasswordEvent({this.email = ''});
+  const ForgotPasswordEvent({this.email = '', this.completer});
 
   @override
-  List<Object> get props => [email];
+  List<Object?> get props => [email, completer];
 }
 
 class DeleteAccountEvent extends UserEvent {

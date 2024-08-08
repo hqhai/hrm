@@ -37,8 +37,8 @@ enum ParentId {
 }
 
 enum LanguageEnum {
-  vi('Tiếng Việt', 'vi'),
-  en('English', 'en');
+  vi('VN', 'vi'),
+  en('UK', 'en');
 
   final String name;
   final String code;

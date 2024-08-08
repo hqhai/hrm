@@ -8,7 +8,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get helloWorld => 'Hello World!';
 
   @override
-  String get username => 'Tên tài khoản';
+  String get username => 'Tên đăng nhập';
 
   @override
   String get password => 'Mật khẩu';
@@ -272,7 +272,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get book => 'Đặt lịch';
 
   @override
-  String get errorEmailOrPassword => 'Email hoặc mật khẩu lỗi';
+  String get errorEmailOrPassword => 'Tên tài khoản hoặc mật khẩu không chính xác';
 
   @override
   String get endTimeMustBeAfterStartTime => 'Thời gian kết thúc phải sau thời gian bắt đầu!';
@@ -401,10 +401,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pleaseEnterTheEmailYouWantToRetrieveYourPassword => 'Vui lòng nhập email bạn muốn lấy lại mật khẩu!';
 
   @override
-  String get newPasswordHasJustBeenSentToEmail => 'Mật khẩu mới vừa được gửi tới email';
+  String get newPasswordHasJustBeenSentToEmail => 'Mật khẩu mới vừa được gửi tới email: ';
 
   @override
-  String get pleaseCheckYourEmail => ', Làm ơn check email của bạn.';
+  String get pleaseCheckYourEmail => 'Làm ơn check email của bạn.';
 
   @override
   String get calendar => 'Lịch';
@@ -1476,4 +1476,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get none => 'Không';
+
+  @override
+  String get wrongPassword => 'Sai mật khẩu';
 }

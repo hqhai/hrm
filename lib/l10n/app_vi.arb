@@ -1,6 +1,6 @@
 {
   "helloWorld": "Hello World!",
-  "username": "Tên tài khoản",
+  "username": "Tên đăng nhập",
   "password": "Mật khẩu",
   "staySignedIn": "Lưu đăng nhập",
   "forgotPassword": "Quên mật khẩu",
@@ -88,7 +88,7 @@
   "add": "Thêm",
   "lateTime": "Thời gian muộn: ",
   "book": "Đặt lịch",
-  "errorEmailOrPassword": "Email hoặc mật khẩu lỗi",
+  "errorEmailOrPassword": "Tên tài khoản hoặc mật khẩu không chính xác",
   "endTimeMustBeAfterStartTime": "Thời gian kết thúc phải sau thời gian bắt đầu!",
   "bookingTimeMustBeAfterCurrentTime": "Thời gian đặt phòng phải sau thời gian hiện tại!",
   "today": "Hôm nay",
@@ -131,8 +131,8 @@
   "removeWorkTime": "Hủy giờ làm việc",
   "workingTime": "Thời gian làm việc",
   "pleaseEnterTheEmailYouWantToRetrieveYourPassword": "Vui lòng nhập email bạn muốn lấy lại mật khẩu!",
-  "newPasswordHasJustBeenSentToEmail": "Mật khẩu mới vừa được gửi tới email",
-  "pleaseCheckYourEmail": ", Làm ơn check email của bạn.",
+  "newPasswordHasJustBeenSentToEmail": "Mật khẩu mới vừa được gửi tới email: ",
+  "pleaseCheckYourEmail": "Làm ơn check email của bạn.",
   "calendar": "Lịch",
   "register": "Đăng ký",
   "activate": "Hoạt Động",
@@ -484,5 +484,6 @@
   "invalid": "Không hợp lệ",
   "fingerprint": "Dấu vân tay",
   "gPS": "GPS",
-  "none": "Không"
+  "none": "Không",
+  "wrongPassword": "Sai mật khẩu"
 }

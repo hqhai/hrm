@@ -10,10 +10,14 @@ part 'user_state.g.dart';
 class UserState extends Equatable {
   final User user;
   final String email;
+  final String errorCode;
   final UserStatus status;
 
   const UserState(
-      {this.user = const User(id: "", createdUserId: "", gender: GenderEnum.male), this.email = '', this.status = UserStatus.init});
+      {this.user = const User(id: "", createdUserId: "", gender: GenderEnum.male),
+      this.email = '',
+      this.status = UserStatus.init,
+      this.errorCode = ''});
 
   @override
   List<Object> get props => [user, email, status];

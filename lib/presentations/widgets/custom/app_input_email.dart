@@ -107,7 +107,6 @@ class _AppInputState extends State<AppInputEmail> {
                     contentPadding: const EdgeInsets.only(
                         bottom: 0, left: 16, top: 0, right: 16 // HERE THE IMPORTANT PART
                         ),
-                    prefixIcon: widget.iconLeft ?? const SizedBox(),
                     suffixIcon: widget.iconRight != null
                         ? IconButton(
                             onPressed: () {
