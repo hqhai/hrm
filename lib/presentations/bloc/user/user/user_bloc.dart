@@ -71,14 +71,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   FutureOr<void> _forgotPasswordEvent(ForgotPasswordEvent event, Emitter<UserState> emit) async {
-    emit(state.copyWith(
-      status: UserStatus.init,
-    ));
     try {
       String email = await userUseCase.forgotPassword(email: event.email);
-      emit(state.copyWith(email: email, status: UserStatus.success));
+      emit(state.copyWith(email: email, errorCode: ''));
+      event.completer?.complete(true);
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.fail));
+      e as ResponseBase;
+      final String? errorCode = e.errorMessages.first.errorCode;
+      emit(state.copyWith(
+        errorCode: errorCode,
+      ));
+      event.completer?.complete(false);
     }
   }
 

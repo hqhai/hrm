@@ -489,5 +489,7 @@
   "invalid": "Invalid",
   "fingerprint": "Fingerprint",
   "gPS": "GPS",
-  "none": "None"
+  "none": "None",
+  "wrongPassword": "Wrong password"
+
 }

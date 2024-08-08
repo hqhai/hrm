@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:common/utils/validate_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -106,7 +107,6 @@ class _AppInputPasswordState extends State<AppInputPassword> {
                   contentPadding: const EdgeInsets.only(
                       bottom: 0, left: 16, top: 0, right: 16 // HERE THE IMPORTANT PART
                       ),
-                  prefixIcon: widget.iconLeft ?? const SizedBox(),
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
@@ -149,7 +149,8 @@ class _AppInputPasswordState extends State<AppInputPassword> {
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
                   widget.error!,
-                  style: theme.textTheme.bodyLarge?.copyWith(color: colors.error),
+                  style: theme.textTheme.bodyLarge
+                      ?.copyWith(color: colors.error, fontSize: SpacingUnit.x3_5),
                   maxLines: 2,
                 ),
               )

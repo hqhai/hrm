@@ -1,23 +1,23 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:base_app/presentations/bloc/language/language_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
-class DropdownMenuWidget extends StatefulWidget {
-  const DropdownMenuWidget({
+class LanguageWidget extends StatefulWidget {
+  const LanguageWidget({
     super.key,
   });
 
-
   @override
-  State<DropdownMenuWidget> createState() => _DropdownMenuWidgetState();
+  State<LanguageWidget> createState() => _LanguageWidgetState();
 }
 
-class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
+class _LanguageWidgetState extends State<LanguageWidget> {
   LanguageEnum getDropdownLanguageValue(LanguageEnum? languageCode) {
     if (languageCode == LanguageEnum.en) {
       return LanguageEnum.en;
@@ -39,19 +39,24 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
               onTap: () => _language(context, state),
               child: Container(
                 padding: const EdgeInsetsDirectional.all(SpacingUnit.x4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(SpacingUnit.x0_5),
-                  border: Border.all(
-                    color: colors.background,
-                    width: 1,
-                  ),
-                ),
-                child: Text(
-                  state.languageCode.name,
-                  style: TextStyle(
-                    color: colors.background,
-                    fontSize: SpacingUnit.x4,
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      state.languageCode.name,
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                      ),
+                    ),
+                    const SizedBox(width: SpacingUnit.x0_5,),
+                    Image.asset(
+                      state.languageCode == LanguageEnum.vi
+                          ? Assets.images.signIn.vn.path
+                          : Assets.images.signIn.eng.path,
+                      fit: BoxFit.fill,
+                    ),
+                  ],
                 ),
               ),
             );

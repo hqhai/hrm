@@ -9,6 +9,8 @@ part of 'user_state.dart';
 abstract class _$UserStateCWProxy {
   UserState email(String email);
 
+  UserState errorCode(String errorCode);
+
   UserState status(UserStatus status);
 
   UserState user(User user);
@@ -21,6 +23,7 @@ abstract class _$UserStateCWProxy {
   /// ````
   UserState call({
     String? email,
+    String? errorCode,
     UserStatus? status,
     User? user,
   });
@@ -34,6 +37,9 @@ class _$UserStateCWProxyImpl implements _$UserStateCWProxy {
 
   @override
   UserState email(String email) => this(email: email);
+
+  @override
+  UserState errorCode(String errorCode) => this(errorCode: errorCode);
 
   @override
   UserState status(UserStatus status) => this(status: status);
@@ -51,6 +57,7 @@ class _$UserStateCWProxyImpl implements _$UserStateCWProxy {
   /// ````
   UserState call({
     Object? email = const $CopyWithPlaceholder(),
+    Object? errorCode = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
     Object? user = const $CopyWithPlaceholder(),
   }) {
@@ -59,6 +66,10 @@ class _$UserStateCWProxyImpl implements _$UserStateCWProxy {
           ? _value.email
           // ignore: cast_nullable_to_non_nullable
           : email as String,
+      errorCode: errorCode == const $CopyWithPlaceholder() || errorCode == null
+          ? _value.errorCode
+          // ignore: cast_nullable_to_non_nullable
+          : errorCode as String,
       status: status == const $CopyWithPlaceholder() || status == null
           ? _value.status
           // ignore: cast_nullable_to_non_nullable

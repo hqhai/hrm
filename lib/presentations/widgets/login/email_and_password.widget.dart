@@ -1,10 +1,8 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_email.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class EmailAndPasswordWidget extends StatefulWidget {
@@ -31,34 +29,44 @@ class _EmailAndPasswordWidgetState extends State<EmailAndPasswordWidget> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: SpacingUnit.x5),
-        AppInputEmail(
-          iconLeft: Padding(
-            padding: const EdgeInsets.all(SpacingUnit.x2_5),
-            child: SvgPicture.asset(
-              Assets.images.icon.person,
-              colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
-            ),
-          ),
-          placeHolder: appLocalizations.email,
-          error: widget.errorEmail,
-          controller: widget.emailController,
-          onChange: widget.onChangeEmail,
+        Text(
+          appLocalizations.username,
+          style:
+              TextStyle(color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
         ),
-        const SizedBox(height: SpacingUnit.x4),
-        AppInputPassword(
-          iconLeft: Padding(
-            padding: const EdgeInsets.all(SpacingUnit.x2_5),
-            child: SvgPicture.asset(
-              Assets.images.icon.lock,
-              colorFilter: ColorFilter.mode(colors.outline, BlendMode.srcIn),
-            ),
+        Padding(
+          padding: const EdgeInsets.only(
+            bottom: SpacingUnit.x4,
+            top: SpacingUnit.x2,
           ),
-          error: widget.errorPass,
-          placeHolder: appLocalizations.password,
-          controller: widget.passwordController,
-          onChange: widget.onChangePass,
+          child: AppInputEmail(
+            placeHolder: appLocalizations.username,
+            error: widget.errorEmail,
+            controller: widget.emailController,
+            onChange: widget.onChangeEmail,
+          ),
+        ),
+        Text(
+          appLocalizations.password,
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x4,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            bottom: SpacingUnit.x2,
+            top: SpacingUnit.x2,
+          ),
+          child: AppInputPassword(
+            error: widget.errorPass,
+            placeHolder: appLocalizations.password,
+            controller: widget.passwordController,
+            onChange: widget.onChangePass,
+          ),
         ),
         const SizedBox(height: SpacingUnit.x4),
       ],

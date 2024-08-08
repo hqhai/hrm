@@ -128,15 +128,27 @@ class $AssetsImagesSignInGen {
   AssetGenImage get background =>
       const AssetGenImage('assets/images/sign_in/Background.png');
 
-  /// File path: assets/images/sign_in/Logo.png
-  AssetGenImage get logo =>
-      const AssetGenImage('assets/images/sign_in/Logo.png');
+  /// File path: assets/images/sign_in/Eng.png
+  AssetGenImage get eng => const AssetGenImage('assets/images/sign_in/Eng.png');
+
+  /// File path: assets/images/sign_in/Vn.png
+  AssetGenImage get vn => const AssetGenImage('assets/images/sign_in/Vn.png');
 
   /// File path: assets/images/sign_in/biometric.svg
   String get biometric => 'assets/images/sign_in/biometric.svg';
 
+  /// File path: assets/images/sign_in/logo.png
+  AssetGenImage get logo =>
+      const AssetGenImage('assets/images/sign_in/logo.png');
+
+  /// File path: assets/images/sign_in/no.png
+  AssetGenImage get no => const AssetGenImage('assets/images/sign_in/no.png');
+
+  /// File path: assets/images/sign_in/yes.png
+  AssetGenImage get yes => const AssetGenImage('assets/images/sign_in/yes.png');
+
   /// List of all assets
-  List<dynamic> get values => [background, logo, biometric];
+  List<dynamic> get values => [background, eng, vn, biometric, logo, no, yes];
 }
 
 class $AssetsImagesTimeKeepingGen {

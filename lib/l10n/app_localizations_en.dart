@@ -1476,4 +1476,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get none => 'None';
+
+  @override
+  String get wrongPassword => 'Wrong password';
 }
