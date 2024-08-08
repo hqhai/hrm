@@ -220,8 +220,6 @@ extension ConfigStepFlowTypeExtension on EnumStepFlowType {
 }
 
 enum RequisitionTypeEnum {
-  @JsonValue('Core')
-  core('Core'),
   @JsonValue('LeaveHalfDayToOneDay')
   leaveHalfDayToOneDay('LeaveHalfDayToOneDay'),
   @JsonValue('LeaveTwoDayToFourDay')
@@ -236,19 +234,57 @@ enum RequisitionTypeEnum {
   overTime('OverTime'),
   @JsonValue('VehicleDriver')
   vehicleDriver('VehicleDriver'),
-  @JsonValue('PostalDelivery')
-  postalDelivery('PostalDelivery'),
   @JsonValue('WarehouseReleased')
   warehouseReleased('WarehouseReleased'),
   @JsonValue('Stationery')
   stationery('Stationery'),
   @JsonValue('Explanation')
   explanation('Explanation'),
+  @JsonValue('PostalDelivery')
+  postalDelivery('PostalDelivery'),
+  @JsonValue('Core')
+  core('Core'),
   unknown('');
 
   final String name;
 
   const RequisitionTypeEnum(this.name);
+}
+
+extension ConfigTypeFilter on RequisitionTypeEnum {
+  String get configTypeNameFilter {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case RequisitionTypeEnum.explanation:
+        return appLocalizations.explanationF;
+      case RequisitionTypeEnum.overTime:
+        return appLocalizations.oT;
+      case RequisitionTypeEnum.vehicleDriver:
+        return appLocalizations.vehicleF;
+      case RequisitionTypeEnum.postalDelivery:
+        return appLocalizations.postal;
+      case RequisitionTypeEnum.warehouseReleased:
+        return appLocalizations.releaseOfWarehouseF;
+      case RequisitionTypeEnum.stationery:
+        return appLocalizations.stationery;
+      case RequisitionTypeEnum.bussiness:
+        return appLocalizations.businessF;
+      case RequisitionTypeEnum.leaveHalfDayToOneDay:
+        return appLocalizations.halfDayToOneDay;
+      case RequisitionTypeEnum.leaveTwoDayToFourDay:
+        return appLocalizations.twoDayToFourDay;
+      case RequisitionTypeEnum.leaveFiveDaysOrMore:
+        return appLocalizations.fiveDaysOrMore;
+      case RequisitionTypeEnum.lateOrEarly:
+        return appLocalizations.earlyLate;
+      case RequisitionTypeEnum.core:
+        return appLocalizations.core;
+      case RequisitionTypeEnum.unknown:
+      default:
+        return '';
+    }
+  }
 }
 
 extension ConfigTypeExtension on RequisitionTypeEnum {

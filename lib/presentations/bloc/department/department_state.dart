@@ -10,11 +10,14 @@ class DepartmentState extends Equatable {
   final Department department;
   final List<Department> departments;
   final DepartmentStatus status;
+  final int totalItems;
 
-  const DepartmentState(
-      {this.department = const Department(id: '', createdUserId: ''),
-      this.departments = const [],
-      this.status = DepartmentStatus.init});
+  const DepartmentState({
+    this.department = const Department(id: '', createdUserId: ''),
+    this.departments = const [],
+    this.status = DepartmentStatus.init,
+    this.totalItems = 0,
+  });
 
   @override
   List<Object> get props => [status, department, departments];

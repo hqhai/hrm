@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
 import 'package:base_app/data/models/department/create_department_request.dart';
+import 'package:base_app/data/models/department/department_response.dart';
 import 'package:base_app/data/models/department/update_department_request.dart';
+import 'package:base_app/data/models/name_page_request.dart';
 import 'package:base_app/data/models/object_by_id_request.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/services/department.service.dart';
@@ -37,16 +39,15 @@ class DepartmentServiceImpl extends BaseService implements DepartmentService {
     final url = '$baseUrlUser${PathConfig.departments}';
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
-    final data = responseBase.result;
+    final data = responseBase.result['items'];
     List<Department> departments =
-        (data as List<dynamic>).map((e) => Department.fromJson(e as Map<String, dynamic>)).toList();
+        (data as List<dynamic>).map((e) => Department.fromJson(e)).toList();
     return departments;
   }
 
   @override
-  Future<Department> getDepartment(
-      {required ObjectByIdRequest deleteDepartmentRequest}) async {
-    final url = '$baseUrlUser${PathConfig.getDepartmentById}/${deleteDepartmentRequest.id}';
+  Future<Department> getDepartment({required String id}) async {
+    final url = '$baseUrlUser${PathConfig.getDepartmentById}/$id';
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
@@ -71,5 +72,16 @@ class DepartmentServiceImpl extends BaseService implements DepartmentService {
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final statusCode = responseBase.statusCode;
     return statusCode;
+  }
+
+  @override
+  Future<DepartmentResponse> getListDepartment({required NamePageRequest keyPageRequest}) async {
+    final url = '$baseUrlUser${PathConfig.department}';
+    final params = keyPageRequest.toJson();
+    final response = await client.get(url, params: params);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final result = responseBase.result;
+    final departments = DepartmentResponse.fromJson(result);
+    return departments;
   }
 }

@@ -23,7 +23,7 @@ class AppIconStatus extends StatelessWidget {
           status,
           style: TextStyle(
             color:color,
-            fontSize: SpacingUnit.x3,
+            fontSize: SpacingUnit.x3_5,
           ),
         ),
       ],

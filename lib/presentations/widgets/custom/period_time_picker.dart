@@ -1,9 +1,11 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/common/utils/time_utils.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/calendar/layout_calendar_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class PeriodTimePicker extends StatefulWidget {
@@ -16,6 +18,7 @@ class PeriodTimePicker extends StatefulWidget {
     this.fontWeightTitle,
     this.oldStarTime,
     this.oldEndTime,
+    this.checkTitle = false,
   });
 
   final ValueChanged<DateTime?> setStarTime, setEndTime;
@@ -23,6 +26,7 @@ class PeriodTimePicker extends StatefulWidget {
   final double? fontSizeTitle;
   final FontWeight? fontWeightTitle;
   final DateTime? oldStarTime, oldEndTime;
+  final bool checkTitle;
 
   @override
   State<PeriodTimePicker> createState() => _PeriodTimePickerState();
@@ -43,28 +47,54 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
     final colors = AppTheme.getColors(context);
     return Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(right: SpacingUnit.x3),
-          child: Text(
-            widget.title,
-            style: TextStyle(
-                fontSize: widget.fontSizeTitle ?? SpacingUnit.x3,
-                color: colors.text,
-                fontWeight: widget.fontWeightTitle),
+        if (widget.checkTitle)
+          Padding(
+            padding: const EdgeInsets.only(right: SpacingUnit.x3),
+            child: Text(
+              widget.title,
+              style: TextStyle(
+                  fontSize: widget.fontSizeTitle ?? SpacingUnit.x3,
+                  color: colors.text,
+                  fontWeight: widget.fontWeightTitle),
+            ),
           ),
-        ),
         Expanded(
           child: GestureDetector(
             onTap: () => _showDialogTime(context),
-            child: ContainerBorder(
-              child: Text(
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                showText(),
-                style: TextStyle(
-                  fontSize: SpacingUnit.x3,
-                  color: colors.text,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+              child: ContainerBorder(
+                borderColors: colors.text.withOpacity(0.2),
+                child: Padding(
+                  padding: const EdgeInsets.all(SpacingUnit.x1),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        height: SpacingUnit.x7,
+                        width: SpacingUnit.x7,
+                        Assets.images.icon.home.bottomBar.calendar,
+                        colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                      ),
+                      Expanded(
+                        child: Text(
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          showText(),
+                          style: TextStyle(
+                            fontSize: SpacingUnit.x4,
+                            color: colors.text,
+                          ),
+                        ),
+                      ),
+                      SvgPicture.asset(
+                        height: SpacingUnit.x7,
+                        width: SpacingUnit.x7,
+                        Assets.images.icon.home.dropUp,
+                        colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

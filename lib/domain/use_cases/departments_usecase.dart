@@ -1,6 +1,7 @@
+import 'package:base_app/data/models/department/department_response.dart';
 import 'package:base_app/domain/entities/department.dart';
 
-abstract class DepartmentUseCase{
+abstract class DepartmentUseCase {
   Future<int> createDepartment({
     required String name,
     required String code,
@@ -12,7 +13,9 @@ abstract class DepartmentUseCase{
   });
 
   Future<List<Department>> getDepartments();
+
   Future<Department> getDepartment({required String id});
+
   Future<int> deleteDepartments({required String id});
 
   Future<int> updateDepartment({
@@ -25,4 +28,6 @@ abstract class DepartmentUseCase{
     String? description,
     String? parentId,
   });
+
+  Future<DepartmentResponse> getListDepartment({required String key, required int page});
 }

@@ -220,6 +220,9 @@ class $AssetsImagesIconHomeGen {
   /// File path: assets/images/icon/home/chevron.left.svg
   String get chevronLeft => 'assets/images/icon/home/chevron.left.svg';
 
+  /// File path: assets/images/icon/home/drop_up.svg
+  String get dropUp => 'assets/images/icon/home/drop_up.svg';
+
   /// File path: assets/images/icon/home/ic_baseline-place.svg
   String get icBaselinePlace => 'assets/images/icon/home/ic_baseline-place.svg';
 
@@ -242,6 +245,7 @@ class $AssetsImagesIconHomeGen {
   List<String> get values => [
         chevronForward,
         chevronLeft,
+        dropUp,
         icBaselinePlace,
         materialSymbolsWifi,
         mingcuteTimeLine,

@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -15,7 +16,8 @@ import 'package:themes/themes.dart';
 class BottomSheetPersonnelWidget extends StatefulWidget {
   const BottomSheetPersonnelWidget({
     super.key,
-    required this.onChange, this.user,
+    required this.onChange,
+    this.user,
   });
 
   final ValueChanged<User> onChange;
@@ -65,7 +67,8 @@ class _BottomSheetPersonnelWidgetState extends State<BottomSheetPersonnelWidget>
                   controller: controller,
                   itemCount: state.usersByName.length,
                   itemBuilder: (context, index) => GestureDetector(
-                    onTap: () => setOnChange(state.usersByName[index]),
+                    onTap: () =>
+                        setOnChange(usersByName: state.usersByName[index], context: context),
                     child: ItemBottomSheet(
                       check: check(state.usersByName[index]),
                       index: index,
@@ -81,8 +84,8 @@ class _BottomSheetPersonnelWidgetState extends State<BottomSheetPersonnelWidget>
     );
   }
 
-  bool check(User userSelect){
-    if(userSelect.id == widget.user?.id){
+  bool check(User userSelect) {
+    if (userSelect.id == widget.user?.id) {
       return true;
     }
     return false;
@@ -118,7 +121,8 @@ class _BottomSheetPersonnelWidgetState extends State<BottomSheetPersonnelWidget>
     });
   }
 
-  setOnChange(User usersByName) {
+  setOnChange({required User usersByName, required BuildContext context}) {
     widget.onChange.call(usersByName);
+    dI<AppNavigation>().pop(context);
   }
 }

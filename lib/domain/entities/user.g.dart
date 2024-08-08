@@ -16,7 +16,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       lastName: json['lastName'] as String? ?? '',
       fullName: json['fullName'] as String? ?? '',
       dayOfBirth: json['dayOfBirth'] as String? ?? '',
-      gender: $enumDecode(_$GenderEnumEnumMap, json['gender']),
+      gender: $enumDecodeNullable(_$GenderEnumEnumMap, json['gender']) ??
+          GenderEnum.other,
       avatarPath: json['avatarPath'] as String? ?? '',
       ciNumber: json['ciNumber'] as String? ?? '',
       ciIssuePlace: json['ciIssuePlace'] as String? ?? '',
@@ -77,7 +78,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
           const [],
       isActive: json['isActive'] as bool? ?? true,
       id: json['id'] as String,
-      createdUserId: json['createdUserId'] as String,
+      createdUserId: json['createdUserId'] as String? ?? '',
       updatedUserId: json['updatedUserId'] as String? ?? '',
       createdFullName: json['createdFullName'] as String? ?? '',
       updatedFullName: json['updatedFullName'] as String? ?? '',

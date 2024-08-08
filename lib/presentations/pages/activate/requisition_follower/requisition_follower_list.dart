@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
@@ -29,7 +31,7 @@ class RequisitionFollowerListPage extends StatefulWidget {
 }
 
 class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPage> {
-  bool checkOpacity = false;
+  bool checkOpacity = false, checkLoad = true;
   FilterDialogModel filterData = const FilterDialogModel();
   StatusRequestEnum status = StatusRequestEnum.process;
 
@@ -39,11 +41,14 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
     super.initState();
   }
 
-  setlLstFilter(FilterDialogModel value) {
+  setlLstFilter(FilterDialogModel value) async {
     setState(() {
       filterData = value;
+      checkLoad = false;
     });
+    Completer completer = Completer<bool>();
     dI<RequisitionFollowingBloc>().add(GetRequisitionsFollowingByFilterEvent(
+      completer: completer,
       type: value.types,
       status: status,
       userIds: value.user?.code,
@@ -52,6 +57,12 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
       endTime: filterData.endTime,
       page: 1,
     ));
+    final checkCompleter = await completer.future;
+    if(checkCompleter){
+      setState(() {
+        checkLoad = true;
+      });
+    }
   }
 
   @override
@@ -60,13 +71,20 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
     final colors = AppTheme.getColors(context);
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: colors.outline.withOpacity(0.3),
+            height: SpacingUnit.x0_5,
+          ),
+        ),
         iconTheme: IconThemeData(color: colors.text),
         title: (Text(
           appLocalizations.singleWordList,
           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
         )),
         actions: [
-          GestureDetector(
+          InkWell(
             onTap: () => _showBottomSheet(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
@@ -81,6 +99,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
         ],
       ),
       body: ListviewRequestFollower(
+        checkLoad: checkLoad,
         onChangeStatus: (value) => setStatus(value),
         filterData: filterData,
       ),

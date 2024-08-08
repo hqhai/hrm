@@ -7,16 +7,21 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/item_list_requisition.dart';
+import 'package:base_app/presentations/widgets/custom/shimmer_load.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class TabBarViewListRequestSelf extends StatefulWidget {
   const TabBarViewListRequestSelf(
-      {super.key, required this.status, this.filterData = const FilterDialogModel()});
+      {super.key,
+      required this.status,
+      this.filterData = const FilterDialogModel(),
+      required this.checkLoad});
 
   final StatusRequestEnum status;
   final FilterDialogModel filterData;
+  final bool checkLoad;
 
   @override
   State<TabBarViewListRequestSelf> createState() => _TabBarViewListRequestSelfState();
@@ -30,22 +35,12 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
 
   @override
   void initState() {
-    dI<RequisitionBloc>().add(
-      GetRequisitionsByFilterEvent(
-        page: 1,
-        startTime: widget.filterData.startTime,
-        endTime: widget.filterData.endTime,
-        flowIds: widget.filterData.flows?.map((e) => e.id).toList(),
-        status: widget.status,
-      ),
-    );
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems &&
-        controller.position.extentAfter < totalItems && checkLoad) {
+    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
         checkLoad = false;
         pageIndex++;
@@ -62,7 +57,7 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
         ),
       );
       final check = await completer.future;
-      if (check){
+      if (check) {
         setState(() {
           checkLoad = true;
         });
@@ -80,13 +75,15 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
           child: Container(
             color: colors.outlineVariant.withOpacity(0.1),
             height: height * 0.85,
-            child: ListView.builder(
-              controller: controller,
-              itemCount: state.requisitions.length,
-              itemBuilder: (context, index) => ItemRequisitionList(
-                id: state.requisitionIds[index],
-              ),
-            ),
+            child: widget.checkLoad
+                ? ListView.builder(
+                    controller: controller,
+                    itemCount: state.requisitions.length,
+                    itemBuilder: (context, index) => ItemRequisitionList(
+                      id: state.requisitionIds[index],
+                    ),
+                  )
+                :  const ShimmerLoad(),
           ),
         );
       },

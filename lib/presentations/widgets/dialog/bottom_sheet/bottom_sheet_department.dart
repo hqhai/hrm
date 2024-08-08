@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/department/department_bloc.dart';
 import 'package:base_app/presentations/bloc/department/department_event.dart';
 import 'package:base_app/presentations/bloc/department/department_state.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -17,7 +21,7 @@ class BottomSheetDepartmentWidget extends StatefulWidget {
     this.department,
   });
 
-  final ValueChanged<Map> onChange;
+  final ValueChanged<Department> onChange;
   final Department? department;
 
   @override
@@ -25,65 +29,25 @@ class BottomSheetDepartmentWidget extends StatefulWidget {
 }
 
 class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidget> {
-  String? searchStr;
-  Department? department;
-  List<Map> mapDepartment = [];
+  late ScrollController controller;
+  String searchStr = '';
+  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  bool loadMore = true;
 
   @override
   void initState() {
-    dI<DepartmentBloc>().add(const GetDepartmentsEvent());
+    controller = ScrollController()..addListener(_scrollListener);
     super.initState();
-  }
-
-  setDepartment({Map? value}) {
-    setState(() {
-      department = value?['department'] ?? const Department(id: "", createdUserId: "");
-    });
-  }
-
-  addDepartment(Department department) {
-    for (var e in department.childrens) {
-      setState(() {
-        mapDepartment.add({
-          'department': e,
-          'name': "${department.name ?? ""} - ${e.name ?? ""}",
-        });
-      });
-      if (e.childrens.isNotEmpty) {
-        addDepartment(e);
-      }
-    }
-  }
-
-  listDepartment(List<Department> departments) {
-    for (var element in departments) {
-      if (element.childrens.isNotEmpty) {
-        addDepartment(element);
-      }
-    }
-  }
-
-  _listener(BuildContext context, DepartmentState state) {
-    if (state.status == DepartmentStatus.getDepartmentSuccess) {
-      for (var element in state.departments) {
-        setState(() {
-          mapDepartment.add({
-            'department': element,
-            'name': element.name ?? "",
-          });
-        });
-        listDepartment(state.departments);
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return BlocListener<DepartmentBloc, DepartmentState>(
-      listener: (context, state) => _listener(context, state),
-      child: Center(
+    return BlocConsumer<DepartmentBloc, DepartmentState>(
+      listenWhen: (previous, current) => previous.departments != current.departments,
+      listener: (context, state) => _listener(state),
+      builder: (context, state) => Center(
         child: Padding(
           padding: const EdgeInsets.all(SpacingUnit.x4),
           child: Column(
@@ -96,53 +60,57 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
                   fontWeight: FontWeight.w600,
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(SpacingUnit.x2),
+                child: SearchInput(onChange: (value) => _onChangeSearch(value)),
+              ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: mapDepartment.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () => setOnChange(
-                      departmentMap: mapDepartment[index],
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.all(SpacingUnit.x2),
-                      margin: const EdgeInsets.all(SpacingUnit.x2),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                        color: check(d: mapDepartment[index]['department'])
-                            ? colors.tertiary.withOpacity(0.4)
-                            : colors.background,
-                        border: Border.all(
-                          color: colors.text,
-                          width: 1,
-                        ),
+                  controller: controller,
+                  itemCount: state.departments.length,
+                  itemBuilder: (context, index) {
+                    final department = state.departments[index];
+                    return GestureDetector(
+                      onTap: () => setOnChange(
+                        department: department,
+                        context: context,
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            '${index + 1}.    ',
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x3,
-                            ),
+                      child: ContainerBorder(
+                        borderColors: colors.background,
+                        backgroundColors: colors.background,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: SpacingUnit.x3,
                           ),
-                          Expanded(
-                            child: SizedBox(
-                              child: Text(
-                                mapDepartment[index]['name'],
-                                maxLines: 4,
-                                overflow: TextOverflow.ellipsis,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                '${index + 1}.    ',
                                 style: TextStyle(
-                                  color: colors.text,
-                                  fontSize: SpacingUnit.x3,
+                                    color: colors.text,
+                                    fontSize: SpacingUnit.x5,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Expanded(
+                                child: SizedBox(
+                                  child: Text(
+                                    department.name ?? "",
+                                    maxLines: 4,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: colors.text,
+                                      fontSize: SpacingUnit.x4,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -159,7 +127,51 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
     return false;
   }
 
-  setOnChange({required Map departmentMap}) {
-    widget.onChange.call(departmentMap);
+  setOnChange({required Department department, required BuildContext context}) {
+    widget.onChange.call(department);
+    dI<AppNavigation>().pop(context);
+  }
+
+  _scrollListener() async {
+    if (lengthList < totalItems && loadMore && controller.position.extentAfter < totalItems) {
+      setState(() {
+        pageIndex++;
+        loadMore = false;
+      });
+      final Completer completer = Completer<bool>();
+      dI<DepartmentBloc>().add(
+        GetListDepartmentEvent(page: pageIndex, completer: completer, key: searchStr),
+      );
+      final check = await completer.future;
+      if (check) {
+        setState(() {
+          loadMore = true;
+        });
+      }
+    }
+  }
+
+  _listener(DepartmentState state) {
+    setState(() {
+      totalItems = state.totalItems;
+      lengthList = state.departments.length;
+    });
+  }
+
+  _onChangeSearch(String value) async {
+    setState(() {
+      searchStr = value;
+      pageIndex++;
+    });
+    final Completer completer = Completer<bool>();
+    dI<DepartmentBloc>().add(
+      GetListDepartmentEvent(page: 1, completer: completer, key: searchStr),
+    );
+    final check = await completer.future;
+    if (check) {
+      setState(() {
+        loadMore = true;
+      });
+    }
   }
 }

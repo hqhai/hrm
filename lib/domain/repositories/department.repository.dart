@@ -1,3 +1,4 @@
+import 'package:base_app/data/models/department/department_response.dart';
 import 'package:base_app/domain/entities/department.dart';
 
 abstract class DepartmentRepository{
@@ -21,4 +22,5 @@ abstract class DepartmentRepository{
     String? description,
     String? parentId,
   });
+  Future<DepartmentResponse> getListDepartment({required String key,required int page});
 }

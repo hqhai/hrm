@@ -1,3 +1,4 @@
+import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
@@ -39,17 +40,26 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     super.initState();
   }
 
-  setlLstFilter(FilterDialogModel value) {
+  setlLstFilter(FilterDialogModel value) async {
     setState(() {
       filterData = value;
+      checkLoadMore = false;
     });
+    Completer completer = Completer<bool>();
     dI<RequisitionBloc>().add(GetRequisitionsByFilterEvent(
+      completer: completer,
       flowIds: filterData.flows?.map((e) => e.id).toList(),
       status: filterData.status,
       startTime: dateTimeLocal(filterData.startTime),
       endTime: dateTimeLocal(filterData.endTime),
       page: 1,
     ));
+    final checkCompleter = await completer.future;
+    if(checkCompleter){
+      setState(() {
+        checkLoadMore = true;
+      });
+    }
   }
 
   @override
@@ -58,11 +68,22 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     final colors = AppTheme.getColors(context);
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: colors.outline.withOpacity(0.3),
+            height: SpacingUnit.x0_5,
+          ),
+        ),
         iconTheme: IconThemeData(color: colors.text),
         centerTitle: true,
         title: Text(
-          appLocalizations.singleWordList,
-          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
+          appLocalizations.yourRequisition,
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x4_5,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         actions: [
           InkWell(
@@ -80,6 +101,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
         ],
       ),
       body: ListviewRequestSelf(
+        checkLoad: checkLoadMore,
         onChangeStatus: (value) => setStatus(value),
         filterData: filterData,
       ),

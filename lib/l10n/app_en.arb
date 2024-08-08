@@ -478,7 +478,6 @@
   "friday": "friday",
   "saturday": "saturday",
   "sunday": "sunday",
-  "unregistered": "Unregistered",
   "mon": "Mon",
   "tue": "Tue",
   "wed": "Wed",
@@ -489,7 +488,20 @@
   "invalid": "Invalid",
   "fingerprint": "Fingerprint",
   "gPS": "GPS",
+  "wrongPassword": "Wrong password",
   "none": "None",
-  "wrongPassword": "Wrong password"
-
+  "unregistered": "Unregistered",
+  "loading": "Loading...",
+  "halfDayToOneDay": "0,5 to 1 day",
+  "twoDayToFourDay": "2 to 4 day",
+  "fiveDaysOrMore": "More 5 day",
+  "earlyLate": "Early/Late",
+  "vehicleF": "book vehicle",
+  "businessF": "Business",
+  "releaseOfWarehouseF": "Exported warehouse",
+  "stationery": "Stationery",
+  "explanationF": "Explanation",
+  "oT": "OverTime",
+  "postal": "Bưu điện",
+  "requestType": "Request type"
 }

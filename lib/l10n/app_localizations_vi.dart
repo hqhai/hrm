@@ -1442,9 +1442,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sunday => 'Chủ nhật';
 
   @override
-  String get unregistered => 'Chưa đăng ký';
-
-  @override
   String get mon => 'Mon';
 
   @override
@@ -1475,8 +1472,50 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gPS => 'GPS';
 
   @override
+  String get wrongPassword => 'Sai mật khẩu';
+
+  @override
   String get none => 'Không';
 
   @override
-  String get wrongPassword => 'Sai mật khẩu';
+  String get unregistered => 'Chưa đăng ký';
+
+  @override
+  String get loading => 'Vui lòng chờ...';
+
+  @override
+  String get halfDayToOneDay => 'Nghỉ 0,5 đến 1 ngày';
+
+  @override
+  String get twoDayToFourDay => 'Nghỉ 2 đến 4 ngày';
+
+  @override
+  String get fiveDaysOrMore => 'Nghỉ hơn 5 ngày';
+
+  @override
+  String get earlyLate => 'Đi Muộn / Về Sớm';
+
+  @override
+  String get vehicleF => 'Đề nghị điều xe';
+
+  @override
+  String get businessF => ' Đơn công tác';
+
+  @override
+  String get releaseOfWarehouseF => 'Đề nghị Xuất kho';
+
+  @override
+  String get stationery => 'Đặt văn phòng phẩm';
+
+  @override
+  String get explanationF => 'Xin sửa chấm công';
+
+  @override
+  String get oT => 'Đơn tăng ca';
+
+  @override
+  String get postal => 'Bưu điện';
+
+  @override
+  String get requestType => 'Loại đơn từ';
 }

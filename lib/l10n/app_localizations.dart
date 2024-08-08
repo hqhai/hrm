@@ -2967,12 +2967,6 @@ abstract class AppLocalizations {
   /// **'sunday'**
   String get sunday;
 
-  /// No description provided for @unregistered.
-  ///
-  /// In en, this message translates to:
-  /// **'Unregistered'**
-  String get unregistered;
-
   /// No description provided for @mon.
   ///
   /// In en, this message translates to:
@@ -3033,17 +3027,101 @@ abstract class AppLocalizations {
   /// **'GPS'**
   String get gPS;
 
+  /// No description provided for @wrongPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password'**
+  String get wrongPassword;
+
   /// No description provided for @none.
   ///
   /// In en, this message translates to:
   /// **'None'**
   String get none;
 
-  /// No description provided for @wrongPassword.
+  /// No description provided for @unregistered.
   ///
   /// In en, this message translates to:
-  /// **'Wrong password'**
-  String get wrongPassword;
+  /// **'Unregistered'**
+  String get unregistered;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// No description provided for @halfDayToOneDay.
+  ///
+  /// In en, this message translates to:
+  /// **'0,5 to 1 day'**
+  String get halfDayToOneDay;
+
+  /// No description provided for @twoDayToFourDay.
+  ///
+  /// In en, this message translates to:
+  /// **'2 to 4 day'**
+  String get twoDayToFourDay;
+
+  /// No description provided for @fiveDaysOrMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More 5 day'**
+  String get fiveDaysOrMore;
+
+  /// No description provided for @earlyLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Early/Late'**
+  String get earlyLate;
+
+  /// No description provided for @vehicleF.
+  ///
+  /// In en, this message translates to:
+  /// **'book vehicle'**
+  String get vehicleF;
+
+  /// No description provided for @businessF.
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get businessF;
+
+  /// No description provided for @releaseOfWarehouseF.
+  ///
+  /// In en, this message translates to:
+  /// **'Exported warehouse'**
+  String get releaseOfWarehouseF;
+
+  /// No description provided for @stationery.
+  ///
+  /// In en, this message translates to:
+  /// **'Stationery'**
+  String get stationery;
+
+  /// No description provided for @explanationF.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation'**
+  String get explanationF;
+
+  /// No description provided for @oT.
+  ///
+  /// In en, this message translates to:
+  /// **'OverTime'**
+  String get oT;
+
+  /// No description provided for @postal.
+  ///
+  /// In en, this message translates to:
+  /// **'Bưu điện'**
+  String get postal;
+
+  /// No description provided for @requestType.
+  ///
+  /// In en, this message translates to:
+  /// **'Request type'**
+  String get requestType;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
