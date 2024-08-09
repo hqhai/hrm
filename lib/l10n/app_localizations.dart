@@ -3122,6 +3122,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Request type'**
   String get requestType;
+
+  /// No description provided for @chooseARequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a request'**
+  String get chooseARequest;
+
+  /// No description provided for @chooseWorkShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose work shift'**
+  String get chooseWorkShift;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

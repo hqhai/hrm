@@ -62,7 +62,7 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
           child: GestureDetector(
             onTap: () => _showDialogTime(context),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+              padding: EdgeInsets.symmetric(horizontal: widget.checkTitle ? SpacingUnit.x2 : 0),
               child: ContainerBorder(
                 borderColors: colors.text.withOpacity(0.2),
                 child: Padding(

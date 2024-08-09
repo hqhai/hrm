@@ -25,7 +25,7 @@ class BottomSheetProvinceWidget extends StatefulWidget {
 class _BottomSheetProvinceWidgetState extends State<BottomSheetProvinceWidget> {
   String searchStr = '';
   late ScrollController controller;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   AddressStatus status = AddressStatus.init;
 
   @override

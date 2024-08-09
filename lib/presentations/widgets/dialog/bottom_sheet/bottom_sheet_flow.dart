@@ -24,7 +24,7 @@ class BottomSheetFlowWidget extends StatefulWidget {
 
 class _BottomSheetFlowWidgetState extends State<BottomSheetFlowWidget> {
   late ScrollController controller;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   FlowStatusEnum status = FlowStatusEnum.init;
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -16,9 +18,11 @@ class BottomSheetWidget extends StatefulWidget {
   const BottomSheetWidget({
     super.key,
     required this.onChange,
+    this.oldUser = const [],
   });
 
   final ValueChanged<List<User>> onChange;
+  final List<User> oldUser;
 
   @override
   State<BottomSheetWidget> createState() => _BottomSheetWidgetState();
@@ -28,13 +32,16 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   List<String> listPerson = [];
   List<User> users = [];
   String searchStr = '';
+  bool checkLoad = true;
   late ScrollController controller;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   UserStatus status = UserStatus.init;
 
   @override
   void initState() {
-    dI<UserByNameBloc>().add(const GetUserByNameEvent(page: 1, name: ''));
+    final idsOld = widget.oldUser.map((e) => e.id).toList();
+    listPerson = [...idsOld];
+    users = [...widget.oldUser];
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
@@ -142,23 +149,26 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
     dI<UserByNameBloc>().add(GetUserByNameEvent(page: 1, name: value));
   }
 
-  _scrollListener() {
-    if (lengthList < totalItems &&
-        status == UserStatus.success &&
-        controller.position.extentAfter < totalItems) {
+  _scrollListener() async {
+    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
         pageIndex++;
+        checkLoad = false;
       });
-      dI<UserByNameBloc>().add(GetUserByNameEvent(
-        name: searchStr,
-        page: pageIndex,
-      ));
+      final Completer completer = Completer<bool>();
+      dI<UserByNameBloc>()
+          .add(GetUserByNameEvent(name: searchStr, page: pageIndex, completer: completer));
+      final check = await completer.future;
+      if (check) {
+        setState(() {
+          checkLoad = true;
+        });
+      }
     }
   }
 
   _listener(BuildContext context, UserByNameState state) {
     setState(() {
-      status = state.status;
       totalItems = state.countItem;
       lengthList = state.usersByName.length;
     });

@@ -28,12 +28,14 @@ class UserByNameBloc extends Bloc<UserByNameEvent, UserByNameState> {
       SearchUserByNameResponse searchUserByNameResponse =
           await userUseCase.getUserByFullName(fullName: event.name, page: event.page);
       final List<User> newUsers = searchUserByNameResponse.users;
-      if (event.name != state.name && event.page == 1) {
+      if (event.name != state.name || event.page == 1) {
         emit(state.copyWith(
+          name: event.name,
           usersByName: newUsers,
           countItem: searchUserByNameResponse.totalItems,
           status: UserStatus.success,
         ));
+        event.completer?.complete(true);
       } else {
         final List<User> users = [...state.usersByName];
         users.addAll(newUsers);
@@ -42,9 +44,11 @@ class UserByNameBloc extends Bloc<UserByNameEvent, UserByNameState> {
           countItem: searchUserByNameResponse.totalItems,
           status: UserStatus.success,
         ));
+        event.completer?.complete(true);
       }
     } catch (e) {
       emit(state.copyWith(status: UserStatus.fail));
+      event.completer?.complete(false);
     }
   }
 }

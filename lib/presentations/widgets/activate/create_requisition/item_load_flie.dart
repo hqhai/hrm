@@ -4,6 +4,9 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/dialog/image_dialog/image_dialog.dart';
+import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -35,93 +38,84 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          appLocalizations.attachedFiles,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        GestureDetector(
-          onTap: () => _getFile(),
-          child: Container(
-            height: SpacingUnit.x15,
-            width: SpacingUnit.x15,
-            margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-            padding: const EdgeInsets.all(SpacingUnit.x3),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingUnit.x1),
-              color: colors.background,
-              border: Border.all(color: colors.text, width: 1),
-            ),
-            child: SvgPicture.asset(
-              Assets.images.icon.activateIcon.fileAttach,
-              colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-            ),
+        Padding(
+          padding: const EdgeInsets.only(top: SpacingUnit.x4, bottom: SpacingUnit.x2),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                appLocalizations.attachedFiles,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              InkWell(
+                onTap: () => _getFile(),
+                child: SvgPicture.asset(
+                  Assets.images.icon.activateIcon.loadFile,
+                  colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                ),
+              ),
+            ],
           ),
         ),
         if (setOldFiles().isNotEmpty)
-          SizedBox(
-            height: width * widthListFile(),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 1,
-                crossAxisSpacing: SpacingUnit.x10,
-              ),
-              itemCount: setOldFiles().length,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () => _onClickFLie(context, index),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                    color: colors.background,
-                    border: Border.all(color: colors.text, width: 1),
-                  ),
-                  child: _checkTypeFile(index)
-                      ? Center(
-                          child: Text(
-                            appLocalizations.pdf,
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x7,
-                              fontWeight: FontWeight.w800,
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: setOldFiles()
+                .mapIndexed((index, element) => InkWell(
+                      onTap: () => _onClickFLie(context, index),
+                      child: ContainerBorder(
+                        borderColors: colors.text.withOpacity(0.3),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x0_5),
+                              child: SvgPicture.asset(
+                                Assets.images.icon.activateIcon.fileAttach,
+                                colorFilter: ColorFilter.mode(
+                                  colors.text.withOpacity(0.5),
+                                  BlendMode.srcIn,
+                                ),
+                              ),
                             ),
-                          ),
-                        )
-                      : Image.file(
-                          files[index],
-                          fit: BoxFit.fill,
-                          errorBuilder: (context, error, stackTrace) => Image.network(
-                            files[index].path,
-                            fit: BoxFit.fill,
-                            errorBuilder: (context, error, stackTrace) => Image.asset(
-                              Assets.images.error.imageError.path,
-                              fit: BoxFit.fill,
+                            Expanded(
+                              child: Text(
+                                files[index].path.split('/').last,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: colors.text,
+                                  fontSize: SpacingUnit.x3,
+                                ),
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x0_5),
+                              child: InkWell(
+                                onTap: () => _deleteFile(index),
+                                child: Icon(
+                                  size: SpacingUnit.x6,
+                                  Icons.cancel,
+                                  color: colors.text.withOpacity(0.5),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
-                ),
-              ),
-            ),
+                      ),
+                    ))
+                .toList(),
           )
       ],
     );
-  }
-
-  double widthListFile() {
-    if (files.length > 3) {
-      return 0.35 * (files.length / 3).toDouble();
-    } else {
-      return 0.35;
-    }
   }
 
   bool _checkTypeFile(int index) {
@@ -159,6 +153,24 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
       dI<AppNavigation>().pushName(context, page: Pages.pDFPage, extra: {
         'url': paths[index],
       });
-    } else {}
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: ImageLocalDialog(
+              file: files[index],
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  _deleteFile(int index) {
+    setState(() {
+      files.removeAt(index);
+      paths.removeAt(index);
+    });
   }
 }

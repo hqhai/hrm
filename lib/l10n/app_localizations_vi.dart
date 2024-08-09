@@ -1518,4 +1518,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get requestType => 'Loại đơn từ';
+
+  @override
+  String get chooseARequest => 'Chọn loại đơn từ';
+
+  @override
+  String get chooseWorkShift => 'Chọn ca làm việc';
 }

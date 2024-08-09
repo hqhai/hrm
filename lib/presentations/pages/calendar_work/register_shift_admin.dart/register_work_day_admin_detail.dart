@@ -49,7 +49,7 @@ class RegisterWorkDayAdminDetail extends StatefulWidget {
 class _RegisterWorkDayAdminDetailState
     extends State<RegisterWorkDayAdminDetail> {
   late ScrollController controller;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   FlowStatusEnum status = FlowStatusEnum.init;
   WorkShiftRequestStatus selectType = WorkShiftRequestStatus.approve;
   TextEditingController textEditingController = TextEditingController();

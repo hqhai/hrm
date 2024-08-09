@@ -1,8 +1,14 @@
+import 'dart:async';
+
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
-import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_event.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -41,10 +47,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
       child: Column(
@@ -59,67 +62,30 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x4,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
               GestureDetector(
                 onTap: () => _add(context),
-                child: ContainerBorder(
-                  backgroundColors: colors.success,
-                  width: SpacingUnit.x15,
-                  padding: SpacingUnit.x1,
-                  borderColors: colors.success,
-                  child: Text(
-                    appLocalizations.add,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: colors.background,
-                      fontSize: SpacingUnit.x3_5,
-                    ),
-                  ),
+                child: Icon(
+                  Icons.add,
+                  color: colors.success,
+                  size: SpacingUnit.x8,
                 ),
               ),
             ],
           ),
-          SizedBox(
-            height: height * 0.08 * setListFollower().length,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: setListFollower().length,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: width * 0.7,
-                      height: height * 0.05,
-                      padding: const EdgeInsets.all(SpacingUnit.x3),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                        color: colors.background,
-                        border: Border.all(
-                          color: colors.text,
-                          width: 1,
-                        ),
-                      ),
-                      child: Text(
-                        setListFollower()[index].fullName,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
-                      ),
-                    ),
-                    GestureDetector(
-                        onTap: () => _delete(index),
-                        child: Icon(
-                          Icons.delete,
-                          color: colors.error,
-                          size: SpacingUnit.x6,
-                        ))
-                  ],
-                ),
-              ),
-            ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: setListFollower()
+                .mapIndexed(
+                  (index, element) => ItemUserFollower(
+                    user: element,
+                    callBack: () => _delete(index),
+                  ),
+                )
+                .toList(),
           ),
           if (widget.error.isNotEmpty)
             Text(
@@ -134,18 +100,23 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
     );
   }
 
-  _add(BuildContext context) {
-    setState(() {
-      listFollower = [];
-    });
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return BottomSheetWidget(
-          onChange: (value) => setListPerson(value),
-        );
-      },
-    );
+  _add(BuildContext context) async {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final Completer completer = Completer<bool>();
+    dI<UserByNameBloc>().add(GetUserByNameEvent(completer: completer));
+    final check = await completer.future;
+    if (check) {
+      if (!currentContext.mounted) return;
+      showModalBottomSheet<void>(
+        context: currentContext,
+        builder: (BuildContext context) {
+          return BottomSheetWidget(
+            oldUser: listFollower,
+            onChange: (value) => setListPerson(value),
+          );
+        },
+      );
+    }
   }
 
   _delete(int index) {
@@ -161,5 +132,46 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
       listFollower = value;
       widget.onChange?.call(listFollower);
     });
+  }
+}
+
+class ItemUserFollower extends StatelessWidget {
+  const ItemUserFollower({
+    super.key,
+    required this.user,
+    required this.callBack,
+  });
+
+  final User user;
+  final VoidCallback callBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = AppTheme.getColors(context);
+    return ContainerBorder(
+      borderColors: colors.text.withOpacity(0.3),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            '${user.fullName} - #${user.code}',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: colors.text,
+              fontSize: SpacingUnit.x4,
+            ),
+          ),
+          GestureDetector(
+            onTap: () => callBack.call(),
+            child: Icon(
+              Icons.close,
+              color: colors.error,
+              size: SpacingUnit.x6,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

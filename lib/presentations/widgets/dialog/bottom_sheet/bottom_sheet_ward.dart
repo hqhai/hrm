@@ -27,7 +27,7 @@ class BottomSheetWardWidget extends StatefulWidget {
 class _BottomSheetWardWidgetState extends State<BottomSheetWardWidget> {
   String searchStr = '';
   late ScrollController controller;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   AddressStatus status = AddressStatus.init;
 
   @override

@@ -4,6 +4,7 @@ import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -36,7 +37,7 @@ class ConfigRequestModel {
   final EnumTakeLeaveType takeLeaveType;
   final EnumReasonLeave? reasonLeave;
   final EnumSocialInsuranceLeave? socialInsuranceLeave;
-  final List<String>? workShiftSettingDetailIds;
+  final List<WorkShiftRegisteredDetail>? workShiftSettings;
 
   const ConfigRequestModel({
     this.editTimekeeping,
@@ -62,7 +63,7 @@ class ConfigRequestModel {
     this.socialInsuranceLeave,
     this.reasonLeave,
     this.takeLeaveType = EnumTakeLeaveType.unknown,
-    this.workShiftSettingDetailIds,
+    this.workShiftSettings,
   });
 
   factory ConfigRequestModel.fromJson(Map<String, dynamic> json) =>
