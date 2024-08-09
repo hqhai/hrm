@@ -1518,4 +1518,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get requestType => 'Request type';
+
+  @override
+  String get chooseARequest => 'Choose a request';
+
+  @override
+  String get chooseWorkShift => 'Choose work shift';
 }

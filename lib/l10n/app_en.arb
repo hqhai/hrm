@@ -503,5 +503,7 @@
   "explanationF": "Explanation",
   "oT": "OverTime",
   "postal": "Bưu điện",
-  "requestType": "Request type"
+  "requestType": "Request type",
+  "chooseARequest": "Choose a request",
+  "chooseWorkShift": "Choose work shift"
 }

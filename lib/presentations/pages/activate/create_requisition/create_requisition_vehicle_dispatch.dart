@@ -150,6 +150,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                             startTimeOld: startTime,
                             error: errorTime,
                             dayOrHours: false,
+                            leave: true,
                             title: appLocalizations.drivingTime,
                             startTime: (value) => setStartTime(value),
                             endTime: (value) => setEndTime(value),

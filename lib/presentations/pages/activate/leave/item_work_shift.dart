@@ -1,5 +1,8 @@
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
@@ -11,19 +14,21 @@ import 'package:themes/themes.dart';
 class ItemWorkShift extends StatefulWidget {
   const ItemWorkShift({
     super.key,
-    required this.ids,
+    required this.workShiftSettings,
     required this.numberValue,
+    this.type = RequisitionTypeEnum.leaveHalfDayToOneDay,
   });
 
-  final ValueChanged<List<String>> ids;
+  final ValueChanged<List<WorkShiftRegisteredDetail>> workShiftSettings;
   final ValueChanged<double> numberValue;
+  final RequisitionTypeEnum type;
 
   @override
   State<ItemWorkShift> createState() => _ItemWorkShiftState();
 }
 
 class _ItemWorkShiftState extends State<ItemWorkShift> {
-  List<String> ids = [];
+  List<WorkShiftRegisteredDetail> workShifts = [];
   double numberValue = 0;
 
   @override
@@ -33,57 +38,105 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
-    return BlocConsumer<LeaveShiftBloc, LeaveShiftState>(
-      listener: (context, state) => _listener(state),
-      listenWhen: (previous, current) => previous.keys != current.keys,
+    return BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
       builder: (context, state) {
         return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: state.keys.mapIndexed(
-            (index, element) {
-              final date = DateTime.fromMicrosecondsSinceEpoch(element);
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    formatYMD(date.toString()),
-                    style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x3, fontWeight: FontWeight.w600),
-                  ),
-                  Column(
-                    children: state.mapKeyDate[element] != null
-                        ? state.mapKeyDate[element]!.map((e) {
-                            final workShift = state.workShifts[e];
-                            return ContainerBorder(
-                              borderColors: colors.outline.withOpacity(0.4),
-                              width: width,
-                              padding: 0,
-                              child: CheckboxListTile(
-                                value: check(dateInt: element, keyDate: state.keys, id: e),
-                                onChanged: (value) => _onChange(
-                                    value: value,
-                                    id: e,
-                                    dateInt: element,
-                                    keyDate: state.keys,
-                                    state: state),
-                                title: Text(
-                                  '${strSeconds(workShift?.startTime)} - ${strSeconds(workShift?.endTime)}',
-                                  style: TextStyle(
-                                    color: colors.text,
-                                    fontSize: SpacingUnit.x3,
-                                  ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: SpacingUnit.x2),
+              child: Text(
+                appLocalizations.chooseWorkShift,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: state.keys.mapIndexed(
+                (index, element) {
+                  final date = DateTime.fromMicrosecondsSinceEpoch(element);
+                  final listKey = state.mapKeyDate[element] ?? [];
+                  return !checkSE(
+                    dateInt: element,
+                    keyDate: state.keys,
+                  )
+                      ? ContainerBorder(
+                          borderColors: colors.outline.withOpacity(0.4),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: SpacingUnit.x4,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      appLocalizations.date,
+                                      style: TextStyle(
+                                        color: colors.text,
+                                        fontSize: SpacingUnit.x4,
+                                      ),
+                                    ),
+                                    Text(
+                                      formatYMD(date.toString()),
+                                      style: TextStyle(
+                                        color: colors.text,
+                                        fontSize: SpacingUnit.x4,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            );
-                          }).toList()
-                        : [],
-                  ),
-                ],
-              );
-            },
-          ).toList(),
+                                Column(
+                                  children: listKey.map(
+                                          (e) {
+                                            final workShift = state.workShifts[e] ??
+                                                WorkShiftRegisteredDetail(workDate: DateTime.now());
+                                            return ContainerBorder(
+                                              borderColors: colors.outline.withOpacity(0.4),
+                                              width: width,
+                                              padding: 0,
+                                              child: CheckboxListTile(
+                                                controlAffinity: ListTileControlAffinity.leading,
+                                                value: check(
+                                                    dateInt: element,
+                                                    keyDate: state.keys,
+                                                    workShift: workShift),
+                                                onChanged: (value) => _onChange(
+                                                    value: value,
+                                                    workShift: workShift,
+                                                    dateInt: element,
+                                                    keyDate: state.keys,
+                                                    state: state),
+                                                title: Text(
+                                                  '${strSeconds(workShift.startTime)} - ${strSeconds(workShift.endTime)}',
+                                                  style: TextStyle(
+                                                    color: colors.text,
+                                                    fontSize: SpacingUnit.x4,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ).toList(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : const SizedBox();
+                },
+              ).toList(),
+            ),
+          ],
         );
       },
     );
@@ -91,45 +144,122 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
 
   _onChange(
       {bool? value,
-      required String id,
+      required WorkShiftRegisteredDetail workShift,
       required int dateInt,
       required List<int> keyDate,
       required LeaveShiftState state}) {
-    final firstOrLast = state.workShifts[id]?.workDate.microsecondsSinceEpoch == state.keys.first ||
-        state.workShifts[id]?.workDate.microsecondsSinceEpoch == state.keys.last;
-    if (!ids.contains(id) && firstOrLast) {
-      setState(() {
-        ids.add(id);
-        numberValue = numberValue + (state.workShifts[id]?.workEffort ?? 0);
-        widget.numberValue.call(numberValue);
-        widget.ids.call(ids);
-      });
-    } else if (ids.contains(id) && firstOrLast) {
-      setState(() {
-        ids.remove(id);
-        numberValue = numberValue - (state.workShifts[id]?.workEffort ?? 0);
-        widget.numberValue.call(numberValue);
-        widget.ids.call(ids);
-      });
-    }
-  }
+    final checkType = widget.type != RequisitionTypeEnum.leaveHalfDayToOneDay;
+    if (checkType) {
+      /// check phải ngày cuối hoặc đầu không
+      final firstOrLast = workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
+          workShift.workDate.microsecondsSinceEpoch == state.keys.last;
 
-  bool check({required int dateInt, required List<int> keyDate, required String id}) {
-    final checkSE = keyDate.first < dateInt && keyDate.last > dateInt;
-    final checkId = ids.contains(id);
-    return checkSE || checkId;
-  }
+      ///list ca
+      final listWorkShift = state.workShifts.values.toList();
+      final workShiftsAlikeDate = state.workShifts.values
+          .where((element) =>
+              element.workDate.microsecondsSinceEpoch == workShift.workDate.microsecondsSinceEpoch)
+          .toList();
 
-  _listener(LeaveShiftState state) {
-    for (var element in state.keys) {
-      if (state.keys.first < element && state.keys.last > element) {
-        state.mapKeyDate[element]?.forEach((e) {
+      ///Không phải ca thuộc ngày đầu và cuối th cho hết vào list
+      for (var element in listWorkShift) {
+        final notFirstOrLast = element.workDate.microsecondsSinceEpoch != state.keys.first &&
+            element.workDate.microsecondsSinceEpoch != state.keys.last;
+        if (!workShifts.contains(element) && notFirstOrLast) {
           setState(() {
-            numberValue = numberValue + (state.workShifts[e]?.workEffort ?? 0);
-            ids.add(state.workShifts[e]?.workShiftSettingDetailId ?? "");
+            numberValue = numberValue + (element.workEffort);
+            workShifts.add(element);
           });
+        }
+      }
+
+      ///Thêm ca
+      if (!workShifts.contains(workShift) && firstOrLast) {
+        for (var element in workShiftsAlikeDate) {
+          ///Xử lý chọn ca đầu thì lấy luôn các ca sau
+          if (element.startTime > workShift.startTime &&
+              element.workDate.microsecondsSinceEpoch == state.keys.first) {
+            setState(() {
+              workShifts.add(element);
+              numberValue = numberValue + (element.workEffort);
+            });
+
+            ///Xử lý chọn là ca cuối thì lấy luôn các ca trước
+          } else if (element.startTime < workShift.startTime &&
+              element.workDate.microsecondsSinceEpoch == state.keys.last) {
+            setState(() {
+              workShifts.add(element);
+              numberValue = numberValue + (element.workEffort);
+            });
+          }
+        }
+        setState(() {
+          workShifts.add(workShift);
+          numberValue = numberValue + (workShift.workEffort);
+        });
+
+        ///Xóa ca
+      } else if (workShifts.contains(workShift) && firstOrLast) {
+        for (var element in workShiftsAlikeDate) {
+          if (element.startTime < workShift.startTime &&
+              element.workDate.microsecondsSinceEpoch == state.keys.first) {
+            setState(() {
+              workShifts.remove(element);
+              numberValue = numberValue - (element.workEffort);
+            });
+          } else if (element.startTime > workShift.startTime &&
+              element.workDate.microsecondsSinceEpoch == state.keys.last) {
+            setState(() {
+              workShifts.remove(element);
+              numberValue = numberValue - (element.workEffort);
+            });
+          }
+        }
+        setState(() {
+          workShifts.remove(workShift);
+          numberValue = numberValue - (workShift.workEffort);
+        });
+      }
+    } else {
+      if (!workShifts.contains(workShift)) {
+        setState(() {
+          workShifts.add(workShift);
+          numberValue = numberValue + (workShift.workEffort);
+        });
+      } else if (workShifts.contains(workShift)) {
+        setState(() {
+          workShifts.remove(workShift);
+          numberValue = numberValue - (workShift.workEffort);
         });
       }
     }
+
+    ///Sắp xếp ca theo thứ tự ngày và giờ bắt đầu
+    workShifts.sort((a, b) {
+      int dateComparison = a.workDate.compareTo(b.workDate);
+      if (dateComparison != 0) {
+        return dateComparison;
+      } else {
+        return a.startTime.compareTo(b.startTime);
+      }
+    });
+    widget.numberValue.call(numberValue);
+    widget.workShiftSettings.call(workShifts);
+  }
+
+  bool checkSE({required int dateInt, required List<int> keyDate}) {
+    keyDate.sort();
+    return keyDate.first < dateInt && keyDate.last > dateInt;
+  }
+
+  ///
+  bool check(
+      {required int dateInt,
+      required List<int> keyDate,
+      required WorkShiftRegisteredDetail workShift}) {
+    keyDate.sort();
+    final checkSE = keyDate.first < dateInt && keyDate.last > dateInt;
+    final checkId = workShifts.contains(workShift);
+    return checkSE || checkId;
   }
 }

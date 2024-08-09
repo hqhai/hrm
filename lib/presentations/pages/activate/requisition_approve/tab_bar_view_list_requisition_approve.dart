@@ -34,6 +34,9 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
 
   @override
   void initState() {
+    final state = dI<RequisitionApproveBloc>().state;
+    totalItems = state.countItem;
+    lengthList = state.requisitions.length;
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }

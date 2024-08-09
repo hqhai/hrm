@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
@@ -26,7 +27,9 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
     emit(state.copyWith(statusGet: FlowStatusEnum.init));
     try {
       final FlowResponse flowResponse = await requisitionUseCase.getFlowByUser(page: event.page);
-      final newFlows = flowResponse.items;
+      final newFlows = flowResponse.items
+          .where((element) => element.flowType != RequisitionTypeEnum.postalDelivery)
+          .toList();
       final int total = flowResponse.pagingInfo.totalItems;
       emit(state.copyWith(
         flows: newFlows,

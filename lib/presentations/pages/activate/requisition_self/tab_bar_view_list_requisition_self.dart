@@ -30,7 +30,7 @@ class TabBarViewListRequestSelf extends StatefulWidget {
 class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
   late ScrollController controller;
   bool loadMore = true;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   bool checkLoad = true;
 
   @override

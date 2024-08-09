@@ -29,7 +29,7 @@ class _ListLeaveHistoryWidgetState extends State<ListLeaveHistoryWidget> {
   DateTime? date;
   TypeLeaveEnum? type;
   late ScrollController controller;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   bool checkLoadMore = true;
 
   @override

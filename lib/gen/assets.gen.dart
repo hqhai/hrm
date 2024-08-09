@@ -182,6 +182,9 @@ class $AssetsImagesIconActivateIconGen {
   String get iconamoonOptionsThin =>
       'assets/images/icon/activate_icon/iconamoon_options-thin.svg';
 
+  /// File path: assets/images/icon/activate_icon/loadFile.svg
+  String get loadFile => 'assets/images/icon/activate_icon/loadFile.svg';
+
   /// File path: assets/images/icon/activate_icon/material-symbols-light_list-alt-add-outline.svg
   String get materialSymbolsLightListAltAddOutline =>
       'assets/images/icon/activate_icon/material-symbols-light_list-alt-add-outline.svg';
@@ -201,6 +204,7 @@ class $AssetsImagesIconActivateIconGen {
   List<String> get values => [
         fileAttach,
         iconamoonOptionsThin,
+        loadFile,
         materialSymbolsLightListAltAddOutline,
         materialSymbolsLightListAltOutline,
         materialSymbolsLightSearch,

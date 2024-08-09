@@ -8,16 +8,13 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/navigator_extra/information_request_extra.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
-import 'package:base_app/presentations/widgets/activate/item_activate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 final createRequestPageRoute = GoRoute(
@@ -35,7 +32,7 @@ class CreateRequestPage extends StatefulWidget {
 
 class _CreateRequestPageState extends State<CreateRequestPage> {
   late ScrollController controller;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   FlowStatusEnum status = FlowStatusEnum.init;
 
   @override
@@ -69,8 +66,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
@@ -85,41 +81,93 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
       body: BlocConsumer<FlowBloc, FlowState>(
         listener: (context, state) => _listener(context, state),
         builder: (context, state) {
-          return SingleChildScrollView(
-            child: Container(
-              width: width,
-              height: height * 0.85,
-              color: colors.background,
-              padding: const EdgeInsets.all(SpacingUnit.x4),
-              margin: const EdgeInsets.all(SpacingUnit.x4),
-              child: state.statusGet == FlowStatusEnum.init && state.flows.isEmpty
-                  ? Center(
-                      child: SizedBox(
-                        height: SpacingUnit.x50,
-                        width: SpacingUnit.x50,
-                        child: Lottie.asset(
-                          Assets.images.icon.loading,
-                          width: SpacingUnit.x50,
-                          height: SpacingUnit.x50,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    )
-                  : ListView.builder(
-                      controller: controller,
-                      itemCount: state.flows.length,
-                      itemBuilder: (context, index) => ItemActivateWidget(
-                        title: state.flows[index].flowType?.configTypeName ?? "",
-                        callback: () => _nextScreen(
-                          context,
-                          state.flows[index],
-                        ),
-                      ),
+          return Container(
+            color: colors.background,
+            padding: const EdgeInsets.all(SpacingUnit.x4),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                  child: Text(
+                    appLocalizations.chooseARequest,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                      fontWeight: FontWeight.w600
                     ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                          controller: controller,
+                          itemCount: state.flows.length,
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () => _nextScreen(
+                              context,
+                              state.flows[index],
+                            ),
+                            child: item(
+                              title: state.flows[index].flowType?.configTypeName ?? "",
+                              context: context,
+                            ),
+                          ),
+                        ),
+                ),
+              ],
             ),
           );
         },
       ),
+    );
+  }
+
+  Widget item({required String title, required BuildContext context}) {
+    final colors = AppTheme.getColors(context);
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 10,
+                child: Padding(
+                  padding: const EdgeInsets.all(SpacingUnit.x2),
+                  child: Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x3_5,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: SpacingUnit.x5),
+                  child: Center(
+                    child: Icon(
+                      Icons.chevron_right_outlined,
+                      color: colors.text,
+                      size: SpacingUnit.x6,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Divider(
+          color: colors.text.withOpacity(0.2),
+        )
+      ],
     );
   }
 

@@ -64,32 +64,35 @@ class _TimePickerState extends State<TimePicker> {
                   ),
                 ],
               )
-            : Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
-                      style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
+                          style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: SpacingUnit.x4),
+                          child: Text(
+                            DateFormat('HH:mm:ss').format(setStartTimeOld()),
+                            style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      DateFormat('HH:mm:ss').format(setStartTimeOld()),
-                      style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
-                    ),
-                  ),
-                  Expanded(
-                    child: SvgPicture.asset(
-                      Assets.images.timeKeeping.calendar,
+                    SvgPicture.asset(
+                      Assets.images.icon.home.bottomBar.calendar,
                       colorFilter: ColorFilter.mode(
                         colors.text.withOpacity(0.3),
                         BlendMode.srcIn,
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
       ),
     );

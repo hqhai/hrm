@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
@@ -8,6 +9,7 @@ import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
@@ -31,6 +33,7 @@ import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dial
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:themes/themes.dart';
 
 final createRequestLeavePageRoute = GoRoute(
@@ -67,8 +70,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   DateTime? startTime, endTime;
   double numberValue = 0;
   List<File> files = [];
-  List<String> followers = [], substitutes = [], listIdShift = [];
-  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
+  List<String> followers = [], substitutes = [];
+  List<WorkShiftRegisteredDetail> listWorkShift = [];
+  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false, checkShirt = true;
   String errorTime = '';
   bool checkClick = false;
   final DateTime now = DateTime.now();
@@ -111,7 +115,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
       return false;
     }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && number > 96 && number < 24) {
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
       return false;
     }
     if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
@@ -128,7 +132,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
       return RequisitionTypeEnum.leaveHalfDayToOneDay.configTypeName;
     }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && number > 96 && number < 24) {
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
       return RequisitionTypeEnum.leaveTwoDayToFourDay.configTypeName;
     }
     if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
@@ -178,10 +182,17 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                             ),
                             if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
                               const ItemTakeLeaveWork(),
+                            Text(
+                              appLocalizations.intervalOnLeave,
+                              style: TextStyle(
+                                color: colors.text,
+                                fontSize: SpacingUnit.x4,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                             PeriodTimePicker(
                               oldEndTime: endTime,
                               oldStarTime: startTime,
-                              fontSizeTitle: SpacingUnit.x4,
                               title: appLocalizations.intervalOnLeave,
                               setStarTime: (value) => setStartTime(value ?? DateTime.now()),
                               setEndTime: (value) => setEndTime(value ?? DateTime.now()),
@@ -198,10 +209,25 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                                   ),
                                 ),
                               ),
-                            ItemWorkShift(
-                              numberValue: (value) => setNumberValue(value),
-                              ids: (value) => setListIds(value),
-                            ),
+                            !checkShirt
+                                ? Center(
+                                    child: Shimmer.fromColors(
+                                      baseColor: colors.blue,
+                                      highlightColor: colors.background,
+                                      child: Text(
+                                        appLocalizations.loading,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: SpacingUnit.x7,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : ItemWorkShift(
+                                    numberValue: (value) => setNumberValue(value),
+                                    workShiftSettings: (value) => setListIds(value),
+                                  ),
                             ItemCreateFollower(
                               listFollower: _setListUser(stateUserById.subtitudePersons),
                               title: appLocalizations.substitute,
@@ -279,16 +305,17 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigRequestModel(
-                takeLeaveReason: reason,
-                description: detailedDescriptionController.text,
-                subtitudePersons: substitutes,
-                endDate: endTime,
-                startDate: startTime,
-                workShiftSettingDetailIds: listIdShift,
-                reasonLeave: reason,
-                socialInsuranceLeave: socialInsuranceLeave,
-                takeLeaveType: takeLeaveType,
-                numberValue: numberValue,),
+              takeLeaveReason: reason,
+              description: detailedDescriptionController.text,
+              subtitudePersons: substitutes,
+              endDate: endTime,
+              startDate: startTime,
+              workShiftSettings: listWorkShift,
+              reasonLeave: reason,
+              socialInsuranceLeave: socialInsuranceLeave,
+              takeLeaveType: takeLeaveType,
+              numberValue: numberValue,
+            ),
           )
         : PostRequestRequest(
             id: widget.requestId,
@@ -300,7 +327,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                 subtitudePersons: substitutes,
                 endDate: endTime,
                 startDate: startTime,
-                workShiftSettingDetailIds: listIdShift,
+                workShiftSettings: listWorkShift,
                 reasonLeave: reason,
                 socialInsuranceLeave: socialInsuranceLeave,
                 takeLeaveType: takeLeaveType,
@@ -375,10 +402,18 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       endTime = value;
     });
     if (startTime != null && endTime != null && checkShift()) {
-      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-        endDate: endTime!,
-        startDate: startTime!,
-      ));
+      setState(() {
+        checkShirt = false;
+      });
+      Completer completer = Completer<bool>();
+      dI<LeaveShiftBloc>()
+          .add(GetWorkShiftsEvent(endDate: endTime!, startDate: startTime!, completer: completer));
+      final check = await completer.future;
+      if (check) {
+        setState(() {
+          checkShirt = true;
+        });
+      }
     }
   }
 
@@ -394,9 +429,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     });
   }
 
-  setListIds(List<String> value) {
+  setListIds(List<WorkShiftRegisteredDetail> value) {
     setState(() {
-      listIdShift = value;
+      listWorkShift = value;
     });
   }
 

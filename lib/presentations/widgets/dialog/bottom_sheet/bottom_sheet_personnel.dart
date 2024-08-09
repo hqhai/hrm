@@ -30,7 +30,7 @@ class BottomSheetPersonnelWidget extends StatefulWidget {
 class _BottomSheetPersonnelWidgetState extends State<BottomSheetPersonnelWidget> {
   late ScrollController controller;
   String searchStr = '';
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   UserStatus status = UserStatus.init;
 
   @override

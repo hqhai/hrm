@@ -10,6 +10,7 @@ part 'work_shift_registered_details.g.dart';
 ///Ca làm việc
 class WorkShiftRegisteredDetail {
   final String workShiftSettingDetailId;
+  final String workShiftDetailId;
   final DateTime workDate;
   final double workEffort;
   final String nameWorkShift;
@@ -18,6 +19,7 @@ class WorkShiftRegisteredDetail {
 
   const WorkShiftRegisteredDetail({
     this.workShiftSettingDetailId = '',
+    this.workShiftDetailId = '',
     required this.workDate,
     this.workEffort = 0,
     this.nameWorkShift = '',

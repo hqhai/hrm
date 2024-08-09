@@ -31,7 +31,7 @@ class BottomSheetDepartmentWidget extends StatefulWidget {
 class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidget> {
   late ScrollController controller;
   String searchStr = '';
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   bool loadMore = true;
 
   @override
