@@ -1,9 +1,11 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_time/month_year_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class MonthYearPicker extends StatefulWidget {
@@ -34,7 +36,8 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
     final colors = AppTheme.getColors(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             '${widget.title ?? appLocalizations.time}  ',
@@ -44,12 +47,23 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
           GestureDetector(
             onTap: () => dialog(context),
             child: ContainerBorder(
-              child: Text(
-                formatYM(date.year, date.month),
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                ),
+              padding: SpacingUnit.x4,
+              borderColors: colors.text.withOpacity(0.4),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    formatYM(date.year, date.month),
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                    ),
+                  ),
+                  SvgPicture.asset(
+                    Assets.images.icon.home.bottomBar.calendar,
+                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                  ),
+                ],
               ),
             ),
           )

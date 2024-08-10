@@ -97,36 +97,36 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
                                 ),
                                 Column(
                                   children: listKey.map(
-                                          (e) {
-                                            final workShift = state.workShifts[e] ??
-                                                WorkShiftRegisteredDetail(workDate: DateTime.now());
-                                            return ContainerBorder(
-                                              borderColors: colors.outline.withOpacity(0.4),
-                                              width: width,
-                                              padding: 0,
-                                              child: CheckboxListTile(
-                                                controlAffinity: ListTileControlAffinity.leading,
-                                                value: check(
-                                                    dateInt: element,
-                                                    keyDate: state.keys,
-                                                    workShift: workShift),
-                                                onChanged: (value) => _onChange(
-                                                    value: value,
-                                                    workShift: workShift,
-                                                    dateInt: element,
-                                                    keyDate: state.keys,
-                                                    state: state),
-                                                title: Text(
-                                                  '${strSeconds(workShift.startTime)} - ${strSeconds(workShift.endTime)}',
-                                                  style: TextStyle(
-                                                    color: colors.text,
-                                                    fontSize: SpacingUnit.x4,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ).toList(),
+                                    (e) {
+                                      final workShift = state.workShifts[e] ??
+                                          WorkShiftRegisteredDetail(workDate: DateTime.now());
+                                      return ContainerBorder(
+                                        borderColors: colors.outline.withOpacity(0.4),
+                                        width: width,
+                                        padding: 0,
+                                        child: CheckboxListTile(
+                                          controlAffinity: ListTileControlAffinity.leading,
+                                          value: check(
+                                              dateInt: element,
+                                              keyDate: state.keys,
+                                              workShift: workShift),
+                                          onChanged: (value) => _onChange(
+                                              value: value,
+                                              workShift: workShift,
+                                              dateInt: element,
+                                              keyDate: state.keys,
+                                              state: state),
+                                          title: Text(
+                                            '${strSeconds(workShift.startTime)} - ${strSeconds(workShift.endTime)}',
+                                            style: TextStyle(
+                                              color: colors.text,
+                                              fontSize: SpacingUnit.x4,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).toList(),
                                 ),
                               ],
                             ),
@@ -148,7 +148,8 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
       required int dateInt,
       required List<int> keyDate,
       required LeaveShiftState state}) {
-    final checkType = widget.type != RequisitionTypeEnum.leaveHalfDayToOneDay;
+    final checkType = widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore ||
+        widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay;
     if (checkType) {
       /// check phải ngày cuối hoặc đầu không
       final firstOrLast = workShift.workDate.microsecondsSinceEpoch == state.keys.first ||

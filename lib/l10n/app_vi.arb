@@ -260,7 +260,7 @@
   "replaceDay": "Ngày làm bù",
   "attachedFiles": "Đính kèm",
   "check": "Kiểm tra",
-  "timeHasBeenRequestedInAdvance": "Thời gian đã xin nghỉ trước",
+  "timeHasBeenRequestedInAdvance": "Đã tồn tại đơn trùng thời gian đang chọn, vui lòng chọn lại",
   "workDay": "Ngày công",
   "annualLeave": "Phép năm",
   "sickLeave": "Nghỉ bệnh",
@@ -500,5 +500,10 @@
   "postal": "Bưu điện",
   "requestType": "Loại đơn từ",
   "chooseARequest": "Chọn loại đơn từ",
-  "chooseWorkShift": "Chọn ca làm việc"
+  "chooseWorkShift": "Chọn ca làm việc",
+  "ifOto": "Nếu đi bằng ô tô, họ tên của tài xế",
+  "totalOvertimeHours": "Tổng số giờ làm thêm",
+  "required": "Bắt buộc",
+  "personalReasons": "Lý do cá nhân",
+  "companyReasons": "Lý do công ty"
 }

@@ -63,12 +63,44 @@ class WorkAndSalaryUseCaseImplement extends WorkAndSalaryUseCase {
     );
     final workShiftRegisteredDetails =
         workShiftResponse.expand((e) => e.workShiftRegisteredDetails).toList();
-    final List<int> dates = workShiftResponse.map((e) => e.workDate?.microsecondsSinceEpoch??0).toList();
+    final List<int> dates =
+        workShiftResponse.map((e) => e.workDate?.microsecondsSinceEpoch ?? 0).toList();
     final Map<int, List<String>> mapKeyDate = Map.fromEntries(
       workShiftResponse.map(
         (item) => MapEntry(
-          item.workDate?.microsecondsSinceEpoch??0,
-          item.workShiftRegisteredDetails.map((e) => '${e.workShiftDetailId}/${e.workShiftSettingDetailId}').toList(),
+          item.workDate?.microsecondsSinceEpoch ?? 0,
+          item.workShiftRegisteredDetails
+              .map((e) => '${e.workShiftDetailId}/${e.workShiftSettingDetailId}')
+              .toList(),
+        ),
+      ),
+    );
+
+    final Map<String, WorkShiftRegisteredDetail> map = Map.fromEntries(
+      workShiftRegisteredDetails.map(
+        (item) => MapEntry(
+          '${item.workShiftDetailId}/${item.workShiftSettingDetailId}',
+          item,
+        ),
+      ),
+    );
+    return WorkShiftsMapKeys(keys: dates, mapWorkShift: map, mapKeyDate: mapKeyDate);
+  }
+
+  @override
+  Future<WorkShiftsMapKeys> workShiftExplanation() async {
+    final workShiftResponse = await _workAndSalaryRepository.workShiftExplanation();
+    final workShiftRegisteredDetails =
+        workShiftResponse.expand((e) => e.workShiftRegisteredDetails).toList();
+    final List<int> dates =
+        workShiftResponse.map((e) => e.workDate?.microsecondsSinceEpoch ?? 0).toList();
+    final Map<int, List<String>> mapKeyDate = Map.fromEntries(
+      workShiftResponse.map(
+        (item) => MapEntry(
+          item.workDate?.microsecondsSinceEpoch ?? 0,
+          item.workShiftRegisteredDetails
+              .map((e) => '${e.workShiftDetailId}/${e.workShiftSettingDetailId}')
+              .toList(),
         ),
       ),
     );

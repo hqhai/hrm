@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/response.dart';
@@ -151,7 +151,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     try {
       if (event.files.isNotEmpty) {
         final List<String> paths = [...await listPaths(event.files)];
-        final ConfigRequestModel configRequestModel = event.postRequestRequest.config;
+        final ConfigModelRequest configRequestModel = event.postRequestRequest.config;
         final PostRequestRequest postRequestRequest = event.postRequestRequest
             .copyWith(config: configRequestModel.copyWith(attachments: paths));
         await requisitionUseCase.postRequest(postRequestRequest: postRequestRequest);

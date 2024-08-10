@@ -6,18 +6,22 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_dialog.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_stationery.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:themes/themes.dart';
 
 class ReleaseOfWarehouseAddDialog extends StatefulWidget {
   const ReleaseOfWarehouseAddDialog(
-      {super.key, this.requisitionReleaseOfWarehouse, this.releaseOfWarehouse});
+      {super.key,
+      this.requisitionReleaseOfWarehouse,
+      this.releaseOfWarehouse,
+      required this.callBack});
 
   final ValueChanged<WarehouseReleaseds>? requisitionReleaseOfWarehouse;
   final WarehouseReleaseds? releaseOfWarehouse;
+  final VoidCallback callBack;
 
   @override
   State<ReleaseOfWarehouseAddDialog> createState() => _ReleaseOfWarehouseAddDialogState();
@@ -80,83 +84,90 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    return Container(
-      padding: const EdgeInsets.all(SpacingUnit.x4),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ItemAdd(
-              callback: () => _showBottomSheet(context),
-              title: appLocalizations.product,
-              errorProduct: errorProduct,
+    final colors = AppTheme.getColors(context);
+    return ContainerBorder(
+      padding: SpacingUnit.x4,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: InkWell(
+              onTap: () => widget.callBack.call(),
+              child: Icon(
+                Icons.close,
+                size: SpacingUnit.x8,
+                color: colors.error,
+              ),
             ),
-            ItemAddStationeryDialog(
-              check: false,
-              onChangeProduct: (value) => setProduct(value),
-              onchangeUnit: (value) => setUnit(value),
-              productController: productController,
-              unitController: unitController,
-            ),
-            ItemCreateInput(
-              error: errorExplain,
-              title: appLocalizations.explain,
-              inputController: explainController,
-              onChange: (value) => _setExplain(value),
-            ),
-            ItemCreateTotalMinute(
-              error: errorNumberOf,
-              title: appLocalizations.numberOf,
-              totalMinuteController: numberOfController,
-              onChange: (value) => _setNumber(value),
-            ),
-            ItemCreateInputArea(
-              textController: noteController,
-              title: appLocalizations.note,
-              onChange: (value) => _setNote(value),
-            ),
-            ItemButtonListStationery(
-              callbackCancel: () => popDialog(context),
-              callbackAdd: () => setAdd(context),
-            )
-          ],
-        ),
+          ),
+          ItemAdd(
+            callback: () => _showBottomSheet(context),
+            title: appLocalizations.product,
+            errorProduct: errorProduct,
+          ),
+          ItemAddStationeryDialog(
+            check: false,
+            onChangeProduct: (value) => setProduct(value, context),
+            onchangeUnit: (value) => setUnit(value, context),
+            productController: productController,
+            unitController: unitController,
+          ),
+          ItemCreateInput(
+            error: errorExplain,
+            title: appLocalizations.explain,
+            inputController: explainController,
+            onChange: (value) => _setExplain(value, context),
+          ),
+          ItemCreateTotalMinute(
+            error: errorNumberOf,
+            title: appLocalizations.numberOf,
+            totalMinuteController: numberOfController,
+            onChange: (value) => _setNumber(value, context),
+          ),
+          ItemCreateInputArea(
+            textController: noteController,
+            title: appLocalizations.note,
+            onChange: (value) => _setNote(value, context),
+          ),
+        ],
       ),
     );
   }
 
-  _setExplain(String value) {
+  _setExplain(String value, BuildContext context) {
     setState(() {
       explain = value;
     });
+    checkOnClick(context);
+    setAdd(context);
   }
 
-  _setNote(String value) {
+  _setNote(String value, BuildContext context) {
     setState(() {
       note = value;
     });
+    checkOnClick(context);
+    setAdd(context);
   }
 
   setAdd(BuildContext context) {
-    if (checkOnClick(context)) {
-      setState(() {
-        widget.requisitionReleaseOfWarehouse?.call(WarehouseReleaseds(
-          product: product,
-          note: note,
-          unit: unit,
-          quantity: numberOf,
-          explain: explain,
-        ));
-      });
-      Navigator.of(context).pop();
-    }
+    widget.requisitionReleaseOfWarehouse?.call(WarehouseReleaseds(
+      product: product,
+      note: note,
+      unit: unit,
+      quantity: numberOf,
+      explain: explain,
+    ));
   }
 
-  _setNumber(String value) {
+  _setNumber(String value, BuildContext context) {
     setState(() {
       numberOf = value != '' ? int.parse(value) : 0;
     });
+    checkOnClick(context);
+    setAdd(context);
   }
 
   _showBottomSheet(BuildContext context) {
@@ -170,15 +181,19 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     );
   }
 
-  setProduct(String value) {
+  setProduct(String value, BuildContext context) {
     setState(() {
       product = value;
     });
+    checkOnClick(context);
+    setAdd(context);
   }
 
-  setUnit(String value) {
+  setUnit(String value, BuildContext context) {
     setState(() {
       unit = value;
     });
+    checkOnClick(context);
+    setAdd(context);
   }
 }

@@ -45,6 +45,7 @@ class _ItemCreateTimeKeepingTypeState extends State<ItemCreateTimeKeepingType> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
             child: ContainerBorder(
+              padding: SpacingUnit.x4,
               borderColors: colors.outline.withOpacity(0.3),
               width: width,
               child: Text(

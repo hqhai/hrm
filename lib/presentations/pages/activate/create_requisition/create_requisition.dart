@@ -144,7 +144,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: colors.text,
-                      fontSize: SpacingUnit.x3_5,
+                      fontSize: SpacingUnit.x4,
                     ),
                   ),
                 ),

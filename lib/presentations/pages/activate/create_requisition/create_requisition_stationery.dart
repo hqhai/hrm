@@ -1,10 +1,11 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -18,11 +19,9 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_total_amount.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/list_stationeries.dart';
-import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/custom/app_month_year_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/product/stationery_order_add_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -61,6 +60,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   String error = '', errorMonth = '';
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
+  List<bool> checkTypeContainer = [];
 
   @override
   void initState() {
@@ -68,7 +68,8 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
       final request = dI<RequisitionBloc>().state.requisition;
       followers = [...request.followerIds];
       listRequisitionStationery = [...?request.config.stationeries];
-      month = request.config.startDate??DateTime.now();
+      checkTypeContainer = List.filled(listRequisitionStationery.length, true);
+      month = request.config.startDate ?? DateTime.now();
     }
     super.initState();
   }
@@ -95,6 +96,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               iconTheme: IconThemeData(color: colors.text),
               title: Text(
@@ -118,14 +120,12 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                               onChange: (value) => setMonth(value),
                             ),
                             ListStationeries(
+                              checkTypeContainer: checkTypeContainer,
+                              changeTypeContainer: (value) => _changeTypeContainer(value),
                               title: appLocalizations.stationeryList,
                               error: error,
                               listRequisitionStationery: listRequisitionStationery,
                               onChangeList: (value) => setList(value),
-                            ),
-                            ButtonAddList(
-                              title: appLocalizations.moreOfficeProducts,
-                              callBack: () => _addStationery(context),
                             ),
                             ItemTotalAmount(
                               totalAmount: _totalAmount(),
@@ -141,7 +141,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                               padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
                               child: ItemButton(
                                 callbackSave: () => _save(context),
-                                callbackCancel: () => _cancel(),
+                                callbackCancel: () => _cancel(context),
                               ),
                             )
                           ],
@@ -166,6 +166,12 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     );
   }
 
+  _changeTypeContainer(List<bool> value) {
+    setState(() {
+      checkTypeContainer = value;
+    });
+  }
+
   setCheckSuccess() {
     setState(() {
       checkSuccess = false;
@@ -178,21 +184,11 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     });
   }
 
-  _addStationery(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: StationeryOderAddDialog(
-            requisitionStationery: (value) => setAdd(value),
-          ),
-        );
-      },
-    );
-  }
+
 
   setAdd(Stationeries value) {
     setState(() {
+      checkTypeContainer.add(true);
       listRequisitionStationery.add(value);
     });
   }
@@ -202,7 +198,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
-            config: ConfigRequestModel(
+            config: ConfigModelRequest(
               startDate: month,
               stationeries: listRequisitionStationery,
               subtotal: _subtotal(),
@@ -214,7 +210,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
             id: widget.requestId,
             followerIds: followers,
             flowId: widget.flowId,
-            config: ConfigRequestModel(
+            config: ConfigModelRequest(
               startDate: month,
               stationeries: listRequisitionStationery,
               subtotal: _subtotal(),
@@ -281,7 +277,9 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     return _subtotal() + _numberValue();
   }
 
-  _cancel() {}
+  _cancel(BuildContext context) {
+    dI<AppNavigation>().pop(context);
+  }
 
   _setFollower(List<User> value) {
     setState(() {

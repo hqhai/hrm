@@ -28,7 +28,7 @@ class ItemAdd extends StatelessWidget {
               GestureDetector(
                 onTap: () => callback.call(),
                 child: Icon(
-                  Icons.add_circle,
+                  Icons.add,
                   size: SpacingUnit.x8,
                   color: colors.success,
                 ),

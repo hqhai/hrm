@@ -4,11 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateInput extends StatefulWidget {
-  const ItemCreateInput({super.key, this.inputController, this.onChange, this.title, this.error});
+  const ItemCreateInput({
+    super.key,
+    this.inputController,
+    this.onChange,
+    this.title,
+    this.error,
+    this.subTitle,
+  });
 
   final TextEditingController? inputController;
   final ValueChanged<String>? onChange;
-  final String? title, error;
+  final String? title, error, subTitle;
 
   @override
   State<ItemCreateInput> createState() => _ItemCreateInputState();
@@ -23,13 +30,27 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x2),
-          child: Text(
-            widget.title ?? "",
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-              fontWeight: FontWeight.w800,
-            ),
+          child: Row(
+            children: [
+              Text(
+                widget.title ?? "",
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: SpacingUnit.x1),
+                child: Text(
+                  widget.subTitle ?? "",
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x3,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         Padding(
@@ -40,7 +61,7 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
             onChange: (value) => _onChangeInput(value),
           ),
         ),
-        if (widget.error?.isNotEmpty??false)
+        if (widget.error?.isNotEmpty ?? false)
           Padding(
             padding: const EdgeInsets.only(bottom: SpacingUnit.x1),
             child: Text(

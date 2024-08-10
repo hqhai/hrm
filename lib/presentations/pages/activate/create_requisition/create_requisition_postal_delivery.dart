@@ -1,11 +1,12 @@
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -125,7 +126,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
                           const ItemListStepFlow(),
                           ItemButton(
                             callbackSave: () => _save(context),
-                            callbackCancel: () => _cancel(),
+                            callbackCancel: () => _cancel(context),
                           )
                         ],
                       ),
@@ -200,7 +201,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
         ? PostRequestRequest(
       followerIds: followers,
       flowId: widget.flowId,
-      config: ConfigRequestModel(
+      config: ConfigModelRequest(
         description: reason,
         deliveryType: transferType?.name ?? "",
       ),
@@ -209,7 +210,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       id: widget.requestId,
       followerIds: followers,
       flowId: widget.flowId,
-      config: ConfigRequestModel(
+      config: ConfigModelRequest(
         description: reason,
         deliveryType: transferType?.name ?? "",
       ),
@@ -251,7 +252,9 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
     });
   }
 
-  _cancel() {}
+  _cancel(BuildContext context) {
+    dI<AppNavigation>().pop(context);
+  }
 
   _setTransferType(RequisitionDeliveryTypeEnum value) {
     setState(() {

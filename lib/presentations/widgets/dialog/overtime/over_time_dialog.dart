@@ -1,23 +1,33 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/date_over_time.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/suggest_time_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_button_list_stationery.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class OverTimeAddDialog extends StatefulWidget {
   const OverTimeAddDialog(
-      {super.key, this.onChangeOverTimes, this.requisitionOverTime, this.checkNote = true});
+      {super.key,
+      this.onChangeOverTimes,
+      this.requisitionOverTime,
+      this.checkNote = true,
+      required this.callBack,
+      this.checkTypeContainer = true,
+      required this.callBackTypeContainer});
 
   final ValueChanged<RequisitionOverTime>? onChangeOverTimes;
   final RequisitionOverTime? requisitionOverTime;
+  final VoidCallback callBack;
+  final VoidCallback callBackTypeContainer;
+  final bool checkTypeContainer;
   final bool checkNote;
 
   @override
@@ -72,52 +82,109 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return Container(
-      padding: const EdgeInsets.all(SpacingUnit.x3),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DateOverTime(
-              errorDate: errorDate,
-              dateOld: date,
-              changeValue: (value) => setDate(value),
-            ),
-            TimeOverTime(
-              dateOld: strSeconds(startTime),
-              changeValue: (value) => _setStart(value),
-              title: appLocalizations.startTime,
-            ),
-            TimeOverTime(
-              dateOld: strSeconds(endTime),
-              changeValue: (value) => _setEnd(value),
-              title: appLocalizations.endTime,
-            ),
-            if (errorTime.isNotEmpty)
+    return ContainerBorder(
+      padding: SpacingUnit.x4,
+      margin: 0,
+      borderColors: colors.text.withOpacity(0.4),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Text(
-                errorTime,
+                widget.checkTypeContainer ? "" : formatYMD(date.toString()),
                 style: TextStyle(
-                  color: colors.error,
-                  fontSize: SpacingUnit.x3,
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
                 ),
               ),
-            SuggestTimeOverTime(
-              suggestTime: strSeconds((suggestTime ?? 0).toInt()),
-            ),
-            if (widget.checkNote)
-              ItemCreateInputArea(
-                title: appLocalizations.note,
-                error: '',
-                textController: noteController,
-                onChange: (value) => _setNote(value),
+              InkWell(
+                onTap: () => widget.callBackTypeContainer.call(),
+                child: SvgPicture.asset(
+                  width: SpacingUnit.x6,
+                  height: SpacingUnit.x6,
+                  widget.checkTypeContainer
+                      ? Assets.images.icon.home.chevronForward
+                      : Assets.images.icon.activateIcon.drop,
+                  colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                ),
               ),
-            ItemButtonListStationery(
-              callbackCancel: () => popDialog(context),
-              callbackAdd: () => setAdd(context),
-            )
-          ],
-        ),
+            ],
+          ),
+          if (widget.checkTypeContainer)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DateOverTime(
+                  errorDate: errorDate,
+                  dateOld: date,
+                  changeValue: (value) => setDate(value),
+                ),
+                TimeOverTime(
+                  dateOld: strSeconds(startTime),
+                  changeValue: (value) => _setStart(value),
+                  title: appLocalizations.startTime,
+                ),
+                TimeOverTime(
+                  dateOld: strSeconds(endTime),
+                  changeValue: (value) => _setEnd(value),
+                  title: appLocalizations.endTime,
+                ),
+                if (errorTime.isNotEmpty)
+                  Text(
+                    errorTime,
+                    style: TextStyle(
+                      color: colors.error,
+                      fontSize: SpacingUnit.x3,
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '${appLocalizations.totalOvertimeHours}: ',
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x4,
+                          ),
+                        ),
+                        TextSpan(
+                          text: strSeconds((suggestTime ?? 0).toInt()),
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x4,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                if (widget.checkNote)
+                  ItemCreateInputArea(
+                    fontWeightTitle: FontWeight.w400,
+                    maxLines: 2,
+                    title: appLocalizations.note,
+                    error: '',
+                    textController: noteController,
+                    onChange: (value) => _setNote(value),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+                  child: AppButton(
+                    title: appLocalizations.cancel,
+                    onSubmit: () => widget.callBack.call(),
+                    color: colors.error.withOpacity(0.7),
+                  ),
+                )
+              ],
+            ),
+        ],
       ),
     );
   }
@@ -137,28 +204,26 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     return formatHM(result.toString());
   }
 
-  setAdd(BuildContext context) {
-    if (checkOnClick(context)) {
-      widget.onChangeOverTimes?.call(RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime));
-      Navigator.of(context).pop();
-    }
-  }
-
   _setNote(String value) {
     setState(() {
       note = value;
     });
+    checkOnClick(context);
+    widget.onChangeOverTimes?.call(
+      RequisitionOverTime(
+          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
+    );
   }
 
   setDate(DateTime value) {
     setState(() {
       date = value;
     });
+    checkOnClick(context);
+    widget.onChangeOverTimes?.call(
+      RequisitionOverTime(
+          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
+    );
   }
 
   _setStart(String value) {
@@ -166,6 +231,11 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
       startTime = _timeToSeconds(value);
       suggestTime = double.parse((endTime - startTime).toString());
     });
+    checkOnClick(context);
+    widget.onChangeOverTimes?.call(
+      RequisitionOverTime(
+          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
+    );
   }
 
   _setEnd(String value) {
@@ -173,5 +243,10 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
       endTime = _timeToSeconds(value);
       suggestTime = double.parse((endTime - startTime).toString());
     });
+    checkOnClick(context);
+    widget.onChangeOverTimes?.call(
+      RequisitionOverTime(
+          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
+    );
   }
 }

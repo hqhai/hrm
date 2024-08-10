@@ -1,6 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
+import 'package:base_app/data/models/requisition/requisition/explanation.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
@@ -38,33 +39,40 @@ class ConfigRequestModel {
   final EnumReasonLeave? reasonLeave;
   final EnumSocialInsuranceLeave? socialInsuranceLeave;
   final List<WorkShiftRegisteredDetail>? workShiftSettings;
+  final List<Explanation>? explanations;
+  final EnumReason reason;
+  final int startTime;
+  final int endTime;
 
-  const ConfigRequestModel({
-    this.editTimekeeping,
-    this.overTimes,
-    this.flowId,
-    this.description,
-    this.attachments,
-    this.stationeries,
-    this.totalAmount,
-    this.subtotal,
-    this.numberValue,
-    this.deliveryType,
-    this.subtitudePersons,
-    this.destination,
-    this.vehicle,
-    this.content,
-    this.endDate,
-    this.startDate,
-    this.explanationReason,
-    this.takeLeaveReason,
-    this.total,
-    this.warehourseReleaseds,
-    this.socialInsuranceLeave,
-    this.reasonLeave,
-    this.takeLeaveType = EnumTakeLeaveType.unknown,
-    this.workShiftSettings,
-  });
+  const ConfigRequestModel(
+      {this.editTimekeeping,
+      this.overTimes,
+      this.flowId,
+      this.description,
+      this.attachments,
+      this.stationeries,
+      this.totalAmount,
+      this.subtotal,
+      this.numberValue,
+      this.deliveryType,
+      this.subtitudePersons,
+      this.destination,
+      this.vehicle,
+      this.content,
+      this.endDate,
+      this.startDate,
+      this.explanationReason,
+      this.takeLeaveReason,
+      this.total,
+      this.warehourseReleaseds,
+      this.socialInsuranceLeave,
+      this.reasonLeave,
+      this.takeLeaveType = EnumTakeLeaveType.unknown,
+      this.workShiftSettings,
+      this.explanations,
+      this.reason = EnumReason.individual,
+      this.endTime = 0,
+      this.startTime = 0});
 
   factory ConfigRequestModel.fromJson(Map<String, dynamic> json) =>
       _$ConfigRequestModelFromJson(json);

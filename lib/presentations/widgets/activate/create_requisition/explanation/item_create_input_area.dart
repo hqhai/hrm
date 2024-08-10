@@ -5,12 +5,19 @@ import 'package:themes/themes.dart';
 
 class ItemCreateInputArea extends StatefulWidget {
   const ItemCreateInputArea(
-      {super.key, this.textController, this.onChange, this.title = '', this.error = ''});
+      {super.key,
+      this.textController,
+      this.onChange,
+      this.title = '',
+      this.error = '',
+      this.maxLines, this.fontWeightTitle});
 
   final String title;
   final String? error;
+  final int? maxLines;
   final TextEditingController? textController;
   final ValueChanged<String>? onChange;
+  final FontWeight? fontWeightTitle;
 
   @override
   State<ItemCreateInputArea> createState() => _ItemCreateInputAreaState();
@@ -21,7 +28,9 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2,),
+      padding: const EdgeInsets.symmetric(
+        vertical: SpacingUnit.x2,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,13 +39,13 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
             style: TextStyle(
               color: colors.text,
               fontSize: SpacingUnit.x4,
-              fontWeight: FontWeight.w800,
+              fontWeight: widget.fontWeightTitle?? FontWeight.w600,
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: SpacingUnit.x3),
             child: AppInputArea(
-              maxLines: 4,
+              maxLines: widget.maxLines ?? 4,
               placeHolder: widget.title,
               controller: widget.textController,
               onChange: (value) => _setOnChangeText(value),

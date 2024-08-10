@@ -120,51 +120,53 @@ class _LayoutCalendarDialogState extends State<LayoutCalendarDialog> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    return Container(
-      color: colors.background,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Center(
-            child: FormChangeMonth(
-              year: currentDateTime.year.toString(),
-              month: currentDateTime.month.toString(),
-              upMonth: () => _upMonth(),
-              downMonth: () => _downMonth(),
+    return SingleChildScrollView(
+      child: Container(
+        color: colors.background,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: FormChangeMonth(
+                year: currentDateTime.year.toString(),
+                month: currentDateTime.month.toString(),
+                upMonth: () => _upMonth(),
+                downMonth: () => _downMonth(),
+              ),
             ),
-          ),
-          Container(
-            height: SpacingUnit.x12_5,
-            width: MediaQuery.sizeOf(context).width,
-            color: colors.background,
-            child: Row(
-              children: MenuValues.mapDayInWeek.values
-                  .map(
-                    (e) => Expanded(
-                      child: Center(
-                        child: Text(e, style: theme.textTheme.titleMedium),
+            Container(
+              height: SpacingUnit.x12_5,
+              width: MediaQuery.sizeOf(context).width,
+              color: colors.background,
+              child: Row(
+                children: MenuValues.mapDayInWeek.values
+                    .map(
+                      (e) => Expanded(
+                        child: Center(
+                          child: Text(e, style: theme.textTheme.titleMedium),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
+                    )
+                    .toList(),
+              ),
             ),
-          ),
-          BodyCalendarDialog(
-            startTimeOld: startTime,
-            endTimeOld: endTime,
-            listDate: listDate,
-            month: currentDateTime.month,
-            year: currentDateTime.year,
-            setEndTime: (value) => setEndTime(value),
-            setStarTime: (value) => setStartTime(value),
-          ),
-          ButtonRequest(
-            title1: appLocalizations.apply,
-            title2: appLocalizations.cancel,
-            apply: () => setApply(context),
-            reject: () => setReject(context),
-          ),
-        ],
+            BodyCalendarDialog(
+              startTimeOld: startTime,
+              endTimeOld: endTime,
+              listDate: listDate,
+              month: currentDateTime.month,
+              year: currentDateTime.year,
+              setEndTime: (value) => setEndTime(value),
+              setStarTime: (value) => setStartTime(value),
+            ),
+            ButtonRequest(
+              title1: appLocalizations.apply,
+              title2: appLocalizations.cancel,
+              apply: () => setApply(context),
+              reject: () => setReject(context),
+            ),
+          ],
+        ),
       ),
     );
   }

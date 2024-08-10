@@ -22,8 +22,9 @@ class _BottomSheetTimeKeepingTypeWidgetState extends State<BottomSheetTimeKeepin
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding: const EdgeInsets.all(
-        SpacingUnit.x3,
+      padding: const EdgeInsets.symmetric(
+        vertical: SpacingUnit.x5,
+        horizontal: SpacingUnit.x3,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -33,8 +34,8 @@ class _BottomSheetTimeKeepingTypeWidgetState extends State<BottomSheetTimeKeepin
               (index, element) => GestureDetector(
                 onTap: () => addType(type: element),
                 child: ContainerBorder(
-                  padding: SpacingUnit.x2,
-                  margin: SpacingUnit.x2,
+                  padding: SpacingUnit.x4,
+                  margin: SpacingUnit.x4,
                   child: Row(
                     children: [
                       Text(

@@ -1,6 +1,9 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class DatePicker extends StatefulWidget {
@@ -28,12 +31,12 @@ class _DatePickerState extends State<DatePicker> {
     DateTime? time = await showDatePicker(
       builder: (context, child) {
         return Theme(
-           data: Theme.of(context).copyWith(
+          data: Theme.of(context).copyWith(
             colorScheme: ColorScheme(
               onSurface: colors.text,
               primary: colors.primary,
               onPrimary: colors.onPrimary,
-              secondary:colors.secondary,
+              secondary: colors.secondary,
               brightness: Brightness.dark,
               onSecondary: colors.onSecondary,
               error: colors.error,
@@ -68,23 +71,22 @@ class _DatePickerState extends State<DatePicker> {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
       onTap: () => dialog(context: context, currentTime: widget.oldDate ?? DateTime.now()),
-      child: Container(
-        width: SpacingUnit.x25,
-        height: SpacingUnit.x8,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
-            SpacingUnit.x2_5,
-          ),
-          border: Border.all(
-            color: colors.outline.withOpacity(0.2),
-            width: 2,
-          ),
-        ),
-        child: Text(
-          formatYMD(currentDate.toString()),
-          style: TextStyle(
-              fontSize: SpacingUnit.x4, color: colors.text),
+      child: ContainerBorder(
+        padding: SpacingUnit.x4_5,
+        borderColors: colors.text.withOpacity(0.4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              formatYMD(currentDate.toString()),
+              style: TextStyle(
+                  fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600),
+            ),
+            SvgPicture.asset(
+              Assets.images.icon.home.bottomBar.calendar,
+              colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+            ),
+          ],
         ),
       ),
     );

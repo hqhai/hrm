@@ -3134,6 +3134,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Choose work shift'**
   String get chooseWorkShift;
+
+  /// No description provided for @ifOto.
+  ///
+  /// In en, this message translates to:
+  /// **'If traveling by car, full name of the driver'**
+  String get ifOto;
+
+  /// No description provided for @totalOvertimeHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Total overtime hours'**
+  String get totalOvertimeHours;
+
+  /// No description provided for @required.
+  ///
+  /// In en, this message translates to:
+  /// **'required'**
+  String get required;
+
+  /// No description provided for @personalReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal reasons'**
+  String get personalReasons;
+
+  /// No description provided for @companyReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Company reasons'**
+  String get companyReasons;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

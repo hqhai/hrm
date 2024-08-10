@@ -1,6 +1,9 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class TimePickerHourMinute extends StatefulWidget {
@@ -16,8 +19,8 @@ class TimePickerHourMinute extends StatefulWidget {
 class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
   TimeOfDay? selectedTime;
 
-  TimeOfDay? timeOfDay(){
-    if(widget.timeSlot.isNotEmpty){
+  TimeOfDay? timeOfDay() {
+    if (widget.timeSlot.isNotEmpty) {
       DateTime parsedTime = formatDateHM(widget.timeSlot);
       setState(() {
         selectedTime = TimeOfDay.fromDateTime(DateTime.parse(parsedTime.toString()));
@@ -31,26 +34,30 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
-      child: Container(
-        width: SpacingUnit.x25,
-        height: SpacingUnit.x8,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
-            SpacingUnit.x2_5,
-          ),
-          border: Border.all(
-            color: colors.outline.withOpacity(0.2),
-            width: 2,
-          ),
+      child: ContainerBorder(
+        borderColors: colors.text.withOpacity(0.4),
+        padding: SpacingUnit.x4,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              timeOfDay() != null
+                  ? formatHM(
+                      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,
+                              selectedTime!.hour, selectedTime!.minute)
+                          .toString(),
+                    )
+                  : formatHM(
+                      DateTime.now().toString(),
+                    ),
+              style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+            ),
+            SvgPicture.asset(
+              Assets.images.icon.home.mingcuteTimeLine,
+              colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+            ),
+          ],
         ),
-        child: Text(
-            timeOfDay() != null
-                ? formatHM(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,
-                        selectedTime!.hour, selectedTime!.minute)
-                    .toString())
-                : formatHM(DateTime.now().toString()),
-            style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text)),
       ),
       onTap: () async {
         final TimeOfDay? time = await showTimePicker(

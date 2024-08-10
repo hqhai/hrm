@@ -14,6 +14,8 @@ abstract class WorkAndSalaryRepository {
 
   Future<double> totalWorkday({required String startTime, required String endTime});
 
-  Future<List<WorkShiftsResponse>> workShiftLeave({required DateTime startTime, required DateTime endTime});
+  Future<List<WorkShiftsResponse>> workShiftLeave(
+      {required DateTime startTime, required DateTime endTime});
 
+  Future<List<WorkShiftsResponse>> workShiftExplanation();
 }

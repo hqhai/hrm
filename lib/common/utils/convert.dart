@@ -7,6 +7,13 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
+///String sang int
+int timeToSeconds(String time) {
+  final DateFormat format = DateFormat('HH:mm:ss');
+  final DateTime t1 = format.parse(time);
+  final DateTime t2 = format.parse("00:00:00");
+  return t1.difference(t2).inSeconds;
+}
 ///Từ int sang String
 String? strSeconds(int? time) {
   if (time != null) {

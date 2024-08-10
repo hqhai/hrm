@@ -1,11 +1,13 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
+import 'package:base_app/data/models/requisition/requisition/explanation.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -14,15 +16,14 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_list_explanations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/list_overtime.dart';
-import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_work_shift.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/timekeeping_dialog/timekeeping_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -63,6 +64,8 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   String errorTime = '', errorDestination = '';
   String? description;
   List<String> followers = [];
+  List<Explanation> explanations = [];
+  List<bool> checkTypeContainer = [];
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
 
@@ -74,6 +77,8 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       followers = [...request.followerIds];
       description = request.config.description;
       detailedDescriptionController.text = description ?? "";
+      explanations = [...?request.config.explanations];
+      checkTypeContainer = List.filled(explanations.length, true);
     }
     super.initState();
   }
@@ -110,16 +115,14 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ListOverTime(
-                            checkExplanation: true,
-                            title: appLocalizations.timeKeepingList,
-                            error: errorTime,
-                            requisitionOverTimes: listRequisitionOverTimes,
-                            onChangeList: (value) => _setChangeRequisitionOverTimes(value),
-                          ),
-                          ButtonAddList(
-                            title: appLocalizations.addWorkTime,
-                            callBack: () => _addTime(context),
+                          ListExplanationsWidget(
+                            changeExplanations: (value) => _setExplanations(value),
+                            changeTypeContainer: (value) => _changeTypeContainer(value),
+                            checkTypeContainer: checkTypeContainer,
+                            explanations: explanations,
+                            title: appLocalizations.workDay,
+                            callback: () => //addExplanation(),
+                                _showBottomSheet(context),
                           ),
                           ItemCreateInputArea(
                             error: errorDestination,
@@ -136,7 +139,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                           const ItemListStepFlow(),
                           ItemButton(
                             callbackSave: () => _save(context),
-                            callbackCancel: () => _cancel(),
+                            callbackCancel: () => _cancel(context),
                           )
                         ],
                       ),
@@ -181,7 +184,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkDescription = description != null;
-    final bool checkList = listRequisitionOverTimes.isNotEmpty;
+    final bool checkList = explanations.isNotEmpty;
     setState(() {
       errorTime = checkList ? '' : appLocalizations.cannotBeLeftBlank;
       errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
@@ -206,20 +209,19 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
-            config: ConfigRequestModel(
-              explanationReason: EditTimekeeping.editTimekeeping,
-              overTimes: listRequisitionOverTimes,
-              description: description,
-            ),
+            config: ConfigModelRequest(
+                explanationReason: EditTimekeeping.editTimekeeping,
+                description: description,
+                explanations: explanations),
           )
         : PostRequestRequest(
             id: widget.requestId,
             followerIds: followers,
             flowId: widget.flowId,
-            config: ConfigRequestModel(
+            config: ConfigModelRequest(
               explanationReason: EditTimekeeping.editTimekeeping,
-              overTimes: listRequisitionOverTimes,
               description: description,
+              explanations: explanations,
             ),
           );
   }
@@ -259,30 +261,38 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _addTime(BuildContext context) {
-    showDialog(
+  _cancel(BuildContext context) {
+    dI<AppNavigation>().pop(context);
+  }
+
+  _setExplanations(List<Explanation> value) {
+    setState(() {
+      explanations = value;
+    });
+  }
+
+  _changeTypeContainer(List<bool> value) {
+    setState(() {
+      checkTypeContainer = value;
+    });
+  }
+
+  _showBottomSheet(BuildContext context) {
+    showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
-          child: TimeKeepingDialog(
-            onChangeOverTimes: (value) => setListTime(value),
-          ),
+        return BottomSheetWorkShiftWidget(
+          explanations: explanations,
+          onChange: (value) => _addExplanation(value),
         );
       },
     );
   }
 
-  setListTime(RequisitionOverTime value) {
+  _addExplanation(Explanation value) {
     setState(() {
-      listRequisitionOverTimes.add(value);
-    });
-  }
-
-  _cancel() {}
-
-  _setChangeRequisitionOverTimes(List<RequisitionOverTime> value) {
-    setState(() {
-      listRequisitionOverTimes = value;
+      checkTypeContainer.add(true);
+      explanations.add(value);
     });
   }
 }

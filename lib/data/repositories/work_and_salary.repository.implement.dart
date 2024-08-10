@@ -50,4 +50,9 @@ class WorkAndSalaryRepositoryImplement extends WorkAndSalaryRepository {
       startDate: startTime,
     ));
   }
+
+  @override
+  Future<List<WorkShiftsResponse>> workShiftExplanation() async {
+    return await _workAndSalaryService.workShiftExplanation();
+  }
 }

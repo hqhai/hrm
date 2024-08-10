@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class HeaderFilter extends StatelessWidget {
-  const HeaderFilter({super.key, required this.callback});
+  const HeaderFilter({super.key, required this.callback, this.title});
 
   final VoidCallback callback;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class HeaderFilter extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2_5),
           child: Text(
-            appLocalizations.filter,
+            title ?? appLocalizations.filter,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: SpacingUnit.x6,

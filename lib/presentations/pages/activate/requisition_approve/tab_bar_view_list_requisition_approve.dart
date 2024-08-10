@@ -29,7 +29,7 @@ class TabBarViewListRequistionApprove extends StatefulWidget {
 
 class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequistionApprove> {
   late ScrollController controller;
-  int pageIndex = 1, totalItems = 0, lengthList = 0;
+  int pageIndex = 1, totalItems = 12, lengthList = 11;
   bool checkLoad = true;
 
   @override

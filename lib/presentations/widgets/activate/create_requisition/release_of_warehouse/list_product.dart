@@ -1,7 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/release_of_warehouse/item_list_release_of_warehouse.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_release_of_warehouse_dialog.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -26,38 +26,40 @@ class _ListProductsState extends State<ListProducts> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.title,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        Container(
-          width: width,
-          height: height * 0.14 * widget.listProducts.length,
-          padding: const EdgeInsets.all(SpacingUnit.x1),
-          margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-          decoration: BoxDecoration(
-            color: colors.background,
-            borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-          ),
-          child: ListView.builder(
-            itemCount: widget.listProducts.length,
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () => _getStationeryInList(context, widget.listProducts[index], index),
-              child: ItemListReleaseOfWarehouse(
-               requisitionReleaseOfWarehouse: widget.listProducts[index],
-                index: index,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.title,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
+                fontWeight: FontWeight.w800,
               ),
             ),
-          ),
+            InkWell(
+              onTap: () => _setAdd(),
+              child: Icon(
+                Icons.add,
+                size: SpacingUnit.x8,
+                color: colors.success,
+              ),
+            )
+          ],
+        ),
+        Column(
+          children: widget.listProducts
+              .mapIndexed(
+                (index, element) => ReleaseOfWarehouseAddDialog(
+                  callBack: () => _delete(element, index),
+                  releaseOfWarehouse: element,
+                  requisitionReleaseOfWarehouse: (value) => _edit(value, index),
+                ),
+              )
+              .toList(),
         ),
         if (widget.error != '')
           Padding(
@@ -74,21 +76,6 @@ class _ListProductsState extends State<ListProducts> {
     );
   }
 
-  _getStationeryInList(
-      BuildContext context, WarehouseReleaseds requisitionReleaseOfWarehouse, int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: ReleaseOfWarehouseAddDialog(
-            releaseOfWarehouse: requisitionReleaseOfWarehouse,
-            requisitionReleaseOfWarehouse: (value) => setEdit(value, index),
-          ),
-        );
-      },
-    );
-  }
-
   setEdit(WarehouseReleaseds value, int index) {
     final listProducts = widget.listProducts;
     setState(() {
@@ -99,6 +86,30 @@ class _ListProductsState extends State<ListProducts> {
           explain: value.explain,
           quantity: value.quantity);
       widget.onChangeList.call(listProducts);
+    });
+  }
+
+  _setAdd() {
+    final listProduct = widget.listProducts;
+    setState(() {
+      listProduct.add(const WarehouseReleaseds());
+      widget.onChangeList.call(listProduct);
+    });
+  }
+
+  _edit(WarehouseReleaseds value, int index) {
+    final listProduct = widget.listProducts;
+    setState(() {
+      listProduct[index] = value;
+      widget.onChangeList.call(listProduct);
+    });
+  }
+
+  _delete(WarehouseReleaseds element, int index) {
+    final listProduct = widget.listProducts;
+    setState(() {
+      listProduct.removeAt(index);
+      widget.onChangeList.call(listProduct);
     });
   }
 }

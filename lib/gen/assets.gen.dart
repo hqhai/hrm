@@ -175,6 +175,9 @@ class $AssetsImagesTimeKeepingGen {
 class $AssetsImagesIconActivateIconGen {
   const $AssetsImagesIconActivateIconGen();
 
+  /// File path: assets/images/icon/activate_icon/drop.svg
+  String get drop => 'assets/images/icon/activate_icon/drop.svg';
+
   /// File path: assets/images/icon/activate_icon/file_attach.svg
   String get fileAttach => 'assets/images/icon/activate_icon/file_attach.svg';
 
@@ -202,6 +205,7 @@ class $AssetsImagesIconActivateIconGen {
 
   /// List of all assets
   List<String> get values => [
+        drop,
         fileAttach,
         iconamoonOptionsThin,
         loadFile,
