@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget popupMenu(int selectedIndex) {
-    if (selectedIndex == 0) {
+    if (selectedIndex == 3) {
       return PopupMenuAccount(onChangeCheckOpacity: (value) => _opacity(value));
     }
     return const SizedBox();

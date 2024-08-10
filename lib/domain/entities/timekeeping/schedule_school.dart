@@ -8,8 +8,8 @@ part 'schedule_school.g.dart';
 @CustomDateTimeConverter()
 class ScheduleSchool {
   final DateTime? workDate;
-  final DateTime? startTime;
-  final DateTime? endTime;
+  final int? startTime;
+  final int? endTime;
   final String teacherName;
   final String className;
   final String description;

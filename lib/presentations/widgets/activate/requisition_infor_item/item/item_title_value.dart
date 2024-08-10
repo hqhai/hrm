@@ -37,9 +37,11 @@ class ItemTitleValue extends StatelessWidget {
               child: ContainerBorder(
                 margin: 0,
                 borderColors: colors.text.withOpacity(0.2),
-                child: Text(
-                  value,
-                  style: TextStyle(color: colors.text, fontSize: size ?? SpacingUnit.x3),
+                child: Center(
+                  child: Text(
+                    value,
+                    style: TextStyle(color: colors.text, fontSize: size ?? SpacingUnit.x3),
+                  ),
                 ),
               ),
             ),

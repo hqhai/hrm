@@ -4,6 +4,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/timekeeping_status.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/timekeeping/school.dart';
@@ -13,8 +14,11 @@ import 'package:base_app/presentations/bloc/check_in_check_out_gps/check_in_chec
 import 'package:base_app/presentations/bloc/check_in_check_out_gps/check_in_check_out_gps_state.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_state.dart';
-import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog_timekeeping.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/time_keeping/item_time_keeping_gps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +26,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:themes/themes.dart';
-import 'package:widgets/app_button.dart';
 
 final timekeepingGPSPageRoute = GoRoute(
   path: Pages.timekeepingGPSPage,
@@ -50,6 +53,8 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       checkSuccess = false,
       checkUnSuccess = false,
       checkClick = false;
+  DateTime? time;
+  String error = '';
 
   @override
   void initState() {
@@ -69,6 +74,12 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
     return locationSchool;
   }
 
+  _listener(BuildContext context, CheckInCheckOutGpsState state) {
+    setState(() {
+      error = setErrorValue(state.errorCode) ?? "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -79,82 +90,95 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
         title: Text(appLocalizations.timeKeeping,
             style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),
-      body: BlocBuilder<ScheduleSchoolBloc, ScheduleSchoolState>(
-        builder: (context, state) {
-          return Stack(
-            children: [
-              ContainerScreenMain(
-                child: Padding(
-                  padding: const EdgeInsets.all(SpacingUnit.x4),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const ItemTimeKeepingGPS(),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-                          child: GoogleMap(
-                            myLocationEnabled: checkLocation,
-                            onMapCreated: (GoogleMapController controller) => setCamera(controller),
-                            initialCameraPosition: CameraPosition(
-                              target: latLngFsel ?? getSchoolById(state.scheduleSchool.school),
-                              zoom: 15,
+      body: Container(
+        color: colors.text.withOpacity(0.1),
+        child: BlocListener<CheckInCheckOutGpsBloc, CheckInCheckOutGpsState>(
+          listener: (context, state) => _listener(context, state),
+          child: BlocBuilder<ScheduleSchoolBloc, ScheduleSchoolState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(SpacingUnit.x4),
+                      child: ContainerBorder(
+                        borderColors: colors.background,
+                        backgroundColors: colors.background,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              appLocalizations.map,
+                              style: TextStyle(
+                                color: colors.text,
+                                fontSize: SpacingUnit.x3_5,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                            markers: _markers,
-                            mapType: MapType.normal,
-                          ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                                      child: GoogleMap(
+                                        myLocationEnabled: checkLocation,
+                                        onMapCreated: (GoogleMapController controller) =>
+                                            setCamera(controller),
+                                        initialCameraPosition: CameraPosition(
+                                          target: latLngFsel ??
+                                              getSchoolById(state.scheduleSchool.school),
+                                          zoom: 15,
+                                        ),
+                                        markers: _markers,
+                                        mapType: MapType.normal,
+                                      ),
+                                    ),
+                                  ),
+                                  const ItemTimeKeepingGPS(),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(SpacingUnit.x4),
-                        child: AppButton(
-                          onSubmit: () async =>
-                              await _determinePosition(context, state.scheduleSchool.id),
-                          title: appLocalizations.timekeepingImmediately,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(SpacingUnit.x4),
-                        child: AppButton(
-                            onSubmit: () => _nextAttendanceHistoryPage(context),
-                            title: appLocalizations.viewAttendanceHistory),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              BlocBuilder<CheckInCheckOutGpsBloc, CheckInCheckOutGpsState>(
-                builder: (context, stateCheckIn) {
-                  return CheckLoadTimekeepingDialog(
-                    checkUnSuccess: checkUnSuccess,
-                    checkSuccess: checkSuccess,
-                    checkLoad: checkLoad,
-                    fail: setErrorValue(stateCheckIn.errorCode),
-                    checkUnSuccessChange: () => setDialog(),
-                    checkSuccessChange: () => setDialog(),
-                  );
-                },
-              ),
-            ],
-          );
-        },
+                  Padding(
+                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    child: ContainerBorder(
+                      margin: 0,
+                      borderColors: colors.background,
+                      backgroundColors: colors.background,
+                      child: ItemTitleValueNoBorder(
+                        size: SpacingUnit.x3_5,
+                        font: FontWeight.w600,
+                        title: appLocalizations.timekeepingTime,
+                        value: formatYMD((time ?? "").toString()),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    child: AppButton(
+                      colorText: colors.background,
+                      onSubmit: () async =>
+                          await _determinePosition(context, state.scheduleSchool.id),
+                      title: appLocalizations.timekeepingImmediately,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }
 
   setCamera(GoogleMapController controller) {
     _controller = controller;
-  }
-
-  _nextAttendanceHistoryPage(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.timekeepingGPSCheckPage, extra: {
-      'latLng': LatLng(
-        _currentLocation?.longitude ?? 0,
-        _currentLocation?.latitude ?? 0,
-      ),
-      'dateTime': DateTime.now()
-    });
   }
 
   Future<void> _determinePosition(BuildContext context, String id) async {
@@ -200,6 +224,8 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
     setState(() {
       checkLoad = true;
     });
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dialogIndicator(context: currentContext);
     Completer completer = Completer<TimekeepingStatus>();
     dI<CheckInCheckOutGpsBloc>().add(PostTimekeepingGPSRequestEvent(
       latitude: latLngFsel?.latitude ?? 0,
@@ -210,26 +236,59 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
     final status = await completer.future;
     if (status == TimekeepingStatus.success) {
       setState(() {
-        checkLoad = false;
-        checkSuccess = true;
+        time = DateTime.now();
+      });
+      if (!currentContext.mounted) return;
+      dialogTimeKeepingSuccess(
+        context: currentContext,
+      );
+      setState(() {
+        error = '';
       });
     } else if (status == TimekeepingStatus.fail) {
-      setState(() {
-        checkLoad = false;
-        checkUnSuccess = true;
-      });
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(currentContext);
+      dialogTimeKeepingSuccess(
+        context: currentContext,
+      );
     } else if (status == TimekeepingStatus.distanceNotEnough) {
-      setState(() {
-        checkLoad = false;
-        checkUnSuccess = true;
-      });
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(currentContext);
+      dialogTimeKeepingUnSuccess(
+        context: currentContext,
+      );
     }
   }
 
-  setDialog() {
-    setState(() {
-      checkSuccess = false;
-      checkUnSuccess = false;
-    });
+  dialogTimeKeepingSuccess({required BuildContext context}) {
+    final colors = AppTheme.getColors(context);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: colors.background,
+          surfaceTintColor: colors.background,
+          child: const SingleChildScrollView(
+            child: TimeKeepingSuccess(),
+          ),
+        );
+      },
+    );
+  }
+
+  dialogTimeKeepingUnSuccess({required BuildContext context}) {
+    final colors = AppTheme.getColors(context);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: colors.background,
+          surfaceTintColor: colors.background,
+          child: SingleChildScrollView(
+            child: TimeKeepingUnSuccess(title: error),
+          ),
+        );
+      },
+    );
   }
 }

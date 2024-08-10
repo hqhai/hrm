@@ -1,8 +1,8 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
-import 'package:widgets/app_button.dart';
 
 class ItemButton extends StatelessWidget {
   const ItemButton({super.key, this.callbackSave, this.callbackCancel});
@@ -35,7 +35,7 @@ class ItemButton extends StatelessWidget {
               title: appLocalizations.save,
               onSubmit: () => _save(),
               color: colors.blue,
-              colorText: colors.text,
+              colorText: colors.background,
             ),
           ),
         ),

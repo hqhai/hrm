@@ -36,14 +36,16 @@ class RequisitionInformationContent extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x3),
                 child: ContainerBorder(
+                  height: SpacingUnit.x30,
                   width: width,
                   borderColors: colors.text.withOpacity(0.2),
-                  child: Text(
-                    state.requisition.config.description ?? "",
-                    maxLines: 10,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
+                  child: SingleChildScrollView(
+                    child: Text(
+                      state.requisition.config.description ?? "",
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                      ),
                     ),
                   ),
                 ),

@@ -1,11 +1,15 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border_colum.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
-class ItemListReleaseOfWarehouseExtend extends StatelessWidget {
+class ItemListReleaseOfWarehouseExtend extends StatefulWidget {
   const ItemListReleaseOfWarehouseExtend(
       {super.key, this.requisitionReleaseOfWarehouse, this.index});
 
@@ -13,71 +17,86 @@ class ItemListReleaseOfWarehouseExtend extends StatelessWidget {
   final int? index;
 
   @override
+  State<ItemListReleaseOfWarehouseExtend> createState() => _ItemListReleaseOfWarehouseExtendState();
+}
+
+class _ItemListReleaseOfWarehouseExtendState extends State<ItemListReleaseOfWarehouseExtend> {
+  bool checkType = true;
+
+  @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return Row(
-      children: [
-        Text(
-          '${(index ?? 0) + 1}. ',
-          style: TextStyle(
-            fontSize: SpacingUnit.x5,
-            color: colors.text,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        Expanded(
-          child: ContainerBorder(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    final width = MediaQuery.of(context).size.width;
+    return ContainerBorder(
+      width: width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+                left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                item(
-                  value:
-                  '${appLocalizations.product} : ${requisitionReleaseOfWarehouse?.product ?? ""}',
-                  color: colors.text,
+                Text(
+                  widget.requisitionReleaseOfWarehouse?.product ?? appLocalizations.product,
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                item(
-                  value: '${appLocalizations.unit} : ${requisitionReleaseOfWarehouse?.unit ?? ""}',
-                  color: colors.text,
-                ),
-                item(
-                  value:
-                  '${appLocalizations.numberOf} : ${requisitionReleaseOfWarehouse?.quantity}',
-                  color: colors.text,
-                ),
-                item(
-                  value: '${appLocalizations.unit} : ${requisitionReleaseOfWarehouse?.unit ?? ""}',
-                  color: colors.text,
-                ),
-                item(
-                  value:
-                  '${appLocalizations.description} : ${requisitionReleaseOfWarehouse?.explain}',
-                  color: colors.text,
-                ),
-                item(
-                  value:
-                  '${appLocalizations.note} : ${requisitionReleaseOfWarehouse?.note}',
-                  color: colors.text,
+                InkWell(
+                  onTap: () => setShowFull(),
+                  child: SvgPicture.asset(
+                    width: SpacingUnit.x6,
+                    height: SpacingUnit.x6,
+                    checkType
+                        ? Assets.images.icon.home.chevronForward
+                        : Assets.images.icon.activateIcon.drop,
+                    colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                  ),
                 ),
               ],
             ),
           ),
-        ),
-      ],
+          if (checkType)
+            ItemTitleValueNoBorder(
+              font: FontWeight.w500,
+              size: SpacingUnit.x4,
+              title: appLocalizations.unit,
+              value: widget.requisitionReleaseOfWarehouse?.unit ?? "",
+            ),
+          if (checkType)
+            ItemTitleValueNoBorder(
+              font: FontWeight.w500,
+              size: SpacingUnit.x4,
+              title: appLocalizations.numberOf,
+              value: (widget.requisitionReleaseOfWarehouse?.quantity ?? 0).toString(),
+            ),
+          if (checkType)
+            ItemTitleValueNoBorderColum(
+              font: FontWeight.w500,
+              size: SpacingUnit.x4,
+              title: appLocalizations.explain,
+              value: widget.requisitionReleaseOfWarehouse?.explain ?? "",
+            ),
+          if (checkType)
+            ItemTitleValueNoBorderColum(
+              font: FontWeight.w500,
+              size: SpacingUnit.x4,
+              title: appLocalizations.note,
+              value: widget.requisitionReleaseOfWarehouse?.note ?? "",
+            ),
+        ],
+      ),
     );
   }
 
-  Widget item({required String value, required Color color}) {
-    return Padding(
-      padding: const EdgeInsets.all(SpacingUnit.x2),
-      child: Text(
-        value,
-        style: TextStyle(
-          fontSize: SpacingUnit.x3_5,
-          color: color,
-        ),
-      ),
-    );
+  setShowFull() {
+    setState(() {
+      checkType = !checkType;
+    });
   }
 }

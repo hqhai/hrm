@@ -111,18 +111,6 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (widget.checkUser != RequestSeeByWho.user)
-                            const RequisitionInformationSenderInformation(),
-                          const RequisitionInformationGeneraliInformation(),
-                          const RequisitionInformationType(),
-                          if (state.requisition.flowType != RequisitionTypeEnum.stationery)
-                            const RequisitionInformationContent(),
-                          if (state.requisition.config.attachments?.isNotEmpty ?? false)
-                            const RequisitionInformationAttach(),
-                          const ItemFollowersInformationRequest(),
-                          const ItemListStepFlow(
-                            create: false,
-                          ),
                           if (state.requisition.status == StatusRequestEnum.process &&
                               widget.checkUser == RequestSeeByWho.user)
                             Align(
@@ -164,6 +152,18 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                                 callback: () {},
                               ),
                             ),
+                          if (widget.checkUser != RequestSeeByWho.user)
+                            const RequisitionInformationSenderInformation(),
+                          const RequisitionInformationGeneraliInformation(),
+                          const RequisitionInformationType(),
+                          if (state.requisition.flowType != RequisitionTypeEnum.stationery)
+                            const RequisitionInformationContent(),
+                          if (state.requisition.config.attachments?.isNotEmpty ?? false)
+                            const RequisitionInformationAttach(),
+                          const ItemFollowersInformationRequest(),
+                          const ItemListStepFlow(
+                            create: false,
+                          ),
                         ],
                       ),
                     ),

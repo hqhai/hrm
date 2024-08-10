@@ -1,74 +1,115 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
-class ItemListOverTime extends StatelessWidget {
-  const ItemListOverTime({super.key, required this.requisitionOverTime, required this.index});
+class ItemListOverTime extends StatefulWidget {
+  const ItemListOverTime({
+    super.key,
+    required this.requisitionOverTime,
+    required this.index,
+    this.checkNotOT = false,
+  });
 
   final RequisitionOverTime requisitionOverTime;
   final int index;
+  final bool checkNotOT;
+
+  @override
+  State<ItemListOverTime> createState() => _ItemListOverTimeState();
+}
+
+class _ItemListOverTimeState extends State<ItemListOverTime> {
+  bool showNote = true;
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          '${(index) + 1}. ',
-          style:
-              TextStyle(fontSize: SpacingUnit.x5, color: colors.text, fontWeight: FontWeight.w600),
-        ),
-        Expanded(
-          child: ContainerBorder(
-            padding: SpacingUnit.x2_5,
-            margin: SpacingUnit.x2_5,
-            borderColors: colors.text.withOpacity(0.5),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                  child: Text(
-                    '${appLocalizations.date} ${formatYMD((requisitionOverTime.date ?? "").toString())}',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x3_5,
-                      color: colors.text,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                  child: Text(
-                    '${appLocalizations.time} : ${strSeconds(requisitionOverTime.startTime ?? 0)} - ${strSeconds(requisitionOverTime.endTime ?? 0)}',
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x3_5,
-                      color: colors.text,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+    return ContainerBorder(
+      padding: SpacingUnit.x2_5,
+      margin: SpacingUnit.x2_5,
+      borderColors: colors.text.withOpacity(0.3),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ItemTitleValueNoBorder(
+            title: appLocalizations.date,
+            value: formatYMD((widget.requisitionOverTime.date ?? "").toString()),
+            size: SpacingUnit.x4,
           ),
-        ),
-      ],
+          ItemTitleValueNoBorder(
+            title: appLocalizations.startTime,
+            value: strSeconds(widget.requisitionOverTime.startTime) ?? "",
+            size: SpacingUnit.x4,
+          ),
+          ItemTitleValueNoBorder(
+            title: appLocalizations.endTime,
+            value: strSeconds(widget.requisitionOverTime.endTime) ?? "",
+            size: SpacingUnit.x4,
+          ),
+          if (!widget.checkNotOT)
+            ItemTitleValueNoBorder(
+              title: appLocalizations.totalOTHours,
+              value: strSeconds((widget.requisitionOverTime.suggestTime ?? 0).toInt()) ?? "",
+              size: SpacingUnit.x4,
+            ),
+          if (!widget.checkNotOT)
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    appLocalizations.note,
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () => setShowNote(),
+                    child: SvgPicture.asset(
+                      width: SpacingUnit.x6,
+                      height: SpacingUnit.x6,
+                      showNote
+                          ? Assets.images.icon.home.chevronForward
+                          : Assets.images.icon.activateIcon.drop,
+                      colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          if (showNote && widget.requisitionOverTime.note != null && !widget.checkNotOT)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+              child: Text(
+                widget.requisitionOverTime.note ?? "",
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 
-  String strSeconds(int time) {
-    final Duration duration = Duration(seconds: time);
-    final DateTime now = DateTime.now();
-    final DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
-    final DateTime result = startOfDay.add(duration);
-    return formatHM(result.toString());
+  setShowNote() {
+    setState(() {
+      showNote = !showNote;
+    });
   }
 }

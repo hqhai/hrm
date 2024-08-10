@@ -36,13 +36,15 @@ class ItemPersonInformationRequest extends StatelessWidget {
                   children: state.subtitudePersons
                       .mapIndexed(
                         (index, element) => ContainerBorder(
+                          padding: SpacingUnit.x4,
+                          borderColors: colors.text.withOpacity(0.4),
                           margin: SpacingUnit.x2,
                           child: Row(
                             children: [
                               Text(
                                 '${index + 1}.   ${state.subtitudePersons[index].fullName}',
                                 style: TextStyle(
-                                  color: colors.blue,
+                                  color: colors.text,
                                   fontSize: SpacingUnit.x4,
                                 ),
                               ),
