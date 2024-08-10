@@ -1,12 +1,11 @@
 import 'package:base_app/common/utils/convert.dart';
-import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_state.dart';
-import 'package:base_app/presentations/widgets/time_keeping/icon_value.widget.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:themes/themes.dart';
 
 class ItemTimeKeepingGPS extends StatefulWidget {
   const ItemTimeKeepingGPS({
@@ -20,36 +19,47 @@ class ItemTimeKeepingGPS extends StatefulWidget {
 class _ItemTimeKeepingGPSState extends State<ItemTimeKeepingGPS> {
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<ScheduleSchoolBloc, ScheduleSchoolState>(
       builder: (context, state) {
         return Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Align(
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                height: width * 0.2,
-                width: width * 0.2,
-                Assets.images.icon.home.phFingerprintFill,
-                colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-              ),
+            ItemTitleValueNoBorder(
+              size: SpacingUnit.x3_5,
+              font: FontWeight.w600,
+              title: appLocalizations.nameSchool,
+              value: state.scheduleSchool.school?.name ?? "",
             ),
-            IconValueWidget(
-              icon: Assets.images.icon.home.mingcuteTimeLine,
-              value: formatHMS(
-                state.scheduleSchool.startTime.toString(),
-              ),
+            ItemTitleValueNoBorder(
+              size: SpacingUnit.x3_5,
+              font: FontWeight.w600,
+              title: appLocalizations.nameClass,
+              value: state.scheduleSchool.className,
             ),
-            IconValueWidget(
-              icon: Assets.images.icon.home.mingcuteTimeLine,
-              value: formatHMS(
-                state.scheduleSchool.endTime.toString(),
-              ),
+            ItemTitleValueNoBorder(
+              size: SpacingUnit.x3_5,
+              font: FontWeight.w600,
+              title: appLocalizations.start,
+              value: strSeconds(
+                    state.scheduleSchool.startTime,
+                  ) ??
+                  "",
             ),
-            IconValueWidget(
-              icon: Assets.images.icon.home.icBaselinePlace,
-              value: state.scheduleSchool.school?.address ?? "",
+            ItemTitleValueNoBorder(
+              size: SpacingUnit.x3_5,
+              font: FontWeight.w600,
+              title: appLocalizations.end,
+              value: strSeconds(
+                    state.scheduleSchool.endTime,
+                  ) ??
+                  "",
+            ),
+            ItemTitleValueNoBorder(
+              size: SpacingUnit.x3_5,
+              font: FontWeight.w600,
+              title: appLocalizations.nameTeacher,
+              value: state.scheduleSchool.teacherName,
             ),
           ],
         );

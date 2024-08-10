@@ -1,10 +1,8 @@
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time_extend.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,14 +20,8 @@ class RequisitionInformationContentTypeOverTime extends StatefulWidget {
 
 class _RequisitionInformationContentTypeOverTimeState
     extends State<RequisitionInformationContentTypeOverTime> {
-  List<bool> listCheck = [];
-
   @override
   void initState() {
-    if (dI<RequisitionBloc>().state.requisition.config.overTimes?.isNotEmpty ?? false) {
-      final int count = dI<RequisitionBloc>().state.requisition.config.overTimes!.length;
-      listCheck = List.filled(count, true);
-    }
     super.initState();
   }
 
@@ -37,9 +29,7 @@ class _RequisitionInformationContentTypeOverTimeState
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(state),
-      listenWhen: (previous, current) => previous.requisition != current.requisition,
+    return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
         final overTimes = state.requisition.config.overTimes;
         return Padding(
@@ -62,23 +52,10 @@ class _RequisitionInformationContentTypeOverTimeState
                       child: Column(
                         children: overTimes
                             .mapIndexed(
-                              (index, element) => listCheck[index]
-                                  ? GestureDetector(
-                                      onTap: () => onClick(index),
-                                      child: ItemListOverTime(
-                                        requisitionOverTime:
-                                            state.requisition.config.overTimes![index],
-                                        index: index,
-                                      ),
-                                    )
-                                  : GestureDetector(
-                                      onTap: () => onClick(index),
-                                      child: ItemListOverTimeExtend(
-                                        requisitionOverTime:
-                                            state.requisition.config.overTimes?[index],
-                                        index: index,
-                                      ),
-                                    ),
+                              (index, element) => ItemListOverTime(
+                                requisitionOverTime: state.requisition.config.overTimes![index],
+                                index: index,
+                              ),
                             )
                             .toList(),
                       ),
@@ -89,18 +66,5 @@ class _RequisitionInformationContentTypeOverTimeState
         );
       },
     );
-  }
-
-  onClick(int index) {
-    setState(() {
-      listCheck[index] = !listCheck[index];
-    });
-  }
-
-  _listener(RequisitionState state) {
-    setState(() {
-      final int count = state.requisition.config.overTimes!.length;
-      listCheck = List.filled(count, true);
-    });
   }
 }

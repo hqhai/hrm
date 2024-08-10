@@ -1286,7 +1286,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get request => 'Đơn từ';
 
   @override
-  String get shift => 'Ca công';
+  String get shift => 'Ca';
 
   @override
   String get workInDay => 'Công ghi nhận trong ngày';
@@ -1478,6 +1478,33 @@ class AppLocalizationsVi extends AppLocalizations {
   String get none => 'Không';
 
   @override
+  String get personalReasons => 'Lý do cá nhân';
+
+  @override
+  String get companyReasons => 'Lý do công ty';
+
+  @override
+  String get nameSchool => 'Tên trường';
+
+  @override
+  String get nameClass => 'Tên lớp';
+
+  @override
+  String get nameTeacher => 'Tên giáo viện';
+
+  @override
+  String get timekeepingTime => 'Thời gian chấm công';
+
+  @override
+  String get map => 'Bản đồ';
+
+  @override
+  String get timekeepingSuccess => 'Chấm công thành công';
+
+  @override
+  String get timekeepingUnSuccess => 'Chấm công không thành công';
+
+  @override
   String get unregistered => 'Chưa đăng ký';
 
   @override
@@ -1514,13 +1541,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get oT => 'Đơn tăng ca';
 
   @override
+  String get chooseARequest => 'Chọn loại đơn từ';
+
+  @override
   String get postal => 'Bưu điện';
 
   @override
   String get requestType => 'Loại đơn từ';
-
-  @override
-  String get chooseARequest => 'Chọn loại đơn từ';
 
   @override
   String get chooseWorkShift => 'Chọn ca làm việc';
@@ -1535,8 +1562,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get required => 'Bắt buộc';
 
   @override
-  String get personalReasons => 'Lý do cá nhân';
+  String get firstShift => 'Ca đầu';
 
   @override
-  String get companyReasons => 'Lý do công ty';
+  String get lastShift => 'Ca cuối';
+
+  @override
+  String get totalWork => 'Số công';
 }

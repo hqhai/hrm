@@ -48,6 +48,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
       child: Column(
@@ -77,6 +78,23 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
                 ),
             ],
           ),
+          if (!setListFollower().isNotEmpty)
+            GestureDetector(
+              onTap: () => _add(context),
+              child: ContainerBorder(
+                borderColors: colors.text.withOpacity(0.4),
+                width: width,
+                padding: SpacingUnit.x4,
+                child: Text(
+                  widget.title ?? "",
+                  style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    color: colors.text.withOpacity(0.4),
+                    fontSize: SpacingUnit.x4,
+                  ),
+                ),
+              ),
+            ),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: setListFollower()

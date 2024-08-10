@@ -24,7 +24,6 @@ class _ItemRequestOnTabCommonState extends State<ItemRequestOnTabCommon> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
-
     return Padding(
       padding: const EdgeInsets.only(right: SpacingUnit.x8),
       child: ContainerBorder(

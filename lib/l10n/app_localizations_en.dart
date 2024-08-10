@@ -1478,6 +1478,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get none => 'None';
 
   @override
+  String get personalReasons => 'Personal reasons';
+
+  @override
+  String get companyReasons => 'Company reasons';
+
+  @override
+  String get nameSchool => 'School name';
+
+  @override
+  String get nameClass => 'Class name';
+
+  @override
+  String get nameTeacher => 'Teacher name';
+
+  @override
+  String get timekeepingTime => 'Timekeeping time';
+
+  @override
+  String get map => 'Map';
+
+  @override
+  String get timekeepingSuccess => 'Timekeeping success';
+
+  @override
+  String get timekeepingUnSuccess => 'Timekeeping un success';
+
+  @override
   String get unregistered => 'Unregistered';
 
   @override
@@ -1514,13 +1541,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get oT => 'OverTime';
 
   @override
-  String get postal => 'Bưu điện';
+  String get chooseARequest => 'Choose a request';
+
+  @override
+  String get postal => 'Postal';
 
   @override
   String get requestType => 'Request type';
-
-  @override
-  String get chooseARequest => 'Choose a request';
 
   @override
   String get chooseWorkShift => 'Choose work shift';
@@ -1535,8 +1562,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get required => 'required';
 
   @override
-  String get personalReasons => 'Personal reasons';
+  String get firstShift => 'Ca đầu';
 
   @override
-  String get companyReasons => 'Company reasons';
+  String get lastShift => 'Ca cuối';
+
+  @override
+  String get totalWork => 'Total work';
 }

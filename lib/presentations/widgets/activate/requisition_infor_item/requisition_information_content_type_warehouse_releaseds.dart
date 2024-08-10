@@ -3,7 +3,6 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/release_of_warehouse/item_list_release_of_warehouse.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/release_of_warehouse/item_list_release_of_warehouse_extend.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -59,23 +58,11 @@ class _RequisitionInformationContentTypeWarehouseReleasedsState
                   child: Column(
                     children: state.requisition.config.warehourseReleaseds!
                         .mapIndexed(
-                          (index, element) => listCheck[index]
-                              ? GestureDetector(
-                                  onTap: () => onClick(index),
-                                  child: ItemListReleaseOfWarehouse(
-                                    requisitionReleaseOfWarehouse:
-                                        state.requisition.config.warehourseReleaseds?[index],
-                                    index: index,
-                                  ),
-                                )
-                              : GestureDetector(
-                                  onTap: () => onClick(index),
-                                  child: ItemListReleaseOfWarehouseExtend(
-                                    requisitionReleaseOfWarehouse:
-                                        state.requisition.config.warehourseReleaseds?[index],
-                                    index: index,
-                                  ),
-                                ),
+                          (index, element) => ItemListReleaseOfWarehouseExtend(
+                            requisitionReleaseOfWarehouse:
+                            state.requisition.config.warehourseReleaseds?[index],
+                            index: index,
+                          ),
                         )
                         .toList(),
                   ),

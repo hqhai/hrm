@@ -47,11 +47,6 @@ class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
                   ),
                   ItemTitleValue(
                     size: SpacingUnit.x4,
-                    title: appLocalizations.endTime,
-                    value: formatYMDHMS((state.requisition.config.endDate ?? "").toString()),
-                  ),
-                  ItemTitleValue(
-                    size: SpacingUnit.x4,
                     title: appLocalizations.schedule,
                     value: state.requisition.config.description ?? "",
                   ),

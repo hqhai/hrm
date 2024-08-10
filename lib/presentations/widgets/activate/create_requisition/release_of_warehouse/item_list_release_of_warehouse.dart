@@ -1,15 +1,23 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
-class ItemListReleaseOfWarehouse extends StatelessWidget {
+class ItemListReleaseOfWarehouse extends StatefulWidget {
   const ItemListReleaseOfWarehouse({super.key, this.requisitionReleaseOfWarehouse, this.index});
 
   final WarehouseReleaseds? requisitionReleaseOfWarehouse;
   final int? index;
+
+  @override
+  State<ItemListReleaseOfWarehouse> createState() => _ItemListReleaseOfWarehouseState();
+}
+
+class _ItemListReleaseOfWarehouseState extends State<ItemListReleaseOfWarehouse> {
+  bool checkType = true;
 
   @override
   Widget build(BuildContext context) {
@@ -17,37 +25,26 @@ class ItemListReleaseOfWarehouse extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
     return Row(
       children: [
-        Text(
-          '${(index ?? 0) + 1}. ',
-          style: TextStyle(
-            fontSize: SpacingUnit.x5,
-            color: colors.text,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        Expanded(
-          child: ContainerBorder(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                item(
-                  value:
-                      '${appLocalizations.product} : ${requisitionReleaseOfWarehouse?.product ?? ""}',
-                  color: colors.text,
-                ),
-                item(
-                  value: '${appLocalizations.unit} : ${requisitionReleaseOfWarehouse?.unit ?? ""}',
-                  color: colors.text,
-                ),
-                item(
-                  value:
-                      '${appLocalizations.numberOf} : ${requisitionReleaseOfWarehouse?.quantity}',
-                  color: colors.text,
-                ),
-              ],
-            ),
+        ContainerBorder(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ItemTitleValue(
+                  title: appLocalizations.product,
+                  value: widget.requisitionReleaseOfWarehouse?.product ?? ""),
+              item(
+                value:
+                    '${appLocalizations.unit} : ${widget.requisitionReleaseOfWarehouse?.unit ?? ""}',
+                color: colors.text,
+              ),
+              item(
+                value:
+                    '${appLocalizations.numberOf} : ${widget.requisitionReleaseOfWarehouse?.quantity}',
+                color: colors.text,
+              ),
+            ],
           ),
         ),
       ],
