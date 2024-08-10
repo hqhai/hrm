@@ -1478,33 +1478,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get none => 'None';
 
   @override
-  String get personalReasons => 'Personal reasons';
-
-  @override
-  String get companyReasons => 'Company reasons';
-
-  @override
-  String get nameSchool => 'School name';
-
-  @override
-  String get nameClass => 'Class name';
-
-  @override
-  String get nameTeacher => 'Teacher name';
-
-  @override
-  String get timekeepingTime => 'Timekeeping time';
-
-  @override
-  String get map => 'Map';
-
-  @override
-  String get timekeepingSuccess => 'Timekeeping success';
-
-  @override
-  String get timekeepingUnSuccess => 'Timekeeping un success';
-
-  @override
   String get unregistered => 'Unregistered';
 
   @override
@@ -1550,9 +1523,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get requestType => 'Request type';
 
   @override
-  String get chooseWorkShift => 'Choose work shift';
-
-  @override
   String get ifOto => 'If traveling by car, full name of the driver';
 
   @override
@@ -1562,11 +1532,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get required => 'required';
 
   @override
-  String get firstShift => 'Ca đầu';
+  String get personalReasons => 'Personal reasons';
 
   @override
-  String get lastShift => 'Ca cuối';
+  String get companyReasons => 'Company reasons';
+
+  @override
+  String get firstShift => 'First shift';
+
+  @override
+  String get lastShift => 'Last shift';
 
   @override
   String get totalWork => 'Total work';
+
+  @override
+  String get chooseWorkShift => 'Choose work shift';
+
+  @override
+  String get nameSchool => 'School name';
+
+  @override
+  String get nameClass => 'Class name';
+
+  @override
+  String get nameTeacher => 'Teacher name';
+
+  @override
+  String get timekeepingTime => 'Timekeeping time';
+
+  @override
+  String get map => 'Map';
+
+  @override
+  String get timekeepingSuccess => 'Timekeeping success';
+
+  @override
+  String get timekeepingUnSuccess => 'Timekeeping un success';
 }

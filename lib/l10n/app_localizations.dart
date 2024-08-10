@@ -3039,60 +3039,6 @@ abstract class AppLocalizations {
   /// **'None'**
   String get none;
 
-  /// No description provided for @personalReasons.
-  ///
-  /// In en, this message translates to:
-  /// **'Personal reasons'**
-  String get personalReasons;
-
-  /// No description provided for @companyReasons.
-  ///
-  /// In en, this message translates to:
-  /// **'Company reasons'**
-  String get companyReasons;
-
-  /// No description provided for @nameSchool.
-  ///
-  /// In en, this message translates to:
-  /// **'School name'**
-  String get nameSchool;
-
-  /// No description provided for @nameClass.
-  ///
-  /// In en, this message translates to:
-  /// **'Class name'**
-  String get nameClass;
-
-  /// No description provided for @nameTeacher.
-  ///
-  /// In en, this message translates to:
-  /// **'Teacher name'**
-  String get nameTeacher;
-
-  /// No description provided for @timekeepingTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Timekeeping time'**
-  String get timekeepingTime;
-
-  /// No description provided for @map.
-  ///
-  /// In en, this message translates to:
-  /// **'Map'**
-  String get map;
-
-  /// No description provided for @timekeepingSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Timekeeping success'**
-  String get timekeepingSuccess;
-
-  /// No description provided for @timekeepingUnSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Timekeeping un success'**
-  String get timekeepingUnSuccess;
-
   /// No description provided for @unregistered.
   ///
   /// In en, this message translates to:
@@ -3183,12 +3129,6 @@ abstract class AppLocalizations {
   /// **'Request type'**
   String get requestType;
 
-  /// No description provided for @chooseWorkShift.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose work shift'**
-  String get chooseWorkShift;
-
   /// No description provided for @ifOto.
   ///
   /// In en, this message translates to:
@@ -3207,16 +3147,28 @@ abstract class AppLocalizations {
   /// **'required'**
   String get required;
 
+  /// No description provided for @personalReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal reasons'**
+  String get personalReasons;
+
+  /// No description provided for @companyReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Company reasons'**
+  String get companyReasons;
+
   /// No description provided for @firstShift.
   ///
   /// In en, this message translates to:
-  /// **'Ca đầu'**
+  /// **'First shift'**
   String get firstShift;
 
   /// No description provided for @lastShift.
   ///
   /// In en, this message translates to:
-  /// **'Ca cuối'**
+  /// **'Last shift'**
   String get lastShift;
 
   /// No description provided for @totalWork.
@@ -3224,6 +3176,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total work'**
   String get totalWork;
+
+  /// No description provided for @chooseWorkShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose work shift'**
+  String get chooseWorkShift;
+
+  /// No description provided for @nameSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'School name'**
+  String get nameSchool;
+
+  /// No description provided for @nameClass.
+  ///
+  /// In en, this message translates to:
+  /// **'Class name'**
+  String get nameClass;
+
+  /// No description provided for @nameTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher name'**
+  String get nameTeacher;
+
+  /// No description provided for @timekeepingTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping time'**
+  String get timekeepingTime;
+
+  /// No description provided for @map.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get map;
+
+  /// No description provided for @timekeepingSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping success'**
+  String get timekeepingSuccess;
+
+  /// No description provided for @timekeepingUnSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping un success'**
+  String get timekeepingUnSuccess;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
