@@ -16,6 +16,7 @@ class LeaveShiftBloc extends Bloc<LeaveShiftEvent, LeaveShiftState> {
         super(const LeaveShiftState()) {
     on<LeaveShiftEvent>((event, emit) {});
     on<GetWorkShiftsEvent>(_getWorkShiftsEvent);
+    on<GetWorkShiftsExplanationEvent>(_getWorkShiftsExplanationEvent);
   }
 
   FutureOr<void> _getWorkShiftsEvent(
@@ -23,6 +24,24 @@ class LeaveShiftBloc extends Bloc<LeaveShiftEvent, LeaveShiftState> {
     try {
       final response = await _workAndSalaryUseCase.workShiftLeave(
           startTime: event.startDate, endTime: event.endDate);
+      final map = response.mapWorkShift;
+      final keys = response.keys;
+      final keyDates = response.mapKeyDate;
+      emit(state.copyWith(
+        mapKeyDate: keyDates,
+        keys: keys,
+        workShifts: map,
+      ));
+      event.completer?.complete(true);
+    } catch (e) {
+      event.completer?.complete(false);
+    }
+  }
+
+  FutureOr<void> _getWorkShiftsExplanationEvent(
+      GetWorkShiftsExplanationEvent event, Emitter<LeaveShiftState> emit) async {
+    try {
+      final response = await _workAndSalaryUseCase.workShiftExplanation();
       final map = response.mapWorkShift;
       final keys = response.keys;
       final keyDates = response.mapKeyDate;

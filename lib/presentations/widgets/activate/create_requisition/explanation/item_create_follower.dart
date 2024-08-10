@@ -66,14 +66,15 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () => _add(context),
-                child: Icon(
-                  Icons.add,
-                  color: colors.success,
-                  size: SpacingUnit.x8,
+              if (setListFollower().isNotEmpty)
+                GestureDetector(
+                  onTap: () => _add(context),
+                  child: Icon(
+                    Icons.add,
+                    color: colors.success,
+                    size: SpacingUnit.x8,
+                  ),
                 ),
-              ),
             ],
           ),
           Column(

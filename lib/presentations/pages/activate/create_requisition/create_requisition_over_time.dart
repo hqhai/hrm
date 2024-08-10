@@ -1,11 +1,11 @@
-
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -19,11 +19,8 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/list_overtime.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/total_time.dart';
-import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/overtime/over_time_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -61,6 +58,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   String error = '', errorDescription = '';
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
+  List<bool> checkTypeContainer = [];
   final TextEditingController inputController = TextEditingController();
 
   @override
@@ -69,6 +67,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
       final request = dI<RequisitionBloc>().state.requisition;
       followers = request.followerIds;
       requisitionOverTimes = [...?request.config.overTimes];
+      checkTypeContainer = List.filled(requisitionOverTimes.length, true);
       description = request.config.description ?? "";
       inputController.text = description;
     }
@@ -119,25 +118,20 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ItemCreateInputArea(
-                              title: appLocalizations.reason,
-                              error: errorDescription,
-                              textController: inputController,
-                              onChange: (value) => setDescription(value),
-                            ),
                             ListOverTime(
+                              callback: () => addOverTime(),
+                              checkTypeContainer: checkTypeContainer,
+                              changeTypeContainer: (value) => _changeTypeContainer(value),
                               title: appLocalizations.listOvertime,
                               error: error,
                               requisitionOverTimes: requisitionOverTimes,
                               onChangeList: (value) => _setChangeRequisitionOverTimes(value),
                             ),
-                            ButtonAddList(
-                              title: appLocalizations.overtime,
-                              callBack: () => _addOverTime(context),
-                            ),
-                            TotalTime(
-                              title: appLocalizations.totalTime,
-                              content: timeDHM(_totalAmount().toInt()),
+                            ItemCreateInputArea(
+                              title: appLocalizations.reason,
+                              error: errorDescription,
+                              textController: inputController,
+                              onChange: (value) => setDescription(value),
                             ),
                             ItemCreateFollower(
                                 listFollower: _setListUser(
@@ -150,7 +144,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                               padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
                               child: ItemButton(
                                 callbackSave: () => _save(context),
-                                callbackCancel: () => _cancel(),
+                                callbackCancel: () => _cancel(context),
                               ),
                             )
                           ],
@@ -204,22 +198,9 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     });
   }
 
-  _addOverTime(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: OverTimeAddDialog(
-            onChangeOverTimes: (value) => setAdd(value),
-          ),
-        );
-      },
-    );
-  }
-
-  setAdd(RequisitionOverTime value) {
+  setAdd({required RequisitionOverTime value, required int index}) {
     setState(() {
-      requisitionOverTimes.add(value);
+      requisitionOverTimes[index] = value;
     });
   }
 
@@ -228,7 +209,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
-            config: ConfigRequestModel(
+            config: ConfigModelRequest(
               description: description,
               overTimes: requisitionOverTimes,
             ),
@@ -237,7 +218,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
             id: widget.requestId,
             followerIds: followers,
             flowId: widget.flowId,
-            config: ConfigRequestModel(
+            config: ConfigModelRequest(
               description: description,
               overTimes: requisitionOverTimes,
             ),
@@ -285,23 +266,9 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     });
   }
 
-  double _subtotal() {
-    double subtotal = 0;
-    for (var element in requisitionOverTimes) {
-      subtotal += element.suggestTime ?? 0;
-    }
-    return subtotal;
+  _cancel(BuildContext context) {
+    dI<AppNavigation>().pop(context);
   }
-
-  double _numberValue() {
-    return _subtotal() * 0.08;
-  }
-
-  double _totalAmount() {
-    return _subtotal() + _numberValue();
-  }
-
-  _cancel() {}
 
   _setFollower(List<User> value) {
     setState(() {
@@ -319,6 +286,19 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   _setChangeRequisitionOverTimes(List<RequisitionOverTime> value) {
     setState(() {
       requisitionOverTimes = value;
+    });
+  }
+
+  _changeTypeContainer(List<bool> value) {
+    setState(() {
+      checkTypeContainer = value;
+    });
+  }
+
+  addOverTime() {
+    setState(() {
+      checkTypeContainer.add(true);
+      requisitionOverTimes.add(const RequisitionOverTime());
     });
   }
 }

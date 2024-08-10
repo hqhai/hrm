@@ -3,11 +3,12 @@ import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -93,6 +94,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         followers = [...request.followerIds];
         files = [...setListFiles(request.config.attachments ?? [])];
         substitutes = [...?request.config.subtitudePersons];
+        listWorkShift = [...?request.config.workShiftSettings];
       });
     }
     super.initState();
@@ -225,6 +227,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                                     ),
                                   )
                                 : ItemWorkShift(
+                                    type: widget.type,
                                     numberValue: (value) => setNumberValue(value),
                                     workShiftSettings: (value) => setListIds(value),
                                   ),
@@ -250,7 +253,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                             const ItemListStepFlow(),
                             ItemButton(
                               callbackSave: () => _save(context),
-                              callbackCancel: () => _cancel(),
+                              callbackCancel: () => _cancel(context),
                             )
                           ],
                         ),
@@ -304,7 +307,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         ? PostRequestRequest(
             followerIds: followers,
             flowId: widget.flowId,
-            config: ConfigRequestModel(
+            config: ConfigModelRequest(
               takeLeaveReason: reason,
               description: detailedDescriptionController.text,
               subtitudePersons: substitutes,
@@ -321,7 +324,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
             id: widget.requestId,
             followerIds: followers,
             flowId: widget.flowId,
-            config: ConfigRequestModel(
+            config: ConfigModelRequest(
                 takeLeaveReason: reason,
                 description: detailedDescriptionController.text,
                 subtitudePersons: substitutes,
@@ -383,7 +386,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     });
   }
 
-  _cancel() {}
+  _cancel(BuildContext context) {
+    dI<AppNavigation>().pop(context);
+  }
 
   _setSubstitute(List<User> value) {
     setState(() {

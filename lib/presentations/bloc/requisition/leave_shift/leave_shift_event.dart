@@ -19,3 +19,12 @@ class GetWorkShiftsEvent extends LeaveShiftEvent {
   @override
   List<Object?> get props => [startDate, endDate, completer];
 }
+
+class GetWorkShiftsExplanationEvent extends LeaveShiftEvent {
+  final Completer? completer;
+
+  const GetWorkShiftsExplanationEvent({this.completer});
+
+  @override
+  List<Object?> get props => [completer];
+}

@@ -1524,4 +1524,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chooseWorkShift => 'Choose work shift';
+
+  @override
+  String get ifOto => 'If traveling by car, full name of the driver';
+
+  @override
+  String get totalOvertimeHours => 'Total overtime hours';
+
+  @override
+  String get required => 'required';
+
+  @override
+  String get personalReasons => 'Personal reasons';
+
+  @override
+  String get companyReasons => 'Company reasons';
 }

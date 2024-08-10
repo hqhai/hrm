@@ -67,49 +67,45 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
     final width = MediaQuery.of(context).size.width;
     return ContainerBorder(
       borderColors: colors.text.withOpacity(0.1),
-      height: width,
+      height: width*0.9,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            color: colors.outline.withOpacity(0.2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () => setYear(true),
-                  child: Icon(
-                    Icons.arrow_left,
-                    color: colors.text,
-                    size: SpacingUnit.x12_5,
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () => setYear(true),
+                child: Icon(
+                  Icons.arrow_left,
+                  color: colors.text.withOpacity(0.5),
+                  size: SpacingUnit.x12_5,
                 ),
-                const SizedBox(
-                  width: SpacingUnit.x4,
+              ),
+              const SizedBox(
+                width: SpacingUnit.x4,
+              ),
+              Text(
+                year.toString(),
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x7,
                 ),
-                Text(
-                  year.toString(),
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x7,
-                  ),
+              ),
+              const SizedBox(
+                width: SpacingUnit.x4,
+              ),
+              InkWell(
+                onTap: () => setYear(false),
+                child: Icon(
+                  Icons.arrow_right,
+                  color: colors.text.withOpacity(0.5),
+                  size: SpacingUnit.x12_5,
                 ),
-                const SizedBox(
-                  width: SpacingUnit.x4,
-                ),
-                InkWell(
-                  onTap: () => setYear(false),
-                  child: Icon(
-                    Icons.arrow_right,
-                    color: colors.text,
-                    size: SpacingUnit.x12_5,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           Expanded(
-            flex: 1,
             child: GridView.builder(
               itemCount: mapMonth.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -121,7 +117,7 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
                 onTap: () => setTimeMonth(index + 1),
                 child: ContainerBorder(
                   backgroundColors: _checkMonth(index) ? colors.tertiary.withOpacity(0.2) : null,
-                  borderColors: _checkMonthNow(index) ? colors.error : colors.outline.withOpacity(0.5),
+                  borderColors: _checkMonthNow(index) ? colors.error : Colors.transparent,
                   child: Center(
                     child: Text(
                       textAlign: TextAlign.center,

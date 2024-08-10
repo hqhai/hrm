@@ -788,7 +788,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get check => 'Kiểm tra';
 
   @override
-  String get timeHasBeenRequestedInAdvance => 'Thời gian đã xin nghỉ trước';
+  String get timeHasBeenRequestedInAdvance => 'Đã tồn tại đơn trùng thời gian đang chọn, vui lòng chọn lại';
 
   @override
   String get workDay => 'Ngày công';
@@ -1524,4 +1524,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get chooseWorkShift => 'Chọn ca làm việc';
+
+  @override
+  String get ifOto => 'Nếu đi bằng ô tô, họ tên của tài xế';
+
+  @override
+  String get totalOvertimeHours => 'Tổng số giờ làm thêm';
+
+  @override
+  String get required => 'Bắt buộc';
+
+  @override
+  String get personalReasons => 'Lý do cá nhân';
+
+  @override
+  String get companyReasons => 'Lý do công ty';
 }

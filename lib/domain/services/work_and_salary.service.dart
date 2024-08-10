@@ -15,4 +15,5 @@ abstract class WorkAndSalaryService {
 
   Future<List<WorkShiftsResponse>> workShiftLeave(
       {required StartEndResponse startEndResponse});
+  Future<List<WorkShiftsResponse>> workShiftExplanation();
 }

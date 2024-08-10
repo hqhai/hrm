@@ -505,5 +505,10 @@
   "postal": "Bưu điện",
   "requestType": "Request type",
   "chooseARequest": "Choose a request",
-  "chooseWorkShift": "Choose work shift"
+  "chooseWorkShift": "Choose work shift",
+  "ifOto": "If traveling by car, full name of the driver",
+  "totalOvertimeHours": "Total overtime hours",
+  "required": "required",
+  "personalReasons": "Personal reasons",
+  "companyReasons": "Company reasons"
 }

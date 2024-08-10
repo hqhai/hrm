@@ -1,6 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationery_order.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_order_add_dialog.dart';
 import 'package:collection/collection.dart';
@@ -14,11 +13,15 @@ class ListStationeries extends StatefulWidget {
     this.listRequisitionStationery = const [],
     required this.onChangeList,
     this.error = '',
+    this.checkTypeContainer = const [],
+    required this.changeTypeContainer,
   });
 
   final String title, error;
   final List<Stationeries> listRequisitionStationery;
   final ValueChanged<List<Stationeries>> onChangeList;
+  final List<bool> checkTypeContainer;
+  final ValueChanged<List<bool>> changeTypeContainer;
 
   @override
   State<ListStationeries> createState() => _ListStationeriesState();
@@ -31,26 +34,40 @@ class _ListStationeriesState extends State<ListStationeries> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.title,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w800,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.title,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            InkWell(
+              onTap: () => _addStationery(context),
+              child: Icon(
+                Icons.add,
+                size: SpacingUnit.x8,
+                color: colors.success,
+              ),
+            )
+          ],
         ),
         ContainerBorder(
+          padding: 0,
           borderColors: colors.background,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: widget.listRequisitionStationery
                 .mapIndexed(
-                  (index, element) => GestureDetector(
-                    onTap: () => _getStationeryInList(context, element, index),
-                    child: ItemListStationery(
-                      requisitionStationery: element,
-                      index: index,
-                    ),
+                  (index, element) => StationeryOderAddDialog(
+                    callBackTypeContainer: () => setTypeContainer(index),
+                    checkTypeContainer: widget.checkTypeContainer[index],
+                    callBack: () => _deleteStationery(index),
+                    stationery: element,
+                    requisitionStationery: (value) => setEdit(value, index),
                   ),
                 )
                 .toList(),
@@ -71,18 +88,23 @@ class _ListStationeriesState extends State<ListStationeries> {
     );
   }
 
-  _getStationeryInList(BuildContext context, Stationeries listRequisitionStationery, int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: StationeryOderAddDialog(
-            stationery: listRequisitionStationery,
-            requisitionStationery: (value) => setEdit(value, index),
-          ),
-        );
-      },
-    );
+  setTypeContainer(int index) {
+    final listType = widget.checkTypeContainer;
+    setState(() {
+      listType[index] = !listType[index];
+      widget.changeTypeContainer.call(listType);
+    });
+  }
+
+  _addStationery(BuildContext context) {
+    final stationery = widget.listRequisitionStationery;
+    final types = widget.checkTypeContainer;
+    setState(() {
+      types.add(true);
+      stationery.add(const Stationeries());
+      widget.changeTypeContainer.call(types);
+      widget.onChangeList.call(stationery);
+    });
   }
 
   setEdit(Stationeries value, int index) {
@@ -96,6 +118,17 @@ class _ListStationeriesState extends State<ListStationeries> {
         quantity: value.quantity,
         amount: value.amount,
       );
+      widget.onChangeList.call(listRequisitionStationery);
+    });
+  }
+
+  _deleteStationery(int index) {
+    final listRequisitionStationery = widget.listRequisitionStationery;
+    final types = widget.checkTypeContainer;
+    setState(() {
+      types.removeAt(index);
+      listRequisitionStationery.removeAt(index);
+      widget.changeTypeContainer.call(types);
       widget.onChangeList.call(listRequisitionStationery);
     });
   }

@@ -4,38 +4,48 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class TimeOverTime extends StatelessWidget {
-  const TimeOverTime({super.key, this.title = '', this.dateOld = '', required this.changeValue});
+  const TimeOverTime({
+    super.key,
+    this.title = '',
+    this.dateOld = '',
+    required this.changeValue,
+  });
+
   final String title;
   final String dateOld;
   final ValueChanged<String> changeValue;
 
-
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x4,
-                fontWeight: FontWeight.w600,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(
+                text: title,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                ),
               ),
-            ),
+              TextSpan(
+                text: '*',
+                style: TextStyle(
+                  color: colors.error,
+                  fontSize: SpacingUnit.x5,
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            flex: 2,
-            child: TimePickerHourMinute(
-              timeSlot: dateOld,
-              onChange: (value) => _setTime(value),
-            ),
-          ),
-        ],
-      ),
+        ),
+        TimePickerHourMinute(
+          timeSlot: dateOld,
+          onChange: (value) => _setTime(value),
+        ),
+      ],
     );
   }
 

@@ -72,4 +72,18 @@ class WorkAndSalaryServiceImpl extends BaseService implements WorkAndSalaryServi
         (data as List<dynamic>).map((e) => WorkShiftsResponse.fromJson(e)).toList();
     return workShiftResponse;
   }
+
+  @override
+  Future<List<WorkShiftsResponse>> workShiftExplanation() async {
+    final url = '$baseUrlUser${PathConfig.workShiftExplanation}';
+    final response = await client.get(url);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    if (data == null) {
+      return [];
+    }
+    final workShiftResponse =
+        (data as List<dynamic>).map((e) => WorkShiftsResponse.fromJson(e)).toList();
+    return workShiftResponse;
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
@@ -36,10 +37,7 @@ class _CheckLoadDialogState extends State<CheckLoadDialog> {
         if (widget.checkLoad)
           const Center(
             child: SizedBox(
-              height: SpacingUnit.x20,
-              width: SpacingUnit.x20,
-              child: ProgressIndicatorDialog()
-            ),
+                height: SpacingUnit.x20, width: SpacingUnit.x20, child: ProgressIndicatorDialog()),
           ),
         if (widget.checkSuccess)
           Center(
@@ -53,6 +51,15 @@ class _CheckLoadDialogState extends State<CheckLoadDialog> {
                     appLocalizations.success,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: SpacingUnit.x8, color: colors.success),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x8),
+                    child: Center(
+                      child: Image.asset(
+                        Assets.images.signIn.yes.path,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
                   GestureDetector(
                     onTap: widget.checkSuccessChange,
@@ -77,6 +84,7 @@ class _CheckLoadDialogState extends State<CheckLoadDialog> {
             child: BlocBuilder<RequisitionBloc, RequisitionState>(
               builder: (context, state) {
                 return ContainerBorder(
+                  width: SpacingUnit.x50,
                   backgroundColors: colors.background,
                   margin: SpacingUnit.x8,
                   child: Column(
@@ -86,6 +94,19 @@ class _CheckLoadDialogState extends State<CheckLoadDialog> {
                         widget.fail ?? appLocalizations.unsuccessful,
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: SpacingUnit.x8, color: colors.error),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+                        child: Center(
+                          child: SizedBox(
+                            height: SpacingUnit.x10,
+                            width: SpacingUnit.x10,
+                            child: Image.asset(
+                              Assets.images.signIn.no.path,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                       ),
                       GestureDetector(
                         onTap: widget.checkUnSuccessChange,

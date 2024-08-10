@@ -49,24 +49,19 @@ class _BodyCalendarDialogState extends State<BodyCalendarDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).width * 0.7,
-          child: GridView.builder(
-            itemCount: widget.listDate.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 1,
-              crossAxisCount: 7,
-            ),
-            itemBuilder: (context, index) {
-              return _item(context, index);
-            },
-          ),
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width,
+      height: MediaQuery.sizeOf(context).width * 0.7,
+      child: GridView.builder(
+        itemCount: widget.listDate.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 1,
+          crossAxisCount: 7,
         ),
-      ],
+        itemBuilder: (context, index) {
+          return _item(context, index);
+        },
+      ),
     );
   }
 

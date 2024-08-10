@@ -1,10 +1,11 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/data/models/requisition/requisition/config_request_model.dart';
+import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -18,10 +19,8 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/release_of_warehouse/list_product.dart';
-import 'package:base_app/presentations/widgets/custom/app_button_add_list.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/product/stationery_release_of_warehouse_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -55,11 +54,8 @@ class _CreateRequisitionReleaseOfWarehousePageState
   final TextEditingController scheduleController = TextEditingController();
   List<String> followers = [];
   String description = '';
-  String errorList = '',
-      errorDescription = '';
-  bool checkLoad = false,
-      checkSuccess = false,
-      checkUnSuccess = false;
+  String errorList = '', errorDescription = '';
+  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
 
   @override
@@ -84,7 +80,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
         title: Text(
@@ -96,67 +92,62 @@ class _CreateRequisitionReleaseOfWarehousePageState
         ),
       ),
       body: BlocBuilder<RequisitionBloc, RequisitionState>(
-        builder: (context, state) =>
-            BlocBuilder<UserByIdBloc, UserByIdState>(
-              builder: (context, stateUserById) {
-                return Stack(
-                  children: [
-                    Opacity(
-                      opacity: opacity(),
+        builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
+          builder: (context, stateUserById) {
+            return Stack(
+              children: [
+                Opacity(
+                  opacity: opacity(),
+                  child: SingleChildScrollView(
+                    child: ContainerScreenMain(
                       child: SingleChildScrollView(
-                        child: ContainerScreenMain(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ItemCreateInputArea(
-                                  error: errorDescription,
-                                  textController: scheduleController,
-                                  title: appLocalizations.reasonForRelease,
-                                  onChange: (value) => _setSchedule(value),
-                                ),
-                                ListProducts(
-                                    title: appLocalizations.stationeryList,
-                                  error: errorList,
-                                  listProducts: requisitionReleaseOfWarehouse,
-                                  onChangeList: (value) => _setList(value),
-                                ),
-                                ButtonAddList(
-                                  title: appLocalizations.addProducts,
-                                  callBack: () => _addStationery(context),
-                                ),
-                                ItemCreateFollower(
-                                    listFollower: _setListUser(
-                                      stateUserById.userById,
-                                    ),
-                                    title: appLocalizations.follower,
-                                    onChange: (value) => _setFollower(value)),
-                                const ItemListStepFlow(),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
-                                  child: ItemButton(
-                                    callbackSave: () => _save(context),
-                                    callbackCancel: () => _cancel(),
-                                  ),
-                                )
-                              ],
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ItemCreateInputArea(
+                              error: errorDescription,
+                              textController: scheduleController,
+                              title: appLocalizations.reasonForRelease,
+                              onChange: (value) => _setSchedule(value),
                             ),
-                          ),
+                            ListProducts(
+                              title: appLocalizations.stationeryList,
+                              error: errorList,
+                              listProducts: requisitionReleaseOfWarehouse,
+                              onChangeList: (value) => _setList(value),
+                            ),
+                            ItemCreateFollower(
+                                listFollower: _setListUser(
+                                  stateUserById.userById,
+                                ),
+                                title: appLocalizations.follower,
+                                onChange: (value) => _setFollower(value)),
+                            const ItemListStepFlow(),
+                            Padding(
+                              padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
+                              child: ItemButton(
+                                callbackSave: () => _save(context),
+                                callbackCancel: () => _cancel(context),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
-                    CheckLoadDialog(
-                      fail: setErrorValue(state.errorCode),
-                      checkLoad: checkLoad,
-                      checkSuccess: checkSuccess,
-                      checkUnSuccess: checkUnSuccess,
-                      checkSuccessChange: () => setCheckSuccess(),
-                      checkUnSuccessChange: () => setCheckUnSuccess(),
-                    ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                ),
+                CheckLoadDialog(
+                  fail: setErrorValue(state.errorCode),
+                  checkLoad: checkLoad,
+                  checkSuccess: checkSuccess,
+                  checkUnSuccess: checkUnSuccess,
+                  checkSuccessChange: () => setCheckSuccess(),
+                  checkUnSuccessChange: () => setCheckUnSuccess(),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -185,19 +176,6 @@ class _CreateRequisitionReleaseOfWarehousePageState
     return check;
   }
 
-  _addStationery(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: ReleaseOfWarehouseAddDialog(
-            requisitionReleaseOfWarehouse: (value) => setAdd(value),
-          ),
-        );
-      },
-    );
-  }
-
   setAdd(WarehouseReleaseds value) {
     setState(() {
       requisitionReleaseOfWarehouse.add(value);
@@ -207,22 +185,22 @@ class _CreateRequisitionReleaseOfWarehousePageState
   PostRequestRequest request() {
     return widget.requestId.isEmpty
         ? PostRequestRequest(
-      followerIds: followers,
-      flowId: widget.flowId,
-      config: ConfigRequestModel(
-        description: description,
-        warehourseReleaseds: requisitionReleaseOfWarehouse,
-      ),
-    )
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigModelRequest(
+              description: description,
+              warehourseReleaseds: requisitionReleaseOfWarehouse,
+            ),
+          )
         : PostRequestRequest(
-      id: widget.requestId,
-      followerIds: followers,
-      flowId: widget.flowId,
-      config: ConfigRequestModel(
-        description: description,
-        warehourseReleaseds: requisitionReleaseOfWarehouse,
-      ),
-    );
+            id: widget.requestId,
+            followerIds: followers,
+            flowId: widget.flowId,
+            config: ConfigModelRequest(
+              description: description,
+              warehourseReleaseds: requisitionReleaseOfWarehouse,
+            ),
+          );
   }
 
   _save(BuildContext context) async {
@@ -260,7 +238,9 @@ class _CreateRequisitionReleaseOfWarehousePageState
     });
   }
 
-  _cancel() {}
+  _cancel(BuildContext context) {
+    dI<AppNavigation>().pop(context);
+  }
 
   _setFollower(List<User> value) {
     setState(() {

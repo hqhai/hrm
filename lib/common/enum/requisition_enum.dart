@@ -12,6 +12,7 @@ enum EnumTakeLeaveType {
   compensatoryLeave('CompensatoryLeave'),
   @JsonValue('OtherPaidLeave')
   otherPaidLeave('OtherPaidLeave'),
+  @JsonValue('')
   unknown('');
 
   final String name;
@@ -244,6 +245,7 @@ enum RequisitionTypeEnum {
   postalDelivery('PostalDelivery'),
   @JsonValue('Core')
   core('Core'),
+  @JsonValue('')
   unknown('');
 
   final String name;
@@ -402,6 +404,30 @@ extension ConfigDeliveryTypeExtension on RequisitionDeliveryTypeEnum {
         return appLocalizations.standard;
       case RequisitionDeliveryTypeEnum.express:
         return appLocalizations.express;
+    }
+  }
+}
+
+enum EnumReason {
+  @JsonValue('Individual')
+  individual('Individual'),
+  @JsonValue('Work')
+  work('Work');
+
+  final String name;
+
+  const EnumReason(this.name);
+}
+
+extension ConfigEnumReasonExtension on EnumReason {
+  String get configEnumReasonName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case EnumReason.individual:
+        return appLocalizations.personalReasons;
+      case EnumReason.work:
+        return appLocalizations.companyReasons;
     }
   }
 }

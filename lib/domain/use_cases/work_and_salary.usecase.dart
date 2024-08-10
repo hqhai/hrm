@@ -8,4 +8,5 @@ abstract class WorkAndSalaryUseCase {
   Future<UserLeaveHistoryResponseMap> totalLeaveUserHistory({DateTime? date, TypeLeaveEnum? type, int? page});
   Future<double> totalWorkday({required String startTime, required String endTime});
   Future<WorkShiftsMapKeys> workShiftLeave({required DateTime startTime, required DateTime endTime});
+  Future<WorkShiftsMapKeys> workShiftExplanation();
 }
