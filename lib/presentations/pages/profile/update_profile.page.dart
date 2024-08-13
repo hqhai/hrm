@@ -15,12 +15,11 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/pages/profile/item_address_update_profile.dart';
-import 'package:base_app/presentations/pages/profile/item_gender_update_profile.dart';
-import 'package:base_app/presentations/pages/profile/item_date_of_birth_update_profile.dart';
-import 'package:base_app/presentations/pages/profile/item_input_update_profile.dart';
 import 'package:base_app/presentations/pages/profile/item_constant_update_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_date_of_birth_update_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_gender_update_profile.dart';
+import 'package:base_app/presentations/pages/profile/item_input_update_profile.dart';
 import 'package:base_app/presentations/pages/profile/item_profile.dart';
-import 'package:base_app/presentations/pages/profile/item_vehicle_update_profile.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_save_dialog.dart';
@@ -48,7 +47,11 @@ class UpdateProfilePage extends StatefulWidget {
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   String? phoneNumber, address, licensePlate, autoMaker;
   Address? province, ward, district;
-  String errorFirstName = '', errorLastName = '', firstName = '', lastName = '', dateOfBirth = '';
+  String errorFirstName = '',
+      errorLastName = '',
+      firstName = '',
+      lastName = '',
+      dateOfBirth = '';
   File file = File('');
   GenderEnum gender = GenderEnum.male;
   VehicleTypeEnum? vehicleType;
@@ -96,7 +99,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ItemProfile(isCheck: true, onChange: (value) => _setFileAvatar(value)),
+                  ItemProfile(
+                      isCheck: true,
+                      onChange: (value) => _setFileAvatar(value)),
                   Container(
                     margin: const EdgeInsets.only(top: SpacingUnit.x4),
                     padding: const EdgeInsets.all(SpacingUnit.x4),
@@ -112,15 +117,18 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ItemUpdateProfileConstant(
-                            title: appLocalizations.employeeCode, content: state.user.code),
+                            title: appLocalizations.employeeCode,
+                            content: state.user.code),
                         ItemUpdateProfileConstant(
-                            title: appLocalizations.companyEmail, content: state.user.companyEmail),
+                            title: appLocalizations.companyEmail,
+                            content: state.user.companyEmail),
                         ItemDateOfBirthUpdateProfile(
                           title: appLocalizations.dateOfBirth,
                           dateOfBirth: formatDMY(
                             state.user.dayOfBirth,
                           ),
-                          onChangeDateOfBirth: (value) => _setDateOfBirth(value),
+                          onChangeDateOfBirth: (value) =>
+                              _setDateOfBirth(value),
                         ),
                         ItemInputUpdateProfile(
                           error: errorFirstName,
@@ -144,10 +152,14 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             gender: state.user.gender),
                         ItemAddressUpdateProfile(
                             province: Address(
-                                id: state.user.residentProvinceId, name: state.user.residentProvince),
+                                id: state.user.residentProvinceId,
+                                name: state.user.residentProvince),
                             district: Address(
-                                id: state.user.residentDistrictId, name: state.user.residentDistrict),
-                            ward: Address(id: state.user.residentWardId, name: state.user.residentWard),
+                                id: state.user.residentDistrictId,
+                                name: state.user.residentDistrict),
+                            ward: Address(
+                                id: state.user.residentWardId,
+                                name: state.user.residentWard),
                             onChangeProvince: (value) => _setProvince(value),
                             onChangeDistrict: (value) => _setDistrict(value),
                             onChangeWard: (value) => _setWard(value)),
@@ -157,20 +169,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           onChange: (value) => _setAddress(value),
                         ),
                         const ItemDepartmentAndPositionProfile(),
-                        ItemVehicleUpdateProfile(
-                          vehicle: state.user.vehicleType,
-                          onChangeVehicle: (value) => _onChangeVehicle(value),
-                        ),
-                        ItemInputUpdateProfile(
-                          title: appLocalizations.licensePlate,
-                          content: state.user.licensePlate,
-                          onChange: (value) => _setLicensePlate(value),
-                        ),
-                        ItemInputUpdateProfile(
-                          title: appLocalizations.autoMaker,
-                          content: state.user.autoMaker,
-                          onChange: (value) => _setAutoMaker(value),
-                        ),
+                        // ItemVehicleUpdateProfile(
+                        //   vehicle: state.user.vehicleType,
+                        //   onChangeVehicle: (value) => _onChangeVehicle(value),
+                        // ),
+                        // ItemInputUpdateProfile(
+                        //   title: appLocalizations.licensePlate,
+                        //   content: state.user.licensePlate,
+                        //   onChange: (value) => _setLicensePlate(value),
+                        // ),
+                        // ItemInputUpdateProfile(
+                        //   title: appLocalizations.autoMaker,
+                        //   content: state.user.autoMaker,
+                        //   onChange: (value) => _setAutoMaker(value),
+                        // ),
                       ],
                     ),
                   ),
@@ -247,7 +259,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         ward?.id,
         user.residentWardId,
       ),
-      residentAddress: setValueOnUpdateProfileRequest(address, user.residentAddress),
+      residentAddress:
+          setValueOnUpdateProfileRequest(address, user.residentAddress),
       avatarPath: setPath(user.avatarPath),
       autoMaker: setValueOnUpdateProfileRequest(
         autoMaker,
@@ -318,7 +331,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         autoMaker == null &&
         licensePlate == null &&
         vehicleType == null;
-    bool check = (regExpPhoneNumber.hasMatch(phoneNumber ?? "") || phoneNumber == null) &&
+    bool check = (regExpPhoneNumber.hasMatch(phoneNumber ?? "") ||
+            phoneNumber == null) &&
         firstName != '' &&
         lastName != '' &&
         dateOfBirth != '' &&

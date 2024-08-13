@@ -32,7 +32,9 @@ class _BottomSheetLeaveWidgetState extends State<BottomSheetLeaveWidget> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          HeaderFilter(callback: () => close(context), title: appLocalizations.leaveReason),
+          HeaderFilter(
+              callback: () => close(context),
+              title: appLocalizations.leaveReason),
           Column(
               mainAxisSize: MainAxisSize.min,
               children: EnumTakeLeaveType.values
@@ -40,32 +42,29 @@ class _BottomSheetLeaveWidgetState extends State<BottomSheetLeaveWidget> {
                   .mapIndexed((index, element) => GestureDetector(
                         onTap: () => setOnChange(type: element),
                         child: Container(
-                          padding: const EdgeInsets.all(SpacingUnit.x4),
-                          margin: const EdgeInsets.all(SpacingUnit.x2),
+                          padding: const EdgeInsets.all(SpacingUnit.x2_5),
+                          margin: const EdgeInsets.only(bottom: SpacingUnit.x3),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                            color: colors.background,
-                            border: Border.all(
-                              color: colors.background,
-                              width: 1,
-                            ),
-                          ),
+                              // borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 0.1, color: colors.textLight))),
                           child: Row(
                             children: [
-                              Text(
-                                '${index + 1}.    ',
-                                style: TextStyle(
-                                  color: colors.text,
-                                  fontSize: SpacingUnit.x3,
+                              Expanded(
+                                child: Text(
+                                  element.configTakeLeaveTypeName,
+                                  style: TextStyle(
+                                    color: colors.text,
+                                    fontSize: SpacingUnit.x3,
+                                  ),
                                 ),
                               ),
-                              Text(
-                                element.configTakeLeaveTypeName,
-                                style: TextStyle(
-                                  color: colors.text,
-                                  fontSize: SpacingUnit.x3,
-                                ),
-                              ),
+                              if (widget.listEnumTakeLeave == element)
+                                Icon(
+                                  Icons.check,
+                                  color: colors.primary,
+                                )
                             ],
                           ),
                         ),

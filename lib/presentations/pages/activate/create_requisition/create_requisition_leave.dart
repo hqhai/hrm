@@ -20,11 +20,11 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/pages/activate/leave/item_work_shift.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_load_flie.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create.work.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_take_leave.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_year_leave.dart';
@@ -62,22 +62,29 @@ class CreateRequisitionLeavePage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionLeavePage> createState() => _CreateRequisitionLeavePageState();
+  State<CreateRequisitionLeavePage> createState() =>
+      _CreateRequisitionLeavePageState();
 }
 
-class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+class _CreateRequisitionLeavePageState
+    extends State<CreateRequisitionLeavePage> {
+  final TextEditingController detailedDescriptionController =
+      TextEditingController();
   String? description;
   DateTime? startTime, endTime;
   double numberValue = 0;
   List<File> files = [];
   List<String> followers = [], substitutes = [];
   List<WorkShiftRegisteredDetail> listWorkShift = [];
-  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false, checkShirt = true;
+  bool checkLoad = false,
+      checkSuccess = false,
+      checkUnSuccess = false,
+      checkShirt = true;
   String errorTime = '', errorDialog = '';
   bool checkClick = false;
   final DateTime now = DateTime.now();
-  EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
+  EnumTakeLeaveType takeLeaveType =
+      EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
   EnumSocialInsuranceLeave? socialInsuranceLeave;
   EnumReasonLeave? reason;
 
@@ -105,7 +112,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
@@ -114,10 +122,12 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       return false;
     }
     final number = (endTime!).difference(startTime!).inHours;
-    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
+    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay &&
+        number > 24) {
       return false;
     }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay &&
+        (number > 96 || number < 24)) {
       return false;
     }
     if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
@@ -131,10 +141,12 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       return '';
     }
     final number = (endTime!).difference(startTime!).inHours;
-    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
+    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay &&
+        number > 24) {
       return RequisitionTypeEnum.leaveHalfDayToOneDay.configTypeName;
     }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay &&
+        (number > 96 || number < 24)) {
       return RequisitionTypeEnum.leaveTwoDayToFourDay.configTypeName;
     }
     if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
@@ -183,10 +195,13 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         typeSocialInsurance: socialInsuranceLeave,
                         onChange: (value) => _setReason(value),
                         type: takeLeaveType,
-                        onChangeSocialInsurance: (value) => setSocialInsurance(value),
+                        onChangeSocialInsurance: (value) =>
+                            setSocialInsurance(value),
                       ),
-                      if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
+                      if (takeLeaveType ==
+                          EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
                         const ItemTakeLeaveWork(),
+                      const SizedBox(height: SpacingUnit.x4),
                       Text(
                         appLocalizations.intervalOnLeave,
                         style: TextStyle(
@@ -195,12 +210,15 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+                      const SizedBox(height: SpacingUnit.x2),
                       PeriodTimePicker(
                         oldEndTime: endTime,
                         oldStarTime: startTime,
                         title: appLocalizations.intervalOnLeave,
-                        setStarTime: (value) => setStartTime(value ?? DateTime.now()),
-                        setEndTime: (value) => setEndTime(value ?? DateTime.now()),
+                        setStarTime: (value) =>
+                            setStartTime(value ?? DateTime.now()),
+                        setEndTime: (value) =>
+                            setEndTime(value ?? DateTime.now()),
                         fontWeightTitle: FontWeight.w600,
                       ),
                       if (errorDate().isNotEmpty)
@@ -214,6 +232,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                             ),
                           ),
                         ),
+                      const SizedBox(height: SpacingUnit.x4),
                       !checkShirt
                           ? Center(
                               child: Shimmer.fromColors(
@@ -235,7 +254,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                               workShiftSettings: (value) => setListIds(value),
                             ),
                       ItemCreateFollower(
-                        listFollower: _setListUser(stateUserById.subtitudePersons),
+                        listFollower:
+                            _setListUser(stateUserById.subtitudePersons),
                         title: appLocalizations.substitute,
                         onChange: (value) => _setSubstitute(value),
                       ),
@@ -374,8 +394,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         checkShirt = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: endTime!, startDate: startTime!, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: endTime!, startDate: startTime!, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {

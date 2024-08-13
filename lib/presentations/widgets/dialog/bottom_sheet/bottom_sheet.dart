@@ -61,7 +61,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child: SearchInput(onChange: (value) => _onChangeSearch(value)),
+                  child:
+                      SearchInput(onChange: (value) => _onChangeSearch(value)),
                 ),
                 Expanded(
                   child: SizedBox(
@@ -77,31 +78,21 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                           margin: const EdgeInsets.all(SpacingUnit.x2),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                            color: listPerson.contains(state.usersByName[index].id)
-                                ? colors.success
-                                : colors.background,
+                            color:
+                                listPerson.contains(state.usersByName[index].id)
+                                    ? colors.success
+                                    : colors.background,
                             border: Border.all(
                               color: colors.background,
                               width: 1,
                             ),
                           ),
-                          child: Row(
-                            children: [
-                              Text(
-                                '${index + 1}.    ',
-                                style: TextStyle(
-                                  color: colors.text,
-                                  fontSize: SpacingUnit.x4,
-                                ),
-                              ),
-                              Text(
-                                state.usersByName[index].fullName,
-                                style: TextStyle(
-                                  color: colors.text,
-                                  fontSize: SpacingUnit.x4,
-                                ),
-                              ),
-                            ],
+                          child: Text(
+                            state.usersByName[index].fullName,
+                            style: TextStyle(
+                              color: colors.text,
+                              fontSize: SpacingUnit.x4,
+                            ),
                           ),
                         ),
                       ),
@@ -150,14 +141,16 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
+    if (lengthList < totalItems &&
+        controller.position.extentAfter < totalItems &&
+        checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
       });
       final Completer completer = Completer<bool>();
-      dI<UserByNameBloc>()
-          .add(GetUserByNameEvent(name: searchStr, page: pageIndex, completer: completer));
+      dI<UserByNameBloc>().add(GetUserByNameEvent(
+          name: searchStr, page: pageIndex, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {

@@ -122,6 +122,7 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
       builder: (BuildContext context) {
         return Dialog(
           child: LayoutCalendarDialog(
+            getCurrentDate: null,
             endTimeOld: endTime,
             startTimeOld: startTime,
             callBackEndTime: (value) => setEndTime(value),

@@ -19,39 +19,39 @@ class RequisitionInformationContent extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                appLocalizations.content,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                  fontWeight: FontWeight.w800,
-                ),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              appLocalizations.content,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
+                fontWeight: FontWeight.w800,
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x3),
-                child: ContainerBorder(
-                  height: SpacingUnit.x30,
-                  width: width,
-                  borderColors: colors.text.withOpacity(0.2),
-                  child: SingleChildScrollView(
-                    child: Text(
-                      state.requisition.config.description ?? "",
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x4,
-                      ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: SpacingUnit.x1,
+                top: SpacingUnit.x2,
+              ),
+              child: ContainerBorder(
+                height: SpacingUnit.x30,
+                marginTop: 0,
+                width: width,
+                borderColors: colors.text.withOpacity(0.2),
+                child: SingleChildScrollView(
+                  child: Text(
+                    state.requisition.config.description ?? "",
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

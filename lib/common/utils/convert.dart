@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -14,6 +15,7 @@ int timeToSeconds(String time) {
   final DateTime t2 = format.parse("00:00:00");
   return t1.difference(t2).inSeconds;
 }
+
 ///Từ int sang String
 String? strSeconds(int? time) {
   if (time != null) {
@@ -32,7 +34,9 @@ bool isAtSameMomentAsDay({
   DateTime? end,
 }) {
   if (start != null && end != null) {
-    return start.year == end.year && start.month == end.month && start.day == end.day;
+    return start.year == end.year &&
+        start.month == end.month &&
+        start.day == end.day;
   }
   return false;
 }
@@ -48,7 +52,8 @@ DateTime getFirstDayOfMonth(DateTime time) {
 DateTime getLastDayOfMonth(DateTime time) {
   final int year = time.year;
   final int month = time.month;
-  var firstDayNextMonth = (month < 12) ? DateTime(year, month + 1, 1) : DateTime(year + 1, 1, 1);
+  var firstDayNextMonth =
+      (month < 12) ? DateTime(year, month + 1, 1) : DateTime(year + 1, 1, 1);
   return firstDayNextMonth.subtract(const Duration(days: 1));
 }
 
@@ -75,14 +80,15 @@ String formatIso8601(String? time) {
 String formatYMD(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
-    return DateFormat('yyyy-MM-dd').format(dateTime);
+    return DateFormat('dd/MM/yyyy').format(dateTime);
   }
   return '';
 }
 
 ///Từ số sang thứ trong tuần
 String formatWeekDay(int weekDayIndex) {
-  List weekDayToString = WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
+  List weekDayToString =
+      WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
   return weekDayToString[weekDayIndex - 1];
 }
 
@@ -90,7 +96,8 @@ String formatWeekDay(int weekDayIndex) {
 
 String nameWeekDay(DateTime? time) {
   if (time != null) {
-    final int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(time)] ?? 0;
+    final int nowOfWeek =
+        mapNumberDayInWeek[DateFormat('EEE').format(time)] ?? 0;
     final List<String> weekDayToString =
         WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
     return weekDayToString[nowOfWeek - 1];
@@ -215,5 +222,3 @@ bool listStatusRequestEquals<StatusRequestEnum>(
   }
   return true;
 }
-
-

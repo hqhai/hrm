@@ -22,10 +22,10 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/pages/activate/leave/item_work_shift.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time_keeping_type.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time_keeping_type.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/date_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
@@ -198,6 +198,9 @@ class _CreateRequisitionLateAndEarlyPageState
                               numberValue: (value) => setNumberValue(value),
                               workShiftSettings: (value) => setListIds(value),
                             ),
+                    const SizedBox(
+                      height: SpacingUnit.x4,
+                    ),
                     ItemCreateInputArea(
                       error: errorDestination,
                       textController: detailedDescriptionController,

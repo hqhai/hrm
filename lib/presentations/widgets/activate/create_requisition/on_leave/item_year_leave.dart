@@ -136,12 +136,13 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
             paddingVertical: 0,
             paddingHorizontal: 0,
             child: ListTile(
-              contentPadding: EdgeInsets.zero,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: SpacingUnit.x0_25),
               title: Text(
                 type1.configEnumTakeLeaveName,
                 style: TextStyle(
                   color: colors.text,
-                  fontSize: SpacingUnit.x3,
+                  fontSize: SpacingUnit.x4,
                 ),
               ),
               leading: Radio<EnumReasonLeave>(
@@ -159,12 +160,13 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
             paddingHorizontal: 0,
             paddingVertical: 0,
             child: ListTile(
-              contentPadding: EdgeInsets.zero,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: SpacingUnit.x0_25),
               title: Text(
                 type2.configEnumTakeLeaveName,
                 style: TextStyle(
                   color: colors.text,
-                  fontSize: SpacingUnit.x3,
+                  fontSize: SpacingUnit.x4,
                 ),
               ),
               leading: Radio<EnumReasonLeave>(

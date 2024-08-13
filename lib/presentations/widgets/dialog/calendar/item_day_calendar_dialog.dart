@@ -29,10 +29,11 @@ class _BodyCalendarDialogState extends State<BodyCalendarDialog> {
   DateTime? startTime, endTime;
   bool check = true;
 
-
   bool _checkDateNow(DateTime date) {
     DateTime dateTime = DateTime.now();
-    if (dateTime.day == date.day && dateTime.month == date.month && dateTime.year == date.year) {
+    if (dateTime.day == date.day &&
+        dateTime.month == date.month &&
+        dateTime.year == date.year) {
       return true;
     }
     return false;
@@ -86,7 +87,7 @@ class _BodyCalendarDialogState extends State<BodyCalendarDialog> {
         ),
         month: widget.month,
         date: widget.listDate[index],
-        isNowDate: _checkDateNow(widget.listDate[index]),
+        isNowDate: false,
       ),
     );
   }
@@ -103,7 +104,9 @@ class _BodyCalendarDialogState extends State<BodyCalendarDialog> {
 
   bool inSelectDay(DateTime time) {
     bool start = startTime?.isBefore(time) ?? false;
-    bool end = endTime?.isAfter(DateTime(time.year, time.month, time.day, 23, 59, 59)) ?? false;
+    bool end = endTime
+            ?.isAfter(DateTime(time.year, time.month, time.day, 23, 59, 59)) ??
+        false;
     return start && end;
   }
 

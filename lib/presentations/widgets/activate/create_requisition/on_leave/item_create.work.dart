@@ -45,23 +45,25 @@ class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
     );
   }
 
-  Widget item({required BuildContext context, required String title, required String value}) {
+  Widget item(
+      {required BuildContext context,
+      required String title,
+      required String value}) {
     final colors = AppTheme.getColors(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
       child: Row(
         children: [
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
-            ),
+          Text(
+            '$title: ',
+            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
-            ),
+          Text(
+            value,
+            style: TextStyle(
+                color: colors.text,
+                fontWeight: FontWeight.w600,
+                fontSize: SpacingUnit.x4),
           ),
         ],
       ),
