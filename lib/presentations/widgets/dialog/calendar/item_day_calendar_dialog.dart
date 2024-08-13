@@ -29,15 +29,15 @@ class _BodyCalendarDialogState extends State<BodyCalendarDialog> {
   DateTime? startTime, endTime;
   bool check = true;
 
-  bool _checkDateNow(DateTime date) {
-    DateTime dateTime = DateTime.now();
-    if (dateTime.day == date.day &&
-        dateTime.month == date.month &&
-        dateTime.year == date.year) {
-      return true;
-    }
-    return false;
-  }
+  // bool _checkDateNow(DateTime date) {
+  //   DateTime dateTime = DateTime.now();
+  //   if (dateTime.day == date.day &&
+  //       dateTime.month == date.month &&
+  //       dateTime.year == date.year) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   @override
   void initState() {

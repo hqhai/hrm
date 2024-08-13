@@ -8,9 +8,7 @@ abstract class AttendanceRepository {
     required DateTime endTime,
   });
 
-  Future<WorkSheet> getWorkSheet({
-    required DateTime time
-  });
+  Future<WorkSheet> getWorkSheet({required DateTime time});
 
   Future<Attendance> getAttendance({
     required String month,
@@ -19,5 +17,4 @@ abstract class AttendanceRepository {
   });
 
   Future<List<AttendanceByDate>> getAttendancesByDate({required DateTime time});
-
 }
