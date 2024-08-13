@@ -57,10 +57,9 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   List<Stationeries> listRequisitionStationery = [];
   List<String> followers = [];
   DateTime month = DateTime.now();
-  String error = '', errorMonth = '';
+  String error = '', errorMonth = '', errorDialog = '';
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
-  List<bool> checkTypeContainer = [];
 
   @override
   void initState() {
@@ -68,7 +67,6 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
       final request = dI<RequisitionBloc>().state.requisition;
       followers = [...request.followerIds];
       listRequisitionStationery = [...?request.config.stationeries];
-      checkTypeContainer = List.filled(listRequisitionStationery.length, true);
       month = request.config.startDate ?? DateTime.now();
     }
     super.initState();
@@ -87,12 +85,19 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
+  _listener(String errorCode) {
+    setState(() {
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<RequisitionBloc, RequisitionState>(
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
+      listener: (context, state) => _listener(state.errorCode),
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
@@ -104,72 +109,49 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                 style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
               ),
             ),
-            body: Stack(
-              children: [
-                Opacity(
-                  opacity: opacity(),
-                  child: SingleChildScrollView(
-                    child: ContainerScreenMain(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MonthYearPicker(
-                              title: appLocalizations.month,
-                              timeOld: month,
-                              onChange: (value) => setMonth(value),
-                            ),
-                            ListStationeries(
-                              checkTypeContainer: checkTypeContainer,
-                              changeTypeContainer: (value) => _changeTypeContainer(value),
-                              title: appLocalizations.stationeryList,
-                              error: error,
-                              listRequisitionStationery: listRequisitionStationery,
-                              onChangeList: (value) => setList(value),
-                            ),
-                            ItemTotalAmount(
-                              totalAmount: _totalAmount(),
-                            ),
-                            ItemCreateFollower(
-                                listFollower: _setListUser(
-                                  stateUserById.userById,
-                                ),
-                                title: appLocalizations.follower,
-                                onChange: (value) => _setFollower(value)),
-                            const ItemListStepFlow(),
-                            Padding(
-                              padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
-                              child: ItemButton(
-                                callbackSave: () => _save(context),
-                                callbackCancel: () => _cancel(context),
-                              ),
-                            )
-                          ],
-                        ),
+            body: SingleChildScrollView(
+              child: ContainerScreenMain(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MonthYearPicker(
+                        title: appLocalizations.month,
+                        timeOld: month,
+                        onChange: (value) => setMonth(value),
                       ),
-                    ),
+                      ListStationeries(
+                        title: appLocalizations.stationeryList,
+                        error: error,
+                        listRequisitionStationery: listRequisitionStationery,
+                        onChangeList: (value) => setList(value),
+                      ),
+                      ItemTotalAmount(
+                        totalAmount: _totalAmount(),
+                      ),
+                      ItemCreateFollower(
+                          listFollower: _setListUser(
+                            stateUserById.userById,
+                          ),
+                          title: appLocalizations.follower,
+                          onChange: (value) => _setFollower(value)),
+                      const ItemListStepFlow(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
+                        child: ItemButton(
+                          callbackSave: () => _save(context),
+                          callbackCancel: () => _cancel(context),
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode),
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ],
+              ),
             ),
           );
         },
       ),
     );
-  }
-
-  _changeTypeContainer(List<bool> value) {
-    setState(() {
-      checkTypeContainer = value;
-    });
   }
 
   setCheckSuccess() {
@@ -188,7 +170,6 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
 
   setAdd(Stationeries value) {
     setState(() {
-      checkTypeContainer.add(true);
       listRequisitionStationery.add(value);
     });
   }
@@ -227,32 +208,15 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(),
-      completerSuccess: () => completerSuccess(),
+      completerFail: () => completerFail(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
+      completerSuccess: () => completerSuccess(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
     );
-  }
-
-  setCheckLoad() {
-    setState(() {
-      checkClick = true;
-      checkLoad = true;
-    });
-  }
-
-  completerFail() {
-    setState(() {
-      checkLoad = false;
-      checkUnSuccess = true;
-      checkClick = false;
-    });
-  }
-
-  completerSuccess() {
-    setState(() {
-      checkLoad = false;
-      checkSuccess = true;
-      checkClick = false;
-    });
   }
 
   setMonth(DateTime value) {

@@ -125,9 +125,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get successfullyCreatedRequest => 'Yêu cầu được khởi tạo thành công';
 
   @override
-  String get createRequestFailed => 'Yêu cầu được khởi tạo thất bại';
-
-  @override
   String get doYouWantToCreateARequest => 'Bạn có muốn khởi tạo yêu cầu?';
 
   @override
@@ -242,7 +239,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get isNotApproval => 'Không cần phê duyệt';
 
   @override
-  String get updateSuccessful => 'Cập nhật thành công!';
+  String get updateSuccessful => 'Cập nhật thông tin thành công!';
 
   @override
   String get save => 'Lưu';
@@ -455,7 +452,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get deleteAccount => 'Xóa tài khoản';
 
   @override
-  String get userInformation => 'Thông tin nhân viên';
+  String get userInformation => 'Hồ sơ người dùng';
 
   @override
   String get employeeCode => 'Mã nhân viên';
@@ -530,7 +527,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get date => 'Ngày';
 
   @override
-  String get dialogWrongPasswordA => 'Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng kiểm tra email ';
+  String get dialogWrongPasswordA => 'Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ HCNS';
 
   @override
   String get dialogWrongPasswordB => ' để đặt lại mật khẩu';
@@ -596,7 +593,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get reject => 'Từ chối';
 
   @override
-  String get modification => 'Y/c sửa lại đơn';
+  String get modification => 'Y/c sửa lại';
 
   @override
   String get done => 'Đã duyệt';
@@ -1067,7 +1064,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get duplicateBankAccountNumber => 'Số tài khoản ngân hàng bị trùng';
 
   @override
-  String get timeSlotAlreadyPleaseChooseAnother => 'Thời gian đã có rồi, xin vui lòng chọn cái khác';
+  String get timeSlotAlreadyPleaseChooseAnother => 'Đã tồn tại đơn vào thời gian đã chọn, xin vui lòng chọn lại!';
 
   @override
   String get theNumberOfFormsCreatedHasExceededTheLimit => 'Số lượng biểu mẫu được tạo đã vượt quá giới hạn';
@@ -1569,4 +1566,37 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get timekeepingUnSuccess => 'Chấm công không thành công';
+
+  @override
+  String get createRequestFailed => 'Tạo đơn không thành công';
+
+  @override
+  String get editRequestUnsuccessful => 'Sửa đơn không thành công';
+
+  @override
+  String get createSuccess => 'Tạo đơn thành công';
+
+  @override
+  String get editRequestSuccess => 'Sửa đơn thành công';
+
+  @override
+  String get theTotalNumberOfLeaveIsNotEnough => 'Bạn đã dùng hết số phép của mình rồi!';
+
+  @override
+  String get approvedSuccess => 'Phê duyệt thành công';
+
+  @override
+  String get approvedUnsuccessful => 'Phê duyệt thất bại';
+
+  @override
+  String get cancelRequest => 'Hủy đơn';
+
+  @override
+  String get leaveReason => 'Lý do nghỉ';
+
+  @override
+  String get reasonType => 'Loại lý do';
+
+  @override
+  String get updateUnsuccessful => 'Cập nhật thông tin không thành công!';
 }

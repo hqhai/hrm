@@ -54,8 +54,7 @@ class CreateRequisitionOverTimePage extends StatefulWidget {
 class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTimePage> {
   List<RequisitionOverTime> requisitionOverTimes = [];
   List<String> followers = [];
-  String description = "";
-  String error = '', errorDescription = '';
+  String description = "", error = '', errorDescription = '', errorDialog = '';
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
   List<bool> checkTypeContainer = [];
@@ -90,11 +89,18 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     return check ? 1 : 0.3;
   }
 
+  _listener(String errorCode) {
+    setState(() {
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<RequisitionBloc, RequisitionState>(
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
+      listener: (context, state) => _listener(state.errorCode),
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
@@ -108,60 +114,45 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                 ),
               ),
             ),
-            body: Stack(
-              children: [
-                Opacity(
-                  opacity: opacity(),
-                  child: SingleChildScrollView(
-                    child: ContainerScreenMain(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ListOverTime(
-                              callback: () => addOverTime(),
-                              checkTypeContainer: checkTypeContainer,
-                              changeTypeContainer: (value) => _changeTypeContainer(value),
-                              title: appLocalizations.listOvertime,
-                              error: error,
-                              requisitionOverTimes: requisitionOverTimes,
-                              onChangeList: (value) => _setChangeRequisitionOverTimes(value),
-                            ),
-                            ItemCreateInputArea(
-                              title: appLocalizations.reason,
-                              error: errorDescription,
-                              textController: inputController,
-                              onChange: (value) => setDescription(value),
-                            ),
-                            ItemCreateFollower(
-                                listFollower: _setListUser(
-                                  stateUserById.userById,
-                                ),
-                                title: appLocalizations.follower,
-                                onChange: (value) => _setFollower(value)),
-                            const ItemListStepFlow(),
-                            Padding(
-                              padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
-                              child: ItemButton(
-                                callbackSave: () => _save(context),
-                                callbackCancel: () => _cancel(context),
-                              ),
-                            )
-                          ],
-                        ),
+            body: SingleChildScrollView(
+              child: ContainerScreenMain(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListOverTime(
+                        callback: () => addOverTime(),
+                        checkTypeContainer: checkTypeContainer,
+                        changeTypeContainer: (value) => _changeTypeContainer(value),
+                        title: appLocalizations.listOvertime,
+                        error: error,
+                        requisitionOverTimes: requisitionOverTimes,
+                        onChangeList: (value) => _setChangeRequisitionOverTimes(value),
                       ),
-                    ),
+                      ItemCreateInputArea(
+                        title: appLocalizations.reason,
+                        error: errorDescription,
+                        textController: inputController,
+                        onChange: (value) => setDescription(value),
+                      ),
+                      ItemCreateFollower(
+                          listFollower: _setListUser(
+                            stateUserById.userById,
+                          ),
+                          title: appLocalizations.follower,
+                          onChange: (value) => _setFollower(value)),
+                      const ItemListStepFlow(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
+                        child: ItemButton(
+                          callbackSave: () => _save(context),
+                          callbackCancel: () => _cancel(context),
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode),
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ],
+              ),
             ),
           );
         },
@@ -232,32 +223,15 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(),
-      completerSuccess: () => completerSuccess(),
+      completerFail: () => completerFail(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
+      completerSuccess: () => completerSuccess(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
     );
-  }
-
-  setCheckLoad() {
-    setState(() {
-      checkClick = true;
-      checkLoad = true;
-    });
-  }
-
-  completerFail() {
-    setState(() {
-      checkLoad = false;
-      checkUnSuccess = true;
-      checkClick = false;
-    });
-  }
-
-  completerSuccess() {
-    setState(() {
-      checkLoad = false;
-      checkSuccess = true;
-      checkClick = false;
-    });
   }
 
   setDescription(String value) {

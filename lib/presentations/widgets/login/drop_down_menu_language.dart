@@ -29,39 +29,46 @@ class _LanguageWidgetState extends State<LanguageWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return Padding(
-      padding: const EdgeInsets.only(top: SpacingUnit.x10, right: SpacingUnit.x4),
-      child: Align(
-        alignment: Alignment.topRight,
-        child: BlocBuilder<LanguageCubit, LanguageState>(
-          builder: (context, state) {
-            return InkWell(
-              onTap: () => _language(context, state),
-              child: Container(
-                padding: const EdgeInsetsDirectional.all(SpacingUnit.x4),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      state.languageCode.name,
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x4,
-                      ),
-                    ),
-                    const SizedBox(width: SpacingUnit.x0_5,),
-                    Image.asset(
-                      state.languageCode == LanguageEnum.vi
-                          ? Assets.images.signIn.vn.path
-                          : Assets.images.signIn.eng.path,
-                      fit: BoxFit.fill,
-                    ),
-                  ],
+    return Align(
+      alignment: Alignment.topRight,
+      child: BlocBuilder<LanguageCubit, LanguageState>(
+        builder: (context, state) {
+          return InkWell(
+            onTap: () => _language(context, state),
+            child: Container(
+              width: SpacingUnit.x19,
+              margin: const EdgeInsets.only(top: SpacingUnit.x4),
+              padding: const EdgeInsets.all(SpacingUnit.x2),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                color: colors.background,
+                border: Border.all(
+                  color: colors.text.withOpacity(0.1),
+                  width: 1,
                 ),
               ),
-            );
-          },
-        ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    state.languageCode.name,
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                    ),
+                  ),
+                  const SizedBox(width: SpacingUnit.x0_5,),
+                  Image.asset(
+                    state.languageCode == LanguageEnum.vi
+                        ? Assets.images.signIn.vn.path
+                        : Assets.images.signIn.eng.path,
+                    fit: BoxFit.fill,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

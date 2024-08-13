@@ -1,7 +1,6 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
@@ -12,7 +11,6 @@ import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_stationery.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class StationeryOderAddDialog extends StatefulWidget {
@@ -21,13 +19,11 @@ class StationeryOderAddDialog extends StatefulWidget {
       this.requisitionStationery,
       this.stationery,
       required this.callBack,
-      required this.callBackTypeContainer,
       this.checkTypeContainer = true});
 
   final ValueChanged<Stationeries>? requisitionStationery;
   final Stationeries? stationery;
   final VoidCallback callBack;
-  final VoidCallback callBackTypeContainer;
   final bool checkTypeContainer;
 
   @override
@@ -49,6 +45,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       errorNumberOf = '';
   double intoMoney = 0, unitPrice = 0;
   int numberOf = 0;
+  bool checkTypeContainer = true;
   Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
 
   bool checkOnClick(BuildContext context) {
@@ -105,40 +102,17 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.checkTypeContainer
-                      ? ""
-                      : product.isEmpty
-                          ? appLocalizations.product
-                          : product,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                  ),
-                ),
-                InkWell(
-                  onTap: () => widget.callBackTypeContainer.call(),
-                  child: SvgPicture.asset(
-                    width: SpacingUnit.x6,
-                    height: SpacingUnit.x6,
-                    widget.checkTypeContainer
-                        ? Assets.images.icon.home.chevronForward
-                        : Assets.images.icon.activateIcon.drop,
-                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
-                  ),
-                ),
-              ],
-            ),
-            if (widget.checkTypeContainer)
               ItemAdd(
-                title: appLocalizations.product,
-                callback: () => _showBottomSheet(context),
+                checkTypeContainer: checkTypeContainer,
+                title:  checkTypeContainer
+                    ? appLocalizations.product
+                    : product.isEmpty
+                    ? appLocalizations.product
+                    : product,
+                callback: () => setTypeContainer(),
                 errorProduct: errorProduct,
               ),
-            if (widget.checkTypeContainer)
+            if (checkTypeContainer)
               ItemAddStationeryDialog(
                 check: true,
                 onChangeProduct: (value) => setProduct(value, context),
@@ -147,33 +121,34 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
                 productController: productController,
                 unitController: unitController,
                 unitPriceController: unitPriceController,
+                callBack: () => _showBottomSheet(context),
               ),
-            if (widget.checkTypeContainer)
+            if (checkTypeContainer)
               ItemCreateTotalMinute(
                 error: errorNumberOf,
                 title: appLocalizations.numberOf,
                 totalMinuteController: numberOfController,
                 onChange: (value) => _setNumber(value, context),
               ),
-            if (widget.checkTypeContainer)
+            if (checkTypeContainer)
               ItemIntoMoney(
                 title: appLocalizations.intoMoneyNoVAT,
                 content: intoMoney.toInt().toString(),
               ),
-            if (widget.checkTypeContainer)
+            if (checkTypeContainer)
               ItemCreateInput(
                 title: appLocalizations.note,
                 inputController: noteController,
                 onChange: (value) => _setNote(value),
               ),
-            if (widget.checkTypeContainer)
+            if (checkTypeContainer)
               Padding(
                 padding: const EdgeInsets.symmetric(
                     vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
                 child: AppButton(
                   title: appLocalizations.cancel,
                   onSubmit: () => widget.callBack.call(),
-                  color: colors.text.withOpacity(0.4),
+                  color: colors.error.withOpacity(0.7),
                 ),
               )
           ],
@@ -238,5 +213,11 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
       unitPrice = value;
     });
     setAdd(context);
+  }
+
+  setTypeContainer() {
+    setState(() {
+      checkTypeContainer = !checkTypeContainer;
+    });
   }
 }

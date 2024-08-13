@@ -7,8 +7,8 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_add.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_dialog.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
-import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_stationery.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -42,6 +42,7 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
       errorExplain = '';
   int numberOf = 0;
   Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
+  bool checkTypeContainer = true;
 
   @override
   void initState() {
@@ -91,46 +92,56 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: InkWell(
-              onTap: () => widget.callBack.call(),
-              child: Icon(
-                Icons.close,
-                size: SpacingUnit.x8,
-                color: colors.error,
-              ),
-            ),
-          ),
           ItemAdd(
-            callback: () => _showBottomSheet(context),
-            title: appLocalizations.product,
+            checkTypeContainer: checkTypeContainer,
+            title:  checkTypeContainer
+                ? appLocalizations.product
+                : product.isEmpty
+                ? appLocalizations.product
+                : product,
+            callback: () => setTypeContainer(),
             errorProduct: errorProduct,
           ),
-          ItemAddStationeryDialog(
-            check: false,
-            onChangeProduct: (value) => setProduct(value, context),
-            onchangeUnit: (value) => setUnit(value, context),
-            productController: productController,
-            unitController: unitController,
-          ),
-          ItemCreateInput(
-            error: errorExplain,
-            title: appLocalizations.explain,
-            inputController: explainController,
-            onChange: (value) => _setExplain(value, context),
-          ),
-          ItemCreateTotalMinute(
-            error: errorNumberOf,
-            title: appLocalizations.numberOf,
-            totalMinuteController: numberOfController,
-            onChange: (value) => _setNumber(value, context),
-          ),
-          ItemCreateInputArea(
-            textController: noteController,
-            title: appLocalizations.note,
-            onChange: (value) => _setNote(value, context),
-          ),
+          if (checkTypeContainer)
+            ItemAddStationeryDialog(
+              check: false,
+              onChangeProduct: (value) => setProduct(value, context),
+              onchangeUnit: (value) => setUnit(value, context),
+              productController: productController,
+              unitController: unitController,
+              callBack: () {},
+            ),
+          if (checkTypeContainer)
+            ItemCreateInput(
+              error: errorExplain,
+              title: appLocalizations.explain,
+              inputController: explainController,
+              onChange: (value) => _setExplain(value, context),
+            ),
+          if (checkTypeContainer)
+            ItemCreateTotalMinute(
+              error: errorNumberOf,
+              title: appLocalizations.numberOf,
+              totalMinuteController: numberOfController,
+              onChange: (value) => _setNumber(value, context),
+            ),
+          if (checkTypeContainer)
+            ItemCreateInputArea(
+              maxLines: 4,
+              textController: noteController,
+              title: appLocalizations.note,
+              onChange: (value) => _setNote(value, context),
+            ),
+          if (checkTypeContainer)
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              child: AppButton(
+                title: appLocalizations.cancel,
+                onSubmit: () => widget.callBack.call(),
+                color: colors.error.withOpacity(0.7),
+              ),
+            )
         ],
       ),
     );
@@ -170,17 +181,6 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     setAdd(context);
   }
 
-  _showBottomSheet(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return BottomSheetStationeryWidget(
-          onChange: (value) => setStationery(value),
-        );
-      },
-    );
-  }
-
   setProduct(String value, BuildContext context) {
     setState(() {
       product = value;
@@ -195,5 +195,11 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     });
     checkOnClick(context);
     setAdd(context);
+  }
+
+  setTypeContainer() {
+    setState(() {
+      checkTypeContainer = !checkTypeContainer;
+    });
   }
 }

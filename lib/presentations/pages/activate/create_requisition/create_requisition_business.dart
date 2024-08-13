@@ -64,7 +64,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       errorReason = '',
       errorContent = '',
       errorVehicle = '',
-      errorDestination = '';
+      errorDestination = '',
+      errorDialog = '';
   String? content, reason, vehicle, destination;
   DateTime? startTime, endTime;
   List<String> followers = [], substitutes = [];
@@ -115,6 +116,12 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     return check ? 1 : 0.3;
   }
 
+  _listener(String errorCode) {
+    setState(() {
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -131,110 +138,96 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
           ),
         ),
       ),
-      body: BlocBuilder<RequisitionBloc, RequisitionState>(
+      body: BlocConsumer<RequisitionBloc, RequisitionState>(
+        listener: (context, state) => _listener(state.errorCode),
         buildWhen: (previous, current) => previous.requisition != current.requisition,
         builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
-            return Stack(
-              children: [
-                Opacity(
-                  opacity: opacity(),
-                  child: SingleChildScrollView(
-                    child: ContainerScreenMain(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ItemCreateInputArea(
-                            error: errorDestination,
-                            textController: detailedDescriptionController,
-                            title: appLocalizations.reasonForBusinessTrip,
-                            onChange: (value) => _setReason(value),
-                          ),
-                          Text(
-                            appLocalizations.titleBusiness,
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x4,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          PeriodTimePicker(
-                            oldEndTime: endTime,
-                            oldStarTime: startTime,
-                            title: appLocalizations.intervalOnLeave,
-                            setStarTime: (value) => setStartTime(value ?? DateTime.now()),
-                            setEndTime: (value) => setEndTime(value ?? DateTime.now()),
-                            fontWeightTitle: FontWeight.w600,
-                          ),
-                          if (!checkShirt)
-                            Center(
-                              child: Shimmer.fromColors(
-                                baseColor: colors.blue,
-                                highlightColor: colors.background,
-                                child: Text(
-                                  appLocalizations.loading,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: SpacingUnit.x7,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          if (checkShirt)
-                            ItemWorkShift(
-                              type: RequisitionTypeEnum.bussiness,
-                              numberValue: (value) => setNumberValue(value),
-                              workShiftSettings: (value) => setListIds(value),
-                            ),
-                          ItemCreateInputArea(
-                            error: errorContent,
-                            textController: contentController,
-                            title: appLocalizations.workingContent,
-                            onChange: (value) => _setContent(value),
-                          ),
-                          ItemCreateFollower(
-                            listFollower: _setListUser(stateUserById.subtitudePersons),
-                            title: appLocalizations.accompanyingPerson,
-                            onChange: (value) => _setSubstitute(value),
-                          ),
-                          ItemCreateInput(
-                            subTitle: appLocalizations.ifOto,
-                            error: errorVehicle,
-                            title: appLocalizations.vehicle,
-                            inputController: vehicleController,
-                            onChange: (value) => _setVehicle(value),
-                          ),
-                          ItemCreateInputArea(
-                            error: errorDestination,
-                            title: appLocalizations.destination,
-                            textController: destinationController,
-                            onChange: (value) => _setDestination(value),
-                          ),
-                          ItemCreateFollower(
-                            listFollower: _setListUser(stateUserById.userById),
-                            title: appLocalizations.follower,
-                            onChange: (value) => _setFollower(value),
-                          ),
-                          const ItemListStepFlow(),
-                          ItemButton(
-                            callbackSave: () => _save(context),
-                            callbackCancel: () => _cancel(context),
-                          ),
-                        ],
+            return SingleChildScrollView(
+              child: ContainerScreenMain(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ItemCreateInputArea(
+                      error: errorDestination,
+                      textController: detailedDescriptionController,
+                      title: appLocalizations.reasonForBusinessTrip,
+                      onChange: (value) => _setReason(value),
+                    ),
+                    Text(
+                      appLocalizations.titleBusiness,
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ),
+                    PeriodTimePicker(
+                      oldEndTime: endTime,
+                      oldStarTime: startTime,
+                      title: appLocalizations.intervalOnLeave,
+                      setStarTime: (value) => setStartTime(value ?? DateTime.now()),
+                      setEndTime: (value) => setEndTime(value ?? DateTime.now()),
+                      fontWeightTitle: FontWeight.w600,
+                    ),
+                    if (!checkShirt)
+                      Center(
+                        child: Shimmer.fromColors(
+                          baseColor: colors.blue,
+                          highlightColor: colors.background,
+                          child: Text(
+                            appLocalizations.loading,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: SpacingUnit.x7,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    if (checkShirt)
+                      ItemWorkShift(
+                        type: RequisitionTypeEnum.bussiness,
+                        numberValue: (value) => setNumberValue(value),
+                        workShiftSettings: (value) => setListIds(value),
+                      ),
+                    ItemCreateInputArea(
+                      error: errorContent,
+                      textController: contentController,
+                      title: appLocalizations.workingContent,
+                      onChange: (value) => _setContent(value),
+                    ),
+                    ItemCreateFollower(
+                      listFollower: _setListUser(stateUserById.subtitudePersons),
+                      title: appLocalizations.accompanyingPerson,
+                      onChange: (value) => _setSubstitute(value),
+                    ),
+                    ItemCreateInput(
+                      subTitle: appLocalizations.ifOto,
+                      error: errorVehicle,
+                      title: appLocalizations.vehicle,
+                      inputController: vehicleController,
+                      onChange: (value) => _setVehicle(value),
+                    ),
+                    ItemCreateInputArea(
+                      error: errorDestination,
+                      title: appLocalizations.destination,
+                      textController: destinationController,
+                      onChange: (value) => _setDestination(value),
+                    ),
+                    ItemCreateFollower(
+                      listFollower: _setListUser(stateUserById.userById),
+                      title: appLocalizations.follower,
+                      onChange: (value) => _setFollower(value),
+                    ),
+                    const ItemListStepFlow(),
+                    ItemButton(
+                      callbackSave: () => _save(context),
+                      callbackCancel: () => _cancel(context),
+                    ),
+                  ],
                 ),
-                CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode),
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ],
+              ),
             );
           },
         ),
@@ -315,32 +308,15 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(),
-      completerSuccess: () => completerSuccess(),
+      completerFail: () => completerFail(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
+      completerSuccess: () => completerSuccess(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
     );
-  }
-
-  setCheckLoad() {
-    setState(() {
-      checkClick = true;
-      checkLoad = true;
-    });
-  }
-
-  completerFail() {
-    setState(() {
-      checkLoad = false;
-      checkUnSuccess = true;
-      checkClick = false;
-    });
-  }
-
-  completerSuccess() {
-    setState(() {
-      checkLoad = false;
-      checkSuccess = true;
-      checkClick = false;
-    });
   }
 
   _cancel(BuildContext context) {

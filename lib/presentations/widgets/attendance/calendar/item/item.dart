@@ -91,23 +91,27 @@ class ItemCalender extends StatelessWidget {
                   ),
                   Expanded(
                     child: check(userWorkingHistoryModel)
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: userWorkingHistoryModel!.status
-                                .mapIndexed(
-                                  (index, element) => Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                                      color: _color(context, index, userWorkingHistoryModel.status),
+                        ? SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: userWorkingHistoryModel!.status
+                                  .mapIndexed(
+                                    (index, element) => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                                        color:
+                                            _color(context, index, userWorkingHistoryModel.status),
+                                      ),
+                                      margin: const EdgeInsetsDirectional.symmetric(
+                                          horizontal: SpacingUnit.x0_5, vertical: SpacingUnit.x2),
+                                      width: SpacingUnit.x1_5,
+                                      height: SpacingUnit.x1_5,
                                     ),
-                                    margin: const EdgeInsetsDirectional.symmetric(
-                                        horizontal: SpacingUnit.x0_5, vertical: SpacingUnit.x2),
-                                    width: SpacingUnit.x1_5,
-                                    height: SpacingUnit.x1_5,
-                                  ),
-                                )
-                                .toList(),
+                                  )
+                                  .toList(),
+                            ),
                           )
                         : const SizedBox(),
                   )
@@ -185,7 +189,6 @@ class ItemCalender extends StatelessWidget {
       }
     }
   }
-
 
   Widget value(BuildContext context, UserWorkingHistoryModel? userWorkingHistoryModel) {
     final colors = AppTheme.getColors(context);

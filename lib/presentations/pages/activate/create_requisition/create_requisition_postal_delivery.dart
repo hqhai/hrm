@@ -4,7 +4,6 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
-import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -50,9 +49,8 @@ class CreateRequisitionPostalDeliveryPage extends StatefulWidget {
 
 class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionPostalDeliveryPage> {
   final TextEditingController reasonController = TextEditingController();
-  String reason = '';
   List<String> followers = [];
-  String errorDescription = '';
+  String errorDescription = '', errorDialog = '', reason = '';
   RequisitionDeliveryTypeEnum? transferType = RequisitionDeliveryTypeEnum.express;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
@@ -92,56 +90,41 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       body: BlocBuilder<RequisitionBloc, RequisitionState>(
         builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
-            return Stack(
-              children: [
-                Opacity(
-                  opacity: opacity(),
-                  child: SingleChildScrollView(
-                    child: ContainerScreenMain(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ItemCreateReasonTransferType(
-                            onChange: (value) => _setTransferType(value),
-                            typeDefault: transferType,
-                          ),
-                          if (transferType == RequisitionDeliveryTypeEnum.express)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
-                              child: Text(appLocalizations.notePostalDelivery,
-                                  style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3)),
-                            ),
-                          ItemCreateInputArea(
-                            error: errorDescription,
-                            textController: reasonController,
-                            title: appLocalizations.sendingPurpose,
-                            onChange: (value) => _setReason(value),
-                          ),
-                          ItemCreateFollower(
-                              listFollower: _setListUser(
-                                stateUserById.userById,
-                              ),
-                              title: appLocalizations.follower,
-                              onChange: (value) => _setFollower(value)),
-                          const ItemListStepFlow(),
-                          ItemButton(
-                            callbackSave: () => _save(context),
-                            callbackCancel: () => _cancel(context),
-                          )
-                        ],
-                      ),
+            return SingleChildScrollView(
+              child: ContainerScreenMain(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ItemCreateReasonTransferType(
+                      onChange: (value) => _setTransferType(value),
+                      typeDefault: transferType,
                     ),
-                  ),
+                    if (transferType == RequisitionDeliveryTypeEnum.express)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
+                        child: Text(appLocalizations.notePostalDelivery,
+                            style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3)),
+                      ),
+                    ItemCreateInputArea(
+                      error: errorDescription,
+                      textController: reasonController,
+                      title: appLocalizations.sendingPurpose,
+                      onChange: (value) => _setReason(value),
+                    ),
+                    ItemCreateFollower(
+                        listFollower: _setListUser(
+                          stateUserById.userById,
+                        ),
+                        title: appLocalizations.follower,
+                        onChange: (value) => _setFollower(value)),
+                    const ItemListStepFlow(),
+                    ItemButton(
+                      callbackSave: () => _save(context),
+                      callbackCancel: () => _cancel(context),
+                    )
+                  ],
                 ),
-                CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode),
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ],
+              ),
             );
           },
         ),
@@ -224,32 +207,15 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(),
-      completerSuccess: () => completerSuccess(),
+      completerFail: () => completerFail(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
+      completerSuccess: () => completerSuccess(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
     );
-  }
-
-  setCheckLoad() {
-    setState(() {
-      checkClick = true;
-      checkLoad = true;
-    });
-  }
-
-  completerFail() {
-    setState(() {
-      checkLoad = false;
-      checkUnSuccess = true;
-      checkClick = false;
-    });
-  }
-
-  completerSuccess() {
-    setState(() {
-      checkLoad = false;
-      checkSuccess = true;
-      checkClick = false;
-    });
   }
 
   _cancel(BuildContext context) {

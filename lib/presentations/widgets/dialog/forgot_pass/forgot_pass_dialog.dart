@@ -131,40 +131,33 @@ class LockUpAccount extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            right: SpacingUnit.x4,
-            left: SpacingUnit.x4,
-            bottom: SpacingUnit.x6,
-          ),
-          child: Text.rich(
-            TextSpan(
+            padding: const EdgeInsets.only(
+              right: SpacingUnit.x4,
+              left: SpacingUnit.x4,
+              bottom: SpacingUnit.x6,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextSpan(
-                  text: appLocalizations.dialogWrongPasswordA,
+                Text(
+                  textAlign: TextAlign.center,
+                  appLocalizations.dialogWrongPasswordA,
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x4,
                   ),
                 ),
-                TextSpan(
-                  text: ' $email ',
+                const SizedBox(height: SpacingUnit.x8),
+                Text(
+                  appLocalizations.supportContact,
                   style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                TextSpan(
-                  text: appLocalizations.dialogWrongPasswordB,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
+                    decoration: TextDecoration.underline,
+                    color: colors.text.withOpacity(0.4),
+                    fontSize: SpacingUnit.x3,
                   ),
                 ),
               ],
-            ),
-          ),
-        ),
+            )),
       ],
     );
   }

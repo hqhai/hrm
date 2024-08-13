@@ -46,7 +46,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.background,
+          color: colors.text.withOpacity(0.05),
           child: Center(
             child: Column(
               children: [
@@ -54,8 +54,7 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
                   padding: const EdgeInsets.all(SpacingUnit.x2),
                   child: SearchInput(onChange: (value) => _onChangeSearch(value)),
                 ),
-                SizedBox(
-                  height: height * 0.4,
+                Expanded(
                   child: ListView.builder(
                     controller: controller,
                     itemCount: state.stationeries.length,
@@ -64,13 +63,13 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
                         stationery: state.stationeries[index],
                       ),
                       child: Container(
-                        padding: const EdgeInsets.all(SpacingUnit.x3),
+                        padding: const EdgeInsets.all(SpacingUnit.x4),
                         margin: const EdgeInsets.all(SpacingUnit.x2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(SpacingUnit.x2),
                           color: colors.background,
                           border: Border.all(
-                            color: colors.text,
+                            color: colors.background,
                             width: 1,
                           ),
                         ),

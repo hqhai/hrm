@@ -27,7 +27,6 @@ import 'package:base_app/presentations/widgets/activate/requisition_infor_item/r
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_general_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_sender_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_type.dart';
-import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title_callback.dart';
 import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
 import 'package:flutter/material.dart';
@@ -111,11 +110,25 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          if (widget.checkUser != RequestSeeByWho.user)
+                            const RequisitionInformationSenderInformation(),
+                          const RequisitionInformationGeneraliInformation(),
+                          const RequisitionInformationType(),
+                          if (state.requisition.flowType != RequisitionTypeEnum.stationery)
+                            const RequisitionInformationContent(),
+                          if (state.requisition.config.attachments?.isNotEmpty ?? false)
+                            const RequisitionInformationAttach(),
+                          const ItemFollowersInformationRequest(),
+                          const ItemListStepFlow(
+                            create: false,
+                          ),
                           if (state.requisition.status == StatusRequestEnum.process &&
                               widget.checkUser == RequestSeeByWho.user)
                             Align(
                               alignment: Alignment.bottomRight,
                               child: ButtonItemListRequisition(
+                                colorText: colors.error,
+                                background: colors.error.withOpacity(0.2),
                                 check: true,
                                 title: appLocalizations.revoke,
                                 callback: () => rejectDialog(context),
@@ -126,6 +139,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                             Align(
                               alignment: Alignment.bottomRight,
                               child: ButtonItemListRequisition(
+                                colorText: colors.tertiary,
+                                background: colors.tertiary.withOpacity(0.2),
                                 check: true,
                                 title: appLocalizations.update,
                                 callback: () => _nextScreen(stateFlow.flow),
@@ -147,34 +162,17 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                             Align(
                               alignment: Alignment.bottomRight,
                               child: ButtonItemListRequisition(
+                                colorText: colors.error,
+                                background: colors.error.withOpacity(0.2),
                                 check: true,
                                 title: appLocalizations.cancel,
                                 callback: () {},
                               ),
                             ),
-                          if (widget.checkUser != RequestSeeByWho.user)
-                            const RequisitionInformationSenderInformation(),
-                          const RequisitionInformationGeneraliInformation(),
-                          const RequisitionInformationType(),
-                          if (state.requisition.flowType != RequisitionTypeEnum.stationery)
-                            const RequisitionInformationContent(),
-                          if (state.requisition.config.attachments?.isNotEmpty ?? false)
-                            const RequisitionInformationAttach(),
-                          const ItemFollowersInformationRequest(),
-                          const ItemListStepFlow(
-                            create: false,
-                          ),
                         ],
                       ),
                     ),
                   ),
-                  CheckLoadDialog(
-                    checkLoad: checkLoad,
-                    checkSuccess: checkSuccess,
-                    checkUnSuccess: checkUnSuccess,
-                    checkSuccessChange: () => setCheckSuccess(),
-                    checkUnSuccessChange: () => setCheckUnSuccess(),
-                  )
                 ],
               ),
             );

@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/user_enum.dart';
@@ -10,10 +8,8 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/pages/profile/item_profile.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_colum.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
-import 'package:base_app/presentations/widgets/profile/item_text_content_profile.dart';
-import 'package:base_app/presentations/widgets/profile/item_text_title_profile.dart';
-import 'package:base_app/presentations/widgets/profile/item_vehicle_proflie.dart';
 import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,77 +47,78 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         ),
         builder: (context, state) {
           return Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-            margin:
-                const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-            height: MediaQuery.sizeOf(context).height,
-            decoration: BoxDecoration(
-              color: colors.background,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(SpacingUnit.x4),
-              ),
-            ),
+            padding: const EdgeInsets.all(SpacingUnit.x4),
+            color: colors.outline.withOpacity(0.1),
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   const ItemProfile(),
-                  const SizedBox(
-                    height: SpacingUnit.x9_5,
-                  ),
                   Container(
-                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    margin: const EdgeInsets.only(top: SpacingUnit.x4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingUnit.x4,
+                      vertical: SpacingUnit.x2,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(SpacingUnit.x2),
                       color: colors.background,
                       border: Border.all(
-                        color: colors.text,
+                        color: colors.background,
                         width: 1,
                       ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ItemTitleProfile(
-                          title1: appLocalizations.employeeCode,
-                          title2: appLocalizations.dateOfBirth,
+                        ItemTitleValueColum(
+                          font: FontWeight.w600,
+                          size: SpacingUnit.x4,
+                          title: appLocalizations.dateOfBirth,
+                          value: formatDMY(state.user.dayOfBirth),
                         ),
-                        ItemContentProfile(
-                          content1: state.user.code,
-                          content2: formatDMY(state.user.dayOfBirth),
+                        ItemTitleValueColum(
+                          font: FontWeight.w600,
+                          size: SpacingUnit.x4,
+                          title: appLocalizations.companyEmail,
+                          value: state.user.companyEmail,
                         ),
-                        ItemTitleProfile(
-                          title1: appLocalizations.companyEmail,
-                          title2: appLocalizations.phoneNumber,
+                        ItemTitleValueColum(
+                          font: FontWeight.w600,
+                          size: SpacingUnit.x4,
+                          title: appLocalizations.phoneNumber,
+                          value: state.user.phoneNumber,
                         ),
-                        ItemContentProfile(
-                            content1: state.user.companyEmail,
-                            content2: state.user.phoneNumber),
-                        ItemTitleProfile(
-                          title1: appLocalizations.gender,
-                          title2: appLocalizations.address,
+                        ItemTitleValueColum(
+                          font: FontWeight.w600,
+                          size: SpacingUnit.x4,
+                          title: appLocalizations.gender,
+                          value: state.user.gender.configGenderName,
                         ),
-                        ItemContentProfile(
-                          content1: state.user.gender.configGenderName,
-                          content2: _setAddress(state.user),
+                        ItemTitleValueColum(
+                          font: FontWeight.w600,
+                          size: SpacingUnit.x4,
+                          title: appLocalizations.address,
+                          value: _setAddress(state.user),
                         ),
-                        ItemTitleProfile(
-                          title1: appLocalizations.department,
-                          title2: appLocalizations.position,
+                        const ItemDepartmentAndPositionProfile(),
+                        ItemTitleValueColum(
+                          font: FontWeight.w600,
+                          size: SpacingUnit.x4,
+                          title: appLocalizations.vehicleType,
+                          value: state.user.vehicleType.configVehicleTypeName,
                         ),
-                        ItemDepartmentAndPositionProfile(
-                          departmentNames: state.user.userDepartmentPositions.isNotEmpty
-                              ? state.user.userDepartmentPositions
-                                  .map((e) => e.department?.name ?? "")
-                                  .toList()
-                              : [],
-                          positionNames: state.user.userDepartmentPositions.isNotEmpty
-                              ? state.user.userDepartmentPositions
-                                  .map((e) => e.position?.name ?? "")
-                                  .toList()
-                              : [],
+                        ItemTitleValueColum(
+                          font: FontWeight.w600,
+                          size: SpacingUnit.x4,
+                          title: appLocalizations.licensePlate,
+                          value: state.user.licensePlate,
                         ),
-                        const ItemVehicleProfile(),
+                        ItemTitleValueColum(
+                          font: FontWeight.w600,
+                          size: SpacingUnit.x4,
+                          title: appLocalizations.autoMaker,
+                          value: state.user.autoMaker,
+                        ),
                       ],
                     ),
                   ),
@@ -143,17 +140,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   String _setAddress(User user) {
     String? province = '', district = '', ward = '', address = '';
 
-    if(user.residentAddress.isNotEmpty){
+    if (user.residentAddress.isNotEmpty) {
       address = user.residentAddress;
     }
-    if(user.residentWard.isNotEmpty){
+    if (user.residentWard.isNotEmpty) {
       ward = "${user.residentWard}, ";
     }
-    if(user.residentDistrict.isNotEmpty){
+    if (user.residentDistrict.isNotEmpty) {
       district = "${user.residentDistrict}, ";
     }
-    if(user.residentProvince.isNotEmpty){
-      province = "${user.residentDistrict}, ";
+    if (user.residentProvince.isNotEmpty) {
+      province = "${user.residentProvince}, ";
     }
     return province + district + ward + address;
   }

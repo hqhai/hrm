@@ -1,11 +1,13 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/location/address/address_bloc.dart';
 import 'package:base_app/presentations/bloc/location/address/address_event.dart';
 import 'package:base_app/presentations/bloc/location/address/address_state.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/item/header_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -50,19 +52,12 @@ class _BottomSheetWardWidgetState extends State<BottomSheetWardWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.background,
+          color: colors.text.withOpacity(0.1),
           child: Center(
             child: Column(
               children: [
-                Text(
-                  appLocalizations.ward,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x6,
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.4,
+                HeaderFilter(callback: () => close(context), title: appLocalizations.ward),
+                Expanded(
                   child: ListView.builder(
                     controller: controller,
                     itemCount: state.wards.length,
@@ -71,12 +66,13 @@ class _BottomSheetWardWidgetState extends State<BottomSheetWardWidget> {
                         address: state.wards[index],
                       ),
                       child: Container(
-                        padding: const EdgeInsets.all(SpacingUnit.x2),
+                        padding: const EdgeInsets.all(SpacingUnit.x4),
                         margin: const EdgeInsets.all(SpacingUnit.x2),
                         decoration: BoxDecoration(
+                          color: colors.background,
                           borderRadius: BorderRadius.circular(SpacingUnit.x2),
                           border: Border.all(
-                            color: colors.text,
+                            color: colors.background,
                             width: 1,
                           ),
                         ),
@@ -86,14 +82,14 @@ class _BottomSheetWardWidgetState extends State<BottomSheetWardWidget> {
                               '${index + 1}.    ',
                               style: TextStyle(
                                 color: colors.text,
-                                fontSize: SpacingUnit.x3,
+                                fontSize: SpacingUnit.x4,
                               ),
                             ),
                             Text(
                               state.wards[index].name ?? "",
                               style: TextStyle(
                                 color: colors.text,
-                                fontSize: SpacingUnit.x3,
+                                fontSize: SpacingUnit.x4,
                               ),
                             ),
                           ],
@@ -108,6 +104,10 @@ class _BottomSheetWardWidgetState extends State<BottomSheetWardWidget> {
         );
       },
     );
+  }
+
+  close(BuildContext context) {
+    dI<AppNavigation>().pop(context);
   }
 
   _scrollListener() {

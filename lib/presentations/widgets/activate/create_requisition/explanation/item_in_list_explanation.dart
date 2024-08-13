@@ -93,9 +93,10 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
               padding:
                   const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
+                colorText: colors.background,
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBackDelete.call(),
-                color: colors.text.withOpacity(0.4),
+                color: colors.error.withOpacity(0.7),
               ),
             )
         ],

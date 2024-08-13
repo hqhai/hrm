@@ -54,10 +54,16 @@ class DeleteAccountEvent extends UserEvent {
 }
 
 class UpdateProfileEvent extends UserEvent {
-  const UpdateProfileEvent({required this.updateProfileRequest, required this.file});
   final UpdateProfileRequest updateProfileRequest;
   final File file;
+  final Completer? completer;
+
+  const UpdateProfileEvent({
+    required this.updateProfileRequest,
+    required this.file,
+    this.completer,
+  });
 
   @override
-  List<Object> get props => [updateProfileRequest, file];
+  List<Object?> get props => [updateProfileRequest, file, completer];
 }

@@ -1,5 +1,9 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/dialog/filter_request/item/header_filter.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -22,46 +26,58 @@ class _BottomSheetLeaveWidgetState extends State<BottomSheetLeaveWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.all(SpacingUnit.x3),
       child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: EnumTakeLeaveType.values
-              .mapIndexed((index, element) => GestureDetector(
-                    onTap: () => setOnChange(type: element),
-                    child: Container(
-                      padding: const EdgeInsets.all(SpacingUnit.x3),
-                      margin: const EdgeInsets.all(SpacingUnit.x2),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                        color: colors.background,
-                        border: Border.all(
-                          color: colors.text,
-                          width: 1,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          HeaderFilter(callback: () => close(context), title: appLocalizations.leaveReason),
+          Column(
+              mainAxisSize: MainAxisSize.min,
+              children: EnumTakeLeaveType.values
+                  .where((e) => e != EnumTakeLeaveType.unknown)
+                  .mapIndexed((index, element) => GestureDetector(
+                        onTap: () => setOnChange(type: element),
+                        child: Container(
+                          padding: const EdgeInsets.all(SpacingUnit.x4),
+                          margin: const EdgeInsets.all(SpacingUnit.x2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                            color: colors.background,
+                            border: Border.all(
+                              color: colors.background,
+                              width: 1,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                '${index + 1}.    ',
+                                style: TextStyle(
+                                  color: colors.text,
+                                  fontSize: SpacingUnit.x3,
+                                ),
+                              ),
+                              Text(
+                                element.configTakeLeaveTypeName,
+                                style: TextStyle(
+                                  color: colors.text,
+                                  fontSize: SpacingUnit.x3,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            '${index + 1}.    ',
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x3,
-                            ),
-                          ),
-                          Text(
-                            element.configTakeLeaveTypeName,
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ))
-              .toList()),
+                      ))
+                  .toList()),
+        ],
+      ),
     );
+  }
+
+  close(BuildContext context) {
+    dI<AppNavigation>().pop(context);
   }
 
   setOnChange({required EnumTakeLeaveType type}) {

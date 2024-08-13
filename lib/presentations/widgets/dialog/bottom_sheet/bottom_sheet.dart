@@ -54,7 +54,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       listener: (context, state) => _listener(context, state),
       builder: (context, state) {
         return Container(
-          color: colors.background,
+          color: colors.text.withOpacity(0.1),
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -73,7 +73,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                             user: state.usersByName[index],
                             listValueByIndex: state.usersByName[index].id),
                         child: Container(
-                          padding: const EdgeInsets.all(SpacingUnit.x2),
+                          padding: const EdgeInsets.all(SpacingUnit.x4),
                           margin: const EdgeInsets.all(SpacingUnit.x2),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(SpacingUnit.x2),
@@ -81,7 +81,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                                 ? colors.success
                                 : colors.background,
                             border: Border.all(
-                              color: colors.text,
+                              color: colors.background,
                               width: 1,
                             ),
                           ),
@@ -91,14 +91,14 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                                 '${index + 1}.    ',
                                 style: TextStyle(
                                   color: colors.text,
-                                  fontSize: SpacingUnit.x3,
+                                  fontSize: SpacingUnit.x4,
                                 ),
                               ),
                               Text(
                                 state.usersByName[index].fullName,
                                 style: TextStyle(
                                   color: colors.text,
-                                  fontSize: SpacingUnit.x3,
+                                  fontSize: SpacingUnit.x4,
                                 ),
                               ),
                             ],

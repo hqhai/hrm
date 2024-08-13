@@ -10,6 +10,7 @@ import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
 import 'package:base_app/presentations/widgets/dialog/password/change_password_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
@@ -42,7 +43,9 @@ class _ChangePasswordState extends State<ChangePassword> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(iconTheme: IconThemeData(color: colors.text),),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
+      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -102,19 +105,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                   const SizedBox(
                     height: SpacingUnit.x3_75,
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: _checkPass() ? colors.outline.withOpacity(0.4) : colors.navy),
-                    child: Text(
-                      appLocalizations.save,
-                      style: TextStyle(color: colors.text),
-                    ),
-                    onPressed: () {
-                      if (_checkPass()) {
-                        _notificationOrDialog(state, context);
-                      }
-                    },
-                  )
+                  AppButton(
+                      onSubmit: () => onSubmit(state),
+                      colorText: colors.background,
+                      title: appLocalizations.changePassword,
+                      color: !_checkPass() ? colors.outline.withOpacity(0.4) : colors.navy),
                 ],
               ),
             );
@@ -183,6 +178,12 @@ class _ChangePasswordState extends State<ChangePassword> {
           }
         },
       );
+    }
+  }
+
+  onSubmit(UserState state) {
+    if (_checkPass()) {
+      _notificationOrDialog(state, context);
     }
   }
 }

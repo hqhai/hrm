@@ -39,7 +39,6 @@
   "approver": "Approver",
   "createOvertimeRequestIsSuccess": "Create overtime request is success",
   "successfullyCreatedRequest": "Successfully created request",
-  "createRequestFailed": "Create request failed",
   "doYouWantToCreateARequest": "Do you want to create a request?",
   "doYouWantToDeleteTheRoom": "Do you want to delete the room?",
   "doYouWantToUpdateARequest": "Do you want to update a request?",
@@ -174,7 +173,7 @@
   "history": "History",
   "timeWorking": "Time working",
   "date": "Date",
-  "dialogWrongPasswordA": "You have entered incorrect login information 5 times. Your account has been temporarily locked. Please check your email ",
+  "dialogWrongPasswordA": "You have entered incorrect login information 5 times. Your account has been temporarily locked. Please contact HCNS",
   "dialogWrongPasswordB": " to reset your password",
   "newPasswordOtherConfirmPassword": "New password other confirm password!",
   "notRegisteredForBiometrics": "You have not registered for biometrics yet, please register, please log in with username and password first!",
@@ -520,5 +519,17 @@
   "timekeepingTime": "Timekeeping time",
   "map": "Map",
   "timekeepingSuccess": "Timekeeping success",
-  "timekeepingUnSuccess": "Timekeeping un success"
+  "timekeepingUnSuccess": "Timekeeping un success",
+  "createRequestFailed": "Create request unsuccessful",
+  "editRequestUnsuccessful": "Edit request unsuccessful",
+  "createSuccess": "create success",
+  "editRequestSuccess": "Edit request success",
+  "theTotalNumberOfLeaveIsNotEnough": "The total number of leave is not enough",
+  "approvedSuccess": "Approved success",
+  "approvedUnsuccessful": "approved Unsuccessful",
+  "cancelRequest": "Cancel request",
+  "leaveReason": "Leave reason",
+  "reasonType": "Reason type",
+  "updateUnsuccessful": "Update Unsuccessful"
+
 }

@@ -4,11 +4,13 @@ import 'package:themes/themes.dart';
 
 class ButtonItemListRequisition extends StatelessWidget {
   const ButtonItemListRequisition(
-      {super.key, this.title = '', required this.callback, this.check = false});
+      {super.key, this.title = '', required this.callback, this.check = false, required this.colorText, required this.background});
 
   final String title;
   final VoidCallback callback;
   final bool check;
+  final Color colorText;
+  final Color background;
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +18,23 @@ class ButtonItemListRequisition extends StatelessWidget {
     return InkWell(
       onTap: () => callback.call(),
       child: Container(
+        width: SpacingUnit.x23,
         margin: const EdgeInsets.all(SpacingUnit.x2),
         padding: const EdgeInsets.all(SpacingUnit.x2),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacingUnit.x1),
-          color: colors.background,
-          border: Border.all(color: colors.text, width: 1),
+          borderRadius: BorderRadius.circular(SpacingUnit.x3),
+          color: background,
+          border: Border.all(color: colors.background, width: 1),
         ),
-        child: Text(
-          title,
-          style: TextStyle(color: colors.text, fontSize: check ? SpacingUnit.x4 : SpacingUnit.x2_5),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: colorText,
+              fontSize: check ? SpacingUnit.x5 : SpacingUnit.x3_5,
+              fontWeight: FontWeight.w500
+            ),
+          ),
         ),
       ),
     );

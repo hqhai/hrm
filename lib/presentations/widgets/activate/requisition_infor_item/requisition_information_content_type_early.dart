@@ -85,12 +85,13 @@ class _RequisitionInformationContentTypeEarlyState
                   ),
                 ),
               ),
-              ShiftWidget(
-                context: context,
-                title: "",
-                workShift: workShiftSettings.first,
-              ),
-              if (workShiftSettings.length == 2)
+              if (workShiftSettings.isNotEmpty)
+                ShiftWidget(
+                  context: context,
+                  title: "",
+                  workShift: workShiftSettings.first,
+                ),
+              if (workShiftSettings.length > 1)
                 ShiftWidget(
                   context: context,
                   title: "",

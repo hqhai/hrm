@@ -40,6 +40,7 @@ class _SearchInputState extends State<SearchInput> {
             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
             onChanged: (value) => _setOnChange(value),
             decoration: InputDecoration(
+              labelStyle: TextStyle(color: colors.text.withOpacity(0.7)),
               labelText: appLocalizations.search,
               contentPadding: const EdgeInsets.only(
                   bottom: 0,

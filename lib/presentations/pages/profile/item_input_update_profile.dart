@@ -36,12 +36,19 @@ class _ItemInputUpdateProfileState extends State<ItemInputUpdateProfile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(
+          height: SpacingUnit.x2,
+        ),
         Text(
           widget.title,
-          style: TextStyle(color: colors.text,  fontSize: SpacingUnit.x4),
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x4,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         const SizedBox(
-          height: SpacingUnit.x3,
+          height: SpacingUnit.x2,
         ),
         AppInput(
           controller: contentController,

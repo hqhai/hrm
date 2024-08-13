@@ -1,11 +1,20 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class ItemAdd extends StatelessWidget {
-  const ItemAdd({super.key, this.errorProduct = '', this.title = '', required this.callback});
+  const ItemAdd(
+      {super.key,
+      this.errorProduct = '',
+      this.title = '',
+      required this.callback,
+      this.checkTypeContainer = true});
+
   final String errorProduct, title;
   final VoidCallback callback;
+  final bool checkTypeContainer;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +34,17 @@ class ItemAdd extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: () => callback.call(),
-                child: Icon(
-                  Icons.add,
-                  size: SpacingUnit.x8,
-                  color: colors.success,
+                child: SvgPicture.asset(
+                  width: SpacingUnit.x8,
+                  height: SpacingUnit.x8,
+                  checkTypeContainer
+                      ? Assets.images.icon.home.chevronForward
+                      : Assets.images.icon.activateIcon.drop,
+                  colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
                 ),
-              )
+              ),
             ],
           ),
         ),

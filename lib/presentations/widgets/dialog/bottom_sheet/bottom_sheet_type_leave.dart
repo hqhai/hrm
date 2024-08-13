@@ -2,12 +2,12 @@ import 'package:base_app/common/enum/work_and_salary_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/leave/filter_leave_history_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/app_month_year_picker.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
-import 'package:widgets/app_button.dart';
 
 class BottomSheetTypeLeaveWidget extends StatefulWidget {
   const BottomSheetTypeLeaveWidget({
@@ -70,11 +70,16 @@ class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget>
                             type: element,
                           ),
                           child: ContainerBorder(
-                            borderColors: element == typeLeave ? colors.success : null,
+                            backgroundColors: element == typeLeave
+                                ? colors.blue
+                                : colors.background,
+                            borderColors: element == typeLeave
+                                ? colors.blue
+                                : colors.text.withOpacity(0.3),
                             child: Text(
                               element.configTypeLeaveEnum,
                               style: TextStyle(
-                                color: element == typeLeave ? colors.success : colors.text,
+                                color: element == typeLeave ? colors.background : colors.text,
                                 fontSize: SpacingUnit.x3,
                               ),
                             ),
@@ -87,6 +92,7 @@ class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget>
             ),
           ),
           AppButton(
+            colorText: colors.background,
             title: appLocalizations.apply,
             onSubmit: () => onSubmit(),
           )

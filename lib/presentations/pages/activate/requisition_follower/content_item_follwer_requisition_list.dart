@@ -46,12 +46,23 @@ class ContentItemRequestFollowerList extends StatelessWidget {
               ],
             ),
             TitleValueLeave(
+              size: SpacingUnit.x3_5,
+              padding: SpacingUnit.x1_5,
+              title: appLocalizations.creator,
+              value: request?.createdFullName ?? "",
+              color: colors.success,
+            ),
+            TitleValueLeave(
+              size: SpacingUnit.x3_5,
+              padding: SpacingUnit.x1_5,
               title: appLocalizations.createTime,
               value: formatYMDHMS(
                 dateTimeLocal(request?.createdDate).toString(),
               ),
             ),
             TitleValueLeave(
+              size: SpacingUnit.x3_5,
+              padding: SpacingUnit.x1_5,
               title: appLocalizations.code,
               value: request?.code ?? "",
               color: colors.success,

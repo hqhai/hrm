@@ -115,6 +115,7 @@ class _AppInputState extends State<AppInput> {
                               ),
                             )
                           : const SizedBox(),
+                      prefixIconColor: colors.text,
                       hintText: widget.placeHolder,
                       hintStyle: theme.textTheme.bodyLarge
                           ?.copyWith(color: colors.textTertiary),
