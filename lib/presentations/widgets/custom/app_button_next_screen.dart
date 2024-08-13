@@ -1,8 +1,8 @@
 import 'package:base_app/gen/assets.gen.dart';
+import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
-import 'package:common/utils/spacing_unit.dart';
 
 class AppButtonNextScreen extends StatefulWidget {
   final String title;
@@ -58,8 +58,8 @@ class _AppButtonNextScreen extends State<AppButtonNextScreen> {
               Text(
                 widget.title,
                 textAlign: TextAlign.center,
-                style: theme.textTheme.bodyLarge
-                    ?.copyWith(color: widget.colorText, fontWeight: FontWeight.w600),
+                style: theme.textTheme.bodyLarge?.copyWith(
+                    color: widget.colorText, fontWeight: FontWeight.w600),
               ),
               const SizedBox(
                 width: SpacingUnit.x2,
@@ -67,7 +67,8 @@ class _AppButtonNextScreen extends State<AppButtonNextScreen> {
               SvgPicture.asset(
                 height: SpacingUnit.x4,
                 Assets.images.icon.home.worksheet.arrowRight,
-                colorFilter: ColorFilter.mode(widget.colorText, BlendMode.srcIn),
+                colorFilter:
+                    ColorFilter.mode(widget.colorText, BlendMode.srcIn),
               ),
             ],
           ),
