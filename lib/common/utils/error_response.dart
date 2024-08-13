@@ -34,7 +34,7 @@ Map errorResponse() {
     "TimeSlotAlreadyPleaseChooseAnother": appLocalizations.timeSlotAlreadyPleaseChooseAnother,
     "TheNumberOfFormsCreatedHasExceededTheLimit":
         appLocalizations.theNumberOfFormsCreatedHasExceededTheLimit,
-    "DistanceNotEnough": appLocalizations.distanceNotEnough,
+    "DistanceNotEnough": "DistanceNotEnough",
     "UserNameNotExist": appLocalizations.userDoesNotExist,
     "TheTotalNumberOfLeaveIsNotEnough": appLocalizations.theTotalNumberOfLeaveIsNotEnough
   };

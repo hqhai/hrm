@@ -14,8 +14,8 @@ List<String> titleHome() {
     appLocalizations.leaveWithoutPay,
     appLocalizations.workOT,
     appLocalizations.workTime,
-    appLocalizations.timeLate,
-    appLocalizations.timeEarly,
+    appLocalizations.minutesToLate,
+    appLocalizations.minutesToEarly,
     appLocalizations.numberOfEarly,
     appLocalizations.numberOfLate,
   ];

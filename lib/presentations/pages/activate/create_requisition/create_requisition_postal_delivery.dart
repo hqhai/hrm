@@ -102,7 +102,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
                     if (transferType == RequisitionDeliveryTypeEnum.express)
                       Padding(
                         padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
-                        child: Text(appLocalizations.notePostalDelivery,
+                        child: Text('',
                             style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3)),
                       ),
                     ItemCreateInputArea(
