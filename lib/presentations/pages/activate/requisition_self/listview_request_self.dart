@@ -54,26 +54,39 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TabBar(
-                labelColor: colors.background,
-                isScrollable: true,
-                controller: _tabController,
-                indicatorSize: TabBarIndicatorSize.tab,
-                tabAlignment: TabAlignment.start,
-                tabs: StatusRequestEnum.values
-                    .mapIndexed(
-                      (index, status) => Tab(
-                        child: Text(
-                          status.configRequestStatusName,
-                          style: TextStyle(
-                              color: index == indexTab
-                                  ? colors.text
-                                  : colors.text.withOpacity(0.5),
-                              fontSize: SpacingUnit.x3_5),
-                        ),
+              Container(
+                color: colors.background,
+                child: TabBar(
+                  isScrollable: true,
+                  controller: _tabController,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  dividerColor: colors.textLight.withOpacity(0.1),
+                  dividerHeight: 0.1,
+                  indicatorColor: colors.textLight,
+                  tabAlignment: TabAlignment.start,
+                  tabs: StatusRequestEnum.values.mapIndexed((index, status) {
+                    final isActive = index == _tabController.index;
+                    return Tab(
+                      child: Row(
+                        children: [
+                          Text(
+                            status.getAppLocalizationName,
+                            style: TextStyle(
+                                fontWeight: isActive ? FontWeight.w600 : null,
+                                color: isActive
+                                    ? colors.text
+                                    : colors.text.withOpacity(0.5),
+                                fontSize: SpacingUnit.x3_5),
+                          ),
+                          // Chip(
+                          //     padding: EdgeInsets.zero,
+                          //     label: Text(
+                          //         state.requisitionIds.length.toString()))
+                        ],
                       ),
-                    )
-                    .toList(),
+                    );
+                  }).toList(),
+                ),
               ),
               Expanded(
                 child: Container(

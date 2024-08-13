@@ -23,10 +23,12 @@ class ItemRequisitionApproveList extends StatefulWidget {
   });
 
   @override
-  State<ItemRequisitionApproveList> createState() => _ItemRequisitionApproveListState();
+  State<ItemRequisitionApproveList> createState() =>
+      _ItemRequisitionApproveListState();
 }
 
-class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList> {
+class _ItemRequisitionApproveListState
+    extends State<ItemRequisitionApproveList> {
   String? note;
   bool checkOpacity = false;
 
@@ -38,7 +40,8 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<RequisitionApproveBloc, RequisitionApproveState>(builder: (context, state) {
+    return BlocBuilder<RequisitionApproveBloc, RequisitionApproveState>(
+        builder: (context, state) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
         child: ContainerBorder(
@@ -58,17 +61,16 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
                   opacity: checkOpacity ? 1 : 0,
                   child: Center(
                     child: Lottie.asset(Assets.images.icon.loading,
-                        width: SpacingUnit.x20, height: SpacingUnit.x20, fit: BoxFit.fill),
+                        width: SpacingUnit.x20,
+                        height: SpacingUnit.x20,
+                        fit: BoxFit.fill),
                   ),
                 ),
                 Opacity(
                   opacity: checkOpacity ? 0.5 : 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: SpacingUnit.x2),
-                    child: ContentItemRequestApproveList(
-                      id: widget.id,
-                      status: widget.status,
-                    ),
+                  child: ContentItemRequestApproveList(
+                    id: widget.id,
+                    status: widget.status,
                   ),
                 ),
               ],
@@ -86,7 +88,8 @@ class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList>
   }
 
   bool checkNote(EnumStepRequestStatusEnum status) {
-    if ((status == EnumStepRequestStatusEnum.reject || status == EnumStepRequestStatusEnum.edit) &&
+    if ((status == EnumStepRequestStatusEnum.reject ||
+            status == EnumStepRequestStatusEnum.edit) &&
         note == null) {
       return false;
     }

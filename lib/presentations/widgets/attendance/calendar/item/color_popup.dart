@@ -20,7 +20,8 @@ class ColorPopUp extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: ColorAndTitle.mapColorAndTitle(context)
               .map(
-                (e) => statusNote(title: e.title, color: e.color, context: context),
+                (e) => statusNote(
+                    title: e.title, color: e.color, context: context),
               )
               .toList(),
         ),
@@ -28,7 +29,10 @@ class ColorPopUp extends StatelessWidget {
     );
   }
 
-  Widget statusNote({required BuildContext context, required String title, required Color color}) {
+  Widget statusNote(
+      {required BuildContext context,
+      required String title,
+      required Color color}) {
     final colors = AppTheme.getColors(context);
     return Row(
       children: [
@@ -39,7 +43,7 @@ class ColorPopUp extends StatelessWidget {
           child: ContainerBorder(
             width: SpacingUnit.x3,
             height: SpacingUnit.x3,
-            padding: SpacingUnit.x2,
+            paddingVertical: SpacingUnit.x2,
             backgroundColors: color,
             borderColors: color,
             child: const SizedBox(),

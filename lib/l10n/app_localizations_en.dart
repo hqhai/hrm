@@ -62,6 +62,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get strong => 'Strong';
 
   @override
+  String get statusRequest => 'Status';
+
+  @override
   String get atLeastEightCharacters => 'At least eight characters';
 
   @override

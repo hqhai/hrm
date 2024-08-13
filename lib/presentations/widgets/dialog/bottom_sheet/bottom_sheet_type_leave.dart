@@ -20,10 +20,12 @@ class BottomSheetTypeLeaveWidget extends StatefulWidget {
   final ValueChanged<FilterLeaveHistoryModel> onChange;
 
   @override
-  State<BottomSheetTypeLeaveWidget> createState() => _BottomSheetTypeLeaveWidgetState();
+  State<BottomSheetTypeLeaveWidget> createState() =>
+      _BottomSheetTypeLeaveWidgetState();
 }
 
-class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget> {
+class _BottomSheetTypeLeaveWidgetState
+    extends State<BottomSheetTypeLeaveWidget> {
   TypeLeaveEnum? typeLeave;
   DateTime? date = DateTime.now();
 
@@ -49,14 +51,17 @@ class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget>
             onChange: (value) => setDate(value),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: SpacingUnit.x1, bottom: SpacingUnit.x3),
+            padding: const EdgeInsets.only(
+                top: SpacingUnit.x4, bottom: SpacingUnit.x12_5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   appLocalizations.sourceOfLeave,
                   style: TextStyle(
-                      color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w600),
+                      color: colors.text,
+                      fontSize: SpacingUnit.x5,
+                      fontWeight: FontWeight.w600),
                 ),
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
@@ -70,6 +75,8 @@ class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget>
                             type: element,
                           ),
                           child: ContainerBorder(
+                            paddingVertical: 8,
+                            marginTop: 8,
                             backgroundColors: element == typeLeave
                                 ? colors.blue
                                 : colors.background,
@@ -79,7 +86,9 @@ class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget>
                             child: Text(
                               element.configTypeLeaveEnum,
                               style: TextStyle(
-                                color: element == typeLeave ? colors.background : colors.text,
+                                color: element == typeLeave
+                                    ? colors.background
+                                    : colors.text,
                                 fontSize: SpacingUnit.x3,
                               ),
                             ),
@@ -95,7 +104,8 @@ class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget>
             colorText: colors.background,
             title: appLocalizations.apply,
             onSubmit: () => onSubmit(),
-          )
+          ),
+          const SizedBox(height: SpacingUnit.x8)
         ],
       ),
     );

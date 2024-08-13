@@ -100,7 +100,7 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
                   width: width,
                   borderColors: colors.text.withOpacity(0.3),
                   marginTop: SpacingUnit.x2,
-                  padding: SpacingUnit.x4,
+                  paddingVertical: SpacingUnit.x4,
                   child: Text(
                     setIntervalOnLeave().toStringAsFixed(2),
                     style: TextStyle(

@@ -1,7 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -26,10 +25,12 @@ class FilterRequisitionApproveDialog extends StatefulWidget {
   final FilterDialogModel? filter;
 
   @override
-  State<FilterRequisitionApproveDialog> createState() => _FilterRequisitionApproveDialogState();
+  State<FilterRequisitionApproveDialog> createState() =>
+      _FilterRequisitionApproveDialogState();
 }
 
-class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApproveDialog> {
+class _FilterRequisitionApproveDialogState
+    extends State<FilterRequisitionApproveDialog> {
   String errorTime = '';
   DateTime? startTime, endTime;
 
@@ -84,13 +85,10 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(SpacingUnit.x2),
-            child: PeriodTimePicker(
-              title: appLocalizations.timeFrame,
-              setStarTime: (value) => setStartTime(value: value),
-              setEndTime: (value) => setEndTime(value: value),
-            ),
+          PeriodTimePicker(
+            title: appLocalizations.timeFrame,
+            setStarTime: (value) => setStartTime(value: value),
+            setEndTime: (value) => setEndTime(value: value),
           ),
           ButtonRequest(
             title1: appLocalizations.apply,

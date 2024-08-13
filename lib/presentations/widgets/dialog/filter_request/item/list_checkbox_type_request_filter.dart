@@ -63,7 +63,7 @@ class _ListCheckboxTypeRequestFilterState
                 return GestureDetector(
                   onTap: () => setValue(index: index, type: type),
                   child: ContainerBorder(
-                    padding: 0,
+                    paddingVertical: 0,
                     marginTop: 0,
                     backgroundColors: listTypes.contains(type)
                         ? colors.blue

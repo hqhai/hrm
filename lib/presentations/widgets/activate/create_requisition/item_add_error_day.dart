@@ -6,7 +6,11 @@ import 'package:themes/themes.dart';
 
 class ItemAddErrorDay extends StatelessWidget {
   const ItemAddErrorDay(
-      {super.key, this.errorProduct = '', this.title = '', required this.callback, this.date});
+      {super.key,
+      this.errorProduct = '',
+      this.title = '',
+      required this.callback,
+      this.date});
 
   final String errorProduct, title;
   final DateTime? date;
@@ -35,7 +39,7 @@ class ItemAddErrorDay extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: ContainerBorder(
-                  padding: SpacingUnit.x1,
+                  paddingVertical: SpacingUnit.x1,
                   borderColors: colors.text.withOpacity(0.4),
                   child: GestureDetector(
                     onTap: () => callback.call(),

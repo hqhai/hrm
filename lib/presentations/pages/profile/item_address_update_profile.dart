@@ -26,7 +26,8 @@ class ItemAddressUpdateProfile extends StatefulWidget {
   final Address province, district, ward;
 
   @override
-  State<ItemAddressUpdateProfile> createState() => _ItemAddressUpdateProfileState();
+  State<ItemAddressUpdateProfile> createState() =>
+      _ItemAddressUpdateProfileState();
 }
 
 class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
@@ -148,7 +149,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
         ),
         ContainerBorder(
           borderColors: colors.surfaceBright.withOpacity(0.6),
-          padding: SpacingUnit.x4,
+          paddingVertical: SpacingUnit.x4,
           width: width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

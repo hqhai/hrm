@@ -17,7 +17,8 @@ class ItemVehicleUpdateProfile extends StatefulWidget {
   final VehicleTypeEnum vehicle;
 
   @override
-  State<ItemVehicleUpdateProfile> createState() => _ItemVehicleUpdateProfileState();
+  State<ItemVehicleUpdateProfile> createState() =>
+      _ItemVehicleUpdateProfileState();
 }
 
 class _ItemVehicleUpdateProfileState extends State<ItemVehicleUpdateProfile> {
@@ -43,7 +44,7 @@ class _ItemVehicleUpdateProfileState extends State<ItemVehicleUpdateProfile> {
         ),
         ContainerBorder(
           borderColors: colors.surfaceBright.withOpacity(0.6),
-          padding: SpacingUnit.x4,
+          paddingVertical: SpacingUnit.x4,
           width: width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

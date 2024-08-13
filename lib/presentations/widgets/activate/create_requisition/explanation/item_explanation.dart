@@ -28,13 +28,15 @@ class _ItemExplanationState extends State<ItemExplanation> {
     final width = MediaQuery.of(context).size.width;
     return ContainerBorder(
       borderColors: colors.text.withOpacity(0.3),
-      padding: SpacingUnit.x4,
+      paddingVertical: SpacingUnit.x4,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(
-                left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
+                left: SpacingUnit.x1,
+                top: SpacingUnit.x2,
+                bottom: SpacingUnit.x2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -54,7 +56,8 @@ class _ItemExplanationState extends State<ItemExplanation> {
                     showNote
                         ? Assets.images.icon.home.chevronForward
                         : Assets.images.icon.activateIcon.drop,
-                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        colors.text.withOpacity(0.4), BlendMode.srcIn),
                   ),
                 ),
               ],
@@ -78,7 +81,7 @@ class _ItemExplanationState extends State<ItemExplanation> {
           if (showNote)
             ContainerBorder(
               borderColors: colors.text.withOpacity(0.3),
-              padding: SpacingUnit.x4,
+              paddingVertical: SpacingUnit.x4,
               height: SpacingUnit.x30,
               width: width,
               child: SingleChildScrollView(

@@ -28,7 +28,7 @@ class ItemListOverTimeExtend extends StatelessWidget {
         ),
         Expanded(
           child: ContainerBorder(
-            padding: SpacingUnit.x2_5,
+            paddingVertical: SpacingUnit.x2_5,
             marginTop: SpacingUnit.x2_5,
             borderColors: colors.text.withOpacity(0.5),
             child: Column(

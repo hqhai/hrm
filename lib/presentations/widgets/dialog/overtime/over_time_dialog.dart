@@ -86,7 +86,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
-      padding: SpacingUnit.x4,
+      paddingVertical: SpacingUnit.x4,
       marginTop: 0,
       borderColors: colors.text.withOpacity(0.4),
       child: Column(

@@ -62,8 +62,10 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
           child: GestureDetector(
             onTap: () => _showDialogTime(context),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: widget.checkTitle ? SpacingUnit.x2 : 0),
+              padding: EdgeInsets.symmetric(
+                  horizontal: widget.checkTitle ? SpacingUnit.x2 : 0),
               child: ContainerBorder(
+                marginTop: 0,
                 borderColors: colors.text.withOpacity(0.2),
                 child: Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x1),
@@ -73,7 +75,8 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
                         height: SpacingUnit.x7,
                         width: SpacingUnit.x7,
                         Assets.images.icon.home.bottomBar.calendar,
-                        colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                        colorFilter:
+                            ColorFilter.mode(colors.text, BlendMode.srcIn),
                       ),
                       Expanded(
                         child: Text(
@@ -91,7 +94,8 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
                         height: SpacingUnit.x7,
                         width: SpacingUnit.x7,
                         Assets.images.icon.home.dropUp,
-                        colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                        colorFilter:
+                            ColorFilter.mode(colors.text, BlendMode.srcIn),
                       ),
                     ],
                   ),

@@ -7,7 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({super.key, this.check = true, required this.onChange, this.oldDate});
+  const DatePicker(
+      {super.key, this.check = true, required this.onChange, this.oldDate});
 
   final ValueChanged<DateTime> onChange;
   final DateTime? oldDate;
@@ -70,9 +71,10 @@ class _DatePickerState extends State<DatePicker> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
-      onTap: () => dialog(context: context, currentTime: widget.oldDate ?? DateTime.now()),
+      onTap: () => dialog(
+          context: context, currentTime: widget.oldDate ?? DateTime.now()),
       child: ContainerBorder(
-        padding: SpacingUnit.x4_5,
+        paddingVertical: SpacingUnit.x4_5,
         borderColors: colors.text.withOpacity(0.4),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,11 +82,14 @@ class _DatePickerState extends State<DatePicker> {
             Text(
               formatYMD(currentDate.toString()),
               style: TextStyle(
-                  fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600),
+                  fontSize: SpacingUnit.x4,
+                  color: colors.text,
+                  fontWeight: FontWeight.w600),
             ),
             SvgPicture.asset(
               Assets.images.icon.home.bottomBar.calendar,
-              colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                  colors.text.withOpacity(0.4), BlendMode.srcIn),
             ),
           ],
         ),

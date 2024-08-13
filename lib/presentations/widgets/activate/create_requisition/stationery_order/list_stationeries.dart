@@ -52,7 +52,7 @@ class _ListStationeriesState extends State<ListStationeries> {
           ],
         ),
         ContainerBorder(
-          padding: 0,
+          paddingVertical: 0,
           borderColors: colors.background,
           child: Column(
             mainAxisSize: MainAxisSize.min,

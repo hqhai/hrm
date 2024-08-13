@@ -58,7 +58,7 @@ class _ItemProfileState extends State<ItemProfile> {
                           circular: SpacingUnit.x10,
                           backgroundColors: colors.onSurface,
                           borderColors: colors.onSurface,
-                          padding: SpacingUnit.x1,
+                          paddingVertical: SpacingUnit.x1,
                           marginTop: 0,
                           child: Icon(
                             Icons.photo_camera_outlined,

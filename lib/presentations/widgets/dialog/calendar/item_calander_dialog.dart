@@ -54,7 +54,7 @@ class ItemCalenderDialog extends StatelessWidget {
         ),
         ContainerBorder(
           marginTop: 0,
-          padding: 0,
+          paddingVertical: 0,
           circular: SpacingUnit.x10,
           widthBorder: 0.5,
           backgroundColors: _colorCircular(context),

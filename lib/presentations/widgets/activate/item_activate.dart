@@ -25,7 +25,7 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
         backgroundColors: colors.background,
         borderColors: colors.background,
         width: width,
-        padding: SpacingUnit.x2,
+        paddingVertical: SpacingUnit.x2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

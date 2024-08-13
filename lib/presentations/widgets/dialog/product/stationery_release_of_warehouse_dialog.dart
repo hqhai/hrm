@@ -24,10 +24,12 @@ class ReleaseOfWarehouseAddDialog extends StatefulWidget {
   final VoidCallback callBack;
 
   @override
-  State<ReleaseOfWarehouseAddDialog> createState() => _ReleaseOfWarehouseAddDialogState();
+  State<ReleaseOfWarehouseAddDialog> createState() =>
+      _ReleaseOfWarehouseAddDialogState();
 }
 
-class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialog> {
+class _ReleaseOfWarehouseAddDialogState
+    extends State<ReleaseOfWarehouseAddDialog> {
   final TextEditingController productController = TextEditingController(),
       unitController = TextEditingController(),
       explainController = TextEditingController(),
@@ -41,7 +43,8 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
       errorNumberOf = '',
       errorExplain = '';
   int numberOf = 0;
-  Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
+  Stationery stationery =
+      const Stationery(id: '', product: '', unitPrice: '0', unit: '');
   bool checkTypeContainer = true;
 
   @override
@@ -49,7 +52,8 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     unitController.text = widget.releaseOfWarehouse?.unit ?? '';
     productController.text = widget.releaseOfWarehouse?.product ?? "";
     explainController.text = widget.releaseOfWarehouse?.explain ?? "";
-    numberOfController.text = (widget.releaseOfWarehouse?.quantity ?? 0).toString();
+    numberOfController.text =
+        (widget.releaseOfWarehouse?.quantity ?? 0).toString();
     noteController.text = widget.releaseOfWarehouse?.note ?? "";
     product = widget.releaseOfWarehouse?.product ?? "";
     explain = widget.releaseOfWarehouse?.explain ?? "";
@@ -66,7 +70,8 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     final bool checkExplain = explain.isNotEmpty;
     setState(() {
       errorProduct = checkProduct ? "" : appLocalizations.cannotBeLeftBlank;
-      errorNumberOf = checkNumberOf ? "" : appLocalizations.quantityCannotBeZero;
+      errorNumberOf =
+          checkNumberOf ? "" : appLocalizations.quantityCannotBeZero;
       errorExplain = checkExplain ? "" : appLocalizations.cannotBeLeftBlank;
     });
     return checkProduct && checkNumberOf && checkExplain;
@@ -87,18 +92,18 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
-      padding: SpacingUnit.x4,
+      paddingVertical: SpacingUnit.x4,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ItemAdd(
             checkTypeContainer: checkTypeContainer,
-            title:  checkTypeContainer
+            title: checkTypeContainer
                 ? appLocalizations.product
                 : product.isEmpty
-                ? appLocalizations.product
-                : product,
+                    ? appLocalizations.product
+                    : product,
             callback: () => setTypeContainer(),
             errorProduct: errorProduct,
           ),
@@ -134,8 +139,8 @@ class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialo
             ),
           if (checkTypeContainer)
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              padding: const EdgeInsets.symmetric(
+                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),

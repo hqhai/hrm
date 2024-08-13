@@ -48,7 +48,7 @@ class _BottomSheetReasonTypeWidgetState
                     child: ContainerBorder(
                       backgroundColors: colors.background,
                       borderColors: colors.background,
-                      padding: SpacingUnit.x4,
+                      paddingVertical: SpacingUnit.x4,
                       marginTop: SpacingUnit.x4,
                       child: Row(
                         children: [

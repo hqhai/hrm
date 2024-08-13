@@ -18,6 +18,7 @@
   "medium": "Medium",
   "good": "Good",
   "strong": "Strong",
+  "statusRequest": "Status",
   "atLeastEightCharacters": "At least eight characters",
   "containsANumber": "Contains a number",
   "containsACapitalLetter": "Contains a capital letter",

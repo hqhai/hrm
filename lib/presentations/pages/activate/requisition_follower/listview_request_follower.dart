@@ -53,23 +53,34 @@ class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TabBar(
-                isScrollable: true,
-                tabAlignment: TabAlignment.start,
-                indicatorSize: TabBarIndicatorSize.tab,
-                controller: _tabController,
-                tabs: StatusRequestEnum.values
-                    .map(
-                      (status) => Tab(
-                        child: Text(
-                          status.configRequestStatusName,
-                          style: TextStyle(
-                              color: colors.text, fontSize: SpacingUnit.x3_5),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
+              Container(
+                  color: colors.background,
+                  child: TabBar(
+                    isScrollable: true,
+                    controller: _tabController,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    dividerColor: colors.textLight.withOpacity(0.1),
+                    dividerHeight: 0.1,
+                    indicatorColor: colors.textLight,
+                    tabAlignment: TabAlignment.start,
+                    tabs: StatusRequestEnum.values.map(
+                      (status) {
+                        final isActive =
+                            StatusRequestEnum.values.indexOf(status) ==
+                                _tabController.index;
+                        return Tab(
+                          child: Text(
+                            status.getAppLocalizationName,
+                            style: TextStyle(
+                                fontWeight: isActive ? FontWeight.w600 : null,
+                                color:
+                                    isActive ? colors.text : colors.textLight,
+                                fontSize: SpacingUnit.x4),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                  )),
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
@@ -90,6 +101,7 @@ class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
   }
 
   void _scrollListener() async {
+    
     widget.onChangeStatus.call(
       StatusRequestEnum.values[_tabController.index],
     );

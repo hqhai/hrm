@@ -55,7 +55,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       page: 1,
     ));
     final checkCompleter = await completer.future;
-    if(checkCompleter){
+    if (checkCompleter) {
       setState(() {
         checkLoadMore = true;
       });
@@ -67,6 +67,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return Scaffold(
+      backgroundColor: colors.scaffoldBackground,
       appBar: AppBar(
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),

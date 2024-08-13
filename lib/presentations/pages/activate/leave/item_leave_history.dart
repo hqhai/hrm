@@ -36,6 +36,9 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
       builder: (context, state) {
         final leave = state.userLeaveHistory[widget.userLeaveHistoryId];
         return ContainerBorder(
+          widthBorder: 0,
+          borderColors: colors.background,
+          backgroundColors: colors.background,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -43,7 +46,8 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
                 title1: appLocalizations.day,
                 title2: appLocalizations.totalLeaveOfChanges,
                 value1: formatYMD((leave?.createdDate ?? "").toString()),
-                value2: totalLeaveOfChanges(leave?.changeType, leave?.changeValue),
+                value2:
+                    totalLeaveOfChanges(leave?.changeType, leave?.changeValue),
                 color: check(leave?.changeType ?? ChangeTypeEnum.addition)
                     ? colors.success
                     : colors.error,
@@ -64,9 +68,10 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
               if (leave?.requestId.isNotEmpty ?? false)
                 GestureDetector(
                   onTap: () => nextScreenRequest(
-                    context: context,
+                      context: context,
                       checkUser: RequestSeeByWho.user,
-                      id: state.userLeaveHistory[widget.userLeaveHistoryId]!.requestId,
+                      id: state.userLeaveHistory[widget.userLeaveHistoryId]!
+                          .requestId,
                       checkOpacity: checkOpacity,
                       setState: () => setOpacity()),
                   child: Padding(

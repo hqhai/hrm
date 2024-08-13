@@ -25,7 +25,8 @@ class ListLeaveHistoryWidget extends StatefulWidget {
 }
 
 class _ListLeaveHistoryWidgetState extends State<ListLeaveHistoryWidget> {
-  FilterLeaveHistoryModel filterLeaveHistoryModel = const FilterLeaveHistoryModel();
+  FilterLeaveHistoryModel filterLeaveHistoryModel =
+      const FilterLeaveHistoryModel();
   DateTime? date;
   TypeLeaveEnum? type;
   late ScrollController controller;
@@ -80,35 +81,39 @@ class _ListLeaveHistoryWidgetState extends State<ListLeaveHistoryWidget> {
     return BlocConsumer<LeaveHistoryBloc, LeaveHistoryState>(
       listener: (context, state) => _listener(state),
       builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.all(SpacingUnit.x3),
-                child: GestureDetector(
-                  onTap: () => _addType(context),
-                  child: Container(
-                    color: colors.background,
-                    child: SvgPicture.asset(
-                      Assets.images.icon.activateIcon.iconamoonOptionsThin,
-                      colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: SpacingUnit.x3),
+                  child: GestureDetector(
+                    onTap: () => _addType(context),
+                    child: Container(
+                      color: colors.scaffoldBackground,
+                      child: SvgPicture.asset(
+                        Assets.images.icon.activateIcon.iconamoonOptionsThin,
+                        colorFilter:
+                            ColorFilter.mode(colors.text, BlendMode.srcIn),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 4,
-              child: ListView.builder(
-                controller: controller,
-                itemCount: state.listIds.length,
-                itemBuilder: (context, index) =>
-                    ItemLeaveHistory(userLeaveHistoryId: state.listIds[index]),
-              ),
-            )
-          ],
+              Expanded(
+                flex: 4,
+                child: ListView.builder(
+                  controller: controller,
+                  itemCount: state.listIds.length,
+                  itemBuilder: (context, index) => ItemLeaveHistory(
+                      userLeaveHistoryId: state.listIds[index]),
+                ),
+              )
+            ],
+          ),
         );
       },
     );

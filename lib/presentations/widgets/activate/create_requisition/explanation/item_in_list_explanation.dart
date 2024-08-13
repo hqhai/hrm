@@ -43,7 +43,7 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
     final width = MediaQuery.of(context).size.width;
     final appLocalizations = AppLocalizations.of(context)!;
     return ContainerBorder(
-      padding: SpacingUnit.x4,
+      paddingVertical: SpacingUnit.x4,
       borderColors: colors.outline.withOpacity(0.4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +64,8 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
                   widget.checkTypeContainer
                       ? Assets.images.icon.home.chevronForward
                       : Assets.images.icon.activateIcon.drop,
-                  colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                      colors.text.withOpacity(0.4), BlendMode.srcIn),
                 ),
               ),
             ],
@@ -73,7 +74,7 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
             ContainerBorder(
               borderColors: colors.outline.withOpacity(0.4),
               width: width,
-              padding: SpacingUnit.x4,
+              paddingVertical: SpacingUnit.x4,
               child: Text(
                 '${strSeconds(widget.explanation.startTime)} - ${strSeconds(widget.explanation.endTime)}',
                 style: TextStyle(
@@ -90,8 +91,8 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
             ),
           if (widget.checkTypeContainer)
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              padding: const EdgeInsets.symmetric(
+                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 colorText: colors.background,
                 title: appLocalizations.cancel,

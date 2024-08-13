@@ -81,7 +81,7 @@ class ContentItemMyRequisitionList extends StatelessWidget {
                     context: context, status: request.status)['color'],
                 icon: statusRequest(
                     context: context, status: request.status)['icon'],
-                status: request.status.configRequestStatusName,
+                status: request.status.getAppLocalizationName,
               ),
             ),
           ],

@@ -85,7 +85,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
                 marginTop: 8,
                 borderColors: colors.text.withOpacity(0.4),
                 width: width,
-                padding: SpacingUnit.x4,
+                paddingVertical: SpacingUnit.x4,
                 child: Text(
                   widget.title ?? "",
                   style: TextStyle(

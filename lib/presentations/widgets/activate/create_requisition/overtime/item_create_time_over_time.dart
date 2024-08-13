@@ -133,7 +133,7 @@ class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
               ContainerBorder(
                 width: width * 0.25,
                 marginTop: SpacingUnit.x2,
-                padding: SpacingUnit.x1,
+                paddingVertical: SpacingUnit.x1,
                 child: Center(
                   child: Text(
                     setIntervalOnLeave().toString(),

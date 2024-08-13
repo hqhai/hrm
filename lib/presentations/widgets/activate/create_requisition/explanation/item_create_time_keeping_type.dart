@@ -13,7 +13,8 @@ class ItemCreateTimeKeepingType extends StatefulWidget {
   final ValueChanged<EditTimekeeping>? onChange;
 
   @override
-  State<ItemCreateTimeKeepingType> createState() => _ItemCreateTimeKeepingTypeState();
+  State<ItemCreateTimeKeepingType> createState() =>
+      _ItemCreateTimeKeepingTypeState();
 }
 
 class _ItemCreateTimeKeepingTypeState extends State<ItemCreateTimeKeepingType> {
@@ -45,7 +46,7 @@ class _ItemCreateTimeKeepingTypeState extends State<ItemCreateTimeKeepingType> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
             child: ContainerBorder(
-              padding: SpacingUnit.x4,
+              paddingVertical: SpacingUnit.x4,
               borderColors: colors.outline.withOpacity(0.3),
               width: width,
               child: Text(

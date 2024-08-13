@@ -438,6 +438,7 @@
   "oTCoefficient": "Hệ số OT",
   "dateType": "Loại ngày",
   "ot": "Làm thêm giờ",
+  "statusRequest": "Trạng thái",
   "totalLeaveWork": "Tổng số công nghỉ",
   "noShiftsWork": "Không có ca làm việc",
   "regularDay": "Ngày thường",

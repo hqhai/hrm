@@ -33,7 +33,7 @@ class _BottomSheetDeliveryWidgetState extends State<BottomSheetDeliveryWidget> {
                 (index, element) => GestureDetector(
                   onTap: () => addType(type: element),
                   child: ContainerBorder(
-                    padding: SpacingUnit.x2,
+                    paddingVertical: SpacingUnit.x2,
                     marginTop: SpacingUnit.x2,
                     child: Row(
                       children: [

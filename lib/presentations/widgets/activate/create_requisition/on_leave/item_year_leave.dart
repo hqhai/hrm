@@ -100,7 +100,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
               child: ContainerBorder(
                 borderColors: colors.text.withOpacity(0.3),
                 marginTop: SpacingUnit.x2,
-                padding: 0,
+                paddingVertical: 0,
                 child: ListTile(
                   title: Text(
                     e.configSocialInsuranceLeaveName,
@@ -131,51 +131,50 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
     return Row(
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(right: SpacingUnit.x2),
-            child: ContainerBorder(
-              borderColors: colors.text.withOpacity(0.3),
-              padding: 0,
-              child: ListTile(
-                title: Text(
-                  type1.configEnumTakeLeaveName,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x3,
-                  ),
+          child: ContainerBorder(
+            borderColors: colors.text.withOpacity(0.3),
+            paddingVertical: 0,
+            paddingHorizontal: 0,
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                type1.configEnumTakeLeaveName,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x3,
                 ),
-                leading: Radio<EnumReasonLeave>(
-                  value: type1,
-                  groupValue: type,
-                  onChanged: (EnumReasonLeave? value) => _setType(value),
-                ),
+              ),
+              leading: Radio<EnumReasonLeave>(
+                value: type1,
+                groupValue: type,
+                onChanged: (EnumReasonLeave? value) => _setType(value),
               ),
             ),
           ),
         ),
+        const SizedBox(width: SpacingUnit.x2),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: SpacingUnit.x2),
-            child: ContainerBorder(
-              borderColors: colors.text.withOpacity(0.3),
-              padding: 0,
-              child: ListTile(
-                title: Text(
-                  type2.configEnumTakeLeaveName,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x3,
-                  ),
+          child: ContainerBorder(
+            borderColors: colors.text.withOpacity(0.3),
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                type2.configEnumTakeLeaveName,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x3,
                 ),
-                leading: Radio<EnumReasonLeave>(
-                  value: type2,
-                  groupValue: type,
-                  onChanged: (EnumReasonLeave? value) => _setType(value),
-                ),
+              ),
+              leading: Radio<EnumReasonLeave>(
+                value: type2,
+                groupValue: type,
+                onChanged: (EnumReasonLeave? value) => _setType(value),
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

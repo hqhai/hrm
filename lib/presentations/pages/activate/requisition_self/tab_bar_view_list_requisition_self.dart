@@ -10,7 +10,6 @@ import 'package:base_app/presentations/pages/activate/requisition_self/item_list
 import 'package:base_app/presentations/widgets/custom/shimmer_load.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:themes/themes.dart';
 
 class TabBarViewListRequestSelf extends StatefulWidget {
   const TabBarViewListRequestSelf(
@@ -24,7 +23,8 @@ class TabBarViewListRequestSelf extends StatefulWidget {
   final bool checkLoad;
 
   @override
-  State<TabBarViewListRequestSelf> createState() => _TabBarViewListRequestSelfState();
+  State<TabBarViewListRequestSelf> createState() =>
+      _TabBarViewListRequestSelfState();
 }
 
 class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
@@ -40,7 +40,9 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
+    if (lengthList < totalItems &&
+        controller.position.extentAfter < totalItems &&
+        checkLoad) {
       setState(() {
         checkLoad = false;
         pageIndex++;
@@ -68,12 +70,10 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
-    final colors = AppTheme.getColors(context);
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
         return SingleChildScrollView(
-          child: Container(
-            color: colors.outlineVariant.withOpacity(0.1),
+          child: SizedBox(
             height: height * 0.85,
             child: widget.checkLoad
                 ? ListView.builder(
@@ -83,7 +83,7 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
                       id: state.requisitionIds[index],
                     ),
                   )
-                :  const ShimmerLoad(),
+                : const ShimmerLoad(),
           ),
         );
       },

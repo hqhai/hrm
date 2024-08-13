@@ -4,7 +4,12 @@ import 'package:themes/themes.dart';
 
 class ButtonItemListRequisition extends StatelessWidget {
   const ButtonItemListRequisition(
-      {super.key, this.title = '', required this.callback, this.check = false, required this.colorText, required this.background});
+      {super.key,
+      this.title = '',
+      required this.callback,
+      this.check = false,
+      required this.colorText,
+      required this.background});
 
   final String title;
   final VoidCallback callback;
@@ -19,7 +24,7 @@ class ButtonItemListRequisition extends StatelessWidget {
       onTap: () => callback.call(),
       child: Container(
         width: SpacingUnit.x23,
-        margin: const EdgeInsets.all(SpacingUnit.x2),
+        // margin: const EdgeInsets.all(SpacingUnit.x2),
         padding: const EdgeInsets.all(SpacingUnit.x2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SpacingUnit.x3),
@@ -30,10 +35,9 @@ class ButtonItemListRequisition extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: colorText,
-              fontSize: check ? SpacingUnit.x5 : SpacingUnit.x3_5,
-              fontWeight: FontWeight.w500
-            ),
+                color: colorText,
+                fontSize: check ? SpacingUnit.x5 : SpacingUnit.x3_5,
+                fontWeight: FontWeight.w500),
           ),
         ),
       ),

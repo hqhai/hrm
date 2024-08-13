@@ -4,7 +4,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/leave/list_leave.dart';
 import 'package:base_app/presentations/widgets/activate/leave/list_leave_history.dart';
-import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
@@ -37,6 +37,7 @@ class _LeavePageState extends State<LeavePage> with TickerProviderStateMixin {
     final colors = AppTheme.getColors(context);
     final height = MediaQuery.sizeOf(context).height;
     return Scaffold(
+      backgroundColor: colors.scaffoldBackground,
       appBar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
         title: Text(
@@ -48,40 +49,46 @@ class _LeavePageState extends State<LeavePage> with TickerProviderStateMixin {
         ),
       ),
       body: SingleChildScrollView(
-        child: ContainerScreenMain(
-          child: SizedBox(
-            height: height * 0.8,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TabBar(
-                  controller: _tabController,
-                  tabs: ItemUtils.titlesTabBar(context)
-                      .map(
-                        (element) => Tab(
-                          child: Text(
-                            element,
-                            style: TextStyle(
-                                color: colors.text, fontSize: SpacingUnit.x4),
-                          ),
+        child: SizedBox(
+          height: height * 0.8,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                  color: colors.background,
+                  child: TabBar(
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    dividerColor: colors.textLight.withOpacity(0.1),
+                    dividerHeight: 0.1,
+                    indicatorColor: colors.textLight,
+                    controller: _tabController,
+                    tabs: ItemUtils.titlesTabBar(context)
+                        .mapIndexed((index, element) {
+                      final isActive = index == _tabController.index;
+                      return Tab(
+                        child: Text(
+                          element,
+                          style: TextStyle(
+                              fontWeight: isActive ? FontWeight.w600 : null,
+                              color: isActive ? colors.text : colors.textLight,
+                              fontSize: SpacingUnit.x4),
                         ),
-                      )
-                      .toList(),
-                ),
-                Expanded(
-                  flex: 7,
-                  child: SizedBox(
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: const [
-                        ListLeaveWidget(),
-                        ListLeaveHistoryWidget(),
-                      ],
-                    ),
+                      );
+                    }).toList(),
+                  )),
+              Expanded(
+                flex: 7,
+                child: SizedBox(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      ListLeaveWidget(),
+                      ListLeaveHistoryWidget(),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

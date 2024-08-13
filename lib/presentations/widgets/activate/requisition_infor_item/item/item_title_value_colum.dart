@@ -36,7 +36,7 @@ class ItemTitleValueColum extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: SpacingUnit.x3),
             child: ContainerBorder(
-              padding: SpacingUnit.x4,
+              paddingVertical: SpacingUnit.x4,
               width: width,
               marginTop: 0,
               borderColors: colors.text.withOpacity(0.2),

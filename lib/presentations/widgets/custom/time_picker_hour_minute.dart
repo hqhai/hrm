@@ -7,7 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class TimePickerHourMinute extends StatefulWidget {
-  const TimePickerHourMinute({super.key, required this.onChange, this.timeSlot = ''});
+  const TimePickerHourMinute(
+      {super.key, required this.onChange, this.timeSlot = ''});
 
   final ValueChanged<String> onChange;
   final String timeSlot;
@@ -23,7 +24,8 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
     if (widget.timeSlot.isNotEmpty) {
       DateTime parsedTime = formatDateHM(widget.timeSlot);
       setState(() {
-        selectedTime = TimeOfDay.fromDateTime(DateTime.parse(parsedTime.toString()));
+        selectedTime =
+            TimeOfDay.fromDateTime(DateTime.parse(parsedTime.toString()));
       });
       return selectedTime;
     }
@@ -36,15 +38,19 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
     return GestureDetector(
       child: ContainerBorder(
         borderColors: colors.text.withOpacity(0.4),
-        padding: SpacingUnit.x4,
+        paddingVertical: SpacingUnit.x4,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               timeOfDay() != null
                   ? formatHM(
-                      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,
-                              selectedTime!.hour, selectedTime!.minute)
+                      DateTime(
+                              DateTime.now().year,
+                              DateTime.now().month,
+                              DateTime.now().day,
+                              selectedTime!.hour,
+                              selectedTime!.minute)
                           .toString(),
                     )
                   : formatHM(
@@ -54,7 +60,8 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
             ),
             SvgPicture.asset(
               Assets.images.icon.home.mingcuteTimeLine,
-              colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                  colors.text.withOpacity(0.4), BlendMode.srcIn),
             ),
           ],
         ),
@@ -84,11 +91,16 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
           if (time != null) {
             setState(() {});
             selectedTime = time;
-            DateTime dateTime = DateTime(DateTime.now().year, DateTime.now().month,
-                DateTime.now().day, selectedTime!.hour, selectedTime!.minute);
+            DateTime dateTime = DateTime(
+                DateTime.now().year,
+                DateTime.now().month,
+                DateTime.now().day,
+                selectedTime!.hour,
+                selectedTime!.minute);
             widget.onChange(formatHMS(dateTime.toString()));
           } else {
-            selectedTime = TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
+            selectedTime = TimeOfDay(
+                hour: DateTime.now().hour, minute: DateTime.now().minute);
             widget.onChange(formatHMS(DateTime.now().toString()));
           }
         });

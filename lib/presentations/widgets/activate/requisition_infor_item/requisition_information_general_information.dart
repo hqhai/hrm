@@ -57,7 +57,7 @@ class _RequisitionInformationGeneraliInformationState
                   RequestInformationTitleValue(
                     size: SpacingUnit.x4,
                     title: appLocalizations.status,
-                    value: state.requisition.status.configRequestStatusName,
+                    value: state.requisition.status.getAppLocalizationName,
                   ),
                   RequestInformationTitleValue(
                     size: SpacingUnit.x4,

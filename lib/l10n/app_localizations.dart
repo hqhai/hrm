@@ -207,6 +207,12 @@ abstract class AppLocalizations {
   /// **'Strong'**
   String get strong;
 
+  /// No description provided for @statusRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get statusRequest;
+
   /// No description provided for @atLeastEightCharacters.
   ///
   /// In en, this message translates to:

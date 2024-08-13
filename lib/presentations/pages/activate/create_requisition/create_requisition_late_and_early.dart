@@ -153,7 +153,7 @@ class _CreateRequisitionLateAndEarlyPageState
                         onTap: () => _showBottomSheet(context),
                         child: ContainerBorder(
                           marginTop: 0,
-                          padding: SpacingUnit.x4,
+                          paddingVertical: SpacingUnit.x4,
                           borderColors: colors.outline.withOpacity(0.3),
                           width: width,
                           child: Text(

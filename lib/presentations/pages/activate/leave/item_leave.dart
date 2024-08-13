@@ -17,7 +17,8 @@ class ItemLeave extends StatelessWidget {
   final TypeLeaveEnum type;
 
   UserLeaveHistoryTypes userLeaveHistoryTypes(UserLeave userLeave) {
-    int index = userLeave.userLeaveHistoryTypes.indexWhere((element) => element.type == type);
+    int index = userLeave.userLeaveHistoryTypes
+        .indexWhere((element) => element.type == type);
     if (type == TypeLeaveEnum.total) {
       return UserLeaveHistoryTypes(
         type: type,
@@ -40,6 +41,9 @@ class ItemLeave extends StatelessWidget {
       builder: (context, state) {
         final leave = userLeaveHistoryTypes(state.userLeave);
         return ContainerBorder(
+          widthBorder: 0,
+          borderColors: colors.background,
+          backgroundColors: colors.background,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

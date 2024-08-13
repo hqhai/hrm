@@ -62,6 +62,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get strong => 'Mạnh';
 
   @override
+  String get statusRequest => 'Trạng thái';
+
+  @override
   String get atLeastEightCharacters => 'Ít nhất 8 ký tự';
 
   @override

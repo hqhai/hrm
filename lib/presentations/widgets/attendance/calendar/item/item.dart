@@ -59,70 +59,68 @@ class ItemCalender extends StatelessWidget {
           ),
           child: ContainerBorder(
             marginTop: 0,
-            padding: 0,
+            paddingVertical: 0,
+            paddingHorizontal: 0,
             circular: 0,
             widthBorder: 0.5,
             borderColors: colors.outlineVariant.withOpacity(0.2),
-            child: Padding(
-              padding: const EdgeInsets.all(SpacingUnit.x1),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      padding: const EdgeInsets.all(SpacingUnit.x1),
-                      margin: const EdgeInsets.only(
-                          top: SpacingUnit.x1, bottom: SpacingUnit.x3),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(SpacingUnit.x10),
-                        color: isNowDate ? colors.primary : Colors.transparent,
-                      ),
-                      child: Text(
-                        date.day.toString(),
-                        style: TextStyle(
-                          color: _colorText(context),
-                          fontSize: SpacingUnit.x3_5,
-                        ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    padding: const EdgeInsets.all(SpacingUnit.x1),
+                    margin: const EdgeInsets.only(
+                        top: SpacingUnit.x1, bottom: SpacingUnit.x3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(SpacingUnit.x10),
+                      color: isNowDate ? colors.primary : Colors.transparent,
+                    ),
+                    child: Text(
+                      date.day.toString(),
+                      style: TextStyle(
+                        color: _colorText(context),
+                        fontSize: SpacingUnit.x3_5,
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: value(context, userWorkingHistoryModel),
-                  ),
-                  Expanded(
-                    child: check(userWorkingHistoryModel)
-                        ? SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: userWorkingHistoryModel!.status
-                                  .mapIndexed(
-                                    (index, element) => Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            SpacingUnit.x2),
-                                        color: _color(context, index,
-                                            userWorkingHistoryModel.status),
-                                      ),
-                                      margin:
-                                          const EdgeInsetsDirectional.symmetric(
-                                              horizontal: SpacingUnit.x0_5,
-                                              vertical: SpacingUnit.x2),
-                                      width: SpacingUnit.x1_5,
-                                      height: SpacingUnit.x1_5,
+                ),
+                Expanded(
+                  flex: 3,
+                  child: value(context, userWorkingHistoryModel),
+                ),
+                Expanded(
+                  child: check(userWorkingHistoryModel)
+                      ? SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: userWorkingHistoryModel!.status
+                                .mapIndexed(
+                                  (index, element) => Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(SpacingUnit.x2),
+                                      color: _color(context, index,
+                                          userWorkingHistoryModel.status),
                                     ),
-                                  )
-                                  .toList(),
-                            ),
-                          )
-                        : const SizedBox(),
-                  )
-                ],
-              ),
+                                    margin:
+                                        const EdgeInsetsDirectional.symmetric(
+                                            horizontal: SpacingUnit.x0_5,
+                                            vertical: SpacingUnit.x2),
+                                    width: SpacingUnit.x1_5,
+                                    height: SpacingUnit.x1_5,
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        )
+                      : const SizedBox(),
+                )
+              ],
             ),
           ),
         );
@@ -216,16 +214,11 @@ class ItemCalender extends StatelessWidget {
                 fontSize: SpacingUnit.x2_5,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: SpacingUnit.x1,
-              ),
-              child: Text(
-                userWorkingHistoryModel?.checkIn != null ? '-' : '',
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x3,
-                ),
+            Text(
+              userWorkingHistoryModel?.checkIn != null ? '-' : '',
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x3,
               ),
             ),
             Text(

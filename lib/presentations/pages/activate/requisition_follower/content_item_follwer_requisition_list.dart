@@ -12,8 +12,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ContentItemRequestFollowerList extends StatelessWidget {
-
-  const ContentItemRequestFollowerList({super.key, required this.id,});
+  const ContentItemRequestFollowerList({
+    super.key,
+    required this.id,
+  });
 
   final String id;
 
@@ -36,7 +38,9 @@ class ContentItemRequestFollowerList extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                      fontWeight: FontWeight.w700),
                 ),
                 Icon(
                   Icons.chevron_right,
@@ -71,9 +75,14 @@ class ContentItemRequestFollowerList extends StatelessWidget {
               height: SpacingUnit.x2,
             ),
             AppIconStatus(
-              color: statusRequest(context: context, status: request?.status?? StatusRequestEnum.process)['color'],
-              icon: statusRequest(context: context, status: request?.status?? StatusRequestEnum.process)['icon'],
-              status: request?.status.configRequestStatusName ?? "",
+              color: statusRequest(
+                  context: context,
+                  status:
+                      request?.status ?? StatusRequestEnum.process)['color'],
+              icon: statusRequest(
+                  context: context,
+                  status: request?.status ?? StatusRequestEnum.process)['icon'],
+              status: request?.status.getAppLocalizationName ?? "",
             ),
           ],
         );

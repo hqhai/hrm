@@ -87,7 +87,7 @@ enum EnumReasonLeave {
   const EnumReasonLeave(this.name);
 }
 
-extension ConfigEnumTakeLeaveExtension on EnumReasonLeave {
+extension ConfigEnumTakeLeaveExtension on EnumReasonLeave  {
   String get configEnumTakeLeaveName {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
@@ -170,7 +170,7 @@ enum StatusRequestEnum {
 }
 
 extension ConfigRequestStatusExtension on StatusRequestEnum {
-  String get configRequestStatusName {
+  String get getAppLocalizationName {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
     switch (this) {
@@ -335,7 +335,8 @@ enum RequisitionTypeExplanationEnum {
   const RequisitionTypeExplanationEnum(this.name);
 }
 
-extension ConfigRequisitionTypeExplanationExtension on RequisitionTypeExplanationEnum {
+extension ConfigRequisitionTypeExplanationExtension
+    on RequisitionTypeExplanationEnum {
   String get configRequisitionTypeExplanationName {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;

@@ -9,7 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class MonthYearPicker extends StatefulWidget {
-  const MonthYearPicker({super.key, required this.onChange, this.timeOld, this.title});
+  const MonthYearPicker(
+      {super.key, required this.onChange, this.timeOld, this.title});
 
   final ValueChanged<DateTime> onChange;
   final DateTime? timeOld;
@@ -42,12 +43,16 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
           Text(
             '${widget.title ?? appLocalizations.time}  ',
             style: TextStyle(
-                color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w600),
+                color: colors.text,
+                fontSize: SpacingUnit.x5,
+                fontWeight: FontWeight.w600),
           ),
           GestureDetector(
             onTap: () => dialog(context),
             child: ContainerBorder(
-              padding: SpacingUnit.x4,
+              backgroundColors: colors.background,
+              marginTop: SpacingUnit.x2,
+              // padding: SpacingUnit.x4,
               borderColors: colors.text.withOpacity(0.4),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +66,8 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
                   ),
                   SvgPicture.asset(
                     Assets.images.icon.home.bottomBar.calendar,
-                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        colors.text.withOpacity(0.4), BlendMode.srcIn),
                   ),
                 ],
               ),

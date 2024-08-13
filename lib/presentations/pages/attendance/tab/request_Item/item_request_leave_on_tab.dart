@@ -49,7 +49,8 @@ class _ItemRequestOnTabState extends State<ItemRequestOnTab> {
               ),
               TitleValueLeave(
                 title: appLocalizations.intervalOnLeave,
-                value: intervalOnLeave(request.config.startDate, request.config.endDate),
+                value: intervalOnLeave(
+                    request.config.startDate, request.config.endDate),
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
                 font: FontWeight.w600,
@@ -71,6 +72,13 @@ class _ItemRequestOnTabState extends State<ItemRequestOnTab> {
               TitleValueLeave(
                 title: appLocalizations.totalLeaveWork,
                 value: (request.config.numberValue ?? 0).toString(),
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+                font: FontWeight.w600,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.statusRequest,
+                value: request.status.getAppLocalizationName,
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
                 font: FontWeight.w600,
