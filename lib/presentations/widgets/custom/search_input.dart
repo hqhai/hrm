@@ -23,18 +23,8 @@ class _SearchInputState extends State<SearchInput> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x3_5),
-          child: Text(
-            appLocalizations.search,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-            ),
-          ),
-        ),
         SizedBox(
-          width: width * 0.6,
+          width: width - SpacingUnit.x10,
           child: TextField(
             controller: searchController,
             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),

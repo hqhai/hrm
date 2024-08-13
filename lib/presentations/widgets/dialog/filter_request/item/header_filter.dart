@@ -22,7 +22,7 @@ class HeaderFilter extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2_5),
             child: Icon(
               Icons.close,
-              size: SpacingUnit.x8,
+              size: SpacingUnit.x3_5,
               color: colors.text,
             ),
           ),
@@ -33,7 +33,7 @@ class HeaderFilter extends StatelessWidget {
             title ?? appLocalizations.filter,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: SpacingUnit.x6,
+              fontSize: SpacingUnit.x4,
               fontWeight: FontWeight.w600,
             ),
           ),

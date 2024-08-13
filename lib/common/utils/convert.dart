@@ -169,7 +169,7 @@ DateTime formatDateHM(String time) {
 ///Định dạng Năm Tháng
 String formatYM(int year, int month) {
   DateTime dateTime = DateTime(year, month);
-  return DateFormat('yyyy-MM').format(dateTime);
+  return DateFormat('MM/yyyy').format(dateTime);
 }
 
 ///Gừi local

@@ -3,11 +3,10 @@ import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/common/item_selected.dart';
 import 'package:base_app/presentations/widgets/dialog/filter_request/item/header_filter.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:themes/themes.dart';
 
 class BottomSheetTimeKeepingTypeWidget extends StatefulWidget {
   const BottomSheetTimeKeepingTypeWidget({
@@ -26,7 +25,6 @@ class _BottomSheetTimeKeepingTypeWidgetState
     extends State<BottomSheetTimeKeepingTypeWidget> {
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -44,32 +42,9 @@ class _BottomSheetTimeKeepingTypeWidgetState
                 .where((e) => e != EditTimekeeping.editTimekeeping)
                 .mapIndexed(
                   (index, element) => GestureDetector(
-                    onTap: () => addType(type: element),
-                    child: ContainerBorder(
-                      backgroundColors: colors.background,
-                      borderColors: colors.background,
-                      paddingVertical: SpacingUnit.x4,
-                      marginTop: SpacingUnit.x4,
-                      child: Row(
-                        children: [
-                          Text(
-                            '${index + 1}.    ',
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x4,
-                            ),
-                          ),
-                          Text(
-                            element.configEditTimekeepingName,
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                      onTap: () => addType(type: element),
+                      child: ItemSelected(
+                          label: element.configEditTimekeepingName)),
                 )
                 .toList(),
           ),

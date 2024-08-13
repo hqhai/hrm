@@ -8,6 +8,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_state.dart';
+import 'package:base_app/presentations/widgets/common/item_selected.dart';
 import 'package:base_app/presentations/widgets/custom/search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +55,10 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       listener: (context, state) => _listener(context, state),
       builder: (context, state) {
         return Container(
-          color: colors.text.withOpacity(0.1),
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(SpacingUnit.x2),
+                  bottomRight: Radius.circular(SpacingUnit.x2))),
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -65,40 +69,20 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                       SearchInput(onChange: (value) => _onChangeSearch(value)),
                 ),
                 Expanded(
-                  child: SizedBox(
-                    child: ListView.builder(
-                      controller: controller,
-                      itemCount: state.usersByName.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => addListPerson(
-                            user: state.usersByName[index],
-                            listValueByIndex: state.usersByName[index].id),
-                        child: Container(
-                          padding: const EdgeInsets.all(SpacingUnit.x4),
-                          margin: const EdgeInsets.all(SpacingUnit.x2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                            color:
-                                listPerson.contains(state.usersByName[index].id)
-                                    ? colors.success
-                                    : colors.background,
-                            border: Border.all(
-                              color: colors.background,
-                              width: 1,
-                            ),
-                          ),
-                          child: Text(
-                            state.usersByName[index].fullName,
-                            style: TextStyle(
-                              color: colors.text,
-                              fontSize: SpacingUnit.x4,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                    child: SizedBox(
+                        child: ListView.builder(
+                            controller: controller,
+                            itemCount: state.usersByName.length,
+                            itemBuilder: (context, index) => GestureDetector(
+                                onTap: () => addListPerson(
+                                    user: state.usersByName[index],
+                                    listValueByIndex:
+                                        state.usersByName[index].id),
+                                child: ItemSelected(
+                                  label: state.usersByName[index].fullName,
+                                  isActive: listPerson
+                                      .contains(state.usersByName[index].id),
+                                ))))),
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   child: AppButton(
