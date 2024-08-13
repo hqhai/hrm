@@ -64,14 +64,11 @@ class _LeavePageState extends State<LeavePage> with TickerProviderStateMixin {
                     controller: _tabController,
                     tabs: ItemUtils.titlesTabBar(context)
                         .mapIndexed((index, element) {
-                      final isActive = index == _tabController.index;
                       return Tab(
                         child: Text(
                           element,
                           style: TextStyle(
-                              fontWeight: isActive ? FontWeight.w600 : null,
-                              color: isActive ? colors.text : colors.textLight,
-                              fontSize: SpacingUnit.x4),
+                              color: colors.text, fontSize: SpacingUnit.x4),
                         ),
                       );
                     }).toList(),

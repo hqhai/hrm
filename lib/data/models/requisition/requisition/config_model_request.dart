@@ -20,7 +20,7 @@ class ConfigModelRequest {
   final EnumReasonLeave? takeLeaveReason;
   final double? numberValue;
   final EditTimekeeping? editTimekeeping;
-  final List<String>? subtitudePersons;
+  final List<String>? substitutesPersons;
   final List<String>? attachments;
   final String? content;
   final String? vehicle;
@@ -44,36 +44,35 @@ class ConfigModelRequest {
   final int? startTime;
   final int? endTime;
 
-  const ConfigModelRequest({
-    this.editTimekeeping,
-    this.overTimes,
-    this.flowId,
-    this.description,
-    this.attachments,
-    this.stationeries,
-    this.totalAmount,
-    this.subtotal,
-    this.numberValue,
-    this.deliveryType,
-    this.subtitudePersons,
-    this.destination,
-    this.vehicle,
-    this.content,
-    this.endDate,
-    this.startDate,
-    this.explanationReason,
-    this.takeLeaveReason,
-    this.total,
-    this.warehourseReleaseds,
-    this.socialInsuranceLeave,
-    this.reasonLeave,
-    this.takeLeaveType,
-    this.workShiftSettings,
-    this.explanations,
-    this.reason,
-    this.endTime,
-    this.startTime
-  });
+  const ConfigModelRequest(
+      {this.editTimekeeping,
+      this.overTimes,
+      this.flowId,
+      this.description,
+      this.attachments,
+      this.stationeries,
+      this.totalAmount,
+      this.subtotal,
+      this.numberValue,
+      this.deliveryType,
+      this.substitutesPersons,
+      this.destination,
+      this.vehicle,
+      this.content,
+      this.endDate,
+      this.startDate,
+      this.explanationReason,
+      this.takeLeaveReason,
+      this.total,
+      this.warehourseReleaseds,
+      this.socialInsuranceLeave,
+      this.reasonLeave,
+      this.takeLeaveType,
+      this.workShiftSettings,
+      this.explanations,
+      this.reason,
+      this.endTime,
+      this.startTime});
 
   factory ConfigModelRequest.fromJson(Map<String, dynamic> json) =>
       _$ConfigModelRequestFromJson(json);

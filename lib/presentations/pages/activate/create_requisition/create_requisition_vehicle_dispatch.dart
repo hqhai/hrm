@@ -252,7 +252,7 @@ class _CreateRequestVehicleDispatchPageState
               content: contentController.text,
               endDate: endTime,
               startDate: startTime,
-              subtitudePersons: subtitudePersons,
+              substitutesPersons: subtitudePersons,
             ),
           )
         : PostRequestRequest(
@@ -264,7 +264,7 @@ class _CreateRequestVehicleDispatchPageState
               content: contentController.text,
               endDate: endTime,
               startDate: startTime,
-              subtitudePersons: subtitudePersons,
+              substitutesPersons: subtitudePersons,
             ),
           );
   }
