@@ -94,27 +94,27 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
-                      fontWeight: FontWeight.w600
-                    ),
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 Expanded(
                   child: ListView.builder(
-                          controller: controller,
-                          itemCount: state.flows.length,
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () => _nextScreen(
-                              context,
-                              state.flows[index],
-                            ),
-                            child: item(
-                              title: state.flows[index].flowType?.configTypeName ?? "",
-                              context: context,
-                            ),
-                          ),
-                        ),
+                    controller: controller,
+                    itemCount: state.flows.length,
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () => _nextScreen(
+                        context,
+                        state.flows[index],
+                      ),
+                      child: item(
+                        title:
+                            state.flows[index].flowType?.configTypeName ?? "",
+                        context: context,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -165,6 +165,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           ),
         ),
         Divider(
+          height: 1,
           color: colors.text.withOpacity(0.2),
         )
       ],
@@ -180,7 +181,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     final extraData = informationRequestExtra.toJson();
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final Completer completer = Completer<bool>();
-    dI<FlowBloc>().add(GetFlowEvent(id: informationRequestExtra.flowId, completer: completer));
+    dI<FlowBloc>().add(
+        GetFlowEvent(id: informationRequestExtra.flowId, completer: completer));
     final checkCompleter = await completer.future;
     if (type != null && checkCompleter) {
       extraData.addAll({'type': type});

@@ -41,7 +41,6 @@ class _TimePickerState extends State<TimePicker> {
         showTimePicker(setStartTimeOld());
       },
       child: Container(
-        padding: const EdgeInsets.all(4),
         height: SpacingUnit.x14,
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -56,11 +55,13 @@ class _TimePickerState extends State<TimePicker> {
                 children: [
                   Text(
                     DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
-                    style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                    style:
+                        TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
                   ),
                   Text(
                     DateFormat('HH:mm:ss').format(setStartTimeOld()),
-                    style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                    style:
+                        TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
                   ),
                 ],
               )
@@ -73,13 +74,15 @@ class _TimePickerState extends State<TimePicker> {
                       children: [
                         Text(
                           DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
-                          style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                          style: TextStyle(
+                              fontSize: SpacingUnit.x4, color: colors.text),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: SpacingUnit.x4),
                           child: Text(
                             DateFormat('HH:mm:ss').format(setStartTimeOld()),
-                            style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                            style: TextStyle(
+                                fontSize: SpacingUnit.x4, color: colors.text),
                           ),
                         ),
                       ],

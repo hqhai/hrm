@@ -13,11 +13,11 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_common/item_create_time_start_and_end.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
@@ -38,20 +38,27 @@ final createRequestVehicleDispatchPageRoute = GoRoute(
     });
 
 class CreateRequestVehicleDispatchPage extends StatefulWidget {
-  const CreateRequestVehicleDispatchPage({super.key, this.flowId, this.requestId = ''});
+  const CreateRequestVehicleDispatchPage(
+      {super.key, this.flowId, this.requestId = ''});
 
   final String? flowId;
   final String requestId;
 
   @override
-  State<CreateRequestVehicleDispatchPage> createState() => _CreateRequestVehicleDispatchPageState();
+  State<CreateRequestVehicleDispatchPage> createState() =>
+      _CreateRequestVehicleDispatchPageState();
 }
 
-class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleDispatchPage> {
+class _CreateRequestVehicleDispatchPageState
+    extends State<CreateRequestVehicleDispatchPage> {
   final TextEditingController descriptionController = TextEditingController(),
       contentController = TextEditingController();
   double totalMinute = 0;
-  String errorTime = '', errorSchedule = '', errorContent = '', errorSubtitude = '', errorDialog = '';
+  String errorTime = '',
+      errorSchedule = '',
+      errorContent = '',
+      errorSubtitude = '',
+      errorDialog = '';
   String? description, content;
   DateTime? startTime, endTime;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
@@ -78,15 +85,19 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkTime =
-        totalMinute > 0 || (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
+    final bool checkTime = totalMinute > 0 ||
+        (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
     final bool checkDescription = description != '' && description != null;
     final bool checkContent = content != '' && content != null;
-    final bool check = checkDescription && checkContent && subtitudePersons.isNotEmpty;
+    final bool check =
+        checkDescription && checkContent && subtitudePersons.isNotEmpty;
     setState(() {
-      errorSubtitude = subtitudePersons.isNotEmpty ? '' : appLocalizations.cannotBeLeftBlank;
-      errorTime = !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
-      errorSchedule = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorSubtitude =
+          subtitudePersons.isNotEmpty ? '' : appLocalizations.cannotBeLeftBlank;
+      errorTime =
+          !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
+      errorSchedule =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
       errorContent = checkContent ? '' : appLocalizations.cannotBeLeftBlank;
     });
 
@@ -94,7 +105,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
@@ -136,7 +148,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                     ),
                     ItemCreateFollower(
                       error: errorSubtitude,
-                      listFollower: _setListUser(stateUserById.subtitudePersons),
+                      listFollower:
+                          _setListUser(stateUserById.subtitudePersons),
                       title: appLocalizations.walker,
                       onChange: (value) => _setWalker(value),
                     ),
@@ -146,6 +159,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                       title: appLocalizations.schedule,
                       onChange: (value) => _setSchedule(value),
                     ),
+                    const SizedBox(height: SpacingUnit.x4),
                     ItemCreateTimeStartAndEnd(
                       title1: appLocalizations.timeStart,
                       title2: appLocalizations.timeEnd,
@@ -258,9 +272,11 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(),
       completerSuccess: () => completerSuccess(),
@@ -282,8 +298,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       title: errorDialog.isNotEmpty
           ? errorDialog
           : widget.requestId.isNotEmpty
-          ? appLocalizations.editRequestUnsuccessful
-          : appLocalizations.createRequestFailed,
+              ? appLocalizations.editRequestUnsuccessful
+              : appLocalizations.createRequestFailed,
     );
   }
 

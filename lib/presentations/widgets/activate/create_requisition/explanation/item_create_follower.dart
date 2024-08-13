@@ -82,6 +82,7 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
             GestureDetector(
               onTap: () => _add(context),
               child: ContainerBorder(
+                marginTop: 8,
                 borderColors: colors.text.withOpacity(0.4),
                 width: width,
                 padding: SpacingUnit.x4,

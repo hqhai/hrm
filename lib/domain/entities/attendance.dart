@@ -127,25 +127,47 @@ class Attendance {
     this.userWorkingHistories = const [],
   });
 
-  factory Attendance.fromJson(Map<String, dynamic> json) => _$AttendanceFromJson(json);
+  factory Attendance.fromJson(Map<String, dynamic> json) =>
+      _$AttendanceFromJson(json);
 
   Map<String, dynamic> toJson() => _$AttendanceToJson(this);
 
-
-
   List<String> toListString() {
     return [
-      realRate.toString(),///Công chuẩn
-      actualRate.toString(),///Công thực tế
-      leaveRate.toString(),///Công nghỉ
-      holidayRate.toString(),///Công nghỉ lễ
-      noSalaryRate.toString(),///Nghỉ không lương
-      overTime.toString(),///Số giờ OT
-      Duration(seconds: workTimeActual).inHours.toString(),///Số giờ làm việc
-      Duration(seconds: timeLate).inMinutes.toString(),///Số phút đi muôn
-      Duration(seconds: timeEarly).inMinutes.toString(),///Số phút về sớm
-      countEarly.toString(),///Số lần về sớm
-      countLate.toString(),///Số lần đi muộn
+      realRate.toString(),
+
+      ///Công chuẩn
+      actualRate.toString(),
+
+      ///Công thực tế
+      leaveRate.toString(),
+
+      ///Công nghỉ
+      holidayRate.toString(),
+
+      ///Công nghỉ lễ
+      salaryWork.toString(),
+      noSalaryRate.toString(),
+
+      ///Nghỉ không lương
+      overTime.toString(),
+
+      ///Số giờ OT
+      Duration(seconds: workTimeActual).inHours.toString(),
+
+      ///Số giờ làm việc
+      Duration(seconds: timeLate).inMinutes.toString(),
+
+      ///Số phút đi muôn
+      Duration(seconds: timeEarly).inMinutes.toString(),
+
+      ///Số phút về sớm
+      countEarly.toString(),
+
+      ///Số lần về sớm
+      countLate.toString(),
+
+      ///Số lần đi muộn
     ];
   }
 }

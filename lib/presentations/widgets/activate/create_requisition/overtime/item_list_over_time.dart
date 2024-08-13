@@ -34,7 +34,7 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
     final appLocalizations = AppLocalizations.of(context)!;
     return ContainerBorder(
       padding: SpacingUnit.x2_5,
-      margin: SpacingUnit.x2_5,
+      marginTop: SpacingUnit.x2_5,
       borderColors: colors.text.withOpacity(0.3),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -43,7 +43,8 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
         children: [
           ItemTitleValueNoBorder(
             title: appLocalizations.date,
-            value: formatYMD((widget.requisitionOverTime.date ?? "").toString()),
+            value:
+                formatYMD((widget.requisitionOverTime.date ?? "").toString()),
             size: SpacingUnit.x4,
           ),
           ItemTitleValueNoBorder(
@@ -59,13 +60,17 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
           if (!widget.checkNotOT)
             ItemTitleValueNoBorder(
               title: appLocalizations.totalOTHours,
-              value: strSeconds((widget.requisitionOverTime.suggestTime ?? 0).toInt()) ?? "",
+              value: strSeconds(
+                      (widget.requisitionOverTime.suggestTime ?? 0).toInt()) ??
+                  "",
               size: SpacingUnit.x4,
             ),
           if (!widget.checkNotOT)
             Padding(
               padding: const EdgeInsets.only(
-                  left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
+                  left: SpacingUnit.x1,
+                  top: SpacingUnit.x2,
+                  bottom: SpacingUnit.x2),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -85,13 +90,16 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
                       showNote
                           ? Assets.images.icon.home.chevronForward
                           : Assets.images.icon.activateIcon.drop,
-                      colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                      colorFilter: ColorFilter.mode(
+                          colors.text.withOpacity(0.4), BlendMode.srcIn),
                     ),
                   ),
                 ],
               ),
             ),
-          if (showNote && widget.requisitionOverTime.note != null && !widget.checkNotOT)
+          if (showNote &&
+              widget.requisitionOverTime.note != null &&
+              !widget.checkNotOT)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
               child: Text(

@@ -24,8 +24,10 @@ class ItemCalenderDialog extends StatelessWidget {
     required this.checkEnd,
   });
 
-  UserWorkingHistoryModel? userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
-    final int index = list.indexWhere((element) => element.date?.isAtSameMomentAs(date) ?? false);
+  UserWorkingHistoryModel? userWorkingHistoryModelByDate(
+      List<UserWorkingHistoryModel> list) {
+    final int index = list
+        .indexWhere((element) => element.date?.isAtSameMomentAs(date) ?? false);
     if (index != -1) {
       return list[index];
     }
@@ -51,7 +53,7 @@ class ItemCalenderDialog extends StatelessWidget {
           ],
         ),
         ContainerBorder(
-          margin: 0,
+          marginTop: 0,
           padding: 0,
           circular: SpacingUnit.x10,
           widthBorder: 0.5,

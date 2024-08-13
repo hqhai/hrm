@@ -14,7 +14,8 @@ class BottomSheetDeliveryWidget extends StatefulWidget {
   final ValueChanged<RequisitionDeliveryTypeEnum> onChange;
 
   @override
-  State<BottomSheetDeliveryWidget> createState() => _BottomSheetDeliveryWidgetState();
+  State<BottomSheetDeliveryWidget> createState() =>
+      _BottomSheetDeliveryWidgetState();
 }
 
 class _BottomSheetDeliveryWidgetState extends State<BottomSheetDeliveryWidget> {
@@ -22,7 +23,9 @@ class _BottomSheetDeliveryWidgetState extends State<BottomSheetDeliveryWidget> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding: const EdgeInsets.all(SpacingUnit.x5,),
+      padding: const EdgeInsets.all(
+        SpacingUnit.x5,
+      ),
       child: Column(
           mainAxisSize: MainAxisSize.min,
           children: RequisitionDeliveryTypeEnum.values
@@ -31,7 +34,7 @@ class _BottomSheetDeliveryWidgetState extends State<BottomSheetDeliveryWidget> {
                   onTap: () => addType(type: element),
                   child: ContainerBorder(
                     padding: SpacingUnit.x2,
-                    margin: SpacingUnit.x2,
+                    marginTop: SpacingUnit.x2,
                     child: Row(
                       children: [
                         Text(

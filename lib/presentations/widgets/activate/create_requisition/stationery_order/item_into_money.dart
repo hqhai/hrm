@@ -27,7 +27,7 @@ class ItemIntoMoney extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
             child: ContainerBorder(
               width: width,
-              margin: SpacingUnit.x1,
+              marginTop: SpacingUnit.x1,
               child: Text(
                 content ?? "",
                 style: TextStyle(

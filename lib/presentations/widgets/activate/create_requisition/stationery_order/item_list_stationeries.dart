@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemListStationeries extends StatelessWidget {
-  const ItemListStationeries({super.key, this.stationeries, required this.index});
+  const ItemListStationeries(
+      {super.key, this.stationeries, required this.index});
 
   final Stationeries? stationeries;
   final int index;
@@ -28,7 +29,7 @@ class ItemListStationeries extends StatelessWidget {
         Expanded(
           child: ContainerBorder(
             padding: SpacingUnit.x2_5,
-            margin: SpacingUnit.x2_5,
+            marginTop: SpacingUnit.x2_5,
             borderColors: colors.text.withOpacity(0.5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,11 +40,13 @@ class ItemListStationeries extends StatelessWidget {
                   color: colors.text,
                 ),
                 item(
-                  value: '${appLocalizations.unit} : ${stationeries?.unit ?? ""}',
+                  value:
+                      '${appLocalizations.unit} : ${stationeries?.unit ?? ""}',
                   color: colors.text,
                 ),
                 item(
-                  value: '${appLocalizations.numberOf} : ${stationeries?.quantity}',
+                  value:
+                      '${appLocalizations.numberOf} : ${stationeries?.quantity}',
                   color: colors.text,
                 ),
               ],

@@ -1226,6 +1226,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get holidayWork => 'Holiday Work';
 
   @override
+  String get salaryWork => 'Salary Work';
+
+  @override
   String get noSalaryWork => 'No Salary Work';
 
   @override
@@ -1236,9 +1239,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timeLate => 'Time Late';
-
-  @override
-  String get salaryWork => 'Salary Work';
 
   @override
   String get realWork => 'Real Work';

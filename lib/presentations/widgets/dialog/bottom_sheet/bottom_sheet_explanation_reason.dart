@@ -18,10 +18,12 @@ class BottomSheetTimeKeepingTypeWidget extends StatefulWidget {
   final ValueChanged<EditTimekeeping> onChange;
 
   @override
-  State<BottomSheetTimeKeepingTypeWidget> createState() => _BottomSheetTimeKeepingTypeWidgetState();
+  State<BottomSheetTimeKeepingTypeWidget> createState() =>
+      _BottomSheetTimeKeepingTypeWidgetState();
 }
 
-class _BottomSheetTimeKeepingTypeWidgetState extends State<BottomSheetTimeKeepingTypeWidget> {
+class _BottomSheetTimeKeepingTypeWidgetState
+    extends State<BottomSheetTimeKeepingTypeWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -34,7 +36,8 @@ class _BottomSheetTimeKeepingTypeWidgetState extends State<BottomSheetTimeKeepin
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          HeaderFilter(callback: () => close(context), title: appLocalizations.reason),
+          HeaderFilter(
+              callback: () => close(context), title: appLocalizations.reason),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: EditTimekeeping.values
@@ -46,7 +49,7 @@ class _BottomSheetTimeKeepingTypeWidgetState extends State<BottomSheetTimeKeepin
                       backgroundColors: colors.background,
                       borderColors: colors.background,
                       padding: SpacingUnit.x4,
-                      margin: SpacingUnit.x4,
+                      marginTop: SpacingUnit.x4,
                       child: Row(
                         children: [
                           Text(

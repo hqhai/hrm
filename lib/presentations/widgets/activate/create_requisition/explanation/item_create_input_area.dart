@@ -10,7 +10,8 @@ class ItemCreateInputArea extends StatefulWidget {
       this.onChange,
       this.title = '',
       this.error = '',
-      this.maxLines, this.fontWeightTitle});
+      this.maxLines,
+      this.fontWeightTitle});
 
   final String title;
   final String? error;
@@ -27,43 +28,38 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: SpacingUnit.x2,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.title,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-              fontWeight: widget.fontWeightTitle?? FontWeight.w600,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.title,
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x4,
+            fontWeight: widget.fontWeightTitle ?? FontWeight.w600,
           ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: SpacingUnit.x2),
+          child: AppInputArea(
+            maxLines: widget.maxLines ?? 4,
+            placeHolder: widget.title,
+            controller: widget.textController,
+            onChange: (value) => _setOnChangeText(value),
+          ),
+        ),
+        if (widget.error?.isNotEmpty ?? false)
           Padding(
-            padding: const EdgeInsets.only(top: SpacingUnit.x3),
-            child: AppInputArea(
-              maxLines: widget.maxLines ?? 4,
-              placeHolder: widget.title,
-              controller: widget.textController,
-              onChange: (value) => _setOnChangeText(value),
-            ),
-          ),
-          if (widget.error?.isNotEmpty ?? false)
-            Padding(
-              padding: const EdgeInsets.only(bottom: SpacingUnit.x1),
-              child: Text(
-                widget.error ?? "",
-                style: TextStyle(
-                  color: colors.error,
-                  fontSize: SpacingUnit.x3,
-                ),
+            padding: const EdgeInsets.only(bottom: SpacingUnit.x1),
+            child: Text(
+              widget.error ?? "",
+              style: TextStyle(
+                color: colors.error,
+                fontSize: SpacingUnit.x3,
               ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 

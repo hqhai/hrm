@@ -2535,6 +2535,12 @@ abstract class AppLocalizations {
   /// **'Holiday Work'**
   String get holidayWork;
 
+  /// No description provided for @salaryWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary Work'**
+  String get salaryWork;
+
   /// No description provided for @noSalaryWork.
   ///
   /// In en, this message translates to:
@@ -2558,12 +2564,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Time Late'**
   String get timeLate;
-
-  /// No description provided for @salaryWork.
-  ///
-  /// In en, this message translates to:
-  /// **'Salary Work'**
-  String get salaryWork;
 
   /// No description provided for @realWork.
   ///

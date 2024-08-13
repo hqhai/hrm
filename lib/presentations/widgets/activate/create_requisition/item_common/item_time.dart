@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemTime extends StatelessWidget {
-  const ItemTime({super.key, required this.title, required this.setTime, required this.timeOld});
+  const ItemTime(
+      {super.key,
+      required this.title,
+      required this.setTime,
+      required this.timeOld});
 
   final String title;
   final ValueChanged<DateTime> setTime;
@@ -26,7 +30,7 @@ class ItemTime extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: SpacingUnit.x4,
+            height: SpacingUnit.x2,
           ),
           TimePicker(
             checkType: false,

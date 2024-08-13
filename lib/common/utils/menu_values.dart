@@ -31,7 +31,8 @@ class MenuValues {
       },
       {
         'text': appLocalizations.requestIsProcessing,
-        'icon': const Icon(Icons.hourglass_bottom, color: Colors.white, size: 30)
+        'icon':
+            const Icon(Icons.hourglass_bottom, color: Colors.white, size: 30)
       },
       {
         'text': appLocalizations.requestProcessed,
@@ -51,7 +52,10 @@ class MenuValues {
   static List<Map<String, dynamic>> menuUserSystemValues(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
-      {'text': 'Create Note', 'icon': const Icon(Icons.note, color: Colors.white, size: 30)},
+      {
+        'text': 'Create Note',
+        'icon': const Icon(Icons.note, color: Colors.white, size: 30)
+      },
       {
         'text': appLocalizations.calendar,
         'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)
@@ -67,7 +71,8 @@ class MenuValues {
     ];
   }
 
-  static List<Map<String, dynamic>> menuGeneralManagerValues(BuildContext context) {
+  static List<Map<String, dynamic>> menuGeneralManagerValues(
+      BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
       /*{
@@ -84,7 +89,8 @@ class MenuValues {
       },*/
       {
         'text': 'Chấm công',
-        'icon': const Icon(Icons.timelapse_outlined, color: Colors.white, size: 30)
+        'icon':
+            const Icon(Icons.timelapse_outlined, color: Colors.white, size: 30)
       },
       {
         'text': appLocalizations.workingTime,
@@ -100,7 +106,8 @@ class MenuValues {
       },
       {
         'text': appLocalizations.department,
-        'icon': const Icon(Icons.room_preferences, color: Colors.white, size: 30)
+        'icon':
+            const Icon(Icons.room_preferences, color: Colors.white, size: 30)
       },
       {
         'text': appLocalizations.changePassword,
@@ -132,11 +139,10 @@ class MenuValues {
   }
 
   static const List<Widget> widgetOptionsUser = <Widget>[
-    HomeWidget(),
     ActivateWidget(),
+    HomeWidget(),
     CalendarWorkWidget(),
     ProfileWidget(),
-
   ];
 
   static const List<Widget> widgetOptionsUserSystem = <Widget>[
@@ -253,8 +259,8 @@ class TitleAppbarValues {
   static List<String> listTitleAppbar(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
-      appLocalizations.worksheet,
       appLocalizations.request,
+      appLocalizations.worksheet,
       appLocalizations.calendarWork,
       appLocalizations.userInformation,
     ];

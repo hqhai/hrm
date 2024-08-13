@@ -10,6 +10,7 @@ List<String> titleHome() {
     appLocalizations.actualWork,
     appLocalizations.leaveWork,
     appLocalizations.holidayWork,
+    appLocalizations.salaryWork,
     appLocalizations.leaveWithoutPay,
     appLocalizations.workOT,
     appLocalizations.workTime,

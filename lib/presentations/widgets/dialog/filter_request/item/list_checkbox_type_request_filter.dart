@@ -11,10 +11,12 @@ class ListCheckboxTypeRequestFilter extends StatefulWidget {
   final ValueChanged<List<RequisitionTypeEnum>> onChange;
 
   @override
-  State<ListCheckboxTypeRequestFilter> createState() => _ListCheckboxTypeRequestFilterState();
+  State<ListCheckboxTypeRequestFilter> createState() =>
+      _ListCheckboxTypeRequestFilterState();
 }
 
-class _ListCheckboxTypeRequestFilterState extends State<ListCheckboxTypeRequestFilter> {
+class _ListCheckboxTypeRequestFilterState
+    extends State<ListCheckboxTypeRequestFilter> {
   List<bool> listCheck = [];
   List<RequisitionTypeEnum> listTypes = [];
 
@@ -61,14 +63,19 @@ class _ListCheckboxTypeRequestFilterState extends State<ListCheckboxTypeRequestF
                 return GestureDetector(
                   onTap: () => setValue(index: index, type: type),
                   child: ContainerBorder(
-                    margin: 0,
-                    backgroundColors: listTypes.contains(type) ? colors.blue : colors.background,
+                    padding: 0,
+                    marginTop: 0,
+                    backgroundColors: listTypes.contains(type)
+                        ? colors.blue
+                        : colors.background,
                     borderColors: colors.text.withOpacity(0.3),
                     child: Center(
                       child: Text(
                         type.configTypeNameFilter,
                         style: TextStyle(
-                          color: listTypes.contains(type) ? colors.background : colors.text,
+                          color: listTypes.contains(type)
+                              ? colors.background
+                              : colors.text,
                           fontSize: SpacingUnit.x3,
                         ),
                       ),

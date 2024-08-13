@@ -31,16 +31,16 @@ class ItemCreateTimeOverTime extends StatefulWidget {
 class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
   DateTime startTime = DateTime.now(), endTime = DateTime.now();
 
-
   String setStartTimeOld() {
     setState(() {
       startTime = DateTime.parse(
         widget.startTimeOld ?? DateTime.now().toString(),
       );
     });
-    return widget.startTimeOld??DateFormat('yyyy-MM-dd HH:mm').format(
-      DateTime.now(),
-    );
+    return widget.startTimeOld ??
+        DateFormat('yyyy-MM-dd HH:mm').format(
+          DateTime.now(),
+        );
   }
 
   String setEndTimeOld() {
@@ -49,9 +49,10 @@ class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
         widget.endTimeOld ?? DateTime.now().toString(),
       );
     });
-    return widget.endTimeOld??DateFormat('yyyy-MM-dd HH:mm').format(
-      DateTime.now(),
-    );
+    return widget.endTimeOld ??
+        DateFormat('yyyy-MM-dd HH:mm').format(
+          DateTime.now(),
+        );
   }
 
   @override
@@ -131,7 +132,7 @@ class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
               ),
               ContainerBorder(
                 width: width * 0.25,
-                margin: SpacingUnit.x2,
+                marginTop: SpacingUnit.x2,
                 padding: SpacingUnit.x1,
                 child: Center(
                   child: Text(
@@ -148,7 +149,8 @@ class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
         ),
         if (widget.error != '')
           Padding(
-            padding: const EdgeInsets.only(top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),
+            padding: const EdgeInsets.only(
+                top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),
             child: Text(
               widget.error ?? "",
               style: TextStyle(

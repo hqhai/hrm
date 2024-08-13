@@ -25,10 +25,12 @@ class BottomSheetDepartmentWidget extends StatefulWidget {
   final Department? department;
 
   @override
-  State<BottomSheetDepartmentWidget> createState() => _BottomSheetDepartmentWidgetState();
+  State<BottomSheetDepartmentWidget> createState() =>
+      _BottomSheetDepartmentWidgetState();
 }
 
-class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidget> {
+class _BottomSheetDepartmentWidgetState
+    extends State<BottomSheetDepartmentWidget> {
   late ScrollController controller;
   String searchStr = '';
   int pageIndex = 1, totalItems = 12, lengthList = 11;
@@ -45,7 +47,8 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocConsumer<DepartmentBloc, DepartmentState>(
-      listenWhen: (previous, current) => previous.departments != current.departments,
+      listenWhen: (previous, current) =>
+          previous.departments != current.departments,
       listener: (context, state) => _listener(state),
       builder: (context, state) => Center(
         child: Padding(
@@ -78,35 +81,33 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
                       child: ContainerBorder(
                         borderColors: colors.background,
                         backgroundColors: colors.background,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: SpacingUnit.x3,
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '${index + 1}.    ',
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${index + 1}.',
+                              style: TextStyle(
+                                  color: colors.text,
+                                  fontSize: SpacingUnit.x5,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(
+                              width: SpacingUnit.x2,
+                            ),
+                            Expanded(
+                              child: Text(
+                                department.name ?? "",
+                                maxLines: 4,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    color: colors.text,
-                                    fontSize: SpacingUnit.x5,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Expanded(
-                                child: SizedBox(
-                                  child: Text(
-                                    department.name ?? "",
-                                    maxLines: 4,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: colors.text,
-                                      fontSize: SpacingUnit.x4,
-                                    ),
-                                  ),
+                                  color: colors.text,
+                                  fontSize: SpacingUnit.x4,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     );
@@ -133,14 +134,17 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems && loadMore && controller.position.extentAfter < totalItems) {
+    if (lengthList < totalItems &&
+        loadMore &&
+        controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
         loadMore = false;
       });
       final Completer completer = Completer<bool>();
       dI<DepartmentBloc>().add(
-        GetListDepartmentEvent(page: pageIndex, completer: completer, key: searchStr),
+        GetListDepartmentEvent(
+            page: pageIndex, completer: completer, key: searchStr),
       );
       final check = await completer.future;
       if (check) {

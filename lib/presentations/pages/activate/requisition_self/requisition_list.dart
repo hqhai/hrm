@@ -40,7 +40,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
     super.initState();
   }
 
-  setlLstFilter(FilterDialogModel value) async {
+  _setFilters(FilterDialogModel value) async {
     setState(() {
       filterData = value;
       checkLoadMore = false;
@@ -122,7 +122,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       builder: (BuildContext context) {
         return FilterRequestSelfDialog(
           filter: filterData,
-          sendData: (value) => setlLstFilter(value),
+          sendData: (value) => _setFilters(value),
         );
       },
     );

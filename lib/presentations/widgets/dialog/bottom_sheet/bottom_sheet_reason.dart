@@ -18,10 +18,12 @@ class BottomSheetReasonTypeWidget extends StatefulWidget {
   final ValueChanged<EnumReason> onChange;
 
   @override
-  State<BottomSheetReasonTypeWidget> createState() => _BottomSheetReasonTypeWidgetState();
+  State<BottomSheetReasonTypeWidget> createState() =>
+      _BottomSheetReasonTypeWidgetState();
 }
 
-class _BottomSheetReasonTypeWidgetState extends State<BottomSheetReasonTypeWidget> {
+class _BottomSheetReasonTypeWidgetState
+    extends State<BottomSheetReasonTypeWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -34,7 +36,9 @@ class _BottomSheetReasonTypeWidgetState extends State<BottomSheetReasonTypeWidge
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          HeaderFilter(callback: () => close(context), title: appLocalizations.reasonType),
+          HeaderFilter(
+              callback: () => close(context),
+              title: appLocalizations.reasonType),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: EnumReason.values
@@ -45,7 +49,7 @@ class _BottomSheetReasonTypeWidgetState extends State<BottomSheetReasonTypeWidge
                       backgroundColors: colors.background,
                       borderColors: colors.background,
                       padding: SpacingUnit.x4,
-                      margin: SpacingUnit.x4,
+                      marginTop: SpacingUnit.x4,
                       child: Row(
                         children: [
                           Text(

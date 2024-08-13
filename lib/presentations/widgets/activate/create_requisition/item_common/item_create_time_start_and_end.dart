@@ -7,7 +7,7 @@ import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
-class ItemCreateTimeStartAndEnd extends StatefulWidget { 
+class ItemCreateTimeStartAndEnd extends StatefulWidget {
   const ItemCreateTimeStartAndEnd(
       {super.key,
       this.endTimeOld,
@@ -30,7 +30,8 @@ class ItemCreateTimeStartAndEnd extends StatefulWidget {
   final bool dayOrHours, leave;
 
   @override
-  State<ItemCreateTimeStartAndEnd> createState() => _ItemCreateTimeStartAndEndState();
+  State<ItemCreateTimeStartAndEnd> createState() =>
+      _ItemCreateTimeStartAndEndState();
 }
 
 class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
@@ -88,7 +89,7 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
                     right: SpacingUnit.x2,
                   ),
                   child: Text(
-                    widget.title3??"",
+                    widget.title3 ?? "",
                     style: TextStyle(
                       color: colors.text,
                       fontSize: SpacingUnit.x4,
@@ -98,7 +99,7 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
                 ContainerBorder(
                   width: width,
                   borderColors: colors.text.withOpacity(0.3),
-                  margin: SpacingUnit.x2,
+                  marginTop: SpacingUnit.x2,
                   padding: SpacingUnit.x4,
                   child: Text(
                     setIntervalOnLeave().toStringAsFixed(2),
@@ -113,7 +114,8 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
           ),
         if (widget.error != '')
           Padding(
-            padding: const EdgeInsets.only(top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),
+            padding: const EdgeInsets.only(
+                top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),
             child: Text(
               widget.error ?? "",
               style: TextStyle(
@@ -131,7 +133,7 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
       widget.startTime?.call(value);
       startTime = value;
       widget.total?.call(widget.dayOrHours
-          ? endTime.difference(startTime).inHours.toDouble()/24
+          ? endTime.difference(startTime).inHours.toDouble() / 24
           : endTime.difference(startTime).inHours.toDouble());
       if (widget.leave) {
         dI<WorkAndSalaryBloc>().add(
@@ -149,7 +151,7 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
       widget.endTime?.call(value);
       endTime = value;
       widget.total?.call(widget.dayOrHours
-          ? endTime.difference(startTime).inHours.toDouble()/24
+          ? endTime.difference(startTime).inHours.toDouble() / 24
           : endTime.difference(startTime).inHours.toDouble());
       if (widget.leave) {
         dI<WorkAndSalaryBloc>().add(
@@ -164,7 +166,7 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
 
   double setIntervalOnLeave() {
     return widget.dayOrHours
-        ? endTime.difference(startTime).inHours.toDouble()/24
+        ? endTime.difference(startTime).inHours.toDouble() / 24
         : endTime.difference(startTime).inHours.toDouble();
   }
 }

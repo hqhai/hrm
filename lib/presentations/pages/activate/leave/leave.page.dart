@@ -26,7 +26,8 @@ class _LeavePageState extends State<LeavePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this)..addListener(_scrollListener);
+    _tabController = TabController(length: 2, vsync: this)
+      ..addListener(_scrollListener);
     super.initState();
   }
 
@@ -60,7 +61,8 @@ class _LeavePageState extends State<LeavePage> with TickerProviderStateMixin {
                         (element) => Tab(
                           child: Text(
                             element,
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+                            style: TextStyle(
+                                color: colors.text, fontSize: SpacingUnit.x4),
                           ),
                         ),
                       )

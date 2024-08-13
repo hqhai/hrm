@@ -18,7 +18,8 @@ class ItemFollowersInformationRequest extends StatelessWidget {
     return BlocBuilder<UserByIdBloc, UserByIdState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+          padding:
+              const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -39,7 +40,7 @@ class ItemFollowersInformationRequest extends StatelessWidget {
                         (index, element) => ContainerBorder(
                           padding: SpacingUnit.x4,
                           borderColors: colors.text.withOpacity(0.4),
-                          margin: SpacingUnit.x2,
+                          marginTop: SpacingUnit.x2,
                           child: Row(
                             children: [
                               Text(

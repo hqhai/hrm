@@ -11,13 +11,13 @@ class ItemWorkSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return SizedBox(
-      height: SpacingUnit.x16,
+      height: SpacingUnit.x13,
       child: Row(
         children: [
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.all(SpacingUnit.x5),
+              // padding: const EdgeInsets.all(SpacingUnit.x5),
               decoration: BoxDecoration(
                 border: Border.symmetric(
                   horizontal: BorderSide(
@@ -30,7 +30,7 @@ class ItemWorkSheet extends StatelessWidget {
                 title,
                 style: TextStyle(
                   color: colors.text,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   fontSize: SpacingUnit.x4,
                 ),
               ),
@@ -43,7 +43,7 @@ class ItemWorkSheet extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(SpacingUnit.x5),
+              // padding: const EdgeInsets.all(SpacingUnit.x5),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 border: Border.symmetric(
@@ -56,9 +56,9 @@ class ItemWorkSheet extends StatelessWidget {
               child: Text(
                 value,
                 style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                ),
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                    fontWeight: FontWeight.w400),
               ),
             ),
           ),

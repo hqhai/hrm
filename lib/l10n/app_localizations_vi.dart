@@ -1226,6 +1226,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get holidayWork => 'Công nghỉ lễ';
 
   @override
+  String get salaryWork => 'Công tính lương';
+
+  @override
   String get noSalaryWork => 'Công không lương';
 
   @override
@@ -1236,9 +1239,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get timeLate => 'Thời gian đi muộn';
-
-  @override
-  String get salaryWork => 'Công hiện tại';
 
   @override
   String get realWork => 'Công chuẩn';

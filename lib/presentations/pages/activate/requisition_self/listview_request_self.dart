@@ -16,7 +16,10 @@ import 'package:themes/themes.dart';
 
 class ListviewRequestSelf extends StatefulWidget {
   const ListviewRequestSelf(
-      {super.key, required this.onChangeStatus, this.filterData = const FilterDialogModel(), required this.checkLoad});
+      {super.key,
+      required this.onChangeStatus,
+      this.filterData = const FilterDialogModel(),
+      required this.checkLoad});
 
   final ValueChanged<StatusRequestEnum> onChangeStatus;
   final FilterDialogModel filterData;
@@ -26,15 +29,17 @@ class ListviewRequestSelf extends StatefulWidget {
   State<ListviewRequestSelf> createState() => _ListviewRequestSelfState();
 }
 
-class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerProviderStateMixin {
+class _ListviewRequestSelfState extends State<ListviewRequestSelf>
+    with TickerProviderStateMixin {
   late final TabController _tabController;
   bool checkLoad = true;
   int indexTab = 0;
 
   @override
   void initState() {
-    _tabController = TabController(length: StatusRequestEnum.values.length, vsync: this)
-      ..addListener(_scrollListener);
+    _tabController =
+        TabController(length: StatusRequestEnum.values.length, vsync: this)
+          ..addListener(_scrollListener);
     super.initState();
   }
 
@@ -53,6 +58,8 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerPr
                 labelColor: colors.background,
                 isScrollable: true,
                 controller: _tabController,
+                indicatorSize: TabBarIndicatorSize.tab,
+                tabAlignment: TabAlignment.start,
                 tabs: StatusRequestEnum.values
                     .mapIndexed(
                       (index, status) => Tab(

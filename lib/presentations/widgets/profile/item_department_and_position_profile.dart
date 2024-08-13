@@ -37,15 +37,17 @@ class ItemDepartmentAndPositionProfile extends StatelessWidget {
               children: department
                   .map(
                     (e) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
                       child: ContainerBorder(
                         padding: SpacingUnit.x4,
                         width: width,
-                        margin: 0,
+                        marginTop: 0,
                         borderColors: colors.text.withOpacity(0.2),
                         child: Text(
                           e.department?.name ?? "",
-                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+                          style: TextStyle(
+                              color: colors.text, fontSize: SpacingUnit.x4),
                         ),
                       ),
                     ),
@@ -65,15 +67,17 @@ class ItemDepartmentAndPositionProfile extends StatelessWidget {
               children: position
                   .map(
                     (e) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
                       child: ContainerBorder(
                         padding: SpacingUnit.x4,
                         width: width,
-                        margin: 0,
+                        marginTop: 0,
                         borderColors: colors.text.withOpacity(0.2),
                         child: Text(
                           e.position?.name ?? "",
-                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+                          style: TextStyle(
+                              color: colors.text, fontSize: SpacingUnit.x4),
                         ),
                       ),
                     ),

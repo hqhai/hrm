@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemTitleValueColum extends StatelessWidget {
-  const ItemTitleValueColum({super.key, required this.title, required this.value, this.size, this.font});
+  const ItemTitleValueColum(
+      {super.key,
+      required this.title,
+      required this.value,
+      this.size,
+      this.font});
 
   final String title, value;
   final double? size;
@@ -15,8 +20,8 @@ class ItemTitleValueColum extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
     return Padding(
-      padding:
-          const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x1),
+      padding: const EdgeInsets.only(
+          left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,11 +38,12 @@ class ItemTitleValueColum extends StatelessWidget {
             child: ContainerBorder(
               padding: SpacingUnit.x4,
               width: width,
-              margin: 0,
+              marginTop: 0,
               borderColors: colors.text.withOpacity(0.2),
               child: Text(
                 value,
-                style: TextStyle(color: colors.text, fontSize: size ?? SpacingUnit.x3),
+                style: TextStyle(
+                    color: colors.text, fontSize: size ?? SpacingUnit.x3),
               ),
             ),
           )

@@ -99,7 +99,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x1),
               child: ContainerBorder(
                 borderColors: colors.text.withOpacity(0.3),
-                margin: SpacingUnit.x2,
+                marginTop: SpacingUnit.x2,
                 padding: 0,
                 child: ListTile(
                   title: Text(
@@ -112,7 +112,8 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
                   leading: Radio<EnumSocialInsuranceLeave>(
                     value: e,
                     groupValue: socialInsuranceLeave,
-                    onChanged: (EnumSocialInsuranceLeave? value) => _setSocialInsuranceLeave(value),
+                    onChanged: (EnumSocialInsuranceLeave? value) =>
+                        _setSocialInsuranceLeave(value),
                   ),
                 ),
               ),

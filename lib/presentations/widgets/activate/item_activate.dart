@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemActivateWidget extends StatefulWidget {
-  const ItemActivateWidget({super.key, this.title = '', required this.callback});
+  const ItemActivateWidget(
+      {super.key, this.title = '', required this.callback});
 
   final String title;
   final VoidCallback callback;
@@ -38,21 +39,16 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w700),
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(right: SpacingUnit.x5),
-                child: Center(
-                  child: Icon(
-                    Icons.chevron_right_outlined,
-                    color: colors.text,
-                    size: SpacingUnit.x10,
-                  ),
-                ),
-              ),
+            Icon(
+              Icons.chevron_right_outlined,
+              color: colors.text,
+              size: SpacingUnit.x6,
             ),
           ],
         ),

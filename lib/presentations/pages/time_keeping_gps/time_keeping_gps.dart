@@ -121,14 +121,17 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: SpacingUnit.x3),
                                       child: GoogleMap(
                                         myLocationEnabled: checkLocation,
-                                        onMapCreated: (GoogleMapController controller) =>
-                                            setCamera(controller),
+                                        onMapCreated:
+                                            (GoogleMapController controller) =>
+                                                setCamera(controller),
                                         initialCameraPosition: CameraPosition(
                                           target: latLngFsel ??
-                                              getSchoolById(state.scheduleSchool.school),
+                                              getSchoolById(
+                                                  state.scheduleSchool.school),
                                           zoom: 15,
                                         ),
                                         markers: _markers,
@@ -148,7 +151,7 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
                   Padding(
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     child: ContainerBorder(
-                      margin: 0,
+                      marginTop: 0,
                       borderColors: colors.background,
                       backgroundColors: colors.background,
                       child: ItemTitleValueNoBorder(
@@ -163,8 +166,8 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     child: AppButton(
                       colorText: colors.background,
-                      onSubmit: () async =>
-                          await _determinePosition(context, state.scheduleSchool.id),
+                      onSubmit: () async => await _determinePosition(
+                          context, state.scheduleSchool.id),
                       title: appLocalizations.timekeepingImmediately,
                     ),
                   ),
@@ -200,7 +203,8 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(appLocalizations.locationPermissionsArePermanentlyDenied);
+      return Future.error(
+          appLocalizations.locationPermissionsArePermanentlyDenied);
     }
     final position = await Geolocator.getCurrentPosition();
     _setCurrentLocation(position, id);

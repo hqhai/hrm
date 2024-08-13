@@ -8,7 +8,7 @@ class ContainerBorder extends StatelessWidget {
     required this.child,
     this.width,
     this.height,
-    this.margin,
+    this.marginTop,
     this.padding,
     this.borderColors,
     this.backgroundColors,
@@ -17,7 +17,7 @@ class ContainerBorder extends StatelessWidget {
   });
 
   final Widget child;
-  final double? height, width, margin, padding;
+  final double? height, width, marginTop, padding;
   final Color? borderColors;
   final Color? backgroundColors;
   final double? circular;
@@ -29,8 +29,9 @@ class ContainerBorder extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      margin: EdgeInsets.symmetric(vertical: margin ?? SpacingUnit.x3),
-      padding: EdgeInsets.all(padding ?? SpacingUnit.x2),
+      margin: EdgeInsets.only(top: marginTop ?? SpacingUnit.x4),
+      padding: EdgeInsets.symmetric(
+          vertical: padding ?? SpacingUnit.x2, horizontal: SpacingUnit.x4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(circular ?? SpacingUnit.x2),
         color: backgroundColors,

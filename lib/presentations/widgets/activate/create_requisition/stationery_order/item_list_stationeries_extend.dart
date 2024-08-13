@@ -9,16 +9,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class ItemListStationeriesExtend extends StatefulWidget {
-  const ItemListStationeriesExtend({super.key, this.stationeries, required this.index});
+  const ItemListStationeriesExtend(
+      {super.key, this.stationeries, required this.index});
 
   final Stationeries? stationeries;
   final int index;
 
   @override
-  State<ItemListStationeriesExtend> createState() => _ItemListStationeriesExtendState();
+  State<ItemListStationeriesExtend> createState() =>
+      _ItemListStationeriesExtendState();
 }
 
-class _ItemListStationeriesExtendState extends State<ItemListStationeriesExtend> {
+class _ItemListStationeriesExtendState
+    extends State<ItemListStationeriesExtend> {
   bool checkType = true;
 
   @override
@@ -29,7 +32,7 @@ class _ItemListStationeriesExtendState extends State<ItemListStationeriesExtend>
     return ContainerBorder(
       width: width,
       padding: SpacingUnit.x2_5,
-      margin: SpacingUnit.x2_5,
+      marginTop: SpacingUnit.x2_5,
       borderColors: colors.text.withOpacity(0.5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +40,9 @@ class _ItemListStationeriesExtendState extends State<ItemListStationeriesExtend>
         children: [
           Padding(
             padding: const EdgeInsets.only(
-                left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
+                left: SpacingUnit.x1,
+                top: SpacingUnit.x2,
+                bottom: SpacingUnit.x2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

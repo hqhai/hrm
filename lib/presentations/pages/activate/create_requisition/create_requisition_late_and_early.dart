@@ -69,14 +69,19 @@ class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
       _CreateRequisitionLateAndEarlyPageState();
 }
 
-class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLateAndEarlyPage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+class _CreateRequisitionLateAndEarlyPageState
+    extends State<CreateRequisitionLateAndEarlyPage> {
+  final TextEditingController detailedDescriptionController =
+      TextEditingController();
   String errorTime = '', errorDestination = '', errorDialog = '';
   DateTime? workDate, endDate;
   String? description;
   List<String> followers = [];
   int startTime = 0, endTime = 0;
-  bool checkLoad = false, checkSuccess = false, checkUnSuccess = false, checkShirt = true;
+  bool checkLoad = false,
+      checkSuccess = false,
+      checkUnSuccess = false,
+      checkShirt = true;
   bool checkClick = false;
   EditTimekeeping type = EditTimekeeping.late;
   List<WorkShiftRegisteredDetail> listWorkShift = [];
@@ -101,7 +106,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
@@ -141,11 +147,12 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       onChange: (value) => _setType(value),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                       child: GestureDetector(
                         onTap: () => _showBottomSheet(context),
                         child: ContainerBorder(
-                          margin: 0,
+                          marginTop: 0,
                           padding: SpacingUnit.x4,
                           borderColors: colors.outline.withOpacity(0.3),
                           width: width,
@@ -199,7 +206,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                     ),
                     if (type == EditTimekeeping.early)
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: SpacingUnit.x2),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -291,7 +299,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkDescription = description != null;
     setState(() {
-      errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return checkDescription;
   }
@@ -363,9 +372,11 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(
         requestId: widget.requestId,
@@ -391,8 +402,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
         checkShirt = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: workDate!, startDate: workDate!, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: workDate!, startDate: workDate!, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {

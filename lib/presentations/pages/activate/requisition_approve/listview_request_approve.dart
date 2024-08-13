@@ -34,7 +34,8 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
 
   @override
   void initState() {
-    _tabController = TabController(length: EnumStepRequestStatusEnum.values.length, vsync: this)
+    _tabController = TabController(
+        length: EnumStepRequestStatusEnum.values.length, vsync: this)
       ..addListener(_scrollListener);
     super.initState();
   }
@@ -52,13 +53,16 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
             children: [
               TabBar(
                 isScrollable: true,
+                tabAlignment: TabAlignment.start,
+                indicatorSize: TabBarIndicatorSize.tab,
                 controller: _tabController,
                 tabs: EnumStepRequestStatusEnum.values
                     .map(
                       (status) => Tab(
                         child: Text(
                           status.configStepRequestStatusName,
-                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
+                          style: TextStyle(
+                              color: colors.text, fontSize: SpacingUnit.x3_5),
                         ),
                       ),
                     )

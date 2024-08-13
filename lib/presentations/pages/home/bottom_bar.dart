@@ -6,7 +6,9 @@ import 'package:themes/themes.dart';
 
 class BottomBarDefault extends StatefulWidget {
   const BottomBarDefault(
-      {super.key, required this.selectedIndex, required this.onChangeSelectedIndex});
+      {super.key,
+      required this.selectedIndex,
+      required this.onChangeSelectedIndex});
 
   final int selectedIndex;
   final ValueChanged<int> onChangeSelectedIndex;
@@ -27,26 +29,26 @@ class _BottomBarDefaultState extends State<BottomBarDefault> {
       type: BottomNavigationBarType.fixed,
       items: <BottomNavigationBarItem>[
         item(
-          title: appLocalizations.worksheet,
-          icon:  Assets.images.icon.home.bottomBar.home,
-          color1: colors.text,
-          color2: colors.blue,
-        ),
-        item(
           title: appLocalizations.request,
           icon: Assets.images.icon.home.bottomBar.document,
           color1: colors.text,
           color2: colors.blue,
         ),
         item(
+          title: appLocalizations.worksheet,
+          icon: Assets.images.icon.home.bottomBar.home,
+          color1: colors.text,
+          color2: colors.blue,
+        ),
+        item(
           title: appLocalizations.calendarWork,
-          icon:  Assets.images.icon.home.bottomBar.calendar,
+          icon: Assets.images.icon.home.bottomBar.calendar,
           color1: colors.text,
           color2: colors.blue,
         ),
         item(
           title: appLocalizations.account,
-          icon:  Assets.images.icon.home.bottomBar.profile,
+          icon: Assets.images.icon.home.bottomBar.profile,
           color1: colors.text,
           color2: colors.blue,
         ),

@@ -39,7 +39,7 @@ class _ItemProfileState extends State<ItemProfile> {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         return ContainerBorder(
-          margin: 0,
+          marginTop: 0,
           borderColors: colors.background,
           backgroundColors: colors.background,
           child: Column(
@@ -59,7 +59,7 @@ class _ItemProfileState extends State<ItemProfile> {
                           backgroundColors: colors.onSurface,
                           borderColors: colors.onSurface,
                           padding: SpacingUnit.x1,
-                          margin: 0,
+                          marginTop: 0,
                           child: Icon(
                             Icons.photo_camera_outlined,
                             color: colors.blue,

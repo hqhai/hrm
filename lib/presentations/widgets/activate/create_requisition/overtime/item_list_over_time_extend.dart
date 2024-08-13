@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemListOverTimeExtend extends StatelessWidget {
-  const ItemListOverTimeExtend({super.key, this.requisitionOverTime, required this.index});
+  const ItemListOverTimeExtend(
+      {super.key, this.requisitionOverTime, required this.index});
 
   final RequisitionOverTime? requisitionOverTime;
   final int index;
@@ -20,13 +21,15 @@ class ItemListOverTimeExtend extends StatelessWidget {
       children: [
         Text(
           '${index + 1}. ',
-          style:
-              TextStyle(fontSize: SpacingUnit.x5, color: colors.text, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: SpacingUnit.x5,
+              color: colors.text,
+              fontWeight: FontWeight.w600),
         ),
         Expanded(
           child: ContainerBorder(
             padding: SpacingUnit.x2_5,
-            margin: SpacingUnit.x2_5,
+            marginTop: SpacingUnit.x2_5,
             borderColors: colors.text.withOpacity(0.5),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -80,7 +83,8 @@ class ItemListOverTimeExtend extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        strSeconds((requisitionOverTime?.suggestTime ?? 0).toInt()),
+                        strSeconds(
+                            (requisitionOverTime?.suggestTime ?? 0).toInt()),
                         style: TextStyle(
                           fontSize: SpacingUnit.x3_5,
                           color: colors.text,

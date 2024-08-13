@@ -22,8 +22,8 @@ class FormChangeTime extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
     return Container(
       alignment: Alignment.center,
-      height: SpacingUnit.x16,
-      margin:  const EdgeInsets.only(bottom: SpacingUnit.x0_5),
+      height: SpacingUnit.x12,
+      margin: const EdgeInsets.only(bottom: SpacingUnit.x0_5),
       padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x6),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -33,14 +33,22 @@ class FormChangeTime extends StatelessWidget {
             child: Icon(
               Icons.chevron_left,
               color: colors.text,
-              size: SpacingUnit.x12,
+              size: SpacingUnit.x6,
             ),
           ),
           Expanded(
-            child: Text(
-              textAlign: TextAlign.center,
-              " ${appLocalizations.month} $month, $year",
-              style: theme.textTheme.titleLarge,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.calendar_month_rounded),
+                Text(
+                  textAlign: TextAlign.center,
+                  " ${appLocalizations.month} $month, $year",
+                  style: theme.textTheme.titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
           InkWell(
@@ -48,7 +56,7 @@ class FormChangeTime extends StatelessWidget {
             child: Icon(
               Icons.chevron_right,
               color: colors.text,
-              size: SpacingUnit.x12,
+              size: SpacingUnit.x6,
             ),
           ),
         ],

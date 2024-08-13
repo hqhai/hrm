@@ -14,7 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ContentItemMyRequisitionList extends StatelessWidget {
-  const ContentItemMyRequisitionList({super.key, required this.id, required this.self});
+  const ContentItemMyRequisitionList(
+      {super.key, required this.id, required this.self});
 
   final String id;
 
@@ -32,25 +33,24 @@ class ContentItemMyRequisitionList extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: SpacingUnit.x2_5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    request.flowType.configTypeName,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
-                  ),
-                  Icon(
-                    Icons.chevron_right,
-                    color: colors.text,
-                    size: SpacingUnit.x6,
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  request.flowType.configTypeName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                      fontWeight: FontWeight.w700),
+                ),
+                Icon(
+                  Icons.chevron_right,
+                  color: colors.text,
+                  size: SpacingUnit.x6,
+                ),
+              ],
             ),
             if (self != RequestSeeByWho.user)
               TitleValueLeave(
@@ -78,8 +78,7 @@ class ContentItemMyRequisitionList extends StatelessWidget {
               padding: const EdgeInsets.only(top: SpacingUnit.x2_5),
               child: AppIconStatus(
                 color: statusRequest(
-                    context: context,
-                    status: request.status)['color'],
+                    context: context, status: request.status)['color'],
                 icon: statusRequest(
                     context: context, status: request.status)['icon'],
                 status: request.status.configRequestStatusName,

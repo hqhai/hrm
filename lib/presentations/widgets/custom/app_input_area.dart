@@ -78,6 +78,7 @@ class _AppInputAreaState extends State<AppInputArea> {
     return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
               child: Focus(
@@ -101,9 +102,12 @@ class _AppInputAreaState extends State<AppInputArea> {
               style: theme.textTheme.bodyLarge,
               decoration: InputDecoration(
                 labelText: widget.label,
-                contentPadding: const EdgeInsets.only(
-                    bottom: 0, left: 16, top: 10, right: 16 // HERE THE IMPORTANT PART
-                    ),
+                // contentPadding: const EdgeInsets.only(
+                //     bottom: 0,
+                //     left: 16,
+                //     top: 10,
+                //     right: 16 // HERE THE IMPORTANT PART
+                //     ),
                 suffixIcon: widget.icon != null
                     ? IconButton(
                         onPressed: () {
@@ -116,11 +120,13 @@ class _AppInputAreaState extends State<AppInputArea> {
                       )
                     : const SizedBox(),
                 hintText: widget.placeHolder,
-                hintStyle: theme.textTheme.bodyLarge?.copyWith(color: colors.textTertiary),
+                hintStyle: theme.textTheme.bodyLarge
+                    ?.copyWith(color: colors.textTertiary),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                    color: isEmpty(widget.error) ? colors.outline : colors.error,
+                    color:
+                        isEmpty(widget.error) ? colors.outline : colors.error,
                     width: 1.0,
                   ),
                 ),
@@ -147,7 +153,8 @@ class _AppInputAreaState extends State<AppInputArea> {
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
                     widget.error!,
-                    style: theme.textTheme.bodyMedium?.copyWith(color: colors.error),
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: colors.error),
                     maxLines: 2,
                   ),
                 )
