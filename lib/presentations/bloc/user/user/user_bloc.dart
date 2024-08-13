@@ -96,21 +96,34 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   FutureOr<void> _updateProfileEvent(UpdateProfileEvent event, Emitter<UserState> emit) async {
-    emit(state.copyWith(status: UserStatus.init));
     try {
       if (event.file.path != File('').path) {
         String path = await _requestUseCase.uploadFile(originFile: event.file, imageData: null);
         UpdateProfileRequest updateProfileRequest =
             event.updateProfileRequest.copyWith(avatarPath: path);
         User user = await userUseCase.updateProfile(updateProfileRequest: updateProfileRequest);
-        emit(state.copyWith(user: user, status: UserStatus.success));
+        emit(state.copyWith(user: user));
+        event.completer?.complete(true);
       } else {
         User user =
             await userUseCase.updateProfile(updateProfileRequest: event.updateProfileRequest);
-        emit(state.copyWith(user: user, status: UserStatus.success));
+        emit(state.copyWith(user: user));
+        event.completer?.complete(true);
       }
     } catch (e) {
-      emit(state.copyWith(status: UserStatus.fail));
+      e as ResponseBase;
+      if (e.errorMessages.length > 1) {
+        final String? errorCode = e.errorMessages[1].errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+      } else {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+      }
+      event.completer?.complete(false);
     }
   }
 }

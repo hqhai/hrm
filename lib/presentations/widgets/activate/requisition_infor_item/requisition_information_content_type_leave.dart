@@ -84,11 +84,13 @@ class _RequisitionInformationContentTypeLeaveState
                       ),
                     ),
                   ),
+                  if(workShiftSettings.isNotEmpty)
                   ShiftWidget(
                     context: context,
                     title: appLocalizations.firstShift,
                     workShift: workShiftSettings.first,
                   ),
+                  if(workShiftSettings.length > 1)
                   ShiftWidget(
                     context: context,
                     title: appLocalizations.lastShift,

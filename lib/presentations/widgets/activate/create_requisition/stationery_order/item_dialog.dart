@@ -2,7 +2,7 @@ import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_input.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:themes/themes.dart';
 
@@ -15,8 +15,10 @@ class ItemAddStationeryDialog extends StatefulWidget {
       this.unitPriceController,
       required this.onChangeProduct,
       required this.onchangeUnit,
-      this.onChangeUnitPrice});
+      this.onChangeUnitPrice,
+      required this.callBack});
 
+  final VoidCallback callBack;
   final ValueChanged<String> onChangeProduct, onchangeUnit;
   final ValueChanged<double>? onChangeUnitPrice;
   final TextEditingController? productController, unitController, unitPriceController;
@@ -37,6 +39,8 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
           child: AppInput(
+            onClickIcon: () => widget.callBack.call(),
+            icon: Icons.arrow_drop_down_sharp,
             placeHolder: appLocalizations.product,
             controller: widget.productController,
             onChange: (value) => setProduct(value),

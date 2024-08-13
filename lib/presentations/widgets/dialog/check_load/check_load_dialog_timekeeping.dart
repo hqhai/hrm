@@ -24,7 +24,7 @@ class TimeKeepingSuccess extends StatelessWidget {
               Text(
                 appLocalizations.timekeepingSuccess,
                 style: TextStyle(
-                  color: colors.text,
+                  color: colors.success,
                   fontWeight: FontWeight.w600,
                   fontSize: SpacingUnit.x4,
                 ),
@@ -71,7 +71,7 @@ class TimeKeepingUnSuccess extends StatelessWidget {
             Text(
               title.isNotEmpty ? title : appLocalizations.timekeepingUnSuccess,
               style: TextStyle(
-                color: colors.text,
+                color: colors.error,
                 fontWeight: FontWeight.w600,
                 fontSize: SpacingUnit.x4,
               ),

@@ -45,9 +45,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   final TextEditingController emailController = TextEditingController(),
       passwordController = TextEditingController();
   String checkEmail = '', checkPassword = '';
-  late AnimationController _controller;
-  late Animation<double> _animationWidth, _animationHeight;
-  late double width, height;
   final LocalAuthentication auth = LocalAuthentication();
   List<BiometricType> availableBiometrics = [BiometricType.fingerprint, BiometricType.face];
   bool isCheck = false;
@@ -61,37 +58,20 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   bool checkSaveLogin = false;
   bool isCheckedInput = false;
   bool checkPermission = false;
+  bool checkLoadLogin = true;
 
   @override
   void initState() {
     super.initState();
     emailController.text = "";
     passwordController.text = "";
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-    _animationWidth = const AlwaysStoppedAnimation<double>(0);
-    _animationHeight = const AlwaysStoppedAnimation<double>(0);
-    _controller.forward();
     _getUsernameSaved();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    _animationWidth = AlwaysStoppedAnimation<double>(width * 0.9);
-    _animationHeight = AlwaysStoppedAnimation<double>(height * 0.9);
-    _controller.forward();
   }
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    _controller.dispose();
     super.dispose();
   }
 
@@ -114,9 +94,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       case LoginStatus.userLocked:
         lockUpAccount(context: context, email: emailController.text);
         setState(() {
-          _animationHeight = AlwaysStoppedAnimation<double>(height * 0.9);
-          _animationWidth = AlwaysStoppedAnimation<double>(width * 0.9);
-          _controller.forward(from: 0);
+          checkLoadLogin = true;
         });
       case LoginStatus.validateSuccess:
         dI<LoginBloc>().add(RequestLogin(
@@ -132,9 +110,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         setState(() {
           errorEmail = appLocalizations.errorEmailOrPassword;
           errorPass = appLocalizations.errorEmailOrPassword;
-          _animationHeight = AlwaysStoppedAnimation<double>(height * 0.9);
-          _animationWidth = AlwaysStoppedAnimation<double>(width * 0.9);
-          _controller.forward(from: 0);
+          checkLoadLogin = true;
         });
       case LoginStatus.notRegisteredForBiometrics:
         notRegisteredForBiometricsDialog(context);
@@ -144,9 +120,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       case LoginStatus.wrongBiometricAccount:
         setState(() {
           biometricsLoginErrorDialog(context);
-          _animationHeight = AlwaysStoppedAnimation<double>(height * 0.9);
-          _animationWidth = AlwaysStoppedAnimation<double>(width * 0.9);
-          _controller.forward(from: 0);
+          checkLoadLogin = true;
         });
       case LoginStatus.statusFalse:
         setState(() {
@@ -183,7 +157,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             Container(
               color: colors.background,
             ),
-            const LanguageWidget(),
             const Center(
               child: SizedBox(
                 height: SpacingUnit.x50,
@@ -191,99 +164,88 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                 child: ProgressIndicatorDialog(),
               ),
             ),
-            Container(
-              alignment: Alignment.topCenter,
-              child: SizeTransition(
-                sizeFactor: _controller,
-                child: Center(
-                  child: Container(
-                    width: _animationWidth.value,
-                    height: _animationHeight.value,
-                    decoration: BoxDecoration(
-                      color: colors.background,
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-                      border: Border.all(width: 1, color: colors.background),
-                    ),
-                    margin: const EdgeInsets.only(
-                        left: SpacingUnit.x4,
-                        right: SpacingUnit.x4,
-                        bottom: SpacingUnit.x4,
-                        top: SpacingUnit.x30),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          Assets.images.signIn.logo.path,
-                          fit: BoxFit.fill,
+            if (checkLoadLogin)
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.all(SpacingUnit.x4),
+                  color: colors.background,
+                  child: Column(
+                    children: [
+                      const Align(
+                        alignment: Alignment.topRight,
+                        child: LanguageWidget(),
+                      ),
+                      Image.asset(
+                        Assets.images.signIn.logo.path,
+                        fit: BoxFit.fill,
+                      ),
+                      EmailAndPasswordWidget(
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        errorEmail: errorEmail,
+                        errorPass: errorPass,
+                        onChangeEmail: (value) => onChangeEmail(value),
+                        onChangePass: (value) => onChangePassword(value),
+                      ),
+                      SaveForgotPass(
+                        check: checkSaveLogin,
+                        callback: () => onClickForgotPassword(),
+                        setCheck: (bool? value) => setCheckSaveLogin(value),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x8),
+                        child: BlocBuilder<BiometricCubit, BiometricState>(
+                          builder: (context, stateBiometric) {
+                            return GestureDetector(
+                              onTap: () => _getBiometric(context, stateBiometric),
+                              child: SvgPicture.asset(
+                                height: SpacingUnit.x12,
+                                width: SpacingUnit.x12,
+                                Assets.images.signIn.biometric,
+                                colorFilter:
+                                    ColorFilter.mode(colors.text.withOpacity(0.5), BlendMode.srcIn),
+                              ),
+                            );
+                          },
                         ),
-                        EmailAndPasswordWidget(
-                          emailController: emailController,
-                          passwordController: passwordController,
-                          errorEmail: errorEmail,
-                          errorPass: errorPass,
-                          onChangeEmail: (value) => onChangeEmail(value),
-                          onChangePass: (value) => onChangePassword(value),
-                        ),
-                        SaveForgotPass(
-                          check: checkSaveLogin,
-                          callback: () => onClickForgotPassword(),
-                          setCheck: (bool? value) => setCheckSaveLogin(value),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x8),
-                          child: BlocBuilder<BiometricCubit, BiometricState>(
-                            builder: (context, stateBiometric) {
-                              return GestureDetector(
-                                onTap: () => _getBiometric(context, stateBiometric),
-                                child: SvgPicture.asset(
-                                  height: SpacingUnit.x12,
-                                  width: SpacingUnit.x12,
-                                  Assets.images.signIn.biometric,
-                                  colorFilter: ColorFilter.mode(
-                                      colors.text.withOpacity(0.5), BlendMode.srcIn),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        AppButton(
-                          title: appLocalizations.login,
-                          onSubmit: () => onSubmit(),
-                          color: checkInput() ? colors.blue : colors.navy,
-                          colorText: checkInput() ? colors.text : colors.background,
-                        ),
+                      ),
+                      AppButton(
+                        title: appLocalizations.login,
+                        onSubmit: () => onSubmit(),
+                        color: checkInput() ? colors.blue : colors.navy,
+                        colorText: checkInput() ? colors.background : colors.background,
+                      ),
 
-                        const Expanded(flex: 5, child: SizedBox()),
-                        //const ContactHelpWidget(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              appLocalizations.notAMember,
+                      const Expanded(flex: 5, child: SizedBox()),
+                      //const ContactHelpWidget(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            appLocalizations.notAMember,
+                            style: TextStyle(
+                              fontSize: SpacingUnit.x4,
+                              color: colors.text.withOpacity(0.6),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              onRegister(context);
+                            },
+                            child: Text(
+                              appLocalizations.signUpNow,
                               style: TextStyle(
                                 fontSize: SpacingUnit.x4,
-                                color: colors.text.withOpacity(0.6),
+                                color: colors.blue,
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                onRegister(context);
-                              },
-                              child: Text(
-                                appLocalizations.signUpNow,
-                                style: TextStyle(
-                                  fontSize: SpacingUnit.x4,
-                                  color: colors.blue,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
@@ -298,9 +260,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     bool isCheck = checkInput();
     if (isCheck) {
       setState(() {
-        _animationHeight = const AlwaysStoppedAnimation<double>(0);
-        _animationWidth = const AlwaysStoppedAnimation<double>(0);
-        _controller.forward(from: 0);
+        checkLoadLogin = false;
       });
       Future.delayed(const Duration(seconds: 1), () {
         dI<LoginBloc>()

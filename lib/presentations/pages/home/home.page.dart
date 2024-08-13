@@ -87,7 +87,10 @@ class _HomePageState extends State<HomePage> {
             title: Text(
               titleValue(context, selectedIndex),
               style: TextStyle(
-                  fontSize: SpacingUnit.x4_5, color: colors.text, fontWeight: FontWeight.w600),
+                fontSize: SpacingUnit.x4_5,
+                color: colors.text,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             actions: !_checkRole() ? [popupMenu(selectedIndex)] : null,
           ),

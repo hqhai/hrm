@@ -12,7 +12,6 @@ class ItemSheetWorkShiftBSWidget extends StatelessWidget {
     super.key,
     this.index = 0,
     this.value = '',
-    required this.check,
     this.explanations = const [],
     required this.setExplanation,
     this.selectExplanations = const [],
@@ -20,7 +19,6 @@ class ItemSheetWorkShiftBSWidget extends StatelessWidget {
 
   final int index;
   final String value;
-  final bool check;
   final List<Explanation> explanations;
   final ValueChanged<Explanation> setExplanation;
   final List<Explanation> selectExplanations;
@@ -34,17 +32,15 @@ class ItemSheetWorkShiftBSWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
       child: ContainerBorder(
-        borderColors: check ? colors.tertiary.withOpacity(0.4) : colors.background,
-        backgroundColors: check ? colors.tertiary.withOpacity(0.4) : colors.background,
+        borderColors: colors.tertiary.withOpacity(0.1),
+        backgroundColors: colors.tertiary.withOpacity(0.1),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               value,
               style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x3,
-              ),
+                  color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w500),
             ),
             Column(
               children: explanationsUnSelect

@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -9,6 +10,8 @@ import 'package:base_app/presentations/bloc/location/address/address_state.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
+
+import '../filter_request/item/header_filter.dart';
 
 class BottomSheetProvinceWidget extends StatefulWidget {
   const BottomSheetProvinceWidget({
@@ -47,19 +50,12 @@ class _BottomSheetProvinceWidgetState extends State<BottomSheetProvinceWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.background,
+          color: colors.text.withOpacity(0.1),
           child: Center(
             child: Column(
               children: [
-                Text(
-                  appLocalizations.province,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x6,
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.4,
+                HeaderFilter(callback: () => close(context), title: appLocalizations.province),
+                Expanded(
                   child: ListView.builder(
                     controller: controller,
                     itemCount: state.provinces.length,
@@ -68,12 +64,13 @@ class _BottomSheetProvinceWidgetState extends State<BottomSheetProvinceWidget> {
                         address: state.provinces[index],
                       ),
                       child: Container(
-                        padding: const EdgeInsets.all(SpacingUnit.x3),
+                        padding: const EdgeInsets.all(SpacingUnit.x4),
                         margin: const EdgeInsets.all(SpacingUnit.x2),
                         decoration: BoxDecoration(
+                          color: colors.background,
                           borderRadius: BorderRadius.circular(SpacingUnit.x2),
                           border: Border.all(
-                            color: colors.text,
+                            color: colors.background,
                             width: 1,
                           ),
                         ),
@@ -83,14 +80,14 @@ class _BottomSheetProvinceWidgetState extends State<BottomSheetProvinceWidget> {
                               '${index + 1}.    ',
                               style: TextStyle(
                                 color: colors.text,
-                                fontSize: SpacingUnit.x3,
+                                fontSize: SpacingUnit.x4,
                               ),
                             ),
                             Text(
                               state.provinces[index].name ?? "",
                               style: TextStyle(
                                 color: colors.text,
-                                fontSize: SpacingUnit.x3,
+                                fontSize: SpacingUnit.x4,
                               ),
                             ),
                           ],
@@ -105,6 +102,10 @@ class _BottomSheetProvinceWidgetState extends State<BottomSheetProvinceWidget> {
         );
       },
     );
+  }
+
+  close(BuildContext context) {
+    dI<AppNavigation>().pop(context);
   }
 
   _scrollListener() {

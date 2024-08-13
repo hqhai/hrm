@@ -74,7 +74,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   List<String> followers = [], substitutes = [];
   List<WorkShiftRegisteredDetail> listWorkShift = [];
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false, checkShirt = true;
-  String errorTime = '';
+  String errorTime = '', errorDialog = '';
   bool checkClick = false;
   final DateTime now = DateTime.now();
   EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
@@ -143,11 +143,18 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     return '';
   }
 
+  _listener(String errorCode) {
+    setState(() {
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<RequisitionBloc, RequisitionState>(
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
+      listener: (context, state) => _listener(state.errorCode),
       builder: (context, state) {
         return BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
@@ -162,113 +169,98 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                   ),
                 ),
               ),
-              body: Stack(
-                children: [
-                  Opacity(
-                    opacity: opacity(),
-                    child: SingleChildScrollView(
-                      child: ContainerScreenMain(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ItemTakeLeave(
-                              type: takeLeaveType,
-                              onChangeType: (value) => _setType(value),
+              body: SingleChildScrollView(
+                child: ContainerScreenMain(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ItemTakeLeave(
+                        type: takeLeaveType,
+                        onChangeType: (value) => _setType(value),
+                      ),
+                      ItemYearLeave(
+                        typeReason: reason,
+                        typeSocialInsurance: socialInsuranceLeave,
+                        onChange: (value) => _setReason(value),
+                        type: takeLeaveType,
+                        onChangeSocialInsurance: (value) => setSocialInsurance(value),
+                      ),
+                      if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
+                        const ItemTakeLeaveWork(),
+                      Text(
+                        appLocalizations.intervalOnLeave,
+                        style: TextStyle(
+                          color: colors.text,
+                          fontSize: SpacingUnit.x4,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      PeriodTimePicker(
+                        oldEndTime: endTime,
+                        oldStarTime: startTime,
+                        title: appLocalizations.intervalOnLeave,
+                        setStarTime: (value) => setStartTime(value ?? DateTime.now()),
+                        setEndTime: (value) => setEndTime(value ?? DateTime.now()),
+                        fontWeightTitle: FontWeight.w600,
+                      ),
+                      if (errorDate().isNotEmpty)
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            errorDate(),
+                            style: TextStyle(
+                              color: colors.error,
+                              fontSize: SpacingUnit.x3,
                             ),
-                            ItemYearLeave(
-                              typeReason: reason,
-                              typeSocialInsurance: socialInsuranceLeave,
-                              onChange: (value) => _setReason(value),
-                              type: takeLeaveType,
-                              onChangeSocialInsurance: (value) => setSocialInsurance(value),
-                            ),
-                            if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
-                              const ItemTakeLeaveWork(),
-                            Text(
-                              appLocalizations.intervalOnLeave,
-                              style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x4,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            PeriodTimePicker(
-                              oldEndTime: endTime,
-                              oldStarTime: startTime,
-                              title: appLocalizations.intervalOnLeave,
-                              setStarTime: (value) => setStartTime(value ?? DateTime.now()),
-                              setEndTime: (value) => setEndTime(value ?? DateTime.now()),
-                              fontWeightTitle: FontWeight.w600,
-                            ),
-                            if (errorDate().isNotEmpty)
-                              Align(
-                                alignment: Alignment.centerRight,
+                          ),
+                        ),
+                      !checkShirt
+                          ? Center(
+                              child: Shimmer.fromColors(
+                                baseColor: colors.blue,
+                                highlightColor: colors.background,
                                 child: Text(
-                                  errorDate(),
-                                  style: TextStyle(
-                                    color: colors.error,
-                                    fontSize: SpacingUnit.x3,
+                                  appLocalizations.loading,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: SpacingUnit.x7,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                            !checkShirt
-                                ? Center(
-                                    child: Shimmer.fromColors(
-                                      baseColor: colors.blue,
-                                      highlightColor: colors.background,
-                                      child: Text(
-                                        appLocalizations.loading,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          fontSize: SpacingUnit.x7,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : ItemWorkShift(
-                                    type: widget.type,
-                                    numberValue: (value) => setNumberValue(value),
-                                    workShiftSettings: (value) => setListIds(value),
-                                  ),
-                            ItemCreateFollower(
-                              listFollower: _setListUser(stateUserById.subtitudePersons),
-                              title: appLocalizations.substitute,
-                              onChange: (value) => _setSubstitute(value),
-                            ),
-                            ItemCreateFollower(
-                              listFollower: _setListUser(stateUserById.userById),
-                              title: appLocalizations.follower,
-                              onChange: (value) => _setFollower(value),
-                            ),
-                            ItemCreateInputArea(
-                              textController: detailedDescriptionController,
-                              title: appLocalizations.detailedDescription,
-                              onChange: (value) => _setDescription(value),
-                            ),
-                            ItemLoadFile(
-                              files: files,
-                              onChangeFiles: (value) => _setFile(value),
-                            ),
-                            const ItemListStepFlow(),
-                            ItemButton(
-                              callbackSave: () => _save(context),
-                              callbackCancel: () => _cancel(context),
                             )
-                          ],
-                        ),
+                          : ItemWorkShift(
+                              type: widget.type,
+                              numberValue: (value) => setNumberValue(value),
+                              workShiftSettings: (value) => setListIds(value),
+                            ),
+                      ItemCreateFollower(
+                        listFollower: _setListUser(stateUserById.subtitudePersons),
+                        title: appLocalizations.substitute,
+                        onChange: (value) => _setSubstitute(value),
                       ),
-                    ),
+                      ItemCreateFollower(
+                        listFollower: _setListUser(stateUserById.userById),
+                        title: appLocalizations.follower,
+                        onChange: (value) => _setFollower(value),
+                      ),
+                      ItemCreateInputArea(
+                        textController: detailedDescriptionController,
+                        title: appLocalizations.detailedDescription,
+                        onChange: (value) => _setDescription(value),
+                      ),
+                      ItemLoadFile(
+                        files: files,
+                        onChangeFiles: (value) => _setFile(value),
+                      ),
+                      const ItemListStepFlow(),
+                      ItemButton(
+                        callbackSave: () => _save(context),
+                        callbackCancel: () => _cancel(context),
+                      )
+                    ],
                   ),
-                  CheckLoadDialog(
-                    fail: setErrorValue(state.errorCode),
-                    checkLoad: checkLoad,
-                    checkSuccess: checkSuccess,
-                    checkUnSuccess: checkUnSuccess,
-                    checkSuccessChange: () => setCheckSuccess(),
-                    checkUnSuccessChange: () => setCheckUnSuccess(),
-                  ),
-                ],
+                ),
               ),
             );
           },
@@ -346,44 +338,15 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       postRequestRequest: request(),
       checkEdit: !checkClick && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(),
-      completerSuccess: () => completerSuccess(),
+      completerFail: () => completerFail(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
+      completerSuccess: () => completerSuccess(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
     );
-  }
-
-  setCheckLoad() {
-    setState(() {
-      checkClick = true;
-      checkLoad = true;
-    });
-  }
-
-  completerFail() {
-    setState(() {
-      checkLoad = false;
-      checkUnSuccess = true;
-      checkClick = false;
-    });
-  }
-
-  completerSuccess() {
-    setState(() {
-      checkLoad = false;
-      checkSuccess = true;
-      checkClick = false;
-    });
-  }
-
-  setCheckSuccess() {
-    setState(() {
-      checkSuccess = false;
-    });
-  }
-
-  setCheckUnSuccess() {
-    setState(() {
-      checkUnSuccess = false;
-    });
   }
 
   _cancel(BuildContext context) {

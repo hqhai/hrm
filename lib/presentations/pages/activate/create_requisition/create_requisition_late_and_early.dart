@@ -71,7 +71,7 @@ class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
 
 class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLateAndEarlyPage> {
   final TextEditingController detailedDescriptionController = TextEditingController();
-  String errorTime = '', errorDestination = '';
+  String errorTime = '', errorDestination = '', errorDialog = '';
   DateTime? workDate, endDate;
   String? description;
   List<String> followers = [];
@@ -105,6 +105,12 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     return check ? 1 : 0.3;
   }
 
+  _listener(String errorCode) {
+    setState(() {
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -112,7 +118,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     final width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<UserByIdBloc, UserByIdState>(
       builder: (context, stateUserById) {
-        return BlocBuilder<RequisitionBloc, RequisitionState>(
+        return BlocConsumer<RequisitionBloc, RequisitionState>(
+          listener: (context, state) => _listener(state.errorCode),
           builder: (context, state) => Scaffold(
             appBar: AppBar(
               iconTheme: IconThemeData(color: colors.text),
@@ -124,138 +131,123 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                 ),
               ),
             ),
-            body: Stack(
-              children: [
-                Opacity(
-                  opacity: opacity(),
-                  child: SingleChildScrollView(
-                    child: ContainerScreenMain(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ItemCreateTimeKeepingType(
-                            typeDefault: EditTimekeeping.early,
-                            onChange: (value) => _setType(value),
+            body: SingleChildScrollView(
+              child: ContainerScreenMain(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ItemCreateTimeKeepingType(
+                      typeDefault: EditTimekeeping.early,
+                      onChange: (value) => _setType(value),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                      child: GestureDetector(
+                        onTap: () => _showBottomSheet(context),
+                        child: ContainerBorder(
+                          margin: 0,
+                          padding: SpacingUnit.x4,
+                          borderColors: colors.outline.withOpacity(0.3),
+                          width: width,
+                          child: Text(
+                            reason.configEnumReasonName,
+                            style: TextStyle(
+                              color: colors.text,
+                              fontSize: SpacingUnit.x4,
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                            child: GestureDetector(
-                              onTap: () => _showBottomSheet(context),
-                              child: ContainerBorder(
-                                margin: 0,
-                                padding: SpacingUnit.x4,
-                                borderColors: colors.outline.withOpacity(0.3),
-                                width: width,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
+                      style: TextStyle(
+                          color: colors.text,
+                          fontSize: SpacingUnit.x4,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    DateOverTime(
+                      dateOld: workDate ?? DateTime.now(),
+                      changeValue: (value) => _setWorkDate(value),
+                    ),
+                    if (workDate != null)
+                      !checkShirt
+                          ? Center(
+                              child: Shimmer.fromColors(
+                                baseColor: colors.blue,
+                                highlightColor: colors.background,
                                 child: Text(
-                                  reason.configEnumReasonName,
-                                  style: TextStyle(
-                                    color: colors.text,
-                                    fontSize: SpacingUnit.x4,
+                                  appLocalizations.loading,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: SpacingUnit.x7,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
+                            )
+                          : ItemWorkShift(
+                              type: widget.type,
+                              numberValue: (value) => setNumberValue(value),
+                              workShiftSettings: (value) => setListIds(value),
                             ),
-                          ),
-                          Text(
-                            '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
-                            style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x4,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          DateOverTime(
-                            dateOld: workDate ?? DateTime.now(),
-                            changeValue: (value) => _setWorkDate(value),
-                          ),
-                          if (workDate != null)
-                            !checkShirt
-                                ? Center(
-                                    child: Shimmer.fromColors(
-                                      baseColor: colors.blue,
-                                      highlightColor: colors.background,
-                                      child: Text(
-                                        appLocalizations.loading,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          fontSize: SpacingUnit.x7,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : ItemWorkShift(
-                                    type: widget.type,
-                                    numberValue: (value) => setNumberValue(value),
-                                    workShiftSettings: (value) => setListIds(value),
-                                  ),
-                          ItemCreateInputArea(
-                            error: errorDestination,
-                            textController: detailedDescriptionController,
-                            title: appLocalizations.detailedDescription,
-                            onChange: (value) => _setDetailedDescription(value),
-                          ),
-                          if (type == EditTimekeeping.early)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    appLocalizations.replaceDay,
-                                    style: TextStyle(
-                                        color: colors.text,
-                                        fontSize: SpacingUnit.x4,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  DateOverTime(
-                                    errorDate: '',
-                                    dateOld: endDate,
-                                    changeValue: (value) => setDate(value),
-                                  ),
-                                  TimeOverTime(
-                                    dateOld: strSeconds(startTime) ?? "",
-                                    changeValue: (value) => _setStart(value),
-                                    title: appLocalizations.startTime,
-                                  ),
-                                  TimeOverTime(
-                                    dateOld: strSeconds(endTime) ?? "",
-                                    changeValue: (value) => _setEnd(value),
-                                    title: appLocalizations.endTime,
-                                  ),
-                                  if (errorTime.isNotEmpty)
-                                    Text(
-                                      errorTime,
-                                      style: TextStyle(
-                                        color: colors.error,
-                                        fontSize: SpacingUnit.x3,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ItemCreateFollower(
-                              listFollower: _setListUser(stateUserById.userById),
-                              title: appLocalizations.follower,
-                              onChange: (value) => _setFollower(value)),
-                          const ItemListStepFlow(),
-                          ItemButton(
-                            callbackSave: () => _save(context),
-                            callbackCancel: () => _cancel(context),
-                          )
-                        ],
-                      ),
+                    ItemCreateInputArea(
+                      error: errorDestination,
+                      textController: detailedDescriptionController,
+                      title: appLocalizations.detailedDescription,
+                      onChange: (value) => _setDetailedDescription(value),
                     ),
-                  ),
+                    if (type == EditTimekeeping.early)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              appLocalizations.replaceDay,
+                              style: TextStyle(
+                                  color: colors.text,
+                                  fontSize: SpacingUnit.x4,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            DateOverTime(
+                              errorDate: '',
+                              dateOld: endDate,
+                              changeValue: (value) => setDate(value),
+                            ),
+                            TimeOverTime(
+                              dateOld: strSeconds(startTime) ?? "",
+                              changeValue: (value) => _setStart(value),
+                              title: appLocalizations.startTime,
+                            ),
+                            TimeOverTime(
+                              dateOld: strSeconds(endTime) ?? "",
+                              changeValue: (value) => _setEnd(value),
+                              title: appLocalizations.endTime,
+                            ),
+                            if (errorTime.isNotEmpty)
+                              Text(
+                                errorTime,
+                                style: TextStyle(
+                                  color: colors.error,
+                                  fontSize: SpacingUnit.x3,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ItemCreateFollower(
+                        listFollower: _setListUser(stateUserById.userById),
+                        title: appLocalizations.follower,
+                        onChange: (value) => _setFollower(value)),
+                    const ItemListStepFlow(),
+                    ItemButton(
+                      callbackSave: () => _save(context),
+                      callbackCancel: () => _cancel(context),
+                    )
+                  ],
                 ),
-                CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode),
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ],
+              ),
             ),
           ),
         );
@@ -375,32 +367,15 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(),
-      completerSuccess: () => completerSuccess(),
+      completerFail: () => completerFail(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
+      completerSuccess: () => completerSuccess(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
     );
-  }
-
-  setCheckLoad() {
-    setState(() {
-      checkClick = true;
-      checkLoad = true;
-    });
-  }
-
-  completerFail() {
-    setState(() {
-      checkLoad = false;
-      checkUnSuccess = true;
-      checkClick = false;
-    });
-  }
-
-  completerSuccess() {
-    setState(() {
-      checkLoad = false;
-      checkSuccess = true;
-      checkClick = false;
-    });
   }
 
   _cancel(BuildContext context) {
@@ -432,12 +407,6 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       description = value;
     });
   }
-
-  /* _setChangeRequisitionOverTimes(List<RequisitionOverTime> value) {
-    setState(() {
-      listRequisitionOverTimes = value;
-    });
-  }*/
 
   _setType(EditTimekeeping value) {
     setState(() {

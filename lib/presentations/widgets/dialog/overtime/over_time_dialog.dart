@@ -167,7 +167,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                 if (widget.checkNote)
                   ItemCreateInputArea(
                     fontWeightTitle: FontWeight.w400,
-                    maxLines: 2,
+                    maxLines: 6,
                     title: appLocalizations.note,
                     error: '',
                     textController: noteController,

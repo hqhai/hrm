@@ -1,5 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/presentations/widgets/custom/app_input.dart';
+import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -55,7 +55,8 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
         ),
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x3),
-          child: AppInput(
+          child: AppInputArea(
+            maxLines: 4,
             placeHolder: widget.title ?? "",
             controller: widget.inputController,
             onChange: (value) => _onChangeInput(value),

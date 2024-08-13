@@ -28,58 +28,62 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(appLocalizations.fullName,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.createdFullName,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
-                  ],
-                ),
+              item(
+                title: appLocalizations.fullName,
+                color: colors.text,
+                value: state.requisition.createdFullName,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(appLocalizations.employeeCode,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.createdCode,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
-                  ],
-                ),
+              item(
+                title: appLocalizations.employeeCode,
+                color: colors.text,
+                value: state.requisition.createdCode,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(appLocalizations.position,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.nameCreatedPosition,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
-                  ],
-                ),
+              item(
+                title: appLocalizations.position,
+                color: colors.text,
+                value: state.requisition.nameCreatedPosition,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(appLocalizations.department,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3)),
-                    Text(state.requisition.nameCreatedDepartment,
-                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3))
-                  ],
-                ),
+              item(
+                title: appLocalizations.department,
+                color: colors.text,
+                value: state.requisition.nameCreatedDepartment,
               ),
             ],
           ),
         );
       },
+    );
+  }
+
+  Widget item({required String title, required String value, required Color color}) {
+    return Padding(
+      padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: color,
+                fontSize: SpacingUnit.x4,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Align(
+              alignment: FractionalOffset.centerRight,
+              child: Text(
+                value,
+                style: TextStyle(
+                  color: color,
+                  fontSize: SpacingUnit.x4,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

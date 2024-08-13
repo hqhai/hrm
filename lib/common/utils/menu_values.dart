@@ -254,7 +254,7 @@ class TitleAppbarValues {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
       appLocalizations.worksheet,
-      appLocalizations.home,
+      appLocalizations.request,
       appLocalizations.calendarWork,
       appLocalizations.userInformation,
     ];

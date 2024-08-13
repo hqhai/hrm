@@ -61,7 +61,7 @@ class CreateRequisitionExplanationPage extends StatefulWidget {
 class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExplanationPage> {
   final TextEditingController detailedDescriptionController = TextEditingController();
   List<RequisitionOverTime> listRequisitionOverTimes = [];
-  String errorTime = '', errorDestination = '';
+  String errorTime = '', errorDestination = '', errorDialog = '';
   String? description;
   List<String> followers = [];
   List<Explanation> explanations = [];
@@ -88,11 +88,18 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     return check ? 1 : 0.3;
   }
 
+  _listener(String errorCode) {
+    setState(() {
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<RequisitionBloc, RequisitionState>(
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
+      listener: (context, state) => _listener(state.errorCode),
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
@@ -106,55 +113,40 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                 ),
               ),
             ),
-            body: Stack(
-              children: [
-                Opacity(
-                  opacity: opacity(),
-                  child: SingleChildScrollView(
-                    child: ContainerScreenMain(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListExplanationsWidget(
-                            changeExplanations: (value) => _setExplanations(value),
-                            changeTypeContainer: (value) => _changeTypeContainer(value),
-                            checkTypeContainer: checkTypeContainer,
-                            explanations: explanations,
-                            title: appLocalizations.workDay,
-                            callback: () => //addExplanation(),
-                                _showBottomSheet(context),
-                          ),
-                          ItemCreateInputArea(
-                            error: errorDestination,
-                            textController: detailedDescriptionController,
-                            title: appLocalizations.detailedDescription,
-                            onChange: (value) => _setDetailedDescription(value),
-                          ),
-                          ItemCreateFollower(
-                              listFollower: _setListUser(
-                                stateUserById.userById,
-                              ),
-                              title: appLocalizations.follower,
-                              onChange: (value) => _setFollower(value)),
-                          const ItemListStepFlow(),
-                          ItemButton(
-                            callbackSave: () => _save(context),
-                            callbackCancel: () => _cancel(context),
-                          )
-                        ],
-                      ),
+            body: SingleChildScrollView(
+              child: ContainerScreenMain(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListExplanationsWidget(
+                      changeExplanations: (value) => _setExplanations(value),
+                      changeTypeContainer: (value) => _changeTypeContainer(value),
+                      checkTypeContainer: checkTypeContainer,
+                      explanations: explanations,
+                      title: appLocalizations.workDay,
+                      callback: () => //addExplanation(),
+                          _showBottomSheet(context),
                     ),
-                  ),
+                    ItemCreateInputArea(
+                      error: errorDestination,
+                      textController: detailedDescriptionController,
+                      title: appLocalizations.detailedDescription,
+                      onChange: (value) => _setDetailedDescription(value),
+                    ),
+                    ItemCreateFollower(
+                        listFollower: _setListUser(
+                          stateUserById.userById,
+                        ),
+                        title: appLocalizations.follower,
+                        onChange: (value) => _setFollower(value)),
+                    const ItemListStepFlow(),
+                    ItemButton(
+                      callbackSave: () => _save(context),
+                      callbackCancel: () => _cancel(context),
+                    )
+                  ],
                 ),
-                CheckLoadDialog(
-                  fail: setErrorValue(state.errorCode),
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ],
+              ),
             ),
           );
         },
@@ -233,32 +225,15 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(),
-      completerSuccess: () => completerSuccess(),
+      completerFail: () => completerFail(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
+      completerSuccess: () => completerSuccess(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
     );
-  }
-
-  setCheckLoad() {
-    setState(() {
-      checkClick = true;
-      checkLoad = true;
-    });
-  }
-
-  completerFail() {
-    setState(() {
-      checkLoad = false;
-      checkUnSuccess = true;
-      checkClick = false;
-    });
-  }
-
-  completerSuccess() {
-    setState(() {
-      checkLoad = false;
-      checkSuccess = true;
-      checkClick = false;
-    });
   }
 
   _cancel(BuildContext context) {

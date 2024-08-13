@@ -333,12 +333,6 @@ abstract class AppLocalizations {
   /// **'Successfully created request'**
   String get successfullyCreatedRequest;
 
-  /// No description provided for @createRequestFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Create request failed'**
-  String get createRequestFailed;
-
   /// No description provided for @doYouWantToCreateARequest.
   ///
   /// In en, this message translates to:
@@ -1146,7 +1140,7 @@ abstract class AppLocalizations {
   /// No description provided for @dialogWrongPasswordA.
   ///
   /// In en, this message translates to:
-  /// **'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please check your email '**
+  /// **'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please contact HCNS'**
   String get dialogWrongPasswordA;
 
   /// No description provided for @dialogWrongPasswordB.
@@ -3224,6 +3218,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Timekeeping un success'**
   String get timekeepingUnSuccess;
+
+  /// No description provided for @createRequestFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Create request unsuccessful'**
+  String get createRequestFailed;
+
+  /// No description provided for @editRequestUnsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit request unsuccessful'**
+  String get editRequestUnsuccessful;
+
+  /// No description provided for @createSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'create success'**
+  String get createSuccess;
+
+  /// No description provided for @editRequestSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit request success'**
+  String get editRequestSuccess;
+
+  /// No description provided for @theTotalNumberOfLeaveIsNotEnough.
+  ///
+  /// In en, this message translates to:
+  /// **'The total number of leave is not enough'**
+  String get theTotalNumberOfLeaveIsNotEnough;
+
+  /// No description provided for @approvedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved success'**
+  String get approvedSuccess;
+
+  /// No description provided for @approvedUnsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'approved Unsuccessful'**
+  String get approvedUnsuccessful;
+
+  /// No description provided for @cancelRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel request'**
+  String get cancelRequest;
+
+  /// No description provided for @leaveReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave reason'**
+  String get leaveReason;
+
+  /// No description provided for @reasonType.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason type'**
+  String get reasonType;
+
+  /// No description provided for @updateUnsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Unsuccessful'**
+  String get updateUnsuccessful;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

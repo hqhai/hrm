@@ -13,15 +13,11 @@ class ListStationeries extends StatefulWidget {
     this.listRequisitionStationery = const [],
     required this.onChangeList,
     this.error = '',
-    this.checkTypeContainer = const [],
-    required this.changeTypeContainer,
   });
 
   final String title, error;
   final List<Stationeries> listRequisitionStationery;
   final ValueChanged<List<Stationeries>> onChangeList;
-  final List<bool> checkTypeContainer;
-  final ValueChanged<List<bool>> changeTypeContainer;
 
   @override
   State<ListStationeries> createState() => _ListStationeriesState();
@@ -63,8 +59,6 @@ class _ListStationeriesState extends State<ListStationeries> {
             children: widget.listRequisitionStationery
                 .mapIndexed(
                   (index, element) => StationeryOderAddDialog(
-                    callBackTypeContainer: () => setTypeContainer(index),
-                    checkTypeContainer: widget.checkTypeContainer[index],
                     callBack: () => _deleteStationery(index),
                     stationery: element,
                     requisitionStationery: (value) => setEdit(value, index),
@@ -88,21 +82,10 @@ class _ListStationeriesState extends State<ListStationeries> {
     );
   }
 
-  setTypeContainer(int index) {
-    final listType = widget.checkTypeContainer;
-    setState(() {
-      listType[index] = !listType[index];
-      widget.changeTypeContainer.call(listType);
-    });
-  }
-
   _addStationery(BuildContext context) {
     final stationery = widget.listRequisitionStationery;
-    final types = widget.checkTypeContainer;
     setState(() {
-      types.add(true);
       stationery.add(const Stationeries());
-      widget.changeTypeContainer.call(types);
       widget.onChangeList.call(stationery);
     });
   }
@@ -124,11 +107,8 @@ class _ListStationeriesState extends State<ListStationeries> {
 
   _deleteStationery(int index) {
     final listRequisitionStationery = widget.listRequisitionStationery;
-    final types = widget.checkTypeContainer;
     setState(() {
-      types.removeAt(index);
       listRequisitionStationery.removeAt(index);
-      widget.changeTypeContainer.call(types);
       widget.onChangeList.call(listRequisitionStationery);
     });
   }

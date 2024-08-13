@@ -20,6 +20,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_common/item_create_time_start_and_end.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -50,7 +51,7 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   final TextEditingController descriptionController = TextEditingController(),
       contentController = TextEditingController();
   double totalMinute = 0;
-  String errorTime = '', errorSchedule = '', errorContent = '', errorSubtitude = '';
+  String errorTime = '', errorSchedule = '', errorContent = '', errorSubtitude = '', errorDialog = '';
   String? description, content;
   DateTime? startTime, endTime;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
@@ -97,11 +98,18 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     return check ? 1 : 0.3;
   }
 
+  _listener(String errorCode) {
+    setState(() {
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<RequisitionBloc, RequisitionState>(
+    return BlocConsumer<RequisitionBloc, RequisitionState>(
+      listener: (context, state) => _listener(state.errorCode),
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
@@ -115,73 +123,56 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                 ),
               ),
             ),
-            body: Stack(
-              children: [
-                Opacity(
-                  opacity: opacity(),
-                  child: SingleChildScrollView(
-                    child: ContainerScreenMain(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ItemCreateInputArea(
-                            error: errorContent,
-                            textController: contentController,
-                            title: appLocalizations.reasonForDriving,
-                            onChange: (value) => _setContent(value),
-                          ),
-                          ItemCreateFollower(
-                            error: errorSubtitude,
-                            listFollower: _setListUser(stateUserById.subtitudePersons),
-                            title: appLocalizations.walker,
-                            onChange: (value) => _setWalker(value),
-                          ),
-                          ItemCreateInputArea(
-                            error: errorSchedule,
-                            textController: descriptionController,
-                            title: appLocalizations.schedule,
-                            onChange: (value) => _setSchedule(value),
-                          ),
-                          ItemCreateTimeStartAndEnd(
-                            title1: appLocalizations.timeStart,
-                            title2: appLocalizations.timeEnd,
-                            title3: appLocalizations.totalTime,
-                            endTimeOld: endTime,
-                            startTimeOld: startTime,
-                            error: errorTime,
-                            dayOrHours: false,
-                            leave: true,
-                            title: appLocalizations.drivingTime,
-                            startTime: (value) => setStartTime(value),
-                            endTime: (value) => setEndTime(value),
-                            total: (value) => setTotal(value),
-                          ),
-                          ItemCreateFollower(
-                            listFollower: _setListUser(stateUserById.userById),
-                            title: appLocalizations.follower,
-                            onChange: (value) => _setFollower(value),
-                          ),
-                          const ItemListStepFlow(),
-                          ItemButton(
-                            callbackSave: () => _save(context),
-                            callbackCancel: () => _cancel(context),
-                          )
-                        ],
-                      ),
+            body: SingleChildScrollView(
+              child: ContainerScreenMain(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ItemCreateInputArea(
+                      error: errorContent,
+                      textController: contentController,
+                      title: appLocalizations.reasonForDriving,
+                      onChange: (value) => _setContent(value),
                     ),
-                  ),
+                    ItemCreateFollower(
+                      error: errorSubtitude,
+                      listFollower: _setListUser(stateUserById.subtitudePersons),
+                      title: appLocalizations.walker,
+                      onChange: (value) => _setWalker(value),
+                    ),
+                    ItemCreateInputArea(
+                      error: errorSchedule,
+                      textController: descriptionController,
+                      title: appLocalizations.schedule,
+                      onChange: (value) => _setSchedule(value),
+                    ),
+                    ItemCreateTimeStartAndEnd(
+                      title1: appLocalizations.timeStart,
+                      title2: appLocalizations.timeEnd,
+                      title3: appLocalizations.totalTime,
+                      endTimeOld: endTime,
+                      startTimeOld: startTime,
+                      error: errorTime,
+                      dayOrHours: false,
+                      leave: true,
+                      title: appLocalizations.drivingTime,
+                      startTime: (value) => setStartTime(value),
+                      endTime: (value) => setEndTime(value),
+                      total: (value) => setTotal(value),
+                    ),
+                    ItemCreateFollower(
+                      listFollower: _setListUser(stateUserById.userById),
+                      title: appLocalizations.follower,
+                      onChange: (value) => _setFollower(value),
+                    ),
+                    const ItemListStepFlow(),
+                    ItemButton(
+                      callbackSave: () => _save(context),
+                      callbackCancel: () => _cancel(context),
+                    )
+                  ],
                 ),
-                CheckLoadDialog(
-                  fail: setErrorValue(
-                    state.errorCode,
-                  ),
-                  checkLoad: checkLoad,
-                  checkSuccess: checkSuccess,
-                  checkUnSuccess: checkUnSuccess,
-                  checkSuccessChange: () => setCheckSuccess(),
-                  checkUnSuccessChange: () => setCheckUnSuccess(),
-                ),
-              ],
+              ),
             ),
           );
         },
@@ -277,26 +268,35 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   }
 
   setCheckLoad() {
-    setState(() {
-      checkClick = true;
-      checkLoad = true;
-    });
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dialogIndicator(context: currentContext);
   }
 
   completerFail() {
-    setState(() {
-      checkLoad = false;
-      checkUnSuccess = true;
-      checkClick = false;
-    });
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    dI<AppNavigation>().pop(currentContext);
+    dI<AppNavigation>().pop(currentContext);
+    dialogUnsuccessful(
+      context: currentContext,
+      title: errorDialog.isNotEmpty
+          ? errorDialog
+          : widget.requestId.isNotEmpty
+          ? appLocalizations.editRequestUnsuccessful
+          : appLocalizations.createRequestFailed,
+    );
   }
 
   completerSuccess() {
-    setState(() {
-      checkLoad = false;
-      checkSuccess = true;
-      checkClick = false;
-    });
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    dI<AppNavigation>().pop(currentContext);
+    dialogSuccess(
+      context: currentContext,
+      title: widget.requestId.isNotEmpty
+          ? appLocalizations.editRequestSuccess
+          : appLocalizations.createSuccess,
+    );
   }
 
   _cancel(BuildContext context) {

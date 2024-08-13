@@ -19,7 +19,7 @@ class ItemBottomSheet extends StatelessWidget {
         borderRadius: BorderRadius.circular(SpacingUnit.x2),
         color: check ? colors.tertiary.withOpacity(0.4) : colors.background,
         border: Border.all(
-          color: colors.text,
+          color: colors.background,
           width: 1,
         ),
       ),

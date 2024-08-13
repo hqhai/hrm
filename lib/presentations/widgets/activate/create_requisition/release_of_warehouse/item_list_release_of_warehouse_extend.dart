@@ -50,8 +50,8 @@ class _ItemListReleaseOfWarehouseExtendState extends State<ItemListReleaseOfWare
                 InkWell(
                   onTap: () => setShowFull(),
                   child: SvgPicture.asset(
-                    width: SpacingUnit.x6,
-                    height: SpacingUnit.x6,
+                    width: SpacingUnit.x8,
+                    height: SpacingUnit.x8,
                     checkType
                         ? Assets.images.icon.home.chevronForward
                         : Assets.images.icon.activateIcon.drop,

@@ -21,24 +21,12 @@ class TimeOverTime extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: title,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                ),
-              ),
-              TextSpan(
-                text: '*',
-                style: TextStyle(
-                  color: colors.error,
-                  fontSize: SpacingUnit.x5,
-                ),
-              ),
-            ],
+        Text(
+          title,
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x4,
+            fontWeight: FontWeight.w500
           ),
         ),
         TimePickerHourMinute(

@@ -16,17 +16,21 @@ class ItemUpdateProfileConstant extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x4,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         Container(
           width: width,
           margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-          padding: const EdgeInsets.all(SpacingUnit.x2_5),
+          padding: const EdgeInsets.all(SpacingUnit.x3_5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingUnit.x2),
             color: colors.background,
             border: Border.all(
-              color: colors.surfaceBright,
+              color: colors.surfaceBright.withOpacity(0.4),
               width: 1,
             ),
           ),

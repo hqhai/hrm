@@ -1,95 +1,88 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user/user_state.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ItemDepartmentAndPositionProfile extends StatelessWidget {
-  const ItemDepartmentAndPositionProfile(
-      {super.key, this.departmentNames = const [], this.positionNames = const [], this.check = true});
-
-  final List<String> departmentNames;
-  final List<String> positionNames;
-  final bool check;
-
-  List<String> setList(){
-    Set<String> set = Set<String>.from(departmentNames);
-    return set.toList();
-  }
+  const ItemDepartmentAndPositionProfile({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: SizedBox(
-            height: height * 0.05 * setList().length,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: setList().length,
-              itemBuilder: (context, index) => Container(
-                margin: const EdgeInsets.only(right: SpacingUnit.x1_5, bottom: SpacingUnit.x1_5),
-                width: width * 0.5,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: colors.text,
-                      width: 1,
-                    ),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      setList()[index],
-                      maxLines: 2,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(color: colors.text, fontSize: check ? SpacingUnit.x3 : SpacingUnit.x4),
-                    ),
-                    const SizedBox(height: SpacingUnit.x3),
-                  ],
-                ),
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, state) {
+        final department = state.user.userDepartmentPositions;
+        final position = state.user.userDepartmentPositions;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              appLocalizations.department,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ),
-        ),
-        Expanded(
-          child: SizedBox(
-            height: height * 0.05 * positionNames.length,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: positionNames.length,
-              itemBuilder: (context, index) => Container(
-                margin: const EdgeInsets.only(left: SpacingUnit.x1_5, bottom: SpacingUnit.x1_5),
-                width: width * 0.5,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: colors.text,
-                      width: 1,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: department
+                  .map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                      child: ContainerBorder(
+                        padding: SpacingUnit.x4,
+                        width: width,
+                        margin: 0,
+                        borderColors: colors.text.withOpacity(0.2),
+                        child: Text(
+                          e.department?.name ?? "",
+                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      positionNames[index],
-                      maxLines: 2,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(color: colors.text, fontSize: check ? SpacingUnit.x3 : SpacingUnit.x4),
-                    ),
-                    const SizedBox(height: SpacingUnit.x3),
-                  ],
-                ),
+                  )
+                  .toList(),
+            ),
+            Text(
+              appLocalizations.position,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ),
-        ),
-      ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: position
+                  .map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                      child: ContainerBorder(
+                        padding: SpacingUnit.x4,
+                        width: width,
+                        margin: 0,
+                        borderColors: colors.text.withOpacity(0.2),
+                        child: Text(
+                          e.position?.name ?? "",
+                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
+        );
+      },
     );
   }
 }

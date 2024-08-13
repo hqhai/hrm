@@ -1,61 +1,87 @@
+import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:themes/themes.dart';
 
-successFullChangePasswordDialog(BuildContext context, String content) async {
-  final appLocalizations = AppLocalizations.of(context)!;
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        content: Scrollbar(
-          child: Text(content,
-              textAlign: TextAlign.center, style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white)),
+class ChangePassWord extends StatelessWidget {
+  const ChangePassWord({super.key, required this.callBack});
+
+  final VoidCallback callBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(SpacingUnit.x4),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              appLocalizations.doYouWantToChangeYourPassword,
+              style: TextStyle(
+                fontSize: SpacingUnit.x6,
+                color: colors.text,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppButton(
+                      colorText: colors.background,
+                      onSubmit: () => onClickOK(),
+                      title: appLocalizations.apply,
+                      color: colors.blue,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppButton(
+                      onSubmit: () => popDialog(),
+                      colorText: colors.background,
+                      color: colors.text.withOpacity(0.3),
+                      title: appLocalizations.cancel,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () => popDialog(context),
-            child: Text(appLocalizations.ok),
-          ),
-        ],
-      );
-    },
-  );
+      ),
+    );
+  }
+
+  onClickOK() {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    callBack.call();
+    dI<AppNavigation>().pop(currentContext);
+  }
+
+  popDialog() {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dI<AppNavigation>().pop(currentContext);
+  }
 }
 
 changePasswordDialog({required BuildContext context, required VoidCallback callback}) async {
-  final appLocalizations = AppLocalizations.of(context)!;
   return showDialog(
     context: context,
     builder: (context) {
-      return AlertDialog(
-        content: Scrollbar(
-          child: Text(
-            appLocalizations.doYouWantToChangeYourPassword,
-            style: const TextStyle(fontSize: SpacingUnit.x6, color: Colors.white),
-          ),
+      return Dialog(
+        child: ChangePassWord(
+          callBack: () => callback.call(),
         ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () => onClickOK(context, callback),
-            child: Text(
-              appLocalizations.ok,
-              style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white),
-            ),
-          ),
-          ElevatedButton(
-            child: Text(
-              appLocalizations.cancel,
-              style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white),
-            ),
-            onPressed: () => popDialog(context),
-          ),
-        ],
       );
     },
   );
 }
-
-
-

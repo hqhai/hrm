@@ -49,8 +49,8 @@ class _ItemExplanationState extends State<ItemExplanation> {
                 InkWell(
                   onTap: () => setShowNote(),
                   child: SvgPicture.asset(
-                    width: SpacingUnit.x6,
-                    height: SpacingUnit.x6,
+                    width: SpacingUnit.x8,
+                    height: SpacingUnit.x8,
                     showNote
                         ? Assets.images.icon.home.chevronForward
                         : Assets.images.icon.activateIcon.drop,

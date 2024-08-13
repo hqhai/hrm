@@ -43,12 +43,15 @@ class _BottomSheetWorkShiftWidgetState extends State<BottomSheetWorkShiftWidget>
         return Center(
           child: Column(
             children: [
-              Text(
-                appLocalizations.chooseWorkShift,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x5,
-                  fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.all(SpacingUnit.x4),
+                child: Text(
+                  appLocalizations.chooseWorkShift,
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x5,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               Expanded(
@@ -85,7 +88,6 @@ class _BottomSheetWorkShiftWidgetState extends State<BottomSheetWorkShiftWidget>
                         explanation: value,
                       ),
                       explanations: explanations,
-                      check: false,
                       index: index,
                       value: formatYMD(date.toString()),
                     );

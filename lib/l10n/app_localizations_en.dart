@@ -125,9 +125,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get successfullyCreatedRequest => 'Successfully created request';
 
   @override
-  String get createRequestFailed => 'Create request failed';
-
-  @override
   String get doYouWantToCreateARequest => 'Do you want to create a request?';
 
   @override
@@ -530,7 +527,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get date => 'Date';
 
   @override
-  String get dialogWrongPasswordA => 'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please check your email ';
+  String get dialogWrongPasswordA => 'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please contact HCNS';
 
   @override
   String get dialogWrongPasswordB => ' to reset your password';
@@ -1569,4 +1566,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timekeepingUnSuccess => 'Timekeeping un success';
+
+  @override
+  String get createRequestFailed => 'Create request unsuccessful';
+
+  @override
+  String get editRequestUnsuccessful => 'Edit request unsuccessful';
+
+  @override
+  String get createSuccess => 'create success';
+
+  @override
+  String get editRequestSuccess => 'Edit request success';
+
+  @override
+  String get theTotalNumberOfLeaveIsNotEnough => 'The total number of leave is not enough';
+
+  @override
+  String get approvedSuccess => 'Approved success';
+
+  @override
+  String get approvedUnsuccessful => 'approved Unsuccessful';
+
+  @override
+  String get cancelRequest => 'Cancel request';
+
+  @override
+  String get leaveReason => 'Leave reason';
+
+  @override
+  String get reasonType => 'Reason type';
+
+  @override
+  String get updateUnsuccessful => 'Update Unsuccessful';
 }

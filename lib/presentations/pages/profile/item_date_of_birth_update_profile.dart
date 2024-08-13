@@ -9,10 +9,8 @@ class ItemDateOfBirthUpdateProfile extends StatefulWidget {
     this.dateOfBirth = '',
     required this.onChangeDateOfBirth,
     this.title = '',
-    this.check = false,
   });
 
-  final bool check;
   final ValueChanged<String> onChangeDateOfBirth;
   final String title;
   final String dateOfBirth;
@@ -33,32 +31,18 @@ class _ItemDateOfBirthUpdateProfileState extends State<ItemDateOfBirthUpdateProf
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.title,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x4,
-                fontWeight: widget.check? FontWeight.w800 : FontWeight.w400
-              ),
-            ),
-            const SizedBox(
-              height: SpacingUnit.x3,
-            ),
-            DatePicker(
-              check: false,
-              onChange: (value) => _setOnChange(value),
-              oldDate: DateTime.tryParse(widget.dateOfBirth),
-            ),
-            const SizedBox(
-              height: SpacingUnit.x3,
-            ),
-          ],
+        Text(
+          widget.title,
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x4,
+            fontWeight: FontWeight.w600
+          ),
         ),
-        const SizedBox(
-          height: SpacingUnit.x2,
+        DatePicker(
+          check: false,
+          onChange: (value) => _setOnChange(value),
+          oldDate: DateTime.tryParse(widget.dateOfBirth),
         ),
       ],
     );
