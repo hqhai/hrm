@@ -400,21 +400,21 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     });
   }
 
-  _onChangeVehicle(VehicleTypeEnum value) {
-    setState(() {
-      vehicleType = value;
-    });
-  }
+  // _onChangeVehicle(VehicleTypeEnum value) {
+  //   setState(() {
+  //     vehicleType = value;
+  //   });
+  // }
 
-  _setLicensePlate(String value) {
-    setState(() {
-      licensePlate = value;
-    });
-  }
+  // _setLicensePlate(String value) {
+  //   setState(() {
+  //     licensePlate = value;
+  //   });
+  // }
 
-  _setAutoMaker(String value) {
-    setState(() {
-      autoMaker = value;
-    });
-  }
+  // _setAutoMaker(String value) {
+  //   setState(() {
+  //     autoMaker = value;
+  //   });
+  // }
 }

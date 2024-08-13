@@ -25,7 +25,7 @@ class Shift {
   final DateTime? workDate;
   final ShiftType type;
   final WorkShiftRequestStatus status;
-  final int workEffort;
+  final double workEffort;
 
   const Shift({
     this.workShiftSettingDetailId = '',
