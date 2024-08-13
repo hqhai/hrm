@@ -93,12 +93,6 @@ abstract class AppLocalizations {
     Locale('vi')
   ];
 
-  /// No description provided for @helloWorld.
-  ///
-  /// In en, this message translates to:
-  /// **'Hello World!'**
-  String get helloWorld;
-
   /// No description provided for @username.
   ///
   /// In en, this message translates to:
@@ -114,73 +108,67 @@ abstract class AppLocalizations {
   /// No description provided for @staySignedIn.
   ///
   /// In en, this message translates to:
-  /// **'Stay signed in'**
+  /// **'Save Login'**
   String get staySignedIn;
 
   /// No description provided for @forgotPassword.
   ///
   /// In en, this message translates to:
-  /// **'Forgot password'**
+  /// **'Forgot Passwword'**
   String get forgotPassword;
 
   /// No description provided for @login.
   ///
   /// In en, this message translates to:
-  /// **'Log in'**
+  /// **'Login'**
   String get login;
-
-  /// No description provided for @login2.
-  ///
-  /// In en, this message translates to:
-  /// **'LOG IN'**
-  String get login2;
 
   /// No description provided for @notAMember.
   ///
   /// In en, this message translates to:
-  /// **'Not a member? '**
+  /// **'Don\'t Have An Account?'**
   String get notAMember;
 
   /// No description provided for @alreadyAMember.
   ///
   /// In en, this message translates to:
-  /// **'Already a member?  '**
+  /// **'Already Have An Account?'**
   String get alreadyAMember;
 
   /// No description provided for @signUpNow.
   ///
   /// In en, this message translates to:
-  /// **'Sign up now'**
+  /// **'Register now'**
   String get signUpNow;
 
   /// No description provided for @logInNow.
   ///
   /// In en, this message translates to:
-  /// **'Log in now'**
+  /// **'Log In Now'**
   String get logInNow;
 
   /// No description provided for @whatIsYourEmail.
   ///
   /// In en, this message translates to:
-  /// **'What’s your email?'**
+  /// **'What\'s Your Email?'**
   String get whatIsYourEmail;
 
   /// No description provided for @chooseAUsername.
   ///
   /// In en, this message translates to:
-  /// **'Choose a username'**
+  /// **'Choose A Username'**
   String get chooseAUsername;
 
   /// No description provided for @chooseAPassword.
   ///
   /// In en, this message translates to:
-  /// **'Choose a password'**
+  /// **'Choose A Password'**
   String get chooseAPassword;
 
   /// No description provided for @confirmPassword.
   ///
   /// In en, this message translates to:
-  /// **'Confirm password'**
+  /// **'Re-enter The Password'**
   String get confirmPassword;
 
   /// No description provided for @weak.
@@ -192,7 +180,7 @@ abstract class AppLocalizations {
   /// No description provided for @medium.
   ///
   /// In en, this message translates to:
-  /// **'Medium'**
+  /// **'Average'**
   String get medium;
 
   /// No description provided for @good.
@@ -276,25 +264,25 @@ abstract class AppLocalizations {
   /// No description provided for @managementRequests.
   ///
   /// In en, this message translates to:
-  /// **'Management Requests'**
+  /// **'Requirements Management'**
   String get managementRequests;
 
   /// No description provided for @managementRoom.
   ///
   /// In en, this message translates to:
-  /// **'Management Room'**
+  /// **'Meeting Room Management'**
   String get managementRoom;
 
   /// No description provided for @logout.
   ///
   /// In en, this message translates to:
-  /// **'Logout'**
+  /// **'Log off'**
   String get logout;
 
   /// No description provided for @title.
   ///
   /// In en, this message translates to:
-  /// **'Title'**
+  /// **'Headline/Title'**
   String get title;
 
   /// No description provided for @content.
@@ -306,13 +294,13 @@ abstract class AppLocalizations {
   /// No description provided for @selectFile.
   ///
   /// In en, this message translates to:
-  /// **'Select file'**
+  /// **'Add Files'**
   String get selectFile;
 
   /// No description provided for @typeRequest.
   ///
   /// In en, this message translates to:
-  /// **'Type request'**
+  /// **'Request Type'**
   String get typeRequest;
 
   /// No description provided for @priority.
@@ -324,43 +312,43 @@ abstract class AppLocalizations {
   /// No description provided for @approver.
   ///
   /// In en, this message translates to:
-  /// **'Approver'**
+  /// **'Approve'**
   String get approver;
 
   /// No description provided for @createOvertimeRequestIsSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Create overtime request is success'**
+  /// **'Create A Successful OT Request'**
   String get createOvertimeRequestIsSuccess;
 
   /// No description provided for @successfullyCreatedRequest.
   ///
   /// In en, this message translates to:
-  /// **'Successfully created request'**
+  /// **'The Request is Successfully Initiated'**
   String get successfullyCreatedRequest;
 
   /// No description provided for @doYouWantToCreateARequest.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to create a request?'**
+  /// **'Do you want to initiate a request?'**
   String get doYouWantToCreateARequest;
 
   /// No description provided for @doYouWantToDeleteTheRoom.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to delete the room?'**
+  /// **'Do you want to delete a room?'**
   String get doYouWantToDeleteTheRoom;
 
   /// No description provided for @doYouWantToUpdateARequest.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to update a request?'**
+  /// **'Do you want to update your requirements?'**
   String get doYouWantToUpdateARequest;
 
   /// No description provided for @changePasswordSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Change password success!'**
+  /// **'Password Change Successful!'**
   String get changePasswordSuccess;
 
   /// No description provided for @doYouWantToChangeYourPassword.
@@ -372,31 +360,31 @@ abstract class AppLocalizations {
   /// No description provided for @leaveACommentHere.
   ///
   /// In en, this message translates to:
-  /// **'Leave a comment here'**
+  /// **'Write Content Here'**
   String get leaveACommentHere;
 
   /// No description provided for @previouslyAvailableSchedules.
   ///
   /// In en, this message translates to:
-  /// **'Previously available schedules'**
+  /// **'Availabale Schedules '**
   String get previouslyAvailableSchedules;
 
   /// No description provided for @thereAreCurrentlyNoMeetingsScheduled.
   ///
   /// In en, this message translates to:
-  /// **'There are currently no meetings scheduled'**
+  /// **'No Meetings Are Currently Scheduled'**
   String get thereAreCurrentlyNoMeetingsScheduled;
 
   /// No description provided for @scheduleAMeeting.
   ///
   /// In en, this message translates to:
-  /// **'Schedule a meeting'**
+  /// **'Schedule A Meeting'**
   String get scheduleAMeeting;
 
   /// No description provided for @update.
   ///
   /// In en, this message translates to:
-  /// **'UPDATE'**
+  /// **'Update'**
   String get update;
 
   /// No description provided for @ok.
@@ -408,19 +396,19 @@ abstract class AppLocalizations {
   /// No description provided for @cancel.
   ///
   /// In en, this message translates to:
-  /// **'CANCEL'**
+  /// **'Cancel'**
   String get cancel;
 
   /// No description provided for @create.
   ///
   /// In en, this message translates to:
-  /// **'CREATE'**
+  /// **'Create/Initialization'**
   String get create;
 
   /// No description provided for @startTime.
   ///
   /// In en, this message translates to:
-  /// **'Start Time'**
+  /// **'Begin/ Finish/ Start Time'**
   String get startTime;
 
   /// No description provided for @endTime.
@@ -428,6 +416,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'End Time'**
   String get endTime;
+
+  /// No description provided for @startTimeH.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Time'**
+  String get startTimeH;
+
+  /// No description provided for @endTimeH.
+  ///
+  /// In en, this message translates to:
+  /// **'End Time'**
+  String get endTimeH;
+
+  /// No description provided for @startTimeD.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startTimeD;
+
+  /// No description provided for @endTimeD.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get endTimeD;
 
   /// No description provided for @name.
   ///
@@ -438,13 +450,13 @@ abstract class AppLocalizations {
   /// No description provided for @main.
   ///
   /// In en, this message translates to:
-  /// **'main'**
+  /// **'Main'**
   String get main;
 
   /// No description provided for @seats.
   ///
   /// In en, this message translates to:
-  /// **'Seats'**
+  /// **'Chair'**
   String get seats;
 
   /// No description provided for @address.
@@ -468,13 +480,13 @@ abstract class AppLocalizations {
   /// No description provided for @createTime.
   ///
   /// In en, this message translates to:
-  /// **'Create Time'**
+  /// **'Creation Time'**
   String get createTime;
 
   /// No description provided for @type.
   ///
   /// In en, this message translates to:
-  /// **'Type'**
+  /// **'TYPE'**
   String get type;
 
   /// No description provided for @creator.
@@ -492,49 +504,49 @@ abstract class AppLocalizations {
   /// No description provided for @note.
   ///
   /// In en, this message translates to:
-  /// **'Note'**
+  /// **'Notes'**
   String get note;
 
   /// No description provided for @newPassword.
   ///
   /// In en, this message translates to:
-  /// **'New Password'**
+  /// **'New Passwprd'**
   String get newPassword;
 
   /// No description provided for @currentPassword.
   ///
   /// In en, this message translates to:
-  /// **'Current Password'**
+  /// **'Old Password'**
   String get currentPassword;
 
   /// No description provided for @noteRoomLeader.
   ///
   /// In en, this message translates to:
-  /// **'Note Room Leader'**
+  /// **'Head\'s Note Manager\'s'**
   String get noteRoomLeader;
 
   /// No description provided for @noteManager.
   ///
   /// In en, this message translates to:
-  /// **'Note Manager'**
+  /// **'Manager\'s note'**
   String get noteManager;
 
   /// No description provided for @explanation.
   ///
   /// In en, this message translates to:
-  /// **'Explanation'**
+  /// **'Request to amend timekeeping'**
   String get explanation;
 
   /// No description provided for @startDay.
   ///
   /// In en, this message translates to:
-  /// **'Start Day'**
+  /// **'Start Date'**
   String get startDay;
 
   /// No description provided for @endDay.
   ///
   /// In en, this message translates to:
-  /// **'End Day'**
+  /// **'End Date'**
   String get endDay;
 
   /// No description provided for @roomName.
@@ -546,31 +558,31 @@ abstract class AppLocalizations {
   /// No description provided for @numberOfSeats.
   ///
   /// In en, this message translates to:
-  /// **'Number Of Seat'**
+  /// **'Number of Seats'**
   String get numberOfSeats;
 
   /// No description provided for @description.
   ///
   /// In en, this message translates to:
-  /// **'Description'**
+  /// **'Additional Information '**
   String get description;
 
   /// No description provided for @isApproval.
   ///
   /// In en, this message translates to:
-  /// **'Is Approval'**
+  /// **'Approval Required'**
   String get isApproval;
 
   /// No description provided for @isNotApproval.
   ///
   /// In en, this message translates to:
-  /// **'Is not approval'**
+  /// **'No Approval Required'**
   String get isNotApproval;
 
   /// No description provided for @updateSuccessful.
   ///
   /// In en, this message translates to:
-  /// **'Update successful!'**
+  /// **'Update information Successfully'**
   String get updateSuccessful;
 
   /// No description provided for @save.
@@ -582,13 +594,13 @@ abstract class AppLocalizations {
   /// No description provided for @success.
   ///
   /// In en, this message translates to:
-  /// **'Success!'**
+  /// **'Successfull!'**
   String get success;
 
   /// No description provided for @unsuccessful.
   ///
   /// In en, this message translates to:
-  /// **'Unsuccessful!'**
+  /// **'Fail!'**
   String get unsuccessful;
 
   /// No description provided for @email.
@@ -606,7 +618,7 @@ abstract class AppLocalizations {
   /// No description provided for @continues.
   ///
   /// In en, this message translates to:
-  /// **'Continue  '**
+  /// **'Continue'**
   String get continues;
 
   /// No description provided for @add.
@@ -618,31 +630,31 @@ abstract class AppLocalizations {
   /// No description provided for @lateTime.
   ///
   /// In en, this message translates to:
-  /// **'Late time'**
+  /// **'Late Time'**
   String get lateTime;
 
   /// No description provided for @book.
   ///
   /// In en, this message translates to:
-  /// **'Book'**
+  /// **'Book An Appoinmet/ Booking'**
   String get book;
 
   /// No description provided for @errorEmailOrPassword.
   ///
   /// In en, this message translates to:
-  /// **'Error email or password'**
+  /// **'Incorrect Account Name Or Password'**
   String get errorEmailOrPassword;
 
   /// No description provided for @endTimeMustBeAfterStartTime.
   ///
   /// In en, this message translates to:
-  /// **'End time must be after start time!'**
+  /// **'The End Time Must Be After The Start Time!'**
   String get endTimeMustBeAfterStartTime;
 
   /// No description provided for @bookingTimeMustBeAfterCurrentTime.
   ///
   /// In en, this message translates to:
-  /// **'Booking time must be after current time!'**
+  /// **'The Booking Time Must Be After The Current Time!'**
   String get bookingTimeMustBeAfterCurrentTime;
 
   /// No description provided for @today.
@@ -660,19 +672,19 @@ abstract class AppLocalizations {
   /// No description provided for @daysAgo.
   ///
   /// In en, this message translates to:
-  /// **'days ago'**
+  /// **'Previous Days'**
   String get daysAgo;
 
   /// No description provided for @setRoom.
   ///
   /// In en, this message translates to:
-  /// **'Set room'**
+  /// **'Book A Room'**
   String get setRoom;
 
   /// No description provided for @projectAndTasksCannotBeLeftBlank.
   ///
   /// In en, this message translates to:
-  /// **'Project and tasks cannot be left blank'**
+  /// **'Project And Task Can\'t Be Left Blank'**
   String get projectAndTasksCannotBeLeftBlank;
 
   /// No description provided for @noDataFound.
@@ -684,73 +696,73 @@ abstract class AppLocalizations {
   /// No description provided for @oops.
   ///
   /// In en, this message translates to:
-  /// **'Oops!'**
+  /// **'Oops/Oh'**
   String get oops;
 
   /// No description provided for @changeStatusRequestByManager.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to modify status requests?'**
+  /// **'Do you want to modify the status of the requests?'**
   String get changeStatusRequestByManager;
 
   /// No description provided for @doYouWantToCreateDepartment.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to create department?'**
+  /// **'Do you want to create a new deparment?'**
   String get doYouWantToCreateDepartment;
 
   /// No description provided for @doYouWantToCreatePosition.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to create position?'**
+  /// **'Do you want to create a new position?'**
   String get doYouWantToCreatePosition;
 
   /// No description provided for @doYouWantToUpdateDepartment.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to update department?'**
+  /// **'Do you want  to edit your department?'**
   String get doYouWantToUpdateDepartment;
 
   /// No description provided for @doYouWantToUpdatePosition.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to update position?'**
+  /// **'Do you want to edit your job title?'**
   String get doYouWantToUpdatePosition;
 
   /// No description provided for @code.
   ///
   /// In en, this message translates to:
-  /// **'Code'**
+  /// **'Code/Horse'**
   String get code;
 
   /// No description provided for @createDepartment.
   ///
   /// In en, this message translates to:
-  /// **'Create department'**
+  /// **'Department Initialization'**
   String get createDepartment;
 
   /// No description provided for @createPosition.
   ///
   /// In en, this message translates to:
-  /// **'Create position'**
+  /// **'Intitiation Of The Position'**
   String get createPosition;
 
   /// No description provided for @updateDepartment.
   ///
   /// In en, this message translates to:
-  /// **'Update department'**
+  /// **'Edit A Department'**
   String get updateDepartment;
 
   /// No description provided for @updatePosition.
   ///
   /// In en, this message translates to:
-  /// **'Update position'**
+  /// **'Edit Position'**
   String get updatePosition;
 
   /// No description provided for @parent.
   ///
   /// In en, this message translates to:
-  /// **'Parent'**
+  /// **'Parent Company'**
   String get parent;
 
   /// No description provided for @department.
@@ -768,49 +780,49 @@ abstract class AppLocalizations {
   /// No description provided for @personnel.
   ///
   /// In en, this message translates to:
-  /// **'Personnel'**
+  /// **'Human Resources'**
   String get personnel;
 
   /// No description provided for @createPersonnel.
   ///
   /// In en, this message translates to:
-  /// **'Create personnel'**
+  /// **'Initialize employee information'**
   String get createPersonnel;
 
   /// No description provided for @updatePersonnel.
   ///
   /// In en, this message translates to:
-  /// **'Update personnel'**
+  /// **'Edit employee information'**
   String get updatePersonnel;
 
   /// No description provided for @createCheckInSetting.
   ///
   /// In en, this message translates to:
-  /// **'Create CheckIn Setting'**
+  /// **'Initialize work hours information'**
   String get createCheckInSetting;
 
   /// No description provided for @updateCheckInSetting.
   ///
   /// In en, this message translates to:
-  /// **'Update CheckIn Setting'**
+  /// **'Edit work hours information'**
   String get updateCheckInSetting;
 
   /// No description provided for @doYouWantToCreatePersonnel.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to create personnel?'**
+  /// **'Do you want to create a new employee?'**
   String get doYouWantToCreatePersonnel;
 
   /// No description provided for @doYouWantToUpdatePersonnel.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to update personnel?'**
+  /// **'Do you want to edit employee information?'**
   String get doYouWantToUpdatePersonnel;
 
   /// No description provided for @doYouWantToCreateCheckInSetting.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to create work time?'**
+  /// **'Do you want to create a new work schedule?'**
   String get doYouWantToCreateCheckInSetting;
 
   /// No description provided for @startDate.
@@ -822,85 +834,85 @@ abstract class AppLocalizations {
   /// No description provided for @attendanceId.
   ///
   /// In en, this message translates to:
-  /// **'Attendance Id'**
+  /// **'Timekeeping code'**
   String get attendanceId;
 
   /// No description provided for @morningStartTime.
   ///
   /// In en, this message translates to:
-  /// **'Morning Start Time'**
+  /// **'Morning shift start time'**
   String get morningStartTime;
 
   /// No description provided for @morningEndTime.
   ///
   /// In en, this message translates to:
-  /// **'Morning End Time'**
+  /// **'Morning shift end time'**
   String get morningEndTime;
 
   /// No description provided for @afternoonStartTime.
   ///
   /// In en, this message translates to:
-  /// **'Afternoon Start Time'**
+  /// **'Afternoon shift start time'**
   String get afternoonStartTime;
 
   /// No description provided for @afternoonEndTime.
   ///
   /// In en, this message translates to:
-  /// **'Afternoon End Time'**
+  /// **'Afternoon shift end time'**
   String get afternoonEndTime;
 
   /// No description provided for @firstName.
   ///
   /// In en, this message translates to:
-  /// **'First Name'**
+  /// **'First name'**
   String get firstName;
 
   /// No description provided for @lastName.
   ///
   /// In en, this message translates to:
-  /// **'Last Name'**
+  /// **'Last name'**
   String get lastName;
 
   /// No description provided for @addWorkTime.
   ///
   /// In en, this message translates to:
-  /// **'Add work time'**
+  /// **'Add work hours'**
   String get addWorkTime;
 
   /// No description provided for @removeWorkTime.
   ///
   /// In en, this message translates to:
-  /// **'Remove work time'**
+  /// **'Cancel work hours'**
   String get removeWorkTime;
 
   /// No description provided for @workingTime.
   ///
   /// In en, this message translates to:
-  /// **'Working time'**
+  /// **'Working hours'**
   String get workingTime;
 
   /// No description provided for @pleaseEnterTheEmailYouWantToRetrieveYourPassword.
   ///
   /// In en, this message translates to:
-  /// **'Please enter the email you want to retrieve your password!'**
+  /// **'Please enter the email to retrieve your password!'**
   String get pleaseEnterTheEmailYouWantToRetrieveYourPassword;
 
   /// No description provided for @newPasswordHasJustBeenSentToEmail.
   ///
   /// In en, this message translates to:
-  /// **'New password has just been sent to email'**
+  /// **'A new password has been sent to your email'**
   String get newPasswordHasJustBeenSentToEmail;
 
   /// No description provided for @pleaseCheckYourEmail.
   ///
   /// In en, this message translates to:
-  /// **', Please check your email.'**
+  /// **'Please check your email.'**
   String get pleaseCheckYourEmail;
 
   /// No description provided for @calendar.
   ///
   /// In en, this message translates to:
-  /// **'calendar'**
+  /// **'Calendar'**
   String get calendar;
 
   /// No description provided for @register.
@@ -909,64 +921,10 @@ abstract class AppLocalizations {
   /// **'Register'**
   String get register;
 
-  /// No description provided for @theContentAndTitleCannotBeLeftBlank.
-  ///
-  /// In en, this message translates to:
-  /// **'Content and title cannot be blank'**
-  String get theContentAndTitleCannotBeLeftBlank;
-
-  /// No description provided for @theNoteDateCannotBeBeforeThePresentTime.
-  ///
-  /// In en, this message translates to:
-  /// **'The note date cannot be before the present time'**
-  String get theNoteDateCannotBeBeforeThePresentTime;
-
-  /// No description provided for @youMadeANoteOnTheDate.
-  ///
-  /// In en, this message translates to:
-  /// **'You made a note on the date'**
-  String get youMadeANoteOnTheDate;
-
-  /// No description provided for @dateNote.
-  ///
-  /// In en, this message translates to:
-  /// **'Date note'**
-  String get dateNote;
-
-  /// No description provided for @enterYourRegisteredUsernameAndPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter your registered username and password'**
-  String get enterYourRegisteredUsernameAndPassword;
-
-  /// No description provided for @supportContact.
-  ///
-  /// In en, this message translates to:
-  /// **'Support Contact'**
-  String get supportContact;
-
-  /// No description provided for @requiredDataFields.
-  ///
-  /// In en, this message translates to:
-  /// **'Required data fields'**
-  String get requiredDataFields;
-
-  /// No description provided for @delete.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete'**
-  String get delete;
-
-  /// No description provided for @doYouWantToDeleteTheNote.
-  ///
-  /// In en, this message translates to:
-  /// **'Do you want to delete the note?'**
-  String get doYouWantToDeleteTheNote;
-
   /// No description provided for @activate.
   ///
   /// In en, this message translates to:
-  /// **'Activate'**
+  /// **'Activity'**
   String get activate;
 
   /// No description provided for @home.
@@ -981,28 +939,82 @@ abstract class AppLocalizations {
   /// **'Profile'**
   String get profile;
 
+  /// No description provided for @dateNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note date'**
+  String get dateNote;
+
+  /// No description provided for @enterYourRegisteredUsernameAndPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the registered username and password'**
+  String get enterYourRegisteredUsernameAndPassword;
+
+  /// No description provided for @supportContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact support'**
+  String get supportContact;
+
+  /// No description provided for @theContentAndTitleCannotBeLeftBlank.
+  ///
+  /// In en, this message translates to:
+  /// **'Content and subject cannot be empty'**
+  String get theContentAndTitleCannotBeLeftBlank;
+
+  /// No description provided for @theNoteDateCannotBeBeforeThePresentTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Note date cannot be before the current time'**
+  String get theNoteDateCannotBeBeforeThePresentTime;
+
+  /// No description provided for @youMadeANoteOnTheDate.
+  ///
+  /// In en, this message translates to:
+  /// **'You have noted on the date'**
+  String get youMadeANoteOnTheDate;
+
+  /// No description provided for @requiredDataFields.
+  ///
+  /// In en, this message translates to:
+  /// **'All fields are required'**
+  String get requiredDataFields;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @doYouWantToDeleteTheNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete this note?'**
+  String get doYouWantToDeleteTheNote;
+
   /// No description provided for @doYouWantToDeleteYourAccount.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to delete your account?'**
+  /// **'Do you want to delete this account?'**
   String get doYouWantToDeleteYourAccount;
 
   /// No description provided for @deleteAccount.
   ///
   /// In en, this message translates to:
-  /// **'Delete Account'**
+  /// **'Delete account'**
   String get deleteAccount;
 
   /// No description provided for @userInformation.
   ///
   /// In en, this message translates to:
-  /// **'User information'**
+  /// **'User profile'**
   String get userInformation;
 
   /// No description provided for @employeeCode.
   ///
   /// In en, this message translates to:
-  /// **'Employee code'**
+  /// **'Employee ID'**
   String get employeeCode;
 
   /// No description provided for @personalEmail.
@@ -1014,7 +1026,7 @@ abstract class AppLocalizations {
   /// No description provided for @companyEmail.
   ///
   /// In en, this message translates to:
-  /// **'Company Email'**
+  /// **'Company email'**
   String get companyEmail;
 
   /// No description provided for @gender.
@@ -1044,7 +1056,7 @@ abstract class AppLocalizations {
   /// No description provided for @setting.
   ///
   /// In en, this message translates to:
-  /// **'Setting'**
+  /// **'Settings'**
   String get setting;
 
   /// No description provided for @account.
@@ -1080,7 +1092,7 @@ abstract class AppLocalizations {
   /// No description provided for @doYouWantToUpdateProfile.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to update profile?'**
+  /// **'Do you want to edit personal information?'**
   String get doYouWantToUpdateProfile;
 
   /// No description provided for @checkInOut.
@@ -1092,37 +1104,37 @@ abstract class AppLocalizations {
   /// No description provided for @viewAttendanceHistory.
   ///
   /// In en, this message translates to:
-  /// **'View attendance history'**
+  /// **'View timekeeping history'**
   String get viewAttendanceHistory;
 
   /// No description provided for @noData.
   ///
   /// In en, this message translates to:
-  /// **'No data'**
+  /// **'No data available'**
   String get noData;
 
   /// No description provided for @administrativeTime.
   ///
   /// In en, this message translates to:
-  /// **'Administrative time'**
+  /// **'Working hours'**
   String get administrativeTime;
 
   /// No description provided for @formOfTimekeeping.
   ///
   /// In en, this message translates to:
-  /// **'Form of timekeeping'**
+  /// **'Timekeeping method'**
   String get formOfTimekeeping;
 
   /// No description provided for @checkIn.
   ///
   /// In en, this message translates to:
-  /// **'Check in'**
+  /// **'Clock in'**
   String get checkIn;
 
   /// No description provided for @checkOut.
   ///
   /// In en, this message translates to:
-  /// **'Check out'**
+  /// **'Clock out'**
   String get checkOut;
 
   /// No description provided for @history.
@@ -1134,49 +1146,49 @@ abstract class AppLocalizations {
   /// No description provided for @timeWorking.
   ///
   /// In en, this message translates to:
-  /// **'Time working'**
+  /// **'Work shift'**
   String get timeWorking;
 
   /// No description provided for @date.
   ///
   /// In en, this message translates to:
-  /// **'Date'**
+  /// **'Day'**
   String get date;
 
   /// No description provided for @dialogWrongPasswordA.
   ///
   /// In en, this message translates to:
-  /// **'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please contact HCNS'**
+  /// **'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please contact HR to reset your password.'**
   String get dialogWrongPasswordA;
 
   /// No description provided for @dialogWrongPasswordB.
   ///
   /// In en, this message translates to:
-  /// **' to reset your password'**
+  /// **'to reset password'**
   String get dialogWrongPasswordB;
 
   /// No description provided for @newPasswordOtherConfirmPassword.
   ///
   /// In en, this message translates to:
-  /// **'New password other confirm password!'**
+  /// **'New password does not match the confirmation password!'**
   String get newPasswordOtherConfirmPassword;
 
   /// No description provided for @notRegisteredForBiometrics.
   ///
   /// In en, this message translates to:
-  /// **'You have not registered for biometrics yet, please register, please log in with username and password first!'**
+  /// **'You have not registered biometric authentication, please register'**
   String get notRegisteredForBiometrics;
 
   /// No description provided for @pleaseEnterYourUsernameAndPasswordHere.
   ///
   /// In en, this message translates to:
-  /// **'Please enter your Username and password here'**
+  /// **'Enter your username and password here'**
   String get pleaseEnterYourUsernameAndPasswordHere;
 
   /// No description provided for @youWantToSaveTheAboveAccountForBiometrics.
   ///
   /// In en, this message translates to:
-  /// **'You want to save the above account for biometrics'**
+  /// **'Do you want to save this account for biometric login?'**
   String get youWantToSaveTheAboveAccountForBiometrics;
 
   /// No description provided for @yourBiometricAccountIsIncorrect.
@@ -1188,19 +1200,19 @@ abstract class AppLocalizations {
   /// No description provided for @youPressYourFingerHere.
   ///
   /// In en, this message translates to:
-  /// **'You press your finger here'**
+  /// **'Press your finger here'**
   String get youPressYourFingerHere;
 
   /// No description provided for @touchTheIconToTimeClock.
   ///
   /// In en, this message translates to:
-  /// **'Touch The Icon To Time Clock'**
+  /// **'Tap the icon to clock in'**
   String get touchTheIconToTimeClock;
 
   /// No description provided for @timekeepingImmediately.
   ///
   /// In en, this message translates to:
-  /// **'Timekeeping immediately'**
+  /// **'Clock in now'**
   String get timekeepingImmediately;
 
   /// No description provided for @complete.
@@ -1212,25 +1224,25 @@ abstract class AppLocalizations {
   /// No description provided for @locationServicesAreDisabled.
   ///
   /// In en, this message translates to:
-  /// **'Location services are disabled.'**
+  /// **'Location services are disabled'**
   String get locationServicesAreDisabled;
 
   /// No description provided for @locationPermissionsAreDenied.
   ///
   /// In en, this message translates to:
-  /// **'Location permissions are denied'**
+  /// **'Access denied'**
   String get locationPermissionsAreDenied;
 
   /// No description provided for @locationPermissionsArePermanentlyDenied.
   ///
   /// In en, this message translates to:
-  /// **'Location permissions are permanently denied, we cannot request permissions.'**
+  /// **'Access denied, we are unable to request location access'**
   String get locationPermissionsArePermanentlyDenied;
 
   /// No description provided for @validateToolLocation.
   ///
   /// In en, this message translates to:
-  /// **'Validate tool location'**
+  /// **'Authenticate timekeeping location'**
   String get validateToolLocation;
 
   /// No description provided for @step.
@@ -1242,13 +1254,13 @@ abstract class AppLocalizations {
   /// No description provided for @singleWordList.
   ///
   /// In en, this message translates to:
-  /// **'Requisition list'**
+  /// **'Request list'**
   String get singleWordList;
 
   /// No description provided for @createANewSingleWord.
   ///
   /// In en, this message translates to:
-  /// **'Create a new requisition'**
+  /// **'Create a new request'**
   String get createANewSingleWord;
 
   /// No description provided for @deadline.
@@ -1266,7 +1278,7 @@ abstract class AppLocalizations {
   /// No description provided for @pending.
   ///
   /// In en, this message translates to:
-  /// **'Pending'**
+  /// **'Pending approval'**
   String get pending;
 
   /// No description provided for @reject.
@@ -1278,13 +1290,13 @@ abstract class AppLocalizations {
   /// No description provided for @modification.
   ///
   /// In en, this message translates to:
-  /// **'Modification request'**
+  /// **'Request revision'**
   String get modification;
 
   /// No description provided for @done.
   ///
   /// In en, this message translates to:
-  /// **'Done'**
+  /// **'Approved'**
   String get done;
 
   /// No description provided for @filter.
@@ -1314,43 +1326,43 @@ abstract class AppLocalizations {
   /// No description provided for @expiredEdit.
   ///
   /// In en, this message translates to:
-  /// **'Expired edit'**
+  /// **'Revision overdue'**
   String get expiredEdit;
 
   /// No description provided for @expired.
   ///
   /// In en, this message translates to:
-  /// **'Expired'**
+  /// **'Overdue'**
   String get expired;
 
   /// No description provided for @leave.
   ///
   /// In en, this message translates to:
-  /// **'Application for leave'**
+  /// **'Leave request'**
   String get leave;
 
   /// No description provided for @overtime.
   ///
   /// In en, this message translates to:
-  /// **'Overtime'**
+  /// **'Overtime request'**
   String get overtime;
 
   /// No description provided for @vehicleDispatch.
   ///
   /// In en, this message translates to:
-  /// **'Application for vehicle dispatch'**
+  /// **'Vehicle request form'**
   String get vehicleDispatch;
 
   /// No description provided for @postalDelivery.
   ///
   /// In en, this message translates to:
-  /// **'Application for postal delivery'**
+  /// **'Postal delivery request form'**
   String get postalDelivery;
 
   /// No description provided for @releaseOfWarehouse.
   ///
   /// In en, this message translates to:
-  /// **'Application for release of warehouse'**
+  /// **'Warehouse release request form'**
   String get releaseOfWarehouse;
 
   /// No description provided for @stationeryOrder.
@@ -1362,7 +1374,7 @@ abstract class AppLocalizations {
   /// No description provided for @business.
   ///
   /// In en, this message translates to:
-  /// **'application for business trip'**
+  /// **'Business trip request'**
   String get business;
 
   /// No description provided for @male.
@@ -1392,7 +1404,7 @@ abstract class AppLocalizations {
   /// No description provided for @secondarySchool.
   ///
   /// In en, this message translates to:
-  /// **'Secondary school'**
+  /// **'Middle school'**
   String get secondarySchool;
 
   /// No description provided for @highSchool.
@@ -1422,7 +1434,7 @@ abstract class AppLocalizations {
   /// No description provided for @masterDegree.
   ///
   /// In en, this message translates to:
-  /// **'Master degree'**
+  /// **'Master\'s degree'**
   String get masterDegree;
 
   /// No description provided for @doctorate.
@@ -1434,49 +1446,49 @@ abstract class AppLocalizations {
   /// No description provided for @working.
   ///
   /// In en, this message translates to:
-  /// **'Working'**
+  /// **'Currently working'**
   String get working;
 
   /// No description provided for @resignation.
   ///
   /// In en, this message translates to:
-  /// **'Resignation'**
+  /// **'Resigned'**
   String get resignation;
 
   /// No description provided for @aboutToStart.
   ///
   /// In en, this message translates to:
-  /// **'AboutToStart'**
+  /// **'Starting soon'**
   String get aboutToStart;
 
   /// No description provided for @longTermUnpaidLeave.
   ///
   /// In en, this message translates to:
-  /// **'LongTermUnpaidLeave'**
+  /// **'Long-term unpaid leave'**
   String get longTermUnpaidLeave;
 
   /// No description provided for @yourRequisition.
   ///
   /// In en, this message translates to:
-  /// **'Your requisition'**
+  /// **'Your requests'**
   String get yourRequisition;
 
   /// No description provided for @requisitionYouApproval.
   ///
   /// In en, this message translates to:
-  /// **'Requisition you approval'**
+  /// **'Requests you approved'**
   String get requisitionYouApproval;
 
   /// No description provided for @requisitionYouFollow.
   ///
   /// In en, this message translates to:
-  /// **'Requisition you follow'**
+  /// **'Requests you are following'**
   String get requisitionYouFollow;
 
   /// No description provided for @applicationCode.
   ///
   /// In en, this message translates to:
-  /// **'Application code'**
+  /// **'Request code'**
   String get applicationCode;
 
   /// No description provided for @senderInformation.
@@ -1500,13 +1512,13 @@ abstract class AppLocalizations {
   /// No description provided for @contentOfApplication.
   ///
   /// In en, this message translates to:
-  /// **'Content of application'**
+  /// **'Request details'**
   String get contentOfApplication;
 
   /// No description provided for @follower.
   ///
   /// In en, this message translates to:
-  /// **'Follower'**
+  /// **'Followers'**
   String get follower;
 
   /// No description provided for @totalDays.
@@ -1530,61 +1542,61 @@ abstract class AppLocalizations {
   /// No description provided for @destination.
   ///
   /// In en, this message translates to:
-  /// **'Destination'**
+  /// **'Location'**
   String get destination;
 
   /// No description provided for @workingContent.
   ///
   /// In en, this message translates to:
-  /// **'Working content'**
+  /// **'Business trip details'**
   String get workingContent;
 
   /// No description provided for @attach.
   ///
   /// In en, this message translates to:
-  /// **'Attach'**
+  /// **'Attachments'**
   String get attach;
 
   /// No description provided for @workApplicationForm.
   ///
   /// In en, this message translates to:
-  /// **'Work application form'**
+  /// **'Request template'**
   String get workApplicationForm;
 
   /// No description provided for @drivingTime.
   ///
   /// In en, this message translates to:
-  /// **'Driving time'**
+  /// **'Vehicle scheduling time'**
   String get drivingTime;
 
   /// No description provided for @drive.
   ///
   /// In en, this message translates to:
-  /// **'Drive'**
+  /// **'Driver'**
   String get drive;
 
   /// No description provided for @carCaller.
   ///
   /// In en, this message translates to:
-  /// **'Car caller'**
+  /// **'Vehicle dispatcher'**
   String get carCaller;
 
   /// No description provided for @walker.
   ///
   /// In en, this message translates to:
-  /// **'Walker'**
+  /// **'Passenger'**
   String get walker;
 
   /// No description provided for @schedule.
   ///
   /// In en, this message translates to:
-  /// **'Schedule'**
+  /// **'Itinerary'**
   String get schedule;
 
   /// No description provided for @reasonForDriving.
   ///
   /// In en, this message translates to:
-  /// **'Reason for driving'**
+  /// **'Reason for vehicle dispatch'**
   String get reasonForDriving;
 
   /// No description provided for @shippingPurpose.
@@ -1602,7 +1614,7 @@ abstract class AppLocalizations {
   /// No description provided for @reasonForExplanation.
   ///
   /// In en, this message translates to:
-  /// **'Reason for explanation'**
+  /// **'Explanation reason'**
   String get reasonForExplanation;
 
   /// No description provided for @detailedDescription.
@@ -1614,43 +1626,43 @@ abstract class AppLocalizations {
   /// No description provided for @totalMinute.
   ///
   /// In en, this message translates to:
-  /// **'Total minute'**
+  /// **'Minutes'**
   String get totalMinute;
 
   /// No description provided for @leaveEarly.
   ///
   /// In en, this message translates to:
-  /// **'Get off work early'**
+  /// **'Request to leave early'**
   String get leaveEarly;
 
   /// No description provided for @late.
   ///
   /// In en, this message translates to:
-  /// **'Late timekeeping'**
+  /// **'Request to arrive late'**
   String get late;
 
   /// No description provided for @leaveCorrection.
   ///
   /// In en, this message translates to:
-  /// **'Requisition of leave correction'**
+  /// **'Request to modify leave'**
   String get leaveCorrection;
 
   /// No description provided for @editTimekeeping.
   ///
   /// In en, this message translates to:
-  /// **'Edit timekeeping'**
+  /// **'Request to modify timekeeping'**
   String get editTimekeeping;
 
   /// No description provided for @replaceDay.
   ///
   /// In en, this message translates to:
-  /// **'replace day'**
+  /// **'Make-up workday'**
   String get replaceDay;
 
   /// No description provided for @attachedFiles.
   ///
   /// In en, this message translates to:
-  /// **'Attached files'**
+  /// **'Attach'**
   String get attachedFiles;
 
   /// No description provided for @check.
@@ -1662,13 +1674,13 @@ abstract class AppLocalizations {
   /// No description provided for @timeHasBeenRequestedInAdvance.
   ///
   /// In en, this message translates to:
-  /// **'Time has been requested in advance'**
+  /// **'A request already exists for the selected time, please choose again'**
   String get timeHasBeenRequestedInAdvance;
 
   /// No description provided for @workDay.
   ///
   /// In en, this message translates to:
-  /// **'Work date'**
+  /// **'Workdays'**
   String get workDay;
 
   /// No description provided for @annualLeave.
@@ -1686,13 +1698,13 @@ abstract class AppLocalizations {
   /// No description provided for @intervalOnLeave.
   ///
   /// In en, this message translates to:
-  /// **'Interval on leave'**
+  /// **'Leave duration'**
   String get intervalOnLeave;
 
   /// No description provided for @substitute.
   ///
   /// In en, this message translates to:
-  /// **'The person handling the work takes over during the break'**
+  /// **'Work replacement during leave'**
   String get substitute;
 
   /// No description provided for @pdf.
@@ -1716,73 +1728,67 @@ abstract class AppLocalizations {
   /// No description provided for @leaveWithoutPay.
   ///
   /// In en, this message translates to:
-  /// **'Leave without pay'**
+  /// **'Unpaid leave'**
   String get leaveWithoutPay;
 
   /// No description provided for @permissionBiometric.
   ///
   /// In en, this message translates to:
-  /// **'You have not granted biometric authentication permission to the app, please grant permission!'**
+  /// **'You have not granted biometric authentication permissions to the app, please grant permission!'**
   String get permissionBiometric;
 
   /// No description provided for @transferType.
   ///
   /// In en, this message translates to:
-  /// **'Transfer Type'**
+  /// **'Delivery type'**
   String get transferType;
 
   /// No description provided for @often.
   ///
   /// In en, this message translates to:
-  /// **'Often'**
+  /// **'Regular'**
   String get often;
 
   /// No description provided for @superSpeed.
   ///
   /// In en, this message translates to:
-  /// **'Super speed'**
+  /// **'Super fast'**
   String get superSpeed;
 
   /// No description provided for @sendingPurpose.
   ///
   /// In en, this message translates to:
-  /// **'Sending purpose'**
+  /// **'Shipping purpose'**
   String get sendingPurpose;
-
-  /// No description provided for @notePostalDelivery.
-  ///
-  /// In en, this message translates to:
-  /// **'Note: To save costs, only use the FAST delivery service when absolutely necessary'**
-  String get notePostalDelivery;
 
   /// No description provided for @explain.
   ///
   /// In en, this message translates to:
-  /// **'Explain'**
+  /// **'Explanation'**
   String get explain;
 
   /// No description provided for @unitPrice.
   ///
   /// In en, this message translates to:
-  /// **'Unit price (excluding VAT)'**
+  /// **'Unit price (before VAT)'**
   String get unitPrice;
 
   /// No description provided for @numberOf.
   ///
   /// In en, this message translates to:
-  /// **'Number of'**
+  /// **'Quantity'**
   String get numberOf;
 
   /// No description provided for @intoMoney.
   ///
   /// In en, this message translates to:
-  /// **'Into money'**
+  /// **'Total amount'**
   String get intoMoney;
 
   /// No description provided for @moreOfficeProducts.
   ///
   /// In en, this message translates to:
-  /// **'More office products'**
+  /// **'Add stationery'**
   String get moreOfficeProducts;
 
   /// No description provided for @unit.
@@ -1794,67 +1800,67 @@ abstract class AppLocalizations {
   /// No description provided for @pieces.
   ///
   /// In en, this message translates to:
-  /// **'Pieces'**
+  /// **'Piece'**
   String get pieces;
 
   /// No description provided for @rolls.
   ///
   /// In en, this message translates to:
-  /// **'rolls'**
+  /// **'Roll'**
   String get rolls;
 
   /// No description provided for @boxes.
   ///
   /// In en, this message translates to:
-  /// **'boxes'**
+  /// **'Box'**
   String get boxes;
 
   /// No description provided for @jars.
   ///
   /// In en, this message translates to:
-  /// **'jars'**
+  /// **'Bottle'**
   String get jars;
 
   /// No description provided for @books.
   ///
   /// In en, this message translates to:
-  /// **'books'**
+  /// **'Notebook'**
   String get books;
 
   /// No description provided for @reams.
   ///
   /// In en, this message translates to:
-  /// **'reams'**
+  /// **'Ream'**
   String get reams;
 
   /// No description provided for @volumes.
   ///
   /// In en, this message translates to:
-  /// **'volumes'**
+  /// **'Set'**
   String get volumes;
 
   /// No description provided for @bags.
   ///
   /// In en, this message translates to:
-  /// **'Bags'**
+  /// **'Bag'**
   String get bags;
 
   /// No description provided for @blisters.
   ///
   /// In en, this message translates to:
-  /// **'blisters'**
+  /// **'Blister pack'**
   String get blisters;
 
   /// No description provided for @pairs.
   ///
   /// In en, this message translates to:
-  /// **'Pairs'**
+  /// **'Pair'**
   String get pairs;
 
   /// No description provided for @stationeryList.
   ///
   /// In en, this message translates to:
-  /// **'Product list'**
+  /// **'Item list'**
   String get stationeryList;
 
   /// No description provided for @product.
@@ -1866,7 +1872,7 @@ abstract class AppLocalizations {
   /// No description provided for @addProducts.
   ///
   /// In en, this message translates to:
-  /// **'Add products'**
+  /// **'Add product'**
   String get addProducts;
 
   /// No description provided for @car.
@@ -1878,7 +1884,7 @@ abstract class AppLocalizations {
   /// No description provided for @bike.
   ///
   /// In en, this message translates to:
-  /// **'Bike'**
+  /// **'Bicycle'**
   String get bike;
 
   /// No description provided for @motorbike.
@@ -1890,7 +1896,7 @@ abstract class AppLocalizations {
   /// No description provided for @tram.
   ///
   /// In en, this message translates to:
-  /// **'Tram'**
+  /// **'Electric bike'**
   String get tram;
 
   /// No description provided for @vehicleType.
@@ -1902,43 +1908,43 @@ abstract class AppLocalizations {
   /// No description provided for @licensePlate.
   ///
   /// In en, this message translates to:
-  /// **'License plate'**
+  /// **'License plate number'**
   String get licensePlate;
 
   /// No description provided for @autoMaker.
   ///
   /// In en, this message translates to:
-  /// **'Auto maker'**
+  /// **'Manufacturer'**
   String get autoMaker;
 
   /// No description provided for @refuse.
   ///
   /// In en, this message translates to:
-  /// **'Refuse'**
+  /// **'Reject'**
   String get refuse;
 
   /// No description provided for @process.
   ///
   /// In en, this message translates to:
-  /// **'Process'**
+  /// **'Pending approval'**
   String get process;
 
   /// No description provided for @edit.
   ///
   /// In en, this message translates to:
-  /// **'Edit'**
+  /// **'Request revision'**
   String get edit;
 
   /// No description provided for @overdueEdit.
   ///
   /// In en, this message translates to:
-  /// **'Overdue edit'**
+  /// **'Revision overdue'**
   String get overdueEdit;
 
   /// No description provided for @overdueApprove.
   ///
   /// In en, this message translates to:
-  /// **'Overdue approve'**
+  /// **'Approval overdue'**
   String get overdueApprove;
 
   /// No description provided for @newStatus.
@@ -1950,49 +1956,49 @@ abstract class AppLocalizations {
   /// No description provided for @standard.
   ///
   /// In en, this message translates to:
-  /// **'Standard'**
+  /// **'Standard shipping'**
   String get standard;
 
   /// No description provided for @express.
   ///
   /// In en, this message translates to:
-  /// **'Express'**
+  /// **'Express shipping'**
   String get express;
 
   /// No description provided for @sameDay.
   ///
   /// In en, this message translates to:
-  /// **'Same Day'**
+  /// **'Same-day delivery'**
   String get sameDay;
 
   /// No description provided for @overnight.
   ///
   /// In en, this message translates to:
-  /// **'Overnight'**
+  /// **'Overnight delivery'**
   String get overnight;
 
   /// No description provided for @twoDay.
   ///
   /// In en, this message translates to:
-  /// **'Two Day'**
+  /// **'Two-day delivery'**
   String get twoDay;
 
   /// No description provided for @economy.
   ///
   /// In en, this message translates to:
-  /// **'Economy'**
+  /// **'Economy shipping'**
   String get economy;
 
   /// No description provided for @rush.
   ///
   /// In en, this message translates to:
-  /// **'Rush'**
+  /// **'Rush shipping'**
   String get rush;
 
   /// No description provided for @scheduled.
   ///
   /// In en, this message translates to:
-  /// **'Scheduled'**
+  /// **'Scheduled delivery'**
   String get scheduled;
 
   /// No description provided for @core.
@@ -2004,25 +2010,25 @@ abstract class AppLocalizations {
   /// No description provided for @noBrowsingFlowYet.
   ///
   /// In en, this message translates to:
-  /// **'No browsing flow yet'**
+  /// **'No approval flow'**
   String get noBrowsingFlowYet;
 
   /// No description provided for @cannotBeLeftBlank.
   ///
   /// In en, this message translates to:
-  /// **'Cannot be left blank'**
+  /// **'Cannot be empty'**
   String get cannotBeLeftBlank;
 
   /// No description provided for @thereAreCurrentlyNoProducts.
   ///
   /// In en, this message translates to:
-  /// **'There are currently no products'**
+  /// **'No products available at the moment'**
   String get thereAreCurrentlyNoProducts;
 
   /// No description provided for @removeFilter.
   ///
   /// In en, this message translates to:
-  /// **'Remove filter'**
+  /// **'Clear filter'**
   String get removeFilter;
 
   /// No description provided for @paymentAfterTax.
@@ -2034,13 +2040,13 @@ abstract class AppLocalizations {
   /// No description provided for @intoMoneyNoVAT.
   ///
   /// In en, this message translates to:
-  /// **'Into money (excluding VAT)'**
+  /// **'Total before VAT'**
   String get intoMoneyNoVAT;
 
   /// No description provided for @yearlyAndSeniorityLeave.
   ///
   /// In en, this message translates to:
-  /// **'Yearly and seniority leave'**
+  /// **'Annual leave and seniority leave'**
   String get yearlyAndSeniorityLeave;
 
   /// No description provided for @otherLeave.
@@ -2049,10 +2055,28 @@ abstract class AppLocalizations {
   /// **'Other leave'**
   String get otherLeave;
 
+  /// No description provided for @horizontalCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Horizontal calendar'**
+  String get horizontalCalendar;
+
+  /// No description provided for @verticalCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Vertical calendar'**
+  String get verticalCalendar;
+
+  /// No description provided for @unpaidLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid leave'**
+  String get unpaidLeave;
+
   /// No description provided for @theStartTimeMustBeAfterTheCurrentTime.
   ///
   /// In en, this message translates to:
-  /// **'The start time must be after the current time'**
+  /// **'Start time must be after the current time'**
   String get theStartTimeMustBeAfterTheCurrentTime;
 
   /// No description provided for @month.
@@ -2070,169 +2094,169 @@ abstract class AppLocalizations {
   /// No description provided for @duplicateEmail.
   ///
   /// In en, this message translates to:
-  /// **'Duplicate Email'**
+  /// **'Duplicate email'**
   String get duplicateEmail;
 
   /// No description provided for @invalidParentId.
   ///
   /// In en, this message translates to:
-  /// **'Invalid ParentId'**
+  /// **'Invalid object ID'**
   String get invalidParentId;
 
   /// No description provided for @itemNotExists.
   ///
   /// In en, this message translates to:
-  /// **'Item Not Exists'**
+  /// **'Object does not exist'**
   String get itemNotExists;
 
   /// No description provided for @dataInUse.
   ///
   /// In en, this message translates to:
-  /// **'Data In Use'**
+  /// **'Data is in use'**
   String get dataInUse;
 
   /// No description provided for @duplicateCode.
   ///
   /// In en, this message translates to:
-  /// **'Duplicate Code'**
+  /// **'Duplicate code'**
   String get duplicateCode;
 
   /// No description provided for @startDateAfterEndDate.
   ///
   /// In en, this message translates to:
-  /// **'Start Date After End Date'**
+  /// **'Start date after end date'**
   String get startDateAfterEndDate;
 
   /// No description provided for @idsEmpty.
   ///
   /// In en, this message translates to:
-  /// **'Ids Empty'**
+  /// **'Empty IDs'**
   String get idsEmpty;
 
   /// No description provided for @userDoesNotExist.
   ///
   /// In en, this message translates to:
-  /// **'User Does Not Exist'**
+  /// **'User does not exist'**
   String get userDoesNotExist;
 
   /// No description provided for @emailInUse.
   ///
   /// In en, this message translates to:
-  /// **'Email In Use'**
+  /// **'Email is already in use'**
   String get emailInUse;
 
   /// No description provided for @companyEmailInUse.
   ///
   /// In en, this message translates to:
-  /// **'Company Email In Use'**
+  /// **'Company email is already in use'**
   String get companyEmailInUse;
 
   /// No description provided for @phoneNumberInUse.
   ///
   /// In en, this message translates to:
-  /// **'Phone Number In Use'**
+  /// **'Phone number is already in use'**
   String get phoneNumberInUse;
 
   /// No description provided for @userCreationFailed.
   ///
   /// In en, this message translates to:
-  /// **'User Creation Failed'**
+  /// **'User creation failed'**
   String get userCreationFailed;
 
   /// No description provided for @differentRoleUserSystem.
   ///
   /// In en, this message translates to:
-  /// **'Different Role User System'**
+  /// **'User system with a different role'**
   String get differentRoleUserSystem;
 
   /// No description provided for @userNameInUse.
   ///
   /// In en, this message translates to:
-  /// **'UserName In Use'**
+  /// **'Username is already in use'**
   String get userNameInUse;
 
   /// No description provided for @userNameCannotBeEmpty.
   ///
   /// In en, this message translates to:
-  /// **'User Name Cannot Be Empty'**
+  /// **'Username cannot be empty'**
   String get userNameCannotBeEmpty;
 
   /// No description provided for @userNameNotFound.
   ///
   /// In en, this message translates to:
-  /// **'User Name Not Found'**
+  /// **'Username does not exist'**
   String get userNameNotFound;
 
   /// No description provided for @bothEmailsEmpty.
   ///
   /// In en, this message translates to:
-  /// **'Both Emails Empty'**
+  /// **'Both personal and company emails are empty'**
   String get bothEmailsEmpty;
 
   /// No description provided for @duplicatePassportNumber.
   ///
   /// In en, this message translates to:
-  /// **'Duplicate Passport Number'**
+  /// **'Duplicate passport number'**
   String get duplicatePassportNumber;
 
   /// No description provided for @duplicateCitizenID.
   ///
   /// In en, this message translates to:
-  /// **'Duplicate Citizen ID'**
+  /// **'Duplicate ID/CCCD number'**
   String get duplicateCitizenID;
 
   /// No description provided for @emailCannotBeEmpty.
   ///
   /// In en, this message translates to:
-  /// **'Email Cannot Be Empty'**
+  /// **'Email cannot be empty'**
   String get emailCannotBeEmpty;
 
   /// No description provided for @onlyOneFulltimeInDepartment.
   ///
   /// In en, this message translates to:
-  /// **'Only One Fulltime In Department'**
+  /// **'Only one full-time employee per department is allowed'**
   String get onlyOneFulltimeInDepartment;
 
   /// No description provided for @parttimeToFulltimeOnly.
   ///
   /// In en, this message translates to:
-  /// **'Parttime To Fulltime Only'**
+  /// **'Can only transition from part-time to full-time'**
   String get parttimeToFulltimeOnly;
 
   /// No description provided for @duplicateLicensePlate.
   ///
   /// In en, this message translates to:
-  /// **'Duplicate License Plate'**
+  /// **'Duplicate license plate number'**
   String get duplicateLicensePlate;
 
   /// No description provided for @duplicateTaxNumber.
   ///
   /// In en, this message translates to:
-  /// **'Duplicate Tax Number'**
+  /// **'Duplicate tax code'**
   String get duplicateTaxNumber;
 
   /// No description provided for @duplicateBankAccountNumber.
   ///
   /// In en, this message translates to:
-  /// **'Duplicate Bank Account Number'**
+  /// **'Duplicate bank account number'**
   String get duplicateBankAccountNumber;
 
   /// No description provided for @timeSlotAlreadyPleaseChooseAnother.
   ///
   /// In en, this message translates to:
-  /// **'Time Slot Already Please Choose Another'**
+  /// **'A request already exists for the selected time, please choose again!'**
   String get timeSlotAlreadyPleaseChooseAnother;
 
   /// No description provided for @theNumberOfFormsCreatedHasExceededTheLimit.
   ///
   /// In en, this message translates to:
-  /// **'The Number Of Forms Created Has Exceeded The Limit'**
+  /// **'The number of created forms has exceeded the limit'**
   String get theNumberOfFormsCreatedHasExceededTheLimit;
 
   /// No description provided for @listOvertime.
   ///
   /// In en, this message translates to:
-  /// **'List of overtime hours'**
+  /// **'Overtime hours list'**
   String get listOvertime;
 
   /// No description provided for @totalTime.
@@ -2244,32 +2268,14 @@ abstract class AppLocalizations {
   /// No description provided for @yearlyLeave.
   ///
   /// In en, this message translates to:
-  /// **'Yearly Leave'**
+  /// **'Annual leave'**
   String get yearlyLeave;
 
   /// No description provided for @seniorityLeave.
   ///
   /// In en, this message translates to:
-  /// **'Seniority Leave'**
+  /// **'Seniority leave'**
   String get seniorityLeave;
-
-  /// No description provided for @weddingLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Wedding Leave'**
-  String get weddingLeave;
-
-  /// No description provided for @mourningLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Mourning Leave'**
-  String get mourningLeave;
-
-  /// No description provided for @homeSickLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Home Sick Leave'**
-  String get homeSickLeave;
 
   /// No description provided for @compensatoryLeave.
   ///
@@ -2277,76 +2283,94 @@ abstract class AppLocalizations {
   /// **'Compensatory leave'**
   String get compensatoryLeave;
 
+  /// No description provided for @weddingLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Marriage leave'**
+  String get weddingLeave;
+
+  /// No description provided for @mourningLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Bereavement leave'**
+  String get mourningLeave;
+
+  /// No description provided for @homeSickLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Sick leave (home)'**
+  String get homeSickLeave;
+
   /// No description provided for @hospitalSickLeave.
   ///
   /// In en, this message translates to:
-  /// **'Hospital Sick Leave'**
+  /// **'Sick leave (hospital)'**
   String get hospitalSickLeave;
 
   /// No description provided for @maternityLeave.
   ///
   /// In en, this message translates to:
-  /// **'Maternity Leave'**
+  /// **'Maternity leave'**
   String get maternityLeave;
 
   /// No description provided for @revoke.
   ///
   /// In en, this message translates to:
-  /// **'Revoke'**
+  /// **'Cancel'**
   String get revoke;
 
   /// No description provided for @leaveNumberUsed.
   ///
   /// In en, this message translates to:
-  /// **'Leave number used'**
+  /// **'Used leave days'**
   String get leaveNumberUsed;
 
   /// No description provided for @leaveNumberPermission.
   ///
   /// In en, this message translates to:
-  /// **'Leave number allowed'**
+  /// **'Initial leave days'**
   String get leaveNumberPermission;
 
   /// No description provided for @leaveNumberRemaining.
   ///
   /// In en, this message translates to:
-  /// **'Leave number remaining'**
+  /// **'Remaining leave days'**
   String get leaveNumberRemaining;
 
   /// No description provided for @youEarly.
   ///
   /// In en, this message translates to:
-  /// **'You early'**
+  /// **'Early departure'**
   String get youEarly;
 
   /// No description provided for @youLater.
   ///
   /// In en, this message translates to:
-  /// **'You later'**
+  /// **'Late arrival'**
   String get youLater;
 
   /// No description provided for @timeKeepingList.
   ///
   /// In en, this message translates to:
-  /// **'list Timekeeping'**
+  /// **'Time list'**
   String get timeKeepingList;
 
   /// No description provided for @listTime.
   ///
   /// In en, this message translates to:
-  /// **'List time'**
+  /// **'Time list (repeated)'**
   String get listTime;
 
   /// No description provided for @workOffset.
   ///
   /// In en, this message translates to:
-  /// **'Work offset'**
+  /// **'Make-up work'**
   String get workOffset;
 
   /// No description provided for @reasonForRelease.
   ///
   /// In en, this message translates to:
-  /// **'Reason for release'**
+  /// **'Reason for goods issuance'**
   String get reasonForRelease;
 
   /// No description provided for @reasonForBusinessTrip.
@@ -2354,12 +2378,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reason for business trip'**
   String get reasonForBusinessTrip;
-
-  /// No description provided for @unpaidLeave.
-  ///
-  /// In en, this message translates to:
-  /// **'Unpaid leave'**
-  String get unpaidLeave;
 
   /// No description provided for @no.
   ///
@@ -2382,19 +2400,19 @@ abstract class AppLocalizations {
   /// No description provided for @registerShift.
   ///
   /// In en, this message translates to:
-  /// **'Register shift'**
+  /// **'Register work schedule'**
   String get registerShift;
 
   /// No description provided for @listSchools.
   ///
   /// In en, this message translates to:
-  /// **'List schools'**
+  /// **'School list'**
   String get listSchools;
 
   /// No description provided for @overTimeLeave.
   ///
   /// In en, this message translates to:
-  /// **'OverTime Leave'**
+  /// **'OT compensatory leave'**
   String get overTimeLeave;
 
   /// No description provided for @leaveList.
@@ -2406,7 +2424,7 @@ abstract class AppLocalizations {
   /// No description provided for @leaveUseHistory.
   ///
   /// In en, this message translates to:
-  /// **'Leave use history'**
+  /// **'Leave history'**
   String get leaveUseHistory;
 
   /// No description provided for @total.
@@ -2442,19 +2460,19 @@ abstract class AppLocalizations {
   /// No description provided for @addition.
   ///
   /// In en, this message translates to:
-  /// **'Addition'**
+  /// **'Add'**
   String get addition;
 
   /// No description provided for @subtraction.
   ///
   /// In en, this message translates to:
-  /// **'Subtraction'**
+  /// **'Subtract'**
   String get subtraction;
 
   /// No description provided for @totalLeaveOfChanges.
   ///
   /// In en, this message translates to:
-  /// **'Total leave of changes'**
+  /// **'Total leave changes'**
   String get totalLeaveOfChanges;
 
   /// No description provided for @actionName.
@@ -2466,31 +2484,31 @@ abstract class AppLocalizations {
   /// No description provided for @totalRemainingLeaveDays.
   ///
   /// In en, this message translates to:
-  /// **'Total remaining days of leave'**
+  /// **'Total remaining leave days'**
   String get totalRemainingLeaveDays;
 
   /// No description provided for @vacationPeriod.
   ///
   /// In en, this message translates to:
-  /// **'Vacation period'**
+  /// **'Leave request time'**
   String get vacationPeriod;
 
   /// No description provided for @seeRequest.
   ///
   /// In en, this message translates to:
-  /// **'See request'**
+  /// **'View request'**
   String get seeRequest;
 
   /// No description provided for @sourceOfLeave.
   ///
   /// In en, this message translates to:
-  /// **'Source of leave'**
+  /// **'Leave source'**
   String get sourceOfLeave;
 
   /// No description provided for @doYouWantRevokeYourRequest.
   ///
   /// In en, this message translates to:
-  /// **'Do you want revoke your request?'**
+  /// **'Do you want to disable this request?'**
   String get doYouWantRevokeYourRequest;
 
   /// No description provided for @start.
@@ -2516,6 +2534,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Track flow progress'**
   String get trackFlowProgres;
+
+  /// No description provided for @youDoNotHaveAShiftToday.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have a shift today!'**
+  String get youDoNotHaveAShiftToday;
 
   /// No description provided for @worksheet.
   ///
@@ -2652,31 +2676,31 @@ abstract class AppLocalizations {
   /// No description provided for @request.
   ///
   /// In en, this message translates to:
-  /// **'Request'**
+  /// **'Leave requests'**
   String get request;
 
   /// No description provided for @shift.
   ///
   /// In en, this message translates to:
-  /// **'Shift'**
+  /// **'Work shift'**
   String get shift;
 
   /// No description provided for @workInDay.
   ///
   /// In en, this message translates to:
-  /// **'Work in day'**
+  /// **'Daily recorded attendance'**
   String get workInDay;
 
   /// No description provided for @minutesToLate.
   ///
   /// In en, this message translates to:
-  /// **'Minutes to late'**
+  /// **'Minutes late'**
   String get minutesToLate;
 
   /// No description provided for @minutesToEarly.
   ///
   /// In en, this message translates to:
-  /// **'Minutes to early'**
+  /// **'Minutes left early'**
   String get minutesToEarly;
 
   /// No description provided for @totalOTHours.
@@ -2688,7 +2712,7 @@ abstract class AppLocalizations {
   /// No description provided for @typeOfShift.
   ///
   /// In en, this message translates to:
-  /// **'Type of shift'**
+  /// **'Work shift type'**
   String get typeOfShift;
 
   /// No description provided for @oTCoefficient.
@@ -2700,37 +2724,37 @@ abstract class AppLocalizations {
   /// No description provided for @dateType.
   ///
   /// In en, this message translates to:
-  /// **'Date type'**
+  /// **'Day type'**
   String get dateType;
 
   /// No description provided for @ot.
   ///
   /// In en, this message translates to:
-  /// **'OverTime'**
+  /// **'Overtime work'**
   String get ot;
 
   /// No description provided for @totalLeaveWork.
   ///
   /// In en, this message translates to:
-  /// **'Total leave work'**
+  /// **'Total leave days'**
   String get totalLeaveWork;
 
   /// No description provided for @noShiftsWork.
   ///
   /// In en, this message translates to:
-  /// **'No shifts work'**
+  /// **'No work shift assigned'**
   String get noShiftsWork;
 
   /// No description provided for @regularDay.
   ///
   /// In en, this message translates to:
-  /// **'Regular day'**
+  /// **'Weekday'**
   String get regularDay;
 
   /// No description provided for @timeFrameOT.
   ///
   /// In en, this message translates to:
-  /// **'Time frame OT'**
+  /// **'OT time frame'**
   String get timeFrameOT;
 
   /// No description provided for @timeFrame.
@@ -2742,127 +2766,85 @@ abstract class AppLocalizations {
   /// No description provided for @numberOfLate.
   ///
   /// In en, this message translates to:
-  /// **'Number Of Late'**
+  /// **'Early departures'**
   String get numberOfLate;
 
   /// No description provided for @numberOfEarly.
   ///
   /// In en, this message translates to:
-  /// **'Number Of Early'**
+  /// **'Late arrivals'**
   String get numberOfEarly;
 
   /// No description provided for @workOT.
   ///
   /// In en, this message translates to:
-  /// **'Overtime work'**
+  /// **'Overtime number hours'**
   String get workOT;
 
   /// No description provided for @historyTimekeeping.
   ///
   /// In en, this message translates to:
-  /// **'History timekeeping'**
+  /// **'Timekeeping history'**
   String get historyTimekeeping;
 
   /// No description provided for @totalTimeWork.
   ///
   /// In en, this message translates to:
-  /// **'Total Time Work'**
+  /// **'Total working hours'**
   String get totalTimeWork;
 
   /// No description provided for @totalTimeWorkCompensatory.
   ///
   /// In en, this message translates to:
-  /// **'Total number of compensatory hours'**
+  /// **'Total make-up time'**
   String get totalTimeWorkCompensatory;
-
-  /// No description provided for @cancelShiftRegistration.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel shift registration'**
-  String get cancelShiftRegistration;
-
-  /// No description provided for @cancelShiftReceiveRegistration.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel shift receive registration'**
-  String get cancelShiftReceiveRegistration;
-
-  /// No description provided for @cancelShiftCancellationRequest.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel shift cancellation request'**
-  String get cancelShiftCancellationRequest;
-
-  /// No description provided for @registerForShifts.
-  ///
-  /// In en, this message translates to:
-  /// **'Register for shifts'**
-  String get registerForShifts;
-
-  /// No description provided for @youDoNotHaveAShiftToday.
-  ///
-  /// In en, this message translates to:
-  /// **'You don\'t have a shift today!'**
-  String get youDoNotHaveAShiftToday;
-
-  /// No description provided for @distanceNotEnough.
-  ///
-  /// In en, this message translates to:
-  /// **'Distance Not Enough'**
-  String get distanceNotEnough;
-
-  /// No description provided for @reasonForCancelingRequest.
-  ///
-  /// In en, this message translates to:
-  /// **'Reason for canceling request'**
-  String get reasonForCancelingRequest;
 
   /// No description provided for @titleBusiness.
   ///
   /// In en, this message translates to:
-  /// **'Title business'**
+  /// **'Business trip duration'**
   String get titleBusiness;
 
   /// No description provided for @timeStart.
   ///
   /// In en, this message translates to:
-  /// **'Thời gian đi'**
+  /// **'Departure time'**
   String get timeStart;
 
   /// No description provided for @timeEnd.
   ///
   /// In en, this message translates to:
-  /// **'Thời gian về'**
+  /// **'Return time'**
   String get timeEnd;
 
   /// No description provided for @socialInsuranceLeave.
   ///
   /// In en, this message translates to:
-  /// **'Social Insurance Leave'**
+  /// **'Paid by social insurance (BHXH)'**
   String get socialInsuranceLeave;
 
   /// No description provided for @leaveHalfDayToOneDay.
   ///
   /// In en, this message translates to:
-  /// **'leave Half Day To One Day'**
+  /// **'Request for 0.5-1 Day Leave'**
   String get leaveHalfDayToOneDay;
 
   /// No description provided for @leaveTwoDayToFourDay.
   ///
   /// In en, this message translates to:
-  /// **'leave Two Day To Four Day'**
+  /// **'Request for 2-4 Day Leave'**
   String get leaveTwoDayToFourDay;
 
   /// No description provided for @leaveFiveDaysOrMore.
   ///
   /// In en, this message translates to:
-  /// **'leave Five Days Or More'**
+  /// **'Request for 5 or More Days Leave'**
   String get leaveFiveDaysOrMore;
 
   /// No description provided for @lateOrEarly.
   ///
   /// In en, this message translates to:
-  /// **'Late/Early'**
+  /// **'Request for Late Arrival/Early Departure'**
   String get lateOrEarly;
 
   /// No description provided for @timekeepingError.
@@ -2871,16 +2853,58 @@ abstract class AppLocalizations {
   /// **'Timekeeping error'**
   String get timekeepingError;
 
+  /// No description provided for @monday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get monday;
+
+  /// No description provided for @tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get tuesday;
+
+  /// No description provided for @wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get wednesday;
+
+  /// No description provided for @thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get thursday;
+
+  /// No description provided for @friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get friday;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get sunday;
+
   /// No description provided for @calendarWork.
   ///
   /// In en, this message translates to:
-  /// **'Calendar work'**
+  /// **'Work schedule'**
   String get calendarWork;
 
   /// No description provided for @shiftManagement.
   ///
   /// In en, this message translates to:
-  /// **'Shift management'**
+  /// **'Manage work schedule'**
   String get shiftManagement;
 
   /// No description provided for @week.
@@ -2892,25 +2916,25 @@ abstract class AppLocalizations {
   /// No description provided for @pendingCancel.
   ///
   /// In en, this message translates to:
-  /// **'Pending cancel'**
+  /// **'Pending cancellation'**
   String get pendingCancel;
 
   /// No description provided for @remove.
   ///
   /// In en, this message translates to:
-  /// **'Remove'**
+  /// **'Stop'**
   String get remove;
 
   /// No description provided for @usable.
   ///
   /// In en, this message translates to:
-  /// **'Usable'**
+  /// **'Available'**
   String get usable;
 
   /// No description provided for @unusable.
   ///
   /// In en, this message translates to:
-  /// **'Unusable'**
+  /// **'Unavailable'**
   String get unusable;
 
   /// No description provided for @administrativeShift.
@@ -2925,47 +2949,317 @@ abstract class AppLocalizations {
   /// **'Single shift'**
   String get singleShift;
 
-  /// No description provided for @monday.
+  /// No description provided for @unregistered.
   ///
   /// In en, this message translates to:
-  /// **'monday'**
-  String get monday;
+  /// **'Not registered'**
+  String get unregistered;
 
-  /// No description provided for @tuesday.
+  /// No description provided for @cancelShiftRegistration.
   ///
   /// In en, this message translates to:
-  /// **'tuesday'**
-  String get tuesday;
+  /// **'Cancel shift registration'**
+  String get cancelShiftRegistration;
 
-  /// No description provided for @wednesday.
+  /// No description provided for @cancelShiftReceiveRegistration.
   ///
   /// In en, this message translates to:
-  /// **'wednesday'**
-  String get wednesday;
+  /// **'Cancel shift acceptance'**
+  String get cancelShiftReceiveRegistration;
 
-  /// No description provided for @thursday.
+  /// No description provided for @cancelShiftCancellationRequest.
   ///
   /// In en, this message translates to:
-  /// **'thursday'**
-  String get thursday;
+  /// **'Cancel shift cancellation request'**
+  String get cancelShiftCancellationRequest;
 
-  /// No description provided for @friday.
+  /// No description provided for @registerForShifts.
   ///
   /// In en, this message translates to:
-  /// **'friday'**
-  String get friday;
+  /// **'Register shift'**
+  String get registerForShifts;
 
-  /// No description provided for @saturday.
+  /// No description provided for @invalid.
   ///
   /// In en, this message translates to:
-  /// **'saturday'**
-  String get saturday;
+  /// **'Invalid'**
+  String get invalid;
 
-  /// No description provided for @sunday.
+  /// No description provided for @fingerprint.
   ///
   /// In en, this message translates to:
-  /// **'sunday'**
-  String get sunday;
+  /// **'Fingerprint'**
+  String get fingerprint;
+
+  /// No description provided for @gPS.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS'**
+  String get gPS;
+
+  /// No description provided for @wrongPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect password'**
+  String get wrongPassword;
+
+  /// No description provided for @none.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get none;
+
+  /// No description provided for @reasonForCancelingRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for request cancellation'**
+  String get reasonForCancelingRequest;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait...'**
+  String get loading;
+
+  /// No description provided for @halfDayToOneDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Request for 0.5-1 Day Leave'**
+  String get halfDayToOneDay;
+
+  /// No description provided for @twoDayToFourDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Request for 2-4 Day Leave'**
+  String get twoDayToFourDay;
+
+  /// No description provided for @fiveDaysOrMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Request for 5 or More Days Leave'**
+  String get fiveDaysOrMore;
+
+  /// No description provided for @earlyLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Request for Late Arrival/Early Departure'**
+  String get earlyLate;
+
+  /// No description provided for @vehicleF.
+  ///
+  /// In en, this message translates to:
+  /// **'Request for Vehicle Allocation'**
+  String get vehicleF;
+
+  /// No description provided for @businessF.
+  ///
+  /// In en, this message translates to:
+  /// **'Request for Business Trip'**
+  String get businessF;
+
+  /// No description provided for @releaseOfWarehouseF.
+  ///
+  /// In en, this message translates to:
+  /// **'Request for Inventory Withdrawal'**
+  String get releaseOfWarehouseF;
+
+  /// No description provided for @stationery.
+  ///
+  /// In en, this message translates to:
+  /// **'Stationery Order Form'**
+  String get stationery;
+
+  /// No description provided for @explanationF.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping Correction Request'**
+  String get explanationF;
+
+  /// No description provided for @oT.
+  ///
+  /// In en, this message translates to:
+  /// **'Overtime Request'**
+  String get oT;
+
+  /// No description provided for @requestType.
+  ///
+  /// In en, this message translates to:
+  /// **'Request type'**
+  String get requestType;
+
+  /// No description provided for @chooseARequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Select request type'**
+  String get chooseARequest;
+
+  /// No description provided for @nameSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'School name'**
+  String get nameSchool;
+
+  /// No description provided for @nameClass.
+  ///
+  /// In en, this message translates to:
+  /// **'Class name'**
+  String get nameClass;
+
+  /// No description provided for @nameTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher\'s name'**
+  String get nameTeacher;
+
+  /// No description provided for @timekeepingTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping time'**
+  String get timekeepingTime;
+
+  /// No description provided for @map.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get map;
+
+  /// No description provided for @timekeepingSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping successful'**
+  String get timekeepingSuccess;
+
+  /// No description provided for @timekeepingUnSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping failed'**
+  String get timekeepingUnSuccess;
+
+  /// No description provided for @chooseWorkShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Select work shift'**
+  String get chooseWorkShift;
+
+  /// No description provided for @ifOto.
+  ///
+  /// In en, this message translates to:
+  /// **'If traveling by car, driver’s name'**
+  String get ifOto;
+
+  /// No description provided for @totalOvertimeHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Total overtime hours'**
+  String get totalOvertimeHours;
+
+  /// No description provided for @required.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get required;
+
+  /// No description provided for @personalReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal reason'**
+  String get personalReasons;
+
+  /// No description provided for @companyReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Company reason'**
+  String get companyReasons;
+
+  /// No description provided for @firstShift.
+  ///
+  /// In en, this message translates to:
+  /// **'First shift'**
+  String get firstShift;
+
+  /// No description provided for @lastShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Last shift'**
+  String get lastShift;
+
+  /// No description provided for @totalWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of workdays'**
+  String get totalWork;
+
+  /// No description provided for @createRequestFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Request creation failed'**
+  String get createRequestFailed;
+
+  /// No description provided for @editRequestUnsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Request update failed'**
+  String get editRequestUnsuccessful;
+
+  /// No description provided for @createSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Request created successfully'**
+  String get createSuccess;
+
+  /// No description provided for @editRequestSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Request updated successfully'**
+  String get editRequestSuccess;
+
+  /// No description provided for @theTotalNumberOfLeaveIsNotEnough.
+  ///
+  /// In en, this message translates to:
+  /// **'You have used up all your leave days!'**
+  String get theTotalNumberOfLeaveIsNotEnough;
+
+  /// No description provided for @approvedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval successful'**
+  String get approvedSuccess;
+
+  /// No description provided for @approvedUnsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval failed'**
+  String get approvedUnsuccessful;
+
+  /// No description provided for @cancelRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel request'**
+  String get cancelRequest;
+
+  /// No description provided for @leaveReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for leave'**
+  String get leaveReason;
+
+  /// No description provided for @reasonType.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason type'**
+  String get reasonType;
+
+  /// No description provided for @updateUnsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Update information failed!'**
+  String get updateUnsuccessful;
+
+  /// No description provided for @postal.
+  ///
+  /// In en, this message translates to:
+  /// **'Postal'**
+  String get postal;
 
   /// No description provided for @mon.
   ///
@@ -3006,290 +3300,8 @@ abstract class AppLocalizations {
   /// No description provided for @sun.
   ///
   /// In en, this message translates to:
-  /// **'San'**
+  /// **'Sun'**
   String get sun;
-
-  /// No description provided for @invalid.
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid'**
-  String get invalid;
-
-  /// No description provided for @fingerprint.
-  ///
-  /// In en, this message translates to:
-  /// **'Fingerprint'**
-  String get fingerprint;
-
-  /// No description provided for @gPS.
-  ///
-  /// In en, this message translates to:
-  /// **'GPS'**
-  String get gPS;
-
-  /// No description provided for @wrongPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Wrong password'**
-  String get wrongPassword;
-
-  /// No description provided for @none.
-  ///
-  /// In en, this message translates to:
-  /// **'None'**
-  String get none;
-
-  /// No description provided for @unregistered.
-  ///
-  /// In en, this message translates to:
-  /// **'Unregistered'**
-  String get unregistered;
-
-  /// No description provided for @loading.
-  ///
-  /// In en, this message translates to:
-  /// **'Loading...'**
-  String get loading;
-
-  /// No description provided for @halfDayToOneDay.
-  ///
-  /// In en, this message translates to:
-  /// **'0,5 to 1 day'**
-  String get halfDayToOneDay;
-
-  /// No description provided for @twoDayToFourDay.
-  ///
-  /// In en, this message translates to:
-  /// **'2 to 4 day'**
-  String get twoDayToFourDay;
-
-  /// No description provided for @fiveDaysOrMore.
-  ///
-  /// In en, this message translates to:
-  /// **'More 5 day'**
-  String get fiveDaysOrMore;
-
-  /// No description provided for @earlyLate.
-  ///
-  /// In en, this message translates to:
-  /// **'Early/Late'**
-  String get earlyLate;
-
-  /// No description provided for @vehicleF.
-  ///
-  /// In en, this message translates to:
-  /// **'book vehicle'**
-  String get vehicleF;
-
-  /// No description provided for @businessF.
-  ///
-  /// In en, this message translates to:
-  /// **'Business'**
-  String get businessF;
-
-  /// No description provided for @releaseOfWarehouseF.
-  ///
-  /// In en, this message translates to:
-  /// **'Exported warehouse'**
-  String get releaseOfWarehouseF;
-
-  /// No description provided for @stationery.
-  ///
-  /// In en, this message translates to:
-  /// **'Stationery'**
-  String get stationery;
-
-  /// No description provided for @explanationF.
-  ///
-  /// In en, this message translates to:
-  /// **'Explanation'**
-  String get explanationF;
-
-  /// No description provided for @oT.
-  ///
-  /// In en, this message translates to:
-  /// **'OverTime'**
-  String get oT;
-
-  /// No description provided for @chooseARequest.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose a request'**
-  String get chooseARequest;
-
-  /// No description provided for @postal.
-  ///
-  /// In en, this message translates to:
-  /// **'Postal'**
-  String get postal;
-
-  /// No description provided for @requestType.
-  ///
-  /// In en, this message translates to:
-  /// **'Request type'**
-  String get requestType;
-
-  /// No description provided for @ifOto.
-  ///
-  /// In en, this message translates to:
-  /// **'If traveling by car, full name of the driver'**
-  String get ifOto;
-
-  /// No description provided for @totalOvertimeHours.
-  ///
-  /// In en, this message translates to:
-  /// **'Total overtime hours'**
-  String get totalOvertimeHours;
-
-  /// No description provided for @required.
-  ///
-  /// In en, this message translates to:
-  /// **'required'**
-  String get required;
-
-  /// No description provided for @personalReasons.
-  ///
-  /// In en, this message translates to:
-  /// **'Personal reasons'**
-  String get personalReasons;
-
-  /// No description provided for @companyReasons.
-  ///
-  /// In en, this message translates to:
-  /// **'Company reasons'**
-  String get companyReasons;
-
-  /// No description provided for @firstShift.
-  ///
-  /// In en, this message translates to:
-  /// **'First shift'**
-  String get firstShift;
-
-  /// No description provided for @lastShift.
-  ///
-  /// In en, this message translates to:
-  /// **'Last shift'**
-  String get lastShift;
-
-  /// No description provided for @totalWork.
-  ///
-  /// In en, this message translates to:
-  /// **'Total work'**
-  String get totalWork;
-
-  /// No description provided for @chooseWorkShift.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose work shift'**
-  String get chooseWorkShift;
-
-  /// No description provided for @nameSchool.
-  ///
-  /// In en, this message translates to:
-  /// **'School name'**
-  String get nameSchool;
-
-  /// No description provided for @nameClass.
-  ///
-  /// In en, this message translates to:
-  /// **'Class name'**
-  String get nameClass;
-
-  /// No description provided for @nameTeacher.
-  ///
-  /// In en, this message translates to:
-  /// **'Teacher name'**
-  String get nameTeacher;
-
-  /// No description provided for @timekeepingTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Timekeeping time'**
-  String get timekeepingTime;
-
-  /// No description provided for @map.
-  ///
-  /// In en, this message translates to:
-  /// **'Map'**
-  String get map;
-
-  /// No description provided for @timekeepingSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Timekeeping success'**
-  String get timekeepingSuccess;
-
-  /// No description provided for @timekeepingUnSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Timekeeping un success'**
-  String get timekeepingUnSuccess;
-
-  /// No description provided for @createRequestFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Create request unsuccessful'**
-  String get createRequestFailed;
-
-  /// No description provided for @editRequestUnsuccessful.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit request unsuccessful'**
-  String get editRequestUnsuccessful;
-
-  /// No description provided for @createSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'create success'**
-  String get createSuccess;
-
-  /// No description provided for @editRequestSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit request success'**
-  String get editRequestSuccess;
-
-  /// No description provided for @theTotalNumberOfLeaveIsNotEnough.
-  ///
-  /// In en, this message translates to:
-  /// **'The total number of leave is not enough'**
-  String get theTotalNumberOfLeaveIsNotEnough;
-
-  /// No description provided for @approvedSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Approved success'**
-  String get approvedSuccess;
-
-  /// No description provided for @approvedUnsuccessful.
-  ///
-  /// In en, this message translates to:
-  /// **'approved Unsuccessful'**
-  String get approvedUnsuccessful;
-
-  /// No description provided for @cancelRequest.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel request'**
-  String get cancelRequest;
-
-  /// No description provided for @leaveReason.
-  ///
-  /// In en, this message translates to:
-  /// **'Leave reason'**
-  String get leaveReason;
-
-  /// No description provided for @reasonType.
-  ///
-  /// In en, this message translates to:
-  /// **'Reason type'**
-  String get reasonType;
-
-  /// No description provided for @updateUnsuccessful.
-  ///
-  /// In en, this message translates to:
-  /// **'Update Unsuccessful'**
-  String get updateUnsuccessful;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

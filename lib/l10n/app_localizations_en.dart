@@ -5,55 +5,49 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get helloWorld => 'Hello World!';
-
-  @override
   String get username => 'Username';
 
   @override
   String get password => 'Password';
 
   @override
-  String get staySignedIn => 'Stay signed in';
+  String get staySignedIn => 'Save Login';
 
   @override
-  String get forgotPassword => 'Forgot password';
+  String get forgotPassword => 'Forgot Passwword';
 
   @override
-  String get login => 'Log in';
+  String get login => 'Login';
 
   @override
-  String get login2 => 'LOG IN';
+  String get notAMember => 'Don\'t Have An Account?';
 
   @override
-  String get notAMember => 'Not a member? ';
+  String get alreadyAMember => 'Already Have An Account?';
 
   @override
-  String get alreadyAMember => 'Already a member?  ';
+  String get signUpNow => 'Register now';
 
   @override
-  String get signUpNow => 'Sign up now';
+  String get logInNow => 'Log In Now';
 
   @override
-  String get logInNow => 'Log in now';
+  String get whatIsYourEmail => 'What\'s Your Email?';
 
   @override
-  String get whatIsYourEmail => 'What’s your email?';
+  String get chooseAUsername => 'Choose A Username';
 
   @override
-  String get chooseAUsername => 'Choose a username';
+  String get chooseAPassword => 'Choose A Password';
 
   @override
-  String get chooseAPassword => 'Choose a password';
-
-  @override
-  String get confirmPassword => 'Confirm password';
+  String get confirmPassword => 'Re-enter The Password';
 
   @override
   String get weak => 'Weak';
 
   @override
-  String get medium => 'Medium';
+  String get medium => 'Average';
 
   @override
   String get good => 'Good';
@@ -95,91 +89,103 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePassword => 'Change Password';
 
   @override
-  String get managementRequests => 'Management Requests';
+  String get managementRequests => 'Requirements Management';
 
   @override
-  String get managementRoom => 'Management Room';
+  String get managementRoom => 'Meeting Room Management';
 
   @override
-  String get logout => 'Logout';
+  String get logout => 'Log off';
 
   @override
-  String get title => 'Title';
+  String get title => 'Headline/Title';
 
   @override
   String get content => 'Content';
 
   @override
-  String get selectFile => 'Select file';
+  String get selectFile => 'Add Files';
 
   @override
-  String get typeRequest => 'Type request';
+  String get typeRequest => 'Request Type';
 
   @override
   String get priority => 'Priority';
 
   @override
-  String get approver => 'Approver';
+  String get approver => 'Approve';
 
   @override
-  String get createOvertimeRequestIsSuccess => 'Create overtime request is success';
+  String get createOvertimeRequestIsSuccess => 'Create A Successful OT Request';
 
   @override
-  String get successfullyCreatedRequest => 'Successfully created request';
+  String get successfullyCreatedRequest => 'The Request is Successfully Initiated';
 
   @override
-  String get doYouWantToCreateARequest => 'Do you want to create a request?';
+  String get doYouWantToCreateARequest => 'Do you want to initiate a request?';
 
   @override
-  String get doYouWantToDeleteTheRoom => 'Do you want to delete the room?';
+  String get doYouWantToDeleteTheRoom => 'Do you want to delete a room?';
 
   @override
-  String get doYouWantToUpdateARequest => 'Do you want to update a request?';
+  String get doYouWantToUpdateARequest => 'Do you want to update your requirements?';
 
   @override
-  String get changePasswordSuccess => 'Change password success!';
+  String get changePasswordSuccess => 'Password Change Successful!';
 
   @override
   String get doYouWantToChangeYourPassword => 'Do you want to change your password?';
 
   @override
-  String get leaveACommentHere => 'Leave a comment here';
+  String get leaveACommentHere => 'Write Content Here';
 
   @override
-  String get previouslyAvailableSchedules => 'Previously available schedules';
+  String get previouslyAvailableSchedules => 'Availabale Schedules ';
 
   @override
-  String get thereAreCurrentlyNoMeetingsScheduled => 'There are currently no meetings scheduled';
+  String get thereAreCurrentlyNoMeetingsScheduled => 'No Meetings Are Currently Scheduled';
 
   @override
-  String get scheduleAMeeting => 'Schedule a meeting';
+  String get scheduleAMeeting => 'Schedule A Meeting';
 
   @override
-  String get update => 'UPDATE';
+  String get update => 'Update';
 
   @override
   String get ok => 'OK';
 
   @override
-  String get cancel => 'CANCEL';
+  String get cancel => 'Cancel';
 
   @override
-  String get create => 'CREATE';
+  String get create => 'Create/Initialization';
 
   @override
-  String get startTime => 'Start Time';
+  String get startTime => 'Begin/ Finish/ Start Time';
 
   @override
   String get endTime => 'End Time';
 
   @override
+  String get startTimeH => 'Start Time';
+
+  @override
+  String get endTimeH => 'End Time';
+
+  @override
+  String get startTimeD => 'Start Date';
+
+  @override
+  String get endTimeD => 'End Date';
+
+  @override
   String get name => 'Name';
 
   @override
-  String get main => 'main';
+  String get main => 'Main';
 
   @override
-  String get seats => 'Seats';
+  String get seats => 'Chair';
 
   @override
   String get address => 'Address';
@@ -191,10 +197,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get task => 'Task';
 
   @override
-  String get createTime => 'Create Time';
+  String get createTime => 'Creation Time';
 
   @override
-  String get type => 'Type';
+  String get type => 'TYPE';
 
   @override
   String get creator => 'Creator';
@@ -203,55 +209,55 @@ class AppLocalizationsEn extends AppLocalizations {
   String get phoneNumber => 'Phone Number';
 
   @override
-  String get note => 'Note';
+  String get note => 'Notes';
 
   @override
-  String get newPassword => 'New Password';
+  String get newPassword => 'New Passwprd';
 
   @override
-  String get currentPassword => 'Current Password';
+  String get currentPassword => 'Old Password';
 
   @override
-  String get noteRoomLeader => 'Note Room Leader';
+  String get noteRoomLeader => 'Head\'s Note Manager\'s';
 
   @override
-  String get noteManager => 'Note Manager';
+  String get noteManager => 'Manager\'s note';
 
   @override
-  String get explanation => 'Explanation';
+  String get explanation => 'Request to amend timekeeping';
 
   @override
-  String get startDay => 'Start Day';
+  String get startDay => 'Start Date';
 
   @override
-  String get endDay => 'End Day';
+  String get endDay => 'End Date';
 
   @override
   String get roomName => 'Room Name';
 
   @override
-  String get numberOfSeats => 'Number Of Seat';
+  String get numberOfSeats => 'Number of Seats';
 
   @override
-  String get description => 'Description';
+  String get description => 'Additional Information ';
 
   @override
-  String get isApproval => 'Is Approval';
+  String get isApproval => 'Approval Required';
 
   @override
-  String get isNotApproval => 'Is not approval';
+  String get isNotApproval => 'No Approval Required';
 
   @override
-  String get updateSuccessful => 'Update successful!';
+  String get updateSuccessful => 'Update information Successfully';
 
   @override
   String get save => 'Save';
 
   @override
-  String get success => 'Success!';
+  String get success => 'Successfull!';
 
   @override
-  String get unsuccessful => 'Unsuccessful!';
+  String get unsuccessful => 'Fail!';
 
   @override
   String get email => 'Email';
@@ -260,25 +266,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get search => 'Search';
 
   @override
-  String get continues => 'Continue  ';
+  String get continues => 'Continue';
 
   @override
   String get add => 'Add';
 
   @override
-  String get lateTime => 'Late time';
+  String get lateTime => 'Late Time';
 
   @override
-  String get book => 'Book';
+  String get book => 'Book An Appoinmet/ Booking';
 
   @override
-  String get errorEmailOrPassword => 'Error email or password';
+  String get errorEmailOrPassword => 'Incorrect Account Name Or Password';
 
   @override
-  String get endTimeMustBeAfterStartTime => 'End time must be after start time!';
+  String get endTimeMustBeAfterStartTime => 'The End Time Must Be After The Start Time!';
 
   @override
-  String get bookingTimeMustBeAfterCurrentTime => 'Booking time must be after current time!';
+  String get bookingTimeMustBeAfterCurrentTime => 'The Booking Time Must Be After The Current Time!';
 
   @override
   String get today => 'Today';
@@ -287,52 +293,52 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yesterday => 'Yesterday';
 
   @override
-  String get daysAgo => 'days ago';
+  String get daysAgo => 'Previous Days';
 
   @override
-  String get setRoom => 'Set room';
+  String get setRoom => 'Book A Room';
 
   @override
-  String get projectAndTasksCannotBeLeftBlank => 'Project and tasks cannot be left blank';
+  String get projectAndTasksCannotBeLeftBlank => 'Project And Task Can\'t Be Left Blank';
 
   @override
   String get noDataFound => 'No Data Found!';
 
   @override
-  String get oops => 'Oops!';
+  String get oops => 'Oops/Oh';
 
   @override
-  String get changeStatusRequestByManager => 'Do you want to modify status requests?';
+  String get changeStatusRequestByManager => 'Do you want to modify the status of the requests?';
 
   @override
-  String get doYouWantToCreateDepartment => 'Do you want to create department?';
+  String get doYouWantToCreateDepartment => 'Do you want to create a new deparment?';
 
   @override
-  String get doYouWantToCreatePosition => 'Do you want to create position?';
+  String get doYouWantToCreatePosition => 'Do you want to create a new position?';
 
   @override
-  String get doYouWantToUpdateDepartment => 'Do you want to update department?';
+  String get doYouWantToUpdateDepartment => 'Do you want  to edit your department?';
 
   @override
-  String get doYouWantToUpdatePosition => 'Do you want to update position?';
+  String get doYouWantToUpdatePosition => 'Do you want to edit your job title?';
 
   @override
-  String get code => 'Code';
+  String get code => 'Code/Horse';
 
   @override
-  String get createDepartment => 'Create department';
+  String get createDepartment => 'Department Initialization';
 
   @override
-  String get createPosition => 'Create position';
+  String get createPosition => 'Intitiation Of The Position';
 
   @override
-  String get updateDepartment => 'Update department';
+  String get updateDepartment => 'Edit A Department';
 
   @override
-  String get updatePosition => 'Update position';
+  String get updatePosition => 'Edit Position';
 
   @override
-  String get parent => 'Parent';
+  String get parent => 'Parent Company';
 
   @override
   String get department => 'Department';
@@ -341,106 +347,79 @@ class AppLocalizationsEn extends AppLocalizations {
   String get position => 'Position';
 
   @override
-  String get personnel => 'Personnel';
+  String get personnel => 'Human Resources';
 
   @override
-  String get createPersonnel => 'Create personnel';
+  String get createPersonnel => 'Initialize employee information';
 
   @override
-  String get updatePersonnel => 'Update personnel';
+  String get updatePersonnel => 'Edit employee information';
 
   @override
-  String get createCheckInSetting => 'Create CheckIn Setting';
+  String get createCheckInSetting => 'Initialize work hours information';
 
   @override
-  String get updateCheckInSetting => 'Update CheckIn Setting';
+  String get updateCheckInSetting => 'Edit work hours information';
 
   @override
-  String get doYouWantToCreatePersonnel => 'Do you want to create personnel?';
+  String get doYouWantToCreatePersonnel => 'Do you want to create a new employee?';
 
   @override
-  String get doYouWantToUpdatePersonnel => 'Do you want to update personnel?';
+  String get doYouWantToUpdatePersonnel => 'Do you want to edit employee information?';
 
   @override
-  String get doYouWantToCreateCheckInSetting => 'Do you want to create work time?';
+  String get doYouWantToCreateCheckInSetting => 'Do you want to create a new work schedule?';
 
   @override
   String get startDate => 'Start date';
 
   @override
-  String get attendanceId => 'Attendance Id';
+  String get attendanceId => 'Timekeeping code';
 
   @override
-  String get morningStartTime => 'Morning Start Time';
+  String get morningStartTime => 'Morning shift start time';
 
   @override
-  String get morningEndTime => 'Morning End Time';
+  String get morningEndTime => 'Morning shift end time';
 
   @override
-  String get afternoonStartTime => 'Afternoon Start Time';
+  String get afternoonStartTime => 'Afternoon shift start time';
 
   @override
-  String get afternoonEndTime => 'Afternoon End Time';
+  String get afternoonEndTime => 'Afternoon shift end time';
 
   @override
-  String get firstName => 'First Name';
+  String get firstName => 'First name';
 
   @override
-  String get lastName => 'Last Name';
+  String get lastName => 'Last name';
 
   @override
-  String get addWorkTime => 'Add work time';
+  String get addWorkTime => 'Add work hours';
 
   @override
-  String get removeWorkTime => 'Remove work time';
+  String get removeWorkTime => 'Cancel work hours';
 
   @override
-  String get workingTime => 'Working time';
+  String get workingTime => 'Working hours';
 
   @override
-  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword => 'Please enter the email you want to retrieve your password!';
+  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword => 'Please enter the email to retrieve your password!';
 
   @override
-  String get newPasswordHasJustBeenSentToEmail => 'New password has just been sent to email';
+  String get newPasswordHasJustBeenSentToEmail => 'A new password has been sent to your email';
 
   @override
-  String get pleaseCheckYourEmail => ', Please check your email.';
+  String get pleaseCheckYourEmail => 'Please check your email.';
 
   @override
-  String get calendar => 'calendar';
+  String get calendar => 'Calendar';
 
   @override
   String get register => 'Register';
 
   @override
-  String get theContentAndTitleCannotBeLeftBlank => 'Content and title cannot be blank';
-
-  @override
-  String get theNoteDateCannotBeBeforeThePresentTime => 'The note date cannot be before the present time';
-
-  @override
-  String get youMadeANoteOnTheDate => 'You made a note on the date';
-
-  @override
-  String get dateNote => 'Date note';
-
-  @override
-  String get enterYourRegisteredUsernameAndPassword => 'Enter your registered username and password';
-
-  @override
-  String get supportContact => 'Support Contact';
-
-  @override
-  String get requiredDataFields => 'Required data fields';
-
-  @override
-  String get delete => 'Delete';
-
-  @override
-  String get doYouWantToDeleteTheNote => 'Do you want to delete the note?';
-
-  @override
-  String get activate => 'Activate';
+  String get activate => 'Activity';
 
   @override
   String get home => 'Home';
@@ -449,22 +428,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile => 'Profile';
 
   @override
-  String get doYouWantToDeleteYourAccount => 'Do you want to delete your account?';
+  String get dateNote => 'Note date';
 
   @override
-  String get deleteAccount => 'Delete Account';
+  String get enterYourRegisteredUsernameAndPassword => 'Enter the registered username and password';
 
   @override
-  String get userInformation => 'User information';
+  String get supportContact => 'Contact support';
 
   @override
-  String get employeeCode => 'Employee code';
+  String get theContentAndTitleCannotBeLeftBlank => 'Content and subject cannot be empty';
+
+  @override
+  String get theNoteDateCannotBeBeforeThePresentTime => 'Note date cannot be before the current time';
+
+  @override
+  String get youMadeANoteOnTheDate => 'You have noted on the date';
+
+  @override
+  String get requiredDataFields => 'All fields are required';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get doYouWantToDeleteTheNote => 'Do you want to delete this note?';
+
+  @override
+  String get doYouWantToDeleteYourAccount => 'Do you want to delete this account?';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get userInformation => 'User profile';
+
+  @override
+  String get employeeCode => 'Employee ID';
 
   @override
   String get personalEmail => 'Personal email';
 
   @override
-  String get companyEmail => 'Company Email';
+  String get companyEmail => 'Company email';
 
   @override
   String get gender => 'Gender';
@@ -479,7 +485,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editPersonalInformation => 'Edit personal information';
 
   @override
-  String get setting => 'Setting';
+  String get setting => 'Settings';
 
   @override
   String get account => 'Account';
@@ -497,91 +503,91 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ward => 'Ward';
 
   @override
-  String get doYouWantToUpdateProfile => 'Do you want to update profile?';
+  String get doYouWantToUpdateProfile => 'Do you want to edit personal information?';
 
   @override
   String get checkInOut => 'Check-in/out';
 
   @override
-  String get viewAttendanceHistory => 'View attendance history';
+  String get viewAttendanceHistory => 'View timekeeping history';
 
   @override
-  String get noData => 'No data';
+  String get noData => 'No data available';
 
   @override
-  String get administrativeTime => 'Administrative time';
+  String get administrativeTime => 'Working hours';
 
   @override
-  String get formOfTimekeeping => 'Form of timekeeping';
+  String get formOfTimekeeping => 'Timekeeping method';
 
   @override
-  String get checkIn => 'Check in';
+  String get checkIn => 'Clock in';
 
   @override
-  String get checkOut => 'Check out';
+  String get checkOut => 'Clock out';
 
   @override
   String get history => 'History';
 
   @override
-  String get timeWorking => 'Time working';
+  String get timeWorking => 'Work shift';
 
   @override
-  String get date => 'Date';
+  String get date => 'Day';
 
   @override
-  String get dialogWrongPasswordA => 'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please contact HCNS';
+  String get dialogWrongPasswordA => 'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please contact HR to reset your password.';
 
   @override
-  String get dialogWrongPasswordB => ' to reset your password';
+  String get dialogWrongPasswordB => 'to reset password';
 
   @override
-  String get newPasswordOtherConfirmPassword => 'New password other confirm password!';
+  String get newPasswordOtherConfirmPassword => 'New password does not match the confirmation password!';
 
   @override
-  String get notRegisteredForBiometrics => 'You have not registered for biometrics yet, please register, please log in with username and password first!';
+  String get notRegisteredForBiometrics => 'You have not registered biometric authentication, please register';
 
   @override
-  String get pleaseEnterYourUsernameAndPasswordHere => 'Please enter your Username and password here';
+  String get pleaseEnterYourUsernameAndPasswordHere => 'Enter your username and password here';
 
   @override
-  String get youWantToSaveTheAboveAccountForBiometrics => 'You want to save the above account for biometrics';
+  String get youWantToSaveTheAboveAccountForBiometrics => 'Do you want to save this account for biometric login?';
 
   @override
   String get yourBiometricAccountIsIncorrect => 'Your biometric account is incorrect';
 
   @override
-  String get youPressYourFingerHere => 'You press your finger here';
+  String get youPressYourFingerHere => 'Press your finger here';
 
   @override
-  String get touchTheIconToTimeClock => 'Touch The Icon To Time Clock';
+  String get touchTheIconToTimeClock => 'Tap the icon to clock in';
 
   @override
-  String get timekeepingImmediately => 'Timekeeping immediately';
+  String get timekeepingImmediately => 'Clock in now';
 
   @override
   String get complete => 'Complete';
 
   @override
-  String get locationServicesAreDisabled => 'Location services are disabled.';
+  String get locationServicesAreDisabled => 'Location services are disabled';
 
   @override
-  String get locationPermissionsAreDenied => 'Location permissions are denied';
+  String get locationPermissionsAreDenied => 'Access denied';
 
   @override
-  String get locationPermissionsArePermanentlyDenied => 'Location permissions are permanently denied, we cannot request permissions.';
+  String get locationPermissionsArePermanentlyDenied => 'Access denied, we are unable to request location access';
 
   @override
-  String get validateToolLocation => 'Validate tool location';
+  String get validateToolLocation => 'Authenticate timekeeping location';
 
   @override
   String get step => 'Step';
 
   @override
-  String get singleWordList => 'Requisition list';
+  String get singleWordList => 'Request list';
 
   @override
-  String get createANewSingleWord => 'Create a new requisition';
+  String get createANewSingleWord => 'Create a new request';
 
   @override
   String get deadline => 'Deadline';
@@ -590,16 +596,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get all => 'All';
 
   @override
-  String get pending => 'Pending';
+  String get pending => 'Pending approval';
 
   @override
   String get reject => 'Reject';
 
   @override
-  String get modification => 'Modification request';
+  String get modification => 'Request revision';
 
   @override
-  String get done => 'Done';
+  String get done => 'Approved';
 
   @override
   String get filter => 'Filter';
@@ -614,31 +620,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get apply => 'Apply';
 
   @override
-  String get expiredEdit => 'Expired edit';
+  String get expiredEdit => 'Revision overdue';
 
   @override
-  String get expired => 'Expired';
+  String get expired => 'Overdue';
 
   @override
-  String get leave => 'Application for leave';
+  String get leave => 'Leave request';
 
   @override
-  String get overtime => 'Overtime';
+  String get overtime => 'Overtime request';
 
   @override
-  String get vehicleDispatch => 'Application for vehicle dispatch';
+  String get vehicleDispatch => 'Vehicle request form';
 
   @override
-  String get postalDelivery => 'Application for postal delivery';
+  String get postalDelivery => 'Postal delivery request form';
 
   @override
-  String get releaseOfWarehouse => 'Application for release of warehouse';
+  String get releaseOfWarehouse => 'Warehouse release request form';
 
   @override
   String get stationeryOrder => 'Stationery order form';
 
   @override
-  String get business => 'application for business trip';
+  String get business => 'Business trip request';
 
   @override
   String get male => 'Male';
@@ -653,7 +659,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get primarySchool => 'Primary school';
 
   @override
-  String get secondarySchool => 'Secondary school';
+  String get secondarySchool => 'Middle school';
 
   @override
   String get highSchool => 'High school';
@@ -668,34 +674,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get university => 'University';
 
   @override
-  String get masterDegree => 'Master degree';
+  String get masterDegree => 'Master\'s degree';
 
   @override
   String get doctorate => 'Doctorate';
 
   @override
-  String get working => 'Working';
+  String get working => 'Currently working';
 
   @override
-  String get resignation => 'Resignation';
+  String get resignation => 'Resigned';
 
   @override
-  String get aboutToStart => 'AboutToStart';
+  String get aboutToStart => 'Starting soon';
 
   @override
-  String get longTermUnpaidLeave => 'LongTermUnpaidLeave';
+  String get longTermUnpaidLeave => 'Long-term unpaid leave';
 
   @override
-  String get yourRequisition => 'Your requisition';
+  String get yourRequisition => 'Your requests';
 
   @override
-  String get requisitionYouApproval => 'Requisition you approval';
+  String get requisitionYouApproval => 'Requests you approved';
 
   @override
-  String get requisitionYouFollow => 'Requisition you follow';
+  String get requisitionYouFollow => 'Requests you are following';
 
   @override
-  String get applicationCode => 'Application code';
+  String get applicationCode => 'Request code';
 
   @override
   String get senderInformation => 'Sender information';
@@ -707,10 +713,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get generalInformation => 'General information';
 
   @override
-  String get contentOfApplication => 'Content of application';
+  String get contentOfApplication => 'Request details';
 
   @override
-  String get follower => 'Follower';
+  String get follower => 'Followers';
 
   @override
   String get totalDays => 'Total days';
@@ -722,34 +728,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vehicle => 'Vehicle';
 
   @override
-  String get destination => 'Destination';
+  String get destination => 'Location';
 
   @override
-  String get workingContent => 'Working content';
+  String get workingContent => 'Business trip details';
 
   @override
-  String get attach => 'Attach';
+  String get attach => 'Attachments';
 
   @override
-  String get workApplicationForm => 'Work application form';
+  String get workApplicationForm => 'Request template';
 
   @override
-  String get drivingTime => 'Driving time';
+  String get drivingTime => 'Vehicle scheduling time';
 
   @override
-  String get drive => 'Drive';
+  String get drive => 'Driver';
 
   @override
-  String get carCaller => 'Car caller';
+  String get carCaller => 'Vehicle dispatcher';
 
   @override
-  String get walker => 'Walker';
+  String get walker => 'Passenger';
 
   @override
-  String get schedule => 'Schedule';
+  String get schedule => 'Itinerary';
 
   @override
-  String get reasonForDriving => 'Reason for driving';
+  String get reasonForDriving => 'Reason for vehicle dispatch';
 
   @override
   String get shippingPurpose => 'Shipping purpose';
@@ -758,40 +764,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reason => 'Reason';
 
   @override
-  String get reasonForExplanation => 'Reason for explanation';
+  String get reasonForExplanation => 'Explanation reason';
 
   @override
   String get detailedDescription => 'Detailed description';
 
   @override
-  String get totalMinute => 'Total minute';
+  String get totalMinute => 'Minutes';
 
   @override
-  String get leaveEarly => 'Get off work early';
+  String get leaveEarly => 'Request to leave early';
 
   @override
-  String get late => 'Late timekeeping';
+  String get late => 'Request to arrive late';
 
   @override
-  String get leaveCorrection => 'Requisition of leave correction';
+  String get leaveCorrection => 'Request to modify leave';
 
   @override
-  String get editTimekeeping => 'Edit timekeeping';
+  String get editTimekeeping => 'Request to modify timekeeping';
 
   @override
-  String get replaceDay => 'replace day';
+  String get replaceDay => 'Make-up workday';
 
   @override
-  String get attachedFiles => 'Attached files';
+  String get attachedFiles => 'Attach';
 
   @override
   String get check => 'Check';
 
   @override
-  String get timeHasBeenRequestedInAdvance => 'Time has been requested in advance';
+  String get timeHasBeenRequestedInAdvance => 'A request already exists for the selected time, please choose again';
 
   @override
-  String get workDay => 'Work date';
+  String get workDay => 'Workdays';
 
   @override
   String get annualLeave => 'Annual leave';
@@ -800,10 +806,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sickLeave => 'Sick leave';
 
   @override
-  String get intervalOnLeave => 'Interval on leave';
+  String get intervalOnLeave => 'Leave duration';
 
   @override
-  String get substitute => 'The person handling the work takes over during the break';
+  String get substitute => 'Work replacement during leave';
 
   @override
   String get pdf => 'PDF';
@@ -815,175 +821,181 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otherPaidLeave => 'Other paid leave';
 
   @override
-  String get leaveWithoutPay => 'Leave without pay';
+  String get leaveWithoutPay => 'Unpaid leave';
 
   @override
-  String get permissionBiometric => 'You have not granted biometric authentication permission to the app, please grant permission!';
+  String get permissionBiometric => 'You have not granted biometric authentication permissions to the app, please grant permission!';
 
   @override
-  String get transferType => 'Transfer Type';
+  String get transferType => 'Delivery type';
 
   @override
-  String get often => 'Often';
+  String get often => 'Regular';
 
   @override
-  String get superSpeed => 'Super speed';
+  String get superSpeed => 'Super fast';
 
   @override
-  String get sendingPurpose => 'Sending purpose';
+  String get sendingPurpose => 'Shipping purpose';
 
   @override
-  String get notePostalDelivery => 'Note: To save costs, only use the FAST delivery service when absolutely necessary';
+  String get explain => 'Explanation';
 
   @override
-  String get explain => 'Explain';
+  String get unitPrice => 'Unit price (before VAT)';
 
   @override
-  String get unitPrice => 'Unit price (excluding VAT)';
+  String get numberOf => 'Quantity';
 
   @override
-  String get numberOf => 'Number of';
+  String get intoMoney => 'Total amount';
 
   @override
-  String get intoMoney => 'Into money';
-
-  @override
-  String get moreOfficeProducts => 'More office products';
+  String get moreOfficeProducts => 'Add stationery';
 
   @override
   String get unit => 'Unit';
 
   @override
-  String get pieces => 'Pieces';
+  String get pieces => 'Piece';
 
   @override
-  String get rolls => 'rolls';
+  String get rolls => 'Roll';
 
   @override
-  String get boxes => 'boxes';
+  String get boxes => 'Box';
 
   @override
-  String get jars => 'jars';
+  String get jars => 'Bottle';
 
   @override
-  String get books => 'books';
+  String get books => 'Notebook';
 
   @override
-  String get reams => 'reams';
+  String get reams => 'Ream';
 
   @override
-  String get volumes => 'volumes';
+  String get volumes => 'Set';
 
   @override
-  String get bags => 'Bags';
+  String get bags => 'Bag';
 
   @override
-  String get blisters => 'blisters';
+  String get blisters => 'Blister pack';
 
   @override
-  String get pairs => 'Pairs';
+  String get pairs => 'Pair';
 
   @override
-  String get stationeryList => 'Product list';
+  String get stationeryList => 'Item list';
 
   @override
   String get product => 'Product';
 
   @override
-  String get addProducts => 'Add products';
+  String get addProducts => 'Add product';
 
   @override
   String get car => 'Car';
 
   @override
-  String get bike => 'Bike';
+  String get bike => 'Bicycle';
 
   @override
   String get motorbike => 'Motorbike';
 
   @override
-  String get tram => 'Tram';
+  String get tram => 'Electric bike';
 
   @override
   String get vehicleType => 'Vehicle type';
 
   @override
-  String get licensePlate => 'License plate';
+  String get licensePlate => 'License plate number';
 
   @override
-  String get autoMaker => 'Auto maker';
+  String get autoMaker => 'Manufacturer';
 
   @override
-  String get refuse => 'Refuse';
+  String get refuse => 'Reject';
 
   @override
-  String get process => 'Process';
+  String get process => 'Pending approval';
 
   @override
-  String get edit => 'Edit';
+  String get edit => 'Request revision';
 
   @override
-  String get overdueEdit => 'Overdue edit';
+  String get overdueEdit => 'Revision overdue';
 
   @override
-  String get overdueApprove => 'Overdue approve';
+  String get overdueApprove => 'Approval overdue';
 
   @override
   String get newStatus => 'New';
 
   @override
-  String get standard => 'Standard';
+  String get standard => 'Standard shipping';
 
   @override
-  String get express => 'Express';
+  String get express => 'Express shipping';
 
   @override
-  String get sameDay => 'Same Day';
+  String get sameDay => 'Same-day delivery';
 
   @override
-  String get overnight => 'Overnight';
+  String get overnight => 'Overnight delivery';
 
   @override
-  String get twoDay => 'Two Day';
+  String get twoDay => 'Two-day delivery';
 
   @override
-  String get economy => 'Economy';
+  String get economy => 'Economy shipping';
 
   @override
-  String get rush => 'Rush';
+  String get rush => 'Rush shipping';
 
   @override
-  String get scheduled => 'Scheduled';
+  String get scheduled => 'Scheduled delivery';
 
   @override
   String get core => 'Core';
 
   @override
-  String get noBrowsingFlowYet => 'No browsing flow yet';
+  String get noBrowsingFlowYet => 'No approval flow';
 
   @override
-  String get cannotBeLeftBlank => 'Cannot be left blank';
+  String get cannotBeLeftBlank => 'Cannot be empty';
 
   @override
-  String get thereAreCurrentlyNoProducts => 'There are currently no products';
+  String get thereAreCurrentlyNoProducts => 'No products available at the moment';
 
   @override
-  String get removeFilter => 'Remove filter';
+  String get removeFilter => 'Clear filter';
 
   @override
   String get paymentAfterTax => 'Payment after tax';
 
   @override
-  String get intoMoneyNoVAT => 'Into money (excluding VAT)';
+  String get intoMoneyNoVAT => 'Total before VAT';
 
   @override
-  String get yearlyAndSeniorityLeave => 'Yearly and seniority leave';
+  String get yearlyAndSeniorityLeave => 'Annual leave and seniority leave';
 
   @override
   String get otherLeave => 'Other leave';
 
   @override
-  String get theStartTimeMustBeAfterTheCurrentTime => 'The start time must be after the current time';
+  String get horizontalCalendar => 'Horizontal calendar';
+
+  @override
+  String get verticalCalendar => 'Vertical calendar';
+
+  @override
+  String get unpaidLeave => 'Unpaid leave';
+
+  @override
+  String get theStartTimeMustBeAfterTheCurrentTime => 'Start time must be after the current time';
 
   @override
   String get month => 'Month';
@@ -992,151 +1004,148 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quantityCannotBeZero => 'Quantity cannot be zero';
 
   @override
-  String get duplicateEmail => 'Duplicate Email';
+  String get duplicateEmail => 'Duplicate email';
 
   @override
-  String get invalidParentId => 'Invalid ParentId';
+  String get invalidParentId => 'Invalid object ID';
 
   @override
-  String get itemNotExists => 'Item Not Exists';
+  String get itemNotExists => 'Object does not exist';
 
   @override
-  String get dataInUse => 'Data In Use';
+  String get dataInUse => 'Data is in use';
 
   @override
-  String get duplicateCode => 'Duplicate Code';
+  String get duplicateCode => 'Duplicate code';
 
   @override
-  String get startDateAfterEndDate => 'Start Date After End Date';
+  String get startDateAfterEndDate => 'Start date after end date';
 
   @override
-  String get idsEmpty => 'Ids Empty';
+  String get idsEmpty => 'Empty IDs';
 
   @override
-  String get userDoesNotExist => 'User Does Not Exist';
+  String get userDoesNotExist => 'User does not exist';
 
   @override
-  String get emailInUse => 'Email In Use';
+  String get emailInUse => 'Email is already in use';
 
   @override
-  String get companyEmailInUse => 'Company Email In Use';
+  String get companyEmailInUse => 'Company email is already in use';
 
   @override
-  String get phoneNumberInUse => 'Phone Number In Use';
+  String get phoneNumberInUse => 'Phone number is already in use';
 
   @override
-  String get userCreationFailed => 'User Creation Failed';
+  String get userCreationFailed => 'User creation failed';
 
   @override
-  String get differentRoleUserSystem => 'Different Role User System';
+  String get differentRoleUserSystem => 'User system with a different role';
 
   @override
-  String get userNameInUse => 'UserName In Use';
+  String get userNameInUse => 'Username is already in use';
 
   @override
-  String get userNameCannotBeEmpty => 'User Name Cannot Be Empty';
+  String get userNameCannotBeEmpty => 'Username cannot be empty';
 
   @override
-  String get userNameNotFound => 'User Name Not Found';
+  String get userNameNotFound => 'Username does not exist';
 
   @override
-  String get bothEmailsEmpty => 'Both Emails Empty';
+  String get bothEmailsEmpty => 'Both personal and company emails are empty';
 
   @override
-  String get duplicatePassportNumber => 'Duplicate Passport Number';
+  String get duplicatePassportNumber => 'Duplicate passport number';
 
   @override
-  String get duplicateCitizenID => 'Duplicate Citizen ID';
+  String get duplicateCitizenID => 'Duplicate ID/CCCD number';
 
   @override
-  String get emailCannotBeEmpty => 'Email Cannot Be Empty';
+  String get emailCannotBeEmpty => 'Email cannot be empty';
 
   @override
-  String get onlyOneFulltimeInDepartment => 'Only One Fulltime In Department';
+  String get onlyOneFulltimeInDepartment => 'Only one full-time employee per department is allowed';
 
   @override
-  String get parttimeToFulltimeOnly => 'Parttime To Fulltime Only';
+  String get parttimeToFulltimeOnly => 'Can only transition from part-time to full-time';
 
   @override
-  String get duplicateLicensePlate => 'Duplicate License Plate';
+  String get duplicateLicensePlate => 'Duplicate license plate number';
 
   @override
-  String get duplicateTaxNumber => 'Duplicate Tax Number';
+  String get duplicateTaxNumber => 'Duplicate tax code';
 
   @override
-  String get duplicateBankAccountNumber => 'Duplicate Bank Account Number';
+  String get duplicateBankAccountNumber => 'Duplicate bank account number';
 
   @override
-  String get timeSlotAlreadyPleaseChooseAnother => 'Time Slot Already Please Choose Another';
+  String get timeSlotAlreadyPleaseChooseAnother => 'A request already exists for the selected time, please choose again!';
 
   @override
-  String get theNumberOfFormsCreatedHasExceededTheLimit => 'The Number Of Forms Created Has Exceeded The Limit';
+  String get theNumberOfFormsCreatedHasExceededTheLimit => 'The number of created forms has exceeded the limit';
 
   @override
-  String get listOvertime => 'List of overtime hours';
+  String get listOvertime => 'Overtime hours list';
 
   @override
   String get totalTime => 'Total time';
 
   @override
-  String get yearlyLeave => 'Yearly Leave';
+  String get yearlyLeave => 'Annual leave';
 
   @override
-  String get seniorityLeave => 'Seniority Leave';
-
-  @override
-  String get weddingLeave => 'Wedding Leave';
-
-  @override
-  String get mourningLeave => 'Mourning Leave';
-
-  @override
-  String get homeSickLeave => 'Home Sick Leave';
+  String get seniorityLeave => 'Seniority leave';
 
   @override
   String get compensatoryLeave => 'Compensatory leave';
 
   @override
-  String get hospitalSickLeave => 'Hospital Sick Leave';
+  String get weddingLeave => 'Marriage leave';
 
   @override
-  String get maternityLeave => 'Maternity Leave';
+  String get mourningLeave => 'Bereavement leave';
 
   @override
-  String get revoke => 'Revoke';
+  String get homeSickLeave => 'Sick leave (home)';
 
   @override
-  String get leaveNumberUsed => 'Leave number used';
+  String get hospitalSickLeave => 'Sick leave (hospital)';
 
   @override
-  String get leaveNumberPermission => 'Leave number allowed';
+  String get maternityLeave => 'Maternity leave';
 
   @override
-  String get leaveNumberRemaining => 'Leave number remaining';
+  String get revoke => 'Cancel';
 
   @override
-  String get youEarly => 'You early';
+  String get leaveNumberUsed => 'Used leave days';
 
   @override
-  String get youLater => 'You later';
+  String get leaveNumberPermission => 'Initial leave days';
 
   @override
-  String get timeKeepingList => 'list Timekeeping';
+  String get leaveNumberRemaining => 'Remaining leave days';
 
   @override
-  String get listTime => 'List time';
+  String get youEarly => 'Early departure';
 
   @override
-  String get workOffset => 'Work offset';
+  String get youLater => 'Late arrival';
 
   @override
-  String get reasonForRelease => 'Reason for release';
+  String get timeKeepingList => 'Time list';
+
+  @override
+  String get listTime => 'Time list (repeated)';
+
+  @override
+  String get workOffset => 'Make-up work';
+
+  @override
+  String get reasonForRelease => 'Reason for goods issuance';
 
   @override
   String get reasonForBusinessTrip => 'Reason for business trip';
-
-  @override
-  String get unpaidLeave => 'Unpaid leave';
 
   @override
   String get no => 'No';
@@ -1148,19 +1157,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leaveManagement => 'Leave management';
 
   @override
-  String get registerShift => 'Register shift';
+  String get registerShift => 'Register work schedule';
 
   @override
-  String get listSchools => 'List schools';
+  String get listSchools => 'School list';
 
   @override
-  String get overTimeLeave => 'OverTime Leave';
+  String get overTimeLeave => 'OT compensatory leave';
 
   @override
   String get leaveList => 'Leave list';
 
   @override
-  String get leaveUseHistory => 'Leave use history';
+  String get leaveUseHistory => 'Leave history';
 
   @override
   String get total => 'Total';
@@ -1178,31 +1187,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hour => 'Hour';
 
   @override
-  String get addition => 'Addition';
+  String get addition => 'Add';
 
   @override
-  String get subtraction => 'Subtraction';
+  String get subtraction => 'Subtract';
 
   @override
-  String get totalLeaveOfChanges => 'Total leave of changes';
+  String get totalLeaveOfChanges => 'Total leave changes';
 
   @override
   String get actionName => 'Action name';
 
   @override
-  String get totalRemainingLeaveDays => 'Total remaining days of leave';
+  String get totalRemainingLeaveDays => 'Total remaining leave days';
 
   @override
-  String get vacationPeriod => 'Vacation period';
+  String get vacationPeriod => 'Leave request time';
 
   @override
-  String get seeRequest => 'See request';
+  String get seeRequest => 'View request';
 
   @override
-  String get sourceOfLeave => 'Source of leave';
+  String get sourceOfLeave => 'Leave source';
 
   @override
-  String get doYouWantRevokeYourRequest => 'Do you want revoke your request?';
+  String get doYouWantRevokeYourRequest => 'Do you want to disable this request?';
 
   @override
   String get start => 'Start';
@@ -1215,6 +1224,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trackFlowProgres => 'Track flow progress';
+
+  @override
+  String get youDoNotHaveAShiftToday => 'You don\'t have a shift today!';
 
   @override
   String get worksheet => 'Worksheet';
@@ -1283,136 +1295,136 @@ class AppLocalizationsEn extends AppLocalizations {
   String get year => 'Year';
 
   @override
-  String get request => 'Request';
+  String get request => 'Leave requests';
 
   @override
-  String get shift => 'Shift';
+  String get shift => 'Work shift';
 
   @override
-  String get workInDay => 'Work in day';
+  String get workInDay => 'Daily recorded attendance';
 
   @override
-  String get minutesToLate => 'Minutes to late';
+  String get minutesToLate => 'Minutes late';
 
   @override
-  String get minutesToEarly => 'Minutes to early';
+  String get minutesToEarly => 'Minutes left early';
 
   @override
   String get totalOTHours => 'Total OT hours';
 
   @override
-  String get typeOfShift => 'Type of shift';
+  String get typeOfShift => 'Work shift type';
 
   @override
   String get oTCoefficient => 'OT coefficient';
 
   @override
-  String get dateType => 'Date type';
+  String get dateType => 'Day type';
 
   @override
-  String get ot => 'OverTime';
+  String get ot => 'Overtime work';
 
   @override
-  String get totalLeaveWork => 'Total leave work';
+  String get totalLeaveWork => 'Total leave days';
 
   @override
-  String get noShiftsWork => 'No shifts work';
+  String get noShiftsWork => 'No work shift assigned';
 
   @override
-  String get regularDay => 'Regular day';
+  String get regularDay => 'Weekday';
 
   @override
-  String get timeFrameOT => 'Time frame OT';
+  String get timeFrameOT => 'OT time frame';
 
   @override
   String get timeFrame => 'Time frame';
 
   @override
-  String get numberOfLate => 'Number Of Late';
+  String get numberOfLate => 'Early departures';
 
   @override
-  String get numberOfEarly => 'Number Of Early';
+  String get numberOfEarly => 'Late arrivals';
 
   @override
-  String get workOT => 'Overtime work';
+  String get workOT => 'Overtime number hours';
 
   @override
-  String get historyTimekeeping => 'History timekeeping';
+  String get historyTimekeeping => 'Timekeeping history';
 
   @override
-  String get totalTimeWork => 'Total Time Work';
+  String get totalTimeWork => 'Total working hours';
 
   @override
-  String get totalTimeWorkCompensatory => 'Total number of compensatory hours';
+  String get totalTimeWorkCompensatory => 'Total make-up time';
 
   @override
-  String get cancelShiftRegistration => 'Cancel shift registration';
+  String get titleBusiness => 'Business trip duration';
 
   @override
-  String get cancelShiftReceiveRegistration => 'Cancel shift receive registration';
+  String get timeStart => 'Departure time';
 
   @override
-  String get cancelShiftCancellationRequest => 'Cancel shift cancellation request';
+  String get timeEnd => 'Return time';
 
   @override
-  String get registerForShifts => 'Register for shifts';
+  String get socialInsuranceLeave => 'Paid by social insurance (BHXH)';
 
   @override
-  String get youDoNotHaveAShiftToday => 'You don\'t have a shift today!';
+  String get leaveHalfDayToOneDay => 'Request for 0.5-1 Day Leave';
 
   @override
-  String get distanceNotEnough => 'Distance Not Enough';
+  String get leaveTwoDayToFourDay => 'Request for 2-4 Day Leave';
 
   @override
-  String get reasonForCancelingRequest => 'Reason for canceling request';
+  String get leaveFiveDaysOrMore => 'Request for 5 or More Days Leave';
 
   @override
-  String get titleBusiness => 'Title business';
-
-  @override
-  String get timeStart => 'Thời gian đi';
-
-  @override
-  String get timeEnd => 'Thời gian về';
-
-  @override
-  String get socialInsuranceLeave => 'Social Insurance Leave';
-
-  @override
-  String get leaveHalfDayToOneDay => 'leave Half Day To One Day';
-
-  @override
-  String get leaveTwoDayToFourDay => 'leave Two Day To Four Day';
-
-  @override
-  String get leaveFiveDaysOrMore => 'leave Five Days Or More';
-
-  @override
-  String get lateOrEarly => 'Late/Early';
+  String get lateOrEarly => 'Request for Late Arrival/Early Departure';
 
   @override
   String get timekeepingError => 'Timekeeping error';
 
   @override
-  String get calendarWork => 'Calendar work';
+  String get monday => 'Monday';
 
   @override
-  String get shiftManagement => 'Shift management';
+  String get tuesday => 'Tuesday';
+
+  @override
+  String get wednesday => 'Wednesday';
+
+  @override
+  String get thursday => 'Thursday';
+
+  @override
+  String get friday => 'Friday';
+
+  @override
+  String get saturday => 'Saturday';
+
+  @override
+  String get sunday => 'Sunday';
+
+  @override
+  String get calendarWork => 'Work schedule';
+
+  @override
+  String get shiftManagement => 'Manage work schedule';
 
   @override
   String get week => 'Week';
 
   @override
-  String get pendingCancel => 'Pending cancel';
+  String get pendingCancel => 'Pending cancellation';
 
   @override
-  String get remove => 'Remove';
+  String get remove => 'Stop';
 
   @override
-  String get usable => 'Usable';
+  String get usable => 'Available';
 
   @override
-  String get unusable => 'Unusable';
+  String get unusable => 'Unavailable';
 
   @override
   String get administrativeShift => 'Administrative shift';
@@ -1421,25 +1433,160 @@ class AppLocalizationsEn extends AppLocalizations {
   String get singleShift => 'Single shift';
 
   @override
-  String get monday => 'monday';
+  String get unregistered => 'Not registered';
 
   @override
-  String get tuesday => 'tuesday';
+  String get cancelShiftRegistration => 'Cancel shift registration';
 
   @override
-  String get wednesday => 'wednesday';
+  String get cancelShiftReceiveRegistration => 'Cancel shift acceptance';
 
   @override
-  String get thursday => 'thursday';
+  String get cancelShiftCancellationRequest => 'Cancel shift cancellation request';
 
   @override
-  String get friday => 'friday';
+  String get registerForShifts => 'Register shift';
 
   @override
-  String get saturday => 'saturday';
+  String get invalid => 'Invalid';
 
   @override
-  String get sunday => 'sunday';
+  String get fingerprint => 'Fingerprint';
+
+  @override
+  String get gPS => 'GPS';
+
+  @override
+  String get wrongPassword => 'Incorrect password';
+
+  @override
+  String get none => 'No';
+
+  @override
+  String get reasonForCancelingRequest => 'Reason for request cancellation';
+
+  @override
+  String get loading => 'Please wait...';
+
+  @override
+  String get halfDayToOneDay => 'Request for 0.5-1 Day Leave';
+
+  @override
+  String get twoDayToFourDay => 'Request for 2-4 Day Leave';
+
+  @override
+  String get fiveDaysOrMore => 'Request for 5 or More Days Leave';
+
+  @override
+  String get earlyLate => 'Request for Late Arrival/Early Departure';
+
+  @override
+  String get vehicleF => 'Request for Vehicle Allocation';
+
+  @override
+  String get businessF => 'Request for Business Trip';
+
+  @override
+  String get releaseOfWarehouseF => 'Request for Inventory Withdrawal';
+
+  @override
+  String get stationery => 'Stationery Order Form';
+
+  @override
+  String get explanationF => 'Timekeeping Correction Request';
+
+  @override
+  String get oT => 'Overtime Request';
+
+  @override
+  String get requestType => 'Request type';
+
+  @override
+  String get chooseARequest => 'Select request type';
+
+  @override
+  String get nameSchool => 'School name';
+
+  @override
+  String get nameClass => 'Class name';
+
+  @override
+  String get nameTeacher => 'Teacher\'s name';
+
+  @override
+  String get timekeepingTime => 'Timekeeping time';
+
+  @override
+  String get map => 'Map';
+
+  @override
+  String get timekeepingSuccess => 'Timekeeping successful';
+
+  @override
+  String get timekeepingUnSuccess => 'Timekeeping failed';
+
+  @override
+  String get chooseWorkShift => 'Select work shift';
+
+  @override
+  String get ifOto => 'If traveling by car, driver’s name';
+
+  @override
+  String get totalOvertimeHours => 'Total overtime hours';
+
+  @override
+  String get required => 'Required';
+
+  @override
+  String get personalReasons => 'Personal reason';
+
+  @override
+  String get companyReasons => 'Company reason';
+
+  @override
+  String get firstShift => 'First shift';
+
+  @override
+  String get lastShift => 'Last shift';
+
+  @override
+  String get totalWork => 'Number of workdays';
+
+  @override
+  String get createRequestFailed => 'Request creation failed';
+
+  @override
+  String get editRequestUnsuccessful => 'Request update failed';
+
+  @override
+  String get createSuccess => 'Request created successfully';
+
+  @override
+  String get editRequestSuccess => 'Request updated successfully';
+
+  @override
+  String get theTotalNumberOfLeaveIsNotEnough => 'You have used up all your leave days!';
+
+  @override
+  String get approvedSuccess => 'Approval successful';
+
+  @override
+  String get approvedUnsuccessful => 'Approval failed';
+
+  @override
+  String get cancelRequest => 'Cancel request';
+
+  @override
+  String get leaveReason => 'Reason for leave';
+
+  @override
+  String get reasonType => 'Reason type';
+
+  @override
+  String get updateUnsuccessful => 'Update information failed!';
+
+  @override
+  String get postal => 'Postal';
 
   @override
   String get mon => 'Mon';
@@ -1460,146 +1607,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sat => 'Sat';
 
   @override
-  String get sun => 'San';
-
-  @override
-  String get invalid => 'Invalid';
-
-  @override
-  String get fingerprint => 'Fingerprint';
-
-  @override
-  String get gPS => 'GPS';
-
-  @override
-  String get wrongPassword => 'Wrong password';
-
-  @override
-  String get none => 'None';
-
-  @override
-  String get unregistered => 'Unregistered';
-
-  @override
-  String get loading => 'Loading...';
-
-  @override
-  String get halfDayToOneDay => '0,5 to 1 day';
-
-  @override
-  String get twoDayToFourDay => '2 to 4 day';
-
-  @override
-  String get fiveDaysOrMore => 'More 5 day';
-
-  @override
-  String get earlyLate => 'Early/Late';
-
-  @override
-  String get vehicleF => 'book vehicle';
-
-  @override
-  String get businessF => 'Business';
-
-  @override
-  String get releaseOfWarehouseF => 'Exported warehouse';
-
-  @override
-  String get stationery => 'Stationery';
-
-  @override
-  String get explanationF => 'Explanation';
-
-  @override
-  String get oT => 'OverTime';
-
-  @override
-  String get chooseARequest => 'Choose a request';
-
-  @override
-  String get postal => 'Postal';
-
-  @override
-  String get requestType => 'Request type';
-
-  @override
-  String get ifOto => 'If traveling by car, full name of the driver';
-
-  @override
-  String get totalOvertimeHours => 'Total overtime hours';
-
-  @override
-  String get required => 'required';
-
-  @override
-  String get personalReasons => 'Personal reasons';
-
-  @override
-  String get companyReasons => 'Company reasons';
-
-  @override
-  String get firstShift => 'First shift';
-
-  @override
-  String get lastShift => 'Last shift';
-
-  @override
-  String get totalWork => 'Total work';
-
-  @override
-  String get chooseWorkShift => 'Choose work shift';
-
-  @override
-  String get nameSchool => 'School name';
-
-  @override
-  String get nameClass => 'Class name';
-
-  @override
-  String get nameTeacher => 'Teacher name';
-
-  @override
-  String get timekeepingTime => 'Timekeeping time';
-
-  @override
-  String get map => 'Map';
-
-  @override
-  String get timekeepingSuccess => 'Timekeeping success';
-
-  @override
-  String get timekeepingUnSuccess => 'Timekeeping un success';
-
-  @override
-  String get createRequestFailed => 'Create request unsuccessful';
-
-  @override
-  String get editRequestUnsuccessful => 'Edit request unsuccessful';
-
-  @override
-  String get createSuccess => 'create success';
-
-  @override
-  String get editRequestSuccess => 'Edit request success';
-
-  @override
-  String get theTotalNumberOfLeaveIsNotEnough => 'The total number of leave is not enough';
-
-  @override
-  String get approvedSuccess => 'Approved success';
-
-  @override
-  String get approvedUnsuccessful => 'approved Unsuccessful';
-
-  @override
-  String get cancelRequest => 'Cancel request';
-
-  @override
-  String get leaveReason => 'Leave reason';
-
-  @override
-  String get reasonType => 'Reason type';
-
-  @override
-  String get updateUnsuccessful => 'Update Unsuccessful';
+  String get sun => 'Sun';
 }

@@ -5,9 +5,6 @@ class AppLocalizationsVi extends AppLocalizations {
   AppLocalizationsVi([String locale = 'vi']) : super(locale);
 
   @override
-  String get helloWorld => 'Hello World!';
-
-  @override
   String get username => 'Tên đăng nhập';
 
   @override
@@ -23,19 +20,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get login => 'Đăng nhập';
 
   @override
-  String get login2 => 'ĐĂNG NHẬP';
-
-  @override
   String get notAMember => 'Chưa có tài khoản?  ';
 
   @override
-  String get alreadyAMember => 'Đã có tài khoản chưa?  ';
+  String get alreadyAMember => 'Đã có tài khoản?  ';
 
   @override
-  String get signUpNow => 'Đăng ký';
+  String get signUpNow => 'Đăng ký ngay';
 
   @override
-  String get logInNow => 'Đăng nhập';
+  String get logInNow => 'Đăng nhập ngay';
 
   @override
   String get whatIsYourEmail => 'Email của bạn';
@@ -173,6 +167,18 @@ class AppLocalizationsVi extends AppLocalizations {
   String get endTime => 'Kết thúc';
 
   @override
+  String get startTimeH => 'Giờ bắt đầu';
+
+  @override
+  String get endTimeH => 'Giờ kết thúc';
+
+  @override
+  String get startTimeD => 'Ngày bắt đầu';
+
+  @override
+  String get endTimeD => 'Ngày kết thúc';
+
+  @override
   String get name => 'Tên';
 
   @override
@@ -266,7 +272,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get add => 'Thêm';
 
   @override
-  String get lateTime => 'Thời gian muộn: ';
+  String get lateTime => 'Thời gian muộn';
 
   @override
   String get book => 'Đặt lịch';
@@ -401,7 +407,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pleaseEnterTheEmailYouWantToRetrieveYourPassword => 'Vui lòng nhập email bạn muốn lấy lại mật khẩu!';
 
   @override
-  String get newPasswordHasJustBeenSentToEmail => 'Mật khẩu mới vừa được gửi tới email: ';
+  String get newPasswordHasJustBeenSentToEmail => 'Mật khẩu mới vừa được gửi tới email';
 
   @override
   String get pleaseCheckYourEmail => 'Làm ơn check email của bạn.';
@@ -413,13 +419,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get register => 'Đăng ký';
 
   @override
-  String get theContentAndTitleCannotBeLeftBlank => 'Nội dung và tiêu đề không được để trống';
+  String get activate => 'Hoạt Động';
 
   @override
-  String get theNoteDateCannotBeBeforeThePresentTime => 'Ngày ghi chú không được trước thời điểm hiện tại';
+  String get home => 'Trang chủ';
 
   @override
-  String get youMadeANoteOnTheDate => 'Bạn đã ghi chú vào ngày';
+  String get profile => 'Hồ sơ';
 
   @override
   String get dateNote => 'Ngày ghi chú';
@@ -431,6 +437,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get supportContact => 'Liên hệ hỗ trợ';
 
   @override
+  String get theContentAndTitleCannotBeLeftBlank => 'Nội dung và tiêu đề không được để trống';
+
+  @override
+  String get theNoteDateCannotBeBeforeThePresentTime => 'Ngày ghi chú không được trước thời điểm hiện tại';
+
+  @override
+  String get youMadeANoteOnTheDate => 'Bạn đã ghi chú vào ngày';
+
+  @override
   String get requiredDataFields => 'Các trường dữ liệu là bắt buộc';
 
   @override
@@ -438,15 +453,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get doYouWantToDeleteTheNote => 'Bạn có muốn xóa ghi chú không?';
-
-  @override
-  String get activate => 'Hoạt Động';
-
-  @override
-  String get home => 'Trang chủ';
-
-  @override
-  String get profile => 'Hồ sơ';
 
   @override
   String get doYouWantToDeleteYourAccount => 'Bạn có muốn xóa tài khoản này không?';
@@ -533,7 +539,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get dialogWrongPasswordA => 'Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ HCNS';
 
   @override
-  String get dialogWrongPasswordB => ' để đặt lại mật khẩu';
+  String get dialogWrongPasswordB => 'để đặt lại mật khẩu';
 
   @override
   String get newPasswordOtherConfirmPassword => 'Mật khẩu mới khác mật khẩu xác nhận!';
@@ -569,7 +575,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get locationPermissionsAreDenied => 'Quyền truy cập bị từ chối';
 
   @override
-  String get locationPermissionsArePermanentlyDenied => 'Quyền truy cập bị từ chối, chúng ti không thể yêu cầu được quyền truy cập định vị';
+  String get locationPermissionsArePermanentlyDenied => 'Quyền truy cập bị từ chối, chúng tôi không thể yêu cầu được quyền truy cập định vị';
 
   @override
   String get validateToolLocation => 'Xác thực vị trí chấm công';
@@ -833,9 +839,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sendingPurpose => 'Mục đích gửi';
 
   @override
-  String get notePostalDelivery => 'Lưu ý: Để tiết kiệm chi phí, chỉ sử dụng dịch vụ chuyển phát NHANH khi thật sự cần thiết';
-
-  @override
   String get explain => 'Diễn giải';
 
   @override
@@ -983,6 +986,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get otherLeave => 'Nghỉ phép khác';
 
   @override
+  String get horizontalCalendar => 'Lịch ngang';
+
+  @override
+  String get verticalCalendar => 'Lịch dọc';
+
+  @override
+  String get unpaidLeave => 'Nghỉ không lương';
+
+  @override
   String get theStartTimeMustBeAfterTheCurrentTime => 'Thời gian bắt đầu phải sau thời gian hiện tại';
 
   @override
@@ -1085,6 +1097,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get seniorityLeave => 'Nghỉ thâm niên';
 
   @override
+  String get compensatoryLeave => 'Nghỉ bù';
+
+  @override
   String get weddingLeave => 'Nghỉ cưới';
 
   @override
@@ -1092,9 +1107,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get homeSickLeave => 'Nghỉ ốm tại gia';
-
-  @override
-  String get compensatoryLeave => 'Nghỉ bù';
 
   @override
   String get hospitalSickLeave => 'Nghỉ ốm tại viện';
@@ -1134,9 +1146,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get reasonForBusinessTrip => 'Lý do đi công tác';
-
-  @override
-  String get unpaidLeave => 'Nghỉ không lương';
 
   @override
   String get no => 'Không';
@@ -1217,13 +1226,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get trackFlowProgres => 'Tiến trình duyệt';
 
   @override
+  String get youDoNotHaveAShiftToday => 'Bạn không có ca làm việc vào hôm nay!';
+
+  @override
   String get worksheet => 'Bảng công';
 
   @override
   String get actualWork => 'Công thực tế';
 
   @override
-  String get leaveWork => 'Công nghỉ';
+  String get leaveWork => 'Công nghỉ phép';
 
   @override
   String get holidayWork => 'Công nghỉ lễ';
@@ -1250,7 +1262,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get seeDetails => 'Xem chi tiết';
 
   @override
-  String get onTime => 'Đúng giờ';
+  String get onTime => 'Đủ công';
 
   @override
   String get forgotChecking => 'Quên chấm công';
@@ -1286,7 +1298,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get request => 'Đơn từ';
 
   @override
-  String get shift => 'Ca';
+  String get shift => 'Ca công';
 
   @override
   String get workInDay => 'Công ghi nhận trong ngày';
@@ -1334,7 +1346,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get numberOfEarly => 'Số lần đi muộn';
 
   @override
-  String get workOT => 'Công tăng ca';
+  String get workOT => ' Số giờ tăng ca';
 
   @override
   String get historyTimekeeping => 'Lịch sử chấm công';
@@ -1343,28 +1355,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get totalTimeWork => 'Tổng số giờ làm việc';
 
   @override
-  String get totalTimeWorkCompensatory => 'Tổng số giờ làm bù';
-
-  @override
-  String get cancelShiftRegistration => 'Hủy đăng ký ca';
-
-  @override
-  String get cancelShiftReceiveRegistration => 'Hủy đăng ký nhận ca';
-
-  @override
-  String get cancelShiftCancellationRequest => 'Hủy yêu cầu hủy ca';
-
-  @override
-  String get registerForShifts => 'Đăng ký ca';
-
-  @override
-  String get youDoNotHaveAShiftToday => 'Bạn không có ca làm việc vào hôm nay!';
-
-  @override
-  String get distanceNotEnough => 'Khoảng cách không đủ';
-
-  @override
-  String get reasonForCancelingRequest => 'Lý do hủy yêu cầu';
+  String get totalTimeWorkCompensatory => 'Tổng thời gian làm bù';
 
   @override
   String get titleBusiness => 'Thời gian đi công tác';
@@ -1394,6 +1385,27 @@ class AppLocalizationsVi extends AppLocalizations {
   String get timekeepingError => 'Chấm công lỗi';
 
   @override
+  String get monday => 'Thứ hai';
+
+  @override
+  String get tuesday => 'Thứ ba';
+
+  @override
+  String get wednesday => 'Thứ tư';
+
+  @override
+  String get thursday => 'Thứ năm';
+
+  @override
+  String get friday => 'Thứ sáu';
+
+  @override
+  String get saturday => 'Thứ bảy';
+
+  @override
+  String get sunday => 'Chủ nhật';
+
+  @override
   String get calendarWork => 'Lịch làm việc';
 
   @override
@@ -1421,46 +1433,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get singleShift => 'Ca đơn';
 
   @override
-  String get monday => 'Thứ hai';
+  String get unregistered => 'Chưa đăng ký';
 
   @override
-  String get tuesday => 'Thứ ba';
+  String get cancelShiftRegistration => 'Hủy đăng ký ca';
 
   @override
-  String get wednesday => 'Thứ tư';
+  String get cancelShiftReceiveRegistration => 'Hủy đăng ký nhận ca';
 
   @override
-  String get thursday => 'Thứ năm';
+  String get cancelShiftCancellationRequest => 'Hủy yêu cầu hủy ca';
 
   @override
-  String get friday => 'Thứ sáu';
-
-  @override
-  String get saturday => 'Thứ bảy';
-
-  @override
-  String get sunday => 'Chủ nhật';
-
-  @override
-  String get mon => 'Mon';
-
-  @override
-  String get tue => 'Tue';
-
-  @override
-  String get wed => 'Wed';
-
-  @override
-  String get thu => 'Thu';
-
-  @override
-  String get fri => 'Fri';
-
-  @override
-  String get sat => 'Sat';
-
-  @override
-  String get sun => 'San';
+  String get registerForShifts => 'Đăng ký ca';
 
   @override
   String get invalid => 'Không hợp lệ';
@@ -1478,49 +1463,70 @@ class AppLocalizationsVi extends AppLocalizations {
   String get none => 'Không';
 
   @override
-  String get unregistered => 'Chưa đăng ký';
+  String get reasonForCancelingRequest => 'Lý do hủy yêu cầu';
 
   @override
   String get loading => 'Vui lòng chờ...';
 
   @override
-  String get halfDayToOneDay => 'Nghỉ 0,5 đến 1 ngày';
+  String get halfDayToOneDay => 'Đơn xin nghỉ 0,5-1 ngày';
 
   @override
-  String get twoDayToFourDay => 'Nghỉ 2 đến 4 ngày';
+  String get twoDayToFourDay => 'Đơn xin nghỉ 2-4 ngày';
 
   @override
-  String get fiveDaysOrMore => 'Nghỉ hơn 5 ngày';
+  String get fiveDaysOrMore => 'Đơn xin nghỉ 5 ngày trở lên';
 
   @override
-  String get earlyLate => 'Đi Muộn / Về Sớm';
+  String get earlyLate => 'Đơn đăng ký đi muộn, về sớm';
 
   @override
-  String get vehicleF => 'Đề nghị điều xe';
+  String get vehicleF => 'Đơn đề nghị điều xe';
 
   @override
-  String get businessF => ' Đơn công tác';
+  String get businessF => 'Đơn đề nghị đi công tác';
 
   @override
-  String get releaseOfWarehouseF => 'Đề nghị Xuất kho';
+  String get releaseOfWarehouseF => 'Đơn đề nghị xuất kho';
 
   @override
-  String get stationery => 'Đặt văn phòng phẩm';
+  String get stationery => 'Đơn đặt văn phòng phẩm';
 
   @override
-  String get explanationF => 'Xin sửa chấm công';
+  String get explanationF => 'Đơn sửa chấm công';
 
   @override
-  String get oT => 'Đơn tăng ca';
+  String get oT => 'Đơn đề xuất làm thêm giờ';
+
+  @override
+  String get requestType => 'Loại đơn từ';
 
   @override
   String get chooseARequest => 'Chọn loại đơn từ';
 
   @override
-  String get postal => 'Bưu điện';
+  String get nameSchool => 'Tên trường';
 
   @override
-  String get requestType => 'Loại đơn từ';
+  String get nameClass => 'Tên lớp';
+
+  @override
+  String get nameTeacher => 'Tên giáo viên';
+
+  @override
+  String get timekeepingTime => 'Thời gian chấm công';
+
+  @override
+  String get map => 'Bản đồ';
+
+  @override
+  String get timekeepingSuccess => 'Chấm công thành công';
+
+  @override
+  String get timekeepingUnSuccess => 'Chấm công không thành công';
+
+  @override
+  String get chooseWorkShift => 'Chọn ca làm việc';
 
   @override
   String get ifOto => 'Nếu đi bằng ô tô, họ tên của tài xế';
@@ -1545,30 +1551,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get totalWork => 'Số công';
-
-  @override
-  String get chooseWorkShift => 'Chọn ca làm việc';
-
-  @override
-  String get nameSchool => 'Tên trường';
-
-  @override
-  String get nameClass => 'Tên lớp';
-
-  @override
-  String get nameTeacher => 'Tên giáo viện';
-
-  @override
-  String get timekeepingTime => 'Thời gian chấm công';
-
-  @override
-  String get map => 'Bản đồ';
-
-  @override
-  String get timekeepingSuccess => 'Chấm công thành công';
-
-  @override
-  String get timekeepingUnSuccess => 'Chấm công không thành công';
 
   @override
   String get createRequestFailed => 'Tạo đơn không thành công';
@@ -1602,4 +1584,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get updateUnsuccessful => 'Cập nhật thông tin không thành công!';
+
+  @override
+  String get postal => 'Chuyển phát';
+
+  @override
+  String get mon => 'T2';
+
+  @override
+  String get tue => 'T3';
+
+  @override
+  String get wed => 'T4';
+
+  @override
+  String get thu => 'T5';
+
+  @override
+  String get fri => 'T6';
+
+  @override
+  String get sat => 'T7';
+
+  @override
+  String get sun => 'CN';
 }
