@@ -21,33 +21,35 @@ class ItemRequestProcess extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ButtonItemListRequisition(
-                  colorText: colors.success,
-                  background: colors.success.withOpacity(0.2),
-                  title: appLocalizations.approver,
-                  callback: () => callBackApprover.call(),
-                ),
-                ButtonItemListRequisition(
-                  colorText: colors.tertiary,
-                  background: colors.tertiary.withOpacity(0.2),
-                  title: appLocalizations.modification,
-                  callback: () => callBackEdit.call(),
-                ),
-                ButtonItemListRequisition(
-                  colorText: colors.error,
-                  background: colors.error.withOpacity(0.2),
-                  title: appLocalizations.refuse,
-                  callback: () => callBackReject.call(),
-                ),
-              ],
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: ButtonItemListRequisition(
+                colorText: colors.success,
+                background: colors.success.withOpacity(0.2),
+                title: appLocalizations.approver,
+                callback: () => callBackApprover.call(),
+              ),
             ),
-          ),
+            Expanded(
+              child: ButtonItemListRequisition(
+                colorText: colors.tertiary,
+                background: colors.tertiary.withOpacity(0.2),
+                title: appLocalizations.modification,
+                callback: () => callBackEdit.call(),
+              ),
+            ),
+            Expanded(
+              child: ButtonItemListRequisition(
+                colorText: colors.error,
+                background: colors.error.withOpacity(0.2),
+                title: appLocalizations.refuse,
+                callback: () => callBackReject.call(),
+              ),
+            ),
+          ],
         );
       },
     );

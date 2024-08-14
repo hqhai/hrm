@@ -24,10 +24,12 @@ class TabBarViewListRequistionApprove extends StatefulWidget {
   final bool checkLoad;
 
   @override
-  State<TabBarViewListRequistionApprove> createState() => _TabBarViewListRequistionApproveState();
+  State<TabBarViewListRequistionApprove> createState() =>
+      _TabBarViewListRequistionApproveState();
 }
 
-class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequistionApprove> {
+class _TabBarViewListRequistionApproveState
+    extends State<TabBarViewListRequistionApprove> {
   late ScrollController controller;
   int pageIndex = 1, totalItems = 12, lengthList = 11;
   bool checkLoad = true;
@@ -42,7 +44,9 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
+    if (lengthList < totalItems &&
+        controller.position.extentAfter < totalItems &&
+        checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
@@ -82,7 +86,8 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => previous.requisitions != current.requisitions,
+      listenWhen: (previous, current) =>
+          previous.requisitions != current.requisitions,
       builder: (context, state) {
         return SingleChildScrollView(
           child: Container(
@@ -97,7 +102,7 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
                       status: widget.status,
                     ),
                   )
-                :  const ShimmerLoad(),
+                : const ShimmerLoad(),
           ),
         );
       },
