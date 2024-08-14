@@ -9,9 +9,12 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/navigator_extra/information_request_extra.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart';
+import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -94,9 +97,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x4,
-                        fontWeight: FontWeight.w600),
+                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
                   ),
                 ),
                 Expanded(
@@ -109,8 +110,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                         state.flows[index],
                       ),
                       child: item(
-                        title:
-                            state.flows[index].flowType?.configTypeName ?? "",
+                        title: state.flows[index].flowType?.configTypeName ?? "",
                         context: context,
                       ),
                     ),
@@ -181,15 +181,31 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     final extraData = informationRequestExtra.toJson();
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final Completer completer = Completer<bool>();
+    final Completer completerWorkAndSalary = Completer<bool>();
+    dialogIndicator(
+      context: context,
+    );
+    dI<WorkAndSalaryBloc>().add(
+      GetTotalLeaveDayEvent(
+        completer: completerWorkAndSalary,
+      ),
+    );
     dI<FlowBloc>().add(
-        GetFlowEvent(id: informationRequestExtra.flowId, completer: completer));
+      GetFlowEvent(
+        id: informationRequestExtra.flowId,
+        completer: completer,
+      ),
+    );
     final checkCompleter = await completer.future;
-    if (type != null && checkCompleter) {
+    final checkWorkAndSalary = await completerWorkAndSalary.future;
+    if (type != null && checkCompleter && checkWorkAndSalary) {
       extraData.addAll({'type': type});
       if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(context, page: page, extra: extraData);
-    } else if (checkCompleter) {
+    } else if (checkCompleter && checkWorkAndSalary) {
       if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(
         context,
         page: page,
