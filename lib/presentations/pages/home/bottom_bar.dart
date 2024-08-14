@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -31,31 +32,32 @@ class _BottomBarDefaultState extends State<BottomBarDefault> {
         item(
           title: appLocalizations.request,
           icon: Assets.images.icon.home.bottomBar.document,
-          color1: colors.text,
-          color2: colors.blue,
+          color1: colors.textLight,
+          color2: colors.primary,
         ),
         item(
           title: appLocalizations.worksheet,
           icon: Assets.images.icon.home.bottomBar.home,
-          color1: colors.text,
-          color2: colors.blue,
+          color1: colors.textLight,
+          color2: colors.primary,
         ),
         item(
           title: appLocalizations.calendarWork,
           icon: Assets.images.icon.home.bottomBar.calendar,
-          color1: colors.text,
-          color2: colors.blue,
+          color1: colors.textLight,
+          color2: colors.primary,
         ),
         item(
           title: appLocalizations.account,
           icon: Assets.images.icon.home.bottomBar.profile,
-          color1: colors.text,
-          color2: colors.blue,
+          color1: colors.textLight,
+          color2: colors.primary,
         ),
       ],
+      iconSize: SpacingUnit.x6,
       currentIndex: widget.selectedIndex,
-      selectedItemColor: colors.blue,
-      unselectedItemColor: colors.text,
+      selectedItemColor: colors.primary,
+      unselectedItemColor: colors.textLight,
       onTap: (value) => _setSelectedIndex(value),
     );
   }
