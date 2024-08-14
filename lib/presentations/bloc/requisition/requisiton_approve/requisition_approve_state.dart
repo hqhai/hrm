@@ -1,14 +1,25 @@
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
 
 part 'requisition_approve_state.g.dart';
 
+const statusCountDefault = {
+  EnumStepRequestStatusEnum.newStatus: 0,
+  EnumStepRequestStatusEnum.reject: 0,
+  EnumStepRequestStatusEnum.edit: 0,
+  EnumStepRequestStatusEnum.approve: 0,
+  EnumStepRequestStatusEnum.cancel: 0,
+  EnumStepRequestStatusEnum.overdueApprove: 0,
+};
+
 @CopyWith()
 class RequisitionApproveState extends Equatable {
   final Request requisition;
   final Map<String, Request> requisitions;
   final List<String> requisitionIds;
+  final Map<EnumStepRequestStatusEnum, int> statusRequestCount;
   final String errorCode;
   final int countItem;
 
@@ -16,10 +27,18 @@ class RequisitionApproveState extends Equatable {
     this.requisition = const Request(id: ''),
     this.requisitions = const {},
     this.requisitionIds = const [],
+    this.statusRequestCount = statusCountDefault,
     this.countItem = 0,
     this.errorCode = '',
   });
 
   @override
-  List<Object> get props => [requisition, requisitions, requisitionIds, countItem, errorCode];
+  List<Object> get props => [
+        requisition,
+        requisitions,
+        requisitionIds,
+        countItem,
+        errorCode,
+        statusRequestCount.hashCode
+      ];
 }

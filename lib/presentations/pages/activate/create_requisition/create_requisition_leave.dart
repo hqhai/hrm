@@ -41,6 +41,7 @@ final createRequestLeavePageRoute = GoRoute(
     path: Pages.createRequestLeavePage,
     name: Pages.createRequestLeavePage,
     builder: (context, GoRouterState state) {
+      debugPrint('🔎 : ${state.extra} ❗️');
       Map data = state.extra as Map;
       return CreateRequisitionLeavePage(
         flowId: data['flowId'],
@@ -183,6 +184,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         type: takeLeaveType,
                         onChangeType: (value) => _setType(value),
                       ),
+                      const SizedBox(height: SpacingUnit.x4),
                       ItemYearLeave(
                         typeReason: reason,
                         typeSocialInsurance: socialInsuranceLeave,

@@ -50,6 +50,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
             fontWeight: FontWeight.w600,
           ),
         ),
+        const SizedBox(height: SpacingUnit.x2),
         if (widget.type == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
           item(
             context: context,
@@ -165,7 +166,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
             child: ListTile(
               contentPadding: EdgeInsets.zero,
               title: Text(
-                type2.configEnumTakeLeaveName,
+                '${type2.configEnumTakeLeaveName} ',
                 style: TextStyle(
                   color: colors.text,
                   fontSize: SpacingUnit.x4,

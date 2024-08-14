@@ -38,6 +38,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
         length: EnumStepRequestStatusEnum.values.length, vsync: this)
       ..addListener(_scrollListener);
     super.initState();
+    dI<RequisitionApproveBloc>().add(const GetRequisitionApproveCountEvent());
   }
 
   @override
@@ -67,13 +68,41 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
                             EnumStepRequestStatusEnum.values.indexOf(status) ==
                                 _tabController.index;
                         return Tab(
-                          child: Text(
-                            status.configStepRequestStatusName,
-                            style: TextStyle(
-                                fontWeight: isActive ? FontWeight.w600 : null,
-                                color:
-                                    isActive ? colors.text : colors.textLight,
-                                fontSize: SpacingUnit.x4),
+                          child: Row(
+                            children: [
+                              Text(
+                                status.configStepRequestStatusName,
+                                style: TextStyle(
+                                    fontWeight:
+                                        isActive ? FontWeight.w600 : null,
+                                    color: isActive
+                                        ? colors.text
+                                        : colors.textLight,
+                                    fontSize: SpacingUnit.x4),
+                              ),
+                              BlocSelector<RequisitionApproveBloc,
+                                      RequisitionApproveState, int>(
+                                  selector: (state) =>
+                                      state.statusRequestCount[status] ?? 0,
+                                  builder: (context, state) => state != 0
+                                      ? Chip(
+                                          padding: EdgeInsets.zero,
+                                          backgroundColor:
+                                              colors.primary.withOpacity(0.3),
+                                          shape: RoundedRectangleBorder(
+                                              side: const BorderSide(
+                                                  style: BorderStyle.none),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      SpacingUnit.x6)),
+                                          label: Text('$state',
+                                              style: TextStyle(
+                                                  fontSize: SpacingUnit.x3_5,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: colors.primary)),
+                                        )
+                                      : const SizedBox())
+                            ],
                           ),
                         );
                       },

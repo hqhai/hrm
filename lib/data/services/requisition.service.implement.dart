@@ -5,19 +5,21 @@ import 'package:base_app/common/configs/path_config.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_by_id_request.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
+import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request/get_requests_by_ids.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
-import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/approve_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/data/models/response.dart';
+import 'package:base_app/data/models/response/approve_requisition_count_status_response.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/services/requisition.service.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import 'base.service.dart';
@@ -35,9 +37,11 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<FlowResponse> getFlowByUser({required GetRequestRequest getRequestRequest}) async {
+  Future<FlowResponse> getFlowByUser(
+      {required GetRequestRequest getRequestRequest}) async {
     final url = '$baseUrl${PathConfig.getFlowByUser}';
-    getRequestRequest = getRequestRequest.copyWith(pageSize: RequisitionTypeEnum.values.length);
+    getRequestRequest =
+        getRequestRequest.copyWith(pageSize: RequisitionTypeEnum.values.length);
     final params = getRequestRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
@@ -47,7 +51,8 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<Request> postRequest({required PostRequestRequest postRequestRequest}) async {
+  Future<Request> postRequest(
+      {required PostRequestRequest postRequestRequest}) async {
     final url = '$baseUrl${PathConfig.request}';
     final body = jsonEncode(postRequestRequest.toJson());
     final response = await client.post(url, body: body);
@@ -81,7 +86,8 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
 
   @override
   Future<RequestsResponse> getRequisitionsApproveByFilter(
-      {required GetRequestApproveFilterRequest getRequestApproveFilterRequest}) async {
+      {required GetRequestApproveFilterRequest
+          getRequestApproveFilterRequest}) async {
     final url = '$baseUrl${PathConfig.getRequestApprove}';
     final params = getRequestApproveFilterRequest.toJson();
     final response = await client.get(url, params: params);
@@ -105,7 +111,8 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
 
   @override
   Future<SearchStationeryByNameResponse> getStationery(
-      {required SearchStationeryByNameRequest searchStationeryByNameRequest}) async {
+      {required SearchStationeryByNameRequest
+          searchStationeryByNameRequest}) async {
     final url = '$baseUrl${PathConfig.stationery}';
     final params = searchStationeryByNameRequest.toJson();
     final response = await client.get(url, params: params);
@@ -117,7 +124,8 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<FlowRequest> getFlowById({required FlowByIdRequest flowByIdRequest}) async {
+  Future<FlowRequest> getFlowById(
+      {required FlowByIdRequest flowByIdRequest}) async {
     final url = '$baseUrl${PathConfig.flow}/${flowByIdRequest.id}';
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
@@ -126,16 +134,31 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
     return flow;
   }
 
-
-
   @override
-  Future<bool> approveRequisition({required ApproveRequest approveRequest}) async {
+  Future<bool> approveRequisition(
+      {required ApproveRequest approveRequest}) async {
     final url = '$baseUrl${PathConfig.stepRequestApprover}';
     final body = jsonEncode(approveRequest.toJson());
     final response = await client.put(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final bool data = responseBase.result;
     return data;
+  }
+
+  @override
+  Future<ApproveRequisitionCountStatusResponse>
+      approveRequisitionCountStatus() async {
+    try {
+      final url = '$baseUrl${PathConfig.stepRequestApproverCountStatus}';
+      final response = await client.get(url);
+      final responseBase = ResponseBase.fromJson(json.decode(response.body));
+      final ApproveRequisitionCountStatusResponse data =
+          ApproveRequisitionCountStatusResponse.fromJson(responseBase.result);
+      return data;
+    } catch (ex) {
+      debugPrint('🔎 : $ex ❗️');
+      rethrow;
+    }
   }
 
   @override
@@ -148,7 +171,8 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest}) async {
+  Future<Request> editRequestEdit(
+      {required PostRequestRequest postRequestRequest}) async {
     final url = '$baseUrl${PathConfig.editRequestEdit}';
     final body = jsonEncode(postRequestRequest.toJson());
     final response = await client.put(url, body: body);
@@ -159,14 +183,16 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<RequestsResponse> getRequestsByIds({required GetRequestsByIds getRequestsByIds}) async {
+  Future<RequestsResponse> getRequestsByIds(
+      {required GetRequestsByIds getRequestsByIds}) async {
     final url = '$baseUrl${PathConfig.requestByIds}';
     final body = jsonEncode(getRequestsByIds.toJson());
     final response = await client.post(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    final requests =
-    (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
+    final requests = (data as List<dynamic>)
+        .map((e) => Request.fromJson(e as Map<String, dynamic>))
+        .toList();
     final requestsResponse = RequestsResponse(items: requests);
     return requestsResponse;
   }
