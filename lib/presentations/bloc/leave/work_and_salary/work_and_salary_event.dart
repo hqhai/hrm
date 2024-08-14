@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 
 sealed class WorkAndSalaryEvent extends Equatable {
@@ -8,10 +10,12 @@ sealed class WorkAndSalaryEvent extends Equatable {
 }
 
 class GetTotalLeaveDayEvent extends WorkAndSalaryEvent {
-  const GetTotalLeaveDayEvent();
+  final Completer? completer;
+  const GetTotalLeaveDayEvent({this.completer});
+
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [completer];
 }
 
 class GetTotalWorkdayEvent extends WorkAndSalaryEvent {

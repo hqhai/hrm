@@ -45,21 +45,17 @@ final createRequestBusinessPageRoute = GoRoute(
     });
 
 class CreateRequisitionBusinessPage extends StatefulWidget {
-  const CreateRequisitionBusinessPage(
-      {super.key, this.flowId = '', this.requestId = ''});
+  const CreateRequisitionBusinessPage({super.key, this.flowId = '', this.requestId = ''});
 
   final String flowId;
   final String requestId;
 
   @override
-  State<CreateRequisitionBusinessPage> createState() =>
-      _CreateRequisitionBusinessPageState();
+  State<CreateRequisitionBusinessPage> createState() => _CreateRequisitionBusinessPageState();
 }
 
-class _CreateRequisitionBusinessPageState
-    extends State<CreateRequisitionBusinessPage> {
-  final TextEditingController detailedDescriptionController =
-          TextEditingController(),
+class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusinessPage> {
+  final TextEditingController detailedDescriptionController = TextEditingController(),
       vehicleController = TextEditingController(),
       destinationController = TextEditingController(),
       contentController = TextEditingController();
@@ -74,12 +70,12 @@ class _CreateRequisitionBusinessPageState
   DateTime? startTime, endTime;
   List<String> followers = [], substitutes = [];
   List<WorkShiftRegisteredDetail> listWorkShift = [];
-  RequisitionTypeOnLeaveEnum? reasonForOnLeave =
-      RequisitionTypeOnLeaveEnum.sickLeave;
+  RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
   bool checkLoad = false,
       checkSuccess = false,
       checkUnSuccess = false,
-      checkShirt = true;
+      checkShirt = true,
+      checkShirtFirst = true;
   bool checkClick = false;
   final DateTime now = DateTime.now();
 
@@ -101,33 +97,27 @@ class _CreateRequisitionBusinessPageState
       substitutes = [...?request.config.subtitudePersons];
       numberValue = request.config.numberValue ?? 0;
       listWorkShift = [...?request.config.workShiftSettings];
+      checkShirtFirst = false;
     }
     super.initState();
   }
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkTime =
-        (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
-    final bool check = reason != null &&
-        vehicle != null &&
-        destination != null &&
-        content != null;
+    final bool checkTime = (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
+    final bool check = reason != null && vehicle != null && destination != null && content != null;
     setState(() {
-      errorTime =
-          !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
+      errorTime = !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
       errorReason = reason != null ? '' : appLocalizations.cannotBeLeftBlank;
       errorContent = content != null ? '' : appLocalizations.cannotBeLeftBlank;
       errorVehicle = vehicle != null ? '' : appLocalizations.cannotBeLeftBlank;
-      errorDestination =
-          destination != null ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination = destination != null ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return check && checkTime;
   }
 
   double opacity() {
-    bool check =
-        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
@@ -155,8 +145,7 @@ class _CreateRequisitionBusinessPageState
       ),
       body: BlocConsumer<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(state.errorCode),
-        buildWhen: (previous, current) =>
-            previous.requisition != current.requisition,
+        buildWhen: (previous, current) => previous.requisition != current.requisition,
         builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
             return SingleChildScrollView(
@@ -182,13 +171,11 @@ class _CreateRequisitionBusinessPageState
                       oldEndTime: endTime,
                       oldStarTime: startTime,
                       title: appLocalizations.intervalOnLeave,
-                      setStarTime: (value) =>
-                          setStartTime(value ?? DateTime.now()),
-                      setEndTime: (value) =>
-                          setEndTime(value ?? DateTime.now()),
+                      setStarTime: (value) => setStartTime(value ?? DateTime.now()),
+                      setEndTime: (value) => setEndTime(value ?? DateTime.now()),
                       fontWeightTitle: FontWeight.w600,
                     ),
-                    if (!checkShirt)
+                    if (!checkShirt && !checkShirtFirst)
                       Center(
                         child: Shimmer.fromColors(
                           baseColor: colors.blue,
@@ -203,7 +190,7 @@ class _CreateRequisitionBusinessPageState
                           ),
                         ),
                       ),
-                    if (checkShirt) ...[
+                    if (checkShirt && !checkShirtFirst) ...[
                       const SizedBox(height: SpacingUnit.x4),
                       ItemWorkShift(
                         type: RequisitionTypeEnum.bussiness,
@@ -218,8 +205,7 @@ class _CreateRequisitionBusinessPageState
                       onChange: (value) => _setContent(value),
                     ),
                     ItemCreateFollower(
-                      listFollower:
-                          _setListUser(stateUserById.subtitudePersons),
+                      listFollower: _setListUser(stateUserById.subtitudePersons),
                       title: appLocalizations.accompanyingPerson,
                       onChange: (value) => _setSubstitute(value),
                     ),
@@ -325,11 +311,9 @@ class _CreateRequisitionBusinessPageState
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate:
-          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit:
-          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(
         requestId: widget.requestId,
@@ -365,10 +349,11 @@ class _CreateRequisitionBusinessPageState
     if (startTime != null && endTime != null) {
       setState(() {
         checkShirt = false;
+        checkShirtFirst = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-          endDate: endTime!, startDate: startTime!, completer: completer));
+      dI<LeaveShiftBloc>()
+          .add(GetWorkShiftsEvent(endDate: endTime!, startDate: startTime!, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {

@@ -10,6 +10,7 @@ import 'package:base_app/presentations/bloc/location/schedule_school/schedule_sc
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_event.dart';
 import 'package:base_app/presentations/widgets/activate/item_activate.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -58,6 +59,9 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
   _nextTimekeepingGPSScreen(BuildContext context) async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final Completer completer = Completer<bool?>();
+    dialogIndicator(
+      context: context,
+    );
     dI<ScheduleSchoolBloc>().add(GetScheduleSchoolEvent(
       dateTime: DateTime.now(),
       completer: completer,
@@ -65,12 +69,14 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
     final completerCheck = await completer.future;
     if (completerCheck == true) {
       if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(
         currentContext,
         page: Pages.timekeepingGPSPage,
       );
     } else if (completerCheck == null) {
       if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
       getNote(currentContext);
     }
   }

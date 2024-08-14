@@ -29,8 +29,10 @@ class WorkAndSalaryBloc extends Bloc<WorkAndSalaryEvent, WorkAndSalaryState> {
       emit(state.copyWith(
           userLeave: userLeave,
           status: WorkAndSalaryStatusEnum.success));
+      event.completer?.complete(true);
     } catch (e) {
       emit(state.copyWith(status: WorkAndSalaryStatusEnum.fail));
+      event.completer?.complete(false);
     }
   }
 

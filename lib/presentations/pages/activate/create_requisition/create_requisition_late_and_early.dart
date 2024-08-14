@@ -69,10 +69,8 @@ class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
       _CreateRequisitionLateAndEarlyPageState();
 }
 
-class _CreateRequisitionLateAndEarlyPageState
-    extends State<CreateRequisitionLateAndEarlyPage> {
-  final TextEditingController detailedDescriptionController =
-      TextEditingController();
+class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLateAndEarlyPage> {
+  final TextEditingController detailedDescriptionController = TextEditingController();
   String errorTime = '', errorDestination = '', errorDialog = '';
   DateTime? workDate, endDate;
   String? description;
@@ -81,7 +79,8 @@ class _CreateRequisitionLateAndEarlyPageState
   bool checkLoad = false,
       checkSuccess = false,
       checkUnSuccess = false,
-      checkShirt = true;
+      checkShirt = true,
+      checkShirtFirst = true;
   bool checkClick = false;
   EditTimekeeping type = EditTimekeeping.late;
   List<WorkShiftRegisteredDetail> listWorkShift = [];
@@ -101,13 +100,13 @@ class _CreateRequisitionLateAndEarlyPageState
       endDate = request.config.endDate;
       startTime = request.config.startTime;
       listWorkShift = [...?request.config.workShiftSettings];
+      checkShirtFirst = false;
     }
     super.initState();
   }
 
   double opacity() {
-    bool check =
-        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
@@ -147,8 +146,7 @@ class _CreateRequisitionLateAndEarlyPageState
                       onChange: (value) => _setType(value),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                       child: GestureDetector(
                         onTap: () => _showBottomSheet(context),
                         child: ContainerBorder(
@@ -177,7 +175,7 @@ class _CreateRequisitionLateAndEarlyPageState
                       dateOld: workDate ?? DateTime.now(),
                       changeValue: (value) => _setWorkDate(value),
                     ),
-                    if (workDate != null)
+                    if (workDate != null && !checkShirtFirst)
                       !checkShirt
                           ? Center(
                               child: Shimmer.fromColors(
@@ -209,8 +207,7 @@ class _CreateRequisitionLateAndEarlyPageState
                     ),
                     if (type == EditTimekeeping.early)
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: SpacingUnit.x2),
+                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -302,8 +299,7 @@ class _CreateRequisitionLateAndEarlyPageState
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkDescription = description != null;
     setState(() {
-      errorDestination =
-          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return checkDescription;
   }
@@ -375,11 +371,9 @@ class _CreateRequisitionLateAndEarlyPageState
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate:
-          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit:
-          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(
         requestId: widget.requestId,
@@ -403,10 +397,11 @@ class _CreateRequisitionLateAndEarlyPageState
     if (checkShirt && workDate != null) {
       setState(() {
         checkShirt = false;
+        checkShirtFirst = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-          endDate: workDate!, startDate: workDate!, completer: completer));
+      dI<LeaveShiftBloc>()
+          .add(GetWorkShiftsEvent(endDate: workDate!, startDate: workDate!, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {
