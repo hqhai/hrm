@@ -17,37 +17,29 @@ class CreateRequestSuccess extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(SpacingUnit.x4),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              title.isNotEmpty ? title : appLocalizations.timekeepingUnSuccess,
-              style: TextStyle(
-                color: colors.success,
-                fontWeight: FontWeight.w600,
-                fontSize: SpacingUnit.x4,
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(SpacingUnit.x4),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title.isNotEmpty ? title : appLocalizations.timekeepingUnSuccess,
+            style: TextStyle(
+              color: colors.success,
+              fontWeight: FontWeight.w600,
+              fontSize: SpacingUnit.x4,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-              child: Image.asset(
-                Assets.images.signIn.yes.path,
-                fit: BoxFit.fill,
-                height: SpacingUnit.x20,
-                width: SpacingUnit.x20,
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+            child: Image.asset(
+              Assets.images.signIn.yes.path,
+              fit: BoxFit.fill,
+              height: SpacingUnit.x20,
+              width: SpacingUnit.x20,
             ),
-            AppButton(
-              onSubmit: () => submit(context),
-              title: appLocalizations.cancel,
-              colorText: colors.background,
-              color: colors.blue,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -66,37 +58,35 @@ class CreateRequestUnsuccessful extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(SpacingUnit.x4),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              title.isNotEmpty ? title : appLocalizations.timekeepingUnSuccess,
-              style: TextStyle(
-                color: colors.error,
-                fontWeight: FontWeight.w600,
-                fontSize: SpacingUnit.x4,
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(SpacingUnit.x4),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title.isNotEmpty ? title : appLocalizations.timekeepingUnSuccess,
+            style: TextStyle(
+              color: colors.error,
+              fontWeight: FontWeight.w600,
+              fontSize: SpacingUnit.x4,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-              child: Image.asset(
-                Assets.images.signIn.no.path,
-                fit: BoxFit.fill,
-                height: SpacingUnit.x20,
-                width: SpacingUnit.x20,
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+            child: Image.asset(
+              Assets.images.signIn.no.path,
+              fit: BoxFit.fill,
+              height: SpacingUnit.x20,
+              width: SpacingUnit.x20,
             ),
-            AppButton(
-              onSubmit: () => submit(context),
-              title: appLocalizations.cancel,
-              colorText: colors.background,
-              color: colors.blue,
-            ),
-          ],
-        ),
+          ),
+          AppButton(
+            onSubmit: () => submit(context),
+            title: appLocalizations.cancel,
+            colorText: colors.background,
+            color: colors.blue,
+          ),
+        ],
       ),
     );
   }
@@ -108,16 +98,16 @@ class CreateRequestUnsuccessful extends StatelessWidget {
 
 dialogSuccess({required BuildContext context, required String title}) {
   showDialog(
-    barrierDismissible: false,
+    barrierDismissible: true,
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        child: SingleChildScrollView(
-          child: CreateRequestSuccess(title: title),
-        ),
+        child: CreateRequestSuccess(title: title),
       );
     },
-  );
+  ).then((value) {
+    dI<AppNavigation>().pop(context);
+  });
 }
 
 dialogUnsuccessful({required BuildContext context, required String title}) {
@@ -126,9 +116,7 @@ dialogUnsuccessful({required BuildContext context, required String title}) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        child: SingleChildScrollView(
-          child: CreateRequestUnsuccessful(title: title),
-        ),
+        child: CreateRequestUnsuccessful(title: title),
       );
     },
   );
@@ -160,8 +148,9 @@ completerSuccess({required String errorDialog, required String requestId}) {
   dI<AppNavigation>().pop(currentContext);
   dialogSuccess(
     context: currentContext,
-    title:
-        requestId.isNotEmpty ? appLocalizations.editRequestSuccess : appLocalizations.createSuccess,
+    title: requestId.isNotEmpty
+        ? appLocalizations.editRequestSuccess
+        : appLocalizations.createSuccess,
   );
 }
 
@@ -181,7 +170,9 @@ approverUnsuccessful({required String errorDialog}) {
   dI<AppNavigation>().pop(currentContext);
   dialogUnsuccessful(
     context: currentContext,
-    title: errorDialog.isNotEmpty ? errorDialog : appLocalizations.approvedUnsuccessful,
+    title: errorDialog.isNotEmpty
+        ? errorDialog
+        : appLocalizations.approvedUnsuccessful,
   );
 }
 
@@ -191,7 +182,9 @@ updateProfileFail({required String errorDialog}) {
   dI<AppNavigation>().pop(currentContext);
   dialogUnsuccessful(
     context: currentContext,
-    title: errorDialog.isNotEmpty ? errorDialog : appLocalizations.updateUnsuccessful,
+    title: errorDialog.isNotEmpty
+        ? errorDialog
+        : appLocalizations.updateUnsuccessful,
   );
 }
 
