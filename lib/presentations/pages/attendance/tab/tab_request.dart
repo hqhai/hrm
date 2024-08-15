@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
@@ -45,9 +46,12 @@ class _RequestTabState extends State<RequestTab> {
           child: Column(
             children: state.requestIds
                 .map(
-                  (e) => item(
-                    state.mapRequests[e],
-                    e,
+                  (e) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+                    child: item(
+                      state.mapRequests[e],
+                      e,
+                    ),
                   ),
                 )
                 .toList(),

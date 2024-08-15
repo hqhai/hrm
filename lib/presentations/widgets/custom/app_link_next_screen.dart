@@ -21,14 +21,15 @@ class AppLinkNextScreen extends StatelessWidget {
               appLocalizations.seeDetails,
               style: TextStyle(
                 color: colors.primary,
-                fontSize: SpacingUnit.x4,
+                fontSize: SpacingUnit.x3_5,
+                fontWeight: FontWeight.w600
               ),
             ),
           ),
           Icon(
             Icons.chevron_right,
             color: colors.primary,
-            size: SpacingUnit.x5,
+            size: SpacingUnit.x4_5,
           ),
         ],
       ),

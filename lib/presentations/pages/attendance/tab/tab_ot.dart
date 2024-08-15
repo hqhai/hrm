@@ -24,27 +24,32 @@ class OTTab extends StatelessWidget {
       builder: (context, state) {
         final userWorkingHistoryModel =
             userWorkingHistoryModelByDate(state.attendance.userWorkingHistories);
-        return Column(
-          children: [
-            TitleValueLeave(
-              title: appLocalizations.totalOTHours,
-              value:Duration(seconds: userWorkingHistoryModel.workTimeActual.toInt()).inHours.toString(),
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-            ),
-            TitleValueLeave(
-              title: appLocalizations.oTCoefficient,
-              value: userWorkingHistoryModel.workTimeReal.toString(),
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-            ),
-            TitleValueLeave(
-              title: appLocalizations.dateType,
-              value: userWorkingHistoryModel.overTimeDay?.configEnumOvertimeDayName ?? "",
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-            ),
-          ],
+        return Padding(
+          padding: const EdgeInsets.all(SpacingUnit.x4),
+          child: Column(
+            children: [
+              TitleValueLeave(
+                title: appLocalizations.totalOTHours,
+                value: Duration(seconds: userWorkingHistoryModel.workTimeActual.toInt())
+                    .inHours
+                    .toString(),
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.oTCoefficient,
+                value: userWorkingHistoryModel.workTimeReal.toString(),
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.dateType,
+                value: userWorkingHistoryModel.overTimeDay?.configEnumOvertimeDayName ?? "",
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+              ),
+            ],
+          ),
         );
       },
     );

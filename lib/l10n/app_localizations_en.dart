@@ -1608,4 +1608,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sun => 'Sun';
+
+  @override
+  String get gPSAndFingerprint => 'Form of timekeeping: GPS & Fingerprint';
+
+  @override
+  String get noTimekeeping => 'Expression formula: No timekeeping';
 }

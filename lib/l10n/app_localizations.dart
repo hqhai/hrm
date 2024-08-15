@@ -3302,6 +3302,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sun'**
   String get sun;
+
+  /// No description provided for @gPSAndFingerprint.
+  ///
+  /// In en, this message translates to:
+  /// **'Form of timekeeping: GPS & Fingerprint'**
+  String get gPSAndFingerprint;
+
+  /// No description provided for @noTimekeeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Expression formula: No timekeeping'**
+  String get noTimekeeping;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

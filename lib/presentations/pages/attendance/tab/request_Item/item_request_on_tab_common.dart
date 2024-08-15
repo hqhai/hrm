@@ -24,26 +24,25 @@ class _ItemRequestOnTabCommonState extends State<ItemRequestOnTabCommon> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.only(right: SpacingUnit.x8),
-      child: ContainerBorder(
-        width: width,
-        borderColors: colors.surfaceVariantHigh,
-        child: Stack(
-          children: [
-            Opacity(
-              opacity: widget.checkOpacity ? 1 : 0,
-              child: Center(
-                child: Lottie.asset(Assets.images.icon.loading,
-                    width: SpacingUnit.x30, height: SpacingUnit.x30, fit: BoxFit.fill),
-              ),
+    return ContainerBorder(
+      paddingVertical: SpacingUnit.x3,
+      paddingHorizontal: SpacingUnit.x3,
+      width: width,
+      borderColors: colors.surfaceVariantHigh,
+      child: Stack(
+        children: [
+          Opacity(
+            opacity: widget.checkOpacity ? 1 : 0,
+            child: Center(
+              child: Lottie.asset(Assets.images.icon.loading,
+                  width: SpacingUnit.x30, height: SpacingUnit.x30, fit: BoxFit.fill),
             ),
-            Opacity(
-              opacity: widget.checkOpacity ? 0.5 : 1,
-              child: widget.child,
-            ),
-          ],
-        ),
+          ),
+          Opacity(
+            opacity: widget.checkOpacity ? 0.5 : 1,
+            child: widget.child,
+          ),
+        ],
       ),
     );
   }

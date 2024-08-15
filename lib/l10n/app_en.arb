@@ -533,5 +533,10 @@
   "thu": "Thu",
   "fri": "Fri",
   "sat": "Sat",
-  "sun": "Sun"
+  "sun": "Sun",
+
+
+
+  "gPSAndFingerprint": "Form of timekeeping: GPS & Fingerprint",
+  "noTimekeeping": "Expression formula: No timekeeping"
 }
