@@ -1608,4 +1608,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sun => 'CN';
+
+  @override
+  String get gPSAndFingerprint => 'Hình thức chấm công: GPS & Vân tay';
+
+  @override
+  String get noTimekeeping => 'Hình thức chấm công: Không chấm công';
 }

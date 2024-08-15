@@ -368,6 +368,10 @@ class $AssetsImagesIconHomeWorksheetGen {
   /// File path: assets/images/icon/home/worksheet/dot.svg
   String get dot => 'assets/images/icon/home/worksheet/dot.svg';
 
+  /// File path: assets/images/icon/home/worksheet/dot_timeline.svg
+  String get dotTimeline =>
+      'assets/images/icon/home/worksheet/dot_timeline.svg';
+
   /// File path: assets/images/icon/home/worksheet/time check.svg
   String get timeCheck => 'assets/images/icon/home/worksheet/time check.svg';
 
@@ -386,6 +390,7 @@ class $AssetsImagesIconHomeWorksheetGen {
         timelineLeft,
         timelineRight,
         dot,
+        dotTimeline,
         timeCheck,
         worksheet1,
         worksheet2

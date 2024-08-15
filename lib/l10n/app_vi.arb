@@ -534,5 +534,10 @@
   "thu": "T5",
   "fri": "T6",
   "sat": "T7",
-  "sun": "CN"
+  "sun": "CN",
+
+
+
+  "gPSAndFingerprint": "Hình thức chấm công: GPS & Vân tay",
+  "noTimekeeping": "Hình thức chấm công: Không chấm công"
 }

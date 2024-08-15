@@ -26,55 +26,58 @@ class ShiftTab extends StatelessWidget {
       builder: (context, state) {
         final userWorkingHistoryModel =
             userWorkingHistoryModelByDate(state.attendance.userWorkingHistories);
-        return Column(
-          children: [
-            TitleValueLeave(
-              title: appLocalizations.workInDay,
-              value: userWorkingHistoryModel.workTimeReal.toString(),
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-            ),
-            TitleValueLeave(
-              title: appLocalizations.minutesToLate,
-              value: userWorkingHistoryModel.timeLate.toString(),
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-            ),
-            TitleValueLeave(
-              title: appLocalizations.minutesToEarly,
-              value: userWorkingHistoryModel.timeEarly.toString(),
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-            ),
-            TitleValueLeave(
-              title: appLocalizations.totalOTHours,
-              value: userWorkingHistoryModel.overTime.toString(),
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-            ),
-            TitleValueLeave(
-              title: appLocalizations.totalTimeWorkCompensatory,
-              value: '0',
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: SpacingUnit.x3,
+        return Padding(
+          padding: const EdgeInsets.all(SpacingUnit.x4),
+          child: Column(
+            children: [
+              TitleValueLeave(
+                title: appLocalizations.workInDay,
+                value: userWorkingHistoryModel.workTimeReal.toString(),
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
               ),
-              child: Divider(
-                height: SpacingUnit.x0_25,
-                color: colors.surfaceVariantHigh,
+              TitleValueLeave(
+                title: appLocalizations.minutesToLate,
+                value: userWorkingHistoryModel.timeLate.toString(),
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
               ),
-            ),
-            TitleValueLeave(
-              title: appLocalizations.typeOfShift,
-              value: userWorkingHistoryModel.overTimeDay?.configEnumOvertimeDayName ?? "",
-              size: SpacingUnit.x4,
-              padding: SpacingUnit.x3,
-              font: FontWeight.w700,
-            ),
-          ],
+              TitleValueLeave(
+                title: appLocalizations.minutesToEarly,
+                value: userWorkingHistoryModel.timeEarly.toString(),
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.totalOTHours,
+                value: userWorkingHistoryModel.overTime.toString(),
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.totalTimeWorkCompensatory,
+                value: '0',
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: SpacingUnit.x3,
+                ),
+                child: Divider(
+                  height: SpacingUnit.x0_25,
+                  color: colors.surfaceVariantHigh,
+                ),
+              ),
+              TitleValueLeave(
+                title: appLocalizations.typeOfShift,
+                value: userWorkingHistoryModel.overTimeDay?.configEnumOvertimeDayName ?? "",
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x3,
+                font: FontWeight.w700,
+              ),
+            ],
+          ),
         );
       },
     );

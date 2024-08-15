@@ -21,7 +21,7 @@ class ItemTypeOnTab extends StatelessWidget {
             type,
             style: TextStyle(
               color: colors.text,
-              fontSize: SpacingUnit.x5,
+              fontSize: SpacingUnit.x4_5,
               fontWeight: FontWeight.w600,
             ),
           ),
