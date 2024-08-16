@@ -34,3 +34,4 @@ extension ConfigDayOfWeekExtension on DayOfWeekEnum {
     }
   }
 }
+

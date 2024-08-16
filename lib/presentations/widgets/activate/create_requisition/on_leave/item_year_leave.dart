@@ -2,6 +2,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -42,15 +43,11 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.type == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave
+        TitleRequired(
+          title: widget.type == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave
               ? appLocalizations.slectLeave
               : appLocalizations.reason,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w600,
-          ),
+          requiredValidate: true,
         ),
         const SizedBox(height: SpacingUnit.x2),
         if (widget.type == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
@@ -146,25 +143,26 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
       children: [
         Expanded(
           child: ContainerBorder(
+            height: SpacingUnit.x18,
             borderColors: colors.text.withOpacity(0.3),
             marginTop: 0,
             paddingVertical: 0,
             paddingHorizontal: 0,
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: FittedBox(
-                child: Text(
+            child: Center(
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(
                   '${type1.configEnumTakeLeaveName} ',
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x4,
                   ),
                 ),
-              ),
-              leading: Radio<EnumReasonLeave>(
-                value: type1,
-                groupValue: type,
-                onChanged: (EnumReasonLeave? value) => _setType(value),
+                leading: Radio<EnumReasonLeave>(
+                  value: type1,
+                  groupValue: type,
+                  onChanged: (EnumReasonLeave? value) => _setType(value),
+                ),
               ),
             ),
           ),
@@ -172,23 +170,26 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
         const SizedBox(width: SpacingUnit.x2),
         Expanded(
           child: ContainerBorder(
+            height: SpacingUnit.x18,
             marginTop: 0,
             borderColors: colors.text.withOpacity(0.3),
             paddingHorizontal: 0,
             paddingVertical: 0,
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(
-                '${type2.configEnumTakeLeaveName} ',
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
+            child: Center(
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(
+                  '${type2.configEnumTakeLeaveName} ',
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                  ),
                 ),
-              ),
-              leading: Radio<EnumReasonLeave>(
-                value: type2,
-                groupValue: type,
-                onChanged: (EnumReasonLeave? value) => _setType(value),
+                leading: Radio<EnumReasonLeave>(
+                  value: type2,
+                  groupValue: type,
+                  onChanged: (EnumReasonLeave? value) => _setType(value),
+                ),
               ),
             ),
           ),

@@ -16,6 +16,7 @@ class WorkShiftRegisteredDetail {
   final String nameWorkShift;
   final int startTime;
   final int endTime;
+  final int numberTime;
 
   const WorkShiftRegisteredDetail({
     this.workShiftSettingDetailId = '',
@@ -25,6 +26,7 @@ class WorkShiftRegisteredDetail {
     this.nameWorkShift = '',
     this.endTime = 0,
     this.startTime = 0,
+    this.numberTime = 0,
   });
 
   factory WorkShiftRegisteredDetail.fromJson(Map<String, dynamic> json) =>

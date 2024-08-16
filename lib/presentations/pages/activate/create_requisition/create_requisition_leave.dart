@@ -31,6 +31,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/on_le
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,7 +77,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   List<String> followers = [], substitutes = [];
   List<WorkShiftRegisteredDetail> listWorkShift = [];
   bool checkShirt = true, checkShirtFirst = true;
-  String errorShift = '', errorDialog = '';
+  String errorShift = '', errorDialog = '', errorDescription ='';
   bool checkClick = false;
   final DateTime now = DateTime.now();
   EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
@@ -106,11 +107,13 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   bool checkValidate(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final checkListWorkShift = listWorkShift.isNotEmpty;
+    final checkDescription = description != '' || description != null;
     setState(() {
       errorShift = !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
+      errorDescription = checkDescription ? appLocalizations.cannotBeLeftBlank : '';
     });
 
-    return checkListWorkShift;
+    return checkListWorkShift && checkDescription;
   }
 
   List<File> setListFiles(List<String> paths) {
@@ -197,14 +200,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                       if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
                         const ItemTakeLeaveWork(),
                       const SizedBox(height: SpacingUnit.x4),
-                      Text(
-                        appLocalizations.intervalOnLeave,
-                        style: TextStyle(
-                          color: colors.text,
-                          fontSize: SpacingUnit.x4,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      TitleRequired(
+                          title: appLocalizations.intervalOnLeave, requiredValidate: true),
                       const SizedBox(height: SpacingUnit.x2),
                       PeriodTimePicker(
                         oldEndTime: endTime,
@@ -253,6 +250,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         onChange: (value) => _setFollower(value),
                       ),
                       ItemCreateInputArea(
+                        error: errorDescription,
+                        requiredValidate: true,
                         textController: detailedDescriptionController,
                         title: appLocalizations.detailedDescription,
                         onChange: (value) => _setDescription(value),

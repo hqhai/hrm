@@ -121,6 +121,8 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListOverTime(
+                        requiredValidate: true,
+                        checkExplanation: true,
                         callback: () => addOverTime(),
                         checkTypeContainer: checkTypeContainer,
                         changeTypeContainer: (value) => _changeTypeContainer(value),
@@ -130,6 +132,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                         onChangeList: (value) => _setChangeRequisitionOverTimes(value),
                       ),
                       ItemCreateInputArea(
+                        requiredValidate: true,
                         title: appLocalizations.reason,
                         error: errorDescription,
                         textController: inputController,
@@ -159,6 +162,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
       ),
     );
   }
+
 
   String timeDHM(int time) {
     final DateTime date = strSeconds(time);

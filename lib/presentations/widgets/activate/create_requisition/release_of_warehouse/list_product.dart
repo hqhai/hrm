@@ -1,5 +1,6 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_release_of_warehouse_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -32,14 +33,7 @@ class _ListProductsState extends State<ListProducts> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.title,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x4,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+            TitleRequired(requiredValidate: true, title: widget.title,),
             InkWell(
               onTap: () => _setAdd(),
               child: Icon(

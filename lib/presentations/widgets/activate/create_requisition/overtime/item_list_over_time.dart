@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
@@ -43,13 +44,24 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
         children: [
           ItemTitleValueNoBorder(
             title: appLocalizations.date,
-            value:
-                formatYMD((widget.requisitionOverTime.date ?? "").toString()),
+            value: formatYMD((widget.requisitionOverTime.date ?? "").toString()),
             size: SpacingUnit.x4,
           ),
           ItemTitleValueNoBorder(
             title: appLocalizations.startTime,
             value: strSeconds(widget.requisitionOverTime.startTime) ?? "",
+            size: SpacingUnit.x4,
+          ),
+          ItemTitleValueNoBorder(
+            title: appLocalizations.dateType,
+            value: widget.requisitionOverTime.overTimeDay?.configEnumOvertimeDayName ?? "",
+            size: SpacingUnit.x4,
+          ),
+          ItemTitleValueNoBorder(
+            title: appLocalizations.destinationOT,
+            value: widget.requisitionOverTime.isChecking
+                ? appLocalizations.inCompany
+                : appLocalizations.outCompany,
             size: SpacingUnit.x4,
           ),
           ItemTitleValueNoBorder(
@@ -60,17 +72,13 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
           if (!widget.checkNotOT)
             ItemTitleValueNoBorder(
               title: appLocalizations.totalOTHours,
-              value: strSeconds(
-                      (widget.requisitionOverTime.suggestTime ?? 0).toInt()) ??
-                  "",
+              value: strSeconds((widget.requisitionOverTime.suggestTime ?? 0).toInt()) ?? "",
               size: SpacingUnit.x4,
             ),
           if (!widget.checkNotOT)
             Padding(
               padding: const EdgeInsets.only(
-                  left: SpacingUnit.x1,
-                  top: SpacingUnit.x2,
-                  bottom: SpacingUnit.x2),
+                  left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -90,16 +98,13 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
                       showNote
                           ? Assets.images.icon.home.chevronForward
                           : Assets.images.icon.activateIcon.drop,
-                      colorFilter: ColorFilter.mode(
-                          colors.text.withOpacity(0.4), BlendMode.srcIn),
+                      colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
                     ),
                   ),
                 ],
               ),
             ),
-          if (showNote &&
-              widget.requisitionOverTime.note != null &&
-              !widget.checkNotOT)
+          if (showNote && widget.requisitionOverTime.note != null && !widget.checkNotOT)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
               child: Text(

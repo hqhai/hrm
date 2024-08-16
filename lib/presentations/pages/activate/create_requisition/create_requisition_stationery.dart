@@ -116,6 +116,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MonthYearPicker(
+                        requiredValidate: true,
                         title: appLocalizations.month,
                         timeOld: month,
                         onChange: (value) => setMonth(value),

@@ -2,16 +2,17 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_take_leave.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemTakeLeave extends StatefulWidget {
-  const ItemTakeLeave(
-      {super.key,
-      required this.type,
-      required this.onChangeType,
-     });
+  const ItemTakeLeave({
+    super.key,
+    required this.type,
+    required this.onChangeType,
+  });
 
   final EnumTakeLeaveType type;
   final ValueChanged<EnumTakeLeaveType> onChangeType;
@@ -41,10 +42,9 @@ class _ItemTakeLeaveState extends State<ItemTakeLeave> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            appLocalizations.selectTypeLeave,
-            style: TextStyle(
-                color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w800),
+          TitleRequired(
+            title: appLocalizations.selectTypeLeave,
+            requiredValidate: true,
           ),
           GestureDetector(
             onTap: () => setTakeLeave(context),

@@ -120,6 +120,7 @@ class _ReleaseOfWarehouseAddDialogState
             ),
           if (checkTypeContainer)
             ItemCreateInput(
+              requiredValidate: true,
               error: errorExplain,
               title: appLocalizations.explain,
               inputController: explainController,

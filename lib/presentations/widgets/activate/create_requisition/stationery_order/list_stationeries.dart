@@ -1,6 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/product/stationery_order_add_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -33,13 +34,9 @@ class _ListStationeriesState extends State<ListStationeries> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.title,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x4,
-                fontWeight: FontWeight.w800,
-              ),
+            TitleRequired(
+              title: widget.title,
+              requiredValidate: true,
             ),
             InkWell(
               onTap: () => _addStationery(context),
@@ -53,6 +50,7 @@ class _ListStationeriesState extends State<ListStationeries> {
         ),
         ContainerBorder(
           paddingVertical: 0,
+          paddingHorizontal: 0,
           borderColors: colors.background,
           child: Column(
             mainAxisSize: MainAxisSize.min,

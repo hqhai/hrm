@@ -546,6 +546,9 @@
   "notSelectedAShift": "You have not selected a shift yet",
   "notSelectedAOverTime": "You have not selected a overtime",
   "selectTypeLeave": "Select type leave",
-  "slectLeave": "Leave"
+  "slectLeave": "Leave",
+  "destinationOT": "Destination overtime",
+  "inCompany": "Inside company",
+  "outCompany": "Outside Company"
 
 }

@@ -31,6 +31,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/overt
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_reason.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
@@ -136,12 +137,9 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       typeDefault: EditTimekeeping.early,
                       onChange: (value) => _setType(value),
                     ),
-                    Text(
-                      appLocalizations.reason,
-                      style: TextStyle(
-                          color: colors.text,
-                          fontSize: SpacingUnit.x4,
-                          fontWeight: FontWeight.w600),
+                    TitleRequired(
+                      title: appLocalizations.reason,
+                      requiredValidate: true,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
@@ -162,12 +160,10 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                         ),
                       ),
                     ),
-                    Text(
-                      '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
-                      style: TextStyle(
-                          color: colors.text,
-                          fontSize: SpacingUnit.x4,
-                          fontWeight: FontWeight.w600),
+                    const SizedBox(height: SpacingUnit.x4,),
+                    TitleRequired(
+                      title: '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
+                      requiredValidate: true,
                     ),
                     DateOverTime(
                       dateOld: workDate ?? DateTime.now(),
@@ -198,6 +194,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       height: SpacingUnit.x4,
                     ),
                     ItemCreateInputArea(
+                      requiredValidate: true,
                       error: errorDestination,
                       textController: detailedDescriptionController,
                       title: appLocalizations.detailedDescription,

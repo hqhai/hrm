@@ -1,33 +1,28 @@
-import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/widgets/custom/time_picker_hour_minute.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
-import 'package:themes/themes.dart';
 
 class TimeOverTime extends StatelessWidget {
-  const TimeOverTime({
-    super.key,
-    this.title = '',
-    this.dateOld = '',
-    required this.changeValue,
-  });
+  const TimeOverTime(
+      {super.key,
+      this.title = '',
+      this.dateOld = '',
+      required this.changeValue,
+      this.requiredValidate = false});
 
   final String title;
   final String dateOld;
   final ValueChanged<String> changeValue;
+  final bool requiredValidate;
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w500
-          ),
+        TitleRequired(
+          title: title,
+          requiredValidate: requiredValidate,
         ),
         TimePickerHourMinute(
           timeSlot: dateOld,

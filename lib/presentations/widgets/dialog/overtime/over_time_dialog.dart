@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
@@ -5,6 +6,8 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/date_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_type_day_ot.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/location_ot.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
@@ -36,23 +39,23 @@ class OverTimeAddDialog extends StatefulWidget {
 
 class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
   final TextEditingController noteController = TextEditingController();
-  String errorTime = '', errorDate = '';
+  String errorTime = '';
   DateTime date = DateTime.now();
   int startTime = 0, endTime = 0;
   double? suggestTime;
   String? note;
   RequisitionOverTime requisitionOverTime = const RequisitionOverTime();
+  EnumOvertimeDay typeDate = EnumOvertimeDay.holiday;
+  bool isCheck = true;
+  List<bool> groupValue = [true, false];
 
   bool checkOnClick(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final DateTime now = DateTime.parse(formatYMD(DateTime.now().toString()));
     final bool checkTime = startTime < endTime;
-    final bool checkDate = date.difference(now).inSeconds >= 0;
     setState(() {
       errorTime = checkTime ? "" : appLocalizations.endTimeMustBeAfterStartTime;
-      errorDate = checkDate ? "" : appLocalizations.theStartTimeMustBeAfterTheCurrentTime;
     });
-    return checkTime && checkDate;
+    return checkTime;
   }
 
   setRequisitionOverTime(RequisitionOverTime value) {
@@ -63,6 +66,8 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
       endTime = value.endTime ?? 0;
       suggestTime = double.parse((endTime - startTime).toString());
       note = value.note;
+      typeDate = value.overTimeDay ?? EnumOvertimeDay.holiday;
+      isCheck = value.isChecking;
     });
   }
 
@@ -121,12 +126,25 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                   dateOld: date,
                   changeValue: (value) => setDate(value),
                 ),
+                ItemTakeOvertimeDay(
+                  type: typeDate,
+                  onChangeType: (value) => setTypeDate(value),
+                ),
+                LocationOverTime(
+                  change: (value) => _setLocation(value),
+                  isCheck: isCheck,
+                ),
                 TimeOverTime(
+                  requiredValidate: true,
                   dateOld: strSeconds(startTime),
                   changeValue: (value) => _setStart(value),
                   title: appLocalizations.startTime,
                 ),
+                const SizedBox(
+                  height: SpacingUnit.x2,
+                ),
                 TimeOverTime(
+                  requiredValidate: true,
                   dateOld: strSeconds(endTime),
                   changeValue: (value) => _setEnd(value),
                   title: appLocalizations.endTime,
@@ -210,7 +228,13 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
       RequisitionOverTime(
-          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
+          date: date,
+          endTime: endTime,
+          startTime: startTime,
+          note: note,
+          suggestTime: suggestTime,
+          overTimeDay: typeDate,
+          isChecking: isCheck),
     );
   }
 
@@ -225,7 +249,9 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
           endTime: endTime,
           startTime: startTime,
           note: note,
-          suggestTime: suggestTime),
+          suggestTime: suggestTime,
+          overTimeDay: typeDate,
+          isChecking: isCheck),
     );
   }
 
@@ -237,7 +263,13 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
       RequisitionOverTime(
-          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
+          date: date,
+          endTime: endTime,
+          startTime: startTime,
+          note: note,
+          suggestTime: suggestTime,
+          overTimeDay: typeDate,
+          isChecking: isCheck),
     );
   }
 
@@ -249,7 +281,45 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
       RequisitionOverTime(
-          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
+          date: date,
+          endTime: endTime,
+          startTime: startTime,
+          note: note,
+          suggestTime: suggestTime,
+          overTimeDay: typeDate,
+          isChecking: isCheck),
+    );
+  }
+
+  setTypeDate(EnumOvertimeDay value) {
+    setState(() {
+      typeDate = value;
+    });
+    widget.onChangeOverTimes?.call(
+      RequisitionOverTime(
+          date: date,
+          endTime: endTime,
+          startTime: startTime,
+          note: note,
+          suggestTime: suggestTime,
+          overTimeDay: value,
+          isChecking: isCheck),
+    );
+  }
+
+  _setLocation(bool? value) {
+    setState(() {
+      isCheck = value ?? true;
+    });
+    widget.onChangeOverTimes?.call(
+      RequisitionOverTime(
+          date: date,
+          endTime: endTime,
+          startTime: startTime,
+          note: note,
+          suggestTime: suggestTime,
+          overTimeDay: typeDate,
+          isChecking: isCheck),
     );
   }
 }

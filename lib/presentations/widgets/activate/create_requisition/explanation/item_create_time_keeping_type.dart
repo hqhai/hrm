@@ -2,6 +2,7 @@ import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_explanation_reason.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -13,8 +14,7 @@ class ItemCreateTimeKeepingType extends StatefulWidget {
   final ValueChanged<EditTimekeeping>? onChange;
 
   @override
-  State<ItemCreateTimeKeepingType> createState() =>
-      _ItemCreateTimeKeepingTypeState();
+  State<ItemCreateTimeKeepingType> createState() => _ItemCreateTimeKeepingTypeState();
 }
 
 class _ItemCreateTimeKeepingTypeState extends State<ItemCreateTimeKeepingType> {
@@ -28,37 +28,23 @@ class _ItemCreateTimeKeepingTypeState extends State<ItemCreateTimeKeepingType> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            right: SpacingUnit.x1,
-          ),
-          child: Text(
-            appLocalizations.reason,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
+        TitleRequired(title: appLocalizations.caseL, requiredValidate: true),
         GestureDetector(
           onTap: () => _showBottomSheet(context),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-            child: ContainerBorder(
-              paddingVertical: SpacingUnit.x4,
-              borderColors: colors.outline.withOpacity(0.3),
-              width: width,
-              child: Text(
-                type.configEditTimekeepingName,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                ),
+          child: ContainerBorder(
+            paddingVertical: SpacingUnit.x4,
+            borderColors: colors.outline.withOpacity(0.3),
+            width: width,
+            child: Text(
+              type.configEditTimekeepingName,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
               ),
             ),
           ),
         ),
+        const SizedBox(height: SpacingUnit.x4,)
       ],
     );
   }

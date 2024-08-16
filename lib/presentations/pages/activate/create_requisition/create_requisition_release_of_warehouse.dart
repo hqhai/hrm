@@ -107,6 +107,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ItemCreateInputArea(
+                        requiredValidate: true,
                         error: errorDescription,
                         textController: scheduleController,
                         title: appLocalizations.reasonForRelease,

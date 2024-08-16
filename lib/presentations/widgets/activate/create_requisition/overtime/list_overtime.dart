@@ -1,5 +1,6 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/overtime/over_time_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class ListOverTime extends StatefulWidget {
   final List<bool> checkTypeContainer;
   final ValueChanged<List<bool>> changeTypeContainer;
   final VoidCallback callback;
+  final bool requiredValidate;
 
   const ListOverTime(
       {super.key,
@@ -23,7 +25,8 @@ class ListOverTime extends StatefulWidget {
       this.checkExplanation = false,
       this.checkTypeContainer = const [],
       required this.changeTypeContainer,
-      required this.callback});
+      required this.callback,
+      this.requiredValidate = false});
 
   @override
   State<ListOverTime> createState() => _ListOverTimeState();
@@ -44,13 +47,9 @@ class _ListOverTimeState extends State<ListOverTime> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                widget.title,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                  fontWeight: FontWeight.w600,
-                ),
+              TitleRequired(
+                title: widget.title,
+                requiredValidate: widget.requiredValidate,
               ),
               InkWell(
                 onTap: () => widget.callback.call(),
@@ -104,7 +103,9 @@ class _ListOverTimeState extends State<ListOverTime> {
           suggestTime: value.suggestTime,
           note: value.note,
           startTime: value.startTime,
-          date: value.date);
+          date: value.date,
+          isChecking: value.isChecking,
+          overTimeDay: value.overTimeDay);
       widget.onChangeList.call(listOverTimes);
     });
   }

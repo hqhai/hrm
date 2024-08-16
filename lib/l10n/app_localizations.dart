@@ -3374,6 +3374,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave'**
   String get slectLeave;
+
+  /// No description provided for @destinationOT.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination overtime'**
+  String get destinationOT;
+
+  /// No description provided for @inCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Inside company'**
+  String get inCompany;
+
+  /// No description provided for @outCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Outside Company'**
+  String get outCompany;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -162,6 +162,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ItemCreateInputArea(
+                      requiredValidate: true,
                       error: errorDestination,
                       textController: detailedDescriptionController,
                       title: appLocalizations.reasonForBusinessTrip,
@@ -170,15 +171,28 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                     const SizedBox(
                       height: SpacingUnit.x4,
                     ),
-                    Text(
-                      appLocalizations.titleBusiness,
-                      style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x4,
-                        fontWeight: FontWeight.w600,
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: appLocalizations.titleBusiness,
+                            style: TextStyle(
+                                fontSize: SpacingUnit.x4,
+                                color: colors.text,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          TextSpan(
+                            text: "*",
+                            style: TextStyle(
+                              color: colors.error,
+                              fontSize: SpacingUnit.x4,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     PeriodTimePicker(
+                      requiredValidate: true,
                       oldEndTime: endTime,
                       oldStarTime: startTime,
                       title: appLocalizations.intervalOnLeave,
@@ -220,6 +234,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       height: SpacingUnit.x4,
                     ),
                     ItemCreateInputArea(
+                      requiredValidate: true,
                       error: errorContent,
                       textController: contentController,
                       title: appLocalizations.workingContent,
@@ -231,6 +246,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       onChange: (value) => _setSubstitute(value),
                     ),
                     ItemCreateInput(
+                      requiredValidate: true,
                       subTitle: appLocalizations.ifOto,
                       error: errorVehicle,
                       title: appLocalizations.vehicle,
@@ -238,6 +254,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       onChange: (value) => _setVehicle(value),
                     ),
                     ItemCreateInputArea(
+                      requiredValidate: true,
                       error: errorDestination,
                       title: appLocalizations.destination,
                       textController: destinationController,

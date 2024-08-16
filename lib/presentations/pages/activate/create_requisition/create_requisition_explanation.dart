@@ -128,6 +128,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                       callback: () => _showBottomSheet(context),
                     ),
                     ItemCreateInputArea(
+                      requiredValidate: true,
                       error: errorDestination,
                       textController: detailedDescriptionController,
                       title: appLocalizations.detailedDescription,

@@ -1,5 +1,6 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
@@ -26,14 +27,7 @@ class ItemAdd extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              TitleRequired(title: title, requiredValidate: true),
               InkWell(
                 onTap: () => callback.call(),
                 child: SvgPicture.asset(
