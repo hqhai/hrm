@@ -1644,4 +1644,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get slectLeave => 'Leave';
+
+  @override
+  String get destinationOT => 'Destination overtime';
+
+  @override
+  String get inCompany => 'Inside company';
+
+  @override
+  String get outCompany => 'Outside Company';
 }

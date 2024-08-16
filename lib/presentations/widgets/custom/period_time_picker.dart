@@ -20,6 +20,7 @@ class PeriodTimePicker extends StatefulWidget {
     this.oldEndTime,
     this.checkTitle = false,
     this.error = '',
+    this.requiredValidate = false,
   });
 
   final ValueChanged<DateTime?> setStarTime, setEndTime;
@@ -29,6 +30,7 @@ class PeriodTimePicker extends StatefulWidget {
   final DateTime? oldStarTime, oldEndTime;
   final bool checkTitle;
   final String error;
+  final bool requiredValidate;
 
   @override
   State<PeriodTimePicker> createState() => _PeriodTimePickerState();
@@ -52,12 +54,26 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
         if (widget.checkTitle)
           Padding(
             padding: const EdgeInsets.only(right: SpacingUnit.x3),
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                  fontSize: widget.fontSizeTitle ?? SpacingUnit.x3,
-                  color: colors.text,
-                  fontWeight: widget.fontWeightTitle),
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: widget.title,
+                    style: TextStyle(
+                        fontSize: widget.fontSizeTitle ?? SpacingUnit.x3,
+                        color: colors.text,
+                        fontWeight: widget.fontWeightTitle),
+                  ),
+                  if (widget.requiredValidate)
+                    TextSpan(
+                      text: "*",
+                      style: TextStyle(
+                        color: colors.error,
+                        fontSize: widget.fontSizeTitle ?? SpacingUnit.x3,
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         Expanded(

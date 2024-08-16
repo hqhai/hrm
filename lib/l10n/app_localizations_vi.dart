@@ -1640,8 +1640,17 @@ class AppLocalizationsVi extends AppLocalizations {
   String get notSelectedAOverTime => 'Bạn chưa chọn giờ tăng ca';
 
   @override
-  String get selectTypeLeave => 'Chọn loại nghỉ';
+  String get selectTypeLeave => 'Loại nghỉ';
 
   @override
   String get slectLeave => 'Nguồn phép';
+
+  @override
+  String get destinationOT => 'Địa điểm làm thêm giờ';
+
+  @override
+  String get inCompany => 'Trong công ty';
+
+  @override
+  String get outCompany => 'Ngoài công ty';
 }

@@ -7,24 +7,26 @@ import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_event.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateFollower extends StatefulWidget {
-  const ItemCreateFollower({
-    super.key,
-    this.onChange,
-    this.title,
-    this.listFollower = const [],
-    this.error = '',
-  });
+  const ItemCreateFollower(
+      {super.key,
+      this.onChange,
+      this.title,
+      this.listFollower = const [],
+      this.error = '',
+      this.requiredValidate = false});
 
   final String? title;
   final ValueChanged<List<User>>? onChange;
   final List<User> listFollower;
   final String error;
+  final bool requiredValidate;
 
   @override
   State<ItemCreateFollower> createState() => _ItemCreateFollowerState();
@@ -58,13 +60,9 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Text(
-                  widget.title ?? "",
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                    fontWeight: FontWeight.w600,
-                  ),
+                child: TitleRequired(
+                  title: widget.title ?? "",
+                  requiredValidate: widget.requiredValidate,
                 ),
               ),
               if (setListFollower().isNotEmpty)

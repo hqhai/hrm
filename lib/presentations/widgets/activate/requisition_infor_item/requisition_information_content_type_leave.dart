@@ -33,7 +33,8 @@ class _RequisitionInformationContentTypeLeaveState
       builder: (context, stateUserById) {
         return BlocBuilder<RequisitionBloc, RequisitionState>(
           builder: (context, state) {
-            final workShiftSettings = state.requisition.config.workShiftSettings ?? [];
+            final request = state.requisition;
+            final workShiftSettings = request.config.workShiftSettings ?? [];
             workShiftSettings.sort((a, b) {
               int dateComparison = a.workDate.compareTo(b.workDate);
               if (dateComparison != 0) {
@@ -57,20 +58,23 @@ class _RequisitionInformationContentTypeLeaveState
                   ),
                   ItemTitleValue(
                     size: SpacingUnit.x4,
-                    title: appLocalizations.detailedReason,
-                    value: state.requisition.config.takeLeaveType.configTakeLeaveTypeName,
+                    title: appLocalizations.selectTypeLeave,
+                    value: request.config.takeLeaveType.configTakeLeaveTypeName,
                   ),
-                  if (state.requisition.config.reasonLeave != null)
+                  if (request.config.reasonLeave != null)
                     ItemTitleValue(
                       size: SpacingUnit.x4,
-                      title: appLocalizations.reason,
-                      value: state.requisition.config.reasonLeave?.configEnumTakeLeaveName ?? "",
+                      title: request.config.takeLeaveType ==
+                              EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave
+                          ? appLocalizations.slectLeave
+                          : appLocalizations.reason,
+                      value: request.config.reasonLeave?.configEnumTakeLeaveName ?? "",
                     ),
-                  if (state.requisition.config.socialInsuranceLeave != null)
+                  if (request.config.socialInsuranceLeave != null)
                     ItemTitleValue(
                       size: SpacingUnit.x4,
                       title: appLocalizations.reason,
-                      value: state.requisition.config.socialInsuranceLeave
+                      value: request.config.socialInsuranceLeave
                               ?.configSocialInsuranceLeaveName ??
                           "",
                     ),
@@ -84,29 +88,29 @@ class _RequisitionInformationContentTypeLeaveState
                       ),
                     ),
                   ),
-                  if(workShiftSettings.isNotEmpty)
-                  ShiftWidget(
-                    context: context,
-                    title: appLocalizations.firstShift,
-                    workShift: workShiftSettings.first,
-                  ),
-                  if(workShiftSettings.length > 1)
-                  ShiftWidget(
-                    context: context,
-                    title: appLocalizations.lastShift,
-                    workShift: workShiftSettings.last,
-                  ),
+                  if (workShiftSettings.isNotEmpty)
+                    ShiftWidget(
+                      context: context,
+                      title: appLocalizations.firstShift,
+                      workShift: workShiftSettings.first,
+                    ),
+                  if (workShiftSettings.length > 1)
+                    ShiftWidget(
+                      context: context,
+                      title: appLocalizations.lastShift,
+                      workShift: workShiftSettings.last,
+                    ),
                   ItemTitleValue(
                     size: SpacingUnit.x4,
                     title: appLocalizations.totalLeaveWork,
-                    value: (state.requisition.config.numberValue ?? 0).toString(),
+                    value: (request.config.numberValue ?? 0).toString(),
                   ),
                   ItemTitleValueColum(
                     size: SpacingUnit.x4,
                     title: appLocalizations.description,
-                    value: state.requisition.config.description ?? "",
+                    value: request.config.description ?? "",
                   ),
-                  if (state.requisition.config.subtitudePersons?.isNotEmpty ?? false)
+                  if (request.config.subtitudePersons?.isNotEmpty ?? false)
                     ItemPersonInformationRequest(
                       title: appLocalizations.substitute,
                     ),

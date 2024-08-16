@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateInput extends StatefulWidget {
-  const ItemCreateInput({
-    super.key,
-    this.inputController,
-    this.onChange,
-    this.title,
-    this.error,
-    this.subTitle,
-  });
+  const ItemCreateInput(
+      {super.key,
+      this.inputController,
+      this.onChange,
+      this.title,
+      this.error,
+      this.subTitle,
+      this.requiredValidate = false});
 
   final TextEditingController? inputController;
   final ValueChanged<String>? onChange;
   final String? title, error, subTitle;
+  final bool requiredValidate;
 
   @override
   State<ItemCreateInput> createState() => _ItemCreateInputState();
@@ -30,27 +31,34 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x2),
-          child: Row(
-            children: [
-              Text(
-                widget.title ?? "",
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                  fontWeight: FontWeight.w800,
+          child:  Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: widget.title,
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: SpacingUnit.x1),
-                child: Text(
-                  widget.subTitle ?? "",
+                if (widget.requiredValidate)
+                  TextSpan(
+                    text: "*",
+                    style: TextStyle(
+                      color: colors.error,
+                      fontSize: SpacingUnit.x4,
+                    ),
+                  ),
+                TextSpan(
+                  text: widget.subTitle ?? "",
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x3,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Padding(

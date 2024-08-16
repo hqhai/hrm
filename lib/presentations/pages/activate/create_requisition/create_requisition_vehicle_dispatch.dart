@@ -140,12 +140,14 @@ class _CreateRequestVehicleDispatchPageState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ItemCreateInputArea(
+                      requiredValidate: true,
                       error: errorContent,
                       textController: contentController,
                       title: appLocalizations.reasonForDriving,
                       onChange: (value) => _setContent(value),
                     ),
                     ItemCreateFollower(
+                      requiredValidate: true,
                       error: errorSubtitude,
                       listFollower:
                           _setListUser(stateUserById.subtitudePersons),
@@ -153,6 +155,7 @@ class _CreateRequestVehicleDispatchPageState
                       onChange: (value) => _setWalker(value),
                     ),
                     ItemCreateInputArea(
+                      requiredValidate: true,
                       error: errorSchedule,
                       textController: descriptionController,
                       title: appLocalizations.schedule,

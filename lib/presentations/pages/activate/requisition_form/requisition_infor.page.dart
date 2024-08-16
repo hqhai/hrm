@@ -63,7 +63,7 @@ class RequisitionInformationPage extends StatefulWidget {
 class _RequisitionInformationPageState extends State<RequisitionInformationPage> {
   String? note;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
-  String errorDialog = '';
+  String errorDialog = '', errorDialogRevoke = '';
 
   @override
   void initState() {
@@ -76,7 +76,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     final colors = AppTheme.getColors(context);
     return BlocListener<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, stateApprover) => listener(stateApprover.errorCode),
-      child: BlocBuilder<RequisitionBloc, RequisitionState>(
+      child: BlocConsumer<RequisitionBloc, RequisitionState>(
+        listener: (context, state) => listenerMyRequest(state.errorCode),
         buildWhen: (previous, current) => previous.requisition != current.requisition,
         builder: (context, state) {
           return BlocBuilder<FlowBloc, FlowState>(
@@ -287,7 +288,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       approverSuccess(title: appLocalizations.revokeRequestSuccess);
     } else {
       approverUnsuccessful(
-          errorDialog: errorDialog, title: appLocalizations.revokeRequestUnsuccessful);
+          errorDialog: errorDialogRevoke, title: appLocalizations.revokeRequestUnsuccessful);
     }
   }
 
@@ -514,6 +515,12 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
   listener(String errorCode) {
     setState(() {
       errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+    });
+  }
+
+  listenerMyRequest(String errorCode) {
+    setState(() {
+      errorDialogRevoke = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
     });
   }
 }

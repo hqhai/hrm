@@ -9,6 +9,8 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
@@ -117,8 +119,8 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
                 ),
               ),
             //if (checkFirstStepApprove(request))
-            if (request.status == StatusRequestEnum.approve)
-              ItemRequestCancel(callCancel: () => _cancelRequest()),
+            if (checkFirstStepApprove(request))
+              ItemRequestCancel(callCancel: () => _cancelRequest(context)),
           ],
         );
       },
@@ -128,7 +130,9 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
   bool checkFirstStepApprove(Request request) {
     if (request.status == StatusRequestEnum.approve) {
       final id = dI<UserBloc>().state.user.id;
-      final stepRequests = request.stepRequests;
+      final stepRequests = request.stepRequests
+          .where((element) => element.status == EnumStepRequestStatusEnum.approve)
+          .toList();
       if (stepRequests != []) {
         stepRequests.sort((a, b) {
           int dateComparison = a.createdDate?.microsecondsSinceEpoch ??
@@ -177,6 +181,7 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
   }
 
   _setApprove(String id, EnumStepRequestStatusEnum status, BuildContext context) async {
+    final appLocalizations = AppLocalizations.of(context)!;
     setCheckLoad();
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final Completer completer = Completer<bool>();
@@ -192,22 +197,22 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     final statusCompleter = await completer.future;
     if (statusCompleter == true) {
       if (!currentContext.mounted) return;
-      approverSuccess(currentContext);
+      approverSuccess(context: currentContext);
     }
     if (statusCompleter == false) {
       if (!currentContext.mounted) return;
-      approverUnsuccessful(errorDialog: '', context: currentContext);
+      approverUnsuccessful(errorDialog: errorCodeDialog, context: currentContext, title: appLocalizations.approvedUnsuccessful);
     }
   }
 
-  approverSuccess(BuildContext context) {
+  approverSuccess({required BuildContext context, String? title}) {
     final appLocalizations = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           child: CreateRequestSuccess(
-            title: appLocalizations.approvedSuccess,
+            title: title??appLocalizations.approvedSuccess,
           ),
         );
       },
@@ -217,15 +222,14 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     });
   }
 
-  approverUnsuccessful({required String errorDialog, required BuildContext context}) {
-    final appLocalizations = AppLocalizations.of(context)!;
+  approverUnsuccessful({required String errorDialog, required BuildContext context, required String title}) {
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           child: CreateRequestUnsuccessful(
-            title: errorDialog.isNotEmpty ? errorDialog : appLocalizations.approvedUnsuccessful,
+            title: errorDialog.isNotEmpty ? errorDialog : title,
           ),
         );
       },
@@ -305,5 +309,27 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     });
   }
 
-  _cancelRequest() {}
+  _cancelRequest(BuildContext context) async {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    setCheckLoad();
+    final Completer completer = Completer<bool>();
+    dI<RequisitionApproveBloc>().add(
+      CancelRequestEvent(
+        requestId: widget.id,
+        completer: completer,
+      ),
+    );
+    final statusCompleter = await completer.future;
+    if (statusCompleter == true) {
+      dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
+      if (!currentContext.mounted) return;
+      approverSuccess(context: context, title: appLocalizations.revokeRequestSuccess);
+    }
+    if (statusCompleter == false) {
+      if (!currentContext.mounted) return;
+      approverUnsuccessful( context: currentContext,
+          errorDialog: errorCodeDialog, title: appLocalizations.revokeRequestUnsuccessful);
+    }
+  }
 }

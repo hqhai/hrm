@@ -2,9 +2,9 @@ import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_input.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:themes/themes.dart';
 
 class ItemAddStationeryDialog extends StatefulWidget {
   const ItemAddStationeryDialog(
@@ -32,7 +32,6 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final colors = AppTheme.getColors(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -48,13 +47,9 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-          child: Text(
-            appLocalizations.unit,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-              fontWeight: FontWeight.w800,
-            ),
+          child: TitleRequired(
+            title: appLocalizations.unit,
+            requiredValidate: true,
           ),
         ),
         Padding(
@@ -68,13 +63,9 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
         if (widget.check)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-            child: Text(
-              appLocalizations.unitPrice,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x4,
-                fontWeight: FontWeight.w800,
-              ),
+            child: TitleRequired(
+              title: appLocalizations.unitPrice,
+              requiredValidate: true,
             ),
           ),
         if (widget.check)
