@@ -2,13 +2,13 @@ import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/dialog/calendar_one_day/layout_calendar_one_day_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker(
-      {super.key, this.check = true, required this.onChange, this.oldDate});
+  const DatePicker({super.key, this.check = true, required this.onChange, this.oldDate});
 
   final ValueChanged<DateTime> onChange;
   final DateTime? oldDate;
@@ -27,52 +27,33 @@ class _DatePickerState extends State<DatePicker> {
     super.initState();
   }
 
-  dialog({required BuildContext context, required DateTime currentTime}) async {
-    final colors = AppTheme.getColors(context);
-    DateTime? time = await showDatePicker(
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme(
-              onSurface: colors.text,
-              primary: colors.primary,
-              onPrimary: colors.onPrimary,
-              secondary: colors.secondary,
-              brightness: Brightness.dark,
-              onSecondary: colors.onSecondary,
-              error: colors.error,
-              onError: colors.onError,
-              background: colors.background,
-              onBackground: colors.onBackground,
-              surface: colors.background,
-            ),
+  dialog({required BuildContext context, required DateTime currentTime}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: LayoutCalendarSelectDateDialog(
+            callBackDate: (value) => setDate(value),
+            dateTimeOld: currentTime,
+            dateTime: currentTime,
           ),
-          child: child!,
         );
       },
-      context: context,
-      initialEntryMode: DatePickerEntryMode.calendar,
-      barrierColor: colors.outline.withOpacity(0.2),
-      initialDate: currentTime,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
-      currentDate: DateTime.now(),
     );
+  }
 
-    if (time != null) {
-      setState(() {
-        currentDate = time;
-        widget.onChange(currentDate);
-      });
-    }
+  setDate(DateTime? value) {
+    setState(() {
+      currentDate = value ?? DateTime.now();
+      widget.onChange(currentDate);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
-      onTap: () => dialog(
-          context: context, currentTime: widget.oldDate ?? DateTime.now()),
+      onTap: () => dialog(context: context, currentTime: widget.oldDate ?? DateTime.now()),
       child: ContainerBorder(
         paddingVertical: SpacingUnit.x4_5,
         borderColors: colors.text.withOpacity(0.4),
@@ -82,14 +63,11 @@ class _DatePickerState extends State<DatePicker> {
             Text(
               formatYMD(currentDate.toString()),
               style: TextStyle(
-                  fontSize: SpacingUnit.x4,
-                  color: colors.text,
-                  fontWeight: FontWeight.w600),
+                  fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600),
             ),
             SvgPicture.asset(
               Assets.images.icon.home.bottomBar.calendar,
-              colorFilter: ColorFilter.mode(
-                  colors.text.withOpacity(0.4), BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
             ),
           ],
         ),

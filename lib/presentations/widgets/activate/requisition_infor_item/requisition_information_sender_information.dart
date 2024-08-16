@@ -24,7 +24,7 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
                 appLocalizations.senderInformation,
                 style: TextStyle(
                   color: colors.text,
-                  fontSize: SpacingUnit.x3,
+                  fontSize: SpacingUnit.x4,
                   fontWeight: FontWeight.w800,
                 ),
               ),

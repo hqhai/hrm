@@ -69,6 +69,7 @@ class _ListOverTimeState extends State<ListOverTime> {
                     (index, element) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                       child: OverTimeAddDialog(
+                        requisitionOverTime: element,
                         callBackTypeContainer: () => setTypeContainer(index),
                         checkTypeContainer: widget.checkTypeContainer[index],
                         callBack: () => deleteRequisitionOverTime(index),
