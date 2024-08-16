@@ -50,9 +50,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     final bool checkDate = date.difference(now).inSeconds >= 0;
     setState(() {
       errorTime = checkTime ? "" : appLocalizations.endTimeMustBeAfterStartTime;
-      errorDate = checkDate
-          ? ""
-          : appLocalizations.theStartTimeMustBeAfterTheCurrentTime;
+      errorDate = checkDate ? "" : appLocalizations.theStartTimeMustBeAfterTheCurrentTime;
     });
     return checkTime && checkDate;
   }
@@ -71,8 +69,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
   @override
   void initState() {
     noteController.text = widget.requisitionOverTime?.note ?? "";
-    requisitionOverTime =
-        widget.requisitionOverTime ?? const RequisitionOverTime();
+    requisitionOverTime = widget.requisitionOverTime ?? const RequisitionOverTime();
     date = widget.requisitionOverTime?.date ?? DateTime.now();
     startTime = widget.requisitionOverTime?.startTime ?? 0;
     endTime = widget.requisitionOverTime?.endTime ?? 0;
@@ -111,8 +108,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                   widget.checkTypeContainer
                       ? Assets.images.icon.home.chevronForward
                       : Assets.images.icon.activateIcon.drop,
-                  colorFilter: ColorFilter.mode(
-                      colors.text.withOpacity(0.4), BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
                 ),
               ),
             ],
@@ -122,7 +118,6 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DateOverTime(
-                  errorDate: errorDate,
                   dateOld: date,
                   changeValue: (value) => setDate(value),
                 ),
@@ -157,7 +152,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                           ),
                         ),
                         TextSpan(
-                          text: strSeconds((suggestTime ?? 0).toInt()),
+                          text: errorTime.isEmpty ? strSeconds((suggestTime ?? 0).toInt()) : '0',
                           style: TextStyle(
                             color: colors.text,
                             fontSize: SpacingUnit.x4,
@@ -215,11 +210,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
       RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime),
+          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
     );
   }
 
@@ -246,11 +237,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
       RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime),
+          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
     );
   }
 
@@ -262,11 +249,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
       RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime),
+          date: date, endTime: endTime, startTime: startTime, note: note, suggestTime: suggestTime),
     );
   }
 }

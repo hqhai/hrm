@@ -148,31 +148,26 @@ completerSuccess({required String errorDialog, required String requestId}) {
   dI<AppNavigation>().pop(currentContext);
   dialogSuccess(
     context: currentContext,
-    title: requestId.isNotEmpty
-        ? appLocalizations.editRequestSuccess
-        : appLocalizations.createSuccess,
+    title:
+        requestId.isNotEmpty ? appLocalizations.editRequestSuccess : appLocalizations.createSuccess,
   );
 }
 
-approverSuccess() {
+approverSuccess({String? title}) {
   final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
   final appLocalizations = AppLocalizations.of(currentContext)!;
-  dI<AppNavigation>().pop(currentContext);
   dialogSuccess(
     context: currentContext,
-    title: appLocalizations.approvedSuccess,
+    title: title ?? appLocalizations.approvedSuccess,
   );
 }
 
-approverUnsuccessful({required String errorDialog}) {
+approverUnsuccessful({required String errorDialog, String? title}) {
   final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
   final appLocalizations = AppLocalizations.of(currentContext)!;
-  dI<AppNavigation>().pop(currentContext);
   dialogUnsuccessful(
     context: currentContext,
-    title: errorDialog.isNotEmpty
-        ? errorDialog
-        : appLocalizations.approvedUnsuccessful,
+    title: errorDialog.isNotEmpty ? errorDialog : title ?? appLocalizations.approvedUnsuccessful,
   );
 }
 
@@ -182,9 +177,7 @@ updateProfileFail({required String errorDialog}) {
   dI<AppNavigation>().pop(currentContext);
   dialogUnsuccessful(
     context: currentContext,
-    title: errorDialog.isNotEmpty
-        ? errorDialog
-        : appLocalizations.updateUnsuccessful,
+    title: errorDialog.isNotEmpty ? errorDialog : appLocalizations.updateUnsuccessful,
   );
 }
 

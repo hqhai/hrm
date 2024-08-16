@@ -76,7 +76,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
 
   _listener(String errorCode) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
     });
   }
 

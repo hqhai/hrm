@@ -61,7 +61,7 @@ class CreateRequisitionExplanationPage extends StatefulWidget {
 class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExplanationPage> {
   final TextEditingController detailedDescriptionController = TextEditingController();
   List<RequisitionOverTime> listRequisitionOverTimes = [];
-  String errorTime = '', errorDestination = '', errorDialog = '';
+  String errorTime = '', errorDestination = '', errorDialog = '', errorExplanations = '';
   String? description;
   List<String> followers = [];
   List<Explanation> explanations = [];
@@ -90,7 +90,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
 
   _listener(String errorCode) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
     });
   }
 
@@ -119,13 +119,13 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListExplanationsWidget(
+                      error: errorExplanations,
                       changeExplanations: (value) => _setExplanations(value),
                       changeTypeContainer: (value) => _changeTypeContainer(value),
                       checkTypeContainer: checkTypeContainer,
                       explanations: explanations,
                       title: appLocalizations.workDay,
-                      callback: () => //addExplanation(),
-                          _showBottomSheet(context),
+                      callback: () => _showBottomSheet(context),
                     ),
                     ItemCreateInputArea(
                       error: errorDestination,
@@ -180,6 +180,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     setState(() {
       errorTime = checkList ? '' : appLocalizations.cannotBeLeftBlank;
       errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorExplanations = checkList ? '' : appLocalizations.notSelectedAShift;
     });
     return checkList && checkDescription;
   }

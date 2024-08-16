@@ -20,7 +20,6 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -278,12 +277,18 @@ class _CreateRequestVehicleDispatchPageState
       checkEdit:
           !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(),
-      completerSuccess: () => completerSuccess(),
+      completerFail: () => completerFail(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
+      completerSuccess: () => completerSuccess(
+        requestId: widget.requestId,
+        errorDialog: errorDialog,
+      ),
     );
   }
 
-  setCheckLoad() {
+  /*setCheckLoad() {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     dialogIndicator(context: currentContext);
   }
@@ -291,7 +296,6 @@ class _CreateRequestVehicleDispatchPageState
   completerFail() {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
-    dI<AppNavigation>().pop(currentContext);
     dI<AppNavigation>().pop(currentContext);
     dialogUnsuccessful(
       context: currentContext,
@@ -313,7 +317,7 @@ class _CreateRequestVehicleDispatchPageState
           ? appLocalizations.editRequestSuccess
           : appLocalizations.createSuccess,
     );
-  }
+  }*/
 
   _cancel(BuildContext context) {
     dI<AppNavigation>().pop(context);

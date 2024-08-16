@@ -71,16 +71,12 @@ class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
 
 class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLateAndEarlyPage> {
   final TextEditingController detailedDescriptionController = TextEditingController();
-  String errorTime = '', errorDestination = '', errorDialog = '';
+  String errorTime = '', errorDestination = '', errorDialog = '', errorShift = '';
   DateTime? workDate, endDate;
   String? description;
   List<String> followers = [];
   int startTime = 0, endTime = 0;
-  bool checkLoad = false,
-      checkSuccess = false,
-      checkUnSuccess = false,
-      checkShirt = true,
-      checkShirtFirst = true;
+  bool checkShirt = true, checkShirtFirst = true;
   bool checkClick = false;
   EditTimekeeping type = EditTimekeeping.late;
   List<WorkShiftRegisteredDetail> listWorkShift = [];
@@ -105,14 +101,9 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     super.initState();
   }
 
-  double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
-    return check ? 1 : 0.3;
-  }
-
   _listener(String errorCode) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
     });
   }
 
@@ -145,6 +136,13 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       typeDefault: EditTimekeeping.early,
                       onChange: (value) => _setType(value),
                     ),
+                    Text(
+                      appLocalizations.reason,
+                      style: TextStyle(
+                          color: colors.text,
+                          fontSize: SpacingUnit.x4,
+                          fontWeight: FontWeight.w600),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                       child: GestureDetector(
@@ -174,6 +172,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                     DateOverTime(
                       dateOld: workDate ?? DateTime.now(),
                       changeValue: (value) => _setWorkDate(value),
+                      errorDate: errorShift,
                     ),
                     if (workDate != null && !checkShirtFirst)
                       !checkShirt
@@ -193,7 +192,6 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                             )
                           : ItemWorkShift(
                               type: widget.type,
-                              numberValue: (value) => setNumberValue(value),
                               workShiftSettings: (value) => setListIds(value),
                             ),
                     const SizedBox(
@@ -283,25 +281,15 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     return [];
   }
 
-  setCheckSuccess() {
-    setState(() {
-      checkSuccess = false;
-    });
-  }
-
-  setCheckUnSuccess() {
-    setState(() {
-      checkUnSuccess = false;
-    });
-  }
-
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkDescription = description != null;
+    final checkShiftEmpty = listWorkShift.isNotEmpty;
     setState(() {
       errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorShift = !checkShiftEmpty ? appLocalizations.notSelectedAShift : '';
     });
-    return checkDescription;
+    return checkDescription && checkShiftEmpty;
   }
 
   _setFollower(List<User> value) {
@@ -309,8 +297,6 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       followers = value.map((e) => e.id).toList();
     });
   }
-
-  setNumberValue(double value) {}
 
   setDate(DateTime value) {
     setState(() {

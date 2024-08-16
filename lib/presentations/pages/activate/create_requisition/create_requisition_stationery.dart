@@ -87,7 +87,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
   _listener(String errorCode) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
     });
   }
 

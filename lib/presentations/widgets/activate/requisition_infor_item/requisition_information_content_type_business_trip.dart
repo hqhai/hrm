@@ -6,7 +6,6 @@ import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/leave/shift_widget.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_person_information_request.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_colum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,9 +63,10 @@ class _RequisitionInformationContentTypeBusinessTripState
                     title: appLocalizations.lastShift,
                     workShift: workShiftSettings.last,
                   ),
-                  ItemTitleValue(
+                  ItemTitleValueColum(
+                    font: FontWeight.w600,
                     size: SpacingUnit.x4,
-                    title: appLocalizations.totalWork,
+                    title: appLocalizations.numberTotalWork,
                     value: (state.requisition.config.numberValue??0).toString(),
                   ),
                   ItemTitleValueColum(

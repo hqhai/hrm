@@ -28,6 +28,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create.work.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_take_leave.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_year_leave.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
@@ -74,12 +75,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   List<File> files = [];
   List<String> followers = [], substitutes = [];
   List<WorkShiftRegisteredDetail> listWorkShift = [];
-  bool checkLoad = false,
-      checkSuccess = false,
-      checkUnSuccess = false,
-      checkShirt = true,
-      checkShirtFirst = true;
-  String errorTime = '', errorDialog = '';
+  bool checkShirt = true, checkShirtFirst = true;
+  String errorShift = '', errorDialog = '';
   bool checkClick = false;
   final DateTime now = DateTime.now();
   EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
@@ -106,13 +103,18 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     super.initState();
   }
 
-  List<File> setListFiles(List<String> paths) {
-    return paths.map((e) => File(e)).toList();
+  bool checkValidate(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final checkListWorkShift = listWorkShift.isNotEmpty;
+    setState(() {
+      errorShift = !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
+    });
+
+    return checkListWorkShift;
   }
 
-  double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
-    return check ? 1 : 0.3;
+  List<File> setListFiles(List<String> paths) {
+    return paths.map((e) => File(e)).toList();
   }
 
   bool checkShift() {
@@ -151,7 +153,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   _listener(String errorCode) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
     });
   }
 
@@ -211,20 +213,10 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         setStarTime: (value) => setStartTime(value ?? DateTime.now()),
                         setEndTime: (value) => setEndTime(value ?? DateTime.now()),
                         fontWeightTitle: FontWeight.w600,
+                        error: errorDate().isNotEmpty ? errorDate() : errorShift,
                       ),
-                      if (errorDate().isNotEmpty)
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            errorDate(),
-                            style: TextStyle(
-                              color: colors.error,
-                              fontSize: SpacingUnit.x3,
-                            ),
-                          ),
-                        ),
                       const SizedBox(height: SpacingUnit.x4),
-                      if (!checkShirtFirst)
+                      if (!checkShirtFirst && checkShift())
                         !checkShirt
                             ? Center(
                                 child: Shimmer.fromColors(
@@ -242,9 +234,14 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                               )
                             : ItemWorkShift(
                                 type: widget.type,
-                                numberValue: (value) => setNumberValue(value),
                                 workShiftSettings: (value) => setListIds(value),
                               ),
+                      if (!checkShirtFirst && checkShirt)
+                        ItemTitleValue(
+                          size: SpacingUnit.x4,
+                          title: appLocalizations.totalLeaveWork,
+                          value: numberValue.toString(),
+                        ),
                       ItemCreateFollower(
                         listFollower: _setListUser(stateUserById.subtitudePersons),
                         title: appLocalizations.substitute,
@@ -345,9 +342,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     saveRequest(
       files: files,
       context: context,
-      checkCreate: !checkClick && widget.requestId.isEmpty,
+      checkCreate: !checkClick && widget.requestId.isEmpty && checkValidate(context),
       postRequestRequest: request(),
-      checkEdit: !checkClick && widget.requestId.isNotEmpty,
+      checkEdit: !checkClick && widget.requestId.isNotEmpty && checkValidate(context),
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(
         requestId: widget.requestId,
@@ -379,12 +376,13 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   setEndTime(DateTime value) async {
     setState(() {
       endTime = value;
+      checkShirt = false;
     });
     if (startTime != null && endTime != null && checkShift()) {
       setState(() {
-        checkShirt = false;
         checkShirtFirst = false;
         listWorkShift = [];
+        numberValue = 0;
       });
       Completer completer = Completer<bool>();
       dI<LeaveShiftBloc>()
@@ -413,18 +411,13 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   setListIds(List<WorkShiftRegisteredDetail> value) {
     setState(() {
       listWorkShift = value;
+      numberValue = value.map((e) => e.workEffort).reduce((a, b) => a + b);
     });
   }
 
   setSocialInsurance(EnumSocialInsuranceLeave? value) {
     setState(() {
       socialInsuranceLeave = value;
-    });
-  }
-
-  setNumberValue(double value) {
-    setState(() {
-      numberValue = value;
     });
   }
 }

@@ -98,7 +98,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
         startDate: startDate,
         endDate: endDate,
         statuses: status,
-        page: page??1,
+        page: page ?? 1,
         departmentIds: departmentId,
         type: type,
       ),
@@ -116,7 +116,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
     return await _requestService.getRequisitionsSelfByFilter(
       getRequestFilterRequest: GetRequestFilterRequest(
         flowIds: flowId,
-        page: page??1,
+        page: page ?? 1,
         endDate: endDate,
         startDate: startDate,
         statuses: status,
@@ -139,5 +139,10 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
     return await _requestService.getRequestsByIds(
       getRequestsByIds: GetRequestsByIds(ids: ids),
     );
+  }
+
+  @override
+  Future<void> cancelRequestsById({required String id}) async {
+    await _requestService.cancelRequestsById(id: id);
   }
 }

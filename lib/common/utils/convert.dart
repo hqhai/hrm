@@ -180,11 +180,11 @@ DateTime? dateTimeLocal(DateTime? time) {
   return null;
 }
 
-String formatYMDHMS(String time) {
-  if (time == '') {
+String formatYMDHMS(String? time) {
+  if (time == '' && time != null) {
     return '';
   } else {
-    DateTime dateTime = DateTime.parse(time);
+    DateTime dateTime = DateTime.parse(time!);
     return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
   }
 }

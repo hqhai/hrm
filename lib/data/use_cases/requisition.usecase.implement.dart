@@ -119,4 +119,9 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   Future<RequestsResponse> getRequestsByIds({required List<String> ids}) async {
     return await _requisitionRepository.getRequestsByIds(ids: ids);
   }
+
+  @override
+  Future<void> cancelRequestsById({required String id}) async {
+    await _requisitionRepository.cancelRequestsById(id: id);
+  }
 }

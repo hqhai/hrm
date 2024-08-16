@@ -539,5 +539,15 @@
 
 
   "gPSAndFingerprint": "Hình thức chấm công: GPS & Vân tay",
-  "noTimekeeping": "Hình thức chấm công: Không chấm công"
+  "noTimekeeping": "Hình thức chấm công: Không chấm công",
+  "numberTotalWork": "Tổng số công",
+  "reasonCreateRequest": "Lý do tạo đơn",
+  "descriptionR": "Mô tả",
+  "caseL": "Trường hợp",
+  "revokeRequestSuccess": "Vô hiệu hóa đn thành công",
+  "revokeRequestUnsuccessful": "Vô hiệu hóa đn thành công",
+  "notSelectedAShift": "Bạn chưa chọn ca làm",
+  "notSelectedAOverTime": "Bạn chưa chọn giờ tăng ca",
+  "selectTypeLeave": "Chọn loại nghỉ",
+  "slectLeave": "Nguồn phép"
 }

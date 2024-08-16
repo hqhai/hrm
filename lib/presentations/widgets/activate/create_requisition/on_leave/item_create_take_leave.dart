@@ -42,7 +42,7 @@ class _ItemTakeLeaveState extends State<ItemTakeLeave> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            appLocalizations.detailedReason,
+            appLocalizations.selectTypeLeave,
             style: TextStyle(
                 color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w800),
           ),
