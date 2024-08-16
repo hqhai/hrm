@@ -3,7 +3,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/common/utils/time_utils.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
-import 'package:base_app/presentations/widgets/dialog/calendar/layout_calendar_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/calendar_list_day/layout_calendar_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';

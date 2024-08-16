@@ -1,5 +1,5 @@
 import 'package:base_app/common/utils/convert.dart';
-import 'package:base_app/presentations/widgets/dialog/calendar/item_calander_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/calendar_list_day/item_calander_dialog.dart';
 import 'package:flutter/material.dart';
 
 class BodyCalendarDialog extends StatefulWidget {
