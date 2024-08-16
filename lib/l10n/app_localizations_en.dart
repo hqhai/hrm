@@ -1610,8 +1610,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sun => 'Sun';
 
   @override
+  String get numberTotalWork => 'Number total Work';
+
+  @override
   String get gPSAndFingerprint => 'Form of timekeeping: GPS & Fingerprint';
 
   @override
   String get noTimekeeping => 'Expression formula: No timekeeping';
+
+  @override
+  String get reasonCreateRequest => 'Reason create request';
+
+  @override
+  String get descriptionR => 'Description';
+
+  @override
+  String get caseL => 'Case';
+
+  @override
+  String get revokeRequestSuccess => 'Revoke request success';
+
+  @override
+  String get revokeRequestUnsuccessful => 'Revoke request unsuccessful';
+
+  @override
+  String get notSelectedAShift => 'You have not selected a shift yet';
+
+  @override
+  String get notSelectedAOverTime => 'You have not selected a overtime';
+
+  @override
+  String get selectTypeLeave => 'Select type leave';
+
+  @override
+  String get slectLeave => 'Leave';
 }

@@ -78,7 +78,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     final bool check = requisitionOverTimes.isNotEmpty;
     final bool checkDescription = description.isNotEmpty;
     setState(() {
-      error = check ? '' : appLocalizations.thereAreCurrentlyNoProducts;
+      error = check ? '' : appLocalizations.notSelectedAOverTime;
       errorDescription = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return check && checkDescription;
@@ -272,7 +272,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   addOverTime() {
     setState(() {
       checkTypeContainer.add(true);
-      requisitionOverTimes.add(const RequisitionOverTime());
+      requisitionOverTimes.add(RequisitionOverTime(date: DateTime.now()));
     });
   }
 }

@@ -3303,6 +3303,12 @@ abstract class AppLocalizations {
   /// **'Sun'**
   String get sun;
 
+  /// No description provided for @numberTotalWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Number total Work'**
+  String get numberTotalWork;
+
   /// No description provided for @gPSAndFingerprint.
   ///
   /// In en, this message translates to:
@@ -3314,6 +3320,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expression formula: No timekeeping'**
   String get noTimekeeping;
+
+  /// No description provided for @reasonCreateRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason create request'**
+  String get reasonCreateRequest;
+
+  /// No description provided for @descriptionR.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get descriptionR;
+
+  /// No description provided for @caseL.
+  ///
+  /// In en, this message translates to:
+  /// **'Case'**
+  String get caseL;
+
+  /// No description provided for @revokeRequestSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke request success'**
+  String get revokeRequestSuccess;
+
+  /// No description provided for @revokeRequestUnsuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke request unsuccessful'**
+  String get revokeRequestUnsuccessful;
+
+  /// No description provided for @notSelectedAShift.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not selected a shift yet'**
+  String get notSelectedAShift;
+
+  /// No description provided for @notSelectedAOverTime.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not selected a overtime'**
+  String get notSelectedAOverTime;
+
+  /// No description provided for @selectTypeLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Select type leave'**
+  String get selectTypeLeave;
+
+  /// No description provided for @slectLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get slectLeave;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

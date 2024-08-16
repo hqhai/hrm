@@ -1610,8 +1610,38 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sun => 'CN';
 
   @override
+  String get numberTotalWork => 'Tổng số công';
+
+  @override
   String get gPSAndFingerprint => 'Hình thức chấm công: GPS & Vân tay';
 
   @override
   String get noTimekeeping => 'Hình thức chấm công: Không chấm công';
+
+  @override
+  String get reasonCreateRequest => 'Lý do tạo đơn';
+
+  @override
+  String get descriptionR => 'Mô tả';
+
+  @override
+  String get caseL => 'Trường hợp';
+
+  @override
+  String get revokeRequestSuccess => 'Vô hiệu hóa đn thành công';
+
+  @override
+  String get revokeRequestUnsuccessful => 'Vô hiệu hóa đn thành công';
+
+  @override
+  String get notSelectedAShift => 'Bạn chưa chọn ca làm';
+
+  @override
+  String get notSelectedAOverTime => 'Bạn chưa chọn giờ tăng ca';
+
+  @override
+  String get selectTypeLeave => 'Chọn loại nghỉ';
+
+  @override
+  String get slectLeave => 'Nguồn phép';
 }

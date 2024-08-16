@@ -39,14 +39,10 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
   FutureOr<void> _userRejectRequestEvent(
       UserRejectRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
-      final requests = state.requisitions;
-      final requestIds = [...state.requisitionIds];
       final bool check = await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
       if (check) {
-        requests.remove(event.id);
-        requestIds.remove(event.id);
+        final requestIds = state.requisitionIds.where((element) => element != event.id).toList();
         emit(state.copyWith(
-          requisitions: requests,
           requisitionIds: requestIds,
           errorCode: '',
         ));

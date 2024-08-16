@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -79,7 +80,7 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
               padding: SpacingUnit.x1_5,
               title: appLocalizations.createTime,
               value: formatYMDHMS(
-                dateTimeLocal(request.createdDate).toString(),
+                (dateTimeLocal(request.createdDate) ?? "").toString(),
               ),
             ),
             TitleValueLeave(
@@ -115,14 +116,35 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
                   EnumStepRequestStatusEnum.reject,
                 ),
               ),
+            //if (checkFirstStepApprove(request))
             if (request.status == StatusRequestEnum.approve)
-              ItemRequestCancel(
-                callCancel: () => _cancelRequest()
-              ),
+              ItemRequestCancel(callCancel: () => _cancelRequest()),
           ],
         );
       },
     );
+  }
+
+  bool checkFirstStepApprove(Request request) {
+    if (request.status == StatusRequestEnum.approve) {
+      final id = dI<UserBloc>().state.user.id;
+      final stepRequests = request.stepRequests;
+      if (stepRequests != []) {
+        stepRequests.sort((a, b) {
+          int dateComparison = a.createdDate?.microsecondsSinceEpoch ??
+              0.compareTo(b.createdDate?.microsecondsSinceEpoch ?? 0);
+          return dateComparison;
+        });
+        final stepRequestApprovers = stepRequests.first.stepRequestApprovers;
+        if (stepRequestApprovers != []) {
+          final checkId = stepRequestApprovers!.first.approverId == id;
+          return checkId;
+        }
+        return false;
+      }
+      return false;
+    }
+    return false;
   }
 
   _isApprover(request, BuildContext context, EnumStepRequestStatusEnum status) {
@@ -156,6 +178,7 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
 
   _setApprove(String id, EnumStepRequestStatusEnum status, BuildContext context) async {
     setCheckLoad();
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final Completer completer = Completer<bool>();
     dI<RequisitionApproveBloc>().add(
       ApproveRequestEvent(
@@ -168,11 +191,47 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     );
     final statusCompleter = await completer.future;
     if (statusCompleter == true) {
-      approverSuccess();
+      if (!currentContext.mounted) return;
+      approverSuccess(currentContext);
     }
     if (statusCompleter == false) {
-      approverUnsuccessful(errorDialog: '');
+      if (!currentContext.mounted) return;
+      approverUnsuccessful(errorDialog: '', context: currentContext);
     }
+  }
+
+  approverSuccess(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: CreateRequestSuccess(
+            title: appLocalizations.approvedSuccess,
+          ),
+        );
+      },
+    ).then((value) {
+      setState(() {});
+      dI<AppNavigation>().pop(context);
+    });
+  }
+
+  approverUnsuccessful({required String errorDialog, required BuildContext context}) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: CreateRequestUnsuccessful(
+            title: errorDialog.isNotEmpty ? errorDialog : appLocalizations.approvedUnsuccessful,
+          ),
+        );
+      },
+    ).then((value) {
+      dI<AppNavigation>().pop(context);
+    });
   }
 
   _setNote(String value) {

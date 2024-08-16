@@ -9,6 +9,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_dialog.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_stationery.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -77,13 +78,15 @@ class _ReleaseOfWarehouseAddDialogState
     return checkProduct && checkNumberOf && checkExplain;
   }
 
-  setStationery(Stationery value) {
+  setStationery(Stationery value, BuildContext context) {
     setState(() {
       stationery = value;
       product = value.product ?? "";
       unit = value.unit ?? "";
       productController.text = value.product ?? "";
       unitController.text = value.unit ?? "";
+      checkOnClick(context);
+      setAdd(context);
     });
   }
 
@@ -105,7 +108,6 @@ class _ReleaseOfWarehouseAddDialogState
                     ? appLocalizations.product
                     : product,
             callback: () => setTypeContainer(),
-            errorProduct: errorProduct,
           ),
           if (checkTypeContainer)
             ItemAddStationeryDialog(
@@ -114,7 +116,7 @@ class _ReleaseOfWarehouseAddDialogState
               onchangeUnit: (value) => setUnit(value, context),
               productController: productController,
               unitController: unitController,
-              callBack: () {},
+              callBack: () => _showBottomSheet(context),
             ),
           if (checkTypeContainer)
             ItemCreateInput(
@@ -152,6 +154,17 @@ class _ReleaseOfWarehouseAddDialogState
     );
   }
 
+  _showBottomSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetStationeryWidget(
+          onChange: (value) => setStationery(value, context),
+        );
+      },
+    );
+  }
+
   _setExplain(String value, BuildContext context) {
     setState(() {
       explain = value;
@@ -167,6 +180,7 @@ class _ReleaseOfWarehouseAddDialogState
     checkOnClick(context);
     setAdd(context);
   }
+
 
   setAdd(BuildContext context) {
     widget.requisitionReleaseOfWarehouse?.call(WarehouseReleaseds(

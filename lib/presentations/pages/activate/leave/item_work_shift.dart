@@ -15,12 +15,10 @@ class ItemWorkShift extends StatefulWidget {
   const ItemWorkShift({
     super.key,
     required this.workShiftSettings,
-    required this.numberValue,
     this.type = RequisitionTypeEnum.leaveHalfDayToOneDay,
   });
 
   final ValueChanged<List<WorkShiftRegisteredDetail>> workShiftSettings;
-  final ValueChanged<double> numberValue;
   final RequisitionTypeEnum type;
 
   @override
@@ -29,7 +27,6 @@ class ItemWorkShift extends StatefulWidget {
 
 class _ItemWorkShiftState extends State<ItemWorkShift> {
   List<WorkShiftRegisteredDetail> workShifts = [];
-  double numberValue = 0;
 
   @override
   void initState() {
@@ -176,7 +173,6 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
                 element.workDate.microsecondsSinceEpoch != state.keys.last;
         if (!workShifts.contains(element) && notFirstOrLast) {
           setState(() {
-            numberValue = numberValue + (element.workEffort);
             workShifts.add(element);
           });
         }
@@ -190,7 +186,6 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
               element.workDate.microsecondsSinceEpoch == state.keys.first) {
             setState(() {
               workShifts.add(element);
-              numberValue = numberValue + (element.workEffort);
             });
 
             ///Xử lý chọn là ca cuối thì lấy luôn các ca trước
@@ -198,13 +193,11 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
               element.workDate.microsecondsSinceEpoch == state.keys.last) {
             setState(() {
               workShifts.add(element);
-              numberValue = numberValue + (element.workEffort);
             });
           }
         }
         setState(() {
           workShifts.add(workShift);
-          numberValue = numberValue + (workShift.workEffort);
         });
 
         ///Xóa ca
@@ -214,31 +207,26 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
               element.workDate.microsecondsSinceEpoch == state.keys.first) {
             setState(() {
               workShifts.remove(element);
-              numberValue = numberValue - (element.workEffort);
             });
           } else if (element.startTime > workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.last) {
             setState(() {
               workShifts.remove(element);
-              numberValue = numberValue - (element.workEffort);
             });
           }
         }
         setState(() {
           workShifts.remove(workShift);
-          numberValue = numberValue - (workShift.workEffort);
         });
       }
     } else {
       if (!workShifts.contains(workShift)) {
         setState(() {
           workShifts.add(workShift);
-          numberValue = numberValue + (workShift.workEffort);
         });
       } else if (workShifts.contains(workShift)) {
         setState(() {
           workShifts.remove(workShift);
-          numberValue = numberValue - (workShift.workEffort);
         });
       }
     }
@@ -252,7 +240,6 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
         return a.startTime.compareTo(b.startTime);
       }
     });
-    widget.numberValue.call(numberValue);
     widget.workShiftSettings.call(workShifts);
   }
 

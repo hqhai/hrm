@@ -88,6 +88,7 @@ class _TabBarViewListRequistionApproveState
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) =>
           previous.requisitions != current.requisitions,
+      // buildWhen: (previous, current) => previous.requisitionIds != current.requisitionIds ,
       builder: (context, state) {
         return SingleChildScrollView(
           child: Container(
@@ -96,7 +97,7 @@ class _TabBarViewListRequistionApproveState
             child: widget.checkLoad
                 ? ListView.builder(
                     controller: controller,
-                    itemCount: state.requisitions.length,
+                    itemCount: state.requisitionIds.length,
                     itemBuilder: (context, index) => ItemRequisitionApproveList(
                       id: state.requisitionIds[index],
                       status: widget.status,

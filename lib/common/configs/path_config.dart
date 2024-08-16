@@ -46,6 +46,7 @@ class PathConfig {
   static String stepRequestApproverCountStatus = '/step-request-approver/count-status';
   static String changeStatus = '/request/change-status';
   static String editRequestEdit = '/request/edit-request-edit';
+  static String cancelRequest = '/request/cancel-request';
 
   //CheckIn CheckOut
   static String schools = '/school/get-schools';

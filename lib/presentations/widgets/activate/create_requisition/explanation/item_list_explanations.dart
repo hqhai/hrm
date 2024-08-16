@@ -15,8 +15,10 @@ class ListExplanationsWidget extends StatefulWidget {
     this.checkTypeContainer = const [],
     required this.changeTypeContainer,
     required this.changeExplanations,
+    this.error = '',
   });
 
+  final String error;
   final String title;
   final VoidCallback callback;
   final List<Explanation> explanations;
@@ -37,6 +39,7 @@ class _ListExplanationsWidgetState extends State<ListExplanationsWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,6 +62,14 @@ class _ListExplanationsWidgetState extends State<ListExplanationsWidget> {
               )
             ],
           ),
+          if (widget.error.isNotEmpty)
+            Text(
+              widget.error,
+              style: TextStyle(
+                color: colors.error,
+                fontSize: SpacingUnit.x3,
+              ),
+            ),
           Column(
             children: widget.explanations
                 .mapIndexed(

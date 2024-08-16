@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
@@ -24,6 +25,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_colum.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
@@ -65,17 +67,14 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       errorContent = '',
       errorVehicle = '',
       errorDestination = '',
-      errorDialog = '';
+      errorDialog = '',
+      errorShift = '';
   String? content, reason, vehicle, destination;
   DateTime? startTime, endTime;
   List<String> followers = [], substitutes = [];
   List<WorkShiftRegisteredDetail> listWorkShift = [];
   RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
-  bool checkLoad = false,
-      checkSuccess = false,
-      checkUnSuccess = false,
-      checkShirt = true,
-      checkShirtFirst = true;
+  bool checkShirt = true, checkShirtFirst = true;
   bool checkClick = false;
   final DateTime now = DateTime.now();
 
@@ -102,23 +101,32 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     super.initState();
   }
 
-  bool _checkValue(BuildContext context) {
+  bool checkValidate(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkTime = (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
-    final bool check = reason != null && vehicle != null && destination != null && content != null;
+    final bool check = reason != null &&
+        vehicle != null &&
+        destination != null &&
+        content != null &&
+        reason != '' &&
+        vehicle != '' &&
+        destination != '' &&
+        content != '';
+    final checkListWorkShift = listWorkShift.isNotEmpty;
     setState(() {
       errorTime = !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
-      errorReason = reason != null ? '' : appLocalizations.cannotBeLeftBlank;
-      errorContent = content != null ? '' : appLocalizations.cannotBeLeftBlank;
-      errorVehicle = vehicle != null ? '' : appLocalizations.cannotBeLeftBlank;
-      errorDestination = destination != null ? '' : appLocalizations.cannotBeLeftBlank;
+      errorReason = reason != null && reason != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorContent = content != null && content != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorVehicle = vehicle != null && vehicle != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination =
+          destination != null && destination != '' ? '' : appLocalizations.cannotBeLeftBlank;
+      errorShift = !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
     });
-    return check && checkTime;
+    return check && checkTime && checkListWorkShift;
   }
 
-  double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
-    return check ? 1 : 0.3;
+  List<File> setListFiles(List<String> paths) {
+    return paths.map((e) => File(e)).toList();
   }
 
   _listener(String errorCode) {
@@ -159,6 +167,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       title: appLocalizations.reasonForBusinessTrip,
                       onChange: (value) => _setReason(value),
                     ),
+                    const SizedBox(
+                      height: SpacingUnit.x4,
+                    ),
                     Text(
                       appLocalizations.titleBusiness,
                       style: TextStyle(
@@ -174,6 +185,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       setStarTime: (value) => setStartTime(value ?? DateTime.now()),
                       setEndTime: (value) => setEndTime(value ?? DateTime.now()),
                       fontWeightTitle: FontWeight.w600,
+                      error: errorShift,
                     ),
                     if (!checkShirt && !checkShirtFirst)
                       Center(
@@ -194,10 +206,19 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       const SizedBox(height: SpacingUnit.x4),
                       ItemWorkShift(
                         type: RequisitionTypeEnum.bussiness,
-                        numberValue: (value) => setNumberValue(value),
                         workShiftSettings: (value) => setListIds(value),
                       )
                     ],
+                    if (!checkShirtFirst && checkShirt)
+                      ItemTitleValueColum(
+                        font: FontWeight.w600,
+                        size: SpacingUnit.x4,
+                        title: appLocalizations.numberTotalWork,
+                        value: numberValue.toString(),
+                      ),
+                    const SizedBox(
+                      height: SpacingUnit.x4,
+                    ),
                     ItemCreateInputArea(
                       error: errorContent,
                       textController: contentController,
@@ -247,18 +268,6 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       return userById;
     }
     return [];
-  }
-
-  setCheckSuccess() {
-    setState(() {
-      checkSuccess = false;
-    });
-  }
-
-  setCheckUnSuccess() {
-    setState(() {
-      checkUnSuccess = false;
-    });
   }
 
   _setFollower(List<User> value) {
@@ -311,9 +320,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate: !checkClick && checkValidate(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit: !checkClick && checkValidate(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(
         requestId: widget.requestId,
@@ -350,6 +359,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       setState(() {
         checkShirt = false;
         checkShirtFirst = false;
+        numberValue = 0;
+        listWorkShift = [];
       });
       Completer completer = Completer<bool>();
       dI<LeaveShiftBloc>()
@@ -381,15 +392,10 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     });
   }
 
-  setNumberValue(double value) {
-    setState(() {
-      numberValue = value;
-    });
-  }
-
   setListIds(List<WorkShiftRegisteredDetail> value) {
     setState(() {
       listWorkShift = value;
+      numberValue = value.map((e) => e.workEffort).reduce((a, b) => a + b);
     });
   }
 }

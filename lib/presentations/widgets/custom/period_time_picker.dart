@@ -19,6 +19,7 @@ class PeriodTimePicker extends StatefulWidget {
     this.oldStarTime,
     this.oldEndTime,
     this.checkTitle = false,
+    this.error = '',
   });
 
   final ValueChanged<DateTime?> setStarTime, setEndTime;
@@ -27,6 +28,7 @@ class PeriodTimePicker extends StatefulWidget {
   final FontWeight? fontWeightTitle;
   final DateTime? oldStarTime, oldEndTime;
   final bool checkTitle;
+  final String error;
 
   @override
   State<PeriodTimePicker> createState() => _PeriodTimePickerState();
@@ -62,44 +64,54 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
           child: GestureDetector(
             onTap: () => _showDialogTime(context),
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: widget.checkTitle ? SpacingUnit.x2 : 0),
-              child: ContainerBorder(
-                marginTop: 0,
-                borderColors: colors.text.withOpacity(0.2),
-                child: Padding(
-                  padding: const EdgeInsets.all(SpacingUnit.x1),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        height: SpacingUnit.x7,
-                        width: SpacingUnit.x7,
-                        Assets.images.icon.home.bottomBar.calendar,
-                        colorFilter:
-                            ColorFilter.mode(colors.text, BlendMode.srcIn),
-                      ),
-                      Expanded(
-                        child: Text(
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          showText(),
-                          style: TextStyle(
-                            fontSize: SpacingUnit.x4,
-                            color: colors.text,
+              padding: EdgeInsets.symmetric(horizontal: widget.checkTitle ? SpacingUnit.x2 : 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ContainerBorder(
+                    marginTop: 0,
+                    borderColors: colors.text.withOpacity(0.2),
+                    child: Padding(
+                      padding: const EdgeInsets.all(SpacingUnit.x1),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            height: SpacingUnit.x7,
+                            width: SpacingUnit.x7,
+                            Assets.images.icon.home.bottomBar.calendar,
+                            colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
                           ),
-                        ),
+                          Expanded(
+                            child: Text(
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              showText(),
+                              style: TextStyle(
+                                fontSize: SpacingUnit.x4,
+                                color: colors.text,
+                              ),
+                            ),
+                          ),
+                          SvgPicture.asset(
+                            height: SpacingUnit.x7,
+                            width: SpacingUnit.x7,
+                            Assets.images.icon.home.dropUp,
+                            colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                          ),
+                        ],
                       ),
-                      SvgPicture.asset(
-                        height: SpacingUnit.x7,
-                        width: SpacingUnit.x7,
-                        Assets.images.icon.home.dropUp,
-                        colorFilter:
-                            ColorFilter.mode(colors.text, BlendMode.srcIn),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  if (widget.error.isNotEmpty)
+                    Text(
+                      widget.error,
+                      style: TextStyle(
+                        color: colors.error,
+                        fontSize: SpacingUnit.x3,
+                      ),
+                    ),
+                ],
               ),
             ),
           ),

@@ -5,6 +5,7 @@ import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/navigator_extra/information_request_extra.dart';
 import 'package:base_app/domain/entities/reqisition/flow.dart';
@@ -17,6 +18,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
+import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_process.dart';
@@ -27,6 +29,7 @@ import 'package:base_app/presentations/widgets/activate/requisition_infor_item/r
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_general_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_sender_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_type.dart';
+import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title_callback.dart';
 import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
 import 'package:flutter/material.dart';
@@ -46,8 +49,7 @@ final requisitionInformationPageRoute = GoRoute(
     });
 
 class RequisitionInformationPage extends StatefulWidget {
-  const RequisitionInformationPage(
-      {super.key, this.id = '', required this.checkUser});
+  const RequisitionInformationPage({super.key, this.id = '', required this.checkUser});
 
   final String id;
 
@@ -55,14 +57,13 @@ class RequisitionInformationPage extends StatefulWidget {
   final RequestSeeByWho checkUser;
 
   @override
-  State<RequisitionInformationPage> createState() =>
-      _RequisitionInformationPageState();
+  State<RequisitionInformationPage> createState() => _RequisitionInformationPageState();
 }
 
-class _RequisitionInformationPageState
-    extends State<RequisitionInformationPage> {
+class _RequisitionInformationPageState extends State<RequisitionInformationPage> {
   String? note;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
+  String errorDialog = '';
 
   @override
   void initState() {
@@ -73,140 +74,147 @@ class _RequisitionInformationPageState
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<RequisitionBloc, RequisitionState>(
-      buildWhen: (previous, current) =>
-          previous.requisition != current.requisition,
-      builder: (context, state) {
-        return BlocBuilder<FlowBloc, FlowState>(
-          builder: (context, stateFlow) {
-            return Scaffold(
-              appBar: AppBar(
-                iconTheme: IconThemeData(color: colors.text),
-                title: Center(
-                  child: Column(
-                    children: [
-                      Text(stateFlow.flow.flowType?.configTypeName ?? "",
-                          style: TextStyle(
-                              color: colors.text, fontSize: SpacingUnit.x5)),
-                      Text(
-                          '${appLocalizations.applicationCode} : ${state.requisition.code}',
-                          style: TextStyle(
-                              color: colors.surfaceVariantHigh,
-                              fontSize: SpacingUnit.x3)),
-                    ],
-                  ),
-                ),
-                actions: const [
-                  SizedBox(width: SpacingUnit.x15),
-                ],
-              ),
-              body: Stack(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                    decoration: BoxDecoration(
-                      color: colors.background,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(SpacingUnit.x4),
-                      ),
+    return BlocListener<RequisitionApproveBloc, RequisitionApproveState>(
+      listener: (context, stateApprover) => listener(stateApprover.errorCode),
+      child: BlocBuilder<RequisitionBloc, RequisitionState>(
+        buildWhen: (previous, current) => previous.requisition != current.requisition,
+        builder: (context, state) {
+          return BlocBuilder<FlowBloc, FlowState>(
+            builder: (context, stateFlow) {
+              return Scaffold(
+                appBar: AppBar(
+                  iconTheme: IconThemeData(color: colors.text),
+                  title: Center(
+                    child: Column(
+                      children: [
+                        Text(stateFlow.flow.flowType?.configTypeName ?? "",
+                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                        Text('${appLocalizations.applicationCode} : ${state.requisition.code}',
+                            style: TextStyle(
+                                color: colors.surfaceVariantHigh, fontSize: SpacingUnit.x3)),
+                      ],
                     ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (widget.checkUser != RequestSeeByWho.user)
-                            const RequisitionInformationSenderInformation(),
-                          const RequisitionInformationGeneraliInformation(),
-                          const RequisitionInformationType(),
-                          if (state.requisition.flowType !=
-                              RequisitionTypeEnum.stationery)
-                            const RequisitionInformationContent(),
-                          if (state
-                                  .requisition.config.attachments?.isNotEmpty ??
-                              false)
-                            const RequisitionInformationAttach(),
-                          const ItemFollowersInformationRequest(),
-                          const ItemListStepFlow(
-                            create: false,
-                          ),
-                          if (state.requisition.status ==
-                                  StatusRequestEnum.process &&
-                              widget.checkUser == RequestSeeByWho.user)
-                            Expanded(
-                              child: ButtonItemListRequisition(
+                  ),
+                  actions: const [
+                    SizedBox(width: SpacingUnit.x15),
+                  ],
+                ),
+                body: Stack(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+                      decoration: BoxDecoration(
+                        color: colors.background,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(SpacingUnit.x4),
+                        ),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (widget.checkUser != RequestSeeByWho.user)
+                              const RequisitionInformationSenderInformation(),
+                            const RequisitionInformationGeneraliInformation(),
+                            const RequisitionInformationType(),
+                            if (state.requisition.flowType != RequisitionTypeEnum.stationery)
+                              const RequisitionInformationContent(),
+                            if (state.requisition.config.attachments?.isNotEmpty ?? false)
+                              const RequisitionInformationAttach(),
+                            const ItemFollowersInformationRequest(),
+                            const ItemListStepFlow(
+                              create: false,
+                            ),
+                            if (state.requisition.status == StatusRequestEnum.process &&
+                                widget.checkUser == RequestSeeByWho.user)
+                              ButtonItemListRequisition(
                                 colorText: colors.error,
                                 background: colors.error.withOpacity(0.2),
                                 check: true,
                                 title: appLocalizations.revoke,
                                 callback: () => rejectDialog(context),
                               ),
-                            ),
-                          if (state.requisition.status ==
-                                  StatusRequestEnum.edit &&
-                              widget.checkUser == RequestSeeByWho.user)
-                            Expanded(
-                              child: ButtonItemListRequisition(
+                            if (state.requisition.status == StatusRequestEnum.edit &&
+                                widget.checkUser == RequestSeeByWho.user)
+                              ButtonItemListRequisition(
                                 colorText: colors.tertiary,
                                 background: colors.tertiary.withOpacity(0.2),
                                 check: true,
                                 title: appLocalizations.update,
                                 callback: () => _nextScreen(stateFlow.flow),
                               ),
-                            ),
-                          if (statusApprove(state.requisition) ==
-                                  EnumStepRequestStatusEnum.newStatus &&
-                              widget.checkUser == RequestSeeByWho.manager)
-                            ItemRequestProcess(
-                              callBackApprover: () => _isApprover(
-                                  state.requisition,
-                                  context,
-                                  EnumStepRequestStatusEnum.approve),
-                              callBackEdit: () => _isApprover(state.requisition,
-                                  context, EnumStepRequestStatusEnum.edit),
-                              callBackReject: () => _isApprover(
-                                  state.requisition,
-                                  context,
-                                  EnumStepRequestStatusEnum.reject),
-                            ),
-                          if (state.requisition.status ==
-                                  StatusRequestEnum.approve &&
-                              widget.checkUser == RequestSeeByWho.manager)
-                            Expanded(
-                              child: ButtonItemListRequisition(
+                            if (statusApprove(state.requisition) ==
+                                    EnumStepRequestStatusEnum.newStatus &&
+                                widget.checkUser == RequestSeeByWho.manager)
+                              ItemRequestProcess(
+                                callBackApprover: () => _isApprover(
+                                    state.requisition, context, EnumStepRequestStatusEnum.approve),
+                                callBackEdit: () => _isApprover(
+                                    state.requisition, context, EnumStepRequestStatusEnum.edit),
+                                callBackReject: () => _isApprover(
+                                    state.requisition, context, EnumStepRequestStatusEnum.reject),
+                              ),
+                            if (checkFirstStepApprove(state.requisition) &&
+                                widget.checkUser == RequestSeeByWho.manager)
+                              ButtonItemListRequisition(
                                 colorText: colors.error,
                                 background: colors.error.withOpacity(0.2),
                                 check: true,
                                 title: appLocalizations.cancel,
-                                callback: () {},
+                                callback: () => cancelRequest(context: context),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
+  }
+
+  bool checkFirstStepApprove(Request request) {
+    if (request.status == StatusRequestEnum.approve) {
+      final id = dI<UserBloc>().state.user.id;
+      final stepRequests = request.stepRequests
+          .where((element) => element.status == EnumStepRequestStatusEnum.approve)
+          .toList();
+      if (stepRequests != []) {
+        stepRequests.sort((a, b) {
+          int dateComparison = a.createdDate?.microsecondsSinceEpoch ??
+              0.compareTo(b.createdDate?.microsecondsSinceEpoch ?? 0);
+          return dateComparison;
+        });
+        final stepRequestApprovers = stepRequests.first.stepRequestApprovers;
+        if (stepRequestApprovers != []) {
+          final checkId = stepRequestApprovers!.first.approverId == id;
+          return checkId;
+        }
+        return false;
+      }
+      return false;
+    }
+    return false;
   }
 
   _isApprover(request, BuildContext context, EnumStepRequestStatusEnum status) {
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests?.isNotEmpty ?? false) {
       final stepRequests = request.stepRequests ?? [];
-      final indexNewStepRequest = stepRequests.indexWhere(
-          (element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests
+          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest = stepRequestApproves
-            .indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest =
+            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
           showDialog(
@@ -215,8 +223,7 @@ class _RequisitionInformationPageState
               return Dialog(
                 child: NoteDialog(
                     noteChange: (value) => _setNote(value),
-                    callback: () =>
-                        _setApprove(idStepRequestApprove, status, context),
+                    callback: () => _setApprove(idStepRequestApprove, status, context),
                     status: status),
               );
             },
@@ -230,13 +237,13 @@ class _RequisitionInformationPageState
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests.isNotEmpty) {
       final stepRequests = request.stepRequests;
-      final indexNewStepRequest = stepRequests.indexWhere(
-          (element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests
+          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest = stepRequestApproves
-            .indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest =
+            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           EnumStepRequestStatusEnum? statusStepRequestApprove =
               stepRequestApproves[indexNewRequest].status;
@@ -263,11 +270,10 @@ class _RequisitionInformationPageState
   }
 
   userRejectRequest() async {
+    final appLocalizations = AppLocalizations.of(context)!;
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     dI<AppNavigation>().pop(currentContext);
-    setState(() {
-      checkLoad = true;
-    });
+    setCheckLoad();
     Completer completer = Completer<bool>();
     dI<RequisitionBloc>().add(
       UserRejectRequestEvent(
@@ -277,16 +283,11 @@ class _RequisitionInformationPageState
     );
     final statusCompleter = await completer.future;
     if (statusCompleter) {
-      setState(() {
-        dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
-        checkLoad = false;
-        checkSuccess = true;
-      });
+      dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
+      approverSuccess(title: appLocalizations.revokeRequestSuccess);
     } else {
-      setState(() {
-        checkLoad = false;
-        checkUnSuccess = true;
-      });
+      approverUnsuccessful(
+          errorDialog: errorDialog, title: appLocalizations.revokeRequestUnsuccessful);
     }
   }
 
@@ -296,11 +297,48 @@ class _RequisitionInformationPageState
     });
   }
 
-  _setApprove(
-      String id, EnumStepRequestStatusEnum status, BuildContext context) async {
-    setState(() {
-      checkLoad = true;
-    });
+  cancelDialog(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: TitleCallbackDialog(
+            title: appLocalizations.doYouWantRevokeYourRequest,
+            callback: () => cancelRequest(context: context),
+          ),
+        );
+      },
+    );
+  }
+
+  cancelRequest({required BuildContext context}) async {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dI<AppNavigation>().pop(currentContext);
+    setCheckLoad();
+    final Completer completer = Completer<bool>();
+    dI<RequisitionApproveBloc>().add(
+      CancelRequestEvent(
+        requestId: widget.id,
+        completer: completer,
+      ),
+    );
+    final statusCompleter = await completer.future;
+    if (statusCompleter == true) {
+      dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
+      approverSuccess(title: appLocalizations.revokeRequestSuccess);
+    }
+    if (statusCompleter == false) {
+      approverUnsuccessful(
+          errorDialog: errorDialog, title: appLocalizations.revokeRequestUnsuccessful);
+    }
+  }
+
+  _setApprove(String id, EnumStepRequestStatusEnum status, BuildContext context) async {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dI<AppNavigation>().pop(currentContext);
+    setCheckLoad();
     final Completer completer = Completer<bool>();
     dI<RequisitionApproveBloc>().add(
       ApproveRequestEvent(
@@ -314,16 +352,12 @@ class _RequisitionInformationPageState
     final statusCompleter = await completer.future;
     if (statusCompleter == true) {
       dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
-      setState(() {
-        checkLoad = false;
-        checkSuccess = true;
-      });
+      approverSuccess();
     }
     if (statusCompleter == false) {
-      setState(() {
-        checkLoad = false;
-        checkUnSuccess = true;
-      });
+      approverUnsuccessful(
+        errorDialog: errorDialog,
+      );
     }
   }
 
@@ -474,6 +508,12 @@ class _RequisitionInformationPageState
   setCheckUnSuccess() {
     setState(() {
       checkUnSuccess = false;
+    });
+  }
+
+  listener(String errorCode) {
+    setState(() {
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
     });
   }
 }

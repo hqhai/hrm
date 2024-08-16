@@ -49,4 +49,9 @@ abstract class RequisitionService {
 
   Future<RequestsResponse> getRequestsByIds(
       {required GetRequestsByIds getRequestsByIds});
+
+  Future<void> cancelRequestsById({
+    required String id,
+  });
+
 }

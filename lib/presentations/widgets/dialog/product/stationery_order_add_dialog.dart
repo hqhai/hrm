@@ -96,63 +96,59 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
       borderColors: colors.text.withOpacity(0.4),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-              ItemAdd(
-                checkTypeContainer: checkTypeContainer,
-                title:  checkTypeContainer
-                    ? appLocalizations.product
-                    : product.isEmpty
-                    ? appLocalizations.product
-                    : product,
-                callback: () => setTypeContainer(),
-                errorProduct: errorProduct,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+            ItemAdd(
+              checkTypeContainer: checkTypeContainer,
+              title:  checkTypeContainer
+                  ? appLocalizations.product
+                  : product.isEmpty
+                  ? appLocalizations.product
+                  : product,
+              callback: () => setTypeContainer(),
+            ),
+          if (checkTypeContainer)
+            ItemAddStationeryDialog(
+              check: true,
+              onChangeProduct: (value) => setProduct(value, context),
+              onchangeUnit: (value) => setUnit(value, context),
+              onChangeUnitPrice: (value) => setUnitPrice(value, context),
+              productController: productController,
+              unitController: unitController,
+              unitPriceController: unitPriceController,
+              callBack: () => _showBottomSheet(context),
+            ),
+          if (checkTypeContainer)
+            ItemCreateTotalMinute(
+              error: errorNumberOf,
+              title: appLocalizations.numberOf,
+              totalMinuteController: numberOfController,
+              onChange: (value) => _setNumber(value, context),
+            ),
+          if (checkTypeContainer)
+            ItemIntoMoney(
+              title: appLocalizations.intoMoneyNoVAT,
+              content: intoMoney.toInt().toString(),
+            ),
+          if (checkTypeContainer)
+            ItemCreateInput(
+              title: appLocalizations.note,
+              inputController: noteController,
+              onChange: (value) => _setNote(value),
+            ),
+          if (checkTypeContainer)
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              child: AppButton(
+                title: appLocalizations.cancel,
+                onSubmit: () => widget.callBack.call(),
+                color: colors.error.withOpacity(0.7),
               ),
-            if (checkTypeContainer)
-              ItemAddStationeryDialog(
-                check: true,
-                onChangeProduct: (value) => setProduct(value, context),
-                onchangeUnit: (value) => setUnit(value, context),
-                onChangeUnitPrice: (value) => setUnitPrice(value, context),
-                productController: productController,
-                unitController: unitController,
-                unitPriceController: unitPriceController,
-                callBack: () => _showBottomSheet(context),
-              ),
-            if (checkTypeContainer)
-              ItemCreateTotalMinute(
-                error: errorNumberOf,
-                title: appLocalizations.numberOf,
-                totalMinuteController: numberOfController,
-                onChange: (value) => _setNumber(value, context),
-              ),
-            if (checkTypeContainer)
-              ItemIntoMoney(
-                title: appLocalizations.intoMoneyNoVAT,
-                content: intoMoney.toInt().toString(),
-              ),
-            if (checkTypeContainer)
-              ItemCreateInput(
-                title: appLocalizations.note,
-                inputController: noteController,
-                onChange: (value) => _setNote(value),
-              ),
-            if (checkTypeContainer)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
-                child: AppButton(
-                  title: appLocalizations.cancel,
-                  onSubmit: () => widget.callBack.call(),
-                  color: colors.error.withOpacity(0.7),
-                ),
-              )
-          ],
-        ),
+            )
+        ],
       ),
     );
   }

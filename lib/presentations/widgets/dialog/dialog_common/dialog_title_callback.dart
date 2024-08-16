@@ -3,7 +3,6 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/button_request.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -21,7 +20,8 @@ class TitleCallbackDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return ContainerBorder(
+    return Padding(
+      padding: const EdgeInsets.only(left: SpacingUnit.x4, right: SpacingUnit.x4, top: SpacingUnit.x4),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -32,6 +32,7 @@ class TitleCallbackDialog extends StatelessWidget {
               fontSize: SpacingUnit.x5,
             ),
           ),
+          const SizedBox(height: SpacingUnit.x4,),
           ButtonRequest(
             title1: appLocalizations.apply,
             title2: appLocalizations.cancel,

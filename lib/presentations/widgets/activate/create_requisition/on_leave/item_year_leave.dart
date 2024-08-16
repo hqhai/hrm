@@ -43,7 +43,9 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          appLocalizations.reason,
+          widget.type == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave
+              ? appLocalizations.slectLeave
+              : appLocalizations.reason,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x4,
@@ -64,10 +66,22 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
             type2: EnumReasonLeave.socialInsuranceLeave,
           ),
         if (type == EnumReasonLeave.socialInsuranceLeave &&
-            widget.type == EnumTakeLeaveType.unpaidLeave)
+            widget.type == EnumTakeLeaveType.unpaidLeave) ...[
+          const SizedBox(
+            height: SpacingUnit.x4,
+          ),
+          Text(
+            appLocalizations.detailedReason,
+            style: TextStyle(
+              color: colors.text,
+              fontSize: SpacingUnit.x4,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           itemSocialInsuranceLeave(
             context: context,
           ),
+        ],
         if (widget.type == EnumTakeLeaveType.otherPaidLeave)
           item(
             context: context,
@@ -113,8 +127,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
                   leading: Radio<EnumSocialInsuranceLeave>(
                     value: e,
                     groupValue: socialInsuranceLeave,
-                    onChanged: (EnumSocialInsuranceLeave? value) =>
-                        _setSocialInsuranceLeave(value),
+                    onChanged: (EnumSocialInsuranceLeave? value) => _setSocialInsuranceLeave(value),
                   ),
                 ),
               ),

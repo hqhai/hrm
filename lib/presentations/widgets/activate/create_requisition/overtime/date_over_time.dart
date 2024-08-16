@@ -25,7 +25,7 @@ class DateOverTime extends StatelessWidget {
           oldDate: dateOld,
           onChange: (value) => setDate(value),
         ),
-        if (errorDate != '')
+        if (errorDate.isNotEmpty)
           Text(
             errorDate,
             style: TextStyle(
