@@ -150,7 +150,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
             paddingHorizontal: 0,
             child: Center(
               child: ListTile(
-                contentPadding: EdgeInsets.zero,
+                contentPadding: const EdgeInsets.only(right: SpacingUnit.x2),
                 title: Text(
                   '${type1.configEnumTakeLeaveName} ',
                   style: TextStyle(
@@ -177,7 +177,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
             paddingVertical: 0,
             child: Center(
               child: ListTile(
-                contentPadding: EdgeInsets.zero,
+                contentPadding: const EdgeInsets.only(right: SpacingUnit.x2),
                 title: Text(
                   '${type2.configEnumTakeLeaveName} ',
                   style: TextStyle(

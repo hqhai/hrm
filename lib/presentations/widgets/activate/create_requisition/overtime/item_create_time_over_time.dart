@@ -3,23 +3,22 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/custom/time_picker_hour_minute.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateTimeOverTime extends StatefulWidget {
   const ItemCreateTimeOverTime(
       {super.key,
-      this.endTimeOld,
-      this.startTimeOld,
+      required this.endTime,
+      required this.startTime,
       this.error,
       this.total,
-      this.startTime,
-      this.endTime,
+      required this.setStartTime,
+      required this.setEndTime,
       this.title,
       required this.dayOrHours});
 
-  final String? startTimeOld, endTimeOld;
-  final ValueChanged<String>? startTime, endTime;
+  final DateTime startTime, endTime;
+  final ValueChanged<DateTime> setStartTime, setEndTime;
   final ValueChanged<int>? total;
   final String? title, error;
   final bool dayOrHours;
@@ -31,28 +30,11 @@ class ItemCreateTimeOverTime extends StatefulWidget {
 class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
   DateTime startTime = DateTime.now(), endTime = DateTime.now();
 
-  String setStartTimeOld() {
-    setState(() {
-      startTime = DateTime.parse(
-        widget.startTimeOld ?? DateTime.now().toString(),
-      );
-    });
-    return widget.startTimeOld ??
-        DateFormat('yyyy-MM-dd HH:mm').format(
-          DateTime.now(),
-        );
-  }
-
-  String setEndTimeOld() {
-    setState(() {
-      endTime = DateTime.parse(
-        widget.endTimeOld ?? DateTime.now().toString(),
-      );
-    });
-    return widget.endTimeOld ??
-        DateFormat('yyyy-MM-dd HH:mm').format(
-          DateTime.now(),
-        );
+  @override
+  void initState() {
+    startTime = widget.startTime;
+    endTime = widget.endTime;
+    super.initState();
   }
 
   @override
@@ -86,7 +68,7 @@ class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
               flex: 2,
               child: TimePickerHourMinute(
                 onChange: (value) => _setStart(value),
-                //timeSlot: setStartTimeOld(),
+                timeSlot: widget.startTime,
               ),
             ),
           ],
@@ -108,8 +90,8 @@ class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
             Expanded(
               flex: 2,
               child: TimePickerHourMinute(
+                timeSlot: widget.endTime,
                 onChange: (value) => _setEnd(value),
-                //timeSlot: setEndTimeOld(),
               ),
             ),
           ],
@@ -149,8 +131,7 @@ class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
         ),
         if (widget.error != '')
           Padding(
-            padding: const EdgeInsets.only(
-                top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),
+            padding: const EdgeInsets.only(top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),
             child: Text(
               widget.error ?? "",
               style: TextStyle(
@@ -163,20 +144,20 @@ class _ItemCreateTimeOverTimeState extends State<ItemCreateTimeOverTime> {
     );
   }
 
-  _setStart(String value) {
+  _setStart(DateTime value) {
     setState(() {
-      widget.startTime?.call(value);
-      startTime = DateTime.parse(value);
+      widget.setStartTime.call(value);
+      startTime = value;
       widget.total?.call(widget.dayOrHours
           ? endTime.difference(startTime).inDays
           : endTime.difference(startTime).inHours);
     });
   }
 
-  _setEnd(String value) {
+  _setEnd(DateTime value) {
     setState(() {
-      widget.endTime?.call(value);
-      endTime = DateTime.parse(value);
+      widget.setEndTime.call(value);
+      endTime = value;
       widget.total?.call(widget.dayOrHours
           ? endTime.difference(startTime).inDays
           : endTime.difference(startTime).inHours);

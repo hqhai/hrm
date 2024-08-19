@@ -6,13 +6,13 @@ class TimeOverTime extends StatelessWidget {
   const TimeOverTime(
       {super.key,
       this.title = '',
-      this.dateOld = '',
+      required this.dateOld,
       required this.changeValue,
       this.requiredValidate = false});
 
   final String title;
-  final String dateOld;
-  final ValueChanged<String> changeValue;
+  final DateTime dateOld;
+  final ValueChanged<DateTime> changeValue;
   final bool requiredValidate;
 
   @override
@@ -32,11 +32,7 @@ class TimeOverTime extends StatelessWidget {
     );
   }
 
-  setDate(String value) {
-    changeValue.call(value);
-  }
-
-  _setTime(String value) {
+  _setTime(DateTime value) {
     changeValue.call(value);
   }
 }

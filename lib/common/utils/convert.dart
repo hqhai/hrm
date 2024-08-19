@@ -28,6 +28,21 @@ String? strSeconds(int? time) {
   return null;
 }
 
+///Từ int sang DateTime
+DateTime secondToDateTime({int time = 0}) {
+  final Duration duration = Duration(seconds: time);
+  final DateTime now = DateTime.now();
+  final DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
+  final DateTime result = startOfDay.add(duration);
+  return result;
+}
+
+///DateTime sang int
+int dateTimeToSeconds({required DateTime time}) {
+  final timeZero = DateTime(time.year, time.month, time.day, 0 , 0, 0);
+  return time.difference(timeZero).inSeconds;
+}
+
 ///SO sánh có cùng ngày không
 bool isAtSameMomentAsDay({
   DateTime? start,
