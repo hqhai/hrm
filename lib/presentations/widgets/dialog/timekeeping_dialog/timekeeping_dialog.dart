@@ -9,7 +9,6 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/stati
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_time_sheets.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class TimeKeepingDialog extends StatefulWidget {
@@ -81,12 +80,12 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
               errorProduct: errorDate,
             ),
             TimeOverTime(
-              dateOld: strSeconds(startTime)??"",
+              dateOld: secondToDateTime(time: startTime),
               changeValue: (value) => _setStart(value),
               title: appLocalizations.startTime,
             ),
             TimeOverTime(
-              dateOld: strSeconds(endTime) ?? "",
+              dateOld: secondToDateTime(time: endTime),
               changeValue: (value) => _setEnd(value),
               title: appLocalizations.endTime,
             ),
@@ -113,13 +112,6 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
     );
   }
 
-  int _timeToSeconds(String time) {
-    final DateFormat format = DateFormat('HH:mm:ss');
-    final DateTime t1 = format.parse(time);
-    final DateTime t2 = format.parse("00:00:00");
-    return t1.difference(t2).inSeconds;
-  }
-
   setAdd(BuildContext context) {
     if (checkOnClick(context)) {
       widget.onChangeOverTimes?.call(RequisitionOverTime(
@@ -144,16 +136,16 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
     });
   }
 
-  _setStart(String value) {
+  _setStart(DateTime value) {
     setState(() {
-      startTime = _timeToSeconds(value);
+      startTime = dateTimeToSeconds(time: value);
       suggestTime = double.parse((endTime - startTime).toString());
     });
   }
 
-  _setEnd(String value) {
+  _setEnd(DateTime value) {
     setState(() {
-      endTime = _timeToSeconds(value);
+      endTime = dateTimeToSeconds(time: value);
       suggestTime = double.parse((endTime - startTime).toString());
     });
   }

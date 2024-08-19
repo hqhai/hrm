@@ -32,7 +32,6 @@ import 'package:base_app/presentations/pages/home/home.page.dart';
 import 'package:base_app/presentations/pages/login/login.page.dart';
 import 'package:base_app/presentations/pages/login/register_biometric.page.dart';
 import 'package:base_app/presentations/pages/main.page.dart';
-import 'package:base_app/presentations/pages/personnel/create_personnel.page.dart';
 import 'package:base_app/presentations/pages/position/create_position.page.dart';
 import 'package:base_app/presentations/pages/position/update_position.page.dart';
 import 'package:base_app/presentations/pages/profile/update_profile.page.dart';
@@ -70,7 +69,6 @@ class AppRouters {
     Pages.informationDepartmentPage: informationDepartmentPageRoute,
     Pages.createPositionPage: createPositionPageRoute,
     Pages.updatePositionPage: updatePositionPageRoute,
-    Pages.createPersonnelPage: createPersonnelPageRoute,
     Pages.forgotPasswordPage: forgotPasswordPageRoute,
     Pages.updateNotesPage: updateNotePageRoute,
     Pages.changePasswordPage: changePasswordPageRoute,

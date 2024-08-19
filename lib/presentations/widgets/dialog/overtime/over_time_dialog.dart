@@ -13,7 +13,6 @@ import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class OverTimeAddDialog extends StatefulWidget {
@@ -136,7 +135,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                 ),
                 TimeOverTime(
                   requiredValidate: true,
-                  dateOld: strSeconds(startTime),
+                  dateOld: secondToDateTime(time: startTime),
                   changeValue: (value) => _setStart(value),
                   title: appLocalizations.startTime,
                 ),
@@ -145,7 +144,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                 ),
                 TimeOverTime(
                   requiredValidate: true,
-                  dateOld: strSeconds(endTime),
+                  dateOld: secondToDateTime(time: endTime),
                   changeValue: (value) => _setEnd(value),
                   title: appLocalizations.endTime,
                 ),
@@ -206,13 +205,6 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     );
   }
 
-  int _timeToSeconds(String time) {
-    final DateFormat format = DateFormat('HH:mm:ss');
-    final DateTime t1 = format.parse(time);
-    final DateTime t2 = format.parse("00:00:00");
-    return t1.difference(t2).inSeconds;
-  }
-
   String strSeconds(int time) {
     final Duration duration = Duration(seconds: time);
     final DateTime now = DateTime.now();
@@ -255,9 +247,9 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     );
   }
 
-  _setStart(String value) {
+  _setStart(DateTime value) {
     setState(() {
-      startTime = _timeToSeconds(value);
+      startTime = dateTimeToSeconds(time: value);
       suggestTime = double.parse((endTime - startTime).toString());
     });
     checkOnClick(context);
@@ -273,9 +265,9 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     );
   }
 
-  _setEnd(String value) {
+  _setEnd(DateTime value) {
     setState(() {
-      endTime = _timeToSeconds(value);
+      endTime = dateTimeToSeconds(time: value);
       suggestTime = double.parse((endTime - startTime).toString());
     });
     checkOnClick(context);

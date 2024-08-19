@@ -151,7 +151,7 @@ class ItemCalender extends StatelessWidget {
       case UserWorkingHistoryStatus.early:
         return colors.tertiary;
       case UserWorkingHistoryStatus.forgotChecking:
-        return colors.tertiary;
+        return colors.error;
       case UserWorkingHistoryStatus.offWork:
         return colors.surface;
       case UserWorkingHistoryStatus.isRequest:

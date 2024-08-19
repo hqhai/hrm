@@ -19,7 +19,6 @@ class ColorAndTitle {
       MapColorAndTitle(color: colors.sunriseYellow, title: appLocalizations.holiday),
       MapColorAndTitle(color: colors.goldenPurple, title: appLocalizations.workOffset),
       MapColorAndTitle(color: colors.cyan, title: appLocalizations.noAttendance),
-      MapColorAndTitle(color: colors.error, title: appLocalizations.invalid),
     ];
     return colorAndTitle;
   }

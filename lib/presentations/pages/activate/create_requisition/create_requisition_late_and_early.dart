@@ -219,12 +219,12 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                               changeValue: (value) => setDate(value),
                             ),
                             TimeOverTime(
-                              dateOld: strSeconds(startTime) ?? "",
+                              dateOld: secondToDateTime(time: startTime),
                               changeValue: (value) => _setStart(value),
                               title: appLocalizations.startTime,
                             ),
                             TimeOverTime(
-                              dateOld: strSeconds(endTime) ?? "",
+                              dateOld: secondToDateTime(time: endTime),
                               changeValue: (value) => _setEnd(value),
                               title: appLocalizations.endTime,
                             ),
@@ -301,15 +301,15 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     });
   }
 
-  _setStart(String value) {
+  _setStart(DateTime value) {
     setState(() {
-      startTime = timeToSeconds(value);
+      startTime = dateTimeToSeconds(time: value);
     });
   }
 
-  _setEnd(String value) {
+  _setEnd(DateTime value) {
     setState(() {
-      endTime = timeToSeconds(value);
+      endTime = dateTimeToSeconds(time: value);
     });
   }
 

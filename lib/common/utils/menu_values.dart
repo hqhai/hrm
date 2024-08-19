@@ -1,11 +1,6 @@
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/activate.widget.dart';
-import 'package:base_app/presentations/widgets/admin/check_in_setting/check_in_setting.widget.dart';
-import 'package:base_app/presentations/widgets/admin/department/department.widget.dart';
-import 'package:base_app/presentations/widgets/admin/personnel/personnel.widget.dart';
-import 'package:base_app/presentations/widgets/admin/position/position.widget.dart';
-import 'package:base_app/presentations/widgets/attendance/calendar/timekeeping.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calendar_work.widget.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
 import 'package:base_app/presentations/widgets/home/home.widget.dart';
@@ -163,15 +158,6 @@ class MenuValues {
     LayoutCalendar(),
     ChangePassword(),
   ];*/
-
-  static const List<Widget> widgetOptionsGeneralManager = <Widget>[
-    TimekeepingWidget(),
-    CheckInSettingWidget(),
-    PersonnelWidget(),
-    PositionWidget(),
-    DepartmentWidget(),
-    ChangePassword(),
-  ];
 
   static List<String> listTypeRequest = [
     TypeRequestStatus.cRM.name,
