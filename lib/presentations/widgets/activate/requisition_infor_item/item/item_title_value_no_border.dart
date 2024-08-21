@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemTitleValueNoBorder extends StatelessWidget {
-  const ItemTitleValueNoBorder({super.key, required this.title, required this.value, this.size, this.font});
+  const ItemTitleValueNoBorder(
+      {super.key, required this.title, required this.value, this.size, this.font});
 
   final String title, value;
   final double? size;
@@ -13,8 +14,7 @@ class ItemTitleValueNoBorder extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
-      padding:
-      const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

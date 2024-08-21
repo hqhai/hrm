@@ -8,16 +8,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker(
-      {super.key,
-      this.check = true,
-      required this.onChange,
-      this.oldDate,
-      this.checkError = true});
+  const DatePicker({
+    super.key,
+    this.check = true,
+    required this.onChange,
+    this.oldDate,
+    this.checkError = true,
+    this.callBack,
+    this.changeType = false,
+    this.typeContainer = false,
+  });
 
   final ValueChanged<DateTime> onChange;
   final DateTime? oldDate;
-  final bool check, checkError;
+  final bool check, changeType, typeContainer, checkError;
+  final VoidCallback? callBack;
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -70,9 +75,20 @@ class _DatePickerState extends State<DatePicker> {
               style: TextStyle(
                   fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600),
             ),
-            SvgPicture.asset(
-              Assets.images.icon.home.bottomBar.calendar,
-              colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+            InkWell(
+              onTap: () => widget.callBack?.call(),
+              child: SvgPicture.asset(
+                height: SpacingUnit.x6,
+                width: SpacingUnit.x6,
+                !widget.changeType
+                    ? Assets.images.icon.home.bottomBar.calendar
+                    : widget.typeContainer
+                        ? Assets.images.icon.activateIcon.drop
+                        : Assets.images.icon.home.chevronForward,
+                colorFilter: ColorFilter.mode(
+                    !widget.changeType ? colors.text.withOpacity(0.4) : colors.text,
+                    BlendMode.srcIn),
+              ),
             ),
           ],
         ),

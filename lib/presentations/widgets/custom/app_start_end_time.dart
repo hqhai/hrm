@@ -11,6 +11,7 @@ class AppStartEndTime extends StatefulWidget {
   final int startTime, endTime;
   final double numberValue;
   final ValueChanged<int> setStartTime, setEndTime;
+  final bool checkNumberValue;
 
   const AppStartEndTime({
     super.key,
@@ -23,6 +24,7 @@ class AppStartEndTime extends StatefulWidget {
     this.errorTime = '',
     required this.setStartTime,
     required this.setEndTime,
+    this.checkNumberValue = true,
   });
 
   @override
@@ -71,40 +73,52 @@ class _AppStartEndTimeState extends State<AppStartEndTime> {
             title: widget.title2,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-          child: Text.rich(
-            TextSpan(
-              children: [
-                if (widget.errorTime.isNotEmpty)
-                  TextSpan(
-                    text: widget.errorTime,
-                    style: TextStyle(
-                      color: colors.error,
-                      fontSize: SpacingUnit.x3,
-                    ),
-                  ),
-                if (widget.errorTime.isEmpty) ...[
-                  TextSpan(
-                    text: '${widget.title3}: ',
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
-                    ),
-                  ),
-                  TextSpan(
-                    text: widget.errorTime.isEmpty ? strSeconds(widget.numberValue.toInt()) : '0',
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ],
+        if (!widget.checkNumberValue && widget.errorTime.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+            child: Text(
+              widget.errorTime,
+              style: TextStyle(
+                color: colors.error,
+                fontSize: SpacingUnit.x3,
+              ),
             ),
           ),
-        ),
+        if (widget.checkNumberValue)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  if (widget.errorTime.isNotEmpty)
+                    TextSpan(
+                      text: widget.errorTime,
+                      style: TextStyle(
+                        color: colors.error,
+                        fontSize: SpacingUnit.x3,
+                      ),
+                    ),
+                  if (widget.errorTime.isEmpty) ...[
+                    TextSpan(
+                      text: '${widget.title3}: ',
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                      ),
+                    ),
+                    TextSpan(
+                      text: widget.errorTime.isEmpty ? strSeconds(widget.numberValue.toInt()) : '0',
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
       ],
     );
   }

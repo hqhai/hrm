@@ -560,5 +560,7 @@
   "makeUpWorkDate": "Ngày làm bù",
   "totalMakeUpWorkTime": "Số giờ làm bù",
   "youDoNotHaveAShift": "Bạn không có ca làm việc vào ngày này!",
-  "shiftWasLeave": "Ca đã nghỉ"
+  "shiftWasLeave": "Ca đã nghỉ",
+  "realCheckIn": "Giờ Check-in thực tế",
+  "realCheckOut": "Giờ Check-out thực tế"
 }

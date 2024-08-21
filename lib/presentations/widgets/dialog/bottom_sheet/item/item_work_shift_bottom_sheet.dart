@@ -51,7 +51,7 @@ class ItemSheetWorkShiftBSWidget extends StatelessWidget {
                           check: false,
                           index: index,
                           value:
-                              '${strSeconds(element.startTime)} - ${strSeconds(element.endTime)}'),
+                              '${strSeconds(element.checkIn)} - ${strSeconds(element.checkOut)}'),
                     ),
                   )
                   .toList(),

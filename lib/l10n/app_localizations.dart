@@ -3440,6 +3440,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shift was leave'**
   String get shiftWasLeave;
+
+  /// No description provided for @realCheckIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Real CheckIn'**
+  String get realCheckIn;
+
+  /// No description provided for @realCheckOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Real CheckOut'**
+  String get realCheckOut;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
