@@ -23,11 +23,11 @@ class RequisitionInformationContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              appLocalizations.content,
+              appLocalizations.detailedDescription,
               style: TextStyle(
                 color: colors.text,
                 fontSize: SpacingUnit.x4,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w600,
               ),
             ),
             Padding(

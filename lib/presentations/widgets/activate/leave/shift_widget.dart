@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
@@ -9,11 +10,16 @@ import 'package:themes/themes.dart';
 
 class ShiftWidget extends StatelessWidget {
   const ShiftWidget(
-      {super.key, required this.context, required this.title, required this.workShift});
+      {super.key,
+      required this.context,
+      required this.title,
+      required this.workShift,
+      this.reason});
 
   final BuildContext context;
   final String title;
   final WorkShiftRegisteredDetail workShift;
+  final EditTimekeeping? reason;
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +30,15 @@ class ShiftWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if(title.isNotEmpty)
-          Text(
-            title,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-              fontWeight: FontWeight.w600,
+          if (title.isNotEmpty)
+            Text(
+              title,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
           ItemTitleValueNoBorder(
             size: SpacingUnit.x4,
             title: appLocalizations.date,
@@ -44,6 +50,14 @@ class ShiftWidget extends StatelessWidget {
             value:
                 '${strSeconds(workShift.startTime) ?? ""} - ${strSeconds(workShift.endTime) ?? ""}',
           ),
+          if (reason != null)
+            ItemTitleValueNoBorder(
+              size: SpacingUnit.x4,
+              title: reason == EditTimekeeping.late
+                  ? appLocalizations.minutesToLate
+                  : appLocalizations.minutesToEarly,
+              value: workShift.numberTime.toString(),
+            ),
         ],
       ),
     );

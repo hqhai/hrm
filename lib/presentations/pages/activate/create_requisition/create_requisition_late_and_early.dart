@@ -5,7 +5,6 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -26,10 +25,10 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time_keeping_type.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/make_up_work/item_work_shift_a_date.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/late_early/work_shift_late_early.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/date_over_time.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
+import 'package:base_app/presentations/widgets/custom/app_start_end_time.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_reason.dart';
@@ -72,8 +71,12 @@ class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
 
 class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLateAndEarlyPage> {
   final TextEditingController detailedDescriptionController = TextEditingController();
-  String errorTime = '', errorDestination = '', errorDialog = '', errorShift = '';
-  DateTime? workDate, endDate;
+  String errorTime = '',
+      errorDestination = '',
+      errorDialog = '',
+      errorShift = '',
+      errorListener = '';
+  DateTime workDate = DateTime.now(), endDate = DateTime.now();
   String? description;
   List<String> followers = [];
   int startTime = 0, endTime = 0;
@@ -83,18 +86,19 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   List<WorkShiftRegisteredDetail> listWorkShift = [];
   List<bool> checkTypeContainer = [];
   EnumReason reason = EnumReason.individual;
+  double numberValue = 0;
+  bool checkRequiredMakeUp = false;
 
   @override
   void initState() {
     if (widget.requestId.isNotEmpty) {
       final request = dI<RequisitionBloc>().state.requisition;
-      workDate = request.config.startDate;
+      workDate = request.config.startDate ?? DateTime.now();
       description = request.config.description;
       detailedDescriptionController.text = description ?? "";
       followers = [...request.followerIds];
       type = request.config.explanationReason ?? EditTimekeeping.late;
-      endDate = request.config.endDate;
-      endDate = request.config.endDate;
+      endDate = request.config.endDate ?? DateTime.now();
       startTime = request.config.startTime;
       listWorkShift = [...request.config.workShiftSettings];
       checkShirtFirst = false;
@@ -105,6 +109,11 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   _listener(String errorCode) {
     setState(() {
       errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+      if (errorCode == 'MakeupDayCanNotRecedeRequestDate') {
+        errorListener = errorCode;
+      } else {
+        errorListener = '';
+      }
     });
   }
 
@@ -160,17 +169,19 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                         ),
                       ),
                     ),
-                    const SizedBox(height: SpacingUnit.x4,),
+                    const SizedBox(
+                      height: SpacingUnit.x4,
+                    ),
                     TitleRequired(
                       title: '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
                       requiredValidate: true,
                     ),
                     DateOverTime(
-                      dateOld: workDate ?? DateTime.now(),
+                      dateOld: workDate,
                       changeValue: (value) => _setWorkDate(value),
                       errorDate: errorShift,
                     ),
-                    if (workDate != null && !checkShirtFirst)
+                    if (!checkShirtFirst)
                       !checkShirt
                           ? Center(
                               child: Shimmer.fromColors(
@@ -186,10 +197,48 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                                 ),
                               ),
                             )
-                          : ItemWorkShiftADate(
+                          : WorkShiftLateEarly(
+                              typeLE: type,
                               type: widget.type,
                               workShiftSettings: (value) => setListIds(value),
                             ),
+                    if (type == EditTimekeeping.early)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TitleRequired(
+                              title: appLocalizations.replaceDay,
+                              requiredValidate: checkRequiredMakeUp,
+                            ),
+                            DateOverTime(
+                              errorDate: '',
+                              dateOld: endDate,
+                              changeValue: (value) => setDate(value),
+                            ),
+                            AppStartEndTime(
+                              checkRequired: checkRequiredMakeUp,
+                              checkNumberValue: false,
+                              endTime: endTime,
+                              startTime: startTime,
+                              numberValue: 0,
+                              title1: appLocalizations.startTime,
+                              title2: appLocalizations.endTime,
+                              title3: appLocalizations.totalMakeUpWorkTime,
+                              setEndTime: (value) => _setEndTime(
+                                value: value,
+                                title: appLocalizations.endTimeMustBeAfterStartTime,
+                              ),
+                              setStartTime: (value) => _setStartTime(
+                                value: value,
+                                title: appLocalizations.endTimeMustBeAfterStartTime,
+                              ),
+                              errorTime: errorListener != '' ? errorListener : errorTime,
+                            ),
+                          ],
+                        ),
+                      ),
                     const SizedBox(
                       height: SpacingUnit.x4,
                     ),
@@ -200,45 +249,6 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       title: appLocalizations.detailedDescription,
                       onChange: (value) => _setDetailedDescription(value),
                     ),
-                    if (type == EditTimekeeping.early)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              appLocalizations.replaceDay,
-                              style: TextStyle(
-                                  color: colors.text,
-                                  fontSize: SpacingUnit.x4,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            DateOverTime(
-                              errorDate: '',
-                              dateOld: endDate,
-                              changeValue: (value) => setDate(value),
-                            ),
-                            TimeOverTime(
-                              dateOld: secondToDateTime(time: startTime),
-                              changeValue: (value) => _setStart(value),
-                              title: appLocalizations.startTime,
-                            ),
-                            TimeOverTime(
-                              dateOld: secondToDateTime(time: endTime),
-                              changeValue: (value) => _setEnd(value),
-                              title: appLocalizations.endTime,
-                            ),
-                            if (errorTime.isNotEmpty)
-                              Text(
-                                errorTime,
-                                style: TextStyle(
-                                  color: colors.error,
-                                  fontSize: SpacingUnit.x3,
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
                     ItemCreateFollower(
                         listFollower: _setListUser(stateUserById.userById),
                         title: appLocalizations.follower,
@@ -301,15 +311,19 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     });
   }
 
-  _setStart(DateTime value) {
+  _setStartTime({required int value, required String title}) {
     setState(() {
-      startTime = dateTimeToSeconds(time: value);
+      startTime = value;
+      numberValue = double.parse((endTime - startTime).toString());
+      errorTime = numberValue > 0 ? '' : title;
     });
   }
 
-  _setEnd(DateTime value) {
+  _setEndTime({required int value, required String title}) {
     setState(() {
-      endTime = dateTimeToSeconds(time: value);
+      endTime = value;
+      numberValue = double.parse((endTime - startTime).toString());
+      errorTime = numberValue > 0 ? '' : title;
     });
   }
 
@@ -358,10 +372,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
+      completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
         requestId: widget.requestId,
         errorDialog: errorDialog,
@@ -377,14 +388,14 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     setState(() {
       workDate = value;
     });
-    if (checkShirt && workDate != null) {
+    if (checkShirt) {
       setState(() {
         checkShirt = false;
         checkShirtFirst = false;
       });
       Completer completer = Completer<bool>();
       dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: workDate!, startDate: workDate!, completer: completer));
+          .add(GetWorkShiftsEvent(endDate: workDate, startDate: workDate, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {
@@ -410,5 +421,15 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     setState(() {
       listWorkShift = value;
     });
+    final index = listWorkShift.indexWhere((element) => element.numberTime > 60).toInt();
+    if (index != -1) {
+      setState(() {
+        checkRequiredMakeUp = true;
+      });
+    } else {
+      setState(() {
+        checkRequiredMakeUp = false;
+      });
+    }
   }
 }
