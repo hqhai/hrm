@@ -21,12 +21,12 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/pages/activate/leave/item_work_shift.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_time_keeping_type.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/make_up_work/item_work_shift_a_date.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/date_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/time_over_time.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
@@ -89,14 +89,14 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     if (widget.requestId.isNotEmpty) {
       final request = dI<RequisitionBloc>().state.requisition;
       workDate = request.config.startDate;
-      description = request.config.description ?? "";
+      description = request.config.description;
       detailedDescriptionController.text = description ?? "";
       followers = [...request.followerIds];
       type = request.config.explanationReason ?? EditTimekeeping.late;
       endDate = request.config.endDate;
       endDate = request.config.endDate;
       startTime = request.config.startTime;
-      listWorkShift = [...?request.config.workShiftSettings];
+      listWorkShift = [...request.config.workShiftSettings];
       checkShirtFirst = false;
     }
     super.initState();
@@ -186,7 +186,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                                 ),
                               ),
                             )
-                          : ItemWorkShift(
+                          : ItemWorkShiftADate(
                               type: widget.type,
                               workShiftSettings: (value) => setListIds(value),
                             ),

@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -53,6 +54,7 @@ class _RequisitionInformationContentTypeOverTimeState
                         children: overTimes
                             .mapIndexed(
                               (index, element) => ItemListOverTime(
+                                checkType: RequestType.oT,
                                 requisitionOverTime: state.requisition.config.overTimes![index],
                                 index: index,
                               ),

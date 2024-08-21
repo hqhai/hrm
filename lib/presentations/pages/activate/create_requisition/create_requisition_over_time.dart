@@ -67,7 +67,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
       followers = request.followerIds;
       requisitionOverTimes = [...?request.config.overTimes];
       checkTypeContainer = List.filled(requisitionOverTimes.length, true);
-      description = request.config.description ?? "";
+      description = request.config.description;
       inputController.text = description;
     }
     super.initState();

@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
@@ -42,7 +43,7 @@ class _RequisitionInformationContentTypeEarlyState
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
-        final workShiftSettings = state.requisition.config.workShiftSettings ?? [];
+        final workShiftSettings = state.requisition.config.workShiftSettings;
         final replace = RequisitionOverTime(
           date: state.requisition.config.endDate,
           startTime: state.requisition.config.startTime,
@@ -69,7 +70,7 @@ class _RequisitionInformationContentTypeEarlyState
               ItemTitleValue(
                 size: SpacingUnit.x4,
                 title: "",
-                value: state.requisition.config.reason.configEnumReasonName,
+                value: state.requisition.config.reason?.configEnumReasonName??"",
                 font: FontWeight.w600,
               ),
               Padding(
@@ -106,7 +107,7 @@ class _RequisitionInformationContentTypeEarlyState
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ItemListOverTime(requisitionOverTime: replace, index: 0, checkNotOT: true),
+              ItemListOverTime(requisitionOverTime: replace, index: 0, checkType: RequestType.early),
             ],
           ),
         );

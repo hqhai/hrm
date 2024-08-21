@@ -41,26 +41,26 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
               const SizedBox(
                 height: SpacingUnit.x4,
               ),
-              if (state.requisition.config.attachments?.isNotEmpty ?? false)
+              if (state.requisition.config.attachments.isNotEmpty)
                 SizedBox(
-                  height: width * state.requisition.config.attachments!.length * 0.3 * 0.5,
+                  height: width * state.requisition.config.attachments.length * 0.3 * 0.5,
                   child: GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       mainAxisSpacing: 1,
                       crossAxisSpacing: SpacingUnit.x10,
                     ),
-                    itemCount: state.requisition.config.attachments!.length,
+                    itemCount: state.requisition.config.attachments.length,
                     itemBuilder: (context, index) => InkWell(
                       onTap: () =>
-                          _onClickFLie(context, index, state.requisition.config.attachments!),
+                          _onClickFLie(context, index, state.requisition.config.attachments),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(SpacingUnit.x1),
                           color: colors.background,
                           border: Border.all(color: colors.text, width: 1),
                         ),
-                        child: _checkTypeFile(index, state.requisition.config.attachments!)
+                        child: _checkTypeFile(index, state.requisition.config.attachments)
                             ? Center(
                                 child: Text(
                                   appLocalizations.pdf,
@@ -72,7 +72,7 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
                                 ),
                               )
                             : Image.network(
-                                state.requisition.config.attachments![index],
+                                state.requisition.config.attachments[index],
                                 fit: BoxFit.fill,
                               ),
                       ),

@@ -70,11 +70,11 @@ class _CreateRequestVehicleDispatchPageState
   void initState() {
     if (widget.requestId.isNotEmpty) {
       final request = dI<RequisitionBloc>().state.requisition;
-      content = request.config.content ?? "";
-      contentController.text = request.config.content ?? "";
-      subtitudePersons = [...?request.config.subtitudePersons];
-      description = request.config.description ?? "";
-      descriptionController.text = request.config.description ?? "";
+      content = request.config.content;
+      contentController.text = request.config.content;
+      subtitudePersons = [...request.config.subtitudePersons];
+      description = request.config.description;
+      descriptionController.text = request.config.description;
       startTime = request.config.startDate;
       endTime = request.config.endDate;
       followers = [...request.followerIds];

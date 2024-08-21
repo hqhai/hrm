@@ -27,8 +27,8 @@ class _RequisitionInformationContentTypeStationeriesState
 
   @override
   void initState() {
-    if (dI<RequisitionBloc>().state.requisition.config.stationeries?.isNotEmpty ?? false) {
-      int count = dI<RequisitionBloc>().state.requisition.config.stationeries!.length;
+    if (dI<RequisitionBloc>().state.requisition.config.stationeries.isNotEmpty) {
+      int count = dI<RequisitionBloc>().state.requisition.config.stationeries.length;
       listCheck = List.filled(count, true);
     }
 
@@ -62,14 +62,14 @@ class _RequisitionInformationContentTypeStationeriesState
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              if (state.requisition.config.stationeries?.isNotEmpty ?? false)
+              if (state.requisition.config.stationeries.isNotEmpty)
                 Container(
                   padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
                   child: Column(
-                    children: state.requisition.config.stationeries!
+                    children: state.requisition.config.stationeries
                         .mapIndexed(
                           (index, element) => ItemListStationeriesExtend(
-                            stationeries: state.requisition.config.stationeries?[index],
+                            stationeries: state.requisition.config.stationeries[index],
                             index: index,
                           ),
                         )
@@ -104,7 +104,7 @@ class _RequisitionInformationContentTypeStationeriesState
 
   _listener(RequisitionState state) {
     setState(() {
-      final int count = state.requisition.config.stationeries!.length;
+      final int count = state.requisition.config.stationeries.length;
       listCheck = List.filled(count, true);
     });
   }

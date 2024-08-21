@@ -8,11 +8,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({super.key, this.check = true, required this.onChange, this.oldDate});
+  const DatePicker(
+      {super.key,
+      this.check = true,
+      required this.onChange,
+      this.oldDate,
+      this.checkError = true});
 
   final ValueChanged<DateTime> onChange;
   final DateTime? oldDate;
-  final bool check;
+  final bool check, checkError;
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -56,7 +61,7 @@ class _DatePickerState extends State<DatePicker> {
       onTap: () => dialog(context: context, currentTime: widget.oldDate ?? DateTime.now()),
       child: ContainerBorder(
         paddingVertical: SpacingUnit.x4_5,
-        borderColors: colors.text.withOpacity(0.4),
+        borderColors: widget.checkError ? colors.text.withOpacity(0.4) : colors.error,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

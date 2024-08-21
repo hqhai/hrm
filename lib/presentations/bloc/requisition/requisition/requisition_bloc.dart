@@ -124,7 +124,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       dI<FlowBloc>().add(GetFlowEvent(id: request.flowId));
       dI<UserByIdBloc>().add(
         GetSubtitudePersonsByIdEvent(
-          ids: request.config.subtitudePersons ?? [],
+          ids: request.config.subtitudePersons,
         ),
       );
       dI<UserByIdBloc>().add(

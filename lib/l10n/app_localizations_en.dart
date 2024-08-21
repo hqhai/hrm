@@ -1653,4 +1653,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get outCompany => 'Outside Company';
+
+  @override
+  String get makeUpWork => 'Make up work';
+
+  @override
+  String get createMakeUpWork => 'Create makeup work request';
+
+  @override
+  String get reasonMakeUpWork => 'Makeup work reason ';
+
+  @override
+  String get leaveDate => 'Leave date';
+
+  @override
+  String get makeUpWorkDate => 'Make up work date';
+
+  @override
+  String get totalMakeUpWorkTime => 'Total make up work time';
+
+  @override
+  String get youDoNotHaveAShift => 'You don\'t have a shift in date!';
+
+  @override
+  String get shiftWasLeave => 'Shift was leave';
 }

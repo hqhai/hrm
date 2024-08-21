@@ -287,6 +287,13 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           type: RequisitionTypeEnum.leaveTwoDayToFourDay,
           page: Pages.createRequestLeavePage,
         );
+      case RequisitionTypeEnum.makeUpWork:
+        _push(
+          context: context,
+          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+          type: RequisitionTypeEnum.makeUpWork,
+          page: Pages.createRequestMakeUpWorkPage,
+        );
       case RequisitionTypeEnum.core:
       case null:
       case RequisitionTypeEnum.unknown:

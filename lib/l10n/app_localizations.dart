@@ -3392,6 +3392,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Outside Company'**
   String get outCompany;
+
+  /// No description provided for @makeUpWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Make up work'**
+  String get makeUpWork;
+
+  /// No description provided for @createMakeUpWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Create makeup work request'**
+  String get createMakeUpWork;
+
+  /// No description provided for @reasonMakeUpWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Makeup work reason '**
+  String get reasonMakeUpWork;
+
+  /// No description provided for @leaveDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave date'**
+  String get leaveDate;
+
+  /// No description provided for @makeUpWorkDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Make up work date'**
+  String get makeUpWorkDate;
+
+  /// No description provided for @totalMakeUpWorkTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Total make up work time'**
+  String get totalMakeUpWorkTime;
+
+  /// No description provided for @youDoNotHaveAShift.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have a shift in date!'**
+  String get youDoNotHaveAShift;
+
+  /// No description provided for @shiftWasLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift was leave'**
+  String get shiftWasLeave;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

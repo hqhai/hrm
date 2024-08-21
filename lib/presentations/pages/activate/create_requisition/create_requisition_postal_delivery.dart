@@ -59,9 +59,9 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   void initState() {
     if (widget.requestId.isNotEmpty) {
       final request = dI<RequisitionBloc>().state.requisition;
-      reason = request.config.description ?? "";
-      transferType = convertDeliveryType(request.config.deliveryType ?? "");
-      reasonController.text = request.config.description ?? "";
+      reason = request.config.description;
+      transferType = convertDeliveryType(request.config.deliveryType);
+      reasonController.text = request.config.description;
       followers = [...request.followerIds];
     }
     super.initState();

@@ -66,7 +66,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     if (widget.requestId.isNotEmpty) {
       final request = dI<RequisitionBloc>().state.requisition;
       followers = [...request.followerIds];
-      listRequisitionStationery = [...?request.config.stationeries];
+      listRequisitionStationery = [...request.config.stationeries];
       month = request.config.startDate ?? DateTime.now();
     }
     super.initState();
