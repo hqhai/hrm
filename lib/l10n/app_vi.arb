@@ -47,7 +47,7 @@
   "thereAreCurrentlyNoMeetingsScheduled": "Hiện tại chưa có cuộc họp nào được lên lịch",
   "scheduleAMeeting": "Lên lịch cho cuộc họp",
   "update": "Cập nhật",
-  "ok": "OK",
+  "ok": "Đồng ý",
   "cancel": "Hủy",
   "create": "Khởi tạo",
   "startTime": "Bắt đầu",
@@ -178,7 +178,7 @@
   "dialogWrongPasswordA": "Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ HCNS",
   "dialogWrongPasswordB": "để đặt lại mật khẩu",
   "newPasswordOtherConfirmPassword": "Mật khẩu mới khác mật khẩu xác nhận!",
-  "notRegisteredForBiometrics": "Bạn chưa đăng ký sinh trắc học, hãy đăng ký",
+  "notRegisteredForBiometrics": "Vui lòng đăng nhập ứng dụng để kích hoạt đăng nhập bằng sinh trắc học",
   "pleaseEnterYourUsernameAndPasswordHere": "Nhập tên đăng nhập và mật khẩu tại đây",
   "youWantToSaveTheAboveAccountForBiometrics": "Bạn muôn lưu tài khoản này cho đăng nhập sinh trắc học?",
   "yourBiometricAccountIsIncorrect": "Tài khoản sinh trắc học của bạn không chính xác",
@@ -562,5 +562,9 @@
   "youDoNotHaveAShift": "Bạn không có ca làm việc vào ngày này!",
   "shiftWasLeave": "Ca đã nghỉ",
   "realCheckIn": "Giờ Check-in thực tế",
-  "realCheckOut": "Giờ Check-out thực tế"
+  "realCheckOut": "Giờ Check-out thực tế",
+  "settingBiometric": "Cài đặt Touch Id/Face Id",
+  "cancelBiometricSuccessful": "Hủy đăng nhập bằng FaceId thành công",
+  "settingBiometricSuccessful": "Cài đặt đăng nhập bằng FaceId thành công",
+  "authAccount": "Xác thực tài khoản"
 }

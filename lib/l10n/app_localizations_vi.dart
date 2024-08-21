@@ -152,7 +152,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get update => 'Cập nhật';
 
   @override
-  String get ok => 'OK';
+  String get ok => 'Đồng ý';
 
   @override
   String get cancel => 'Hủy';
@@ -545,7 +545,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get newPasswordOtherConfirmPassword => 'Mật khẩu mới khác mật khẩu xác nhận!';
 
   @override
-  String get notRegisteredForBiometrics => 'Bạn chưa đăng ký sinh trắc học, hãy đăng ký';
+  String get notRegisteredForBiometrics => 'Vui lòng đăng nhập ứng dụng để kích hoạt đăng nhập bằng sinh trắc học';
 
   @override
   String get pleaseEnterYourUsernameAndPasswordHere => 'Nhập tên đăng nhập và mật khẩu tại đây';
@@ -1683,4 +1683,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get realCheckOut => 'Giờ Check-out thực tế';
+
+  @override
+  String get settingBiometric => 'Cài đặt Touch Id/Face Id';
+
+  @override
+  String get cancelBiometricSuccessful => 'Hủy đăng nhập bằng FaceId thành công';
+
+  @override
+  String get settingBiometricSuccessful => 'Cài đặt đăng nhập bằng FaceId thành công';
+
+  @override
+  String get authAccount => 'Xác thực tài khoản';
 }

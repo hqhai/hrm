@@ -3,27 +3,6 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
 
-notRegisteredForBiometricsDialog(BuildContext context) async {
-  final appLocalizations = AppLocalizations.of(context)!;
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        content: Scrollbar(
-          child: Text(appLocalizations.notRegisteredForBiometrics,
-              textAlign: TextAlign.center, style: const TextStyle(fontSize: SpacingUnit.x8)),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () => popDialog(context),
-            child: Text(appLocalizations.cancel),
-          ),
-        ],
-      );
-    },
-  );
-}
-
 registeredForBiometricsDialog(BuildContext context, VoidCallback callback) async {
   final appLocalizations = AppLocalizations.of(context)!;
   return showDialog(

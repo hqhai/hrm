@@ -79,7 +79,7 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
         ),
         item(
           context: context,
-          title: appLocalizations.setting,
+          title: appLocalizations.settingBiometric,
           icon: Assets.images.icon.popupAppbar.caiDat,
           callBack: () => _setting(context),
         ),
