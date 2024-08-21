@@ -2,16 +2,20 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:open_settings/open_settings.dart';
+import 'package:themes/themes.dart';
 
 class PermissionDialog extends StatelessWidget {
   const PermissionDialog({super.key, required this.callBack});
+
   final VoidCallback callBack;
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
     return Padding(
       padding: const EdgeInsets.all(SpacingUnit.x3),
       child: Column(
@@ -25,13 +29,24 @@ class PermissionDialog extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                onPressed: () => _ok(context, callBack),
-                child: Text(appLocalizations.ok),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(SpacingUnit.x4),
+                  child: AppButton(
+                    onSubmit: () => _ok(context, callBack),
+                    title: appLocalizations.cancel,
+                    color: colors.outline.withOpacity(0.4),
+                  ),
+                ),
               ),
-              ElevatedButton(
-                onPressed: () => _setting(context, callBack),
-                child: Text(appLocalizations.setting),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(SpacingUnit.x4),
+                  child: AppButton(
+                    onSubmit: () => _setting(context, callBack),
+                    title: appLocalizations.setting,
+                  ),
+                ),
               ),
             ],
           )
@@ -39,6 +54,7 @@ class PermissionDialog extends StatelessWidget {
       ),
     );
   }
+
   _setting(BuildContext context, VoidCallback callBack) {
     OpenSettings.openBiometricEnrollSetting();
     callBack.call();
@@ -48,7 +64,4 @@ class PermissionDialog extends StatelessWidget {
   _ok(BuildContext context, VoidCallback callBack) {
     dI<AppNavigation>().pop(context);
   }
-
 }
-
-

@@ -3452,6 +3452,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Real CheckOut'**
   String get realCheckOut;
+
+  /// No description provided for @settingBiometric.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up Touch Id/Face Id'**
+  String get settingBiometric;
+
+  /// No description provided for @cancelBiometricSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel biometric successful'**
+  String get cancelBiometricSuccessful;
+
+  /// No description provided for @settingBiometricSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting biometric successful'**
+  String get settingBiometricSuccessful;
+
+  /// No description provided for @authAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Auth account'**
+  String get authAccount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

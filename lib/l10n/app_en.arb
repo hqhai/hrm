@@ -559,6 +559,10 @@
   "youDoNotHaveAShift": "You don't have a shift in date!",
   "shiftWasLeave": "Shift was leave",
   "realCheckIn": "Real CheckIn",
-  "realCheckOut": "Real CheckOut"
+  "realCheckOut": "Real CheckOut",
+  "settingBiometric": "Set up Touch Id/Face Id",
+  "cancelBiometricSuccessful": "Cancel biometric successful",
+  "settingBiometricSuccessful": "Setting biometric successful",
+  "authAccount": "Auth account"
 
 }

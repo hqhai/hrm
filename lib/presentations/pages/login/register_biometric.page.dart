@@ -1,20 +1,21 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/request/login_request.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_state.dart';
-import 'package:base_app/presentations/widgets/base_page.dart';
-import 'package:base_app/presentations/widgets/dialog/biometric/biometric_dialog.dart';
-import 'package:base_app/presentations/widgets/login/email_and_password.widget.dart';
+import 'package:base_app/presentations/widgets/custom/app_switch.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/dialog/biometric/apply_biometric.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:themes/themes.dart';
-import 'package:widgets/app_button.dart';
 
 final registerBiometricPageRoute = GoRoute(
     path: Pages.biometricRegister,
@@ -43,6 +44,7 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
     super.initState();
     checkEmail = dI<BiometricCubit>().state.loginRequest.username;
     checkPassword = dI<BiometricCubit>().state.loginRequest.password;
+    isCheckedInput = dI<BiometricCubit>().state.checkBiometric;
     emailController.text = checkEmail;
     passwordController.text = checkPassword;
   }
@@ -58,39 +60,28 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-    return BasePage(
-      appbar: AppBar(iconTheme: IconThemeData(color: colors.text),),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: colors.text),
+        centerTitle: true,
+        title: Text(
+          appLocalizations.settingBiometric,
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x4_5,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       body: Center(
         child: Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: colors.background,
-            borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
-            border: Border.all(width: 1, color: colors.background),
-          ),
-          margin: const EdgeInsets.all(SpacingUnit.x2),
+          color: colors.secondaryContainer.withOpacity(0.1),
           child: Padding(
             padding: const EdgeInsets.all(SpacingUnit.x4),
             child: Column(
-              children: [
-                const SizedBox(height: SpacingUnit.x4),
-                Text(appLocalizations.pleaseEnterYourUsernameAndPasswordHere,
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
-                EmailAndPasswordWidget(
-                  emailController: emailController,
-                  passwordController: passwordController,
-                  onChangeEmail: (value) => onChangeEmail(value),
-                  onChangePass: (value) => onChangePassword(value),
-                ),
-                AppButton(
-                    title: appLocalizations.save,
-                    onSubmit: () => onSubmit(),
-                    color: checkInput() ? colors.blue : colors.navy,
-                    colorText: colors.text),
-              ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [checkBiometric(context: context)],
             ),
           ),
         ),
@@ -98,37 +89,97 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
     );
   }
 
-  void onSubmit() {
-    registeredForBiometricsDialog(context, () {
-      dI<BiometricCubit>().changeBiometric(
-        BiometricState(
-            loginRequest: LoginRequest(
-              password: passwordController.text,
-              username: emailController.text,
+  Widget checkBiometric({
+    required BuildContext context,
+  }) {
+    final colors = AppTheme.getColors(context);
+    return ContainerBorder(
+      backgroundColors: colors.background,
+      borderColors: colors.background,
+      paddingVertical: SpacingUnit.x4,
+      paddingHorizontal: SpacingUnit.x4,
+      circular: SpacingUnit.x4,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: SizedBox(
+              height: SpacingUnit.x12,
+              width: SpacingUnit.x12,
+              child: CircleAvatar(
+                backgroundColor: colors.secondaryContainer.withOpacity(0.1),
+                child: SvgPicture.asset(
+                  height: SpacingUnit.x5,
+                  width: SpacingUnit.x5,
+                  Assets.images.signIn.biometric,
+                  colorFilter: ColorFilter.mode(colors.text.withOpacity(0.5), BlendMode.srcIn),
+                ),
+              ),
             ),
-            status: BiometricEnum.haveRegistration),
-      );
-      Navigator.of(context).pop();
-    });
+          ),
+          Expanded(
+            flex: 2,
+            child: Column(
+              children: [
+                Text(
+                  'Đăng nhập bằng sinh trắc học',
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x3_5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  'Sử dụng FaceID của bạn thay cho mật khẩu đăng nhập',
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: AppSwitch(
+              check: isCheckedInput,
+              onChange: (value) => _setCheck(value: value, context: context),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
-  bool checkInput() {
-    RegExp regExpPass = RegExp(checkPasswordRegexExp);
-    RegExp regExpEmail = RegExp(checkEmailRegexExp); //
-    return (regExpEmail.hasMatch(checkEmail) && regExpPass.hasMatch(checkPassword))
-        ? isCheckedInput = true
-        : isCheckedInput = false;
-  }
-
-  onChangeEmail(String value) {
+  _setCheck({required bool value, required BuildContext context}) {
     setState(() {
-      checkEmail = value;
+      if(!value) {
+        isCheckedInput = !isCheckedInput;
+      }
     });
-  }
-
-  onChangePassword(String value) {
-    setState(() {
-      checkPassword = value;
-    });
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          child: !value
+              ? ApplyBiometric(
+                  check: value,
+                  callback: () {
+                    dI<BiometricCubit>().changeBiometric(
+                      const BiometricState(
+                          loginRequest: LoginRequest(
+                            password: '',
+                            username: '',
+                          ),
+                          status: BiometricEnum.notRegistered),
+                    );
+                    dI<AppNavigation>().pop(context);
+                  },
+                )
+              : AuthBiometric(callBack: () => setState(() {
+            isCheckedInput = true;
+          })),
+        );
+      },
+    );
   }
 }

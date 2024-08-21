@@ -1683,4 +1683,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get realCheckOut => 'Real CheckOut';
+
+  @override
+  String get settingBiometric => 'Set up Touch Id/Face Id';
+
+  @override
+  String get cancelBiometricSuccessful => 'Cancel biometric successful';
+
+  @override
+  String get settingBiometricSuccessful => 'Setting biometric successful';
+
+  @override
+  String get authAccount => 'Auth account';
 }

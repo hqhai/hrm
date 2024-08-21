@@ -129,7 +129,7 @@ class _AppInputPasswordState extends State<AppInputPassword> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(
-                      color: isEmpty(widget.error) ? colors.outline : colors.error,
+                      color: isEmpty(widget.error) ? colors.outline.withOpacity(0.5) : colors.error,
                       width: 1.0,
                     ),
                   ),
