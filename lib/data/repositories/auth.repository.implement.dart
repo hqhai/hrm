@@ -15,4 +15,10 @@ class AuthRepositoryImpl extends AuthRepository {
         .login(LoginRequest(password: password, username: username));
     return response;
   }
+
+  @override
+  Future<void> checkAccountBiometric({required String username, required String password}) async {
+    await _authService
+        .checkAccountBiometric(request: LoginRequest(password: password, username: username));
+  }
 }

@@ -44,4 +44,11 @@ class AuthServiceImpl extends BaseService implements AuthService {
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     return RegisterResponse.fromJson(responseBase.result);
   }
+
+  @override
+  Future<void> checkAccountBiometric({required LoginRequest request}) async {
+    final url = '$baseUrl${PathConfig.login}';
+    final body = jsonEncode(request.toJson());
+    await client.post(url, body: body);
+  }
 }

@@ -4,7 +4,7 @@ sealed class LoginEvent extends Equatable {
   const LoginEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class RequestLogin extends LoginEvent {
@@ -12,11 +12,7 @@ class RequestLogin extends LoginEvent {
   final String password;
   final bool saveLogin;
 
-  const RequestLogin({
-    required this.username,
-    required this.password,
-    required this.saveLogin
-  });
+  const RequestLogin({required this.username, required this.password, required this.saveLogin});
 
   @override
   List<Object> get props => [username, password, saveLogin];
@@ -88,4 +84,19 @@ class ChangePasswordSuccessEvent extends LoginEvent {
 
   @override
   List<Object> get props => [];
+}
+
+class CheckBiometricAccount extends LoginEvent {
+  final String username;
+  final String password;
+  final Completer? completer;
+
+  const CheckBiometricAccount({
+    required this.username,
+    required this.password,
+    this.completer,
+  });
+
+  @override
+  List<Object?> get props => [username, password, completer];
 }
