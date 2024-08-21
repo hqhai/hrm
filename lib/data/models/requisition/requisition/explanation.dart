@@ -12,18 +12,14 @@ part 'explanation.g.dart';
 class Explanation extends Equatable {
   final String note;
   final DateTime? workDate;
-  final String workShiftSettingDetailId;
-  final String workShiftDetailId;
-  final int startTime;
-  final int endTime;
+  final int checkIn;
+  final int checkOut;
 
   const Explanation({
     this.note = '',
     this.workDate,
-    this.startTime = 0,
-    this.workShiftSettingDetailId = '',
-    this.workShiftDetailId = '',
-    this.endTime = 0,
+    this.checkIn = 0,
+    this.checkOut = 0,
   });
 
   factory Explanation.fromJson(Map<String, dynamic> json) => _$ExplanationFromJson(json);
@@ -34,9 +30,7 @@ class Explanation extends Equatable {
   List<Object?> get props => [
         note,
         workDate,
-        workShiftSettingDetailId,
-        workShiftDetailId,
-        startTime,
-        endTime,
+        checkIn,
+        checkOut,
       ];
 }

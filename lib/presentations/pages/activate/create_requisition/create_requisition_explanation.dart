@@ -22,7 +22,6 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
-import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_work_shift.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,7 +64,6 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   String? description;
   List<String> followers = [];
   List<Explanation> explanations = [];
-  List<bool> checkTypeContainer = [];
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
 
@@ -78,7 +76,6 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       description = request.config.description;
       detailedDescriptionController.text = description ?? "";
       explanations = [...request.config.explanations];
-      checkTypeContainer = List.filled(explanations.length, true);
     }
     super.initState();
   }
@@ -121,11 +118,9 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                     ListExplanationsWidget(
                       error: errorExplanations,
                       changeExplanations: (value) => _setExplanations(value),
-                      changeTypeContainer: (value) => _changeTypeContainer(value),
-                      checkTypeContainer: checkTypeContainer,
                       explanations: explanations,
                       title: appLocalizations.workDay,
-                      callback: () => _showBottomSheet(context),
+                      callback: () => _addExplanation(),
                     ),
                     ItemCreateInputArea(
                       requiredValidate: true,
@@ -248,28 +243,11 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _changeTypeContainer(List<bool> value) {
+  _addExplanation() {
     setState(() {
-      checkTypeContainer = value;
-    });
-  }
-
-  _showBottomSheet(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return BottomSheetWorkShiftWidget(
-          explanations: explanations,
-          onChange: (value) => _addExplanation(value),
-        );
-      },
-    );
-  }
-
-  _addExplanation(Explanation value) {
-    setState(() {
-      checkTypeContainer.add(true);
-      explanations.add(value);
+      explanations.add(
+        Explanation(workDate: DateTime.now()),
+      );
     });
   }
 }

@@ -1677,4 +1677,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get shiftWasLeave => 'Ca đã nghỉ';
+
+  @override
+  String get realCheckIn => 'Giờ Check-in thực tế';
+
+  @override
+  String get realCheckOut => 'Giờ Check-out thực tế';
 }

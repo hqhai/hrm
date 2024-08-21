@@ -1677,4 +1677,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shiftWasLeave => 'Shift was leave';
+
+  @override
+  String get realCheckIn => 'Real CheckIn';
+
+  @override
+  String get realCheckOut => 'Real CheckOut';
 }

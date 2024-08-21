@@ -73,11 +73,9 @@ class _BottomSheetWorkShiftWidgetState extends State<BottomSheetWorkShiftWidget>
                         .map(
                           (e) => Explanation(
                             workDate: e.workDate,
-                            endTime: e.endTime,
-                            workShiftDetailId: e.workShiftDetailId,
-                            workShiftSettingDetailId: e.workShiftSettingDetailId,
+                            checkIn:  e.endTime,
                             note: '',
-                            startTime: e.startTime,
+                            checkOut: e.startTime,
                           ),
                         )
                         .toList();

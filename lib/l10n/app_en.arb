@@ -557,6 +557,8 @@
   "makeUpWorkDate": "Make up work date",
   "totalMakeUpWorkTime": "Total make up work time",
   "youDoNotHaveAShift": "You don't have a shift in date!",
-  "shiftWasLeave": "Shift was leave"
+  "shiftWasLeave": "Shift was leave",
+  "realCheckIn": "Real CheckIn",
+  "realCheckOut": "Real CheckOut"
 
 }

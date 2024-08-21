@@ -13,8 +13,6 @@ class ListExplanationsWidget extends StatefulWidget {
     required this.title,
     required this.callback,
     this.explanations = const [],
-    this.checkTypeContainer = const [],
-    required this.changeTypeContainer,
     required this.changeExplanations,
     this.error = '',
   });
@@ -23,8 +21,6 @@ class ListExplanationsWidget extends StatefulWidget {
   final String title;
   final VoidCallback callback;
   final List<Explanation> explanations;
-  final List<bool> checkTypeContainer;
-  final ValueChanged<List<bool>> changeTypeContainer;
   final ValueChanged<List<Explanation>> changeExplanations;
 
   @override
@@ -72,10 +68,7 @@ class _ListExplanationsWidgetState extends State<ListExplanationsWidget> {
                 .mapIndexed(
                   (index, element) => ItemInListExplanation(
                     callBackDelete: () => _deleteExplanation(index),
-                    workShifts: workShifts,
                     changeExplanation: (value) => _setExplanation(value, index),
-                    callBack: () => setTypeContainer(index),
-                    checkTypeContainer: widget.checkTypeContainer[index],
                     explanation: element,
                   ),
                 )
@@ -84,14 +77,6 @@ class _ListExplanationsWidgetState extends State<ListExplanationsWidget> {
         ],
       ),
     );
-  }
-
-  setTypeContainer(int index) {
-    final listType = widget.checkTypeContainer;
-    setState(() {
-      listType[index] = !listType[index];
-      widget.changeTypeContainer.call(listType);
-    });
   }
 
   _setExplanation(Explanation value, int index) {
@@ -103,12 +88,9 @@ class _ListExplanationsWidgetState extends State<ListExplanationsWidget> {
   }
 
   _deleteExplanation(int index) {
-    final listType = widget.checkTypeContainer;
     final explanations = widget.explanations;
     setState(() {
       explanations.removeAt(index);
-      listType[index] = !listType[index];
-      widget.changeTypeContainer.call(listType);
       widget.changeExplanations.call(explanations);
     });
   }

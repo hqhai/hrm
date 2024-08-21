@@ -34,9 +34,7 @@ class _ItemExplanationState extends State<ItemExplanation> {
         children: [
           Padding(
             padding: const EdgeInsets.only(
-                left: SpacingUnit.x1,
-                top: SpacingUnit.x2,
-                bottom: SpacingUnit.x2),
+                left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -56,21 +54,23 @@ class _ItemExplanationState extends State<ItemExplanation> {
                     showNote
                         ? Assets.images.icon.home.chevronForward
                         : Assets.images.icon.activateIcon.drop,
-                    colorFilter: ColorFilter.mode(
-                        colors.text.withOpacity(0.4), BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
                   ),
                 ),
               ],
             ),
           ),
-          if (showNote)
+          if (showNote) ...[
             ItemTitleValueNoBorder(
               size: SpacingUnit.x4,
-              title: appLocalizations.shift,
-              value:
-                  '${strSeconds(widget.explanation.startTime) ?? ""} - ${strSeconds(widget.explanation.endTime) ?? ""}',
+              title: appLocalizations.realCheckIn,
+              value: strSeconds(widget.explanation.checkIn) ?? "",
             ),
-          if (showNote)
+            ItemTitleValueNoBorder(
+                size: SpacingUnit.x4,
+                title: appLocalizations.realCheckOut,
+                value: strSeconds(widget.explanation.checkOut) ?? ""),
+            const SizedBox(height: SpacingUnit.x2,),
             Text(
               appLocalizations.note,
               style: TextStyle(
@@ -78,7 +78,6 @@ class _ItemExplanationState extends State<ItemExplanation> {
                 fontSize: SpacingUnit.x4,
               ),
             ),
-          if (showNote)
             ContainerBorder(
               borderColors: colors.text.withOpacity(0.3),
               paddingVertical: SpacingUnit.x4,
@@ -94,6 +93,7 @@ class _ItemExplanationState extends State<ItemExplanation> {
                 ),
               ),
             ),
+          ],
         ],
       ),
     );
