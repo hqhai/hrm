@@ -57,46 +57,38 @@ class _RequisitionInformationContentTypeEarlyState
             children: [
               ItemTitleValue(
                 size: SpacingUnit.x4,
-                title: appLocalizations.time,
-                value: formatYMD((state.requisition.config.startDate ?? "").toString()),
-                font: FontWeight.w600,
-              ),
-              ItemTitleValue(
-                size: SpacingUnit.x4,
-                title: appLocalizations.reason,
+                title: appLocalizations.caseL,
                 value: state.requisition.config.explanationReason?.configEditTimekeepingName ?? "",
                 font: FontWeight.w600,
               ),
               ItemTitleValue(
                 size: SpacingUnit.x4,
-                title: "",
-                value: state.requisition.config.reason?.configEnumReasonName??"",
+                title: appLocalizations.reason,
+                value: state.requisition.config.reason?.configEnumReasonName ?? "",
                 font: FontWeight.w600,
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: SpacingUnit.x4,
-                ),
-                child: Text(
-                  appLocalizations.timeWorking,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                    fontWeight: FontWeight.w600,
-                  ),
+              ItemTitleValue(
+                size: SpacingUnit.x4,
+                title: appLocalizations.time,
+                value: formatYMD((state.requisition.config.startDate ?? "").toString()),
+                font: FontWeight.w600,
+              ),
+              Text(
+                appLocalizations.timeWorking,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               if (workShiftSettings.isNotEmpty)
-                ShiftWidget(
-                  context: context,
-                  title: "",
-                  workShift: workShiftSettings.first,
-                ),
-              if (workShiftSettings.length > 1)
-                ShiftWidget(
-                  context: context,
-                  title: "",
-                  workShift: workShiftSettings.last,
+                ...workShiftSettings.map(
+                  (e) => ShiftWidget(
+                    context: context,
+                    title: "",
+                    workShift: e,
+                    reason: state.requisition.config.explanationReason,
+                  ),
                 ),
               if (state.requisition.config.explanationReason == EditTimekeeping.early)
                 Text(
@@ -107,7 +99,8 @@ class _RequisitionInformationContentTypeEarlyState
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ItemListOverTime(requisitionOverTime: replace, index: 0, checkType: RequestType.early),
+              ItemListOverTime(
+                  requisitionOverTime: replace, index: 0, checkType: RequestType.early),
             ],
           ),
         );

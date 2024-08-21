@@ -4,6 +4,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/user.dart';
+import 'package:base_app/domain/entities/user_department_position.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_event.dart';
@@ -65,24 +66,28 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child:
-                      SearchInput(onChange: (value) => _onChangeSearch(value)),
+                  child: SearchInput(onChange: (value) => _onChangeSearch(value)),
                 ),
                 Expanded(
-                    child: SizedBox(
-                        child: ListView.builder(
-                            controller: controller,
-                            itemCount: state.usersByName.length,
-                            itemBuilder: (context, index) => GestureDetector(
-                                onTap: () => addListPerson(
-                                    user: state.usersByName[index],
-                                    listValueByIndex:
-                                        state.usersByName[index].id),
-                                child: ItemSelected(
-                                  label: state.usersByName[index].fullName,
-                                  isActive: listPerson
-                                      .contains(state.usersByName[index].id),
-                                ))))),
+                  child: SizedBox(
+                    child: ListView.builder(
+                      controller: controller,
+                      itemCount: state.usersByName.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () => addListPerson(
+                              user: state.usersByName[index],
+                              listValueByIndex: state.usersByName[index].id),
+                          child: ItemSelected(
+                            label:
+                                '${state.usersByName[index].fullName} - ${nameDepartment(state.usersByName[index].userDepartmentPositions)}',
+                            isActive: listPerson.contains(state.usersByName[index].id),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   child: AppButton(
@@ -99,6 +104,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       },
     );
   }
+
+
 
   addListPerson({required String listValueByIndex, required User user}) {
     setState(() {
@@ -125,16 +132,14 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems &&
-        controller.position.extentAfter < totalItems &&
-        checkLoad) {
+    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
       });
       final Completer completer = Completer<bool>();
-      dI<UserByNameBloc>().add(GetUserByNameEvent(
-          name: searchStr, page: pageIndex, completer: completer));
+      dI<UserByNameBloc>()
+          .add(GetUserByNameEvent(name: searchStr, page: pageIndex, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {
@@ -149,5 +154,12 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       totalItems = state.countItem;
       lengthList = state.usersByName.length;
     });
+  }
+
+  String nameDepartment(List<UserDepartmentPosition> userDepartmentPositions) {
+    if(userDepartmentPositions.isNotEmpty){
+      return userDepartmentPositions.first.department?.name ?? "";
+    }
+    return 'Không rõ phòng ban';
   }
 }

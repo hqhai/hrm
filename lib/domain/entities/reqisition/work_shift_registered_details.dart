@@ -1,5 +1,6 @@
 import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'work_shift_registered_details.g.dart';
@@ -7,8 +8,7 @@ part 'work_shift_registered_details.g.dart';
 @CopyWith()
 @JsonSerializable()
 @CustomDateTimeConverter()
-///Ca làm việc
-class WorkShiftRegisteredDetail {
+class WorkShiftRegisteredDetail extends Equatable {
   final String workShiftSettingDetailId;
   final String workShiftDetailId;
   final DateTime workDate;
@@ -33,4 +33,16 @@ class WorkShiftRegisteredDetail {
       _$WorkShiftRegisteredDetailFromJson(json);
 
   Map<String, dynamic> toJson() => _$WorkShiftRegisteredDetailToJson(this);
+
+  @override
+  List<Object> get props => [
+        workShiftSettingDetailId,
+        workShiftDetailId,
+        workDate,
+        workEffort,
+        nameWorkShift,
+        startTime,
+        endTime,
+        numberTime
+      ];
 }

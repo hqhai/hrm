@@ -12,6 +12,7 @@ class AppStartEndTime extends StatefulWidget {
   final double numberValue;
   final ValueChanged<int> setStartTime, setEndTime;
   final bool checkNumberValue;
+  final bool checkRequired;
 
   const AppStartEndTime({
     super.key,
@@ -25,6 +26,7 @@ class AppStartEndTime extends StatefulWidget {
     required this.setStartTime,
     required this.setEndTime,
     this.checkNumberValue = true,
+    this.checkRequired = true,
   });
 
   @override
@@ -48,7 +50,7 @@ class _AppStartEndTimeState extends State<AppStartEndTime> {
           paddingVertical: SpacingUnit.x4,
           child: TimeOverTime(
             checkError: widget.errorTime.isEmpty,
-            requiredValidate: true,
+            requiredValidate: widget.checkRequired,
             dateOld: secondToDateTime(time: widget.startTime),
             changeValue: (value) => _setStartTime(
               value: value,
@@ -65,7 +67,7 @@ class _AppStartEndTimeState extends State<AppStartEndTime> {
           paddingVertical: SpacingUnit.x4,
           child: TimeOverTime(
             checkError: widget.errorTime.isEmpty,
-            requiredValidate: true,
+            requiredValidate: widget.checkRequired,
             dateOld: secondToDateTime(time: widget.endTime),
             changeValue: (value) => _setEndTime(
               value: value,

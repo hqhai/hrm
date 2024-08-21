@@ -85,6 +85,7 @@ class _AppInputState extends State<AppInput> {
                   }
                 },
                 child: TextField(
+                  keyboardType: widget.keyboardType,
                   minLines:  1,
                   maxLines: widget.maxLines,
                   onChanged: (value) {
