@@ -61,6 +61,8 @@ extension ConfigTimeUnitExtension on TimeUnitEnum {
 enum TypeLeaveEnum {
   @JsonValue('Total')
   total('Total'),
+  @JsonValue('FuneralLeave')
+  funeralLeave('FuneralLeave'),
   @JsonValue('AnnualLeave')
   annualLeave('AnnualLeave'),
   @JsonValue('SeniorityLeave')
@@ -86,8 +88,8 @@ extension ConfigTypeLeaveExtension on TypeLeaveEnum {
         return appLocalizations.overTimeLeave;
       case TypeLeaveEnum.total:
         return appLocalizations.total;
+      case TypeLeaveEnum.funeralLeave:
+        return appLocalizations.mourningLeave;
     }
   }
 }
-
-

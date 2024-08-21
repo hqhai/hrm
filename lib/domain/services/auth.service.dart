@@ -7,4 +7,5 @@ abstract class AuthService {
   Future<LoginResponse> login(LoginRequest request);
   Future<RegisterResponse> register(RegisterRequest request);
   Future<bool> forgotPassword(String username);
+  Future<void> checkAccountBiometric({required LoginRequest request});
 }

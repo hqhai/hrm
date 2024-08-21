@@ -10,15 +10,21 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: LoginUseCase)
 class LoginUseCaseImpl extends LoginUseCase {
   final AuthRepository _authRepository;
+
   LoginUseCaseImpl() : _authRepository = dI<AuthRepository>();
+
   @override
-  Future<LoginResponse> login(
-      {required String username, required String password}) async {
+  Future<LoginResponse> login({required String username, required String password}) async {
     final loginResponse = await _authRepository.login(username, password);
     AppLocalStorage.saveData(DataKey.token, loginResponse.accessToken);
     AppLocalStorage.saveData(DataKey.fullName, loginResponse.fullName);
     AppLocalStorage.saveListData(DataKey.roles, loginResponse.roles);
     AppConfig.setToken(loginResponse.accessToken);
     return loginResponse;
+  }
+
+  @override
+  Future<void> checkAccountBiometric({required String username, required String password}) async {
+    await _authRepository.checkAccountBiometric(username: username, password: password);
   }
 }

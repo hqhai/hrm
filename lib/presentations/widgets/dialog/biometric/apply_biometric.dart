@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/navigation.dart';
@@ -9,6 +11,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_state.dart';
+import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_password.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
@@ -76,7 +79,7 @@ class AuthBiometric extends StatefulWidget {
 
 class _AuthBiometricState extends State<AuthBiometric> {
   final TextEditingController passwordController = TextEditingController();
-  String email = '', password = '';
+  String email = '', password = '', errorPass = '';
 
   @override
   void initState() {
@@ -122,6 +125,7 @@ class _AuthBiometricState extends State<AuthBiometric> {
               top: SpacingUnit.x2,
             ),
             child: AppInputPassword(
+              error: errorPass,
               placeHolder: appLocalizations.password,
               controller: passwordController,
               onChange: (value) => onChangePassword(value),
@@ -138,19 +142,38 @@ class _AuthBiometricState extends State<AuthBiometric> {
     );
   }
 
-  void onSubmit(BuildContext context) {
+  void onSubmit(BuildContext context) async {
+    final appLocalizations = AppLocalizations.of(context)!;
     if (checkInput()) {
-      dI<AppNavigation>().pop(context);
-      dI<BiometricCubit>().changeBiometric(
-        BiometricState(
-            loginRequest: LoginRequest(
-              password: passwordController.text,
-              username: email,
-            ),
-            status: BiometricEnum.haveRegistration),
-      );
-      widget.callBack.call();
-      showDialogSuccess(context);
+      final Completer completer = Completer<bool>();
+
+      dI<LoginBloc>().add(CheckBiometricAccount(
+        username: email,
+        password: passwordController.text,
+        completer: completer,
+      ));
+      final check = await completer.future;
+      if (check) {
+        if (!context.mounted) return;
+        dI<AppNavigation>().pop(context);
+        dI<BiometricCubit>().changeBiometric(
+          BiometricState(
+              loginRequest: LoginRequest(
+                password: passwordController.text,
+                username: email,
+              ),
+              status: BiometricEnum.haveRegistration),
+        );
+        setState(() {
+          errorPass = "";
+        });
+        widget.callBack.call();
+        showDialogSuccess(context);
+      } else {
+        setState(() {
+          errorPass = appLocalizations.wrongPassword;
+        });
+      }
     }
   }
 
@@ -190,7 +213,6 @@ class _AuthBiometricState extends State<AuthBiometric> {
 }
 
 notRegisteredForBiometricsDialog(BuildContext context) async {
-
   return showDialog(
     context: context,
     builder: (context) {
@@ -250,4 +272,3 @@ class NotRegister extends StatelessWidget {
     );
   }
 }
-

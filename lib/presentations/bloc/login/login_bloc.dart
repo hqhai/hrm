@@ -30,6 +30,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<EmailOrUserLogin>(_emailOrUserNameLogin);
     on<ChangePasswordSuccessEvent>(_changePasswordSuccessEvent);
     on<BiometricRequestLogin>(_biometricRequestLogin);
+    on<CheckBiometricAccount>(_checkBiometricAccount);
   }
 
   FutureOr<void> _requestLogin(RequestLogin event, Emitter<LoginState> emit) async {
@@ -165,6 +166,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           emit(state.copyWith(status: LoginStatus.loginFailed));
         }
       }
+    }
+  }
+
+  FutureOr<void> _checkBiometricAccount(
+      CheckBiometricAccount event, Emitter<LoginState> emit) async {
+    try {
+      await _loginUseCase.checkAccountBiometric(
+        username: event.username,
+        password: event.password,
+      );
+      event.completer?.complete(true);
+    } catch (e) {
+      event.completer?.complete(false);
     }
   }
 }
