@@ -8,12 +8,13 @@ class TimeOverTime extends StatelessWidget {
       this.title = '',
       required this.dateOld,
       required this.changeValue,
-      this.requiredValidate = false});
+      this.requiredValidate = false,
+      this.checkError = true});
 
   final String title;
   final DateTime dateOld;
   final ValueChanged<DateTime> changeValue;
-  final bool requiredValidate;
+  final bool requiredValidate, checkError;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class TimeOverTime extends StatelessWidget {
           requiredValidate: requiredValidate,
         ),
         TimePickerHourMinute(
+          checkError: checkError,
           timeSlot: dateOld,
           onChange: (value) => _setTime(value),
         ),

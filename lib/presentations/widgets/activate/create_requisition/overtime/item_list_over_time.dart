@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -15,12 +16,12 @@ class ItemListOverTime extends StatefulWidget {
     super.key,
     required this.requisitionOverTime,
     required this.index,
-    this.checkNotOT = false,
+    required this.checkType,
   });
 
   final RequisitionOverTime requisitionOverTime;
   final int index;
-  final bool checkNotOT;
+  final RequestType checkType;
 
   @override
   State<ItemListOverTime> createState() => _ItemListOverTimeState();
@@ -47,21 +48,23 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
             value: formatYMD((widget.requisitionOverTime.date ?? "").toString()),
             size: SpacingUnit.x4,
           ),
+          if (widget.checkType == RequestType.oT)
+            ItemTitleValueNoBorder(
+              title: appLocalizations.dateType,
+              value: widget.requisitionOverTime.overTimeDay?.configEnumOvertimeDayName ?? "",
+              size: SpacingUnit.x4,
+            ),
+          if (widget.checkType == RequestType.oT)
+            ItemTitleValueNoBorder(
+              title: appLocalizations.destinationOT,
+              value: widget.requisitionOverTime.isChecking
+                  ? appLocalizations.inCompany
+                  : appLocalizations.outCompany,
+              size: SpacingUnit.x4,
+            ),
           ItemTitleValueNoBorder(
             title: appLocalizations.startTime,
             value: strSeconds(widget.requisitionOverTime.startTime) ?? "",
-            size: SpacingUnit.x4,
-          ),
-          ItemTitleValueNoBorder(
-            title: appLocalizations.dateType,
-            value: widget.requisitionOverTime.overTimeDay?.configEnumOvertimeDayName ?? "",
-            size: SpacingUnit.x4,
-          ),
-          ItemTitleValueNoBorder(
-            title: appLocalizations.destinationOT,
-            value: widget.requisitionOverTime.isChecking
-                ? appLocalizations.inCompany
-                : appLocalizations.outCompany,
             size: SpacingUnit.x4,
           ),
           ItemTitleValueNoBorder(
@@ -69,13 +72,15 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
             value: strSeconds(widget.requisitionOverTime.endTime) ?? "",
             size: SpacingUnit.x4,
           ),
-          if (!widget.checkNotOT)
+          if (widget.checkType == RequestType.oT || widget.checkType == RequestType.makeUp)
             ItemTitleValueNoBorder(
-              title: appLocalizations.totalOTHours,
+              title: widget.checkType == RequestType.oT
+                  ? appLocalizations.totalOTHours
+                  : appLocalizations.totalMakeUpWorkTime,
               value: strSeconds((widget.requisitionOverTime.suggestTime ?? 0).toInt()) ?? "",
               size: SpacingUnit.x4,
             ),
-          if (!widget.checkNotOT)
+          if (widget.checkType == RequestType.oT)
             Padding(
               padding: const EdgeInsets.only(
                   left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
@@ -104,7 +109,9 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
                 ],
               ),
             ),
-          if (showNote && widget.requisitionOverTime.note != null && !widget.checkNotOT)
+          if (showNote &&
+              widget.requisitionOverTime.note != null &&
+              widget.checkType == RequestType.oT)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
               child: Text(

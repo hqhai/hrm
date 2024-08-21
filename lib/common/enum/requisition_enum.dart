@@ -87,7 +87,7 @@ enum EnumReasonLeave {
   const EnumReasonLeave(this.name);
 }
 
-extension ConfigEnumTakeLeaveExtension on EnumReasonLeave  {
+extension ConfigEnumTakeLeaveExtension on EnumReasonLeave {
   String get configEnumTakeLeaveName {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
@@ -241,6 +241,8 @@ enum RequisitionTypeEnum {
   stationery('Stationery'),
   @JsonValue('Explanation')
   explanation('Explanation'),
+  @JsonValue('MakeUpWork')
+  makeUpWork('MakeUpWork'),
   @JsonValue('PostalDelivery')
   postalDelivery('PostalDelivery'),
   @JsonValue('Core')
@@ -280,6 +282,46 @@ extension ConfigTypeFilter on RequisitionTypeEnum {
         return appLocalizations.fiveDaysOrMore;
       case RequisitionTypeEnum.lateOrEarly:
         return appLocalizations.earlyLate;
+      case RequisitionTypeEnum.makeUpWork:
+        return appLocalizations.makeUpWork;
+      case RequisitionTypeEnum.core:
+        return appLocalizations.core;
+      case RequisitionTypeEnum.unknown:
+      default:
+        return '';
+    }
+  }
+}
+
+extension ConfigTypeCreate on RequisitionTypeEnum {
+  String get configTypeCreateName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case RequisitionTypeEnum.explanation:
+        return appLocalizations.explanation;
+      case RequisitionTypeEnum.overTime:
+        return appLocalizations.overtime;
+      case RequisitionTypeEnum.vehicleDriver:
+        return appLocalizations.vehicleDispatch;
+      case RequisitionTypeEnum.postalDelivery:
+        return appLocalizations.postalDelivery;
+      case RequisitionTypeEnum.warehouseReleased:
+        return appLocalizations.releaseOfWarehouse;
+      case RequisitionTypeEnum.stationery:
+        return appLocalizations.stationeryOrder;
+      case RequisitionTypeEnum.bussiness:
+        return appLocalizations.business;
+      case RequisitionTypeEnum.leaveHalfDayToOneDay:
+        return appLocalizations.leaveHalfDayToOneDay;
+      case RequisitionTypeEnum.leaveTwoDayToFourDay:
+        return appLocalizations.leaveTwoDayToFourDay;
+      case RequisitionTypeEnum.leaveFiveDaysOrMore:
+        return appLocalizations.leaveFiveDaysOrMore;
+      case RequisitionTypeEnum.lateOrEarly:
+        return appLocalizations.lateOrEarly;
+      case RequisitionTypeEnum.makeUpWork:
+        return appLocalizations.createMakeUpWork;
       case RequisitionTypeEnum.core:
         return appLocalizations.core;
       case RequisitionTypeEnum.unknown:
@@ -316,6 +358,8 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
         return appLocalizations.leaveFiveDaysOrMore;
       case RequisitionTypeEnum.lateOrEarly:
         return appLocalizations.lateOrEarly;
+      case RequisitionTypeEnum.makeUpWork:
+        return appLocalizations.makeUpWork;
       case RequisitionTypeEnum.core:
         return appLocalizations.core;
       case RequisitionTypeEnum.unknown:
@@ -335,8 +379,7 @@ enum RequisitionTypeExplanationEnum {
   const RequisitionTypeExplanationEnum(this.name);
 }
 
-extension ConfigRequisitionTypeExplanationExtension
-    on RequisitionTypeExplanationEnum {
+extension ConfigRequisitionTypeExplanationExtension on RequisitionTypeExplanationEnum {
   String get configRequisitionTypeExplanationName {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;

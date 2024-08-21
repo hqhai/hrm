@@ -34,7 +34,7 @@ class _RequisitionInformationContentTypeLeaveState
         return BlocBuilder<RequisitionBloc, RequisitionState>(
           builder: (context, state) {
             final request = state.requisition;
-            final workShiftSettings = request.config.workShiftSettings ?? [];
+            final workShiftSettings = request.config.workShiftSettings;
             workShiftSettings.sort((a, b) {
               int dateComparison = a.workDate.compareTo(b.workDate);
               if (dateComparison != 0) {
@@ -103,14 +103,14 @@ class _RequisitionInformationContentTypeLeaveState
                   ItemTitleValue(
                     size: SpacingUnit.x4,
                     title: appLocalizations.totalLeaveWork,
-                    value: (request.config.numberValue ?? 0).toString(),
+                    value: (request.config.numberValue).toString(),
                   ),
                   ItemTitleValueColum(
                     size: SpacingUnit.x4,
                     title: appLocalizations.description,
-                    value: request.config.description ?? "",
+                    value: request.config.description,
                   ),
-                  if (request.config.subtitudePersons?.isNotEmpty ?? false)
+                  if (request.config.subtitudePersons.isNotEmpty)
                     ItemPersonInformationRequest(
                       title: appLocalizations.substitute,
                     ),

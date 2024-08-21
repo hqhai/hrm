@@ -71,7 +71,7 @@ class _ItemRequestOnTabState extends State<ItemRequestOnTab> {
               ),
               TitleValueLeave(
                 title: appLocalizations.totalLeaveWork,
-                value: (request.config.numberValue ?? 0).toString(),
+                value: (request.config.numberValue).toString(),
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
                 font: FontWeight.w600,

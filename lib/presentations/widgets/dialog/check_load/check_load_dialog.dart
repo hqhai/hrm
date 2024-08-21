@@ -6,6 +6,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:themes/themes.dart';
 
 class CreateRequestSuccess extends StatelessWidget {
@@ -139,6 +140,19 @@ completerFail({required String errorDialog, required String requestId}) {
             ? appLocalizations.editRequestUnsuccessful
             : appLocalizations.createRequestFailed,
   );
+}
+
+showToast({required BuildContext context, String errorCode = ''}) {
+  final colors = AppTheme.getColors(context);
+  dI<AppNavigation>().pop(context);
+  Fluttertoast.showToast(
+      msg: errorCode,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: colors.outline.withOpacity(0.4),
+      textColor: colors.error,
+      fontSize: SpacingUnit.x4);
 }
 
 completerSuccess({required String errorDialog, required String requestId}) {

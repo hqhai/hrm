@@ -84,18 +84,18 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       final request = dI<RequisitionBloc>().state.requisition;
       startTime = request.config.startDate;
       endTime = request.config.endDate;
-      content = request.config.content ?? "";
+      content = request.config.content;
       contentController.text = content ?? "";
-      reason = request.config.description ?? "";
+      reason = request.config.description;
       detailedDescriptionController.text = reason ?? "";
-      vehicle = request.config.vehicle ?? "";
+      vehicle = request.config.vehicle;
       vehicleController.text = vehicle ?? "";
-      destination = request.config.description ?? "";
+      destination = request.config.description;
       destinationController.text = destination ?? "";
       followers = [...request.followerIds];
-      substitutes = [...?request.config.subtitudePersons];
-      numberValue = request.config.numberValue ?? 0;
-      listWorkShift = [...?request.config.workShiftSettings];
+      substitutes = [...request.config.subtitudePersons];
+      numberValue = request.config.numberValue;
+      listWorkShift = [...request.config.workShiftSettings];
       checkShirtFirst = false;
     }
     super.initState();

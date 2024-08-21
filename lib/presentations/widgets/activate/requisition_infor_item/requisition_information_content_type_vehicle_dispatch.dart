@@ -48,9 +48,9 @@ class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
                   ItemTitleValue(
                     size: SpacingUnit.x4,
                     title: appLocalizations.schedule,
-                    value: state.requisition.config.description ?? "",
+                    value: state.requisition.config.description,
                   ),
-                  if (state.requisition.config.subtitudePersons?.isNotEmpty ?? false)
+                  if (state.requisition.config.subtitudePersons.isNotEmpty)
                     ItemPersonInformationRequest(
                       title: appLocalizations.accompanyingPerson,
                     ),

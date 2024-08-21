@@ -19,7 +19,7 @@ class RequisitionInformationContentTypeExplanation extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
-        final explanations = state.requisition.config.explanations ?? [];
+        final explanations = state.requisition.config.explanations;
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           child: Column(

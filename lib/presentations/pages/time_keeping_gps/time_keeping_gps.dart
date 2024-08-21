@@ -121,17 +121,14 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: SpacingUnit.x3),
+                                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
                                       child: GoogleMap(
                                         myLocationEnabled: checkLocation,
-                                        onMapCreated:
-                                            (GoogleMapController controller) =>
-                                                setCamera(controller),
+                                        onMapCreated: (GoogleMapController controller) =>
+                                            setCamera(controller),
                                         initialCameraPosition: CameraPosition(
                                           target: latLngFsel ??
-                                              getSchoolById(
-                                                  state.scheduleSchool.school),
+                                              getSchoolById(state.scheduleSchool.school),
                                           zoom: 15,
                                         ),
                                         markers: _markers,
@@ -166,8 +163,8 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     child: AppButton(
                       colorText: colors.background,
-                      onSubmit: () async => await _determinePosition(
-                          context, state.scheduleSchool.id),
+                      onSubmit: () async =>
+                          await _determinePosition(context, state.scheduleSchool.id),
                       title: appLocalizations.timekeepingImmediately,
                     ),
                   ),
@@ -203,8 +200,7 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          appLocalizations.locationPermissionsArePermanentlyDenied);
+      return Future.error(appLocalizations.locationPermissionsArePermanentlyDenied);
     }
     final position = await Geolocator.getCurrentPosition();
     _setCurrentLocation(position, id);
@@ -251,13 +247,11 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       });
     } else if (status == TimekeepingStatus.fail) {
       if (!currentContext.mounted) return;
-      dI<AppNavigation>().pop(currentContext);
       dialogTimeKeepingSuccess(
         context: currentContext,
       );
     } else if (status == TimekeepingStatus.distanceNotEnough) {
       if (!currentContext.mounted) return;
-      dI<AppNavigation>().pop(currentContext);
       dialogTimeKeepingUnSuccess(
         context: currentContext,
       );
@@ -277,7 +271,10 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
           ),
         );
       },
-    );
+    ).then((value) {
+      dI<AppNavigation>().pop(context);
+      dI<AppNavigation>().pop(context);
+    });
   }
 
   dialogTimeKeepingUnSuccess({required BuildContext context}) {
@@ -293,6 +290,9 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
           ),
         );
       },
-    );
+    ).then((value) {
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      dI<AppNavigation>().pop(currentContext);
+    });
   }
 }

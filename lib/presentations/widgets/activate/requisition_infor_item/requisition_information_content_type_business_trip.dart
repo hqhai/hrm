@@ -31,7 +31,7 @@ class _RequisitionInformationContentTypeBusinessTripState
       builder: (context, stateUserById) {
         return BlocBuilder<RequisitionBloc, RequisitionState>(
           builder: (context, state) {
-            final workShiftSettings = state.requisition.config.workShiftSettings ?? [];
+            final workShiftSettings = state.requisition.config.workShiftSettings;
             workShiftSettings.sort((a, b) {
               int dateComparison = a.workDate.compareTo(b.workDate);
               if (dateComparison != 0) {
@@ -67,21 +67,21 @@ class _RequisitionInformationContentTypeBusinessTripState
                     font: FontWeight.w600,
                     size: SpacingUnit.x4,
                     title: appLocalizations.numberTotalWork,
-                    value: (state.requisition.config.numberValue??0).toString(),
+                    value: (state.requisition.config.numberValue).toString(),
                   ),
                   ItemTitleValueColum(
                     font: FontWeight.w600,
                     size: SpacingUnit.x4,
                     title: appLocalizations.workingContent,
-                    value: state.requisition.config.content ?? "",
+                    value: state.requisition.config.content,
                   ),
                   ItemTitleValueColum(
                     font: FontWeight.w600,
                     size: SpacingUnit.x4,
                     title: appLocalizations.destination,
-                    value: state.requisition.config.destination ?? "",
+                    value: state.requisition.config.destination,
                   ),
-                  if (state.requisition.config.subtitudePersons?.isNotEmpty ?? false)
+                  if (state.requisition.config.subtitudePersons.isNotEmpty)
                     ItemPersonInformationRequest(
                       title: appLocalizations.accompanyingPerson,
                     ),
@@ -89,7 +89,7 @@ class _RequisitionInformationContentTypeBusinessTripState
                     font: FontWeight.w600,
                     size: SpacingUnit.x4,
                     title: appLocalizations.vehicle,
-                    value: state.requisition.config.vehicle ?? "",
+                    value: state.requisition.config.vehicle,
                   ),
                 ],
               ),

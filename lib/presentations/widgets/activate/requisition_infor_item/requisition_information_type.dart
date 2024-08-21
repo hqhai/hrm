@@ -7,6 +7,7 @@ import 'package:base_app/presentations/widgets/activate/requisition_infor_item/r
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_early.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_explanation.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_leave.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_make_up_work.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_overtime.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_postal_delivery_service.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_content_type_stationeries.dart';
@@ -56,6 +57,8 @@ Widget inFlowType(RequisitionTypeEnum? type) {
       return const RequisitionInformationContentTypeStationeries();
     case RequisitionTypeEnum.explanation:
       return const RequisitionInformationContentTypeExplanation();
+    case RequisitionTypeEnum.makeUpWork:
+      return const RequisitionInformationContentTypeMakeUpWork();
     case RequisitionTypeEnum.core:
     case null:
     case RequisitionTypeEnum.unknown:

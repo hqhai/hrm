@@ -77,7 +77,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       followers = [...request.followerIds];
       description = request.config.description;
       detailedDescriptionController.text = description ?? "";
-      explanations = [...?request.config.explanations];
+      explanations = [...request.config.explanations];
       checkTypeContainer = List.filled(explanations.length, true);
     }
     super.initState();

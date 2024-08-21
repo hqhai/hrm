@@ -70,7 +70,7 @@ class CreateRequisitionLeavePage extends StatefulWidget {
 
 class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage> {
   final TextEditingController detailedDescriptionController = TextEditingController();
-  String? description;
+  String description = '';
   DateTime? startTime, endTime;
   double numberValue = 0;
   List<File> files = [];
@@ -92,12 +92,12 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         startTime = request.config.startDate;
         endTime = request.config.endDate;
         description = request.config.description;
-        detailedDescriptionController.text = description ?? "";
+        detailedDescriptionController.text = description;
         reason = request.config.reasonLeave;
         followers = [...request.followerIds];
-        files = [...setListFiles(request.config.attachments ?? [])];
-        substitutes = [...?request.config.subtitudePersons];
-        listWorkShift = [...?request.config.workShiftSettings];
+        files = [...setListFiles(request.config.attachments)];
+        substitutes = [...request.config.subtitudePersons];
+        listWorkShift = [...request.config.workShiftSettings];
         checkShirtFirst = false;
       });
     }
@@ -107,10 +107,10 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   bool checkValidate(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final checkListWorkShift = listWorkShift.isNotEmpty;
-    final checkDescription = description != '' || description != null;
+    final checkDescription = description.isNotEmpty;
     setState(() {
       errorShift = !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
-      errorDescription = checkDescription ? appLocalizations.cannotBeLeftBlank : '';
+      errorDescription = !checkDescription ? appLocalizations.cannotBeLeftBlank : '';
     });
 
     return checkListWorkShift && checkDescription;
@@ -345,9 +345,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       postRequestRequest: request(),
       checkEdit: !checkClick && widget.requestId.isNotEmpty && checkValidate(context),
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
+      completerFail: () => showToast(
+          context: context,
+          errorCode: errorDialog
       ),
       completerSuccess: () => completerSuccess(
         requestId: widget.requestId,

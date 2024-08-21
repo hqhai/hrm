@@ -434,7 +434,7 @@
   "workInDay": "Công ghi nhận trong ngày",
   "minutesToLate": "Số phút đi muộn",
   "minutesToEarly": "Số phút về sớm",
-  "totalOTHours": "Tổng số giờ OT",
+  "totalOTHours": "Tổng số giờ làm thêm",
   "typeOfShift": "Loại ca làm việc",
   "oTCoefficient": "Hệ số OT",
   "dateType": "Loại ngày",
@@ -539,15 +539,6 @@
 
 
   "gPSAndFingerprint": "Hình thức chấm công: GPS & Vân tay",
-  "reasonCreateRequest": "Lý do tạo đơn",
-  "descriptionR": "Mô tả",
-  "caseL": "Trường hợp",
-  "revokeRequestSuccess": "Vô hiệu hóa đn thành công",
-  "revokeRequestUnsuccessful": "Vô hiệu hóa đn thành công",
-  "notSelectedAShift": "Bạn chưa chọn ca làm",
-  "notSelectedAOverTime": "Bạn chưa chọn giờ tăng ca",
-  "selectTypeLeave": "Chọn loại nghỉ",
-  "slectLeave": "Nguồn phép",
   "noTimekeeping": "Hình thức chấm công: Không chấm công",
   "numberTotalWork": "Tổng số công",
   "reasonCreateRequest": "Lý do tạo đơn",
@@ -561,5 +552,13 @@
   "slectLeave": "Nguồn phép",
   "destinationOT": "Địa điểm làm thêm giờ",
   "inCompany": "Trong công ty",
-  "outCompany": "Ngoài công ty"
+  "outCompany": "Ngoài công ty",
+  "makeUpWork": "Đăng ký làm bù",
+  "createMakeUpWork": "Tạo đơn làm bù",
+  "reasonMakeUpWork": "Lý do làm bù",
+  "leaveDate": "Ngày đã nghỉ",
+  "makeUpWorkDate": "Ngày làm bù",
+  "totalMakeUpWorkTime": "Số giờ làm bù",
+  "youDoNotHaveAShift": "Bạn không có ca làm việc vào ngày này!",
+  "shiftWasLeave": "Ca đã nghỉ"
 }

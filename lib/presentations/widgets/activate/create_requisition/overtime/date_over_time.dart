@@ -22,6 +22,7 @@ class DateOverTime extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DatePicker(
+          checkError: errorDate.isEmpty,
           oldDate: dateOld,
           onChange: (value) => setDate(value),
         ),

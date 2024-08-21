@@ -24,7 +24,7 @@ class _SearchInputState extends State<SearchInput> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         SizedBox(
-          width: width - SpacingUnit.x10,
+          width: width - SpacingUnit.x15,
           child: TextField(
             controller: searchController,
             style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),

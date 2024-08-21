@@ -1310,7 +1310,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get minutesToEarly => 'Số phút về sớm';
 
   @override
-  String get totalOTHours => 'Tổng số giờ OT';
+  String get totalOTHours => 'Tổng số giờ làm thêm';
 
   @override
   String get typeOfShift => 'Loại ca làm việc';
@@ -1653,4 +1653,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get outCompany => 'Ngoài công ty';
+
+  @override
+  String get makeUpWork => 'Đăng ký làm bù';
+
+  @override
+  String get createMakeUpWork => 'Tạo đơn làm bù';
+
+  @override
+  String get reasonMakeUpWork => 'Lý do làm bù';
+
+  @override
+  String get leaveDate => 'Ngày đã nghỉ';
+
+  @override
+  String get makeUpWorkDate => 'Ngày làm bù';
+
+  @override
+  String get totalMakeUpWorkTime => 'Số giờ làm bù';
+
+  @override
+  String get youDoNotHaveAShift => 'Bạn không có ca làm việc vào ngày này!';
+
+  @override
+  String get shiftWasLeave => 'Ca đã nghỉ';
 }

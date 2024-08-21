@@ -61,10 +61,10 @@ class _CreateRequisitionReleaseOfWarehousePageState
   void initState() {
     if (widget.requestId.isNotEmpty) {
       final request = dI<RequisitionBloc>().state.requisition;
-      description = request.config.description ?? "";
-      scheduleController.text = request.config.description ?? "";
+      description = request.config.description;
+      scheduleController.text = request.config.description;
       followers = [...request.followerIds];
-      requisitionReleaseOfWarehouse = [...?request.config.warehourseReleaseds];
+      requisitionReleaseOfWarehouse = [...request.config.warehourseReleaseds];
     }
     super.initState();
   }

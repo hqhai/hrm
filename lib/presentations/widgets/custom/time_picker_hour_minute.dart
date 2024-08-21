@@ -12,10 +12,12 @@ import 'package:themes/themes.dart';
 import 'package:time_picker_spinner/time_picker_spinner.dart';
 
 class TimePickerHourMinute extends StatefulWidget {
-  const TimePickerHourMinute({super.key, required this.onChange, required this.timeSlot});
+  const TimePickerHourMinute(
+      {super.key, required this.onChange, required this.timeSlot, this.checkError = true});
 
   final ValueChanged<DateTime> onChange;
   final DateTime timeSlot;
+  final bool checkError;
 
   @override
   State<TimePickerHourMinute> createState() => _TimePickerHourMinuteState();
@@ -28,7 +30,7 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
     return GestureDetector(
       onTap: () => showTimeDialog(context: context),
       child: ContainerBorder(
-        borderColors: colors.text.withOpacity(0.4),
+        borderColors: widget.checkError ? colors.outline.withOpacity(0.4) : colors.error,
         paddingVertical: SpacingUnit.x4,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

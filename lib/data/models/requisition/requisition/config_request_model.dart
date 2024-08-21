@@ -15,62 +15,62 @@ part 'config_request_model.g.dart';
 @JsonSerializable()
 @CustomDateTimeConverter()
 class ConfigRequestModel {
-  final String? description;
-  final String? flowId;
+  final String description;
+  final String flowId;
   final EnumReasonLeave? takeLeaveReason;
-  final double? numberValue;
+  final double numberValue;
   final EditTimekeeping? editTimekeeping;
-  final List<String>? subtitudePersons;
-  final List<String>? attachments;
-  final String? content;
-  final String? vehicle;
-  final String? destination;
-  final String? deliveryType;
-  final List<WarehouseReleaseds>? warehourseReleaseds;
-  final List<Stationeries>? stationeries;
-  final double? subtotal;
-  final double? totalAmount;
+  final List<String> subtitudePersons;
+  final List<String> attachments;
+  final String content;
+  final String vehicle;
+  final String destination;
+  final String deliveryType;
+  final List<WarehouseReleaseds> warehourseReleaseds;
+  final List<Stationeries> stationeries;
+  final double subtotal;
+  final double totalAmount;
   final EditTimekeeping? explanationReason;
   final DateTime? startDate;
   final DateTime? endDate;
-  final double? total;
+  final double total;
   final List<RequisitionOverTime>? overTimes;
   final EnumTakeLeaveType takeLeaveType;
   final EnumReasonLeave? reasonLeave;
   final EnumSocialInsuranceLeave? socialInsuranceLeave;
-  final List<WorkShiftRegisteredDetail>? workShiftSettings;
-  final List<Explanation>? explanations;
-  final EnumReason reason;
+  final List<WorkShiftRegisteredDetail> workShiftSettings;
+  final List<Explanation> explanations;
+  final EnumReason? reason;
   final int startTime;
   final int endTime;
 
   const ConfigRequestModel(
       {this.editTimekeeping,
       this.overTimes,
-      this.flowId,
-      this.description,
-      this.attachments,
-      this.stationeries,
-      this.totalAmount,
-      this.subtotal,
-      this.numberValue,
-      this.deliveryType,
-      this.subtitudePersons,
-      this.destination,
-      this.vehicle,
-      this.content,
+      this.flowId = '',
+      this.description = '',
+      this.attachments = const [],
+      this.stationeries = const [],
+      this.totalAmount = 0,
+      this.subtotal = 0,
+      this.numberValue = 0,
+      this.deliveryType = '',
+      this.subtitudePersons= const [],
+      this.destination = '',
+      this.vehicle = '',
+      this.content = '',
       this.endDate,
       this.startDate,
       this.explanationReason,
       this.takeLeaveReason,
-      this.total,
-      this.warehourseReleaseds,
+      this.total = 0,
+      this.warehourseReleaseds = const [],
       this.socialInsuranceLeave,
       this.reasonLeave,
       this.takeLeaveType = EnumTakeLeaveType.unknown,
-      this.workShiftSettings,
-      this.explanations,
-      this.reason = EnumReason.individual,
+      this.workShiftSettings = const [],
+      this.explanations = const [],
+      this.reason,
       this.endTime = 0,
       this.startTime = 0});
 

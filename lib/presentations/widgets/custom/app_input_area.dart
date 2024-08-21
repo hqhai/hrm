@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:common/utils/validate_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,6 +30,7 @@ class AppInputArea extends StatefulWidget {
   final bool isSubmit;
   final IconData? icon;
   final String? label;
+  final Color? colorBorder;
 
   const AppInputArea(
       {super.key,
@@ -56,7 +58,8 @@ class AppInputArea extends StatefulWidget {
       this.icon,
       this.onValueSelectChange,
       this.onClickIcon,
-      this.label});
+      this.label,
+      this.colorBorder});
 
   @override
   State<StatefulWidget> createState() => _AppInputAreaState();
@@ -120,13 +123,11 @@ class _AppInputAreaState extends State<AppInputArea> {
                       )
                     : const SizedBox(),
                 hintText: widget.placeHolder,
-                hintStyle: theme.textTheme.bodyLarge
-                    ?.copyWith(color: colors.textTertiary),
+                hintStyle: theme.textTheme.bodyLarge?.copyWith(color: colors.textTertiary),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                    color:
-                        isEmpty(widget.error) ? colors.outline : colors.error,
+                    color: isEmpty(widget.error) ? colors.outline.withOpacity(0.4) : colors.error,
                     width: 1.0,
                   ),
                 ),
@@ -153,8 +154,7 @@ class _AppInputAreaState extends State<AppInputArea> {
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
                     widget.error!,
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(color: colors.error),
+                    style: theme.textTheme.bodyMedium?.copyWith(color: colors.error, fontSize: SpacingUnit.x3),
                     maxLines: 2,
                   ),
                 )

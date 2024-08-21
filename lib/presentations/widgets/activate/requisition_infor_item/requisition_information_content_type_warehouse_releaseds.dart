@@ -25,8 +25,8 @@ class _RequisitionInformationContentTypeWarehouseReleasedsState
 
   @override
   void initState() {
-    if (dI<RequisitionBloc>().state.requisition.config.warehourseReleaseds?.isNotEmpty ?? false) {
-      int count = dI<RequisitionBloc>().state.requisition.config.warehourseReleaseds!.length;
+    if (dI<RequisitionBloc>().state.requisition.config.warehourseReleaseds.isNotEmpty) {
+      int count = dI<RequisitionBloc>().state.requisition.config.warehourseReleaseds.length;
       listCheck = List.filled(count, true);
     }
 
@@ -52,15 +52,15 @@ class _RequisitionInformationContentTypeWarehouseReleasedsState
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              if (state.requisition.config.warehourseReleaseds?.isNotEmpty ?? false)
+              if (state.requisition.config.warehourseReleaseds.isNotEmpty)
                 Container(
                   padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
                   child: Column(
-                    children: state.requisition.config.warehourseReleaseds!
+                    children: state.requisition.config.warehourseReleaseds
                         .mapIndexed(
                           (index, element) => ItemListReleaseOfWarehouseExtend(
                             requisitionReleaseOfWarehouse:
-                            state.requisition.config.warehourseReleaseds?[index],
+                            state.requisition.config.warehourseReleaseds[index],
                             index: index,
                           ),
                         )

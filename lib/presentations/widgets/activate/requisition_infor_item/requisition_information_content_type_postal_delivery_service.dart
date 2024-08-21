@@ -19,7 +19,7 @@ class RequisitionInformationContentTypePostalDeliveryService extends StatelessWi
         return ItemTitleValue(
           size: SpacingUnit.x4,
           title: appLocalizations.transferType,
-          value: state.requisition.config.deliveryType ?? "",
+          value: state.requisition.config.deliveryType,
           font: FontWeight.w600,
         );
       },

@@ -50,7 +50,7 @@ class _ListCheckboxTypeRequestFilterState
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
             child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+              //physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: SpacingUnit.x4,

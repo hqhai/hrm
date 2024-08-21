@@ -5,6 +5,7 @@ import 'package:base_app/presentations/pages/activate/create_requisition/create_
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_explanation.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_late_and_early.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_leave.dart';
+import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_make_up_work.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_over_time.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_postal_delivery.dart';
 import 'package:base_app/presentations/pages/activate/create_requisition/create_requisition_release_of_warehouse.dart';
@@ -54,9 +55,7 @@ class AppRouters {
   AppRouters() : goRouter = _router;
 
   static GoRouter get _router => GoRouter(
-      routes: routerPages,
-      navigatorKey: dI<AppNavigation>().navigatorKey,
-      initialLocation: '/');
+      routes: routerPages, navigatorKey: dI<AppNavigation>().navigatorKey, initialLocation: '/');
 
   static List<GoRoute> routerPages = {
     Pages.main: mainPageRoute,
@@ -73,8 +72,7 @@ class AppRouters {
     Pages.updateNotesPage: updateNotePageRoute,
     Pages.changePasswordPage: changePasswordPageRoute,
     Pages.updateProfilePage: updateProfilePageRoute,
-    Pages.layoutCalendarAttendanceHistoryPage:
-        layoutCalendarAttendanceHistoryPageRoute,
+    Pages.layoutCalendarAttendanceHistoryPage: layoutCalendarAttendanceHistoryPageRoute,
     Pages.historyAttendancePage: historyAttendancePageRoute,
     Pages.biometricRegister: registerBiometricPageRoute,
     Pages.timekeepingGPSPage: timekeepingGPSPageRoute,
@@ -88,15 +86,14 @@ class AppRouters {
     Pages.pDFPage: pDFPageRoute,
     Pages.createRequestBusinessPage: createRequestBusinessPageRoute,
     Pages.createRequestPostalDeliveryPage: createRequestPostalDeliveryPageRoute,
-    Pages.createRequestVehicleDispatchPage:
-        createRequestVehicleDispatchPageRoute,
+    Pages.createRequestVehicleDispatchPage: createRequestVehicleDispatchPageRoute,
     Pages.createRequestStationeryOderPage: createRequestStationeryOderPageRoute,
-    Pages.createRequestReleaseOfWarehousePage:
-        createRequestReleaseOfWarehousePageRoute,
+    Pages.createRequestReleaseOfWarehousePage: createRequestReleaseOfWarehousePageRoute,
     Pages.requisitionApproveListPage: requisitionApproveListPageRoute,
     Pages.requisitionFollowerListPage: requisitionFollowerListPageRoute,
     Pages.createRequestOverTimePage: createRequestOverTimePageRoute,
     Pages.createRequestLateAndEarlyPage: createRequestLateAndEarlyPageRoute,
+    Pages.createRequestMakeUpWorkPage: createRequestMakeUpWorkPageRoute,
     Pages.listSchoolsPage: listSchoolsPageRoute,
     Pages.leavePage: leavePageRoute,
     Pages.layoutCalendarPage: layoutCalendarPageRoute,

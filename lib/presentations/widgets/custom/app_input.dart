@@ -123,7 +123,7 @@ class _AppInputState extends State<AppInput> {
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
                           color: isEmpty(widget.error)
-                              ? colors.outline
+                              ? colors.outline.withOpacity(0.4)
                               : colors.error,
                           width: 1.0,
                         ),

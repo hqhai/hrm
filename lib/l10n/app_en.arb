@@ -549,6 +549,14 @@
   "slectLeave": "Leave",
   "destinationOT": "Destination overtime",
   "inCompany": "Inside company",
-  "outCompany": "Outside Company"
+  "outCompany": "Outside Company",
+  "makeUpWork": "Make up work",
+  "createMakeUpWork": "Create makeup work request",
+  "reasonMakeUpWork": "Makeup work reason ",
+  "leaveDate": "Leave date",
+  "makeUpWorkDate": "Make up work date",
+  "totalMakeUpWorkTime": "Total make up work time",
+  "youDoNotHaveAShift": "You don't have a shift in date!",
+  "shiftWasLeave": "Shift was leave"
 
 }
