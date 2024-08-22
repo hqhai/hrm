@@ -43,8 +43,8 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
     setState(() {
       requisitionOverTime = value;
       date = value.date;
-      startTime = value.startTime ?? 0;
-      endTime = value.endTime ?? 0;
+      startTime = value.startTime;
+      endTime = value.endTime;
       suggestTime = double.parse((endTime - startTime).toString());
       note = value.note;
     });
@@ -118,7 +118,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
         date: date,
         endTime: endTime,
         startTime: startTime,
-        note: note,
+        note: note??'',
       ));
       Navigator.of(context).pop();
     }

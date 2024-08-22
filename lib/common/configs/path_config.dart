@@ -72,6 +72,7 @@ class PathConfig {
   static String worksheet = '/worksheet/get-worksheet-by-user';
   static String requestByIds = '/request/get-request-by-ids';
   static String attendanceByDate = '/attendance/get-attendances-by-date';
+  static String shiftById = '/admin/work-shift';
 
 
 }

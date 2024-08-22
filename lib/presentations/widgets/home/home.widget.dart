@@ -59,7 +59,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   upMonth: () => upMonth(),
                 ),
                 Column(
-                  children: titleHome()
+                  children: TitleHome.titleHome()
                       .mapIndexed(
                         (index, element) => ItemWorkSheet(
                           title: element,

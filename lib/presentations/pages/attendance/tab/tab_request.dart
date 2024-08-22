@@ -1,3 +1,4 @@
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -8,8 +9,10 @@ import 'package:base_app/presentations/bloc/requisition/request_history_work_she
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_event.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_business_on_tab.dart';
+import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_explanation_on_tab.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_late_or_early_on_tab.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_leave_on_tab.dart';
+import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_make_up_on_tab.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_overtime_on_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,6 +73,7 @@ class _RequestTabState extends State<RequestTab> {
       case RequisitionTypeEnum.leaveHalfDayToOneDay:
         return ItemRequestOnTab(id: e);
       case RequisitionTypeEnum.explanation:
+        return ItemRequestExplanationOnTab(id: e);
       case RequisitionTypeEnum.lateOrEarly:
         return ItemRequestLateOrEarlyOnTab(
           id: e,
@@ -82,13 +86,10 @@ class _RequestTabState extends State<RequestTab> {
           id: e,
           dateTime: widget.dateTime,
         );
-      case RequisitionTypeEnum.vehicleDriver:
-      case RequisitionTypeEnum.postalDelivery:
-      case RequisitionTypeEnum.warehouseReleased:
-      case RequisitionTypeEnum.stationery:
-      case RequisitionTypeEnum.core:
-      case null:
-      case RequisitionTypeEnum.unknown:
+      case RequisitionTypeEnum.makeUpWork:
+        return ItemRequestMakeUpOnTab(
+          id: e,
+        );
       default:
         return const SizedBox();
     }

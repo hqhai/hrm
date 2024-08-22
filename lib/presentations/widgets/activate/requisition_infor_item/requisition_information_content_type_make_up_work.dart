@@ -42,10 +42,10 @@ class _RequisitionInformationContentTypeMakeUpWorkState
       builder: (context, state) {
         final workShiftSettings = state.requisition.config.workShiftSettings;
         final replace = RequisitionOverTime(
-            date: state.requisition.config.endDate,
+            date: state.requisition.config.startDate,
             startTime: state.requisition.config.startTime,
             endTime: state.requisition.config.endTime,
-            suggestTime: state.requisition.config.numberValue);
+            suggestTime: (state.requisition.config.endTime - state.requisition.config.startTime).toDouble());
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           child: Column(

@@ -6,7 +6,6 @@ import 'package:base_app/data/models/location/datetime_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
-import 'package:base_app/data/models/object_by_id_request.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
@@ -41,7 +40,9 @@ class LocationRepositoryImpl extends LocationRepository {
 
   @override
   Future<CheckInGPSResponse> postCheckInGPS(
-      {required double longitude, required double latitude, required String scheduleSchoolId}) async {
+      {required double longitude,
+      required double latitude,
+      required String scheduleSchoolId}) async {
     return _locationService.postCheckInGPS(
       checkInRequest: CheckInRequest(
         longitude: longitude,
@@ -73,8 +74,7 @@ class LocationRepositoryImpl extends LocationRepository {
 
   @override
   Future<Shift> getShift({required String id}) async {
-    return await _locationService.getShift(
-        objectByIdRequest: ObjectByIdRequest(id: id));
+    return await _locationService.getShift(id: id);
   }
 
   @override
@@ -83,14 +83,12 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<void> cancelRegisterWorkDays(
-      {required CancelWorkDayRequest request}) async {
+  Future<void> cancelRegisterWorkDays({required CancelWorkDayRequest request}) async {
     await _locationService.cancelRegisterWorkDays(request: request);
   }
 
   @override
-  Future<ShiftsAdminResponse> getWorkDaysAdmin(
-      {required WorkDayAdminRequest request}) async {
+  Future<ShiftsAdminResponse> getWorkDaysAdmin({required WorkDayAdminRequest request}) async {
     return await _locationService.getWorkDaysAdmin(request: request);
   }
 

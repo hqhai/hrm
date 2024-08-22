@@ -77,7 +77,7 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
               title: widget.checkType == RequestType.oT
                   ? appLocalizations.totalOTHours
                   : appLocalizations.totalMakeUpWorkTime,
-              value: strSeconds((widget.requisitionOverTime.suggestTime ?? 0).toInt()) ?? "",
+              value: strSeconds(widget.requisitionOverTime.suggestTime.toInt()) ?? "",
               size: SpacingUnit.x4,
             ),
           if (widget.checkType == RequestType.oT)
@@ -110,12 +110,12 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
               ),
             ),
           if (showNote &&
-              widget.requisitionOverTime.note != null &&
+              widget.requisitionOverTime.note.isNotEmpty &&
               widget.checkType == RequestType.oT)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
               child: Text(
-                widget.requisitionOverTime.note ?? "",
+                widget.requisitionOverTime.note,
                 style: TextStyle(
                   color: colors.text,
                   fontSize: SpacingUnit.x4,

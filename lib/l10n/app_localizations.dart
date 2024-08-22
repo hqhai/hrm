@@ -3476,6 +3476,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Auth account'**
   String get authAccount;
+
+  /// No description provided for @offDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Off day'**
+  String get offDay;
+
+  /// No description provided for @oTSalary.
+  ///
+  /// In en, this message translates to:
+  /// **'OT coefficient calculates salary'**
+  String get oTSalary;
+
+  /// No description provided for @oTMakeUpLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Compensatory rest OT coefficient'**
+  String get oTMakeUpLeave;
+
+  /// No description provided for @oTSalaryH.
+  ///
+  /// In en, this message translates to:
+  /// **'Number hours OT salary'**
+  String get oTSalaryH;
+
+  /// No description provided for @oTMakeUpLeaveH.
+  ///
+  /// In en, this message translates to:
+  /// **'Number hours OT coefficient'**
+  String get oTMakeUpLeaveH;
+
+  /// No description provided for @makeUpTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Make up time'**
+  String get makeUpTime;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

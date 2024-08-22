@@ -34,29 +34,29 @@ class ColorPopUp extends StatelessWidget {
       required String title,
       required Color color}) {
     final colors = AppTheme.getColors(context);
-    return Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: SpacingUnit.x2,
-          ),
-          child: ContainerBorder(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ContainerBorder(
+            marginTop: 0,
             width: SpacingUnit.x3,
             height: SpacingUnit.x3,
-            paddingVertical: SpacingUnit.x2,
             backgroundColors: color,
             borderColors: color,
             child: const SizedBox(),
           ),
-        ),
-        Text(
-          title,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x3_5,
+          const SizedBox(width: SpacingUnit.x2,),
+          Text(
+            title,
+            style: TextStyle(
+              color: colors.text,
+              fontSize: SpacingUnit.x3_5,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

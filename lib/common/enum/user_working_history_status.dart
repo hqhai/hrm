@@ -23,7 +23,9 @@ enum UserWorkingHistoryStatus {
   @JsonValue('OffSet')
   offSet('OffSet'),
   @JsonValue('Invalid')
-  invalid('Invalid');
+  invalid('Invalid'),
+  @JsonValue('OffDay')
+  offDay('OffDay');
 
   final String name;
 
@@ -55,6 +57,8 @@ extension ConfigUesrWorkingHistoryStatusExtension on UserWorkingHistoryStatus {
         return appLocalizations.offSet;
       case UserWorkingHistoryStatus.invalid:
         return appLocalizations.invalid;
+      case UserWorkingHistoryStatus.offDay:
+        return appLocalizations.offDay;
     }
   }
 }

@@ -254,7 +254,7 @@ class _CreateRequestVehicleDispatchPageState
               content: contentController.text,
               endDate: endTime,
               startDate: startTime,
-              substitutesPersons: subtitudePersons,
+              subtitudePersons: subtitudePersons,
             ),
           )
         : PostRequestRequest(
@@ -266,7 +266,7 @@ class _CreateRequestVehicleDispatchPageState
               content: contentController.text,
               endDate: endTime,
               startDate: startTime,
-              substitutesPersons: subtitudePersons,
+              subtitudePersons: subtitudePersons,
             ),
           );
   }
@@ -290,37 +290,6 @@ class _CreateRequestVehicleDispatchPageState
       ),
     );
   }
-
-  /*setCheckLoad() {
-    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    dialogIndicator(context: currentContext);
-  }
-
-  completerFail() {
-    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    final appLocalizations = AppLocalizations.of(currentContext)!;
-    dI<AppNavigation>().pop(currentContext);
-    dialogUnsuccessful(
-      context: currentContext,
-      title: errorDialog.isNotEmpty
-          ? errorDialog
-          : widget.requestId.isNotEmpty
-              ? appLocalizations.editRequestUnsuccessful
-              : appLocalizations.createRequestFailed,
-    );
-  }
-
-  completerSuccess() {
-    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    final appLocalizations = AppLocalizations.of(currentContext)!;
-    dI<AppNavigation>().pop(currentContext);
-    dialogSuccess(
-      context: currentContext,
-      title: widget.requestId.isNotEmpty
-          ? appLocalizations.editRequestSuccess
-          : appLocalizations.createSuccess,
-    );
-  }*/
 
   _cancel(BuildContext context) {
     dI<AppNavigation>().pop(context);

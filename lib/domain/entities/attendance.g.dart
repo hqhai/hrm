@@ -27,7 +27,11 @@ abstract class _$AttendanceCWProxy {
 
   Attendance overTimeDay(EnumOvertimeDay? overTimeDay);
 
+  Attendance overTimeLeave(int overTimeLeave);
+
   Attendance overTimeRate(int overTimeRate);
+
+  Attendance overTimeSalary(int overTimeSalary);
 
   Attendance realRate(double realRate);
 
@@ -63,7 +67,9 @@ abstract class _$AttendanceCWProxy {
     double? noSalaryRate,
     int? overTime,
     EnumOvertimeDay? overTimeDay,
+    int? overTimeLeave,
     int? overTimeRate,
+    int? overTimeSalary,
     double? realRate,
     double? salaryWork,
     int? timeEarly,
@@ -114,7 +120,15 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
       this(overTimeDay: overTimeDay);
 
   @override
+  Attendance overTimeLeave(int overTimeLeave) =>
+      this(overTimeLeave: overTimeLeave);
+
+  @override
   Attendance overTimeRate(int overTimeRate) => this(overTimeRate: overTimeRate);
+
+  @override
+  Attendance overTimeSalary(int overTimeSalary) =>
+      this(overTimeSalary: overTimeSalary);
 
   @override
   Attendance realRate(double realRate) => this(realRate: realRate);
@@ -162,7 +176,9 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
     Object? noSalaryRate = const $CopyWithPlaceholder(),
     Object? overTime = const $CopyWithPlaceholder(),
     Object? overTimeDay = const $CopyWithPlaceholder(),
+    Object? overTimeLeave = const $CopyWithPlaceholder(),
     Object? overTimeRate = const $CopyWithPlaceholder(),
+    Object? overTimeSalary = const $CopyWithPlaceholder(),
     Object? realRate = const $CopyWithPlaceholder(),
     Object? salaryWork = const $CopyWithPlaceholder(),
     Object? timeEarly = const $CopyWithPlaceholder(),
@@ -217,11 +233,21 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
           ? _value.overTimeDay
           // ignore: cast_nullable_to_non_nullable
           : overTimeDay as EnumOvertimeDay?,
+      overTimeLeave:
+          overTimeLeave == const $CopyWithPlaceholder() || overTimeLeave == null
+              ? _value.overTimeLeave
+              // ignore: cast_nullable_to_non_nullable
+              : overTimeLeave as int,
       overTimeRate:
           overTimeRate == const $CopyWithPlaceholder() || overTimeRate == null
               ? _value.overTimeRate
               // ignore: cast_nullable_to_non_nullable
               : overTimeRate as int,
+      overTimeSalary: overTimeSalary == const $CopyWithPlaceholder() ||
+              overTimeSalary == null
+          ? _value.overTimeSalary
+          // ignore: cast_nullable_to_non_nullable
+          : overTimeSalary as int,
       realRate: realRate == const $CopyWithPlaceholder() || realRate == null
           ? _value.realRate
           // ignore: cast_nullable_to_non_nullable
@@ -298,6 +324,8 @@ Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
                   UserWorkingHistoryModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      overTimeLeave: json['overTimeLeave'] as int? ?? 0,
+      overTimeSalary: json['overTimeSalary'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
@@ -318,6 +346,8 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
   val['noSalaryRate'] = instance.noSalaryRate;
   val['overTime'] = instance.overTime;
   val['overTimeRate'] = instance.overTimeRate;
+  val['overTimeSalary'] = instance.overTimeSalary;
+  val['overTimeLeave'] = instance.overTimeLeave;
   writeNotNull('overTimeDay', _$EnumOvertimeDayEnumMap[instance.overTimeDay]);
   val['workTimeReal'] = instance.workTimeReal;
   val['workTimeActual'] = instance.workTimeActual;

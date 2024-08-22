@@ -1334,10 +1334,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get regularDay => 'Ngày thường';
 
   @override
-  String get timeFrameOT => 'Khung giờ OT';
+  String get timeFrameOT => 'Khung giờ làm thêm';
 
   @override
-  String get timeFrame => 'khung thời gian';
+  String get timeFrame => 'khung giờ';
 
   @override
   String get numberOfLate => 'Số lần về sớm';
@@ -1628,10 +1628,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get caseL => 'Trường hợp';
 
   @override
-  String get revokeRequestSuccess => 'Vô hiệu hóa đn thành công';
+  String get revokeRequestSuccess => 'Vô hiệu hóa đơn thành công';
 
   @override
-  String get revokeRequestUnsuccessful => 'Vô hiệu hóa đn thành công';
+  String get revokeRequestUnsuccessful => 'Vô hiệu hóa đơn thành công';
 
   @override
   String get notSelectedAShift => 'Bạn chưa chọn ca làm';
@@ -1695,4 +1695,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get authAccount => 'Xác thực tài khoản';
+
+  @override
+  String get offDay => 'Ngày nghỉ';
+
+  @override
+  String get oTSalary => 'Hệ số OT tính lương';
+
+  @override
+  String get oTMakeUpLeave => 'Hệ số OT nghỉ bù';
+
+  @override
+  String get oTSalaryH => 'Số giờ OT tính lương';
+
+  @override
+  String get oTMakeUpLeaveH => 'Số giờ OT nghỉ bù';
+
+  @override
+  String get makeUpTime => 'Thời gian làm bù';
 }

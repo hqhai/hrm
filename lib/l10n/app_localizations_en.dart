@@ -1695,4 +1695,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get authAccount => 'Auth account';
+
+  @override
+  String get offDay => 'Off day';
+
+  @override
+  String get oTSalary => 'OT coefficient calculates salary';
+
+  @override
+  String get oTMakeUpLeave => 'Compensatory rest OT coefficient';
+
+  @override
+  String get oTSalaryH => 'Number hours OT salary';
+
+  @override
+  String get oTMakeUpLeaveH => 'Number hours OT coefficient';
+
+  @override
+  String get makeUpTime => 'Make up time';
 }

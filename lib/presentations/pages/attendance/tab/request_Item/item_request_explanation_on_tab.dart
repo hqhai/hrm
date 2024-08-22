@@ -3,6 +3,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
@@ -34,13 +35,13 @@ class _ItemRequestExplanationOnTabState extends State<ItemRequestExplanationOnTa
       checkOpacity: checkOpacity,
       child: BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
         builder: (context, state) {
-          final request = state.mapRequests[widget.id];
+          final request = state.mapRequests[widget.id] ?? const Request(id: '');
           return Column(
             children: [
               ItemTypeOnTab(
-                type: request?.flowType.configTypeName ?? "",
+                type: request.flowType.configTypeName,
                 callback: () => nextScreenRequest(
-                  context: context,
+                    context: context,
                     checkUser: RequestSeeByWho.user,
                     id: widget.id,
                     checkOpacity: checkOpacity,
@@ -48,15 +49,16 @@ class _ItemRequestExplanationOnTabState extends State<ItemRequestExplanationOnTa
               ),
               TitleValueLeave(
                 title: appLocalizations.reason,
-                value: request?.config.explanationReason?.configEditTimekeepingName ?? "",
+                value: request.config.explanationReason?.configEditTimekeepingName ?? "",
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
               ),
               TitleValueLeave(
-                title: appLocalizations.totalTime,
-                value: request?.config.total.toString() ?? "",
+                title: appLocalizations.statusRequest,
+                value: request.status.getAppLocalizationName,
                 size: SpacingUnit.x4,
-                padding: SpacingUnit.x3,
+                padding: SpacingUnit.x2,
+                font: FontWeight.w600,
               ),
             ],
           );

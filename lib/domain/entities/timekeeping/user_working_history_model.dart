@@ -1,5 +1,6 @@
 import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
+import 'package:base_app/domain/entities/timekeeping/user_overtime_history.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -114,7 +115,19 @@ class UserWorkingHistoryModel {
   /// </summary>
   final int? checkOut;
 
+  /// <summary>
+  /// Tổng thời gian làm bù
+  /// </summary>
+  final int makeUpTime;
+
+  /// <summary>
+  /// OT trong bảng công
+  /// </summary>
+  final List<UserOverTimeHistoryModel> userOverTimeHistories;
+
+
   const UserWorkingHistoryModel({
+    this.userOverTimeHistories = const [],
     this.checkIn,
     this.date,
     this.checkOut,
@@ -136,6 +149,7 @@ class UserWorkingHistoryModel {
     this.workShiftId = '',
     this.workTimeActual = 0,
     this.workTimeReal = 0,
+    this.makeUpTime = 0,
   });
 
   factory UserWorkingHistoryModel.fromJson(Map<String, dynamic> json) =>

@@ -170,6 +170,7 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
                             password: '',
                             username: '',
                           ),
+                          checkBiometric: false,
                           status: BiometricEnum.notRegistered),
                     );
                     dI<AppNavigation>().pop(context);

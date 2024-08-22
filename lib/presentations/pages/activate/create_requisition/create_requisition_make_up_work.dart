@@ -86,7 +86,7 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
       startDate = request.config.startDate ?? DateTime.now();
       startTime = request.config.startTime;
       endTime = request.config.endTime;
-      numberValue = (request.config.numberValue) * 3600;
+      numberValue = (request.config.numberValue);
       followers = [...request.followerIds];
 
       descriptionController.text = description;
@@ -251,7 +251,7 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
             flowId: widget.flowId,
             config: ConfigModelRequest(
                 startDate: startDate,
-                numberValue: numberValue / 3600,
+                numberValue: numberValue,
                 startTime: startTime,
                 endTime: endTime,
                 description: description,
@@ -263,7 +263,7 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
             flowId: widget.flowId,
             config: ConfigModelRequest(
                 startDate: startDate,
-                numberValue: numberValue / 3600,
+                numberValue: numberValue,
                 startTime: startTime,
                 endTime: endTime,
                 description: description,

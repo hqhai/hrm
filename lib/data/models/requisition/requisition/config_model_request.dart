@@ -20,7 +20,7 @@ class ConfigModelRequest {
   final EnumReasonLeave? takeLeaveReason;
   final double? numberValue;
   final EditTimekeeping? editTimekeeping;
-  final List<String>? substitutesPersons;
+  final List<String>? subtitudePersons;
   final List<String>? attachments;
   final String? content;
   final String? vehicle;
@@ -55,7 +55,7 @@ class ConfigModelRequest {
       this.subtotal,
       this.numberValue,
       this.deliveryType,
-      this.substitutesPersons,
+      this.subtitudePersons,
       this.destination,
       this.vehicle,
       this.content,

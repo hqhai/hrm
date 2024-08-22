@@ -135,7 +135,7 @@ class _AuthBiometricState extends State<AuthBiometric> {
           AppButton(
               title: appLocalizations.continues,
               onSubmit: () => onSubmit(context),
-              color: checkInput() ? colors.blue : colors.navy,
+              color: checkInput() ? colors.blue : colors.outline.withOpacity(0.4),
               colorText: colors.background),
         ],
       ),
@@ -162,6 +162,7 @@ class _AuthBiometricState extends State<AuthBiometric> {
                 password: passwordController.text,
                 username: email,
               ),
+              checkBiometric: true,
               status: BiometricEnum.haveRegistration),
         );
         setState(() {
