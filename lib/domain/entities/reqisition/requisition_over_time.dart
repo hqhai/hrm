@@ -8,19 +8,19 @@ part 'requisition_over_time.g.dart';
 @JsonSerializable()
 class RequisitionOverTime {
   final DateTime? date;
-  final int? startTime;
-  final int? endTime;
-  final double? suggestTime;
-  final String? note;
+  final int startTime;
+  final int endTime;
+  final double suggestTime;
+  final String note;
   final EnumOvertimeDay? overTimeDay;
   final bool isChecking;
 
   const RequisitionOverTime({
-    this.endTime,
-    this.startTime,
-    this.note,
+    this.endTime = 0,
+    this.startTime = 0,
+    this.note = '',
     this.date,
-    this.suggestTime,
+    this.suggestTime = 0,
     this.overTimeDay,
     this.isChecking = true,
   });

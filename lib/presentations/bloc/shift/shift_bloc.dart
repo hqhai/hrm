@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
-import 'package:base_app/presentations/bloc/ahift/shift_event.dart';
-import 'package:base_app/presentations/bloc/ahift/shift_state.dart';
+import 'package:base_app/presentations/bloc/shift/shift_event.dart';
+import 'package:base_app/presentations/bloc/shift/shift_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 

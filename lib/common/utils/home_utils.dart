@@ -2,21 +2,25 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 
-List<String> titleHome() {
-  final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-  final appLocalizations = AppLocalizations.of(currentContext)!;
-  return [
-    appLocalizations.realWork,
-    appLocalizations.actualWork,
-    appLocalizations.leaveWork,
-    appLocalizations.holidayWork,
-    appLocalizations.salaryWork,
-    appLocalizations.leaveWithoutPay,
-    appLocalizations.workOT,
-    appLocalizations.workTime,
-    appLocalizations.minutesToLate,
-    appLocalizations.minutesToEarly,
-    appLocalizations.numberOfEarly,
-    appLocalizations.numberOfLate,
-  ];
+class TitleHome {
+  static List<String> titleHome() {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    return [
+      appLocalizations.realWork,
+      appLocalizations.actualWork,
+      appLocalizations.leaveWork,
+      appLocalizations.holidayWork,
+      appLocalizations.salaryWork,
+      appLocalizations.leaveWithoutPay,
+      appLocalizations.workOT,
+      appLocalizations.oTSalaryH,
+      appLocalizations.oTMakeUpLeaveH,
+      appLocalizations.workTime,
+      appLocalizations.minutesToLate,
+      appLocalizations.minutesToEarly,
+      appLocalizations.numberOfEarly,
+      appLocalizations.numberOfLate,
+    ];
+  }
 }

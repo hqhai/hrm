@@ -56,6 +56,16 @@ class Attendance {
   final int overTimeRate;
 
   /// <summary>
+  /// số giờ OT tính lương
+  /// </summary>
+  final int overTimeSalary;
+
+  /// <summary>
+  /// số giờ OT nghỉ bù
+  /// </summary>
+  final int overTimeLeave;
+
+  /// <summary>
   /// số giờ OT
   /// </summary>
   final EnumOvertimeDay? overTimeDay;
@@ -105,69 +115,76 @@ class Attendance {
   /// </summary>
   final List<UserWorkingHistoryModel> userWorkingHistories;
 
-  const Attendance({
-    this.workTimeReal = 0,
-    this.workTimeActual = 0,
-    this.overTime = 0,
-    this.realRate = 0,
-    this.overTimeRate = 0,
-    this.overTimeDay,
-    this.noSalaryRate = 0,
-    this.leaveRate = 0,
-    this.holidayRate = 0,
-    this.actualRate = 0,
-    this.userId,
-    this.timeLate = 0,
-    this.salaryWork = 0,
-    this.name,
-    this.code,
-    this.countEarly = 0,
-    this.countLate = 0,
-    this.timeEarly = 0,
-    this.userWorkingHistories = const [],
-  });
+  const Attendance(
+      {this.workTimeReal = 0,
+      this.workTimeActual = 0,
+      this.overTime = 0,
+      this.realRate = 0,
+      this.overTimeRate = 0,
+      this.overTimeDay,
+      this.noSalaryRate = 0,
+      this.leaveRate = 0,
+      this.holidayRate = 0,
+      this.actualRate = 0,
+      this.userId,
+      this.timeLate = 0,
+      this.salaryWork = 0,
+      this.name,
+      this.code,
+      this.countEarly = 0,
+      this.countLate = 0,
+      this.timeEarly = 0,
+      this.userWorkingHistories = const [],
+      this.overTimeLeave = 0,
+      this.overTimeSalary = 0});
 
-  factory Attendance.fromJson(Map<String, dynamic> json) =>
-      _$AttendanceFromJson(json);
+  factory Attendance.fromJson(Map<String, dynamic> json) => _$AttendanceFromJson(json);
 
   Map<String, dynamic> toJson() => _$AttendanceToJson(this);
 
   List<String> toListString() {
     return [
+      ///Công chuẩn
       realRate.toString(),
 
-      ///Công chuẩn
+      ///Công thực tế
       actualRate.toString(),
 
-      ///Công thực tế
+      ///Công nghỉ
       leaveRate.toString(),
 
-      ///Công nghỉ
+      ///Công nghỉ lễ
       holidayRate.toString(),
 
-      ///Công nghỉ lễ
+      ///Công tính lương
       salaryWork.toString(),
-      noSalaryRate.toString(),
 
       ///Nghỉ không lương
-      overTime.toString(),
+      noSalaryRate.toString(),
 
       ///Số giờ OT
-      Duration(seconds: workTimeActual).inHours.toString(),
+      overTime.toString(),
+
+      ///Số giờ OT tính lương
+      overTimeSalary.toString(),
+
+      ///Số giờ OT làm bù
+      overTimeLeave.toString(),
 
       ///Số giờ làm việc
-      Duration(seconds: timeLate).inMinutes.toString(),
+      Duration(seconds: workTimeActual).inHours.toString(),
 
       ///Số phút đi muôn
-      Duration(seconds: timeEarly).inMinutes.toString(),
+      Duration(seconds: timeLate).inMinutes.toString(),
 
       ///Số phút về sớm
-      countEarly.toString(),
+      Duration(seconds: timeEarly).inMinutes.toString(),
 
       ///Số lần về sớm
-      countLate.toString(),
+      countEarly.toString(),
 
       ///Số lần đi muộn
+      countLate.toString(),
     ];
   }
 }

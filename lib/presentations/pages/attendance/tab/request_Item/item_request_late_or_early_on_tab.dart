@@ -1,9 +1,11 @@
 import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
@@ -37,39 +39,49 @@ class _ItemRequestLateOrEarlyOnTabState extends State<ItemRequestLateOrEarlyOnTa
       checkOpacity: checkOpacity,
       child: BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
         builder: (context, state) {
-          final request = state.mapRequests[widget.id];
+          final request = state.mapRequests[widget.id] ?? const Request(id: '');
           return Column(
             children: [
               ItemTypeOnTab(
-                type: request?.flowType.configTypeName ?? "",
+                type: request.flowType.configTypeName,
                 callback: () => nextScreenRequest(
-                  context: context,
+                    context: context,
                     checkUser: RequestSeeByWho.user,
                     id: widget.id,
                     checkOpacity: checkOpacity,
                     setState: () => setOpacity()),
               ),
               TitleValueLeave(
-                title: checkType(request?.flowType)
+                font: FontWeight.w600,
+                title: checkType(request.config.editTimekeeping)
                     ? appLocalizations.timeLate
                     : appLocalizations.timeEarly,
-                value: formatHMS(request?.config.startDate.toString() ?? ""),
+                value: numberTimes(request.config.workShiftSettings),
                 size: SpacingUnit.x4,
-                padding: SpacingUnit.x3,
+                padding: SpacingUnit.x2,
               ),
               TitleValueLeave(
+                font: FontWeight.w600,
                 title: appLocalizations.reason,
-                value: request?.config.description ?? "",
+                value: request.config.reason?.configEnumReasonName??"",
                 size: SpacingUnit.x4,
-                padding: SpacingUnit.x3,
+                padding: SpacingUnit.x2,
               ),
-              if (!checkType(request?.flowType))
+              if (!checkType(request.config.editTimekeeping))
                 TitleValueLeave(
-                  title: appLocalizations.timeFrameOT,
-                  value: setTotalOT(request?.config.overTimes, context),
+                  font: FontWeight.w600,
+                  title: appLocalizations.makeUpTime,
+                  value: strSeconds(request.config.endTime - request.config.startTime) ?? "",
                   size: SpacingUnit.x4,
-                  padding: SpacingUnit.x3,
+                  padding: SpacingUnit.x2,
                 ),
+              TitleValueLeave(
+                title: appLocalizations.statusRequest,
+                value: request.status.getAppLocalizationName,
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x2,
+                font: FontWeight.w600,
+              ),
             ],
           );
         },
@@ -83,23 +95,16 @@ class _ItemRequestLateOrEarlyOnTabState extends State<ItemRequestLateOrEarlyOnTa
     });
   }
 
-  String setTotalOT(List<RequisitionOverTime>? overTimes, BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    final listOT = overTimes ?? [];
-    final index = listOT.indexWhere((element) => element.date == widget.dateTime);
-    if (index != -1) {
-      final startTime = listOT[index].startTime != null
-          ? strSeconds(listOT[index].startTime!)
-          : appLocalizations.forgotChecking;
-      final endTime = listOT[index].startTime != null
-          ? strSeconds(listOT[index].endTime!)
-          : appLocalizations.forgotChecking;
-      return '$startTime - $endTime';
-    }
-    return '';
+  bool checkType(EditTimekeeping? type) {
+    return type == EditTimekeeping.late;
   }
 
-  bool checkType(RequisitionTypeEnum? flowType) {
-    return flowType == RequisitionTypeEnum.lateOrEarly;
+  String numberTimes(List<WorkShiftRegisteredDetail> workShiftSettings) {
+    final index =
+        workShiftSettings.indexWhere((element) => element.workDate.day == widget.dateTime.day);
+    if (index != -1) {
+      return strSeconds((workShiftSettings[index].numberTime * 60).toInt()) ?? "";
+    }
+    return '';
   }
 }

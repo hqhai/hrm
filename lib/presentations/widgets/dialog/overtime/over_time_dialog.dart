@@ -41,8 +41,8 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
   String errorTime = '';
   DateTime date = DateTime.now();
   int startTime = 0, endTime = 0;
-  double? suggestTime;
-  String? note;
+  double suggestTime = 0;
+  String note = '';
   RequisitionOverTime requisitionOverTime = const RequisitionOverTime();
   EnumOvertimeDay typeDate = EnumOvertimeDay.holiday;
   bool isCheck = true;
@@ -61,8 +61,8 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     setState(() {
       requisitionOverTime = value;
       date = value.date ?? DateTime.now();
-      startTime = value.startTime ?? 0;
-      endTime = value.endTime ?? 0;
+      startTime = value.startTime;
+      endTime = value.endTime;
       suggestTime = double.parse((endTime - startTime).toString());
       note = value.note;
       typeDate = value.overTimeDay ?? EnumOvertimeDay.holiday;
@@ -78,7 +78,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     startTime = widget.requisitionOverTime?.startTime ?? 0;
     endTime = widget.requisitionOverTime?.endTime ?? 0;
     suggestTime = double.parse((endTime - startTime).toString());
-    note = widget.requisitionOverTime?.note;
+    note = widget.requisitionOverTime?.note??"";
     super.initState();
   }
 
@@ -169,7 +169,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                           ),
                         ),
                         TextSpan(
-                          text: errorTime.isEmpty ? strSeconds((suggestTime ?? 0).toInt()) : '0',
+                          text: errorTime.isEmpty ? strSeconds(((suggestTime)).toInt()) : '0',
                           style: TextStyle(
                             color: colors.text,
                             fontSize: SpacingUnit.x4,

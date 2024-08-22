@@ -6,6 +6,7 @@ import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/reqisition/request.dart';
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
@@ -15,6 +16,8 @@ import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_ty
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:themes/themes.dart';
 
 class ItemRequestOverTimeOnTab extends StatefulWidget {
   const ItemRequestOverTimeOnTab({
@@ -40,31 +43,66 @@ class _ItemRequestOverTimeOnTabState extends State<ItemRequestOverTimeOnTab> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
     return ItemRequestOnTabCommon(
       checkOpacity: checkOpacity,
       child: BlocBuilder<RequestWorkSheetBloc, RequestWorkSheetState>(
         builder: (context, state) {
-          final request = state.mapRequests[widget.id]?? const Request(id: '');
+          final request = state.mapRequests[widget.id] ?? const Request(id: '');
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ItemTypeOnTab(
                 type: request.flowType.configTypeName,
                 callback: () => nextScreenRequest(
-                  context: context,
+                    context: context,
                     checkUser: RequestSeeByWho.user,
-                    id: widget.id, checkOpacity: checkOpacity, setState: () => setOpacity()),
+                    id: widget.id,
+                    checkOpacity: checkOpacity,
+                    setState: () => setOpacity()),
+              ),
+              const SizedBox(
+                height: SpacingUnit.x4,
+              ),
+              Text(
+                '${appLocalizations.timeFrameOT} :',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: SpacingUnit.x4,
+                ),
+              ),
+              ...setOTTime(request.config.overTimes, context).map(
+                (e) => Row(
+                  children: [
+                    SvgPicture.asset(
+                      Assets.images.icon.home.worksheet.dot,
+                      colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                    ),
+                    const SizedBox(
+                      width: SpacingUnit.x2,
+                    ),
+                    Text(
+                      e,
+                      style: const TextStyle(
+                        fontSize: SpacingUnit.x4,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               TitleValueLeave(
-                title: appLocalizations.timeFrameOT,
-                value: setOTTime(request.config.overTimes, context),
-                size: SpacingUnit.x4,
-                padding: SpacingUnit.x3,
-              ),
-              TitleValueLeave(
+                font: FontWeight.w600,
                 title: appLocalizations.totalOTHours,
                 value: setTotalOT(request.config.overTimes),
                 size: SpacingUnit.x4,
-                padding: SpacingUnit.x3,
+                padding: SpacingUnit.x2,
+              ),
+              TitleValueLeave(
+                title: appLocalizations.statusRequest,
+                value: request.status.getAppLocalizationName,
+                size: SpacingUnit.x4,
+                padding: SpacingUnit.x2,
+                font: FontWeight.w600,
               ),
             ],
           );
@@ -79,29 +117,27 @@ class _ItemRequestOverTimeOnTabState extends State<ItemRequestOverTimeOnTab> {
     });
   }
 
-  String setOTTime(List<RequisitionOverTime>? overTimes, BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
+  List<String> setOTTime(List<RequisitionOverTime>? overTimes, BuildContext context) {
     final listOT = overTimes ?? [];
-    final index = listOT.indexWhere((element) => element.date == widget.dateTime);
-    if (index != -1) {
-      final startTime = listOT[index].startTime != null
-          ? strSeconds(listOT[index].startTime!)
-          : appLocalizations.forgotChecking;
-      final endTime = listOT[index].startTime != null
-          ? strSeconds(listOT[index].endTime!)
-          : appLocalizations.forgotChecking;
-      return '$startTime - $endTime';
+    final List<String> shift = [];
+    for (var item in listOT) {
+      if (item.date?.day == widget.dateTime.day && item.date?.month == widget.dateTime.month) {
+        final startTime = strSeconds(item.startTime);
+        final endTime = strSeconds(item.endTime);
+        shift.add('$startTime - $endTime  ');
+      }
     }
-    return '';
+    return shift;
   }
 
   String setTotalOT(List<RequisitionOverTime>? overTimes) {
     final listOT = overTimes ?? [];
-    final index = listOT.indexWhere((element) => element.date == widget.dateTime);
-    if (index != -1) {
-      final time = listOT[index].suggestTime ?? 0;
-      return (time / 3600).toString();
+    double time = 0;
+    for (var item in listOT) {
+      if (item.date?.day == widget.dateTime.day && item.date?.month == widget.dateTime.month) {
+        time = time + (item.suggestTime).toDouble();
+      }
     }
-    return '';
+    return strSeconds(time.toInt()) ?? "";
   }
 }

@@ -309,7 +309,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
             config: ConfigModelRequest(
               takeLeaveReason: reason,
               description: detailedDescriptionController.text,
-              substitutesPersons: substitutes,
+              subtitudePersons: substitutes,
               endDate: endTime,
               startDate: startTime,
               workShiftSettings: listWorkShift,
@@ -326,7 +326,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
             config: ConfigModelRequest(
                 takeLeaveReason: reason,
                 description: detailedDescriptionController.text,
-                substitutesPersons: substitutes,
+                subtitudePersons: substitutes,
                 endDate: endTime,
                 startDate: startTime,
                 workShiftSettings: listWorkShift,

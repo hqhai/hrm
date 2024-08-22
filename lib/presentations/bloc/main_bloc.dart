@@ -1,5 +1,4 @@
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/presentations/bloc/ahift/shift_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
@@ -24,6 +23,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/stationery/stationery_bloc.dart';
+import 'package:base_app/presentations/bloc/shift/shift_bloc.dart';
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
-import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/data/models/key_page_request.dart';
 import 'package:base_app/data/models/location/check_in_gps_response.dart';
 import 'package:base_app/data/models/location/check_in_request.dart';
@@ -10,7 +9,6 @@ import 'package:base_app/data/models/location/datetime_request.dart';
 import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
-import 'package:base_app/data/models/object_by_id_request.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/data/models/response.dart';
@@ -103,23 +101,13 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<Shift> getShift({required ObjectByIdRequest objectByIdRequest}) async {
-    return Shift(
-      id: '314b3431-1e80-480c-970a-3ae20e5993fd',
-      startTime: 2000,
-      endTime: 10000,
-      type: ShiftType.administrativeShift,
-      status: WorkShiftRequestStatus.pending,
-      code: '96e1035f-03ab-4436-94fa-982b468c8237',
-      name: 'Hieu',
-      checkInEndTimeValid: 10000,
-      checkInStartTimeValid: 2000,
-      checkOutEndTimeValid: 10000,
-      checkOutStartTimeValid: 2000,
-      workDate: DateTime(2024, 07, 25),
-      createdDate: DateTime(2024, 07, 25),
-      workEffort: 1,
-    );
+  Future<Shift> getShift({required String id}) async {
+    final url = '$baseSystem${PathConfig.shiftById}/$id';
+    final response = await client.get(url);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    final shift = Shift.fromJson(data);
+    return shift;
   }
 
   @override

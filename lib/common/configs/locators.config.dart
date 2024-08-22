@@ -86,7 +86,6 @@ import '../../domain/use_cases/request_usecase.dart' as _i74;
 import '../../domain/use_cases/requisition.usecase.dart' as _i84;
 import '../../domain/use_cases/user_usecase.dart' as _i99;
 import '../../domain/use_cases/work_and_salary.usecase.dart' as _i106;
-import '../../presentations/bloc/ahift/shift_bloc.dart' as _i88;
 import '../../presentations/bloc/attendance/attendance_bloc.dart' as _i6;
 import '../../presentations/bloc/auth/auth_bloc.dart' as _i13;
 import '../../presentations/bloc/biometric/biometric_cubit.dart' as _i18;
@@ -122,6 +121,7 @@ import '../../presentations/bloc/requisition/requisiton_following/requisition_fo
     as _i79;
 import '../../presentations/bloc/requisition/stationery/stationery_bloc.dart'
     as _i89;
+import '../../presentations/bloc/shift/shift_bloc.dart' as _i88;
 import '../../presentations/bloc/themes/theme_cubit.dart' as _i90;
 import '../../presentations/bloc/user/user/user_bloc.dart' as _i91;
 import '../../presentations/bloc/user/user_by_id/user_by_id_bloc.dart' as _i92;

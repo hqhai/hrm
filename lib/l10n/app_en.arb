@@ -563,6 +563,11 @@
   "settingBiometric": "Set up Touch Id/Face Id",
   "cancelBiometricSuccessful": "Cancel biometric successful",
   "settingBiometricSuccessful": "Setting biometric successful",
-  "authAccount": "Auth account"
-
+  "authAccount": "Auth account",
+  "offDay": "Off day",
+  "oTSalary": "OT coefficient calculates salary",
+  "oTMakeUpLeave": "Compensatory rest OT coefficient",
+  "oTSalaryH": "Number hours OT salary",
+  "oTMakeUpLeaveH": "Number hours OT coefficient",
+  "makeUpTime": "Make up time"
 }

@@ -148,10 +148,10 @@ showToast({required BuildContext context, String errorCode = ''}) {
   Fluttertoast.showToast(
       msg: errorCode,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: colors.outline.withOpacity(0.4),
-      textColor: colors.error,
+      backgroundColor: colors.error,
+      textColor: colors.background,
       fontSize: SpacingUnit.x4);
 }
 
