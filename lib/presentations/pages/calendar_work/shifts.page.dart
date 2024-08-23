@@ -114,6 +114,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
                   const Spacer(),
                   if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
                     AppButton(
+                      colorText: Colors.white,
                       title: mapByStatus(
                           context: context,
                           status: data?.status ??
@@ -188,6 +189,6 @@ class _ShiftsPageState extends State<ShiftsPage> {
     dI<WorkDayBloc>().add(const ChangeLoading(status: true));
     dI<WorkDayBloc>().add(
         GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-    // Navigator.pop(context);
+    Navigator.pop(context);
   }
 }
