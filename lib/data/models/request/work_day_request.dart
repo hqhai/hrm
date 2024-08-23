@@ -52,8 +52,10 @@ class WorkDaysRequest {
 @JsonSerializable()
 class WorkDayAdminRequest {
   final WorkShiftRequestStatus requestStatus;
+  final String name;
 
   const WorkDayAdminRequest({
+    this.name = '',
     this.requestStatus = WorkShiftRequestStatus.approve,
   });
 
