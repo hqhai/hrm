@@ -23,8 +23,7 @@ class ButtonItemListRequisition extends StatelessWidget {
     return InkWell(
       onTap: () => callback.call(),
       child: Container(
-        width: SpacingUnit.x23,
-        // margin: const EdgeInsets.all(SpacingUnit.x2),
+        width: SpacingUnit.x25,
         padding: const EdgeInsets.all(SpacingUnit.x2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SpacingUnit.x3),

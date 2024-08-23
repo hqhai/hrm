@@ -34,6 +34,7 @@ class _ItemCreateTotalMinuteState extends State<ItemCreateTotalMinute> {
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x3),
           child: AppInput(
+            keyboardType: TextInputType.number,
             placeHolder: widget.title ?? "",
             controller: widget.totalMinuteController,
             onChange: (value) => _onChangeTotalMinute(value),

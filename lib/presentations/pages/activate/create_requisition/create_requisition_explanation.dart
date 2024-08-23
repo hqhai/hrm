@@ -85,9 +85,9 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     return check ? 1 : 0.3;
   }
 
-  _listener(String errorCode) {
+  _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
@@ -96,7 +96,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(state.errorCode),
+      listener: (context, state) => _listener(state.errorCode, context),
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
@@ -222,10 +222,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
+      completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
         requestId: widget.requestId,
         errorDialog: errorDialog,

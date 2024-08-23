@@ -26,6 +26,7 @@ class ItemLoadFile extends StatefulWidget {
 class _ItemLoadFileState extends State<ItemLoadFile> {
   late List<File> files = [];
   late List<String> paths = [];
+  String error = '';
 
   List<File> setOldFiles() {
     setState(() {
@@ -113,7 +114,18 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                       ),
                     ))
                 .toList(),
-          )
+          ),
+        if (paths.length > 5)
+          Text(
+            appLocalizations.limitFile,
+            style: TextStyle(
+              fontSize: SpacingUnit.x3,
+              color: colors.error,
+            ),
+          ),
+        const SizedBox(
+          height: SpacingUnit.x4,
+        ),
       ],
     );
   }
@@ -129,22 +141,28 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
   }
 
   Future<void> _getFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
-    );
-    if (result != null) {
-      setState(() {
-        files = result.paths.map((path) => File(path ?? "")).toList();
-        paths = result.paths.map((path) => path.toString()).toList();
-        widget.onChangeFiles?.call(files);
-      });
-    } else {
-      setState(() {
-        files = [];
-        paths = [];
-      });
+    if (files.length <= 5) {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
+      );
+
+      if (result != null) {
+        const maxFile = 1024 * 2 * 1024;
+        final checkFile = result.files.where((e) => e.size < maxFile);
+        final dataPaths = checkFile.map((e) => e.path ?? '').toList();
+        setState(() {
+          files.addAll(dataPaths.map((e) => File(e)).toList());
+          paths.addAll(dataPaths);
+          widget.onChangeFiles?.call(files);
+        });
+      } else {
+        setState(() {
+          files = [];
+          paths = [];
+        });
+      }
     }
   }
 

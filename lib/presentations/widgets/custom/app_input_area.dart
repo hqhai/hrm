@@ -154,7 +154,8 @@ class _AppInputAreaState extends State<AppInputArea> {
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
                     widget.error!,
-                    style: theme.textTheme.bodyMedium?.copyWith(color: colors.error, fontSize: SpacingUnit.x3),
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: colors.error, fontSize: SpacingUnit.x3),
                     maxLines: 2,
                   ),
                 )

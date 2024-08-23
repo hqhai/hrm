@@ -7,6 +7,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
 import 'package:base_app/common/utils/error_response.dart';
+import 'package:base_app/common/utils/limit_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
@@ -77,7 +78,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   List<String> followers = [], substitutes = [];
   List<WorkShiftRegisteredDetail> listWorkShift = [];
   bool checkShirt = true, checkShirtFirst = true;
-  String errorShift = '', errorDialog = '', errorDescription ='';
+  String errorShift = '', errorDialog = '', errorDescription = '';
   bool checkClick = false;
   final DateTime now = DateTime.now();
   EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
@@ -101,7 +102,30 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         checkShirtFirst = false;
       });
     }
+    detailedDescriptionController.addListener(_checkWords);
     super.initState();
+  }
+
+  _checkWords() {
+    final text = detailedDescriptionController.text;
+    final words = text.trim().split(RegExp(r'\s+'));
+    if (words.length > Limit.limitText) {
+      setState(() {
+        errorDescription = "Vượt quá giới hạn 255 từ";
+      });
+      final limitedText = words.sublist(0, Limit.limitText).join(' ');
+      detailedDescriptionController.value = TextEditingValue(
+        text: limitedText,
+        selection: TextSelection.fromPosition(
+          TextPosition(offset: limitedText.length),
+        ),
+      );
+    }
+    else{
+      setState(() {
+        errorDescription = '';
+      });
+    }
   }
 
   bool checkValidate(BuildContext context) {
@@ -154,9 +178,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     return '';
   }
 
-  _listener(String errorCode) {
+  _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
@@ -165,7 +189,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(state.errorCode),
+      listener: (context, state) => _listener(state.errorCode, context),
       builder: (context, state) {
         return BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
@@ -173,7 +197,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
               appBar: AppBar(
                 iconTheme: IconThemeData(color: colors.text),
                 title: Text(
-                  widget.type.configTypeName,
+                  widget.type.configTypeCreateName,
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x5,
@@ -249,6 +273,10 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         title: appLocalizations.follower,
                         onChange: (value) => _setFollower(value),
                       ),
+                      ItemLoadFile(
+                        files: files,
+                        onChangeFiles: (value) => _setFile(value),
+                      ),
                       ItemCreateInputArea(
                         error: errorDescription,
                         requiredValidate: true,
@@ -256,10 +284,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         title: appLocalizations.detailedDescription,
                         onChange: (value) => _setDescription(value),
                       ),
-                      ItemLoadFile(
-                        files: files,
-                        onChangeFiles: (value) => _setFile(value),
-                      ),
+
                       const ItemListStepFlow(),
                       ItemButton(
                         callbackSave: () => _save(context),
@@ -345,10 +370,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       postRequestRequest: request(),
       checkEdit: !checkClick && widget.requestId.isNotEmpty && checkValidate(context),
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => showToast(
-          context: context,
-          errorCode: errorDialog
-      ),
+      completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
         requestId: widget.requestId,
         errorDialog: errorDialog,

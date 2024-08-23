@@ -172,15 +172,23 @@ class _LayoutCalendarDialogState extends State<LayoutCalendarDialog> {
   }
 
   setApply(BuildContext context) {
-    widget.callBackStartTime.call(startTime);
-
     if (endTime == null && startTime != null) {
-      final date = DateTime(startTime!.year, startTime!.month, startTime!.day, 23, 59, 59);
+      final date = timeE(startTime!);
+      widget.callBackStartTime.call(timeS(startTime!));
       widget.callBackEndTime.call(date);
-    } else {
-      widget.callBackEndTime.call(endTime);
+    } else if (endTime != null && startTime != null) {
+      widget.callBackStartTime.call(timeS(startTime!));
+      widget.callBackEndTime.call(timeE(endTime!));
     }
     dI<AppNavigation>().pop(context);
+  }
+
+  DateTime timeE(DateTime time) {
+    return DateTime(time.year, time.month, time.day, 23, 59, 59);
+  }
+
+  DateTime timeS(DateTime time) {
+    return DateTime(time.year, time.month, time.day, 0, 0, 0);
   }
 
   setReject(BuildContext context) {

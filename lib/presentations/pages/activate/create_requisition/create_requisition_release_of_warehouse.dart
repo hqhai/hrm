@@ -74,9 +74,9 @@ class _CreateRequisitionReleaseOfWarehousePageState
     return check ? 1 : 0.3;
   }
 
-  _listener(String errorCode) {
+  _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
@@ -96,9 +96,9 @@ class _CreateRequisitionReleaseOfWarehousePageState
           ),
         ),
       ),
-      body: BlocConsumer<RequisitionBloc, RequisitionState>(
-        listener: (context, state) => _listener(state.errorCode),
-        builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
+      body: BlocListener<RequisitionBloc, RequisitionState>(
+        listener: (context, state) => _listener(state.errorCode, context),
+        child: BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
             return SingleChildScrollView(
               child: ContainerScreenMain(
@@ -202,10 +202,7 @@ class _CreateRequisitionReleaseOfWarehousePageState
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
+      completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
         requestId: widget.requestId,
         errorDialog: errorDialog,

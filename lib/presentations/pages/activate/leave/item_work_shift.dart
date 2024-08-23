@@ -43,100 +43,106 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: SpacingUnit.x2),
-              child: Text(
-                appLocalizations.chooseWorkShift,
+            if (state.keys.isEmpty)
+              Text(
+                appLocalizations.youDoNotHaveAShift,
                 style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                  fontWeight: FontWeight.w600,
+                  color: colors.error,
+                  fontSize: SpacingUnit.x3,
                 ),
               ),
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: state.keys.mapIndexed(
-                (index, element) {
-                  final date = DateTime.fromMicrosecondsSinceEpoch(element);
-                  final listKey = state.mapKeyDate[element] ?? [];
-                  return !checkSE(
-                    dateInt: element,
-                    keyDate: state.keys,
-                  )
-                      ? ContainerBorder(
-                          borderColors: colors.outline.withOpacity(0.4),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: SpacingUnit.x4,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      appLocalizations.date,
-                                      style: TextStyle(
-                                        color: colors.text,
-                                        fontSize: SpacingUnit.x4,
+            if (state.keys.isNotEmpty) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: SpacingUnit.x2),
+                child: Text(
+                  '${appLocalizations.chooseWorkShift} :',
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: state.keys.mapIndexed(
+                  (index, element) {
+                    final date = DateTime.fromMicrosecondsSinceEpoch(element);
+                    final listKey = state.mapKeyDate[element] ?? [];
+                    return !checkSE(
+                      dateInt: element,
+                      keyDate: state.keys,
+                    )
+                        ? ContainerBorder(
+                            borderColors: colors.outline.withOpacity(0.4),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: SpacingUnit.x4,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        appLocalizations.date,
+                                        style: TextStyle(
+                                          color: colors.text,
+                                          fontSize: SpacingUnit.x4,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      formatYMD(date.toString()),
-                                      style: TextStyle(
-                                        color: colors.text,
-                                        fontSize: SpacingUnit.x4,
+                                      Text(
+                                        formatYMD(date.toString()),
+                                        style: TextStyle(
+                                          color: colors.text,
+                                          fontSize: SpacingUnit.x4,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: listKey.map(
-                                    (e) {
-                                      final workShift = state.workShifts[e] ??
-                                          WorkShiftRegisteredDetail(
-                                              workDate: DateTime.now());
-                                      return ContainerBorder(
-                                        borderColors:
-                                            colors.outline.withOpacity(0.4),
-                                        width: width,
-                                        paddingVertical: 0,
-                                        child: CheckboxListTile(
-                                          controlAffinity:
-                                              ListTileControlAffinity.leading,
-                                          value: check(
-                                              dateInt: element,
-                                              keyDate: state.keys,
-                                              workShift: workShift),
-                                          onChanged: (value) => _onChange(
-                                              value: value,
-                                              workShift: workShift,
-                                              dateInt: element,
-                                              keyDate: state.keys,
-                                              state: state),
-                                          title: Text(
-                                            '${strSeconds(workShift.startTime)} - ${strSeconds(workShift.endTime)}',
-                                            style: TextStyle(
-                                              color: colors.text,
-                                              fontSize: SpacingUnit.x4,
+                                    ],
+                                  ),
+                                  Column(
+                                    children: listKey.map(
+                                      (e) {
+                                        final workShift = state.workShifts[e] ??
+                                            WorkShiftRegisteredDetail(workDate: DateTime.now());
+                                        return ContainerBorder(
+                                          borderColors: colors.outline.withOpacity(0.4),
+                                          width: width,
+                                          paddingVertical: 0,
+                                          child: CheckboxListTile(
+                                            controlAffinity: ListTileControlAffinity.leading,
+                                            value: check(
+                                                dateInt: element,
+                                                keyDate: state.keys,
+                                                workShift: workShift),
+                                            onChanged: (value) => _onChange(
+                                                value: value,
+                                                workShift: workShift,
+                                                dateInt: element,
+                                                keyDate: state.keys,
+                                                state: state),
+                                            title: Text(
+                                              '${strSeconds(workShift.startTime)} - ${strSeconds(workShift.endTime)}',
+                                              style: TextStyle(
+                                                color: colors.text,
+                                                fontSize: SpacingUnit.x4,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  ).toList(),
-                                ),
-                              ],
+                                        );
+                                      },
+                                    ).toList(),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      : const SizedBox();
-                },
-              ).toList(),
-            ),
+                          )
+                        : const SizedBox();
+                  },
+                ).toList(),
+              ),
+            ],
           ],
         );
       },
@@ -154,23 +160,20 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
         widget.type == RequisitionTypeEnum.bussiness;
     if (checkType) {
       /// check phải ngày cuối hoặc đầu không
-      final firstOrLast =
-          workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
-              workShift.workDate.microsecondsSinceEpoch == state.keys.last;
+      final firstOrLast = workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
+          workShift.workDate.microsecondsSinceEpoch == state.keys.last;
 
       ///list ca
       final listWorkShift = state.workShifts.values.toList();
       final workShiftsAlikeDate = state.workShifts.values
           .where((element) =>
-              element.workDate.microsecondsSinceEpoch ==
-              workShift.workDate.microsecondsSinceEpoch)
+              element.workDate.microsecondsSinceEpoch == workShift.workDate.microsecondsSinceEpoch)
           .toList();
 
       ///Không phải ca thuộc ngày đầu và cuối th cho hết vào list
       for (var element in listWorkShift) {
-        final notFirstOrLast =
-            element.workDate.microsecondsSinceEpoch != state.keys.first &&
-                element.workDate.microsecondsSinceEpoch != state.keys.last;
+        final notFirstOrLast = element.workDate.microsecondsSinceEpoch != state.keys.first &&
+            element.workDate.microsecondsSinceEpoch != state.keys.last;
         if (!workShifts.contains(element) && notFirstOrLast) {
           setState(() {
             workShifts.add(element);
@@ -205,13 +208,32 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
         for (var element in workShiftsAlikeDate) {
           if (element.startTime < workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.first) {
+            final listLast = workShiftsAlikeDate
+                .where((e) =>
+                    e.workDate.microsecondsSinceEpoch < element.workDate.microsecondsSinceEpoch)
+                .toList();
+            setState(() {
+              if (listLast.isNotEmpty) {
+                workShifts.remove(element);
+              } else {
+                workShifts.clear();
+              }
+            });
             setState(() {
               workShifts.remove(element);
             });
           } else if (element.startTime > workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.last) {
+            final listLast = workShiftsAlikeDate
+                .where((e) =>
+                    e.workDate.microsecondsSinceEpoch > element.workDate.microsecondsSinceEpoch)
+                .toList();
             setState(() {
-              workShifts.remove(element);
+              if (listLast.isNotEmpty) {
+                workShifts.remove(element);
+              } else {
+                workShifts.clear();
+              }
             });
           }
         }
@@ -232,14 +254,16 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
     }
 
     ///Sắp xếp ca theo thứ tự ngày và giờ bắt đầu
-    workShifts.sort((a, b) {
-      int dateComparison = a.workDate.compareTo(b.workDate);
-      if (dateComparison != 0) {
-        return dateComparison;
-      } else {
-        return a.startTime.compareTo(b.startTime);
-      }
-    });
+    if (workShifts.isNotEmpty) {
+      workShifts.sort((a, b) {
+        int dateComparison = a.workDate.compareTo(b.workDate);
+        if (dateComparison != 0) {
+          return dateComparison;
+        } else {
+          return a.startTime.compareTo(b.startTime);
+        }
+      });
+    }
     widget.workShiftSettings.call(workShifts);
   }
 

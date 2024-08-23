@@ -1347,11 +1347,23 @@ abstract class AppLocalizations {
   /// **'Overtime request'**
   String get overtime;
 
+  /// No description provided for @overtimeCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create overtime request'**
+  String get overtimeCreate;
+
   /// No description provided for @vehicleDispatch.
   ///
   /// In en, this message translates to:
   /// **'Vehicle request form'**
   String get vehicleDispatch;
+
+  /// No description provided for @vehicleDispatchCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create vehicle request form'**
+  String get vehicleDispatchCreate;
 
   /// No description provided for @postalDelivery.
   ///
@@ -1365,17 +1377,35 @@ abstract class AppLocalizations {
   /// **'Warehouse release request form'**
   String get releaseOfWarehouse;
 
+  /// No description provided for @releaseOfWarehouseCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create warehouse release request form'**
+  String get releaseOfWarehouseCreate;
+
   /// No description provided for @stationeryOrder.
   ///
   /// In en, this message translates to:
   /// **'Stationery order form'**
   String get stationeryOrder;
 
+  /// No description provided for @stationeryOrderCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create stationery order form'**
+  String get stationeryOrderCreate;
+
   /// No description provided for @business.
   ///
   /// In en, this message translates to:
   /// **'Business trip request'**
   String get business;
+
+  /// No description provided for @businessCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create business trip request'**
+  String get businessCreate;
 
   /// No description provided for @male.
   ///
@@ -2241,18 +2271,6 @@ abstract class AppLocalizations {
   /// **'Duplicate bank account number'**
   String get duplicateBankAccountNumber;
 
-  /// No description provided for @timeSlotAlreadyPleaseChooseAnother.
-  ///
-  /// In en, this message translates to:
-  /// **'A request already exists for the selected time, please choose again!'**
-  String get timeSlotAlreadyPleaseChooseAnother;
-
-  /// No description provided for @theNumberOfFormsCreatedHasExceededTheLimit.
-  ///
-  /// In en, this message translates to:
-  /// **'The number of created forms has exceeded the limit'**
-  String get theNumberOfFormsCreatedHasExceededTheLimit;
-
   /// No description provided for @listOvertime.
   ///
   /// In en, this message translates to:
@@ -2823,29 +2841,17 @@ abstract class AppLocalizations {
   /// **'Paid by social insurance (BHXH)'**
   String get socialInsuranceLeave;
 
-  /// No description provided for @leaveHalfDayToOneDay.
-  ///
-  /// In en, this message translates to:
-  /// **'Request for 0.5-1 Day Leave'**
-  String get leaveHalfDayToOneDay;
-
-  /// No description provided for @leaveTwoDayToFourDay.
-  ///
-  /// In en, this message translates to:
-  /// **'Request for 2-4 Day Leave'**
-  String get leaveTwoDayToFourDay;
-
-  /// No description provided for @leaveFiveDaysOrMore.
-  ///
-  /// In en, this message translates to:
-  /// **'Request for 5 or More Days Leave'**
-  String get leaveFiveDaysOrMore;
-
   /// No description provided for @lateOrEarly.
   ///
   /// In en, this message translates to:
   /// **'Request for Late Arrival/Early Departure'**
   String get lateOrEarly;
+
+  /// No description provided for @lateOrEarlyCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create request for Late Arrival/Early Departure'**
+  String get lateOrEarlyCreate;
 
   /// No description provided for @timekeepingError.
   ///
@@ -3038,6 +3044,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Request for 5 or More Days Leave'**
   String get fiveDaysOrMore;
+
+  /// No description provided for @halfDayToOneDayCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create request for 0.5-1 Day Leave'**
+  String get halfDayToOneDayCreate;
+
+  /// No description provided for @twoDayToFourDayCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create request for 2-4 Day Leave'**
+  String get twoDayToFourDayCreate;
+
+  /// No description provided for @fiveDaysOrMoreCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create request for 5 or More Days Leave'**
+  String get fiveDaysOrMoreCreate;
 
   /// No description provided for @earlyLate.
   ///
@@ -3512,6 +3536,276 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Make up time'**
   String get makeUpTime;
+
+  /// No description provided for @nameNotNullOrEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **' Name must not be empty'**
+  String get nameNotNullOrEmpty;
+
+  /// No description provided for @statusOtherActiveOrInActive.
+  ///
+  /// In en, this message translates to:
+  /// **' Status must be either Active or Inactive'**
+  String get statusOtherActiveOrInActive;
+
+  /// No description provided for @stepFlowNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **' Approval step must not be empty'**
+  String get stepFlowNotNull;
+
+  /// No description provided for @nameNull.
+  ///
+  /// In en, this message translates to:
+  /// **' Name is empty'**
+  String get nameNull;
+
+  /// No description provided for @nameAlreadyExist.
+  ///
+  /// In en, this message translates to:
+  /// **' Name already exists'**
+  String get nameAlreadyExist;
+
+  /// No description provided for @thisDepartmentAlreadyExistFlow.
+  ///
+  /// In en, this message translates to:
+  /// **' Department already has a flow for this type of request'**
+  String get thisDepartmentAlreadyExistFlow;
+
+  /// No description provided for @thisPositionAlreadyExistFlow.
+  ///
+  /// In en, this message translates to:
+  /// **' Position already has a flow for this type of request'**
+  String get thisPositionAlreadyExistFlow;
+
+  /// No description provided for @thisDepartmentPositionAlreadyExistFlow.
+  ///
+  /// In en, this message translates to:
+  /// **' Department and position already have a flow for this type of request'**
+  String get thisDepartmentPositionAlreadyExistFlow;
+
+  /// No description provided for @thisUserAlreadyExistFlow.
+  ///
+  /// In en, this message translates to:
+  /// **' Employee already has a flow for this type of request'**
+  String get thisUserAlreadyExistFlow;
+
+  /// No description provided for @typeAlreadyHasStepFlow.
+  ///
+  /// In en, this message translates to:
+  /// **' This request already has an approval flow'**
+  String get typeAlreadyHasStepFlow;
+
+  /// No description provided for @thisFlowAlreadyExistsRequest.
+  ///
+  /// In en, this message translates to:
+  /// **' This flow already has a request'**
+  String get thisFlowAlreadyExistsRequest;
+
+  /// No description provided for @flowNotExist.
+  ///
+  /// In en, this message translates to:
+  /// **' Flow does not exist'**
+  String get flowNotExist;
+
+  /// No description provided for @flowIsNotCoreType.
+  ///
+  /// In en, this message translates to:
+  /// **' Flow type is not an approval flow'**
+  String get flowIsNotCoreType;
+
+  /// No description provided for @statusInActiveUnableUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **' Inactive status cannot be updated'**
+  String get statusInActiveUnableUpdate;
+
+  /// No description provided for @userIdNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **' Applier must not be empty'**
+  String get userIdNotNull;
+
+  /// No description provided for @departmentIdOrPositionIdMustNotExist.
+  ///
+  /// In en, this message translates to:
+  /// **' Department or position must not exist when the type is employee'**
+  String get departmentIdOrPositionIdMustNotExist;
+
+  /// No description provided for @departmentIdAndPositionIdNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **' Department or position must not be empty'**
+  String get departmentIdAndPositionIdNotNull;
+
+  /// No description provided for @userIdMustNotExist.
+  ///
+  /// In en, this message translates to:
+  /// **' Employee must not exist when the type is department or position'**
+  String get userIdMustNotExist;
+
+  /// No description provided for @positionIdNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **' Position must not be empty'**
+  String get positionIdNotNull;
+
+  /// No description provided for @departmentIdOrUserIdMustNotExist.
+  ///
+  /// In en, this message translates to:
+  /// **' Department and employee must not exist when the type is position'**
+  String get departmentIdOrUserIdMustNotExist;
+
+  /// No description provided for @departmentIdNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **' Department must not be empty'**
+  String get departmentIdNotNull;
+
+  /// No description provided for @positionIdOrUserIdMustNotExist.
+  ///
+  /// In en, this message translates to:
+  /// **' Position and employee must not exist when the type is department'**
+  String get positionIdOrUserIdMustNotExist;
+
+  /// No description provided for @inValidFormat.
+  ///
+  /// In en, this message translates to:
+  /// **' Invalid format'**
+  String get inValidFormat;
+
+  /// No description provided for @configNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **' Request data must not be empty'**
+  String get configNotNull;
+
+  /// No description provided for @exceededTheRequestedCreateTimeframe.
+  ///
+  /// In en, this message translates to:
+  /// **' Request creation time has exceeded the allowed limit'**
+  String get exceededTheRequestedCreateTimeframe;
+
+  /// No description provided for @currentStatusIsNotEdit.
+  ///
+  /// In en, this message translates to:
+  /// **' Current status is not editable'**
+  String get currentStatusIsNotEdit;
+
+  /// No description provided for @currentStatusIsNotProcessOrEdit.
+  ///
+  /// In en, this message translates to:
+  /// **' Current status is neither in progress nor editable'**
+  String get currentStatusIsNotProcessOrEdit;
+
+  /// No description provided for @theNumberOfFormsCreatedHasExceededTheLimit.
+  ///
+  /// In en, this message translates to:
+  /// **' The number of requests created has exceeded the limit'**
+  String get theNumberOfFormsCreatedHasExceededTheLimit;
+
+  /// No description provided for @endDateGreaterThanStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **' End date is greater than the start date'**
+  String get endDateGreaterThanStartDate;
+
+  /// No description provided for @employeeNotFullTimeOrPartTime.
+  ///
+  /// In en, this message translates to:
+  /// **' Employee is neither full-time nor part-time'**
+  String get employeeNotFullTimeOrPartTime;
+
+  /// No description provided for @userIdAndPositionIdCannotExistSameTime.
+  ///
+  /// In en, this message translates to:
+  /// **' Employee and position cannot coexist simultaneously'**
+  String get userIdAndPositionIdCannotExistSameTime;
+
+  /// No description provided for @userIdOrPositionIdCanNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **' User or position must not be empty'**
+  String get userIdOrPositionIdCanNotNull;
+
+  /// No description provided for @flowDoesNotHaveEnoughComponents.
+  ///
+  /// In en, this message translates to:
+  /// **' Flow must have start, steps, and end components'**
+  String get flowDoesNotHaveEnoughComponents;
+
+  /// No description provided for @ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId.
+  ///
+  /// In en, this message translates to:
+  /// **' If it is a start or end type, there should be no employee, position, or department'**
+  String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId;
+
+  /// No description provided for @currentStatusNotNew.
+  ///
+  /// In en, this message translates to:
+  /// **' Current status is not new'**
+  String get currentStatusNotNew;
+
+  /// No description provided for @nameStepFlowNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **' Approval step name must not be empty'**
+  String get nameStepFlowNotNull;
+
+  /// No description provided for @dataNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **' Data must not be empty'**
+  String get dataNotNull;
+
+  /// No description provided for @timeSlotAlreadyPleaseChooseAnother.
+  ///
+  /// In en, this message translates to:
+  /// **' A request already exists with the same time frame, please select a different time'**
+  String get timeSlotAlreadyPleaseChooseAnother;
+
+  /// No description provided for @mustCreateMinimumTimeInAdvance.
+  ///
+  /// In en, this message translates to:
+  /// **' Must be created before the minimum time'**
+  String get mustCreateMinimumTimeInAdvance;
+
+  /// No description provided for @pastTheDateOfExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **' Past the explanation date'**
+  String get pastTheDateOfExplanation;
+
+  /// No description provided for @errorTimeMakeUp1.
+  ///
+  /// In en, this message translates to:
+  /// **'The total number of compensatory hours must be greater than or equal to the number of missed working hours. Please readjust'**
+  String get errorTimeMakeUp1;
+
+  /// No description provided for @errorTimeMakeUp2.
+  ///
+  /// In en, this message translates to:
+  /// **'Make-up time overlapped with another shift. Please select again'**
+  String get errorTimeMakeUp2;
+
+  /// No description provided for @errorPlease.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred, please try again later!'**
+  String get errorPlease;
+
+  /// No description provided for @limitFile.
+  ///
+  /// In en, this message translates to:
+  /// **'The number of files exceeds 5'**
+  String get limitFile;
+
+  /// No description provided for @saveRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Save request'**
+  String get saveRequest;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

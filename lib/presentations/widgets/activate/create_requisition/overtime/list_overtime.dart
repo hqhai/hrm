@@ -11,10 +11,9 @@ class ListOverTime extends StatefulWidget {
   final ValueChanged<List<RequisitionOverTime>> onChangeList;
   final String error, title;
   final bool checkExplanation;
-  final List<bool> checkTypeContainer;
-  final ValueChanged<List<bool>> changeTypeContainer;
   final VoidCallback callback;
   final bool requiredValidate;
+  final bool checkUpdate;
 
   const ListOverTime(
       {super.key,
@@ -23,10 +22,9 @@ class ListOverTime extends StatefulWidget {
       this.error = '',
       required this.title,
       this.checkExplanation = false,
-      this.checkTypeContainer = const [],
-      required this.changeTypeContainer,
       required this.callback,
-      this.requiredValidate = false});
+      this.requiredValidate = false,
+      required this.checkUpdate});
 
   @override
   State<ListOverTime> createState() => _ListOverTimeState();
@@ -69,9 +67,8 @@ class _ListOverTimeState extends State<ListOverTime> {
                     (index, element) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                       child: OverTimeAddDialog(
-                        requisitionOverTime: element,
-                        callBackTypeContainer: () => setTypeContainer(index),
-                        checkTypeContainer: widget.checkTypeContainer[index],
+                        checkUpdate: widget.checkUpdate,
+                        requisitionOverTime: widget.requisitionOverTimes[index],
                         callBack: () => deleteRequisitionOverTime(index),
                         onChangeOverTimes: (value) => setEdit(value: value, index: index),
                       ),
@@ -111,22 +108,11 @@ class _ListOverTimeState extends State<ListOverTime> {
     });
   }
 
-  setTypeContainer(int index) {
-    final listType = widget.checkTypeContainer;
-    setState(() {
-      listType[index] = !listType[index];
-      widget.changeTypeContainer.call(listType);
-    });
-  }
-
   deleteRequisitionOverTime(int index) {
     final listOverTimes = widget.requisitionOverTimes;
-    final typeContainer = widget.checkTypeContainer;
     setState(() {
       setState(() {
-        typeContainer.removeAt(index);
         listOverTimes.removeAt(index);
-        widget.changeTypeContainer(typeContainer);
         widget.onChangeList.call(listOverTimes);
       });
     });

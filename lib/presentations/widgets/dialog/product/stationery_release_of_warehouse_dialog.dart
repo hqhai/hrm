@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
@@ -18,19 +19,17 @@ class ReleaseOfWarehouseAddDialog extends StatefulWidget {
       {super.key,
       this.requisitionReleaseOfWarehouse,
       this.releaseOfWarehouse,
-      required this.callBack});
+      required this.callBack,});
 
   final ValueChanged<WarehouseReleaseds>? requisitionReleaseOfWarehouse;
   final WarehouseReleaseds? releaseOfWarehouse;
   final VoidCallback callBack;
 
   @override
-  State<ReleaseOfWarehouseAddDialog> createState() =>
-      _ReleaseOfWarehouseAddDialogState();
+  State<ReleaseOfWarehouseAddDialog> createState() => _ReleaseOfWarehouseAddDialogState();
 }
 
-class _ReleaseOfWarehouseAddDialogState
-    extends State<ReleaseOfWarehouseAddDialog> {
+class _ReleaseOfWarehouseAddDialogState extends State<ReleaseOfWarehouseAddDialog> {
   final TextEditingController productController = TextEditingController(),
       unitController = TextEditingController(),
       explainController = TextEditingController(),
@@ -44,8 +43,7 @@ class _ReleaseOfWarehouseAddDialogState
       errorNumberOf = '',
       errorExplain = '';
   int numberOf = 0;
-  Stationery stationery =
-      const Stationery(id: '', product: '', unitPrice: '0', unit: '');
+  Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
   bool checkTypeContainer = true;
 
   @override
@@ -53,8 +51,7 @@ class _ReleaseOfWarehouseAddDialogState
     unitController.text = widget.releaseOfWarehouse?.unit ?? '';
     productController.text = widget.releaseOfWarehouse?.product ?? "";
     explainController.text = widget.releaseOfWarehouse?.explain ?? "";
-    numberOfController.text =
-        (widget.releaseOfWarehouse?.quantity ?? 0).toString();
+    numberOfController.text = (widget.releaseOfWarehouse?.quantity ?? 0).toString();
     noteController.text = widget.releaseOfWarehouse?.note ?? "";
     product = widget.releaseOfWarehouse?.product ?? "";
     explain = widget.releaseOfWarehouse?.explain ?? "";
@@ -71,8 +68,7 @@ class _ReleaseOfWarehouseAddDialogState
     final bool checkExplain = explain.isNotEmpty;
     setState(() {
       errorProduct = checkProduct ? "" : appLocalizations.cannotBeLeftBlank;
-      errorNumberOf =
-          checkNumberOf ? "" : appLocalizations.quantityCannotBeZero;
+      errorNumberOf = checkNumberOf ? "" : appLocalizations.quantityCannotBeZero;
       errorExplain = checkExplain ? "" : appLocalizations.cannotBeLeftBlank;
     });
     return checkProduct && checkNumberOf && checkExplain;
@@ -111,6 +107,7 @@ class _ReleaseOfWarehouseAddDialogState
           ),
           if (checkTypeContainer)
             ItemAddStationeryDialog(
+              type: RequisitionTypeEnum.warehouseReleased,
               check: false,
               onChangeProduct: (value) => setProduct(value, context),
               onchangeUnit: (value) => setUnit(value, context),
@@ -142,8 +139,8 @@ class _ReleaseOfWarehouseAddDialogState
             ),
           if (checkTypeContainer)
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              padding:
+                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),
@@ -181,7 +178,6 @@ class _ReleaseOfWarehouseAddDialogState
     checkOnClick(context);
     setAdd(context);
   }
-
 
   setAdd(BuildContext context) {
     widget.requisitionReleaseOfWarehouse?.call(WarehouseReleaseds(

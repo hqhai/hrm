@@ -44,7 +44,7 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
-      listener: (context, state) => _listener(state.errorCode),
+      listener: (context, state) => _listener(state.errorCode, context),
       builder: (context, state) {
         final request = state.requisitions[widget.id] ?? const Request(id: '');
         return Column(
@@ -303,9 +303,9 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     }
   }
 
-  _listener(String errorCode) {
+  _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorCodeDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+      errorCodeDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 

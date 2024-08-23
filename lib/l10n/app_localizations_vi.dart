@@ -629,10 +629,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get leave => 'Đơn xin nghỉ';
 
   @override
-  String get overtime => 'Đơn tăng ca';
+  String get overtime => 'Đơn xin làm thêm giờ';
+
+  @override
+  String get overtimeCreate => 'Tạo đơn xin làm thêm giờ';
 
   @override
   String get vehicleDispatch => 'Đơn đề nghị điều xe';
+
+  @override
+  String get vehicleDispatchCreate => 'Đơn đề nghị điều xe';
 
   @override
   String get postalDelivery => 'Đơn đề nghị chuyển phát bưu điện';
@@ -641,10 +647,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get releaseOfWarehouse => 'Đơn đề nghị xuất kho';
 
   @override
-  String get stationeryOrder => 'Phiếu đặt văn phòng phẩm';
+  String get releaseOfWarehouseCreate => 'Đơn đề nghị xuất kho';
 
   @override
-  String get business => 'Đơn công tác';
+  String get stationeryOrder => 'Đơn đặt văn phòng phẩm';
+
+  @override
+  String get stationeryOrderCreate => 'Tạo đơn đặt văn phòng phẩm';
+
+  @override
+  String get business => 'Đơn đè nghị công tác';
+
+  @override
+  String get businessCreate => 'Tạo đơn đè nghị công tác';
 
   @override
   String get male => 'Nam';
@@ -980,7 +995,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get intoMoneyNoVAT => 'Thành tiền chưa VAT';
 
   @override
-  String get yearlyAndSeniorityLeave => 'Nghỉ phép năm và nghỉ thâm niên';
+  String get yearlyAndSeniorityLeave => 'Nghỉ phép năm & Thâm niên';
 
   @override
   String get otherLeave => 'Nghỉ phép khác';
@@ -992,7 +1007,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get verticalCalendar => 'Lịch dọc';
 
   @override
-  String get unpaidLeave => 'Nghỉ không lương';
+  String get unpaidLeave => 'Nghỉ không hưởng lương công ty';
 
   @override
   String get theStartTimeMustBeAfterTheCurrentTime => 'Thời gian bắt đầu phải sau thời gian hiện tại';
@@ -1079,12 +1094,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get duplicateBankAccountNumber => 'Số tài khoản ngân hàng bị trùng';
 
   @override
-  String get timeSlotAlreadyPleaseChooseAnother => 'Đã tồn tại đơn vào thời gian đã chọn, xin vui lòng chọn lại!';
-
-  @override
-  String get theNumberOfFormsCreatedHasExceededTheLimit => 'Số lượng biểu mẫu được tạo đã vượt quá giới hạn';
-
-  @override
   String get listOvertime => 'Danh sách giờ tăng ca';
 
   @override
@@ -1118,13 +1127,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get revoke => 'Hủy bỏ';
 
   @override
-  String get leaveNumberUsed => 'Phép đã dùng';
+  String get leaveNumberUsed => 'Số NP được sử dụng';
 
   @override
-  String get leaveNumberPermission => 'Phép ban đầu';
+  String get leaveNumberPermission => 'Số NP đã nghỉ';
 
   @override
-  String get leaveNumberRemaining => 'Phép còn lại';
+  String get leaveNumberRemaining => 'Số NP còn lại';
 
   @override
   String get youEarly => 'Về sớm';
@@ -1325,7 +1334,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ot => 'Làm thêm giờ';
 
   @override
-  String get totalLeaveWork => 'Tổng số công nghỉ';
+  String get totalLeaveWork => 'Số công nghỉ';
 
   @override
   String get noShiftsWork => 'Không có ca làm việc';
@@ -1370,16 +1379,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get socialInsuranceLeave => 'BHXH chi trả';
 
   @override
-  String get leaveHalfDayToOneDay => 'Nghỉ 0,5 đến 1 ngày';
-
-  @override
-  String get leaveTwoDayToFourDay => 'Nghỉ 2 đến 4 ngày';
-
-  @override
-  String get leaveFiveDaysOrMore => 'Nghỉ 5 ngày trở lên';
-
-  @override
   String get lateOrEarly => 'Đi muộn/Về sớm';
+
+  @override
+  String get lateOrEarlyCreate => 'Tạo đơn đăng ký đi muộn/Vv sớm';
 
   @override
   String get timekeepingError => 'Chấm công lỗi';
@@ -1478,7 +1481,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get fiveDaysOrMore => 'Đơn xin nghỉ 5 ngày trở lên';
 
   @override
-  String get earlyLate => 'Đơn đăng ký đi muộn, về sớm';
+  String get halfDayToOneDayCreate => 'Tạo đơn xin nghỉ 0,5-1 ngày';
+
+  @override
+  String get twoDayToFourDayCreate => 'Tạo đơn xin nghỉ 2-4 ngày';
+
+  @override
+  String get fiveDaysOrMoreCreate => 'Tạo đơn xin nghỉ 5 ngày trở lên';
+
+  @override
+  String get earlyLate => 'Đơn xin đi muộn/ về sớm';
 
   @override
   String get vehicleF => 'Đơn đề nghị điều xe';
@@ -1655,7 +1667,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get outCompany => 'Ngoài công ty';
 
   @override
-  String get makeUpWork => 'Đăng ký làm bù';
+  String get makeUpWork => 'Đơn đăng ký làm bù';
 
   @override
   String get createMakeUpWork => 'Tạo đơn làm bù';
@@ -1713,4 +1725,139 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get makeUpTime => 'Thời gian làm bù';
+
+  @override
+  String get nameNotNullOrEmpty => ' Tên không được để trống';
+
+  @override
+  String get statusOtherActiveOrInActive => ' Trạng thái khác hoạt động hoặc không hoạt động';
+
+  @override
+  String get stepFlowNotNull => ' Bước duyệt không được bỏ trống';
+
+  @override
+  String get nameNull => ' Tên trống';
+
+  @override
+  String get nameAlreadyExist => ' Tên đã tồn tại';
+
+  @override
+  String get thisDepartmentAlreadyExistFlow => ' Phòng ban đã tồn tại luồng của loại đơn từ này';
+
+  @override
+  String get thisPositionAlreadyExistFlow => ' Chức vụ đã tồn tại luồng của loại đơn từ này';
+
+  @override
+  String get thisDepartmentPositionAlreadyExistFlow => ' Phòng ban và chức vụ đã tồn luồng của loại tại đơn từ này';
+
+  @override
+  String get thisUserAlreadyExistFlow => ' Nhân viên đã tồn tại luồng của loại đơn từ này';
+
+  @override
+  String get typeAlreadyHasStepFlow => ' Đơn từ này đã tồn tại luồng duyệt';
+
+  @override
+  String get thisFlowAlreadyExistsRequest => ' Luồng này đã có đơn từ';
+
+  @override
+  String get flowNotExist => ' Luồng không tồn tại';
+
+  @override
+  String get flowIsNotCoreType => ' Luồng không phải loại luồng duyệt luồng';
+
+  @override
+  String get statusInActiveUnableUpdate => ' Trạng thái không hoạt động không thể cập nhật';
+
+  @override
+  String get userIdNotNull => ' Người áp dụng không được bỏ trống';
+
+  @override
+  String get departmentIdOrPositionIdMustNotExist => ' Phòng ban hoặc chức vụ không được tồn tại khi loại là nhân viên';
+
+  @override
+  String get departmentIdAndPositionIdNotNull => ' Phòng ban hoặc chức vụ không được bỏ trống';
+
+  @override
+  String get userIdMustNotExist => ' Nhân viên không được tồn tại khi loại là phòng ban chức vụ';
+
+  @override
+  String get positionIdNotNull => ' Chức vụ không được bỏ trống';
+
+  @override
+  String get departmentIdOrUserIdMustNotExist => ' Phòng ban và nhân viên không được tồn tại khi loại là chức vụ';
+
+  @override
+  String get departmentIdNotNull => ' Phòng ban không được bỏ trống';
+
+  @override
+  String get positionIdOrUserIdMustNotExist => ' Chức vụ và nhân viên không được tồn tại khi loại là phòng ban';
+
+  @override
+  String get inValidFormat => ' Sai định dạng';
+
+  @override
+  String get configNotNull => ' Dữ liệu đơn từ không được để trống';
+
+  @override
+  String get exceededTheRequestedCreateTimeframe => ' Đã vượt quá thời gian được tạo yêu cầu';
+
+  @override
+  String get currentStatusIsNotEdit => ' Trạng thái hiện tại không phải là chỉnh sửa';
+
+  @override
+  String get currentStatusIsNotProcessOrEdit => ' Trạng thái hiện tại không phải là trong tiến trình hoặc chỉnh sửa';
+
+  @override
+  String get theNumberOfFormsCreatedHasExceededTheLimit => ' Số lượng đơn tư được tạo đã vượt quá giới hạn';
+
+  @override
+  String get endDateGreaterThanStartDate => ' Ngày kết thúc đang lớn hơn ngày bắt đầu';
+
+  @override
+  String get employeeNotFullTimeOrPartTime => ' Nhân viên không phải là chính thức hoặc nhân viên bán thời gian';
+
+  @override
+  String get userIdAndPositionIdCannotExistSameTime => ' Nhân viên và chức vụ không tồn tại cùng lúc';
+
+  @override
+  String get userIdOrPositionIdCanNotNull => ' Người dùng hoặc chức vụ không thể bỏ trống';
+
+  @override
+  String get flowDoesNotHaveEnoughComponents => ' Luồng phải đủ các thành phần bắt đầu, các bước, kết thúc';
+
+  @override
+  String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId => ' Nếu là loạ bắt đầu hoặc kết thúc thì không có nhân viên, chức vụ và phòng ban';
+
+  @override
+  String get currentStatusNotNew => ' Trạng thái hiện tại không phải là mới';
+
+  @override
+  String get nameStepFlowNotNull => ' Tên bước duyệt không được để trống';
+
+  @override
+  String get dataNotNull => ' Dữ liệu không được bỏ trống';
+
+  @override
+  String get timeSlotAlreadyPleaseChooseAnother => ' Đã tồn tại đơn có cùng thời gian, vui lòng chọn lại thời gian';
+
+  @override
+  String get mustCreateMinimumTimeInAdvance => ' Phải tạo trước thời gian tối thiểu';
+
+  @override
+  String get pastTheDateOfExplanation => ' Quá ngày giải trình';
+
+  @override
+  String get errorTimeMakeUp1 => 'Tổng số giờ làm bù phải lớn hơn hoặc bằng số giờ làm việc đã nghỉ. Vui lòng điều chỉnh lại';
+
+  @override
+  String get errorTimeMakeUp2 => 'Thời gian làm bù đã trùng với ca làm việc khác. Vui lòng chọn lại';
+
+  @override
+  String get errorPlease => 'Đã có lỗi xảy ra , vui lòng thử lại sau!';
+
+  @override
+  String get limitFile => 'Số lượng tập tin vượt quá 5';
+
+  @override
+  String get saveRequest => 'Lưu đơn';
 }

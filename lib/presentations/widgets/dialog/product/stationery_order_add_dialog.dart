@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
@@ -100,17 +101,18 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-            ItemAdd(
-              checkTypeContainer: checkTypeContainer,
-              title:  checkTypeContainer
-                  ? appLocalizations.product
-                  : product.isEmpty
-                  ? appLocalizations.product
-                  : product,
-              callback: () => setTypeContainer(),
-            ),
+          ItemAdd(
+            checkTypeContainer: checkTypeContainer,
+            title: checkTypeContainer
+                ? appLocalizations.product
+                : product.isEmpty
+                    ? appLocalizations.product
+                    : product,
+            callback: () => setTypeContainer(),
+          ),
           if (checkTypeContainer)
             ItemAddStationeryDialog(
+              type: RequisitionTypeEnum.stationery,
               check: true,
               onChangeProduct: (value) => setProduct(value, context),
               onchangeUnit: (value) => setUnit(value, context),
@@ -140,8 +142,8 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
             ),
           if (checkTypeContainer)
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              padding:
+                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),

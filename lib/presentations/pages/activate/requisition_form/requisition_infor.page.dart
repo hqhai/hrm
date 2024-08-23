@@ -75,9 +75,9 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return BlocListener<RequisitionApproveBloc, RequisitionApproveState>(
-      listener: (context, stateApprover) => listener(stateApprover.errorCode),
+      listener: (context, stateApprover) => listener(stateApprover.errorCode, context),
       child: BlocConsumer<RequisitionBloc, RequisitionState>(
-        listener: (context, state) => listenerMyRequest(state.errorCode),
+        listener: (context, state) => listenerMyRequest(state.errorCode, context),
         buildWhen: (previous, current) => previous.requisition != current.requisition,
         builder: (context, state) {
           return BlocBuilder<FlowBloc, FlowState>(
@@ -141,12 +141,24 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                               ),
                             if (state.requisition.status == StatusRequestEnum.edit &&
                                 widget.checkUser == RequestSeeByWho.user)
-                              ButtonItemListRequisition(
-                                colorText: colors.tertiary,
-                                background: colors.tertiary.withOpacity(0.2),
-                                check: true,
-                                title: appLocalizations.update,
-                                callback: () => _nextScreen(stateFlow.flow),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ButtonItemListRequisition(
+                                    colorText: colors.tertiary,
+                                    background: colors.tertiary.withOpacity(0.2),
+                                    check: true,
+                                    title: appLocalizations.update,
+                                    callback: () => _nextScreen(stateFlow.flow),
+                                  ),
+                                  ButtonItemListRequisition(
+                                    colorText: colors.error,
+                                    background: colors.error.withOpacity(0.2),
+                                    check: true,
+                                    title: appLocalizations.revoke,
+                                    callback: () => rejectDialog(context),
+                                  ),
+                                ],
                               ),
                             if (statusApprove(state.requisition) ==
                                     EnumStepRequestStatusEnum.newStatus &&
@@ -513,15 +525,16 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     });
   }
 
-  listener(String errorCode) {
+  listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
-  listenerMyRequest(String errorCode) {
+  listenerMyRequest(String errorCode, BuildContext context) {
     setState(() {
-      errorDialogRevoke = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+      errorDialogRevoke =
+          errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 }

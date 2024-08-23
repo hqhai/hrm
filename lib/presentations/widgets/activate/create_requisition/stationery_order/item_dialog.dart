@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -16,13 +17,15 @@ class ItemAddStationeryDialog extends StatefulWidget {
       required this.onChangeProduct,
       required this.onchangeUnit,
       this.onChangeUnitPrice,
-      required this.callBack});
+      required this.callBack,
+      required this.type});
 
   final VoidCallback callBack;
   final ValueChanged<String> onChangeProduct, onchangeUnit;
   final ValueChanged<double>? onChangeUnitPrice;
   final TextEditingController? productController, unitController, unitPriceController;
   final bool check;
+  final RequisitionTypeEnum type;
 
   @override
   State<ItemAddStationeryDialog> createState() => _ItemAddStationeryDialogState();
@@ -37,13 +40,19 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-          child: AppInput(
-            onClickIcon: () => widget.callBack.call(),
-            icon: Icons.arrow_drop_down_sharp,
-            placeHolder: appLocalizations.product,
-            controller: widget.productController,
-            onChange: (value) => setProduct(value),
-          ),
+          child: widget.type == RequisitionTypeEnum.stationery
+              ? AppInput(
+                  onClickIcon: () => widget.callBack.call(),
+                  icon: Icons.arrow_drop_down_sharp,
+                  placeHolder: appLocalizations.product,
+                  controller: widget.productController,
+                  onChange: (value) => setProduct(value),
+                )
+              : AppInput(
+                  placeHolder: appLocalizations.product,
+                  controller: widget.productController,
+                  onChange: (value) => setProduct(value),
+                ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
@@ -60,7 +69,7 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
             onChange: (value) => setUnit(value),
           ),
         ),
-        if (widget.check)
+        if (widget.check) ...[
           Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
             child: TitleRequired(
@@ -68,7 +77,6 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
               requiredValidate: true,
             ),
           ),
-        if (widget.check)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
             child: AppInput(
@@ -81,6 +89,7 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
               onChange: (value) => setUnitPrice(value),
             ),
           ),
+        ]
       ],
     );
   }

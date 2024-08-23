@@ -57,7 +57,6 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   String description = "", error = '', errorDescription = '', errorDialog = '';
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
-  List<bool> checkTypeContainer = [];
   final TextEditingController inputController = TextEditingController();
 
   @override
@@ -66,7 +65,6 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
       final request = dI<RequisitionBloc>().state.requisition;
       followers = request.followerIds;
       requisitionOverTimes = [...?request.config.overTimes];
-      checkTypeContainer = List.filled(requisitionOverTimes.length, true);
       description = request.config.description;
       inputController.text = description;
     }
@@ -89,9 +87,9 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     return check ? 1 : 0.3;
   }
 
-  _listener(String errorCode) {
+  _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
@@ -100,7 +98,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(state.errorCode),
+      listener: (context, state) => _listener(state.errorCode, context),
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
@@ -121,11 +119,10 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListOverTime(
+                        checkUpdate: widget.requestId.isNotEmpty,
                         requiredValidate: true,
                         checkExplanation: true,
                         callback: () => addOverTime(),
-                        checkTypeContainer: checkTypeContainer,
-                        changeTypeContainer: (value) => _changeTypeContainer(value),
                         title: appLocalizations.listOvertime,
                         error: error,
                         requisitionOverTimes: requisitionOverTimes,
@@ -226,10 +223,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
+      completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
         requestId: widget.requestId,
         errorDialog: errorDialog,
@@ -266,15 +260,8 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     });
   }
 
-  _changeTypeContainer(List<bool> value) {
-    setState(() {
-      checkTypeContainer = value;
-    });
-  }
-
   addOverTime() {
     setState(() {
-      checkTypeContainer.add(true);
       requisitionOverTimes.add(RequisitionOverTime(date: DateTime.now()));
     });
   }

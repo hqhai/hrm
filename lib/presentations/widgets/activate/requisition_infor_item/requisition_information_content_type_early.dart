@@ -90,7 +90,7 @@ class _RequisitionInformationContentTypeEarlyState
                     reason: state.requisition.config.explanationReason,
                   ),
                 ),
-              if (state.requisition.config.explanationReason == EditTimekeeping.early)
+              if (state.requisition.config.explanationReason == EditTimekeeping.early) ...[
                 Text(
                   appLocalizations.workOffset,
                   style: TextStyle(
@@ -99,8 +99,12 @@ class _RequisitionInformationContentTypeEarlyState
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ItemListOverTime(
-                  requisitionOverTime: replace, index: 0, checkType: RequestType.early),
+                ItemListOverTime(
+                  requisitionOverTime: replace,
+                  index: 0,
+                  checkType: RequestType.early,
+                ),
+              ],
             ],
           ),
         );
