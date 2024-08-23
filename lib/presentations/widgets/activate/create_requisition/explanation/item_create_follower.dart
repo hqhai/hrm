@@ -167,17 +167,19 @@ class ItemUserFollower extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
-      borderColors: colors.text.withOpacity(0.3),
+      borderColors: colors.text.withOpacity(0.4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            '${user.fullName} - #${user.code}',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
+          Expanded(
+            child: Text(
+              '${user.fullName} - ${departmentName(user)} - #${user.code}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
+              ),
             ),
           ),
           GestureDetector(
@@ -191,5 +193,12 @@ class ItemUserFollower extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String departmentName(User user) {
+    if (user.userDepartmentPositions.isNotEmpty) {
+      return user.userDepartmentPositions.first.department?.name ?? "";
+    }
+    return '';
   }
 }

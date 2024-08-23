@@ -33,7 +33,10 @@ class _ListProductsState extends State<ListProducts> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TitleRequired(requiredValidate: true, title: widget.title,),
+            TitleRequired(
+              requiredValidate: true,
+              title: widget.title,
+            ),
             InkWell(
               onTap: () => _setAdd(),
               child: Icon(

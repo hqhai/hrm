@@ -76,7 +76,7 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
 
   _listener(BuildContext context, CheckInCheckOutGpsState state) {
     setState(() {
-      error = setErrorValue(state.errorCode) ?? "";
+      error = setErrorValue(state.errorCode, context) ?? "";
     });
   }
 

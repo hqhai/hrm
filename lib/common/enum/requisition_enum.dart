@@ -301,25 +301,25 @@ extension ConfigTypeCreate on RequisitionTypeEnum {
       case RequisitionTypeEnum.explanation:
         return appLocalizations.explanation;
       case RequisitionTypeEnum.overTime:
-        return appLocalizations.overtime;
+        return appLocalizations.overtimeCreate;
       case RequisitionTypeEnum.vehicleDriver:
-        return appLocalizations.vehicleDispatch;
+        return appLocalizations.vehicleDispatchCreate;
       case RequisitionTypeEnum.postalDelivery:
         return appLocalizations.postalDelivery;
       case RequisitionTypeEnum.warehouseReleased:
-        return appLocalizations.releaseOfWarehouse;
+        return appLocalizations.releaseOfWarehouseCreate;
       case RequisitionTypeEnum.stationery:
-        return appLocalizations.stationeryOrder;
+        return appLocalizations.stationeryOrderCreate;
       case RequisitionTypeEnum.bussiness:
-        return appLocalizations.business;
+        return appLocalizations.businessCreate;
       case RequisitionTypeEnum.leaveHalfDayToOneDay:
-        return appLocalizations.leaveHalfDayToOneDay;
+        return appLocalizations.halfDayToOneDayCreate;
       case RequisitionTypeEnum.leaveTwoDayToFourDay:
-        return appLocalizations.leaveTwoDayToFourDay;
+        return appLocalizations.twoDayToFourDayCreate;
       case RequisitionTypeEnum.leaveFiveDaysOrMore:
-        return appLocalizations.leaveFiveDaysOrMore;
+        return appLocalizations.fiveDaysOrMoreCreate;
       case RequisitionTypeEnum.lateOrEarly:
-        return appLocalizations.lateOrEarly;
+        return appLocalizations.lateOrEarlyCreate;
       case RequisitionTypeEnum.makeUpWork:
         return appLocalizations.createMakeUpWork;
       case RequisitionTypeEnum.core:
@@ -351,13 +351,13 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
       case RequisitionTypeEnum.bussiness:
         return appLocalizations.business;
       case RequisitionTypeEnum.leaveHalfDayToOneDay:
-        return appLocalizations.leaveHalfDayToOneDay;
+        return appLocalizations.halfDayToOneDay;
       case RequisitionTypeEnum.leaveTwoDayToFourDay:
-        return appLocalizations.leaveTwoDayToFourDay;
+        return appLocalizations.twoDayToFourDay;
       case RequisitionTypeEnum.leaveFiveDaysOrMore:
-        return appLocalizations.leaveFiveDaysOrMore;
+        return appLocalizations.fiveDaysOrMore;
       case RequisitionTypeEnum.lateOrEarly:
-        return appLocalizations.lateOrEarly;
+        return appLocalizations.earlyLate;
       case RequisitionTypeEnum.makeUpWork:
         return appLocalizations.makeUpWork;
       case RequisitionTypeEnum.core:

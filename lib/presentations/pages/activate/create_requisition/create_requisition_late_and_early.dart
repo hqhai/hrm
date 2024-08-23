@@ -106,11 +106,11 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     super.initState();
   }
 
-  _listener(String errorCode) {
+  _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
       if (errorCode == 'MakeupDayCanNotRecedeRequestDate') {
-        errorListener = errorCode;
+        errorListener = errorDialog;
       } else {
         errorListener = '';
       }
@@ -125,12 +125,12 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     return BlocBuilder<UserByIdBloc, UserByIdState>(
       builder: (context, stateUserById) {
         return BlocConsumer<RequisitionBloc, RequisitionState>(
-          listener: (context, state) => _listener(state.errorCode),
+          listener: (context, state) => _listener(state.errorCode, context),
           builder: (context, state) => Scaffold(
             appBar: AppBar(
               iconTheme: IconThemeData(color: colors.text),
               title: Text(
-                widget.type.configTypeName,
+                widget.type.configTypeCreateName,
                 style: TextStyle(
                   color: colors.text,
                   fontSize: SpacingUnit.x5,
@@ -202,7 +202,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                               type: widget.type,
                               workShiftSettings: (value) => setListIds(value),
                             ),
-                    if (type == EditTimekeeping.early)
+                    if (checkMakeUp())
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                         child: Column(
@@ -333,6 +333,10 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     });
   }
 
+  bool checkMakeUp() {
+    return type == EditTimekeeping.early && checkRequiredMakeUp;
+  }
+
   PostRequestRequest request() {
     return widget.requestId.isEmpty
         ? PostRequestRequest(
@@ -342,9 +346,9 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
               explanationReason: type,
               reason: reason,
               startDate: workDate,
-              endDate: endDate,
-              startTime: startTime,
-              endTime: endTime,
+              endDate: checkMakeUp() ? endDate : null,
+              startTime: checkMakeUp() ? startTime : null,
+              endTime: checkMakeUp() ? endTime : null,
               workShiftSettings: listWorkShift,
               description: description,
             ),
@@ -356,9 +360,9 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
               explanationReason: type,
               reason: reason,
               startDate: workDate,
-              endDate: endDate,
-              startTime: startTime,
-              endTime: endTime,
+              endDate: checkMakeUp() ? endDate : null,
+              startTime: checkMakeUp() ? startTime : null,
+              endTime: checkMakeUp() ? endTime : null,
               workShiftSettings: listWorkShift,
               description: description,
             ),

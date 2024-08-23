@@ -129,9 +129,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
     return paths.map((e) => File(e)).toList();
   }
 
-  _listener(String errorCode) {
+  _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? "" : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
@@ -152,7 +152,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
         ),
       ),
       body: BlocConsumer<RequisitionBloc, RequisitionState>(
-        listener: (context, state) => _listener(state.errorCode),
+        listener: (context, state) => _listener(state.errorCode, context),
         buildWhen: (previous, current) => previous.requisition != current.requisition,
         builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
@@ -341,10 +341,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       postRequestRequest: request(),
       checkEdit: !checkClick && checkValidate(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
+      completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
         requestId: widget.requestId,
         errorDialog: errorDialog,

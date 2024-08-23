@@ -632,7 +632,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get overtime => 'Overtime request';
 
   @override
+  String get overtimeCreate => 'Create overtime request';
+
+  @override
   String get vehicleDispatch => 'Vehicle request form';
+
+  @override
+  String get vehicleDispatchCreate => 'Create vehicle request form';
 
   @override
   String get postalDelivery => 'Postal delivery request form';
@@ -641,10 +647,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseOfWarehouse => 'Warehouse release request form';
 
   @override
+  String get releaseOfWarehouseCreate => 'Create warehouse release request form';
+
+  @override
   String get stationeryOrder => 'Stationery order form';
 
   @override
+  String get stationeryOrderCreate => 'Create stationery order form';
+
+  @override
   String get business => 'Business trip request';
+
+  @override
+  String get businessCreate => 'Create business trip request';
 
   @override
   String get male => 'Male';
@@ -1079,12 +1094,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get duplicateBankAccountNumber => 'Duplicate bank account number';
 
   @override
-  String get timeSlotAlreadyPleaseChooseAnother => 'A request already exists for the selected time, please choose again!';
-
-  @override
-  String get theNumberOfFormsCreatedHasExceededTheLimit => 'The number of created forms has exceeded the limit';
-
-  @override
   String get listOvertime => 'Overtime hours list';
 
   @override
@@ -1370,16 +1379,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get socialInsuranceLeave => 'Paid by social insurance (BHXH)';
 
   @override
-  String get leaveHalfDayToOneDay => 'Request for 0.5-1 Day Leave';
-
-  @override
-  String get leaveTwoDayToFourDay => 'Request for 2-4 Day Leave';
-
-  @override
-  String get leaveFiveDaysOrMore => 'Request for 5 or More Days Leave';
-
-  @override
   String get lateOrEarly => 'Request for Late Arrival/Early Departure';
+
+  @override
+  String get lateOrEarlyCreate => 'Create request for Late Arrival/Early Departure';
 
   @override
   String get timekeepingError => 'Timekeeping error';
@@ -1476,6 +1479,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fiveDaysOrMore => 'Request for 5 or More Days Leave';
+
+  @override
+  String get halfDayToOneDayCreate => 'Create request for 0.5-1 Day Leave';
+
+  @override
+  String get twoDayToFourDayCreate => 'Create request for 2-4 Day Leave';
+
+  @override
+  String get fiveDaysOrMoreCreate => 'Create request for 5 or More Days Leave';
 
   @override
   String get earlyLate => 'Request for Late Arrival/Early Departure';
@@ -1713,4 +1725,139 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get makeUpTime => 'Make up time';
+
+  @override
+  String get nameNotNullOrEmpty => ' Name must not be empty';
+
+  @override
+  String get statusOtherActiveOrInActive => ' Status must be either Active or Inactive';
+
+  @override
+  String get stepFlowNotNull => ' Approval step must not be empty';
+
+  @override
+  String get nameNull => ' Name is empty';
+
+  @override
+  String get nameAlreadyExist => ' Name already exists';
+
+  @override
+  String get thisDepartmentAlreadyExistFlow => ' Department already has a flow for this type of request';
+
+  @override
+  String get thisPositionAlreadyExistFlow => ' Position already has a flow for this type of request';
+
+  @override
+  String get thisDepartmentPositionAlreadyExistFlow => ' Department and position already have a flow for this type of request';
+
+  @override
+  String get thisUserAlreadyExistFlow => ' Employee already has a flow for this type of request';
+
+  @override
+  String get typeAlreadyHasStepFlow => ' This request already has an approval flow';
+
+  @override
+  String get thisFlowAlreadyExistsRequest => ' This flow already has a request';
+
+  @override
+  String get flowNotExist => ' Flow does not exist';
+
+  @override
+  String get flowIsNotCoreType => ' Flow type is not an approval flow';
+
+  @override
+  String get statusInActiveUnableUpdate => ' Inactive status cannot be updated';
+
+  @override
+  String get userIdNotNull => ' Applier must not be empty';
+
+  @override
+  String get departmentIdOrPositionIdMustNotExist => ' Department or position must not exist when the type is employee';
+
+  @override
+  String get departmentIdAndPositionIdNotNull => ' Department or position must not be empty';
+
+  @override
+  String get userIdMustNotExist => ' Employee must not exist when the type is department or position';
+
+  @override
+  String get positionIdNotNull => ' Position must not be empty';
+
+  @override
+  String get departmentIdOrUserIdMustNotExist => ' Department and employee must not exist when the type is position';
+
+  @override
+  String get departmentIdNotNull => ' Department must not be empty';
+
+  @override
+  String get positionIdOrUserIdMustNotExist => ' Position and employee must not exist when the type is department';
+
+  @override
+  String get inValidFormat => ' Invalid format';
+
+  @override
+  String get configNotNull => ' Request data must not be empty';
+
+  @override
+  String get exceededTheRequestedCreateTimeframe => ' Request creation time has exceeded the allowed limit';
+
+  @override
+  String get currentStatusIsNotEdit => ' Current status is not editable';
+
+  @override
+  String get currentStatusIsNotProcessOrEdit => ' Current status is neither in progress nor editable';
+
+  @override
+  String get theNumberOfFormsCreatedHasExceededTheLimit => ' The number of requests created has exceeded the limit';
+
+  @override
+  String get endDateGreaterThanStartDate => ' End date is greater than the start date';
+
+  @override
+  String get employeeNotFullTimeOrPartTime => ' Employee is neither full-time nor part-time';
+
+  @override
+  String get userIdAndPositionIdCannotExistSameTime => ' Employee and position cannot coexist simultaneously';
+
+  @override
+  String get userIdOrPositionIdCanNotNull => ' User or position must not be empty';
+
+  @override
+  String get flowDoesNotHaveEnoughComponents => ' Flow must have start, steps, and end components';
+
+  @override
+  String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId => ' If it is a start or end type, there should be no employee, position, or department';
+
+  @override
+  String get currentStatusNotNew => ' Current status is not new';
+
+  @override
+  String get nameStepFlowNotNull => ' Approval step name must not be empty';
+
+  @override
+  String get dataNotNull => ' Data must not be empty';
+
+  @override
+  String get timeSlotAlreadyPleaseChooseAnother => ' A request already exists with the same time frame, please select a different time';
+
+  @override
+  String get mustCreateMinimumTimeInAdvance => ' Must be created before the minimum time';
+
+  @override
+  String get pastTheDateOfExplanation => ' Past the explanation date';
+
+  @override
+  String get errorTimeMakeUp1 => 'The total number of compensatory hours must be greater than or equal to the number of missed working hours. Please readjust';
+
+  @override
+  String get errorTimeMakeUp2 => 'Make-up time overlapped with another shift. Please select again';
+
+  @override
+  String get errorPlease => 'An error occurred, please try again later!';
+
+  @override
+  String get limitFile => 'The number of files exceeds 5';
+
+  @override
+  String get saveRequest => 'Save request';
 }

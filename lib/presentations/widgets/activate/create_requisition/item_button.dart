@@ -21,7 +21,7 @@ class ItemButton extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
             child: AppButton(
-              title: appLocalizations.cancel,
+              title: appLocalizations.cancelRequest,
               onSubmit: () => _cancel(),
               color: colors.outline.withOpacity(0.2),
               colorText: colors.text,
@@ -32,7 +32,7 @@ class ItemButton extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
             child: AppButton(
-              title: appLocalizations.save,
+              title: appLocalizations.saveRequest,
               onSubmit: () => _save(),
               color: colors.blue,
               colorText: colors.background,

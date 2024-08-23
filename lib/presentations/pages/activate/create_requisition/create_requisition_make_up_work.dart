@@ -94,11 +94,12 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
     super.initState();
   }
 
-  _listener(String errorCode) {
+  _listener(String errorCode, BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
       if (errorCode == "TimeSlotAlreadyPleaseChooseAnother") {
-        errorTime = errorCode.isNotEmpty ? setErrorValue(errorCode) ?? errorCode : "";
+        errorTime = appLocalizations.errorTimeMakeUp2;
       }
     });
   }
@@ -108,7 +109,7 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionBloc, RequisitionState>(
-      listener: (context, state) => _listener(state.errorCode),
+      listener: (context, state) => _listener(state.errorCode, context),
       builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
         builder: (context, stateUserById) {
           return Scaffold(
@@ -274,9 +275,15 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate: !checkClick &&
+          _checkValue(context) &&
+          widget.requestId.isEmpty &&
+          checkTotalWorkLeave(context),
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit: !checkClick &&
+          _checkValue(context) &&
+          widget.requestId.isNotEmpty &&
+          checkTotalWorkLeave(context),
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
@@ -331,6 +338,21 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
         });
       }
     }
+  }
+
+  bool checkTotalWorkLeave(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    double totalWorkLeave = 0;
+    for (var item in workShiftSettings) {
+      totalWorkLeave = totalWorkLeave + item.endTime - item.startTime;
+    }
+    if (totalWorkLeave > numberValue) {
+      setState(() {
+        errorTime = appLocalizations.errorTimeMakeUp1;
+      });
+      return false;
+    }
+    return true;
   }
 
   _setWorkShiftSettings(List<WorkShiftRegisteredDetail> value) {

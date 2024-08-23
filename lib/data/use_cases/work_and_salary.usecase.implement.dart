@@ -70,7 +70,7 @@ class WorkAndSalaryUseCaseImplement extends WorkAndSalaryUseCase {
         (item) => MapEntry(
           item.workDate?.microsecondsSinceEpoch ?? 0,
           item.workShiftRegisteredDetails
-              .map((e) => '${e.workShiftDetailId}/${e.workShiftSettingDetailId}')
+              .map((e) => '${e.workShiftDetailId}/${e.workShiftSettingDetailId}/${e.workDate}')
               .toList(),
         ),
       ),
@@ -79,7 +79,7 @@ class WorkAndSalaryUseCaseImplement extends WorkAndSalaryUseCase {
     final Map<String, WorkShiftRegisteredDetail> map = Map.fromEntries(
       workShiftRegisteredDetails.map(
         (item) => MapEntry(
-          '${item.workShiftDetailId}/${item.workShiftSettingDetailId}',
+          '${item.workShiftDetailId}/${item.workShiftSettingDetailId}/${item.workDate}',
           item,
         ),
       ),

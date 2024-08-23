@@ -36,6 +36,7 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x2),
           child: AppInputArea(
+
             maxLines: widget.maxLines ?? 4,
             placeHolder: widget.title,
             controller: widget.textController,

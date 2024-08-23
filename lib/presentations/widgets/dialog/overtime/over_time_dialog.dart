@@ -16,21 +16,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class OverTimeAddDialog extends StatefulWidget {
-  const OverTimeAddDialog(
-      {super.key,
-      this.onChangeOverTimes,
-      this.requisitionOverTime,
-      this.checkNote = true,
-      required this.callBack,
-      this.checkTypeContainer = true,
-      required this.callBackTypeContainer});
+  const OverTimeAddDialog({
+    super.key,
+    this.onChangeOverTimes,
+    required this.requisitionOverTime,
+    this.checkNote = true,
+    required this.callBack, required this.checkUpdate,
+  });
 
   final ValueChanged<RequisitionOverTime>? onChangeOverTimes;
-  final RequisitionOverTime? requisitionOverTime;
+  final RequisitionOverTime requisitionOverTime;
   final VoidCallback callBack;
-  final VoidCallback callBackTypeContainer;
-  final bool checkTypeContainer;
-  final bool checkNote;
+  final bool checkNote, checkUpdate;
 
   @override
   State<OverTimeAddDialog> createState() => _OverTimeAddDialogState();
@@ -47,6 +44,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
   EnumOvertimeDay typeDate = EnumOvertimeDay.holiday;
   bool isCheck = true;
   List<bool> groupValue = [true, false];
+  bool checkTypeContainer = true;
 
   bool checkOnClick(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -72,13 +70,15 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
 
   @override
   void initState() {
-    noteController.text = widget.requisitionOverTime?.note ?? "";
-    requisitionOverTime = widget.requisitionOverTime ?? const RequisitionOverTime();
-    date = widget.requisitionOverTime?.date ?? DateTime.now();
-    startTime = widget.requisitionOverTime?.startTime ?? 0;
-    endTime = widget.requisitionOverTime?.endTime ?? 0;
-    suggestTime = double.parse((endTime - startTime).toString());
-    note = widget.requisitionOverTime?.note??"";
+    if(widget.checkUpdate) {
+      noteController.text = widget.requisitionOverTime.note;
+      requisitionOverTime = widget.requisitionOverTime;
+      date = widget.requisitionOverTime.date ?? DateTime.now();
+      startTime = widget.requisitionOverTime.startTime;
+      endTime = widget.requisitionOverTime.endTime;
+      suggestTime = double.parse((endTime - startTime).toString());
+      note = widget.requisitionOverTime.note;
+    }
     super.initState();
   }
 
@@ -98,18 +98,18 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                widget.checkTypeContainer ? "" : formatYMD(date.toString()),
+                checkTypeContainer ? "" : formatYMD(date.toString()),
                 style: TextStyle(
                   color: colors.text,
                   fontSize: SpacingUnit.x4,
                 ),
               ),
               InkWell(
-                onTap: () => widget.callBackTypeContainer.call(),
+                onTap: () => _setTypeContainer(),
                 child: SvgPicture.asset(
                   width: SpacingUnit.x6,
                   height: SpacingUnit.x6,
-                  widget.checkTypeContainer
+                  checkTypeContainer
                       ? Assets.images.icon.home.chevronForward
                       : Assets.images.icon.activateIcon.drop,
                   colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
@@ -117,89 +117,85 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
               ),
             ],
           ),
-          if (widget.checkTypeContainer)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DateOverTime(
-                  dateOld: date,
-                  changeValue: (value) => setDate(value),
-                ),
-                ItemTakeOvertimeDay(
-                  type: typeDate,
-                  onChangeType: (value) => setTypeDate(value),
-                ),
-                LocationOverTime(
-                  change: (value) => _setLocation(value),
-                  isCheck: isCheck,
-                ),
-                TimeOverTime(
-                  requiredValidate: true,
-                  dateOld: secondToDateTime(time: startTime),
-                  changeValue: (value) => _setStart(value),
-                  title: appLocalizations.startTime,
-                ),
-                const SizedBox(
-                  height: SpacingUnit.x2,
-                ),
-                TimeOverTime(
-                  requiredValidate: true,
-                  dateOld: secondToDateTime(time: endTime),
-                  changeValue: (value) => _setEnd(value),
-                  title: appLocalizations.endTime,
-                ),
-                if (errorTime.isNotEmpty)
-                  Text(
-                    errorTime,
-                    style: TextStyle(
-                      color: colors.error,
-                      fontSize: SpacingUnit.x3,
-                    ),
-                  ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-                  child: Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '${appLocalizations.totalOvertimeHours}: ',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x4,
-                          ),
-                        ),
-                        TextSpan(
-                          text: errorTime.isEmpty ? strSeconds(((suggestTime)).toInt()) : '0',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x4,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                if (widget.checkNote)
-                  ItemCreateInputArea(
-                    fontWeightTitle: FontWeight.w400,
-                    maxLines: 6,
-                    title: appLocalizations.note,
-                    error: '',
-                    textController: noteController,
-                    onChange: (value) => _setNote(value),
-                  ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
-                  child: AppButton(
-                    title: appLocalizations.cancel,
-                    onSubmit: () => widget.callBack.call(),
-                    color: colors.error.withOpacity(0.7),
-                  ),
-                )
-              ],
+          if (checkTypeContainer) ...[
+            DateOverTime(
+              dateOld: date,
+              changeValue: (value) => setDate(value),
             ),
+            ItemTakeOvertimeDay(
+              type: typeDate,
+              onChangeType: (value) => setTypeDate(value),
+            ),
+            LocationOverTime(
+              change: (value) => _setLocation(value),
+              isCheck: isCheck,
+            ),
+            TimeOverTime(
+              requiredValidate: true,
+              dateOld: secondToDateTime(time: startTime),
+              changeValue: (value) => _setStart(value),
+              title: appLocalizations.startTime,
+            ),
+            const SizedBox(
+              height: SpacingUnit.x2,
+            ),
+            TimeOverTime(
+              requiredValidate: true,
+              dateOld: secondToDateTime(time: endTime),
+              changeValue: (value) => _setEnd(value),
+              title: appLocalizations.endTime,
+            ),
+            if (errorTime.isNotEmpty)
+              Text(
+                errorTime,
+                style: TextStyle(
+                  color: colors.error,
+                  fontSize: SpacingUnit.x3,
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '${appLocalizations.totalOvertimeHours}: ',
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                      ),
+                    ),
+                    TextSpan(
+                      text: errorTime.isEmpty ? strSeconds(((suggestTime)).toInt()) : '0',
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            if (widget.checkNote)
+              ItemCreateInputArea(
+                fontWeightTitle: FontWeight.w400,
+                maxLines: 6,
+                title: appLocalizations.note,
+                error: '',
+                textController: noteController,
+                onChange: (value) => _setNote(value),
+              ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              child: AppButton(
+                title: appLocalizations.cancel,
+                onSubmit: () => widget.callBack.call(),
+                color: colors.error.withOpacity(0.7),
+              ),
+            ),
+          ]
         ],
       ),
     );
@@ -219,14 +215,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     });
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
-      RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime,
-          overTimeDay: typeDate,
-          isChecking: isCheck),
+      widget.requisitionOverTime.copyWith(note: value),
     );
   }
 
@@ -236,14 +225,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     });
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
-      RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime,
-          overTimeDay: typeDate,
-          isChecking: isCheck),
+      widget.requisitionOverTime.copyWith(date: value),
     );
   }
 
@@ -254,14 +236,10 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     });
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
-      RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime,
-          overTimeDay: typeDate,
-          isChecking: isCheck),
+      widget.requisitionOverTime.copyWith(
+        startTime: startTime,
+        suggestTime: suggestTime,
+      ),
     );
   }
 
@@ -272,46 +250,34 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     });
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
-      RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime,
-          overTimeDay: typeDate,
-          isChecking: isCheck),
+      widget.requisitionOverTime.copyWith(
+        endTime: endTime,
+        suggestTime: suggestTime,
+      ),
     );
   }
 
   setTypeDate(EnumOvertimeDay value) {
     setState(() {
       typeDate = value;
+      widget.onChangeOverTimes?.call(
+        widget.requisitionOverTime.copyWith(overTimeDay: value),
+      );
     });
-    widget.onChangeOverTimes?.call(
-      RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime,
-          overTimeDay: value,
-          isChecking: isCheck),
-    );
   }
 
   _setLocation(bool? value) {
     setState(() {
       isCheck = value ?? true;
+      widget.onChangeOverTimes?.call(
+        widget.requisitionOverTime.copyWith(isChecking: value),
+      );
     });
-    widget.onChangeOverTimes?.call(
-      RequisitionOverTime(
-          date: date,
-          endTime: endTime,
-          startTime: startTime,
-          note: note,
-          suggestTime: suggestTime,
-          overTimeDay: typeDate,
-          isChecking: isCheck),
-    );
+  }
+
+  _setTypeContainer() {
+    setState(() {
+      checkTypeContainer = !checkTypeContainer;
+    });
   }
 }
