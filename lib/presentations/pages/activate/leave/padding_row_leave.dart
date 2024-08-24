@@ -17,22 +17,19 @@ class PaddingRowLeave extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(SpacingUnit.x3),
-      child: Row(
+      padding: const EdgeInsets.all(SpacingUnit.x1_5),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: TitleValueLeave(
-              title: title1,
-              value: value1,
-            ),
+          TitleValueLeave(
+            title: title1,
+            value: value1,
           ),
-          Expanded(
-            child: TitleValueLeave(
-              title: title2,
-              value: value2,
-              color: color,
-            ),
+          const SizedBox(height: SpacingUnit.x3,),
+          TitleValueLeave(
+            title: title2,
+            value: value2,
+            color: color,
           ),
         ],
       ),

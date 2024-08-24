@@ -93,7 +93,6 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
       if (check) {
         final requestIds =
             state.requisitionIds.where((element) => element != event.requestId).toList();
-
         emit(
           state.copyWith(
             requisitionIds: requestIds,

@@ -130,7 +130,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                       ),
                       ItemCreateInputArea(
                         requiredValidate: true,
-                        title: appLocalizations.reason,
+                        title: appLocalizations.reasonCreateRequest,
                         error: errorDescription,
                         textController: inputController,
                         onChange: (value) => setDescription(value),

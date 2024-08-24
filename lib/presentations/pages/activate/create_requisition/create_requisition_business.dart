@@ -144,7 +144,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       appBar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
         title: Text(
-          RequisitionTypeEnum.bussiness.configTypeName,
+          RequisitionTypeEnum.bussiness.configTypeCreateName,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,

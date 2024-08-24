@@ -39,7 +39,7 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x4,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 if (widget.requiredValidate)

@@ -78,7 +78,7 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
             child: widget.checkLoad
                 ? ListView.builder(
                     controller: controller,
-                    itemCount: state.requisitions.length,
+                    itemCount: state.requisitionIds.length,
                     itemBuilder: (context, index) => ItemRequisitionList(
                       id: state.requisitionIds[index],
                     ),

@@ -71,6 +71,8 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
           ),
           const SizedBox(height: SpacingUnit.x4),
           ItemCreateInputArea(
+            error: note.isNotEmpty ? "" : appLocalizations.cannotBeLeftBlank,
+            requiredValidate: true,
             textController: noteController,
             title: appLocalizations.note,
             onChange: (value) => _setNote(value),
@@ -84,7 +86,7 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
               onSubmit: () => widget.callBackDelete.call(),
               color: colors.error.withOpacity(0.7),
             ),
-          )
+          ),
         ],
       ],
     );
