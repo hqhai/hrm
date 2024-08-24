@@ -60,7 +60,7 @@ class CreateRequisitionExplanationPage extends StatefulWidget {
 class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExplanationPage> {
   final TextEditingController detailedDescriptionController = TextEditingController();
   List<RequisitionOverTime> listRequisitionOverTimes = [];
-  String errorTime = '', errorDestination = '', errorDialog = '', errorExplanations = '';
+  String errorTime = '', errorDialog = '', errorExplanations = '';
   String? description;
   List<String> followers = [];
   List<Explanation> explanations = [];
@@ -123,8 +123,6 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                       callback: () => _addExplanation(),
                     ),
                     ItemCreateInputArea(
-                      requiredValidate: true,
-                      error: errorDestination,
                       textController: detailedDescriptionController,
                       title: appLocalizations.detailedDescription,
                       onChange: (value) => _setDetailedDescription(value),
@@ -171,14 +169,12 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkDescription = description != null;
     final bool checkList = explanations.isNotEmpty;
     setState(() {
       errorTime = checkList ? '' : appLocalizations.cannotBeLeftBlank;
-      errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
       errorExplanations = checkList ? '' : appLocalizations.notSelectedAShift;
     });
-    return checkList && checkDescription;
+    return checkList;
   }
 
   _setFollower(List<User> value) {

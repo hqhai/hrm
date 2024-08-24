@@ -24,6 +24,7 @@ class TitleValueLeave extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: padding),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             '$title: ',
@@ -33,14 +34,11 @@ class TitleValueLeave extends StatelessWidget {
               fontWeight: font,
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              value,
-              style: TextStyle(
-                color: color ?? colors.text,
-                fontSize: size,
-              ),
+          Text(
+            value,
+            style: TextStyle(
+              color: color ?? colors.text,
+              fontSize: size,
             ),
           ),
         ],

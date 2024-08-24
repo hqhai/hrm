@@ -620,7 +620,18 @@
   "errorTimeMakeUp2": "Make-up time overlapped with another shift. Please select again",
   "errorPlease": "An error occurred, please try again later!",
   "limitFile": "The number of files exceeds 5",
-  "saveRequest": "Save request"
-
-
+  "saveRequest": "Save request",
+  "setHoursAndMinutes": "Set hours and minutes",
+  "january": "January",
+  "february": "February",
+  "march": "March",
+  "april": "April",
+  "may": "May",
+  "june": "June",
+  "july": "July",
+  "august": "August",
+  "september": "September",
+  "october": "October",
+  "november": "November",
+  "december": "December"
 }

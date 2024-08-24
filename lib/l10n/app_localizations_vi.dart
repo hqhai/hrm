@@ -656,10 +656,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get stationeryOrderCreate => 'Tạo đơn đặt văn phòng phẩm';
 
   @override
-  String get business => 'Đơn đè nghị công tác';
+  String get business => 'Đơn đề nghị công tác';
 
   @override
-  String get businessCreate => 'Tạo đơn đè nghị công tác';
+  String get businessCreate => 'Tạo đơn đề nghị công tác';
 
   @override
   String get male => 'Nam';
@@ -743,7 +743,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get vehicle => 'Phương tiện';
 
   @override
-  String get destination => 'Địa điểm';
+  String get destination => 'Nơi đến';
 
   @override
   String get workingContent => 'Nội dung công tác';
@@ -869,7 +869,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get moreOfficeProducts => 'Thêm văn phòng phẩm';
 
   @override
-  String get unit => 'Đơn vị';
+  String get unit => 'Đơn vị tính';
 
   @override
   String get pieces => 'Chiếc';
@@ -902,7 +902,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pairs => 'Đôi';
 
   @override
-  String get stationeryList => 'Danh sách vật phẩm';
+  String get stationeryList => 'Danh sách sản phẩm';
 
   @override
   String get product => 'Sản phẩm';
@@ -1151,7 +1151,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get workOffset => 'Làm bù';
 
   @override
-  String get reasonForRelease => 'Lý do xuất kho';
+  String get reasonForRelease => 'Lý do xin xuất kho';
 
   @override
   String get reasonForBusinessTrip => 'Lý do đi công tác';
@@ -1271,7 +1271,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get seeDetails => 'Xem chi tiết';
 
   @override
-  String get onTime => 'Đủ công';
+  String get onTime => 'Chấm công đúng giờ';
 
   @override
   String get forgotChecking => 'Quên chấm công';
@@ -1685,7 +1685,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get totalMakeUpWorkTime => 'Số giờ làm bù';
 
   @override
-  String get youDoNotHaveAShift => 'Bạn không có ca làm việc vào ngày này!';
+  String get youDoNotHaveAShift => 'Bạn không có ca làm việc vào ngày đã chọn!';
 
   @override
   String get shiftWasLeave => 'Ca đã nghỉ';
@@ -1860,4 +1860,43 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get saveRequest => 'Lưu đơn';
+
+  @override
+  String get setHoursAndMinutes => 'Chọn thời gian';
+
+  @override
+  String get january => 'Tháng 1';
+
+  @override
+  String get february => 'Tháng 2';
+
+  @override
+  String get march => 'Tháng 3';
+
+  @override
+  String get april => 'Tháng 4';
+
+  @override
+  String get may => 'Tháng 5';
+
+  @override
+  String get june => 'Tháng 6';
+
+  @override
+  String get july => 'Tháng 7';
+
+  @override
+  String get august => 'Tháng 8';
+
+  @override
+  String get september => 'Tháng 9';
+
+  @override
+  String get october => 'Tháng 10';
+
+  @override
+  String get november => 'Tháng 11';
+
+  @override
+  String get december => 'Tháng 12';
 }

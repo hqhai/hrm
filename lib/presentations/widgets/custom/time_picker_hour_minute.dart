@@ -64,18 +64,26 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Text(
+                  appLocalizations.setHoursAndMinutes,
+                  style: TextStyle(
+                    fontSize: SpacingUnit.x6,
+                    color: colors.text,
+                    fontWeight: FontWeight.w600
+                  ),
+                ),
                 TimePickerSpinner(
+                  alignment: Alignment.center,
                   highlightedTextStyle: TextStyle(
                     color: colors.text,
-                    fontSize: SpacingUnit.x6,
+                    fontSize: SpacingUnit.x9,
                     fontWeight: FontWeight.w600,
                   ),
                   normalTextStyle: TextStyle(
                     color: colors.text.withOpacity(0.7),
-                    fontSize: SpacingUnit.x5,
+                    fontSize: SpacingUnit.x7,
                     fontWeight: FontWeight.w500,
                   ),
-                  is24HourMode: false,
                   time: timeHS,
                   onTimeChange: (time) => timeHS = time,
                 ),

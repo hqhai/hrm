@@ -35,3 +35,50 @@ extension ConfigDayOfWeekExtension on DayOfWeekEnum {
   }
 }
 
+enum MonthEnum {
+  january,
+  february,
+  march,
+  april,
+  may,
+  july,
+  june,
+  august,
+  september,
+  october,
+  november,
+  december
+}
+
+extension ConfigMonthExtension on MonthEnum {
+  String get configMonthName {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case MonthEnum.january:
+        return appLocalizations.january;
+      case MonthEnum.february:
+        return appLocalizations.february;
+      case MonthEnum.march:
+        return appLocalizations.march;
+      case MonthEnum.april:
+        return appLocalizations.april;
+      case MonthEnum.may:
+        return appLocalizations.may;
+      case MonthEnum.june:
+        return appLocalizations.june;
+      case MonthEnum.august:
+        return appLocalizations.august;
+      case MonthEnum.september:
+        return appLocalizations.september;
+      case MonthEnum.october:
+        return appLocalizations.october;
+      case MonthEnum.november:
+        return appLocalizations.november;
+      case MonthEnum.december:
+        return appLocalizations.december;
+      case MonthEnum.july:
+        return appLocalizations.july;
+    }
+  }
+}

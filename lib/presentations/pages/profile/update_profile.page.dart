@@ -7,6 +7,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -25,7 +26,6 @@ import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dial
 import 'package:base_app/presentations/widgets/dialog/check_load/check_save_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
-import 'package:common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

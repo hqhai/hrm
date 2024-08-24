@@ -1,3 +1,5 @@
+import 'package:base_app/common/enum/emun_time.dart';
+
 final Map<int, String> mapMonth = {
   1: 'Jan',
   2: 'Feb',
@@ -14,16 +16,16 @@ final Map<int, String> mapMonth = {
 };
 
 final Map<int, String> mapMonthName = {
-  1: 'January',
-  2: 'February',
-  3: 'March',
-  4: 'April',
-  5: 'May',
-  6: 'June',
-  7: 'July',
-  8: 'August',
-  9: 'September',
-  10: 'October',
-  11: 'November',
-  12: 'December'
+  1: MonthEnum.january.configMonthName,
+  2: MonthEnum.february.configMonthName,
+  3: MonthEnum.march.configMonthName,
+  4: MonthEnum.april.configMonthName,
+  5: MonthEnum.may.configMonthName,
+  6: MonthEnum.june.configMonthName,
+  7: MonthEnum.july.configMonthName,
+  8: MonthEnum.august.configMonthName,
+  9: MonthEnum.september.configMonthName,
+  10: MonthEnum.october.configMonthName,
+  11: MonthEnum.november.configMonthName,
+  12: MonthEnum.december.configMonthName
 };

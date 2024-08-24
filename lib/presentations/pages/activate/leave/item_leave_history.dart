@@ -63,7 +63,7 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
                 value2: (leave?.totalRemaining ?? 0).toString(),
               ),
               Padding(
-                padding: const EdgeInsets.all(SpacingUnit.x3),
+                padding: const EdgeInsets.all(SpacingUnit.x1_5),
                 child: TitleValueLeave(
                   title: appLocalizations.sourceOfLeave,
                   value: leave?.type.configTypeLeaveEnum ?? "",
