@@ -8,7 +8,6 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/register/register_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_state.dart';
-import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:base_app/presentations/widgets/register/dots_indicator.dart';
@@ -71,104 +70,97 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
     return BlocConsumer<RegisterBloc, RegisterState>(
       listener: (context, state) => _listener(context, state),
       builder: (context, state) {
-        return BasePage(
-          body: Stack(
-            children: [
-              Image.asset(
-                Assets.images.signIn.background.path,
-                fit: BoxFit.fill,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                margin: const EdgeInsets.all(SpacingUnit.x8),
-                color: const Color(0xFF212B45),
-                child: Padding(
-                  padding: const EdgeInsets.all(SpacingUnit.x8),
-                  child: Column(children: [
-                    const SizedBox(height: SpacingUnit.x4),
-                    Image.asset(Assets.images.signIn.logo.path,
-                        width: SpacingUnit.x42_5, height: SpacingUnit.x16),
-                    const SizedBox(height: SpacingUnit.x10_5),
-                    DotsIndicator(
-                      width: SpacingUnit.x13,
-                      height: SpacingUnit.x1_5,
-                      currentIndex: currentIndex.toInt(),
-                      pageCount: 4,
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: colors.background,
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            margin: const EdgeInsets.all(SpacingUnit.x8),
+            color: colors.outline.withOpacity(0.1),
+            child: Padding(
+              padding: const EdgeInsets.all(SpacingUnit.x8),
+              child: Column(children: [
+                const SizedBox(height: SpacingUnit.x4),
+                Image.asset(
+                  Assets.images.signIn.logo.path,
+                ),
+                const SizedBox(height: SpacingUnit.x10_5),
+                DotsIndicator(
+                  width: SpacingUnit.x13,
+                  height: SpacingUnit.x1_5,
+                  currentIndex: currentIndex.toInt(),
+                  pageCount: 4,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: PageView(
+                    controller: pageViewController,
+                    onPageChanged: _handlePageViewChanged,
+                    children: [
+                      SingleChildScrollView(
+                        child: RegisterEmail(
+                          onChange: (value) => checkInputs0(value),
+                          onChangeEmail: (value) => valueInputs0(value),
+                          emailDefault: state.registerRequest.email,
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        child: RegisterUsername(
+                          onChange: (value) => checkInputs1(value),
+                          onChangeFirstName: (value) => valueInputs1(value),
+                          onChangeLastName: (value) => valueInputs2(value),
+                          firstNameDefault: state.registerRequest.firstName,
+                          lastNameDefault: state.registerRequest.lastName,
+                        ),
+                      ),
+                      RegisterGenderEnumAndDateOfBirth(
+                        genderDefault: state.registerRequest.gender,
+                        dateOfBirthDefault: state.registerRequest.dayOfBirth,
+                        onChange: (value) => checkInputs2(value),
+                        onChangeDateOfBirth: (value) => valueInputs4(value),
+                        onChangeGender: (value) => valueInputs3(value),
+                      ),
+                      SingleChildScrollView(
+                        child: RegisterPassword(
+                          onChange: (value) => checkInputs3(value),
+                          onChangePassword: (value) => valueInputs5(value),
+                          passwordDefault: state.registerRequest.password,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                PageIndicator(
+                  currentPageIndex: currentIndex,
+                  tabController: tabController,
+                  checkInput: checkInputs,
+                  valueInputs: valueInputs,
+                  onUpdateCurrentPageIndex: updateCurrentPageIndex,
+                ),
+                const Expanded(
+                  child: SizedBox(),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      appLocalizations.alreadyAMember,
+                      style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.4,
-                      child: PageView(
-                        controller: pageViewController,
-                        onPageChanged: _handlePageViewChanged,
-                        children: [
-                          SingleChildScrollView(
-                            child: RegisterEmail(
-                              onChange: (value) => checkInputs0(value),
-                              onChangeEmail: (value) => valueInputs0(value),
-                              emailDefault: state.registerRequest.email,
-                            ),
-                          ),
-                          SingleChildScrollView(
-                            child: RegisterUsername(
-                              onChange: (value) => checkInputs1(value),
-                              onChangeFirstName: (value) => valueInputs1(value),
-                              onChangeLastName: (value) => valueInputs2(value),
-                              firstNameDefault: state.registerRequest.firstName,
-                              lastNameDefault: state.registerRequest.lastName,
-                            ),
-                          ),
-                          RegisterGenderEnumAndDateOfBirth(
-                            genderDefault: state.registerRequest.gender,
-                            dateOfBirthDefault: state.registerRequest.dayOfBirth,
-                            onChange: (value) => checkInputs2(value),
-                            onChangeDateOfBirth: (value) => valueInputs4(value),
-                            onChangeGender: (value) => valueInputs3(value),
-                          ),
-                          SingleChildScrollView(
-                            child: RegisterPassword(
-                              onChange: (value) => checkInputs3(value),
-                              onChangePassword: (value) => valueInputs5(value),
-                              passwordDefault: state.registerRequest.password,
-                            ),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () => onLogin(context),
+                      child: Text(
+                        appLocalizations.logInNow,
+                        style:
+                            const TextStyle(fontSize: SpacingUnit.x4, color: Color(0xffABBFED)),
                       ),
                     ),
-                    PageIndicator(
-                      currentPageIndex: currentIndex,
-                      tabController: tabController,
-                      checkInput: checkInputs,
-                      valueInputs: valueInputs,
-                      onUpdateCurrentPageIndex: updateCurrentPageIndex,
-                    ),
-                    const Expanded(
-                      child: SizedBox(),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          appLocalizations.alreadyAMember,
-                          style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
-                        ),
-                        GestureDetector(
-                          onTap: () => onLogin(context),
-                          child: Text(
-                            appLocalizations.logInNow,
-                            style:
-                                const TextStyle(fontSize: SpacingUnit.x4, color: Color(0xffABBFED)),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: SpacingUnit.x4),
-                  ]),
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(height: SpacingUnit.x4),
+              ]),
+            ),
           ),
         );
       },

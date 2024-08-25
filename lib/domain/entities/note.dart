@@ -10,22 +10,22 @@ class Note {
   final String dateTime;
   final String id;
   final String createdUserId;
-  final String? updatedUserId;
+  final String updatedUserId;
   final String createdFullName;
-  final String? updatedFullName;
+  final String updatedFullName;
   final String createdDate;
-  final String? updatedDate;
+  final String updatedDate;
 
   const Note({
-    required this.note,
-    required this.dateTime,
-    required this.id,
-    required this.createdUserId,
-    this.updatedUserId,
-    required this.createdFullName,
-    this.updatedFullName,
-    required this.createdDate,
-    this.updatedDate,
+    this.note = '',
+    this.dateTime = '',
+    this.id = '',
+    this.createdUserId = '',
+    this.updatedUserId = '',
+    this.createdFullName = '',
+    this.updatedFullName = '',
+    this.createdDate = '',
+    this.updatedDate = '',
   });
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);

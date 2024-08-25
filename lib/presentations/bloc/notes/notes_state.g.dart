@@ -7,6 +7,8 @@ part of 'notes_state.dart';
 // **************************************************************************
 
 abstract class _$NotesStateCWProxy {
+  NotesState draftNote(List<DraftNote> draftNote);
+
   NotesState note(Note note);
 
   NotesState notes(List<Note> notes);
@@ -20,6 +22,7 @@ abstract class _$NotesStateCWProxy {
   /// NotesState(...).copyWith(id: 12, name: "My name")
   /// ````
   NotesState call({
+    List<DraftNote>? draftNote,
     Note? note,
     List<Note>? notes,
     NoteStatus? status,
@@ -31,6 +34,9 @@ class _$NotesStateCWProxyImpl implements _$NotesStateCWProxy {
   final NotesState _value;
 
   const _$NotesStateCWProxyImpl(this._value);
+
+  @override
+  NotesState draftNote(List<DraftNote> draftNote) => this(draftNote: draftNote);
 
   @override
   NotesState note(Note note) => this(note: note);
@@ -50,11 +56,16 @@ class _$NotesStateCWProxyImpl implements _$NotesStateCWProxy {
   /// NotesState(...).copyWith(id: 12, name: "My name")
   /// ````
   NotesState call({
+    Object? draftNote = const $CopyWithPlaceholder(),
     Object? note = const $CopyWithPlaceholder(),
     Object? notes = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
   }) {
     return NotesState(
+      draftNote: draftNote == const $CopyWithPlaceholder() || draftNote == null
+          ? _value.draftNote
+          // ignore: cast_nullable_to_non_nullable
+          : draftNote as List<DraftNote>,
       note: note == const $CopyWithPlaceholder() || note == null
           ? _value.note
           // ignore: cast_nullable_to_non_nullable
@@ -86,14 +97,12 @@ NotesState _$NotesStateFromJson(Map<String, dynamic> json) => NotesState(
               ?.map((e) => Note.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      draftNote: (json['draftNote'] as List<dynamic>?)
+              ?.map((e) => DraftNote.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       note: json['note'] == null
-          ? const Note(
-              id: '',
-              dateTime: '',
-              note: '',
-              createdFullName: '',
-              createdDate: '',
-              createdUserId: '')
+          ? const Note()
           : Note.fromJson(json['note'] as Map<String, dynamic>),
       status: $enumDecodeNullable(_$NoteStatusEnumMap, json['status']) ??
           NoteStatus.init,
@@ -102,6 +111,7 @@ NotesState _$NotesStateFromJson(Map<String, dynamic> json) => NotesState(
 Map<String, dynamic> _$NotesStateToJson(NotesState instance) =>
     <String, dynamic>{
       'notes': instance.notes,
+      'draftNote': instance.draftNote,
       'note': instance.note,
       'status': _$NoteStatusEnumMap[instance.status]!,
     };

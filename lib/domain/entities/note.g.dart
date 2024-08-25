@@ -19,11 +19,11 @@ abstract class _$NoteCWProxy {
 
   Note note(String note);
 
-  Note updatedDate(String? updatedDate);
+  Note updatedDate(String updatedDate);
 
-  Note updatedFullName(String? updatedFullName);
+  Note updatedFullName(String updatedFullName);
 
-  Note updatedUserId(String? updatedUserId);
+  Note updatedUserId(String updatedUserId);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Note(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -71,14 +71,14 @@ class _$NoteCWProxyImpl implements _$NoteCWProxy {
   Note note(String note) => this(note: note);
 
   @override
-  Note updatedDate(String? updatedDate) => this(updatedDate: updatedDate);
+  Note updatedDate(String updatedDate) => this(updatedDate: updatedDate);
 
   @override
-  Note updatedFullName(String? updatedFullName) =>
+  Note updatedFullName(String updatedFullName) =>
       this(updatedFullName: updatedFullName);
 
   @override
-  Note updatedUserId(String? updatedUserId) =>
+  Note updatedUserId(String updatedUserId) =>
       this(updatedUserId: updatedUserId);
 
   @override
@@ -128,18 +128,21 @@ class _$NoteCWProxyImpl implements _$NoteCWProxy {
           ? _value.note
           // ignore: cast_nullable_to_non_nullable
           : note as String,
-      updatedDate: updatedDate == const $CopyWithPlaceholder()
-          ? _value.updatedDate
-          // ignore: cast_nullable_to_non_nullable
-          : updatedDate as String?,
-      updatedFullName: updatedFullName == const $CopyWithPlaceholder()
+      updatedDate:
+          updatedDate == const $CopyWithPlaceholder() || updatedDate == null
+              ? _value.updatedDate
+              // ignore: cast_nullable_to_non_nullable
+              : updatedDate as String,
+      updatedFullName: updatedFullName == const $CopyWithPlaceholder() ||
+              updatedFullName == null
           ? _value.updatedFullName
           // ignore: cast_nullable_to_non_nullable
-          : updatedFullName as String?,
-      updatedUserId: updatedUserId == const $CopyWithPlaceholder()
-          ? _value.updatedUserId
-          // ignore: cast_nullable_to_non_nullable
-          : updatedUserId as String?,
+          : updatedFullName as String,
+      updatedUserId:
+          updatedUserId == const $CopyWithPlaceholder() || updatedUserId == null
+              ? _value.updatedUserId
+              // ignore: cast_nullable_to_non_nullable
+              : updatedUserId as String,
     );
   }
 }
@@ -155,35 +158,25 @@ extension $NoteCopyWith on Note {
 // **************************************************************************
 
 Note _$NoteFromJson(Map<String, dynamic> json) => Note(
-      note: json['note'] as String,
-      dateTime: json['dateTime'] as String,
-      id: json['id'] as String,
-      createdUserId: json['createdUserId'] as String,
-      updatedUserId: json['updatedUserId'] as String?,
-      createdFullName: json['createdFullName'] as String,
-      updatedFullName: json['updatedFullName'] as String?,
-      createdDate: json['createdDate'] as String,
-      updatedDate: json['updatedDate'] as String?,
+      note: json['note'] as String? ?? '',
+      dateTime: json['dateTime'] as String? ?? '',
+      id: json['id'] as String? ?? '',
+      createdUserId: json['createdUserId'] as String? ?? '',
+      updatedUserId: json['updatedUserId'] as String? ?? '',
+      createdFullName: json['createdFullName'] as String? ?? '',
+      updatedFullName: json['updatedFullName'] as String? ?? '',
+      createdDate: json['createdDate'] as String? ?? '',
+      updatedDate: json['updatedDate'] as String? ?? '',
     );
 
-Map<String, dynamic> _$NoteToJson(Note instance) {
-  final val = <String, dynamic>{
-    'note': instance.note,
-    'dateTime': instance.dateTime,
-    'id': instance.id,
-    'createdUserId': instance.createdUserId,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('updatedUserId', instance.updatedUserId);
-  val['createdFullName'] = instance.createdFullName;
-  writeNotNull('updatedFullName', instance.updatedFullName);
-  val['createdDate'] = instance.createdDate;
-  writeNotNull('updatedDate', instance.updatedDate);
-  return val;
-}
+Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
+      'note': instance.note,
+      'dateTime': instance.dateTime,
+      'id': instance.id,
+      'createdUserId': instance.createdUserId,
+      'updatedUserId': instance.updatedUserId,
+      'createdFullName': instance.createdFullName,
+      'updatedFullName': instance.updatedFullName,
+      'createdDate': instance.createdDate,
+      'updatedDate': instance.updatedDate,
+    };

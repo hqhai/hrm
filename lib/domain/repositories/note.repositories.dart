@@ -1,3 +1,4 @@
+import 'package:base_app/data/models/draft_app/draft_note.dart';
 import 'package:base_app/domain/entities/note.dart';
 
 abstract class NoteRepository {
@@ -10,4 +11,10 @@ abstract class NoteRepository {
   Future<List<Note>> getNotesRequest({required String startDate, required String endDate});
 
   Future<int> deleteNoteByIdRequest({required String id});
+
+  Future<List<DraftNote>> getAttendances({
+    required String userId,
+    required int month,
+    required int year,
+  });
 }

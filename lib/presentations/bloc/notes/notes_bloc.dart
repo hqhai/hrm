@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/data/models/draft_app/draft_note.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/domain/use_cases/note.usecase.dart';
 import 'package:base_app/presentations/bloc/notes/notes_event.dart';
@@ -23,12 +25,14 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     on<UpdateNotesEvent>(_updateNotesEvent);
     on<DeleteNoteEvent>(_deleteNotesEvent);
     on<ResetNoteEvent>(_resetNoteEvent);
+    on<GetCalenderEvent>(_getCalenderEvent);
   }
 
   FutureOr<void> _createNotesEvent(CreateNotesEvent event, Emitter<NotesState> emit) async {
     emit(state.copyWith(status: NoteStatus.createNoteInit));
     try {
-      await noteUseCase.createNoteRequest(note: event.note, dateTime: event.dateTime);
+      await noteUseCase.createNoteRequest(
+          note: event.note, dateTime: formatYMD(event.dateTime.toString()));
       emit(state.copyWith(status: NoteStatus.createNoteSuccess));
     } catch (e) {
       emit(state.copyWith(status: NoteStatus.createNoteError));
@@ -78,5 +82,17 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
   FutureOr<void> _resetNoteEvent(ResetNoteEvent event, Emitter<NotesState> emit) {
     emit(const NotesState(status: NoteStatus.reset));
+  }
+
+  FutureOr<void> _getCalenderEvent(GetCalenderEvent event, Emitter<NotesState> emit) async {
+    try {
+      final List<DraftNote> draftNote = await noteUseCase.getAttendances(
+          userId: event.userId, month: event.month, year: event.year);
+      emit(state.copyWith(
+        draftNote: draftNote,
+      ));
+    } catch (e) {
+      emit(state.copyWith(status: NoteStatus.getNoteError));
+    }
   }
 }
