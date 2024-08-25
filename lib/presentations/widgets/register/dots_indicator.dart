@@ -25,6 +25,7 @@ class DotsIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppTheme.getColors(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(pageCount, (index) {
@@ -32,7 +33,7 @@ class DotsIndicator extends StatelessWidget {
           width: width,
           height: height,
           margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
-          color: index <= currentIndex ? const Color(0xff42558A) : const Color(0xff2d2d31),
+          color: index <= currentIndex ? colors.blue : colors.tertiary,
         );
       }),
     );
@@ -68,7 +69,7 @@ class PageIndicator extends StatelessWidget {
             children: <Widget>[
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: checkInput[currentPageIndex] ? colors.primary : colors.surface,
+                  backgroundColor: checkInput[currentPageIndex] ? colors.blue : colors.blue.withOpacity(0.5),
                   elevation: 3,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   minimumSize: Size(MediaQuery.of(context).size.width * 0.65, 44),
@@ -84,7 +85,7 @@ class PageIndicator extends StatelessWidget {
                           : appLocalizations.continues,
                       style: TextStyle(
                           fontSize: 18,
-                          color: checkInput[currentPageIndex] ? colors.text : colors.textTertiary),
+                          color: checkInput[currentPageIndex] ? colors.background : colors.background),
                     ),
                     if (currentPageIndex != 2)
                       SvgPicture.asset(

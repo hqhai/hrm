@@ -3,11 +3,9 @@ import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/language/language_cubit.dart';
-import 'package:base_app/presentations/bloc/language/language_state.dart';
+import 'package:base_app/presentations/pages/profile/item_gender_update_profile.dart';
 import 'package:base_app/presentations/widgets/custom/date_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class RegisterGenderEnumAndDateOfBirth extends StatefulWidget {
@@ -18,11 +16,11 @@ class RegisterGenderEnumAndDateOfBirth extends StatefulWidget {
 
   const RegisterGenderEnumAndDateOfBirth(
       {super.key,
-        required this.onChange,
-        required this.onChangeGender,
-        this.dateOfBirthDefault = '',
-        this.genderDefault = '',
-        required this.onChangeDateOfBirth});
+      required this.onChange,
+      required this.onChangeGender,
+      this.dateOfBirthDefault = '',
+      this.genderDefault = '',
+      required this.onChangeDateOfBirth});
 
   @override
   State<RegisterGenderEnumAndDateOfBirth> createState() => _RegisterGenderEnumAndDateOfBirthState();
@@ -49,38 +47,26 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
           height: SpacingUnit.x7,
         ),
-        Text(appLocalizations.gender,
-            style: TextStyle(fontSize: SpacingUnit.x7, color: colors.text)),
         const SizedBox(
           height: SpacingUnit.x7,
         ),
-        BlocBuilder<LanguageCubit, LanguageState>(
-          builder: (context, state) {
-            return DropdownMenu<GenderEnum>(
-              initialSelection: GenderEnum.male,
-              onSelected: (GenderEnum? value) => _setGender(value),
-              dropdownMenuEntries: GenderEnum.values
-                  .map<DropdownMenuEntry<GenderEnum>>((GenderEnum value) {
-                return DropdownMenuEntry<GenderEnum>(
-                    value: value,
-                    label: value.configGenderName);
-              }).toList(),
-            );
-          },
-        ),
+        ItemGenderUpdateProfile(
+            onChangeGender: (value) => _setGender(value), gender: GenderEnum.male),
         const SizedBox(
           height: SpacingUnit.x7,
         ),
         Text(appLocalizations.dateOfBirth,
-            style: TextStyle(fontSize: SpacingUnit.x7, color: colors.text)),
-        const SizedBox(
-          height: SpacingUnit.x7,
-        ),
-        DatePicker(onChange: (value) => _setDateOfBirth(value), oldDate: now,)
+            style: TextStyle(
+                fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600)),
+        DatePicker(
+          onChange: (value) => _setDateOfBirth(value),
+          oldDate: now,
+        )
       ],
     );
   }
@@ -91,7 +77,7 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
   }
 
   _setGender(GenderEnum? value) {
-    widget.onChangeGender.call(value??GenderEnum.male);
+    widget.onChangeGender.call(value ?? GenderEnum.male);
     setState(() {
       gender = value?.name ?? "";
     });
@@ -106,13 +92,9 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
     _check();
   }
 
-  _check(){
-    if(gender!= ''&& dateOfBirth != ''){
+  _check() {
+    if (gender != '' && dateOfBirth != '') {
       widget.onChange.call(true);
     }
   }
-
-
-
-
 }

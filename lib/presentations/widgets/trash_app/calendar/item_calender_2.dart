@@ -37,9 +37,9 @@ class ItemHorizontal extends StatelessWidget {
       padding: const EdgeInsets.all(SpacingUnit.x5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingUnit.x2),
-        color: colors.surfaceDim,
+        color: colors.text.withOpacity(0.05),
         border: Border.all(
-          color: colors.surfaceBright,
+          color: colors.text.withOpacity(0.05),
           width: 1,
         ),
       ),
@@ -108,6 +108,7 @@ class ItemVertical extends StatelessWidget {
     final theme = Theme.of(context);
     final width = MediaQuery.sizeOf(context).width;
     return ContainerBorder(
+      backgroundColors: colors.text.withOpacity(0.05),
       height: width * 0.3,
       child: Padding(
         padding: const EdgeInsets.all(SpacingUnit.x1

@@ -11,7 +11,7 @@ class CreateNotesEvent extends NotesEvent {
   const CreateNotesEvent({required this.note, required this.dateTime});
 
   final String note;
-  final String dateTime;
+  final DateTime dateTime;
 
   @override
   List<Object?> get props => [note];
@@ -26,6 +26,17 @@ class UpdateNotesEvent extends NotesEvent {
 
   @override
   List<Object?> get props => [note, id, dateTime];
+}
+
+class GetCalenderEvent extends NotesEvent {
+  const GetCalenderEvent({required this.month, required this.year, required this.userId});
+
+  final String userId;
+  final int month;
+  final int year;
+
+  @override
+  List<Object?> get props => [userId, month, year];
 }
 
 class GetNotesEvent extends NotesEvent {

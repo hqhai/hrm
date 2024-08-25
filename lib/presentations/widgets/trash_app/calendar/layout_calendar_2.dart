@@ -1,9 +1,9 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
+import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
+import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/widgets/trash_app/calendar/form_change_month_2.dart';
 import 'package:base_app/presentations/widgets/trash_app/calendar/item_day_calendar_2.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +28,17 @@ class _LayoutCalendar2State extends State<LayoutCalendar2> {
   DateTime lastDateTime = DateTime.now();
   DateTime date = DateTime(DateTime.now().year, DateTime.now().month, 1);
   List<DateTime> listDate = const [];
-  String email = '';
+  String id = '';
   bool checkTypeCalender = false;
+  DateTime startTime = DateTime.now();
+  DateTime endTime = DateTime.now();
 
   @override
   void initState() {
-    email = dI<UserBloc>().state.user.email;
-    dI<AttendanceBloc>().add(
-        GetAttendanceEvent(id: email, month: currentDateTime.month, year: currentDateTime.year));
+    startTime = getFirstDayOfMonth(currentDateTime);
+    endTime = getLastDayOfMonth(currentDateTime);
+    dI<NotesBloc>().add(
+        GetNotesEvent(startDate: startTime.toString(), endDate: endTime.toString()));
     super.initState();
     _getListDate();
   }
@@ -47,9 +50,11 @@ class _LayoutCalendar2State extends State<LayoutCalendar2> {
       } else {
         currentDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
       }
+      startTime = getFirstDayOfMonth(currentDateTime);
+      endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(
-        GetAttendanceEvent(id: email, month: currentDateTime.month, year: currentDateTime.year));
+    dI<NotesBloc>().add(
+        GetNotesEvent(startDate: startTime.toString(), endDate: endTime.toString()));
     _getListDate();
   }
 
@@ -60,9 +65,11 @@ class _LayoutCalendar2State extends State<LayoutCalendar2> {
       } else {
         currentDateTime = DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
       }
+      startTime = getFirstDayOfMonth(currentDateTime);
+      endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(
-        GetAttendanceEvent(id: email, month: currentDateTime.month, year: currentDateTime.year));
+    dI<NotesBloc>().add(
+        GetNotesEvent(startDate: startTime.toString(), endDate: endTime.toString()));
     _getListDate();
   }
 
@@ -89,7 +96,7 @@ class _LayoutCalendar2State extends State<LayoutCalendar2> {
         margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
         height: MediaQuery.sizeOf(context).height,
         decoration: BoxDecoration(
-            color: colors.surfaceContainer,
+            color: colors.background,
             borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x4))),
         child: SingleChildScrollView(
           child: Column(
