@@ -1,5 +1,5 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/domain/entities/reqisition/step_flow.dart';
+import 'package:base_app/domain/entities/requisition/step_flow.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 

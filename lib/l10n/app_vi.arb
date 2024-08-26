@@ -46,7 +46,7 @@
   "previouslyAvailableSchedules": "Lịch trình có sẵn",
   "thereAreCurrentlyNoMeetingsScheduled": "Hiện tại chưa có cuộc họp nào được lên lịch",
   "scheduleAMeeting": "Lên lịch cho cuộc họp",
-  "update": "Cập nhật",
+  "update": "Sửa",
   "ok": "Đồng ý",
   "cancel": "Hủy",
   "create": "Khởi tạo",
@@ -635,5 +635,13 @@
   "september": "Tháng 9",
   "october": "Tháng 10",
   "november": "Tháng 11",
-  "december": "Tháng 12"
+  "december": "Tháng 12",
+  "rejectSucceed":"Từ chối đơn thành công",
+  "requestSucceed":"Gửi yêu cầu sửa đơn thành công",
+  "cancelSucceed":"Hủy đơn thành công",
+  "approveSucceed":"Phê duyệt đơn thành công",
+  "rejectFailed":"Từ chối đơn thất bại",
+  "requestFailed":"Gửi yêu cầu sửa đơn thất bại",
+  "cancelFailed":"Hủy đơn thất bại",
+  "approveFailed":"Phê duyệt đơn thất bại"
 }

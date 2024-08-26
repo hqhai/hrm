@@ -3,7 +3,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
@@ -66,7 +66,9 @@ class _ItemRequestMakeUpOnTabState extends State<ItemRequestMakeUpOnTab> {
               ),
               TitleValueLeave(
                 title: appLocalizations.totalMakeUpWorkTime,
-                value: strSeconds(request.config.endTime - request.config.startTime) ?? "",
+                value: strSeconds(
+                        request.config.endTime - request.config.startTime) ??
+                    "",
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
                 font: FontWeight.w600,

@@ -634,5 +634,13 @@
   "september": "September",
   "october": "October",
   "november": "November",
-  "december": "December"
+  "december": "December",
+  "rejectSucceed":"Reject Succeed",
+  "requestSucceed":"Request Succeed",
+  "cancelSucceed":"Cancel Succeed",
+  "approveSucceed":"Approve Succeed",
+  "rejectFailed":"Reject Failed",
+  "requestFailed":"Request Failed",
+  "cancelFailed":"Cancel Failed",
+  "approveFailed":"Approve Failed"
 }

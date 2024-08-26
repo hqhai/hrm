@@ -7,7 +7,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/navigator_extra/information_request_extra.dart';
-import 'package:base_app/domain/entities/reqisition/flow.dart';
+import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_event.dart';
@@ -97,7 +97,9 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 Expanded(
@@ -110,7 +112,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                         state.flows[index],
                       ),
                       child: item(
-                        title: state.flows[index].flowType?.configTypeName ?? "",
+                        title:
+                            state.flows[index].flowType?.configTypeName ?? "",
                         context: context,
                       ),
                     ),

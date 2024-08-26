@@ -18,7 +18,7 @@ import 'package:base_app/data/models/request/room_meeting/update_room_meeting.da
 import 'package:base_app/data/models/request/update_request_request.dart';
 import 'package:base_app/data/models/request/upload_file.dart';
 import 'package:base_app/data/models/request/upload_files.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/services/request.service.dart';
@@ -51,7 +51,8 @@ class RequestServiceImpl extends BaseService implements RequestService {
   }
 
   @override
-  Future<int> createOvertimeRequest(CreateOverTimeRequest createOverTimeRequest) async {
+  Future<int> createOvertimeRequest(
+      CreateOverTimeRequest createOverTimeRequest) async {
     final url = '$baseUrl${PathConfig.request}';
     final body = jsonEncode(createOverTimeRequest.toJson());
     final response = await client.post(url, body: body);
@@ -71,7 +72,8 @@ class RequestServiceImpl extends BaseService implements RequestService {
   }
 
   @override
-  Future<int> createExplanation(CreateExplanationRequest createExplanationRequest) async {
+  Future<int> createExplanation(
+      CreateExplanationRequest createExplanationRequest) async {
     final url = '$baseUrl${PathConfig.request}';
     final body = jsonEncode(createExplanationRequest.toJson());
     final response = await client.post(url, body: body);
@@ -86,7 +88,8 @@ class RequestServiceImpl extends BaseService implements RequestService {
   }
 
   @override
-  Future<Request> getRequestById(GetRequestRequestById getRequestRequestById) async {
+  Future<Request> getRequestById(
+      GetRequestRequestById getRequestRequestById) async {
     final url = '$baseUrl${PathConfig.request}/${getRequestRequestById.id}';
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
@@ -104,16 +107,18 @@ class RequestServiceImpl extends BaseService implements RequestService {
     String filename = uploadFileRequest.originFile!.path.split('/').last;
     final response = await client.postUploadFile(url,
         fileType: 'image/${uploadFileRequest.originFile!.path.split('.').last}',
-        uploadFileBytes:
-            kIsWeb ? uploadFileRequest.imageData! : uploadFileRequest.originFile!.readAsBytesSync(),
+        uploadFileBytes: kIsWeb
+            ? uploadFileRequest.imageData!
+            : uploadFileRequest.originFile!.readAsBytesSync(),
         fileName: filename);
     final responseBase = ResponseBase.fromJson(json.decode(response));
     return responseBase.result as String;
   }
 
   @override
-  Future<List<String>> uploadFiles({UploadFilesRequest? uploadFileRequests}) async {
-   /* final List<bool> isFile = [
+  Future<List<String>> uploadFiles(
+      {UploadFilesRequest? uploadFileRequests}) async {
+    /* final List<bool> isFile = [
       ...uploadFileRequests!.originFiles!
           .map((e) => e.path.endsWith('png') || e.path.endsWith('jpg'))
     ];
@@ -147,7 +152,8 @@ class RequestServiceImpl extends BaseService implements RequestService {
 
   @override
   Future<Request> upDateRequestById(
-      {required UpdateRequestRequest updateRequestRequest, required String id}) async {
+      {required UpdateRequestRequest updateRequestRequest,
+      required String id}) async {
     final url = '$baseUrl${PathConfig.request}/$id';
     final body = jsonEncode(updateRequestRequest.toJson());
     final response = await client.put(url, body: body);
@@ -158,19 +164,22 @@ class RequestServiceImpl extends BaseService implements RequestService {
   }
 
   @override
-  Future<List<Request>> getRequestByAdmin(GetRequestByAdminRequest getRequestByAdminRequest) async {
+  Future<List<Request>> getRequestByAdmin(
+      GetRequestByAdminRequest getRequestByAdminRequest) async {
     final url = '$baseUrl${PathConfig.getRequestByAdmin}';
     final params = getRequestByAdminRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    List<Request> requests =
-        (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
+    List<Request> requests = (data as List<dynamic>)
+        .map((e) => Request.fromJson(e as Map<String, dynamic>))
+        .toList();
     return requests;
   }
 
   @override
-  Future<int> changeListStatus({required ChangeListStatusRequest changeListStatusRequest}) async {
+  Future<int> changeListStatus(
+      {required ChangeListStatusRequest changeListStatusRequest}) async {
     if (changeListStatusRequest.enumRequestType == 'RoomMeeting') {
       final url = '$baseUrl${PathConfig.updateStatusTypeRoomMeeting}';
       final body = jsonEncode(changeListStatusRequest.toJson());
@@ -213,7 +222,8 @@ class RequestServiceImpl extends BaseService implements RequestService {
 
   @override
   Future<int> createRoomMeetingRequest(
-      {required CreateRequestTypeRoomMeetingRequest createRequestTypeRoomMeetingRequest}) async {
+      {required CreateRequestTypeRoomMeetingRequest
+          createRequestTypeRoomMeetingRequest}) async {
     final url = '$baseUrl${PathConfig.createRequestTypeRoomMeeting}';
     final body = jsonEncode(createRequestTypeRoomMeetingRequest.toJson());
     final response = await client.post(url, body: body);
@@ -231,8 +241,9 @@ class RequestServiceImpl extends BaseService implements RequestService {
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result['items'];
-    List<User> users =
-        (data as List<dynamic>).map((e) => User.fromJson(e as Map<String, dynamic>)).toList();
+    List<User> users = (data as List<dynamic>)
+        .map((e) => User.fromJson(e as Map<String, dynamic>))
+        .toList();
     return users;
   }
 
@@ -250,7 +261,8 @@ class RequestServiceImpl extends BaseService implements RequestService {
   @override
   Future<int> deleteRoomMeeting(
       {required DeleteRoomMeetingRequest deleteRoomMeetingRequest}) async {
-    final url = '$baseUrl${PathConfig.roomMeeting}/${deleteRoomMeetingRequest.id}';
+    final url =
+        '$baseUrl${PathConfig.roomMeeting}/${deleteRoomMeetingRequest.id}';
     final response = await client.delete(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.statusCode;

@@ -1,6 +1,6 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/flow.dart';
+import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
@@ -15,10 +15,12 @@ class ListCheckboxFlowRequestFilter extends StatefulWidget {
   final ValueChanged<List<FlowRequest>> onChange;
 
   @override
-  State<ListCheckboxFlowRequestFilter> createState() => _ListCheckboxFlowRequestFilterState();
+  State<ListCheckboxFlowRequestFilter> createState() =>
+      _ListCheckboxFlowRequestFilterState();
 }
 
-class _ListCheckboxFlowRequestFilterState extends State<ListCheckboxFlowRequestFilter> {
+class _ListCheckboxFlowRequestFilterState
+    extends State<ListCheckboxFlowRequestFilter> {
   List<bool> listCheck = [];
   List<FlowRequest> listFlows = [];
 
@@ -39,12 +41,15 @@ class _ListCheckboxFlowRequestFilterState extends State<ListCheckboxFlowRequestF
             Text(
               appLocalizations.type,
               style: TextStyle(
-                  color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w400),
+                  color: colors.text,
+                  fontSize: SpacingUnit.x3_5,
+                  fontWeight: FontWeight.w400),
             ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,8 +59,8 @@ class _ListCheckboxFlowRequestFilterState extends State<ListCheckboxFlowRequestF
                             children: [
                               CheckboxListTile(
                                 value: listCheck[index],
-                                onChanged: (value) =>
-                                    setValue(index: index, value: value, flow: element),
+                                onChanged: (value) => setValue(
+                                    index: index, value: value, flow: element),
                                 subtitle: Text(
                                   element.flowType?.configTypeNameFilter ?? "",
                                   style: TextStyle(

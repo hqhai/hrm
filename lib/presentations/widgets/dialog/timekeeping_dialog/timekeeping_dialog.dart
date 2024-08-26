@@ -1,6 +1,6 @@
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_add_error_day.dart';
@@ -12,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class TimeKeepingDialog extends StatefulWidget {
-  const TimeKeepingDialog({super.key, this.onChangeOverTimes, this.requisitionOverTime});
+  const TimeKeepingDialog(
+      {super.key, this.onChangeOverTimes, this.requisitionOverTime});
 
   final ValueChanged<RequisitionOverTime>? onChangeOverTimes;
   final RequisitionOverTime? requisitionOverTime;
@@ -53,7 +54,8 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
   @override
   void initState() {
     noteController.text = widget.requisitionOverTime?.note ?? "";
-    requisitionOverTime = widget.requisitionOverTime ?? const RequisitionOverTime();
+    requisitionOverTime =
+        widget.requisitionOverTime ?? const RequisitionOverTime();
     date = widget.requisitionOverTime?.date;
     startTime = widget.requisitionOverTime?.startTime ?? 0;
     endTime = widget.requisitionOverTime?.endTime ?? 0;
@@ -118,7 +120,7 @@ class _TimeKeepingDialogState extends State<TimeKeepingDialog> {
         date: date,
         endTime: endTime,
         startTime: startTime,
-        note: note??'',
+        note: note ?? '',
       ));
       Navigator.of(context).pop();
     }

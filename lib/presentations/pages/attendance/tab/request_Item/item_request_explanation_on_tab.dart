@@ -3,7 +3,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
@@ -22,10 +22,12 @@ class ItemRequestExplanationOnTab extends StatefulWidget {
   final String id;
 
   @override
-  State<ItemRequestExplanationOnTab> createState() => _ItemRequestExplanationOnTabState();
+  State<ItemRequestExplanationOnTab> createState() =>
+      _ItemRequestExplanationOnTabState();
 }
 
-class _ItemRequestExplanationOnTabState extends State<ItemRequestExplanationOnTab> {
+class _ItemRequestExplanationOnTabState
+    extends State<ItemRequestExplanationOnTab> {
   bool checkOpacity = false;
 
   @override
@@ -49,7 +51,9 @@ class _ItemRequestExplanationOnTabState extends State<ItemRequestExplanationOnTa
               ),
               TitleValueLeave(
                 title: appLocalizations.reason,
-                value: request.config.explanationReason?.configEditTimekeepingName ?? "",
+                value: request
+                        .config.explanationReason?.configEditTimekeepingName ??
+                    "",
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
               ),

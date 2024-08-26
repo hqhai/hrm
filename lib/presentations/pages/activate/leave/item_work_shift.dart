@@ -1,7 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';

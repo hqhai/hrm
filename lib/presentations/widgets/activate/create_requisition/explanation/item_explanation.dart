@@ -29,7 +29,7 @@ class _ItemExplanationState extends State<ItemExplanation> {
     return ContainerBorder(
       borderColors: colors.text.withOpacity(0.3),
       paddingVertical: 0,
-      paddingHorizontal: 0,
+      paddingHorizontal: SpacingUnit.x2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -99,6 +99,9 @@ class _ItemExplanationState extends State<ItemExplanation> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: SpacingUnit.x2,
+            )
           ],
         ],
       ),

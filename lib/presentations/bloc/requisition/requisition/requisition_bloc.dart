@@ -6,7 +6,7 @@ import 'package:base_app/data/models/requisition/requisition/config_model_reques
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/response.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/use_cases/request_usecase.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
@@ -39,9 +39,12 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
   FutureOr<void> _userRejectRequestEvent(
       UserRejectRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
-      final bool check = await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
+      final bool check = await requisitionUseCase.userRejectRequisitionById(
+          id: event.id ?? "");
       if (check) {
-        final requestIds = state.requisitionIds.where((element) => element != event.id).toList();
+        final requestIds = state.requisitionIds
+            .where((element) => element != event.id)
+            .toList();
         emit(state.copyWith(
           requisitionIds: requestIds,
           errorCode: '',
@@ -60,7 +63,8 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
 
   ///get by filter ***********************************************
   FutureOr<void> _getRequisitionsByFilterEvent(
-      GetRequisitionsByFilterEvent event, Emitter<RequisitionState> emit) async {
+      GetRequisitionsByFilterEvent event,
+      Emitter<RequisitionState> emit) async {
     try {
       final RequestsResponse requestsResponse =
           await requisitionUseCase.getRequisitionsSelfByFilter(
@@ -143,20 +147,24 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
   }
 
   ///Post Request     ***********************************************
-  FutureOr<void> _postRequestEvent(PostRequestEvent event, Emitter<RequisitionState> emit) async {
+  FutureOr<void> _postRequestEvent(
+      PostRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
       if (event.files.isNotEmpty) {
         final List<String> paths = [...await listPaths(event.files)];
-        final ConfigModelRequest configRequestModel = event.postRequestRequest.config;
+        final ConfigModelRequest configRequestModel =
+            event.postRequestRequest.config;
         final PostRequestRequest postRequestRequest = event.postRequestRequest
             .copyWith(config: configRequestModel.copyWith(attachments: paths));
-        await requisitionUseCase.postRequest(postRequestRequest: postRequestRequest);
+        await requisitionUseCase.postRequest(
+            postRequestRequest: postRequestRequest);
         emit(state.copyWith(
           errorCode: '',
         ));
         event.completer?.complete(true);
       } else {
-        await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
+        await requisitionUseCase.postRequest(
+            postRequestRequest: event.postRequestRequest);
         emit(state.copyWith(
           errorCode: '',
         ));
@@ -182,10 +190,11 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
   }
 
   ///Edit Request     ***********************************************
-  FutureOr<void> _editRequestEvent(EditRequestEvent event, Emitter<RequisitionState> emit) async {
+  FutureOr<void> _editRequestEvent(
+      EditRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
-      final Request request =
-          await requisitionUseCase.editRequestEdit(postRequestRequest: event.postRequestRequest);
+      final Request request = await requisitionUseCase.editRequestEdit(
+          postRequestRequest: event.postRequestRequest);
       final requests = state.requisitions;
       requests[event.postRequestRequest.id ?? ""] = request;
       emit(state.copyWith(

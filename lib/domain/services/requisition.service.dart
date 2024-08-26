@@ -10,8 +10,8 @@ import 'package:base_app/data/models/requisition/requisition/requisition_approve
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/data/models/response/approve_requisition_count_status_response.dart';
-import 'package:base_app/domain/entities/reqisition/flow.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/flow.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 
 abstract class RequisitionService {
   Future<Request> postRequest({required PostRequestRequest postRequestRequest});
@@ -53,5 +53,4 @@ abstract class RequisitionService {
   Future<void> cancelRequestsById({
     required String id,
   });
-
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:equatable/equatable.dart';
 
 sealed class RequisitionApproveEvent extends Equatable {
@@ -32,8 +32,16 @@ class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
       this.userIds});
 
   @override
-  List<Object?> get props =>
-      [startTime, endTime, page, departmentId, status, userIds, completer, type];
+  List<Object?> get props => [
+        startTime,
+        endTime,
+        page,
+        departmentId,
+        status,
+        userIds,
+        completer,
+        type
+      ];
 }
 
 class GetRequisitionApproveByIdEvent extends RequisitionApproveEvent {
@@ -60,7 +68,11 @@ class ApproveRequestEvent extends RequisitionApproveEvent {
   final Completer? completer;
 
   const ApproveRequestEvent(
-      {this.id = '', this.note, this.status, this.requestId = '', this.completer});
+      {this.id = '',
+      this.note,
+      this.status,
+      this.requestId = '',
+      this.completer});
 
   @override
   List<Object?> get props => [id, note, status, requestId, completer];

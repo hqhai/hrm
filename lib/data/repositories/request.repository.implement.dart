@@ -24,7 +24,7 @@ import 'package:base_app/data/models/request/room_meeting/update_room_meeting.da
 import 'package:base_app/data/models/request/update_request_request.dart';
 import 'package:base_app/data/models/request/upload_file.dart';
 import 'package:base_app/data/models/request/upload_files.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/repositories/request.repository.dart';
@@ -38,14 +38,15 @@ class RequestRepositoryImplement extends RequestRepository {
   RequestRepositoryImplement() : requestService = dI<RequestService>();
 
   @override
-  Future<int> createRequest({required String type,
-    required bool isApprove,
-    required String priority,
-    String? title,
-    String? content,
-    List<String>? filePaths,
-    String? approverId,
-    String? config}) async {
+  Future<int> createRequest(
+      {required String type,
+      required bool isApprove,
+      required String priority,
+      String? title,
+      String? content,
+      List<String>? filePaths,
+      String? approverId,
+      String? config}) async {
     return await requestService.createRequest(
       CreateRequestRequest(
         type: type,
@@ -62,7 +63,8 @@ class RequestRepositoryImplement extends RequestRepository {
 
   @override
   Future<int> getRequest(String status, int page) async {
-    return await requestService.getRequest(GetRequestRequest(status: status, page: page));
+    return await requestService
+        .getRequest(GetRequestRequest(status: status, page: page));
   }
 
   @override
@@ -71,39 +73,51 @@ class RequestRepositoryImplement extends RequestRepository {
   }
 
   @override
-  Future<String> uploadFile({File? originFile, Uint8List? imageData,}) async {
+  Future<String> uploadFile({
+    File? originFile,
+    Uint8List? imageData,
+  }) async {
     return await requestService.uploadFile(
-        uploadFileRequest: UploadFileRequest(originFile: originFile, imageData: imageData));
+        uploadFileRequest:
+            UploadFileRequest(originFile: originFile, imageData: imageData));
   }
 
   @override
-  Future<List<String>> uploadFiles({List<File>? originFile, List<Uint8List>? imageData}) async {
+  Future<List<String>> uploadFiles(
+      {List<File>? originFile, List<Uint8List>? imageData}) async {
     return await requestService.uploadFiles(
-        uploadFileRequests: UploadFilesRequest(imageDatas: imageData, originFiles: originFile));
+        uploadFileRequests:
+            UploadFilesRequest(imageDatas: imageData, originFiles: originFile));
   }
 
-
   @override
-  Future<Request> updateRequestById({required String priority,
-    String? title,
-    String? content,
-    List<String>? filePaths,
-    required String id}) async {
+  Future<Request> updateRequestById(
+      {required String priority,
+      String? title,
+      String? content,
+      List<String>? filePaths,
+      required String id}) async {
     return await requestService.upDateRequestById(
         updateRequestRequest: UpdateRequestRequest(
-            priority: priority, title: title, content: content, filePaths: filePaths),
+            priority: priority,
+            title: title,
+            content: content,
+            filePaths: filePaths),
         id: id);
   }
 
   @override
-  Future<List<Request>> getRequestByAdmin(String type, String startDate, String endDate) async {
-    return await requestService.getRequestByAdmin(
-        GetRequestByAdminRequest(requestType: type, endDate: endDate, startDate: startDate));
+  Future<List<Request>> getRequestByAdmin(
+      String type, String startDate, String endDate) async {
+    return await requestService.getRequestByAdmin(GetRequestByAdminRequest(
+        requestType: type, endDate: endDate, startDate: startDate));
   }
 
   @override
   Future<int> createOvertimeRequest(
-      {required String type, required bool isApprove, ListRequestTypes? config}) async {
+      {required String type,
+      required bool isApprove,
+      ListRequestTypes? config}) async {
     return await requestService.createOvertimeRequest(
       CreateOverTimeRequest(
         type: type,
@@ -114,12 +128,13 @@ class RequestRepositoryImplement extends RequestRepository {
   }
 
   @override
-  Future<int> createOnLeaveRequest({required String type,
-    required bool isApprove,
-    required String priority,
-    String? title,
-    String? content,
-    CreateOnLeaveConfigRequest? config}) async {
+  Future<int> createOnLeaveRequest(
+      {required String type,
+      required bool isApprove,
+      required String priority,
+      String? title,
+      String? content,
+      CreateOnLeaveConfigRequest? config}) async {
     return await requestService.createOnLeave(
       CreateOnLeaveRequest(
           type: type,
@@ -132,12 +147,13 @@ class RequestRepositoryImplement extends RequestRepository {
   }
 
   @override
-  Future<int> createExplanationRequest({required String type,
-    required bool isApprove,
-    required String priority,
-    String? title,
-    String? content,
-    CreateExplanationConfigRequest? config}) async {
+  Future<int> createExplanationRequest(
+      {required String type,
+      required bool isApprove,
+      required String priority,
+      String? title,
+      String? content,
+      CreateExplanationConfigRequest? config}) async {
     return await requestService.createExplanation(
       CreateExplanationRequest(
           type: type,
@@ -149,24 +165,24 @@ class RequestRepositoryImplement extends RequestRepository {
     );
   }
 
-
   @override
   Future<int> changeListStatus(
-      {required List<ChangeStatusRequestCommandModels> changeStatusRequestCommandModels,
-        required String enumRequestType}) async {
+      {required List<ChangeStatusRequestCommandModels>
+          changeStatusRequestCommandModels,
+      required String enumRequestType}) async {
     return await requestService.changeListStatus(
         changeListStatusRequest: ChangeListStatusRequest(
             changeStatusRequestCommandModels: changeStatusRequestCommandModels,
             enumRequestType: enumRequestType));
   }
 
-
   @override
-  Future<int> createRoomMeeting({String? roomName,
-    int? numberOfSeats,
-    String? address,
-    String? description,
-    bool? isApproval}) async {
+  Future<int> createRoomMeeting(
+      {String? roomName,
+      int? numberOfSeats,
+      String? address,
+      String? description,
+      bool? isApproval}) async {
     return await requestService.createRoomMeeting(
         createRoomMeetingRequest: CreateRoomMeetingRequest(
             roomName: roomName,
@@ -182,13 +198,15 @@ class RequestRepositoryImplement extends RequestRepository {
   }
 
   @override
-  Future<int> createRoomMeetingRequest({required String type,
-    String? title,
-    String? content,
-    required CreateRequestTypeRoomMeetingConfigRequest config}) async {
+  Future<int> createRoomMeetingRequest(
+      {required String type,
+      String? title,
+      String? content,
+      required CreateRequestTypeRoomMeetingConfigRequest config}) async {
     return await requestService.createRoomMeetingRequest(
-        createRequestTypeRoomMeetingRequest: CreateRequestTypeRoomMeetingRequest(
-            type: type, title: title, content: content, config: config));
+        createRequestTypeRoomMeetingRequest:
+            CreateRequestTypeRoomMeetingRequest(
+                type: type, title: title, content: content, config: config));
   }
 
   @override
@@ -196,16 +214,18 @@ class RequestRepositoryImplement extends RequestRepository {
       {required String startDate, required String endDate}) async {
     final users = await requestService.getListUserByRequest(
         getListUserByRequestExplanationRequest:
-        GetListUserByRequestExplanationRequest(startDate: startDate, endDate: endDate));
+            GetListUserByRequestExplanationRequest(
+                startDate: startDate, endDate: endDate));
     return users;
   }
 
   @override
-  Future<int> updateRoomMeeting({String? roomName,
-    int? numberOfSeats,
-    String? address,
-    String? description,
-    String? id}) async {
+  Future<int> updateRoomMeeting(
+      {String? roomName,
+      int? numberOfSeats,
+      String? address,
+      String? description,
+      String? id}) async {
     return await requestService.updateRoomMeeting(
         updateRoomMeetingRequest: UpdateRoomMeetingRequest(
             id: id,
@@ -219,8 +239,7 @@ class RequestRepositoryImplement extends RequestRepository {
   Future<int> deleteRoomMeeting({String? id}) async {
     return await requestService.deleteRoomMeeting(
         deleteRoomMeetingRequest: DeleteRoomMeetingRequest(
-          id: id,
-        ));
+      id: id,
+    ));
   }
-
 }

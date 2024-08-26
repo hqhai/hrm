@@ -1,7 +1,7 @@
 import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
@@ -21,7 +21,8 @@ class OverTimeAddDialog extends StatefulWidget {
     this.onChangeOverTimes,
     required this.requisitionOverTime,
     this.checkNote = true,
-    required this.callBack, required this.checkUpdate,
+    required this.callBack,
+    required this.checkUpdate,
   });
 
   final ValueChanged<RequisitionOverTime>? onChangeOverTimes;
@@ -70,7 +71,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
 
   @override
   void initState() {
-    if(widget.checkUpdate) {
+    if (widget.checkUpdate) {
       noteController.text = widget.requisitionOverTime.note;
       requisitionOverTime = widget.requisitionOverTime;
       date = widget.requisitionOverTime.date ?? DateTime.now();
@@ -112,7 +113,8 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                   checkTypeContainer
                       ? Assets.images.icon.home.chevronForward
                       : Assets.images.icon.activateIcon.drop,
-                  colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                      colors.text.withOpacity(0.4), BlendMode.srcIn),
                 ),
               ),
             ],
@@ -166,7 +168,9 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                       ),
                     ),
                     TextSpan(
-                      text: errorTime.isEmpty ? strSeconds(((suggestTime)).toInt()) : '0',
+                      text: errorTime.isEmpty
+                          ? strSeconds(((suggestTime)).toInt())
+                          : '0',
                       style: TextStyle(
                         color: colors.text,
                         fontSize: SpacingUnit.x4,
@@ -187,8 +191,8 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                 onChange: (value) => _setNote(value),
               ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              padding: const EdgeInsets.symmetric(
+                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),

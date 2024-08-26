@@ -1,5 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/overtime/over_time_dialog.dart';
 import 'package:collection/collection.dart';
@@ -65,12 +65,14 @@ class _ListOverTimeState extends State<ListOverTime> {
               children: widget.requisitionOverTimes
                   .mapIndexed(
                     (index, element) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                       child: OverTimeAddDialog(
                         checkUpdate: widget.checkUpdate,
                         requisitionOverTime: widget.requisitionOverTimes[index],
                         callBack: () => deleteRequisitionOverTime(index),
-                        onChangeOverTimes: (value) => setEdit(value: value, index: index),
+                        onChangeOverTimes: (value) =>
+                            setEdit(value: value, index: index),
                       ),
                     ),
                   )

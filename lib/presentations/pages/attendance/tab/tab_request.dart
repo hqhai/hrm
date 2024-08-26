@@ -1,8 +1,7 @@
-
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
@@ -37,8 +36,10 @@ class _RequestTabState extends State<RequestTab> {
     super.initState();
   }
 
-  UserWorkingHistoryModel userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
-    return list.firstWhere((element) => element.date?.isAtSameMomentAs(widget.dateTime) ?? false);
+  UserWorkingHistoryModel userWorkingHistoryModelByDate(
+      List<UserWorkingHistoryModel> list) {
+    return list.firstWhere(
+        (element) => element.date?.isAtSameMomentAs(widget.dateTime) ?? false);
   }
 
   @override
@@ -50,7 +51,8 @@ class _RequestTabState extends State<RequestTab> {
             children: state.requestIds
                 .map(
                   (e) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
                     child: item(
                       state.mapRequests[e],
                       e,

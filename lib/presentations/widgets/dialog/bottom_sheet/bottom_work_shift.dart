@@ -3,7 +3,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/explanation.dart';
-import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
@@ -24,10 +24,12 @@ class BottomSheetWorkShiftWidget extends StatefulWidget {
   final List<Explanation> explanations;
 
   @override
-  State<BottomSheetWorkShiftWidget> createState() => _BottomSheetWorkShiftWidgetState();
+  State<BottomSheetWorkShiftWidget> createState() =>
+      _BottomSheetWorkShiftWidgetState();
 }
 
-class _BottomSheetWorkShiftWidgetState extends State<BottomSheetWorkShiftWidget> {
+class _BottomSheetWorkShiftWidgetState
+    extends State<BottomSheetWorkShiftWidget> {
   @override
   void initState() {
     dI<LeaveShiftBloc>().add(const GetWorkShiftsExplanationEvent());
@@ -58,7 +60,8 @@ class _BottomSheetWorkShiftWidgetState extends State<BottomSheetWorkShiftWidget>
                 child: ListView.builder(
                   itemCount: state.keys.length,
                   itemBuilder: (context, index) {
-                    final date = DateTime.fromMicrosecondsSinceEpoch(state.keys[index]);
+                    final date =
+                        DateTime.fromMicrosecondsSinceEpoch(state.keys[index]);
                     final workShift = state.mapKeyDate[state.keys[index]]
                             ?.map(
                               (e) =>
@@ -73,7 +76,7 @@ class _BottomSheetWorkShiftWidgetState extends State<BottomSheetWorkShiftWidget>
                         .map(
                           (e) => Explanation(
                             workDate: e.workDate,
-                            checkIn:  e.endTime,
+                            checkIn: e.endTime,
                             note: '',
                             checkOut: e.startTime,
                           ),

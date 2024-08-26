@@ -1,7 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/domain/entities/department.dart';
-import 'package:base_app/domain/entities/reqisition/flow.dart';
+import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';

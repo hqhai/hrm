@@ -6,7 +6,7 @@ import 'package:base_app/data/models/request/explanation/create_explanation_conf
 import 'package:base_app/data/models/request/on_leave/create_onleave_config_request.dart';
 import 'package:base_app/data/models/request/overtime/list_request_types.dart';
 import 'package:base_app/data/models/request/room_meeting/create_request_type_room_meeting_config.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/repositories/request.repository.dart';
@@ -43,7 +43,9 @@ class RequestUseCaseImplement extends RequestUseCase {
 
   @override
   Future<int> createOvertimeRequest(
-      {required String type, required bool isApprove, ListRequestTypes? config}) async {
+      {required String type,
+      required bool isApprove,
+      ListRequestTypes? config}) async {
     return await _requestRepository.createOvertimeRequest(
         config: config, isApprove: isApprove, type: type);
   }
@@ -51,11 +53,11 @@ class RequestUseCaseImplement extends RequestUseCase {
   @override
   Future<int> createOnLeaveRequest(
       {required String type,
-        required bool isApprove,
-        required String priority,
-        String? title,
-        String? content,
-        CreateOnLeaveConfigRequest? config}) async {
+      required bool isApprove,
+      required String priority,
+      String? title,
+      String? content,
+      CreateOnLeaveConfigRequest? config}) async {
     return await _requestRepository.createOnLeaveRequest(
         type: type,
         isApprove: isApprove,
@@ -68,11 +70,11 @@ class RequestUseCaseImplement extends RequestUseCase {
   @override
   Future<int> createExplanationRequest(
       {required String type,
-        required bool isApprove,
-        required String priority,
-        String? title,
-        String? content,
-        CreateExplanationConfigRequest? config}) async {
+      required bool isApprove,
+      required String priority,
+      String? title,
+      String? content,
+      CreateExplanationConfigRequest? config}) async {
     return await _requestRepository.createExplanationRequest(
         type: type,
         isApprove: isApprove,
@@ -84,7 +86,8 @@ class RequestUseCaseImplement extends RequestUseCase {
 
   @override
   Future<int> getRequest({required String status, required int page}) async {
-    final getRequestByUserResponse = await _requestRepository.getRequest(status, page);
+    final getRequestByUserResponse =
+        await _requestRepository.getRequest(status, page);
     return getRequestByUserResponse;
   }
 
@@ -95,14 +98,20 @@ class RequestUseCaseImplement extends RequestUseCase {
   }
 
   @override
-  Future<String> uploadFile({File? originFile, Uint8List? imageData,}) async {
-    final path = await _requestRepository.uploadFile(originFile: originFile, imageData: imageData);
+  Future<String> uploadFile({
+    File? originFile,
+    Uint8List? imageData,
+  }) async {
+    final path = await _requestRepository.uploadFile(
+        originFile: originFile, imageData: imageData);
     return path;
   }
 
   @override
-  Future<List<String>> uploadFiles({List<File>? originFile, List<Uint8List>? imageData}) async {
-    final path = await _requestRepository.uploadFiles(originFile: originFile, imageData: imageData);
+  Future<List<String>> uploadFiles(
+      {List<File>? originFile, List<Uint8List>? imageData}) async {
+    final path = await _requestRepository.uploadFiles(
+        originFile: originFile, imageData: imageData);
     return path;
   }
 
@@ -114,20 +123,28 @@ class RequestUseCaseImplement extends RequestUseCase {
       List<String>? filePaths,
       required String id}) async {
     final request = await _requestRepository.updateRequestById(
-        id: id, priority: priority, filePaths: filePaths, content: content, title: title);
+        id: id,
+        priority: priority,
+        filePaths: filePaths,
+        content: content,
+        title: title);
     return request;
   }
 
   @override
   Future<List<Request>> getRequestByAdmin(
-      {required String type, required String startDate, required String endDate}) async {
-    final requests = await _requestRepository.getRequestByAdmin(type, startDate, endDate);
+      {required String type,
+      required String startDate,
+      required String endDate}) async {
+    final requests =
+        await _requestRepository.getRequestByAdmin(type, startDate, endDate);
     return requests;
   }
 
   @override
   Future<int> changeListStatus(
-      {required List<ChangeStatusRequestCommandModels> changeStatusRequestCommandModels,
+      {required List<ChangeStatusRequestCommandModels>
+          changeStatusRequestCommandModels,
       required String enumRequestType}) async {
     return await _requestRepository.changeListStatus(
         changeStatusRequestCommandModels: changeStatusRequestCommandModels,
@@ -168,8 +185,8 @@ class RequestUseCaseImplement extends RequestUseCase {
   @override
   Future<List<User>> getListUserByRequest(
       {required String startDate, required String endDate}) async {
-    final users =
-        await _requestRepository.getListUserByRequest(startDate: startDate, endDate: endDate);
+    final users = await _requestRepository.getListUserByRequest(
+        startDate: startDate, endDate: endDate);
     return users;
   }
 
@@ -190,8 +207,6 @@ class RequestUseCaseImplement extends RequestUseCase {
 
   @override
   Future<int> deleteRoomMeeting({String? id}) async {
-    return await _requestRepository.deleteRoomMeeting(
-        id: id);
+    return await _requestRepository.deleteRoomMeeting(id: id);
   }
-
 }

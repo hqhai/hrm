@@ -4,8 +4,8 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
@@ -58,19 +58,23 @@ class _RequisitionInformationContentTypeEarlyState
               ItemTitleValue(
                 size: SpacingUnit.x4,
                 title: appLocalizations.caseL,
-                value: state.requisition.config.explanationReason?.configEditTimekeepingName ?? "",
+                value: state.requisition.config.explanationReason
+                        ?.configEditTimekeepingName ??
+                    "",
                 font: FontWeight.w600,
               ),
               ItemTitleValue(
                 size: SpacingUnit.x4,
                 title: appLocalizations.reason,
-                value: state.requisition.config.reason?.configEnumReasonName ?? "",
+                value:
+                    state.requisition.config.reason?.configEnumReasonName ?? "",
                 font: FontWeight.w600,
               ),
               ItemTitleValue(
                 size: SpacingUnit.x4,
                 title: appLocalizations.time,
-                value: formatYMD((state.requisition.config.startDate ?? "").toString()),
+                value: formatYMD(
+                    (state.requisition.config.startDate ?? "").toString()),
                 font: FontWeight.w600,
               ),
               Text(
@@ -90,7 +94,8 @@ class _RequisitionInformationContentTypeEarlyState
                     reason: state.requisition.config.explanationReason,
                   ),
                 ),
-              if (state.requisition.config.explanationReason == EditTimekeeping.early) ...[
+              if (state.requisition.config.explanationReason ==
+                  EditTimekeeping.early) ...[
                 Text(
                   appLocalizations.workOffset,
                   style: TextStyle(

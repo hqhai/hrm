@@ -149,7 +149,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get scheduleAMeeting => 'Lên lịch cho cuộc họp';
 
   @override
-  String get update => 'Cập nhật';
+  String get update => 'Sửa';
 
   @override
   String get ok => 'Đồng ý';
@@ -1899,4 +1899,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get december => 'Tháng 12';
+
+  @override
+  String get rejectSucceed => 'Từ chối đơn thành công';
+
+  @override
+  String get requestSucceed => 'Gửi yêu cầu sửa đơn thành công';
+
+  @override
+  String get cancelSucceed => 'Hủy đơn thành công';
+
+  @override
+  String get approveSucceed => 'Phê duyệt đơn thành công';
+
+  @override
+  String get rejectFailed => 'Từ chối đơn thất bại';
+
+  @override
+  String get requestFailed => 'Gửi yêu cầu sửa đơn thất bại';
+
+  @override
+  String get cancelFailed => 'Hủy đơn thất bại';
+
+  @override
+  String get approveFailed => 'Phê duyệt đơn thất bại';
 }

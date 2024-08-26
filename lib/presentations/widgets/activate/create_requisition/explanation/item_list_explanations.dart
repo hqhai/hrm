@@ -1,6 +1,6 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/explanation.dart';
-import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_in_list_explanation.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:collection/collection.dart';

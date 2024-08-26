@@ -4,8 +4,8 @@ import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
-import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_state.dart';
@@ -26,10 +26,12 @@ class ItemRequestLateOrEarlyOnTab extends StatefulWidget {
   final DateTime dateTime;
 
   @override
-  State<ItemRequestLateOrEarlyOnTab> createState() => _ItemRequestLateOrEarlyOnTabState();
+  State<ItemRequestLateOrEarlyOnTab> createState() =>
+      _ItemRequestLateOrEarlyOnTabState();
 }
 
-class _ItemRequestLateOrEarlyOnTabState extends State<ItemRequestLateOrEarlyOnTab> {
+class _ItemRequestLateOrEarlyOnTabState
+    extends State<ItemRequestLateOrEarlyOnTab> {
   bool checkOpacity = false;
 
   @override
@@ -63,7 +65,7 @@ class _ItemRequestLateOrEarlyOnTabState extends State<ItemRequestLateOrEarlyOnTa
               TitleValueLeave(
                 font: FontWeight.w600,
                 title: appLocalizations.reason,
-                value: request.config.reason?.configEnumReasonName??"",
+                value: request.config.reason?.configEnumReasonName ?? "",
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x2,
               ),
@@ -71,7 +73,9 @@ class _ItemRequestLateOrEarlyOnTabState extends State<ItemRequestLateOrEarlyOnTa
                 TitleValueLeave(
                   font: FontWeight.w600,
                   title: appLocalizations.makeUpTime,
-                  value: strSeconds(request.config.endTime - request.config.startTime) ?? "",
+                  value: strSeconds(
+                          request.config.endTime - request.config.startTime) ??
+                      "",
                   size: SpacingUnit.x4,
                   padding: SpacingUnit.x2,
                 ),
@@ -100,10 +104,11 @@ class _ItemRequestLateOrEarlyOnTabState extends State<ItemRequestLateOrEarlyOnTa
   }
 
   String numberTimes(List<WorkShiftRegisteredDetail> workShiftSettings) {
-    final index =
-        workShiftSettings.indexWhere((element) => element.workDate.day == widget.dateTime.day);
+    final index = workShiftSettings
+        .indexWhere((element) => element.workDate.day == widget.dateTime.day);
     if (index != -1) {
-      return strSeconds((workShiftSettings[index].numberTime * 60).toInt()) ?? "";
+      return strSeconds((workShiftSettings[index].numberTime * 60).toInt()) ??
+          "";
     }
     return '';
   }

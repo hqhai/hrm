@@ -9,7 +9,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/explanation.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/response.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_state.dart';
@@ -11,19 +11,22 @@ import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class RequisitionFollowingBloc extends Bloc<RequisitionFollowingEvent, RequisitionFollowingState> {
+class RequisitionFollowingBloc
+    extends Bloc<RequisitionFollowingEvent, RequisitionFollowingState> {
   final RequisitionUseCase requisitionUseCase;
 
   RequisitionFollowingBloc()
       : requisitionUseCase = dI<RequisitionUseCase>(),
         super(const RequisitionFollowingState()) {
     on<RequisitionFollowingEvent>((event, emit) {});
-    on<GetRequisitionsFollowingByFilterEvent>(_getRequisitionsFollowingByFilterEvent);
+    on<GetRequisitionsFollowingByFilterEvent>(
+        _getRequisitionsFollowingByFilterEvent);
   }
 
   ///get by filter ***********************************************
   FutureOr<void> _getRequisitionsFollowingByFilterEvent(
-      GetRequisitionsFollowingByFilterEvent event, Emitter<RequisitionFollowingState> emit) async {
+      GetRequisitionsFollowingByFilterEvent event,
+      Emitter<RequisitionFollowingState> emit) async {
     try {
       final RequestsResponse requestsResponse =
           await requisitionUseCase.getRequisitionsFollowerByFilter(

@@ -2,7 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
@@ -55,7 +55,9 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
                       onTap: () => setCheck(),
                       child: ContainerBorder(
                         child: Text(
-                          checkInOrOut ? appLocalizations.youLater : appLocalizations.youEarly,
+                          checkInOrOut
+                              ? appLocalizations.youLater
+                              : appLocalizations.youEarly,
                           style: TextStyle(
                             fontSize: SpacingUnit.x4,
                             color: colors.text,
@@ -72,12 +74,15 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
                       mainAxisSize: MainAxisSize.min,
                       children: dates(state.attendance.userWorkingHistories)
                           .mapIndexed((index, element) => GestureDetector(
-                                onTap: () => addDate(date: dates(state.attendance.userWorkingHistories)[index]),
+                                onTap: () => addDate(
+                                    date: dates(state.attendance
+                                        .userWorkingHistories)[index]),
                                 child: Container(
                                   padding: const EdgeInsets.all(SpacingUnit.x2),
                                   margin: const EdgeInsets.all(SpacingUnit.x2),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                                    borderRadius:
+                                        BorderRadius.circular(SpacingUnit.x2),
                                     color: colors.background,
                                     border: Border.all(
                                       color: colors.text,
@@ -94,7 +99,8 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
                                         ),
                                       ),
                                       Text(
-                                        formatYMD(dates(state.attendance.userWorkingHistories)[index]
+                                        formatYMD(dates(state.attendance
+                                                .userWorkingHistories)[index]
                                             .date
                                             .toString()),
                                         style: TextStyle(
@@ -138,7 +144,8 @@ class _BottomTimeSheetWidgetState extends State<BottomTimeSheetWidget> {
     return hourOut < 18 || (hourOut == 18 && minuteOut < 20);
   }
 
-  List<UserWorkingHistoryModel> dates(List<UserWorkingHistoryModel> attendances) {
+  List<UserWorkingHistoryModel> dates(
+      List<UserWorkingHistoryModel> attendances) {
     final List<UserWorkingHistoryModel> listAttendance = [];
     attendances.forEachIndexed((index, element) {
       if ((element.status).contains(UserWorkingHistoryStatus.early) ||

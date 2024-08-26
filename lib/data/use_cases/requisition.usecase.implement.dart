@@ -4,8 +4,8 @@ import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
-import 'package:base_app/domain/entities/reqisition/flow.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/flow.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/repositories/requisition.repository.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:injectable/injectable.dart';
@@ -14,11 +14,14 @@ import 'package:injectable/injectable.dart';
 class RequisitionUseCaseImpl extends RequisitionUseCase {
   final RequisitionRepository _requisitionRepository;
 
-  RequisitionUseCaseImpl() : _requisitionRepository = dI<RequisitionRepository>();
+  RequisitionUseCaseImpl()
+      : _requisitionRepository = dI<RequisitionRepository>();
 
   @override
-  Future<bool> approveRequest({required String id, String? note, required String status}) async {
-    return await _requisitionRepository.approveRequisition(id: id, status: status, note: note);
+  Future<bool> approveRequest(
+      {required String id, String? note, required String status}) async {
+    return await _requisitionRepository.approveRequisition(
+        id: id, status: status, note: note);
   }
 
   @override
@@ -32,8 +35,10 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   }
 
   @override
-  Future<Request> postRequest({required PostRequestRequest postRequestRequest}) async {
-    return await _requisitionRepository.postRequest(postRequestRequest: postRequestRequest);
+  Future<Request> postRequest(
+      {required PostRequestRequest postRequestRequest}) async {
+    return await _requisitionRepository.postRequest(
+        postRequestRequest: postRequestRequest);
   }
 
   @override
@@ -111,8 +116,10 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   }
 
   @override
-  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest}) async {
-    return await _requisitionRepository.editRequestEdit(postRequestRequest: postRequestRequest);
+  Future<Request> editRequestEdit(
+      {required PostRequestRequest postRequestRequest}) async {
+    return await _requisitionRepository.editRequestEdit(
+        postRequestRequest: postRequestRequest);
   }
 
   @override

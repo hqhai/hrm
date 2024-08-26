@@ -2,7 +2,7 @@ import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
@@ -45,13 +45,16 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
         children: [
           ItemTitleValueNoBorder(
             title: appLocalizations.date,
-            value: formatYMD((widget.requisitionOverTime.date ?? "").toString()),
+            value:
+                formatYMD((widget.requisitionOverTime.date ?? "").toString()),
             size: SpacingUnit.x4,
           ),
           if (widget.checkType == RequestType.oT)
             ItemTitleValueNoBorder(
               title: appLocalizations.dateType,
-              value: widget.requisitionOverTime.overTimeDay?.configEnumOvertimeDayName ?? "",
+              value: widget.requisitionOverTime.overTimeDay
+                      ?.configEnumOvertimeDayName ??
+                  "",
               size: SpacingUnit.x4,
             ),
           if (widget.checkType == RequestType.oT)
@@ -72,18 +75,23 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
             value: strSeconds(widget.requisitionOverTime.endTime) ?? "",
             size: SpacingUnit.x4,
           ),
-          if (widget.checkType == RequestType.oT || widget.checkType == RequestType.makeUp)
+          if (widget.checkType == RequestType.oT ||
+              widget.checkType == RequestType.makeUp)
             ItemTitleValueNoBorder(
               title: widget.checkType == RequestType.oT
                   ? appLocalizations.totalOTHours
                   : appLocalizations.totalMakeUpWorkTime,
-              value: strSeconds(widget.requisitionOverTime.suggestTime.toInt()) ?? "",
+              value:
+                  strSeconds(widget.requisitionOverTime.suggestTime.toInt()) ??
+                      "",
               size: SpacingUnit.x4,
             ),
           if (widget.checkType == RequestType.oT)
             Padding(
               padding: const EdgeInsets.only(
-                  left: SpacingUnit.x1, top: SpacingUnit.x2, bottom: SpacingUnit.x2),
+                  left: SpacingUnit.x1,
+                  top: SpacingUnit.x2,
+                  bottom: SpacingUnit.x2),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -103,7 +111,8 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
                       showNote
                           ? Assets.images.icon.home.chevronForward
                           : Assets.images.icon.activateIcon.drop,
-                      colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                      colorFilter: ColorFilter.mode(
+                          colors.text.withOpacity(0.4), BlendMode.srcIn),
                     ),
                   ),
                 ],

@@ -11,7 +11,7 @@ import 'package:base_app/common/utils/limit_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
-import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';

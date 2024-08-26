@@ -3,8 +3,8 @@ import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
-import 'package:base_app/domain/entities/reqisition/flow.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/flow.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 
 abstract class RequisitionRepository {
   Future<Request> postRequest({required PostRequestRequest postRequestRequest});
@@ -39,20 +39,23 @@ abstract class RequisitionRepository {
 
   Future<Request> getRequisitionById({required String id});
 
-  Future<bool> approveRequisition({required String id, String? note, required String status});
+  Future<bool> approveRequisition(
+      {required String id, String? note, required String status});
 
   Future<FlowResponse> getFlowByUser({required int page});
 
   Future<FlowRequest> getFlowById({required String id});
 
-  Future<SearchStationeryByNameResponse> getStationery({required String name, required int page});
+  Future<SearchStationeryByNameResponse> getStationery(
+      {required String name, required int page});
 
   Future<bool> userRejectRequisitionById({required String id});
 
-  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest});
+  Future<Request> editRequestEdit(
+      {required PostRequestRequest postRequestRequest});
 
-  Future<RequestsResponse> getRequestsByIds({required
-    List<String> ids,
+  Future<RequestsResponse> getRequestsByIds({
+    required List<String> ids,
   });
 
   Future<void> cancelRequestsById({

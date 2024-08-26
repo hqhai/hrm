@@ -1,5 +1,5 @@
 import 'package:base_app/common/enum/stationery_enum.dart';
-import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
+import 'package:base_app/domain/entities/requisition/stationery/stationery.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
 

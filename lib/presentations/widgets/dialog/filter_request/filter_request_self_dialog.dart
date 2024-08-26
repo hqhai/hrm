@@ -3,7 +3,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
-import 'package:base_app/domain/entities/reqisition/flow.dart';
+import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/button_request.dart';
 import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
@@ -14,19 +14,20 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class FilterRequestSelfDialog extends StatefulWidget {
-  const FilterRequestSelfDialog({super.key, required this.sendData, this.filter});
+  const FilterRequestSelfDialog(
+      {super.key, required this.sendData, this.filter});
 
   final ValueChanged<FilterDialogModel> sendData;
   final FilterDialogModel? filter;
 
   @override
-  State<FilterRequestSelfDialog> createState() => _FilterRequestSelfDialogState();
+  State<FilterRequestSelfDialog> createState() =>
+      _FilterRequestSelfDialogState();
 }
 
 class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
   String errorTime = '';
-  DateTime? startTime ,
-      endTime ;
+  DateTime? startTime, endTime;
   StatusRequestEnum status = StatusRequestEnum.process;
   List<FlowRequest> flows = [];
 
@@ -45,10 +46,7 @@ class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final height = MediaQuery.of(context).size.height;
     return SizedBox(
       height: height * 0.95,
       child: Column(
@@ -66,13 +64,12 @@ class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(SpacingUnit.x2),
-            child: PeriodTimePicker(
-              title: appLocalizations.timeFrame,
-              setStarTime: (value) => setStartTime(value: value),
-              setEndTime: (value) => setEndTime(value: value),
-            )
-          ),
+              padding: const EdgeInsets.all(SpacingUnit.x2),
+              child: PeriodTimePicker(
+                title: appLocalizations.timeFrame,
+                setStarTime: (value) => setStartTime(value: value),
+                setEndTime: (value) => setEndTime(value: value),
+              )),
           ButtonRequest(
             title1: appLocalizations.apply,
             title2: appLocalizations.cancel,

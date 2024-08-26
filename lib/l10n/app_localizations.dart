@@ -3884,6 +3884,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'December'**
   String get december;
+
+  /// No description provided for @rejectSucceed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject Succeed'**
+  String get rejectSucceed;
+
+  /// No description provided for @requestSucceed.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Succeed'**
+  String get requestSucceed;
+
+  /// No description provided for @cancelSucceed.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Succeed'**
+  String get cancelSucceed;
+
+  /// No description provided for @approveSucceed.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve Succeed'**
+  String get approveSucceed;
+
+  /// No description provided for @rejectFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject Failed'**
+  String get rejectFailed;
+
+  /// No description provided for @requestFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Failed'**
+  String get requestFailed;
+
+  /// No description provided for @cancelFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Failed'**
+  String get cancelFailed;
+
+  /// No description provided for @approveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve Failed'**
+  String get approveFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

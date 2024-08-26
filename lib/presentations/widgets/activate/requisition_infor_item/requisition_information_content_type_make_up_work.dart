@@ -1,8 +1,8 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
@@ -45,7 +45,9 @@ class _RequisitionInformationContentTypeMakeUpWorkState
             date: state.requisition.config.startDate,
             startTime: state.requisition.config.startTime,
             endTime: state.requisition.config.endTime,
-            suggestTime: (state.requisition.config.endTime - state.requisition.config.startTime).toDouble());
+            suggestTime: (state.requisition.config.endTime -
+                    state.requisition.config.startTime)
+                .toDouble());
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           child: Column(

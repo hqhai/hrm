@@ -1,7 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/step_flow.dart';
-import 'package:base_app/domain/entities/reqisition/step_requests.dart';
+import 'package:base_app/domain/entities/requisition/step_flow.dart';
+import 'package:base_app/domain/entities/requisition/step_requests.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
@@ -32,17 +32,24 @@ class ItemListStepFlow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    create ? appLocalizations.flow : appLocalizations.trackFlowProgres,
+                    create
+                        ? appLocalizations.flow
+                        : appLocalizations.trackFlowProgres,
                     style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w800),
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w800),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                     child: Column(
                       children: state.flow.stepFlows
                           .mapIndexed(
                             (index, element) => ItemStepFlow(
-                              note: setNote(stateRequisition.requisition.stepRequests, element),
+                              note: setNote(
+                                  stateRequisition.requisition.stepRequests,
+                                  element),
                               checkApprove: setCheckAppRove(
                                   stateRequisition.requisition.stepRequests,
                                   element,
@@ -63,12 +70,15 @@ class ItemListStepFlow extends StatelessWidget {
     );
   }
 
-  bool setCheckAppRove(List<StepRequests> stepRequests, StepFlow sFlow, List<StepFlow> stepFlows) {
+  bool setCheckAppRove(List<StepRequests> stepRequests, StepFlow sFlow,
+      List<StepFlow> stepFlows) {
     if (sFlow.type == EnumStepFlowType.end &&
-        setCheckAppRove(stepRequests, stepFlows[stepFlows.length - 2], stepFlows)) {
+        setCheckAppRove(
+            stepRequests, stepFlows[stepFlows.length - 2], stepFlows)) {
       return true;
     }
-    final indexStepRequests = stepRequests.indexWhere((element) => element.stepFlowId == sFlow.id);
+    final indexStepRequests =
+        stepRequests.indexWhere((element) => element.stepFlowId == sFlow.id);
     if (sFlow.type == EnumStepFlowType.start) {
       return true;
     }
@@ -80,12 +90,13 @@ class ItemListStepFlow extends StatelessWidget {
   }
 
   String setNote(List<StepRequests> stepRequests, StepFlow sFlow) {
-    final indexStepRequests = stepRequests.indexWhere((element) => element.stepFlowId == sFlow.id);
+    final indexStepRequests =
+        stepRequests.indexWhere((element) => element.stepFlowId == sFlow.id);
     if (indexStepRequests != -1 && !create) {
       final stepRequest = stepRequests[indexStepRequests];
       final stepRequestApprover = stepRequest.stepRequestApprovers ?? [];
-      final indexStepRequestApprove =
-          stepRequestApprover.indexWhere((element) => element.note?.isNotEmpty ?? false);
+      final indexStepRequestApprove = stepRequestApprover
+          .indexWhere((element) => element.note?.isNotEmpty ?? false);
       if (indexStepRequestApprove != -1 && !create) {
         return stepRequestApprover[indexStepRequestApprove].note ?? "";
       }

@@ -1,7 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
-import 'package:base_app/domain/entities/reqisition/stationery/stationery.dart';
+import 'package:base_app/domain/entities/requisition/stationery/stationery.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_total_minute.dart';
@@ -28,7 +28,8 @@ class StationeryOderAddDialog extends StatefulWidget {
   final bool checkTypeContainer;
 
   @override
-  State<StationeryOderAddDialog> createState() => _StationeryOderAddDialogState();
+  State<StationeryOderAddDialog> createState() =>
+      _StationeryOderAddDialogState();
 }
 
 class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
@@ -47,7 +48,8 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
   double intoMoney = 0, unitPrice = 0;
   int numberOf = 0;
   bool checkTypeContainer = true;
-  Stationery stationery = const Stationery(id: '', product: '', unitPrice: '0', unit: '');
+  Stationery stationery =
+      const Stationery(id: '', product: '', unitPrice: '0', unit: '');
 
   bool checkOnClick(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -55,7 +57,8 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     final bool checkNumberOf = numberOf > 0;
     setState(() {
       errorProduct = checkProduct ? "" : appLocalizations.cannotBeLeftBlank;
-      errorNumberOf = checkNumberOf ? "" : appLocalizations.quantityCannotBeZero;
+      errorNumberOf =
+          checkNumberOf ? "" : appLocalizations.quantityCannotBeZero;
     });
     return checkProduct && checkNumberOf;
   }
@@ -142,8 +145,8 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
             ),
           if (checkTypeContainer)
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              padding: const EdgeInsets.symmetric(
+                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),

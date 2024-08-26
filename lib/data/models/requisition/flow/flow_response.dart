@@ -1,5 +1,5 @@
 import 'package:base_app/data/models/response/paging_infor_request.dart';
-import 'package:base_app/domain/entities/reqisition/flow.dart';
+import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'flow_response.g.dart';
@@ -11,7 +11,8 @@ class FlowResponse {
 
   const FlowResponse({
     this.items = const [],
-    this.pagingInfo= const PagingInfoRequest(totalItems: 0, pageSize: 0, page: 1),
+    this.pagingInfo =
+        const PagingInfoRequest(totalItems: 0, pageSize: 0, page: 1),
   });
 
   factory FlowResponse.fromJson(Map<String, dynamic> json) =>

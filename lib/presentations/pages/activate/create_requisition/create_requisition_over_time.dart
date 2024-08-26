@@ -7,7 +7,7 @@ import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -48,10 +48,12 @@ class CreateRequisitionOverTimePage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionOverTimePage> createState() => _CreateRequisitionOverTimePageState();
+  State<CreateRequisitionOverTimePage> createState() =>
+      _CreateRequisitionOverTimePageState();
 }
 
-class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTimePage> {
+class _CreateRequisitionOverTimePageState
+    extends State<CreateRequisitionOverTimePage> {
   List<RequisitionOverTime> requisitionOverTimes = [];
   List<String> followers = [];
   String description = "", error = '', errorDescription = '', errorDialog = '';
@@ -77,19 +79,23 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     final bool checkDescription = description.isNotEmpty;
     setState(() {
       error = check ? '' : appLocalizations.notSelectedAOverTime;
-      errorDescription = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDescription =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return check && checkDescription;
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty
+          ? setErrorValue(errorCode, context) ?? errorCode
+          : "";
     });
   }
 
@@ -126,7 +132,8 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                         title: appLocalizations.listOvertime,
                         error: error,
                         requisitionOverTimes: requisitionOverTimes,
-                        onChangeList: (value) => _setChangeRequisitionOverTimes(value),
+                        onChangeList: (value) =>
+                            _setChangeRequisitionOverTimes(value),
                       ),
                       ItemCreateInputArea(
                         requiredValidate: true,
@@ -219,9 +226,11 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(

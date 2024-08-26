@@ -1,6 +1,6 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
-import 'package:base_app/domain/entities/reqisition/step_request_approvers.dart';
+import 'package:base_app/domain/entities/requisition/step_request_approvers.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -37,7 +37,8 @@ class StepRequests {
       this.stepFlowId,
       this.stepRequestApprovers});
 
-  factory StepRequests.fromJson(Map<String, dynamic> json) => _$StepRequestsFromJson(json);
+  factory StepRequests.fromJson(Map<String, dynamic> json) =>
+      _$StepRequestsFromJson(json);
 
   Map<String, dynamic> toJson() => _$StepRequestsToJson(this);
 }

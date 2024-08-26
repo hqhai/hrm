@@ -14,18 +14,20 @@ import 'package:base_app/data/models/request/room_meeting/update_room_meeting.da
 import 'package:base_app/data/models/request/update_request_request.dart';
 import 'package:base_app/data/models/request/upload_file.dart';
 import 'package:base_app/data/models/request/upload_files.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
 
 abstract class RequestService {
   Future<int> createRequest(CreateRequestRequest createRequestRequest);
 
-  Future<int> createOvertimeRequest(CreateOverTimeRequest createOverTimeRequest);
+  Future<int> createOvertimeRequest(
+      CreateOverTimeRequest createOverTimeRequest);
 
   Future<int> createOnLeave(CreateOnLeaveRequest createOnLeaveRequest);
 
-  Future<int> createExplanation(CreateExplanationRequest createExplanationRequest);
+  Future<int> createExplanation(
+      CreateExplanationRequest createExplanationRequest);
 
   Future<int> getRequest(
     GetRequestRequest getRequestRequest,
@@ -46,21 +48,28 @@ abstract class RequestService {
     UploadFilesRequest? uploadFileRequests,
   });
 
-  Future<Request> upDateRequestById({required UpdateRequestRequest updateRequestRequest, required String id});
+  Future<Request> upDateRequestById(
+      {required UpdateRequestRequest updateRequestRequest, required String id});
 
-  Future<int> changeListStatus({required ChangeListStatusRequest changeListStatusRequest});
+  Future<int> changeListStatus(
+      {required ChangeListStatusRequest changeListStatusRequest});
 
-  Future<int> createRoomMeeting({required CreateRoomMeetingRequest createRoomMeetingRequest});
+  Future<int> createRoomMeeting(
+      {required CreateRoomMeetingRequest createRoomMeetingRequest});
 
   Future<List<RoomMeeting>> getRoomMeeting();
 
-  Future<int>createRoomMeetingRequest(
-      {required CreateRequestTypeRoomMeetingRequest createRequestTypeRoomMeetingRequest});
+  Future<int> createRoomMeetingRequest(
+      {required CreateRequestTypeRoomMeetingRequest
+          createRequestTypeRoomMeetingRequest});
 
   Future<List<User>> getListUserByRequest(
-      {required GetListUserByRequestExplanationRequest getListUserByRequestExplanationRequest});
+      {required GetListUserByRequestExplanationRequest
+          getListUserByRequestExplanationRequest});
 
-  Future<int> updateRoomMeeting({required UpdateRoomMeetingRequest updateRoomMeetingRequest});
+  Future<int> updateRoomMeeting(
+      {required UpdateRoomMeetingRequest updateRoomMeetingRequest});
 
-  Future<int> deleteRoomMeeting({required DeleteRoomMeetingRequest deleteRoomMeetingRequest});
+  Future<int> deleteRoomMeeting(
+      {required DeleteRoomMeetingRequest deleteRoomMeetingRequest});
 }

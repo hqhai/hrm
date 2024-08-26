@@ -1,4 +1,4 @@
-import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'work_shifts_map_keys.g.dart';

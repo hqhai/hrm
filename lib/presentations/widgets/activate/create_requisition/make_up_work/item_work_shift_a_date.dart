@@ -1,7 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';
@@ -70,13 +70,15 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
                             children: listKey.map(
                               (e) {
                                 final workShift = state.workShifts[e] ??
-                                    WorkShiftRegisteredDetail(workDate: DateTime.now());
+                                    WorkShiftRegisteredDetail(
+                                        workDate: DateTime.now());
                                 return ContainerBorder(
                                   borderColors: colors.outline.withOpacity(0.4),
                                   width: width,
                                   paddingVertical: 0,
                                   child: CheckboxListTile(
-                                    controlAffinity: ListTileControlAffinity.leading,
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
                                     value: check(
                                         dateInt: element,
                                         keyDate: state.keys,
@@ -121,20 +123,23 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
         widget.type == RequisitionTypeEnum.bussiness;
     if (checkType) {
       /// check phải ngày cuối hoặc đầu không
-      final firstOrLast = workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
-          workShift.workDate.microsecondsSinceEpoch == state.keys.last;
+      final firstOrLast =
+          workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
+              workShift.workDate.microsecondsSinceEpoch == state.keys.last;
 
       ///list ca
       final listWorkShift = state.workShifts.values.toList();
       final workShiftsAlikeDate = state.workShifts.values
           .where((element) =>
-              element.workDate.microsecondsSinceEpoch == workShift.workDate.microsecondsSinceEpoch)
+              element.workDate.microsecondsSinceEpoch ==
+              workShift.workDate.microsecondsSinceEpoch)
           .toList();
 
       ///Không phải ca thuộc ngày đầu và cuối th cho hết vào list
       for (var element in listWorkShift) {
-        final notFirstOrLast = element.workDate.microsecondsSinceEpoch != state.keys.first &&
-            element.workDate.microsecondsSinceEpoch != state.keys.last;
+        final notFirstOrLast =
+            element.workDate.microsecondsSinceEpoch != state.keys.first &&
+                element.workDate.microsecondsSinceEpoch != state.keys.last;
         if (!workShifts.contains(element) && notFirstOrLast) {
           setState(() {
             workShifts.add(element);

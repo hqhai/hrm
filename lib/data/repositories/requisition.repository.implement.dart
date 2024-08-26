@@ -11,8 +11,8 @@ import 'package:base_app/data/models/requisition/requisition/requisition_approve
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
-import 'package:base_app/domain/entities/reqisition/flow.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/flow.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/repositories/requisition.repository.dart';
 import 'package:base_app/domain/services/requisition.service.dart';
 import 'package:injectable/injectable.dart';
@@ -31,7 +31,8 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<Request> postRequest({required PostRequestRequest postRequestRequest}) async {
+  Future<Request> postRequest(
+      {required PostRequestRequest postRequestRequest}) async {
     return await _requestService.postRequest(
       postRequestRequest: postRequestRequest,
     );
@@ -41,7 +42,8 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   Future<bool> approveRequisition(
       {required String id, String? note, required String status}) async {
     return await _requestService.approveRequisition(
-        approveRequest: ApproveRequest(id: id, note: note ?? "", status: status));
+        approveRequest:
+            ApproveRequest(id: id, note: note ?? "", status: status));
   }
 
   @override
@@ -53,12 +55,14 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   Future<SearchStationeryByNameResponse> getStationery(
       {required String name, required int page}) async {
     return await _requestService.getStationery(
-        searchStationeryByNameRequest: SearchStationeryByNameRequest(page: page, fullName: name));
+        searchStationeryByNameRequest:
+            SearchStationeryByNameRequest(page: page, fullName: name));
   }
 
   @override
   Future<FlowRequest> getFlowById({required String id}) async {
-    return await _requestService.getFlowById(flowByIdRequest: FlowByIdRequest(id: id));
+    return await _requestService.getFlowById(
+        flowByIdRequest: FlowByIdRequest(id: id));
   }
 
   @override
@@ -130,8 +134,10 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
   }
 
   @override
-  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest}) async {
-    return await _requestService.editRequestEdit(postRequestRequest: postRequestRequest);
+  Future<Request> editRequestEdit(
+      {required PostRequestRequest postRequestRequest}) async {
+    return await _requestService.editRequestEdit(
+        postRequestRequest: postRequestRequest);
   }
 
   @override

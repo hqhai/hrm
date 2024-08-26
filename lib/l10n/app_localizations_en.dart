@@ -1899,4 +1899,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get december => 'December';
+
+  @override
+  String get rejectSucceed => 'Reject Succeed';
+
+  @override
+  String get requestSucceed => 'Request Succeed';
+
+  @override
+  String get cancelSucceed => 'Cancel Succeed';
+
+  @override
+  String get approveSucceed => 'Approve Succeed';
+
+  @override
+  String get rejectFailed => 'Reject Failed';
+
+  @override
+  String get requestFailed => 'Request Failed';
+
+  @override
+  String get cancelFailed => 'Cancel Failed';
+
+  @override
+  String get approveFailed => 'Approve Failed';
 }

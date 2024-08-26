@@ -2,7 +2,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';
@@ -74,15 +74,18 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
                             children: listKey.map(
                               (e) {
                                 final workShift = state.workShifts[e] ??
-                                    WorkShiftRegisteredDetail(workDate: DateTime.now());
+                                    WorkShiftRegisteredDetail(
+                                        workDate: DateTime.now());
                                 return Column(
                                   children: [
                                     ContainerBorder(
-                                      borderColors: colors.outline.withOpacity(0.4),
+                                      borderColors:
+                                          colors.outline.withOpacity(0.4),
                                       width: width,
                                       paddingVertical: 0,
                                       child: CheckboxListTile(
-                                        controlAffinity: ListTileControlAffinity.leading,
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
                                         value: check(
                                             dateInt: element,
                                             keyDate: state.keys,
@@ -109,8 +112,8 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
                                       MinutesInShift(
                                         type: widget.typeLE,
                                         minutes: workShift.numberTime,
-                                        changeMinutes: (value) =>
-                                            changeMinutes(value: value, workShift: workShift),
+                                        changeMinutes: (value) => changeMinutes(
+                                            value: value, workShift: workShift),
                                       ),
                                   ],
                                 );
@@ -137,23 +140,27 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
     final checkType = widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore ||
         widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay ||
         widget.type == RequisitionTypeEnum.bussiness;
-    final workShiftsReplicant = workShifts.map((e) => e.copyWith(numberTime: 0)).toList();
+    final workShiftsReplicant =
+        workShifts.map((e) => e.copyWith(numberTime: 0)).toList();
     if (checkType) {
       /// check phải ngày cuối hoặc đầu không
-      final firstOrLast = workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
-          workShift.workDate.microsecondsSinceEpoch == state.keys.last;
+      final firstOrLast =
+          workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
+              workShift.workDate.microsecondsSinceEpoch == state.keys.last;
 
       ///list ca
       final listWorkShift = state.workShifts.values.toList();
       final workShiftsAlikeDate = state.workShifts.values
           .where((element) =>
-              element.workDate.microsecondsSinceEpoch == workShift.workDate.microsecondsSinceEpoch)
+              element.workDate.microsecondsSinceEpoch ==
+              workShift.workDate.microsecondsSinceEpoch)
           .toList();
 
       ///Không phải ca thuộc ngày đầu và cuối th cho hết vào list
       for (var element in listWorkShift) {
-        final notFirstOrLast = element.workDate.microsecondsSinceEpoch != state.keys.first &&
-            element.workDate.microsecondsSinceEpoch != state.keys.last;
+        final notFirstOrLast =
+            element.workDate.microsecondsSinceEpoch != state.keys.first &&
+                element.workDate.microsecondsSinceEpoch != state.keys.last;
         if (!workShifts.contains(element) && notFirstOrLast) {
           setState(() {
             workShifts.add(element);
@@ -209,7 +216,8 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
         });
       } else if (workShiftsReplicant.contains(workShift)) {
         setState(() {
-          final indexShift = workShiftsReplicant.indexWhere((element) => element == workShift);
+          final indexShift =
+              workShiftsReplicant.indexWhere((element) => element == workShift);
           workShifts.removeAt(indexShift);
         });
       }
@@ -238,13 +246,17 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
       required WorkShiftRegisteredDetail workShift}) {
     keyDate.sort();
     final checkSE = keyDate.first < dateInt && keyDate.last > dateInt;
-    final workShiftsReplicant = workShifts.map((e) => e.copyWith(numberTime: 0));
-    final checkId = workShiftsReplicant.contains(workShift.copyWith(numberTime: 0));
+    final workShiftsReplicant =
+        workShifts.map((e) => e.copyWith(numberTime: 0));
+    final checkId =
+        workShiftsReplicant.contains(workShift.copyWith(numberTime: 0));
     return checkSE || checkId;
   }
 
-  changeMinutes({required int value, required WorkShiftRegisteredDetail workShift}) {
-    final index = workShifts.indexWhere((element) => element.startTime == workShift.startTime);
+  changeMinutes(
+      {required int value, required WorkShiftRegisteredDetail workShift}) {
+    final index = workShifts
+        .indexWhere((element) => element.startTime == workShift.startTime);
     setState(() {
       workShifts[index] = workShifts[index].copyWith(numberTime: value);
       widget.workShiftSettings.call(workShifts);

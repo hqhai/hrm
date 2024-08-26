@@ -5,7 +5,7 @@ import 'package:base_app/data/models/request/explanation/create_explanation_conf
 import 'package:base_app/data/models/request/on_leave/create_onleave_config_request.dart';
 import 'package:base_app/data/models/request/overtime/list_request_types.dart';
 import 'package:base_app/data/models/request/room_meeting/create_request_type_room_meeting_config.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/entities/room_meeting.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:flutter/services.dart';
@@ -58,7 +58,7 @@ abstract class RequestRepository {
 
   Future<int> getRequest(
     String status,
-      int page,
+    int page,
   );
 
   Future<List<Request>> getRequestByAdmin(
@@ -79,7 +79,8 @@ abstract class RequestRepository {
       required String id});
 
   Future<int> changeListStatus({
-    required List<ChangeStatusRequestCommandModels> changeStatusRequestCommandModels,
+    required List<ChangeStatusRequestCommandModels>
+        changeStatusRequestCommandModels,
     required String enumRequestType,
   });
 
@@ -100,7 +101,8 @@ abstract class RequestRepository {
     required CreateRequestTypeRoomMeetingConfigRequest config,
   });
 
-  Future<List<User>> getListUserByRequest({required String startDate, required String endDate});
+  Future<List<User>> getListUserByRequest(
+      {required String startDate, required String endDate});
 
   Future<int> updateRoomMeeting({
     String? roomName,

@@ -6,7 +6,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/error_response.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -26,16 +26,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ContentItemRequestApproveList extends StatefulWidget {
-  const ContentItemRequestApproveList({super.key, required this.id, required this.status});
+  const ContentItemRequestApproveList(
+      {super.key, required this.id, required this.status});
 
   final EnumStepRequestStatusEnum status;
   final String id;
 
   @override
-  State<ContentItemRequestApproveList> createState() => _ContentItemRequestApproveListState();
+  State<ContentItemRequestApproveList> createState() =>
+      _ContentItemRequestApproveListState();
 }
 
-class _ContentItemRequestApproveListState extends State<ContentItemRequestApproveList> {
+class _ContentItemRequestApproveListState
+    extends State<ContentItemRequestApproveList> {
   String note = '';
   String errorCodeDialog = '';
 
@@ -61,7 +64,9 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w700),
                   ),
                   Icon(
                     Icons.chevron_right,
@@ -131,7 +136,8 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     if (request.status == StatusRequestEnum.approve) {
       final id = dI<UserBloc>().state.user.id;
       final stepRequests = request.stepRequests
-          .where((element) => element.status == EnumStepRequestStatusEnum.approve)
+          .where(
+              (element) => element.status == EnumStepRequestStatusEnum.approve)
           .toList();
       if (stepRequests != []) {
         stepRequests.sort((a, b) {
@@ -155,13 +161,13 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests?.isNotEmpty ?? false) {
       final stepRequests = request.stepRequests ?? [];
-      final indexNewStepRequest = stepRequests
-          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests.indexWhere(
+          (element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest =
-            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest = stepRequestApproves
+            .indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
           showDialog(
@@ -170,7 +176,8 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
               return Dialog(
                 child: NoteDialog(
                     noteChange: (value) => _setNote(value),
-                    callback: () => _setApprove(idStepRequestApprove, status, context),
+                    callback: () =>
+                        _setApprove(idStepRequestApprove, status, context),
                     status: status),
               );
             },
@@ -180,8 +187,8 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     }
   }
 
-  _setApprove(String id, EnumStepRequestStatusEnum status, BuildContext context) async {
-    final appLocalizations = AppLocalizations.of(context)!;
+  _setApprove(
+      String id, EnumStepRequestStatusEnum status, BuildContext context) async {
     setCheckLoad();
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final Completer completer = Completer<bool>();
@@ -197,11 +204,49 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     final statusCompleter = await completer.future;
     if (statusCompleter == true) {
       if (!currentContext.mounted) return;
-      approverSuccess(context: currentContext);
+      approverSuccess(
+          context: currentContext, title: _getTextSucceed(context, status));
     }
     if (statusCompleter == false) {
       if (!currentContext.mounted) return;
-      approverUnsuccessful(errorDialog: errorCodeDialog, context: currentContext, title: appLocalizations.approvedUnsuccessful);
+      approverUnsuccessful(
+          errorDialog: errorCodeDialog,
+          context: currentContext,
+          title: _getTextFailed(context, status));
+    }
+  }
+
+  String _getTextSucceed(
+      BuildContext context, EnumStepRequestStatusEnum status) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    switch (status) {
+      case EnumStepRequestStatusEnum.approve:
+        return appLocalizations.approveSucceed;
+      case EnumStepRequestStatusEnum.cancel:
+        return appLocalizations.cancelSucceed;
+      case EnumStepRequestStatusEnum.edit:
+        return appLocalizations.requestSucceed;
+      case EnumStepRequestStatusEnum.reject:
+        return appLocalizations.rejectSucceed;
+      default:
+        return 'Thành Công';
+    }
+  }
+
+  String _getTextFailed(
+      BuildContext context, EnumStepRequestStatusEnum status) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    switch (status) {
+      case EnumStepRequestStatusEnum.approve:
+        return appLocalizations.approveFailed;
+      case EnumStepRequestStatusEnum.cancel:
+        return appLocalizations.cancelFailed;
+      case EnumStepRequestStatusEnum.edit:
+        return appLocalizations.requestFailed;
+      case EnumStepRequestStatusEnum.reject:
+        return appLocalizations.rejectFailed;
+      default:
+        return 'Thành Công';
     }
   }
 
@@ -212,7 +257,7 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
       builder: (BuildContext context) {
         return Dialog(
           child: CreateRequestSuccess(
-            title: title??appLocalizations.approvedSuccess,
+            title: title ?? appLocalizations.approvedSuccess,
           ),
         );
       },
@@ -222,7 +267,10 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     });
   }
 
-  approverUnsuccessful({required String errorDialog, required BuildContext context, required String title}) {
+  approverUnsuccessful(
+      {required String errorDialog,
+      required BuildContext context,
+      required String title}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -248,13 +296,13 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests.isNotEmpty) {
       final stepRequests = request.stepRequests;
-      final indexNewStepRequest = stepRequests
-          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests.indexWhere(
+          (element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest =
-            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest = stepRequestApproves
+            .indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           EnumStepRequestStatusEnum? statusStepRequestApprove =
               stepRequestApproves[indexNewRequest].status;
@@ -305,7 +353,9 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorCodeDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
+      errorCodeDialog = errorCode.isNotEmpty
+          ? setErrorValue(errorCode, context) ?? errorCode
+          : "";
     });
   }
 
@@ -324,12 +374,14 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
     if (statusCompleter == true) {
       dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
       if (!currentContext.mounted) return;
-      approverSuccess(context: context, title: appLocalizations.revokeRequestSuccess);
+      approverSuccess(context: context, title: appLocalizations.cancelSucceed);
     }
     if (statusCompleter == false) {
       if (!currentContext.mounted) return;
-      approverUnsuccessful( context: currentContext,
-          errorDialog: errorCodeDialog, title: appLocalizations.revokeRequestUnsuccessful);
+      approverUnsuccessful(
+          context: currentContext,
+          errorDialog: errorCodeDialog,
+          title: appLocalizations.cancelFailed);
     }
   }
 }

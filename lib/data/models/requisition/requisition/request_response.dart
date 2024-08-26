@@ -1,5 +1,5 @@
 import 'package:base_app/data/models/response/paging_infor_request.dart';
-import 'package:base_app/domain/entities/reqisition/request.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'request_response.g.dart';
@@ -10,7 +10,8 @@ class RequestsResponse {
   final PagingInfoRequest pagingInfo;
 
   const RequestsResponse({
-    this.pagingInfo= const PagingInfoRequest(totalItems: 0, pageSize: 0, page: 1),
+    this.pagingInfo =
+        const PagingInfoRequest(totalItems: 0, pageSize: 0, page: 1),
     this.items = const [],
   });
 

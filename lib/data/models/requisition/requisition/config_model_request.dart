@@ -4,8 +4,8 @@ import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/data/models/requisition/requisition/explanation.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
-import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
-import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
+import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
