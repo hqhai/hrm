@@ -26,7 +26,6 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/expla
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_colum.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
@@ -237,11 +236,25 @@ class _CreateRequisitionBusinessPageState
                       )
                     ],
                     if (!checkShirtFirst && checkShirt)
-                      ItemTitleValueColum(
-                        font: FontWeight.w600,
-                        size: SpacingUnit.x4,
-                        title: appLocalizations.numberTotalWork,
-                        value: numberValue.toString(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: SpacingUnit.x4),
+                        child: Row(
+                          children: [
+                            Text(
+                              '${appLocalizations.numberTotalWork}: ',
+                              style: TextStyle(
+                                  color: colors.text, fontSize: SpacingUnit.x4),
+                            ),
+                            Text(
+                              numberValue.toString(),
+                              style: TextStyle(
+                                  color: colors.text,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: SpacingUnit.x4),
+                            ),
+                          ],
+                        ),
                       ),
                     const SizedBox(
                       height: SpacingUnit.x4,

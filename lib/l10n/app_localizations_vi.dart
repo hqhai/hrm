@@ -1550,10 +1550,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get required => 'Bắt buộc';
 
   @override
-  String get personalReasons => 'Lý do cá nhân';
+  String get personalReasons => 'Cá nhân';
 
   @override
-  String get companyReasons => 'Lý do công ty';
+  String get companyReasons => 'Công việc';
 
   @override
   String get firstShift => 'Ca đầu';
