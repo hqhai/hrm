@@ -15,8 +15,10 @@ class OTHistory extends StatelessWidget {
 
   final DateTime dateTime;
 
-  UserWorkingHistoryModel userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
-    return list.firstWhere((element) => element.date?.isAtSameMomentAs(dateTime) ?? false);
+  UserWorkingHistoryModel userWorkingHistoryModelByDate(
+      List<UserWorkingHistoryModel> list) {
+    return list.firstWhere(
+        (element) => element.date?.isAtSameMomentAs(dateTime) ?? false);
   }
 
   @override
@@ -41,26 +43,31 @@ class OTHistory extends StatelessWidget {
                   fontSize: SpacingUnit.x4,
                 ),
               ),
-              const SizedBox(
-                height: SpacingUnit.x6,
-              ),
-              Column(
-                children: [
-                  if (state.keys.isNotEmpty)
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: state.keys.mapIndexed((index, element) {
-                        final attendance = state.attendances[element];
-                        return ItemShiftOnTab(
-                          title: appLocalizations.checkIn,
-                          value: formatHM(attendance?.timeChecking.toString()),
-                          last: element != state.keys.last,
-                        );
-                      }).toList(),
+              // const SizedBox(
+              //   height: SpacingUnit.x6,
+              // ),
+              if (state.keys.isNotEmpty)
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.symmetric(vertical: SpacingUnit.x6),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: state.keys.mapIndexed((index, element) {
+                          final attendance = state.attendances[element];
+                          return ItemShiftOnTab(
+                            title: appLocalizations.checkIn,
+                            value:
+                                formatHM(attendance?.timeChecking.toString()),
+                            last: element != state.keys.last,
+                          );
+                        }).toList(),
+                      ),
                     ),
-                ],
-              ),
+                  ),
+                ),
             ],
           ),
         );
