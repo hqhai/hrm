@@ -71,7 +71,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get containsASymbol => 'Chứa ký tự đặc biệt';
 
   @override
-  String get createRequest => 'Tạo yêu cầu';
+  String get createRequest => 'Tạo đơn';
 
   @override
   String get recentRequest => 'Yêu cầu gần đây';
@@ -1100,10 +1100,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get totalTime => 'Tổng thời gian';
 
   @override
-  String get yearlyLeave => 'Nghỉ phép năm';
+  String get yearlyLeave => 'Phép năm';
 
   @override
-  String get seniorityLeave => 'Nghỉ thâm niên';
+  String get seniorityLeave => 'Thâm niên';
 
   @override
   String get compensatoryLeave => 'Nghỉ bù';

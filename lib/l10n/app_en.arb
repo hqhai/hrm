@@ -621,6 +621,7 @@
   "errorPlease": "An error occurred, please try again later!",
   "limitFile": "The number of files exceeds 5",
   "saveRequest": "Save request",
+  "createRequest": "Create request",
   "setHoursAndMinutes": "Set hours and minutes",
   "january": "January",
   "february": "February",

@@ -29,7 +29,6 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create.work.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_create_take_leave.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/on_leave/item_year_leave.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
@@ -66,11 +65,14 @@ class CreateRequisitionLeavePage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionLeavePage> createState() => _CreateRequisitionLeavePageState();
+  State<CreateRequisitionLeavePage> createState() =>
+      _CreateRequisitionLeavePageState();
 }
 
-class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+class _CreateRequisitionLeavePageState
+    extends State<CreateRequisitionLeavePage> {
+  final TextEditingController detailedDescriptionController =
+      TextEditingController();
   String description = '';
   DateTime? startTime, endTime;
   double numberValue = 0;
@@ -81,7 +83,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   String errorShift = '', errorDialog = '', errorDescription = '';
   bool checkClick = false;
   final DateTime now = DateTime.now();
-  EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
+  EnumTakeLeaveType takeLeaveType =
+      EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
   EnumSocialInsuranceLeave? socialInsuranceLeave;
   EnumReasonLeave? reason;
 
@@ -120,8 +123,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
           TextPosition(offset: limitedText.length),
         ),
       );
-    }
-    else{
+    } else {
       setState(() {
         errorDescription = '';
       });
@@ -133,8 +135,10 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     final checkListWorkShift = listWorkShift.isNotEmpty;
     final checkDescription = description.isNotEmpty;
     setState(() {
-      errorShift = !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
-      errorDescription = !checkDescription ? appLocalizations.cannotBeLeftBlank : '';
+      errorShift =
+          !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
+      errorDescription =
+          !checkDescription ? appLocalizations.cannotBeLeftBlank : '';
     });
 
     return checkListWorkShift && checkDescription;
@@ -149,10 +153,12 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       return false;
     }
     final number = (endTime!).difference(startTime!).inHours;
-    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
+    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay &&
+        number > 24) {
       return false;
     }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay &&
+        (number > 96 || number < 24)) {
       return false;
     }
     if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
@@ -166,10 +172,12 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       return '';
     }
     final number = (endTime!).difference(startTime!).inHours;
-    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
+    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay &&
+        number > 24) {
       return RequisitionTypeEnum.leaveHalfDayToOneDay.configTypeName;
     }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay &&
+        (number > 96 || number < 24)) {
       return RequisitionTypeEnum.leaveTwoDayToFourDay.configTypeName;
     }
     if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
@@ -180,7 +188,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty
+          ? setErrorValue(errorCode, context) ?? errorCode
+          : "";
     });
   }
 
@@ -219,22 +229,28 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         typeSocialInsurance: socialInsuranceLeave,
                         onChange: (value) => _setReason(value),
                         type: takeLeaveType,
-                        onChangeSocialInsurance: (value) => setSocialInsurance(value),
+                        onChangeSocialInsurance: (value) =>
+                            setSocialInsurance(value),
                       ),
-                      if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
+                      if (takeLeaveType ==
+                          EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
                         const ItemTakeLeaveWork(),
                       const SizedBox(height: SpacingUnit.x4),
                       TitleRequired(
-                          title: appLocalizations.intervalOnLeave, requiredValidate: true),
+                          title: appLocalizations.intervalOnLeave,
+                          requiredValidate: true),
                       const SizedBox(height: SpacingUnit.x2),
                       PeriodTimePicker(
                         oldEndTime: endTime,
                         oldStarTime: startTime,
                         title: appLocalizations.intervalOnLeave,
-                        setStarTime: (value) => setStartTime(value ?? DateTime.now()),
-                        setEndTime: (value) => setEndTime(value ?? DateTime.now()),
+                        setStarTime: (value) =>
+                            setStartTime(value ?? DateTime.now()),
+                        setEndTime: (value) =>
+                            setEndTime(value ?? DateTime.now()),
                         fontWeightTitle: FontWeight.w600,
-                        error: errorDate().isNotEmpty ? errorDate() : errorShift,
+                        error:
+                            errorDate().isNotEmpty ? errorDate() : errorShift,
                       ),
                       const SizedBox(height: SpacingUnit.x4),
                       if (!checkShirtFirst && checkShift())
@@ -258,13 +274,35 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                                 workShiftSettings: (value) => setListIds(value),
                               ),
                       if (!checkShirtFirst && checkShirt)
-                        ItemTitleValue(
-                          size: SpacingUnit.x4,
-                          title: appLocalizations.totalLeaveWork,
-                          value: numberValue.toString(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: SpacingUnit.x4),
+                          child: Row(
+                            children: [
+                              Text(
+                                '${appLocalizations.totalLeaveWork}: ',
+                                style: TextStyle(
+                                    color: colors.text,
+                                    fontSize: SpacingUnit.x4),
+                              ),
+                              Text(
+                                numberValue.toString(),
+                                style: TextStyle(
+                                    color: colors.text,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: SpacingUnit.x4),
+                              ),
+                            ],
+                          ),
                         ),
+                      // ItemTitleValue(
+                      //   size: SpacingUnit.x4,
+                      //   title: ,
+                      //   value: numberValue.toString(),
+                      // ),
                       ItemCreateFollower(
-                        listFollower: _setListUser(stateUserById.subtitudePersons),
+                        listFollower:
+                            _setListUser(stateUserById.subtitudePersons),
                         title: appLocalizations.substitute,
                         onChange: (value) => _setSubstitute(value),
                       ),
@@ -279,12 +317,10 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                       ),
                       ItemCreateInputArea(
                         error: errorDescription,
-                        requiredValidate: true,
                         textController: detailedDescriptionController,
                         title: appLocalizations.detailedDescription,
                         onChange: (value) => _setDescription(value),
                       ),
-
                       const ItemListStepFlow(),
                       ItemButton(
                         callbackSave: () => _save(context),
@@ -366,9 +402,11 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     saveRequest(
       files: files,
       context: context,
-      checkCreate: !checkClick && widget.requestId.isEmpty && checkValidate(context),
+      checkCreate:
+          !checkClick && widget.requestId.isEmpty && checkValidate(context),
       postRequestRequest: request(),
-      checkEdit: !checkClick && widget.requestId.isNotEmpty && checkValidate(context),
+      checkEdit:
+          !checkClick && widget.requestId.isNotEmpty && checkValidate(context),
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
@@ -406,8 +444,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         numberValue = 0;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: endTime!, startDate: startTime!, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: endTime!, startDate: startTime!, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {

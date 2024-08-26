@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemButton extends StatelessWidget {
-  const ItemButton({super.key, this.callbackSave, this.callbackCancel});
-
+  const ItemButton(
+      {super.key, this.callbackSave, this.callbackCancel, this.id});
+  final String? id;
   final VoidCallback? callbackSave;
   final VoidCallback? callbackCancel;
 
@@ -32,7 +33,9 @@ class ItemButton extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
             child: AppButton(
-              title: appLocalizations.saveRequest,
+              title: id == null
+                  ? appLocalizations.createRequest
+                  : appLocalizations.saveRequest,
               enable: callbackSave != null,
               onSubmit: () => _save(),
               color: colors.blue,

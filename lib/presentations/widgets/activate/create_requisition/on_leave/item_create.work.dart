@@ -26,13 +26,13 @@ class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
           children: [
             item(
               context: context,
-              title: appLocalizations.leaveNumberPermission,
-              value: state.userLeave.total.toString(),
+              title: appLocalizations.leaveNumberUsed,
+              value: state.userLeave.totalUsed.toString(),
             ),
             item(
               context: context,
-              title: appLocalizations.leaveNumberUsed,
-              value: state.userLeave.totalUsed.toString(),
+              title: appLocalizations.leaveNumberPermission,
+              value: state.userLeave.total.toString(),
             ),
             item(
               context: context,
