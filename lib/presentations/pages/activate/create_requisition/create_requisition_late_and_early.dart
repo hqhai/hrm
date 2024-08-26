@@ -13,6 +13,7 @@ import 'package:base_app/data/models/requisition/requisition/post_request_reques
 import 'package:base_app/domain/entities/reqisition/requisition_over_time.dart';
 import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
 import 'package:base_app/domain/entities/user.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
@@ -36,7 +37,7 @@ import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dial
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 final createRequestLateAndEarlyPageRoute = GoRoute(
@@ -69,8 +70,10 @@ class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
       _CreateRequisitionLateAndEarlyPageState();
 }
 
-class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLateAndEarlyPage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+class _CreateRequisitionLateAndEarlyPageState
+    extends State<CreateRequisitionLateAndEarlyPage> {
+  final TextEditingController detailedDescriptionController =
+      TextEditingController();
   String errorTime = '',
       errorDestination = '',
       errorDialog = '',
@@ -108,7 +111,9 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty
+          ? setErrorValue(errorCode, context) ?? errorCode
+          : "";
       if (errorCode == 'MakeupDayCanNotRecedeRequestDate') {
         errorListener = errorDialog;
       } else {
@@ -151,7 +156,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       requiredValidate: true,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                       child: GestureDetector(
                         onTap: () => _showBottomSheet(context),
                         child: ContainerBorder(
@@ -173,7 +179,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       height: SpacingUnit.x4,
                     ),
                     TitleRequired(
-                      title: '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
+                      title:
+                          '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
                       requiredValidate: true,
                     ),
                     DateOverTime(
@@ -184,19 +191,11 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                     if (!checkShirtFirst)
                       !checkShirt
                           ? Center(
-                              child: Shimmer.fromColors(
-                                baseColor: colors.blue,
-                                highlightColor: colors.background,
-                                child: Text(
-                                  appLocalizations.loading,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: SpacingUnit.x7,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            )
+                              child: Lottie.asset(
+                              Assets.gif.loading,
+                              height: 50,
+                              width: 50,
+                            ))
                           : WorkShiftLateEarly(
                               typeLE: type,
                               type: widget.type,
@@ -204,7 +203,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                             ),
                     if (checkMakeUp())
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: SpacingUnit.x2),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -228,13 +228,17 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                               title3: appLocalizations.totalMakeUpWorkTime,
                               setEndTime: (value) => _setEndTime(
                                 value: value,
-                                title: appLocalizations.endTimeMustBeAfterStartTime,
+                                title: appLocalizations
+                                    .endTimeMustBeAfterStartTime,
                               ),
                               setStartTime: (value) => _setStartTime(
                                 value: value,
-                                title: appLocalizations.endTimeMustBeAfterStartTime,
+                                title: appLocalizations
+                                    .endTimeMustBeAfterStartTime,
                               ),
-                              errorTime: errorListener != '' ? errorListener : errorTime,
+                              errorTime: errorListener != ''
+                                  ? errorListener
+                                  : errorTime,
                             ),
                           ],
                         ),
@@ -293,7 +297,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     final bool checkDescription = description != null;
     final checkShiftEmpty = listWorkShift.isNotEmpty;
     setState(() {
-      errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
       errorShift = !checkShiftEmpty ? appLocalizations.notSelectedAShift : '';
     });
     return checkDescription && checkShiftEmpty;
@@ -372,9 +377,11 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
@@ -398,8 +405,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
         checkShirtFirst = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: workDate, startDate: workDate, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: workDate, startDate: workDate, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {
@@ -425,7 +432,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     setState(() {
       listWorkShift = value;
     });
-    final index = listWorkShift.indexWhere((element) => element.numberTime > 60).toInt();
+    final index =
+        listWorkShift.indexWhere((element) => element.numberTime > 60).toInt();
     if (index != -1) {
       setState(() {
         checkRequiredMakeUp = true;

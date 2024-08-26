@@ -29,6 +29,16 @@ class $AssetsEnvGen {
       [envGitInformation, envProduction, envStagging, envUat];
 }
 
+class $AssetsGifGen {
+  const $AssetsGifGen();
+
+  /// File path: assets/gif/Loading.json
+  String get loading => 'assets/gif/Loading.json';
+
+  /// List of all assets
+  List<String> get values => [loading];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -401,6 +411,7 @@ class Assets {
   Assets._();
 
   static const $AssetsEnvGen env = $AssetsEnvGen();
+  static const $AssetsGifGen gif = $AssetsGifGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

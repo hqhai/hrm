@@ -1655,7 +1655,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get selectTypeLeave => 'Loại nghỉ';
 
   @override
-  String get slectLeave => 'Nguồn phép';
+  String get selectLeave => 'Nguồn phép';
 
   @override
   String get destinationOT => 'Địa điểm làm thêm giờ';

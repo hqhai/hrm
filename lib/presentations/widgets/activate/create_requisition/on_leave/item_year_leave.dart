@@ -45,7 +45,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
       children: [
         TitleRequired(
           title: widget.type == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave
-              ? appLocalizations.slectLeave
+              ? appLocalizations.selectLeave
               : appLocalizations.reason,
           requiredValidate: true,
         ),
@@ -124,7 +124,8 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
                   leading: Radio<EnumSocialInsuranceLeave>(
                     value: e,
                     groupValue: socialInsuranceLeave,
-                    onChanged: (EnumSocialInsuranceLeave? value) => _setSocialInsuranceLeave(value),
+                    onChanged: (EnumSocialInsuranceLeave? value) =>
+                        _setSocialInsuranceLeave(value),
                   ),
                 ),
               ),

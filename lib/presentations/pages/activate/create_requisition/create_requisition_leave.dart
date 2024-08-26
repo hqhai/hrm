@@ -13,6 +13,7 @@ import 'package:base_app/data/models/requisition/requisition/config_model_reques
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
 import 'package:base_app/domain/entities/user.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
@@ -36,7 +37,7 @@ import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dial
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 final createRequestLeavePageRoute = GoRoute(
@@ -256,19 +257,11 @@ class _CreateRequisitionLeavePageState
                       if (!checkShirtFirst && checkShift())
                         !checkShirt
                             ? Center(
-                                child: Shimmer.fromColors(
-                                  baseColor: colors.blue,
-                                  highlightColor: colors.background,
-                                  child: Text(
-                                    appLocalizations.loading,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: SpacingUnit.x7,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              )
+                                child: Lottie.asset(
+                                Assets.gif.loading,
+                                height: 50,
+                                width: 50,
+                              ))
                             : ItemWorkShift(
                                 type: widget.type,
                                 workShiftSettings: (value) => setListIds(value),

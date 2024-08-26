@@ -14,7 +14,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get staySignedIn => 'Save Login';
 
   @override
-  String get forgotPassword => 'Forgot Passwword';
+  String get forgotPassword => 'Forgot Password';
 
   @override
   String get login => 'Login';
@@ -212,7 +212,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get note => 'Notes';
 
   @override
-  String get newPassword => 'New Passwprd';
+  String get newPassword => 'New Password';
 
   @override
   String get currentPassword => 'Old Password';
@@ -275,7 +275,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lateTime => 'Late Time';
 
   @override
-  String get book => 'Book An Appoinmet/ Booking';
+  String get book => 'Book An Appointment/ Booking';
 
   @override
   String get errorEmailOrPassword => 'Incorrect Account Name Or Password';
@@ -311,7 +311,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changeStatusRequestByManager => 'Do you want to modify the status of the requests?';
 
   @override
-  String get doYouWantToCreateDepartment => 'Do you want to create a new deparment?';
+  String get doYouWantToCreateDepartment => 'Do you want to create a new department?';
 
   @override
   String get doYouWantToCreatePosition => 'Do you want to create a new position?';
@@ -329,7 +329,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createDepartment => 'Department Initialization';
 
   @override
-  String get createPosition => 'Intitiation Of The Position';
+  String get createPosition => 'Initiation Of The Position';
 
   @override
   String get updateDepartment => 'Edit A Department';
@@ -1655,7 +1655,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectTypeLeave => 'Select type leave';
 
   @override
-  String get slectLeave => 'Leave';
+  String get selectLeave => 'Leave';
 
   @override
   String get destinationOT => 'Destination overtime';

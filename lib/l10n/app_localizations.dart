@@ -114,7 +114,7 @@ abstract class AppLocalizations {
   /// No description provided for @forgotPassword.
   ///
   /// In en, this message translates to:
-  /// **'Forgot Passwword'**
+  /// **'Forgot Password'**
   String get forgotPassword;
 
   /// No description provided for @login.
@@ -510,7 +510,7 @@ abstract class AppLocalizations {
   /// No description provided for @newPassword.
   ///
   /// In en, this message translates to:
-  /// **'New Passwprd'**
+  /// **'New Password'**
   String get newPassword;
 
   /// No description provided for @currentPassword.
@@ -636,7 +636,7 @@ abstract class AppLocalizations {
   /// No description provided for @book.
   ///
   /// In en, this message translates to:
-  /// **'Book An Appoinmet/ Booking'**
+  /// **'Book An Appointment/ Booking'**
   String get book;
 
   /// No description provided for @errorEmailOrPassword.
@@ -708,7 +708,7 @@ abstract class AppLocalizations {
   /// No description provided for @doYouWantToCreateDepartment.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to create a new deparment?'**
+  /// **'Do you want to create a new department?'**
   String get doYouWantToCreateDepartment;
 
   /// No description provided for @doYouWantToCreatePosition.
@@ -744,7 +744,7 @@ abstract class AppLocalizations {
   /// No description provided for @createPosition.
   ///
   /// In en, this message translates to:
-  /// **'Intitiation Of The Position'**
+  /// **'Initiation Of The Position'**
   String get createPosition;
 
   /// No description provided for @updateDepartment.
@@ -3393,11 +3393,11 @@ abstract class AppLocalizations {
   /// **'Select type leave'**
   String get selectTypeLeave;
 
-  /// No description provided for @slectLeave.
+  /// No description provided for @selectLeave.
   ///
   /// In en, this message translates to:
   /// **'Leave'**
-  String get slectLeave;
+  String get selectLeave;
 
   /// No description provided for @destinationOT.
   ///

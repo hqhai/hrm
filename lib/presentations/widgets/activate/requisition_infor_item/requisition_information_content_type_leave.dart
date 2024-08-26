@@ -66,9 +66,11 @@ class _RequisitionInformationContentTypeLeaveState
                       size: SpacingUnit.x4,
                       title: request.config.takeLeaveType ==
                               EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave
-                          ? appLocalizations.slectLeave
+                          ? appLocalizations.selectLeave
                           : appLocalizations.reason,
-                      value: request.config.reasonLeave?.configEnumTakeLeaveName ?? "",
+                      value:
+                          request.config.reasonLeave?.configEnumTakeLeaveName ??
+                              "",
                     ),
                   if (request.config.socialInsuranceLeave != null)
                     ItemTitleValue(

@@ -20,7 +20,9 @@ progressIndicatorDialog(BuildContext context) async {
                   height: SpacingUnit.x50,
                   width: SpacingUnit.x50,
                   child: Lottie.asset(Assets.images.icon.loading,
-                      width: SpacingUnit.x50, height: SpacingUnit.x50, fit: BoxFit.fill),
+                      width: SpacingUnit.x50,
+                      height: SpacingUnit.x50,
+                      fit: BoxFit.fill),
                 ),
               ),
             ],
@@ -57,13 +59,15 @@ dialogIndicator({required BuildContext context}) {
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return const Dialog(
+      return Dialog(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        child: ProgressIndicatorDialog(),
+        child: Lottie.asset(
+          Assets.gif.loading,
+          height: 150,
+          width: 150,
+        ),
       );
     },
   );
 }
-
-

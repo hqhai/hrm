@@ -11,6 +11,7 @@ import 'package:base_app/data/models/requisition/requisition/config_model_reques
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
 import 'package:base_app/domain/entities/user.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
@@ -31,7 +32,7 @@ import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dial
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 final createRequestMakeUpWorkPageRoute = GoRoute(
@@ -60,10 +61,12 @@ class CreateRequisitionMakeUpWorkPage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionMakeUpWorkPage> createState() => _CreateRequisitionMakeUpWorkPageState();
+  State<CreateRequisitionMakeUpWorkPage> createState() =>
+      _CreateRequisitionMakeUpWorkPageState();
 }
 
-class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeUpWorkPage> {
+class _CreateRequisitionMakeUpWorkPageState
+    extends State<CreateRequisitionMakeUpWorkPage> {
   final TextEditingController descriptionController = TextEditingController();
   String errorDescription = '',
       errorDialog = '',
@@ -97,7 +100,9 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
   _listener(String errorCode, BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty
+          ? setErrorValue(errorCode, context) ?? errorCode
+          : "";
       if (errorCode == "TimeSlotAlreadyPleaseChooseAnother") {
         errorTime = appLocalizations.errorTimeMakeUp2;
       }
@@ -119,7 +124,9 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
               title: Text(
                 widget.type.configTypeCreateName,
                 style: TextStyle(
-                    color: colors.text, fontSize: SpacingUnit.x4_5, fontWeight: FontWeight.w600),
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4_5,
+                    fontWeight: FontWeight.w600),
               ),
             ),
             body: SingleChildScrollView(
@@ -149,22 +156,15 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
                     if (!checkShirtFirst)
                       !checkShirt
                           ? Center(
-                              child: Shimmer.fromColors(
-                                baseColor: colors.blue,
-                                highlightColor: colors.background,
-                                child: Text(
-                                  appLocalizations.loading,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: SpacingUnit.x7,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            )
+                              child: Lottie.asset(
+                              Assets.gif.loading,
+                              height: 50,
+                              width: 50,
+                            ))
                           : ItemWorkShiftADate(
                               type: widget.type,
-                              workShiftSettings: (value) => _setWorkShiftSettings(value),
+                              workShiftSettings: (value) =>
+                                  _setWorkShiftSettings(value),
                             ),
                     const SizedBox(
                       height: SpacingUnit.x4,
@@ -227,8 +227,10 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
     final bool checkDescription = description.isNotEmpty;
     final bool checkList = workShiftSettings.isNotEmpty;
     setState(() {
-      errorDescription = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
-      errorWorkShiftSettings = checkList ? '' : appLocalizations.notSelectedAShift;
+      errorDescription =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorWorkShiftSettings =
+          checkList ? '' : appLocalizations.notSelectedAShift;
     });
     return checkList && checkDescription;
   }
@@ -329,8 +331,8 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
         checkShirtFirst = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: startDate, startDate: startDate, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: startDate, startDate: startDate, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {

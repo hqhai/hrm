@@ -112,5 +112,6 @@ flutter:
     - assets/images/time_keeping/
     - assets/images/error/
     - assets/env/
+    - assets/gif/
     - assets/images/icon/work/
   # fonts:

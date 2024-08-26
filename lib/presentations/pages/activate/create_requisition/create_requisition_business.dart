@@ -12,6 +12,7 @@ import 'package:base_app/data/models/requisition/requisition/config_model_reques
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/reqisition/work_shift_registered_details.dart';
 import 'package:base_app/domain/entities/user.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
@@ -32,7 +33,7 @@ import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dial
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 final createRequestBusinessPageRoute = GoRoute(
@@ -47,17 +48,21 @@ final createRequestBusinessPageRoute = GoRoute(
     });
 
 class CreateRequisitionBusinessPage extends StatefulWidget {
-  const CreateRequisitionBusinessPage({super.key, this.flowId = '', this.requestId = ''});
+  const CreateRequisitionBusinessPage(
+      {super.key, this.flowId = '', this.requestId = ''});
 
   final String flowId;
   final String requestId;
 
   @override
-  State<CreateRequisitionBusinessPage> createState() => _CreateRequisitionBusinessPageState();
+  State<CreateRequisitionBusinessPage> createState() =>
+      _CreateRequisitionBusinessPageState();
 }
 
-class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusinessPage> {
-  final TextEditingController detailedDescriptionController = TextEditingController(),
+class _CreateRequisitionBusinessPageState
+    extends State<CreateRequisitionBusinessPage> {
+  final TextEditingController detailedDescriptionController =
+          TextEditingController(),
       vehicleController = TextEditingController(),
       destinationController = TextEditingController(),
       contentController = TextEditingController();
@@ -73,7 +78,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   DateTime? startTime, endTime;
   List<String> followers = [], substitutes = [];
   List<WorkShiftRegisteredDetail> listWorkShift = [];
-  RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
+  RequisitionTypeOnLeaveEnum? reasonForOnLeave =
+      RequisitionTypeOnLeaveEnum.sickLeave;
   bool checkShirt = true, checkShirtFirst = true;
   bool checkClick = false;
   final DateTime now = DateTime.now();
@@ -103,7 +109,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   bool checkValidate(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkTime = (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
+    final bool checkTime =
+        (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
     final bool check = reason != null &&
         vehicle != null &&
         destination != null &&
@@ -114,13 +121,22 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
         content != '';
     final checkListWorkShift = listWorkShift.isNotEmpty;
     setState(() {
-      errorTime = !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
-      errorReason = reason != null && reason != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorContent = content != null && content != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorVehicle = vehicle != null && vehicle != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorDestination =
-          destination != null && destination != '' ? '' : appLocalizations.cannotBeLeftBlank;
-      errorShift = !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
+      errorTime =
+          !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
+      errorReason = reason != null && reason != ''
+          ? ''
+          : appLocalizations.cannotBeLeftBlank;
+      errorContent = content != null && content != ''
+          ? ''
+          : appLocalizations.cannotBeLeftBlank;
+      errorVehicle = vehicle != null && vehicle != ''
+          ? ''
+          : appLocalizations.cannotBeLeftBlank;
+      errorDestination = destination != null && destination != ''
+          ? ''
+          : appLocalizations.cannotBeLeftBlank;
+      errorShift =
+          !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
     });
     return check && checkTime && checkListWorkShift;
   }
@@ -131,7 +147,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty
+          ? setErrorValue(errorCode, context) ?? errorCode
+          : "";
     });
   }
 
@@ -153,7 +171,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
       ),
       body: BlocConsumer<RequisitionBloc, RequisitionState>(
         listener: (context, state) => _listener(state.errorCode, context),
-        buildWhen: (previous, current) => previous.requisition != current.requisition,
+        buildWhen: (previous, current) =>
+            previous.requisition != current.requisition,
         builder: (context, state) => BlocBuilder<UserByIdBloc, UserByIdState>(
           builder: (context, stateUserById) {
             return SingleChildScrollView(
@@ -196,26 +215,20 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       oldEndTime: endTime,
                       oldStarTime: startTime,
                       title: appLocalizations.intervalOnLeave,
-                      setStarTime: (value) => setStartTime(value ?? DateTime.now()),
-                      setEndTime: (value) => setEndTime(value ?? DateTime.now()),
+                      setStarTime: (value) =>
+                          setStartTime(value ?? DateTime.now()),
+                      setEndTime: (value) =>
+                          setEndTime(value ?? DateTime.now()),
                       fontWeightTitle: FontWeight.w600,
                       error: errorShift,
                     ),
                     if (!checkShirt && !checkShirtFirst)
                       Center(
-                        child: Shimmer.fromColors(
-                          baseColor: colors.blue,
-                          highlightColor: colors.background,
-                          child: Text(
-                            appLocalizations.loading,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: SpacingUnit.x7,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
+                          child: Lottie.asset(
+                        Assets.gif.loading,
+                        height: 50,
+                        width: 50,
+                      )),
                     if (checkShirt && !checkShirtFirst) ...[
                       const SizedBox(height: SpacingUnit.x4),
                       ItemWorkShift(
@@ -241,7 +254,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       onChange: (value) => _setContent(value),
                     ),
                     ItemCreateFollower(
-                      listFollower: _setListUser(stateUserById.subtitudePersons),
+                      listFollower:
+                          _setListUser(stateUserById.subtitudePersons),
                       title: appLocalizations.accompanyingPerson,
                       onChange: (value) => _setSubstitute(value),
                     ),
@@ -337,9 +351,11 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && checkValidate(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && checkValidate(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && checkValidate(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && checkValidate(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
@@ -377,8 +393,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
         listWorkShift = [];
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: endTime!, startDate: startTime!, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: endTime!, startDate: startTime!, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {
