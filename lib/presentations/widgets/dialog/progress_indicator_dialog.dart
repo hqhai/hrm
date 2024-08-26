@@ -38,17 +38,18 @@ class ProgressIndicatorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: SpacingUnit.x20,
-          width: SpacingUnit.x20,
-          child: CircularProgressIndicator(
-            backgroundColor: Colors.transparent,
-          ),
-        ),
+            height: SpacingUnit.x20,
+            width: SpacingUnit.x20,
+            child: Lottie.asset(
+              Assets.gif.loading,
+              height: 150,
+              width: 150,
+            )),
       ],
     );
   }

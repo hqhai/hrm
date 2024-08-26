@@ -1124,7 +1124,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get maternityLeave => 'Nghỉ thai sản';
 
   @override
-  String get revoke => 'Hủy bỏ';
+  String get revoke => 'Hủy đơn';
 
   @override
   String get leaveNumberUsed => 'Số NP được sử dụng';

@@ -20,26 +20,26 @@ class ButtonItemListRequisition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return InkWell(
-      onTap: () => callback.call(),
-      child: Container(
-        width: SpacingUnit.x25,
-        padding: const EdgeInsets.all(SpacingUnit.x2),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacingUnit.x3),
-          color: background,
-          border: Border.all(color: colors.background, width: 1),
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-                color: colorText,
-                fontSize: check ? SpacingUnit.x5 : SpacingUnit.x3_5,
-                fontWeight: FontWeight.w500),
+    return  InkWell(
+        onTap: () => callback.call(),
+        child: Container(
+          padding: const EdgeInsets.all(SpacingUnit.x2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingUnit.x3),
+            color: background,
+            border: Border.all(color: colors.background, width: 1),
+          ),
+          child: Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                  color: colorText,
+                  fontSize: check ? SpacingUnit.x5 : SpacingUnit.x3_5,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
         ),
-      ),
+      
     );
   }
 }
