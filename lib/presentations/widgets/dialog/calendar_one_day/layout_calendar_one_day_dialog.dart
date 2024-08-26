@@ -15,20 +15,24 @@ class LayoutCalendarSelectDateDialog extends StatefulWidget {
   final DateTime? dateTime;
   final DateTime? dateTimeOld;
   final ValueChanged<DateTime?> callBackDate;
+  final DateTime? maxDate;
 
   const LayoutCalendarSelectDateDialog({
     super.key,
     this.getCurrentDate,
     this.dateTime,
     this.dateTimeOld,
+    this.maxDate,
     required this.callBackDate,
   });
 
   @override
-  State<LayoutCalendarSelectDateDialog> createState() => _LayoutCalendarSelectDateDialogState();
+  State<LayoutCalendarSelectDateDialog> createState() =>
+      _LayoutCalendarSelectDateDialogState();
 }
 
-class _LayoutCalendarSelectDateDialogState extends State<LayoutCalendarSelectDateDialog> {
+class _LayoutCalendarSelectDateDialogState
+    extends State<LayoutCalendarSelectDateDialog> {
   DateTime currentDateTime = DateTime.now();
   DateTime oldDateTime = DateTime.now();
   DateTime lastDateTime = DateTime.now();
@@ -50,7 +54,8 @@ class _LayoutCalendarSelectDateDialogState extends State<LayoutCalendarSelectDat
       if (currentDateTime.month == 12) {
         currentDateTime = DateTime(currentDateTime.year + 1, 1, 1);
       } else {
-        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
+        currentDateTime =
+            DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
       }
     });
     _getListDate();
@@ -61,18 +66,19 @@ class _LayoutCalendarSelectDateDialogState extends State<LayoutCalendarSelectDat
       if (currentDateTime.month == 1) {
         currentDateTime = DateTime(currentDateTime.year - 1, 12, 1);
       } else {
-        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
+        currentDateTime =
+            DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
       }
     });
     _getListDate();
   }
 
   _getListDate() {
-    int fistDate = MenuValues.mapNumberDayInWeek[
-            DateFormat('EEE').format(DateTime(currentDateTime.year, currentDateTime.month, 1))] ??
+    int fistDate = MenuValues.mapNumberDayInWeek[DateFormat('EEE').format(
+            DateTime(currentDateTime.year, currentDateTime.month, 1))] ??
         0;
-    int lastDate = MenuValues.mapNumberDayInWeek[DateFormat('EEE')
-            .format(DateTime(currentDateTime.year, currentDateTime.month + 1, 0))] ??
+    int lastDate = MenuValues.mapNumberDayInWeek[DateFormat('EEE').format(
+            DateTime(currentDateTime.year, currentDateTime.month + 1, 0))] ??
         0;
     widget.getCurrentDate?.call(getDaysInBetween(
         DateTime(currentDateTime.year, currentDateTime.month, 1),
@@ -88,19 +94,22 @@ class _LayoutCalendarSelectDateDialogState extends State<LayoutCalendarSelectDat
       int oldDaysCount = fistDate - 2;
       DateTime date = DateTime(currentDateTime.year, currentDateTime.month, 0);
       setState(() {
-        oldDateTime = DateTime(date.year, date.month, date.day - oldDaysCount - 7);
+        oldDateTime =
+            DateTime(date.year, date.month, date.day - oldDaysCount - 7);
       });
     }
     if (lastDate != 7) {
       int nextDaysCount = 7 - lastDate;
       setState(() {
-        lastDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
+        lastDateTime = DateTime(
+            currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
       });
     }
     if (lastDate == 0) {
       int nextDaysCount = 6 - lastDate;
       setState(() {
-        lastDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
+        lastDateTime = DateTime(
+            currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
       });
     }
 
@@ -116,6 +125,7 @@ class _LayoutCalendarSelectDateDialogState extends State<LayoutCalendarSelectDat
     final theme = Theme.of(context);
     return SingleChildScrollView(
       child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x3),
         color: colors.background,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -145,12 +155,12 @@ class _LayoutCalendarSelectDateDialogState extends State<LayoutCalendarSelectDat
               ),
             ),
             BodyCalendarOneDateDialog(
-             setDateTime: (value)=>setDateTime(value),
+              setDateTime: (value) => setDateTime(value),
               dateTimeOld: dateTime,
               listDate: listDate,
+              maxDate: widget.maxDate,
               month: currentDateTime.month,
               year: currentDateTime.year,
-
             ),
             ButtonRequest(
               title1: appLocalizations.apply,
@@ -172,7 +182,6 @@ class _LayoutCalendarSelectDateDialogState extends State<LayoutCalendarSelectDat
   setReject(BuildContext context) {
     dI<AppNavigation>().pop(context);
   }
-
 
   setDateTime(DateTime? value) {
     setState(() {

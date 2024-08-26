@@ -7,6 +7,7 @@ class BodyCalendarOneDateDialog extends StatefulWidget {
   final List<DateTime> listDate;
   final ValueChanged<DateTime?> setDateTime;
   final DateTime? dateTimeOld;
+  final DateTime? maxDate;
 
   const BodyCalendarOneDateDialog({
     super.key,
@@ -14,11 +15,13 @@ class BodyCalendarOneDateDialog extends StatefulWidget {
     required this.year,
     required this.listDate,
     required this.setDateTime,
+    this.maxDate,
     this.dateTimeOld,
   });
 
   @override
-  State<BodyCalendarOneDateDialog> createState() => _BodyCalendarOneDateDialogState();
+  State<BodyCalendarOneDateDialog> createState() =>
+      _BodyCalendarOneDateDialogState();
 }
 
 class _BodyCalendarOneDateDialogState extends State<BodyCalendarOneDateDialog> {
@@ -27,7 +30,9 @@ class _BodyCalendarOneDateDialogState extends State<BodyCalendarOneDateDialog> {
 
   bool _checkDateNow(DateTime date) {
     DateTime dateTime = DateTime.now();
-    if (dateTime.day == date.day && dateTime.month == date.month && dateTime.year == date.year) {
+    if (dateTime.day == date.day &&
+        dateTime.month == date.month &&
+        dateTime.year == date.year) {
       return true;
     }
     return false;
@@ -36,7 +41,7 @@ class _BodyCalendarOneDateDialogState extends State<BodyCalendarOneDateDialog> {
   @override
   void initState() {
     if (widget.dateTimeOld != null) {
-      dateTime = widget.dateTimeOld??DateTime.now();
+      dateTime = widget.dateTimeOld ?? DateTime.now();
     }
     super.initState();
   }
@@ -71,6 +76,9 @@ class _BodyCalendarOneDateDialogState extends State<BodyCalendarOneDateDialog> {
         checkOnSelect: inSelectDay(
           widget.listDate[index],
         ),
+        isActive: widget.maxDate != null
+            ? widget.listDate[index].isBefore(widget.maxDate!)
+            : true,
         month: widget.month,
         date: widget.listDate[index],
         isNowDate: _checkDateNow(widget.listDate[index]),
@@ -83,6 +91,7 @@ class _BodyCalendarOneDateDialogState extends State<BodyCalendarOneDateDialog> {
   }
 
   selectDate(DateTime date) {
+    if (widget.maxDate != null && date.isAfter(widget.maxDate!)) return;
     setState(() {
       dateTime = date;
     });

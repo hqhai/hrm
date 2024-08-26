@@ -16,10 +16,10 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_list_explanations.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_list_explanations.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
@@ -54,11 +54,14 @@ class CreateRequisitionExplanationPage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionExplanationPage> createState() => _CreateRequisitionExplanationPageState();
+  State<CreateRequisitionExplanationPage> createState() =>
+      _CreateRequisitionExplanationPageState();
 }
 
-class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExplanationPage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+class _CreateRequisitionExplanationPageState
+    extends State<CreateRequisitionExplanationPage> {
+  final TextEditingController detailedDescriptionController =
+      TextEditingController();
   List<RequisitionOverTime> listRequisitionOverTimes = [];
   String errorTime = '', errorDialog = '', errorExplanations = '';
   String? description;
@@ -81,13 +84,16 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty
+          ? setErrorValue(errorCode, context) ?? errorCode
+          : "";
     });
   }
 
@@ -135,7 +141,12 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                         onChange: (value) => _setFollower(value)),
                     const ItemListStepFlow(),
                     ItemButton(
-                      callbackSave: () => _save(context),
+                      callbackSave: explanations.any((element) =>
+                              element.note.isEmpty ||
+                              element.checkIn == 0 ||
+                              element.checkOut == 0)
+                          ? null
+                          : () => _save(context),
                       callbackCancel: () => _cancel(context),
                     )
                   ],
@@ -214,9 +225,11 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(

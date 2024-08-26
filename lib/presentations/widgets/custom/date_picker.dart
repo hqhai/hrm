@@ -17,12 +17,14 @@ class DatePicker extends StatefulWidget {
     this.callBack,
     this.changeType = false,
     this.typeContainer = false,
+    this.maxDate,
   });
 
   final ValueChanged<DateTime> onChange;
   final DateTime? oldDate;
   final bool check, changeType, typeContainer, checkError;
   final VoidCallback? callBack;
+  final DateTime? maxDate;
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -45,6 +47,7 @@ class _DatePickerState extends State<DatePicker> {
           child: LayoutCalendarSelectDateDialog(
             callBackDate: (value) => setDate(value),
             dateTimeOld: currentTime,
+            maxDate: widget.maxDate,
             dateTime: currentTime,
           ),
         );
@@ -63,17 +66,21 @@ class _DatePickerState extends State<DatePicker> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
-      onTap: () => dialog(context: context, currentTime: widget.oldDate ?? DateTime.now()),
+      onTap: () => dialog(
+          context: context, currentTime: widget.oldDate ?? DateTime.now()),
       child: ContainerBorder(
         paddingVertical: SpacingUnit.x4_5,
-        borderColors: widget.checkError ? colors.text.withOpacity(0.4) : colors.error,
+        borderColors:
+            widget.checkError ? colors.text.withOpacity(0.4) : colors.error,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               formatYMD(currentDate.toString()),
               style: TextStyle(
-                  fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600),
+                  fontSize: SpacingUnit.x4,
+                  color: colors.text,
+                  fontWeight: FontWeight.w600),
             ),
             InkWell(
               onTap: () => widget.callBack?.call(),
@@ -86,7 +93,9 @@ class _DatePickerState extends State<DatePicker> {
                         ? Assets.images.icon.activateIcon.drop
                         : Assets.images.icon.home.chevronForward,
                 colorFilter: ColorFilter.mode(
-                    !widget.changeType ? colors.text.withOpacity(0.4) : colors.text,
+                    !widget.changeType
+                        ? colors.text.withOpacity(0.4)
+                        : colors.text,
                     BlendMode.srcIn),
               ),
             ),

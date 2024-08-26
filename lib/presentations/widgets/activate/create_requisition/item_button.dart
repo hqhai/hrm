@@ -33,6 +33,7 @@ class ItemButton extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
             child: AppButton(
               title: appLocalizations.saveRequest,
+              enable: callbackSave != null,
               onSubmit: () => _save(),
               color: colors.blue,
               colorText: colors.background,

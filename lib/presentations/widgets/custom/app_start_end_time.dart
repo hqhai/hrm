@@ -109,7 +109,9 @@ class _AppStartEndTimeState extends State<AppStartEndTime> {
                       ),
                     ),
                     TextSpan(
-                      text: widget.errorTime.isEmpty ? strSeconds(widget.numberValue.toInt()) : '0',
+                      text: widget.errorTime.isEmpty
+                          ? strSeconds(widget.numberValue.toInt())
+                          : '0',
                       style: TextStyle(
                         color: colors.text,
                         fontSize: SpacingUnit.x4,

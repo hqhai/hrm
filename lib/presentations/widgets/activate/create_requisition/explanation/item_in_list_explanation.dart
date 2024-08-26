@@ -46,6 +46,7 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
           callBack: () => _setContainer(),
           changeType: true,
           checkError: true,
+          maxDate: DateTime.now(),
           typeContainer: checkTypeContainer,
           oldDate: widget.explanation.workDate,
           onChange: (value) => setDate(value),
@@ -78,8 +79,8 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
             onChange: (value) => _setNote(value),
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+            padding: const EdgeInsets.symmetric(
+                vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
             child: AppButton(
               colorText: colors.background,
               title: appLocalizations.cancel,
@@ -110,7 +111,8 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
     setState(() {
       final explanation = widget.explanation.copyWith(checkOut: value);
       widget.changeExplanation.call(explanation);
-      final total = double.parse((value - widget.explanation.checkIn).toString());
+      final total =
+          double.parse((value - widget.explanation.checkIn).toString());
       errorTime = total > 0 ? "" : title;
     });
   }
@@ -119,7 +121,8 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
     setState(() {
       final explanation = widget.explanation.copyWith(checkIn: value);
       widget.changeExplanation.call(explanation);
-      final total = double.parse((widget.explanation.checkOut - value).toString());
+      final total =
+          double.parse((widget.explanation.checkOut - value).toString());
       errorTime = total > 0 ? "" : title;
     });
   }

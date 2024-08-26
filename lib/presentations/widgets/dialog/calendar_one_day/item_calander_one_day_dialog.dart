@@ -9,14 +9,15 @@ class ItemCalenderOneDateDialog extends StatelessWidget {
   final DateTime date;
   final int month;
   final bool checkOnSelect;
+  final bool isActive;
 
-  const ItemCalenderOneDateDialog({
-    super.key,
-    required this.date,
-    required this.isNowDate,
-    required this.month,
-    required this.checkOnSelect,
-  });
+  const ItemCalenderOneDateDialog(
+      {super.key,
+      required this.date,
+      required this.isNowDate,
+      required this.month,
+      required this.checkOnSelect,
+      this.isActive = true});
 
   UserWorkingHistoryModel? userWorkingHistoryModelByDate(
       List<UserWorkingHistoryModel> list) {
@@ -42,7 +43,7 @@ class ItemCalenderOneDateDialog extends StatelessWidget {
         child: Text(
           date.day.toString(),
           style: TextStyle(
-            color: _colorText(context),
+            color: isActive ? _colorText(context) : Colors.grey,
             fontSize: SpacingUnit.x3_5,
           ),
         ),
@@ -52,16 +53,12 @@ class ItemCalenderOneDateDialog extends StatelessWidget {
 
   Color _colorCircular(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return checkOnSelect
-        ? colors.primary
-        : colors.background.withOpacity(0);
+    return checkOnSelect ? colors.primary : colors.background.withOpacity(0);
   }
 
   Color _colorCircularBorder(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return  isNowDate
-        ? colors.primary
-        : colors.background.withOpacity(0);
+    return isNowDate ? colors.primary : colors.background.withOpacity(0);
   }
 
   Color _colorText(BuildContext context) {
