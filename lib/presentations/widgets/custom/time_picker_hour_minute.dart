@@ -13,7 +13,10 @@ import 'package:time_picker_spinner/time_picker_spinner.dart';
 
 class TimePickerHourMinute extends StatefulWidget {
   const TimePickerHourMinute(
-      {super.key, required this.onChange, required this.timeSlot, this.checkError = true});
+      {super.key,
+      required this.onChange,
+      required this.timeSlot,
+      this.checkError = true});
 
   final ValueChanged<DateTime> onChange;
   final DateTime timeSlot;
@@ -30,7 +33,8 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
     return GestureDetector(
       onTap: () => showTimeDialog(context: context),
       child: ContainerBorder(
-        borderColors: widget.checkError ? colors.outline.withOpacity(0.4) : colors.error,
+        borderColors:
+            widget.checkError ? colors.outline.withOpacity(0.4) : colors.error,
         paddingVertical: SpacingUnit.x4,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,7 +47,8 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
             ),
             SvgPicture.asset(
               Assets.images.icon.home.mingcuteTimeLine,
-              colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                  colors.text.withOpacity(0.4), BlendMode.srcIn),
             ),
           ],
         ),
@@ -55,48 +60,44 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     DateTime timeHS = widget.timeSlot;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(SpacingUnit.x4),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  appLocalizations.setHoursAndMinutes,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x6,
+    await showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                appLocalizations.setHoursAndMinutes,
+                style: TextStyle(
+                    fontSize: SpacingUnit.x5,
                     color: colors.text,
-                    fontWeight: FontWeight.w600
-                  ),
+                    fontWeight: FontWeight.w600),
+              ),
+              TimePickerSpinner(
+                alignment: Alignment.center,
+                highlightedTextStyle: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x5,
+                  fontWeight: FontWeight.w600,
                 ),
-                TimePickerSpinner(
-                  alignment: Alignment.center,
-                  highlightedTextStyle: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x9,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  normalTextStyle: TextStyle(
-                    color: colors.text.withOpacity(0.7),
-                    fontSize: SpacingUnit.x7,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  time: timeHS,
-                  onTimeChange: (time) => timeHS = time,
+                normalTextStyle: TextStyle(
+                  color: colors.text.withOpacity(0.7),
+                  fontSize: SpacingUnit.x5,
+                  fontWeight: FontWeight.w500,
                 ),
-                AppButton(
+                time: timeHS,
+                onTimeChange: (time) => timeHS = time,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(SpacingUnit.x4),
+                child: AppButton(
                   title: appLocalizations.apply,
                   onSubmit: () => _setTime(context: context, time: timeHS),
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    );
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   _setTime({required BuildContext context, required DateTime time}) {
