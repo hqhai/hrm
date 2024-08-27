@@ -1,9 +1,7 @@
-import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/widgets/custom/app_input.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateTotalMinute extends StatefulWidget {
@@ -38,11 +36,11 @@ class _ItemCreateTotalMinuteState extends State<ItemCreateTotalMinute> {
             placeHolder: widget.title ?? "",
             controller: widget.totalMinuteController,
             onChange: (value) => _onChangeTotalMinute(value),
-            inputFormatter: [
+            /*inputFormatter: [
               FilteringTextInputFormatter.allow(
                 RegExp(numberOfRegexExp),
               ),
-            ],
+            ],*/
           ),
         ),
         if (widget.error != null)

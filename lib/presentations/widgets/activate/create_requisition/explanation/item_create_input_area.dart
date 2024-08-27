@@ -15,7 +15,7 @@ class ItemCreateInputArea extends StatefulWidget {
       this.requiredValidate = false});
 
   final String title;
-  final String? error;
+  final String error;
   final int? maxLines;
   final TextEditingController? textController;
   final ValueChanged<String>? onChange;
@@ -27,6 +27,8 @@ class ItemCreateInputArea extends StatefulWidget {
 }
 
 class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
+  String text = '';
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,12 +38,11 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x2),
           child: AppInputArea(
-
             maxLines: widget.maxLines ?? 4,
             placeHolder: widget.title,
             controller: widget.textController,
             onChange: (value) => _setOnChangeText(value),
-            error: widget.error,
+            error: text.isNotEmpty ? '' : widget.error,
           ),
         ),
       ],
@@ -49,6 +50,9 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
   }
 
   _setOnChangeText(String value) {
-    widget.onChange?.call(value);
+    setState(() {
+      text = value;
+      widget.onChange?.call(value);
+    });
   }
 }

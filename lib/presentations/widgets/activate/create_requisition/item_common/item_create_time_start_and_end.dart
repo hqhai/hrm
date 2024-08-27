@@ -106,7 +106,7 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
               ],
             ),
           ),
-        if (widget.error != '')
+        if (widget.error != '' && !(endTime.difference(startTime).inSeconds > 0))
           Padding(
             padding: const EdgeInsets.only(
                 top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),

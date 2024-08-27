@@ -61,12 +61,10 @@ class CreateRequisitionMakeUpWorkPage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionMakeUpWorkPage> createState() =>
-      _CreateRequisitionMakeUpWorkPageState();
+  State<CreateRequisitionMakeUpWorkPage> createState() => _CreateRequisitionMakeUpWorkPageState();
 }
 
-class _CreateRequisitionMakeUpWorkPageState
-    extends State<CreateRequisitionMakeUpWorkPage> {
+class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeUpWorkPage> {
   final TextEditingController descriptionController = TextEditingController();
   String errorDescription = '',
       errorDialog = '',
@@ -100,9 +98,7 @@ class _CreateRequisitionMakeUpWorkPageState
   _listener(String errorCode, BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     setState(() {
-      errorDialog = errorCode.isNotEmpty
-          ? setErrorValue(errorCode, context) ?? errorCode
-          : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
       if (errorCode == "TimeSlotAlreadyPleaseChooseAnother") {
         errorTime = appLocalizations.errorTimeMakeUp2;
       }
@@ -124,9 +120,7 @@ class _CreateRequisitionMakeUpWorkPageState
               title: Text(
                 widget.type.configTypeCreateName,
                 style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4_5,
-                    fontWeight: FontWeight.w600),
+                    color: colors.text, fontSize: SpacingUnit.x4_5, fontWeight: FontWeight.w600),
               ),
             ),
             body: SingleChildScrollView(
@@ -151,7 +145,6 @@ class _CreateRequisitionMakeUpWorkPageState
                     DateOverTime(
                       dateOld: startDate,
                       changeValue: (value) => _setStartDate(value),
-                      errorDate: errorWorkShiftSettings,
                     ),
                     if (!checkShirtFirst)
                       !checkShirt
@@ -163,9 +156,16 @@ class _CreateRequisitionMakeUpWorkPageState
                             ))
                           : ItemWorkShiftADate(
                               type: widget.type,
-                              workShiftSettings: (value) =>
-                                  _setWorkShiftSettings(value),
+                              workShiftSettings: (value) => _setWorkShiftSettings(value),
                             ),
+                    if (errorWorkShiftSettings.isNotEmpty)
+                      Text(
+                        errorWorkShiftSettings,
+                        style: TextStyle(
+                          color: colors.error,
+                          fontSize: SpacingUnit.x3,
+                        ),
+                      ),
                     const SizedBox(
                       height: SpacingUnit.x4,
                     ),
@@ -227,10 +227,8 @@ class _CreateRequisitionMakeUpWorkPageState
     final bool checkDescription = description.isNotEmpty;
     final bool checkList = workShiftSettings.isNotEmpty;
     setState(() {
-      errorDescription =
-          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
-      errorWorkShiftSettings =
-          checkList ? '' : appLocalizations.notSelectedAShift;
+      errorDescription = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorWorkShiftSettings = checkList ? '' : appLocalizations.notSelectedAShift;
     });
     return checkList && checkDescription;
   }
@@ -244,6 +242,9 @@ class _CreateRequisitionMakeUpWorkPageState
   _setDetailedDescription(String value) {
     setState(() {
       description = value;
+      /* if(value.isNotEmpty){
+        errorDescription = '';
+      }*/
     });
   }
 
@@ -331,12 +332,13 @@ class _CreateRequisitionMakeUpWorkPageState
         checkShirtFirst = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-          endDate: startDate, startDate: startDate, completer: completer));
+      dI<LeaveShiftBloc>()
+          .add(GetWorkShiftsEvent(endDate: startDate, startDate: startDate, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {
           checkShirt = true;
+          errorWorkShiftSettings = '';
         });
       }
     }
@@ -360,6 +362,9 @@ class _CreateRequisitionMakeUpWorkPageState
   _setWorkShiftSettings(List<WorkShiftRegisteredDetail> value) {
     setState(() {
       workShiftSettings = value;
+      if(workShiftSettings.isNotEmpty){
+        errorWorkShiftSettings = '';
+      }
     });
   }
 }

@@ -1,11 +1,9 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_input.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ItemAddStationeryDialog extends StatefulWidget {
   const ItemAddStationeryDialog(
@@ -47,11 +45,17 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
                   placeHolder: appLocalizations.product,
                   controller: widget.productController,
                   onChange: (value) => setProduct(value),
+                  error: widget.productController?.text.isNotEmpty ?? false
+                      ? ''
+                      : appLocalizations.cannotBeLeftBlank,
                 )
               : AppInput(
                   placeHolder: appLocalizations.product,
                   controller: widget.productController,
                   onChange: (value) => setProduct(value),
+                  error: widget.productController?.text.isNotEmpty ?? false
+                      ? ''
+                      : appLocalizations.cannotBeLeftBlank,
                 ),
         ),
         Padding(
@@ -67,6 +71,9 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
             placeHolder: appLocalizations.unit,
             controller: widget.unitController,
             onChange: (value) => setUnit(value),
+            error: widget.unitController?.text.isNotEmpty ?? false
+                ? ''
+                : appLocalizations.cannotBeLeftBlank,
           ),
         ),
         if (widget.check) ...[
@@ -80,13 +87,12 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
             child: AppInput(
-              inputFormatter: [
-                FilteringTextInputFormatter.allow(
-                  RegExp(numberRegexExp),
-                ),
-              ],
+              keyboardType: TextInputType.number,
               controller: widget.unitPriceController,
               onChange: (value) => setUnitPrice(value),
+              error: widget.unitPriceController?.text.isNotEmpty ?? false
+                  ? ''
+                  : appLocalizations.cannotBeLeftBlank,
             ),
           ),
         ]
@@ -103,8 +109,12 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
   }
 
   setUnitPrice(String value) {
-    final double price = double.parse(value);
-    widget.onChangeUnitPrice?.call(price);
+    if (value.isNotEmpty) {
+      final double price = double.parse(value);
+      widget.onChangeUnitPrice?.call(price);
+    } else {
+      widget.onChangeUnitPrice?.call(0);
+    }
   }
 
 // '${(widget.unitPrice ?? 0).toInt()}',

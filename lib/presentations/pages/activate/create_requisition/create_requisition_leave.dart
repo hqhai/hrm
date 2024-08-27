@@ -100,11 +100,14 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         substitutes = [...request.config.subtitudePersons];
         listWorkShift = [...request.config.workShiftSettings];
         checkShirtFirst = false;
+        if (listWorkShift.isNotEmpty) {
+          numberValue = listWorkShift.map((e) => e.workEffort).reduce((a, b) => a + b);
+        }
       });
-      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+      /* dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
         endDate: endTime ?? DateTime.now(),
         startDate: startTime ?? DateTime.now(),
-      ));
+      ));*/
     }
     detailedDescriptionController.addListener(_checkWords);
     super.initState();
@@ -237,10 +240,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         setStarTime: (value) => setStartTime(value ?? DateTime.now()),
                         setEndTime: (value) => setEndTime(value ?? DateTime.now()),
                         fontWeightTitle: FontWeight.w600,
-                        error: errorDate().isNotEmpty ? errorDate() : errorShift,
                       ),
-                      const SizedBox(height: SpacingUnit.x4),
-                      if (!checkShirtFirst && checkShift())
+                      if (!checkShirtFirst && checkShift()) ...[
+                        const SizedBox(height: SpacingUnit.x4),
                         !checkShirt
                             ? Center(
                                 child: Lottie.asset(
@@ -250,9 +252,17 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                               ))
                             : ItemWorkShift(
                                 workShiftSettingsOld: listWorkShift,
-                                type: widget.type,
                                 workShiftSettings: (value) => setListIds(value),
                               ),
+                      ],
+                      if (errorShift.isNotEmpty || errorDate().isNotEmpty)
+                        Text(
+                          errorDate().isNotEmpty ? errorDate() : errorShift,
+                          style: TextStyle(
+                            color: colors.error,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        ),
                       if (!checkShirtFirst && checkShirt)
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
@@ -272,11 +282,6 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                             ],
                           ),
                         ),
-                      // ItemTitleValue(
-                      //   size: SpacingUnit.x4,
-                      //   title: ,
-                      //   value: numberValue.toString(),
-                      // ),
                       ItemCreateFollower(
                         listFollower: _setListUser(stateUserById.subtitudePersons),
                         title: appLocalizations.substitute,
@@ -446,7 +451,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       listWorkShift = value;
       if (value.isNotEmpty) {
         numberValue = value.map((e) => e.workEffort).reduce((a, b) => a + b);
-      }else{
+      } else {
         numberValue = 0;
       }
     });

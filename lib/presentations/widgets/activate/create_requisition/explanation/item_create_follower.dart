@@ -34,6 +34,7 @@ class ItemCreateFollower extends StatefulWidget {
 
 class _ItemCreateFollowerState extends State<ItemCreateFollower> {
   List<User> listFollower = [];
+  bool checkDoubleClick = true;
 
   List<User> setListFollower() {
     if (widget.listFollower.isNotEmpty && listFollower.isEmpty) {
@@ -120,20 +121,28 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
 
   _add(BuildContext context) async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    final Completer completer = Completer<bool>();
-    dI<UserByNameBloc>().add(GetUserByNameEvent(completer: completer));
-    final check = await completer.future;
-    if (check) {
-      if (!currentContext.mounted) return;
-      showModalBottomSheet<void>(
-        context: currentContext,
-        builder: (BuildContext context) {
-          return BottomSheetWidget(
-            oldUser: listFollower,
-            onChange: (value) => setListPerson(value),
-          );
-        },
-      );
+    if (checkDoubleClick) {
+      setState(() {
+        checkDoubleClick = false;
+      });
+      final Completer completer = Completer<bool>();
+      dI<UserByNameBloc>().add(GetUserByNameEvent(completer: completer));
+      final check = await completer.future;
+      if (check) {
+        if (!currentContext.mounted) return;
+        showModalBottomSheet<void>(
+          context: currentContext,
+          builder: (BuildContext context) {
+            return BottomSheetWidget(
+              oldUser: listFollower,
+              onChange: (value) => setListPerson(value),
+            );
+          },
+        );
+        setState(() {
+          checkDoubleClick = true;
+        });
+      }
     }
   }
 

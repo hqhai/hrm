@@ -23,6 +23,8 @@ class ItemCreateInput extends StatefulWidget {
 }
 
 class _ItemCreateInputState extends State<ItemCreateInput> {
+  String strValue = '';
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -31,7 +33,7 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x2),
-          child:  Text.rich(
+          child: Text.rich(
             TextSpan(
               children: [
                 TextSpan(
@@ -65,27 +67,21 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
           padding: const EdgeInsets.only(top: SpacingUnit.x3),
           child: AppInputArea(
             maxLines: 4,
+            error: strValue.isNotEmpty ? '' : widget.error,
             placeHolder: widget.title ?? "",
             controller: widget.inputController,
             onChange: (value) => _onChangeInput(value),
           ),
         ),
-        if (widget.error?.isNotEmpty ?? false)
-          Padding(
-            padding: const EdgeInsets.only(bottom: SpacingUnit.x1),
-            child: Text(
-              widget.error ?? "",
-              style: TextStyle(
-                color: colors.error,
-                fontSize: SpacingUnit.x3,
-              ),
-            ),
-          ),
+       const SizedBox(height: SpacingUnit.x4,),
       ],
     );
   }
 
   _onChangeInput(String value) {
-    widget.onChange?.call(value);
+    setState(() {
+      strValue = value;
+      widget.onChange?.call(value);
+    });
   }
 }
