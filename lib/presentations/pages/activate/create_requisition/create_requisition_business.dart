@@ -231,6 +231,7 @@ class _CreateRequisitionBusinessPageState
                     if (checkShirt && !checkShirtFirst) ...[
                       const SizedBox(height: SpacingUnit.x4),
                       ItemWorkShift(
+                        workShiftSettingsOld: listWorkShift,
                         type: RequisitionTypeEnum.bussiness,
                         workShiftSettings: (value) => setListIds(value),
                       )
@@ -438,7 +439,12 @@ class _CreateRequisitionBusinessPageState
   setListIds(List<WorkShiftRegisteredDetail> value) {
     setState(() {
       listWorkShift = value;
-      numberValue = value.map((e) => e.workEffort).reduce((a, b) => a + b);
+      if(value.isNotEmpty) {
+        numberValue = value.map((e) => e.workEffort).reduce((a, b) => a + b);
+      }
+      else{
+        numberValue = 0;
+      }
     });
   }
 }
