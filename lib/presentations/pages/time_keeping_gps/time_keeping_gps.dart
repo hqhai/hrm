@@ -269,7 +269,7 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
           context: currentContext,
           onRetry: () {
             dI<AppNavigation>().pop(context);
-            _determinePosition(context, id);
+            // _determinePosition(context, id);
           });
     }
   }
