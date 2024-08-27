@@ -65,9 +65,8 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
   FutureOr<void> _registerWorkDay(
       RegisterWorkDay event, Emitter<WorkDayState> emit) async {
     try {
-      List<WorkDayRequest> list = event.request.values.toList();
       await _locationUseCase.registerWorkDays(
-          request: WorkDaysRequest(workShiftRequestList: list));
+          request: WorkDaysRequest(workShiftRequestList: event.request));
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -115,10 +114,11 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
         itemsDetail: data.items, pagingInfoDetail: data.pagingInfo));
   }
 
-  Future<FutureOr<void>> _registerAdmin(
+  FutureOr<void> _registerAdmin(
       RegisterWorkDayAdmin event, Emitter<WorkDayState> emit) async {
     try {
-      await _locationUseCase.addApprove(request: event.request);
+      final isCheck = await _locationUseCase.addApprove(request: event.request);
+      event.completer.complete(isCheck);
     } catch (e) {
       if (kDebugMode) {
         print(e);

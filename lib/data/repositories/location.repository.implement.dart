@@ -83,12 +83,14 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<void> cancelRegisterWorkDays({required CancelWorkDayRequest request}) async {
+  Future<void> cancelRegisterWorkDays(
+      {required CancelWorkDayRequest request}) async {
     await _locationService.cancelRegisterWorkDays(request: request);
   }
 
   @override
-  Future<ShiftsAdminResponse> getWorkDaysAdmin({required WorkDayAdminRequest request}) async {
+  Future<ShiftsAdminResponse> getWorkDaysAdmin(
+      {required WorkDayAdminRequest request}) async {
     return await _locationService.getWorkDaysAdmin(request: request);
   }
 
@@ -105,13 +107,14 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<void> cancelWorkDay({required CancelWorkDayAdminRequest request}) async {
+  Future<void> cancelWorkDay(
+      {required CancelWorkDayAdminRequest request}) async {
     await _locationService.cancelWorkDay(request: request);
   }
 
   @override
-  Future<void> addApprove({required ApproveRequest request}) async {
-    await _locationService.addApprove(request: request);
+  Future<bool> addApprove({required ApproveRequest request}) async {
+    return await _locationService.addApprove(request: request);
   }
 
   @override

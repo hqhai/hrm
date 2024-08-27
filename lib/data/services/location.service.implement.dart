@@ -184,15 +184,17 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<void> addApprove({required ApproveRequest request}) async {
+  Future<bool> addApprove({required ApproveRequest request}) async {
     try {
       final url = '$baseSystem${PathConfig.workShiftApprove}';
       final body = jsonEncode(request.toJson());
       await client.put(url, body: body);
+      return true;
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+      return false;
     }
   }
 }

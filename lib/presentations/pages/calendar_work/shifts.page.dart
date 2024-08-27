@@ -28,15 +28,17 @@ final shiftsPageRoute = GoRoute(
         final data = ShiftsQueryParams.fromJson(query);
         return ShiftsPage(
           date: data.date,
+          id: data.id,
         );
       }
       return const ErrorPage();
     });
 
 class ShiftsPage extends StatefulWidget {
-  const ShiftsPage({super.key, required this.date});
+  const ShiftsPage({super.key, required this.date, required this.id});
 
   final DateTime date;
+  final String id;
 
   @override
   State<ShiftsPage> createState() => _ShiftsPageState();
@@ -62,7 +64,10 @@ class _ShiftsPageState extends State<ShiftsPage> {
     final theme = Theme.of(context);
     return BlocBuilder<WorkDayBloc, WorkDayState>(
       builder: (context, state) {
-        final data = state.workDays[date(state)]?.items.first;
+        final index = state.workDays[date(state)]?.items.indexWhere(
+                (element) => element.workShiftSettingDetailId == widget.id) ??
+            0;
+        final data = state.workDays[date(state)]?.items[index];
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: PreferredSize(

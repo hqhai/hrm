@@ -5,8 +5,10 @@ part 'shifts_query_params.g.dart';
 @JsonSerializable()
 class ShiftsQueryParams {
   final DateTime date;
+  final String id;
 
   ShiftsQueryParams({
+    required this.id,
     required this.date,
   });
 

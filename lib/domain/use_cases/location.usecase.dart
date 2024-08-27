@@ -47,5 +47,5 @@ abstract class LocationUseCase {
     required CancelWorkDayAdminRequest request,
   });
 
-  Future<void> addApprove({required ApproveRequest request});
+  Future<bool> addApprove({required ApproveRequest request});
 }
