@@ -37,7 +37,9 @@ class LocationUseCaseImpl extends LocationUseCase {
 
   @override
   Future<CheckInGPSResponse> postCheckInGPS(
-      {required double longitude, required double latitude, required String scheduleSchoolId}) async {
+      {required double longitude,
+      required double latitude,
+      required String scheduleSchoolId}) async {
     return _locationRepository.postCheckInGPS(
       longitude: longitude,
       latitude: latitude,
@@ -63,7 +65,9 @@ class LocationUseCaseImpl extends LocationUseCase {
     final PagingInfoRequest pagingInfoRequest =
         getListSchoolsResponse.pagingInfo;
     final GetListSchoolsUseCase getListSchoolsUseCase = GetListSchoolsUseCase(
-        schools: mapSchools, schoolsId: schoolsId, pagingInfo: pagingInfoRequest);
+        schools: mapSchools,
+        schoolsId: schoolsId,
+        pagingInfo: pagingInfoRequest);
     return getListSchoolsUseCase;
   }
 
@@ -121,7 +125,7 @@ class LocationUseCaseImpl extends LocationUseCase {
   }
 
   @override
-  Future<void> addApprove({required ApproveRequest request}) async {
-    await _locationRepository.addApprove(request: request);
+  Future<bool> addApprove({required ApproveRequest request}) async {
+    return await _locationRepository.addApprove(request: request);
   }
 }

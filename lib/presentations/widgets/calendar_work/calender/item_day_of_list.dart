@@ -1,9 +1,12 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
-import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
@@ -17,6 +20,7 @@ class ItemDayOfList extends StatefulWidget {
   final bool isCheckBox;
   final bool selected;
   final VoidCallback onTap;
+  final List<WorkDayRequest> listSelect;
   const ItemDayOfList({
     super.key,
     required this.dateTime,
@@ -25,6 +29,7 @@ class ItemDayOfList extends StatefulWidget {
     required this.onChange,
     required this.selected,
     required this.onTap,
+    required this.listSelect,
   });
 
   final DateTime dateTime;
@@ -61,133 +66,120 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
     final theme = Theme.of(context);
     return BlocBuilder<WorkDayBloc, WorkDayState>(
       builder: (context, state) {
-        final workDay = state.workDays[date(state)]?.items.first;
-        return InkWell(
-          onTap: () {
-            if (workDay != const Shift()) {
-              widget.onTap.call();
-            }
-          },
-          child: Column(
-            crossAxisAlignment: workDay != null
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: width,
-                child: Padding(
-                  padding: const EdgeInsets.all(SpacingUnit.x4),
-                  child: Text(
-                    '${nameWeekDay(widget.dateTime)}, ${dayMonthYear(
-                      time: widget.dateTime,
-                      context: context,
-                    )}',
-                    style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x3_5,
-                        fontWeight: FontWeight.w600),
-                  ),
+        final workDay = state.workDays[date(state)]?.items ?? [];
+        return Column(
+          crossAxisAlignment: workDay.isNotEmpty
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: width,
+              child: Padding(
+                padding: const EdgeInsets.all(SpacingUnit.x4),
+                child: Text(
+                  '${nameWeekDay(widget.dateTime)}, ${dayMonthYear(
+                    time: widget.dateTime,
+                    context: context,
+                  )}',
+                  style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x3_5,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
-              workDay != null
-                  ? Container(
-                      width: MediaQuery.sizeOf(context).width,
-                      color: colors.background,
-                      padding: const EdgeInsets.all(SpacingUnit.x4),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: SpacingUnit.x4),
-                            alignment: Alignment.centerLeft,
-                            width: MediaQuery.sizeOf(context).width,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(SpacingUnit.x2),
-                              color: _colorByStatus(workDay.status),
-                            ),
-                            height: SpacingUnit.x12,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "${strSeconds(workDay.startTime)} - ${strSeconds(workDay.endTime)}",
-                                  style: theme.textTheme.bodyLarge,
-                                ),
-                                if (widget.isCheckBox &&
-                                    workDay.status ==
-                                        WorkShiftRequestStatus.usable) ...[
-                                  Checkbox(
-                                    value: widget.selected,
-                                    onChanged: (value) {
-                                      widget.onChange(WorkDayRequest(
-                                          workDate: widget.dateTime.toString(),
-                                          workShiftSettingDetailId: workDay
-                                              .workShiftSettingDetailId));
-                                      setState(() {
-                                        isSelect = value ?? false;
-                                      });
-                                    },
+            ),
+            workDay.isNotEmpty
+                ? Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    color: colors.background,
+                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ...workDay.map((e) {
+                          bool check = widget.listSelect
+                              .where((element) =>
+                                  element.workShiftSettingDetailId ==
+                                  e.workShiftSettingDetailId)
+                              .isNotEmpty;
+
+                          return InkWell(
+                            onTap: () {
+                              if (workDay.isNotEmpty) {
+                                dI<AppNavigation>().push(context,
+                                    page: Pages.shiftsPage,
+                                    paramsQuerry: ShiftsQueryParams(
+                                            date: widget.dateTime,
+                                            id: e.workShiftSettingDetailId)
+                                        .toJson());
+                              }
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: SpacingUnit.x4,
+                              ),
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: SpacingUnit.x1),
+                              alignment: Alignment.centerLeft,
+                              width: MediaQuery.sizeOf(context).width,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(SpacingUnit.x2),
+                                color: _colorByStatus(e.status),
+                              ),
+                              height: SpacingUnit.x12,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "${strSeconds(e.startTime)} - ${strSeconds(e.endTime)}",
+                                    style: theme.textTheme.bodyLarge,
                                   ),
-                                ] else ...[
-                                  _widgetStatus(workDay.status)
-                                ]
-                              ],
+                                  if (widget.isCheckBox &&
+                                      e.status ==
+                                          WorkShiftRequestStatus.usable) ...[
+                                    Checkbox(
+                                      value: check,
+                                      onChanged: (value) {
+                                        // print(e.workShiftSettingDetailId);
+                                        widget.onChange(WorkDayRequest(
+                                            workDate:
+                                                widget.dateTime.toString(),
+                                            workShiftSettingDetailId:
+                                                e.workShiftSettingDetailId));
+                                        // setState(() {
+                                        //   isSelect = value ?? false;
+                                        // });
+                                      },
+                                    ),
+                                  ] else ...[
+                                    _widgetStatus(e.status)
+                                  ]
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: SpacingUnit.x2),
-                          Text(
-                            'Ca làm việc: ${strSeconds(workDay.endTime - workDay.startTime)}',
-                            style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x3_5,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          const SizedBox(height: SpacingUnit.x1),
-                          Text(
-                            'Mã ca: ${workDay.code}',
-                            style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x3_5,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          const SizedBox(height: SpacingUnit.x1),
-                          Text(
-                            'Ca làm việc: ${strSeconds(workDay.startTime)} - ${strSeconds(workDay.endTime)}',
-                            style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x3_5,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          const SizedBox(height: SpacingUnit.x1),
-                          Text(
-                            'Chấm công hợp lệ: ${strSeconds(workDay.checkInStartTimeValid)} - ${strSeconds(workDay.checkInEndTimeValid)}',
-                            style: TextStyle(
-                                color: colors.text,
-                                fontSize: SpacingUnit.x3_5,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Container(
-                      width: MediaQuery.sizeOf(context).width,
-                      color: colors.background,
-                      padding: const EdgeInsets.all(SpacingUnit.x7),
-                      child: Center(
-                        child: Text(
-                          'Không có ca làm việc',
-                          style: TextStyle(
-                            color: colors.text,
-                            fontSize: SpacingUnit.x3_5,
-                          ),
+                          );
+                        }),
+                      ],
+                    ),
+                  )
+                : Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    color: colors.background,
+                    padding: const EdgeInsets.all(SpacingUnit.x7),
+                    child: Center(
+                      child: Text(
+                        'Không có ca làm việc',
+                        style: TextStyle(
+                          color: colors.text,
+                          fontSize: SpacingUnit.x3_5,
                         ),
                       ),
                     ),
-            ],
-          ),
+                  ),
+          ],
         );
       },
     );

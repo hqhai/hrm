@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
@@ -7,6 +9,7 @@ import 'package:base_app/common/routers/query_params/work_day_admin_query_params
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/common/utils/toast_utils.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -40,6 +43,8 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
   FlowStatusEnum status = FlowStatusEnum.init;
   WorkShiftRequestStatus selectType = WorkShiftRequestStatus.approve;
   TextEditingController textEditingController = TextEditingController();
+  ScrollController scrollController = ScrollController();
+  int days = 30;
 
   @override
   void initState() {
@@ -47,12 +52,25 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
     controller = ScrollController()..addListener(_scrollListener);
     dI<WorkDayBloc>().add(GetElectiveShift(
         data: WorkDayGetElectiveShiftRequest(
+      pageSize: days,
       isApprove: true,
-      startDate: formatYMD(
-          DateTime.now().subtract(const Duration(days: 30)).toString()),
-      endDate: formatYMD(DateTime.now().toString()),
+      startDate: formatYYMMDD(
+          DateTime.now().subtract(Duration(days: days)).toString()),
+      endDate: formatYYMMDD(DateTime.now().toString()),
     )));
+    _loadData();
     super.initState();
+  }
+
+  _loadData() {
+    scrollController.addListener(() {
+      if (scrollController.position.atEdge) {
+        bool isTop = scrollController.position.pixels == 0;
+        if (!isTop) {
+          _loadShift(selectType);
+        }
+      }
+    });
   }
 
   _scrollListener() {
@@ -69,23 +87,26 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
   }
 
   _onTapHeader(WorkShiftRequestStatus type) {
+    setState(() {
+      days = 30;
+    });
     switch (type) {
       case WorkShiftRequestStatus.approve:
         dI<WorkDayBloc>().add(GetElectiveShift(
             data: WorkDayGetElectiveShiftRequest(
           isApprove: true,
-          startDate: formatYMD(
-              DateTime.now().subtract(const Duration(days: 30)).toString()),
-          endDate: formatYMD(DateTime.now().toString()),
+          startDate: formatYYMMDD(
+              DateTime.now().subtract(Duration(days: days)).toString()),
+          endDate: formatYYMMDD(DateTime.now().toString()),
         )));
         break;
       case WorkShiftRequestStatus.unusable:
         dI<WorkDayBloc>().add(GetElectiveShift(
             data: WorkDayGetElectiveShiftRequest(
           isApprove: false,
-          startDate: formatYMD(
-              DateTime.now().subtract(const Duration(days: 30)).toString()),
-          endDate: formatYMD(DateTime.now().toString()),
+          startDate: formatYYMMDD(
+              DateTime.now().subtract(Duration(days: days)).toString()),
+          endDate: formatYYMMDD(DateTime.now().toString()),
         )));
         break;
       case WorkShiftRequestStatus.pendingCancel:
@@ -96,6 +117,49 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       case WorkShiftRequestStatus.pending:
         dI<WorkDayBloc>().add(const GetWorkDayAdmin(
             data: WorkDayAdminRequest(
+                requestStatus: WorkShiftRequestStatus.pending)));
+        break;
+      default:
+        () {};
+    }
+  }
+
+  _loadShift(WorkShiftRequestStatus type) {
+    final pagingInfo = dI<WorkDayBloc>().state.pagingInfo;
+    setState(() {
+      days = days + 30;
+    });
+    switch (type) {
+      case WorkShiftRequestStatus.approve:
+        dI<WorkDayBloc>().add(GetElectiveShift(
+            data: WorkDayGetElectiveShiftRequest(
+          pageSize: days,
+          isApprove: true,
+          startDate: formatYYMMDD(
+              DateTime.now().subtract(Duration(days: days)).toString()),
+          endDate: formatYYMMDD(DateTime.now().toString()),
+        )));
+        break;
+      case WorkShiftRequestStatus.unusable:
+        dI<WorkDayBloc>().add(GetElectiveShift(
+            data: WorkDayGetElectiveShiftRequest(
+          pageSize: days,
+          isApprove: false,
+          startDate: formatYYMMDD(
+              DateTime.now().subtract(Duration(days: days)).toString()),
+          endDate: formatYYMMDD(DateTime.now().toString()),
+        )));
+        break;
+      case WorkShiftRequestStatus.pendingCancel:
+        dI<WorkDayBloc>().add(GetWorkDayAdmin(
+            data: WorkDayAdminRequest(
+                pageSize: pagingInfo.pageSize + 7,
+                requestStatus: WorkShiftRequestStatus.pendingCancel)));
+        break;
+      case WorkShiftRequestStatus.pending:
+        dI<WorkDayBloc>().add(GetWorkDayAdmin(
+            data: WorkDayAdminRequest(
+                pageSize: pagingInfo.pageSize + 7,
                 requestStatus: WorkShiftRequestStatus.pending)));
         break;
       default:
@@ -176,9 +240,13 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   color: colors.surfaceVariantLow.withOpacity(0.1),
                   child: ListView.builder(
+                    controller: scrollController,
                     itemCount: state.electiveShiftItems.length,
                     itemBuilder: (context, index) => _Item(
-                        state.electiveShiftItems[index], index, selectType),
+                        state.electiveShiftItems[
+                            (state.electiveShiftItems.length - 1) - index],
+                        index,
+                        selectType),
                   ),
                 ))
               ] else ...[
@@ -188,17 +256,18 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                   color: colors.surfaceVariantLow.withOpacity(0.1),
                   child: ListView.builder(
                     itemCount: state.items.length,
+                    controller: scrollController,
                     itemBuilder: (context, index) => _ItemPending(
                       state.items[index],
                       index,
                       selectType,
                       onConfirm: () => onConfirm(
                           workShiftRequestId:
-                              state.items[index].workShiftRequestId,
+                              state.items[index].workShiftApproveId,
                           type: selectType),
                       onReject: () => _onCancel(
                           workShiftRequestId:
-                              state.items[index].workShiftRequestId,
+                              state.items[index].workShiftApproveId,
                           type: selectType),
                     ),
                   ),
@@ -209,6 +278,33 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         },
       ),
     );
+  }
+
+  _onReject(
+      {required String workShiftRequestId,
+      required WorkShiftRequestStatus type}) async {
+    final appLocalizations = AppLocalizations.of(context)!;
+    try {
+      Completer completer = Completer<bool>();
+
+      dI<WorkDayBloc>().add(RegisterWorkDayAdmin(
+          request: ApproveRequest(
+              status: WorkShiftRequestStatus.reject,
+              updateWorkShiftApproves: [
+                UpdateWorkShiftApprovesRequest(
+                    id: workShiftRequestId, note: textEditingController.text)
+              ]),
+          completer: completer));
+      final check = await completer.future;
+      if (check) {
+        _onTapHeader(type);
+        ToastUtils().showSuccess(appLocalizations.success);
+      } else {
+        ToastUtils().showError(appLocalizations.unsuccessful);
+      }
+    } catch (e) {
+      ToastUtils().showError(appLocalizations.unsuccessful);
+    }
   }
 
   _onCancel(
@@ -255,18 +351,10 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                     children: [
                       Expanded(
                         child: InkWell(
-                          onTap: () {
-                            dI<WorkDayBloc>().add(RegisterWorkDayAdmin(
-                                request: ApproveRequest(
-                                    status: WorkShiftRequestStatus.reject,
-                                    updateWorkShiftApproves: [
-                                  UpdateWorkShiftApprovesRequest(
-                                      id: workShiftRequestId,
-                                      note: textEditingController.text)
-                                ])));
-                            _onTapHeader(type);
-                            Navigator.pop(context);
-                          },
+                          onTap: () => _onReject(
+                            workShiftRequestId: workShiftRequestId,
+                            type: type,
+                          ),
                           child: Container(
                             height: SpacingUnit.x12,
                             decoration: BoxDecoration(
@@ -315,16 +403,28 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
 
   onConfirm(
       {required String workShiftRequestId,
-      required WorkShiftRequestStatus type}) {
-    dI<WorkDayBloc>().add(RegisterWorkDayAdmin(
-        request: ApproveRequest(
-            status: WorkShiftRequestStatus.approve,
-            updateWorkShiftApproves: [
-          UpdateWorkShiftApprovesRequest(
-              id: workShiftRequestId, note: textEditingController.text)
-        ])));
-    _onTapHeader(type);
-    // Navigator.pop(context);
+      required WorkShiftRequestStatus type}) async {
+    final appLocalizations = AppLocalizations.of(context)!;
+    try {
+      Completer completer = Completer<bool>();
+      dI<WorkDayBloc>().add(RegisterWorkDayAdmin(
+          request: ApproveRequest(
+              status: WorkShiftRequestStatus.approve,
+              updateWorkShiftApproves: [
+                UpdateWorkShiftApprovesRequest(
+                    id: workShiftRequestId, note: textEditingController.text)
+              ]),
+          completer: completer));
+      final check = await completer.future;
+      if (check) {
+        _onTapHeader(type);
+        ToastUtils().showSuccess(appLocalizations.success);
+      } else {
+        ToastUtils().showError(appLocalizations.unsuccessful);
+      }
+    } catch (e) {
+      ToastUtils().showError(appLocalizations.unsuccessful);
+    }
   }
 }
 
@@ -412,9 +512,9 @@ class _ItemPending extends StatelessWidget {
               Text(data.nameWorkShift,
                   style: theme.textTheme.bodyLarge!
                       .copyWith(fontWeight: FontWeight.w500)),
-              Text(appLocalizations.seeDetails,
-                  style: theme.textTheme.bodySmall!.copyWith(
-                      fontWeight: FontWeight.w500, color: Colors.blue)),
+              // Text(appLocalizations.seeDetails,
+              //     style: theme.textTheme.bodySmall!.copyWith(
+              //         fontWeight: FontWeight.w500, color: Colors.blue)),
             ]),
             const SizedBox(height: SpacingUnit.x3),
             Text("${data.name} #${data.code}"),
@@ -492,7 +592,6 @@ class _SearchState extends State<_Search> {
         child: TextField(
             controller: _textEditingController,
             decoration: InputDecoration(
-              
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: colors.outline, width: 0.5),
                 borderRadius: BorderRadius.circular(SpacingUnit.x10),

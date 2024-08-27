@@ -39,7 +39,7 @@ DateTime secondToDateTime({int time = 0}) {
 
 ///DateTime sang int
 int dateTimeToSeconds({required DateTime time}) {
-  final timeZero = DateTime(time.year, time.month, time.day, 0 , 0, 0);
+  final timeZero = DateTime(time.year, time.month, time.day, 0, 0, 0);
   return time.difference(timeZero).inSeconds;
 }
 
@@ -96,6 +96,14 @@ String formatYMD(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
     return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
+  return '';
+}
+
+String formatYYMMDD(String time) {
+  if (time != '') {
+    DateTime dateTime = DateTime.parse(time);
+    return DateFormat('yyyy-MM-dd').format(dateTime);
   }
   return '';
 }

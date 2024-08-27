@@ -53,8 +53,12 @@ class WorkDaysRequest {
 class WorkDayAdminRequest {
   final WorkShiftRequestStatus requestStatus;
   final String name;
+  final int page;
+  final int pageSize;
 
   const WorkDayAdminRequest({
+    this.page = 1,
+    this.pageSize = 7,
     this.name = '',
     this.requestStatus = WorkShiftRequestStatus.approve,
   });
@@ -70,11 +74,15 @@ class WorkDayGetElectiveShiftRequest {
   final bool isApprove;
   final String startDate;
   final String endDate;
+  final int page;
+  final int pageSize;
 
   const WorkDayGetElectiveShiftRequest({
     this.isApprove = true,
     this.endDate = '',
     this.startDate = '',
+    this.page = 1,
+    this.pageSize = 7,
   });
 
   factory WorkDayGetElectiveShiftRequest.fromJson(Map<String, dynamic> json) =>

@@ -56,7 +56,7 @@ class ChangeLoading extends WorkDayEvent {
 
 class RegisterWorkDay extends WorkDayEvent {
   final Completer completer;
-  final Map<String, WorkDayRequest> request;
+  final List<WorkDayRequest> request;
   const RegisterWorkDay({
     required this.request,
     required this.completer,
@@ -130,14 +130,17 @@ class GetElectiveShiftDetail extends WorkDayEvent {
 }
 
 class RegisterWorkDayAdmin extends WorkDayEvent {
+  final Completer completer;
   final ApproveRequest request;
   const RegisterWorkDayAdmin({
+    required this.completer,
     required this.request,
   });
 
   @override
   List<Object?> get props => [
         request,
+        completer,
       ];
 }
 

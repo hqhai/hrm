@@ -2,11 +2,10 @@ import 'dart:async';
 import 'dart:core';
 
 import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/common/utils/toast_utils.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -48,7 +47,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   late DateTime startOfWeek, endOfWeek;
   double positionEnd = 0;
   bool isShowCheckBox = false;
-  Map<String, WorkDayRequest> workDays = {};
+  List<WorkDayRequest> workDays = [];
 
   //scroll
   int currentHeaderScrollIndex = 0;
@@ -327,20 +326,13 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                       scrollOffsetListener: scrollOffsetListenerBody,
                       itemBuilder: (context, index) {
                         return ItemDayOfList(
-                          selected:
-                              workDays[listDateAppBar[index].toString()] !=
-                                  null,
+                          selected: false,
                           isCheckBox: isShowCheckBox,
                           dateTime: listDateAppBar[index],
                           onChange: (WorkDayRequest value) =>
                               _addItemRegister(value),
-                          onTap: () {
-                            dI<AppNavigation>().push(context,
-                                page: Pages.shiftsPage,
-                                paramsQuerry: ShiftsQueryParams(
-                                        date: listDateAppBar[index])
-                                    .toJson());
-                          },
+                          onTap: () {},
+                          listSelect: workDays,
                         );
                       },
                     ),
@@ -420,32 +412,43 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   }
 
   _addItemRegister(WorkDayRequest workDayRequest) {
-    if (workDays[workDayRequest.workDate] == null) {
+    if (workDays
+        .where((e) =>
+            e.workShiftSettingDetailId ==
+            workDayRequest.workShiftSettingDetailId)
+        .isEmpty) {
       setState(() {
-        workDays = {...workDays, workDayRequest.workDate: workDayRequest};
+        workDays = [...workDays, workDayRequest];
       });
     } else {
+      final index = workDays.indexWhere((e) =>
+          e.workShiftSettingDetailId ==
+          workDayRequest.workShiftSettingDetailId);
       setState(() {
-        workDays.remove(workDayRequest.workDate);
+        workDays.removeAt(index);
       });
     }
   }
 
   _register() {
-    if (isShowCheckBox) {
-      setState(() async {
-        Completer completer = Completer();
-        dI<WorkDayBloc>()
-            .add(RegisterWorkDay(request: workDays, completer: completer));
-        await completer.future;
-        isShowCheckBox = false;
-        dI<WorkDayBloc>().add(const ChangeLoading(status: true));
-        workDays.clear();
-      });
-    } else {
-      setState(() {
-        isShowCheckBox = !isShowCheckBox;
-      });
+    try {
+      if (isShowCheckBox) {
+        setState(() async {
+          Completer completer = Completer();
+          dI<WorkDayBloc>()
+              .add(RegisterWorkDay(request: workDays, completer: completer));
+          await completer.future;
+          isShowCheckBox = false;
+          dI<WorkDayBloc>().add(const ChangeLoading(status: true));
+          workDays.clear();
+        });
+      } else {
+        setState(() {
+          isShowCheckBox = !isShowCheckBox;
+        });
+      }
+    } catch (e) {
+      ToastUtils().showError("Error");
     }
   }
 
