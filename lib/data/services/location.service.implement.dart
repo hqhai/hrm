@@ -170,16 +170,18 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<void> cancelWorkDay(
+  Future<bool> cancelWorkDay(
       {required CancelWorkDayAdminRequest request}) async {
     try {
       final url = '$baseSystem${PathConfig.workshiftRequest}';
       final body = jsonEncode(request.toJson());
       await client.put(url, body: body);
+      return true;
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+      return false;
     }
   }
 

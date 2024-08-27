@@ -646,5 +646,8 @@
   "allow":"Allow",
   "contentDialogTimeKeepingUnSuccess":"Timekeeping failed. Please try again",
   "contentDialogTimeKeepingSuccess":"Attendance was successful",
-  "retry":"Retry"
+  "retry":"Retry",
+  "rejectTitle":"Are you sure you want to remove this employee from your current status?",
+  "rejectTitle1":"Are you sure you want to refuse to approve this employee's request to cancel a shift?",
+  "rejectTitle2":"Are you sure you want to refuse to approve this employee's shift registration request?"
 }

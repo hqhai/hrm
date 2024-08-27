@@ -42,7 +42,7 @@ abstract class LocationRepository {
   Future<ShiftsAdminResponse> getElectiveShiftDetail(
       {required GetElectiveShiftDetailRequest request});
 
-  Future<void> cancelWorkDay({
+  Future<bool> cancelWorkDay({
     required CancelWorkDayAdminRequest request,
   });
 

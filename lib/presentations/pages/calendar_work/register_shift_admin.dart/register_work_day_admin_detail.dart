@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
@@ -5,6 +7,7 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/routers/query_params/work_day_admin_query_params.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/common/utils/toast_utils.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
@@ -71,6 +74,29 @@ class _RegisterWorkDayAdminDetailState
     super.initState();
   }
 
+  _onClickCancel(
+      String workShiftRequestId, AppLocalizations appLocalizations) async {
+    Completer completer = Completer<bool>();
+    dI<WorkDayBloc>().add(CancelRegisterWorkDayAdmin(
+      data: CancelWorkDayAdminRequest(
+        ids: workShiftRequestId,
+        note: textEditingController.text,
+      ),
+      completer: completer,
+    ));
+    final check = await completer.future;
+    if (check) {
+      ToastUtils().showSuccess(appLocalizations.success);
+    } else {
+      ToastUtils().showError(appLocalizations.unsuccessful);
+    }
+    _onBack();
+  }
+
+  _onBack() {
+    Navigator.of(context).pop();
+  }
+
   _onCancel({required String workShiftRequestId}) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
@@ -92,8 +118,7 @@ class _RegisterWorkDayAdminDetailState
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                    "Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?",
+                Text(appLocalizations.rejectTitle,
                     style: theme.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w600, color: Colors.black)),
                 TextField(
@@ -113,11 +138,8 @@ class _RegisterWorkDayAdminDetailState
                     children: [
                       Expanded(
                         child: InkWell(
-                          onTap: () => dI<WorkDayBloc>().add(
-                              CancelRegisterWorkDayAdmin(
-                                  data: CancelWorkDayAdminRequest(
-                                      ids: workShiftRequestId,
-                                      note: textEditingController.text))),
+                          onTap: () => _onClickCancel(
+                              workShiftRequestId, appLocalizations),
                           child: Container(
                             height: SpacingUnit.x12,
                             decoration: BoxDecoration(
@@ -344,11 +366,11 @@ class _RegisterWorkDayAdminDetailState
                     child: ListView.builder(
                       itemCount: state.itemsDetail.length,
                       itemBuilder: (context, index) => _Item(
-                          state.itemsDetail[index],
-                          widget.type,
-                          _onCancel(
-                              workShiftRequestId:
-                                  state.itemsDetail[index].workShiftRequestId)),
+                          state.itemsDetail[index], widget.type, onCancel: () {
+                        _onCancel(
+                            workShiftRequestId:
+                                state.itemsDetail[index].workShiftRequestId);
+                      }),
                     ))),
           ],
         );
@@ -361,7 +383,7 @@ class _Item extends StatelessWidget {
   final VoidCallback onCancel;
   final WorkShiftRequestStatus type;
   final WorkDayAdmin data;
-  const _Item(this.data, this.type, this.onCancel);
+  const _Item(this.data, this.type, {required this.onCancel});
 
   @override
   Widget build(BuildContext context) {
