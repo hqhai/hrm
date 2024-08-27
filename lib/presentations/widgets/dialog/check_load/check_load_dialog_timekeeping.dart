@@ -22,24 +22,24 @@ class TimeKeepingSuccess extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                appLocalizations.timekeepingSuccess,
-                style: TextStyle(
-                  color: colors.success,
+                appLocalizations.contentDialogTimeKeepingSuccess,
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: SpacingUnit.x4,
                 ),
               ),
+              const SizedBox(height: SpacingUnit.x4),
               Image.asset(
-                Assets.images.timeKeeping.notoWorldMap.path,
+                Assets.images.timeKeeping.allow.path,
                 fit: BoxFit.fill,
-                height: SpacingUnit.x50,
-                width: SpacingUnit.x50,
+                height: SpacingUnit.x30,
+                width: SpacingUnit.x30,
               ),
+              const SizedBox(height: SpacingUnit.x4),
               AppButton(
                 onSubmit: () => submit(context),
                 title: appLocalizations.complete,
                 colorText: colors.background,
-                color: colors.blue,
               ),
             ],
           ),
@@ -54,7 +54,9 @@ class TimeKeepingSuccess extends StatelessWidget {
 }
 
 class TimeKeepingUnSuccess extends StatelessWidget {
-  const TimeKeepingUnSuccess({super.key, this.title = ''});
+  final VoidCallback onRetry;
+  const TimeKeepingUnSuccess(
+      {super.key, this.title = '', required this.onRetry});
 
   final String title;
 
@@ -69,24 +71,36 @@ class TimeKeepingUnSuccess extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              title.isNotEmpty ? title : appLocalizations.timekeepingUnSuccess,
-              style: TextStyle(
-                color: colors.error,
+              appLocalizations.contentDialogTimeKeepingUnSuccess,
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: SpacingUnit.x4,
               ),
             ),
+            const SizedBox(height: SpacingUnit.x4),
             Image.asset(
-              Assets.images.timeKeeping.unWorldMap.path,
+              Assets.images.timeKeeping.fail.path,
               fit: BoxFit.fill,
-              height: SpacingUnit.x50,
-              width: SpacingUnit.x50,
+              height: SpacingUnit.x30,
+              width: SpacingUnit.x30,
             ),
+            const SizedBox(height: SpacingUnit.x4),
             AppButton(
-              onSubmit: () => submit(context),
-              title: appLocalizations.cancel,
+              onSubmit: () => onRetry.call(),
+              title: appLocalizations.retry,
               colorText: colors.background,
-              color: colors.blue,
+            ),
+            const SizedBox(height: SpacingUnit.x3),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                  border: Border.all(width: 1, color: colors.outline)),
+              child: AppButton(
+                onSubmit: () => submit(context),
+                title: appLocalizations.cancel,
+                colorText: colors.outline,
+                color: colors.background,
+              ),
             ),
           ],
         ),

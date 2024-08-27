@@ -71,9 +71,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containsASymbol => 'Contains a symbol';
 
   @override
-  String get createRequest => 'Create request';
-
-  @override
   String get recentRequest => 'Recent request';
 
   @override
@@ -1862,6 +1859,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get saveRequest => 'Save request';
 
   @override
+  String get createRequest => 'Create request';
+
+  @override
   String get setHoursAndMinutes => 'Set hours and minutes';
 
   @override
@@ -1923,4 +1923,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get approveFailed => 'Approve Failed';
+
+  @override
+  String get contentPopUpOpenGPS => 'Allow HRM to access your location';
+
+  @override
+  String get allow => 'Allow';
+
+  @override
+  String get contentDialogTimeKeepingUnSuccess => 'Timekeeping failed. Please try again';
+
+  @override
+  String get contentDialogTimeKeepingSuccess => 'Attendance was successful';
+
+  @override
+  String get retry => 'Retry';
 }
