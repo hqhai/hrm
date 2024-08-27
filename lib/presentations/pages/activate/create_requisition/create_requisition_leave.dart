@@ -66,14 +66,11 @@ class CreateRequisitionLeavePage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionLeavePage> createState() =>
-      _CreateRequisitionLeavePageState();
+  State<CreateRequisitionLeavePage> createState() => _CreateRequisitionLeavePageState();
 }
 
-class _CreateRequisitionLeavePageState
-    extends State<CreateRequisitionLeavePage> {
-  final TextEditingController detailedDescriptionController =
-      TextEditingController();
+class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage> {
+  final TextEditingController detailedDescriptionController = TextEditingController();
   String description = '';
   DateTime? startTime, endTime;
   double numberValue = 0;
@@ -84,8 +81,7 @@ class _CreateRequisitionLeavePageState
   String errorShift = '', errorDialog = '', errorDescription = '';
   bool checkClick = false;
   final DateTime now = DateTime.now();
-  EnumTakeLeaveType takeLeaveType =
-      EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
+  EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
   EnumSocialInsuranceLeave? socialInsuranceLeave;
   EnumReasonLeave? reason;
 
@@ -105,6 +101,10 @@ class _CreateRequisitionLeavePageState
         listWorkShift = [...request.config.workShiftSettings];
         checkShirtFirst = false;
       });
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+        endDate: endTime ?? DateTime.now(),
+        startDate: startTime ?? DateTime.now(),
+      ));
     }
     detailedDescriptionController.addListener(_checkWords);
     super.initState();
@@ -136,10 +136,8 @@ class _CreateRequisitionLeavePageState
     final checkListWorkShift = listWorkShift.isNotEmpty;
     final checkDescription = description.isNotEmpty;
     setState(() {
-      errorShift =
-          !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
-      errorDescription =
-          !checkDescription ? appLocalizations.cannotBeLeftBlank : '';
+      errorShift = !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
+      errorDescription = !checkDescription ? appLocalizations.cannotBeLeftBlank : '';
     });
 
     return checkListWorkShift && checkDescription;
@@ -154,12 +152,10 @@ class _CreateRequisitionLeavePageState
       return false;
     }
     final number = (endTime!).difference(startTime!).inHours;
-    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay &&
-        number > 24) {
+    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
       return false;
     }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay &&
-        (number > 96 || number < 24)) {
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
       return false;
     }
     if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
@@ -173,12 +169,10 @@ class _CreateRequisitionLeavePageState
       return '';
     }
     final number = (endTime!).difference(startTime!).inHours;
-    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay &&
-        number > 24) {
+    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
       return RequisitionTypeEnum.leaveHalfDayToOneDay.configTypeName;
     }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay &&
-        (number > 96 || number < 24)) {
+    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
       return RequisitionTypeEnum.leaveTwoDayToFourDay.configTypeName;
     }
     if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
@@ -189,9 +183,7 @@ class _CreateRequisitionLeavePageState
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty
-          ? setErrorValue(errorCode, context) ?? errorCode
-          : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
@@ -230,28 +222,22 @@ class _CreateRequisitionLeavePageState
                         typeSocialInsurance: socialInsuranceLeave,
                         onChange: (value) => _setReason(value),
                         type: takeLeaveType,
-                        onChangeSocialInsurance: (value) =>
-                            setSocialInsurance(value),
+                        onChangeSocialInsurance: (value) => setSocialInsurance(value),
                       ),
-                      if (takeLeaveType ==
-                          EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
+                      if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
                         const ItemTakeLeaveWork(),
                       const SizedBox(height: SpacingUnit.x4),
                       TitleRequired(
-                          title: appLocalizations.intervalOnLeave,
-                          requiredValidate: true),
+                          title: appLocalizations.intervalOnLeave, requiredValidate: true),
                       const SizedBox(height: SpacingUnit.x2),
                       PeriodTimePicker(
                         oldEndTime: endTime,
                         oldStarTime: startTime,
                         title: appLocalizations.intervalOnLeave,
-                        setStarTime: (value) =>
-                            setStartTime(value ?? DateTime.now()),
-                        setEndTime: (value) =>
-                            setEndTime(value ?? DateTime.now()),
+                        setStarTime: (value) => setStartTime(value ?? DateTime.now()),
+                        setEndTime: (value) => setEndTime(value ?? DateTime.now()),
                         fontWeightTitle: FontWeight.w600,
-                        error:
-                            errorDate().isNotEmpty ? errorDate() : errorShift,
+                        error: errorDate().isNotEmpty ? errorDate() : errorShift,
                       ),
                       const SizedBox(height: SpacingUnit.x4),
                       if (!checkShirtFirst && checkShift())
@@ -263,20 +249,18 @@ class _CreateRequisitionLeavePageState
                                 width: 50,
                               ))
                             : ItemWorkShift(
+                                workShiftSettingsOld: listWorkShift,
                                 type: widget.type,
                                 workShiftSettings: (value) => setListIds(value),
                               ),
                       if (!checkShirtFirst && checkShirt)
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: SpacingUnit.x4),
+                          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
                           child: Row(
                             children: [
                               Text(
                                 '${appLocalizations.totalLeaveWork}: ',
-                                style: TextStyle(
-                                    color: colors.text,
-                                    fontSize: SpacingUnit.x4),
+                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
                               ),
                               Text(
                                 numberValue.toString(),
@@ -294,8 +278,7 @@ class _CreateRequisitionLeavePageState
                       //   value: numberValue.toString(),
                       // ),
                       ItemCreateFollower(
-                        listFollower:
-                            _setListUser(stateUserById.subtitudePersons),
+                        listFollower: _setListUser(stateUserById.subtitudePersons),
                         title: appLocalizations.substitute,
                         onChange: (value) => _setSubstitute(value),
                       ),
@@ -395,11 +378,9 @@ class _CreateRequisitionLeavePageState
     saveRequest(
       files: files,
       context: context,
-      checkCreate:
-          !checkClick && widget.requestId.isEmpty && checkValidate(context),
+      checkCreate: !checkClick && widget.requestId.isEmpty && checkValidate(context),
       postRequestRequest: request(),
-      checkEdit:
-          !checkClick && widget.requestId.isNotEmpty && checkValidate(context),
+      checkEdit: !checkClick && widget.requestId.isNotEmpty && checkValidate(context),
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
@@ -437,8 +418,8 @@ class _CreateRequisitionLeavePageState
         numberValue = 0;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-          endDate: endTime!, startDate: startTime!, completer: completer));
+      dI<LeaveShiftBloc>()
+          .add(GetWorkShiftsEvent(endDate: endTime!, startDate: startTime!, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {
@@ -463,7 +444,11 @@ class _CreateRequisitionLeavePageState
   setListIds(List<WorkShiftRegisteredDetail> value) {
     setState(() {
       listWorkShift = value;
-      numberValue = value.map((e) => e.workEffort).reduce((a, b) => a + b);
+      if (value.isNotEmpty) {
+        numberValue = value.map((e) => e.workEffort).reduce((a, b) => a + b);
+      }else{
+        numberValue = 0;
+      }
     });
   }
 
