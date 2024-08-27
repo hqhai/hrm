@@ -21,7 +21,6 @@
   "containsANumber": "Contains a number",
   "containsACapitalLetter": "Contains a capital letter",
   "containsASymbol": "Contains a symbol",
-  "createRequest": "Create request",
   "recentRequest": "Recent request",
   "requestIsProcessing": "Request is processing",
   "requestProcessed": "Request processed",
@@ -642,5 +641,10 @@
   "rejectFailed":"Reject Failed",
   "requestFailed":"Request Failed",
   "cancelFailed":"Cancel Failed",
-  "approveFailed":"Approve Failed"
+  "approveFailed":"Approve Failed",
+  "contentPopUpOpenGPS":"Allow HRM to access your location",
+  "allow":"Allow",
+  "contentDialogTimeKeepingUnSuccess":"Timekeeping failed. Please try again",
+  "contentDialogTimeKeepingSuccess":"Attendance was successful",
+  "retry":"Retry"
 }

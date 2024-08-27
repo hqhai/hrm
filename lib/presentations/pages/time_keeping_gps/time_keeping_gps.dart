@@ -148,20 +148,21 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(SpacingUnit.x4),
-                    child: ContainerBorder(
-                      marginTop: 0,
-                      borderColors: colors.background,
-                      backgroundColors: colors.background,
-                      child: ItemTitleValueNoBorder(
-                        size: SpacingUnit.x3_5,
-                        font: FontWeight.w600,
-                        title: appLocalizations.timekeepingTime,
-                        value: formatYMD((time ?? "").toString()),
+                  if (time != null)
+                    Padding(
+                      padding: const EdgeInsets.all(SpacingUnit.x4),
+                      child: ContainerBorder(
+                        marginTop: 0,
+                        borderColors: colors.background,
+                        backgroundColors: colors.background,
+                        child: ItemTitleValueNoBorder(
+                          size: SpacingUnit.x3_5,
+                          font: FontWeight.w600,
+                          title: appLocalizations.timekeepingTime,
+                          value: formatYMD((time ?? "").toString()),
+                        ),
                       ),
                     ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     child: AppButton(
@@ -203,9 +204,15 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      Geolocator.openLocationSettings();
-      return Future.error(
-          appLocalizations.locationPermissionsArePermanentlyDenied);
+      if (!context.mounted) return;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const Dialog(
+            child: _DialogOpenSetting(),
+          );
+        },
+      );
     }
     final position = await Geolocator.getCurrentPosition();
     _setCurrentLocation(position, id);
@@ -250,16 +257,20 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       setState(() {
         error = '';
       });
-    } else if (status == TimekeepingStatus.fail) {
+    } else if (status == TimekeepingStatus.success) {
       if (!currentContext.mounted) return;
       dialogTimeKeepingSuccess(
         context: currentContext,
       );
-    } else if (status == TimekeepingStatus.distanceNotEnough) {
+    } else if (status == TimekeepingStatus.distanceNotEnough ||
+        status == TimekeepingStatus.fail) {
       if (!currentContext.mounted) return;
       dialogTimeKeepingUnSuccess(
-        context: currentContext,
-      );
+          context: currentContext,
+          onRetry: () {
+            dI<AppNavigation>().pop(context);
+            _determinePosition(context, id);
+          });
     }
   }
 
@@ -282,7 +293,8 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
     });
   }
 
-  dialogTimeKeepingUnSuccess({required BuildContext context}) {
+  dialogTimeKeepingUnSuccess(
+      {required BuildContext context, required VoidCallback onRetry}) {
     final colors = AppTheme.getColors(context);
     showDialog(
       context: context,
@@ -291,7 +303,10 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
           backgroundColor: colors.background,
           surfaceTintColor: colors.background,
           child: SingleChildScrollView(
-            child: TimeKeepingUnSuccess(title: error),
+            child: TimeKeepingUnSuccess(
+              title: error,
+              onRetry: () => onRetry.call(),
+            ),
           ),
         );
       },
@@ -299,5 +314,62 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       dI<AppNavigation>().pop(currentContext);
     });
+  }
+}
+
+class _DialogOpenSetting extends StatelessWidget {
+  const _DialogOpenSetting();
+
+  _onClose(context) {
+    Navigator.pop(context);
+  }
+
+  _openSetting(context) {
+    Navigator.pop(context);
+    Geolocator.openLocationSettings();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
+    return Container(
+      height: MediaQuery.sizeOf(context).height / 4.5,
+      padding: const EdgeInsets.all(SpacingUnit.x4),
+      decoration: BoxDecoration(
+          color: colors.background,
+          borderRadius: BorderRadius.circular(SpacingUnit.x4)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          InkWell(
+            onTap: () {
+              _onClose(context);
+            },
+            child: Container(
+                width: MediaQuery.sizeOf(context).width,
+                alignment: Alignment.topRight,
+                child: const Icon(Icons.close)),
+          ),
+          const SizedBox(height: SpacingUnit.x3),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x10),
+            child: Text(
+              appLocalizations.contentPopUpOpenGPS,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(height: SpacingUnit.x4),
+          AppButton(
+            title: appLocalizations.allow,
+            onSubmit: () => _openSetting(context),
+          )
+        ],
+      ),
+    );
   }
 }

@@ -71,9 +71,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get containsASymbol => 'Chứa ký tự đặc biệt';
 
   @override
-  String get createRequest => 'Tạo đơn';
-
-  @override
   String get recentRequest => 'Yêu cầu gần đây';
 
   @override
@@ -1862,6 +1859,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get saveRequest => 'Lưu đơn';
 
   @override
+  String get createRequest => 'Tạo đơn';
+
+  @override
   String get setHoursAndMinutes => 'Chọn thời gian';
 
   @override
@@ -1923,4 +1923,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get approveFailed => 'Phê duyệt đơn thất bại';
+
+  @override
+  String get contentPopUpOpenGPS => 'Cho phép HRM truy cập vị trí của bạn';
+
+  @override
+  String get allow => 'Cho phép';
+
+  @override
+  String get contentDialogTimeKeepingUnSuccess => 'Chấm công không thành công. Vui lòng thử lại';
+
+  @override
+  String get contentDialogTimeKeepingSuccess => 'Chấm công thành công';
+
+  @override
+  String get retry => 'Thử lại';
 }

@@ -225,12 +225,6 @@ abstract class AppLocalizations {
   /// **'Contains a symbol'**
   String get containsASymbol;
 
-  /// No description provided for @createRequest.
-  ///
-  /// In en, this message translates to:
-  /// **'Create request'**
-  String get createRequest;
-
   /// No description provided for @recentRequest.
   ///
   /// In en, this message translates to:
@@ -3807,6 +3801,12 @@ abstract class AppLocalizations {
   /// **'Save request'**
   String get saveRequest;
 
+  /// No description provided for @createRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Create request'**
+  String get createRequest;
+
   /// No description provided for @setHoursAndMinutes.
   ///
   /// In en, this message translates to:
@@ -3932,6 +3932,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Approve Failed'**
   String get approveFailed;
+
+  /// No description provided for @contentPopUpOpenGPS.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow HRM to access your location'**
+  String get contentPopUpOpenGPS;
+
+  /// No description provided for @allow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get allow;
+
+  /// No description provided for @contentDialogTimeKeepingUnSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Timekeeping failed. Please try again'**
+  String get contentDialogTimeKeepingUnSuccess;
+
+  /// No description provided for @contentDialogTimeKeepingSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance was successful'**
+  String get contentDialogTimeKeepingSuccess;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

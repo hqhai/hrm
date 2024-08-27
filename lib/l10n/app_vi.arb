@@ -20,7 +20,6 @@
   "containsANumber": "Chứa chữ số",
   "containsACapitalLetter": "Chứa chữ in hoa",
   "containsASymbol": "Chứa ký tự đặc biệt",
-  "createRequest": "Tạo yêu cầu",
   "recentRequest": "Yêu cầu gần đây",
   "requestIsProcessing": "Yêu cầu đang xử lý",
   "requestProcessed": "Yêu cầu đã xử lý",
@@ -643,5 +642,10 @@
   "rejectFailed":"Từ chối đơn thất bại",
   "requestFailed":"Gửi yêu cầu sửa đơn thất bại",
   "cancelFailed":"Hủy đơn thất bại",
-  "approveFailed":"Phê duyệt đơn thất bại"
+  "approveFailed":"Phê duyệt đơn thất bại",
+  "contentPopUpOpenGPS":"Cho phép HRM truy cập vị trí của bạn",
+  "allow":"Cho phép",
+  "contentDialogTimeKeepingUnSuccess":"Chấm công không thành công. Vui lòng thử lại",
+  "contentDialogTimeKeepingSuccess":"Chấm công thành công",
+  "retry":"Thử lại"
 }
