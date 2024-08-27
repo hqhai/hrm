@@ -204,8 +204,8 @@ class _ContentItemRequestApproveListState
     final statusCompleter = await completer.future;
     if (statusCompleter == true) {
       if (!currentContext.mounted) return;
-      approverSuccess(
-          context: currentContext, title: _getTextSucceed(context, status));
+      final title = _getTextSucceed(currentContext, status);
+      approverSuccess(context: currentContext, title: title);
     }
     if (statusCompleter == false) {
       if (!currentContext.mounted) return;
