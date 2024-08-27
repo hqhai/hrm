@@ -80,7 +80,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                               listValueByIndex: state.usersByName[index].id),
                           child: ItemSelected(
                             label:
-                                '${state.usersByName[index].fullName} - ${nameDepartment(state.usersByName[index].userDepartmentPositions)}',
+                                '${state.usersByName[index].fullName} - ${nameDepartment(state.usersByName[index].userDepartmentPositions)} - #${state.usersByName[index].code}',
                             isActive: listPerson.contains(state.usersByName[index].id),
                           ),
                         );

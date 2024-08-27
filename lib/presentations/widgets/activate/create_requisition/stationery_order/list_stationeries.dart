@@ -49,6 +49,7 @@ class _ListStationeriesState extends State<ListStationeries> {
           ],
         ),
         ContainerBorder(
+          marginTop: 0,
           paddingVertical: 0,
           paddingHorizontal: 0,
           borderColors: colors.background,
@@ -66,14 +67,11 @@ class _ListStationeriesState extends State<ListStationeries> {
           ),
         ),
         if (widget.error != '')
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
-            child: Text(
-              widget.error,
-              style: TextStyle(
-                color: colors.error,
-                fontSize: SpacingUnit.x3,
-              ),
+          Text(
+            widget.error,
+            style: TextStyle(
+              color: colors.error,
+              fontSize: SpacingUnit.x3,
             ),
           ),
       ],

@@ -37,19 +37,16 @@ final createRequestVehicleDispatchPageRoute = GoRoute(
     });
 
 class CreateRequestVehicleDispatchPage extends StatefulWidget {
-  const CreateRequestVehicleDispatchPage(
-      {super.key, this.flowId, this.requestId = ''});
+  const CreateRequestVehicleDispatchPage({super.key, this.flowId, this.requestId = ''});
 
   final String? flowId;
   final String requestId;
 
   @override
-  State<CreateRequestVehicleDispatchPage> createState() =>
-      _CreateRequestVehicleDispatchPageState();
+  State<CreateRequestVehicleDispatchPage> createState() => _CreateRequestVehicleDispatchPageState();
 }
 
-class _CreateRequestVehicleDispatchPageState
-    extends State<CreateRequestVehicleDispatchPage> {
+class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleDispatchPage> {
   final TextEditingController descriptionController = TextEditingController(),
       contentController = TextEditingController();
   double totalMinute = 0;
@@ -82,30 +79,26 @@ class _CreateRequestVehicleDispatchPageState
     super.initState();
   }
 
+  bool checkTime() {
+    return totalMinute > 0 || (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
+  }
+
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkTime = totalMinute > 0 ||
-        (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
     final bool checkDescription = description != '' && description != null;
     final bool checkContent = content != '' && content != null;
-    final bool check =
-        checkDescription && checkContent && subtitudePersons.isNotEmpty;
+    final bool check = checkDescription && checkContent && subtitudePersons.isNotEmpty;
     setState(() {
-      errorSubtitude =
-          subtitudePersons.isNotEmpty ? '' : appLocalizations.cannotBeLeftBlank;
-      errorTime =
-          !checkTime ? appLocalizations.endTimeMustBeAfterStartTime : "";
-      errorSchedule =
-          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorSubtitude = subtitudePersons.isNotEmpty ? '' : appLocalizations.cannotBeLeftBlank;
+      errorTime = !checkTime() ? appLocalizations.endTimeMustBeAfterStartTime : "";
+      errorSchedule = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
       errorContent = checkContent ? '' : appLocalizations.cannotBeLeftBlank;
     });
-
-    return check && checkTime;
+    return check && checkTime();
   }
 
   double opacity() {
-    bool check =
-        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
@@ -148,9 +141,8 @@ class _CreateRequestVehicleDispatchPageState
                     ),
                     ItemCreateFollower(
                       requiredValidate: true,
-                      error: errorSubtitude,
-                      listFollower:
-                          _setListUser(stateUserById.subtitudePersons),
+                      error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
+                      listFollower: _setListUser(stateUserById.subtitudePersons),
                       title: appLocalizations.walker,
                       onChange: (value) => _setWalker(value),
                     ),
@@ -274,11 +266,9 @@ class _CreateRequestVehicleDispatchPageState
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate:
-          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit:
-          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(
         requestId: widget.requestId,

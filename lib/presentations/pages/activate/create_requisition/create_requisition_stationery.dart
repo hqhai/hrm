@@ -123,7 +123,7 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                       ),
                       ListStationeries(
                         title: appLocalizations.stationeryList,
-                        error: error,
+                        error: listRequisitionStationery.isNotEmpty ? '' : error,
                         listRequisitionStationery: listRequisitionStationery,
                         onChangeList: (value) => setList(value),
                       ),

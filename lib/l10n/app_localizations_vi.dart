@@ -407,7 +407,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get newPasswordHasJustBeenSentToEmail => 'Mật khẩu mới vừa được gửi tới email';
 
   @override
-  String get pleaseCheckYourEmail => 'Làm ơn check email của bạn.';
+  String get pleaseCheckYourEmail => 'Vui lòng kiểm tra email của bạn.';
 
   @override
   String get calendar => 'Lịch';

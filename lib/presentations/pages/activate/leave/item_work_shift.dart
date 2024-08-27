@@ -1,4 +1,3 @@
-import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
@@ -15,12 +14,11 @@ class ItemWorkShift extends StatefulWidget {
   const ItemWorkShift({
     super.key,
     required this.workShiftSettings,
-    this.type = RequisitionTypeEnum.leaveHalfDayToOneDay, required this.workShiftSettingsOld,
+    required this.workShiftSettingsOld,
   });
 
   final ValueChanged<List<WorkShiftRegisteredDetail>> workShiftSettings;
   final List<WorkShiftRegisteredDetail> workShiftSettingsOld;
-  final RequisitionTypeEnum type;
 
   @override
   State<ItemWorkShift> createState() => _ItemWorkShiftState();
@@ -169,9 +167,7 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
       required int dateInt,
       required List<int> keyDate,
       required LeaveShiftState state}) {
-    final checkType = widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore ||
-        widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay ||
-        widget.type == RequisitionTypeEnum.bussiness;
+    final checkType = keyDate.length > 1;
     if (checkType) {
       /// check phải ngày cuối hoặc đầu không
       final firstOrLast = workShift.workDate.microsecondsSinceEpoch == state.keys.first ||

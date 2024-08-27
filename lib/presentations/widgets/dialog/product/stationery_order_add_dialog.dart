@@ -212,6 +212,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
   setUnitPrice(double value, BuildContext context) {
     setState(() {
       unitPrice = value;
+      intoMoney = unitPrice * numberOf;
     });
     setAdd(context);
   }

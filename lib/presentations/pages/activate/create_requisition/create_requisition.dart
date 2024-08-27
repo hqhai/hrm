@@ -97,9 +97,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x4,
-                        fontWeight: FontWeight.w600),
+                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
                   ),
                 ),
                 Expanded(
@@ -112,8 +110,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                         state.flows[index],
                       ),
                       child: item(
-                        title:
-                            state.flows[index].flowType?.configTypeName ?? "",
+                        title: state.flows[index].flowType?.configTypeName ?? "",
                         context: context,
                       ),
                     ),

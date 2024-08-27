@@ -99,10 +99,11 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                checkTypeContainer ? "" : formatYMD(date.toString()),
+                checkTypeContainer ? appLocalizations.date : formatYMD(date.toString()),
                 style: TextStyle(
                   color: colors.text,
                   fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w600
                 ),
               ),
               InkWell(
