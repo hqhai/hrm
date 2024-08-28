@@ -4,11 +4,11 @@ part 'search_stationery_by_name_request.g.dart';
 
 @JsonSerializable()
 class SearchStationeryByNameRequest {
-  final String fullName;
+  final String product;
   final int page;
 
   const SearchStationeryByNameRequest({
-    this.fullName = '',
+    this.product = '',
     this.page = 0
   });
 

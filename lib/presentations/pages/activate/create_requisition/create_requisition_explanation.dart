@@ -4,7 +4,7 @@ import 'package:base_app/common/enum/time_keeping_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
-import 'package:base_app/common/utils/error_response.dart';
+import 'package:base_app/common/utils/error_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/explanation.dart';
@@ -91,9 +91,7 @@ class _CreateRequisitionExplanationPageState
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty
-          ? setErrorValue(errorCode, context) ?? errorCode
-          : "";
+      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
     });
   }
 
