@@ -1,6 +1,6 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
-import 'package:themes/themes.dart';
 import 'package:widgets/app_input.dart';
 
 class ItemInputUpdateProfile extends StatefulWidget {
@@ -8,6 +8,7 @@ class ItemInputUpdateProfile extends StatefulWidget {
   final ValueChanged<String> onChange;
   final String content;
   final String title;
+  final bool requiredValidate;
 
   const ItemInputUpdateProfile({
     super.key,
@@ -15,6 +16,7 @@ class ItemInputUpdateProfile extends StatefulWidget {
     this.content = '',
     required this.onChange,
     this.error,
+    this.requiredValidate = false,
   });
 
   @override
@@ -32,21 +34,13 @@ class _ItemInputUpdateProfileState extends State<ItemInputUpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
           height: SpacingUnit.x2,
         ),
-        Text(
-          widget.title,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        TitleRequired(title: widget.title, requiredValidate: widget.requiredValidate),
         const SizedBox(
           height: SpacingUnit.x2,
         ),
@@ -54,18 +48,11 @@ class _ItemInputUpdateProfileState extends State<ItemInputUpdateProfile> {
           controller: contentController,
           maxLines: 1,
           onChange: (values) => _setOnChange(values),
+          error: widget.error,
         ),
         const SizedBox(
           height: SpacingUnit.x3,
         ),
-        if (widget.error?.isNotEmpty ?? false)
-          Padding(
-            padding: const EdgeInsets.only(bottom: SpacingUnit.x3),
-            child: Text(
-              widget.error ?? "",
-              style: TextStyle(color: colors.error, fontSize: SpacingUnit.x3),
-            ),
-          ),
       ],
     );
   }

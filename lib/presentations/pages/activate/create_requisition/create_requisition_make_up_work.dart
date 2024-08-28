@@ -15,6 +15,7 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
+import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
@@ -76,7 +77,7 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
   int startTime = 0, endTime = 0;
   double numberValue = 0;
   List<WorkShiftRegisteredDetail> workShiftSettings = [];
-  bool checkClick = false, checkShirt = true, checkShirtFirst = true;
+  bool checkClick = false, checkShirt = true;
 
   @override
   void initState() {
@@ -146,26 +147,30 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
                       dateOld: startDate,
                       changeValue: (value) => _setStartDate(value),
                     ),
-                    if (!checkShirtFirst)
-                      !checkShirt
-                          ? Center(
-                              child: Lottie.asset(
-                              Assets.gif.loading,
-                              height: 50,
-                              width: 50,
-                            ))
-                          : ItemWorkShiftADate(
-                              type: widget.type,
-                              workShiftSettings: (value) => _setWorkShiftSettings(value),
-                            ),
-                    if (errorWorkShiftSettings.isNotEmpty)
-                      Text(
-                        errorWorkShiftSettings,
-                        style: TextStyle(
-                          color: colors.error,
-                          fontSize: SpacingUnit.x3,
-                        ),
-                      ),
+                    !checkShirt
+                        ? Center(
+                            child: Lottie.asset(
+                            Assets.gif.loading,
+                            height: 50,
+                            width: 50,
+                          ))
+                        : ItemWorkShiftADate(
+                            type: widget.type,
+                            workShiftSettings: (value) => _setWorkShiftSettings(value),
+                          ),
+                    BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
+                      builder: (context, stateShift) {
+                        return errorWorkShiftSettings.isNotEmpty || stateShift.keys.isNotEmpty
+                            ? Text(
+                                errorWorkShiftSettings,
+                                style: TextStyle(
+                                  color: colors.error,
+                                  fontSize: SpacingUnit.x3,
+                                ),
+                              )
+                            : const SizedBox();
+                      },
+                    ),
                     const SizedBox(
                       height: SpacingUnit.x4,
                     ),
@@ -329,7 +334,6 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
     if (checkShirt) {
       setState(() {
         checkShirt = false;
-        checkShirtFirst = false;
       });
       Completer completer = Completer<bool>();
       dI<LeaveShiftBloc>()
@@ -362,7 +366,7 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
   _setWorkShiftSettings(List<WorkShiftRegisteredDetail> value) {
     setState(() {
       workShiftSettings = value;
-      if(workShiftSettings.isNotEmpty){
+      if (workShiftSettings.isNotEmpty) {
         errorWorkShiftSettings = '';
       }
     });

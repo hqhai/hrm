@@ -2,6 +2,7 @@ import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/gender_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -17,8 +18,7 @@ class ItemGenderUpdateProfile extends StatefulWidget {
   final GenderEnum gender;
 
   @override
-  State<ItemGenderUpdateProfile> createState() =>
-      _ItemGenderUpdateProfileState();
+  State<ItemGenderUpdateProfile> createState() => _ItemGenderUpdateProfileState();
 }
 
 class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
@@ -38,16 +38,10 @@ class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          appLocalizations.gender,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        TitleRequired(title: appLocalizations.gender, requiredValidate: true),
         ContainerBorder(
           borderColors: colors.surfaceBright.withOpacity(0.6),
+          marginTop: SpacingUnit.x2,
           paddingVertical: SpacingUnit.x4,
           width: width,
           child: Row(
@@ -72,6 +66,9 @@ class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
               )
             ],
           ),
+        ),
+        const SizedBox(
+          height: SpacingUnit.x4,
         ),
       ],
     );

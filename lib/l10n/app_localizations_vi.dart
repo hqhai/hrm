@@ -1379,7 +1379,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get lateOrEarly => 'Đi muộn/Về sớm';
 
   @override
-  String get lateOrEarlyCreate => 'Tạo đơn đăng ký đi muộn/Vv sớm';
+  String get lateOrEarlyCreate => 'Tạo đơn đăng ký đi muộn/Về sớm';
 
   @override
   String get timekeepingError => 'Chấm công lỗi';

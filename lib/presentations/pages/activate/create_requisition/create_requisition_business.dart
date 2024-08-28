@@ -16,6 +16,7 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
+import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
@@ -214,14 +215,19 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                         workShiftSettings: (value) => setListIds(value),
                       )
                     ],
-                    if (errorShift.isNotEmpty)
-                      Text(
-                        errorShift,
-                        style: TextStyle(
-                          color: colors.error,
-                          fontSize: SpacingUnit.x3,
-                        ),
-                      ),
+                    BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
+                      builder: (context, stateShift) {
+                        return (errorShift.isNotEmpty && stateShift.keys.isNotEmpty) || checkShirtFirst
+                            ? Text(
+                                errorShift,
+                                style: TextStyle(
+                                  color: colors.error,
+                                  fontSize: SpacingUnit.x3,
+                                ),
+                              )
+                            : const SizedBox();
+                      },
+                    ),
                     if (!checkShirtFirst && checkShirt)
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
