@@ -1,5 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -21,7 +21,7 @@ class DateOverTime extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DatePicker(
+        DatePickerLoop(
           checkError: errorDate.isEmpty,
           oldDate: dateOld,
           onChange: (value) => setDate(value),

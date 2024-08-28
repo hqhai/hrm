@@ -4,8 +4,9 @@ import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/pages/profile/item_gender_update_profile.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 class RegisterGenderEnumAndDateOfBirth extends StatefulWidget {
@@ -63,12 +64,20 @@ class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAnd
         Text(appLocalizations.dateOfBirth,
             style: TextStyle(
                 fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600)),
-        DatePicker(
+        DatePickerLoop(
           onChange: (value) => _setDateOfBirth(value),
-          oldDate: now,
+          oldDate: time(),
         )
       ],
     );
+  }
+
+  DateTime time() {
+    if (dateOfBirth.isNotEmpty) {
+      final DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+      return dateFormat.parse(dateOfBirth);
+    }
+    return now;
   }
 
   bool checkInput(String emailController) {

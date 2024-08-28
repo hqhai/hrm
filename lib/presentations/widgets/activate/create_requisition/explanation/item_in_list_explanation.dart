@@ -4,7 +4,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/app_start_end_time.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -42,7 +42,7 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DatePicker(
+        DatePickerLoop(
           callBack: () => _setContainer(),
           changeType: true,
           checkError: true,
