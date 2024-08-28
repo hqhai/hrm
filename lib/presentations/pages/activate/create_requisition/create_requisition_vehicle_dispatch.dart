@@ -56,9 +56,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       errorSubtitude = '',
       errorDialog = '';
   String? description, content;
-  DateTime? startTime, endTime;
+  DateTime startTime = DateTime.now(), endTime = DateTime.now();
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
-  final DateTime now = DateTime.now();
   bool checkClick = false;
 
   List<String> followers = [], subtitudePersons = [];
@@ -72,15 +71,15 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       subtitudePersons = [...request.config.subtitudePersons];
       description = request.config.description;
       descriptionController.text = request.config.description;
-      startTime = request.config.startDate;
-      endTime = request.config.endDate;
+      startTime = request.config.startDate??DateTime.now();
+      endTime = request.config.endDate??DateTime.now();
       followers = [...request.followerIds];
     }
     super.initState();
   }
 
   bool checkTime() {
-    return totalMinute > 0 || (endTime ?? now).difference(startTime ?? now).inSeconds > 0;
+    return totalMinute > 0 || endTime.difference(startTime).inSeconds > 0;
   }
 
   bool _checkValue(BuildContext context) {
