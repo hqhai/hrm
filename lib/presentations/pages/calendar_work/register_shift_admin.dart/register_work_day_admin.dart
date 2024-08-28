@@ -331,7 +331,11 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                    "Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?",
+                    selectType == WorkShiftRequestStatus.pendingCancel
+                        ? appLocalizations.rejectTitle1
+                        : selectType == WorkShiftRequestStatus.pending
+                            ? appLocalizations.rejectTitle2
+                            : "",
                     style: theme.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w600, color: Colors.black)),
                 TextField(

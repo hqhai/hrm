@@ -1938,4 +1938,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get retry => 'Thử lại';
+
+  @override
+  String get rejectTitle => 'Bạn có chắc chắn muốn gỡ nhân viên này khỏi ca hiện tại?';
+
+  @override
+  String get rejectTitle1 => 'Bạn có chắc chắn muốn từ chối duyệt yêu cầu hủy ca của nhân viên này?';
+
+  @override
+  String get rejectTitle2 => 'Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?';
 }

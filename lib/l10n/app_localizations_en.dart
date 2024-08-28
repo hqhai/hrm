@@ -1938,4 +1938,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get retry => 'Retry';
+
+  @override
+  String get rejectTitle => 'Are you sure you want to remove this employee from your current status?';
+
+  @override
+  String get rejectTitle1 => 'Are you sure you want to refuse to approve this employee\'s request to cancel a shift?';
+
+  @override
+  String get rejectTitle2 => 'Are you sure you want to refuse to approve this employee\'s shift registration request?';
 }

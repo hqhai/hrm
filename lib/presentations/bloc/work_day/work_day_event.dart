@@ -146,12 +146,15 @@ class RegisterWorkDayAdmin extends WorkDayEvent {
 
 class CancelRegisterWorkDayAdmin extends WorkDayEvent {
   final CancelWorkDayAdminRequest data;
+  final Completer completer;
   const CancelRegisterWorkDayAdmin({
+    required this.completer,
     required this.data,
   });
 
   @override
   List<Object?> get props => [
         data,
+        completer,
       ];
 }

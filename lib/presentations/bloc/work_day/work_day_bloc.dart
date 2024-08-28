@@ -129,11 +129,13 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
   Future<FutureOr<void>> _cancelRegisterAdmin(
       CancelRegisterWorkDayAdmin event, Emitter<WorkDayState> emit) async {
     try {
-      await _locationUseCase.cancelWorkDay(request: event.data);
+      final check = await _locationUseCase.cancelWorkDay(request: event.data);
+      event.completer.complete(check);
     } catch (e) {
       if (kDebugMode) {
-        print(e);
+        print("e");
       }
+      event.completer.complete(false);
     }
   }
 }

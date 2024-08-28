@@ -3962,6 +3962,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retry'**
   String get retry;
+
+  /// No description provided for @rejectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove this employee from your current status?'**
+  String get rejectTitle;
+
+  /// No description provided for @rejectTitle1.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to refuse to approve this employee\'s request to cancel a shift?'**
+  String get rejectTitle1;
+
+  /// No description provided for @rejectTitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to refuse to approve this employee\'s shift registration request?'**
+  String get rejectTitle2;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

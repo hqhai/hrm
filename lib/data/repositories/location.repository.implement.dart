@@ -107,9 +107,9 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<void> cancelWorkDay(
+  Future<bool> cancelWorkDay(
       {required CancelWorkDayAdminRequest request}) async {
-    await _locationService.cancelWorkDay(request: request);
+    return await _locationService.cancelWorkDay(request: request);
   }
 
   @override
