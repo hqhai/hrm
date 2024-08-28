@@ -128,4 +128,9 @@ class LocationUseCaseImpl extends LocationUseCase {
   Future<bool> addApprove({required ApproveRequest request}) async {
     return await _locationRepository.addApprove(request: request);
   }
+
+  @override
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser() async {
+    return await _locationRepository.getWorkShiftRequestByUser();
+  }
 }

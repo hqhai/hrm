@@ -28,6 +28,7 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
     on<GetElectiveShiftDetail>(_getElectiveShiftDetail);
     on<RegisterWorkDayAdmin>(_registerAdmin);
     on<CancelRegisterWorkDayAdmin>(_cancelRegisterAdmin);
+    on<GetWorkDayByUser>(_getWorkDayByUser);
   }
 
   FutureOr<void> _getWorkDaysEvent(
@@ -137,5 +138,12 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
       }
       event.completer.complete(false);
     }
+  }
+
+  Future<FutureOr<void>> _getWorkDayByUser(
+      GetWorkDayByUser event, Emitter<WorkDayState> emit) async {
+    final data = await _locationUseCase.getWorkShiftRequestByUser();
+    emit(state.copyWith(items: data.items));
+    event.completer.complete(data.items.isNotEmpty);
   }
 }

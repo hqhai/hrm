@@ -62,6 +62,19 @@ class WorkDayAdmin {
   final String content;
   final String note;
   final String workShiftRequestId;
+  final String type;
+  final String workShiftSettingDetailId;
+  final double workEffort;
+  final int checkInStartTimeValid;
+  final int checkInEndTimeValid;
+  final int checkOutStartTimeValid;
+  final int checkOutEndTimeValid;
+  final String id;
+  final String createdUserId;
+  final String updatedUserId;
+  final String createdFullName;
+  final String updatedFullName;
+  final String updatedDate;
 
   const WorkDayAdmin({
     this.workShiftApproveId = '',
@@ -81,6 +94,19 @@ class WorkDayAdmin {
     this.content = '',
     this.note = '',
     this.workShiftRequestId = '',
+    this.type = '',
+    this.workShiftSettingDetailId = "",
+    this.workEffort = 0,
+    this.checkInStartTimeValid = 0,
+    this.checkInEndTimeValid = 0,
+    this.checkOutStartTimeValid = 0,
+    this.checkOutEndTimeValid = 0,
+    this.id = "",
+    this.createdUserId = "",
+    this.updatedUserId = "",
+    this.createdFullName = "",
+    this.updatedFullName = "",
+    this.updatedDate = '',
   });
 
   factory WorkDayAdmin.fromJson(Map<String, dynamic> json) =>

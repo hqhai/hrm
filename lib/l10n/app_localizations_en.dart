@@ -1947,4 +1947,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rejectTitle2 => 'Are you sure you want to refuse to approve this employee\'s shift registration request?';
+
+  @override
+  String get proactiveCaseRegistrationManagement => 'Proactive case registration management';
+
+  @override
+  String get receivedShift => 'Received shift';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get waitingForApprovalToCancelShift => 'Waiting for approval to cancel shift';
+
+  @override
+  String get waitingForShiftRegistrationApproval => 'Waiting for approval for case registration';
+
+  @override
+  String get notRegisteredYet => 'not registered yet';
+
+  @override
+  String get dialogConfirmContent => 'Do you want to approve this shift?';
 }

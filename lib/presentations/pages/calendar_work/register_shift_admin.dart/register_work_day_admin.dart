@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
+import 'package:base_app/common/enum/user_type.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/routers/query_params/work_day_admin_query_params.dart';
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
@@ -18,19 +20,30 @@ import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
+import 'package:base_app/presentations/pages/error.page.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
 final registerWorkDayPageRoute = GoRoute(
-  path: Pages.registerWorkDayAdmin,
-  name: Pages.registerWorkDayAdmin,
-  builder: (context, GoRouterState state) => const RegisterWorkDayAdminPage(),
-);
+    path: Pages.registerWorkDayAdmin,
+    name: Pages.registerWorkDayAdmin,
+    builder: (context, GoRouterState state) {
+      if (state.uri.hasQuery) {
+        final query = state.uri.queryParameters;
+        final data = ShiftsBuyUserQueryParams.fromJson(query);
+        return RegisterWorkDayAdminPage(
+          userType: data.type,
+        );
+      }
+      return const ErrorPage();
+    });
 
 class RegisterWorkDayAdminPage extends StatefulWidget {
-  const RegisterWorkDayAdminPage({super.key});
+  final UserType userType;
+  const RegisterWorkDayAdminPage({super.key, required this.userType});
 
   @override
   State<RegisterWorkDayAdminPage> createState() =>
@@ -48,17 +61,23 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
 
   @override
   void initState() {
-    dI<FlowBloc>().add(const GetFlowsEvent());
-    controller = ScrollController()..addListener(_scrollListener);
-    dI<WorkDayBloc>().add(GetElectiveShift(
-        data: WorkDayGetElectiveShiftRequest(
-      pageSize: days,
-      isApprove: true,
-      startDate: formatYYMMDD(
-          DateTime.now().subtract(Duration(days: days)).toString()),
-      endDate: formatYYMMDD(DateTime.now().toString()),
-    )));
-    _loadData();
+    if (widget.userType == UserType.user) {
+      Completer completer = Completer();
+      dI<WorkDayBloc>().add(GetWorkDayByUser(completer: completer));
+    } else {
+      dI<FlowBloc>().add(const GetFlowsEvent());
+      controller = ScrollController()..addListener(_scrollListener);
+      dI<WorkDayBloc>().add(GetElectiveShift(
+          data: WorkDayGetElectiveShiftRequest(
+        pageSize: days,
+        isApprove: true,
+        startDate: formatYYMMDD(
+            DateTime.now().subtract(Duration(days: days)).toString()),
+        endDate: formatYYMMDD(DateTime.now().toString()),
+      )));
+      _loadData();
+    }
+
     super.initState();
   }
 
@@ -87,38 +106,56 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
   }
 
   _onTapHeader(WorkShiftRequestStatus type) {
-    setState(() {
-      days = 30;
-    });
+    if (widget.userType == UserType.manage) {
+      setState(() {
+        days = 30;
+      });
+      switch (type) {
+        case WorkShiftRequestStatus.approve:
+          dI<WorkDayBloc>().add(GetElectiveShift(
+              data: WorkDayGetElectiveShiftRequest(
+            isApprove: true,
+            startDate: formatYYMMDD(
+                DateTime.now().subtract(Duration(days: days)).toString()),
+            endDate: formatYYMMDD(DateTime.now().toString()),
+          )));
+          break;
+        case WorkShiftRequestStatus.unusable:
+          dI<WorkDayBloc>().add(GetElectiveShift(
+              data: WorkDayGetElectiveShiftRequest(
+            isApprove: false,
+            startDate: formatYYMMDD(
+                DateTime.now().subtract(Duration(days: days)).toString()),
+            endDate: formatYYMMDD(DateTime.now().toString()),
+          )));
+          break;
+        case WorkShiftRequestStatus.pendingCancel:
+          dI<WorkDayBloc>().add(const GetWorkDayAdmin(
+              data: WorkDayAdminRequest(
+                  requestStatus: WorkShiftRequestStatus.pendingCancel)));
+          break;
+        case WorkShiftRequestStatus.pending:
+          dI<WorkDayBloc>().add(const GetWorkDayAdmin(
+              data: WorkDayAdminRequest(
+                  requestStatus: WorkShiftRequestStatus.pending)));
+          break;
+        default:
+          () {};
+      }
+    }
+  }
+
+  _onGetNameType(WorkShiftRequestStatus type) {
+    final appLocalizations = AppLocalizations.of(context)!;
     switch (type) {
       case WorkShiftRequestStatus.approve:
-        dI<WorkDayBloc>().add(GetElectiveShift(
-            data: WorkDayGetElectiveShiftRequest(
-          isApprove: true,
-          startDate: formatYYMMDD(
-              DateTime.now().subtract(Duration(days: days)).toString()),
-          endDate: formatYYMMDD(DateTime.now().toString()),
-        )));
-        break;
+        return appLocalizations.receivedShift;
       case WorkShiftRequestStatus.unusable:
-        dI<WorkDayBloc>().add(GetElectiveShift(
-            data: WorkDayGetElectiveShiftRequest(
-          isApprove: false,
-          startDate: formatYYMMDD(
-              DateTime.now().subtract(Duration(days: days)).toString()),
-          endDate: formatYYMMDD(DateTime.now().toString()),
-        )));
-        break;
+        return appLocalizations.notRegisteredYet;
       case WorkShiftRequestStatus.pendingCancel:
-        dI<WorkDayBloc>().add(const GetWorkDayAdmin(
-            data: WorkDayAdminRequest(
-                requestStatus: WorkShiftRequestStatus.pendingCancel)));
-        break;
+        return appLocalizations.waitingForApprovalToCancelShift;
       case WorkShiftRequestStatus.pending:
-        dI<WorkDayBloc>().add(const GetWorkDayAdmin(
-            data: WorkDayAdminRequest(
-                requestStatus: WorkShiftRequestStatus.pending)));
-        break;
+        return appLocalizations.waitingForShiftRegistrationApproval;
       default:
         () {};
     }
@@ -183,7 +220,9 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
           ),
         ),
         title: Text(
-          appLocalizations.createANewSingleWord,
+          widget.userType == UserType.manage
+              ? appLocalizations.proactiveCaseRegistrationManagement
+              : appLocalizations.shiftManagement,
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,
@@ -221,57 +260,76 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                           width: MediaQuery.sizeOf(context).width / 2.5,
                           child: Center(
                               child: Text(
-                            WorkShiftRequestStatus
-                                .values[index].configWorkShiftRequestStatusName,
+                            _onGetNameType(
+                                WorkShiftRequestStatus.values[index]),
                             style: theme.textTheme.titleMedium,
                           ))),
                     );
                   },
                 ),
               ),
-              if (selectType == WorkShiftRequestStatus.pending ||
-                  selectType == WorkShiftRequestStatus.pendingCancel)
-                _Search(status: selectType),
-              if (selectType == WorkShiftRequestStatus.approve ||
-                  selectType == WorkShiftRequestStatus.unusable) ...[
-                if (state.electiveShiftItems.isEmpty) Container(),
+              if (widget.userType == UserType.user) ...[
                 Expanded(
                     child: Container(
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   color: colors.surfaceVariantLow.withOpacity(0.1),
                   child: ListView.builder(
-                    controller: scrollController,
-                    itemCount: state.electiveShiftItems.length,
-                    itemBuilder: (context, index) => _Item(
-                        state.electiveShiftItems[
-                            (state.electiveShiftItems.length - 1) - index],
-                        index,
-                        selectType),
-                  ),
+                      controller: scrollController,
+                      itemCount: state.items.length,
+                      itemBuilder: (context, index) {
+                        if (state.items[index].status == selectType) {
+                          return _ItemUser(
+                            state.items[index],
+                          );
+                        }
+                        return null;
+                      }),
                 ))
               ] else ...[
-                Expanded(
-                    child: Container(
-                  padding: const EdgeInsets.all(SpacingUnit.x4),
-                  color: colors.surfaceVariantLow.withOpacity(0.1),
-                  child: ListView.builder(
-                    itemCount: state.items.length,
-                    controller: scrollController,
-                    itemBuilder: (context, index) => _ItemPending(
-                      state.items[index],
-                      index,
-                      selectType,
-                      onConfirm: () => onConfirm(
-                          workShiftRequestId:
-                              state.items[index].workShiftApproveId,
-                          type: selectType),
-                      onReject: () => _onCancel(
-                          workShiftRequestId:
-                              state.items[index].workShiftApproveId,
-                          type: selectType),
+                if (selectType == WorkShiftRequestStatus.pending ||
+                    selectType == WorkShiftRequestStatus.pendingCancel)
+                  _Search(status: selectType),
+                if (selectType == WorkShiftRequestStatus.approve ||
+                    selectType == WorkShiftRequestStatus.unusable) ...[
+                  if (state.electiveShiftItems.isEmpty) Container(),
+                  Expanded(
+                      child: Container(
+                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    color: colors.surfaceVariantLow.withOpacity(0.1),
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: state.electiveShiftItems.length,
+                      itemBuilder: (context, index) => _Item(
+                          state.electiveShiftItems[
+                              (state.electiveShiftItems.length - 1) - index],
+                          index,
+                          selectType),
                     ),
-                  ),
-                ))
+                  ))
+                ] else ...[
+                  Expanded(
+                      child: Container(
+                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    color: colors.surfaceVariantLow.withOpacity(0.1),
+                    child: ListView.builder(
+                      itemCount: state.items.length,
+                      controller: scrollController,
+                      itemBuilder: (context, index) => _ItemPending(
+                        state.items[index],
+                        index,
+                        selectType,
+                        onConfirm: () => _openDialogConfirm(
+                            workShiftRequestId:
+                                state.items[index].workShiftApproveId,
+                            type: selectType),
+                        onReject: () => _onCancel(
+                            workShiftRequestId:
+                                state.items[index].workShiftApproveId,
+                            type: selectType),
+                      ),
+                    ),
+                  ))
+                ],
               ],
             ],
           );
@@ -405,10 +463,11 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         });
   }
 
-  onConfirm(
+  _onConfirm(
       {required String workShiftRequestId,
       required WorkShiftRequestStatus type}) async {
     final appLocalizations = AppLocalizations.of(context)!;
+    Navigator.pop(context);
     try {
       Completer completer = Completer<bool>();
       dI<WorkDayBloc>().add(RegisterWorkDayAdmin(
@@ -429,6 +488,53 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
     } catch (e) {
       ToastUtils().showError(appLocalizations.unsuccessful);
     }
+  }
+
+  _openDialogConfirm(
+      {required String workShiftRequestId,
+      required WorkShiftRequestStatus type}) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DialogConfirm(
+          onConfirm: () =>
+              _onConfirm(workShiftRequestId: workShiftRequestId, type: type),
+        );
+      },
+    );
+  }
+}
+
+class _ItemUser extends StatelessWidget {
+  final WorkDayAdmin data;
+  const _ItemUser(this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    // final appLocalizations = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    // final colors = AppTheme.getColors(context);
+    return Container(
+      margin: const EdgeInsets.only(bottom: SpacingUnit.x4),
+      padding: const EdgeInsets.all(SpacingUnit.x3),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingUnit.x3),
+        color: Colors.white,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text(data.name,
+                style: theme.textTheme.bodyLarge!
+                    .copyWith(fontWeight: FontWeight.w500)),
+          ]),
+          const SizedBox(height: SpacingUnit.x3),
+          Text(
+              "Thời gian: ${strSeconds(data.startTime)} - ${strSeconds(data.endTime)} ${formatDMY(data.workDate.toString())}")
+        ],
+      ),
+    );
   }
 }
 
@@ -618,6 +724,62 @@ class _SearchState extends State<_Search> {
                 ),
               ),
             )),
+      ),
+    );
+  }
+}
+
+class DialogConfirm extends StatelessWidget {
+  final VoidCallback onConfirm;
+  const DialogConfirm({super.key, required this.onConfirm});
+
+  _onClose(context) {
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
+    return Dialog(
+      child: Container(
+        padding: const EdgeInsets.all(SpacingUnit.x4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingUnit.x4),
+          color: colors.background,
+        ),
+        height: MediaQuery.sizeOf(context).height / 5,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: () {
+                _onClose(context);
+              },
+              child: Container(
+                  width: MediaQuery.sizeOf(context).width,
+                  alignment: Alignment.topRight,
+                  child: const Icon(Icons.close)),
+            ),
+            const SizedBox(height: SpacingUnit.x3),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x10),
+              child: Text(
+                appLocalizations.dialogConfirmContent,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: SpacingUnit.x4),
+            AppButton(
+              title: appLocalizations.confirm,
+              onSubmit: () => onConfirm.call(),
+            )
+          ],
+        ),
       ),
     );
   }

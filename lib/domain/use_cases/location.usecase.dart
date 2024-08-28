@@ -48,4 +48,6 @@ abstract class LocationUseCase {
   });
 
   Future<bool> addApprove({required ApproveRequest request});
+
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser();
 }

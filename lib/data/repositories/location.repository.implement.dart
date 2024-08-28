@@ -123,4 +123,9 @@ class LocationRepositoryImpl extends LocationRepository {
       datetimeRequest: DatetimeRequest(workDate: workDate),
     );
   }
+
+  @override
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser() async {
+    return await _locationService.getWorkShiftRequestByUser();
+  }
 }

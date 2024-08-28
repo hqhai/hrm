@@ -199,4 +199,13 @@ class LocationServiceImpl extends BaseService implements LocationService {
       return false;
     }
   }
+
+  @override
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser() async {
+    final url =
+        '$baseSystem${PathConfig.getWorkShiftByUser}?page=1&pageSize=10000';
+    final response = await client.get(url);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    return ShiftsAdminResponse.fromJson(responseBase.result);
+  }
 }
