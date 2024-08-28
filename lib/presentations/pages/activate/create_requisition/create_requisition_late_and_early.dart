@@ -77,9 +77,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       errorDestination = '',
       errorDialog = '',
       errorShift = '',
-      errorListener = '';
+      errorListener = '', description = '';
   DateTime workDate = DateTime.now(), endDate = DateTime.now();
-  String? description;
   List<String> followers = [];
   int startTime = 0, endTime = 0;
   bool checkShirt = true;
@@ -97,7 +96,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       final request = dI<RequisitionBloc>().state.requisition;
       workDate = request.config.startDate ?? DateTime.now();
       description = request.config.description;
-      detailedDescriptionController.text = description ?? "";
+      detailedDescriptionController.text = description;
       followers = [...request.followerIds];
       type = request.config.explanationReason ?? EditTimekeeping.late;
       endDate = request.config.endDate ?? DateTime.now();
@@ -295,7 +294,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final bool checkDescription = description != null;
+    final bool checkDescription = description.isNotEmpty;
     final checkShiftEmpty = listWorkShift.isNotEmpty;
     setState(() {
       errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
