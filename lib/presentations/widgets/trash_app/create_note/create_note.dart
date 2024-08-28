@@ -6,7 +6,7 @@ import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_dialog_common.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +86,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                     style: TextStyle(fontSize: SpacingUnit.x4_5, color: colors.text),
                   ),
                   const SizedBox(width: SpacingUnit.x3_5),
-                  DatePicker(
+                  DatePickerLoop(
                     onChange: (value) => setState(
                       () {
                         dateNote = value;

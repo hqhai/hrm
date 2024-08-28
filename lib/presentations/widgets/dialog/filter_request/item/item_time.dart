@@ -1,5 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -42,7 +42,7 @@ class _ItemTimeFilterState extends State<ItemTimeFilter> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
-            child: DatePicker(
+            child: DatePickerLoop(
               onChange: (value) => _setOnChange(value),
               oldDate: widget.dateOfBirth,
             ),

@@ -1,6 +1,6 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -55,7 +55,7 @@ class _ItemCreateBusinessDayState extends State<ItemCreateBusinessDay> {
             Container(
               width: width * 0.4,
               margin: const EdgeInsets.all(SpacingUnit.x3),
-              child: DatePicker(
+              child: DatePickerLoop(
                 onChange: (value) => _setStart(value),
                 oldDate: time,
               ),
@@ -74,7 +74,7 @@ class _ItemCreateBusinessDayState extends State<ItemCreateBusinessDay> {
             Container(
                 width: width * 0.4,
                 margin: const EdgeInsets.all(SpacingUnit.x3),
-                child: DatePicker(onChange: (value) => _setEnd(value), oldDate: time)),
+                child: DatePickerLoop(onChange: (value) => _setEnd(value), oldDate: time)),
           ],
         ),
         Padding(

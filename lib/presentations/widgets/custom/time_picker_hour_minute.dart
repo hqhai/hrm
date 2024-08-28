@@ -6,10 +6,10 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
-import 'package:time_picker_spinner/time_picker_spinner.dart';
 
 class TimePickerHourMinute extends StatefulWidget {
   const TimePickerHourMinute(
@@ -73,20 +73,14 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
                     color: colors.text,
                     fontWeight: FontWeight.w600),
               ),
-              TimePickerSpinner(
-                alignment: Alignment.center,
-                highlightedTextStyle: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x5,
-                  fontWeight: FontWeight.w600,
+              SizedBox(
+                height: SpacingUnit.x50,
+                child: CupertinoDatePicker(
+                  initialDateTime: timeHS,
+                  mode: CupertinoDatePickerMode.time,
+                  use24hFormat: true,
+                  onDateTimeChanged: (DateTime newDate) => timeHS = newDate,
                 ),
-                normalTextStyle: TextStyle(
-                  color: colors.text.withOpacity(0.7),
-                  fontSize: SpacingUnit.x5,
-                  fontWeight: FontWeight.w500,
-                ),
-                time: timeHS,
-                onTimeChange: (time) => timeHS = time,
               ),
               Padding(
                 padding: const EdgeInsets.all(SpacingUnit.x4),

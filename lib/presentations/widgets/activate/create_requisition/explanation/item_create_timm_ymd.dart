@@ -1,5 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -45,7 +45,7 @@ class _ItemCreateTimeYMDState extends State<ItemCreateTimeYMD> {
           const SizedBox(
             height: SpacingUnit.x3,
           ),
-          DatePicker(
+          DatePickerLoop(
             onChange: (value) => _setOnChange(value),
             oldDate: widget.dateOfBirth,
           ),

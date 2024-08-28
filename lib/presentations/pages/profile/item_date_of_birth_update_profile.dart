@@ -1,4 +1,4 @@
-import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +30,7 @@ class _ItemDateOfBirthUpdateProfileState extends State<ItemDateOfBirthUpdateProf
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TitleRequired(title: widget.title, requiredValidate: true),
-        DatePicker(
+        DatePickerLoop(
           check: false,
           onChange: (value) => _setOnChange(value),
           oldDate: DateTime.tryParse(widget.dateOfBirth),
