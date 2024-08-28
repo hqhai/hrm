@@ -5,8 +5,6 @@ import 'package:base_app/domain/entities/requisition/stationery/stationery.dart'
 import 'package:base_app/presentations/bloc/requisition/stationery/stationery_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/stationery/stationery_event.dart';
 import 'package:base_app/presentations/bloc/requisition/stationery/stationery_state.dart';
-import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_event.dart';
 import 'package:base_app/presentations/widgets/custom/search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +19,10 @@ class BottomSheetStationeryWidget extends StatefulWidget {
   final ValueChanged<Stationery> onChange;
 
   @override
-  State<BottomSheetStationeryWidget> createState() =>
-      _BottomSheetStationeryWidgetState();
+  State<BottomSheetStationeryWidget> createState() => _BottomSheetStationeryWidgetState();
 }
 
-class _BottomSheetStationeryWidgetState
-    extends State<BottomSheetStationeryWidget> {
+class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidget> {
   late ScrollController controller;
   String? searchStr;
   int pageIndex = 1, totalItems = 12, lengthList = 11;
@@ -54,8 +50,7 @@ class _BottomSheetStationeryWidgetState
               children: [
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child:
-                      SearchInput(onChange: (value) => _onChangeSearch(value)),
+                  child: SearchInput(onChange: (value) => _onChangeSearch(value)),
                 ),
                 Expanded(
                   child: ListView.builder(
@@ -115,7 +110,7 @@ class _BottomSheetStationeryWidgetState
     setState(() {
       searchStr = value;
     });
-    dI<UserByNameBloc>().add(GetUserByNameEvent(page: 1, name: value));
+    dI<StationeryBloc>().add(GetStationeriesEvent(name: searchStr ?? ""));
   }
 
   _scrollListener() {

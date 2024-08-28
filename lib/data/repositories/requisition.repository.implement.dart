@@ -56,7 +56,7 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       {required String name, required int page}) async {
     return await _requestService.getStationery(
         searchStationeryByNameRequest:
-            SearchStationeryByNameRequest(page: page, fullName: name));
+            SearchStationeryByNameRequest(page: page, product: name));
   }
 
   @override
