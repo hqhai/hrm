@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/user_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'shifts_query_params.g.dart';
@@ -16,4 +17,18 @@ class ShiftsQueryParams {
       _$ShiftsQueryParamsFromJson(json);
 
   Map<String, dynamic> toJson() => _$ShiftsQueryParamsToJson(this);
+}
+
+@JsonSerializable()
+class ShiftsBuyUserQueryParams {
+  final UserType type;
+
+  ShiftsBuyUserQueryParams({
+    required this.type,
+  });
+
+  factory ShiftsBuyUserQueryParams.fromJson(Map<String, dynamic> json) =>
+      _$ShiftsBuyUserQueryParamsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ShiftsBuyUserQueryParamsToJson(this);
 }

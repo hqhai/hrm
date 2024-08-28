@@ -649,5 +649,12 @@
   "retry":"Retry",
   "rejectTitle":"Are you sure you want to remove this employee from your current status?",
   "rejectTitle1":"Are you sure you want to refuse to approve this employee's request to cancel a shift?",
-  "rejectTitle2":"Are you sure you want to refuse to approve this employee's shift registration request?"
+  "rejectTitle2":"Are you sure you want to refuse to approve this employee's shift registration request?",
+  "proactiveCaseRegistrationManagement":"Proactive case registration management",
+  "receivedShift":"Received shift",
+  "confirm":"Confirm",
+  "waitingForApprovalToCancelShift":"Waiting for approval to cancel shift",
+  "waitingForShiftRegistrationApproval":"Waiting for approval for case registration",
+  "notRegisteredYet":"not registered yet",
+  "dialogConfirmContent":"Do you want to approve this shift?"
 }

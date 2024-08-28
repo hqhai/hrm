@@ -289,7 +289,6 @@ class _TimekeepingGPSPageState extends State<TimekeepingGPSPage> {
       },
     ).then((value) {
       dI<AppNavigation>().pop(context);
-      dI<AppNavigation>().pop(context);
     });
   }
 

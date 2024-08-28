@@ -1947,4 +1947,25 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get rejectTitle2 => 'Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?';
+
+  @override
+  String get proactiveCaseRegistrationManagement => 'Quản lý đăng ký ca chủ động';
+
+  @override
+  String get receivedShift => 'Đã nhận ca';
+
+  @override
+  String get confirm => 'Xác nhận';
+
+  @override
+  String get waitingForApprovalToCancelShift => 'Chờ duyệt hủy ca';
+
+  @override
+  String get waitingForShiftRegistrationApproval => 'Chờ duyệt đăng ký ca';
+
+  @override
+  String get notRegisteredYet => 'Chưa đăng ký ca';
+
+  @override
+  String get dialogConfirmContent => 'Bạn có muốn phê duyệt ca làm việc này không ?';
 }

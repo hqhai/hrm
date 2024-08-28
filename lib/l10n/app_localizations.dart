@@ -3980,6 +3980,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to refuse to approve this employee\'s shift registration request?'**
   String get rejectTitle2;
+
+  /// No description provided for @proactiveCaseRegistrationManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Proactive case registration management'**
+  String get proactiveCaseRegistrationManagement;
+
+  /// No description provided for @receivedShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Received shift'**
+  String get receivedShift;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @waitingForApprovalToCancelShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for approval to cancel shift'**
+  String get waitingForApprovalToCancelShift;
+
+  /// No description provided for @waitingForShiftRegistrationApproval.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for approval for case registration'**
+  String get waitingForShiftRegistrationApproval;
+
+  /// No description provided for @notRegisteredYet.
+  ///
+  /// In en, this message translates to:
+  /// **'not registered yet'**
+  String get notRegisteredYet;
+
+  /// No description provided for @dialogConfirmContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to approve this shift?'**
+  String get dialogConfirmContent;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

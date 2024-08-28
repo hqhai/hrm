@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 class ItemUtils {
   static List<int> listActivate = [0, 1, 2, 3];
-  static List<int> listCalendarWork = [0, 1, 2];
+  static List<int> listCalendarWork = [0, 1, 2, 3];
 
   static String imagePathActivate(int index) {
     final Map<int, String> imagePathActivate = {
@@ -32,14 +32,18 @@ class ItemUtils {
     final Map<int, String> title = {
       0: appLocalizations.registerShift,
       1: appLocalizations.shiftManagement,
-      2: appLocalizations.timeKeeping,
+      2: appLocalizations.proactiveCaseRegistrationManagement,
+      3: appLocalizations.timeKeeping,
     };
     return title[index] ?? "";
   }
 
   static List<String> titlesTabBar(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
-    final List<String> titles = [appLocalizations.leaveList, appLocalizations.leaveUseHistory];
+    final List<String> titles = [
+      appLocalizations.leaveList,
+      appLocalizations.leaveUseHistory
+    ];
     return titles;
   }
 }

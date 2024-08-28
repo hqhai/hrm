@@ -64,15 +64,18 @@ class _SeeListRequisitionPageState extends State<SeeListRequisitionPage> {
     final check = await completer.future;
     if (check) {
       if (!currentContext.mounted) return;
-      dI<AppNavigation>().pushName(currentContext, page: Pages.requisitionListPage);
+      dI<AppNavigation>()
+          .pushName(currentContext, page: Pages.requisitionListPage);
     }
   }
 
   _nextRequisitionApproveListScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.requisitionApproveListPage);
+    dI<AppNavigation>()
+        .pushName(context, page: Pages.requisitionApproveListPage);
   }
 
   _nextRequisitionFollowerListScreen(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.requisitionFollowerListPage);
+    dI<AppNavigation>()
+        .pushName(context, page: Pages.requisitionFollowerListPage);
   }
 }

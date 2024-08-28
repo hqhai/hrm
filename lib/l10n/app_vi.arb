@@ -650,5 +650,12 @@
   "retry":"Thử lại",
   "rejectTitle":"Bạn có chắc chắn muốn gỡ nhân viên này khỏi ca hiện tại?",
   "rejectTitle1":"Bạn có chắc chắn muốn từ chối duyệt yêu cầu hủy ca của nhân viên này?",
-  "rejectTitle2":"Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?"
+  "rejectTitle2":"Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?",
+  "proactiveCaseRegistrationManagement":"Quản lý đăng ký ca chủ động",
+  "confirm":"Xác nhận",
+  "receivedShift":"Đã nhận ca",
+  "waitingForApprovalToCancelShift":"Chờ duyệt hủy ca",
+  "waitingForShiftRegistrationApproval":"Chờ duyệt đăng ký ca",
+  "dialogConfirmContent":"Bạn có muốn phê duyệt ca làm việc này không ?",
+  "notRegisteredYet":"Chưa đăng ký ca"
 }

@@ -13,9 +13,12 @@ class PathConfig {
   static String getRequestByAdmin = '/request/get-list-request-had-type';
   static String changeListStatus = '/request/change-list-status';
   static String roomMeeting = '/room-meeting';
-  static String createRequestTypeRoomMeeting = '/room-meeting/create-request-type-room-meeting';
-  static String updateStatusTypeRoomMeeting = '/room-meeting/update-status-type-room-meeting';
-  static String getListUserByRequestExplanation = '/user/get-list-user-by-request-type-explanation';
+  static String createRequestTypeRoomMeeting =
+      '/room-meeting/create-request-type-room-meeting';
+  static String updateStatusTypeRoomMeeting =
+      '/room-meeting/update-status-type-room-meeting';
+  static String getListUserByRequestExplanation =
+      '/user/get-list-user-by-request-type-explanation';
   static String department = '/admin/department';
   static String departments = '/admin/department/get-departments';
   static String getDepartmentById = '/department/get-department';
@@ -43,7 +46,8 @@ class PathConfig {
   static String getRequestApprove = '/request/get-request-approve';
   static String getRequestFollower = '/request/get-request-follower';
   static String stepRequestApprover = '/step-request-approver';
-  static String stepRequestApproverCountStatus = '/step-request-approver/count-status';
+  static String stepRequestApproverCountStatus =
+      '/step-request-approver/count-status';
   static String changeStatus = '/request/change-status';
   static String editRequestEdit = '/request/edit-request-edit';
   static String cancelRequest = '/request/cancel-request';
@@ -56,15 +60,19 @@ class PathConfig {
   static String scheduleSchool = '/schedule-school/schedule-school-by-user';
   static String userLeave = '/user-leave-history/user-total';
   static String userLeaveHistory = '/user-leave-history/get-user-leave-history';
-  static String workShiftByDate = '/workshift-setting/workshift-setting-by-date';
-  static String workShiftExplanation = '/user-working-history/workshift-working-history';
+  static String workShiftByDate =
+      '/workshift-setting/workshift-setting-by-date';
+  static String workShiftExplanation =
+      '/user-working-history/workshift-working-history';
 
   //workDate
   static String getWorkShifts = '/workshift-request/get-workshift-requests';
-  static String registerWorkShifts = '/workshift-request/create-workshift-request';
+  static String registerWorkShifts =
+      '/workshift-request/create-workshift-request';
   static String cancelRegisterWorkShifts = '/workshift-request/update-status';
   static String workShiftApprove = '/workshift-approve';
-  static String workshiftSettingGetElectiveShift = '/workshift-setting/get-elective-shift';
+  static String workshiftSettingGetElectiveShift =
+      '/workshift-setting/get-elective-shift';
   static String workshiftRequest = '/workshift-request';
   static String workshiftSettingGetUser = '/workshift-setting/get-user';
 
@@ -73,6 +81,6 @@ class PathConfig {
   static String requestByIds = '/request/get-request-by-ids';
   static String attendanceByDate = '/attendance/get-attendances-by-date';
   static String shiftById = '/admin/work-shift';
-
-
+  static String getWorkShiftByUser =
+      '/workshift-request/get-workshift-request-by-user';
 }

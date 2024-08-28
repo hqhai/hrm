@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/user_type.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/item_data.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -50,8 +52,16 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
       case 0:
         dI<AppNavigation>().pushName(context, page: Pages.registerShiftsPage);
       case 1:
-        dI<AppNavigation>().pushName(context, page: Pages.registerWorkDayAdmin);
+        dI<AppNavigation>().push(context,
+            page: Pages.registerWorkDayAdmin,
+            paramsQuerry:
+                ShiftsBuyUserQueryParams(type: UserType.user).toJson());
       case 2:
+        dI<AppNavigation>().push(context,
+            page: Pages.registerWorkDayAdmin,
+            paramsQuerry:
+                ShiftsBuyUserQueryParams(type: UserType.manage).toJson());
+      case 3:
         _nextTimekeepingGPSScreen(context);
     }
   }

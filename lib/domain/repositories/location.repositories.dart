@@ -47,4 +47,6 @@ abstract class LocationRepository {
   });
 
   Future<bool> addApprove({required ApproveRequest request});
+
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser();
 }
