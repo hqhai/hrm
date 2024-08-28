@@ -101,8 +101,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         String path = await _requestUseCase.uploadFile(originFile: event.file, imageData: null);
         UpdateProfileRequest updateProfileRequest =
             event.updateProfileRequest.copyWith(avatarPath: path);
-        User user = await userUseCase.updateProfile(updateProfileRequest: updateProfileRequest);
-        emit(state.copyWith(user: user));
+        final user = await userUseCase.updateProfile(updateProfileRequest: updateProfileRequest);
+        emit(
+          state.copyWith(
+            user: user,
+          ),
+        );
         event.completer?.complete(true);
       } else {
         User user =

@@ -17,6 +17,7 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
+import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
@@ -81,7 +82,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   String? description;
   List<String> followers = [];
   int startTime = 0, endTime = 0;
-  bool checkShirt = true, checkShirtFirst = true;
+  bool checkShirt = true;
   bool checkClick = false;
   EditTimekeeping type = EditTimekeeping.late;
   List<WorkShiftRegisteredDetail> listWorkShift = [];
@@ -102,7 +103,6 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       endDate = request.config.endDate ?? DateTime.now();
       startTime = request.config.startTime;
       listWorkShift = [...request.config.workShiftSettings];
-      checkShirtFirst = false;
     }
     super.initState();
   }
@@ -181,28 +181,32 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       dateOld: workDate,
                       changeValue: (value) => _setWorkDate(value),
                     ),
-                    if (!checkShirtFirst)
-                      !checkShirt
-                          ? Center(
-                              child: Lottie.asset(
-                                Assets.gif.loading,
-                                height: 50,
-                                width: 50,
-                              ),
-                            )
-                          : WorkShiftLateEarly(
-                              typeLE: type,
-                              type: widget.type,
-                              workShiftSettings: (value) => setListIds(value),
+                    !checkShirt
+                        ? Center(
+                            child: Lottie.asset(
+                              Assets.gif.loading,
+                              height: 50,
+                              width: 50,
                             ),
-                    if (errorShift.isNotEmpty)
-                      Text(
-                        errorShift,
-                        style: TextStyle(
-                          color: colors.error,
-                          fontSize: SpacingUnit.x3,
-                        ),
-                      ),
+                          )
+                        : WorkShiftLateEarly(
+                            typeLE: type,
+                            type: widget.type,
+                            workShiftSettings: (value) => setListIds(value),
+                          ),
+                    BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
+                      builder: (context, stateShift) {
+                        return errorShift.isNotEmpty && stateShift.keys.isNotEmpty
+                            ? Text(
+                                errorShift,
+                                style: TextStyle(
+                                  color: colors.error,
+                                  fontSize: SpacingUnit.x3,
+                                ),
+                              )
+                            : const SizedBox();
+                      },
+                    ),
                     if (checkMakeUp())
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
@@ -396,7 +400,6 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     if (checkShirt) {
       setState(() {
         checkShirt = false;
-        checkShirtFirst = false;
       });
       Completer completer = Completer<bool>();
       dI<LeaveShiftBloc>()

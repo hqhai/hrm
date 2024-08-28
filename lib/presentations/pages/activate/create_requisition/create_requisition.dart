@@ -14,6 +14,8 @@ import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salar
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
+import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -179,32 +181,11 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     required InformationRequestExtra informationRequestExtra,
   }) async {
     final extraData = informationRequestExtra.toJson();
-    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    final Completer completer = Completer<bool>();
-    final Completer completerWorkAndSalary = Completer<bool>();
-    dialogIndicator(
-      context: context,
-    );
-    dI<WorkAndSalaryBloc>().add(
-      GetTotalLeaveDayEvent(
-        completer: completerWorkAndSalary,
-      ),
-    );
-    dI<FlowBloc>().add(
-      GetFlowEvent(
-        id: informationRequestExtra.flowId,
-        completer: completer,
-      ),
-    );
-    final checkCompleter = await completer.future;
-    final checkWorkAndSalary = await completerWorkAndSalary.future;
-    if (type != null && checkCompleter && checkWorkAndSalary) {
+    if (type != null) {
       extraData.addAll({'type': type});
-      if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(context, page: page, extra: extraData);
-    } else if (checkCompleter && checkWorkAndSalary) {
-      if (!currentContext.mounted) return;
+    } else {
       dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(
         context,
@@ -214,90 +195,181 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     }
   }
 
-  _nextScreen(BuildContext context, FlowRequest flow) {
+  _nextScreen(BuildContext context, FlowRequest flow) async {
+    dialogIndicator(
+      context: context,
+    );
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final check = await checkLoadScreen(flow);
+    if(check) {
+      if (!currentContext.mounted) return;
+      switch (flow.flowType) {
+        case RequisitionTypeEnum.explanation:
+          _push(
+            type: RequisitionTypeEnum.explanation,
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            page: Pages.createRequestExplanationPage,
+          );
+        case RequisitionTypeEnum.lateOrEarly:
+          _push(
+            type: RequisitionTypeEnum.lateOrEarly,
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            page: Pages.createRequestLateAndEarlyPage,
+          );
+        case RequisitionTypeEnum.overTime:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            page: Pages.createRequestOverTimePage,
+          );
+        case RequisitionTypeEnum.vehicleDriver:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            page: Pages.createRequestVehicleDispatchPage,
+          );
+        case RequisitionTypeEnum.postalDelivery:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            page: Pages.createRequestPostalDeliveryPage,
+          );
+        case RequisitionTypeEnum.warehouseReleased:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            page: Pages.createRequestReleaseOfWarehousePage,
+          );
+        case RequisitionTypeEnum.stationery:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            page: Pages.createRequestStationeryOderPage,
+          );
+        case RequisitionTypeEnum.bussiness:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            page: Pages.createRequestBusinessPage,
+          );
+        case RequisitionTypeEnum.leaveFiveDaysOrMore:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            type: RequisitionTypeEnum.leaveFiveDaysOrMore,
+            page: Pages.createRequestLeavePage,
+          );
+        case RequisitionTypeEnum.leaveHalfDayToOneDay:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            type: RequisitionTypeEnum.leaveHalfDayToOneDay,
+            page: Pages.createRequestLeavePage,
+          );
+        case RequisitionTypeEnum.leaveTwoDayToFourDay:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            type: RequisitionTypeEnum.leaveTwoDayToFourDay,
+            page: Pages.createRequestLeavePage,
+          );
+        case RequisitionTypeEnum.makeUpWork:
+          _push(
+            context: currentContext,
+            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            type: RequisitionTypeEnum.makeUpWork,
+            page: Pages.createRequestMakeUpWorkPage,
+          );
+        case RequisitionTypeEnum.core:
+        case null:
+        case RequisitionTypeEnum.unknown:
+        default:
+      }
+    }
+  }
+
+  Future<bool> loadFlow(FlowRequest flow) async {
+    final Completer completer = Completer<bool>();
+    dI<FlowBloc>().add(
+      GetFlowEvent(
+        id: flow.id,
+        completer: completer,
+      ),
+    );
+    return await completer.future;
+  }
+
+  Future<bool> loadWorkAndSalary() async {
+    final Completer completer = Completer<bool>();
+    dI<WorkAndSalaryBloc>().add(
+      GetTotalLeaveDayEvent(
+        completer: completer,
+      ),
+    );
+    return await completer.future;
+  }
+
+  Future<bool> loadWorkShiftOneDay() async {
+    final Completer completer = Completer<bool>();
+    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+        endDate:DateTime.now(),
+        startDate: DateTime.now(),
+        completer: completer));
+    return await completer.future;
+  }
+
+  Future<bool> checkLoadScreen(FlowRequest flow,) async {
     switch (flow.flowType) {
-      case RequisitionTypeEnum.explanation:
-        _push(
-          type: RequisitionTypeEnum.explanation,
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestExplanationPage,
-        );
-      case RequisitionTypeEnum.lateOrEarly:
-        _push(
-          type: RequisitionTypeEnum.lateOrEarly,
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestLateAndEarlyPage,
-        );
-      case RequisitionTypeEnum.overTime:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestOverTimePage,
-        );
-      case RequisitionTypeEnum.vehicleDriver:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestVehicleDispatchPage,
-        );
-      case RequisitionTypeEnum.postalDelivery:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestPostalDeliveryPage,
-        );
-      case RequisitionTypeEnum.warehouseReleased:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestReleaseOfWarehousePage,
-        );
-      case RequisitionTypeEnum.stationery:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestStationeryOderPage,
-        );
-      case RequisitionTypeEnum.bussiness:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          page: Pages.createRequestBusinessPage,
-        );
       case RequisitionTypeEnum.leaveFiveDaysOrMore:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          type: RequisitionTypeEnum.leaveFiveDaysOrMore,
-          page: Pages.createRequestLeavePage,
-        );
+        final checkF = await loadFlow(flow);
+        final checkWAS = await loadWorkAndSalary();
+        return checkF && checkWAS;
       case RequisitionTypeEnum.leaveHalfDayToOneDay:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          type: RequisitionTypeEnum.leaveHalfDayToOneDay,
-          page: Pages.createRequestLeavePage,
-        );
+        final checkF = await loadFlow(flow);
+        final checkWAS = await loadWorkAndSalary();
+        return checkF && checkWAS;
       case RequisitionTypeEnum.leaveTwoDayToFourDay:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          type: RequisitionTypeEnum.leaveTwoDayToFourDay,
-          page: Pages.createRequestLeavePage,
-        );
+        final checkF = await loadFlow(flow);
+        final checkWAS = await loadWorkAndSalary();
+        return checkF && checkWAS;
+      case RequisitionTypeEnum.bussiness:
+        final checkF = await loadFlow(flow);
+        return checkF;
+      case RequisitionTypeEnum.lateOrEarly:
+        final checkF = await loadFlow(flow);
+        final checkWS = await loadWorkShiftOneDay();
+        return checkF && checkWS;
+      case RequisitionTypeEnum.overTime:
+        final checkF = await loadFlow(flow);
+        return checkF;
+      case RequisitionTypeEnum.vehicleDriver:
+        final checkF = await loadFlow(flow);
+        return checkF;
+      case RequisitionTypeEnum.warehouseReleased:
+        final checkF = await loadFlow(flow);
+        return checkF;
+      case RequisitionTypeEnum.stationery:
+        final checkF = await loadFlow(flow);
+        return checkF;
+      case RequisitionTypeEnum.explanation:
+        final checkF = await loadFlow(flow);
+        return checkF;
       case RequisitionTypeEnum.makeUpWork:
-        _push(
-          context: context,
-          informationRequestExtra: InformationRequestExtra(flowId: flow.id),
-          type: RequisitionTypeEnum.makeUpWork,
-          page: Pages.createRequestMakeUpWorkPage,
-        );
+        final checkF = await loadFlow(flow);
+        final checkWS = await loadWorkShiftOneDay();
+        return checkF && checkWS;
+      case RequisitionTypeEnum.postalDelivery:
+        final checkF = await loadFlow(flow);
+        return checkF;
       case RequisitionTypeEnum.core:
-      case null:
+        final checkF = await loadFlow(flow);
+        return checkF;
       case RequisitionTypeEnum.unknown:
-      default:
+        return false;
+      case null:
+        return false;
     }
   }
 }

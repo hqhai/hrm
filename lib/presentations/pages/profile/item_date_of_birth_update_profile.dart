@@ -1,7 +1,6 @@
-import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/widgets/custom/date_picker.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
-import 'package:themes/themes.dart';
 
 class ItemDateOfBirthUpdateProfile extends StatefulWidget {
   const ItemDateOfBirthUpdateProfile({
@@ -27,18 +26,10 @@ class _ItemDateOfBirthUpdateProfileState extends State<ItemDateOfBirthUpdateProf
 
   @override
   Widget build(BuildContext context) {
-    final colors = AppTheme.getColors(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.title,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w600
-          ),
-        ),
+        TitleRequired(title: widget.title, requiredValidate: true),
         DatePicker(
           check: false,
           onChange: (value) => _setOnChange(value),

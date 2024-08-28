@@ -17,6 +17,7 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
+import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
@@ -227,7 +228,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         type: takeLeaveType,
                         onChangeSocialInsurance: (value) => setSocialInsurance(value),
                       ),
-                      if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave)
+                      if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave ||
+                          takeLeaveType == EnumTakeLeaveType.compensatoryLeave)
                         const ItemTakeLeaveWork(),
                       const SizedBox(height: SpacingUnit.x4),
                       TitleRequired(
@@ -255,14 +257,20 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                                 workShiftSettings: (value) => setListIds(value),
                               ),
                       ],
-                      if (errorShift.isNotEmpty || errorDate().isNotEmpty)
-                        Text(
-                          errorDate().isNotEmpty ? errorDate() : errorShift,
-                          style: TextStyle(
-                            color: colors.error,
-                            fontSize: SpacingUnit.x3,
-                          ),
-                        ),
+                      BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
+                        builder: (context, stateShift) {
+                          return (errorShift.isNotEmpty || errorDate().isNotEmpty) &&
+                                  stateShift.keys.isNotEmpty || checkShirtFirst
+                              ? Text(
+                                  errorDate().isNotEmpty ? errorDate() : errorShift,
+                                  style: TextStyle(
+                                    color: colors.error,
+                                    fontSize: SpacingUnit.x3,
+                                  ),
+                                )
+                              : const SizedBox();
+                        },
+                      ),
                       if (!checkShirtFirst && checkShirt)
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),

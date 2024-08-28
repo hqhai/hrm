@@ -45,13 +45,9 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  String? phoneNumber, address, licensePlate, autoMaker;
+  String? address;
   Address? province, ward, district;
-  String errorFirstName = '',
-      errorLastName = '',
-      firstName = '',
-      lastName = '',
-      dateOfBirth = '';
+  String errorFirstName = '', errorLastName = '', firstName = '', lastName = '', dateOfBirth = '', phoneNumber = '';
   File file = File('');
   GenderEnum gender = GenderEnum.male;
   VehicleTypeEnum? vehicleType;
@@ -60,6 +56,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   @override
   void initState() {
     User user = dI<UserBloc>().state.user;
+    phoneNumber = user.phoneNumber;
     dateOfBirth = user.dayOfBirth;
     firstName = user.firstName;
     lastName = user.lastName;
@@ -99,9 +96,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ItemProfile(
-                      isCheck: true,
-                      onChange: (value) => _setFileAvatar(value)),
+                  ItemProfile(isCheck: true, onChange: (value) => _setFileAvatar(value)),
                   Container(
                     margin: const EdgeInsets.only(top: SpacingUnit.x4),
                     padding: const EdgeInsets.all(SpacingUnit.x4),
@@ -117,9 +112,11 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ItemUpdateProfileConstant(
+                            checkOpacity: true,
                             title: appLocalizations.employeeCode,
                             content: state.user.code),
                         ItemUpdateProfileConstant(
+                            checkOpacity: true,
                             title: appLocalizations.companyEmail,
                             content: state.user.companyEmail),
                         ItemDateOfBirthUpdateProfile(
@@ -127,22 +124,24 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           dateOfBirth: formatDMY(
                             state.user.dayOfBirth,
                           ),
-                          onChangeDateOfBirth: (value) =>
-                              _setDateOfBirth(value),
+                          onChangeDateOfBirth: (value) => _setDateOfBirth(value),
                         ),
                         ItemInputUpdateProfile(
+                          requiredValidate: true,
                           error: errorFirstName,
                           title: appLocalizations.firstName,
                           content: state.user.firstName,
                           onChange: (value) => _setFirstName(value),
                         ),
                         ItemInputUpdateProfile(
+                          requiredValidate: true,
                           error: errorLastName,
                           title: appLocalizations.lastName,
                           content: state.user.lastName,
                           onChange: (value) => _setLastName(value),
                         ),
                         ItemInputUpdateProfile(
+                          requiredValidate: true,
                           title: appLocalizations.phoneNumber,
                           content: state.user.phoneNumber,
                           onChange: (value) => _setPhoneNumber(value),
@@ -158,8 +157,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                 id: state.user.residentDistrictId,
                                 name: state.user.residentDistrict),
                             ward: Address(
-                                id: state.user.residentWardId,
-                                name: state.user.residentWard),
+                                id: state.user.residentWardId, name: state.user.residentWard),
                             onChangeProvince: (value) => _setProvince(value),
                             onChangeDistrict: (value) => _setDistrict(value),
                             onChangeWard: (value) => _setWard(value)),
@@ -169,20 +167,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           onChange: (value) => _setAddress(value),
                         ),
                         const ItemDepartmentAndPositionProfile(),
-                        // ItemVehicleUpdateProfile(
-                        //   vehicle: state.user.vehicleType,
-                        //   onChangeVehicle: (value) => _onChangeVehicle(value),
-                        // ),
-                        // ItemInputUpdateProfile(
-                        //   title: appLocalizations.licensePlate,
-                        //   content: state.user.licensePlate,
-                        //   onChange: (value) => _setLicensePlate(value),
-                        // ),
-                        // ItemInputUpdateProfile(
-                        //   title: appLocalizations.autoMaker,
-                        //   content: state.user.autoMaker,
-                        //   onChange: (value) => _setAutoMaker(value),
-                        // ),
                       ],
                     ),
                   ),
@@ -259,17 +243,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         ward?.id,
         user.residentWardId,
       ),
-      residentAddress:
-          setValueOnUpdateProfileRequest(address, user.residentAddress),
+      residentAddress: setValueOnUpdateProfileRequest(address, user.residentAddress),
       avatarPath: setPath(user.avatarPath),
-      autoMaker: setValueOnUpdateProfileRequest(
-        autoMaker,
-        user.autoMaker,
-      ),
-      licensePlate: setValueOnUpdateProfileRequest(
-        licensePlate,
-        user.licensePlate,
-      ),
       vehicleType: setValueOnUpdateProfileRequest(
         vehicleType?.name,
         user.vehicleType.name,
@@ -318,25 +293,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
   bool isCheckOnClick(User user) {
     RegExp regExpPhoneNumber = RegExp(checkPhoneNumberRegexExp);
-    bool checkChange = firstName == user.firstName &&
-        lastName == user.lastName &&
-        dateOfBirth == user.dayOfBirth &&
-        gender == user.gender &&
-        phoneNumber == null &&
-        province == null &&
-        ward == null &&
-        district == null &&
-        address == null &&
-        file.path == '' &&
-        autoMaker == null &&
-        licensePlate == null &&
-        vehicleType == null;
-    bool check = (regExpPhoneNumber.hasMatch(phoneNumber ?? "") ||
-            phoneNumber == null) &&
+    bool check = (regExpPhoneNumber.hasMatch(phoneNumber) || phoneNumber.isNotEmpty) &&
         firstName != '' &&
         lastName != '' &&
-        dateOfBirth != '' &&
-        !checkChange;
+        dateOfBirth != '';
     return check;
   }
 
@@ -399,22 +359,4 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       dateOfBirth = formatYMD(value);
     });
   }
-
-  // _onChangeVehicle(VehicleTypeEnum value) {
-  //   setState(() {
-  //     vehicleType = value;
-  //   });
-  // }
-
-  // _setLicensePlate(String value) {
-  //   setState(() {
-  //     licensePlate = value;
-  //   });
-  // }
-
-  // _setAutoMaker(String value) {
-  //   setState(() {
-  //     autoMaker = value;
-  //   });
-  // }
 }

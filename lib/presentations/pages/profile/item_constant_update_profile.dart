@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemUpdateProfileConstant extends StatelessWidget {
-  const ItemUpdateProfileConstant({super.key, this.title = '', this.content = ''});
+  const ItemUpdateProfileConstant(
+      {super.key, this.title = '', this.content = '', this.checkOpacity = false});
 
   final String title, content;
+  final bool checkOpacity;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,8 @@ class ItemUpdateProfileConstant extends StatelessWidget {
           ),
           child: Text(
             content,
-            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
+            style: TextStyle(
+                color: colors.text.withOpacity(checkOpacity ? 0.7 : 1), fontSize: SpacingUnit.x4),
           ),
         ),
       ],
