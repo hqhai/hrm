@@ -162,8 +162,8 @@ class Attendance {
       ///Nghỉ không lương
       noSalaryRate.toString(),
 
-      ///Số giờ OT
-      Duration(seconds: overTime).inHours.toString(),
+      /*///Số giờ OT
+      Duration(seconds: overTime).inHours.toString(),*/
 
       ///Số giờ OT tính lương
       Duration(seconds: overTimeSalary).inHours.toString(),
