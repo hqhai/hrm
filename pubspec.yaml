@@ -84,6 +84,7 @@ dependencies:
   adoptive_calendar: ^0.1.9
   time_picker_spinner: ^1.0.0
   fluttertoast: ^8.2.5
+  popover: ^0.3.0
 
 dev_dependencies:
   flutter_test:
@@ -96,6 +97,7 @@ dev_dependencies:
   copy_with_extension_gen: ^4.0.0
   injectable_generator: ^2.4.1
   analyzer: ^5.13.0
+
 
 flutter:
   generate: true

@@ -84,7 +84,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   final DateTime now = DateTime.now();
   EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
   EnumSocialInsuranceLeave? socialInsuranceLeave;
-  EnumReasonLeave? reason;
+  EnumReasonLeave reason = EnumReasonLeave.yearlyLeave;
 
   @override
   void initState() {
@@ -95,7 +95,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         endTime = request.config.endDate;
         description = request.config.description;
         detailedDescriptionController.text = description;
-        reason = request.config.reasonLeave;
+        reason = request.config.reasonLeave ?? EnumReasonLeave.yearlyLeave;
         followers = [...request.followerIds];
         files = [...setListFiles(request.config.attachments)];
         substitutes = [...request.config.subtitudePersons];
@@ -138,13 +138,11 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   bool checkValidate(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final checkListWorkShift = listWorkShift.isNotEmpty;
-    final checkDescription = description.isNotEmpty;
     setState(() {
       errorShift = !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
-      errorDescription = !checkDescription ? appLocalizations.cannotBeLeftBlank : '';
     });
 
-    return checkListWorkShift && checkDescription;
+    return checkListWorkShift;
   }
 
   List<File> setListFiles(List<String> paths) {
@@ -187,7 +185,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog =
+          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
     });
   }
 
@@ -260,7 +259,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                       BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
                         builder: (context, stateShift) {
                           return (errorShift.isNotEmpty || errorDate().isNotEmpty) &&
-                                  stateShift.keys.isNotEmpty || checkShirtFirst
+                                      stateShift.keys.isNotEmpty ||
+                                  checkShirtFirst
                               ? Text(
                                   errorDate().isNotEmpty ? errorDate() : errorShift,
                                   style: TextStyle(
@@ -444,7 +444,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   _setReason(EnumReasonLeave? value) {
     setState(() {
-      reason = value;
+      reason = value?? EnumReasonLeave.yearlyLeave;
     });
   }
 

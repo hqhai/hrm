@@ -1,15 +1,23 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/app_tooltip.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
-class LocationOverTime extends StatelessWidget {
+class LocationOverTime extends StatefulWidget {
   const LocationOverTime({super.key, this.isCheck, required this.change});
 
   final bool? isCheck;
   final ValueChanged<bool> change;
+
+  @override
+  State<LocationOverTime> createState() => _LocationOverTimeState();
+}
+
+class _LocationOverTimeState extends State<LocationOverTime> {
+  final Offset textButtonPosition = const Offset(0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +38,22 @@ class LocationOverTime extends StatelessWidget {
           borderColors: colors.text.withOpacity(0.4),
           child: ListTile(
             contentPadding: EdgeInsets.zero,
-            title: Text(
-              appLocalizations.inCompany,
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x4,
-              ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  appLocalizations.inCompany,
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                  ),
+                ),
+                const AppTooltip(title: 'Cần chấm công'),
+              ],
             ),
             leading: Radio<bool>(
               value: true,
-              groupValue: isCheck,
+              groupValue: widget.isCheck,
               onChanged: (value) => _setLocation(value),
             ),
           ),
@@ -50,6 +64,7 @@ class LocationOverTime extends StatelessWidget {
           child: ListTile(
             contentPadding: EdgeInsets.zero,
             title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   appLocalizations.outCompany,
@@ -58,11 +73,12 @@ class LocationOverTime extends StatelessWidget {
                     fontSize: SpacingUnit.x4,
                   ),
                 ),
+                const AppTooltip(title: 'Không cần chấm công'),
               ],
             ),
             leading: Radio<bool>(
               value: false,
-              groupValue: isCheck,
+              groupValue: widget.isCheck,
               onChanged: (value) => _setLocation(value),
             ),
           ),
@@ -75,6 +91,6 @@ class LocationOverTime extends StatelessWidget {
   }
 
   _setLocation(bool? value) {
-    change.call(value ?? true);
+    widget.change.call(value ?? true);
   }
 }

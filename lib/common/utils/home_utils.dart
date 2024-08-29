@@ -13,7 +13,6 @@ class TitleHome {
       appLocalizations.holidayWork,
       appLocalizations.salaryWork,
       appLocalizations.leaveWithoutPay,
-      appLocalizations.workOT,
       appLocalizations.oTSalaryH,
       appLocalizations.oTMakeUpLeaveH,
       appLocalizations.workTime,
