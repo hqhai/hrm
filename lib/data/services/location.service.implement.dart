@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/path_config.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/data/models/key_page_request.dart';
 import 'package:base_app/data/models/location/check_in_gps_response.dart';
 import 'package:base_app/data/models/location/check_in_request.dart';
@@ -90,8 +91,12 @@ class LocationServiceImpl extends BaseService implements LocationService {
   Future<ShiftsResponse> getWorkDays(
       {required ShiftsRequest shiftsRequest}) async {
     final url = '$baseSystem${PathConfig.getWorkShifts}';
-    final body = jsonEncode(shiftsRequest.toJson());
-    final response = await client.post(url, body: body);
+    final request = {
+      "endTime": formatYYMMDD(shiftsRequest.endTime.toString()),
+      "startTime": formatYYMMDD(shiftsRequest.startTime.toString())
+    };
+    final body = jsonEncode(request);
+    final response = await client.post(url, body: body, customHeaders: {});
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
     final list =
@@ -111,15 +116,14 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<void> registerWorkDays({required WorkDaysRequest request}) async {
+  Future<bool> registerWorkDays({required WorkDaysRequest request}) async {
     try {
       final url = '$baseSystem${PathConfig.registerWorkShifts}';
       final body = jsonEncode(request.toJson());
       await client.post(url, body: body);
+      return true;
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      return false;
     }
   }
 

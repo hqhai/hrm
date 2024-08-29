@@ -78,8 +78,8 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<void> registerWorkDays({required WorkDaysRequest request}) async {
-    await _locationService.registerWorkDays(request: request);
+  Future<bool> registerWorkDays({required WorkDaysRequest request}) async {
+    return await _locationService.registerWorkDays(request: request);
   }
 
   @override
