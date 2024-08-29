@@ -28,7 +28,7 @@ abstract class LocationUseCase {
   Future<ShiftsResponse> getWorkDays(
       {required DateTime startDate, required DateTime endDate});
 
-  Future<void> registerWorkDays({required WorkDaysRequest request});
+  Future<bool> registerWorkDays({required WorkDaysRequest request});
 
   Future<ShiftsAdminResponse> getWorkDaysAdmin(
       {required WorkDayAdminRequest request});

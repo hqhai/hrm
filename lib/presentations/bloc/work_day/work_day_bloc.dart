@@ -65,15 +65,10 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
 
   FutureOr<void> _registerWorkDay(
       RegisterWorkDay event, Emitter<WorkDayState> emit) async {
-    try {
-      await _locationUseCase.registerWorkDays(
-          request: WorkDaysRequest(workShiftRequestList: event.request));
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
-    event.completer.complete();
+    final data = await _locationUseCase.registerWorkDays(
+        request: WorkDaysRequest(workShiftRequestList: event.request));
+
+    event.completer.complete(data);
   }
 
   Future<FutureOr<void>> _cancelRegisterWorkDay(

@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/common/utils/toast_utils.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
@@ -124,11 +128,23 @@ class _ShiftsPageState extends State<ShiftsPage> {
                           context: context,
                           status: data?.status ??
                               WorkShiftRequestStatus.usable)['titleButton'],
-                      onSubmit: () => onSubmit(
-                        note: reasonController.text,
-                        id: data?.id ?? '',
-                        map: state.workDays,
-                      ),
+                      onSubmit: () {
+                        if (data?.status != WorkShiftRequestStatus.unusable) {
+                          _register(context: context, workDays: [
+                            WorkDayRequest(
+                              workShiftSettingDetailId:
+                                  data?.workShiftSettingDetailId ?? "",
+                              workDate: formatYYMMDD(widget.date.toString()),
+                            )
+                          ]);
+                        } else {
+                          onSubmit(
+                            note: reasonController.text,
+                            id: data?.id ?? '',
+                            map: state.workDays,
+                          );
+                        }
+                      },
                       color: mapByStatus(
                           context: context,
                           status: data?.status ??
@@ -196,4 +212,21 @@ class _ShiftsPageState extends State<ShiftsPage> {
         GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
     Navigator.pop(context);
   }
+}
+
+_register(
+    {required List<WorkDayRequest> workDays,
+    required BuildContext context}) async {
+  final appLocalizations = AppLocalizations.of(context)!;
+  Completer completer = Completer<bool>();
+  dI<WorkDayBloc>()
+      .add(RegisterWorkDay(request: workDays, completer: completer));
+  await completer.future;
+  final check = await completer.future;
+  if (check) {
+    ToastUtils().showSuccess(appLocalizations.success);
+  } else {
+    ToastUtils().showError(appLocalizations.unsuccessful);
+  }
+  // dI<WorkDayBloc>().add(const ChangeLoading(status: true));
 }

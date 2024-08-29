@@ -16,6 +16,7 @@ import 'package:base_app/presentations/widgets/calendar_work/calender/item_day_o
 import 'package:base_app/presentations/widgets/calendar_work/calender/item_day_of_week.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calender/week_on_calendar.dart';
 import 'package:base_app/presentations/widgets/line.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -431,13 +432,19 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   }
 
   _register() {
+    final appLocalizations = AppLocalizations.of(context)!;
     try {
       if (isShowCheckBox) {
         setState(() async {
-          Completer completer = Completer();
+          Completer completer = Completer<bool>();
           dI<WorkDayBloc>()
               .add(RegisterWorkDay(request: workDays, completer: completer));
-          await completer.future;
+          final check = await completer.future;
+          if (check) {
+            ToastUtils().showSuccess(appLocalizations.success);
+          } else {
+            ToastUtils().showError(appLocalizations.unsuccessful);
+          }
           isShowCheckBox = false;
           dI<WorkDayBloc>().add(const ChangeLoading(status: true));
           workDays.clear();
@@ -448,7 +455,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
         });
       }
     } catch (e) {
-      ToastUtils().showError("Error");
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
