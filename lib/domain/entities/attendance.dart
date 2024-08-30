@@ -103,7 +103,7 @@ class Attendance {
   /// <summary>
   /// công tính lương
   /// </summary>
-  final double salaryWork;
+  final double salaryRate;
 
   /// <summary>
   /// công chuẩn
@@ -128,7 +128,7 @@ class Attendance {
       this.actualRate = 0,
       this.userId,
       this.timeLate = 0,
-      this.salaryWork = 0,
+      this.salaryRate = 0,
       this.name,
       this.code,
       this.countEarly = 0,
@@ -157,7 +157,7 @@ class Attendance {
       holidayRate.toString(),
 
       ///Công tính lương
-      salaryWork.toString(),
+      salaryRate.toString(),
 
       ///Nghỉ không lương
       noSalaryRate.toString(),

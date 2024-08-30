@@ -18,7 +18,6 @@ import 'package:base_app/presentations/pages/activate/requisition_follower/requi
 import 'package:base_app/presentations/pages/activate/requisition_form/requisition_infor.page.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/requisition_list.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/see_list_requisition.page.dart';
-import 'package:base_app/presentations/pages/activate/timekeeping/list_schools.page.dart';
 import 'package:base_app/presentations/pages/attendance/history_attendance_screen.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin.dart';
@@ -38,8 +37,10 @@ import 'package:base_app/presentations/pages/position/update_position.page.dart'
 import 'package:base_app/presentations/pages/profile/update_profile.page.dart';
 import 'package:base_app/presentations/pages/register/register.page.dart';
 import 'package:base_app/presentations/pages/department/create_department.page.dart';
-import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps.dart';
-import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps_check.dart';
+import 'package:base_app/presentations/pages/time_keeping_gps/history_timekeeping_page.dart';
+import 'package:base_app/presentations/pages/time_keeping_gps/successful_timekeeping_page.dart';
+import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps_school.dart';
+import 'package:base_app/presentations/pages/time_keeping_gps/unsuccessful_timekeeping_page.dart';
 import 'package:base_app/presentations/pages/trash_app/update_note.dart';
 import 'package:base_app/presentations/widgets/attendance/calendar/layout_calendar.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
@@ -75,8 +76,9 @@ class AppRouters {
     Pages.layoutCalendarAttendanceHistoryPage: layoutCalendarAttendanceHistoryPageRoute,
     Pages.historyAttendancePage: historyAttendancePageRoute,
     Pages.biometricRegister: registerBiometricPageRoute,
-    Pages.timekeepingGPSPage: timekeepingGPSPageRoute,
-    Pages.timekeepingGPSCheckPage: timekeepingGPSCheckPageRoute,
+    Pages.timekeepingGPSSchool: timekeepingGPSSchoolPageRoute,
+    Pages.timekeepingGPSSuccessful: timekeepingGPSSuccessfulRoute,
+    Pages.timekeepingGPSUnsuccessful: timekeepingGPSUnsuccessfulRoute,
     Pages.requisitionListPage: requisitionListPageRoute,
     Pages.seeRequestListPage: seeRequestListPageRoute,
     Pages.requisitionInformationPage: requisitionInformationPageRoute,
@@ -94,12 +96,12 @@ class AppRouters {
     Pages.createRequestOverTimePage: createRequestOverTimePageRoute,
     Pages.createRequestLateAndEarlyPage: createRequestLateAndEarlyPageRoute,
     Pages.createRequestMakeUpWorkPage: createRequestMakeUpWorkPageRoute,
-    Pages.listSchoolsPage: listSchoolsPageRoute,
     Pages.leavePage: leavePageRoute,
     Pages.layoutCalendarPage: layoutCalendarPageRoute,
     Pages.registerShiftsPage: registerShiftsPageRoute,
     Pages.shiftsPage: shiftsPageRoute,
     Pages.registerWorkDayAdmin: registerWorkDayPageRoute,
     Pages.registerWorkDayAdminDetail: registerWorkDayAdminDetailPageRoute,
+    Pages.timekeepingGPSSHistory: timekeepingGPSHistoryRoute,
   }.entries.map((entry) => entry.value).toList();
 }

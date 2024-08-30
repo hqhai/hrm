@@ -4022,6 +4022,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to approve this shift?'**
   String get dialogConfirmContent;
+
+  /// No description provided for @shiftOfDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift of today:'**
+  String get shiftOfDay;
+
+  /// No description provided for @moveToTheAppropriate.
+  ///
+  /// In en, this message translates to:
+  /// **'Please move to the appropriate location on the map'**
+  String get moveToTheAppropriate;
+
+  /// No description provided for @chooseASchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'You need to choose a schedule for timekeeping.'**
+  String get chooseASchedule;
+
+  /// No description provided for @noDataTimekeeping.
+  ///
+  /// In en, this message translates to:
+  /// **'No data timekeeping'**
+  String get noDataTimekeeping;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

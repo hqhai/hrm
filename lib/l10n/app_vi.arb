@@ -503,9 +503,9 @@
   "oT": "Đơn đề xuất làm thêm giờ",
   "requestType": "Loại đơn từ",
   "chooseARequest": "Chọn loại đơn từ",
-  "nameSchool": "Tên trường",
-  "nameClass": "Tên lớp",
-  "nameTeacher": "Tên giáo viên",
+  "nameSchool": "Trường",
+  "nameClass": "Lớp",
+  "nameTeacher": "Giáo viên",
   "timekeepingTime": "Thời gian chấm công",
   "map": "Bản đồ",
   "timekeepingSuccess": "Chấm công thành công",
@@ -657,5 +657,9 @@
   "waitingForApprovalToCancelShift":"Chờ duyệt hủy ca",
   "waitingForShiftRegistrationApproval":"Chờ duyệt đăng ký ca",
   "dialogConfirmContent":"Bạn có muốn phê duyệt ca làm việc này không ?",
-  "notRegisteredYet":"Chưa đăng ký ca"
+  "notRegisteredYet":"Chưa đăng ký ca",
+  "shiftOfDay": "Ca làm việc hôm nay: ",
+  "moveToTheAppropriate": "Hãy di chuyển đến vị trí thích hợp trên bản đồ",
+  "chooseASchedule": "Bạn cần chọn một lịch đi để chấm công.",
+  "noDataTimekeeping": "Chưa có dữ liệu chấm công"
 }

@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -11,11 +12,13 @@ class ItemShiftOnTab extends StatelessWidget {
     required this.title,
     this.value,
     this.last,
+    this.checkInMethodEnum = CheckInMethodEnum.gPS
   });
 
   final String title;
   final String? value;
   final bool? last;
+  final CheckInMethodEnum checkInMethodEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +27,30 @@ class ItemShiftOnTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: SpacingUnit.x2),
-              child: SvgPicture.asset(
-                Assets.images.icon.home.worksheet.dotTimeline,
-                 height: SpacingUnit.x4,
-                  width: SpacingUnit.x4,
-              ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: SpacingUnit.x2),
+                  child: SvgPicture.asset(
+                    Assets.images.icon.home.worksheet.dotTimeline,
+                     height: SpacingUnit.x4,
+                      width: SpacingUnit.x4,
+                  ),
+                ),
+                Text(
+                  value ?? appLocalizations.forgotChecking,
+                  style: TextStyle(
+                    color: colors.navy,
+                    fontSize: SpacingUnit.x4,
+                  ),
+                ),
+              ],
             ),
             Text(
-              value ?? appLocalizations.forgotChecking,
+              checkInMethodEnum.configCheckInMethodEnumName,
               style: TextStyle(
                 color: colors.navy,
                 fontSize: SpacingUnit.x4,

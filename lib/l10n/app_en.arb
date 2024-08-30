@@ -656,5 +656,10 @@
   "waitingForApprovalToCancelShift":"Waiting for approval to cancel shift",
   "waitingForShiftRegistrationApproval":"Waiting for approval for case registration",
   "notRegisteredYet":"not registered yet",
-  "dialogConfirmContent":"Do you want to approve this shift?"
+  "dialogConfirmContent":"Do you want to approve this shift?",
+  "shiftOfDay": "Shift of today:",
+  "moveToTheAppropriate": "Please move to the appropriate location on the map",
+  "chooseASchedule": "You need to choose a schedule for timekeeping.",
+  "noDataTimekeeping": "No data timekeeping"
+
 }

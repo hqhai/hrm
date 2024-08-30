@@ -112,4 +112,19 @@ class AppNavigation {
       extra: extra,
     );
   }
+
+  popUtil(
+      page, {
+        BuildContext? buildContext,
+      }) {
+    final context = buildContext ?? navigatorKey.currentContext!;
+    final router = GoRouter.of(context);
+    final GoRouterDelegate delegate = router.routerDelegate;
+    final routes = delegate.currentConfiguration.routes.reversed.toList();
+    for (var i = 0; i < routes.length; i++) {
+      final route = routes[i] as GoRoute;
+      if (route.path == page) return;
+      GoRouter.of(context).pop();
+    }
+  }
 }

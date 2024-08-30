@@ -212,6 +212,15 @@ String formatYMDHMS(String? time) {
   }
 }
 
+String formatMSDMY(String? time) {
+  if (time == '' && time != null) {
+    return '';
+  } else {
+    DateTime dateTime = DateTime.parse(time!);
+    return DateFormat('HH:mm dd-MM-yyyy').format(dateTime);
+  }
+}
+
 String formatM(String time) {
   if (time == '') {
     return '';

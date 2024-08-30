@@ -10,12 +10,6 @@ part 'school.g.dart';
 class School {
   final String id;
   final String name;
-  final String createdUserId;
-  final String updatedUserId;
-  final String createdFullName;
-  final String updatedFullName;
-  final DateTime? createdDate;
-  final DateTime? updatedDate;
   final String email;
   final String phoneNumber;
   final String fax;
@@ -37,12 +31,6 @@ class School {
     this.latitude = 0,
     this.description = '',
     this.phoneNumber = '',
-    this.createdUserId = '',
-    this.createdFullName = '',
-    this.createdDate,
-    this.updatedDate,
-    this.updatedUserId = '',
-    this.updatedFullName = '',
     this.fax = '',
     this.email = '',
     this.contactEmail = '',

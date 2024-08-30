@@ -15,7 +15,7 @@ import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
-import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
+import 'package:base_app/domain/entities/timekeeping/schedule_schools.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/domain/services/location.service.dart';
@@ -76,14 +76,14 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<ScheduleSchool> getScheduleSchool(
+  Future<ScheduleSchools> getScheduleSchool(
       {required DatetimeRequest datetimeRequest}) async {
     final url = '$baseUrlUser${PathConfig.scheduleSchool}';
     final params = datetimeRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    final scheduleSchool = ScheduleSchool.fromJson(data);
+    final scheduleSchool = ScheduleSchools.fromJson(data);
     return scheduleSchool;
   }
 

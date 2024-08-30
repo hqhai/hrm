@@ -54,13 +54,11 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
       case 1:
         dI<AppNavigation>().push(context,
             page: Pages.registerWorkDayAdmin,
-            paramsQuerry:
-                ShiftsBuyUserQueryParams(type: UserType.user).toJson());
+            paramsQuerry: ShiftsBuyUserQueryParams(type: UserType.user).toJson());
       case 2:
         dI<AppNavigation>().push(context,
             page: Pages.registerWorkDayAdmin,
-            paramsQuerry:
-                ShiftsBuyUserQueryParams(type: UserType.manage).toJson());
+            paramsQuerry: ShiftsBuyUserQueryParams(type: UserType.manage).toJson());
       case 3:
         _nextTimekeepingGPSScreen(context);
     }
@@ -82,7 +80,8 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
       dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(
         currentContext,
-        page: Pages.timekeepingGPSPage,
+        //page: Pages.timekeepingGPSPage,
+        page: Pages.timekeepingGPSSchool,
       );
     } else if (completerCheck == null) {
       if (!currentContext.mounted) return;

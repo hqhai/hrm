@@ -54,12 +54,12 @@ class _TimePickerState extends State<TimePicker> {
             ? Column(
                 children: [
                   Text(
-                    DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
+                    DateFormat('dd-MM-yyyy').format(setStartTimeOld()),
                     style:
                         TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
                   ),
                   Text(
-                    DateFormat('HH:mm:ss').format(setStartTimeOld()),
+                    DateFormat('HH:mm').format(setStartTimeOld()),
                     style:
                         TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
                   ),
@@ -73,14 +73,14 @@ class _TimePickerState extends State<TimePicker> {
                     Row(
                       children: [
                         Text(
-                          DateFormat('yyyy-MM-dd').format(setStartTimeOld()),
+                          DateFormat('dd-MM-yyyy').format(setStartTimeOld()),
                           style: TextStyle(
                               fontSize: SpacingUnit.x4, color: colors.text),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: SpacingUnit.x4),
                           child: Text(
-                            DateFormat('HH:mm:ss').format(setStartTimeOld()),
+                            DateFormat('HH:mm').format(setStartTimeOld()),
                             style: TextStyle(
                                 fontSize: SpacingUnit.x4, color: colors.text),
                           ),

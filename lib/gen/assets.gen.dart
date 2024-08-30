@@ -182,13 +182,17 @@ class $AssetsImagesTimeKeepingGen {
   AssetGenImage get notoWorldMap =>
       const AssetGenImage('assets/images/time_keeping/noto_world-map.png');
 
+  /// File path: assets/images/time_keeping/timekeeping.png
+  AssetGenImage get timekeeping =>
+      const AssetGenImage('assets/images/time_keeping/timekeeping.png');
+
   /// File path: assets/images/time_keeping/un_world-map.png
   AssetGenImage get unWorldMap =>
       const AssetGenImage('assets/images/time_keeping/un_world-map.png');
 
   /// List of all assets
   List<dynamic> get values =>
-      [allow, calendar, clock, fail, notoWorldMap, unWorldMap];
+      [allow, calendar, clock, fail, notoWorldMap, timekeeping, unWorldMap];
 }
 
 class $AssetsImagesIconActivateIconGen {

@@ -35,7 +35,7 @@ abstract class _$AttendanceCWProxy {
 
   Attendance realRate(double realRate);
 
-  Attendance salaryWork(double salaryWork);
+  Attendance salaryRate(double salaryRate);
 
   Attendance timeEarly(int timeEarly);
 
@@ -71,7 +71,7 @@ abstract class _$AttendanceCWProxy {
     int? overTimeRate,
     int? overTimeSalary,
     double? realRate,
-    double? salaryWork,
+    double? salaryRate,
     int? timeEarly,
     int? timeLate,
     String? userId,
@@ -134,7 +134,7 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
   Attendance realRate(double realRate) => this(realRate: realRate);
 
   @override
-  Attendance salaryWork(double salaryWork) => this(salaryWork: salaryWork);
+  Attendance salaryRate(double salaryRate) => this(salaryRate: salaryRate);
 
   @override
   Attendance timeEarly(int timeEarly) => this(timeEarly: timeEarly);
@@ -180,7 +180,7 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
     Object? overTimeRate = const $CopyWithPlaceholder(),
     Object? overTimeSalary = const $CopyWithPlaceholder(),
     Object? realRate = const $CopyWithPlaceholder(),
-    Object? salaryWork = const $CopyWithPlaceholder(),
+    Object? salaryRate = const $CopyWithPlaceholder(),
     Object? timeEarly = const $CopyWithPlaceholder(),
     Object? timeLate = const $CopyWithPlaceholder(),
     Object? userId = const $CopyWithPlaceholder(),
@@ -252,11 +252,11 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
           ? _value.realRate
           // ignore: cast_nullable_to_non_nullable
           : realRate as double,
-      salaryWork:
-          salaryWork == const $CopyWithPlaceholder() || salaryWork == null
-              ? _value.salaryWork
+      salaryRate:
+          salaryRate == const $CopyWithPlaceholder() || salaryRate == null
+              ? _value.salaryRate
               // ignore: cast_nullable_to_non_nullable
-              : salaryWork as double,
+              : salaryRate as double,
       timeEarly: timeEarly == const $CopyWithPlaceholder() || timeEarly == null
           ? _value.timeEarly
           // ignore: cast_nullable_to_non_nullable
@@ -313,7 +313,7 @@ Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
       actualRate: (json['actualRate'] as num?)?.toDouble() ?? 0,
       userId: json['userId'] as String?,
       timeLate: json['timeLate'] as int? ?? 0,
-      salaryWork: (json['salaryWork'] as num?)?.toDouble() ?? 0,
+      salaryRate: (json['salaryRate'] as num?)?.toDouble() ?? 0,
       name: json['name'] as String?,
       code: json['code'] as String?,
       countEarly: json['countEarly'] as int? ?? 0,
@@ -355,7 +355,7 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
   val['timeLate'] = instance.timeLate;
   val['countEarly'] = instance.countEarly;
   val['countLate'] = instance.countLate;
-  val['salaryWork'] = instance.salaryWork;
+  val['salaryRate'] = instance.salaryRate;
   val['realRate'] = instance.realRate;
   val['userWorkingHistories'] = instance.userWorkingHistories;
   return val;

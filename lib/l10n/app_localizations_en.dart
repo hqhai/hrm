@@ -1968,4 +1968,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dialogConfirmContent => 'Do you want to approve this shift?';
+
+  @override
+  String get shiftOfDay => 'Shift of today:';
+
+  @override
+  String get moveToTheAppropriate => 'Please move to the appropriate location on the map';
+
+  @override
+  String get chooseASchedule => 'You need to choose a schedule for timekeeping.';
+
+  @override
+  String get noDataTimekeeping => 'No data timekeeping';
 }
