@@ -10,8 +10,8 @@ import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/entities/timekeeping/schedule_schools.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
-import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
 import 'package:base_app/domain/repositories/location.repositories.dart';
 import 'package:base_app/domain/services/location.service.dart';
 import 'package:injectable/injectable.dart';
@@ -42,12 +42,12 @@ class LocationRepositoryImpl extends LocationRepository {
   Future<CheckInGPSResponse> postCheckInGPS(
       {required double longitude,
       required double latitude,
-      required String scheduleSchoolId}) async {
+      required List<String> scheduleSchoolId}) async {
     return _locationService.postCheckInGPS(
       checkInRequest: CheckInRequest(
         longitude: longitude,
         latitude: latitude,
-        scheduleSchoolId: scheduleSchoolId,
+        scheduleSchoolIds: scheduleSchoolId,
       ),
     );
   }
@@ -118,7 +118,7 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<ScheduleSchool> getScheduleSchool({required DateTime workDate}) async {
+  Future<ScheduleSchools> getScheduleSchool({required DateTime workDate}) async {
     return await _locationService.getScheduleSchool(
       datetimeRequest: DatetimeRequest(workDate: workDate),
     );

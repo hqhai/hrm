@@ -138,20 +138,6 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                       title: appLocalizations.reasonForDriving,
                       onChange: (value) => _setContent(value),
                     ),
-                    ItemCreateFollower(
-                      requiredValidate: true,
-                      error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
-                      listFollower: _setListUser(stateUserById.subtitudePersons),
-                      title: appLocalizations.walker,
-                      onChange: (value) => _setWalker(value),
-                    ),
-                    ItemCreateInputArea(
-                      requiredValidate: true,
-                      error: errorSchedule,
-                      textController: descriptionController,
-                      title: appLocalizations.schedule,
-                      onChange: (value) => _setSchedule(value),
-                    ),
                     const SizedBox(height: SpacingUnit.x4),
                     ItemCreateTimeStartAndEnd(
                       title1: appLocalizations.timeStart,
@@ -166,6 +152,20 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                       startTime: (value) => setStartTime(value),
                       endTime: (value) => setEndTime(value),
                       total: (value) => setTotal(value),
+                    ),
+                    ItemCreateFollower(
+                      requiredValidate: true,
+                      error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
+                      listFollower: _setListUser(stateUserById.subtitudePersons),
+                      title: appLocalizations.walker,
+                      onChange: (value) => _setWalker(value),
+                    ),
+                    ItemCreateInputArea(
+                      requiredValidate: true,
+                      error: errorSchedule,
+                      textController: descriptionController,
+                      title: appLocalizations.schedule,
+                      onChange: (value) => _setSchedule(value),
                     ),
                     ItemCreateFollower(
                       listFollower: _setListUser(stateUserById.userById),

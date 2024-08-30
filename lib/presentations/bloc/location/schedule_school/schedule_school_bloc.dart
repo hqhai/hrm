@@ -23,12 +23,12 @@ class ScheduleSchoolBloc extends Bloc<ScheduleSchoolEvent, ScheduleSchoolState> 
       GetScheduleSchoolEvent event, Emitter<ScheduleSchoolState> emit) async {
     try {
       final scheduleSchool = await _locationUseCase.getScheduleSchool(workDate: event.dateTime);
-      emit(state.copyWith(scheduleSchool: scheduleSchool));
+      emit(state.copyWith(scheduleSchools: scheduleSchool));
       event.completer?.complete(true);
     } catch (e) {
       e as ResponseBase;
       final listErrorCode = e.errorMessages.map((e) => e.errorCode).toList();
-      if(listErrorCode.contains('DataNotExist')) {
+      if (listErrorCode.contains('DataNotExist')) {
         event.completer?.complete(null);
       }
       event.completer?.complete(false);

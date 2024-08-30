@@ -4,8 +4,8 @@ import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/entities/timekeeping/schedule_schools.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
-import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
 
 abstract class LocationUseCase {
   Future<GetLocationResponse> getAddress(
@@ -18,10 +18,10 @@ abstract class LocationUseCase {
   Future<CheckInGPSResponse> postCheckInGPS({
     required double longitude,
     required double latitude,
-    required String scheduleSchoolId,
+    required List<String> scheduleSchoolId,
   });
 
-  Future<ScheduleSchool> getScheduleSchool({required DateTime workDate});
+  Future<ScheduleSchools> getScheduleSchool({required DateTime workDate});
 
   Future<GetListSchoolsUseCase> getListSchools({String? keyword, int page});
 

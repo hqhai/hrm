@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
@@ -61,6 +62,7 @@ class OTHistory extends StatelessWidget {
                             title: appLocalizations.checkIn,
                             value:
                                 formatHM(attendance?.timeChecking.toString()),
+                            checkInMethodEnum: attendance?.checkInMethod ?? CheckInMethodEnum.gPS,
                             last: element != state.keys.last,
                           );
                         }).toList(),

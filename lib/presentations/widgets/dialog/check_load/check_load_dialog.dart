@@ -205,3 +205,15 @@ updateProfileSuccess() {
     title: appLocalizations.updateSuccessful,
   );
 }
+
+showToastTimeKeeping({required BuildContext context, String errorCode = ''}) {
+  final colors = AppTheme.getColors(context);
+  Fluttertoast.showToast(
+      msg: errorCode,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 1,
+      backgroundColor: colors.tertiary,
+      textColor: colors.background,
+      fontSize: SpacingUnit.x4);
+}

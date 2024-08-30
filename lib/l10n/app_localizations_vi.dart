@@ -1514,13 +1514,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get chooseARequest => 'Chọn loại đơn từ';
 
   @override
-  String get nameSchool => 'Tên trường';
+  String get nameSchool => 'Trường';
 
   @override
-  String get nameClass => 'Tên lớp';
+  String get nameClass => 'Lớp';
 
   @override
-  String get nameTeacher => 'Tên giáo viên';
+  String get nameTeacher => 'Giáo viên';
 
   @override
   String get timekeepingTime => 'Thời gian chấm công';
@@ -1968,4 +1968,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get dialogConfirmContent => 'Bạn có muốn phê duyệt ca làm việc này không ?';
+
+  @override
+  String get shiftOfDay => 'Ca làm việc hôm nay: ';
+
+  @override
+  String get moveToTheAppropriate => 'Hãy di chuyển đến vị trí thích hợp trên bản đồ';
+
+  @override
+  String get chooseASchedule => 'Bạn cần chọn một lịch đi để chấm công.';
+
+  @override
+  String get noDataTimekeeping => 'Chưa có dữ liệu chấm công';
 }
