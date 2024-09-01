@@ -1980,4 +1980,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noDataTimekeeping => 'No data timekeeping';
+
+  @override
+  String get notification => 'Notification';
+
+  @override
+  String get sent => 'Sent';
+
+  @override
+  String get read => 'Read';
+
+  @override
+  String get readAll => 'Mark all as read';
+
+  @override
+  String get noNotification => 'No notification';
 }

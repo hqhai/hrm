@@ -660,6 +660,10 @@
   "shiftOfDay": "Shift of today:",
   "moveToTheAppropriate": "Please move to the appropriate location on the map",
   "chooseASchedule": "You need to choose a schedule for timekeeping.",
-  "noDataTimekeeping": "No data timekeeping"
-
+  "noDataTimekeeping": "No data timekeeping",
+  "notification": "Notification",
+  "sent": "Sent",
+  "read": "Read",
+  "readAll": "Mark all as read",
+  "noNotification": "No notification"
 }

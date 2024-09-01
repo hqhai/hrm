@@ -103,6 +103,9 @@ class $AssetsImagesIconGen {
   /// File path: assets/images/icon/home.svg
   String get homeSvg => 'assets/images/icon/home.svg';
 
+  $AssetsImagesIconNotificationGen get notification =>
+      const $AssetsImagesIconNotificationGen();
+
   /// File path: assets/images/icon/person.svg
   String get person => 'assets/images/icon/person.svg';
 
@@ -286,6 +289,21 @@ class $AssetsImagesIconHomeGen {
         mingcuteTimeLine,
         phFingerprintFill
       ];
+}
+
+class $AssetsImagesIconNotificationGen {
+  const $AssetsImagesIconNotificationGen();
+
+  /// File path: assets/images/icon/notification/no_notification.png
+  AssetGenImage get noNotification => const AssetGenImage(
+      'assets/images/icon/notification/no_notification.png');
+
+  /// File path: assets/images/icon/notification/notification_icon.svg
+  String get notificationIcon =>
+      'assets/images/icon/notification/notification_icon.svg';
+
+  /// List of all assets
+  List<dynamic> get values => [noNotification, notificationIcon];
 }
 
 class $AssetsImagesIconPopupAppbarGen {

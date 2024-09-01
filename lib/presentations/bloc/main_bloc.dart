@@ -13,6 +13,7 @@ import 'package:base_app/presentations/bloc/location/schedule_school/schedule_sc
 import 'package:base_app/presentations/bloc/location/school/school_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
+import 'package:base_app/presentations/bloc/notification/notification_bloc.dart';
 import 'package:base_app/presentations/bloc/personnel/personnel_bloc.dart';
 import 'package:base_app/presentations/bloc/position/position_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_bloc.dart';
@@ -36,73 +37,47 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainBloc {
   static List<BlocProvider> allBlocs() => [
-        BlocProvider<ThemeCubit>(
-            create: (BuildContext context) => dI<ThemeCubit>()),
-        BlocProvider<AuthBloc>(
-            create: (BuildContext context) => dI<AuthBloc>()),
-        BlocProvider<LoginBloc>(
-            create: (BuildContext context) => dI<LoginBloc>()),
-        BlocProvider<UserBloc>(
-            create: (BuildContext context) => dI<UserBloc>()),
-        BlocProvider<AttendanceBloc>(
-            create: (BuildContext context) => dI<AttendanceBloc>()),
-        BlocProvider<RegisterBloc>(
-            create: (BuildContext context) => dI<RegisterBloc>()),
-        BlocProvider<LanguageCubit>(
-            create: (BuildContext context) => dI<LanguageCubit>()),
-        BlocProvider<UserByRolesBloc>(
-            create: (BuildContext context) => dI<UserByRolesBloc>()),
-        BlocProvider<DepartmentBloc>(
-            create: (BuildContext context) => dI<DepartmentBloc>()),
-        BlocProvider<PositionBloc>(
-            create: (BuildContext context) => dI<PositionBloc>()),
-        BlocProvider<PersonnelBloc>(
-            create: (BuildContext context) => dI<PersonnelBloc>()),
+        BlocProvider<ThemeCubit>(create: (BuildContext context) => dI<ThemeCubit>()),
+        BlocProvider<AuthBloc>(create: (BuildContext context) => dI<AuthBloc>()),
+        BlocProvider<LoginBloc>(create: (BuildContext context) => dI<LoginBloc>()),
+        BlocProvider<UserBloc>(create: (BuildContext context) => dI<UserBloc>()),
+        BlocProvider<AttendanceBloc>(create: (BuildContext context) => dI<AttendanceBloc>()),
+        BlocProvider<RegisterBloc>(create: (BuildContext context) => dI<RegisterBloc>()),
+        BlocProvider<LanguageCubit>(create: (BuildContext context) => dI<LanguageCubit>()),
+        BlocProvider<UserByRolesBloc>(create: (BuildContext context) => dI<UserByRolesBloc>()),
+        BlocProvider<DepartmentBloc>(create: (BuildContext context) => dI<DepartmentBloc>()),
+        BlocProvider<PositionBloc>(create: (BuildContext context) => dI<PositionBloc>()),
+        BlocProvider<PersonnelBloc>(create: (BuildContext context) => dI<PersonnelBloc>()),
         BlocProvider<CheckInSettingBloc>(
             create: (BuildContext context) => dI<CheckInSettingBloc>()),
-        BlocProvider<NotesBloc>(
-            create: (BuildContext context) => dI<NotesBloc>()),
-        BlocProvider<AddressBloc>(
-            create: (BuildContext context) => dI<AddressBloc>()),
-        BlocProvider<BiometricCubit>(
-            create: (BuildContext context) => dI<BiometricCubit>()),
-        BlocProvider<RequisitionBloc>(
-            create: (BuildContext context) => dI<RequisitionBloc>()),
+        BlocProvider<NotesBloc>(create: (BuildContext context) => dI<NotesBloc>()),
+        BlocProvider<AddressBloc>(create: (BuildContext context) => dI<AddressBloc>()),
+        BlocProvider<BiometricCubit>(create: (BuildContext context) => dI<BiometricCubit>()),
+        BlocProvider<RequisitionBloc>(create: (BuildContext context) => dI<RequisitionBloc>()),
         BlocProvider<RequisitionApproveBloc>(
             create: (BuildContext context) => dI<RequisitionApproveBloc>()),
-        BlocProvider<UserByNameBloc>(
-            create: (BuildContext context) => dI<UserByNameBloc>()),
-        BlocProvider<FlowBloc>(
-            create: (BuildContext context) => dI<FlowBloc>()),
-        BlocProvider<StationeryBloc>(
-            create: (BuildContext context) => dI<StationeryBloc>()),
-        BlocProvider<UserByIdBloc>(
-            create: (BuildContext context) => dI<UserByIdBloc>()),
+        BlocProvider<UserByNameBloc>(create: (BuildContext context) => dI<UserByNameBloc>()),
+        BlocProvider<FlowBloc>(create: (BuildContext context) => dI<FlowBloc>()),
+        BlocProvider<StationeryBloc>(create: (BuildContext context) => dI<StationeryBloc>()),
+        BlocProvider<UserByIdBloc>(create: (BuildContext context) => dI<UserByIdBloc>()),
         BlocProvider<RequisitionFollowingBloc>(
             create: (BuildContext context) => dI<RequisitionFollowingBloc>()),
-        BlocProvider<WorkAndSalaryBloc>(
-            create: (BuildContext context) => dI<WorkAndSalaryBloc>()),
+        BlocProvider<WorkAndSalaryBloc>(create: (BuildContext context) => dI<WorkAndSalaryBloc>()),
         BlocProvider<CheckInCheckOutGpsBloc>(
             create: (BuildContext context) => dI<CheckInCheckOutGpsBloc>()),
-        BlocProvider<SchoolBloc>(
-            create: (BuildContext context) => dI<SchoolBloc>()),
-        BlocProvider<LeaveHistoryBloc>(
-            create: (BuildContext context) => dI<LeaveHistoryBloc>()),
-        BlocProvider<WorkSheetBloc>(
-            create: (BuildContext context) => dI<WorkSheetBloc>()),
+        BlocProvider<SchoolBloc>(create: (BuildContext context) => dI<SchoolBloc>()),
+        BlocProvider<LeaveHistoryBloc>(create: (BuildContext context) => dI<LeaveHistoryBloc>()),
+        BlocProvider<WorkSheetBloc>(create: (BuildContext context) => dI<WorkSheetBloc>()),
         BlocProvider<RequestWorkSheetBloc>(
             create: (BuildContext context) => dI<RequestWorkSheetBloc>()),
-        BlocProvider<WorkDayBloc>(
-            create: (BuildContext context) => dI<WorkDayBloc>()),
-        BlocProvider<WorkSheetBloc>(
-            create: (BuildContext context) => dI<WorkSheetBloc>()),
+        BlocProvider<WorkDayBloc>(create: (BuildContext context) => dI<WorkDayBloc>()),
+        BlocProvider<WorkSheetBloc>(create: (BuildContext context) => dI<WorkSheetBloc>()),
         BlocProvider<RequestWorkSheetBloc>(
             create: (BuildContext context) => dI<RequestWorkSheetBloc>()),
-        BlocProvider<ShiftBloc>(
-            create: (BuildContext context) => dI<ShiftBloc>()),
+        BlocProvider<ShiftBloc>(create: (BuildContext context) => dI<ShiftBloc>()),
         BlocProvider<ScheduleSchoolBloc>(
             create: (BuildContext context) => dI<ScheduleSchoolBloc>()),
-        BlocProvider<LeaveShiftBloc>(
-            create: (BuildContext context) => dI<LeaveShiftBloc>()),
-        ];
+        BlocProvider<LeaveShiftBloc>(create: (BuildContext context) => dI<LeaveShiftBloc>()),
+        BlocProvider<NotificationBloc>(create: (BuildContext context) => dI<NotificationBloc>()),
+      ];
 }
