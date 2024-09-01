@@ -62,7 +62,7 @@ class ItemTimeKeepingGPS extends StatelessWidget {
               ItemTitleValueNoBorder(
                 size: SpacingUnit.x3_5,
                 font: FontWeight.w600,
-                title: appLocalizations.startTimeH,
+                title: appLocalizations.endTimeH,
                 value: strSeconds(
                       school.endTime,
                     ) ??

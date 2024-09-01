@@ -141,7 +141,7 @@ String dayMonthYear({DateTime? time, required BuildContext context}) {
 String formatDMY(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
-    return DateFormat('dd-MM-yyyy').format(dateTime);
+    return DateFormat('dd/MM/yyyy').format(dateTime);
   }
   return '';
 }

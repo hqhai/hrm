@@ -5,9 +5,12 @@ import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
+import 'package:base_app/presentations/bloc/notification/notification_bloc.dart';
+import 'package:base_app/presentations/bloc/notification/notification_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
@@ -17,8 +20,10 @@ import 'package:base_app/presentations/pages/home/avatar_system_user.dart';
 import 'package:base_app/presentations/pages/home/bottom_bar.dart';
 import 'package:base_app/presentations/pages/home/popup_menu_account.dart';
 import 'package:base_app/presentations/pages/home/side_menu_tile.dart';
+import 'package:base_app/presentations/widgets/dialog/bottom_sheet/notification_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
@@ -41,6 +46,7 @@ class _HomePageState extends State<HomePage> {
     if (AppConfig.getToken.isNotEmpty) {
       dI<UserBloc>().add(const GetUserInfo());
     }
+    dI<NotificationBloc>().add(const GetNotificationsEvent());
     super.initState();
   }
 
@@ -92,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            actions: !_checkRole() ? [popupMenu(selectedIndex)] : null,
+            actions: !_checkRole() ? [popupMenu(selectedIndex, context)] : null,
           ),
           drawer: _checkRole()
               ? BlocBuilder<UserBloc, UserState>(
@@ -157,9 +163,19 @@ class _HomePageState extends State<HomePage> {
     return dI<AuthBloc>().state.roles.contains(ConfigRoleStringValues.userSystem.name);
   }
 
-  Widget popupMenu(int selectedIndex) {
-    if (selectedIndex == 3) {
+  Widget popupMenu(int selectedIndex, BuildContext context) {
+    final colors = AppTheme.getColors(context);
+    if (selectedIndex == 4) {
       return PopupMenuAccount(onChangeCheckOpacity: (value) => _opacity(value));
+    }
+    if (selectedIndex == 3) {
+      return InkWell(
+        onTap: () => _clickNotification(context),
+        child: SvgPicture.asset(
+          Assets.images.icon.notification.notificationIcon,
+          colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+        ),
+      );
     }
     return const SizedBox();
   }
@@ -172,5 +188,14 @@ class _HomePageState extends State<HomePage> {
 
   String titleValue(BuildContext context, int index) {
     return TitleAppbarValues.listTitleAppbar(context).elementAt(index);
+  }
+
+  _clickNotification(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return const NotificationBottomSheet();
+      },
+    );
   }
 }

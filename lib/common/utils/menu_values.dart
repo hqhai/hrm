@@ -4,6 +4,7 @@ import 'package:base_app/presentations/widgets/activate/activate.widget.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calendar_work.widget.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
 import 'package:base_app/presentations/widgets/home/home.widget.dart';
+import 'package:base_app/presentations/widgets/notification/notification.widget.dart';
 import 'package:base_app/presentations/widgets/profile/profile.widget.dart';
 import 'package:base_app/presentations/widgets/trash_app/calendar/layout_calendar_2.dart';
 import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
@@ -137,6 +138,7 @@ class MenuValues {
     ActivateWidget(),
     HomeWidget(),
     CalendarWorkWidget(),
+    NotificationWidget(),
     ProfileWidget(),
   ];
 
@@ -248,6 +250,7 @@ class TitleAppbarValues {
       appLocalizations.request,
       appLocalizations.worksheet,
       appLocalizations.calendarWork,
+      appLocalizations.notification,
       appLocalizations.userInformation,
     ];
   }

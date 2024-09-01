@@ -4046,6 +4046,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No data timekeeping'**
   String get noDataTimekeeping;
+
+  /// No description provided for @notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification'**
+  String get notification;
+
+  /// No description provided for @sent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent'**
+  String get sent;
+
+  /// No description provided for @read.
+  ///
+  /// In en, this message translates to:
+  /// **'Read'**
+  String get read;
+
+  /// No description provided for @readAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all as read'**
+  String get readAll;
+
+  /// No description provided for @noNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'No notification'**
+  String get noNotification;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

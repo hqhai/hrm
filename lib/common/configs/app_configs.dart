@@ -3,12 +3,15 @@ import 'package:json_annotation/json_annotation.dart';
 part 'app_configs.g.dart';
 
 AppConfig get appConfig => AppConfig.instance;
+
 void setConfig(Map<String, String> env) {
   AppConfig._instance = AppConfig.fromJson(env);
 }
 
 @JsonSerializable()
 class AppConfig {
+  @JsonKey(name: 'BASE_NOTIFICATION_URL', defaultValue: '')
+  final String baseNotificationUrl;
   @JsonKey(name: 'BASE_SYSTEM_URL', defaultValue: '')
   final String baseSystemUrl;
   @JsonKey(name: 'BASE_STORAGE_URL', defaultValue: '')
@@ -26,9 +29,20 @@ class AppConfig {
   @JsonKey(name: 'ENV', defaultValue: '')
   final String env;
   static String _token = '';
+
   static String get getToken => _token;
 
-  AppConfig({this.env = '', this.baseUrl = '', this.baseAuthUrl = '', this.baseUserUrl = '', this.baseRequestUrl ='', this.baseURLFile ='', this.baseSystemUrl ='', this.baseSystemGatewayUrl = ''});
+  AppConfig({
+    this.env = '',
+    this.baseUrl = '',
+    this.baseAuthUrl = '',
+    this.baseUserUrl = '',
+    this.baseRequestUrl = '',
+    this.baseURLFile = '',
+    this.baseSystemUrl = '',
+    this.baseSystemGatewayUrl = '',
+    this.baseNotificationUrl = '',
+  });
 
   static AppConfig? _instance;
 
@@ -38,8 +52,7 @@ class AppConfig {
     _token = token;
   }
 
-  factory AppConfig.fromJson(Map<String, dynamic> json) =>
-      _$AppConfigFromJson(json);
+  factory AppConfig.fromJson(Map<String, dynamic> json) => _$AppConfigFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppConfigToJson(this);
 }

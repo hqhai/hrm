@@ -1980,4 +1980,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noDataTimekeeping => 'Chưa có dữ liệu chấm công';
+
+  @override
+  String get notification => 'Thông báo';
+
+  @override
+  String get sent => 'Chưa đọc';
+
+  @override
+  String get read => 'Đã đọc';
+
+  @override
+  String get readAll => 'Đánh dấu tất cả là đã đọc';
+
+  @override
+  String get noNotification => 'Không có thông báo';
 }

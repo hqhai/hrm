@@ -15,9 +15,11 @@ AppConfig _$AppConfigFromJson(Map<String, dynamic> json) => AppConfig(
       baseURLFile: json['BASE_STORAGE_URL'] as String? ?? '',
       baseSystemUrl: json['BASE_SYSTEM_URL'] as String? ?? '',
       baseSystemGatewayUrl: json['BASE_SYSTEM_GATEWAY_URL'] as String? ?? '',
+      baseNotificationUrl: json['BASE_NOTIFICATION_URL'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AppConfigToJson(AppConfig instance) => <String, dynamic>{
+      'BASE_NOTIFICATION_URL': instance.baseNotificationUrl,
       'BASE_SYSTEM_URL': instance.baseSystemUrl,
       'BASE_STORAGE_URL': instance.baseURLFile,
       'BASE_AUTH_URL': instance.baseAuthUrl,
