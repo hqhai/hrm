@@ -1133,6 +1133,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leaveNumberRemaining => 'Remaining leave days';
 
   @override
+  String get leaveNumberUsedH => 'Used leave hours';
+
+  @override
+  String get leaveNumberPermissionH => 'Initial leave hours';
+
+  @override
+  String get leaveNumberRemainingH => 'Remaining leave hours';
+
+  @override
   String get youEarly => 'Early departure';
 
   @override

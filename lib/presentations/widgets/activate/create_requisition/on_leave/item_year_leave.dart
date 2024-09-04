@@ -118,7 +118,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
                     e.configSocialInsuranceLeaveName,
                     style: TextStyle(
                       color: colors.text,
-                      fontSize: SpacingUnit.x3,
+                      fontSize: SpacingUnit.x4,
                     ),
                   ),
                   leading: Radio<EnumSocialInsuranceLeave>(

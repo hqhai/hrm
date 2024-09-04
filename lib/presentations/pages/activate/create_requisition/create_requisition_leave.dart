@@ -227,9 +227,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         type: takeLeaveType,
                         onChangeSocialInsurance: (value) => setSocialInsurance(value),
                       ),
-                      if (takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave ||
-                          takeLeaveType == EnumTakeLeaveType.compensatoryLeave)
-                        const ItemTakeLeaveWork(),
+                      ItemTakeLeaveWork(takeLeaveType: takeLeaveType),
                       const SizedBox(height: SpacingUnit.x4),
                       TitleRequired(
                           title: appLocalizations.intervalOnLeave, requiredValidate: true),
@@ -444,7 +442,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   _setReason(EnumReasonLeave? value) {
     setState(() {
-      reason = value?? EnumReasonLeave.yearlyLeave;
+      reason = value ?? EnumReasonLeave.yearlyLeave;
     });
   }
 

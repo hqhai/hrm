@@ -2349,6 +2349,24 @@ abstract class AppLocalizations {
   /// **'Remaining leave days'**
   String get leaveNumberRemaining;
 
+  /// No description provided for @leaveNumberUsedH.
+  ///
+  /// In en, this message translates to:
+  /// **'Used leave hours'**
+  String get leaveNumberUsedH;
+
+  /// No description provided for @leaveNumberPermissionH.
+  ///
+  /// In en, this message translates to:
+  /// **'Initial leave hours'**
+  String get leaveNumberPermissionH;
+
+  /// No description provided for @leaveNumberRemainingH.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining leave hours'**
+  String get leaveNumberRemainingH;
+
   /// No description provided for @youEarly.
   ///
   /// In en, this message translates to:
