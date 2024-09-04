@@ -129,14 +129,18 @@ class _ShiftsPageState extends State<ShiftsPage> {
                           status: data?.status ??
                               WorkShiftRequestStatus.usable)['titleButton'],
                       onSubmit: () {
-                        if (data?.status != WorkShiftRequestStatus.unusable) {
-                          _register(context: context, workDays: [
-                            WorkDayRequest(
-                              workShiftSettingDetailId:
-                                  data?.workShiftSettingDetailId ?? "",
-                              workDate: formatYYMMDD(widget.date.toString()),
-                            )
-                          ]);
+                        if (data?.status == WorkShiftRequestStatus.usable) {
+                          _register(
+                              context: context,
+                              map: state.workDays,
+                              workDays: [
+                                WorkDayRequest(
+                                  workShiftSettingDetailId:
+                                      data?.workShiftSettingDetailId ?? "",
+                                  workDate:
+                                      formatYYMMDD(widget.date.toString()),
+                                )
+                              ]);
                         } else {
                           onSubmit(
                             note: reasonController.text,
@@ -207,7 +211,8 @@ class _ShiftsPageState extends State<ShiftsPage> {
       required Map<DateTime, WorkDay> map}) {
     dI<WorkDayBloc>().add(
         CancelRegisterWorkDay(data: CancelWorkDayRequest(note: note, id: id)));
-    dI<WorkDayBloc>().add(const ChangeLoading(status: true));
+    dI<WorkDayBloc>().add(
+        GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
     dI<WorkDayBloc>().add(
         GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
     Navigator.pop(context);
@@ -216,7 +221,8 @@ class _ShiftsPageState extends State<ShiftsPage> {
 
 _register(
     {required List<WorkDayRequest> workDays,
-    required BuildContext context}) async {
+    required BuildContext context,
+    required Map<DateTime, WorkDay> map}) async {
   final appLocalizations = AppLocalizations.of(context)!;
   Completer completer = Completer<bool>();
   dI<WorkDayBloc>()
@@ -225,6 +231,13 @@ _register(
   final check = await completer.future;
   if (check) {
     ToastUtils().showSuccess(appLocalizations.success);
+    dI<WorkDayBloc>().add(
+        GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+    dI<WorkDayBloc>().add(
+        GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+    if (context.mounted) {
+      Navigator.pop(context);
+    }
   } else {
     ToastUtils().showError(appLocalizations.unsuccessful);
   }
