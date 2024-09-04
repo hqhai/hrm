@@ -1985,7 +1985,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get moveToTheAppropriate => 'Hãy di chuyển đến vị trí thích hợp trên bản đồ';
 
   @override
-  String get chooseASchedule => 'Bạn cần chọn một lịch đi để chấm công.';
+  String get chooseASchedule => 'Bạn cần chọn một lịch đi trường để chấm công.';
 
   @override
   String get noDataTimekeeping => 'Chưa có dữ liệu chấm công';

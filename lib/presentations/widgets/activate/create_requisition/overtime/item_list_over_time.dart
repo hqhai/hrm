@@ -52,7 +52,7 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
           if (widget.checkType == RequestType.oT)
             ItemTitleValueNoBorder(
               title: appLocalizations.dateType,
-              value: widget.requisitionOverTime.overTimeDay
+              value: widget.requisitionOverTime.overtimeDay
                       ?.configEnumOvertimeDayName ??
                   "",
               size: SpacingUnit.x4,
@@ -75,12 +75,9 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
             value: strSeconds(widget.requisitionOverTime.endTime) ?? "",
             size: SpacingUnit.x4,
           ),
-          if (widget.checkType == RequestType.oT ||
-              widget.checkType == RequestType.makeUp)
+          if (widget.checkType == RequestType.oT)
             ItemTitleValueNoBorder(
-              title: widget.checkType == RequestType.oT
-                  ? appLocalizations.totalOTHours
-                  : appLocalizations.totalMakeUpWorkTime,
+              title: appLocalizations.totalOTHours,
               value:
                   strSeconds(widget.requisitionOverTime.suggestTime.toInt()) ??
                       "",

@@ -17,8 +17,7 @@ class ItemLeave extends StatelessWidget {
   final TypeLeaveEnum type;
 
   UserLeaveHistoryTypes userLeaveHistoryTypes(UserLeave userLeave) {
-    int index = userLeave.userLeaveHistoryTypes
-        .indexWhere((element) => element.type == type);
+    int index = userLeave.userLeaveHistoryTypes.indexWhere((element) => element.type == type);
     if (type == TypeLeaveEnum.total) {
       return UserLeaveHistoryTypes(
         type: type,
@@ -26,6 +25,13 @@ class ItemLeave extends StatelessWidget {
         totalExpired: userLeave.totalExpired,
         totalRemaining: userLeave.totalRemaining,
         totalUsed: userLeave.totalUsed,
+      );
+    } else if (index != -1 && type == TypeLeaveEnum.overTimeLeave) {
+      final leaveOT = userLeave.userLeaveHistoryTypes[index];
+      return leaveOT.copyWith(
+        total: leaveOT.total / 3600,
+        totalUsed: leaveOT.totalUsed / 3600,
+        totalRemaining: leaveOT.totalRemaining / 3600,
       );
     } else if (index != -1) {
       return userLeave.userLeaveHistoryTypes[index];

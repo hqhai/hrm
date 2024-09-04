@@ -144,7 +144,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
       children: [
         Expanded(
           child: ContainerBorder(
-            height: SpacingUnit.x18,
+            height: SpacingUnit.x20,
             borderColors: colors.text.withOpacity(0.3),
             marginTop: 0,
             paddingVertical: 0,
@@ -171,7 +171,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
         const SizedBox(width: SpacingUnit.x2),
         Expanded(
           child: ContainerBorder(
-            height: SpacingUnit.x18,
+            height: SpacingUnit.x20,
             marginTop: 0,
             borderColors: colors.text.withOpacity(0.3),
             paddingHorizontal: 0,
