@@ -189,14 +189,13 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
 _widgetStatus(WorkShiftRequestStatus status) {
   switch (status) {
     case WorkShiftRequestStatus.approve:
-      // return ColorUtils.parseHex('#E2F3DA');
       return Row(children: [
         SvgPicture.asset(
           _setIcon(status: status),
         ),
         const SizedBox(width: SpacingUnit.x1),
         Text(
-          status.name,
+          status.configWorkShiftRequestStatusName,
           style: const TextStyle(),
         )
       ]);
@@ -207,7 +206,7 @@ _widgetStatus(WorkShiftRequestStatus status) {
         ),
         const SizedBox(width: SpacingUnit.x1),
         Text(
-          status.name,
+          status.configWorkShiftRequestStatusName,
           style: const TextStyle(),
         )
       ]);
@@ -218,7 +217,7 @@ _widgetStatus(WorkShiftRequestStatus status) {
         ),
         const SizedBox(width: SpacingUnit.x1),
         Text(
-          status.name,
+          status.configWorkShiftRequestStatusName,
           style: const TextStyle(),
         )
       ]);
@@ -229,7 +228,7 @@ _widgetStatus(WorkShiftRequestStatus status) {
         ),
         const SizedBox(width: SpacingUnit.x1),
         Text(
-          status.name,
+          status.configWorkShiftRequestStatusName,
           style: const TextStyle(),
         )
       ]);
@@ -249,13 +248,13 @@ _colorByStatus(WorkShiftRequestStatus status) {
     case WorkShiftRequestStatus.pendingCancel:
       return ColorUtils.parseHex('#FFF3E6');
     case WorkShiftRequestStatus.reject:
-      return ColorUtils.parseHex('#FCE6EA');
+      return ColorUtils.parseHex('#E8EBFA');
     case WorkShiftRequestStatus.remove:
       return ColorUtils.parseHex('#FCE6EA');
     case WorkShiftRequestStatus.unusable:
       return ColorUtils.parseHex('#E3E3E3');
     case WorkShiftRequestStatus.usable:
-      return ColorUtils.parseHex('#E8EBFA');
+      return ColorUtils.parseHex('#2F6BFF').withOpacity(0.3);
 
     default:
       return Colors.transparent;

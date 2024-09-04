@@ -68,9 +68,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   void initState() {
     dI<WorkDayBloc>().add(ChangeSelectDate(date: DateTime.now()));
     _init();
-    _headerScroll();
+    // _headerScroll();
     _bodyScroll();
-    _getData(DateTime.now());
+    _getData();
     super.initState();
   }
 
@@ -82,10 +82,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     });
   }
 
-  _getData(DateTime time) {
-    final initData = listDays(time);
-    dI<WorkDayBloc>().add(
-        GetWorkDaysEvent(startDate: initData.first, endDate: initData.last));
+  _getData() {
+    dI<WorkDayBloc>().add(GetWorkDaysEvent(
+        startDate: listDateAppBar.first, endDate: listDateAppBar.last));
   }
 
   // bool _checkNextScrollHeader(Iterable<ItemPosition> listIndex) {
@@ -96,31 +95,31 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   //   return currentHeaderScrollIndex > listIndex.first.index && !isHeaderScroll;
   // }
 
-  _headerScroll() {
-    itemPositionsListener.itemPositions.addListener(() async {
-      // Iterable<ItemPosition> listIndex =
-      //     itemPositionsListener.itemPositions.value;
-      dI<WorkDayBloc>().add(ChangeSelectDate(date: DateTime.now()));
-      // if (isEnable) {
-      //   print("object");
-      //   if (!isScroll) {
-      //     if (_checkNextScrollHeader(listIndex)) {
-      //       setUpWeek();
-      //     } else if (_checkPreviousPreviousHeader(listIndex)) {
-      //       setDownWeek();
-      //     }
-      //   }
-      //   changeEnableStatus();
-      // }
-    });
-  }
+  // _headerScroll() {
+  //   itemPositionsListener.itemPositions.addListener(() async {
+  //     // Iterable<ItemPosition> listIndex =
+  //     //     itemPositionsListener.itemPositions.value;
+  //     dI<WorkDayBloc>().add(ChangeSelectDate(date: DateTime.now()));
+  //     // if (isEnable) {
+  //     //   print("object");
+  //     //   if (!isScroll) {
+  //     //     if (_checkNextScrollHeader(listIndex)) {
+  //     //       setUpWeek();
+  //     //     } else if (_checkPreviousPreviousHeader(listIndex)) {
+  //     //       setDownWeek();
+  //     //     }
+  //     //   }
+  //     //   changeEnableStatus();
+  //     // }
+  //   });
+  // }
 
   _bodyScroll() {
     itemPositionsListenerBody.itemPositions.addListener(() async {
       Iterable<ItemPosition> listIndex =
           itemPositionsListenerBody.itemPositions.value;
       int nextIndex = currentHeaderScrollIndex + 7;
-
+      // onChangeDateAppBar(listIndex.first.index);
       dI<WorkDayBloc>()
           .add(ChangeSelectDate(date: listDateAppBar[(listIndex.first.index)]));
       if (nextIndex <= listIndex.first.index && !isHeaderScroll) {
@@ -365,6 +364,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
 
   _register() {
     final appLocalizations = AppLocalizations.of(context)!;
+
     try {
       if (isShowCheckBox) {
         setState(() async {
@@ -372,6 +372,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
           dI<WorkDayBloc>()
               .add(RegisterWorkDay(request: workDays, completer: completer));
           final check = await completer.future;
+          if (workDays.isEmpty) return;
           if (check) {
             ToastUtils().showSuccess(appLocalizations.success);
           } else {
@@ -429,7 +430,6 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     int previousIndex = currentHeaderScrollIndex - 7;
     // setState(() {
     isHeaderScroll = true;
-    _getData(listDateAppBar[0]);
     _scrollControllerHeader
         .scrollTo(
             index: previousIndex, duration: const Duration(milliseconds: 10))
@@ -452,12 +452,12 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
         isScroll = true;
       });
     });
+    _getData();
   }
 
   setUpWeek({Completer? completer}) {
     int nextIndex = currentHeaderScrollIndex + 7;
     isHeaderScroll = true;
-    _getData(listDateAppBar[nextIndex]);
     _scrollControllerHeader
         .scrollTo(index: nextIndex, duration: const Duration(milliseconds: 10))
         .whenComplete(() {
@@ -475,6 +475,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
         isScroll = true;
       });
     });
+    _getData();
   }
 
   onChangeDateAppBar(int index) {
