@@ -16,11 +16,12 @@ class ItemWorkShiftADate extends StatefulWidget {
   const ItemWorkShiftADate({
     super.key,
     required this.workShiftSettings,
-    this.type = RequisitionTypeEnum.leaveHalfDayToOneDay,
+    this.type = RequisitionTypeEnum.leaveHalfDayToOneDay, required this.workShiftSettingsOld,
   });
 
   final ValueChanged<List<WorkShiftRegisteredDetail>> workShiftSettings;
   final RequisitionTypeEnum type;
+  final List<WorkShiftRegisteredDetail> workShiftSettingsOld;
 
   @override
   State<ItemWorkShiftADate> createState() => _ItemWorkShiftADateState();
@@ -31,6 +32,7 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
 
   @override
   void initState() {
+    workShifts = widget.workShiftSettingsOld;
     super.initState();
   }
 
@@ -38,7 +40,10 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
     return BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
       builder: (context, state) {
         return Column(
@@ -63,44 +68,46 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: state.keys.mapIndexed(
-                  (index, element) {
+                      (index, element) {
                     final listKey = state.mapKeyDate[element] ?? [];
                     return !checkSE(dateInt: element, keyDate: state.keys)
                         ? Column(
-                            children: listKey.map(
-                              (e) {
-                                final workShift = state.workShifts[e] ??
-                                    WorkShiftRegisteredDetail(
-                                        workDate: DateTime.now());
-                                return ContainerBorder(
-                                  borderColors: colors.outline.withOpacity(0.4),
-                                  width: width,
-                                  paddingVertical: 0,
-                                  child: CheckboxListTile(
-                                    controlAffinity:
-                                        ListTileControlAffinity.leading,
-                                    value: check(
-                                        dateInt: element,
-                                        keyDate: state.keys,
-                                        workShift: workShift),
-                                    onChanged: (value) => _onChange(
-                                        value: value,
-                                        workShift: workShift,
-                                        dateInt: element,
-                                        keyDate: state.keys,
-                                        state: state),
-                                    title: Text(
-                                      '${strSeconds(workShift.startTime)} - ${strSeconds(workShift.endTime)}',
-                                      style: TextStyle(
-                                        color: colors.text,
-                                        fontSize: SpacingUnit.x4,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ).toList(),
-                          )
+                      children: listKey.map(
+                            (e) {
+                          final workShift = state.workShifts[e] ??
+                              WorkShiftRegisteredDetail(
+                                  workDate: DateTime.now());
+                          return ContainerBorder(
+                            borderColors: colors.outline.withOpacity(0.4),
+                            width: width,
+                            paddingVertical: 0,
+                            child: CheckboxListTile(
+                              controlAffinity:
+                              ListTileControlAffinity.leading,
+                              value: check(
+                                  dateInt: element,
+                                  keyDate: state.keys,
+                                  workShift: workShift),
+                              onChanged: (value) =>
+                                  _onChange(
+                                      value: value,
+                                      workShift: workShift,
+                                      dateInt: element,
+                                      keyDate: state.keys,
+                                      state: state),
+                              title: Text(
+                                '${strSeconds(workShift.startTime)} - ${strSeconds(
+                                    workShift.endTime)}',
+                                style: TextStyle(
+                                  color: colors.text,
+                                  fontSize: SpacingUnit.x4,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ).toList(),
+                    )
                         : const SizedBox();
                   },
                 ).toList(),
@@ -112,12 +119,11 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
     );
   }
 
-  _onChange(
-      {bool? value,
-      required WorkShiftRegisteredDetail workShift,
-      required int dateInt,
-      required List<int> keyDate,
-      required LeaveShiftState state}) {
+  _onChange({bool? value,
+    required WorkShiftRegisteredDetail workShift,
+    required int dateInt,
+    required List<int> keyDate,
+    required LeaveShiftState state}) {
     final checkType = widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore ||
         widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay ||
         widget.type == RequisitionTypeEnum.bussiness;
@@ -131,8 +137,8 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
       final listWorkShift = state.workShifts.values.toList();
       final workShiftsAlikeDate = state.workShifts.values
           .where((element) =>
-              element.workDate.microsecondsSinceEpoch ==
-              workShift.workDate.microsecondsSinceEpoch)
+      element.workDate.microsecondsSinceEpoch ==
+          workShift.workDate.microsecondsSinceEpoch)
           .toList();
 
       ///Không phải ca thuộc ngày đầu và cuối th cho hết vào list
@@ -218,13 +224,15 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
   }
 
   ///
-  bool check(
-      {required int dateInt,
-      required List<int> keyDate,
-      required WorkShiftRegisteredDetail workShift}) {
+  bool check({required int dateInt,
+    required List<int> keyDate,
+    required WorkShiftRegisteredDetail workShift}) {
     keyDate.sort();
     final checkSE = keyDate.first < dateInt && keyDate.last > dateInt;
-    final checkId = workShifts.contains(workShift);
+    final checkId = workShifts.any((element) =>
+    element.workShiftDetailId == workShift.workShiftDetailId &&
+        element.workShiftSettingDetailId == workShift.workShiftSettingDetailId &&
+        element.workDate.microsecond == workShift.workDate.microsecond);
     return checkSE || checkId;
   }
 }

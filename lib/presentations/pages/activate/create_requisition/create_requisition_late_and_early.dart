@@ -77,7 +77,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       errorDestination = '',
       errorDialog = '',
       errorShift = '',
-      errorListener = '', description = '';
+      errorListener = '',
+      description = '';
   DateTime workDate = DateTime.now(), endDate = DateTime.now();
   List<String> followers = [];
   int startTime = 0, endTime = 0;
@@ -88,7 +89,6 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   List<bool> checkTypeContainer = [];
   EnumReason reason = EnumReason.individual;
   double numberValue = 0;
-  bool checkRequiredMakeUp = false;
 
   @override
   void initState() {
@@ -108,7 +108,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog =
+          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
       if (errorCode == 'MakeupDayCanNotRecedeRequestDate') {
         errorListener = errorDialog;
       } else {
@@ -143,7 +144,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ItemCreateTimeKeepingType(
-                      typeDefault: EditTimekeeping.early,
+                      typeDefault: type,
                       onChange: (value) => _setType(value),
                     ),
                     TitleRequired(
@@ -192,6 +193,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                             typeLE: type,
                             type: widget.type,
                             workShiftSettings: (value) => setListIds(value),
+                            workShiftSettingsOld: listWorkShift,
                           ),
                     BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
                       builder: (context, stateShift) {
@@ -214,7 +216,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                           children: [
                             TitleRequired(
                               title: appLocalizations.replaceDay,
-                              requiredValidate: checkRequiredMakeUp,
+                              requiredValidate: setRequiredMakeUp(),
                             ),
                             DateOverTime(
                               errorDate: '',
@@ -222,7 +224,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                               changeValue: (value) => setDate(value),
                             ),
                             AppStartEndTime(
-                              checkRequired: checkRequiredMakeUp,
+                              checkRequired: setRequiredMakeUp(),
                               checkNumberValue: false,
                               endTime: endTime,
                               startTime: startTime,
@@ -338,7 +340,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   }
 
   bool checkMakeUp() {
-    return type == EditTimekeeping.early && checkRequiredMakeUp;
+    return type == EditTimekeeping.early && setRequiredMakeUp();
   }
 
   PostRequestRequest request() {
@@ -423,20 +425,15 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       type = value;
     });
   }
+  
+  bool setRequiredMakeUp(){
+    final check = listWorkShift.any((element) => element.numberTime > 3600);
+    return check && type == EditTimekeeping.early;
+  }
 
   setListIds(List<WorkShiftRegisteredDetail> value) {
     setState(() {
       listWorkShift = value;
     });
-    final index = listWorkShift.indexWhere((element) => element.numberTime > 60).toInt();
-    if (index != -1) {
-      setState(() {
-        checkRequiredMakeUp = true;
-      });
-    } else {
-      setState(() {
-        checkRequiredMakeUp = false;
-      });
-    }
   }
 }

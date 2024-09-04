@@ -99,7 +99,8 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
   _listener(String errorCode, BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog =
+          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
       if (errorCode == "TimeSlotAlreadyPleaseChooseAnother") {
         errorTime = appLocalizations.errorTimeMakeUp2;
       }
@@ -155,6 +156,7 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
                             width: 50,
                           ))
                         : ItemWorkShiftADate(
+                            workShiftSettingsOld: workShiftSettings,
                             type: widget.type,
                             workShiftSettings: (value) => _setWorkShiftSettings(value),
                           ),
