@@ -64,7 +64,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
       endTime = value.endTime;
       suggestTime = double.parse((endTime - startTime).toString());
       note = value.note;
-      typeDate = value.overTimeDay ?? EnumOvertimeDay.holiday;
+      typeDate = value.overtimeDay ?? EnumOvertimeDay.holiday;
       isCheck = value.isChecking;
     });
   }
@@ -266,7 +266,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     setState(() {
       typeDate = value;
       widget.onChangeOverTimes?.call(
-        widget.requisitionOverTime.copyWith(overTimeDay: value),
+        widget.requisitionOverTime.copyWith(overtimeDay: value),
       );
     });
   }

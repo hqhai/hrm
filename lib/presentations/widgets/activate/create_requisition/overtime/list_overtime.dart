@@ -105,7 +105,7 @@ class _ListOverTimeState extends State<ListOverTime> {
           startTime: value.startTime,
           date: value.date,
           isChecking: value.isChecking,
-          overTimeDay: value.overTimeDay);
+          overtimeDay: value.overtimeDay);
       widget.onChangeList.call(listOverTimes);
     });
   }

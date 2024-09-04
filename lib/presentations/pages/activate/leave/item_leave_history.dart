@@ -51,7 +51,9 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
                 title1: appLocalizations.day,
                 title2: appLocalizations.totalLeaveOfChanges,
                 value1: formatYMD((leave?.createdDate ?? "").toString()),
-                value2: totalLeaveOfChanges(leave?.changeType, leave?.changeValue),
+                value2: leave?.type == TypeLeaveEnum.overTimeLeave
+                    ? totalLeaveOfChanges(leave?.changeType, (leave?.changeValue ?? 0) / 3600)
+                    : totalLeaveOfChanges(leave?.changeType, leave?.changeValue),
                 color: check(leave?.changeType ?? ChangeTypeEnum.addition)
                     ? colors.success
                     : colors.error,
@@ -60,7 +62,9 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
                 title1: appLocalizations.actionName,
                 title2: appLocalizations.totalRemainingLeaveDays,
                 value1: leave?.changeType.configChangeTypeEnum ?? "",
-                value2: (leave?.totalRemaining ?? 0).toString(),
+                value2: leave?.type == TypeLeaveEnum.overTimeLeave
+                    ? ((leave?.remainValue ?? 0)/3600).toString()
+                    : (leave?.remainValue ?? 0).toString(),
               ),
               Padding(
                 padding: const EdgeInsets.all(SpacingUnit.x1_5),

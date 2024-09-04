@@ -56,29 +56,28 @@ class _RequisitionInformationContentTypeLeaveState
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  ItemTitleValue(
+                  ItemTitleValueColum(
+                    font: FontWeight.w600,
                     size: SpacingUnit.x4,
                     title: appLocalizations.selectTypeLeave,
                     value: request.config.takeLeaveType.configTakeLeaveTypeName,
                   ),
                   if (request.config.reasonLeave != null)
-                    ItemTitleValue(
+                    ItemTitleValueColum(
+                      font: FontWeight.w600,
                       size: SpacingUnit.x4,
                       title: request.config.takeLeaveType ==
                               EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave
                           ? appLocalizations.selectLeave
                           : appLocalizations.reason,
-                      value:
-                          request.config.reasonLeave?.configEnumTakeLeaveName ??
-                              "",
+                      value: request.config.reasonLeave?.configEnumTakeLeaveName ?? "",
                     ),
                   if (request.config.socialInsuranceLeave != null)
                     ItemTitleValue(
                       size: SpacingUnit.x4,
                       title: appLocalizations.reason,
-                      value: request.config.socialInsuranceLeave
-                              ?.configSocialInsuranceLeaveName ??
-                          "",
+                      value:
+                          request.config.socialInsuranceLeave?.configSocialInsuranceLeaveName ?? "",
                     ),
                   Padding(
                     padding: const EdgeInsets.only(top: SpacingUnit.x2),
@@ -102,15 +101,11 @@ class _RequisitionInformationContentTypeLeaveState
                       title: appLocalizations.lastShift,
                       workShift: workShiftSettings.last,
                     ),
-                  ItemTitleValue(
+                  ItemTitleValueColum(
+                    font: FontWeight.w600,
                     size: SpacingUnit.x4,
                     title: appLocalizations.totalLeaveWork,
                     value: (request.config.numberValue).toString(),
-                  ),
-                  ItemTitleValueColum(
-                    size: SpacingUnit.x4,
-                    title: appLocalizations.description,
-                    value: request.config.description,
                   ),
                   if (request.config.subtitudePersons.isNotEmpty)
                     ItemPersonInformationRequest(

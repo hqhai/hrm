@@ -200,6 +200,7 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
                         title: appLocalizations.endTimeMustBeAfterStartTime,
                       ),
                       errorTime: errorTime,
+                      checkNumberValue: false,
                     ),
                     ItemCreateFollower(
                         listFollower: _setListUser(

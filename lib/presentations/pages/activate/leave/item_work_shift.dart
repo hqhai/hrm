@@ -278,7 +278,21 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
         }
       });
     }
-    widget.workShiftSettings.call(workShifts);
+    ///check xem đã lấy ngày đầu cuối chưa?
+    final checkS =
+    workShifts.any((element) => element.workDate.microsecondsSinceEpoch == state.keys.first);
+    final checkE =
+    workShifts.any((element) => element.workDate.microsecondsSinceEpoch == state.keys.last);
+    if (checkS && checkE) {
+      widget.workShiftSettings.call(workShifts);
+    } else {
+      final list = workShifts
+          .where((element) =>
+      element.workDate.microsecondsSinceEpoch == state.keys.last ||
+          element.workDate.microsecondsSinceEpoch == state.keys.first)
+          .toList();
+      widget.workShiftSettings.call(list);
+    }
   }
 
   bool checkSE({required int dateInt, required List<int> keyDate}) {
@@ -286,7 +300,7 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
     return keyDate.first < dateInt && keyDate.last > dateInt;
   }
 
-  ///
+  ///check xem có tick không
   bool check(
       {required int dateInt,
       required List<int> keyDate,

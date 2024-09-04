@@ -34,6 +34,7 @@ import 'package:base_app/presentations/widgets/activate/requisition_infor_item/r
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_general_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_sender_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_information_type.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title_callback.dart';
 import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
@@ -90,112 +91,93 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
               return Scaffold(
                 appBar: AppBar(
                   iconTheme: IconThemeData(color: colors.text),
-                  title: Center(
-                    child: Column(
-                      children: [
-                        Text(stateFlow.flow.flowType?.configTypeName ?? "",
-                            style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
-                        Text('${appLocalizations.applicationCode} : ${state.requisition.code}',
-                            style: TextStyle(
-                                color: colors.surfaceVariantHigh, fontSize: SpacingUnit.x3)),
-                      ],
-                    ),
-                  ),
+                  centerTitle: true,
+                  title: Text(stateFlow.flow.flowType?.configTypeName ?? "",
+                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
                   actions: const [
                     SizedBox(width: SpacingUnit.x15),
                   ],
                 ),
-                body: Stack(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-                      decoration: BoxDecoration(
-                        color: colors.background,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(SpacingUnit.x4),
+                body: ContainerBorder(
+                  backgroundColors: colors.background,
+                  borderColors: colors.background,
+                  marginTop: 0,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (widget.checkUser != RequestSeeByWho.user)
+                          const RequisitionInformationSenderInformation(),
+                        const RequisitionInformationGeneraliInformation(),
+                        const RequisitionInformationType(),
+                        if (state.requisition.flowType != RequisitionTypeEnum.stationery &&
+                            state.requisition.flowType != RequisitionTypeEnum.makeUpWork)
+                          const RequisitionInformationContent(),
+                        if (state.requisition.config.attachments.isNotEmpty)
+                          const RequisitionInformationAttach(),
+                        const ItemFollowersInformationRequest(),
+                        const ItemListStepFlow(
+                          create: false,
                         ),
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (widget.checkUser != RequestSeeByWho.user)
-                              const RequisitionInformationSenderInformation(),
-                            const RequisitionInformationGeneraliInformation(),
-                            const RequisitionInformationType(),
-                            if (state.requisition.flowType != RequisitionTypeEnum.stationery &&
-                                state.requisition.flowType != RequisitionTypeEnum.makeUpWork)
-                              const RequisitionInformationContent(),
-                            if (state.requisition.config.attachments.isNotEmpty)
-                              const RequisitionInformationAttach(),
-                            const ItemFollowersInformationRequest(),
-                            const ItemListStepFlow(
-                              create: false,
-                            ),
-                            if (state.requisition.status == StatusRequestEnum.process &&
-                                widget.checkUser == RequestSeeByWho.user)
-                              ButtonItemListRequisition(
-                                colorText: colors.error,
-                                background: colors.error.withOpacity(0.2),
-                                check: true,
-                                title: appLocalizations.revoke,
-                                callback: () => rejectDialog(context),
+                        if (state.requisition.status == StatusRequestEnum.process &&
+                            widget.checkUser == RequestSeeByWho.user)
+                          ButtonItemListRequisition(
+                            colorText: colors.error,
+                            background: colors.error.withOpacity(0.2),
+                            check: true,
+                            title: appLocalizations.revoke,
+                            callback: () => rejectDialog(context),
+                          ),
+                        if (state.requisition.status == StatusRequestEnum.edit &&
+                            widget.checkUser == RequestSeeByWho.user)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                child: ButtonItemListRequisition(
+                                  colorText: colors.tertiary,
+                                  background: colors.tertiary.withOpacity(0.2),
+                                  check: true,
+                                  title: appLocalizations.update,
+                                  callback: () =>
+                                      _nextScreen(stateFlow.flow, state.requisition),
+                                ),
                               ),
-                            if (state.requisition.status == StatusRequestEnum.edit &&
-                                widget.checkUser == RequestSeeByWho.user)
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Expanded(
-                                    child: ButtonItemListRequisition(
-                                      colorText: colors.tertiary,
-                                      background: colors.tertiary.withOpacity(0.2),
-                                      check: true,
-                                      title: appLocalizations.update,
-                                      callback: () =>
-                                          _nextScreen(stateFlow.flow, state.requisition),
-                                    ),
-                                  ),
-                                  const SizedBox(width: SpacingUnit.x4),
-                                  Expanded(
-                                    child: ButtonItemListRequisition(
-                                      colorText: colors.error,
-                                      background: colors.error.withOpacity(0.2),
-                                      check: true,
-                                      title: appLocalizations.revoke,
-                                      callback: () => rejectDialog(context),
-                                    ),
-                                  ),
-                                ],
+                              const SizedBox(width: SpacingUnit.x4),
+                              Expanded(
+                                child: ButtonItemListRequisition(
+                                  colorText: colors.error,
+                                  background: colors.error.withOpacity(0.2),
+                                  check: true,
+                                  title: appLocalizations.revoke,
+                                  callback: () => rejectDialog(context),
+                                ),
                               ),
-                            if (statusApprove(state.requisition) ==
-                                    EnumStepRequestStatusEnum.newStatus &&
-                                widget.checkUser == RequestSeeByWho.manager)
-                              ItemRequestProcess(
-                                callBackApprover: () => _isApprover(
-                                    state.requisition, context, EnumStepRequestStatusEnum.approve),
-                                callBackEdit: () => _isApprover(
-                                    state.requisition, context, EnumStepRequestStatusEnum.edit),
-                                callBackReject: () => _isApprover(
-                                    state.requisition, context, EnumStepRequestStatusEnum.reject),
-                              ),
-                            if (checkFirstStepApprove(state.requisition) &&
-                                widget.checkUser == RequestSeeByWho.manager)
-                              ButtonItemListRequisition(
-                                colorText: colors.error,
-                                background: colors.error.withOpacity(0.2),
-                                check: true,
-                                title: appLocalizations.cancel,
-                                callback: () => cancelRequest(context: context),
-                              ),
-                          ],
-                        ),
-                      ),
+                            ],
+                          ),
+                        if (statusApprove(state.requisition) ==
+                                EnumStepRequestStatusEnum.newStatus &&
+                            widget.checkUser == RequestSeeByWho.manager)
+                          ItemRequestProcess(
+                            callBackApprover: () => _isApprover(
+                                state.requisition, context, EnumStepRequestStatusEnum.approve),
+                            callBackEdit: () => _isApprover(
+                                state.requisition, context, EnumStepRequestStatusEnum.edit),
+                            callBackReject: () => _isApprover(
+                                state.requisition, context, EnumStepRequestStatusEnum.reject),
+                          ),
+                        if (checkFirstStepApprove(state.requisition) &&
+                            widget.checkUser == RequestSeeByWho.manager)
+                          ButtonItemListRequisition(
+                            colorText: colors.error,
+                            background: colors.error.withOpacity(0.2),
+                            check: true,
+                            title: appLocalizations.cancel,
+                            callback: () => cancelRequest(context: context),
+                          ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               );
             },

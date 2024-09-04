@@ -12,7 +12,7 @@ class RequisitionOverTime {
   final int endTime;
   final double suggestTime;
   final String note;
-  final EnumOvertimeDay? overTimeDay;
+  final EnumOvertimeDay? overtimeDay;
   final bool isChecking;
 
   const RequisitionOverTime({
@@ -21,7 +21,7 @@ class RequisitionOverTime {
     this.note = '',
     this.date,
     this.suggestTime = 0,
-    this.overTimeDay,
+    this.overtimeDay,
     this.isChecking = true,
   });
 

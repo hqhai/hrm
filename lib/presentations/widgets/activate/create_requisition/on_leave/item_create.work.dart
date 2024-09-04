@@ -1,6 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/enum/work_and_salary_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/leave/user_leave_hisory_types.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_bloc.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_state.dart';
@@ -21,13 +22,23 @@ class ItemTakeLeaveWork extends StatefulWidget {
 }
 
 class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
+  UserLeaveHistoryTypes _leaveOT(List<UserLeaveHistoryTypes> userLeaveHistoryTypes){
+    final index = userLeaveHistoryTypes
+        .indexWhere((element) => element.type == TypeLeaveEnum.overTimeLeave);
+    if(index != -1) {
+      return userLeaveHistoryTypes[index];
+    }
+    else{
+      return const UserLeaveHistoryTypes();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<WorkAndSalaryBloc, WorkAndSalaryState>(
       builder: (context, state) {
-        final leaveOT = state.userLeave.userLeaveHistoryTypes
-            .firstWhere((element) => element.type == TypeLeaveEnum.overTimeLeave);
+        final leaveOT = _leaveOT(state.userLeave.userLeaveHistoryTypes);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,7 +69,7 @@ class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
               item(
                 context: context,
                 title: appLocalizations.leaveNumberPermissionH,
-                value: (leaveOT.totalUsed).toString(),
+                value: (leaveOT.totalUsed/3600).toString(),
               ),
               item(
                 context: context,

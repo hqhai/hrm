@@ -61,11 +61,6 @@ class _RequisitionInformationGeneraliInformationState
                   ),
                   RequestInformationTitleValue(
                     size: SpacingUnit.x4,
-                    title: appLocalizations.applicationCode,
-                    value: state.requisition.code,
-                  ),
-                  RequestInformationTitleValue(
-                    size: SpacingUnit.x4,
                     title: appLocalizations.createTime,
                     value: formatYMDHMS(
                       dateTimeLocal(state.requisition.createdDate).toString(),
