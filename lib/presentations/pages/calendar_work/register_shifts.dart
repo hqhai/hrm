@@ -374,6 +374,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
           final check = await completer.future;
           if (workDays.isEmpty) return;
           if (check) {
+            _getData();
             ToastUtils().showSuccess(appLocalizations.success);
           } else {
             ToastUtils().showError(appLocalizations.unsuccessful);
