@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateTimeKeepingType extends StatefulWidget {
-  const ItemCreateTimeKeepingType({super.key, this.onChange, this.typeDefault});
+  const ItemCreateTimeKeepingType({super.key, this.onChange, required this.typeDefault});
 
-  final EditTimekeeping? typeDefault;
+  final EditTimekeeping typeDefault;
   final ValueChanged<EditTimekeeping>? onChange;
 
   @override
@@ -19,6 +19,12 @@ class ItemCreateTimeKeepingType extends StatefulWidget {
 
 class _ItemCreateTimeKeepingTypeState extends State<ItemCreateTimeKeepingType> {
   EditTimekeeping type = EditTimekeeping.late;
+
+  @override
+  void initState() {
+    type = widget.typeDefault;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

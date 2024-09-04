@@ -546,6 +546,16 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
             context: currentContext,
             page: Pages.createRequestLeavePage,
           );
+        case RequisitionTypeEnum.makeUpWork:
+          _push(
+            type: RequisitionTypeEnum.makeUpWork,
+            informationRequestExtra: InformationRequestExtra(
+              requestId: widget.id,
+              flowId: flow.id,
+            ),
+            context: currentContext,
+            page: Pages.createRequestMakeUpWorkPage,
+          );
         default:
           break;
       }
@@ -573,7 +583,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     return await completer.future;
   }
 
-  Future<bool> loadWorkShift(Request request) async {
+  Future<bool> loadWorkShiftLeave(Request request) async {
     final Completer completer = Completer<bool>();
     dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
         endDate: request.config.endDate ?? DateTime.now(),
@@ -584,9 +594,10 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
 
   Future<bool> loadWorkShiftOneDay(Request request) async {
     final Completer completer = Completer<bool>();
+    final date = request.config.workShiftSettings.first.workDate;
     dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-        endDate: request.config.endDate ?? DateTime.now(),
-        startDate: request.config.endDate ?? DateTime.now(),
+        endDate: date,
+        startDate: date,
         completer: completer));
     return await completer.future;
   }
@@ -596,21 +607,21 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       case RequisitionTypeEnum.leaveFiveDaysOrMore:
         final checkF = await loadFlow(flow);
         final checkWAS = await loadWorkAndSalary();
-        final checkWS = await loadWorkShift(request);
+        final checkWS = await loadWorkShiftLeave(request);
         return checkF && checkWAS && checkWS;
       case RequisitionTypeEnum.leaveHalfDayToOneDay:
         final checkF = await loadFlow(flow);
         final checkWAS = await loadWorkAndSalary();
-        final checkWS = await loadWorkShift(request);
+        final checkWS = await loadWorkShiftLeave(request);
         return checkF && checkWAS && checkWS;
       case RequisitionTypeEnum.leaveTwoDayToFourDay:
         final checkF = await loadFlow(flow);
         final checkWAS = await loadWorkAndSalary();
-        final checkWS = await loadWorkShift(request);
+        final checkWS = await loadWorkShiftLeave(request);
         return checkF && checkWAS && checkWS;
       case RequisitionTypeEnum.bussiness:
         final checkF = await loadFlow(flow);
-        final checkWS = await loadWorkShift(request);
+        final checkWS = await loadWorkShiftLeave(request);
         return checkF && checkWS;
       case RequisitionTypeEnum.lateOrEarly:
         final checkF = await loadFlow(flow);

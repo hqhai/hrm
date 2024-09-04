@@ -27,7 +27,7 @@ class _MinutesInShiftState extends State<MinutesInShift> {
 
   @override
   void initState() {
-    numberController.text = widget.minutes.toString();
+    numberController.text = (widget.minutes/60).toString();
     super.initState();
   }
 
@@ -68,7 +68,7 @@ class _MinutesInShiftState extends State<MinutesInShift> {
 
   _onChangeMinutes(String value) {
     if (value.isNotEmpty) {
-      widget.changeMinutes.call(int.parse(value));
+      widget.changeMinutes.call(int.parse(value)*60);
     } else {
       widget.changeMinutes.call(0);
     }
