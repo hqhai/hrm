@@ -1124,13 +1124,22 @@ class AppLocalizationsVi extends AppLocalizations {
   String get revoke => 'Hủy đơn';
 
   @override
-  String get leaveNumberUsed => 'Số NP được sử dụng';
+  String get leaveNumberUsed => 'Số NP được nghỉ tối đa';
 
   @override
   String get leaveNumberPermission => 'Số NP đã nghỉ';
 
   @override
   String get leaveNumberRemaining => 'Số NP còn lại';
+
+  @override
+  String get leaveNumberUsedH => 'Số giờ được nghỉ tối đa';
+
+  @override
+  String get leaveNumberPermissionH => 'Số giờ đã nghỉ';
+
+  @override
+  String get leaveNumberRemainingH => 'Số giờ còn lại';
 
   @override
   String get youEarly => 'Về sớm';
@@ -1217,7 +1226,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sourceOfLeave => 'Nguồn phép';
 
   @override
-  String get doYouWantRevokeYourRequest => 'Bạn có muốn vô hiệu hóa đơn từ này không?';
+  String get doYouWantRevokeYourRequest => 'Bạn có chắc chắn muốn hủy đơn?';
 
   @override
   String get start => 'Bắt đầu';
