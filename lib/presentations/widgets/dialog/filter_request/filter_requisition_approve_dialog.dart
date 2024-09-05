@@ -25,17 +25,15 @@ class FilterRequisitionApproveDialog extends StatefulWidget {
   final FilterDialogModel? filter;
 
   @override
-  State<FilterRequisitionApproveDialog> createState() =>
-      _FilterRequisitionApproveDialogState();
+  State<FilterRequisitionApproveDialog> createState() => _FilterRequisitionApproveDialogState();
 }
 
-class _FilterRequisitionApproveDialogState
-    extends State<FilterRequisitionApproveDialog> {
+class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApproveDialog> {
   String errorTime = '';
   DateTime? startTime, endTime;
 
   StatusRequestEnum status = StatusRequestEnum.process;
-  List<RequisitionTypeEnum>? types;
+  List<RequisitionTypeEnum> types = const [];
   Department? departments;
   User? user;
 
@@ -45,7 +43,7 @@ class _FilterRequisitionApproveDialogState
       user = widget.filter!.user;
       startTime = widget.filter!.startTime;
       endTime = widget.filter!.endTime;
-      types = widget.filter!.types;
+      types = widget.filter!.types??[];
       departments = widget.filter!.department;
     }
     super.initState();
@@ -74,6 +72,7 @@ class _FilterRequisitionApproveDialogState
                 children: [
                   ListCheckboxTypeRequestFilter(
                     onChange: (value) => _setListType(value),
+                    listTypes: types,
                   ),
                   AddDepartmentAndUser(
                     setDepartment: (value) => _setDepartment(value),
@@ -86,6 +85,8 @@ class _FilterRequisitionApproveDialogState
             ),
           ),
           PeriodTimePicker(
+            oldEndTime: endTime,
+            oldStarTime: startTime,
             title: appLocalizations.timeFrame,
             setStarTime: (value) => setStartTime(value: value),
             setEndTime: (value) => setEndTime(value: value),

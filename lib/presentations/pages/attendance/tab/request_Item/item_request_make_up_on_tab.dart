@@ -64,18 +64,9 @@ class _ItemRequestMakeUpOnTabState extends State<ItemRequestMakeUpOnTab> {
                 padding: SpacingUnit.x3,
                 font: FontWeight.w600,
               ),
-              TitleValueLeave(
-                title: appLocalizations.totalMakeUpWorkTime,
-                value: strSeconds(
-                        request.config.endTime - request.config.startTime) ??
-                    "",
-                size: SpacingUnit.x4,
-                padding: SpacingUnit.x3,
-                font: FontWeight.w600,
-              ),
-              TitleValueLeave(
+              TitleValueLeave(//listA.map((obj) => obj.a).fold(0, (prev, curr) => prev + curr);
                 title: appLocalizations.totalLeaveWork,
-                value: (request.config.numberValue).toString(),
+                value: (request.config.workShiftSettings.map((e) => e.workEffort).fold(0.0, (previousValue, element) => previousValue + element)).toString(),
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
                 font: FontWeight.w600,

@@ -14,15 +14,13 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class FilterRequestSelfDialog extends StatefulWidget {
-  const FilterRequestSelfDialog(
-      {super.key, required this.sendData, this.filter});
+  const FilterRequestSelfDialog({super.key, required this.sendData, this.filter});
 
   final ValueChanged<FilterDialogModel> sendData;
   final FilterDialogModel? filter;
 
   @override
-  State<FilterRequestSelfDialog> createState() =>
-      _FilterRequestSelfDialogState();
+  State<FilterRequestSelfDialog> createState() => _FilterRequestSelfDialogState();
 }
 
 class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
@@ -60,12 +58,15 @@ class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
           ),
           Expanded(
             child: ListCheckboxFlowRequestFilter(
+              listFlows: flows,
               onChange: (value) => _setListFlow(value),
             ),
           ),
           Padding(
               padding: const EdgeInsets.all(SpacingUnit.x2),
               child: PeriodTimePicker(
+                oldStarTime: startTime,
+                oldEndTime: endTime,
                 title: appLocalizations.timeFrame,
                 setStarTime: (value) => setStartTime(value: value),
                 setEndTime: (value) => setEndTime(value: value),
