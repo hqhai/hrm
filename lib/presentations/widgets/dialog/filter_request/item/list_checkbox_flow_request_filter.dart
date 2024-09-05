@@ -10,9 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ListCheckboxFlowRequestFilter extends StatefulWidget {
-  const ListCheckboxFlowRequestFilter({super.key, required this.onChange});
+  const ListCheckboxFlowRequestFilter({super.key, required this.onChange, required this.listFlows});
 
   final ValueChanged<List<FlowRequest>> onChange;
+  final List<FlowRequest> listFlows;
 
   @override
   State<ListCheckboxFlowRequestFilter> createState() =>
@@ -21,12 +22,11 @@ class ListCheckboxFlowRequestFilter extends StatefulWidget {
 
 class _ListCheckboxFlowRequestFilterState
     extends State<ListCheckboxFlowRequestFilter> {
-  List<bool> listCheck = [];
   List<FlowRequest> listFlows = [];
 
   @override
   void initState() {
-    listCheck = List.filled(RequisitionTypeEnum.values.length, false);
+    listFlows = widget.listFlows;
     super.initState();
   }
 
@@ -58,7 +58,7 @@ class _ListCheckboxFlowRequestFilterState
                           (index, element) => Column(
                             children: [
                               CheckboxListTile(
-                                value: listCheck[index],
+                                value: listFlows.any((e) => e.flowType == element.flowType),
                                 onChanged: (value) => setValue(
                                     index: index, value: value, flow: element),
                                 subtitle: Text(
@@ -89,7 +89,6 @@ class _ListCheckboxFlowRequestFilterState
 
   setValue({required int index, bool? value, required FlowRequest flow}) {
     setState(() {
-      listCheck[index] = value ?? false;
       if (value == true) {
         listFlows.add(flow);
         widget.onChange.call(listFlows);

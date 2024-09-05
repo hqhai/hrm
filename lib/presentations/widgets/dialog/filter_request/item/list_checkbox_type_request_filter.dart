@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ListCheckboxTypeRequestFilter extends StatefulWidget {
-  const ListCheckboxTypeRequestFilter({super.key, required this.onChange});
+  const ListCheckboxTypeRequestFilter({super.key, required this.onChange, required this.listTypes});
 
   final ValueChanged<List<RequisitionTypeEnum>> onChange;
+  final List<RequisitionTypeEnum> listTypes;
 
   @override
   State<ListCheckboxTypeRequestFilter> createState() =>
@@ -17,12 +18,11 @@ class ListCheckboxTypeRequestFilter extends StatefulWidget {
 
 class _ListCheckboxTypeRequestFilterState
     extends State<ListCheckboxTypeRequestFilter> {
-  List<bool> listCheck = [];
   List<RequisitionTypeEnum> listTypes = [];
 
   @override
   void initState() {
-    listCheck = List.filled(RequisitionTypeEnum.values.length, false);
+    listTypes = widget.listTypes;
     super.initState();
   }
 

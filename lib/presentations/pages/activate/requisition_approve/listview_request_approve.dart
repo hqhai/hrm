@@ -146,7 +146,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
         endTime: widget.filterData.endTime,
         type: widget.filterData.types,
         status: EnumStepRequestStatusEnum.values[_tabController.index],
-        userIds: widget.filterData.user?.id,
+        userIds: widget.filterData.user?.code,
       ),
     );
     final check = await completer.future;
