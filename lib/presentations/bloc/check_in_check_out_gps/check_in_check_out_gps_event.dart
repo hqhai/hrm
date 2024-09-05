@@ -12,7 +12,7 @@ sealed class CheckInCheckOutGpsEvent extends Equatable {
 class PostTimekeepingGPSRequestEvent extends CheckInCheckOutGpsEvent {
   final double longitude;
   final double latitude;
-  final List<String> scheduleSchoolId;
+  final String scheduleSchoolId;
   final Completer completer;
 
   const PostTimekeepingGPSRequestEvent({

@@ -26,9 +26,13 @@ class ItemTitleValueNoBorder extends StatelessWidget {
               fontWeight: font,
             ),
           ),
-          Text(
-            value,
-            style: TextStyle(color: colors.text, fontSize: size ?? SpacingUnit.x3),
+          Expanded(
+            child: Text(
+              textAlign: TextAlign.right,
+              maxLines: 2,
+              value,
+              style: TextStyle(color: colors.text, fontSize: size ?? SpacingUnit.x3),
+            ),
           )
         ],
       ),
