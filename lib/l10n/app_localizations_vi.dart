@@ -164,10 +164,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get endTime => 'Kết thúc';
 
   @override
-  String get startTimeH => 'Giờ bắt đầu';
+  String startTimeH(Object a) {
+    return 'Giờ bắt đầu$a';
+  }
 
   @override
-  String get endTimeH => 'Giờ kết thúc';
+  String endTimeH(Object a) {
+    return 'Giờ kết thúc$a';
+  }
 
   @override
   String get startTimeD => 'Ngày bắt đầu';
@@ -1523,13 +1527,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get chooseARequest => 'Chọn loại đơn từ';
 
   @override
-  String get nameSchool => 'Trường';
+  String nameSchool(Object a) {
+    return 'Trường học$a';
+  }
 
   @override
-  String get nameClass => 'Lớp';
+  String nameClass(Object a) {
+    return 'Lớp$a';
+  }
 
   @override
-  String get nameTeacher => 'Giáo viên';
+  String nameTeacher(Object a) {
+    return 'Giáo viên$a';
+  }
 
   @override
   String get timekeepingTime => 'Thời gian chấm công';

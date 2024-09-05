@@ -164,10 +164,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get endTime => 'End Time';
 
   @override
-  String get startTimeH => 'Start Time';
+  String startTimeH(Object a) {
+    return 'Start Time';
+  }
 
   @override
-  String get endTimeH => 'End Time';
+  String endTimeH(Object a) {
+    return 'End Time';
+  }
 
   @override
   String get startTimeD => 'Start Date';
@@ -1523,13 +1527,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chooseARequest => 'Select request type';
 
   @override
-  String get nameSchool => 'School name';
+  String nameSchool(Object a) {
+    return 'School name';
+  }
 
   @override
-  String get nameClass => 'Class name';
+  String nameClass(Object a) {
+    return 'Class name';
+  }
 
   @override
-  String get nameTeacher => 'Teacher\'s name';
+  String nameTeacher(Object a) {
+    return 'Teacher\'s name';
+  }
 
   @override
   String get timekeepingTime => 'Timekeeping time';

@@ -138,7 +138,12 @@ class _UnSuccessfulTimekeepingPageState extends State<UnSuccessfulTimekeepingPag
                     ),
                   ),
                 ),
-                AppButton(title: appLocalizations.complete, onSubmit: () => _complete(context)),
+                AppButton(
+                  title: appLocalizations.retry,
+                  onSubmit: () => _complete(context),
+                  color: colors.blue.withOpacity(0.3),
+                  colorText: colors.primary,
+                ),
               ],
             ),
           ),

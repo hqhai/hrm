@@ -39,7 +39,7 @@ class LocationUseCaseImpl extends LocationUseCase {
   Future<CheckInGPSResponse> postCheckInGPS(
       {required double longitude,
       required double latitude,
-      required List<String> scheduleSchoolId}) async {
+      required String scheduleSchoolId}) async {
     return _locationRepository.postCheckInGPS(
       longitude: longitude,
       latitude: latitude,

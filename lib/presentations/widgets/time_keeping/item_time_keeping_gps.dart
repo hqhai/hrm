@@ -34,26 +34,26 @@ class ItemTimeKeepingGPS extends StatelessWidget {
             ItemTitleValueNoBorder(
               size: SpacingUnit.x3_5,
               font: FontWeight.w600,
-              title: appLocalizations.nameSchool,
+              title: appLocalizations.nameSchool(":"),
               value: school.school.name,
             ),
             ItemTitleValueNoBorder(
               size: SpacingUnit.x3_5,
               font: FontWeight.w600,
-              title: appLocalizations.nameClass,
+              title: appLocalizations.nameClass(":"),
               value: school.className,
             ),
             ItemTitleValueNoBorder(
               size: SpacingUnit.x3_5,
               font: FontWeight.w600,
-              title: appLocalizations.nameTeacher,
+              title: appLocalizations.nameTeacher(":"),
               value: school.teacherName,
             ),
             if (checkSuccessful) ...[
               ItemTitleValueNoBorder(
                 size: SpacingUnit.x3_5,
                 font: FontWeight.w600,
-                title: appLocalizations.startTimeH,
+                title: appLocalizations.startTimeH(':'),
                 value: strSeconds(
                       school.startTime,
                     ) ??
@@ -62,7 +62,7 @@ class ItemTimeKeepingGPS extends StatelessWidget {
               ItemTitleValueNoBorder(
                 size: SpacingUnit.x3_5,
                 font: FontWeight.w600,
-                title: appLocalizations.endTimeH,
+                title: appLocalizations.endTimeH(':'),
                 value: strSeconds(
                       school.endTime,
                     ) ??

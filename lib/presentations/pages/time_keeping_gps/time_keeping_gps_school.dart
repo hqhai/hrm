@@ -66,7 +66,6 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
       ),
       body: BlocBuilder<ScheduleSchoolBloc, ScheduleSchoolState>(
         builder: (context, state) {
-          final scheduleSchoolsID = state.scheduleSchools.scheduleSchools.map((e) => e.id).toList();
           return Container(
             width: width,
             color: colors.text.withOpacity(0.05),
@@ -100,7 +99,7 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
                 ),
                 ButtonTimekeepingItem(
                   callBackHistoryTimekeeping: () => nextHistoryTimekeepingScreen(context),
-                  callBackTimekeeping: () => timekeeping(context, scheduleSchoolsID),
+                  callBackTimekeeping: () => timekeeping(context, scheduleSchool.id),
                   checkClick: scheduleSchool.id != '',
                 ),
               ],
@@ -136,7 +135,7 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
     }
   }
 
-  timekeeping(BuildContext context, List<String> schoolId) {
+  timekeeping(BuildContext context, String schoolId) {
     final appLocalizations = AppLocalizations.of(context)!;
     if (scheduleSchool.id == '') {
       showToastTimeKeeping(context: context, errorCode: appLocalizations.chooseASchedule);
@@ -145,7 +144,7 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
     }
   }
 
-  Future<void> _determinePosition(BuildContext context, List<String> id) async {
+  Future<void> _determinePosition(BuildContext context, String id) async {
     final appLocalizations = AppLocalizations.of(context)!;
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     bool serviceEnabled;
@@ -181,7 +180,7 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
     _setCurrentLocation(position, id);
   }
 
-  _setCurrentLocation(Position position, List<String> id) {
+  _setCurrentLocation(Position position, String id) {
     setState(() {
       checkClick = false;
       _currentLocation = position;
@@ -192,7 +191,7 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
     checkTimekeeping(id);
   }
 
-  void checkTimekeeping(List<String> id) async {
+  void checkTimekeeping(String id) async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     Completer completer = Completer<TimekeepingStatus>();
     dI<CheckInCheckOutGpsBloc>().add(PostTimekeepingGPSRequestEvent(

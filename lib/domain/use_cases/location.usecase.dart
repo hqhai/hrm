@@ -18,7 +18,7 @@ abstract class LocationUseCase {
   Future<CheckInGPSResponse> postCheckInGPS({
     required double longitude,
     required double latitude,
-    required List<String> scheduleSchoolId,
+    required String scheduleSchoolId,
   });
 
   Future<ScheduleSchools> getScheduleSchool({required DateTime workDate});

@@ -42,12 +42,12 @@ class LocationRepositoryImpl extends LocationRepository {
   Future<CheckInGPSResponse> postCheckInGPS(
       {required double longitude,
       required double latitude,
-      required List<String> scheduleSchoolId}) async {
+      required String scheduleSchoolId}) async {
     return _locationService.postCheckInGPS(
       checkInRequest: CheckInRequest(
         longitude: longitude,
         latitude: latitude,
-        scheduleSchoolIds: scheduleSchoolId,
+        scheduleSchoolId: scheduleSchoolId,
       ),
     );
   }

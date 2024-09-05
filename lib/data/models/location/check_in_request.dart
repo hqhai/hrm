@@ -8,13 +8,13 @@ part 'check_in_request.g.dart';
 class CheckInRequest {
   final double longitude;
   final double latitude;
-  final List<String> scheduleSchoolIds;
+  final String scheduleSchoolId;
 
 
   const CheckInRequest({
     required this.longitude,
     required this.latitude,
-    required this.scheduleSchoolIds,
+    required this.scheduleSchoolId,
 
   });
 

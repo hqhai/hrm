@@ -415,13 +415,13 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Start Time'**
-  String get startTimeH;
+  String startTimeH(Object a);
 
   /// No description provided for @endTimeH.
   ///
   /// In en, this message translates to:
   /// **'End Time'**
-  String get endTimeH;
+  String endTimeH(Object a);
 
   /// No description provided for @startTimeD.
   ///
@@ -3133,19 +3133,19 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'School name'**
-  String get nameSchool;
+  String nameSchool(Object a);
 
   /// No description provided for @nameClass.
   ///
   /// In en, this message translates to:
   /// **'Class name'**
-  String get nameClass;
+  String nameClass(Object a);
 
   /// No description provided for @nameTeacher.
   ///
   /// In en, this message translates to:
   /// **'Teacher\'s name'**
-  String get nameTeacher;
+  String nameTeacher(Object a);
 
   /// No description provided for @timekeepingTime.
   ///
