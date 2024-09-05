@@ -141,14 +141,23 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                                       e.status ==
                                           WorkShiftRequestStatus.usable) ...[
                                     Checkbox(
+                                      side: const BorderSide(
+                                          color: Color(0xff585858)),
                                       value: check,
+                                      // focusColor: Colors.white,
+                                      // hoverColor: Colors.white,
+                                      // checkColor: Colors.white,
+                                      // activeColor: Colors.white,
+                                      // overlayColor: Colors.white,
                                       onChanged: (value) {
                                         // print(e.workShiftSettingDetailId);
-                                        widget.onChange(WorkDayRequest(
-                                            workDate:
-                                                widget.dateTime.toString(),
-                                            workShiftSettingDetailId:
-                                                e.workShiftSettingDetailId));
+                                        widget.onChange(
+                                          WorkDayRequest(
+                                              workDate:
+                                                  widget.dateTime.toString(),
+                                              workShiftSettingDetailId:
+                                                  e.workShiftSettingDetailId),
+                                        );
                                         // setState(() {
                                         //   isSelect = value ?? false;
                                         // });
@@ -222,6 +231,28 @@ _widgetStatus(WorkShiftRequestStatus status) {
         )
       ]);
     case WorkShiftRequestStatus.pendingCancel:
+      return Row(children: [
+        SvgPicture.asset(
+          _setIcon(status: status),
+        ),
+        const SizedBox(width: SpacingUnit.x1),
+        Text(
+          status.configWorkShiftRequestStatusName,
+          style: const TextStyle(),
+        )
+      ]);
+    case WorkShiftRequestStatus.usable:
+      return Row(children: [
+        SvgPicture.asset(
+          _setIcon(status: status),
+        ),
+        const SizedBox(width: SpacingUnit.x1),
+        Text(
+          status.configWorkShiftRequestStatusName,
+          style: const TextStyle(),
+        )
+      ]);
+    case WorkShiftRequestStatus.reject:
       return Row(children: [
         SvgPicture.asset(
           _setIcon(status: status),

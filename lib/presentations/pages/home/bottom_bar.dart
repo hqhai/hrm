@@ -10,7 +10,9 @@ import 'package:themes/themes.dart';
 
 class BottomBarDefault extends StatefulWidget {
   const BottomBarDefault(
-      {super.key, required this.selectedIndex, required this.onChangeSelectedIndex});
+      {super.key,
+      required this.selectedIndex,
+      required this.onChangeSelectedIndex});
 
   final int selectedIndex;
   final ValueChanged<int> onChangeSelectedIndex;

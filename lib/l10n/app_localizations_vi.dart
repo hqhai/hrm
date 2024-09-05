@@ -152,7 +152,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ok => 'Đồng ý';
 
   @override
-  String get cancel => 'Hủy';
+  String get cancel => 'Đã hủy ca';
 
   @override
   String get create => 'Khởi tạo';
@@ -597,7 +597,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get all => 'Tất cả';
 
   @override
-  String get pending => 'Chờ duyệt';
+  String get pending => 'Chờ duyệt đăng kí ca';
 
   @override
   String get reject => 'Từ chối';
@@ -1428,7 +1428,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get week => 'Tuần';
 
   @override
-  String get pendingCancel => 'Đang chờ hủy';
+  String get pendingCancel => 'Chờ duyệt hủy ca';
 
   @override
   String get remove => 'Dừng';
@@ -1455,7 +1455,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cancelShiftReceiveRegistration => 'Hủy đăng ký nhận ca';
 
   @override
-  String get cancelShiftCancellationRequest => 'Hủy yêu cầu hủy ca';
+  String get cancelShiftCancellationRequest => 'Hủy cầu đăng kí ca';
 
   @override
   String get registerForShifts => 'Đăng ký ca';
