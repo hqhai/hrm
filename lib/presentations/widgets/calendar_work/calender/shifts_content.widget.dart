@@ -39,7 +39,7 @@ class ShiftsContentWidget extends StatelessWidget {
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
           title: appLocalizations.timeWorking,
-          value: strSeconds((data.endTime - data.startTime).toInt()) ?? '',
+          value: data.name,
         ),
         TitleValueLeave(
           padding: SpacingUnit.x2,
@@ -52,13 +52,14 @@ class ShiftsContentWidget extends StatelessWidget {
           font: FontWeight.w700,
           title: appLocalizations.time,
           value:
-              '${strSeconds(data.endTime) ?? ''} - ${strSeconds(data.startTime) ?? ''}',
+              '${strSeconds(data.startTime) ?? ''} - ${strSeconds(data.endTime) ?? ''}',
         ),
         TitleValueLeave(
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
-          title: appLocalizations.code,
-          value: data.code,
+          title: appLocalizations.validTimeKeeping,
+          value:
+              '${strSeconds(data.checkInEndTimeValid) ?? ''} - ${strSeconds(data.checkOutEndTimeValid) ?? ''}',
         ),
         Divider(
           color: colors.textTertiary,

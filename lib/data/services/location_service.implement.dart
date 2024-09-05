@@ -212,4 +212,16 @@ class LocationServiceImpl extends BaseService implements LocationService {
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     return ShiftsAdminResponse.fromJson(responseBase.result);
   }
+
+  @override
+  Future<bool> registerDetailWorkDays({required WorkDayRequest request}) async {
+    try {
+      final url = '$baseSystem${PathConfig.workshiftRequest}';
+      final body = jsonEncode(request.toJson());
+      await client.post(url, body: body);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

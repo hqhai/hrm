@@ -144,13 +144,7 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                                       side: const BorderSide(
                                           color: Color(0xff585858)),
                                       value: check,
-                                      // focusColor: Colors.white,
-                                      // hoverColor: Colors.white,
-                                      // checkColor: Colors.white,
-                                      // activeColor: Colors.white,
-                                      // overlayColor: Colors.white,
                                       onChanged: (value) {
-                                        // print(e.workShiftSettingDetailId);
                                         widget.onChange(
                                           WorkDayRequest(
                                               workDate:
@@ -158,9 +152,6 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                                               workShiftSettingDetailId:
                                                   e.workShiftSettingDetailId),
                                         );
-                                        // setState(() {
-                                        //   isSelect = value ?? false;
-                                        // });
                                       },
                                     ),
                                   ] else ...[
@@ -196,76 +187,16 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
 }
 
 _widgetStatus(WorkShiftRequestStatus status) {
-  switch (status) {
-    case WorkShiftRequestStatus.approve:
-      return Row(children: [
-        SvgPicture.asset(
-          _setIcon(status: status),
-        ),
-        const SizedBox(width: SpacingUnit.x1),
-        Text(
-          status.configWorkShiftRequestStatusName,
-          style: const TextStyle(),
-        )
-      ]);
-    case WorkShiftRequestStatus.cancel:
-      return Row(children: [
-        SvgPicture.asset(
-          _setIcon(status: status),
-        ),
-        const SizedBox(width: SpacingUnit.x1),
-        Text(
-          status.configWorkShiftRequestStatusName,
-          style: const TextStyle(),
-        )
-      ]);
-    case WorkShiftRequestStatus.pending:
-      return Row(children: [
-        SvgPicture.asset(
-          _setIcon(status: status),
-        ),
-        const SizedBox(width: SpacingUnit.x1),
-        Text(
-          status.configWorkShiftRequestStatusName,
-          style: const TextStyle(),
-        )
-      ]);
-    case WorkShiftRequestStatus.pendingCancel:
-      return Row(children: [
-        SvgPicture.asset(
-          _setIcon(status: status),
-        ),
-        const SizedBox(width: SpacingUnit.x1),
-        Text(
-          status.configWorkShiftRequestStatusName,
-          style: const TextStyle(),
-        )
-      ]);
-    case WorkShiftRequestStatus.usable:
-      return Row(children: [
-        SvgPicture.asset(
-          _setIcon(status: status),
-        ),
-        const SizedBox(width: SpacingUnit.x1),
-        Text(
-          status.configWorkShiftRequestStatusName,
-          style: const TextStyle(),
-        )
-      ]);
-    case WorkShiftRequestStatus.reject:
-      return Row(children: [
-        SvgPicture.asset(
-          _setIcon(status: status),
-        ),
-        const SizedBox(width: SpacingUnit.x1),
-        Text(
-          status.configWorkShiftRequestStatusName,
-          style: const TextStyle(),
-        )
-      ]);
-    default:
-      return const SizedBox();
-  }
+  return Row(children: [
+    SvgPicture.asset(
+      _setIcon(status: status),
+    ),
+    const SizedBox(width: SpacingUnit.x1),
+    Text(
+      status.configWorkShiftRequestStatusName,
+      style: const TextStyle(),
+    )
+  ]);
 }
 
 _colorByStatus(WorkShiftRequestStatus status) {

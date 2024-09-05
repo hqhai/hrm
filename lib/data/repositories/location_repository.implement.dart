@@ -118,7 +118,8 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<ScheduleSchools> getScheduleSchool({required DateTime workDate}) async {
+  Future<ScheduleSchools> getScheduleSchool(
+      {required DateTime workDate}) async {
     return await _locationService.getScheduleSchool(
       datetimeRequest: DatetimeRequest(workDate: workDate),
     );
@@ -127,5 +128,10 @@ class LocationRepositoryImpl extends LocationRepository {
   @override
   Future<ShiftsAdminResponse> getWorkShiftRequestByUser() async {
     return await _locationService.getWorkShiftRequestByUser();
+  }
+
+  @override
+  Future<bool> registerDetailWorkDays({required WorkDayRequest request}) async {
+    return await _locationService.registerDetailWorkDays(request: request);
   }
 }

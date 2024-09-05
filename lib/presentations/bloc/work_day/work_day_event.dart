@@ -69,6 +69,21 @@ class RegisterWorkDay extends WorkDayEvent {
       ];
 }
 
+class RegisterDetailWorkDay extends WorkDayEvent {
+  final Completer completer;
+  final WorkDayRequest request;
+  const RegisterDetailWorkDay({
+    required this.request,
+    required this.completer,
+  });
+
+  @override
+  List<Object?> get props => [
+        request,
+        completer,
+      ];
+}
+
 class CancelRegisterWorkDay extends WorkDayEvent {
   final CancelWorkDayRequest data;
   const CancelRegisterWorkDay({

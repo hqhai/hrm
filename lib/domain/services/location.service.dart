@@ -51,4 +51,6 @@ abstract class LocationService {
       {required DatetimeRequest datetimeRequest});
 
   Future<ShiftsAdminResponse> getWorkShiftRequestByUser();
+
+  Future<bool> registerDetailWorkDays({required WorkDayRequest request});
 }

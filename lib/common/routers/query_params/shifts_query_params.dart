@@ -32,3 +32,17 @@ class ShiftsBuyUserQueryParams {
 
   Map<String, dynamic> toJson() => _$ShiftsBuyUserQueryParamsToJson(this);
 }
+
+@JsonSerializable()
+class ShiftsReviewQueryParams {
+  String id;
+
+  ShiftsReviewQueryParams({
+    required this.id,
+  });
+
+  factory ShiftsReviewQueryParams.fromJson(Map<String, dynamic> json) =>
+      _$ShiftsReviewQueryParamsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ShiftsReviewQueryParamsToJson(this);
+}
