@@ -145,22 +145,6 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
     }
   }
 
-  _onGetNameType(WorkShiftRequestStatus type) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    switch (type) {
-      case WorkShiftRequestStatus.approve:
-        return appLocalizations.receivedShift;
-      case WorkShiftRequestStatus.unusable:
-        return appLocalizations.notRegisteredYet;
-      case WorkShiftRequestStatus.pendingCancel:
-        return appLocalizations.waitingForApprovalToCancelShift;
-      case WorkShiftRequestStatus.pending:
-        return appLocalizations.waitingForShiftRegistrationApproval;
-      default:
-        () {};
-    }
-  }
-
   _loadShift(WorkShiftRequestStatus type) {
     final pagingInfo = dI<WorkDayBloc>().state.pagingInfo;
     setState(() {
@@ -238,52 +222,137 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                 height: SpacingUnit.x15,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 4,
+                  itemCount: WorkShiftRequestStatus.values.length,
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        _onTapHeader(WorkShiftRequestStatus.values[index]);
-                        setState(() {
-                          selectType = WorkShiftRequestStatus.values[index];
-                        });
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  top: const BorderSide(width: 0),
-                                  bottom: selectType ==
-                                          WorkShiftRequestStatus.values[index]
-                                      ? BorderSide(
-                                          width: 3,
-                                          color: ColorUtils.parseHex('#808890'))
-                                      : const BorderSide(width: 0))),
-                          width: MediaQuery.sizeOf(context).width / 2.5,
-                          child: Center(
-                              child: Text(
-                            _onGetNameType(
-                                WorkShiftRequestStatus.values[index]),
-                            style: theme.textTheme.titleMedium,
-                          ))),
-                    );
+                    if (widget.userType == UserType.user) {
+                      if (WorkShiftRequestStatus.values[index] ==
+                              WorkShiftRequestStatus.unusable ||
+                          WorkShiftRequestStatus.values[index] ==
+                              WorkShiftRequestStatus.remove ||
+                          WorkShiftRequestStatus.values[index] ==
+                              WorkShiftRequestStatus.usable) {
+                        return const SizedBox();
+                      } else {
+                        return InkWell(
+                          onTap: () {
+                            _onTapHeader(WorkShiftRequestStatus.values[index]);
+                            setState(() {
+                              selectType = WorkShiftRequestStatus.values[index];
+                            });
+                          },
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: SpacingUnit.x4),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      top: const BorderSide(width: 0),
+                                      bottom: selectType ==
+                                              WorkShiftRequestStatus
+                                                  .values[index]
+                                          ? BorderSide(
+                                              width: 3,
+                                              color: ColorUtils.parseHex(
+                                                  '#808890'))
+                                          : const BorderSide(width: 0))),
+                              child: Center(
+                                  child: Row(
+                                children: [
+                                  Text(
+                                    WorkShiftRequestStatus.values[index]
+                                        .configWorkShiftRequestStatusName,
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(
+                                            color: WorkShiftRequestStatus
+                                                        .values[index] ==
+                                                    selectType
+                                                ? null
+                                                : ColorUtils.parseHex(
+                                                    "#B2B7BC")),
+                                  ),
+                                  if (WorkShiftRequestStatus.values[index] ==
+                                      selectType) ...[
+                                    const SizedBox(width: SpacingUnit.x2),
+                                    Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: SpacingUnit.x2,
+                                            vertical: SpacingUnit.x1),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              SpacingUnit.x3),
+                                          color: ColorUtils.parseHex("#EAF0FF"),
+                                        ),
+                                        child: Text(
+                                          state.items
+                                              .where((element) =>
+                                                  element.status == selectType)
+                                              .length
+                                              .toString(),
+                                          style: theme.textTheme.titleSmall
+                                              ?.copyWith(
+                                                  color: ColorUtils.parseHex(
+                                                      "#2F6BFF")),
+                                        ))
+                                  ]
+                                ],
+                              ))),
+                        );
+                      }
+                    } else {
+                      if (index < 4) {
+                        return InkWell(
+                          onTap: () {
+                            _onTapHeader(WorkShiftRequestStatus.values[index]);
+                            setState(() {
+                              selectType = WorkShiftRequestStatus.values[index];
+                            });
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      top: const BorderSide(width: 0),
+                                      bottom: selectType ==
+                                              WorkShiftRequestStatus
+                                                  .values[index]
+                                          ? BorderSide(
+                                              width: 3,
+                                              color: ColorUtils.parseHex(
+                                                  '#808890'))
+                                          : const BorderSide(width: 0))),
+                              width: MediaQuery.sizeOf(context).width / 2.5,
+                              child: Center(
+                                  child: Text(
+                                WorkShiftRequestStatus.values[index]
+                                    .configWorkShiftRequestStatusName,
+                                style: theme.textTheme.titleMedium,
+                              ))),
+                        );
+                      }
+                    }
+                    return null;
                   },
                 ),
               ),
               if (widget.userType == UserType.user) ...[
                 Expanded(
                     child: Container(
+                  width: MediaQuery.sizeOf(context).width,
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   color: colors.surfaceVariantLow.withOpacity(0.1),
-                  child: ListView.builder(
-                      controller: scrollController,
-                      itemCount: state.items.length,
-                      itemBuilder: (context, index) {
-                        if (state.items[index].status == selectType) {
-                          return _ItemUser(
-                            state.items[index],
-                          );
-                        }
-                        return null;
-                      }),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ...state.items.map((e) {
+                          if (e.status == selectType) {
+                            return _ItemUser(
+                              e,
+                            );
+                          } else {
+                            return const SizedBox();
+                          }
+                        })
+                      ],
+                    ),
+                  ),
                 ))
               ] else ...[
                 if (selectType == WorkShiftRequestStatus.pending ||
@@ -514,25 +583,33 @@ class _ItemUser extends StatelessWidget {
     // final appLocalizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     // final colors = AppTheme.getColors(context);
-    return Container(
-      margin: const EdgeInsets.only(bottom: SpacingUnit.x4),
-      padding: const EdgeInsets.all(SpacingUnit.x3),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingUnit.x3),
-        color: Colors.white,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(data.name,
-                style: theme.textTheme.bodyLarge!
-                    .copyWith(fontWeight: FontWeight.w500)),
-          ]),
-          const SizedBox(height: SpacingUnit.x3),
-          Text(
-              "Thời gian: ${strSeconds(data.startTime)} - ${strSeconds(data.endTime)} ${formatDMY(data.workDate.toString())}")
-        ],
+    return InkWell(
+      onTap: () => dI<AppNavigation>().push(context,
+          page: Pages.shiftsPageReview,
+          paramsQuerry: ShiftsReviewQueryParams(
+            id: data.id,
+          ).toJson()),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: SpacingUnit.x4),
+        padding: const EdgeInsets.all(SpacingUnit.x3),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingUnit.x3),
+          color: Colors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text(data.name,
+                  style: theme.textTheme.bodyLarge!
+                      .copyWith(fontWeight: FontWeight.w500)),
+              const Icon(Icons.chevron_right)
+            ]),
+            const SizedBox(height: SpacingUnit.x3),
+            Text(
+                "Thời gian: ${strSeconds(data.startTime)} - ${strSeconds(data.endTime)} ${formatDMY(data.workDate.toString())}")
+          ],
+        ),
       ),
     );
   }

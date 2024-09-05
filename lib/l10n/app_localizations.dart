@@ -4094,6 +4094,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No notification'**
   String get noNotification;
+
+  /// No description provided for @shiftDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift details'**
+  String get shiftDetails;
+
+  /// No description provided for @shiftCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift Code'**
+  String get shiftCode;
+
+  /// No description provided for @shiftName.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift name'**
+  String get shiftName;
+
+  /// No description provided for @workingTime1.
+  ///
+  /// In en, this message translates to:
+  /// **'Working time'**
+  String get workingTime1;
+
+  /// No description provided for @recordedNumberOfShifts.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded number of shifts'**
+  String get recordedNumberOfShifts;
+
+  /// No description provided for @operationDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Operation day '**
+  String get operationDay;
+
+  /// No description provided for @validTimeKeeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid timekeeping'**
+  String get validTimeKeeping;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

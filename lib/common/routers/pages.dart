@@ -21,9 +21,10 @@ class Pages {
   static const String biometricRegister = '/biometricRegister';
   static const String timekeepingGPSPage = '/timekeepingGPSPage';
   static const String timekeepingGPSSchool = '/timekeepingGPSSchool';
-  static const String timekeepingGPSSuccessful= '/timekeepingGPSSuccessful'; //
+  static const String timekeepingGPSSuccessful = '/timekeepingGPSSuccessful'; //
   static const String timekeepingGPSSHistory = '/timekeepingGPSSHistory';
-  static const String timekeepingGPSUnsuccessful= '/timekeepingGPSUnsuccessful';
+  static const String timekeepingGPSUnsuccessful =
+      '/timekeepingGPSUnsuccessful';
   static const String requisitionListPage = '/requisitionListPage';
   static const String requisitionFollowerListPage =
       '/requisitionFollowerListPage';
@@ -59,4 +60,5 @@ class Pages {
   static const String registerWorkDayAdmin = '/registerWorkDayAdmin';
   static const String registerWorkDayAdminDetail =
       '/registerWorkDayAdminDetail';
+  static const String shiftsPageReview = '/shiftsPageReview';
 }

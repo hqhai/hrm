@@ -21,6 +21,7 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
     on<GetWorkDaysEvent>(_getWorkDaysEvent);
     on<ChangeSelectDate>(_changeSelectDate);
     on<RegisterWorkDay>(_registerWorkDay);
+    on<RegisterDetailWorkDay>(_registerDetailWorkDay);
     on<CancelRegisterWorkDay>(_cancelRegisterWorkDay);
     on<ChangeLoading>(_changeLoading);
     on<GetWorkDayAdmin>(_getWorkDayAdmin);
@@ -140,5 +141,13 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
     final data = await _locationUseCase.getWorkShiftRequestByUser();
     emit(state.copyWith(items: data.items));
     event.completer.complete(data.items.isNotEmpty);
+  }
+
+  Future<FutureOr<void>> _registerDetailWorkDay(
+      RegisterDetailWorkDay event, Emitter<WorkDayState> emit) async {
+    final data =
+        await _locationUseCase.registerDetailWorkDays(request: event.request);
+
+    event.completer.complete(data);
   }
 }

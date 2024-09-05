@@ -152,7 +152,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ok => 'Đồng ý';
 
   @override
-  String get cancel => 'Đã hủy ca';
+  String get cancel => 'Đã hủy';
 
   @override
   String get create => 'Khởi tạo';
@@ -1455,7 +1455,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cancelShiftReceiveRegistration => 'Hủy đăng ký nhận ca';
 
   @override
-  String get cancelShiftCancellationRequest => 'Hủy cầu đăng kí ca';
+  String get cancelShiftCancellationRequest => 'Hủy đăng ký nhận ca';
 
   @override
   String get registerForShifts => 'Đăng ký ca';
@@ -2014,4 +2014,25 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noNotification => 'Không có thông báo';
+
+  @override
+  String get shiftDetails => 'Chi tiết ca';
+
+  @override
+  String get shiftCode => 'Mã ca';
+
+  @override
+  String get shiftName => 'Tên ca làm việc';
+
+  @override
+  String get workingTime1 => 'Thời gian';
+
+  @override
+  String get recordedNumberOfShifts => 'Số công ghi nhận';
+
+  @override
+  String get operationDay => 'Ngày thao tác';
+
+  @override
+  String get validTimeKeeping => 'Chấm công hợp lệ';
 }

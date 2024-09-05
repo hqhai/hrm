@@ -47,7 +47,7 @@
   "scheduleAMeeting": "Lên lịch cho cuộc họp",
   "update": "Sửa",
   "ok": "Đồng ý",
-  "cancel": "Đã hủy ca",
+  "cancel": "Đã hủy",
   "create": "Khởi tạo",
   "startTime": "Bắt đầu",
   "endTime": "Kết thúc",
@@ -482,7 +482,7 @@
   "unregistered": "Chưa đăng ký",
   "cancelShiftRegistration": "Hủy đăng ký ca",
   "cancelShiftReceiveRegistration": "Hủy đăng ký nhận ca",
-  "cancelShiftCancellationRequest": "Hủy cầu đăng kí ca",
+  "cancelShiftCancellationRequest": "Hủy đăng ký nhận ca",
   "registerForShifts": "Đăng ký ca",
   "invalid": "Không hợp lệ",
   "fingerprint": "Dấu vân tay",
@@ -669,5 +669,12 @@
   "sent": "Chưa đọc",
   "read": "Đã đọc",
   "readAll": "Đánh dấu tất cả là đã đọc",
-  "noNotification": "Không có thông báo"
+  "noNotification": "Không có thông báo",
+  "shiftDetails":"Chi tiết ca",
+  "shiftCode":"Mã ca",
+  "shiftName":"Tên ca làm việc",
+  "workingTime1":"Thời gian",
+  "recordedNumberOfShifts":"Số công ghi nhận",
+  "operationDay":"Ngày thao tác",
+  "validTimeKeeping":"Chấm công hợp lệ"
 }

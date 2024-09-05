@@ -668,5 +668,12 @@
   "sent": "Sent",
   "read": "Read",
   "readAll": "Mark all as read",
-  "noNotification": "No notification"
+  "noNotification": "No notification",
+  "shiftDetails":"Shift details",
+  "shiftCode":"Shift Code",
+  "shiftName":"Shift name",
+  "workingTime1":"Working time",
+  "recordedNumberOfShifts":"Recorded number of shifts",
+  "operationDay":"Operation day ",
+  "validTimeKeeping":"Valid timekeeping"
 }

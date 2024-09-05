@@ -2014,4 +2014,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noNotification => 'No notification';
+
+  @override
+  String get shiftDetails => 'Shift details';
+
+  @override
+  String get shiftCode => 'Shift Code';
+
+  @override
+  String get shiftName => 'Shift name';
+
+  @override
+  String get workingTime1 => 'Working time';
+
+  @override
+  String get recordedNumberOfShifts => 'Recorded number of shifts';
+
+  @override
+  String get operationDay => 'Operation day ';
+
+  @override
+  String get validTimeKeeping => 'Valid timekeeping';
 }

@@ -70,7 +70,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     _init();
     // _headerScroll();
     _bodyScroll();
-    _getData(DateTime.now());
+    _getData();
     super.initState();
   }
 
@@ -82,10 +82,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     });
   }
 
-  _getData(DateTime time) {
-    final initData = listDays(time);
-    dI<WorkDayBloc>().add(
-        GetWorkDaysEvent(startDate: initData.first, endDate: initData.last));
+  _getData() {
+    dI<WorkDayBloc>().add(GetWorkDaysEvent(
+        startDate: listDateAppBar.first, endDate: listDateAppBar.last));
   }
 
   // bool _checkNextScrollHeader(Iterable<ItemPosition> listIndex) {
@@ -363,24 +362,22 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     }
   }
 
-  _register() {
+  _register() async {
     final appLocalizations = AppLocalizations.of(context)!;
     try {
       if (isShowCheckBox) {
-        setState(() async {
-          Completer completer = Completer<bool>();
-          dI<WorkDayBloc>()
-              .add(RegisterWorkDay(request: workDays, completer: completer));
-          final check = await completer.future;
-          if (check) {
-            ToastUtils().showSuccess(appLocalizations.success);
-          } else {
-            ToastUtils().showError(appLocalizations.unsuccessful);
-          }
-          isShowCheckBox = false;
-          dI<WorkDayBloc>().add(const ChangeLoading(status: true));
-          workDays.clear();
-        });
+        Completer completer = Completer<bool>();
+        dI<WorkDayBloc>()
+            .add(RegisterWorkDay(request: workDays, completer: completer));
+        final check = await completer.future;
+        if (check) {
+          ToastUtils().showSuccess(appLocalizations.success);
+        } else {
+          ToastUtils().showError(appLocalizations.unsuccessful);
+        }
+        dI<WorkDayBloc>().add(const ChangeLoading(status: true));
+        _closeRegister();
+        _getData();
       } else {
         setState(() {
           isShowCheckBox = !isShowCheckBox;
@@ -427,9 +424,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
 
   setDownWeek({Completer? completer}) {
     int previousIndex = currentHeaderScrollIndex - 7;
-    // setState(() {
     isHeaderScroll = true;
-    _getData(listDateAppBar[0]);
     _scrollControllerHeader
         .scrollTo(
             index: previousIndex, duration: const Duration(milliseconds: 10))
@@ -452,12 +447,12 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
         isScroll = true;
       });
     });
+    _getData();
   }
 
   setUpWeek({Completer? completer}) {
     int nextIndex = currentHeaderScrollIndex + 7;
     isHeaderScroll = true;
-    _getData(listDateAppBar[nextIndex]);
     _scrollControllerHeader
         .scrollTo(index: nextIndex, duration: const Duration(milliseconds: 10))
         .whenComplete(() {
@@ -475,6 +470,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
         isScroll = true;
       });
     });
+    _getData();
   }
 
   onChangeDateAppBar(int index) {

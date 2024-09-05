@@ -72,7 +72,8 @@ class LocationUseCaseImpl extends LocationUseCase {
   }
 
   @override
-  Future<ScheduleSchools> getScheduleSchool({required DateTime workDate}) async {
+  Future<ScheduleSchools> getScheduleSchool(
+      {required DateTime workDate}) async {
     return await _locationRepository.getScheduleSchool(workDate: workDate);
   }
 
@@ -132,5 +133,10 @@ class LocationUseCaseImpl extends LocationUseCase {
   @override
   Future<ShiftsAdminResponse> getWorkShiftRequestByUser() async {
     return await _locationRepository.getWorkShiftRequestByUser();
+  }
+
+  @override
+  Future<bool> registerDetailWorkDays({required WorkDayRequest request}) async {
+    return await _locationRepository.registerDetailWorkDays(request: request);
   }
 }
