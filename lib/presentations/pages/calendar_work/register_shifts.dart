@@ -365,7 +365,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   _register() async {
     final appLocalizations = AppLocalizations.of(context)!;
     try {
-      if (isShowCheckBox) {
+      if (isShowCheckBox && workDays.isNotEmpty) {
         Completer completer = Completer<bool>();
         dI<WorkDayBloc>()
             .add(RegisterWorkDay(request: workDays, completer: completer));
