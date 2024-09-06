@@ -9,6 +9,7 @@ import 'package:base_app/presentations/widgets/profile/profile.widget.dart';
 import 'package:base_app/presentations/widgets/trash_app/calendar/layout_calendar_2.dart';
 import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
 import 'package:base_app/presentations/widgets/trash_app/delete_account/delete_account.dart';
+import 'package:base_app/presentations/widgets/trash_app/salary/salary_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentations/widgets/attendance/calendar/layout_calendar.dart';
@@ -48,6 +49,10 @@ class MenuValues {
   static List<Map<String, dynamic>> menuUserSystemValues(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
+      {
+        'text': 'Salary',
+        'icon': const Icon(Icons.monetization_on, color: Colors.white, size: 30)
+      },
       {
         'text': 'Create Note',
         'icon': const Icon(Icons.note, color: Colors.white, size: 30)
@@ -143,6 +148,7 @@ class MenuValues {
   ];
 
   static const List<Widget> widgetOptionsUserSystem = <Widget>[
+    SalaryWidget(),
     CreateNoteWidget(),
     LayoutCalendar2(),
     ChangePassword(),
