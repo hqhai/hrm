@@ -110,7 +110,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get priority => 'Mức ưu tiên';
 
   @override
-  String get approver => 'Phê duyệt';
+  String get approver => 'Đã nhận ca';
 
   @override
   String get createOvertimeRequestIsSuccess => 'Tạo yêu cầu OT thành công';
@@ -152,7 +152,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ok => 'Đồng ý';
 
   @override
-  String get cancel => 'Đã hủy';
+  String get cancel => 'Đã hủy ca';
 
   @override
   String get create => 'Khởi tạo';
@@ -600,7 +600,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pending => 'Chờ duyệt đăng kí ca';
 
   @override
-  String get reject => 'Từ chối';
+  String get reject => 'Ca bị từ chối duyệt';
 
   @override
   String get modification => 'Y/c sửa lại';
