@@ -65,7 +65,7 @@ class _ItemRequestLateOrEarlyOnTabState
               TitleValueLeave(
                 font: FontWeight.w600,
                 title: appLocalizations.reason,
-                value: request.config.reason?.configEnumReasonName ?? "",
+                value: request.config.reason.configEnumReasonName,
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x2,
               ),

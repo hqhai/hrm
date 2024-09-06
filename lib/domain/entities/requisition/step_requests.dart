@@ -18,7 +18,8 @@ class StepRequests {
   final DateTime? createdDate;
   final DateTime? updatedDate;
   final int? visitCount;
-  final EnumStepRequestStatusEnum? status;
+  @JsonKey(unknownEnumValue: EnumStepRequestStatusEnum.unknown)
+  final EnumStepRequestStatusEnum status;
   final String? requestId;
   final String? stepFlowId;
   final List<StepRequestApprovers>? stepRequestApprovers;
@@ -32,7 +33,7 @@ class StepRequests {
       this.updatedDate,
       this.updatedUserId,
       this.visitCount,
-      this.status,
+      this.status = EnumStepRequestStatusEnum.unknown,
       this.requestId,
       this.stepFlowId,
       this.stepRequestApprovers});

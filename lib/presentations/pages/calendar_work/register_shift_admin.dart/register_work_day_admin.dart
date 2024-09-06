@@ -222,7 +222,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                 height: SpacingUnit.x15,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: WorkShiftRequestStatus.values.length,
+                  itemCount: WorkShiftRequestStatus.values.length - 1,
                   itemBuilder: (context, index) {
                     if (widget.userType == UserType.user) {
                       if (WorkShiftRequestStatus.values[index] ==

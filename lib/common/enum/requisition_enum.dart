@@ -46,7 +46,9 @@ enum EnumSocialInsuranceLeave {
   @JsonValue('HospitalSickLeave')
   hospitalSickLeave('HospitalSickLeave'),
   @JsonValue('MaternityLeave')
-  maternityLeave('MaternityLeave');
+  maternityLeave('MaternityLeave'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -64,6 +66,8 @@ extension ConfigSocialInsuranceLeaveExtension on EnumSocialInsuranceLeave {
         return appLocalizations.hospitalSickLeave;
       case EnumSocialInsuranceLeave.maternityLeave:
         return appLocalizations.maternityLeave;
+      default:
+        return '';
     }
   }
 }
@@ -80,7 +84,9 @@ enum EnumReasonLeave {
   @JsonValue('WeddingLeave')
   weddingLeave('WeddingLeave'),
   @JsonValue('MourningLeave')
-  mourningLeave('MourningLeave');
+  mourningLeave('MourningLeave'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -104,6 +110,8 @@ extension ConfigEnumTakeLeaveExtension on EnumReasonLeave {
         return appLocalizations.leaveWithoutPay;
       case EnumReasonLeave.socialInsuranceLeave:
         return appLocalizations.socialInsuranceLeave;
+      default:
+        return '';
     }
   }
 }
@@ -120,7 +128,9 @@ enum EnumStepRequestStatusEnum {
   @JsonValue('OverdueApprove')
   overdueApprove('OverdueApprove'),
   @JsonValue('Cancel')
-  cancel('Cancel');
+  cancel('Cancel'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -144,6 +154,8 @@ extension ConfigStepRequestStatusExtension on EnumStepRequestStatusEnum {
         return appLocalizations.overdueApprove;
       case EnumStepRequestStatusEnum.cancel:
         return appLocalizations.cancel;
+      default:
+        return '';
     }
   }
 }
@@ -162,7 +174,9 @@ enum StatusRequestEnum {
   @JsonValue('OverdueEdit')
   overdueEdit('OverdueEdit'),
   @JsonValue('OverdueApprove')
-  overdueApprove('OverdueApprove');
+  overdueApprove('OverdueApprove'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -188,6 +202,8 @@ extension ConfigRequestStatusExtension on StatusRequestEnum {
         return appLocalizations.overdueEdit;
       case StatusRequestEnum.overdueApprove:
         return appLocalizations.overdueApprove;
+      default:
+        return '';
     }
   }
 }
@@ -198,7 +214,9 @@ enum EnumStepFlowType {
   @JsonValue('Step')
   step('Step'),
   @JsonValue('End')
-  end('End');
+  end('End'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -216,6 +234,8 @@ extension ConfigStepFlowTypeExtension on EnumStepFlowType {
         return appLocalizations.step;
       case EnumStepFlowType.end:
         return appLocalizations.end;
+      default:
+        return '';
     }
   }
 }
@@ -390,6 +410,8 @@ extension ConfigRequisitionTypeExplanationExtension on RequisitionTypeExplanatio
         return appLocalizations.late;
       case RequisitionTypeExplanationEnum.other:
         return appLocalizations.other;
+      default:
+        return '';
     }
   }
 }
@@ -400,7 +422,9 @@ enum RequisitionTypeOnLeaveEnum {
   sickLeave('Sick leave'),
   otherPaidLeave('Other paid leave'),
   leaveWithoutPay('Leave without pay'),
-  other('Other');
+  other('Other'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -424,6 +448,8 @@ extension ConfigRequisitionTypeOnLeaveExtension on RequisitionTypeOnLeaveEnum {
         return appLocalizations.leaveWithoutPay;
       case RequisitionTypeOnLeaveEnum.other:
         return appLocalizations.other;
+      default:
+        return '';
     }
   }
 }
@@ -432,7 +458,9 @@ enum RequisitionDeliveryTypeEnum {
   @JsonValue('Standard')
   standard("Standard"),
   @JsonValue('Express')
-  express("Express");
+  express("Express"),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -448,6 +476,8 @@ extension ConfigDeliveryTypeExtension on RequisitionDeliveryTypeEnum {
         return appLocalizations.standard;
       case RequisitionDeliveryTypeEnum.express:
         return appLocalizations.express;
+      default:
+        return '';
     }
   }
 }
@@ -456,7 +486,9 @@ enum EnumReason {
   @JsonValue('Individual')
   individual('Individual'),
   @JsonValue('Work')
-  work('Work');
+  work('Work'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -472,6 +504,8 @@ extension ConfigEnumReasonExtension on EnumReason {
         return appLocalizations.personalReasons;
       case EnumReason.work:
         return appLocalizations.companyReasons;
+      default:
+        return '';
     }
   }
 }

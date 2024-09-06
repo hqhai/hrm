@@ -13,6 +13,7 @@ class WorkShiftApprove {
   final DateTime? createdDate;
   final String createdFullName;
   final String createdUserId;
+  @JsonKey(unknownEnumValue: WorkShiftApproveStatus.unknown)
   final WorkShiftApproveStatus status;
   final List<String> approverIds;
   final String note;
@@ -21,7 +22,7 @@ class WorkShiftApprove {
   const WorkShiftApprove({
     this.id = '',
     this.createdDate,
-    this.status = WorkShiftApproveStatus.pending,
+    this.status = WorkShiftApproveStatus.unknown,
     this.note = '',
     this.createdUserId = '',
     this.createdFullName = '',

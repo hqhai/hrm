@@ -37,7 +37,8 @@ class UserOverTimeHistoryModel {
   /// <summary>
   /// kiểu ngày nghỉ
   /// </summary>
-  final EnumOvertimeDay? overTimeDay;
+  @JsonKey(unknownEnumValue: EnumOvertimeDay.unknown)
+  final EnumOvertimeDay overTimeDay;
 
   /// <summary>
   /// bắt đầu
@@ -58,7 +59,7 @@ class UserOverTimeHistoryModel {
     this.startTime = 0,
     this.endTime = 0,
     this.isChecking = true,
-    this.overTimeDay,
+    this.overTimeDay = EnumOvertimeDay.unknown,
     this.overTimeRate = 0,
     this.overTimeLeaveDefault = 0,
     this.overTimeLeaveMultiplier = 0,

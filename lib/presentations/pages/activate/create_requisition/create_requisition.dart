@@ -112,7 +112,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                         state.flows[index],
                       ),
                       child: item(
-                        title: state.flows[index].flowType?.configTypeName ?? "",
+                        title: state.flows[index].flowType.configTypeName,
                         context: context,
                       ),
                     ),
@@ -283,7 +283,6 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
             page: Pages.createRequestMakeUpWorkPage,
           );
         case RequisitionTypeEnum.core:
-        case null:
         case RequisitionTypeEnum.unknown:
         default:
       }
@@ -366,9 +365,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
       case RequisitionTypeEnum.core:
         final checkF = await loadFlow(flow);
         return checkF;
-      case RequisitionTypeEnum.unknown:
-        return false;
-      case null:
+      default:
         return false;
     }
   }

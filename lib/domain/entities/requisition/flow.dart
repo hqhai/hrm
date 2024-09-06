@@ -8,7 +8,8 @@ part 'flow.g.dart';
 @CopyWith()
 @JsonSerializable()
 class FlowRequest {
-  final RequisitionTypeEnum? flowType;
+  @JsonKey(unknownEnumValue: RequisitionTypeEnum.unknown)
+  final RequisitionTypeEnum flowType;
   final String? name;
   final int? timeLimitBeforeCreation;
   final int? timeLimitAfterCreation;
@@ -21,7 +22,7 @@ class FlowRequest {
 
   const FlowRequest({
     required this.id,
-    this.flowType,
+    this.flowType = RequisitionTypeEnum.unknown,
     this.name,
     this.timeLimitBeforeCreation,
     this.timeLimitAfterCreation,

@@ -11,12 +11,15 @@ part 'user_leave_history.g.dart';
 class UserLeaveHistory {
   final String id;
   final String userId;
+  @JsonKey(unknownEnumValue: TypeLeaveEnum.unknown)
   final TypeLeaveEnum type;
+  @JsonKey(unknownEnumValue: TimeUnitEnum.unknown)
   final TimeUnitEnum timeUnit;
   final double initialValue;
   final double changeValue;
   final double remainValue;
   final double totalRemaining;
+  @JsonKey(unknownEnumValue: ChangeTypeEnum.unknown)
   final ChangeTypeEnum changeType;
   final String requestId;
   final String createdUserId;
@@ -28,8 +31,8 @@ class UserLeaveHistory {
 
   const UserLeaveHistory({
     this.id = '',
-    this.type = TypeLeaveEnum.total,
-    this.timeUnit = TimeUnitEnum.day,
+    this.type = TypeLeaveEnum.unknown,
+    this.timeUnit = TimeUnitEnum.unknown,
     this.initialValue = 0,
     this.totalRemaining = 0,
     this.userId = '',
@@ -41,7 +44,7 @@ class UserLeaveHistory {
     this.createdUserId = '',
     this.changeValue = 0,
     this.requestId = '',
-    this.changeType = ChangeTypeEnum.subtraction,
+    this.changeType = ChangeTypeEnum.unknown,
     this.remainValue = 0,
   });
 

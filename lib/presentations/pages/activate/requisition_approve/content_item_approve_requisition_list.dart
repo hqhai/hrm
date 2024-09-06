@@ -348,6 +348,8 @@ class _ContentItemRequestApproveListState
           'color': colors.error,
           'icon': Assets.images.icon.work.outDate,
         };
+      default:
+        return {};
     }
   }
 

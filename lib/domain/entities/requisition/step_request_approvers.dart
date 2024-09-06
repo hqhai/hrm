@@ -17,7 +17,8 @@ class StepRequestApprovers {
   final DateTime? createdDate;
   final DateTime? updatedDate;
   final String? note;
-  final EnumStepRequestStatusEnum? status;
+  @JsonKey(unknownEnumValue: EnumStepRequestStatusEnum.unknown)
+  final EnumStepRequestStatusEnum status;
   final String? stepRequestId;
   final String? approverId;
   final String? approverPositionId;
@@ -25,7 +26,7 @@ class StepRequestApprovers {
 
   const StepRequestApprovers({
     required this.id,
-    this.status,
+    this.status = EnumStepRequestStatusEnum.unknown,
     this.note,
     this.createdUserId,
     this.createdFullName,

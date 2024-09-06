@@ -62,7 +62,7 @@ class _RequisitionInformationContentTypeLeaveState
                     title: appLocalizations.selectTypeLeave,
                     value: request.config.takeLeaveType.configTakeLeaveTypeName,
                   ),
-                  if (request.config.reasonLeave != null)
+                  if (request.config.reasonLeave != EnumReasonLeave.unknown)
                     ItemTitleValueColum(
                       font: FontWeight.w600,
                       size: SpacingUnit.x4,
@@ -70,14 +70,14 @@ class _RequisitionInformationContentTypeLeaveState
                               EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave
                           ? appLocalizations.selectLeave
                           : appLocalizations.reason,
-                      value: request.config.reasonLeave?.configEnumTakeLeaveName ?? "",
+                      value: request.config.reasonLeave.configEnumTakeLeaveName,
                     ),
-                  if (request.config.socialInsuranceLeave != null)
+                  if (request.config.socialInsuranceLeave != EnumSocialInsuranceLeave.unknown)
                     ItemTitleValue(
                       size: SpacingUnit.x4,
                       title: appLocalizations.reason,
                       value:
-                          request.config.socialInsuranceLeave?.configSocialInsuranceLeaveName ?? "",
+                          request.config.socialInsuranceLeave.configSocialInsuranceLeaveName,
                     ),
                   Padding(
                     padding: const EdgeInsets.only(top: SpacingUnit.x2),

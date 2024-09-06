@@ -17,12 +17,10 @@ class BottomSheetTimeKeepingTypeWidget extends StatefulWidget {
   final ValueChanged<EditTimekeeping> onChange;
 
   @override
-  State<BottomSheetTimeKeepingTypeWidget> createState() =>
-      _BottomSheetTimeKeepingTypeWidgetState();
+  State<BottomSheetTimeKeepingTypeWidget> createState() => _BottomSheetTimeKeepingTypeWidgetState();
 }
 
-class _BottomSheetTimeKeepingTypeWidgetState
-    extends State<BottomSheetTimeKeepingTypeWidget> {
+class _BottomSheetTimeKeepingTypeWidgetState extends State<BottomSheetTimeKeepingTypeWidget> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -34,17 +32,16 @@ class _BottomSheetTimeKeepingTypeWidgetState
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          HeaderFilter(
-              callback: () => close(context), title: appLocalizations.reason),
+          HeaderFilter(callback: () => close(context), title: appLocalizations.reason),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: EditTimekeeping.values
+                .where((element) => element != EditTimekeeping.unknown)
                 .where((e) => e != EditTimekeeping.editTimekeeping)
                 .mapIndexed(
                   (index, element) => GestureDetector(
                       onTap: () => addType(type: element),
-                      child: ItemSelected(
-                          label: element.configEditTimekeepingName)),
+                      child: ItemSelected(label: element.configEditTimekeepingName)),
                 )
                 .toList(),
           ),

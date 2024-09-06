@@ -25,7 +25,9 @@ enum UserWorkingHistoryStatus {
   @JsonValue('Invalid')
   invalid('Invalid'),
   @JsonValue('OffDay')
-  offDay('OffDay');
+  offDay('OffDay'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -59,6 +61,8 @@ extension ConfigUesrWorkingHistoryStatusExtension on UserWorkingHistoryStatus {
         return appLocalizations.invalid;
       case UserWorkingHistoryStatus.offDay:
         return appLocalizations.offDay;
+      default:
+        return '';
     }
   }
 }
@@ -73,7 +77,9 @@ enum EnumOvertimeDay {
   @JsonValue('Sunday')
   sunday('Sunday'),
   @JsonValue('RegularDay')
-  regularDay('RegularDay');
+  regularDay('RegularDay'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -95,6 +101,8 @@ extension ConfigUesrEnumOvertimeDayExtension on EnumOvertimeDay {
         return appLocalizations.sunday;
       case EnumOvertimeDay.regularDay:
         return appLocalizations.regularDay;
+      default:
+        return '';
     }
   }
 }
@@ -107,7 +115,9 @@ enum CheckInMethodEnum {
   @JsonValue('All')
   all('All'),
   @JsonValue('None')
-  none('None');
+  none('None'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -127,6 +137,8 @@ extension ConfigCheckInMethodEnumExtension on CheckInMethodEnum {
         return appLocalizations.all;
       case CheckInMethodEnum.none:
         return appLocalizations.none;
+      default:
+        return '';
     }
   }
 }

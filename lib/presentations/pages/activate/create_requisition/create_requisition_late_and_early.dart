@@ -98,7 +98,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       description = request.config.description;
       detailedDescriptionController.text = description;
       followers = [...request.followerIds];
-      type = request.config.explanationReason ?? EditTimekeeping.late;
+      type = request.config.explanationReason;
       endDate = request.config.endDate ?? DateTime.now();
       startTime = request.config.startTime;
       listWorkShift = [...request.config.workShiftSettings];

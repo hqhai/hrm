@@ -52,7 +52,7 @@ class _RequisitionInformationGeneraliInformationState
                   RequestInformationTitleValue(
                     size: SpacingUnit.x4,
                     title: appLocalizations.type,
-                    value: stateFlow.flow.flowType?.configTypeName ?? "",
+                    value: stateFlow.flow.flowType.configTypeName,
                   ),
                   RequestInformationTitleValue(
                     size: SpacingUnit.x4,

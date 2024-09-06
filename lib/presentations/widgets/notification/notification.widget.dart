@@ -59,6 +59,7 @@ class _NotificationWidgetState extends State<NotificationWidget> with TickerProv
             ),
             unselectedLabelColor: colors.text.withOpacity(0.5),
             tabs: NotificationStatus.values
+                .where((element) => element != NotificationStatus.unknown)
                 .map(
                   (e) => Tab(
                     child: Row(

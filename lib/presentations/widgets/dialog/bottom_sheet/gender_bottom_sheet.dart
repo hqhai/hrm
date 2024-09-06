@@ -40,6 +40,7 @@ class _GenderBottomSheetWidgetState extends State<GenderBottomSheetWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: GenderEnum.values
+              .where((element) => element != GenderEnum.unknown)
               .map(
                 (e) => GestureDetector(
                   onTap: () => _onChange(e),

@@ -106,6 +106,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
     final colors = AppTheme.getColors(context);
     return Column(
       children: EnumSocialInsuranceLeave.values
+          .where((element) => element != EnumSocialInsuranceLeave.unknown)
           .map(
             (e) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x1),
@@ -124,8 +125,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
                   leading: Radio<EnumSocialInsuranceLeave>(
                     value: e,
                     groupValue: socialInsuranceLeave,
-                    onChanged: (EnumSocialInsuranceLeave? value) =>
-                        _setSocialInsuranceLeave(value),
+                    onChanged: (EnumSocialInsuranceLeave? value) => _setSocialInsuranceLeave(value),
                   ),
                 ),
               ),

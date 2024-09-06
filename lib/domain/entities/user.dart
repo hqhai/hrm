@@ -19,6 +19,7 @@ class User extends Equatable {
   final String lastName;
   final String fullName;
   final String dayOfBirth;
+  @JsonKey(unknownEnumValue: GenderEnum.unknown)
   final GenderEnum gender;
   final String avatarPath;
   final String ciNumber;
@@ -53,6 +54,7 @@ class User extends Equatable {
   final String phoneNumber;
   final String email;
   final String companyEmail;
+  @JsonKey(unknownEnumValue: EducationLevelEnum.unknown)
   final EducationLevelEnum educationLevel;
   final String education;
   final String specializes;
@@ -62,6 +64,7 @@ class User extends Equatable {
   final String probationDay;
   final String officialDay;
   final String endDate;
+  @JsonKey(unknownEnumValue: WorkingStatusEnum.unknown)
   final WorkingStatusEnum workingStatus;
   final String typeOfPersonnel;
   final String description;
@@ -77,6 +80,7 @@ class User extends Equatable {
   final String emergencyName;
   final String emergencyPhoneNumber;
   final String emergencyAddress;
+  @JsonKey(unknownEnumValue: VehicleTypeEnum.unknown)
   final VehicleTypeEnum vehicleType;
   final String licensePlate;
   final String autoMaker;

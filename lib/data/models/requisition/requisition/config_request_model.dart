@@ -17,9 +17,9 @@ part 'config_request_model.g.dart';
 class ConfigRequestModel {
   final String description;
   final String flowId;
-  final EnumReasonLeave? takeLeaveReason;
+  final EnumReasonLeave takeLeaveReason;
   final double numberValue;
-  final EditTimekeeping? editTimekeeping;
+  final EditTimekeeping editTimekeeping;
   final List<String> subtitudePersons;
   final List<String> attachments;
   final String content;
@@ -30,22 +30,22 @@ class ConfigRequestModel {
   final List<Stationeries> stationeries;
   final double subtotal;
   final double totalAmount;
-  final EditTimekeeping? explanationReason;
+  final EditTimekeeping explanationReason;
   final DateTime? startDate;
   final DateTime? endDate;
   final double total;
   final List<RequisitionOverTime>? overTimes;
   final EnumTakeLeaveType takeLeaveType;
-  final EnumReasonLeave? reasonLeave;
-  final EnumSocialInsuranceLeave? socialInsuranceLeave;
+  final EnumReasonLeave reasonLeave;
+  final EnumSocialInsuranceLeave socialInsuranceLeave;
   final List<WorkShiftRegisteredDetail> workShiftSettings;
   final List<Explanation> explanations;
-  final EnumReason? reason;
+  final EnumReason reason;
   final int startTime;
   final int endTime;
 
   const ConfigRequestModel(
-      {this.editTimekeeping,
+      {this.editTimekeeping = EditTimekeeping.unknown,
       this.overTimes,
       this.flowId = '',
       this.description = '',
@@ -61,16 +61,16 @@ class ConfigRequestModel {
       this.content = '',
       this.endDate,
       this.startDate,
-      this.explanationReason,
-      this.takeLeaveReason,
+      this.explanationReason = EditTimekeeping.unknown,
+      this.takeLeaveReason = EnumReasonLeave.unknown,
       this.total = 0,
       this.warehourseReleaseds = const [],
-      this.socialInsuranceLeave,
-      this.reasonLeave,
+      this.socialInsuranceLeave = EnumSocialInsuranceLeave.unknown,
+      this.reasonLeave = EnumReasonLeave.unknown,
       this.takeLeaveType = EnumTakeLeaveType.unknown,
       this.workShiftSettings = const [],
       this.explanations = const [],
-      this.reason,
+      this.reason = EnumReason.unknown,
       this.endTime = 0,
       this.startTime = 0});
 

@@ -95,7 +95,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         endTime = request.config.endDate;
         description = request.config.description;
         detailedDescriptionController.text = description;
-        reason = request.config.reasonLeave ?? EnumReasonLeave.yearlyLeave;
+        reason = request.config.reasonLeave;
         followers = [...request.followerIds];
         files = [...setListFiles(request.config.attachments)];
         substitutes = [...request.config.subtitudePersons];

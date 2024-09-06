@@ -53,8 +53,7 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
             ItemTitleValueNoBorder(
               title: appLocalizations.dateType,
               value: widget.requisitionOverTime.overtimeDay
-                      ?.configEnumOvertimeDayName ??
-                  "",
+                      .configEnumOvertimeDayName,
               size: SpacingUnit.x4,
             ),
           if (widget.checkType == RequestType.oT)

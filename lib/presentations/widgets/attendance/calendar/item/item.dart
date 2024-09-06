@@ -159,6 +159,8 @@ class ItemCalender extends StatelessWidget {
         return colors.goldenPurple;
       case UserWorkingHistoryStatus.invalid:
         return colors.error;
+      default:
+        return Colors.transparent;
     }
   }
 

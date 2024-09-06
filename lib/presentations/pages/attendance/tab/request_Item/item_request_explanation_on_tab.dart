@@ -52,8 +52,7 @@ class _ItemRequestExplanationOnTabState
               TitleValueLeave(
                 title: appLocalizations.reason,
                 value: request
-                        .config.explanationReason?.configEditTimekeepingName ??
-                    "",
+                        .config.explanationReason.configEditTimekeepingName,
                 size: SpacingUnit.x4,
                 padding: SpacingUnit.x3,
               ),

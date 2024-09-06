@@ -12,7 +12,7 @@ class GetNotificationRequest {
 
   const GetNotificationRequest({
     this.page = 1,
-    this.status = NotificationStatus.sent,
+    this.status = NotificationStatus.unknown,
   });
 
   factory GetNotificationRequest.fromJson(Map<String, dynamic> json) =>

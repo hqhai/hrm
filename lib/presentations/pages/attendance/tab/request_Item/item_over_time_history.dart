@@ -45,7 +45,7 @@ class ItemOverTimeHistory extends StatelessWidget {
             TitleValueLeave(
               font: FontWeight.w600,
               title: appLocalizations.dateType,
-              value: userOverTimeHistory.overTimeDay?.configEnumOvertimeDayName ?? "",
+              value: userOverTimeHistory.overTimeDay.configEnumOvertimeDayName,
               size: SpacingUnit.x4,
               padding: SpacingUnit.x3,
             ),

@@ -24,6 +24,7 @@ class Shift {
   final DateTime? createdDate;
   final DateTime? workDate;
   final ShiftType type;
+  @JsonKey(unknownEnumValue: WorkShiftRequestStatus.unknown)
   final WorkShiftRequestStatus status;
   final double workEffort;
 

@@ -15,14 +15,15 @@ class StepFlow {
   final String departmentId;
   final int level;
   final String name;
-  final EnumStepFlowType? type;
+  @JsonKey(unknownEnumValue: EnumStepFlowType.unknown)
+  final EnumStepFlowType type;
   final String parentId;
 
   const StepFlow({
     required this.id,
     required this.flowId,
     this.userName = '',
-    this.type,
+    this.type = EnumStepFlowType.unknown,
     this.userId = '',
     this.positionId = '',
     this.departmentId = '',

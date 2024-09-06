@@ -62,7 +62,7 @@ class _ListCheckboxFlowRequestFilterState
                                 onChanged: (value) => setValue(
                                     index: index, value: value, flow: element),
                                 subtitle: Text(
-                                  element.flowType?.configTypeNameFilter ?? "",
+                                  element.flowType.configTypeNameFilter,
                                   style: TextStyle(
                                       color: colors.text,
                                       fontSize: SpacingUnit.x3_5,

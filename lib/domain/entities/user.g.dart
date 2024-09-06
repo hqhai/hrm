@@ -916,7 +916,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       lastName: json['lastName'] as String? ?? '',
       fullName: json['fullName'] as String? ?? '',
       dayOfBirth: json['dayOfBirth'] as String? ?? '',
-      gender: $enumDecodeNullable(_$GenderEnumEnumMap, json['gender']) ??
+      gender: $enumDecodeNullable(_$GenderEnumEnumMap, json['gender'],
+              unknownValue: GenderEnum.unknown) ??
           GenderEnum.other,
       avatarPath: json['avatarPath'] as String? ?? '',
       ciNumber: json['ciNumber'] as String? ?? '',
@@ -955,7 +956,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       email: json['email'] as String? ?? '',
       companyEmail: json['companyEmail'] as String? ?? '',
       educationLevel: $enumDecodeNullable(
-              _$EducationLevelEnumEnumMap, json['educationLevel']) ??
+              _$EducationLevelEnumEnumMap, json['educationLevel'],
+              unknownValue: EducationLevelEnum.unknown) ??
           EducationLevelEnum.other,
       education: json['education'] as String? ?? '',
       specializes: json['specializes'] as String? ?? '',
@@ -966,7 +968,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       officialDay: json['officialDay'] as String? ?? '',
       endDate: json['endDate'] as String? ?? '',
       workingStatus: $enumDecodeNullable(
-              _$WorkingStatusEnumEnumMap, json['workingStatus']) ??
+              _$WorkingStatusEnumEnumMap, json['workingStatus'],
+              unknownValue: WorkingStatusEnum.unknown) ??
           WorkingStatusEnum.longTermUnpaidLeave,
       typeOfPersonnel: json['typeOfPersonnel'] as String? ?? '',
       description: json['description'] as String? ?? '',
@@ -989,9 +992,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       emergencyPhoneNumber: json['emergencyPhoneNumber'] as String? ?? '',
       autoMaker: json['autoMaker'] as String? ?? '',
       licensePlate: json['licensePlate'] as String? ?? '',
-      vehicleType:
-          $enumDecodeNullable(_$VehicleTypeEnumEnumMap, json['vehicleType']) ??
-              VehicleTypeEnum.car,
+      vehicleType: $enumDecodeNullable(
+              _$VehicleTypeEnumEnumMap, json['vehicleType'],
+              unknownValue: VehicleTypeEnum.unknown) ??
+          VehicleTypeEnum.car,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -1071,6 +1075,7 @@ const _$GenderEnumEnumMap = {
   GenderEnum.male: 'Male',
   GenderEnum.female: 'Female',
   GenderEnum.other: 'Other',
+  GenderEnum.unknown: '',
 };
 
 const _$EducationLevelEnumEnumMap = {
@@ -1083,6 +1088,7 @@ const _$EducationLevelEnumEnumMap = {
   EducationLevelEnum.masterDegree: 'MasterDegree',
   EducationLevelEnum.doctorate: 'Doctorate',
   EducationLevelEnum.other: 'Other',
+  EducationLevelEnum.unknown: '',
 };
 
 const _$WorkingStatusEnumEnumMap = {
@@ -1091,6 +1097,7 @@ const _$WorkingStatusEnumEnumMap = {
   WorkingStatusEnum.maternityLeave: 'MaternityLeave',
   WorkingStatusEnum.aboutToStart: 'AboutToStart',
   WorkingStatusEnum.longTermUnpaidLeave: 'LongTermUnpaidLeave',
+  WorkingStatusEnum.unknown: '',
 };
 
 const _$VehicleTypeEnumEnumMap = {
@@ -1098,4 +1105,5 @@ const _$VehicleTypeEnumEnumMap = {
   VehicleTypeEnum.bike: 'Bike',
   VehicleTypeEnum.motorbike: 'Motorbike',
   VehicleTypeEnum.tram: 'Tram',
+  VehicleTypeEnum.unknown: '',
 };
