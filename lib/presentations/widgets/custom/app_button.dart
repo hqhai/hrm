@@ -11,6 +11,7 @@ class AppButton extends StatefulWidget {
   final double height;
   final VoidCallback onSubmit;
   final Color color;
+  final Color colorBorder;
   final Color colorText;
 
   const AppButton({
@@ -23,6 +24,7 @@ class AppButton extends StatefulWidget {
     this.height = SpacingUnit.x11,
     this.color = Colors.transparent,
     this.colorText = Colors.white,
+    this.colorBorder = Colors.transparent
   });
 
   @override
@@ -44,6 +46,10 @@ class _AppButton extends State<AppButton> {
         height: widget.height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+          border: Border.all(
+            color: widget.colorBorder ,
+            width: 1,
+          ),
           color: widget.color == Colors.transparent ?widget.enable ? colors.primary : colors.surface5:widget.color,
         ),
         child: Center(

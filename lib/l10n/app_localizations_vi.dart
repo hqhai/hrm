@@ -152,7 +152,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ok => 'Đồng ý';
 
   @override
-  String get cancel => 'Đã hủy ca';
+  String get cancel => 'Hủy';
 
   @override
   String get create => 'Khởi tạo';
