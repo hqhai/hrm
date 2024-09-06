@@ -25,8 +25,7 @@ class ListviewRequestFollower extends StatefulWidget {
   final bool checkLoad;
 
   @override
-  State<ListviewRequestFollower> createState() =>
-      _ListviewRequestFollowerState();
+  State<ListviewRequestFollower> createState() => _ListviewRequestFollowerState();
 }
 
 class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
@@ -36,9 +35,8 @@ class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
 
   @override
   void initState() {
-    _tabController =
-        TabController(length: StatusRequestEnum.values.length, vsync: this)
-          ..addListener(_scrollListener);
+    _tabController = TabController(length: StatusRequestEnum.values.length - 1, vsync: this)
+      ..addListener(_scrollListener);
     super.initState();
   }
 
@@ -63,18 +61,18 @@ class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
                     dividerHeight: 0.1,
                     indicatorColor: colors.textLight,
                     tabAlignment: TabAlignment.start,
-                    tabs: StatusRequestEnum.values.map(
+                    tabs: StatusRequestEnum.values
+                        .where((element) => element != StatusRequestEnum.unknown)
+                        .map(
                       (status) {
                         final isActive =
-                            StatusRequestEnum.values.indexOf(status) ==
-                                _tabController.index;
+                            StatusRequestEnum.values.indexOf(status) == _tabController.index;
                         return Tab(
                           child: Text(
                             status.getAppLocalizationName,
                             style: TextStyle(
                                 fontWeight: isActive ? FontWeight.w600 : null,
-                                color:
-                                    isActive ? colors.text : colors.textLight,
+                                color: isActive ? colors.text : colors.textLight,
                                 fontSize: SpacingUnit.x4),
                           ),
                         );
@@ -85,6 +83,7 @@ class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
                 child: TabBarView(
                   controller: _tabController,
                   children: StatusRequestEnum.values
+                      .where((element) => element != StatusRequestEnum.unknown)
                       .map((status) => TabBarViewListRequestFollower(
                             checkLoad: checkLoad && widget.checkLoad,
                             filterData: widget.filterData,
@@ -101,7 +100,6 @@ class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
   }
 
   void _scrollListener() async {
-    
     widget.onChangeStatus.call(
       StatusRequestEnum.values[_tabController.index],
     );

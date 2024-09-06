@@ -101,7 +101,7 @@ class ShiftTab extends StatelessWidget {
                   ),
                   TitleValueLeave(
                     title: appLocalizations.typeOfShift,
-                    value: userWorkingHistoryModel.overTimeDay?.configEnumOvertimeDayName ?? "",
+                    value: userWorkingHistoryModel.overTimeDay.configEnumOvertimeDayName,
                     size: SpacingUnit.x4,
                     padding: SpacingUnit.x3,
                     font: FontWeight.w700,

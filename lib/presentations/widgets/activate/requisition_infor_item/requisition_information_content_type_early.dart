@@ -59,15 +59,14 @@ class _RequisitionInformationContentTypeEarlyState
                 size: SpacingUnit.x4,
                 title: appLocalizations.caseL,
                 value: state.requisition.config.explanationReason
-                        ?.configEditTimekeepingName ??
-                    "",
+                        .configEditTimekeepingName,
                 font: FontWeight.w600,
               ),
               ItemTitleValue(
                 size: SpacingUnit.x4,
                 title: appLocalizations.reason,
                 value:
-                    state.requisition.config.reason?.configEnumReasonName ?? "",
+                    state.requisition.config.reason.configEnumReasonName,
                 font: FontWeight.w600,
               ),
               ItemTitleValue(

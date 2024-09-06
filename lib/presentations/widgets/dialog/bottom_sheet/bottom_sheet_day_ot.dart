@@ -32,12 +32,11 @@ class _BottomSheetOverTimeDayWidgetState extends State<BottomSheetOverTimeDayWid
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          HeaderFilter(
-              callback: () => close(context),
-              title: appLocalizations.dateType),
+          HeaderFilter(callback: () => close(context), title: appLocalizations.dateType),
           Column(
               mainAxisSize: MainAxisSize.min,
               children: EnumOvertimeDay.values
+                  .where((element) => element != EnumOvertimeDay.unknown)
                   .mapIndexed((index, element) => GestureDetector(
                         onTap: () => setOnChange(type: element),
                         child: Container(
@@ -45,9 +44,8 @@ class _BottomSheetOverTimeDayWidgetState extends State<BottomSheetOverTimeDayWid
                           margin: const EdgeInsets.only(bottom: SpacingUnit.x3),
                           decoration: BoxDecoration(
                               // borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                              border: Border(
-                                  bottom: BorderSide(
-                                      width: 0.1, color: colors.textLight))),
+                              border:
+                                  Border(bottom: BorderSide(width: 0.1, color: colors.textLight))),
                           child: Row(
                             children: [
                               Expanded(

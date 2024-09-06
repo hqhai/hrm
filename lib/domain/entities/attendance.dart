@@ -68,7 +68,8 @@ class Attendance {
   /// <summary>
   /// số giờ OT
   /// </summary>
-  final EnumOvertimeDay? overTimeDay;
+  @JsonKey(unknownEnumValue: EnumOvertimeDay.unknown)
+  final EnumOvertimeDay overTimeDay;
 
   /// <summary>
   /// số giờ làm việc chuẩn
@@ -121,7 +122,7 @@ class Attendance {
       this.overTime = 0,
       this.realRate = 0,
       this.overTimeRate = 0,
-      this.overTimeDay,
+      this.overTimeDay = EnumOvertimeDay.unknown,
       this.noSalaryRate = 0,
       this.leaveRate = 0,
       this.holidayRate = 0,

@@ -16,6 +16,7 @@ class NotificationMessage {
   final String link;
   final String objectId;
   final DateTime? createdDate;
+  @JsonKey(unknownEnumValue: NotificationStatus.unknown)
   final NotificationStatus status;
 
   const NotificationMessage({

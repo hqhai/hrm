@@ -64,7 +64,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
       endTime = value.endTime;
       suggestTime = double.parse((endTime - startTime).toString());
       note = value.note;
-      typeDate = value.overtimeDay ?? EnumOvertimeDay.holiday;
+      typeDate = value.overtimeDay;
       isCheck = value.isChecking;
     });
   }

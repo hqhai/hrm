@@ -11,6 +11,7 @@ part 'attendance_by_date.g.dart';
 class AttendanceByDate {
   final DateTime timeChecking;
   final bool status;
+  @JsonKey(unknownEnumValue: CheckInMethodEnum.unknown)
   final CheckInMethodEnum checkInMethod;
 
   const AttendanceByDate({

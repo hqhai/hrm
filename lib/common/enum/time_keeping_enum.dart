@@ -9,7 +9,9 @@ enum EditTimekeeping {
   @JsonValue('Late')
   late('Late'),
   @JsonValue('Early')
-  early('Early');
+  early('Early'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -27,6 +29,8 @@ extension ConfigEditTimekeepingExtension on EditTimekeeping {
         return appLocalizations.youLater;
       case EditTimekeeping.early:
         return appLocalizations.youEarly;
+      default:
+        return '';
     }
   }
 }

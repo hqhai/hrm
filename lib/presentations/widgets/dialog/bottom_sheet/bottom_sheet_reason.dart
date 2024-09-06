@@ -17,12 +17,10 @@ class BottomSheetReasonTypeWidget extends StatefulWidget {
   final ValueChanged<EnumReason> onChange;
 
   @override
-  State<BottomSheetReasonTypeWidget> createState() =>
-      _BottomSheetReasonTypeWidgetState();
+  State<BottomSheetReasonTypeWidget> createState() => _BottomSheetReasonTypeWidgetState();
 }
 
-class _BottomSheetReasonTypeWidgetState
-    extends State<BottomSheetReasonTypeWidget> {
+class _BottomSheetReasonTypeWidgetState extends State<BottomSheetReasonTypeWidget> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -34,41 +32,14 @@ class _BottomSheetReasonTypeWidgetState
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          HeaderFilter(
-              callback: () => close(context),
-              title: appLocalizations.reasonType),
+          HeaderFilter(callback: () => close(context), title: appLocalizations.reasonType),
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: EnumReason.values
+            children: EnumReason.values.where((e) => e != EnumReason.unknown)
                 .mapIndexed(
                   (index, element) => GestureDetector(
                       onTap: () => addType(type: element),
-                      child: ItemSelected(label: element.configEnumReasonName)
-                      // ContainerBorder(
-                      //   backgroundColors: colors.background,
-                      //   borderColors: colors.background,
-                      //   paddingVertical: SpacingUnit.x4,
-                      //   marginTop: SpacingUnit.x4,
-                      //   child: Row(
-                      //     children: [
-                      //       Text(
-                      //         '${index + 1}.    ',
-                      //         style: TextStyle(
-                      //           color: colors.text,
-                      //           fontSize: SpacingUnit.x3,
-                      //         ),
-                      //       ),
-                      //       Text(
-                      //         ,
-                      //         style: TextStyle(
-                      //           color: colors.text,
-                      //           fontSize: SpacingUnit.x3,
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      ),
+                      child: ItemSelected(label: element.configEnumReasonName)),
                 )
                 .toList(),
           ),

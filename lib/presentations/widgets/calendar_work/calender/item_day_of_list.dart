@@ -241,5 +241,7 @@ String _setIcon({required WorkShiftRequestStatus status}) {
       return Assets.images.icon.work.success;
     case WorkShiftRequestStatus.unusable:
       return Assets.images.icon.work.reject;
+    default:
+      return '';
   }
 }

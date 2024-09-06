@@ -74,7 +74,7 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
   DateTime? startTime, endTime;
   List<String> followers = [], substitutes = [];
   List<WorkShiftRegisteredDetail> listWorkShift = [];
-  RequisitionTypeOnLeaveEnum? reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
+  RequisitionTypeOnLeaveEnum reasonForOnLeave = RequisitionTypeOnLeaveEnum.sickLeave;
   bool checkShirt = true, checkShirtFirst = true;
   bool checkClick = false;
   final DateTime now = DateTime.now();

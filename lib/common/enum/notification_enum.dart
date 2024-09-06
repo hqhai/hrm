@@ -7,7 +7,9 @@ enum NotificationStatus{
   @JsonValue('Sent')
   sent('Sent'),
   @JsonValue('Read')
-  read('Read');
+  read('Read'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -24,6 +26,8 @@ extension ConfigNotificationExtension on NotificationStatus {
         return appLocalizations.sent;
       case NotificationStatus.read:
         return appLocalizations.read;
+      default:
+        return '';
     }
   }
 }

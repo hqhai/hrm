@@ -63,7 +63,8 @@ class UserWorkingHistoryModel {
   /// <summary>
   /// loại tăng ca
   /// </summary>
-  final EnumOvertimeDay? overTimeDay;
+  @JsonKey(unknownEnumValue: EnumOvertimeDay.unknown)
+  final EnumOvertimeDay overTimeDay;
 
   /// <summary>
   /// số giờ thực tế
@@ -140,7 +141,7 @@ class UserWorkingHistoryModel {
     this.holidayRate = 0,
     this.leaveRate = 0,
     this.noSalaryRate = 0,
-    this.overTimeDay,
+    this.overTimeDay = EnumOvertimeDay.unknown,
     this.overTimeRate = 0,
     this.realRate = 0,
     this.requestIds = const [],

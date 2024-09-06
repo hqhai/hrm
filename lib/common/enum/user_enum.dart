@@ -9,7 +9,9 @@ enum GenderEnum {
   @JsonValue('Female')
   female('Female'),
   @JsonValue('Other')
-  other('Other');
+  other('Other'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -27,6 +29,8 @@ extension ConfigGenderExtension on GenderEnum {
         return appLocalizations.female;
       case GenderEnum.other:
         return appLocalizations.other;
+      default:
+        return '';
     }
   }
 }
@@ -49,7 +53,9 @@ enum EducationLevelEnum {
   @JsonValue('Doctorate')
   doctorate('Doctorate'),
   @JsonValue('Other')
-  other('Other');
+  other('Other'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -79,6 +85,8 @@ extension ConfigEducationLevelExtension on EducationLevelEnum {
         return appLocalizations.doctorate;
       case EducationLevelEnum.other:
         return appLocalizations.other;
+      default:
+        return '';
     }
   }
 }
@@ -93,7 +101,9 @@ enum WorkingStatusEnum {
   @JsonValue('AboutToStart')
   aboutToStart('AboutToStart'),
   @JsonValue('LongTermUnpaidLeave')
-  longTermUnpaidLeave('LongTermUnpaidLeave');
+  longTermUnpaidLeave('LongTermUnpaidLeave'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -115,6 +125,8 @@ extension ConfigWorkingStatusExtension on WorkingStatusEnum {
         return appLocalizations.aboutToStart;
       case WorkingStatusEnum.longTermUnpaidLeave:
         return appLocalizations.longTermUnpaidLeave;
+      default:
+        return '';
     }
   }
 }
@@ -123,7 +135,9 @@ enum ConfigRoleStringValues {
   generalManager('GeneralManager'),
   manager('Manager'),
   user('User'),
-  userSystem('UserSystem');
+  userSystem('UserSystem'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -138,7 +152,9 @@ enum VehicleTypeEnum {
   @JsonValue('Motorbike')
   motorbike('Motorbike'),
   @JsonValue('Tram')
-  tram('Tram');
+  tram('Tram'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -158,6 +174,8 @@ extension ConfigVehicleTypeExtension on VehicleTypeEnum {
         return appLocalizations.motorbike;
       case VehicleTypeEnum.tram:
         return appLocalizations.tram;
+      default:
+        return '';
     }
   }
 }

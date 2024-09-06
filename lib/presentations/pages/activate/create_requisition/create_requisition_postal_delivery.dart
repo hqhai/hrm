@@ -51,7 +51,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
   final TextEditingController reasonController = TextEditingController();
   List<String> followers = [];
   String errorDescription = '', errorDialog = '', reason = '';
-  RequisitionDeliveryTypeEnum? transferType = RequisitionDeliveryTypeEnum.express;
+  RequisitionDeliveryTypeEnum transferType = RequisitionDeliveryTypeEnum.express;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
 
@@ -60,7 +60,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
     if (widget.requestId.isNotEmpty) {
       final request = dI<RequisitionBloc>().state.requisition;
       reason = request.config.description;
-      transferType = convertDeliveryType(request.config.deliveryType);
+      transferType = convertDeliveryType(request.config.deliveryType)??RequisitionDeliveryTypeEnum.express;
       reasonController.text = request.config.description;
       followers = [...request.followerIds];
     }
@@ -186,7 +186,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       flowId: widget.flowId,
       config: ConfigModelRequest(
         description: reason,
-        deliveryType: transferType?.name ?? "",
+        deliveryType: transferType.name,
       ),
     )
         : PostRequestRequest(
@@ -195,7 +195,7 @@ class _CreateRequisitionPostalDeliveryPageState extends State<CreateRequisitionP
       flowId: widget.flowId,
       config: ConfigModelRequest(
         description: reason,
-        deliveryType: transferType?.name ?? "",
+        deliveryType: transferType.name,
       ),
     );
   }

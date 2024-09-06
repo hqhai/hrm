@@ -14,7 +14,9 @@ enum ChangeTypeEnum {
   @JsonValue('Addition')
   addition('Addition'),
   @JsonValue('Subtraction')
-  subtraction('Subtraction');
+  subtraction('Subtraction'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -30,6 +32,8 @@ extension ConfigChangeTypeExtension on ChangeTypeEnum {
         return appLocalizations.addition;
       case ChangeTypeEnum.subtraction:
         return appLocalizations.subtraction;
+      default:
+        return '';
     }
   }
 }
@@ -38,7 +42,9 @@ enum TimeUnitEnum {
   @JsonValue('Day')
   day('Day'),
   @JsonValue('Hour')
-  hour('Hour');
+  hour('Hour'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -54,6 +60,8 @@ extension ConfigTimeUnitExtension on TimeUnitEnum {
         return appLocalizations.day;
       case TimeUnitEnum.hour:
         return appLocalizations.hour;
+      default:
+        return '';
     }
   }
 }
@@ -68,7 +76,9 @@ enum TypeLeaveEnum {
   @JsonValue('SeniorityLeave')
   seniorityLeave('SeniorityLeave'),
   @JsonValue('OverTimeLeave')
-  overTimeLeave('OverTimeLeave');
+  overTimeLeave('OverTimeLeave'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -90,6 +100,8 @@ extension ConfigTypeLeaveExtension on TypeLeaveEnum {
         return appLocalizations.total;
       case TypeLeaveEnum.funeralLeave:
         return appLocalizations.mourningLeave;
+      default:
+        return '';
     }
   }
 }

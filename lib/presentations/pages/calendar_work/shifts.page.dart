@@ -201,6 +201,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
       case WorkShiftRequestStatus.cancel:
       case WorkShiftRequestStatus.remove:
       case WorkShiftRequestStatus.unusable:
+      default:
         return {};
     }
   }

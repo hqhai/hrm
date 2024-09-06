@@ -129,6 +129,8 @@ class ContentItemMyRequisitionList extends StatelessWidget {
           'color': colors.error,
           'icon': Assets.images.icon.work.outDate,
         };
+      default:
+        return {};
     }
   }
 }

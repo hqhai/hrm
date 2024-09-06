@@ -29,17 +29,15 @@ class ListviewRequestSelf extends StatefulWidget {
   State<ListviewRequestSelf> createState() => _ListviewRequestSelfState();
 }
 
-class _ListviewRequestSelfState extends State<ListviewRequestSelf>
-    with TickerProviderStateMixin {
+class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerProviderStateMixin {
   late final TabController _tabController;
   bool checkLoad = true;
   int indexTab = 0;
 
   @override
   void initState() {
-    _tabController =
-        TabController(length: StatusRequestEnum.values.length, vsync: this)
-          ..addListener(_scrollListener);
+    _tabController = TabController(length: StatusRequestEnum.values.length - 1, vsync: this)
+      ..addListener(_scrollListener);
     super.initState();
   }
 
@@ -64,7 +62,9 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf>
                   dividerHeight: 0.1,
                   indicatorColor: colors.textLight,
                   tabAlignment: TabAlignment.start,
-                  tabs: StatusRequestEnum.values.mapIndexed((index, status) {
+                  tabs: StatusRequestEnum.values
+                      .where((element) => element != StatusRequestEnum.unknown)
+                      .mapIndexed((index, status) {
                     final isActive = index == _tabController.index;
                     return Tab(
                       child: Row(
@@ -73,9 +73,7 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf>
                             status.getAppLocalizationName,
                             style: TextStyle(
                                 fontWeight: isActive ? FontWeight.w600 : null,
-                                color: isActive
-                                    ? colors.text
-                                    : colors.text.withOpacity(0.5),
+                                color: isActive ? colors.text : colors.text.withOpacity(0.5),
                                 fontSize: SpacingUnit.x3_5),
                           ),
                           // Chip(
@@ -94,6 +92,7 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf>
                   child: TabBarView(
                     controller: _tabController,
                     children: StatusRequestEnum.values
+                        .where((element) => element != StatusRequestEnum.unknown)
                         .map(
                           (status) => TabBarViewListRequestSelf(
                             checkLoad: checkLoad && widget.checkLoad,

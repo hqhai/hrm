@@ -21,9 +21,11 @@ class Request extends Equatable {
   final DateTime? updatedDate;
   final String code;
   final String flowId;
+  @JsonKey(unknownEnumValue: RequisitionTypeEnum.unknown)
   final RequisitionTypeEnum flowType;
   final String nameFlow;
   final ConfigRequestModel config;
+  @JsonKey(unknownEnumValue: StatusRequestEnum.unknown)
   final StatusRequestEnum status;
   final String createdPositionId;
   final String createdDepartmentId;
@@ -38,8 +40,8 @@ class Request extends Equatable {
       {required this.id,
       this.createdUserId = '',
       this.updatedUserId = '',
-      this.flowType = RequisitionTypeEnum.stationery,
-      this.status = StatusRequestEnum.process,
+      this.flowType = RequisitionTypeEnum.unknown,
+      this.status = StatusRequestEnum.unknown,
       this.updatedDate,
       this.updatedFullName = '',
       this.createdDate,

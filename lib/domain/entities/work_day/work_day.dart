@@ -13,6 +13,7 @@ part 'work_day.g.dart';
 @CustomDateTimeConverter()
 class WorkDay {
   final String id;
+  @JsonKey(unknownEnumValue: WorkShiftRequestStatus.unknown)
   final WorkShiftRequestStatus status;
   final WeekDayEnum dayOfWeek;
   final DateTime? workDate;

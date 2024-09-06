@@ -12,7 +12,8 @@ class RequisitionOverTime {
   final int endTime;
   final double suggestTime;
   final String note;
-  final EnumOvertimeDay? overtimeDay;
+  @JsonKey(unknownEnumValue: EnumOvertimeDay.unknown)
+  final EnumOvertimeDay overtimeDay;
   final bool isChecking;
 
   const RequisitionOverTime({
@@ -21,7 +22,7 @@ class RequisitionOverTime {
     this.note = '',
     this.date,
     this.suggestTime = 0,
-    this.overtimeDay,
+    this.overtimeDay = EnumOvertimeDay.unknown,
     this.isChecking = true,
   });
 

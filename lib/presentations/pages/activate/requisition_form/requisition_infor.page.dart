@@ -92,7 +92,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                 appBar: AppBar(
                   iconTheme: IconThemeData(color: colors.text),
                   centerTitle: true,
-                  title: Text(stateFlow.flow.flowType?.configTypeName ?? "",
+                  title: Text(stateFlow.flow.flowType.configTypeName,
                       style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
                   actions: const [
                     SizedBox(width: SpacingUnit.x15),
@@ -634,9 +634,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       case RequisitionTypeEnum.core:
         final checkF = await loadFlow(flow);
         return checkF;
-      case RequisitionTypeEnum.unknown:
-        return false;
-      case null:
+      default:
         return false;
     }
   }

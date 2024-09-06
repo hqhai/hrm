@@ -78,6 +78,8 @@ class ItemShiftsOnDay extends StatelessWidget {
         return colors.blue;
       case WorkShiftRequestStatus.unusable:
         return colors.shadow;
+      default:
+        return Colors.transparent;
     }
   }
 
@@ -103,6 +105,8 @@ class ItemShiftsOnDay extends StatelessWidget {
         return Assets.images.icon.work.success;
       case WorkShiftRequestStatus.unusable:
         return Assets.images.icon.work.reject;
+      default:
+        return '';
     }
   }
 }

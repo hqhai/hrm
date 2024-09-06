@@ -19,7 +19,9 @@ enum WorkShiftRequestStatus {
   @JsonValue('Remove')
   remove('Remove'),
   @JsonValue('Usable')
-  usable('Usable');
+  usable('Usable'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -47,6 +49,8 @@ extension ConfigWorkShiftRequestStatusExtension on WorkShiftRequestStatus {
         return appLocalizations.unregistered;
       case WorkShiftRequestStatus.unusable:
         return appLocalizations.unusable;
+      default:
+        return '';
     }
   }
 }
@@ -59,7 +63,9 @@ enum WorkShiftApproveStatus {
   @JsonValue('Reject')
   reject('Reject'),
   @JsonValue('Remove')
-  remove('Remove');
+  remove('Remove'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -79,6 +85,8 @@ extension ConfigWorkShiftApproveStatusExtension on WorkShiftApproveStatus {
         return appLocalizations.reject;
       case WorkShiftApproveStatus.remove:
         return appLocalizations.remove;
+      default:
+        return '';
     }
   }
 }
@@ -87,7 +95,9 @@ enum ShiftType {
   @JsonValue('AdministrativeShift')
   administrativeShift('AdministrativeShift'),
   @JsonValue('SingleShift')
-  singleShift('SingleShift');
+  singleShift('SingleShift'),
+  @JsonValue('')
+  unknown('');
 
   final String name;
 
@@ -103,6 +113,8 @@ extension ConfigShiftTypeExtension on ShiftType {
         return appLocalizations.remove;
       case ShiftType.singleShift:
         return appLocalizations.remove;
+      default:
+        return '';
     }
   }
 }

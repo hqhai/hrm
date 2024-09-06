@@ -25,7 +25,7 @@ abstract class _$AttendanceCWProxy {
 
   Attendance overTime(int overTime);
 
-  Attendance overTimeDay(EnumOvertimeDay? overTimeDay);
+  Attendance overTimeDay(EnumOvertimeDay overTimeDay);
 
   Attendance overTimeLeave(int overTimeLeave);
 
@@ -116,7 +116,7 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
   Attendance overTime(int overTime) => this(overTime: overTime);
 
   @override
-  Attendance overTimeDay(EnumOvertimeDay? overTimeDay) =>
+  Attendance overTimeDay(EnumOvertimeDay overTimeDay) =>
       this(overTimeDay: overTimeDay);
 
   @override
@@ -229,10 +229,11 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
           ? _value.overTime
           // ignore: cast_nullable_to_non_nullable
           : overTime as int,
-      overTimeDay: overTimeDay == const $CopyWithPlaceholder()
-          ? _value.overTimeDay
-          // ignore: cast_nullable_to_non_nullable
-          : overTimeDay as EnumOvertimeDay?,
+      overTimeDay:
+          overTimeDay == const $CopyWithPlaceholder() || overTimeDay == null
+              ? _value.overTimeDay
+              // ignore: cast_nullable_to_non_nullable
+              : overTimeDay as EnumOvertimeDay,
       overTimeLeave:
           overTimeLeave == const $CopyWithPlaceholder() || overTimeLeave == null
               ? _value.overTimeLeave
@@ -305,8 +306,10 @@ Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
       overTime: json['overTime'] as int? ?? 0,
       realRate: (json['realRate'] as num?)?.toDouble() ?? 0,
       overTimeRate: json['overTimeRate'] as int? ?? 0,
-      overTimeDay:
-          $enumDecodeNullable(_$EnumOvertimeDayEnumMap, json['overTimeDay']),
+      overTimeDay: $enumDecodeNullable(
+              _$EnumOvertimeDayEnumMap, json['overTimeDay'],
+              unknownValue: EnumOvertimeDay.unknown) ??
+          EnumOvertimeDay.unknown,
       noSalaryRate: (json['noSalaryRate'] as num?)?.toDouble() ?? 0,
       leaveRate: (json['leaveRate'] as num?)?.toDouble() ?? 0,
       holidayRate: (json['holidayRate'] as num?)?.toDouble() ?? 0,
@@ -348,7 +351,7 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
   val['overTimeRate'] = instance.overTimeRate;
   val['overTimeSalary'] = instance.overTimeSalary;
   val['overTimeLeave'] = instance.overTimeLeave;
-  writeNotNull('overTimeDay', _$EnumOvertimeDayEnumMap[instance.overTimeDay]);
+  val['overTimeDay'] = _$EnumOvertimeDayEnumMap[instance.overTimeDay]!;
   val['workTimeReal'] = instance.workTimeReal;
   val['workTimeActual'] = instance.workTimeActual;
   val['timeEarly'] = instance.timeEarly;
@@ -367,4 +370,5 @@ const _$EnumOvertimeDayEnumMap = {
   EnumOvertimeDay.saturday: 'Saturday',
   EnumOvertimeDay.sunday: 'Sunday',
   EnumOvertimeDay.regularDay: 'RegularDay',
+  EnumOvertimeDay.unknown: '',
 };

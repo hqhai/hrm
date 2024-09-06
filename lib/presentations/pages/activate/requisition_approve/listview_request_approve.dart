@@ -34,8 +34,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
 
   @override
   void initState() {
-    _tabController = TabController(
-        length: EnumStepRequestStatusEnum.values.length, vsync: this)
+    _tabController = TabController(length: EnumStepRequestStatusEnum.values.length - 1, vsync: this)
       ..addListener(_scrollListener);
     super.initState();
     dI<RequisitionApproveBloc>().add(const GetRequisitionApproveCountEvent());
@@ -62,39 +61,31 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
                     dividerHeight: 0.1,
                     indicatorColor: colors.textLight,
                     tabAlignment: TabAlignment.start,
-                    tabs: EnumStepRequestStatusEnum.values.map(
+                    tabs: EnumStepRequestStatusEnum.values
+                        .where((element) => element != EnumStepRequestStatusEnum.unknown)
+                        .map(
                       (status) {
-                        final isActive =
-                            EnumStepRequestStatusEnum.values.indexOf(status) ==
-                                _tabController.index;
+                        final isActive = EnumStepRequestStatusEnum.values.indexOf(status) ==
+                            _tabController.index;
                         return Tab(
                           child: Row(
                             children: [
                               Text(
                                 status.configStepRequestStatusName,
                                 style: TextStyle(
-                                    fontWeight:
-                                        isActive ? FontWeight.w600 : null,
-                                    color: isActive
-                                        ? colors.text
-                                        : colors.textLight,
+                                    fontWeight: isActive ? FontWeight.w600 : null,
+                                    color: isActive ? colors.text : colors.textLight,
                                     fontSize: SpacingUnit.x4),
                               ),
-                              BlocSelector<RequisitionApproveBloc,
-                                      RequisitionApproveState, int>(
-                                  selector: (state) =>
-                                      state.statusRequestCount[status] ?? 0,
+                              BlocSelector<RequisitionApproveBloc, RequisitionApproveState, int>(
+                                  selector: (state) => state.statusRequestCount[status] ?? 0,
                                   builder: (context, state) => state != 0
                                       ? Chip(
                                           padding: EdgeInsets.zero,
-                                          backgroundColor:
-                                              colors.primary.withOpacity(0.3),
+                                          backgroundColor: colors.primary.withOpacity(0.3),
                                           shape: RoundedRectangleBorder(
-                                              side: const BorderSide(
-                                                  style: BorderStyle.none),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      SpacingUnit.x6)),
+                                              side: const BorderSide(style: BorderStyle.none),
+                                              borderRadius: BorderRadius.circular(SpacingUnit.x6)),
                                           label: Text('$state',
                                               style: TextStyle(
                                                   fontSize: SpacingUnit.x3_5,
@@ -112,6 +103,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
                 child: TabBarView(
                   controller: _tabController,
                   children: EnumStepRequestStatusEnum.values
+                      .where((element) => element != EnumStepRequestStatusEnum.unknown)
                       .map(
                         (status) => TabBarViewListRequistionApprove(
                           checkLoad: checkLoad && widget.checkLoad,
