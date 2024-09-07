@@ -36,6 +36,22 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
     super.initState();
   }
 
+  bool checkReason() {
+    switch (widget.type) {
+      case EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave:
+        return type == EnumReasonLeave.yearlyLeave || type == EnumReasonLeave.seniorityLeave;
+      case EnumTakeLeaveType.unpaidLeave:
+        return type == EnumReasonLeave.noSalaryLeave ||
+            type == EnumReasonLeave.socialInsuranceLeave;
+      case EnumTakeLeaveType.compensatoryLeave:
+        return true;
+      case EnumTakeLeaveType.otherPaidLeave:
+        return type == EnumReasonLeave.mourningLeave || type == EnumReasonLeave.weddingLeave;
+      default:
+        return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -62,23 +78,6 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
             type1: EnumReasonLeave.noSalaryLeave,
             type2: EnumReasonLeave.socialInsuranceLeave,
           ),
-        if (type == EnumReasonLeave.socialInsuranceLeave &&
-            widget.type == EnumTakeLeaveType.unpaidLeave) ...[
-          const SizedBox(
-            height: SpacingUnit.x4,
-          ),
-          Text(
-            appLocalizations.detailedReason,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          itemSocialInsuranceLeave(
-            context: context,
-          ),
-        ],
         if (widget.type == EnumTakeLeaveType.otherPaidLeave)
           item(
             context: context,
@@ -96,6 +95,35 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
               ),
             ),
           ),
+        if (!checkReason())
+          Text(
+            appLocalizations.dataNotNull,
+            style: TextStyle(
+              color: colors.error,
+              fontSize: SpacingUnit.x3,
+            ),
+          ),
+        if (type == EnumReasonLeave.socialInsuranceLeave &&
+            widget.type == EnumTakeLeaveType.unpaidLeave) ...[
+          const SizedBox(
+            height: SpacingUnit.x4,
+          ),
+          TitleRequired(
+            title: appLocalizations.detailedReason,
+            requiredValidate: true,
+          ),
+          itemSocialInsuranceLeave(
+            context: context,
+          ),
+          if (socialInsuranceLeave == null)
+            Text(
+              appLocalizations.dataNotNull,
+              style: TextStyle(
+                color: colors.error,
+                fontSize: SpacingUnit.x3,
+              ),
+            ),
+        ],
       ],
     );
   }

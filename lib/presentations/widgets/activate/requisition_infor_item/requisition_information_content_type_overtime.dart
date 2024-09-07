@@ -4,6 +4,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_area_colum.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +63,13 @@ class _RequisitionInformationContentTypeOverTimeState
                             .toList(),
                       ),
                     )
-                  : const SizedBox()
+                  : const SizedBox(),
+              ItemTitleValueAreaColum(
+                size: SpacingUnit.x4,
+                title: appLocalizations.reasonCreate,
+                value: state.requisition.config.description,
+                font: FontWeight.w600,
+              ),
             ],
           ),
         );

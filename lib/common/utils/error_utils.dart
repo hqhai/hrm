@@ -105,7 +105,7 @@ const errorVi = {
   "TaxAlreadyExist ": "Mã số thuế đã tồn tại ",
   "BankAccountNumberAlreadyExist": "Số tài khoản ngân hàng đã tồn tại",
   //---------------------
-  "ServerError":"Server bị lỗi",
+  "ServerError": "Server bị lỗi",
   "ExportFaile ": "Lỗi xuất file ",
   "Required ": "Có trường bắt buộc ",
   "MaxLength ": "Trường có độ dài quá mức cho phép ",
@@ -113,6 +113,52 @@ const errorVi = {
   "DataNotExist ": "Dữ liệu không tồn tại ",
   "DataAlreadyExist ": "Dữ liệu đã tồn tại ",
   "ImportFileRequired ": "Yêu cầu phải truyền tệp vào ",
+  //----------------------------------9/6/2024
+  "WorkShiftTimeThanTimeMakeUpWorkTime": "Thời gian làm bù nhỏ hơn thời gian ca",
+  "CheckInGreaterThanCheckOut": "Check In lớn hơn Check Out",
+
+  "TypeOvertimeDayIsNotInCorrectFormat": "Ngày tăng ca không đúng định dạng ",
+  "SaturdayOverlappingTime": "Thời gian trùng lặp vào thứ Bảy ",
+  "MaxPaidHoursNotNull": "Số giờ trả lương tối đa không được để trống ",
+  "MaxPaidHoursNotThanMaxHours": "Số giờ trả lương tối đa không được quá số giờ tối đa ",
+  "NameNotNull": "Tên không được bỏ trống ",
+  "DataHasBeenGenerated": "Dữ liệu đã được tạo ",
+  "TheTimeCannotBeLessThanTheCurrentTime": "Thời gian đang nhỏ hơn thời gian hiện tại ",
+  "StatusWorkShiftApproveNotPending": "Trạng thái cần phê duyệt không phải đang chờ xử lý ",
+  "WorkDateIsPastTheCurrentDate": "Ngày làm việc đã qua ngày hiện tại ",
+  "StartTimeValidGreaterThanEndTimeValid":
+      "Thời gian bắt đầu hợp lệ lớn hơn thời gian kết thúc hợp lệ ",
+  "CheckInTimeValidGreaterThanCheckOutTimeValid":
+      "Thời gian checkin hợp lệ lớn hơn thời gian checkout tính hợp lệ ",
+  "TheNumberOfWorkMustNotBeLessThanOrEqualToZero":
+      "Số lượng công việc không được nhỏ hơn hoặc bằng 0 ",
+  "OnlyOneOfTwoWorkDayOrWorkDateExists":
+      "Chỉ một trong hai trường 'Ngày làm việc' hoặc Lịch làm việc tồn tại. ",
+  "WorkDateAlreadyExist": "Ngày đã tồn tại ",
+  "InOneWorkDayThereIsOnlyOneWorkShiftId": "Trong một ngày làm việc, chỉ có một mã ca làm việc. ",
+  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkday":
+      "Có những ca làm việc trùng lặp về thời gian trong cùng một ngày làm việc ",
+  "ShiftsThatHaveBeenAppliedCannotBeEditTheWorkDate":
+      "Các ca làm việc đã được áp dụng không thể chỉnh sửa ngày làm việc.",
+  "ShiftThatHasBeenAppliedCannotEditTheStartdate":
+      "Ca làm việc đã được áp dụng không thể chỉnh sửa ngày bắt đầu. ",
+  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkShift":
+      "Có các ca làm việc trùng lặp về thời gian trong cùng một ca làm việc. ",
+  "CheckingStartTimeValidGreaterThanChecking":
+      "Thời gian bắt đầu kiểm tra phải lớn hơn thời gian kiểm tra. ",
+  "CheckingGreaterThanCheckingEndTimeValid":
+      "Thời gian kiểm tra phải lớn hơn thời gian kết thúc kiểm tra. ",
+  "ValidRegistTimeAndValidRegistTimeTypeMustBothBeSet":
+      "Thời gian đăng ký hợp lệ và loại thời gian đăng ký hợp lệ phải được đặt cả hai. ",
+  "ValidCancelTimeAndValidCancelTimeTypeMustBothBeSet":
+      "Thời gian hủy hợp lệ và loại thời gian hủy hợp lệ phải được đặt cả hai. ",
+  "SingleCaseCanNotHaveMoreThanOneDetailCase":
+      "Một trường hợp không thể có nhiều hơn một trường hợp chi tiết. ",
+  "RegistedNotRequiredCantRegist": "Đã đăng ký không yêu cầu nên không thể đăng ký. ",
+  "InvalidTimeToRegist": "Thời gian để đăng ký không hợp lệ. ",
+  "InvalidTimeToCancel": "Thời gian để hủy không hợp lệ. ",
+  "NoHaveWorkShiftToRegist": "Không có ca làm việc để đăng ký. ",
+  "WorkShiftSettingDetailInvalid": "Chi tiết cài đặt ca làm việc không hợp lệ. ",
 };
 
 const errorEn = {
@@ -211,7 +257,7 @@ const errorEn = {
   "TaxAlreadyExist ": "Tax code already exists ",
   "BankAccountNumberAlreadyExist": "Bank account number already exists",
   //-----------------------------------
-  "ServerError":"ServerError",
+  "ServerError": "ServerError",
   "ExportFaile ": "File export error ",
   "Required ": "There is a required field ",
   "MaxLength ": "Field length exceeds the allowed limit ",
@@ -219,4 +265,46 @@ const errorEn = {
   "DataNotExist ": "Data does not exist ",
   "DataAlreadyExist ": "Data already exists ",
   "ImportFileRequired ": "File is required to be uploaded ",
+  //-------------------------------9/6/2024
+  "WorkShiftTimeThanTimeMakeUpWorkTime": "Work Shift Time Less Than Time Make Up Work Time",
+  "CheckInGreaterThanCheckOut": "Check In Greater Than Check Out",
+
+  "TypeOvertimeDayIsNotInCorrectFormat": "Type Overtime Day Is Not In Correct Format ",
+  "SaturdayOverlappingTime": "Saturday Overlapping Time ",
+  "MaxPaidHoursNotNull": "Max Paid Hours Not Null ",
+  "MaxPaidHoursNotThanMaxHours": "Max Paid Hours Not Than Max Hours ",
+  "NameNotNull": "Name Not Null ",
+  "DataHasBeenGenerated": "Data Has Been Generated ",
+  "TheTimeCannotBeLessThanTheCurrentTime": "The Time Cannot Be Less Than The Current Time ",
+  "StatusWorkShiftApproveNotPending": "Status Work Shift Approve Not Pending ",
+  "WorkDateIsPastTheCurrentDate": "Work Date Is Past The Current Date ",
+  "StartTimeValidGreaterThanEndTimeValid": "Start Time Valid Greater Than End Time Valid ",
+  "CheckInTimeValidGreaterThanCheckOutTimeValid":
+      "Check In Time Valid Greater Than Check Out Time Valid ",
+  "TheNumberOfWorkMustNotBeLessThanOrEqualToZero":
+      "The Number Of Work Must Not Be Less Than Or Equal To Zero ",
+  "OnlyOneOfTwoWorkDayOrWorkDateExists": "Only One Of Two Work Day Or Work Date Exists ",
+  "WorkDateAlreadyExist": "Work Date Already Exist ",
+  "InOneWorkDayThereIsOnlyOneWorkShiftId": "In One Work Day There Is Only One Work Shift Id ",
+  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkday":
+      "There Are Work Shifts That Overlap In Time Within The Same Workday ",
+  "ShiftsThatHaveBeenAppliedCannotBeEditTheWorkDate":
+      "Shifts That Have Been Applied Cannot Be Edit The Work Date",
+  "ShiftThatHasBeenAppliedCannotEditTheStartdate":
+      "Shift That Has Been Applied Cannot Edit The Start Date ",
+  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkShift":
+      "There Are Work Shifts That Overlap In Time Within The Same Work Shift ",
+  "CheckingStartTimeValidGreaterThanChecking": "Checking Start Time Valid Greater Than Checking ",
+  "CheckingGreaterThanCheckingEndTimeValid": "Checking Greater Than Checking End Time Valid ",
+  "ValidRegistTimeAndValidRegistTimeTypeMustBothBeSet":
+      "Valid Regist Time And Valid Regist Time Type Must Both Be Set ",
+  "ValidCancelTimeAndValidCancelTimeTypeMustBothBeSet":
+      "Valid Cancel Time And Valid Cancel Time Type Must Both Be Set ",
+  "SingleCaseCanNotHaveMoreThanOneDetailCase":
+      "Single Case Can Not Have More Than One Detail Case ",
+  "RegistedNotRequiredCantRegist": "Registed Not Required Cant Regist ",
+  "InvalidTimeToRegist": "Invalid Time To Regist ",
+  "InvalidTimeToCancel": "Invalid Time To Cancel ",
+  "NoHaveWorkShiftToRegist": "No Have Work Shift To Regist ",
+  "WorkShiftSettingDetailInvalid": "Work Shift Setting Detail Invalid ",
 };

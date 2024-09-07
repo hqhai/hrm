@@ -780,6 +780,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reason => 'Reason';
 
   @override
+  String get reasonCreate => 'Reason create';
+
+  @override
   String get reasonForExplanation => 'Explanation reason';
 
   @override
