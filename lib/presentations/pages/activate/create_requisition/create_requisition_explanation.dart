@@ -136,6 +136,7 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                         onChange: (value) => _setFollower(value)),
                     const ItemListStepFlow(),
                     ItemButton(
+                      id: widget.requestId,
                       callbackSave: explanations.any((element) =>
                               element.note.isEmpty || element.checkOut - element.checkIn <= 0)
                           ? null

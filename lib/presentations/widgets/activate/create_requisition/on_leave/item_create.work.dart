@@ -22,9 +22,9 @@ class ItemTakeLeaveWork extends StatefulWidget {
 }
 
 class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
-  UserLeaveHistoryTypes _leaveOT(List<UserLeaveHistoryTypes> userLeaveHistoryTypes){
+  UserLeaveHistoryTypes _leaveOT(List<UserLeaveHistoryTypes> userLeaveHistoryTypes, TypeLeaveEnum typeLeave){
     final index = userLeaveHistoryTypes
-        .indexWhere((element) => element.type == TypeLeaveEnum.overTimeLeave);
+        .indexWhere((element) => element.type == typeLeave);
     if(index != -1) {
       return userLeaveHistoryTypes[index];
     }
@@ -38,7 +38,8 @@ class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<WorkAndSalaryBloc, WorkAndSalaryState>(
       builder: (context, state) {
-        final leaveOT = _leaveOT(state.userLeave.userLeaveHistoryTypes);
+        final leaveOT = _leaveOT(state.userLeave.userLeaveHistoryTypes, TypeLeaveEnum.overTimeLeave);
+        final leaveYear = _leaveOT(state.userLeave.userLeaveHistoryTypes, TypeLeaveEnum.annualLeave);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,34 +48,34 @@ class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
               item(
                 context: context,
                 title: appLocalizations.leaveNumberUsed,
-                value: state.userLeave.total.toString(),
+                value: leaveYear.total.toString(),
               ),
               item(
                 context: context,
                 title: appLocalizations.leaveNumberPermission,
-                value: state.userLeave.totalUsed.toString(),
+                value: leaveYear.totalUsed.toString(),
               ),
               item(
                 context: context,
                 title: appLocalizations.leaveNumberRemaining,
-                value: state.userLeave.totalRemaining.toString(),
+                value: leaveYear.totalRemaining.toString(),
               ),
             ],
             if (widget.takeLeaveType == EnumTakeLeaveType.compensatoryLeave) ...[
               item(
                 context: context,
                 title: appLocalizations.leaveNumberUsedH,
-                value: (leaveOT.total / 3600).toString(),
+                value: (leaveOT.total / 3600).toStringAsFixed(3),
               ),
               item(
                 context: context,
                 title: appLocalizations.leaveNumberPermissionH,
-                value: (leaveOT.totalUsed/3600).toString(),
+                value: (leaveOT.totalUsed/3600).toStringAsFixed(3),
               ),
               item(
                 context: context,
                 title: appLocalizations.leaveNumberRemainingH,
-                value: (leaveOT.totalRemaining / 3600).toString(),
+                value: (leaveOT.totalRemaining / 3600).toStringAsFixed(3),
               ),
             ],
           ],

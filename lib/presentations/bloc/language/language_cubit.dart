@@ -7,7 +7,7 @@ import 'package:json_annotation/json_annotation.dart';
 @JsonSerializable()
 @lazySingleton
 class LanguageCubit extends HydratedCubit<LanguageState> {
-  LanguageCubit() : super(const LanguageState(languageCode: LanguageEnum.en));
+  LanguageCubit() : super(const LanguageState(languageCode: LanguageEnum.vi));
 
   void changeLocale(LanguageEnum languageCode) => emit(LanguageState(languageCode: languageCode));
 

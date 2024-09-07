@@ -111,7 +111,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                         const RequisitionInformationGeneraliInformation(),
                         const RequisitionInformationType(),
                         if (state.requisition.flowType != RequisitionTypeEnum.stationery &&
-                            state.requisition.flowType != RequisitionTypeEnum.makeUpWork)
+                            state.requisition.flowType != RequisitionTypeEnum.makeUpWork &&
+                            state.requisition.flowType != RequisitionTypeEnum.overTime)
                           const RequisitionInformationContent(),
                         if (state.requisition.config.attachments.isNotEmpty)
                           const RequisitionInformationAttach(),

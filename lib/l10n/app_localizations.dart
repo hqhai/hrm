@@ -1635,6 +1635,12 @@ abstract class AppLocalizations {
   /// **'Reason'**
   String get reason;
 
+  /// No description provided for @reasonCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason create'**
+  String get reasonCreate;
+
   /// No description provided for @reasonForExplanation.
   ///
   /// In en, this message translates to:

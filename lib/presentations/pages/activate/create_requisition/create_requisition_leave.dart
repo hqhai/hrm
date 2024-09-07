@@ -310,6 +310,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                       ),
                       const ItemListStepFlow(),
                       ItemButton(
+                        id: widget.requestId,
                         callbackSave: () => _save(context),
                         callbackCancel: () => _cancel(context),
                       )
@@ -389,9 +390,11 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     saveRequest(
       files: files,
       context: context,
-      checkCreate: !checkClick && widget.requestId.isEmpty && checkValidate(context),
+      checkCreate:
+          !checkClick && widget.requestId.isEmpty && checkValidate(context) && checkReason(),
       postRequestRequest: request(),
-      checkEdit: !checkClick && widget.requestId.isNotEmpty && checkValidate(context),
+      checkEdit:
+          !checkClick && widget.requestId.isNotEmpty && checkValidate(context) && checkReason(),
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(
@@ -437,6 +440,25 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
           checkShirt = true;
         });
       }
+    }
+  }
+
+  bool checkReason() {
+    switch (takeLeaveType) {
+      case EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave:
+        return reason == EnumReasonLeave.yearlyLeave || reason == EnumReasonLeave.seniorityLeave;
+      case EnumTakeLeaveType.unpaidLeave:
+        bool checkR = reason == EnumReasonLeave.noSalaryLeave ||
+            reason == EnumReasonLeave.socialInsuranceLeave;
+        bool checkS = reason != EnumReasonLeave.socialInsuranceLeave ||
+            (reason == EnumReasonLeave.socialInsuranceLeave && socialInsuranceLeave != null);
+        return checkR && checkS;
+      case EnumTakeLeaveType.compensatoryLeave:
+        return true;
+      case EnumTakeLeaveType.otherPaidLeave:
+        return reason == EnumReasonLeave.mourningLeave || reason == EnumReasonLeave.weddingLeave;
+      default:
+        return false;
     }
   }
 

@@ -780,6 +780,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get reason => 'Lý do';
 
   @override
+  String get reasonCreate => 'Lý do tạo đơn';
+
+  @override
   String get reasonForExplanation => 'Lý do giải trình';
 
   @override
@@ -1464,7 +1467,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get invalid => 'Không hợp lệ';
 
   @override
-  String get fingerprint => 'Dấu vân tay';
+  String get fingerprint => 'Vân tay';
 
   @override
   String get gPS => 'GPS';
@@ -1656,10 +1659,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get caseL => 'Trường hợp';
 
   @override
-  String get revokeRequestSuccess => 'Vô hiệu hóa đơn thành công';
+  String get revokeRequestSuccess => 'Hủy đơn thành công';
 
   @override
-  String get revokeRequestUnsuccessful => 'Vô hiệu hóa đơn thành công';
+  String get revokeRequestUnsuccessful => 'Hủy đơn không thành công';
 
   @override
   String get notSelectedAShift => 'Bạn chưa chọn ca làm';
@@ -1950,7 +1953,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get allow => 'Cho phép';
 
   @override
-  String get contentDialogTimeKeepingUnSuccess => 'Chấm công không thành công. Vui lòng thử lại';
+  String get contentDialogTimeKeepingUnSuccess => 'Chấm công không thành công';
 
   @override
   String get contentDialogTimeKeepingSuccess => 'Chấm công thành công';
@@ -1992,7 +1995,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get shiftOfDay => 'Ca làm việc hôm nay: ';
 
   @override
-  String get moveToTheAppropriate => 'Hãy di chuyển đến vị trí thích hợp trên bản đồ';
+  String get moveToTheAppropriate => ' Vui lòng di chuyển đến vị trí hợp lệ trên bản đồ';
 
   @override
   String get chooseASchedule => 'Bạn cần chọn một lịch đi trường để chấm công.';
