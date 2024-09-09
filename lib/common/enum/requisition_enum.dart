@@ -3,6 +3,10 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+enum EnumLoadingRequest{
+  success, fail, noConnected,
+}
+
 enum EnumTakeLeaveType {
   @JsonValue('YearlyLeaveAndSeniorityLeave')
   yearlyLeaveAndSeniorityLeave('YearlyLeaveAndSeniorityLeave'),

@@ -1,13 +1,7 @@
-import 'dart:async';
-
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_request.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/content_item_my_requisition_list.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
@@ -45,16 +39,20 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
         borderColors: colors.background,
         backgroundColors: colors.background,
         child: GestureDetector(
-          onTap: () => _nextRequisitionInformationScreen(context),
+          onTap: () => nextScreenRequest(
+            context: context,
+            id: widget.id,
+            checkOpacity: checkOpacity,
+            setState: () => setOpacity(),
+            checkUser: RequestSeeByWho.user,
+          ),
           child: Stack(
             children: [
               Opacity(
                 opacity: checkOpacity ? 1 : 0,
                 child: Center(
                   child: Lottie.asset(Assets.images.icon.loading,
-                      width: SpacingUnit.x20,
-                      height: SpacingUnit.x20,
-                      fit: BoxFit.fill),
+                      width: SpacingUnit.x20, height: SpacingUnit.x20, fit: BoxFit.fill),
                 ),
               ),
               Opacity(
@@ -74,31 +72,9 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
     );
   }
 
-  _nextRequisitionInformationScreen(BuildContext context) async {
-    if (!checkOpacity) {
-      setState(() {
-        checkOpacity = true;
-      });
-      final Completer completer = Completer<bool>();
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      dI<RequisitionBloc>().add(
-        GetRequisitionByIdEvent(id: widget.id, completer: completer),
-      );
-      final statusCompleter = await completer.future;
-      if (statusCompleter == true) {
-        setState(() {
-          checkOpacity = false;
-        });
-        if (!currentContext.mounted) return;
-        dI<AppNavigation>().pushName(
-          currentContext,
-          page: Pages.requisitionInformationPage,
-          extra: {
-            'id': widget.id,
-            'checkUser': RequestSeeByWho.user,
-          },
-        );
-      }
-    }
+  setOpacity() {
+    setState(() {
+      checkOpacity = !checkOpacity;
+    });
   }
 }

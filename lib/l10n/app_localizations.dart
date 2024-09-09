@@ -4142,6 +4142,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Valid timekeeping'**
   String get validTimeKeeping;
+
+  /// No description provided for @noConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'No connected!'**
+  String get noConnected;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

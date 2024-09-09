@@ -16,6 +16,7 @@ import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
+import 'package:base_app/presentations/widgets/dialog/no_connection/no_connection_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -286,6 +287,10 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
         case RequisitionTypeEnum.unknown:
         default:
       }
+    } else{
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
+      dialogNoConnection(context: currentContext);
     }
   }
 

@@ -7,6 +7,7 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
+import 'package:base_app/presentations/widgets/dialog/no_connection/no_connection_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -38,6 +39,11 @@ nextScreenRequest({
           'checkUser': checkUser,
         },
       );
+    } else {
+      setState.call();
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
+      dialogNoConnection(context: currentContext);
     }
   }
 }

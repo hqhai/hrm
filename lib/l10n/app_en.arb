@@ -676,5 +676,6 @@
   "workingTime1":"Working time",
   "recordedNumberOfShifts":"Recorded number of shifts",
   "operationDay":"Operation day ",
-  "validTimeKeeping":"Valid timekeeping"
+  "validTimeKeeping":"Valid timekeeping",
+  "noConnected": "No connected!"
 }
