@@ -140,8 +140,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                                   background: colors.tertiary.withOpacity(0.2),
                                   check: true,
                                   title: appLocalizations.update,
-                                  callback: () =>
-                                      _nextScreen(stateFlow.flow, state.requisition),
+                                  callback: () => _nextScreen(stateFlow.flow, state.requisition),
                                 ),
                               ),
                               const SizedBox(width: SpacingUnit.x4),
@@ -294,6 +293,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
       approverSuccess(title: appLocalizations.revokeRequestSuccess);
     } else {
+      if (!context.mounted) return;
+      dI<AppNavigation>().pop(currentContext);
       approverUnsuccessful(
           errorDialog: errorDialogRevoke, title: appLocalizations.revokeRequestUnsuccessful);
     }
@@ -338,6 +339,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       approverSuccess(title: appLocalizations.revokeRequestSuccess);
     }
     if (statusCompleter == false) {
+      if (!context.mounted) return;
+      dI<AppNavigation>().pop(currentContext);
       approverUnsuccessful(
           errorDialog: errorDialog, title: appLocalizations.revokeRequestUnsuccessful);
     }
@@ -363,6 +366,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       approverSuccess();
     }
     if (statusCompleter == false) {
+      if (!context.mounted) return;
+      dI<AppNavigation>().pop(currentContext);
       approverUnsuccessful(
         errorDialog: errorDialog,
       );
@@ -578,10 +583,8 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
   Future<bool> loadWorkShiftOneDay(Request request) async {
     final Completer completer = Completer<bool>();
     final date = request.config.workShiftSettings.first.workDate;
-    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-        endDate: date,
-        startDate: date,
-        completer: completer));
+    dI<LeaveShiftBloc>()
+        .add(GetWorkShiftsEvent(endDate: date, startDate: date, completer: completer));
     return await completer.future;
   }
 

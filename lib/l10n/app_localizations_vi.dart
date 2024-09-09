@@ -2038,4 +2038,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get validTimeKeeping => 'Chấm công hợp lệ';
+
+  @override
+  String get noConnected => 'Có lỗi sảy ra, vui lòng kiểm tra lại!';
 }

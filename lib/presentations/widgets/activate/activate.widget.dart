@@ -17,6 +17,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_event.dart';
 import 'package:base_app/presentations/widgets/activate/item_activate.dart';
+import 'package:base_app/presentations/widgets/dialog/no_connection/no_connection_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +110,10 @@ class _ActivateWidgetState extends State<ActivateWidget> {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(currentContext, page: Pages.requisitionListPage);
+    }else{
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
+      dialogNoConnection(context: currentContext);
     }
   }
 
@@ -135,6 +140,10 @@ class _ActivateWidgetState extends State<ActivateWidget> {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(currentContext, page: Pages.requisitionApproveListPage);
+    }else{
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
+      dialogNoConnection(context: currentContext);
     }
   }
 
@@ -156,6 +165,10 @@ class _ActivateWidgetState extends State<ActivateWidget> {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(currentContext, page: Pages.requisitionFollowerListPage);
+    }else{
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
+      dialogNoConnection(context: currentContext);
     }
   }
 
@@ -176,6 +189,10 @@ class _ActivateWidgetState extends State<ActivateWidget> {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
       dI<AppNavigation>().pushName(currentContext, page: Pages.createRequestPage);
+    } else{
+      if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(context);
+      dialogNoConnection(context: currentContext);
     }
   }
 }

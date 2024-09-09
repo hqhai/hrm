@@ -11,22 +11,19 @@ import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class RequisitionFollowingBloc
-    extends Bloc<RequisitionFollowingEvent, RequisitionFollowingState> {
+class RequisitionFollowingBloc extends Bloc<RequisitionFollowingEvent, RequisitionFollowingState> {
   final RequisitionUseCase requisitionUseCase;
 
   RequisitionFollowingBloc()
       : requisitionUseCase = dI<RequisitionUseCase>(),
         super(const RequisitionFollowingState()) {
     on<RequisitionFollowingEvent>((event, emit) {});
-    on<GetRequisitionsFollowingByFilterEvent>(
-        _getRequisitionsFollowingByFilterEvent);
+    on<GetRequisitionsFollowingByFilterEvent>(_getRequisitionsFollowingByFilterEvent);
   }
 
   ///get by filter ***********************************************
   FutureOr<void> _getRequisitionsFollowingByFilterEvent(
-      GetRequisitionsFollowingByFilterEvent event,
-      Emitter<RequisitionFollowingState> emit) async {
+      GetRequisitionsFollowingByFilterEvent event, Emitter<RequisitionFollowingState> emit) async {
     try {
       final RequestsResponse requestsResponse =
           await requisitionUseCase.getRequisitionsFollowerByFilter(
@@ -70,10 +67,10 @@ class RequisitionFollowingBloc
         event.completer?.complete(true);
       }
     } catch (e) {
+      event.completer?.complete(false);
       e as ResponseBase;
       final String? errorCode = e.errorMessages.first.errorCode;
       emit(state.copyWith(errorCode: errorCode));
-      event.completer?.complete(false);
     }
   }
 }

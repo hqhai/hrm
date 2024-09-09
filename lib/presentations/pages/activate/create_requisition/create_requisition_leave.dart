@@ -149,40 +149,6 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     return paths.map((e) => File(e)).toList();
   }
 
-  bool checkShift() {
-    if (startTime == null || endTime == null) {
-      return false;
-    }
-    final number = (endTime!).difference(startTime!).inHours;
-    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
-      return false;
-    }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
-      return false;
-    }
-    if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
-      return false;
-    }
-    return true;
-  }
-
-  String errorDate() {
-    if (startTime == null || endTime == null) {
-      return '';
-    }
-    final number = (endTime!).difference(startTime!).inHours;
-    if (widget.type == RequisitionTypeEnum.leaveHalfDayToOneDay && number > 24) {
-      return RequisitionTypeEnum.leaveHalfDayToOneDay.configTypeName;
-    }
-    if (widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay && (number > 96 || number < 24)) {
-      return RequisitionTypeEnum.leaveTwoDayToFourDay.configTypeName;
-    }
-    if (widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore && number < 96) {
-      return RequisitionTypeEnum.leaveFiveDaysOrMore.configTypeName;
-    }
-    return '';
-  }
-
   _listener(String errorCode, BuildContext context) {
     setState(() {
       errorDialog =
@@ -240,7 +206,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         setEndTime: (value) => setEndTime(value ?? DateTime.now()),
                         fontWeightTitle: FontWeight.w600,
                       ),
-                      if (!checkShirtFirst && checkShift()) ...[
+                      if (!checkShirtFirst) ...[
                         const SizedBox(height: SpacingUnit.x4),
                         !checkShirt
                             ? Center(
@@ -256,11 +222,10 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                       ],
                       BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
                         builder: (context, stateShift) {
-                          return (errorShift.isNotEmpty || errorDate().isNotEmpty) &&
-                                      stateShift.keys.isNotEmpty ||
+                          return (errorShift.isNotEmpty) && stateShift.keys.isNotEmpty ||
                                   checkShirtFirst
                               ? Text(
-                                  errorDate().isNotEmpty ? errorDate() : errorShift,
+                                  errorShift,
                                   style: TextStyle(
                                     color: colors.error,
                                     fontSize: SpacingUnit.x3,
@@ -425,7 +390,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       endTime = value;
       checkShirt = false;
     });
-    if (startTime != null && endTime != null && checkShift()) {
+    if (startTime != null && endTime != null) {
       setState(() {
         checkShirtFirst = false;
         listWorkShift = [];

@@ -2038,4 +2038,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validTimeKeeping => 'Valid timekeeping';
+
+  @override
+  String get noConnected => 'No connected!';
 }

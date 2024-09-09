@@ -26,12 +26,16 @@ class ScheduleSchoolBloc extends Bloc<ScheduleSchoolEvent, ScheduleSchoolState> 
       emit(state.copyWith(scheduleSchools: scheduleSchool));
       event.completer?.complete(true);
     } catch (e) {
-      e as ResponseBase;
-      final listErrorCode = e.errorMessages.map((e) => e.errorCode).toList();
-      if (listErrorCode.contains('DataNotExist')) {
-        event.completer?.complete(null);
+      if (e is ResponseBase) {
+        final listErrorCode = e.errorMessages.map((e) => e.errorCode).toList();
+        if (listErrorCode.contains('DataNotExist')) {
+          event.completer?.complete(null);
+        } else {
+          event.completer?.complete(false);
+        }
+      } else {
+        event.completer?.complete(false);
       }
-      event.completer?.complete(false);
     }
   }
 }

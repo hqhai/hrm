@@ -13,8 +13,7 @@ import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class RequisitionApproveBloc
-    extends Bloc<RequisitionApproveEvent, RequisitionApproveState> {
+class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionApproveState> {
   final RequisitionUseCase requisitionUseCase;
   final RequisitionService _requestService;
 
@@ -23,8 +22,7 @@ class RequisitionApproveBloc
         _requestService = dI<RequisitionService>(),
         super(const RequisitionApproveState()) {
     on<RequisitionApproveEvent>((event, emit) {});
-    on<GetRequisitionsApproveByFilterEvent>(
-        _getRequisitionsApproveByFilterEvent);
+    on<GetRequisitionsApproveByFilterEvent>(_getRequisitionsApproveByFilterEvent);
     on<ApproveRequestEvent>(_approveRequestEvent);
     on<GetRequisitionApproveCountEvent>(_getRequisitionApproveCountEvent);
     on<CancelRequestEvent>(_cancelRequestEvent);
@@ -33,8 +31,7 @@ class RequisitionApproveBloc
   ///get by filter ***********************************************
 
   FutureOr<void> _getRequisitionsApproveByFilterEvent(
-      GetRequisitionsApproveByFilterEvent event,
-      Emitter<RequisitionApproveState> emit) async {
+      GetRequisitionsApproveByFilterEvent event, Emitter<RequisitionApproveState> emit) async {
     try {
       final RequestsResponse requestsResponse =
           await requisitionUseCase.getRequisitionsApproveByFilter(
@@ -80,10 +77,10 @@ class RequisitionApproveBloc
         event.completer?.complete(true);
       }
     } catch (e) {
+      event.completer?.complete(false);
       e as ResponseBase;
       final String? errorCode = e.errorMessages.first.errorCode;
       emit(state.copyWith(errorCode: errorCode));
-      event.completer?.complete(false);
     }
   }
 
@@ -92,13 +89,10 @@ class RequisitionApproveBloc
       ApproveRequestEvent event, Emitter<RequisitionApproveState> emit) async {
     try {
       final bool check = await requisitionUseCase.approveRequest(
-          id: event.id,
-          status: event.status?.name ?? "",
-          note: event.note ?? "");
+          id: event.id, status: event.status?.name ?? "", note: event.note ?? "");
       if (check) {
-        final requestIds = state.requisitionIds
-            .where((element) => element != event.requestId)
-            .toList();
+        final requestIds =
+            state.requisitionIds.where((element) => element != event.requestId).toList();
         emit(
           state.copyWith(
             requisitionIds: requestIds,
@@ -110,26 +104,31 @@ class RequisitionApproveBloc
         event.completer?.complete(false);
       }
     } catch (e) {
-      e as ResponseBase;
-      final String? errorCode = e.errorMessages.first.errorCode;
-      emit(state.copyWith(errorCode: errorCode));
-      event.completer?.complete(false);
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+        event.completer?.complete(false);
+      } else {
+        event.completer?.complete(false);
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+      }
     }
   }
 
   FutureOr<void> _getRequisitionApproveCountEvent(
-      GetRequisitionApproveCountEvent event,
-      Emitter<RequisitionApproveState> emit) async {
-    final requisitionCountStatus =
-        await _requestService.approveRequisitionCountStatus();
+      GetRequisitionApproveCountEvent event, Emitter<RequisitionApproveState> emit) async {
+    final requisitionCountStatus = await _requestService.approveRequisitionCountStatus();
     final statusRequestCount = {
       EnumStepRequestStatusEnum.newStatus: requisitionCountStatus.newRequest,
       EnumStepRequestStatusEnum.reject: requisitionCountStatus.reject,
       EnumStepRequestStatusEnum.edit: requisitionCountStatus.edit,
       EnumStepRequestStatusEnum.approve: requisitionCountStatus.approve,
       EnumStepRequestStatusEnum.cancel: requisitionCountStatus.cancel,
-      EnumStepRequestStatusEnum.overdueApprove:
-          requisitionCountStatus.overdueApprove,
+      EnumStepRequestStatusEnum.overdueApprove: requisitionCountStatus.overdueApprove,
     };
     emit(state.copyWith(statusRequestCount: statusRequestCount));
   }
@@ -138,9 +137,8 @@ class RequisitionApproveBloc
       CancelRequestEvent event, Emitter<RequisitionApproveState> emit) async {
     try {
       await _requestService.cancelRequestsById(id: event.requestId);
-      final requestIds = state.requisitionIds
-          .where((element) => element != event.requestId)
-          .toList();
+      final requestIds =
+          state.requisitionIds.where((element) => element != event.requestId).toList();
       emit(
         state.copyWith(
           requisitionIds: requestIds,
@@ -149,10 +147,18 @@ class RequisitionApproveBloc
       );
       event.completer?.complete(true);
     } catch (e) {
-      e as ResponseBase;
-      final String? errorCode = e.errorMessages.first.errorCode;
-      emit(state.copyWith(errorCode: errorCode));
-      event.completer?.complete(false);
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+        event.completer?.complete(false);
+      } else {
+        event.completer?.complete(false);
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+      }
     }
   }
 }

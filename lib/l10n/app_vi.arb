@@ -677,5 +677,6 @@
   "workingTime1":"Thời gian",
   "recordedNumberOfShifts":"Số công ghi nhận",
   "operationDay":"Ngày thao tác",
-  "validTimeKeeping":"Chấm công hợp lệ"
+  "validTimeKeeping":"Chấm công hợp lệ",
+  "noConnected": "Có lỗi sảy ra, vui lòng kiểm tra lại!"
 }
