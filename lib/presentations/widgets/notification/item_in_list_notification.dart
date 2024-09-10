@@ -84,11 +84,14 @@ class _ItemInListNotificationState extends State<ItemInListNotification> {
   }
 
   _onClick() {
+    if(!checkClick) {
+      dI<NotificationBloc>().add(ChangeNotificationsEvent(
+        ids: [widget.id],
+      ));
+    }
     setState(() {
       checkClick = true;
     });
-    dI<NotificationBloc>().add(ChangeNotificationsEvent(
-      ids: [widget.id],
-    ));
+
   }
 }
