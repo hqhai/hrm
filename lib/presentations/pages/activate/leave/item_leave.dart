@@ -14,11 +14,11 @@ import 'package:themes/themes.dart';
 class ItemLeave extends StatelessWidget {
   const ItemLeave({super.key, required this.type});
 
-  final TypeLeaveEnum type;
+  final EnumLeaveHistoryType type;
 
   UserLeaveHistoryTypes userLeaveHistoryTypes(UserLeave userLeave) {
     int index = userLeave.userLeaveHistoryTypes.indexWhere((element) => element.type == type);
-    if (type == TypeLeaveEnum.total) {
+    if (type == EnumLeaveHistoryType.total) {
       return UserLeaveHistoryTypes(
         type: type,
         total: userLeave.total,
@@ -26,7 +26,7 @@ class ItemLeave extends StatelessWidget {
         totalRemaining: userLeave.totalRemaining,
         totalUsed: userLeave.totalUsed,
       );
-    } else if (index != -1 && type == TypeLeaveEnum.overTimeLeave) {
+    } else if (index != -1 && type == EnumLeaveHistoryType.overTimeLeave) {
       final leaveOT = userLeave.userLeaveHistoryTypes[index];
       return leaveOT.copyWith(
         total: leaveOT.total / 3600,
@@ -54,7 +54,7 @@ class ItemLeave extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                type.configTypeLeaveEnum,
+                type.configLeaveHistoryTypeEnum,
                 style: TextStyle(
                   color: colors.text,
                   fontSize: SpacingUnit.x4,

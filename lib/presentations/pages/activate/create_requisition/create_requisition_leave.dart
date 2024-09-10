@@ -84,7 +84,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   final DateTime now = DateTime.now();
   EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
   EnumSocialInsuranceLeave? socialInsuranceLeave;
-  EnumReasonLeave reason = EnumReasonLeave.yearlyLeave;
+  EnumReasonLeave? reason;
 
   @override
   void initState() {
@@ -193,7 +193,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         type: takeLeaveType,
                         onChangeSocialInsurance: (value) => setSocialInsurance(value),
                       ),
-                      ItemTakeLeaveWork(takeLeaveType: takeLeaveType),
+                      if(takeLeaveType != EnumTakeLeaveType.unpaidLeave && checkReason())
+                      ItemTakeLeaveWork(reasonLeave: reason, type: takeLeaveType),
                       const SizedBox(height: SpacingUnit.x4),
                       TitleRequired(
                           title: appLocalizations.intervalOnLeave, requiredValidate: true),
@@ -429,13 +430,16 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   _setReason(EnumReasonLeave? value) {
     setState(() {
-      reason = value ?? EnumReasonLeave.yearlyLeave;
+      reason = value;
     });
   }
 
   _setType(EnumTakeLeaveType value) {
     setState(() {
       takeLeaveType = value;
+      if(value == EnumTakeLeaveType.compensatoryLeave){
+        reason = null;
+      }
     });
   }
 
