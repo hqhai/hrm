@@ -30,8 +30,10 @@ class _ListLeaveWidgetState extends State<ListLeaveWidget> {
           horizontal: SpacingUnit.x4,
         ),
         child: Column(
-          children:
-          EnumLeaveHistoryType.values.map((e) => ItemLeave(type: e)).toList(),
+          children: EnumLeaveHistoryType.values
+              .where((element) => element != EnumLeaveHistoryType.unknown)
+              .map((e) => ItemLeave(type: e))
+              .toList(),
         ),
       ),
     );
