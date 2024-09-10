@@ -17,10 +17,13 @@ String strTimeFromInt(int time) {
   final hours = result.hour;
   final seconds = result.minute;
   final day = result.day - 1;
+  if (time == 0) {
+    return '0';
+  }
   if (day < 1) {
-    return "$hours:$seconds";
+    return "${hours}h${seconds}m";
   } else {
-    return "${hours + day * 24}:$seconds";
+    return "${hours + day * 24}h${seconds}m";
   }
 }
 

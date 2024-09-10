@@ -656,6 +656,7 @@
   "rejectTitle2":"Are you sure you want to refuse to approve this employee's shift registration request?",
   "proactiveCaseRegistrationManagement":"Proactive case registration management",
   "receivedShift":"Received shift",
+  "rejectShift": "Reject shift",
   "confirm":"Confirm",
   "waitingForApprovalToCancelShift":"Waiting for approval to cancel shift",
   "waitingForShiftRegistrationApproval":"Waiting for approval for case registration",

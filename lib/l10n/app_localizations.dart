@@ -4017,6 +4017,12 @@ abstract class AppLocalizations {
   /// **'Received shift'**
   String get receivedShift;
 
+  /// No description provided for @rejectShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject shift'**
+  String get rejectShift;
+
   /// No description provided for @confirm.
   ///
   /// In en, this message translates to:
