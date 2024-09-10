@@ -20,7 +20,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_total_amount.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/list_stationeries.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
-import 'package:base_app/presentations/widgets/custom/app_month_year_picker.dart';
+import 'package:base_app/presentations/widgets/custom/month_picker.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,10 +115,10 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MonthYearPicker(
+                      MonthPickerLoop(
                         requiredValidate: true,
                         title: appLocalizations.month,
-                        timeOld: month,
+                        oldDate: month,
                         onChange: (value) => setMonth(value),
                       ),
                       ListStationeries(

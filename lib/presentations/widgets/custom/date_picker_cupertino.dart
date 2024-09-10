@@ -14,10 +14,11 @@ import 'package:themes/themes.dart';
 
 ///BottomSheet
 class DatePickerCupertino extends StatefulWidget {
-  const DatePickerCupertino({super.key, required this.dateOld, required this.onChange});
+  const DatePickerCupertino({super.key, required this.dateOld, required this.onChange, this.maxDateNow});
 
   final DateTime dateOld;
   final ValueChanged<DateTime> onChange;
+  final DateTime? maxDateNow;
 
   @override
   State<DatePickerCupertino> createState() => _DatePickerCupertinoState();
@@ -51,6 +52,7 @@ class _DatePickerCupertinoState extends State<DatePickerCupertino> {
           child: CupertinoDatePicker(
             initialDateTime: widget.dateOld,
             mode: CupertinoDatePickerMode.date,
+            maximumDate: widget.maxDateNow,
             use24hFormat: false,
             showDayOfWeek: false,
             onDateTimeChanged: (DateTime newDate) => setDateTime(newDate),
@@ -119,7 +121,7 @@ class _DatePickerState extends State<DatePickerLoop> {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return DatePickerCupertino(onChange: (value) => setDate(value), dateOld: currentTime,);
+        return DatePickerCupertino(onChange: (value) => setDate(value), dateOld: currentTime, maxDateNow: widget.maxDate,);
       },
     );
   }

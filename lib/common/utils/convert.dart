@@ -100,6 +100,14 @@ String formatYMD(String time) {
   return '';
 }
 
+///Định dạng Năm Tháng
+String formatMY(DateTime? time) {
+  if (time != null) {
+    return DateFormat('MM-yyyy').format(time);
+  }
+  return '';
+}
+
 String formatYYMMDD(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
