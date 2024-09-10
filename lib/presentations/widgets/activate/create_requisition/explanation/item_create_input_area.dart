@@ -2,6 +2,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ItemCreateInputArea extends StatefulWidget {
   const ItemCreateInputArea(
@@ -12,7 +13,8 @@ class ItemCreateInputArea extends StatefulWidget {
       this.error = '',
       this.maxLines,
       this.fontWeightTitle,
-      this.requiredValidate = false});
+      this.requiredValidate = false,
+      this.textInputFormatter});
 
   final String title;
   final String error;
@@ -21,6 +23,7 @@ class ItemCreateInputArea extends StatefulWidget {
   final ValueChanged<String>? onChange;
   final FontWeight? fontWeightTitle;
   final bool requiredValidate;
+  final List<TextInputFormatter>? textInputFormatter;
 
   @override
   State<ItemCreateInputArea> createState() => _ItemCreateInputAreaState();
@@ -38,6 +41,10 @@ class _ItemCreateInputAreaState extends State<ItemCreateInputArea> {
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x2),
           child: AppInputArea(
+            inputFormatter: widget.textInputFormatter ??
+                [
+                  LengthLimitingTextInputFormatter(255),
+                ],
             maxLines: widget.maxLines ?? 4,
             placeHolder: widget.title,
             controller: widget.textController,

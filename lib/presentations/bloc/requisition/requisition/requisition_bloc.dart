@@ -51,10 +51,17 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
         event.completer?.complete(false);
       }
     } catch (e) {
-      event.completer?.complete(false);
-      e as ResponseBase;
-      final String? errorCode = e.errorMessages.first.errorCode;
-      emit(state.copyWith(errorCode: errorCode));
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+        event.completer?.complete(false);
+      } else {
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+      }
     }
   }
 
@@ -106,10 +113,18 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
         event.completer?.complete(true);
       }
     } catch (e) {
-      event.completer?.complete(false);
-      e as ResponseBase;
-      final String? errorCode = e.errorMessages.first.errorCode;
-      emit(state.copyWith(errorCode: errorCode));
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+        event.completer?.complete(false);
+      } else {
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+        event.completer?.complete(false);
+      }
     }
   }
 
@@ -133,12 +148,18 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
       emit(state.copyWith(requisition: request, errorCode: ''));
       event.completer?.complete(true);
     } catch (e) {
-      event.completer?.complete(false);
-      e as ResponseBase;
-      final String? errorCode = e.errorMessages.first.errorCode;
-      emit(state.copyWith(
-        errorCode: errorCode,
-      ));
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+        event.completer?.complete(false);
+      } else {
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+        event.completer?.complete(false);
+      }
     }
   }
 
@@ -170,10 +191,10 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
         ));
         event.completer?.complete(false);
       } else {
-        event.completer?.complete(false);
         emit(state.copyWith(
           errorCode: 'error',
         ));
+        event.completer?.complete(false);
       }
     }
   }
@@ -208,10 +229,10 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
         ));
         event.completer?.complete(false);
       } else {
-        event.completer?.complete(false);
         emit(state.copyWith(
           errorCode: 'error',
         ));
+        event.completer?.complete(false);
       }
     }
   }

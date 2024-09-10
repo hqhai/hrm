@@ -22,6 +22,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/pages/activate/leave/item_work_shift.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/business/number_work.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
@@ -29,8 +30,10 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/item_
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
+import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -132,7 +135,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog =
+          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
     });
   }
 
@@ -172,25 +176,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                     const SizedBox(
                       height: SpacingUnit.x4,
                     ),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: appLocalizations.titleBusiness,
-                            style: TextStyle(
-                                fontSize: SpacingUnit.x4,
-                                color: colors.text,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          TextSpan(
-                            text: "*",
-                            style: TextStyle(
-                              color: colors.error,
-                              fontSize: SpacingUnit.x4,
-                            ),
-                          ),
-                        ],
-                      ),
+                    TitleRequired(title: appLocalizations.titleBusiness, requiredValidate: true),
+                    const SizedBox(
+                      height: SpacingUnit.x2,
                     ),
                     PeriodTimePicker(
                       requiredValidate: true,
@@ -217,7 +205,8 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                     ],
                     BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
                       builder: (context, stateShift) {
-                        return (errorShift.isNotEmpty && stateShift.keys.isNotEmpty) || checkShirtFirst
+                        return (errorShift.isNotEmpty && stateShift.keys.isNotEmpty) ||
+                                checkShirtFirst
                             ? Text(
                                 errorShift,
                                 style: TextStyle(
@@ -229,23 +218,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       },
                     ),
                     if (!checkShirtFirst && checkShirt)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-                        child: Row(
-                          children: [
-                            Text(
-                              '${appLocalizations.numberTotalWork}: ',
-                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
-                            ),
-                            Text(
-                              numberValue.toString(),
-                              style: TextStyle(
-                                  color: colors.text,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: SpacingUnit.x4),
-                            ),
-                          ],
-                        ),
+                      NumberWorkWidget(
+                        title: appLocalizations.numberTotalWork,
+                        value: numberValue.toString(),
                       ),
                     const SizedBox(
                       height: SpacingUnit.x4,
@@ -263,6 +238,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       onChange: (value) => _setSubstitute(value),
                     ),
                     ItemCreateInput(
+                      textInputFormatter: [
+                        LengthLimitingTextInputFormatter(50),
+                      ],
                       requiredValidate: true,
                       subTitle: appLocalizations.ifOto,
                       error: errorVehicle,
@@ -271,6 +249,9 @@ class _CreateRequisitionBusinessPageState extends State<CreateRequisitionBusines
                       onChange: (value) => _setVehicle(value),
                     ),
                     ItemCreateInputArea(
+                      textInputFormatter: [
+                        LengthLimitingTextInputFormatter(50),
+                      ],
                       requiredValidate: true,
                       error: errorDestination,
                       title: appLocalizations.destination,

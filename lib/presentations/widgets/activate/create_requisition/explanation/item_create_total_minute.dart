@@ -1,4 +1,3 @@
-import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/widgets/custom/app_input.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
@@ -39,9 +38,7 @@ class _ItemCreateTotalMinuteState extends State<ItemCreateTotalMinute> {
             controller: widget.totalMinuteController,
             onChange: (value) => _onChangeTotalMinute(value),
             inputFormatter: [
-              FilteringTextInputFormatter.allow(
-                RegExp(numberOfRegexExp),
-              ),
+              LengthLimitingTextInputFormatter(3),
             ],
           ),
         ),
