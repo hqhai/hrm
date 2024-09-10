@@ -8,6 +8,22 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
+/// Từ int sang khoảng thời gian
+String strTimeFromInt(int time) {
+  final Duration duration = Duration(seconds: time);
+  final DateTime now = DateTime.now();
+  final DateTime startOfDay = DateTime(now.year, now.month, 1, 0, 0, 0);
+  final DateTime result = startOfDay.add(duration);
+  final hours = result.hour;
+  final seconds = result.minute;
+  final day = result.day - 1;
+  if (day < 1) {
+    return "$hours:$seconds";
+  } else {
+    return "${hours + day * 24}:$seconds";
+  }
+}
+
 ///String sang int
 int timeToSeconds(String time) {
   final DateFormat format = DateFormat('HH:mm:ss');
@@ -23,7 +39,7 @@ String? strSeconds(int? time) {
     final DateTime now = DateTime.now();
     final DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
     final DateTime result = startOfDay.add(duration);
-    return time != 0 ? formatHM(result.toString()) : '';
+    return formatHM(result.toString());
   }
   return null;
 }
@@ -49,9 +65,7 @@ bool isAtSameMomentAsDay({
   DateTime? end,
 }) {
   if (start != null && end != null) {
-    return start.year == end.year &&
-        start.month == end.month &&
-        start.day == end.day;
+    return start.year == end.year && start.month == end.month && start.day == end.day;
   }
   return false;
 }
@@ -67,8 +81,7 @@ DateTime getFirstDayOfMonth(DateTime time) {
 DateTime getLastDayOfMonth(DateTime time) {
   final int year = time.year;
   final int month = time.month;
-  var firstDayNextMonth =
-      (month < 12) ? DateTime(year, month + 1, 1) : DateTime(year + 1, 1, 1);
+  var firstDayNextMonth = (month < 12) ? DateTime(year, month + 1, 1) : DateTime(year + 1, 1, 1);
   return firstDayNextMonth.subtract(const Duration(days: 1));
 }
 
@@ -118,8 +131,7 @@ String formatYYMMDD(String time) {
 
 ///Từ số sang thứ trong tuần
 String formatWeekDay(int weekDayIndex) {
-  List weekDayToString =
-      WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
+  List weekDayToString = WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
   return weekDayToString[weekDayIndex - 1];
 }
 
@@ -127,8 +139,7 @@ String formatWeekDay(int weekDayIndex) {
 
 String nameWeekDay(DateTime? time) {
   if (time != null) {
-    final int nowOfWeek =
-        mapNumberDayInWeek[DateFormat('EEE').format(time)] ?? 0;
+    final int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(time)] ?? 0;
     final List<String> weekDayToString =
         WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
     return weekDayToString[nowOfWeek - 1];
