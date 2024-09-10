@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/user_working_history_status.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
@@ -163,17 +164,14 @@ class Attendance {
       ///Nghỉ không lương
       noSalaryRate.toString(),
 
-      /*///Số giờ OT
-      Duration(seconds: overTime).inHours.toString(),*/
-
       ///Số giờ OT tính lương
-      Duration(seconds: overTimeSalary).inHours.toString(),
+      strTimeFromInt(overTimeSalary),
 
       ///Số giờ OT làm bù
-      Duration(seconds: overTimeLeave).inHours.toString(),
+      strTimeFromInt(overTimeLeave),
 
       ///Số giờ làm việc
-      Duration(seconds: workTimeActual).inHours.toString(),
+      strTimeFromInt(workTimeActual),
 
       ///Số phút đi muôn
       Duration(seconds: timeLate).inMinutes.toString(),
