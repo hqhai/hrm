@@ -1977,6 +1977,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get receivedShift => 'Received shift';
 
   @override
+  String get rejectShift => 'Reject shift';
+
+  @override
   String get confirm => 'Confirm';
 
   @override

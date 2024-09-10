@@ -36,9 +36,9 @@ extension ConfigWorkShiftRequestStatusExtension on WorkShiftRequestStatus {
       case WorkShiftRequestStatus.pending:
         return appLocalizations.pending;
       case WorkShiftRequestStatus.approve:
-        return appLocalizations.approver;
+        return appLocalizations.receivedShift;
       case WorkShiftRequestStatus.reject:
-        return appLocalizations.reject;
+        return appLocalizations.rejectShift;
       case WorkShiftRequestStatus.pendingCancel:
         return appLocalizations.pendingCancel;
       case WorkShiftRequestStatus.cancel:
