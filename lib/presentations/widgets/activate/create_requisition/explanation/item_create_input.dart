@@ -1,6 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateInput extends StatefulWidget {
@@ -11,12 +12,14 @@ class ItemCreateInput extends StatefulWidget {
       this.title,
       this.error,
       this.subTitle,
-      this.requiredValidate = false});
+      this.requiredValidate = false,
+      this.textInputFormatter});
 
   final TextEditingController? inputController;
   final ValueChanged<String>? onChange;
   final String? title, error, subTitle;
   final bool requiredValidate;
+  final List<TextInputFormatter>? textInputFormatter;
 
   @override
   State<ItemCreateInput> createState() => _ItemCreateInputState();
@@ -66,6 +69,10 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x3),
           child: AppInputArea(
+            inputFormatter: widget.textInputFormatter ??
+                [
+                  LengthLimitingTextInputFormatter(255),
+                ],
             maxLines: 4,
             error: strValue.isNotEmpty ? '' : widget.error,
             placeHolder: widget.title ?? "",
@@ -73,7 +80,9 @@ class _ItemCreateInputState extends State<ItemCreateInput> {
             onChange: (value) => _onChangeInput(value),
           ),
         ),
-       const SizedBox(height: SpacingUnit.x4,),
+        const SizedBox(
+          height: SpacingUnit.x4,
+        ),
       ],
     );
   }

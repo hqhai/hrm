@@ -22,6 +22,7 @@ import 'package:base_app/presentations/widgets/activate/create_requisition/overt
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
@@ -48,12 +49,10 @@ class CreateRequisitionOverTimePage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionOverTimePage> createState() =>
-      _CreateRequisitionOverTimePageState();
+  State<CreateRequisitionOverTimePage> createState() => _CreateRequisitionOverTimePageState();
 }
 
-class _CreateRequisitionOverTimePageState
-    extends State<CreateRequisitionOverTimePage> {
+class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTimePage> {
   List<RequisitionOverTime> requisitionOverTimes = [];
   List<String> followers = [];
   String description = "", error = '', errorDescription = '', errorDialog = '';
@@ -79,21 +78,20 @@ class _CreateRequisitionOverTimePageState
     final bool checkDescription = description.isNotEmpty;
     setState(() {
       error = check ? '' : appLocalizations.notSelectedAOverTime;
-      errorDescription =
-          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDescription = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return check && checkDescription;
   }
 
   double opacity() {
-    bool check =
-        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog =
+          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
     });
   }
 
@@ -130,10 +128,10 @@ class _CreateRequisitionOverTimePageState
                         title: appLocalizations.listOvertime,
                         error: error,
                         requisitionOverTimes: requisitionOverTimes,
-                        onChangeList: (value) =>
-                            _setChangeRequisitionOverTimes(value),
+                        onChangeList: (value) => _setChangeRequisitionOverTimes(value),
                       ),
                       ItemCreateInputArea(
+                        textInputFormatter: [LengthLimitingTextInputFormatter(500)],
                         requiredValidate: true,
                         title: appLocalizations.reasonCreateRequest,
                         error: errorDescription,
@@ -225,11 +223,9 @@ class _CreateRequisitionOverTimePageState
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate:
-          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit:
-          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => showToast(context: context, errorCode: errorDialog),
       completerSuccess: () => completerSuccess(

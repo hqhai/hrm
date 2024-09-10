@@ -111,10 +111,10 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
         ));
         event.completer?.complete(false);
       } else {
-        event.completer?.complete(false);
         emit(state.copyWith(
           errorCode: 'error',
         ));
+        event.completer?.complete(false);
       }
     }
   }
@@ -154,10 +154,10 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
         ));
         event.completer?.complete(false);
       } else {
-        event.completer?.complete(false);
         emit(state.copyWith(
           errorCode: 'error',
         ));
+        event.completer?.complete(false);
       }
     }
   }

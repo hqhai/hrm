@@ -4,6 +4,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_input.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ItemAddStationeryDialog extends StatefulWidget {
   const ItemAddStationeryDialog(
@@ -40,6 +41,7 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
           child: widget.type == RequisitionTypeEnum.stationery
               ? AppInput(
+                  inputFormatter: [LengthLimitingTextInputFormatter(50)],
                   onClickIcon: () => widget.callBack.call(),
                   icon: Icons.arrow_drop_down_sharp,
                   placeHolder: appLocalizations.product,
@@ -50,6 +52,7 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
                       : appLocalizations.cannotBeLeftBlank,
                 )
               : AppInput(
+                  inputFormatter: [LengthLimitingTextInputFormatter(50)],
                   placeHolder: appLocalizations.product,
                   controller: widget.productController,
                   onChange: (value) => setProduct(value),
@@ -68,6 +71,7 @@ class _ItemAddStationeryDialogState extends State<ItemAddStationeryDialog> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
           child: AppInput(
+            inputFormatter: [LengthLimitingTextInputFormatter(50)],
             placeHolder: appLocalizations.unit,
             controller: widget.unitController,
             onChange: (value) => setUnit(value),

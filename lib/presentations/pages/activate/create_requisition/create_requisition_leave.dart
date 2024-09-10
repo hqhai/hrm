@@ -23,6 +23,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/pages/activate/leave/item_work_shift.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/business/number_work.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
@@ -36,6 +37,7 @@ import 'package:base_app/presentations/widgets/custom/period_time_picker.dart';
 import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -236,23 +238,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         },
                       ),
                       if (!checkShirtFirst && checkShirt)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-                          child: Row(
-                            children: [
-                              Text(
-                                '${appLocalizations.totalLeaveWork}: ',
-                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
-                              ),
-                              Text(
-                                numberValue.toString(),
-                                style: TextStyle(
-                                    color: colors.text,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: SpacingUnit.x4),
-                              ),
-                            ],
-                          ),
+                        NumberWorkWidget(
+                          title: appLocalizations.totalLeaveWork,
+                          value: numberValue.toString(),
                         ),
                       ItemCreateFollower(
                         listFollower: _setListUser(stateUserById.subtitudePersons),
@@ -269,6 +257,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         onChangeFiles: (value) => _setFile(value),
                       ),
                       ItemCreateInputArea(
+                        textInputFormatter: [LengthLimitingTextInputFormatter(500)],
                         error: errorDescription,
                         textController: detailedDescriptionController,
                         title: appLocalizations.detailedDescription,
