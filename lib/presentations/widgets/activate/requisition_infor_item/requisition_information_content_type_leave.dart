@@ -1,5 +1,6 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
@@ -25,6 +26,21 @@ class RequisitionInformationContentTypeLeave extends StatefulWidget {
 
 class _RequisitionInformationContentTypeLeaveState
     extends State<RequisitionInformationContentTypeLeave> {
+  List<WorkShiftRegisteredDetail> _workShiftSettings(List<WorkShiftRegisteredDetail> list) {
+    final workShiftSettings = list;
+    if (workShiftSettings.isNotEmpty) {
+      workShiftSettings.sort((a, b) {
+        int dateComparison = a.workDate.compareTo(b.workDate);
+        if (dateComparison != 0) {
+          return dateComparison;
+        } else {
+          return a.startTime.compareTo(b.startTime);
+        }
+      });
+    }
+    return workShiftSettings;
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -34,15 +50,7 @@ class _RequisitionInformationContentTypeLeaveState
         return BlocBuilder<RequisitionBloc, RequisitionState>(
           builder: (context, state) {
             final request = state.requisition;
-            final workShiftSettings = request.config.workShiftSettings;
-            workShiftSettings.sort((a, b) {
-              int dateComparison = a.workDate.compareTo(b.workDate);
-              if (dateComparison != 0) {
-                return dateComparison;
-              } else {
-                return a.startTime.compareTo(b.startTime);
-              }
-            });
+            final workShiftSettings = _workShiftSettings(request.config.workShiftSettings);
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
               child: Column(
@@ -76,8 +84,7 @@ class _RequisitionInformationContentTypeLeaveState
                     ItemTitleValue(
                       size: SpacingUnit.x4,
                       title: appLocalizations.reason,
-                      value:
-                          request.config.socialInsuranceLeave.configSocialInsuranceLeaveName,
+                      value: request.config.socialInsuranceLeave.configSocialInsuranceLeaveName,
                     ),
                   Padding(
                     padding: const EdgeInsets.only(top: SpacingUnit.x2),

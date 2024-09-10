@@ -12,23 +12,24 @@ import 'package:themes/themes.dart';
 class ItemTakeLeaveWork extends StatefulWidget {
   const ItemTakeLeaveWork({
     super.key,
-    required this.takeLeaveType,
+    this.reasonLeave,
+    required this.type,
   });
 
-  final EnumTakeLeaveType takeLeaveType;
+  final EnumReasonLeave? reasonLeave;
+  final EnumTakeLeaveType type;
 
   @override
   State<ItemTakeLeaveWork> createState() => _ItemTakeLeaveWorkState();
 }
 
 class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
-  UserLeaveHistoryTypes _leaveOT(List<UserLeaveHistoryTypes> userLeaveHistoryTypes, TypeLeaveEnum typeLeave){
-    final index = userLeaveHistoryTypes
-        .indexWhere((element) => element.type == typeLeave);
-    if(index != -1) {
+  UserLeaveHistoryTypes _leaveOT(
+      List<UserLeaveHistoryTypes> userLeaveHistoryTypes, EnumLeaveHistoryType typeLeave) {
+    final index = userLeaveHistoryTypes.indexWhere((element) => element.type == typeLeave);
+    if (index != -1) {
       return userLeaveHistoryTypes[index];
-    }
-    else{
+    } else {
       return const UserLeaveHistoryTypes();
     }
   }
@@ -38,50 +39,74 @@ class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<WorkAndSalaryBloc, WorkAndSalaryState>(
       builder: (context, state) {
-        final leaveOT = _leaveOT(state.userLeave.userLeaveHistoryTypes, TypeLeaveEnum.overTimeLeave);
-        final leaveYear = _leaveOT(state.userLeave.userLeaveHistoryTypes, TypeLeaveEnum.annualLeave);
+        final leaveOT =
+            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.overTimeLeave);
+        final leaveSenior =
+            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.seniorityLeave);
+        final leaveYear =
+            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.annualLeave);
+        final leaveFuneral =
+            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.funeralLeave);
+        final leaveMarrie =
+            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.marriageLeave);
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (widget.takeLeaveType == EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave ||
-                widget.takeLeaveType == EnumTakeLeaveType.otherPaidLeave) ...[
-              item(
-                context: context,
-                title: appLocalizations.leaveNumberUsed,
-                value: leaveYear.total.toString(),
-              ),
-              item(
-                context: context,
-                title: appLocalizations.leaveNumberPermission,
-                value: leaveYear.totalUsed.toString(),
-              ),
-              item(
-                context: context,
-                title: appLocalizations.leaveNumberRemaining,
-                value: leaveYear.totalRemaining.toString(),
-              ),
-            ],
-            if (widget.takeLeaveType == EnumTakeLeaveType.compensatoryLeave) ...[
+            if (widget.reasonLeave == EnumReasonLeave.yearlyLeave &&
+                widget.type != EnumTakeLeaveType.compensatoryLeave)
+              ...leaveByType(leaveYear, context),
+            if (widget.reasonLeave == EnumReasonLeave.seniorityLeave &&
+                widget.type != EnumTakeLeaveType.compensatoryLeave)
+              ...leaveByType(leaveSenior, context),
+            if (widget.reasonLeave == EnumReasonLeave.mourningLeave &&
+                widget.type != EnumTakeLeaveType.compensatoryLeave)
+              ...leaveByType(leaveFuneral, context),
+            if (widget.reasonLeave == EnumReasonLeave.weddingLeave &&
+                widget.type != EnumTakeLeaveType.compensatoryLeave)
+              ...leaveByType(leaveMarrie, context),
+            if (widget.type == EnumTakeLeaveType.compensatoryLeave) ...[
               item(
                 context: context,
                 title: appLocalizations.leaveNumberUsedH,
-                value: (leaveOT.total / 3600).toStringAsFixed(3),
+                value: (leaveOT.total / 3600).toStringAsFixed(1),
               ),
               item(
                 context: context,
                 title: appLocalizations.leaveNumberPermissionH,
-                value: (leaveOT.totalUsed/3600).toStringAsFixed(3),
+                value: (leaveOT.totalUsed / 3600).toStringAsFixed(1),
               ),
               item(
                 context: context,
                 title: appLocalizations.leaveNumberRemainingH,
-                value: (leaveOT.totalRemaining / 3600).toStringAsFixed(3),
+                value: (leaveOT.totalRemaining / 3600).toStringAsFixed(1),
               ),
             ],
           ],
         );
       },
     );
+  }
+
+  List<Widget> leaveByType(UserLeaveHistoryTypes type, BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    return [
+      item(
+        context: context,
+        title: appLocalizations.leaveNumberUsed,
+        value: type.total.toString(),
+      ),
+      item(
+        context: context,
+        title: appLocalizations.leaveNumberPermission,
+        value: type.totalUsed.toString(),
+      ),
+      item(
+        context: context,
+        title: appLocalizations.leaveNumberRemaining,
+        value: type.totalRemaining.toString(),
+      ),
+    ];
   }
 
   Widget item({required BuildContext context, required String title, required String value}) {

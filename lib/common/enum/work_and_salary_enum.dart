@@ -105,3 +105,47 @@ extension ConfigTypeLeaveExtension on TypeLeaveEnum {
     }
   }
 }
+
+enum EnumLeaveHistoryType {
+  @JsonValue('Total')
+  total('Total'),
+  @JsonValue('FuneralLeave')
+  funeralLeave('FuneralLeave'),
+  @JsonValue('AnnualLeave')
+  annualLeave('AnnualLeave'),
+  @JsonValue('SeniorityLeave')
+  seniorityLeave('SeniorityLeave'),
+  @JsonValue('OverTimeLeave')
+  overTimeLeave('OverTimeLeave'),
+  @JsonValue('MarriageLeave')
+  marriageLeave('MarriageLeave'),
+  @JsonValue('')
+  unknown('');
+
+  final String name;
+
+  const EnumLeaveHistoryType(this.name);
+}
+
+extension ConfigLeaveHistoryTypeExtension on EnumLeaveHistoryType {
+  String get configLeaveHistoryTypeEnum {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case EnumLeaveHistoryType.annualLeave:
+        return appLocalizations.annualLeave;
+      case EnumLeaveHistoryType.seniorityLeave:
+        return appLocalizations.seniorityLeave;
+      case EnumLeaveHistoryType.overTimeLeave:
+        return appLocalizations.overTimeLeave;
+      case EnumLeaveHistoryType.total:
+        return appLocalizations.total;
+      case EnumLeaveHistoryType.funeralLeave:
+        return appLocalizations.mourningLeave;
+      case EnumLeaveHistoryType.marriageLeave:
+        return appLocalizations.weddingLeave;
+      default:
+        return '';
+    }
+  }
+}

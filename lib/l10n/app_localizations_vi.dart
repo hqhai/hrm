@@ -1119,10 +1119,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get mourningLeave => 'Nghỉ tang';
 
   @override
-  String get homeSickLeave => 'Nghỉ ốm tại gia';
+  String get homeSickLeave => 'Nghỉ ốm tại nhà';
 
   @override
-  String get hospitalSickLeave => 'Nghỉ ốm tại viện';
+  String get hospitalSickLeave => 'Nghỉ ốm vào viện';
 
   @override
   String get maternityLeave => 'Nghỉ thai sản';

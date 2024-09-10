@@ -31,7 +31,7 @@ class _ListLeaveWidgetState extends State<ListLeaveWidget> {
         ),
         child: Column(
           children:
-              TypeLeaveEnum.values.map((e) => ItemLeave(type: e)).toList(),
+          EnumLeaveHistoryType.values.map((e) => ItemLeave(type: e)).toList(),
         ),
       ),
     );

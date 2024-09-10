@@ -1,4 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
@@ -23,6 +24,23 @@ class RequisitionInformationContentTypeBusinessTrip extends StatefulWidget {
 
 class _RequisitionInformationContentTypeBusinessTripState
     extends State<RequisitionInformationContentTypeBusinessTrip> {
+
+  List<WorkShiftRegisteredDetail> _workShiftSettings(List<WorkShiftRegisteredDetail> list){
+    final workShiftSettings = list;
+    if(workShiftSettings.isNotEmpty) {
+      workShiftSettings.sort((a, b) {
+      int dateComparison = a.workDate.compareTo(b.workDate);
+      if (dateComparison != 0) {
+        return dateComparison;
+      } else {
+        return a.startTime.compareTo(b.startTime);
+      }
+    });
+    }
+    return workShiftSettings;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -31,15 +49,7 @@ class _RequisitionInformationContentTypeBusinessTripState
       builder: (context, stateUserById) {
         return BlocBuilder<RequisitionBloc, RequisitionState>(
           builder: (context, state) {
-            final workShiftSettings = state.requisition.config.workShiftSettings;
-            workShiftSettings.sort((a, b) {
-              int dateComparison = a.workDate.compareTo(b.workDate);
-              if (dateComparison != 0) {
-                return dateComparison;
-              } else {
-                return a.startTime.compareTo(b.startTime);
-              }
-            });
+            final workShiftSettings = _workShiftSettings(state.requisition.config.workShiftSettings);
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
               child: Column(
@@ -53,16 +63,18 @@ class _RequisitionInformationContentTypeBusinessTripState
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  ShiftWidget(
-                    context: context,
-                    title: appLocalizations.firstShift,
-                    workShift: workShiftSettings.first,
-                  ),
-                  ShiftWidget(
-                    context: context,
-                    title: appLocalizations.lastShift,
-                    workShift: workShiftSettings.last,
-                  ),
+                  if(workShiftSettings.isNotEmpty)...[
+                    ShiftWidget(
+                      context: context,
+                      title: appLocalizations.firstShift,
+                      workShift: workShiftSettings.first,
+                    ),
+                    ShiftWidget(
+                      context: context,
+                      title: appLocalizations.lastShift,
+                      workShift: workShiftSettings.last,
+                    ),
+                  ],
                   ItemTitleValueColum(
                     font: FontWeight.w600,
                     size: SpacingUnit.x4,

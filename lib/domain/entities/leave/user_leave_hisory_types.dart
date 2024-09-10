@@ -7,15 +7,15 @@ part 'user_leave_hisory_types.g.dart';
 @CopyWith()
 @JsonSerializable()
 class UserLeaveHistoryTypes {
-  @JsonKey(unknownEnumValue: TypeLeaveEnum.unknown)
-  final TypeLeaveEnum type;
+  @JsonKey(unknownEnumValue: EnumLeaveHistoryType.unknown)
+  final EnumLeaveHistoryType type;
   final double total;
   final double totalExpired;
   final double totalUsed;
   final double totalRemaining;
 
   const UserLeaveHistoryTypes({
-    this.type = TypeLeaveEnum.unknown,
+    this.type = EnumLeaveHistoryType.unknown,
     this.total = 0,
     this.totalExpired = 0,
     this.totalRemaining = 0,
