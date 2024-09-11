@@ -5,6 +5,7 @@ import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/common/utils/error_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/common/utils/toast_utils.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
@@ -50,6 +51,7 @@ class ShiftsPage extends StatefulWidget {
 
 class _ShiftsPageState extends State<ShiftsPage> {
   final TextEditingController reasonController = TextEditingController();
+  String errorDialog = '';
 
   _onBack() {
     Navigator.pop(context);
@@ -66,7 +68,8 @@ class _ShiftsPageState extends State<ShiftsPage> {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
-    return BlocBuilder<WorkDayBloc, WorkDayState>(
+    return BlocConsumer<WorkDayBloc, WorkDayState>(
+      listener: (context, state) => _listener(context, state.errorCode),
       builder: (context, state) {
         final index = state.workDays[date(state)]?.items.indexWhere(
                 (element) => element.workShiftSettingDetailId == widget.id) ??
@@ -218,29 +221,36 @@ class _ShiftsPageState extends State<ShiftsPage> {
         GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
     Navigator.pop(context);
   }
+
+  _listener(BuildContext context, String errorCode) {
+    setState(() {
+      errorDialog =
+      errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+    });
+  }
+
+  _register(
+      {required List<WorkDayRequest> workDays,
+        required BuildContext context,
+        required Map<DateTime, WorkDay> map}) async {
+    final appLocalizations = AppLocalizations.of(context)!;
+    Completer completer = Completer<bool>();
+    dI<WorkDayBloc>()
+        .add(RegisterWorkDay(request: workDays, completer: completer));
+    final check = await completer.future;
+    if (check) {
+      ToastUtils().showSuccess(appLocalizations.success);
+      dI<WorkDayBloc>().add(
+          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+      dI<WorkDayBloc>().add(
+          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
+    } else {
+      ToastUtils().showError(errorDialog);
+    }
+  }
 }
 
-_register(
-    {required List<WorkDayRequest> workDays,
-    required BuildContext context,
-    required Map<DateTime, WorkDay> map}) async {
-  final appLocalizations = AppLocalizations.of(context)!;
-  Completer completer = Completer<bool>();
-  dI<WorkDayBloc>()
-      .add(RegisterWorkDay(request: workDays, completer: completer));
-  await completer.future;
-  final check = await completer.future;
-  if (check) {
-    ToastUtils().showSuccess(appLocalizations.success);
-    dI<WorkDayBloc>().add(
-        GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-    dI<WorkDayBloc>().add(
-        GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-    if (context.mounted) {
-      Navigator.pop(context);
-    }
-  } else {
-    ToastUtils().showError(appLocalizations.unsuccessful);
-  }
-  // dI<WorkDayBloc>().add(const ChangeLoading(status: true));
-}
+

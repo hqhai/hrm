@@ -91,8 +91,8 @@ class LocationUseCaseImpl extends LocationUseCase {
   }
 
   @override
-  Future<bool> registerWorkDays({required WorkDaysRequest request}) async {
-    return await _locationRepository.registerWorkDays(request: request);
+  Future<void> registerWorkDays({required WorkDaysRequest request}) async {
+    await _locationRepository.registerWorkDays(request: request);
   }
 
   @override
@@ -120,9 +120,9 @@ class LocationUseCaseImpl extends LocationUseCase {
   }
 
   @override
-  Future<bool> cancelWorkDay(
+  Future<void> cancelWorkDay(
       {required CancelWorkDayAdminRequest request}) async {
-    return await _locationRepository.cancelWorkDay(request: request);
+    await _locationRepository.cancelWorkDay(request: request);
   }
 
   @override

@@ -31,7 +31,7 @@ abstract class LocationRepository {
   Future<ShiftsResponse> getWorkDays(
       {required DateTime startDate, required DateTime endDate});
 
-  Future<bool> registerWorkDays({required WorkDaysRequest request});
+  Future<void> registerWorkDays({required WorkDaysRequest request});
   Future<void> cancelRegisterWorkDays({required CancelWorkDayRequest request});
 
   Future<GetElectiveShiftResponse> workDayGetElectiveShift(
@@ -42,7 +42,7 @@ abstract class LocationRepository {
   Future<ShiftsAdminResponse> getElectiveShiftDetail(
       {required GetElectiveShiftDetailRequest request});
 
-  Future<bool> cancelWorkDay({
+  Future<void> cancelWorkDay({
     required CancelWorkDayAdminRequest request,
   });
 
