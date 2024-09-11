@@ -564,7 +564,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
   Future<bool> loadWorkAndSalary() async {
     final Completer completer = Completer<bool>();
     dI<WorkAndSalaryBloc>().add(
-      GetTotalLeaveDayEvent(
+      GetTotalLeaveTypeEvent(
         completer: completer,
       ),
     );

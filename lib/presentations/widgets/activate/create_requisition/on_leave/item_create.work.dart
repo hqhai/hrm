@@ -24,31 +24,21 @@ class ItemTakeLeaveWork extends StatefulWidget {
 }
 
 class _ItemTakeLeaveWorkState extends State<ItemTakeLeaveWork> {
-  UserLeaveHistoryTypes _leaveOT(
-      List<UserLeaveHistoryTypes> userLeaveHistoryTypes, EnumLeaveHistoryType typeLeave) {
-    final index = userLeaveHistoryTypes.indexWhere((element) => element.type == typeLeave);
-    if (index != -1) {
-      return userLeaveHistoryTypes[index];
-    } else {
-      return const UserLeaveHistoryTypes();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<WorkAndSalaryBloc, WorkAndSalaryState>(
       builder: (context, state) {
         final leaveOT =
-            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.overTimeLeave);
-        final leaveSenior =
-            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.seniorityLeave);
+            state.mapLeaveType[EnumLeaveHistoryType.overTimeLeave] ?? const UserLeaveHistoryTypes();
+        final leaveSenior = state.mapLeaveType[EnumLeaveHistoryType.seniorityLeave] ??
+            const UserLeaveHistoryTypes();
         final leaveYear =
-            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.annualLeave);
+            state.mapLeaveType[EnumLeaveHistoryType.annualLeave] ?? const UserLeaveHistoryTypes();
         final leaveFuneral =
-            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.funeralLeave);
+            state.mapLeaveType[EnumLeaveHistoryType.funeralLeave] ?? const UserLeaveHistoryTypes();
         final leaveMarrie =
-            _leaveOT(state.userLeave.userLeaveHistoryTypes, EnumLeaveHistoryType.marriageLeave);
+            state.mapLeaveType[EnumLeaveHistoryType.marriageLeave] ?? const UserLeaveHistoryTypes();
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -31,7 +31,10 @@ class _ListLeaveWidgetState extends State<ListLeaveWidget> {
         ),
         child: Column(
           children: EnumLeaveHistoryType.values
-              .where((element) => element != EnumLeaveHistoryType.unknown)
+              .where((element) =>
+                  element != EnumLeaveHistoryType.unknown &&
+                  element != EnumLeaveHistoryType.funeralLeave &&
+                  element != EnumLeaveHistoryType.marriageLeave)
               .map((e) => ItemLeave(type: e))
               .toList(),
         ),
