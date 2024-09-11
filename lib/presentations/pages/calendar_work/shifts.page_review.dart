@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/convert.dart';
@@ -7,11 +8,21 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
+import 'package:common/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
+
+const List<WorkShiftRequestStatus> listStatus = [
+  WorkShiftRequestStatus.usable,
+  WorkShiftRequestStatus.pending,
+  WorkShiftRequestStatus.approve,
+  WorkShiftRequestStatus.cancel,
+  WorkShiftRequestStatus.pendingCancel,
+  WorkShiftRequestStatus.reject,
+];
 
 final shiftsPageReviewRoute = GoRoute(
     path: Pages.shiftsPageReview,
@@ -29,7 +40,6 @@ final shiftsPageReviewRoute = GoRoute(
 
 class ShiftsPageReview extends StatefulWidget {
   final String id;
-
   const ShiftsPageReview({super.key, required this.id});
   @override
   State<ShiftsPageReview> createState() => _ShiftsPageReviewState();
@@ -51,6 +61,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
       builder: (context, state) {
         final data =
             state.items.singleWhere((element) => element.id == widget.id);
+        int index = listStatus.indexWhere((item) => item == data.status);
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: PreferredSize(
@@ -98,6 +109,28 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                   _ShiftsContentWidget(
                     data: data,
                   ),
+                  Divider(
+                    color: colors.textTertiary,
+                    height: SpacingUnit.x0_25,
+                  ),
+                  const SizedBox(height: SpacingUnit.x1),
+                  Text(
+                    appLocalizations.shiftHistory,
+                    style: theme.textTheme.titleMedium!
+                        .copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: SpacingUnit.x2),
+                  _Item(listStatus[0], index),
+                  const _ItemLine(),
+                  _Item(listStatus[1], index),
+                  const _ItemLine(),
+                  _Item(listStatus[2], index),
+                  const _ItemLine(),
+                  _Item(listStatus[3], index),
+                  const _ItemLine(),
+                  _Item(listStatus[4], index),
+                  const _ItemLine(),
+                  _Item(listStatus[5], index),
                   // if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
                   //   ShiftReasonWidget(reasonController: reasonController),
                 ],
@@ -219,5 +252,78 @@ class _TitleValueLeave extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _Item extends StatelessWidget {
+  final WorkShiftRequestStatus status;
+  final int index;
+  const _Item(this.status, this.index);
+
+  @override
+  Widget build(BuildContext context) {
+    final int statusIndex =
+        listStatus.indexWhere((element) => element == status);
+    final isCheck = index < statusIndex;
+    return Row(
+      children: [
+        Icon(Icons.radio_button_checked,
+            color: isCheck
+                ? ColorUtils.parseHex("#B2B7BC")
+                : setColor(context: context, status: status)),
+        const SizedBox(width: SpacingUnit.x2),
+        Text(
+          status.configWorkShiftRequestStatusName,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: SpacingUnit.x4,
+            color: isCheck
+                ? ColorUtils.parseHex("#B2B7BC")
+                : setColor(context: context, status: status),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ItemLine extends StatelessWidget {
+  const _ItemLine();
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+          left: SpacingUnit.x2_5, top: SpacingUnit.x1, bottom: SpacingUnit.x1),
+      width: SpacingUnit.x0_5,
+      height: SpacingUnit.x6,
+      color: ColorUtils.parseHex("#B2B7BC"),
+    );
+  }
+}
+
+Color setColor({
+  required BuildContext context,
+  required WorkShiftRequestStatus status,
+}) {
+  final colors = AppTheme.getColors(context);
+  switch (status) {
+    case WorkShiftRequestStatus.pending:
+      return colors.goldenPurple;
+    case WorkShiftRequestStatus.approve:
+      return colors.success;
+    case WorkShiftRequestStatus.reject:
+      return ColorUtils.parseHex("#808890");
+    case WorkShiftRequestStatus.pendingCancel:
+      return colors.orange;
+    case WorkShiftRequestStatus.cancel:
+      return colors.error;
+    case WorkShiftRequestStatus.remove:
+      return ColorUtils.parseHex("#808890");
+    case WorkShiftRequestStatus.usable:
+      return colors.blue;
+    case WorkShiftRequestStatus.unusable:
+      return colors.shadow;
+    default:
+      return Colors.transparent;
   }
 }

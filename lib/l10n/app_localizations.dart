@@ -4149,6 +4149,24 @@ abstract class AppLocalizations {
   /// **'Valid timekeeping'**
   String get validTimeKeeping;
 
+  /// No description provided for @cancelShift1.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsubscribe'**
+  String get cancelShift1;
+
+  /// No description provided for @cancelShift2.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Request to cancel shift'**
+  String get cancelShift2;
+
+  /// No description provided for @shiftHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Case status history'**
+  String get shiftHistory;
+
   /// No description provided for @noConnected.
   ///
   /// In en, this message translates to:
