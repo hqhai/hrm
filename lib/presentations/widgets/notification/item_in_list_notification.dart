@@ -21,7 +21,7 @@ class ItemInListNotification extends StatefulWidget {
 }
 
 class _ItemInListNotificationState extends State<ItemInListNotification> {
-  bool checkClick = false;
+  bool checkClick = false, checkRead = true;
 
   @override
   void initState() {
@@ -46,8 +46,8 @@ class _ItemInListNotificationState extends State<ItemInListNotification> {
               children: [
                 Text(
                   notification.message,
-                  maxLines: checkClick ? null : 2,
-                  overflow: checkClick ? null : TextOverflow.ellipsis,
+                  maxLines: checkRead ? null : 2,
+                  overflow: checkRead ? null : TextOverflow.ellipsis,
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x4,
@@ -91,6 +91,7 @@ class _ItemInListNotificationState extends State<ItemInListNotification> {
     }
     setState(() {
       checkClick = true;
+      checkRead = !checkRead;
     });
 
   }
