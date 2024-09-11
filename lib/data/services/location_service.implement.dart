@@ -39,8 +39,7 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<GetLocationResponse> getAddress(
-      {required GetLocationRequest getLocationRequest}) async {
+  Future<GetLocationResponse> getAddress({required GetLocationRequest getLocationRequest}) async {
     final url = '$baseSystemGatewayUrl${PathConfig.location}';
     final params = getLocationRequest.toJson();
     final response = await client.get(url, params: params);
@@ -51,8 +50,7 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<CheckInGPSResponse> postCheckInGPS(
-      {required CheckInRequest checkInRequest}) async {
+  Future<CheckInGPSResponse> postCheckInGPS({required CheckInRequest checkInRequest}) async {
     final url = '$baseUrlUser${PathConfig.checkIn}';
     final body = jsonEncode(checkInRequest.toJson());
     final response = await client.post(url, body: body);
@@ -63,21 +61,18 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<GetListSchoolsResponse> getListSchools(
-      {required KeyPageRequest keyPageRequest}) async {
+  Future<GetListSchoolsResponse> getListSchools({required KeyPageRequest keyPageRequest}) async {
     final url = '$baseUrlUser${PathConfig.schools}';
     final params = keyPageRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    final GetListSchoolsResponse getListSchoolsResponse =
-        GetListSchoolsResponse.fromJson(data);
+    final GetListSchoolsResponse getListSchoolsResponse = GetListSchoolsResponse.fromJson(data);
     return getListSchoolsResponse;
   }
 
   @override
-  Future<ScheduleSchools> getScheduleSchool(
-      {required DatetimeRequest datetimeRequest}) async {
+  Future<ScheduleSchools> getScheduleSchool({required DatetimeRequest datetimeRequest}) async {
     final url = '$baseUrlUser${PathConfig.scheduleSchool}';
     final params = datetimeRequest.toJson();
     final response = await client.get(url, params: params);
@@ -88,8 +83,7 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<ShiftsResponse> getWorkDays(
-      {required ShiftsRequest shiftsRequest}) async {
+  Future<ShiftsResponse> getWorkDays({required ShiftsRequest shiftsRequest}) async {
     final url = '$baseSystem${PathConfig.getWorkShifts}';
     final request = {
       "endTime": formatYYMMDD(shiftsRequest.endTime.toString()),
@@ -99,8 +93,7 @@ class LocationServiceImpl extends BaseService implements LocationService {
     final response = await client.post(url, body: body, customHeaders: {});
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    final list =
-        (data as List<dynamic>).map((e) => WorkDay.fromJson(e)).toList();
+    final list = (data as List<dynamic>).map((e) => WorkDay.fromJson(e)).toList();
     final ShiftsResponse shiftsResponse = ShiftsResponse(items: list);
     return shiftsResponse;
   }
@@ -116,35 +109,21 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<bool> registerWorkDays({required WorkDaysRequest request}) async {
-    try {
-      final url = '$baseSystem${PathConfig.registerWorkShifts}';
-      final body = jsonEncode(request.toJson());
-      await client.post(url, body: body);
-      return true;
-    } catch (e) {
-      return false;
-    }
+  Future<void> registerWorkDays({required WorkDaysRequest request}) async {
+    final url = '$baseSystem${PathConfig.registerWorkShifts}';
+    final body = jsonEncode(request.toJson());
+    await client.post(url, body: body);
   }
 
   @override
-  Future<void> cancelRegisterWorkDays(
-      {required CancelWorkDayRequest request}) async {
-    try {
-      final url = '$baseSystem${PathConfig.cancelRegisterWorkShifts}';
-      final body = jsonEncode(request.toJson());
-
-      await client.put(url, body: body);
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
+  Future<void> cancelRegisterWorkDays({required CancelWorkDayRequest request}) async {
+    final url = '$baseSystem${PathConfig.cancelRegisterWorkShifts}';
+    final body = jsonEncode(request.toJson());
+    await client.put(url, body: body);
   }
 
   @override
-  Future<ShiftsAdminResponse> getWorkDaysAdmin(
-      {required WorkDayAdminRequest request}) async {
+  Future<ShiftsAdminResponse> getWorkDaysAdmin({required WorkDayAdminRequest request}) async {
     final url = '$baseSystem${PathConfig.workShiftApprove}';
     final params = request.toJson();
     final response = await client.get(url, params: params);
@@ -174,19 +153,10 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<bool> cancelWorkDay(
-      {required CancelWorkDayAdminRequest request}) async {
-    try {
+  Future<void> cancelWorkDay({required CancelWorkDayAdminRequest request}) async {
       final url = '$baseSystem${PathConfig.workshiftRequest}';
       final body = jsonEncode(request.toJson());
       await client.put(url, body: body);
-      return true;
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      return false;
-    }
   }
 
   @override
@@ -206,8 +176,7 @@ class LocationServiceImpl extends BaseService implements LocationService {
 
   @override
   Future<ShiftsAdminResponse> getWorkShiftRequestByUser() async {
-    final url =
-        '$baseSystem${PathConfig.getWorkShiftByUser}?page=1&pageSize=10000';
+    final url = '$baseSystem${PathConfig.getWorkShiftByUser}?page=1&pageSize=10000';
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     return ShiftsAdminResponse.fromJson(responseBase.result);

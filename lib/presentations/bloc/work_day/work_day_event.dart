@@ -32,6 +32,7 @@ class GetWorkDaysEvent extends WorkDayEvent {
 
 class ChangeSelectDate extends WorkDayEvent {
   final DateTime date;
+
   const ChangeSelectDate({
     required this.date,
   });
@@ -44,6 +45,7 @@ class ChangeSelectDate extends WorkDayEvent {
 
 class ChangeLoading extends WorkDayEvent {
   final bool status;
+
   const ChangeLoading({
     required this.status,
   });
@@ -57,6 +59,7 @@ class ChangeLoading extends WorkDayEvent {
 class RegisterWorkDay extends WorkDayEvent {
   final Completer completer;
   final List<WorkDayRequest> request;
+
   const RegisterWorkDay({
     required this.request,
     required this.completer,
@@ -72,6 +75,7 @@ class RegisterWorkDay extends WorkDayEvent {
 class RegisterDetailWorkDay extends WorkDayEvent {
   final Completer completer;
   final WorkDayRequest request;
+
   const RegisterDetailWorkDay({
     required this.request,
     required this.completer,
@@ -86,18 +90,20 @@ class RegisterDetailWorkDay extends WorkDayEvent {
 
 class CancelRegisterWorkDay extends WorkDayEvent {
   final CancelWorkDayRequest data;
+  final Completer? completer;
+
   const CancelRegisterWorkDay({
     required this.data,
+    this.completer,
   });
 
   @override
-  List<Object?> get props => [
-        data,
-      ];
+  List<Object?> get props => [data, completer];
 }
 
 class AddApprove extends WorkDayEvent {
   final ApproveRequest request;
+
   const AddApprove({
     required this.request,
   });
@@ -110,6 +116,7 @@ class AddApprove extends WorkDayEvent {
 
 class GetWorkDayAdmin extends WorkDayEvent {
   final WorkDayAdminRequest data;
+
   const GetWorkDayAdmin({
     required this.data,
   });
@@ -122,6 +129,7 @@ class GetWorkDayAdmin extends WorkDayEvent {
 
 class GetElectiveShift extends WorkDayEvent {
   final WorkDayGetElectiveShiftRequest data;
+
   const GetElectiveShift({
     required this.data,
   });
@@ -134,6 +142,7 @@ class GetElectiveShift extends WorkDayEvent {
 
 class GetElectiveShiftDetail extends WorkDayEvent {
   final GetElectiveShiftDetailRequest data;
+
   const GetElectiveShiftDetail({
     required this.data,
   });
@@ -147,6 +156,7 @@ class GetElectiveShiftDetail extends WorkDayEvent {
 class RegisterWorkDayAdmin extends WorkDayEvent {
   final Completer completer;
   final ApproveRequest request;
+
   const RegisterWorkDayAdmin({
     required this.completer,
     required this.request,
@@ -162,6 +172,7 @@ class RegisterWorkDayAdmin extends WorkDayEvent {
 class CancelRegisterWorkDayAdmin extends WorkDayEvent {
   final CancelWorkDayAdminRequest data;
   final Completer completer;
+
   const CancelRegisterWorkDayAdmin({
     required this.completer,
     required this.data,
@@ -176,6 +187,7 @@ class CancelRegisterWorkDayAdmin extends WorkDayEvent {
 
 class GetWorkDayByUser extends WorkDayEvent {
   final Completer completer;
+
   const GetWorkDayByUser({
     required this.completer,
   });

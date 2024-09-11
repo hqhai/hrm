@@ -3,6 +3,7 @@ import 'dart:core';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/error_utils.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/common/utils/toast_utils.dart';
@@ -46,6 +47,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   bool isShowCheckBox = false;
   List<WorkDayRequest> workDays = [];
   bool isEnable = false;
+  String errorDialog = '';
 
   //scroll
   int currentHeaderScrollIndex = 0;
@@ -171,13 +173,20 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   _onBack() {
     Navigator.pop(context);
   }
+  _listener(BuildContext context, String errorCode) {
+    setState(() {
+      errorDialog =
+      errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
-    return BlocBuilder<WorkDayBloc, WorkDayState>(
+    return BlocConsumer<WorkDayBloc, WorkDayState>(
+      listener: (context, state) => _listener(context, state.errorCode),
       buildWhen: (previous, current) =>
           previous.selectDate != current.selectDate,
       builder: (context, state) {
@@ -373,7 +382,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
         if (check) {
           ToastUtils().showSuccess(appLocalizations.success);
         } else {
-          ToastUtils().showError(appLocalizations.unsuccessful);
+          ToastUtils().showError(errorDialog);
         }
         dI<WorkDayBloc>().add(const ChangeLoading(status: true));
         _closeRegister();

@@ -17,6 +17,7 @@ class WorkDayState extends Equatable {
   final PagingInfoRequest electiveShiftPagingInfo;
   final List<WorkDayAdmin> itemsDetail;
   final PagingInfoRequest pagingInfoDetail;
+  final String errorCode;
 
   const WorkDayState({
     this.itemsDetail = const [],
@@ -29,6 +30,7 @@ class WorkDayState extends Equatable {
     this.isLoading = false,
     this.items = const [],
     this.pagingInfo = const PagingInfoRequest(),
+    this.errorCode = '',
   });
 
   @override
@@ -42,6 +44,7 @@ class WorkDayState extends Equatable {
         workDays,
         workDayIds,
         selectDate,
-        isLoading
+        isLoading,
+        errorCode,
       ];
 }

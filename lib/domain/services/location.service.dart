@@ -29,7 +29,7 @@ abstract class LocationService {
   Future<ShiftsAdminResponse> getWorkDaysAdmin(
       {required WorkDayAdminRequest request});
 
-  Future<bool> registerWorkDays({required WorkDaysRequest request});
+  Future<void> registerWorkDays({required WorkDaysRequest request});
 
   Future<void> cancelRegisterWorkDays({required CancelWorkDayRequest request});
 
@@ -41,7 +41,7 @@ abstract class LocationService {
   Future<ShiftsAdminResponse> getElectiveShiftDetail(
       {required GetElectiveShiftDetailRequest request});
 
-  Future<bool> cancelWorkDay({
+  Future<void> cancelWorkDay({
     required CancelWorkDayAdminRequest request,
   });
 

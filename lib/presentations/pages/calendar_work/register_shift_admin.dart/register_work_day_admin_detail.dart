@@ -87,8 +87,6 @@ class _RegisterWorkDayAdminDetailState
     final check = await completer.future;
     if (check) {
       ToastUtils().showSuccess(appLocalizations.success);
-    } else {
-      ToastUtils().showError(appLocalizations.unsuccessful);
     }
     _onBack();
   }

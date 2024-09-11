@@ -1,19 +1,28 @@
+import 'dart:async';
+
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/common/utils/error_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:common/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
+
+import '../../../common/utils/toast_utils.dart';
+import '../../bloc/work_day/work_day_event.dart';
 
 const List<WorkShiftRequestStatus> listStatus = [
   WorkShiftRequestStatus.usable,
@@ -40,16 +49,65 @@ final shiftsPageReviewRoute = GoRoute(
 
 class ShiftsPageReview extends StatefulWidget {
   final String id;
+
   const ShiftsPageReview({super.key, required this.id});
+
   @override
   State<ShiftsPageReview> createState() => _ShiftsPageReviewState();
 }
 
 class _ShiftsPageReviewState extends State<ShiftsPageReview> {
   final TextEditingController reasonController = TextEditingController();
+  String errorDialog = '';
 
   _onBack() {
     Navigator.pop(context);
+  }
+
+  _onSubmit({required String note, required String id, required Map<DateTime, WorkDay> map}) async {
+    Completer completerCancel = Completer();
+    dI<WorkDayBloc>().add(CancelRegisterWorkDay(
+      data: CancelWorkDayRequest(note: "note", id: id),
+      completer: completerCancel,
+    ));
+    final checkCancel = await completerCancel.future;
+    if (checkCancel) {
+      Completer completer = Completer();
+      dI<WorkDayBloc>().add(GetWorkDayByUser(completer: completer));
+      final check = await completer.future;
+      if (check) {
+        _onBack();
+      }
+    }
+  }
+
+  _listener(BuildContext context, String errorCode) {
+    setState(() {
+      errorDialog =
+          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+    });
+  }
+
+  _register(
+      {required List<WorkDayRequest> workDays,
+      required BuildContext context,
+      required Map<DateTime, WorkDay> map}) async {
+    final appLocalizations = AppLocalizations.of(context)!;
+    Completer completer = Completer<bool>();
+    dI<WorkDayBloc>().add(RegisterWorkDay(request: workDays, completer: completer));
+    final check = await completer.future;
+    if (check) {
+      ToastUtils().showSuccess(appLocalizations.success);
+      Completer completer = Completer();
+      dI<WorkDayBloc>().add(GetWorkDayByUser(completer: completer));
+      await completer.future;
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
+    } else {
+      ToastUtils().showError(errorDialog);
+    }
+    dI<WorkDayBloc>().add(const ChangeLoading(status: true));
   }
 
   @override
@@ -57,10 +115,10 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
-    return BlocBuilder<WorkDayBloc, WorkDayState>(
+    return BlocConsumer<WorkDayBloc, WorkDayState>(
+      listener: (context, state) => _listener(context, state.errorCode),
       builder: (context, state) {
-        final data =
-            state.items.singleWhere((element) => element.id == widget.id);
+        final data = state.items.singleWhere((element) => element.id == widget.id);
         int index = listStatus.indexWhere((item) => item == data.status);
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -89,8 +147,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                           const SizedBox(width: SpacingUnit.x4),
                           Text(
                             appLocalizations.shiftDetails,
-                            style: theme.textTheme.titleLarge!
-                                .copyWith(fontWeight: FontWeight.w600),
+                            style:
+                                theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -116,8 +174,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                   const SizedBox(height: SpacingUnit.x1),
                   Text(
                     appLocalizations.shiftHistory,
-                    style: theme.textTheme.titleMedium!
-                        .copyWith(fontWeight: FontWeight.w600),
+                    style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: SpacingUnit.x2),
                   _Item(listStatus[0], index),
@@ -131,6 +188,29 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                   _Item(listStatus[4], index),
                   const _ItemLine(),
                   _Item(listStatus[5], index),
+                  const SizedBox(height: SpacingUnit.x4),
+                  if (checkType(data.status))
+                    AppButton(
+                      colorText: Colors.white,
+                      title: mapByStatus(context: context, status: data.status)['titleButton'],
+                      onSubmit: () {
+                        if (data.status == WorkShiftRequestStatus.usable) {
+                          _register(context: context, map: state.workDays, workDays: [
+                            WorkDayRequest(
+                              workShiftSettingDetailId: data.workShiftSettingDetailId,
+                              workDate: formatYYMMDD(data.workDate.toString()),
+                            )
+                          ]);
+                        } else {
+                          _onSubmit(
+                            note: reasonController.text,
+                            id: data.id,
+                            map: state.workDays,
+                          );
+                        }
+                      },
+                      color: mapByStatus(context: context, status: data.status)['color'],
+                    ),
                   // if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
                   //   ShiftReasonWidget(reasonController: reasonController),
                 ],
@@ -140,6 +220,49 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
         );
       },
     );
+  }
+
+  Map<String, dynamic> mapByStatus({
+    required BuildContext context,
+    required WorkShiftRequestStatus status,
+  }) {
+    final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
+    switch (status) {
+      case WorkShiftRequestStatus.pending:
+        return {
+          'color': colors.error,
+          'titleButton': appLocalizations.cancelShiftReceiveRegistration,
+        };
+      case WorkShiftRequestStatus.approve:
+        return {
+          'color': colors.error,
+          'titleButton': appLocalizations.cancelShift1,
+        };
+      case WorkShiftRequestStatus.pendingCancel:
+        return {
+          'color': colors.error,
+          'titleButton': appLocalizations.cancelShift2,
+        };
+      case WorkShiftRequestStatus.usable:
+        return {
+          'color': colors.blue,
+          'titleButton': appLocalizations.registerForShifts,
+        };
+      case WorkShiftRequestStatus.reject:
+      case WorkShiftRequestStatus.cancel:
+      case WorkShiftRequestStatus.remove:
+      case WorkShiftRequestStatus.unusable:
+      default:
+        return {};
+    }
+  }
+
+  bool checkType(WorkShiftRequestStatus status) {
+    return status != WorkShiftRequestStatus.reject &&
+        status != WorkShiftRequestStatus.cancel &&
+        status != WorkShiftRequestStatus.remove &&
+        status != WorkShiftRequestStatus.unusable;
   }
 }
 
@@ -153,8 +276,7 @@ class _ShiftsContentWidget extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     final DateFormat formatter = DateFormat("hh:mm dd/MM/yyyy");
-    final String formatted =
-        formatter.format(data.createdDate ?? DateTime.now());
+    final String formatted = formatter.format(data.createdDate ?? DateTime.now());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -191,8 +313,7 @@ class _ShiftsContentWidget extends StatelessWidget {
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
           title: appLocalizations.workingTime1,
-          value:
-              '${strSeconds(data.startTime) ?? ''} - ${strSeconds(data.endTime) ?? ''}',
+          value: '${strSeconds(data.startTime) ?? ''} - ${strSeconds(data.endTime) ?? ''}',
         ),
         _TitleValueLeave(
           size: SpacingUnit.x3_5,
@@ -258,12 +379,12 @@ class _TitleValueLeave extends StatelessWidget {
 class _Item extends StatelessWidget {
   final WorkShiftRequestStatus status;
   final int index;
+
   const _Item(this.status, this.index);
 
   @override
   Widget build(BuildContext context) {
-    final int statusIndex =
-        listStatus.indexWhere((element) => element == status);
+    final int statusIndex = listStatus.indexWhere((element) => element == status);
     final isCheck = index < statusIndex;
     return Row(
       children: [
@@ -289,6 +410,7 @@ class _Item extends StatelessWidget {
 
 class _ItemLine extends StatelessWidget {
   const _ItemLine();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -312,7 +434,7 @@ Color setColor({
     case WorkShiftRequestStatus.approve:
       return colors.success;
     case WorkShiftRequestStatus.reject:
-      return ColorUtils.parseHex("#808890");
+      return colors.surfaceTint;
     case WorkShiftRequestStatus.pendingCancel:
       return colors.orange;
     case WorkShiftRequestStatus.cancel:
