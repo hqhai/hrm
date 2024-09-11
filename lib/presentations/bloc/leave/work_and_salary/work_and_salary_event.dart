@@ -11,8 +11,8 @@ sealed class WorkAndSalaryEvent extends Equatable {
 
 class GetTotalLeaveDayEvent extends WorkAndSalaryEvent {
   final Completer? completer;
-  const GetTotalLeaveDayEvent({this.completer});
 
+  const GetTotalLeaveDayEvent({this.completer});
 
   @override
   List<Object?> get props => [completer];
@@ -25,4 +25,13 @@ class GetTotalWorkdayEvent extends WorkAndSalaryEvent {
 
   @override
   List<Object?> get props => [startTime, endTime];
+}
+
+class GetTotalLeaveTypeEvent extends WorkAndSalaryEvent {
+  final Completer? completer;
+
+  const GetTotalLeaveTypeEvent({this.completer});
+
+  @override
+  List<Object?> get props => [completer];
 }

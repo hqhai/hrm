@@ -5,6 +5,7 @@ import 'package:base_app/data/models/work_and_salary/user_leave_history_request.
 import 'package:base_app/data/models/work_and_salary/user_leave_history_response.dart';
 import 'package:base_app/data/models/work_and_salary/work_shifts_response.dart';
 import 'package:base_app/domain/entities/leave/user_leave.dart';
+import 'package:base_app/domain/entities/leave/user_leave_hisory_types.dart';
 import 'package:base_app/domain/repositories/work_and_salary.repositories.dart';
 import 'package:base_app/domain/services/work_and_salary.service.dart';
 import 'package:injectable/injectable.dart';
@@ -54,5 +55,10 @@ class WorkAndSalaryRepositoryImplement extends WorkAndSalaryRepository {
   @override
   Future<List<WorkShiftsResponse>> workShiftExplanation() async {
     return await _workAndSalaryService.workShiftExplanation();
+  }
+
+  @override
+  Future<List<UserLeaveHistoryTypes>> totalLeaveType() async {
+    return await _workAndSalaryService.totalLeaveType();
   }
 }

@@ -3,6 +3,7 @@ import 'package:base_app/common/enum/work_and_salary_enum.dart';
 import 'package:base_app/data/models/work_and_salary/user_leave_history_response_map.dart';
 import 'package:base_app/data/models/work_and_salary/work_shifts_map_keys.dart';
 import 'package:base_app/domain/entities/leave/user_leave.dart';
+import 'package:base_app/domain/entities/leave/user_leave_hisory_types.dart';
 import 'package:base_app/domain/entities/leave/user_leave_history.dart';
 import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 import 'package:base_app/domain/repositories/work_and_salary.repositories.dart';
@@ -13,8 +14,7 @@ import 'package:injectable/injectable.dart';
 class WorkAndSalaryUseCaseImplement extends WorkAndSalaryUseCase {
   final WorkAndSalaryRepository _workAndSalaryRepository;
 
-  WorkAndSalaryUseCaseImplement()
-      : _workAndSalaryRepository = dI<WorkAndSalaryRepository>();
+  WorkAndSalaryUseCaseImplement() : _workAndSalaryRepository = dI<WorkAndSalaryRepository>();
 
   @override
   Future<UserLeave> totalLeaveDay() async {
@@ -22,17 +22,14 @@ class WorkAndSalaryUseCaseImplement extends WorkAndSalaryUseCase {
   }
 
   @override
-  Future<double> totalWorkday(
-      {required String startTime, required String endTime}) async {
-    return await _workAndSalaryRepository.totalWorkday(
-        startTime: startTime, endTime: endTime);
+  Future<double> totalWorkday({required String startTime, required String endTime}) async {
+    return await _workAndSalaryRepository.totalWorkday(startTime: startTime, endTime: endTime);
   }
 
   @override
   Future<UserLeaveHistoryResponseMap> totalLeaveUserHistory(
       {DateTime? date, TypeLeaveEnum? type, int? page}) async {
-    final userLeaveHistoryResponse =
-        await _workAndSalaryRepository.totalLeaveUserHistory(
+    final userLeaveHistoryResponse = await _workAndSalaryRepository.totalLeaveUserHistory(
       date: date,
       type: type,
       page: page,
@@ -67,16 +64,14 @@ class WorkAndSalaryUseCaseImplement extends WorkAndSalaryUseCase {
     );
     final workShiftRegisteredDetails =
         workShiftResponse.expand((e) => e.workShiftRegisteredDetails).toList();
-    final List<int> dates = workShiftResponse
-        .map((e) => e.workDate?.microsecondsSinceEpoch ?? 0)
-        .toList();
+    final List<int> dates =
+        workShiftResponse.map((e) => e.workDate?.microsecondsSinceEpoch ?? 0).toList();
     final Map<int, List<String>> mapKeyDate = Map.fromEntries(
       workShiftResponse.map(
         (item) => MapEntry(
           item.workDate?.microsecondsSinceEpoch ?? 0,
           item.workShiftRegisteredDetails
-              .map((e) =>
-                  '${e.workShiftDetailId}/${e.workShiftSettingDetailId}/${e.workDate}')
+              .map((e) => '${e.workShiftDetailId}/${e.workShiftSettingDetailId}/${e.workDate}')
               .toList(),
         ),
       ),
@@ -90,26 +85,22 @@ class WorkAndSalaryUseCaseImplement extends WorkAndSalaryUseCase {
         ),
       ),
     );
-    return WorkShiftsMapKeys(
-        keys: dates, mapWorkShift: map, mapKeyDate: mapKeyDate);
+    return WorkShiftsMapKeys(keys: dates, mapWorkShift: map, mapKeyDate: mapKeyDate);
   }
 
   @override
   Future<WorkShiftsMapKeys> workShiftExplanation() async {
-    final workShiftResponse =
-        await _workAndSalaryRepository.workShiftExplanation();
+    final workShiftResponse = await _workAndSalaryRepository.workShiftExplanation();
     final workShiftRegisteredDetails =
         workShiftResponse.expand((e) => e.workShiftRegisteredDetails).toList();
-    final List<int> dates = workShiftResponse
-        .map((e) => e.workDate?.microsecondsSinceEpoch ?? 0)
-        .toList();
+    final List<int> dates =
+        workShiftResponse.map((e) => e.workDate?.microsecondsSinceEpoch ?? 0).toList();
     final Map<int, List<String>> mapKeyDate = Map.fromEntries(
       workShiftResponse.map(
         (item) => MapEntry(
           item.workDate?.microsecondsSinceEpoch ?? 0,
           item.workShiftRegisteredDetails
-              .map(
-                  (e) => '${e.workShiftDetailId}/${e.workShiftSettingDetailId}')
+              .map((e) => '${e.workShiftDetailId}/${e.workShiftSettingDetailId}')
               .toList(),
         ),
       ),
@@ -123,7 +114,11 @@ class WorkAndSalaryUseCaseImplement extends WorkAndSalaryUseCase {
         ),
       ),
     );
-    return WorkShiftsMapKeys(
-        keys: dates, mapWorkShift: map, mapKeyDate: mapKeyDate);
+    return WorkShiftsMapKeys(keys: dates, mapWorkShift: map, mapKeyDate: mapKeyDate);
+  }
+
+  @override
+  Future<List<UserLeaveHistoryTypes>> totalLeaveType() async {
+    return await _workAndSalaryRepository.totalLeaveType();
   }
 }

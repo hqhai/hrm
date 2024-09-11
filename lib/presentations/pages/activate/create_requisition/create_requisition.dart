@@ -308,7 +308,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
   Future<bool> loadWorkAndSalary() async {
     final Completer completer = Completer<bool>();
     dI<WorkAndSalaryBloc>().add(
-      GetTotalLeaveDayEvent(
+      GetTotalLeaveTypeEvent(
         completer: completer,
       ),
     );
