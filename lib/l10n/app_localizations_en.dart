@@ -2043,5 +2043,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get validTimeKeeping => 'Valid timekeeping';
 
   @override
+  String get cancelShift1 => 'Unsubscribe';
+
+  @override
+  String get cancelShift2 => 'Cancel Request to cancel shift';
+
+  @override
+  String get shiftHistory => 'Case status history';
+
+  @override
   String get noConnected => 'No connected!';
 }

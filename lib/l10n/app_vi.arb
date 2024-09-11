@@ -679,5 +679,8 @@
   "recordedNumberOfShifts":"Số công ghi nhận",
   "operationDay":"Ngày thao tác",
   "validTimeKeeping":"Chấm công hợp lệ",
+  "cancelShift1": "Hủy đăng ký ca",
+  "cancelShift2": "Hủy Yêu cầu huỷ ca",
+  "shiftHistory":"Lịch sử trạng thái ca:",
   "noConnected": "Có lỗi sảy ra, vui lòng kiểm tra lại!"
 }

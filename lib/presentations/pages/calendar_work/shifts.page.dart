@@ -185,12 +185,12 @@ class _ShiftsPageState extends State<ShiftsPage> {
       case WorkShiftRequestStatus.approve:
         return {
           'color': colors.error,
-          'titleButton': appLocalizations.cancelShiftCancellationRequest,
+          'titleButton': appLocalizations.cancelShift1,
         };
       case WorkShiftRequestStatus.pendingCancel:
         return {
           'color': colors.error,
-          'titleButton': appLocalizations.cancelShiftCancellationRequest,
+          'titleButton': appLocalizations.cancelShift2,
         };
       case WorkShiftRequestStatus.usable:
         return {

@@ -2043,5 +2043,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get validTimeKeeping => 'Chấm công hợp lệ';
 
   @override
+  String get cancelShift1 => 'Hủy đăng ký ca';
+
+  @override
+  String get cancelShift2 => 'Hủy Yêu cầu huỷ ca';
+
+  @override
+  String get shiftHistory => 'Lịch sử trạng thái ca:';
+
+  @override
   String get noConnected => 'Có lỗi sảy ra, vui lòng kiểm tra lại!';
 }
