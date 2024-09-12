@@ -35,10 +35,11 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
     on<GetWorkDayByUser>(_getWorkDayByUser);
   }
 
-  FutureOr<void> _getWorkDaysEvent(GetWorkDaysEvent event, Emitter<WorkDayState> emit) async {
+  FutureOr<void> _getWorkDaysEvent(
+      GetWorkDaysEvent event, Emitter<WorkDayState> emit) async {
     try {
-      final shiftsResponse =
-          await _locationUseCase.getWorkDays(startDate: event.startDate, endDate: event.endDate);
+      final shiftsResponse = await _locationUseCase.getWorkDays(
+          startDate: event.startDate, endDate: event.endDate);
       final List<WorkDay> workDays = shiftsResponse.items;
       final List<DateTime> workDayId =
           workDays.map((e) => id(e.workDate ?? DateTime.now())).toList();
@@ -61,11 +62,13 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
     return DateTime(time.year, time.month, time.day);
   }
 
-  FutureOr<void> _changeSelectDate(ChangeSelectDate event, Emitter<WorkDayState> emit) {
+  FutureOr<void> _changeSelectDate(
+      ChangeSelectDate event, Emitter<WorkDayState> emit) {
     emit(state.copyWith(selectDate: event.date));
   }
 
-  FutureOr<void> _registerWorkDay(RegisterWorkDay event, Emitter<WorkDayState> emit) async {
+  FutureOr<void> _registerWorkDay(
+      RegisterWorkDay event, Emitter<WorkDayState> emit) async {
     try {
       await _locationUseCase.registerWorkDays(
           request: WorkDaysRequest(workShiftRequestList: event.request));
@@ -99,44 +102,54 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
           errorCode: errorCode,
         ));
         if (currentContext.mounted) {
-          ToastUtils()
-              .showError(ErrorUtils.getErrorMessage(errorCode ?? 'error', context: currentContext));
+          ToastUtils().showError(ErrorUtils.getErrorMessage(
+              errorCode ?? 'error',
+              context: currentContext));
         }
-        event.completer?.complete(false);
+        event.completer?.complete(true);
       } else {
         emit(state.copyWith(
           errorCode: 'error',
         ));
         if (currentContext.mounted) {
-          ToastUtils().showError(ErrorUtils.getErrorMessage('error', context: currentContext));
+          ToastUtils().showError(
+              ErrorUtils.getErrorMessage('error', context: currentContext));
         }
         event.completer?.complete(false);
       }
     }
   }
 
-  FutureOr<void> _changeLoading(ChangeLoading event, Emitter<WorkDayState> emit) {
+  FutureOr<void> _changeLoading(
+      ChangeLoading event, Emitter<WorkDayState> emit) {
     emit(state.copyWith(isLoading: event.status));
   }
 
-  FutureOr<void> _getWorkDayAdmin(GetWorkDayAdmin event, Emitter<WorkDayState> emit) async {
+  FutureOr<void> _getWorkDayAdmin(
+      GetWorkDayAdmin event, Emitter<WorkDayState> emit) async {
     final data = await _locationUseCase.getWorkDaysAdmin(request: event.data);
     emit(state.copyWith(items: data.items, pagingInfo: data.pagingInfo));
   }
 
   Future<FutureOr<void>> _getElectiveShift(
       GetElectiveShift event, Emitter<WorkDayState> emit) async {
-    final data = await _locationUseCase.workDayGetElectiveShift(request: event.data);
-    emit(state.copyWith(electiveShiftItems: data.items, electiveShiftPagingInfo: data.pagingInfo));
+    final data =
+        await _locationUseCase.workDayGetElectiveShift(request: event.data);
+    emit(state.copyWith(
+        electiveShiftItems: data.items,
+        electiveShiftPagingInfo: data.pagingInfo));
   }
 
   FutureOr<void> _getElectiveShiftDetail(
       GetElectiveShiftDetail event, Emitter<WorkDayState> emit) async {
-    final data = await _locationUseCase.getElectiveShiftDetail(request: event.data);
-    emit(state.copyWith(itemsDetail: data.items, pagingInfoDetail: data.pagingInfo));
+    final data =
+        await _locationUseCase.getElectiveShiftDetail(request: event.data);
+    emit(state.copyWith(
+        itemsDetail: data.items, pagingInfoDetail: data.pagingInfo));
   }
 
-  FutureOr<void> _registerAdmin(RegisterWorkDayAdmin event, Emitter<WorkDayState> emit) async {
+  FutureOr<void> _registerAdmin(
+      RegisterWorkDayAdmin event, Emitter<WorkDayState> emit) async {
     try {
       await _locationUseCase.addApprove(request: event.request);
       event.completer.complete(true);
@@ -148,8 +161,9 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
           errorCode: errorCode,
         ));
         if (currentContext.mounted) {
-          ToastUtils()
-              .showError(ErrorUtils.getErrorMessage(errorCode ?? 'error', context: currentContext));
+          ToastUtils().showError(ErrorUtils.getErrorMessage(
+              errorCode ?? 'error',
+              context: currentContext));
         }
         event.completer.complete(false);
       } else {
@@ -157,7 +171,8 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
           errorCode: 'error',
         ));
         if (currentContext.mounted) {
-          ToastUtils().showError(ErrorUtils.getErrorMessage('error', context: currentContext));
+          ToastUtils().showError(
+              ErrorUtils.getErrorMessage('error', context: currentContext));
         }
         event.completer.complete(false);
       }
@@ -177,8 +192,9 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
           errorCode: errorCode,
         ));
         if (currentContext.mounted) {
-          ToastUtils()
-              .showError(ErrorUtils.getErrorMessage(errorCode ?? 'error', context: currentContext));
+          ToastUtils().showError(ErrorUtils.getErrorMessage(
+              errorCode ?? 'error',
+              context: currentContext));
         }
         event.completer.complete(false);
       } else {
@@ -186,7 +202,8 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
           errorCode: 'error',
         ));
         if (currentContext.mounted) {
-          ToastUtils().showError(ErrorUtils.getErrorMessage('error', context: currentContext));
+          ToastUtils().showError(
+              ErrorUtils.getErrorMessage('error', context: currentContext));
         }
         event.completer.complete(false);
       }
@@ -202,7 +219,8 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
 
   Future<FutureOr<void>> _registerDetailWorkDay(
       RegisterDetailWorkDay event, Emitter<WorkDayState> emit) async {
-    final data = await _locationUseCase.registerDetailWorkDays(request: event.request);
+    final data =
+        await _locationUseCase.registerDetailWorkDays(request: event.request);
 
     event.completer.complete(data);
   }

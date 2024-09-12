@@ -123,6 +123,8 @@ class _ShiftsPageState extends State<ShiftsPage> {
                   ),
                   if (data?.status != WorkShiftRequestStatus.usable &&
                       data?.status != WorkShiftRequestStatus.unusable &&
+                      data?.status != WorkShiftRequestStatus.pending &&
+                      data?.status != WorkShiftRequestStatus.reject &&
                       data?.status != WorkShiftRequestStatus.cancel)
                     ShiftReasonWidget(reasonController: reasonController),
                   const Spacer(),
@@ -135,6 +137,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
                               WorkShiftRequestStatus.usable)['titleButton'],
                       onSubmit: () {
                         if (data?.status == WorkShiftRequestStatus.usable ||
+                            data?.status == WorkShiftRequestStatus.reject ||
                             data?.status == WorkShiftRequestStatus.cancel) {
                           _register(
                               context: context,
@@ -149,6 +152,8 @@ class _ShiftsPageState extends State<ShiftsPage> {
                               ]);
                         } else {
                           onSubmit(
+                            status:
+                                data?.status ?? WorkShiftRequestStatus.unknown,
                             note: reasonController.text,
                             id: data?.id ?? '',
                             map: state.workDays,
@@ -170,10 +175,10 @@ class _ShiftsPageState extends State<ShiftsPage> {
   }
 
   bool checkType(WorkShiftRequestStatus status) {
-    return status != WorkShiftRequestStatus.reject &&
+    return
         // status != WorkShiftRequestStatus.cancel &&
         status != WorkShiftRequestStatus.remove &&
-        status != WorkShiftRequestStatus.unusable;
+            status != WorkShiftRequestStatus.unusable;
   }
 
   Map<String, dynamic> mapByStatus({
@@ -219,19 +224,22 @@ class _ShiftsPageState extends State<ShiftsPage> {
   onSubmit(
       {required String note,
       required String id,
-      required Map<DateTime, WorkDay> map}) {
-    if (reasonController.text.isNotEmpty) {
+      required WorkShiftRequestStatus status,
+      required Map<DateTime, WorkDay> map}) async {
+    if (reasonController.text.isNotEmpty ||
+        status == WorkShiftRequestStatus.pending) {
+      Completer completer = Completer<bool>();
       dI<WorkDayBloc>().add(CancelRegisterWorkDay(
+          completer: completer,
           data: CancelWorkDayRequest(note: note, id: id)));
-      dI<WorkDayBloc>().add(
-          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-      dI<WorkDayBloc>().add(
-          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-      dI<WorkDayBloc>().add(
-          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-      Navigator.pop(context);
+      bool isCheck = await completer.future;
+      if (isCheck) {
+        dI<WorkDayBloc>().add(GetWorkDaysEvent(
+            startDate: map.keys.first, endDate: map.keys.last));
+        _onBack();
+      }
     } else {
-      ToastUtils().showError("không có ghi chú");
+      ToastUtils().showError("Lý do không được bỏ trống");
     }
   }
 

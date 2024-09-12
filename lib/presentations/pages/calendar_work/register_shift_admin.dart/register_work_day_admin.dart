@@ -409,24 +409,28 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
 
   _onReject(
       {required String workShiftRequestId,
+      required UserType userType,
       required WorkShiftRequestStatus type}) async {
     final appLocalizations = AppLocalizations.of(context)!;
     try {
       Completer completer = Completer<bool>();
-
-      dI<WorkDayBloc>().add(RegisterWorkDayAdmin(
-          request: ApproveRequest(
-              status: WorkShiftRequestStatus.reject,
-              updateWorkShiftApproves: [
-                UpdateWorkShiftApprovesRequest(
-                    id: workShiftRequestId, note: textEditingController.text)
-              ]),
-          completer: completer));
-      final check = await completer.future;
-      if (check) {
-        _onTapHeader(type);
-        ToastUtils().showSuccess(appLocalizations.success);
-        _onBack();
+      if (textEditingController.text.isEmpty && userType == UserType.manage) {
+        ToastUtils().showError("Lý do không được bỏ trống");
+      } else {
+        dI<WorkDayBloc>().add(RegisterWorkDayAdmin(
+            request: ApproveRequest(
+                status: WorkShiftRequestStatus.reject,
+                updateWorkShiftApproves: [
+                  UpdateWorkShiftApprovesRequest(
+                      id: workShiftRequestId, note: textEditingController.text)
+                ]),
+            completer: completer));
+        final check = await completer.future;
+        if (check) {
+          _onTapHeader(type);
+          ToastUtils().showSuccess(appLocalizations.success);
+          _onBack();
+        }
       }
     } catch (e) {
       ToastUtils().showError(appLocalizations.unsuccessful);
@@ -445,7 +449,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
-
+    textEditingController.text = '';
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -491,6 +495,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                             _onReject(
                               workShiftRequestId: workShiftRequestId,
                               type: type,
+                              userType: widget.userType,
                             );
                           },
                           child: Container(
