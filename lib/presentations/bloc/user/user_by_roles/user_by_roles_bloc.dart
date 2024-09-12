@@ -6,12 +6,12 @@ import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/use_cases/user_usecase.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_roles/user_by_roles_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class UserByRolesBloc extends Bloc<UserByRolesEvent, UserByRolesState> {
+class UserByRolesBloc extends HydratedBloc<UserByRolesEvent, UserByRolesState> {
   final UserUseCase userUseCase;
 
   UserByRolesBloc()
@@ -20,6 +20,7 @@ class UserByRolesBloc extends Bloc<UserByRolesEvent, UserByRolesState> {
     on<UserByRolesEvent>((event, emit) {});
     on<GetUserByRoleEvent>(_getUserByRoleEvent);
     on<ResetUsersEvent>(_resetUsersEvent);
+    on<ResetUserByRolesEvent>(_resetUserByRolesEvent);
   }
 
   FutureOr<void> _getUserByRoleEvent(
@@ -35,5 +36,19 @@ class UserByRolesBloc extends Bloc<UserByRolesEvent, UserByRolesState> {
 
   FutureOr<void> _resetUsersEvent(ResetUsersEvent event, Emitter<UserByRolesState> emit) async {
     emit(const UserByRolesState(status: UserStatus.unknown));
+  }
+
+  @override
+  UserByRolesState? fromJson(Map<String, dynamic> json) {
+    return UserByRolesState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(UserByRolesState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetUserByRolesEvent(ResetUserByRolesEvent event, Emitter<UserByRolesState> emit) {
+    emit(const UserByRolesState());
   }
 }

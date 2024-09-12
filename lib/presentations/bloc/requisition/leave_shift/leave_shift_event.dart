@@ -28,3 +28,10 @@ class GetWorkShiftsExplanationEvent extends LeaveShiftEvent {
   @override
   List<Object?> get props => [completer];
 }
+
+class ResetLeaveShiftEvent extends LeaveShiftEvent {
+  const ResetLeaveShiftEvent();
+
+  @override
+  List<Object> get props => [];
+}

@@ -54,3 +54,37 @@ extension $PersonnelStateCopyWith on PersonnelState {
   // ignore: library_private_types_in_public_api
   _$PersonnelStateCWProxy get copyWith => _$PersonnelStateCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+PersonnelState _$PersonnelStateFromJson(Map<String, dynamic> json) =>
+    PersonnelState(
+      status: $enumDecodeNullable(_$PersonnelStatusEnumMap, json['status']) ??
+          PersonnelStatus.init,
+    );
+
+Map<String, dynamic> _$PersonnelStateToJson(PersonnelState instance) =>
+    <String, dynamic>{
+      'status': _$PersonnelStatusEnumMap[instance.status]!,
+    };
+
+const _$PersonnelStatusEnumMap = {
+  PersonnelStatus.init: 'init',
+  PersonnelStatus.createPersonnelInit: 'createPersonnelInit',
+  PersonnelStatus.createPersonnelSuccess: 'createPersonnelSuccess',
+  PersonnelStatus.createPersonnelError: 'createPersonnelError',
+  PersonnelStatus.updatePersonnelInit: 'updatePersonnelInit',
+  PersonnelStatus.updatePersonnelSuccess: 'updatePersonnelSuccess',
+  PersonnelStatus.updatePersonnelError: 'updatePersonnelError',
+  PersonnelStatus.getPersonnelInit: 'getPersonnelInit',
+  PersonnelStatus.getPersonnelSuccess: 'getPersonnelSuccess',
+  PersonnelStatus.getPersonnelError: 'getPersonnelError',
+  PersonnelStatus.deletePersonnelInit: 'deletePersonnelInit',
+  PersonnelStatus.deletePersonnelSuccess: 'deletePersonnelSuccess',
+  PersonnelStatus.deletePersonnelError: 'deletePersonnelError',
+  PersonnelStatus.getPersonnelByIdInit: 'getPersonnelByIdInit',
+  PersonnelStatus.getPersonnelByIdSuccess: 'getPersonnelByIdSuccess',
+  PersonnelStatus.getPersonnelByIdError: 'getPersonnelByIdError',
+};

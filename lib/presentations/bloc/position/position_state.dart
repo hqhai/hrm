@@ -2,9 +2,11 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/domain/entities/position.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 part 'position_state.g.dart';
 
 @CopyWith()
+@JsonSerializable()
 class PositionState extends Equatable {
   final Position position;
   final List<Position> positions;
@@ -23,4 +25,8 @@ class PositionState extends Equatable {
 
   @override
   List<Object> get props => [position, positions, status];
+
+  factory PositionState.fromJson(Map<String, dynamic> json) => _$PositionStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PositionStateToJson(this);
 }

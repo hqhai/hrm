@@ -197,3 +197,10 @@ class GetWorkDayByUser extends WorkDayEvent {
         completer,
       ];
 }
+
+class ResetWorkDayEvent extends WorkDayEvent {
+  const ResetWorkDayEvent();
+
+  @override
+  List<Object> get props => [];
+}

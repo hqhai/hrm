@@ -12,7 +12,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class NotesBloc extends Bloc<NotesEvent, NotesState> {
+class NotesBloc extends HydratedBloc<NotesEvent, NotesState> {
   final NoteUseCase noteUseCase;
 
   NotesBloc()
@@ -26,6 +26,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     on<DeleteNoteEvent>(_deleteNotesEvent);
     on<ResetNoteEvent>(_resetNoteEvent);
     on<GetCalenderEvent>(_getCalenderEvent);
+    on<ResetNotesEvent>(_resetNotesEvent);
   }
 
   FutureOr<void> _createNotesEvent(CreateNotesEvent event, Emitter<NotesState> emit) async {
@@ -94,5 +95,19 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     } catch (e) {
       emit(state.copyWith(status: NoteStatus.getNoteError));
     }
+  }
+
+  @override
+  NotesState? fromJson(Map<String, dynamic> json) {
+    return NotesState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(NotesState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetNotesEvent(ResetNotesEvent event, Emitter<NotesState> emit) {
+    emit(const NotesState());
   }
 }

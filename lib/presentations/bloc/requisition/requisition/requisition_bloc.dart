@@ -15,11 +15,11 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
+class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   final RequisitionUseCase requisitionUseCase;
   final RequestUseCase _requestUseCase;
 
@@ -33,6 +33,7 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
     on<PostRequestEvent>(_postRequestEvent);
     on<UserRejectRequestEvent>(_userRejectRequestEvent);
     on<EditRequestEvent>(_editRequestEvent);
+    on<ResetRequisitionEvent>(_resetRequisitionEvent);
   }
 
   ///Reject request      ***********************************************
@@ -235,5 +236,19 @@ class RequisitionBloc extends Bloc<RequisitionEvent, RequisitionState> {
         event.completer?.complete(false);
       }
     }
+  }
+
+  @override
+  RequisitionState? fromJson(Map<String, dynamic> json) {
+    return RequisitionState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(RequisitionState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetRequisitionEvent(ResetRequisitionEvent event, Emitter<RequisitionState> emit) {
+    emit(const RequisitionState());
   }
 }

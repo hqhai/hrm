@@ -36,3 +36,10 @@ class GetAttendanceNowEvent extends AttendanceEvent {
   @override
   List<Object> get props => [id];
 }
+
+class ResetAttendanceEvent extends AttendanceEvent {
+  const ResetAttendanceEvent();
+
+  @override
+  List<Object> get props => [];
+}

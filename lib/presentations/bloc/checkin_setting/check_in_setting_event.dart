@@ -26,3 +26,10 @@ class CreateCheckInSettingEvent extends CheckInSettingEvent {
   List<Object?> get props =>
       [departmentId, morningStartTime, morningEndTime, afternoonStartTime, afternoonEndTime];
 }
+
+class ResetCheckInSettingEvent extends CheckInSettingEvent {
+  const ResetCheckInSettingEvent();
+
+  @override
+  List<Object> get props => [];
+}

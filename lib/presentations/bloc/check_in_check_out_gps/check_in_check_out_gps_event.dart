@@ -25,3 +25,10 @@ class PostTimekeepingGPSRequestEvent extends CheckInCheckOutGpsEvent {
   @override
   List<Object?> get props => [longitude, latitude, scheduleSchoolId, completer];
 }
+
+class ResetCheckInCheckOutGpsEvent extends CheckInCheckOutGpsEvent {
+  const ResetCheckInCheckOutGpsEvent();
+
+  @override
+  List<Object> get props => [];
+}

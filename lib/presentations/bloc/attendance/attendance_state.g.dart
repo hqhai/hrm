@@ -67,3 +67,31 @@ extension $AttendanceStateCopyWith on AttendanceState {
   // ignore: library_private_types_in_public_api
   _$AttendanceStateCWProxy get copyWith => _$AttendanceStateCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+AttendanceState _$AttendanceStateFromJson(Map<String, dynamic> json) =>
+    AttendanceState(
+      attendance: json['attendance'] == null
+          ? const Attendance()
+          : Attendance.fromJson(json['attendance'] as Map<String, dynamic>),
+      status: $enumDecodeNullable(_$AttendanceStatusEnumMap, json['status']) ??
+          AttendanceStatus.init,
+    );
+
+Map<String, dynamic> _$AttendanceStateToJson(AttendanceState instance) =>
+    <String, dynamic>{
+      'status': _$AttendanceStatusEnumMap[instance.status]!,
+      'attendance': instance.attendance,
+    };
+
+const _$AttendanceStatusEnumMap = {
+  AttendanceStatus.init: 'init',
+  AttendanceStatus.getAttendanceInit: 'getAttendanceInit',
+  AttendanceStatus.getAttendanceSuccess: 'getAttendanceSuccess',
+  AttendanceStatus.getAttendanceError: 'getAttendanceError',
+  AttendanceStatus.setNoteSuccess: 'setNoteSuccess',
+  AttendanceStatus.setNoteError: 'setNoteError',
+};

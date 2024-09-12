@@ -2,6 +2,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'requisition_approve_state.g.dart';
 
@@ -15,6 +16,7 @@ const statusCountDefault = {
 };
 
 @CopyWith()
+@JsonSerializable()
 class RequisitionApproveState extends Equatable {
   final Request requisition;
   final Map<String, Request> requisitions;
@@ -41,4 +43,8 @@ class RequisitionApproveState extends Equatable {
         errorCode,
         statusRequestCount.hashCode
       ];
+
+  factory RequisitionApproveState.fromJson(Map<String, dynamic> json) => _$RequisitionApproveStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RequisitionApproveStateToJson(this);
 }

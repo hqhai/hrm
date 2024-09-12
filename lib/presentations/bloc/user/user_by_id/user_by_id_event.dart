@@ -28,3 +28,10 @@ class GetSubtitudePersonsByIdEvent extends UserByIdEvent {
   @override
   List<Object?> get props => [ids];
 }
+
+class ResetUserByIdEvent extends UserByIdEvent {
+  const ResetUserByIdEvent();
+
+  @override
+  List<Object> get props => [];
+}

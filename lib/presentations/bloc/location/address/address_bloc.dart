@@ -8,11 +8,11 @@ import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:base_app/presentations/bloc/location/address/address_event.dart';
 import 'package:base_app/presentations/bloc/location/address/address_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class AddressBloc extends Bloc<AddressEvent, AddressState> {
+class AddressBloc extends HydratedBloc<AddressEvent, AddressState> {
   final LocationUseCase locationUseCase;
 
   AddressBloc()
@@ -26,6 +26,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     on<GetDistrictsByKeyEvent>(_getDistrictsByKeyEvent);
     on<GetWardsByKeyEvent>(_getWardsByKeyEvent);
     on<GetProvinceByKeyEvent>(_getProvinceByKeyEvent);
+    on<ResetAddressEvent>(_resetAddressEvent);
   }
 
   FutureOr<void> _getProvincesEvent(GetProvincesEvent event, Emitter<AddressState> emit) async {
@@ -153,5 +154,19 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     } catch (e) {
       emit(state.copyWith(status: AddressStatus.getProvinceByKeyError));
     }*/
+  }
+
+  @override
+  AddressState? fromJson(Map<String, dynamic> json) {
+    return AddressState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AddressState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetAddressEvent(ResetAddressEvent event, Emitter<AddressState> emit) {
+    emit(const AddressState());
   }
 }

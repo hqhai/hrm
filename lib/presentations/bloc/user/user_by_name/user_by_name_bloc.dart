@@ -7,11 +7,11 @@ import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/use_cases/user_usecase.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_event.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class UserByNameBloc extends Bloc<UserByNameEvent, UserByNameState> {
+class UserByNameBloc extends HydratedBloc<UserByNameEvent, UserByNameState> {
   final UserUseCase userUseCase;
 
   UserByNameBloc()
@@ -19,6 +19,7 @@ class UserByNameBloc extends Bloc<UserByNameEvent, UserByNameState> {
         super(const UserByNameState()) {
     on<UserByNameEvent>((event, emit) {});
     on<GetUserByNameEvent>(_getUserByNameEvent);
+    on<ResetUserByNameEvent>(_resetUserByNameEvent);
   }
 
   FutureOr<void> _getUserByNameEvent(
@@ -50,5 +51,19 @@ class UserByNameBloc extends Bloc<UserByNameEvent, UserByNameState> {
       emit(state.copyWith(status: UserStatus.fail));
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  UserByNameState? fromJson(Map<String, dynamic> json) {
+    return UserByNameState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(UserByNameState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetUserByNameEvent(ResetUserByNameEvent event, Emitter<UserByNameState> emit) {
+    emit(const UserByNameState());
   }
 }

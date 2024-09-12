@@ -6,11 +6,11 @@ import 'package:base_app/domain/entities/position.dart';
 import 'package:base_app/domain/use_cases/position_usecase.dart';
 import 'package:base_app/presentations/bloc/position/position_event.dart';
 import 'package:base_app/presentations/bloc/position/position_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class PositionBloc extends Bloc<PositionEvent, PositionState> {
+class PositionBloc extends HydratedBloc<PositionEvent, PositionState> {
   final PositionUseCase positionUseCase;
 
   PositionBloc()
@@ -22,6 +22,7 @@ class PositionBloc extends Bloc<PositionEvent, PositionState> {
     on<DeletePositionsEvent>(_deletePositionsEvent);
     on<UpdatePositionEvent>(_updatePositionEvent);
     on<GetPositionByIdEvent>(_getPositionByIdEvent);
+    on<ResetPositionEvent>(_resetPositionEvent);
   }
 
   FutureOr<void> _createPositionEvent(
@@ -73,4 +74,18 @@ class PositionBloc extends Bloc<PositionEvent, PositionState> {
   }
 
   FutureOr<void> _getPositionByIdEvent(GetPositionByIdEvent event, Emitter<PositionState> emit) {}
+
+  @override
+  PositionState? fromJson(Map<String, dynamic> json) {
+    return PositionState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(PositionState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetPositionEvent(ResetPositionEvent event, Emitter<PositionState> emit) {
+    emit(const PositionState());
+  }
 }

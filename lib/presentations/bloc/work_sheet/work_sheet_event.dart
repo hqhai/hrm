@@ -31,3 +31,10 @@ class GetAttendancesByDateEvent extends WorkSheetEvent {
   @override
   List<Object?> get props => [date, completer];
 }
+
+class ResetWorkSheetEvent extends WorkSheetEvent {
+  const ResetWorkSheetEvent();
+
+  @override
+  List<Object> get props => [];
+}

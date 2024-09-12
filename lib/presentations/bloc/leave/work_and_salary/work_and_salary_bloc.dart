@@ -7,11 +7,11 @@ import 'package:base_app/domain/entities/leave/user_leave_hisory_types.dart';
 import 'package:base_app/domain/use_cases/work_and_salary.usecase.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_event.dart';
 import 'package:base_app/presentations/bloc/leave/work_and_salary/work_and_salary_state.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class WorkAndSalaryBloc extends Bloc<WorkAndSalaryEvent, WorkAndSalaryState> {
+class WorkAndSalaryBloc extends HydratedBloc<WorkAndSalaryEvent, WorkAndSalaryState> {
   final WorkAndSalaryUseCase _workAndSalaryUseCase;
 
   WorkAndSalaryBloc()
@@ -21,6 +21,7 @@ class WorkAndSalaryBloc extends Bloc<WorkAndSalaryEvent, WorkAndSalaryState> {
     on<GetTotalLeaveDayEvent>(_getTotalLeaveDayEvent);
     on<GetTotalWorkdayEvent>(_getTotalWorkdayEvent);
     on<GetTotalLeaveTypeEvent>(_getTotalLeaveTypeEvent);
+    on<ResetWorkAndSalaryEvent>(_resetWorkAndSalaryEvent);
   }
 
   FutureOr<void> _getTotalLeaveDayEvent(
@@ -70,5 +71,19 @@ class WorkAndSalaryBloc extends Bloc<WorkAndSalaryEvent, WorkAndSalaryState> {
     } catch (e) {
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  WorkAndSalaryState? fromJson(Map<String, dynamic> json) {
+    return WorkAndSalaryState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(WorkAndSalaryState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetWorkAndSalaryEvent(ResetWorkAndSalaryEvent event, Emitter<WorkAndSalaryState> emit) {
+    emit(const WorkAndSalaryState());
   }
 }

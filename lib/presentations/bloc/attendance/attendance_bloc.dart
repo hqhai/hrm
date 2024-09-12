@@ -6,12 +6,12 @@ import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/use_cases/attendances_usecase.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
+class AttendanceBloc extends HydratedBloc<AttendanceEvent, AttendanceState> {
   final AttendanceUseCase _attendanceUseCase;
 
   AttendanceBloc()
@@ -21,6 +21,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     on<GetAttendanceEvent>(_getAttendanceEvent);
     on<GetAttendanceNowEvent>(_getAttendanceNowEvent);
     on<GetWorkSheetEvent>(_getWorkSheetEvent);
+    on<ResetAttendanceEvent>(_resetAttendanceEvent);
   }
 
   FutureOr<void> _getAttendanceEvent(
@@ -66,4 +67,20 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       emit(state.copyWith(status: AttendanceStatus.getAttendanceError));
     }
   }
+
+  FutureOr<void> _resetAttendanceEvent(ResetAttendanceEvent event, Emitter<AttendanceState> emit) {
+    emit(const AttendanceState());
+  }
+
+  @override
+  AttendanceState? fromJson(Map<String, dynamic> json) {
+    return AttendanceState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AttendanceState state) {
+    return state.toJson();
+  }
+
+
 }

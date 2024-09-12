@@ -7,11 +7,11 @@ import 'package:base_app/domain/entities/requisition/stationery/stationery.dart'
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/stationery/stationery_event.dart';
 import 'package:base_app/presentations/bloc/requisition/stationery/stationery_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class StationeryBloc extends Bloc<StationeryEvent, StationeryState> {
+class StationeryBloc extends HydratedBloc<StationeryEvent, StationeryState> {
   final RequisitionUseCase requisitionUseCase;
 
   StationeryBloc()
@@ -47,5 +47,15 @@ class StationeryBloc extends Bloc<StationeryEvent, StationeryState> {
     } catch (e) {
       emit(state.copyWith(status: StationeryStatus.fail));
     }
+  }
+
+  @override
+  StationeryState? fromJson(Map<String, dynamic> json) {
+    return StationeryState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(StationeryState state) {
+    return state.toJson();
   }
 }

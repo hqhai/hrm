@@ -4,11 +4,11 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/domain/use_cases/attendances_usecase.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class WorkSheetBloc extends Bloc<WorkSheetEvent, WorkSheetState> {
+class WorkSheetBloc extends HydratedBloc<WorkSheetEvent, WorkSheetState> {
   final AttendanceUseCase _attendanceUseCase;
 
   WorkSheetBloc()
@@ -17,6 +17,7 @@ class WorkSheetBloc extends Bloc<WorkSheetEvent, WorkSheetState> {
     on<WorkSheetEvent>((event, emit) {});
     on<GetWorkSheetEvent>(_getWorkSheetEvent);
     on<GetAttendancesByDateEvent>(_getAttendancesByDateEvent);
+    on<ResetWorkSheetEvent>(_resetWorkSheetEvent);
   }
 
   FutureOr<void> _getWorkSheetEvent(GetWorkSheetEvent event, Emitter<WorkSheetState> emit) async {
@@ -41,5 +42,19 @@ class WorkSheetBloc extends Bloc<WorkSheetEvent, WorkSheetState> {
     } catch (e) {
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  WorkSheetState? fromJson(Map<String, dynamic> json) {
+    return WorkSheetState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(WorkSheetState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetWorkSheetEvent(ResetWorkSheetEvent event, Emitter<WorkSheetState> emit) {
+    emit(const WorkSheetState());
   }
 }

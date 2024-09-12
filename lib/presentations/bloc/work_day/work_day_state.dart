@@ -2,10 +2,12 @@ import 'package:base_app/data/models/response/paging_infor_request.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'work_day_state.g.dart';
 
 @CopyWith()
+@JsonSerializable()
 class WorkDayState extends Equatable {
   final Map<DateTime, WorkDay> workDays;
   final List<DateTime> workDayIds;
@@ -47,4 +49,8 @@ class WorkDayState extends Equatable {
         isLoading,
         errorCode,
       ];
+
+  factory WorkDayState.fromJson(Map<String, dynamic> json) => _$WorkDayStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WorkDayStateToJson(this);
 }

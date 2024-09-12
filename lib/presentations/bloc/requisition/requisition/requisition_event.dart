@@ -80,3 +80,10 @@ class EditRequestEvent extends RequisitionEvent {
   @override
   List<Object?> get props => [postRequestRequest, completer, files];
 }
+
+class ResetRequisitionEvent extends RequisitionEvent {
+  const ResetRequisitionEvent();
+
+  @override
+  List<Object> get props => [];
+}

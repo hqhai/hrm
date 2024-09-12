@@ -77,3 +77,52 @@ extension $PositionStateCopyWith on PositionState {
   // ignore: library_private_types_in_public_api
   _$PositionStateCWProxy get copyWith => _$PositionStateCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+PositionState _$PositionStateFromJson(Map<String, dynamic> json) =>
+    PositionState(
+      position: json['position'] == null
+          ? const Position(
+              name: '',
+              description: '',
+              id: '',
+              createdUserId: '',
+              createdFullName: '',
+              createdDate: '')
+          : Position.fromJson(json['position'] as Map<String, dynamic>),
+      positions: (json['positions'] as List<dynamic>?)
+              ?.map((e) => Position.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      status: $enumDecodeNullable(_$PositionStatusEnumMap, json['status']) ??
+          PositionStatus.init,
+    );
+
+Map<String, dynamic> _$PositionStateToJson(PositionState instance) =>
+    <String, dynamic>{
+      'position': instance.position,
+      'positions': instance.positions,
+      'status': _$PositionStatusEnumMap[instance.status]!,
+    };
+
+const _$PositionStatusEnumMap = {
+  PositionStatus.init: 'init',
+  PositionStatus.createPositionInit: 'createPositionInit',
+  PositionStatus.createPositionSuccess: 'createPositionSuccess',
+  PositionStatus.createPositionError: 'createPositionError',
+  PositionStatus.updatePositionInit: 'updatePositionInit',
+  PositionStatus.updatePositionSuccess: 'updatePositionSuccess',
+  PositionStatus.updatePositionError: 'updatePositionError',
+  PositionStatus.getPositionInit: 'getPositionInit',
+  PositionStatus.getPositionSuccess: 'getPositionSuccess',
+  PositionStatus.getPositionError: 'getPositionError',
+  PositionStatus.deletePositionInit: 'deletePositionInit',
+  PositionStatus.deletePositionSuccess: 'deletePositionSuccess',
+  PositionStatus.deletePositionError: 'deletePositionError',
+  PositionStatus.getPositionByIdInit: 'getPositionByIdInit',
+  PositionStatus.getPositionByIdSuccess: 'getPositionByIdSuccess',
+  PositionStatus.getPositionByIdError: 'getPositionByIdError',
+};

@@ -5,11 +5,11 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/domain/use_cases/check_in_setting_usecase.dart';
 import 'package:base_app/presentations/bloc/checkin_setting/check_in_setting_event.dart';
 import 'package:base_app/presentations/bloc/checkin_setting/check_in_setting_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class CheckInSettingBloc extends Bloc<CheckInSettingEvent, CheckInSettingState> {
+class CheckInSettingBloc extends HydratedBloc<CheckInSettingEvent, CheckInSettingState> {
   final CheckInSettingUseCase checkInSettingUseCase;
 
   CheckInSettingBloc()
@@ -17,6 +17,7 @@ class CheckInSettingBloc extends Bloc<CheckInSettingEvent, CheckInSettingState> 
         super(const CheckInSettingState()) {
     on<CheckInSettingEvent>((event, emit) {});
     on<CreateCheckInSettingEvent>(_createCheckInSettingEvent);
+    on<ResetCheckInSettingEvent>(_resetCheckInSettingEvent);
   }
 
   FutureOr<void> _createCheckInSettingEvent(
@@ -33,5 +34,20 @@ class CheckInSettingBloc extends Bloc<CheckInSettingEvent, CheckInSettingState> 
     } catch (e) {
       emit(state.copyWith(status: CheckInSettingStatus.createCheckInSettingError));
     }
+  }
+
+  @override
+  CheckInSettingState? fromJson(Map<String, dynamic> json) {
+    return CheckInSettingState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(CheckInSettingState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetCheckInSettingEvent(
+      ResetCheckInSettingEvent event, Emitter<CheckInSettingState> emit) {
+    emit(const CheckInSettingState());
   }
 }

@@ -10,11 +10,11 @@ import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
+class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
   final LocationUseCase _locationUseCase;
 
   WorkDayBloc()
@@ -33,6 +33,7 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
     on<RegisterWorkDayAdmin>(_registerAdmin);
     on<CancelRegisterWorkDayAdmin>(_cancelRegisterAdmin);
     on<GetWorkDayByUser>(_getWorkDayByUser);
+    on<ResetWorkDayEvent>(_resetWorkDayEvent);
   }
 
   FutureOr<void> _getWorkDaysEvent(
@@ -42,11 +43,11 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
           startDate: event.startDate, endDate: event.endDate);
       final List<WorkDay> workDays = shiftsResponse.items;
       final List<DateTime> workDayId =
-          workDays.map((e) => id(e.workDate ?? DateTime.now())).toList();
+          workDays.map((e) => _id(e.workDate ?? DateTime.now())).toList();
       final Map<DateTime, WorkDay> mapWorkDays = Map.fromEntries(
         workDays.map(
           (item) => MapEntry(
-            id(item.workDate ?? DateTime.now()),
+            _id(item.workDate ?? DateTime.now()),
             item,
           ),
         ),
@@ -56,10 +57,6 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
     } catch (e) {
       event.completer?.complete(false);
     }
-  }
-
-  DateTime id(DateTime time) {
-    return DateTime(time.year, time.month, time.day);
   }
 
   FutureOr<void> _changeSelectDate(
@@ -224,4 +221,22 @@ class WorkDayBloc extends Bloc<WorkDayEvent, WorkDayState> {
 
     event.completer.complete(data);
   }
+
+  @override
+  WorkDayState? fromJson(Map<String, dynamic> json) {
+    return WorkDayState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(WorkDayState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetWorkDayEvent(ResetWorkDayEvent event, Emitter<WorkDayState> emit) {
+    emit(const WorkDayState());
+  }
+}
+
+DateTime _id(DateTime time) {
+  return DateTime(time.year, time.month, time.day);
 }

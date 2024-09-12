@@ -2,10 +2,12 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'user_by_roles_state.g.dart';
 
 @CopyWith()
+@JsonSerializable()
 class UserByRolesState extends Equatable {
   final List<User> users;
   final UserStatus status;
@@ -14,4 +16,8 @@ class UserByRolesState extends Equatable {
 
   @override
   List<Object> get props => [users, status];
+
+  factory UserByRolesState.fromJson(Map<String, dynamic> json) => _$UserByRolesStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserByRolesStateToJson(this);
 }

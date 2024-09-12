@@ -73,3 +73,10 @@ class ResetNoteEvent extends NotesEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ResetNotesEvent extends NotesEvent {
+  const ResetNotesEvent();
+
+  @override
+  List<Object> get props => [];
+}

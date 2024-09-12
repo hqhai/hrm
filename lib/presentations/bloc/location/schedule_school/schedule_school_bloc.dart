@@ -5,11 +5,11 @@ import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_event.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class ScheduleSchoolBloc extends Bloc<ScheduleSchoolEvent, ScheduleSchoolState> {
+class ScheduleSchoolBloc extends HydratedBloc<ScheduleSchoolEvent, ScheduleSchoolState> {
   final LocationUseCase _locationUseCase;
 
   ScheduleSchoolBloc()
@@ -17,6 +17,7 @@ class ScheduleSchoolBloc extends Bloc<ScheduleSchoolEvent, ScheduleSchoolState> 
         super(const ScheduleSchoolState()) {
     on<ScheduleSchoolEvent>((event, emit) {});
     on<GetScheduleSchoolEvent>(_getScheduleSchoolEvent);
+    on<ResetScheduleSchoolEvent>(_resetScheduleSchoolEvent);
   }
 
   FutureOr<void> _getScheduleSchoolEvent(
@@ -37,5 +38,19 @@ class ScheduleSchoolBloc extends Bloc<ScheduleSchoolEvent, ScheduleSchoolState> 
         event.completer?.complete(false);
       }
     }
+  }
+
+  @override
+  ScheduleSchoolState? fromJson(Map<String, dynamic> json) {
+    return ScheduleSchoolState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(ScheduleSchoolState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetScheduleSchoolEvent(ResetScheduleSchoolEvent event, Emitter<ScheduleSchoolState> emit) {
+    emit(const ScheduleSchoolState());
   }
 }

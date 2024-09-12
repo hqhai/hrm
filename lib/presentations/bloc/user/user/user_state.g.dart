@@ -87,3 +87,33 @@ extension $UserStateCopyWith on UserState {
   // ignore: library_private_types_in_public_api
   _$UserStateCWProxy get copyWith => _$UserStateCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+UserState _$UserStateFromJson(Map<String, dynamic> json) => UserState(
+      user: json['user'] == null
+          ? const User(id: "", createdUserId: "", gender: GenderEnum.male)
+          : User.fromJson(json['user'] as Map<String, dynamic>),
+      email: json['email'] as String? ?? '',
+      status: $enumDecodeNullable(_$UserStatusEnumMap, json['status']) ??
+          UserStatus.init,
+      errorCode: json['errorCode'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$UserStateToJson(UserState instance) => <String, dynamic>{
+      'user': instance.user,
+      'email': instance.email,
+      'errorCode': instance.errorCode,
+      'status': _$UserStatusEnumMap[instance.status]!,
+    };
+
+const _$UserStatusEnumMap = {
+  UserStatus.init: 'init',
+  UserStatus.start: 'start',
+  UserStatus.success: 'success',
+  UserStatus.fail: 'fail',
+  UserStatus.unauthorized: 'unauthorized',
+  UserStatus.unknown: 'unknown',
+};

@@ -96,3 +96,10 @@ class UpdateDepartmentEvent extends DepartmentEvent {
   @override
   List<Object?> get props => [id, name, code, phoneNumber, email, address, description, parentId];
 }
+
+class ResetDepartmentEvent extends DepartmentEvent {
+  const ResetDepartmentEvent();
+
+  @override
+  List<Object> get props => [];
+}

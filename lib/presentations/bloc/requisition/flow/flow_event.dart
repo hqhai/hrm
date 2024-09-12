@@ -31,3 +31,10 @@ class GetFlowEvent extends FlowEvent {
   @override
   List<Object?> get props => [id, completer];
 }
+
+class ResetFlowEvent extends FlowEvent {
+  const ResetFlowEvent();
+
+  @override
+  List<Object> get props => [];
+}

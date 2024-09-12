@@ -35,3 +35,10 @@ class GetRequisitionsFollowingByFilterEvent extends RequisitionFollowingEvent {
   List<Object?> get props =>
       [startTime, endTime, page, type, userIds, departmentId, status, completer];
 }
+
+class ResetRequisitionFollowingEvent extends RequisitionFollowingEvent {
+  const ResetRequisitionFollowingEvent();
+
+  @override
+  List<Object> get props => [];
+}

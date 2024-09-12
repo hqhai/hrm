@@ -76,3 +76,40 @@ extension $LoginStateCopyWith on LoginState {
   // ignore: library_private_types_in_public_api
   _$LoginStateCWProxy get copyWith => _$LoginStateCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+LoginState _$LoginStateFromJson(Map<String, dynamic> json) => LoginState(
+      status: $enumDecodeNullable(_$LoginStatusEnumMap, json['status']) ??
+          LoginStatus.initLoginState,
+      username: json['username'] as String? ?? '',
+      password: json['password'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$LoginStateToJson(LoginState instance) =>
+    <String, dynamic>{
+      'status': _$LoginStatusEnumMap[instance.status]!,
+      'username': instance.username,
+      'password': instance.password,
+    };
+
+const _$LoginStatusEnumMap = {
+  LoginStatus.userLocked: 'userLocked',
+  LoginStatus.wrongBiometricAccount: 'wrongBiometricAccount',
+  LoginStatus.initLoginState: 'initLoginState',
+  LoginStatus.loginSuccess: 'loginSuccess',
+  LoginStatus.firstLoginSuccess: 'firstLoginSuccess',
+  LoginStatus.loadingState: 'loadingState',
+  LoginStatus.loginAccountRequired: 'loginAccountRequired',
+  LoginStatus.loginFailed: 'loginFailed',
+  LoginStatus.validateFailed: 'validateFailed',
+  LoginStatus.validateSuccess: 'validateSuccess',
+  LoginStatus.statusSuccess: 'statusSuccess',
+  LoginStatus.statusFalse: 'statusFalse',
+  LoginStatus.emailOrUserFalse: 'emailOrUserFalse',
+  LoginStatus.passFalse: 'passFalse',
+  LoginStatus.errorState: 'errorState',
+  LoginStatus.notRegisteredForBiometrics: 'notRegisteredForBiometrics',
+};

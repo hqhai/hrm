@@ -31,3 +31,10 @@ class GetLeaveHistoryEvent extends LeaveHistoryEvent {
         completer,
       ];
 }
+
+class ResetLeaveHistoryEvent extends LeaveHistoryEvent {
+  const ResetLeaveHistoryEvent();
+
+  @override
+  List<Object> get props => [];
+}

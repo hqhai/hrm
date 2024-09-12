@@ -56,3 +56,43 @@ extension $CheckInSettingStateCopyWith on CheckInSettingState {
   _$CheckInSettingStateCWProxy get copyWith =>
       _$CheckInSettingStateCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+CheckInSettingState _$CheckInSettingStateFromJson(Map<String, dynamic> json) =>
+    CheckInSettingState(
+      status:
+          $enumDecodeNullable(_$CheckInSettingStatusEnumMap, json['status']) ??
+              CheckInSettingStatus.init,
+    );
+
+Map<String, dynamic> _$CheckInSettingStateToJson(
+        CheckInSettingState instance) =>
+    <String, dynamic>{
+      'status': _$CheckInSettingStatusEnumMap[instance.status]!,
+    };
+
+const _$CheckInSettingStatusEnumMap = {
+  CheckInSettingStatus.init: 'init',
+  CheckInSettingStatus.createCheckInSettingInit: 'createCheckInSettingInit',
+  CheckInSettingStatus.createCheckInSettingSuccess:
+      'createCheckInSettingSuccess',
+  CheckInSettingStatus.createCheckInSettingError: 'createCheckInSettingError',
+  CheckInSettingStatus.updateCheckInSettingInit: 'updateCheckInSettingInit',
+  CheckInSettingStatus.updateCheckInSettingSuccess:
+      'updateCheckInSettingSuccess',
+  CheckInSettingStatus.updateCheckInSettingError: 'updateCheckInSettingError',
+  CheckInSettingStatus.getCheckInSettingInit: 'getCheckInSettingInit',
+  CheckInSettingStatus.getCheckInSettingSuccess: 'getCheckInSettingSuccess',
+  CheckInSettingStatus.getCheckInSettingError: 'getCheckInSettingError',
+  CheckInSettingStatus.deleteCheckInSettingInit: 'deleteCheckInSettingInit',
+  CheckInSettingStatus.deleteCheckInSettingSuccess:
+      'deleteCheckInSettingSuccess',
+  CheckInSettingStatus.deleteCheckInSettingError: 'deleteCheckInSettingError',
+  CheckInSettingStatus.getCheckInSettingByIdInit: 'getCheckInSettingByIdInit',
+  CheckInSettingStatus.getCheckInSettingByIdSuccess:
+      'getCheckInSettingByIdSuccess',
+  CheckInSettingStatus.getCheckInSettingByIdError: 'getCheckInSettingByIdError',
+};
