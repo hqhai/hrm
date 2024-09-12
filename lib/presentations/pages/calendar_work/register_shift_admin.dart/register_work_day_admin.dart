@@ -432,8 +432,9 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       ToastUtils().showError(appLocalizations.unsuccessful);
     }
   }
-  _onBack(){
-    if(context.mounted){
+
+  _onBack() {
+    if (context.mounted) {
       Navigator.pop(context);
     }
   }
@@ -487,15 +488,11 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            if(textEditingController.text.isEmpty){
-                              ToastUtils().showError("không có ghi chú");
-                            }else{
-                              _onReject(
-                                workShiftRequestId: workShiftRequestId,
-                                type: type,
-                              );
-                            }
-                        } ,
+                            _onReject(
+                              workShiftRequestId: workShiftRequestId,
+                              type: type,
+                            );
+                          },
                           child: Container(
                             height: SpacingUnit.x12,
                             decoration: BoxDecoration(
