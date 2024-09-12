@@ -18,7 +18,6 @@ import 'package:common/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 
 import '../../../common/utils/toast_utils.dart';
@@ -64,7 +63,10 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     Navigator.pop(context);
   }
 
-  _onSubmit({required String note, required String id, required Map<DateTime, WorkDay> map}) async {
+  _onSubmit(
+      {required String note,
+      required String id,
+      required Map<DateTime, WorkDay> map}) async {
     Completer completerCancel = Completer();
     dI<WorkDayBloc>().add(CancelRegisterWorkDay(
       data: CancelWorkDayRequest(note: "note", id: id),
@@ -83,8 +85,9 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
 
   _listener(BuildContext context, String errorCode) {
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -94,7 +97,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
       required Map<DateTime, WorkDay> map}) async {
     final appLocalizations = AppLocalizations.of(context)!;
     Completer completer = Completer<bool>();
-    dI<WorkDayBloc>().add(RegisterWorkDay(request: workDays, completer: completer));
+    dI<WorkDayBloc>()
+        .add(RegisterWorkDay(request: workDays, completer: completer));
     final check = await completer.future;
     if (check) {
       ToastUtils().showSuccess(appLocalizations.success);
@@ -118,7 +122,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     return BlocConsumer<WorkDayBloc, WorkDayState>(
       listener: (context, state) => _listener(context, state.errorCode),
       builder: (context, state) {
-        final data = state.items.singleWhere((element) => element.id == widget.id);
+        final data =
+            state.items.singleWhere((element) => element.id == widget.id);
         int index = listStatus.indexWhere((item) => item == data.status);
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -147,8 +152,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                           const SizedBox(width: SpacingUnit.x4),
                           Text(
                             appLocalizations.shiftDetails,
-                            style:
-                                theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
+                            style: theme.textTheme.titleLarge!
+                                .copyWith(fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -174,7 +179,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                   const SizedBox(height: SpacingUnit.x1),
                   Text(
                     appLocalizations.shiftHistory,
-                    style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600),
+                    style: theme.textTheme.titleMedium!
+                        .copyWith(fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: SpacingUnit.x2),
                   _Item(listStatus[0], index),
@@ -192,15 +198,21 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                   if (checkType(data.status))
                     AppButton(
                       colorText: Colors.white,
-                      title: mapByStatus(context: context, status: data.status)['titleButton'],
+                      title: mapByStatus(
+                          context: context, status: data.status)['titleButton'],
                       onSubmit: () {
                         if (data.status == WorkShiftRequestStatus.usable) {
-                          _register(context: context, map: state.workDays, workDays: [
-                            WorkDayRequest(
-                              workShiftSettingDetailId: data.workShiftSettingDetailId,
-                              workDate: formatYYMMDD(data.workDate.toString()),
-                            )
-                          ]);
+                          _register(
+                              context: context,
+                              map: state.workDays,
+                              workDays: [
+                                WorkDayRequest(
+                                  workShiftSettingDetailId:
+                                      data.workShiftSettingDetailId,
+                                  workDate:
+                                      formatYYMMDD(data.workDate.toString()),
+                                )
+                              ]);
                         } else {
                           _onSubmit(
                             note: reasonController.text,
@@ -209,7 +221,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                           );
                         }
                       },
-                      color: mapByStatus(context: context, status: data.status)['color'],
+                      color: mapByStatus(
+                          context: context, status: data.status)['color'],
                     ),
                   // if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
                   //   ShiftReasonWidget(reasonController: reasonController),
@@ -275,8 +288,6 @@ class _ShiftsContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
-    final DateFormat formatter = DateFormat("hh:mm dd/MM/yyyy");
-    final String formatted = formatter.format(data.createdDate ?? DateTime.now());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -313,7 +324,8 @@ class _ShiftsContentWidget extends StatelessWidget {
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
           title: appLocalizations.workingTime1,
-          value: '${strSeconds(data.startTime) ?? ''} - ${strSeconds(data.endTime) ?? ''}',
+          value:
+              '${strSeconds(data.startTime) ?? ''} - ${strSeconds(data.endTime) ?? ''}',
         ),
         _TitleValueLeave(
           size: SpacingUnit.x3_5,
@@ -326,8 +338,9 @@ class _ShiftsContentWidget extends StatelessWidget {
           size: SpacingUnit.x3_5,
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
-          title: appLocalizations.operationDay,
-          value: formatted,
+          title: appLocalizations.validTimeKeeping,
+          value:
+              '${strSeconds(data.checkInEndTimeValid) ?? ''} - ${strSeconds(data.checkOutEndTimeValid) ?? ''}',
         ),
       ],
     );
@@ -384,7 +397,8 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int statusIndex = listStatus.indexWhere((element) => element == status);
+    final int statusIndex =
+        listStatus.indexWhere((element) => element == status);
     final isCheck = index < statusIndex;
     return Row(
       children: [
