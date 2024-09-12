@@ -21,7 +21,7 @@ class ItemInListNotification extends StatefulWidget {
 }
 
 class _ItemInListNotificationState extends State<ItemInListNotification> {
-  bool checkClick = false, checkRead = true;
+  bool checkClick = false, checkRead = false;
 
   @override
   void initState() {
