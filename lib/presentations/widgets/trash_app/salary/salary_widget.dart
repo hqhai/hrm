@@ -1,6 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/app_input.dart';
+import 'package:base_app/presentations/widgets/trash_app/salary/table_salary.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -19,136 +20,108 @@ class _SalaryWidgetState extends State<SalaryWidget> {
       insuranceController = TextEditingController();
   double salary = 0, familyBackground = 0, insurance = 0, salaryGross = 0, netSalary = 0;
   GrossOfNet grossOfNet = GrossOfNet.not;
+  bool check = false;
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Padding(
       padding: const EdgeInsets.all(SpacingUnit.x4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Thu nhập: ',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-            ),
-          ),
-          AppInput(
-            error: salary > 10000000000 ? 'Tối đa 10 tỷ' : '',
-            keyboardType: TextInputType.number,
-            controller: salaryController,
-            onChange: (value) => setSalary(value),
-          ),
-          const SizedBox(
-            height: SpacingUnit.x4,
-          ),
-          Text(
-            'Số người phụ thuộc: ',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-            ),
-          ),
-          AppInput(
-            keyboardType: TextInputType.number,
-            controller: familyBackgroundController,
-            onChange: (value) => setFamilyBackground(value),
-          ),
-          const SizedBox(
-            height: SpacingUnit.x4,
-          ),
-          Text(
-            'Mức lương đóng bảo hiểm: ',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-            ),
-          ),
-          AppInput(
-            error: insurance > 10000000000 ? 'Tối đa 10 tỷ' : '',
-            keyboardType: TextInputType.number,
-            controller: insuranceController,
-            onChange: (value) => setInsurance(value),
-          ),
-          const SizedBox(
-            height: SpacingUnit.x4,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
-                  child: AppButton(
-                    title: 'GROSS -> NET',
-                    onSubmit: () => _netFromGross(),
-                    color: colors.success,
-                    colorText: colors.background,
-                    colorBorder: colors.success,
-                  ),
-                ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Thu nhập: ',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
-                  child: AppButton(
-                    title: 'NET -> GROSS',
-                    onSubmit: () => _grossFromNet(),
-                    color: colors.background,
-                    colorText: colors.success,
-                    colorBorder: colors.success,
-                  ),
-                ),
+            ),
+            AppInput(
+              error: salary > 10000000000 ? 'Tối đa 10 tỷ' : '',
+              keyboardType: TextInputType.number,
+              controller: salaryController,
+              onChange: (value) => setSalary(value),
+            ),
+            const SizedBox(
+              height: SpacingUnit.x4,
+            ),
+            Text(
+              'Số người phụ thuộc: ',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
               ),
-            ],
-          ),
-          const SizedBox(
-            height: SpacingUnit.x4,
-          ),
-          Row(
-            children: [
-              if (grossOfNet == GrossOfNet.net) ...[
-                Text(
-                  "Lương NET: ",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
+            ),
+            AppInput(
+              keyboardType: TextInputType.number,
+              controller: familyBackgroundController,
+              onChange: (value) => setFamilyBackground(value),
+            ),
+            const SizedBox(
+              height: SpacingUnit.x4,
+            ),
+            Text(
+              'Mức lương đóng bảo hiểm: ',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
+              ),
+            ),
+            AppInput(
+              error: insurance > 10000000000 ? 'Tối đa 10 tỷ' : '',
+              keyboardType: TextInputType.number,
+              controller: insuranceController,
+              onChange: (value) => setInsurance(value),
+            ),
+            const SizedBox(
+              height: SpacingUnit.x4,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+                    child: AppButton(
+                      title: 'GROSS -> NET',
+                      onSubmit: () => _netFromGross(),
+                      color: colors.success,
+                      colorText: colors.background,
+                      colorBorder: colors.success,
+                    ),
                   ),
                 ),
-                Text(
-                  netSalary.toInt().toString(),
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+                    child: AppButton(
+                      title: 'NET -> GROSS',
+                      onSubmit: () => _grossFromNet(),
+                      color: colors.background,
+                      colorText: colors.success,
+                      colorBorder: colors.success,
+                    ),
                   ),
                 ),
               ],
-              if (grossOfNet == GrossOfNet.gross) ...[
-                Text(
-                  "Lương GROSS: ",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                  ),
-                ),
-                Text(
-                  salaryGross.toInt().toString(),
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                  ),
-                ),
-              ],
-            ],
-          )
-        ],
+            ),
+            const SizedBox(
+              height: SpacingUnit.x4,
+            ),
+            if(salaryGross != 0 && netSalary != 0 && salary != 0 && check)
+            TableSalary(
+              gross: salaryGross,
+              salary: netSalary,
+              familyBackground: familyBackground,
+              insurance: insurance,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -194,6 +167,9 @@ class _SalaryWidgetState extends State<SalaryWidget> {
   }
 
   _netFromGross() {
+    setState(() {
+      check = true;
+    });
     if (salary <= 10000000000) {
       double net = 0,
           netIncome = 0,
@@ -223,6 +199,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
         net = salary - (salary * (0.08 + 0.015 + 0.01));
       }
       setState(() {
+        salaryGross = salary;
         netSalary = net;
         grossOfNet = GrossOfNet.net;
       });
@@ -230,6 +207,9 @@ class _SalaryWidgetState extends State<SalaryWidget> {
   }
 
   _grossFromNet() {
+    setState(() {
+      check = true;
+    });
     if (salary <= 10000000000) {
       double gross = salary;
       double netBefore, netIncome;
@@ -287,6 +267,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
       setState(() {
         grossOfNet = GrossOfNet.gross;
         salaryGross = gross;
+        netSalary = salary;
       });
     }
   }
@@ -294,18 +275,21 @@ class _SalaryWidgetState extends State<SalaryWidget> {
   setSalary(String value) {
     setState(() {
       salary = double.parse(value.isNotEmpty ? value : '0');
+      check = false;
     });
   }
 
   setFamilyBackground(String value) {
     setState(() {
       familyBackground = double.parse(value.isNotEmpty ? value : '0');
+      check = false;
     });
   }
 
   setInsurance(String value) {
     setState(() {
       insurance = double.parse(value.isNotEmpty ? value : '0');
+      check = false;
     });
   }
 }
