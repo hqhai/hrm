@@ -121,7 +121,9 @@ class _ShiftsPageState extends State<ShiftsPage> {
                   ShiftsContentWidget(
                     data: data ?? const Shift(),
                   ),
-                  if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
+                  if (data?.status != WorkShiftRequestStatus.usable &&
+                      data?.status != WorkShiftRequestStatus.unusable &&
+                      data?.status != WorkShiftRequestStatus.cancel)
                     ShiftReasonWidget(reasonController: reasonController),
                   const Spacer(),
                   if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
@@ -132,7 +134,8 @@ class _ShiftsPageState extends State<ShiftsPage> {
                           status: data?.status ??
                               WorkShiftRequestStatus.usable)['titleButton'],
                       onSubmit: () {
-                        if (data?.status == WorkShiftRequestStatus.usable) {
+                        if (data?.status == WorkShiftRequestStatus.usable ||
+                            data?.status == WorkShiftRequestStatus.cancel) {
                           _register(
                               context: context,
                               map: state.workDays,
@@ -168,7 +171,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
 
   bool checkType(WorkShiftRequestStatus status) {
     return status != WorkShiftRequestStatus.reject &&
-        status != WorkShiftRequestStatus.cancel &&
+        // status != WorkShiftRequestStatus.cancel &&
         status != WorkShiftRequestStatus.remove &&
         status != WorkShiftRequestStatus.unusable;
   }
@@ -202,6 +205,10 @@ class _ShiftsPageState extends State<ShiftsPage> {
         };
       case WorkShiftRequestStatus.reject:
       case WorkShiftRequestStatus.cancel:
+        return {
+          'color': colors.blue,
+          'titleButton': appLocalizations.registerForShifts,
+        };
       case WorkShiftRequestStatus.remove:
       case WorkShiftRequestStatus.unusable:
       default:
@@ -213,26 +220,33 @@ class _ShiftsPageState extends State<ShiftsPage> {
       {required String note,
       required String id,
       required Map<DateTime, WorkDay> map}) {
-    dI<WorkDayBloc>().add(
-        CancelRegisterWorkDay(data: CancelWorkDayRequest(note: note, id: id)));
-    dI<WorkDayBloc>().add(
-        GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-    dI<WorkDayBloc>().add(
-        GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-    Navigator.pop(context);
+    if (reasonController.text.isNotEmpty) {
+      dI<WorkDayBloc>().add(CancelRegisterWorkDay(
+          data: CancelWorkDayRequest(note: note, id: id)));
+      dI<WorkDayBloc>().add(
+          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+      dI<WorkDayBloc>().add(
+          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+      dI<WorkDayBloc>().add(
+          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+      Navigator.pop(context);
+    } else {
+      ToastUtils().showError("không có ghi chú");
+    }
   }
 
   _listener(BuildContext context, String errorCode) {
     setState(() {
-      errorDialog =
-      errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
   _register(
       {required List<WorkDayRequest> workDays,
-        required BuildContext context,
-        required Map<DateTime, WorkDay> map}) async {
+      required BuildContext context,
+      required Map<DateTime, WorkDay> map}) async {
     final appLocalizations = AppLocalizations.of(context)!;
     Completer completer = Completer<bool>();
     dI<WorkDayBloc>()
@@ -242,8 +256,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
       ToastUtils().showSuccess(appLocalizations.success);
       dI<WorkDayBloc>().add(
           GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-      dI<WorkDayBloc>().add(
-          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+
       if (context.mounted) {
         Navigator.pop(context);
       }
@@ -252,5 +265,3 @@ class _ShiftsPageState extends State<ShiftsPage> {
     }
   }
 }
-
-

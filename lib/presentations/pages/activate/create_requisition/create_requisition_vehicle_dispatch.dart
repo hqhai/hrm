@@ -37,16 +37,19 @@ final createRequestVehicleDispatchPageRoute = GoRoute(
     });
 
 class CreateRequestVehicleDispatchPage extends StatefulWidget {
-  const CreateRequestVehicleDispatchPage({super.key, this.flowId, this.requestId = ''});
+  const CreateRequestVehicleDispatchPage(
+      {super.key, this.flowId, this.requestId = ''});
 
   final String? flowId;
   final String requestId;
 
   @override
-  State<CreateRequestVehicleDispatchPage> createState() => _CreateRequestVehicleDispatchPageState();
+  State<CreateRequestVehicleDispatchPage> createState() =>
+      _CreateRequestVehicleDispatchPageState();
 }
 
-class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleDispatchPage> {
+class _CreateRequestVehicleDispatchPageState
+    extends State<CreateRequestVehicleDispatchPage> {
   final TextEditingController descriptionController = TextEditingController(),
       contentController = TextEditingController();
   double totalMinute = 0;
@@ -71,8 +74,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
       subtitudePersons = [...request.config.subtitudePersons];
       description = request.config.description;
       descriptionController.text = request.config.description;
-      startTime = request.config.startDate??DateTime.now();
-      endTime = request.config.endDate??DateTime.now();
+      startTime = request.config.startDate ?? DateTime.now();
+      endTime = request.config.endDate ?? DateTime.now();
       followers = [...request.followerIds];
     }
     super.initState();
@@ -86,24 +89,31 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkDescription = description != '' && description != null;
     final bool checkContent = content != '' && content != null;
-    final bool check = checkDescription && checkContent && subtitudePersons.isNotEmpty;
+    final bool check =
+        checkDescription && checkContent && subtitudePersons.isNotEmpty;
     setState(() {
-      errorSubtitude = subtitudePersons.isNotEmpty ? '' : appLocalizations.cannotBeLeftBlank;
-      errorTime = !checkTime() ? appLocalizations.endTimeMustBeAfterStartTime : "";
-      errorSchedule = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorSubtitude =
+          subtitudePersons.isNotEmpty ? '' : appLocalizations.cannotBeLeftBlank;
+      errorTime =
+          !checkTime() ? appLocalizations.endTimeMustBeAfterStartTime : "";
+      errorSchedule =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
       errorContent = checkContent ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return check && checkTime();
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -156,7 +166,8 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
                     ItemCreateFollower(
                       requiredValidate: true,
                       error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
-                      listFollower: _setListUser(stateUserById.subtitudePersons),
+                      listFollower:
+                          _setListUser(stateUserById.subtitudePersons),
                       title: appLocalizations.walker,
                       onChange: (value) => _setWalker(value),
                     ),
@@ -266,9 +277,11 @@ class _CreateRequestVehicleDispatchPageState extends State<CreateRequestVehicleD
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
       completerFail: () => completerFail(
         requestId: widget.requestId,
