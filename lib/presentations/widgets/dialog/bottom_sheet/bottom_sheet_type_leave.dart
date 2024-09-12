@@ -3,8 +3,8 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/leave/filter_leave_history_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
-import 'package:base_app/presentations/widgets/custom/app_month_year_picker.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/custom/month_picker.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -46,8 +46,10 @@ class _BottomSheetTypeLeaveWidgetState
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          MonthYearPicker(
-            timeOld: date,
+          MonthPickerLoop(
+            requiredValidate: true,
+            title: appLocalizations.time,
+            oldDate: date,
             onChange: (value) => setDate(value),
           ),
           Padding(
@@ -68,7 +70,7 @@ class _BottomSheetTypeLeaveWidgetState
                   spacing: SpacingUnit.x4,
                   runSpacing: SpacingUnit.x3,
                   children: TypeLeaveEnum.values
-                      .where((e) => e != TypeLeaveEnum.total)
+                      .where((e) => e != TypeLeaveEnum.total && e != TypeLeaveEnum.unknown)
                       .mapIndexed(
                         (index, element) => GestureDetector(
                           onTap: () => setOnChange(
