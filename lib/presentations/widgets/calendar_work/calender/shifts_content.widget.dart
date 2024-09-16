@@ -61,6 +61,12 @@ class ShiftsContentWidget extends StatelessWidget {
           value:
               '${strSeconds(data.checkInEndTimeValid) ?? ''} - ${strSeconds(data.checkOutEndTimeValid) ?? ''}',
         ),
+        TitleValueLeave(
+          padding: SpacingUnit.x2,
+          font: FontWeight.w700,
+          title: appLocalizations.reasonForCancellation,
+          value: data.workShiftApprove.note,
+        ),
         Divider(
           color: colors.textTertiary,
           height: SpacingUnit.x0_25,

@@ -2053,4 +2053,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noConnected => 'No connected!';
+
+  @override
+  String get reasonForCancellation => 'Reason for cancellation';
+
+  @override
+  String get shiftIsCancelled => 'Canceled';
 }

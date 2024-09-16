@@ -681,5 +681,7 @@
   "cancelShift1": "Unsubscribe",
   "cancelShift2": "Cancel Request to cancel shift",
   "shiftHistory":"Case status history",
-  "noConnected": "No connected!"
+  "noConnected": "No connected!",
+  "reasonForCancellation":"Reason for cancellation",
+  "shiftIsCancelled":"Canceled"
 }

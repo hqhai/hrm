@@ -42,7 +42,7 @@ extension ConfigWorkShiftRequestStatusExtension on WorkShiftRequestStatus {
       case WorkShiftRequestStatus.pendingCancel:
         return appLocalizations.pendingCancel;
       case WorkShiftRequestStatus.cancel:
-        return appLocalizations.cancel;
+        return appLocalizations.shiftIsCancelled;
       case WorkShiftRequestStatus.remove:
         return appLocalizations.remove;
       case WorkShiftRequestStatus.usable:
