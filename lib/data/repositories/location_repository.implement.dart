@@ -7,6 +7,7 @@ import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request/get_requests_by_ids.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
@@ -133,5 +134,10 @@ class LocationRepositoryImpl extends LocationRepository {
   @override
   Future<bool> registerDetailWorkDays({required WorkDayRequest request}) async {
     return await _locationService.registerDetailWorkDays(request: request);
+  }
+
+  @override
+  Future<List<Shift>> getShifts({required List<String> ids}) async {
+    return await _locationService.getShifts(ids: GetRequestsByIds(ids: ids));
   }
 }

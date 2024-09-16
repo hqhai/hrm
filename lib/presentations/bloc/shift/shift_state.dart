@@ -8,14 +8,18 @@ part 'shift_state.g.dart';
 @CopyWith()
 @JsonSerializable()
 class ShiftState extends Equatable {
+  final Map<String, Shift> mapShift;
   final Shift shift;
+  final List<String> keys;
 
   const ShiftState({
+    this.mapShift = const {},
+    this.keys = const [],
     this.shift = const Shift(),
   });
 
   @override
-  List<Object> get props => [shift];
+  List<Object> get props => [shift, keys, mapShift];
 
   factory ShiftState.fromJson(Map<String, dynamic> json) => _$ShiftStateFromJson(json);
 

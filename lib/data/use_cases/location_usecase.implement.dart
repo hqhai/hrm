@@ -139,4 +139,9 @@ class LocationUseCaseImpl extends LocationUseCase {
   Future<bool> registerDetailWorkDays({required WorkDayRequest request}) async {
     return await _locationRepository.registerDetailWorkDays(request: request);
   }
+
+  @override
+  Future<List<Shift>> getShifts({required List<String> ids}) async {
+    return await _locationRepository.getShifts(ids: ids);
+  }
 }

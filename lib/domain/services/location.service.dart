@@ -6,6 +6,7 @@ import 'package:base_app/data/models/location/get_list_schools_response.dart';
 import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request/get_requests_by_ids.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
@@ -37,6 +38,8 @@ abstract class LocationService {
       {required WorkDayGetElectiveShiftRequest request});
 
   Future<Shift> getShift({required String id});
+
+  Future<List<Shift>> getShifts({required GetRequestsByIds ids});
 
   Future<ShiftsAdminResponse> getElectiveShiftDetail(
       {required GetElectiveShiftDetailRequest request});

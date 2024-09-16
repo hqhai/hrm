@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:base_app/presentations/bloc/shift/shift_event.dart';
 import 'package:base_app/presentations/bloc/shift/shift_state.dart';
@@ -16,6 +17,7 @@ class ShiftBloc extends HydratedBloc<ShiftEvent, ShiftState> {
         super(const ShiftState()) {
     on<ShiftEvent>((event, emit) {});
     on<GetShiftByIdEvent>(_getShiftByIdEvent);
+    on<GetShiftByIdsEvent>(_getShiftByIdsEvent);
     on<ResetShiftEvent>(_resetShiftEvent);
   }
 
@@ -23,6 +25,24 @@ class ShiftBloc extends HydratedBloc<ShiftEvent, ShiftState> {
     try{
       final shift = await _locationUseCase.getShift(id: event.id);
       emit(state.copyWith(shift: shift));
+      event.completer?.complete(true);
+    }catch(e){
+      event.completer?.complete(false);
+    }
+  }
+
+  FutureOr<void> _getShiftByIdsEvent(GetShiftByIdsEvent event, Emitter<ShiftState> emit) async {
+    try{
+      final shifts = await _locationUseCase.getShifts(ids: event.ids);
+      final Map<String, Shift> mapShifts = Map.fromEntries(
+        shifts.map(
+              (item) => MapEntry(
+            item.id,
+            item,
+          ),
+        ),
+      );
+      emit(state.copyWith(mapShift: mapShifts, keys: event.ids));
       event.completer?.complete(true);
     }catch(e){
       event.completer?.complete(false);

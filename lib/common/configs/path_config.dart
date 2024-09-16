@@ -76,6 +76,7 @@ class PathConfig {
   static String requestByIds = '/request/get-request-by-ids';
   static String attendanceByDate = '/attendance/get-attendances-by-date';
   static String shiftById = '/admin/work-shift';
+  static String shiftByIds = '/work-shift/get-workshifts';
   static String getWorkShiftByUser = '/workshift-request/get-workshift-request-by-user';
 
   ///notification
