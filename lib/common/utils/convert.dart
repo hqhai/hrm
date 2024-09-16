@@ -161,7 +161,7 @@ String dayMonthYear({DateTime? time, required BuildContext context}) {
 
 ///Định dạng Ngyaf Tháng Năm
 String formatDMY(String time) {
-  if (time != '') {
+  if (time != '' && time != 'null') {
     DateTime dateTime = DateTime.parse(time);
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }

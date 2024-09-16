@@ -5,7 +5,6 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
@@ -47,7 +46,8 @@ class UpdateProfilePage extends StatefulWidget {
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   String? address;
   Address? province, ward, district;
-  String errorFirstName = '', errorLastName = '', firstName = '', lastName = '', dateOfBirth = '', phoneNumber = '';
+  String errorFirstName = '', errorLastName = '', firstName = '', lastName = '', phoneNumber = '';
+  DateTime dateOfBirth = DateTime.now();
   File file = File('');
   GenderEnum gender = GenderEnum.male;
   VehicleTypeEnum? vehicleType;
@@ -57,7 +57,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   void initState() {
     User user = dI<UserBloc>().state.user;
     phoneNumber = user.phoneNumber;
-    dateOfBirth = user.dayOfBirth;
+    dateOfBirth = user.dayOfBirth??DateTime.now();
     firstName = user.firstName;
     lastName = user.lastName;
     gender = user.gender;
@@ -121,9 +121,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             content: state.user.companyEmail),
                         ItemDateOfBirthUpdateProfile(
                           title: appLocalizations.dateOfBirth,
-                          dateOfBirth: formatDMY(
-                            state.user.dayOfBirth,
-                          ),
+                          dateOfBirth: state.user.dayOfBirth??DateTime.now(),
                           onChangeDateOfBirth: (value) => _setDateOfBirth(value),
                         ),
                         ItemInputUpdateProfile(
@@ -295,8 +293,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     RegExp regExpPhoneNumber = RegExp(checkPhoneNumberRegexExp);
     bool check = (regExpPhoneNumber.hasMatch(phoneNumber) || phoneNumber.isNotEmpty) &&
         firstName != '' &&
-        lastName != '' &&
-        dateOfBirth != '';
+        lastName != '';
     return check;
   }
 
@@ -354,9 +351,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     });
   }
 
-  _setDateOfBirth(String value) {
+  _setDateOfBirth(DateTime value) {
     setState(() {
-      dateOfBirth = formatYMD(value);
+      dateOfBirth = value;
     });
   }
 }

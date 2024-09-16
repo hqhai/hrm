@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/user_enum.dart';
+import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:base_app/domain/entities/family.dart';
 import 'package:base_app/domain/entities/user_department_position.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
@@ -9,6 +10,7 @@ part 'user.g.dart';
 
 @JsonSerializable()
 @CopyWith()
+@CustomDateTimeConverter()
 class User extends Equatable {
   final bool isUseLogin;
   final String userName;
@@ -18,7 +20,7 @@ class User extends Equatable {
   final String firstName;
   final String lastName;
   final String fullName;
-  final String dayOfBirth;
+  final DateTime? dayOfBirth;
   @JsonKey(unknownEnumValue: GenderEnum.unknown)
   final GenderEnum gender;
   final String avatarPath;
@@ -94,7 +96,7 @@ class User extends Equatable {
       this.firstName = '',
       this.lastName = '',
       this.fullName = '',
-      this.dayOfBirth = '',
+      this.dayOfBirth,
       this.gender = GenderEnum.other,
       this.avatarPath = '',
       this.ciNumber = '',
@@ -162,7 +164,7 @@ class User extends Equatable {
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         isUseLogin,
         userName,
         code,

@@ -37,7 +37,7 @@ abstract class _$UserCWProxy {
 
   User createdUserId(String createdUserId);
 
-  User dayOfBirth(String dayOfBirth);
+  User dayOfBirth(DateTime? dayOfBirth);
 
   User description(String description);
 
@@ -170,7 +170,7 @@ abstract class _$UserCWProxy {
     String? createdDate,
     String? createdFullName,
     String? createdUserId,
-    String? dayOfBirth,
+    DateTime? dayOfBirth,
     String? description,
     String? education,
     EducationLevelEnum? educationLevel,
@@ -284,7 +284,7 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
       this(createdUserId: createdUserId);
 
   @override
-  User dayOfBirth(String dayOfBirth) => this(dayOfBirth: dayOfBirth);
+  User dayOfBirth(DateTime? dayOfBirth) => this(dayOfBirth: dayOfBirth);
 
   @override
   User description(String description) => this(description: description);
@@ -629,11 +629,10 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
               ? _value.createdUserId
               // ignore: cast_nullable_to_non_nullable
               : createdUserId as String,
-      dayOfBirth:
-          dayOfBirth == const $CopyWithPlaceholder() || dayOfBirth == null
-              ? _value.dayOfBirth
-              // ignore: cast_nullable_to_non_nullable
-              : dayOfBirth as String,
+      dayOfBirth: dayOfBirth == const $CopyWithPlaceholder()
+          ? _value.dayOfBirth
+          // ignore: cast_nullable_to_non_nullable
+          : dayOfBirth as DateTime?,
       description:
           description == const $CopyWithPlaceholder() || description == null
               ? _value.description
@@ -915,7 +914,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       firstName: json['firstName'] as String? ?? '',
       lastName: json['lastName'] as String? ?? '',
       fullName: json['fullName'] as String? ?? '',
-      dayOfBirth: json['dayOfBirth'] as String? ?? '',
+      dayOfBirth: _$JsonConverterFromJson<String, DateTime>(
+          json['dayOfBirth'], const CustomDateTimeConverter().fromJson),
       gender: $enumDecodeNullable(_$GenderEnumEnumMap, json['gender'],
               unknownValue: GenderEnum.unknown) ??
           GenderEnum.other,
@@ -998,78 +998,97 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
           VehicleTypeEnum.car,
     );
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'isUseLogin': instance.isUseLogin,
-      'userName': instance.userName,
-      'code': instance.code,
-      'tax': instance.tax,
-      'attendanceId': instance.attendanceId,
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
-      'fullName': instance.fullName,
-      'dayOfBirth': instance.dayOfBirth,
-      'gender': _$GenderEnumEnumMap[instance.gender]!,
-      'avatarPath': instance.avatarPath,
-      'ciNumber': instance.ciNumber,
-      'ciIssuePlace': instance.ciIssuePlace,
-      'ciIssueDate': instance.ciIssueDate,
-      'ciExpiryDate': instance.ciExpiryDate,
-      'passPortNumber': instance.passPortNumber,
-      'passPortIssuePlace': instance.passPortIssuePlace,
-      'passPortIssueDate': instance.passPortIssueDate,
-      'passPortExpiryDate': instance.passPortExpiryDate,
-      'residentProvince': instance.residentProvince,
-      'residentProvinceId': instance.residentProvinceId,
-      'residentAddress': instance.residentAddress,
-      'residentDistrict': instance.residentDistrict,
-      'residentDistrictId': instance.residentDistrictId,
-      'residentWard': instance.residentWard,
-      'residentWardId': instance.residentWardId,
-      'originAddress': instance.originAddress,
-      'originWard': instance.originWard,
-      'originWardId': instance.originWardId,
-      'originDistrict': instance.originDistrict,
-      'originDistrictId': instance.originDistrictId,
-      'originProvince': instance.originProvince,
-      'originProvinceId': instance.originProvinceId,
-      'maritalStatus': instance.maritalStatus,
-      'ethnicity': instance.ethnicity,
-      'religion': instance.religion,
-      'bankName': instance.bankName,
-      'accountHolderName': instance.accountHolderName,
-      'accountNumber': instance.accountNumber,
-      'families': instance.families,
-      'phoneNumber': instance.phoneNumber,
-      'email': instance.email,
-      'companyEmail': instance.companyEmail,
-      'educationLevel': _$EducationLevelEnumEnumMap[instance.educationLevel]!,
-      'education': instance.education,
-      'specializes': instance.specializes,
-      'graduationType': instance.graduationType,
-      'graduationYear': instance.graduationYear,
-      'profileStatus': instance.profileStatus,
-      'probationDay': instance.probationDay,
-      'officialDay': instance.officialDay,
-      'endDate': instance.endDate,
-      'workingStatus': _$WorkingStatusEnumEnumMap[instance.workingStatus]!,
-      'typeOfPersonnel': instance.typeOfPersonnel,
-      'description': instance.description,
-      'userDepartmentPositions': instance.userDepartmentPositions,
-      'isActive': instance.isActive,
-      'id': instance.id,
-      'createdUserId': instance.createdUserId,
-      'updatedUserId': instance.updatedUserId,
-      'createdFullName': instance.createdFullName,
-      'updatedFullName': instance.updatedFullName,
-      'createdDate': instance.createdDate,
-      'updatedDate': instance.updatedDate,
-      'emergencyName': instance.emergencyName,
-      'emergencyPhoneNumber': instance.emergencyPhoneNumber,
-      'emergencyAddress': instance.emergencyAddress,
-      'vehicleType': _$VehicleTypeEnumEnumMap[instance.vehicleType]!,
-      'licensePlate': instance.licensePlate,
-      'autoMaker': instance.autoMaker,
-    };
+Map<String, dynamic> _$UserToJson(User instance) {
+  final val = <String, dynamic>{
+    'isUseLogin': instance.isUseLogin,
+    'userName': instance.userName,
+    'code': instance.code,
+    'tax': instance.tax,
+    'attendanceId': instance.attendanceId,
+    'firstName': instance.firstName,
+    'lastName': instance.lastName,
+    'fullName': instance.fullName,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'dayOfBirth',
+      _$JsonConverterToJson<String, DateTime>(
+          instance.dayOfBirth, const CustomDateTimeConverter().toJson));
+  val['gender'] = _$GenderEnumEnumMap[instance.gender]!;
+  val['avatarPath'] = instance.avatarPath;
+  val['ciNumber'] = instance.ciNumber;
+  val['ciIssuePlace'] = instance.ciIssuePlace;
+  val['ciIssueDate'] = instance.ciIssueDate;
+  val['ciExpiryDate'] = instance.ciExpiryDate;
+  val['passPortNumber'] = instance.passPortNumber;
+  val['passPortIssuePlace'] = instance.passPortIssuePlace;
+  val['passPortIssueDate'] = instance.passPortIssueDate;
+  val['passPortExpiryDate'] = instance.passPortExpiryDate;
+  val['residentProvince'] = instance.residentProvince;
+  val['residentProvinceId'] = instance.residentProvinceId;
+  val['residentAddress'] = instance.residentAddress;
+  val['residentDistrict'] = instance.residentDistrict;
+  val['residentDistrictId'] = instance.residentDistrictId;
+  val['residentWard'] = instance.residentWard;
+  val['residentWardId'] = instance.residentWardId;
+  val['originAddress'] = instance.originAddress;
+  val['originWard'] = instance.originWard;
+  val['originWardId'] = instance.originWardId;
+  val['originDistrict'] = instance.originDistrict;
+  val['originDistrictId'] = instance.originDistrictId;
+  val['originProvince'] = instance.originProvince;
+  val['originProvinceId'] = instance.originProvinceId;
+  val['maritalStatus'] = instance.maritalStatus;
+  val['ethnicity'] = instance.ethnicity;
+  val['religion'] = instance.religion;
+  val['bankName'] = instance.bankName;
+  val['accountHolderName'] = instance.accountHolderName;
+  val['accountNumber'] = instance.accountNumber;
+  val['families'] = instance.families;
+  val['phoneNumber'] = instance.phoneNumber;
+  val['email'] = instance.email;
+  val['companyEmail'] = instance.companyEmail;
+  val['educationLevel'] = _$EducationLevelEnumEnumMap[instance.educationLevel]!;
+  val['education'] = instance.education;
+  val['specializes'] = instance.specializes;
+  val['graduationType'] = instance.graduationType;
+  val['graduationYear'] = instance.graduationYear;
+  val['profileStatus'] = instance.profileStatus;
+  val['probationDay'] = instance.probationDay;
+  val['officialDay'] = instance.officialDay;
+  val['endDate'] = instance.endDate;
+  val['workingStatus'] = _$WorkingStatusEnumEnumMap[instance.workingStatus]!;
+  val['typeOfPersonnel'] = instance.typeOfPersonnel;
+  val['description'] = instance.description;
+  val['userDepartmentPositions'] = instance.userDepartmentPositions;
+  val['isActive'] = instance.isActive;
+  val['id'] = instance.id;
+  val['createdUserId'] = instance.createdUserId;
+  val['updatedUserId'] = instance.updatedUserId;
+  val['createdFullName'] = instance.createdFullName;
+  val['updatedFullName'] = instance.updatedFullName;
+  val['createdDate'] = instance.createdDate;
+  val['updatedDate'] = instance.updatedDate;
+  val['emergencyName'] = instance.emergencyName;
+  val['emergencyPhoneNumber'] = instance.emergencyPhoneNumber;
+  val['emergencyAddress'] = instance.emergencyAddress;
+  val['vehicleType'] = _$VehicleTypeEnumEnumMap[instance.vehicleType]!;
+  val['licensePlate'] = instance.licensePlate;
+  val['autoMaker'] = instance.autoMaker;
+  return val;
+}
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
 
 const _$GenderEnumEnumMap = {
   GenderEnum.male: 'Male',
@@ -1107,3 +1126,9 @@ const _$VehicleTypeEnumEnumMap = {
   VehicleTypeEnum.tram: 'Tram',
   VehicleTypeEnum.unknown: '',
 };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

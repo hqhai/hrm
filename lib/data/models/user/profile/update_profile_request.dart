@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -5,11 +6,12 @@ part 'update_profile_request.g.dart';
 
 @CopyWith()
 @JsonSerializable()
+@CustomDateTimeConverter()
 class UpdateProfileRequest {
   final String id;
   final String firstName;
   final String lastName;
-  final String dayOfBirth;
+  final DateTime? dayOfBirth;
   final String gender;
   final String? phoneNumber;
   final String? avatarPath;
