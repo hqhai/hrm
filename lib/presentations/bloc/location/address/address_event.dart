@@ -60,3 +60,10 @@ class GetWardsByKeyEvent extends AddressEvent {
   @override
   List<Object?> get props => [keyWord, parentId];
 }
+
+class ResetAddressEvent extends AddressEvent {
+  const ResetAddressEvent();
+
+  @override
+  List<Object> get props => [];
+}

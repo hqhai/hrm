@@ -39,3 +39,10 @@ class ChangeNotificationsEvent extends NotificationEvent {
   @override
   List<Object?> get props => [isAll, ids, completer];
 }
+
+class ResetNotificationEvent extends NotificationEvent {
+  const ResetNotificationEvent();
+
+  @override
+  List<Object> get props => [];
+}

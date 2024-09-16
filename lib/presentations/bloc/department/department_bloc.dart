@@ -6,11 +6,11 @@ import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/use_cases/departments_usecase.dart';
 import 'package:base_app/presentations/bloc/department/department_event.dart';
 import 'package:base_app/presentations/bloc/department/department_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class DepartmentBloc extends Bloc<DepartmentEvent, DepartmentState> {
+class DepartmentBloc extends HydratedBloc<DepartmentEvent, DepartmentState> {
   final DepartmentUseCase departmentUseCase;
 
   DepartmentBloc()
@@ -23,6 +23,7 @@ class DepartmentBloc extends Bloc<DepartmentEvent, DepartmentState> {
     on<UpdateDepartmentEvent>(_updateDepartmentEvent);
     on<GetDepartmentByIdEvent>(_getDepartmentByIdEvent);
     on<GetListDepartmentEvent>(_getListDepartmentEvent);
+    on<ResetDepartmentEvent>(_resetDepartmentEvent);
   }
 
   FutureOr<void> _createDepartmentEvent(
@@ -118,5 +119,19 @@ class DepartmentBloc extends Bloc<DepartmentEvent, DepartmentState> {
     } catch (e) {
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  DepartmentState? fromJson(Map<String, dynamic> json) {
+    return DepartmentState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(DepartmentState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetDepartmentEvent(ResetDepartmentEvent event, Emitter<DepartmentState> emit) {
+    emit(const DepartmentState());
   }
 }

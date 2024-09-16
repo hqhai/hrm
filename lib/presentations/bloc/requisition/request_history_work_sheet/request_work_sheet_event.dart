@@ -21,3 +21,10 @@ class GetRequestsByIdsEvent extends RequestWorkSheetEvent {
   @override
   List<Object?> get props => [ids, completer];
 }
+
+class ResetRequestWorkSheetEvent extends RequestWorkSheetEvent {
+  const ResetRequestWorkSheetEvent();
+
+  @override
+  List<Object> get props => [];
+}

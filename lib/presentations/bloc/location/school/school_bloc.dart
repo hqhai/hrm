@@ -7,11 +7,11 @@ import 'package:base_app/domain/entities/timekeeping/school.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:base_app/presentations/bloc/location/school/school_event.dart';
 import 'package:base_app/presentations/bloc/location/school/school_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
+class SchoolBloc extends HydratedBloc<SchoolEvent, SchoolState> {
   final LocationUseCase _locationUseCase;
 
   SchoolBloc()
@@ -19,6 +19,7 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
         super(const SchoolState()) {
     on<SchoolEvent>((event, emit) {});
     on<GetListSchoolsEvent>(_getListSchoolsEvent);
+    on<ResetSchoolEvent>(_resetSchoolEvent);
   }
 
   FutureOr<void> _getListSchoolsEvent(GetListSchoolsEvent event, Emitter<SchoolState> emit) async {
@@ -56,5 +57,19 @@ class SchoolBloc extends Bloc<SchoolEvent, SchoolState> {
       emit(state.copyWith(status: SchoolStatus.fail));
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  SchoolState? fromJson(Map<String, dynamic> json) {
+    return SchoolState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(SchoolState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetSchoolEvent(ResetSchoolEvent event, Emitter<SchoolState> emit) {
+    emit(const SchoolState());
   }
 }

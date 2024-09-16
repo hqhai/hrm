@@ -65,3 +65,10 @@ class GetPersonnelEvent extends PersonnelEvent {
   @override
   List<Object?> get props => [departmentId, page];
 }
+
+class ResetPersonnelEvent extends PersonnelEvent {
+  const ResetPersonnelEvent();
+
+  @override
+  List<Object> get props => [];
+}

@@ -6,11 +6,11 @@ import 'package:base_app/domain/entities/notification/notification_message.dart'
 import 'package:base_app/domain/use_cases/notification_usecase.dart';
 import 'package:base_app/presentations/bloc/notification/notification_event.dart';
 import 'package:base_app/presentations/bloc/notification/notification_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
+class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState> {
   final NotificationUseCase _notificationUseCase;
 
   NotificationBloc()
@@ -19,6 +19,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     on<NotificationEvent>((event, emit) {});
     on<ChangeNotificationsEvent>(_changeNotificationsEvent);
     on<GetNotificationsEvent>(_getNotificationsEvent);
+    on<ResetNotificationEvent>(_resetNotificationEvent);
   }
 
   FutureOr<void> _changeNotificationsEvent(
@@ -73,5 +74,19 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     } catch (e) {
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  NotificationState? fromJson(Map<String, dynamic> json) {
+    return NotificationState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(NotificationState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetNotificationEvent(ResetNotificationEvent event, Emitter<NotificationState> emit) {
+    emit(const NotificationState());
   }
 }

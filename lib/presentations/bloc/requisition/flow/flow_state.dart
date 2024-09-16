@@ -2,10 +2,12 @@ import 'package:base_app/common/enum/flow_enum.dart';
 import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'flow_state.g.dart';
 
 @CopyWith()
+@JsonSerializable()
 class FlowState extends Equatable {
   final FlowRequest flow;
   final List<FlowRequest> flows;
@@ -22,4 +24,8 @@ class FlowState extends Equatable {
 
   @override
   List<Object> get props => [flow, flows, statusGet, statusGetById, totalItems];
+
+  factory FlowState.fromJson(Map<String, dynamic> json) => _$FlowStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FlowStateToJson(this);
 }

@@ -18,3 +18,10 @@ class GetScheduleSchoolEvent extends ScheduleSchoolEvent {
   @override
   List<Object?> get props => [dateTime, completer];
 }
+
+class ResetScheduleSchoolEvent extends ScheduleSchoolEvent {
+  const ResetScheduleSchoolEvent();
+
+  @override
+  List<Object> get props => [];
+}

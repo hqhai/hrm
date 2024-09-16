@@ -9,11 +9,12 @@ import 'package:base_app/domain/services/requisition.service.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionApproveState> {
+class RequisitionApproveBloc
+    extends HydratedBloc<RequisitionApproveEvent, RequisitionApproveState> {
   final RequisitionUseCase requisitionUseCase;
   final RequisitionService _requestService;
 
@@ -26,6 +27,7 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
     on<ApproveRequestEvent>(_approveRequestEvent);
     on<GetRequisitionApproveCountEvent>(_getRequisitionApproveCountEvent);
     on<CancelRequestEvent>(_cancelRequestEvent);
+    on<ResetRequisitionApproveEvent>(_resetRequisitionApproveEvent);
   }
 
   ///get by filter ***********************************************
@@ -160,5 +162,19 @@ class RequisitionApproveBloc extends Bloc<RequisitionApproveEvent, RequisitionAp
         event.completer?.complete(false);
       }
     }
+  }
+
+  @override
+  RequisitionApproveState? fromJson(Map<String, dynamic> json) {
+    return RequisitionApproveState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(RequisitionApproveState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetRequisitionApproveEvent(ResetRequisitionApproveEvent event, Emitter<RequisitionApproveState> emit) {
+    emit(const RequisitionApproveState());
   }
 }

@@ -92,3 +92,48 @@ extension $DepartmentStateCopyWith on DepartmentState {
   // ignore: library_private_types_in_public_api
   _$DepartmentStateCWProxy get copyWith => _$DepartmentStateCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+DepartmentState _$DepartmentStateFromJson(Map<String, dynamic> json) =>
+    DepartmentState(
+      department: json['department'] == null
+          ? const Department(id: '', createdUserId: '')
+          : Department.fromJson(json['department'] as Map<String, dynamic>),
+      departments: (json['departments'] as List<dynamic>?)
+              ?.map((e) => Department.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      status: $enumDecodeNullable(_$DepartmentStatusEnumMap, json['status']) ??
+          DepartmentStatus.init,
+      totalItems: json['totalItems'] as int? ?? 0,
+    );
+
+Map<String, dynamic> _$DepartmentStateToJson(DepartmentState instance) =>
+    <String, dynamic>{
+      'department': instance.department,
+      'departments': instance.departments,
+      'status': _$DepartmentStatusEnumMap[instance.status]!,
+      'totalItems': instance.totalItems,
+    };
+
+const _$DepartmentStatusEnumMap = {
+  DepartmentStatus.init: 'init',
+  DepartmentStatus.createDepartmentInit: 'createDepartmentInit',
+  DepartmentStatus.createDepartmentSuccess: 'createDepartmentSuccess',
+  DepartmentStatus.createDepartmentError: 'createDepartmentError',
+  DepartmentStatus.updateDepartmentInit: 'updateDepartmentInit',
+  DepartmentStatus.updateDepartmentSuccess: 'updateDepartmentSuccess',
+  DepartmentStatus.updateDepartmentError: 'updateDepartmentError',
+  DepartmentStatus.getDepartmentInit: 'getDepartmentInit',
+  DepartmentStatus.getDepartmentSuccess: 'getDepartmentSuccess',
+  DepartmentStatus.getDepartmentError: 'getDepartmentError',
+  DepartmentStatus.deleteDepartmentInit: 'deleteDepartmentInit',
+  DepartmentStatus.deleteDepartmentSuccess: 'deleteDepartmentSuccess',
+  DepartmentStatus.deleteDepartmentError: 'deleteDepartmentError',
+  DepartmentStatus.getDepartmentByIdInit: 'getDepartmentByIdInit',
+  DepartmentStatus.getDepartmentByIdSuccess: 'getDepartmentByIdSuccess',
+  DepartmentStatus.getDepartmentByIdError: 'getDepartmentByIdError',
+};

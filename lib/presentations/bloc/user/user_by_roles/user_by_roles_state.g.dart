@@ -65,3 +65,32 @@ extension $UserByRolesStateCopyWith on UserByRolesState {
   // ignore: library_private_types_in_public_api
   _$UserByRolesStateCWProxy get copyWith => _$UserByRolesStateCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+UserByRolesState _$UserByRolesStateFromJson(Map<String, dynamic> json) =>
+    UserByRolesState(
+      users: (json['users'] as List<dynamic>?)
+              ?.map((e) => User.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      status: $enumDecodeNullable(_$UserStatusEnumMap, json['status']) ??
+          UserStatus.init,
+    );
+
+Map<String, dynamic> _$UserByRolesStateToJson(UserByRolesState instance) =>
+    <String, dynamic>{
+      'users': instance.users,
+      'status': _$UserStatusEnumMap[instance.status]!,
+    };
+
+const _$UserStatusEnumMap = {
+  UserStatus.init: 'init',
+  UserStatus.start: 'start',
+  UserStatus.success: 'success',
+  UserStatus.fail: 'fail',
+  UserStatus.unauthorized: 'unauthorized',
+  UserStatus.unknown: 'unknown',
+};

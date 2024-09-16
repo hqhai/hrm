@@ -19,3 +19,10 @@ class ResetUsersEvent extends UserByRolesEvent {
   @override
   List<Object> get props => [];
 }
+
+class ResetUserByRolesEvent extends UserByRolesEvent {
+  const ResetUserByRolesEvent();
+
+  @override
+  List<Object> get props => [];
+}

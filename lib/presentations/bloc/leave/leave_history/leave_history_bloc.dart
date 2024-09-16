@@ -4,11 +4,11 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/domain/use_cases/work_and_salary.usecase.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_event.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class LeaveHistoryBloc extends Bloc<LeaveHistoryEvent, LeaveHistoryState> {
+class LeaveHistoryBloc extends HydratedBloc<LeaveHistoryEvent, LeaveHistoryState> {
   final WorkAndSalaryUseCase _workAndSalaryUseCase;
 
   LeaveHistoryBloc()
@@ -16,6 +16,7 @@ class LeaveHistoryBloc extends Bloc<LeaveHistoryEvent, LeaveHistoryState> {
         super(const LeaveHistoryState()) {
     on<LeaveHistoryEvent>((event, emit) {});
     on<GetLeaveHistoryEvent>(_getLeaveHistoryEvent);
+    on<ResetLeaveHistoryEvent>(_resetLeaveHistoryEvent);
   }
 
   FutureOr<void> _getLeaveHistoryEvent(
@@ -43,5 +44,19 @@ class LeaveHistoryBloc extends Bloc<LeaveHistoryEvent, LeaveHistoryState> {
     } catch (e) {
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  LeaveHistoryState? fromJson(Map<String, dynamic> json) {
+    return LeaveHistoryState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(LeaveHistoryState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetLeaveHistoryEvent(ResetLeaveHistoryEvent event, Emitter<LeaveHistoryState> emit) {
+    emit(const LeaveHistoryState());
   }
 }

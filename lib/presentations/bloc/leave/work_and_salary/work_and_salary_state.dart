@@ -3,10 +3,12 @@ import 'package:base_app/domain/entities/leave/user_leave.dart';
 import 'package:base_app/domain/entities/leave/user_leave_hisory_types.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'work_and_salary_state.g.dart';
 
 @CopyWith()
+@JsonSerializable()
 class WorkAndSalaryState extends Equatable {
   final UserLeave userLeave;
   final double totalWorkday;
@@ -21,4 +23,9 @@ class WorkAndSalaryState extends Equatable {
 
   @override
   List<Object?> get props => [userLeave, status, totalWorkday, mapLeaveType];
+
+  factory WorkAndSalaryState.fromJson(Map<String, dynamic> json) =>
+      _$WorkAndSalaryStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WorkAndSalaryStateToJson(this);
 }

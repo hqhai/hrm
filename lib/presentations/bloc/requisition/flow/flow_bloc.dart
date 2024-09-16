@@ -8,11 +8,11 @@ import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class FlowBloc extends Bloc<FlowEvent, FlowState> {
+class FlowBloc extends HydratedBloc<FlowEvent, FlowState> {
   final RequisitionUseCase requisitionUseCase;
 
   FlowBloc()
@@ -21,6 +21,7 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
     on<FlowEvent>((event, emit) {});
     on<GetFlowsEvent>(_getFlowsEvent);
     on<GetFlowEvent>(_getFlowEvent);
+    on<ResetFlowEvent>(_resetFlowEvent);
   }
 
   FutureOr<void> _getFlowsEvent(
@@ -61,5 +62,19 @@ class FlowBloc extends Bloc<FlowEvent, FlowState> {
       emit(state.copyWith(statusGetById: FlowStatusEnum.fail));
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  FlowState? fromJson(Map<String, dynamic> json) {
+    return FlowState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(FlowState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetFlowEvent(ResetFlowEvent event, Emitter<FlowState> emit) {
+    emit(const FlowState());
   }
 }

@@ -87,3 +87,10 @@ class CancelRequestEvent extends RequisitionApproveEvent {
   @override
   List<Object?> get props => [requestId, completer];
 }
+
+class ResetRequisitionApproveEvent extends RequisitionApproveEvent {
+  const ResetRequisitionApproveEvent();
+
+  @override
+  List<Object> get props => [];
+}

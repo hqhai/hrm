@@ -100,3 +100,10 @@ class CheckBiometricAccount extends LoginEvent {
   @override
   List<Object?> get props => [username, password, completer];
 }
+
+class ResetEvent extends LoginEvent {
+  const ResetEvent();
+
+  @override
+  List<Object> get props => [];
+}

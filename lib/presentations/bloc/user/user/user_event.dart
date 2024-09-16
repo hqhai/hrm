@@ -67,3 +67,4 @@ class UpdateProfileEvent extends UserEvent {
   @override
   List<Object?> get props => [updateProfileRequest, file, completer];
 }
+

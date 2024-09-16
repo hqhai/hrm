@@ -19,3 +19,10 @@ class GetUserByNameEvent extends UserByNameEvent {
   @override
   List<Object?> get props => [name, page, completer];
 }
+
+class ResetUserByNameEvent extends UserByNameEvent {
+  const ResetUserByNameEvent();
+
+  @override
+  List<Object> get props => [];
+}

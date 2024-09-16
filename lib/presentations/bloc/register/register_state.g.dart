@@ -69,3 +69,44 @@ extension $RegisterStateCopyWith on RegisterState {
   // ignore: library_private_types_in_public_api
   _$RegisterStateCWProxy get copyWith => _$RegisterStateCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+RegisterState _$RegisterStateFromJson(Map<String, dynamic> json) =>
+    RegisterState(
+      registerRequest: json['registerRequest'] == null
+          ? const RegisterRequest(
+              firstName: '',
+              lastName: '',
+              password: '',
+              email: '',
+              dayOfBirth: '',
+              gender: '')
+          : RegisterRequest.fromJson(
+              json['registerRequest'] as Map<String, dynamic>),
+      requestStatus: $enumDecodeNullable(
+              _$RegisterRequestStatusEnumMap, json['requestStatus']) ??
+          RegisterRequestStatus.init,
+    );
+
+Map<String, dynamic> _$RegisterStateToJson(RegisterState instance) =>
+    <String, dynamic>{
+      'registerRequest': instance.registerRequest,
+      'requestStatus': _$RegisterRequestStatusEnumMap[instance.requestStatus]!,
+    };
+
+const _$RegisterRequestStatusEnumMap = {
+  RegisterRequestStatus.init: 'init',
+  RegisterRequestStatus.success: 'success',
+  RegisterRequestStatus.nameInput: 'nameInput',
+  RegisterRequestStatus.emailInput: 'emailInput',
+  RegisterRequestStatus.passwordInput: 'passwordInput',
+  RegisterRequestStatus.errorNameInput: 'errorNameInput',
+  RegisterRequestStatus.errorEmailInput: 'errorEmailInput',
+  RegisterRequestStatus.errorPasswordInput: 'errorPasswordInput',
+  RegisterRequestStatus.registerInit: 'registerInit',
+  RegisterRequestStatus.registerSuccess: 'registerSuccess',
+  RegisterRequestStatus.registerError: 'registerError',
+};

@@ -59,3 +59,10 @@ class UpdatePositionEvent extends PositionEvent {
   @override
   List<Object?> get props => [id, name, description,];
 }
+
+class ResetPositionEvent extends PositionEvent {
+  const ResetPositionEvent();
+
+  @override
+  List<Object> get props => [];
+}

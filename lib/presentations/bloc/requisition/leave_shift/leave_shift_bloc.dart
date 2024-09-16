@@ -4,11 +4,11 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/domain/use_cases/work_and_salary.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class LeaveShiftBloc extends Bloc<LeaveShiftEvent, LeaveShiftState> {
+class LeaveShiftBloc extends HydratedBloc<LeaveShiftEvent, LeaveShiftState> {
   final WorkAndSalaryUseCase _workAndSalaryUseCase;
 
   LeaveShiftBloc()
@@ -17,6 +17,7 @@ class LeaveShiftBloc extends Bloc<LeaveShiftEvent, LeaveShiftState> {
     on<LeaveShiftEvent>((event, emit) {});
     on<GetWorkShiftsEvent>(_getWorkShiftsEvent);
     on<GetWorkShiftsExplanationEvent>(_getWorkShiftsExplanationEvent);
+    on<ResetLeaveShiftEvent>(_resetLeaveShiftEvent);
   }
 
   FutureOr<void> _getWorkShiftsEvent(
@@ -54,5 +55,19 @@ class LeaveShiftBloc extends Bloc<LeaveShiftEvent, LeaveShiftState> {
     } catch (e) {
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  LeaveShiftState? fromJson(Map<String, dynamic> json) {
+    return LeaveShiftState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(LeaveShiftState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetLeaveShiftEvent(ResetLeaveShiftEvent event, Emitter<LeaveShiftState> emit) {
+    emit(const LeaveShiftState());
   }
 }

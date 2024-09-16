@@ -5,11 +5,11 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/domain/use_cases/personnel_usecase.dart';
 import 'package:base_app/presentations/bloc/personnel/personnel_event.dart';
 import 'package:base_app/presentations/bloc/personnel/personnel_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class PersonnelBloc extends Bloc<PersonnelEvent, PersonnelState> {
+class PersonnelBloc extends HydratedBloc<PersonnelEvent, PersonnelState> {
   final PersonnelUseCase personnelUseCase;
 
   PersonnelBloc()
@@ -18,6 +18,7 @@ class PersonnelBloc extends Bloc<PersonnelEvent, PersonnelState> {
     on<PersonnelEvent>((event, emit) {});
     on<CreatePersonnelEvent>(_createPersonnelEvent);
     on<GetPersonnelEvent>(_getPersonnelEvent);
+    on<ResetPersonnelEvent>(_resetPersonnelEvent);
   }
 
   FutureOr<void> _createPersonnelEvent(
@@ -46,5 +47,19 @@ class PersonnelBloc extends Bloc<PersonnelEvent, PersonnelState> {
 
   FutureOr<void> _getPersonnelEvent(GetPersonnelEvent event, Emitter<PersonnelState> emit) async {
 
+  }
+
+  @override
+  PersonnelState? fromJson(Map<String, dynamic> json) {
+    return PersonnelState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(PersonnelState state) {
+    return state.toJson();
+  }
+
+  FutureOr<void> _resetPersonnelEvent(ResetPersonnelEvent event, Emitter<PersonnelState> emit) {
+    emit(const PersonnelState());
   }
 }

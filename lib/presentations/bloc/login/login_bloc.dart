@@ -7,15 +7,15 @@ import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
 import 'package:base_app/presentations/bloc/biometric/biometric_cubit.dart';
 import 'package:base_app/presentations/bloc/login/login_state.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:base_app/data/models/response.dart';
 
 part 'login_event.dart';
 
 @lazySingleton
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
+class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
   final LoginUseCase _loginUseCase;
   final AuthBloc _authBloc;
 
@@ -180,5 +180,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } catch (e) {
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  LoginState? fromJson(Map<String, dynamic> json) {
+    return LoginState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(LoginState state) {
+    return state.toJson();
   }
 }

@@ -18,3 +18,10 @@ class GetListSchoolsEvent extends SchoolEvent {
   @override
   List<Object?> get props => [page, keyword, completer];
 }
+
+class ResetSchoolEvent extends SchoolEvent {
+  const ResetSchoolEvent();
+
+  @override
+  List<Object> get props => [];
+}

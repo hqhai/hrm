@@ -35,3 +35,10 @@ class GetTotalLeaveTypeEvent extends WorkAndSalaryEvent {
   @override
   List<Object?> get props => [completer];
 }
+
+class ResetWorkAndSalaryEvent extends WorkAndSalaryEvent {
+  const ResetWorkAndSalaryEvent();
+
+  @override
+  List<Object> get props => [];
+}

@@ -6,11 +6,11 @@ import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:base_app/presentations/bloc/check_in_check_out_gps/check_in_check_out_gps_event.dart';
 import 'package:base_app/presentations/bloc/check_in_check_out_gps/check_in_check_out_gps_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class CheckInCheckOutGpsBloc extends Bloc<CheckInCheckOutGpsEvent, CheckInCheckOutGpsState> {
+class CheckInCheckOutGpsBloc extends HydratedBloc<CheckInCheckOutGpsEvent, CheckInCheckOutGpsState> {
   final LocationUseCase locationUseCase;
 
   CheckInCheckOutGpsBloc()
@@ -18,6 +18,7 @@ class CheckInCheckOutGpsBloc extends Bloc<CheckInCheckOutGpsEvent, CheckInCheckO
         super(const CheckInCheckOutGpsState()) {
     on<CheckInCheckOutGpsEvent>((event, emit) {});
     on<PostTimekeepingGPSRequestEvent>(_postTimekeepingGPSRequestEvent);
+    on<ResetCheckInCheckOutGpsEvent>(_resetCheckInCheckOutGpsEvent);
   }
 
   FutureOr<void> _postTimekeepingGPSRequestEvent(
@@ -48,5 +49,19 @@ class CheckInCheckOutGpsBloc extends Bloc<CheckInCheckOutGpsEvent, CheckInCheckO
         event.completer.complete(TimekeepingStatus.fail);
       }
     }
+  }
+
+  FutureOr<void> _resetCheckInCheckOutGpsEvent(ResetCheckInCheckOutGpsEvent event, Emitter<CheckInCheckOutGpsState> emit) {
+    emit(const CheckInCheckOutGpsState());
+  }
+
+  @override
+  CheckInCheckOutGpsState? fromJson(Map<String, dynamic> json) {
+    return CheckInCheckOutGpsState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(CheckInCheckOutGpsState state) {
+    return state.toJson();
   }
 }

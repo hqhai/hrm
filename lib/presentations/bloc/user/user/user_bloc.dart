@@ -11,11 +11,11 @@ import 'package:base_app/domain/use_cases/request_usecase.dart';
 import 'package:base_app/domain/use_cases/user_usecase.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class UserBloc extends Bloc<UserEvent, UserState> {
+class UserBloc extends HydratedBloc<UserEvent, UserState> {
   final UserUseCase userUseCase;
   final RequestUseCase _requestUseCase;
 
@@ -129,5 +129,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
       event.completer?.complete(false);
     }
+  }
+
+  @override
+  UserState? fromJson(Map<String, dynamic> json) {
+    return UserState.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(UserState state) {
+    return state.toJson();
   }
 }
