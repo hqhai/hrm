@@ -105,7 +105,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
                       child: AppButton(
-                        title: appLocalizations.forgotPassword,
+                        title: checkInput() ? appLocalizations.continues : appLocalizations.forgotPassword,
                         onSubmit: () => onSubmit(context),
                         color: checkInput() ? colors.blue : colors.navy,
                         colorText: colors.background,

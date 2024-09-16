@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/utils/error_utils.dart';
+import 'package:base_app/common/utils/toast_utils.dart';
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -76,12 +79,28 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(state.copyWith(email: email, errorCode: ''));
       event.completer?.complete(true);
     } catch (e) {
-      e as ResponseBase;
-      final String? errorCode = e.errorMessages.first.errorCode;
-      emit(state.copyWith(
-        errorCode: errorCode,
-      ));
-      event.completer?.complete(false);
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+        if (currentContext.mounted) {
+          dI<AppNavigation>().pop(currentContext);
+          ToastUtils()
+              .showError(ErrorUtils.getErrorMessage(errorCode ?? 'error', context: currentContext));
+        }
+        event.completer?.complete(false);
+      } else {
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+        if (currentContext.mounted) {
+          dI<AppNavigation>().pop(currentContext);
+          ToastUtils().showError(ErrorUtils.getErrorMessage('error', context: currentContext));
+        }
+        event.completer?.complete(false);
+      }
     }
   }
 
