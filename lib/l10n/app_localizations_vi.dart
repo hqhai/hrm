@@ -2053,4 +2053,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noConnected => 'Có lỗi sảy ra, vui lòng kiểm tra lại!';
+
+  @override
+  String get reasonForCancellation => 'Lí do huỷ ca';
+
+  @override
+  String get shiftIsCancelled => 'Đã huỷ';
 }

@@ -4172,6 +4172,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No connected!'**
   String get noConnected;
+
+  /// No description provided for @reasonForCancellation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for cancellation'**
+  String get reasonForCancellation;
+
+  /// No description provided for @shiftIsCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Canceled'**
+  String get shiftIsCancelled;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

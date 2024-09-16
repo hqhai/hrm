@@ -121,7 +121,6 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
       Iterable<ItemPosition> listIndex =
           itemPositionsListenerBody.itemPositions.value;
       int nextIndex = currentHeaderScrollIndex + 7;
-
       dI<WorkDayBloc>()
           .add(ChangeSelectDate(date: listDateAppBar[(listIndex.first.index)]));
       if (nextIndex <= listIndex.first.index && !isHeaderScroll) {
@@ -173,10 +172,12 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   _onBack() {
     Navigator.pop(context);
   }
+
   _listener(BuildContext context, String errorCode) {
     setState(() {
-      errorDialog =
-      errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -420,7 +421,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
       setState(() {
         isScroll = true;
       });
-      await setDownWeek();
+      await setDownWeek(isFistIndex: true);
     }
   }
 
@@ -431,13 +432,14 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     await setUpWeek();
   }
 
-  setDownWeek({Completer? completer}) {
+  setDownWeek({Completer? completer, bool isFistIndex = false}) {
     int previousIndex = currentHeaderScrollIndex - 7;
     isHeaderScroll = true;
     _scrollControllerHeader
         .scrollTo(
             index: previousIndex, duration: const Duration(milliseconds: 10))
         .whenComplete(() {
+      // final index = isFistIndex ? 7 : 13;
       scrollControllerBody.jumpTo(index: previousIndex);
       if (previousIndex == 0 && isHeaderScroll && previousIndex != 7) {
         final listPreviousDate = _getPreviousDate(listDateAppBar[0]);
