@@ -16,6 +16,7 @@ import 'package:base_app/presentations/bloc/shift/shift_event.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:base_app/presentations/widgets/dialog/no_connection/no_connection_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -176,8 +177,8 @@ class ItemCalender extends StatelessWidget {
       dialogIndicator(
         context: context,
       );
-      dI<ShiftBloc>().add(GetShiftByIdEvent(
-        id: userWorkingHistoryModel.workShiftId,
+      dI<ShiftBloc>().add(GetShiftByIdsEvent(
+        ids: userWorkingHistoryModel.workShiftIds,
         completer: completerShift,
       ));
       dI<RequestWorkSheetBloc>().add(GetRequestsByIdsEvent(
@@ -197,6 +198,11 @@ class ItemCalender extends StatelessWidget {
         dI<AppNavigation>().pushName(currentContext, page: Pages.historyAttendancePage, extra: {
           'dateTime': userWorkingHistoryModel.date ?? date,
         });
+      }
+      else{
+        if (!currentContext.mounted) return;
+        dI<AppNavigation>().pop(context);
+        dialogNoConnection(context: currentContext);
       }
     }
   }

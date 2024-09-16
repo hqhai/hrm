@@ -40,6 +40,8 @@ abstract class LocationUseCase {
 
   Future<Shift> getShift({required String id});
 
+  Future<List<Shift>> getShifts({required List<String> ids});
+
   Future<ShiftsAdminResponse> getElectiveShiftDetail(
       {required GetElectiveShiftDetailRequest request});
 

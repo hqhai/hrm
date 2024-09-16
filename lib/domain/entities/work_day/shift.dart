@@ -23,6 +23,7 @@ class Shift {
   final WorkShiftApprove workShiftApprove;
   final DateTime? createdDate;
   final DateTime? workDate;
+  @JsonKey(unknownEnumValue: ShiftType.unknown)
   final ShiftType type;
   @JsonKey(unknownEnumValue: WorkShiftRequestStatus.unknown)
   final WorkShiftRequestStatus status;
@@ -32,7 +33,7 @@ class Shift {
     this.workShiftSettingDetailId = '',
     this.id = '',
     this.createdDate,
-    this.type = ShiftType.administrativeShift,
+    this.type = ShiftType.unknown,
     this.name = '',
     this.endTime = 0,
     this.startTime = 0,
@@ -41,7 +42,7 @@ class Shift {
     this.checkInStartTimeValid = 0,
     this.checkOutEndTimeValid = 0,
     this.checkOutStartTimeValid = 0,
-    this.status = WorkShiftRequestStatus.pending,
+    this.status = WorkShiftRequestStatus.unknown,
     this.workShiftApprove = const WorkShiftApprove(),
     this.workEffort = 1,
     this.workDate,

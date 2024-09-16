@@ -99,7 +99,7 @@ class UserWorkingHistoryModel {
   /// <summary>
   /// ca làm việc
   /// </summary>
-  final String workShiftId;
+  final List<String> workShiftIds;
 
   /// <summary>
   /// ca chi tiết
@@ -147,7 +147,7 @@ class UserWorkingHistoryModel {
     this.requestIds = const [],
     this.salaryRate = 0,
     this.workShiftDetailId = '0',
-    this.workShiftId = '',
+    this.workShiftIds = const [],
     this.workTimeActual = 0,
     this.workTimeReal = 0,
     this.makeUpTime = 0,

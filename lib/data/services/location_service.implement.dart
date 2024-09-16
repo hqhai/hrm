@@ -12,6 +12,7 @@ import 'package:base_app/data/models/location/get_location_request.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/data/models/request/cancel_work_day_request.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/data/models/requisition/requisition/request/get_requests_by_ids.dart';
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/data/models/shifts/shifts_request.dart';
 import 'package:base_app/data/models/shifts/shifts_response.dart';
@@ -192,5 +193,18 @@ class LocationServiceImpl extends BaseService implements LocationService {
     } catch (e) {
       return false;
     }
+  }
+
+  @override
+  Future<List<Shift>> getShifts({required GetRequestsByIds ids}) async {
+    final url = '$baseSystem${PathConfig.shiftByIds}';
+    final body = jsonEncode(ids.toJson());
+    final response = await client.post(url, body: body);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    final shifts = (data as List<dynamic>)
+        .map((e) => Shift.fromJson(e as Map<String, dynamic>))
+        .toList();
+    return shifts;
   }
 }

@@ -22,6 +22,19 @@ class GetShiftByIdEvent extends ShiftEvent {
   List<Object?> get props => [id, completer];
 }
 
+class GetShiftByIdsEvent extends ShiftEvent {
+  final List<String> ids;
+  final Completer? completer;
+
+  const GetShiftByIdsEvent({
+    this.ids = const [],
+    this.completer,
+  });
+
+  @override
+  List<Object?> get props => [ids, completer];
+}
+
 class ResetShiftEvent extends ShiftEvent {
   const ResetShiftEvent();
 
