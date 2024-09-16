@@ -74,7 +74,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           font: FontWeight.w600,
                           size: SpacingUnit.x4,
                           title: appLocalizations.dateOfBirth,
-                          value: formatDMY(state.user.dayOfBirth),
+                          value: formatDMY(state.user.dayOfBirth.toString()),
                         ),
                         ItemTitleValueColum(
                           font: FontWeight.w600,

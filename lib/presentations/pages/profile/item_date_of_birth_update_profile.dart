@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 class ItemDateOfBirthUpdateProfile extends StatefulWidget {
   const ItemDateOfBirthUpdateProfile({
     super.key,
-    this.dateOfBirth = '',
+    required this.dateOfBirth,
     required this.onChangeDateOfBirth,
     this.title = '',
   });
 
-  final ValueChanged<String> onChangeDateOfBirth;
+  final ValueChanged<DateTime> onChangeDateOfBirth;
   final String title;
-  final String dateOfBirth;
+  final DateTime dateOfBirth;
 
   @override
   State<ItemDateOfBirthUpdateProfile> createState() => _ItemDateOfBirthUpdateProfileState();
@@ -33,13 +33,13 @@ class _ItemDateOfBirthUpdateProfileState extends State<ItemDateOfBirthUpdateProf
         DatePickerLoop(
           check: false,
           onChange: (value) => _setOnChange(value),
-          oldDate: DateTime.tryParse(widget.dateOfBirth),
+          oldDate: widget.dateOfBirth,
         ),
       ],
     );
   }
 
   _setOnChange(DateTime value) {
-    widget.onChangeDateOfBirth.call(value.toString());
+    widget.onChangeDateOfBirth.call(value);
   }
 }
