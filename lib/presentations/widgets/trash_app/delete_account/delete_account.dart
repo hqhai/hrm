@@ -63,7 +63,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
             style: ElevatedButton.styleFrom(backgroundColor: colors.blue),
             onPressed: () => _deleteAccount(context),
             child: Text(appLocalizations.deleteAccount,
-                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                style: TextStyle(color: colors.background, fontSize: SpacingUnit.x5)),
           ),
         ),
       ),

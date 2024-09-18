@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/utils/convert.dart';
+import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/data/models/draft_app/draft_note.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/domain/use_cases/note.usecase.dart';
@@ -32,8 +33,7 @@ class NotesBloc extends HydratedBloc<NotesEvent, NotesState> {
   FutureOr<void> _createNotesEvent(CreateNotesEvent event, Emitter<NotesState> emit) async {
     emit(state.copyWith(status: NoteStatus.createNoteInit));
     try {
-      await noteUseCase.createNoteRequest(
-          note: event.note, dateTime: formatYMD(event.dateTime.toString()));
+      await noteUseCase.createNoteRequest(note: event.note, dateTime: event.dateTime);
       emit(state.copyWith(status: NoteStatus.createNoteSuccess));
     } catch (e) {
       emit(state.copyWith(status: NoteStatus.createNoteError));
@@ -43,7 +43,7 @@ class NotesBloc extends HydratedBloc<NotesEvent, NotesState> {
   FutureOr<void> _getNotesEvent(GetNotesEvent event, Emitter<NotesState> emit) async {
     emit(state.copyWith(status: NoteStatus.getNotesInit));
     try {
-      List<Note> notes =
+      final notes =
           await noteUseCase.getNotesRequest(startDate: event.startDate, endDate: event.endDate);
       emit(state.copyWith(notes: notes, status: NoteStatus.getNotesSuccess));
     } catch (e) {
@@ -55,7 +55,14 @@ class NotesBloc extends HydratedBloc<NotesEvent, NotesState> {
     emit(state.copyWith(status: NoteStatus.updateNoteInit));
     try {
       await noteUseCase.updateNoteRequest(note: event.note, id: event.id, dateTime: event.dateTime);
-      emit(state.copyWith(status: NoteStatus.updateNoteSuccess));
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      List<Note> notes = state.notes;
+      final index = state.notes.indexWhere((element) => element.id == event.id);
+      notes[index] = notes[index].copyWith(note: event.note, dateTime: event.dateTime);
+      emit(state.copyWith(status: NoteStatus.updateNoteSuccess, notes: notes));
+      if (currentContext.mounted) {
+        dI<AppNavigation>().popUtil(Pages.home, buildContext: currentContext);
+      }
     } catch (e) {
       emit(state.copyWith(status: NoteStatus.updateNoteError));
     }
@@ -65,6 +72,14 @@ class NotesBloc extends HydratedBloc<NotesEvent, NotesState> {
     emit(state.copyWith(status: NoteStatus.deleteNoteInit));
     try {
       await noteUseCase.deleteNoteByIdRequest(id: event.id);
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      List<Note> notes = state.notes;
+      final index = state.notes.indexWhere((element) => element.id == event.id);
+      notes.removeAt(index);
+      emit(state.copyWith(status: NoteStatus.deleteNoteSuccess, notes: notes));
+      if (currentContext.mounted) {
+        dI<AppNavigation>().popUtil(Pages.home, buildContext: currentContext);
+      }
       emit(state.copyWith(status: NoteStatus.deleteNoteSuccess));
     } catch (e) {
       emit(state.copyWith(status: NoteStatus.deleteNoteError));

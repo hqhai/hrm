@@ -40,6 +40,7 @@
   "doYouWantToCreateARequest": "Do you want to initiate a request?",
   "doYouWantToDeleteTheRoom": "Do you want to delete a room?",
   "doYouWantToUpdateARequest": "Do you want to update the request?",
+  "doYouWantToUpdateANote": "Do you want to update the note?",
   "changePasswordSuccess": "Password Change Successful!",
   "doYouWantToChangeYourPassword": "Do you want to change your password?",
   "leaveACommentHere": "Write Content Here",

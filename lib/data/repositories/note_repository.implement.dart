@@ -17,7 +17,7 @@ class NoteRepositoryImpl extends NoteRepository {
   NoteRepositoryImpl() : noteService = dI<NoteService>();
 
   @override
-  Future<int> createNoteRequest({required String note, required String dateTime}) async {
+  Future<int> createNoteRequest({required String note, required DateTime dateTime}) async {
     return await noteService.createNoteRequest(
         createNoteRequest: CreateNoteRequest(note: note, dateTime: dateTime));
   }
@@ -37,7 +37,7 @@ class NoteRepositoryImpl extends NoteRepository {
 
   @override
   Future<int> updateNoteRequest(
-      {required String note, required String id, required String dateTime}) async {
+      {required String note, required String id, required DateTime dateTime}) async {
     return await noteService.updateNoteRequest(
         updateNoteRequest: UpdateNoteRequest(id: id, note: note, dateTime: dateTime));
   }
