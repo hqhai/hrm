@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
 import 'package:base_app/domain/entities/timekeeping/school.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -44,19 +45,20 @@ class UnSuccessfulTimekeepingPage extends StatefulWidget {
 }
 
 class _UnSuccessfulTimekeepingPageState extends State<UnSuccessfulTimekeepingPage> {
-  Set<Marker> _markers = {};
 
-  LatLng getSchoolById(School? school) {
+  Set<Marker> _markers(School? school){
     final LatLng locationSchool =
-        LatLng(school?.latitude ?? 105.865963, school?.longitude ?? 21.002852);
-    _markers = {
+    LatLng(school?.latitude ?? 105.865963, school?.longitude ?? 21.002852);
+    return {
       Marker(
         markerId: const MarkerId('customMarker1'),
         position: locationSchool,
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       ),
     };
-    return locationSchool;
+  }
+  ScheduleSchool _school(List<ScheduleSchool> listSchool) {
+    return listSchool.firstWhere((element) => element.id == widget.scheduleSchoolId);
   }
 
   @override
@@ -119,7 +121,7 @@ class _UnSuccessfulTimekeepingPageState extends State<UnSuccessfulTimekeepingPag
                                   target: LatLng(widget.latitude, widget.longitude),
                                   zoom: 15,
                                 ),
-                                markers: _markers,
+                                markers: _markers(_school(state.scheduleSchools.scheduleSchools).school),
                                 mapType: MapType.normal,
                               ),
                             ),
