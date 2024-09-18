@@ -27,6 +27,7 @@ class ItemWorkSheet extends StatelessWidget {
                 ),
               ),
               child: Text(
+                textAlign: TextAlign.center,
                 title,
                 style: TextStyle(
                   color: colors.text,

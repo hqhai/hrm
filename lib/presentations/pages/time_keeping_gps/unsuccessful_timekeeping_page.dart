@@ -11,6 +11,8 @@ import 'package:base_app/presentations/bloc/location/schedule_school/schedule_sc
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/time_keeping/item_time_keeping_gps.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -45,10 +47,22 @@ class UnSuccessfulTimekeepingPage extends StatefulWidget {
 }
 
 class _UnSuccessfulTimekeepingPageState extends State<UnSuccessfulTimekeepingPage> {
-
-  Set<Marker> _markers(School? school){
+  Set<Circle> _circles(School? school) {
     final LatLng locationSchool =
-    LatLng(school?.latitude ?? 105.865963, school?.longitude ?? 21.002852);
+        LatLng(school?.latitude ?? 105.865963, school?.longitude ?? 21.002852);
+
+    return {
+      Circle(
+          circleId: const CircleId('currentCircle1'),
+          center: locationSchool,
+          radius: school?.minDistance.toDouble() ?? 0,
+          strokeWidth: 1),
+    };
+  }
+
+  Set<Marker> _markers(School? school) {
+    final LatLng locationSchool =
+        LatLng(school?.latitude ?? 105.865963, school?.longitude ?? 21.002852);
     return {
       Marker(
         markerId: const MarkerId('customMarker1'),
@@ -57,6 +71,7 @@ class _UnSuccessfulTimekeepingPageState extends State<UnSuccessfulTimekeepingPag
       ),
     };
   }
+
   ScheduleSchool _school(List<ScheduleSchool> listSchool) {
     return listSchool.firstWhere((element) => element.id == widget.scheduleSchoolId);
   }
@@ -116,13 +131,19 @@ class _UnSuccessfulTimekeepingPageState extends State<UnSuccessfulTimekeepingPag
                             child: ClipRRect(
                               borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x2)),
                               child: GoogleMap(
+                                gestureRecognizers: {
+                                  Factory<PanGestureRecognizer>(() => PanGestureRecognizer())
+                                },
                                 myLocationEnabled: true,
                                 initialCameraPosition: CameraPosition(
                                   target: LatLng(widget.latitude, widget.longitude),
                                   zoom: 15,
                                 ),
-                                markers: _markers(_school(state.scheduleSchools.scheduleSchools).school),
+                                markers:
+                                    _markers(_school(state.scheduleSchools.scheduleSchools).school),
                                 mapType: MapType.normal,
+                                circles:
+                                    _circles(_school(state.scheduleSchools.scheduleSchools).school),
                               ),
                             ),
                           ),

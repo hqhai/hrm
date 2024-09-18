@@ -339,6 +339,12 @@ abstract class AppLocalizations {
   /// **'Do you want to update the request?'**
   String get doYouWantToUpdateARequest;
 
+  /// No description provided for @doYouWantToUpdateANote.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to update the note?'**
+  String get doYouWantToUpdateANote;
+
   /// No description provided for @changePasswordSuccess.
   ///
   /// In en, this message translates to:

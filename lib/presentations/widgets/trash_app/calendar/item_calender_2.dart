@@ -28,9 +28,7 @@ class ItemHorizontal extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
-    final width = MediaQuery
-        .sizeOf(context)
-        .width;
+    final width = MediaQuery.sizeOf(context).width;
     return Container(
       width: width - SpacingUnit.x10 - 0.5,
       margin: const EdgeInsets.all(SpacingUnit.x5),
@@ -54,7 +52,8 @@ class ItemHorizontal extends StatelessWidget {
                 backgroundColor: isNowDate ? colors.primary : Colors.transparent,
                 child: Text(
                   date.day.toString(),
-                  style: theme.textTheme.titleLarge!.copyWith(color: colors.text),
+                  style: theme.textTheme.titleLarge!
+                      .copyWith(color: isNowDate ? colors.background : colors.text),
                 ),
               ),
             ),
@@ -111,8 +110,7 @@ class ItemVertical extends StatelessWidget {
       backgroundColors: colors.text.withOpacity(0.05),
       height: width * 0.3,
       child: Padding(
-        padding: const EdgeInsets.all(SpacingUnit.x1
-        ),
+        padding: const EdgeInsets.all(SpacingUnit.x1),
         child: Row(
           children: [
             Expanded(
@@ -131,7 +129,8 @@ class ItemVertical extends StatelessWidget {
                 backgroundColor: isNowDate ? colors.primary : Colors.transparent,
                 child: Text(
                   date.day.toString(),
-                  style: theme.textTheme.titleLarge!.copyWith(color: colors.text),
+                  style: theme.textTheme.titleLarge!
+                      .copyWith(color: isNowDate ? colors.background : colors.text),
                 ),
               ),
             ),
@@ -140,6 +139,4 @@ class ItemVertical extends StatelessWidget {
       ),
     );
   }
-
 }
-

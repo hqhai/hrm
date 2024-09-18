@@ -61,4 +61,8 @@ class Pages {
   static const String registerWorkDayAdminDetail =
       '/registerWorkDayAdminDetail';
   static const String shiftsPageReview = '/shiftsPageReview';
+  static const String noteSystem = '/noteSystem';
+  static const String createNoteWidget = '/createNoteWidget';
+
+
 }

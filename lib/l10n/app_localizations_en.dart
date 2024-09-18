@@ -128,6 +128,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get doYouWantToUpdateARequest => 'Do you want to update the request?';
 
   @override
+  String get doYouWantToUpdateANote => 'Do you want to update the note?';
+
+  @override
   String get changePasswordSuccess => 'Password Change Successful!';
 
   @override

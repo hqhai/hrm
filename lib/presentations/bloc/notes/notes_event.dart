@@ -22,7 +22,7 @@ class UpdateNotesEvent extends NotesEvent {
 
   final String note;
   final String id;
-  final String dateTime;
+  final DateTime dateTime;
 
   @override
   List<Object?> get props => [note, id, dateTime];

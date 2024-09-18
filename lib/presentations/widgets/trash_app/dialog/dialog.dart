@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -9,137 +11,241 @@ import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
+import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title.dart';
+import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:themes/themes.dart';
 
-noteDialog(BuildContext context, Note note) async {
-  return showDialog(
-    context: context,
-    builder: (context) {
-      final colors = AppTheme.getColors(context);
-      final appLocalizations = AppLocalizations.of(context)!;
-      return AlertDialog(
-        content: SizedBox(
-          height: SpacingUnit.x75,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  appLocalizations.createTime,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
-                  ),
-                ),
-                Text(
-                  formatYMD(note.dateTime),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
-                  ),
-                ),
-                const SizedBox(
-                  height: SpacingUnit.x4_5,
-                ),
-                Text(
-                  appLocalizations.note,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
-                  ),
-                ),
-                Text(
-                  note.note,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: SpacingUnit.x4,
-                    color: colors.text,
-                  ),
-                ),
-                const SizedBox(
-                  height: SpacingUnit.x4_5,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => nextUpdateNotesPage(context, note),
-                          child: Text(appLocalizations.update),
-                        ),
-                        ElevatedButton(
-                          child: Text(appLocalizations.delete),
-                          onPressed: () => logDeleteNoteDialog(context, note),
-                        ),
-                      ],
-                    ),
-                    ElevatedButton(
-                      child: Text(appLocalizations.cancel),
-                      onPressed: () => closePopUp(context),
-                    ),
-                  ],
-                )
-              ],
-            ),
+final noteSystemPageRoute = GoRoute(
+    path: Pages.noteSystem,
+    name: Pages.noteSystem,
+    builder: (context, GoRouterState state) {
+      Map data = state.extra as Map;
+      return NoteDialogSystem(
+        note: data['note'],
+      );
+    });
+
+class NoteDialogSystem extends StatefulWidget {
+  const NoteDialogSystem({super.key, required this.note});
+
+  final Note note;
+
+  @override
+  State<NoteDialogSystem> createState() => _NoteDialogSystemState();
+}
+
+class _NoteDialogSystemState extends State<NoteDialogSystem> {
+  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+
+  double latitude = 0, longitude = 0;
+  Position? _currentLocation;
+  LatLng? latLngFsel;
+
+  @override
+  void initState() {
+    _determinePosition();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          formatDMY(widget.note.dateTime.toString()),
+          style: TextStyle(
+            color: colors.text,
+            fontSize: SpacingUnit.x5,
           ),
         ),
-      );
-    },
-  );
-}
-
-logDeleteNoteDialog(BuildContext context, Note note) {
-  Navigator.of(context).pop();
-  deleteNoteDialog(context, note);
-}
-
-nextUpdateNotesPage(BuildContext context, Note note) {
-  dI<AppNavigation>().pushName(context, page: Pages.updateNotesPage, extra: {'id': note.id});
-  Navigator.of(context).pop();
-}
-
-deleteNoteDialog(BuildContext context, Note note) async {
-  return showDialog(
-    context: context,
-    builder: (context) {
-      final appLocalizations = AppLocalizations.of(context)!;
-      return AlertDialog(
-        content: SizedBox(
-          height: SpacingUnit.x20,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        iconTheme: IconThemeData(color: colors.text),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(SpacingUnit.x4),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              appLocalizations.createTime,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: SpacingUnit.x4,
+                color: colors.text,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              formatYMD(widget.note.dateTime.toString()),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: SpacingUnit.x4,
+                color: colors.text,
+              ),
+            ),
+            const SizedBox(
+              height: SpacingUnit.x4_5,
+            ),
+            Text(
+              appLocalizations.note,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: SpacingUnit.x4,
+                color: colors.text,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              widget.note.note,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: SpacingUnit.x4,
+                color: colors.text,
+              ),
+            ),
+            const SizedBox(
+              height: SpacingUnit.x4_5,
+            ),
+            Text(
+              appLocalizations.destination,
+              style: TextStyle(
+                color: colors.text,
+                fontSize: SpacingUnit.x4,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(
+              height: SpacingUnit.x60,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x2)),
+                  child: GoogleMap(
+                    gestureRecognizers: {
+                      Factory<PanGestureRecognizer>(() => PanGestureRecognizer())
+                    },
+                    onMapCreated: (GoogleMapController controller) {
+                      _controller.complete(controller);
+                    },
+                    myLocationEnabled: true,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(latitude, longitude),
+                      zoom: 15,
+                    ),
+                    mapType: MapType.normal,
+                  ),
+                ),
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(appLocalizations.doYouWantToDeleteTheNote,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton(
-                      child: Text(appLocalizations.ok),
-                      onPressed: () => deleteNoteEvent(context, note),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+                        child: AppButton(
+                          onSubmit: () => nextUpdateNotesPage(context, widget.note),
+                          title: appLocalizations.update,
+                        ),
+                      ),
                     ),
-                    ElevatedButton(
-                      child: Text(appLocalizations.cancel),
-                      onPressed: () => closePopUp(context),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+                        child: AppButton(
+                          color: colors.error,
+                          colorBorder: colors.error,
+                          onSubmit: () => logDeleteNoteDialog(context, widget.note),
+                          title: appLocalizations.delete,
+                        ),
+                      ),
                     ),
                   ],
-                )
+                ),
               ],
-            ),
-          ),
+            )
+          ],
         ),
+      ),
+    );
+  }
+
+  Future<void> _determinePosition() async {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error(appLocalizations.locationServicesAreDisabled);
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error(appLocalizations.locationPermissionsAreDenied);
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      if (!currentContext.mounted) return;
+      showDialog(
+        context: currentContext,
+        builder: (BuildContext context) {
+          return const Dialog(
+            child: DialogOpenSetting(),
+          );
+        },
       );
-    },
+    }
+    final position = await Geolocator.getCurrentPosition();
+    _setCurrentLocation(position: position);
+  }
+
+  _setCurrentLocation({required Position position}) {
+    setState(() {
+      _currentLocation = position;
+      double lo = _currentLocation?.longitude ?? 0;
+      double la = _currentLocation?.latitude ?? 0;
+      latLngFsel = LatLng(la, lo);
+      _goToTheLake();
+    });
+  }
+
+  Future<void> _goToTheLake() async {
+    final GoogleMapController controller = await _controller.future;
+    final cameraMan = CameraPosition(
+      target: latLngFsel ?? const LatLng(0, 0),
+      zoom: 20,
+    );
+    await controller.animateCamera(CameraUpdate.newCameraPosition(cameraMan));
+  }
+}
+
+logDeleteNoteDialog(BuildContext context, Note note) {
+  final appLocalizations = AppLocalizations.of(context)!;
+  updateNoteDialog(
+    context: context,
+    callBack: () => deleteNoteEvent(context, note),
+    title: appLocalizations.doYouWantToDeleteTheNote,
   );
+}
+
+nextUpdateNotesPage(BuildContext context, Note note) {
+  dI<AppNavigation>().pushName(context, page: Pages.createNoteWidget, extra: {'note': note});
 }
 
 closePopUp(BuildContext context) {

@@ -42,9 +42,10 @@ import 'package:base_app/presentations/pages/time_keeping_gps/history_timekeepin
 import 'package:base_app/presentations/pages/time_keeping_gps/successful_timekeeping_page.dart';
 import 'package:base_app/presentations/pages/time_keeping_gps/time_keeping_gps_school.dart';
 import 'package:base_app/presentations/pages/time_keeping_gps/unsuccessful_timekeeping_page.dart';
-import 'package:base_app/presentations/pages/trash_app/update_note.dart';
 import 'package:base_app/presentations/widgets/attendance/calendar/layout_calendar.dart';
 import 'package:base_app/presentations/widgets/change_password/change_password.dart';
+import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
+import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 
@@ -57,9 +58,7 @@ class AppRouters {
   AppRouters() : goRouter = _router;
 
   static GoRouter get _router => GoRouter(
-      routes: routerPages,
-      navigatorKey: dI<AppNavigation>().navigatorKey,
-      initialLocation: '/');
+      routes: routerPages, navigatorKey: dI<AppNavigation>().navigatorKey, initialLocation: '/');
 
   static List<GoRoute> routerPages = {
     Pages.main: mainPageRoute,
@@ -73,11 +72,9 @@ class AppRouters {
     Pages.createPositionPage: createPositionPageRoute,
     Pages.updatePositionPage: updatePositionPageRoute,
     Pages.forgotPasswordPage: forgotPasswordPageRoute,
-    Pages.updateNotesPage: updateNotePageRoute,
     Pages.changePasswordPage: changePasswordPageRoute,
     Pages.updateProfilePage: updateProfilePageRoute,
-    Pages.layoutCalendarAttendanceHistoryPage:
-        layoutCalendarAttendanceHistoryPageRoute,
+    Pages.layoutCalendarAttendanceHistoryPage: layoutCalendarAttendanceHistoryPageRoute,
     Pages.historyAttendancePage: historyAttendancePageRoute,
     Pages.biometricRegister: registerBiometricPageRoute,
     Pages.timekeepingGPSSchool: timekeepingGPSSchoolPageRoute,
@@ -92,11 +89,9 @@ class AppRouters {
     Pages.pDFPage: pDFPageRoute,
     Pages.createRequestBusinessPage: createRequestBusinessPageRoute,
     Pages.createRequestPostalDeliveryPage: createRequestPostalDeliveryPageRoute,
-    Pages.createRequestVehicleDispatchPage:
-        createRequestVehicleDispatchPageRoute,
+    Pages.createRequestVehicleDispatchPage: createRequestVehicleDispatchPageRoute,
     Pages.createRequestStationeryOderPage: createRequestStationeryOderPageRoute,
-    Pages.createRequestReleaseOfWarehousePage:
-        createRequestReleaseOfWarehousePageRoute,
+    Pages.createRequestReleaseOfWarehousePage: createRequestReleaseOfWarehousePageRoute,
     Pages.requisitionApproveListPage: requisitionApproveListPageRoute,
     Pages.requisitionFollowerListPage: requisitionFollowerListPageRoute,
     Pages.createRequestOverTimePage: createRequestOverTimePageRoute,
@@ -110,5 +105,7 @@ class AppRouters {
     Pages.registerWorkDayAdminDetail: registerWorkDayAdminDetailPageRoute,
     Pages.timekeepingGPSSHistory: timekeepingGPSHistoryRoute,
     Pages.shiftsPageReview: shiftsPageReviewRoute,
+    Pages.noteSystem: noteSystemPageRoute,
+    Pages.createNoteWidget: createNoteWidgetPageRoute,
   }.entries.map((entry) => entry.value).toList();
 }

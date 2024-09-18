@@ -13,7 +13,7 @@ abstract class _$NoteCWProxy {
 
   Note createdUserId(String createdUserId);
 
-  Note dateTime(String dateTime);
+  Note dateTime(DateTime? dateTime);
 
   Note id(String id);
 
@@ -35,7 +35,7 @@ abstract class _$NoteCWProxy {
     String? createdDate,
     String? createdFullName,
     String? createdUserId,
-    String? dateTime,
+    DateTime? dateTime,
     String? id,
     String? note,
     String? updatedDate,
@@ -62,7 +62,7 @@ class _$NoteCWProxyImpl implements _$NoteCWProxy {
       this(createdUserId: createdUserId);
 
   @override
-  Note dateTime(String dateTime) => this(dateTime: dateTime);
+  Note dateTime(DateTime? dateTime) => this(dateTime: dateTime);
 
   @override
   Note id(String id) => this(id: id);
@@ -116,10 +116,10 @@ class _$NoteCWProxyImpl implements _$NoteCWProxy {
               ? _value.createdUserId
               // ignore: cast_nullable_to_non_nullable
               : createdUserId as String,
-      dateTime: dateTime == const $CopyWithPlaceholder() || dateTime == null
+      dateTime: dateTime == const $CopyWithPlaceholder()
           ? _value.dateTime
           // ignore: cast_nullable_to_non_nullable
-          : dateTime as String,
+          : dateTime as DateTime?,
       id: id == const $CopyWithPlaceholder() || id == null
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
@@ -159,7 +159,8 @@ extension $NoteCopyWith on Note {
 
 Note _$NoteFromJson(Map<String, dynamic> json) => Note(
       note: json['note'] as String? ?? '',
-      dateTime: json['dateTime'] as String? ?? '',
+      dateTime: _$JsonConverterFromJson<String, DateTime>(
+          json['dateTime'], const CustomDateTimeConverter().fromJson),
       id: json['id'] as String? ?? '',
       createdUserId: json['createdUserId'] as String? ?? '',
       updatedUserId: json['updatedUserId'] as String? ?? '',
@@ -169,14 +170,39 @@ Note _$NoteFromJson(Map<String, dynamic> json) => Note(
       updatedDate: json['updatedDate'] as String? ?? '',
     );
 
-Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
-      'note': instance.note,
-      'dateTime': instance.dateTime,
-      'id': instance.id,
-      'createdUserId': instance.createdUserId,
-      'updatedUserId': instance.updatedUserId,
-      'createdFullName': instance.createdFullName,
-      'updatedFullName': instance.updatedFullName,
-      'createdDate': instance.createdDate,
-      'updatedDate': instance.updatedDate,
-    };
+Map<String, dynamic> _$NoteToJson(Note instance) {
+  final val = <String, dynamic>{
+    'note': instance.note,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'dateTime',
+      _$JsonConverterToJson<String, DateTime>(
+          instance.dateTime, const CustomDateTimeConverter().toJson));
+  val['id'] = instance.id;
+  val['createdUserId'] = instance.createdUserId;
+  val['updatedUserId'] = instance.updatedUserId;
+  val['createdFullName'] = instance.createdFullName;
+  val['updatedFullName'] = instance.updatedFullName;
+  val['createdDate'] = instance.createdDate;
+  val['updatedDate'] = instance.updatedDate;
+  return val;
+}
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

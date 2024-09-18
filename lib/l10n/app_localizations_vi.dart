@@ -128,6 +128,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get doYouWantToUpdateARequest => 'Bạn có muốn cập nhật yêu cầu?';
 
   @override
+  String get doYouWantToUpdateANote => 'Bạn có muốn cập nhật ghi chú?';
+
+  @override
   String get changePasswordSuccess => 'Đổi mật khẩu thành công!';
 
   @override

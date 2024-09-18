@@ -1,6 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/note.dart';
@@ -8,7 +9,6 @@ import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_event.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
 import 'package:base_app/presentations/widgets/trash_app/calendar/item_calender_2.dart';
-import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -123,10 +123,10 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
                   return GestureDetector(
                       onTap: () {
                         if (_checkNote(state.notes, widget.listDate[index], widget.month) != -1) {
-                          noteDialog(
-                              context,
-                              state.notes[
-                                  _checkNote(state.notes, widget.listDate[index], widget.month)]);
+                          dI<AppNavigation>().pushName(context, page: Pages.noteSystem, extra: {
+                            'note': state.notes[
+                                _checkNote(state.notes, widget.listDate[index], widget.month)],
+                          });
                         }
                       },
                       child: _item(index, state));
@@ -148,9 +148,9 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
             noteIndex: _checkNote(state.notes, widget.listDate[index], widget.month),
             note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
                 ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
-                : const Note(
+                : Note(
                     id: '',
-                    dateTime: '',
+                    dateTime: DateTime.now(),
                     note: '',
                     createdUserId: '',
                     createdDate: '',
@@ -164,9 +164,9 @@ class _BodyCalendar2State extends State<BodyCalendar2> {
             noteIndex: _checkNote(state.notes, widget.listDate[index], widget.month),
             note: _checkNote(state.notes, widget.listDate[index], widget.month) != -1
                 ? state.notes[_checkNote(state.notes, widget.listDate[index], widget.month)]
-                : const Note(
+                : Note(
                     id: '',
-                    dateTime: '',
+                    dateTime: DateTime.now(),
                     note: '',
                     createdUserId: '',
                     createdDate: '',

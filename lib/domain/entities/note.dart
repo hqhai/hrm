@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -5,9 +6,10 @@ part 'note.g.dart';
 
 @CopyWith()
 @JsonSerializable()
+@CustomDateTimeConverter()
 class Note {
   final String note;
-  final String dateTime;
+  final DateTime? dateTime;
   final String id;
   final String createdUserId;
   final String updatedUserId;
@@ -18,7 +20,7 @@ class Note {
 
   const Note({
     this.note = '',
-    this.dateTime = '',
+    this.dateTime,
     this.id = '',
     this.createdUserId = '',
     this.updatedUserId = '',

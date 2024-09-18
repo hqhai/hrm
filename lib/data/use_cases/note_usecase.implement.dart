@@ -12,7 +12,7 @@ class NoteUseCaseImpl extends NoteUseCase {
   NoteUseCaseImpl() : _noteRepository = dI<NoteRepository>();
 
   @override
-  Future<int> createNoteRequest({required String note, required String dateTime}) async {
+  Future<int> createNoteRequest({required String note, required DateTime dateTime}) async {
     return await _noteRepository.createNoteRequest(note: note, dateTime: dateTime);
   }
 
@@ -30,7 +30,7 @@ class NoteUseCaseImpl extends NoteUseCase {
   Future<int> updateNoteRequest({
     required String note,
     required String id,
-    required String dateTime,
+    required DateTime dateTime,
   }) async {
     return await _noteRepository.updateNoteRequest(note: note, id: id, dateTime: dateTime);
   }
