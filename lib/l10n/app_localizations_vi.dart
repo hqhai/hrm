@@ -1218,7 +1218,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get totalLeaveOfChanges => 'Tổng số phép thay đổi';
 
   @override
-  String get actionName => 'Tên hành dộng';
+  String get actionName => 'Tên hành động';
 
   @override
   String get totalRemainingLeaveDays => 'Tổng số phép còn lại';
