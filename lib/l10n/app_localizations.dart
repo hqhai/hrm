@@ -108,7 +108,7 @@ abstract class AppLocalizations {
   /// No description provided for @staySignedIn.
   ///
   /// In en, this message translates to:
-  /// **'Save Login'**
+  /// **'Stay Signed in'**
   String get staySignedIn;
 
   /// No description provided for @forgotPassword.
@@ -150,7 +150,7 @@ abstract class AppLocalizations {
   /// No description provided for @whatIsYourEmail.
   ///
   /// In en, this message translates to:
-  /// **'What\'s Your Email?'**
+  /// **'Your Email'**
   String get whatIsYourEmail;
 
   /// No description provided for @chooseAUsername.
@@ -168,7 +168,7 @@ abstract class AppLocalizations {
   /// No description provided for @confirmPassword.
   ///
   /// In en, this message translates to:
-  /// **'Re-enter The Password'**
+  /// **'Re-enter Password'**
   String get confirmPassword;
 
   /// No description provided for @weak.
@@ -234,7 +234,7 @@ abstract class AppLocalizations {
   /// No description provided for @requestIsProcessing.
   ///
   /// In en, this message translates to:
-  /// **'Request is processing'**
+  /// **'Request in Progress'**
   String get requestIsProcessing;
 
   /// No description provided for @requestProcessed.
@@ -246,7 +246,7 @@ abstract class AppLocalizations {
   /// No description provided for @timeKeeping.
   ///
   /// In en, this message translates to:
-  /// **'Time Keeping'**
+  /// **'Timekeeping'**
   String get timeKeeping;
 
   /// No description provided for @changePassword.
@@ -312,13 +312,13 @@ abstract class AppLocalizations {
   /// No description provided for @createOvertimeRequestIsSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Create A Successful OT Request'**
+  /// **'Successfully Created OT Request'**
   String get createOvertimeRequestIsSuccess;
 
   /// No description provided for @successfullyCreatedRequest.
   ///
   /// In en, this message translates to:
-  /// **'The Request is Successfully Initiated'**
+  /// **'Request Successfully Initiated'**
   String get successfullyCreatedRequest;
 
   /// No description provided for @doYouWantToCreateARequest.
@@ -336,7 +336,7 @@ abstract class AppLocalizations {
   /// No description provided for @doYouWantToUpdateARequest.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to update your requirements?'**
+  /// **'Do you want to update the request?'**
   String get doYouWantToUpdateARequest;
 
   /// No description provided for @changePasswordSuccess.
@@ -360,7 +360,7 @@ abstract class AppLocalizations {
   /// No description provided for @previouslyAvailableSchedules.
   ///
   /// In en, this message translates to:
-  /// **'Availabale Schedules '**
+  /// **'Available Schedules'**
   String get previouslyAvailableSchedules;
 
   /// No description provided for @thereAreCurrentlyNoMeetingsScheduled.
@@ -396,19 +396,19 @@ abstract class AppLocalizations {
   /// No description provided for @create.
   ///
   /// In en, this message translates to:
-  /// **'Create/Initialization'**
+  /// **'Create'**
   String get create;
 
   /// No description provided for @startTime.
   ///
   /// In en, this message translates to:
-  /// **'Begin/ Finish/ Start Time'**
+  /// **'Start'**
   String get startTime;
 
   /// No description provided for @endTime.
   ///
   /// In en, this message translates to:
-  /// **'End Time'**
+  /// **'End'**
   String get endTime;
 
   /// No description provided for @startTimeH.
@@ -516,7 +516,7 @@ abstract class AppLocalizations {
   /// No description provided for @noteRoomLeader.
   ///
   /// In en, this message translates to:
-  /// **'Head\'s Note Manager\'s'**
+  /// **'Head\'s Note'**
   String get noteRoomLeader;
 
   /// No description provided for @noteManager.
@@ -576,7 +576,7 @@ abstract class AppLocalizations {
   /// No description provided for @updateSuccessful.
   ///
   /// In en, this message translates to:
-  /// **'Update information Successfully'**
+  /// **'Information Updated Successfully!'**
   String get updateSuccessful;
 
   /// No description provided for @save.
@@ -588,7 +588,7 @@ abstract class AppLocalizations {
   /// No description provided for @success.
   ///
   /// In en, this message translates to:
-  /// **'Successfull!'**
+  /// **'Successful!'**
   String get success;
 
   /// No description provided for @unsuccessful.
@@ -666,7 +666,7 @@ abstract class AppLocalizations {
   /// No description provided for @daysAgo.
   ///
   /// In en, this message translates to:
-  /// **'Previous Days'**
+  /// **'Days Ago'**
   String get daysAgo;
 
   /// No description provided for @setRoom.
@@ -714,19 +714,19 @@ abstract class AppLocalizations {
   /// No description provided for @doYouWantToUpdateDepartment.
   ///
   /// In en, this message translates to:
-  /// **'Do you want  to edit your department?'**
+  /// **'Do you want to edit the department information?'**
   String get doYouWantToUpdateDepartment;
 
   /// No description provided for @doYouWantToUpdatePosition.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to edit your job title?'**
+  /// **'Do you want to edit the position information?'**
   String get doYouWantToUpdatePosition;
 
   /// No description provided for @code.
   ///
   /// In en, this message translates to:
-  /// **'Code/Horse'**
+  /// **'Code'**
   String get code;
 
   /// No description provided for @createDepartment.
@@ -738,13 +738,13 @@ abstract class AppLocalizations {
   /// No description provided for @createPosition.
   ///
   /// In en, this message translates to:
-  /// **'Initiation Of The Position'**
+  /// **'Position Initialization'**
   String get createPosition;
 
   /// No description provided for @updateDepartment.
   ///
   /// In en, this message translates to:
-  /// **'Edit A Department'**
+  /// **'Edit Department'**
   String get updateDepartment;
 
   /// No description provided for @updatePosition.
@@ -1170,7 +1170,7 @@ abstract class AppLocalizations {
   /// No description provided for @notRegisteredForBiometrics.
   ///
   /// In en, this message translates to:
-  /// **'You have not registered biometric authentication, please register'**
+  /// **'Please log in to the app to activate biometric authentication.'**
   String get notRegisteredForBiometrics;
 
   /// No description provided for @pleaseEnterYourUsernameAndPasswordHere.
@@ -1356,7 +1356,7 @@ abstract class AppLocalizations {
   /// No description provided for @vehicleDispatchCreate.
   ///
   /// In en, this message translates to:
-  /// **'Create vehicle request form'**
+  /// **'Vehicle Request Form Initialization'**
   String get vehicleDispatchCreate;
 
   /// No description provided for @postalDelivery.
@@ -1566,7 +1566,7 @@ abstract class AppLocalizations {
   /// No description provided for @destination.
   ///
   /// In en, this message translates to:
-  /// **'Location'**
+  /// **'Destination'**
   String get destination;
 
   /// No description provided for @workingContent.
@@ -1638,13 +1638,13 @@ abstract class AppLocalizations {
   /// No description provided for @reasonCreate.
   ///
   /// In en, this message translates to:
-  /// **'Reason create'**
+  /// **'Reason for Creating Request'**
   String get reasonCreate;
 
   /// No description provided for @reasonForExplanation.
   ///
   /// In en, this message translates to:
-  /// **'Explanation reason'**
+  /// **'Reason for Explanation'**
   String get reasonForExplanation;
 
   /// No description provided for @detailedDescription.
@@ -1782,7 +1782,7 @@ abstract class AppLocalizations {
   /// No description provided for @superSpeed.
   ///
   /// In en, this message translates to:
-  /// **'Super fast'**
+  /// **'Express'**
   String get superSpeed;
 
   /// No description provided for @sendingPurpose.
@@ -1824,13 +1824,13 @@ abstract class AppLocalizations {
   /// No description provided for @unit.
   ///
   /// In en, this message translates to:
-  /// **'Unit'**
+  /// **'Unit of Measure'**
   String get unit;
 
   /// No description provided for @pieces.
   ///
   /// In en, this message translates to:
-  /// **'Piece'**
+  /// **'Item'**
   String get pieces;
 
   /// No description provided for @rolls.
@@ -1890,7 +1890,7 @@ abstract class AppLocalizations {
   /// No description provided for @stationeryList.
   ///
   /// In en, this message translates to:
-  /// **'Item list'**
+  /// **'Product List'**
   String get stationeryList;
 
   /// No description provided for @product.
@@ -2100,7 +2100,7 @@ abstract class AppLocalizations {
   /// No description provided for @unpaidLeave.
   ///
   /// In en, this message translates to:
-  /// **'Unpaid leave'**
+  /// **'Company unpaid leave'**
   String get unpaidLeave;
 
   /// No description provided for @theStartTimeMustBeAfterTheCurrentTime.
@@ -2274,7 +2274,7 @@ abstract class AppLocalizations {
   /// No description provided for @listOvertime.
   ///
   /// In en, this message translates to:
-  /// **'Overtime hours list'**
+  /// **'Overtime hours record'**
   String get listOvertime;
 
   /// No description provided for @totalTime.
@@ -2334,19 +2334,19 @@ abstract class AppLocalizations {
   /// No description provided for @revoke.
   ///
   /// In en, this message translates to:
-  /// **'Cancel'**
+  /// **'Cancel request'**
   String get revoke;
 
   /// No description provided for @leaveNumberUsed.
   ///
   /// In en, this message translates to:
-  /// **'Used leave days'**
+  /// **'Maximum leave days'**
   String get leaveNumberUsed;
 
   /// No description provided for @leaveNumberPermission.
   ///
   /// In en, this message translates to:
-  /// **'Initial leave days'**
+  /// **'Leave days taken'**
   String get leaveNumberPermission;
 
   /// No description provided for @leaveNumberRemaining.
@@ -2358,13 +2358,13 @@ abstract class AppLocalizations {
   /// No description provided for @leaveNumberUsedH.
   ///
   /// In en, this message translates to:
-  /// **'Used leave hours'**
+  /// **'Maximum leave hours taken'**
   String get leaveNumberUsedH;
 
   /// No description provided for @leaveNumberPermissionH.
   ///
   /// In en, this message translates to:
-  /// **'Initial leave hours'**
+  /// **'Leave hours'**
   String get leaveNumberPermissionH;
 
   /// No description provided for @leaveNumberRemainingH.
@@ -2388,13 +2388,13 @@ abstract class AppLocalizations {
   /// No description provided for @timeKeepingList.
   ///
   /// In en, this message translates to:
-  /// **'Time list'**
+  /// **'Time records'**
   String get timeKeepingList;
 
   /// No description provided for @listTime.
   ///
   /// In en, this message translates to:
-  /// **'Time list (repeated)'**
+  /// **'Time records'**
   String get listTime;
 
   /// No description provided for @workOffset.
@@ -2454,7 +2454,7 @@ abstract class AppLocalizations {
   /// No description provided for @leaveList.
   ///
   /// In en, this message translates to:
-  /// **'Leave list'**
+  /// **'Leave records'**
   String get leaveList;
 
   /// No description provided for @leaveUseHistory.
@@ -2544,7 +2544,7 @@ abstract class AppLocalizations {
   /// No description provided for @doYouWantRevokeYourRequest.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to disable this request?'**
+  /// **'Are you sure you want to cancel to request?'**
   String get doYouWantRevokeYourRequest;
 
   /// No description provided for @start.
@@ -2562,13 +2562,13 @@ abstract class AppLocalizations {
   /// No description provided for @flow.
   ///
   /// In en, this message translates to:
-  /// **'Flow'**
+  /// **'Approval Flow'**
   String get flow;
 
   /// No description provided for @trackFlowProgres.
   ///
   /// In en, this message translates to:
-  /// **'Track flow progress'**
+  /// **'Track approval progress'**
   String get trackFlowProgres;
 
   /// No description provided for @youDoNotHaveAShiftToday.
@@ -2580,7 +2580,7 @@ abstract class AppLocalizations {
   /// No description provided for @worksheet.
   ///
   /// In en, this message translates to:
-  /// **'Worksheet'**
+  /// **'Timesheet'**
   String get worksheet;
 
   /// No description provided for @actualWork.
@@ -2604,37 +2604,37 @@ abstract class AppLocalizations {
   /// No description provided for @salaryWork.
   ///
   /// In en, this message translates to:
-  /// **'Salary Work'**
+  /// **'Paid work'**
   String get salaryWork;
 
   /// No description provided for @noSalaryWork.
   ///
   /// In en, this message translates to:
-  /// **'No Salary Work'**
+  /// **'Unpaid work'**
   String get noSalaryWork;
 
   /// No description provided for @workTime.
   ///
   /// In en, this message translates to:
-  /// **'Work Time'**
+  /// **'Work hours'**
   String get workTime;
 
   /// No description provided for @timeEarly.
   ///
   /// In en, this message translates to:
-  /// **'Time Early'**
+  /// **'Early departure time'**
   String get timeEarly;
 
   /// No description provided for @timeLate.
   ///
   /// In en, this message translates to:
-  /// **'Time Late'**
+  /// **'Late arrival time'**
   String get timeLate;
 
   /// No description provided for @realWork.
   ///
   /// In en, this message translates to:
-  /// **'Real Work'**
+  /// **'Actual Work'**
   String get realWork;
 
   /// No description provided for @seeDetails.
@@ -2646,25 +2646,25 @@ abstract class AppLocalizations {
   /// No description provided for @onTime.
   ///
   /// In en, this message translates to:
-  /// **'On time'**
+  /// **'On time clock-in'**
   String get onTime;
 
   /// No description provided for @forgotChecking.
   ///
   /// In en, this message translates to:
-  /// **'Forgot checking'**
+  /// **'Missed clock-in'**
   String get forgotChecking;
 
   /// No description provided for @offWork.
   ///
   /// In en, this message translates to:
-  /// **'Off work'**
+  /// **'No shift'**
   String get offWork;
 
   /// No description provided for @isRequest.
   ///
   /// In en, this message translates to:
-  /// **'Is request'**
+  /// **'Request exists'**
   String get isRequest;
 
   /// No description provided for @holiday.
@@ -2676,31 +2676,31 @@ abstract class AppLocalizations {
   /// No description provided for @noAttendance.
   ///
   /// In en, this message translates to:
-  /// **'No attendance'**
+  /// **'No attendance required'**
   String get noAttendance;
 
   /// No description provided for @offSet.
   ///
   /// In en, this message translates to:
-  /// **'Off set'**
+  /// **'Compensatory work'**
   String get offSet;
 
   /// No description provided for @timeWork.
   ///
   /// In en, this message translates to:
-  /// **'Time work'**
+  /// **'Work hours'**
   String get timeWork;
 
   /// No description provided for @detailWork.
   ///
   /// In en, this message translates to:
-  /// **'Detail work'**
+  /// **'Detailed work'**
   String get detailWork;
 
   /// No description provided for @summary.
   ///
   /// In en, this message translates to:
-  /// **'Summary'**
+  /// **'Summary of work'**
   String get summary;
 
   /// No description provided for @year.
@@ -2724,7 +2724,7 @@ abstract class AppLocalizations {
   /// No description provided for @workInDay.
   ///
   /// In en, this message translates to:
-  /// **'Daily recorded attendance'**
+  /// **'Daily attendance record'**
   String get workInDay;
 
   /// No description provided for @minutesToLate.
@@ -2814,7 +2814,7 @@ abstract class AppLocalizations {
   /// No description provided for @workOT.
   ///
   /// In en, this message translates to:
-  /// **'Overtime number hours'**
+  /// **'Overtime hours'**
   String get workOT;
 
   /// No description provided for @historyTimekeeping.
@@ -2844,7 +2844,7 @@ abstract class AppLocalizations {
   /// No description provided for @timeStart.
   ///
   /// In en, this message translates to:
-  /// **'Departure time'**
+  /// **'Leaving time'**
   String get timeStart;
 
   /// No description provided for @timeEnd.
@@ -2862,7 +2862,7 @@ abstract class AppLocalizations {
   /// No description provided for @lateOrEarly.
   ///
   /// In en, this message translates to:
-  /// **'Request for Late Arrival/Early Departure'**
+  /// **'Late Arrival/Early Departure'**
   String get lateOrEarly;
 
   /// No description provided for @lateOrEarlyCreate.
@@ -2940,7 +2940,7 @@ abstract class AppLocalizations {
   /// No description provided for @pendingCancel.
   ///
   /// In en, this message translates to:
-  /// **'Pending cancellation'**
+  /// **'Pending shift cancellation'**
   String get pendingCancel;
 
   /// No description provided for @remove.
@@ -2964,7 +2964,7 @@ abstract class AppLocalizations {
   /// No description provided for @administrativeShift.
   ///
   /// In en, this message translates to:
-  /// **'Administrative shift'**
+  /// **'Business hour shift'**
   String get administrativeShift;
 
   /// No description provided for @singleShift.
@@ -3048,37 +3048,37 @@ abstract class AppLocalizations {
   /// No description provided for @halfDayToOneDay.
   ///
   /// In en, this message translates to:
-  /// **'Request for 0.5-1 Day Leave'**
+  /// **'Request for Leave (0.5 - 1 Day)'**
   String get halfDayToOneDay;
 
   /// No description provided for @twoDayToFourDay.
   ///
   /// In en, this message translates to:
-  /// **'Request for 2-4 Day Leave'**
+  /// **'Request for Leave (2 - 4 Day)'**
   String get twoDayToFourDay;
 
   /// No description provided for @fiveDaysOrMore.
   ///
   /// In en, this message translates to:
-  /// **'Request for 5 or More Days Leave'**
+  /// **'Request for Leave (5 or More Days)'**
   String get fiveDaysOrMore;
 
   /// No description provided for @halfDayToOneDayCreate.
   ///
   /// In en, this message translates to:
-  /// **'Create request for 0.5-1 Day Leave'**
+  /// **'Create Request for Leave (0.5 - 1 Day)'**
   String get halfDayToOneDayCreate;
 
   /// No description provided for @twoDayToFourDayCreate.
   ///
   /// In en, this message translates to:
-  /// **'Create request for 2-4 Day Leave'**
+  /// **'CCreate Request for Leave (2 - 4 Day)'**
   String get twoDayToFourDayCreate;
 
   /// No description provided for @fiveDaysOrMoreCreate.
   ///
   /// In en, this message translates to:
-  /// **'Create request for 5 or More Days Leave'**
+  /// **'Create Request for Leave (5 or More Days)'**
   String get fiveDaysOrMoreCreate;
 
   /// No description provided for @earlyLate.
@@ -3348,25 +3348,25 @@ abstract class AppLocalizations {
   /// No description provided for @numberTotalWork.
   ///
   /// In en, this message translates to:
-  /// **'Number total Work'**
+  /// **'Total number of work days'**
   String get numberTotalWork;
 
   /// No description provided for @gPSAndFingerprint.
   ///
   /// In en, this message translates to:
-  /// **'Form of timekeeping: GPS & Fingerprint'**
+  /// **'Timekeeping method: GPS & Fingerprint'**
   String get gPSAndFingerprint;
 
   /// No description provided for @noTimekeeping.
   ///
   /// In en, this message translates to:
-  /// **'Expression formula: No timekeeping'**
+  /// **'Timekeeping method: No timekeeping'**
   String get noTimekeeping;
 
   /// No description provided for @reasonCreateRequest.
   ///
   /// In en, this message translates to:
-  /// **'Reason create request'**
+  /// **'Reason for request'**
   String get reasonCreateRequest;
 
   /// No description provided for @descriptionR.
@@ -3384,13 +3384,13 @@ abstract class AppLocalizations {
   /// No description provided for @revokeRequestSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Revoke request success'**
+  /// **'Request canceled successfully'**
   String get revokeRequestSuccess;
 
   /// No description provided for @revokeRequestUnsuccessful.
   ///
   /// In en, this message translates to:
-  /// **'Revoke request unsuccessful'**
+  /// **'Request cancelation failed'**
   String get revokeRequestUnsuccessful;
 
   /// No description provided for @notSelectedAShift.
@@ -3402,55 +3402,55 @@ abstract class AppLocalizations {
   /// No description provided for @notSelectedAOverTime.
   ///
   /// In en, this message translates to:
-  /// **'You have not selected a overtime'**
+  /// **'You have not selected overtime hours yet'**
   String get notSelectedAOverTime;
 
   /// No description provided for @selectTypeLeave.
   ///
   /// In en, this message translates to:
-  /// **'Select type leave'**
+  /// **'Leave type'**
   String get selectTypeLeave;
 
   /// No description provided for @selectLeave.
   ///
   /// In en, this message translates to:
-  /// **'Leave'**
+  /// **'Leave source'**
   String get selectLeave;
 
   /// No description provided for @destinationOT.
   ///
   /// In en, this message translates to:
-  /// **'Destination overtime'**
+  /// **'Overtime location'**
   String get destinationOT;
 
   /// No description provided for @inCompany.
   ///
   /// In en, this message translates to:
-  /// **'Inside company'**
+  /// **'Inside the company'**
   String get inCompany;
 
   /// No description provided for @outCompany.
   ///
   /// In en, this message translates to:
-  /// **'Outside Company'**
+  /// **'Outside the company'**
   String get outCompany;
 
   /// No description provided for @makeUpWork.
   ///
   /// In en, this message translates to:
-  /// **'Make up work'**
+  /// **'Compensatory work request'**
   String get makeUpWork;
 
   /// No description provided for @createMakeUpWork.
   ///
   /// In en, this message translates to:
-  /// **'Create makeup work request'**
+  /// **'Create compensatory work request'**
   String get createMakeUpWork;
 
   /// No description provided for @reasonMakeUpWork.
   ///
   /// In en, this message translates to:
-  /// **'Makeup work reason '**
+  /// **'Reason for compensatory work'**
   String get reasonMakeUpWork;
 
   /// No description provided for @leaveDate.
@@ -3462,37 +3462,37 @@ abstract class AppLocalizations {
   /// No description provided for @makeUpWorkDate.
   ///
   /// In en, this message translates to:
-  /// **'Make up work date'**
+  /// **'Compensatory work date'**
   String get makeUpWorkDate;
 
   /// No description provided for @totalMakeUpWorkTime.
   ///
   /// In en, this message translates to:
-  /// **'Total make up work time'**
+  /// **'Total compensatory work hours'**
   String get totalMakeUpWorkTime;
 
   /// No description provided for @youDoNotHaveAShift.
   ///
   /// In en, this message translates to:
-  /// **'You don\'t have a shift in date!'**
+  /// **'You don\'t have a shift on the selected date!'**
   String get youDoNotHaveAShift;
 
   /// No description provided for @shiftWasLeave.
   ///
   /// In en, this message translates to:
-  /// **'Shift was leave'**
+  /// **'Shift off'**
   String get shiftWasLeave;
 
   /// No description provided for @realCheckIn.
   ///
   /// In en, this message translates to:
-  /// **'Real CheckIn'**
+  /// **'Actual Check-in time'**
   String get realCheckIn;
 
   /// No description provided for @realCheckOut.
   ///
   /// In en, this message translates to:
-  /// **'Real CheckOut'**
+  /// **'Actual Check-out time'**
   String get realCheckOut;
 
   /// No description provided for @settingBiometric.
@@ -3504,55 +3504,55 @@ abstract class AppLocalizations {
   /// No description provided for @cancelBiometricSuccessful.
   ///
   /// In en, this message translates to:
-  /// **'Cancel biometric successful'**
+  /// **'Biometric login cancellation successful'**
   String get cancelBiometricSuccessful;
 
   /// No description provided for @settingBiometricSuccessful.
   ///
   /// In en, this message translates to:
-  /// **'Setting biometric successful'**
+  /// **'Biometric login setup successful'**
   String get settingBiometricSuccessful;
 
   /// No description provided for @authAccount.
   ///
   /// In en, this message translates to:
-  /// **'Auth account'**
+  /// **'Account verification'**
   String get authAccount;
 
   /// No description provided for @offDay.
   ///
   /// In en, this message translates to:
-  /// **'Off day'**
+  /// **'Day off'**
   String get offDay;
 
   /// No description provided for @oTSalary.
   ///
   /// In en, this message translates to:
-  /// **'OT coefficient calculates salary'**
+  /// **'OT salary coefficient'**
   String get oTSalary;
 
   /// No description provided for @oTMakeUpLeave.
   ///
   /// In en, this message translates to:
-  /// **'Compensatory rest OT coefficient'**
+  /// **'Compensatory OT coefficient'**
   String get oTMakeUpLeave;
 
   /// No description provided for @oTSalaryH.
   ///
   /// In en, this message translates to:
-  /// **'Number hours OT salary'**
+  /// **'OT hours for salary'**
   String get oTSalaryH;
 
   /// No description provided for @oTMakeUpLeaveH.
   ///
   /// In en, this message translates to:
-  /// **'Number hours OT coefficient'**
+  /// **'OT hours for compensatory leave'**
   String get oTMakeUpLeaveH;
 
   /// No description provided for @makeUpTime.
   ///
   /// In en, this message translates to:
-  /// **'Make up time'**
+  /// **'Compensatory time'**
   String get makeUpTime;
 
   /// No description provided for @nameNotNullOrEmpty.
@@ -3714,7 +3714,7 @@ abstract class AppLocalizations {
   /// No description provided for @currentStatusIsNotProcessOrEdit.
   ///
   /// In en, this message translates to:
-  /// **' Current status is neither in progress nor editable'**
+  /// **' Request is not in a valid state for cancellation.'**
   String get currentStatusIsNotProcessOrEdit;
 
   /// No description provided for @theNumberOfFormsCreatedHasExceededTheLimit.
@@ -3750,13 +3750,13 @@ abstract class AppLocalizations {
   /// No description provided for @flowDoesNotHaveEnoughComponents.
   ///
   /// In en, this message translates to:
-  /// **' Flow must have start, steps, and end components'**
+  /// **' Flow must include start, steps, and end components'**
   String get flowDoesNotHaveEnoughComponents;
 
   /// No description provided for @ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId.
   ///
   /// In en, this message translates to:
-  /// **' If it is a start or end type, there should be no employee, position, or department'**
+  /// **'If it is a start or end type, it should not include employee, position, or department'**
   String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId;
 
   /// No description provided for @currentStatusNotNew.
@@ -3780,7 +3780,7 @@ abstract class AppLocalizations {
   /// No description provided for @timeSlotAlreadyPleaseChooseAnother.
   ///
   /// In en, this message translates to:
-  /// **' A request already exists with the same time frame, please select a different time'**
+  /// **'A request with the same time frame already exists, please select a different time'**
   String get timeSlotAlreadyPleaseChooseAnother;
 
   /// No description provided for @mustCreateMinimumTimeInAdvance.
@@ -3798,13 +3798,13 @@ abstract class AppLocalizations {
   /// No description provided for @errorTimeMakeUp1.
   ///
   /// In en, this message translates to:
-  /// **'The total number of compensatory hours must be greater than or equal to the number of missed working hours. Please readjust'**
+  /// **'The total number of compensatory hours must be greater than or equal to the number of missed working hours. Please adjust.'**
   String get errorTimeMakeUp1;
 
   /// No description provided for @errorTimeMakeUp2.
   ///
   /// In en, this message translates to:
-  /// **'Make-up time overlapped with another shift. Please select again'**
+  /// **'Compensation time overlaps with another shift. Please select again.'**
   String get errorTimeMakeUp2;
 
   /// No description provided for @errorPlease.
@@ -3834,7 +3834,7 @@ abstract class AppLocalizations {
   /// No description provided for @setHoursAndMinutes.
   ///
   /// In en, this message translates to:
-  /// **'Set hours and minutes'**
+  /// **'Select time'**
   String get setHoursAndMinutes;
 
   /// No description provided for @january.
@@ -3912,49 +3912,49 @@ abstract class AppLocalizations {
   /// No description provided for @rejectSucceed.
   ///
   /// In en, this message translates to:
-  /// **'Reject Succeed'**
+  /// **'Request rejected successfully'**
   String get rejectSucceed;
 
   /// No description provided for @requestSucceed.
   ///
   /// In en, this message translates to:
-  /// **'Request Succeed'**
+  /// **'Modification request submitted successfully'**
   String get requestSucceed;
 
   /// No description provided for @cancelSucceed.
   ///
   /// In en, this message translates to:
-  /// **'Cancel Succeed'**
+  /// **'Request canceled successfully'**
   String get cancelSucceed;
 
   /// No description provided for @approveSucceed.
   ///
   /// In en, this message translates to:
-  /// **'Approve Succeed'**
+  /// **'Request approved successfully'**
   String get approveSucceed;
 
   /// No description provided for @rejectFailed.
   ///
   /// In en, this message translates to:
-  /// **'Reject Failed'**
+  /// **'Request rejection failed'**
   String get rejectFailed;
 
   /// No description provided for @requestFailed.
   ///
   /// In en, this message translates to:
-  /// **'Request Failed'**
+  /// **'Modification request submission failed'**
   String get requestFailed;
 
   /// No description provided for @cancelFailed.
   ///
   /// In en, this message translates to:
-  /// **'Cancel Failed'**
+  /// **'Request cancellation failed'**
   String get cancelFailed;
 
   /// No description provided for @approveFailed.
   ///
   /// In en, this message translates to:
-  /// **'Approve Failed'**
+  /// **'Request approval failed'**
   String get approveFailed;
 
   /// No description provided for @contentPopUpOpenGPS.
@@ -3990,13 +3990,13 @@ abstract class AppLocalizations {
   /// No description provided for @rejectTitle.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to remove this employee from your current status?'**
+  /// **'Are you sure you want to remove this employee from the current shift?'**
   String get rejectTitle;
 
   /// No description provided for @rejectTitle1.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to refuse to approve this employee\'s request to cancel a shift?'**
+  /// **'Are you sure you want to reject this employee\'s shift cancellation request?'**
   String get rejectTitle1;
 
   /// No description provided for @rejectTitle2.
@@ -4008,19 +4008,19 @@ abstract class AppLocalizations {
   /// No description provided for @proactiveCaseRegistrationManagement.
   ///
   /// In en, this message translates to:
-  /// **'Proactive case registration management'**
+  /// **'Proactive shift registration management'**
   String get proactiveCaseRegistrationManagement;
 
   /// No description provided for @receivedShift.
   ///
   /// In en, this message translates to:
-  /// **'Received shift'**
+  /// **'Shift received'**
   String get receivedShift;
 
   /// No description provided for @rejectShift.
   ///
   /// In en, this message translates to:
-  /// **'Reject shift'**
+  /// **'Shift rejected'**
   String get rejectShift;
 
   /// No description provided for @confirm.
@@ -4032,13 +4032,13 @@ abstract class AppLocalizations {
   /// No description provided for @waitingForApprovalToCancelShift.
   ///
   /// In en, this message translates to:
-  /// **'Waiting for approval to cancel shift'**
+  /// **'Waiting for shift cancellation approval'**
   String get waitingForApprovalToCancelShift;
 
   /// No description provided for @waitingForShiftRegistrationApproval.
   ///
   /// In en, this message translates to:
-  /// **'Waiting for approval for case registration'**
+  /// **'Waiting for shift registration approval'**
   String get waitingForShiftRegistrationApproval;
 
   /// No description provided for @notRegisteredYet.
@@ -4056,25 +4056,25 @@ abstract class AppLocalizations {
   /// No description provided for @shiftOfDay.
   ///
   /// In en, this message translates to:
-  /// **'Shift of today:'**
+  /// **'Today\'s shift: '**
   String get shiftOfDay;
 
   /// No description provided for @moveToTheAppropriate.
   ///
   /// In en, this message translates to:
-  /// **'Please move to the appropriate location on the map'**
+  /// **'Please move to a valid location on the map'**
   String get moveToTheAppropriate;
 
   /// No description provided for @chooseASchedule.
   ///
   /// In en, this message translates to:
-  /// **'You need to choose a schedule for timekeeping.'**
+  /// **'You need to select a schedule for timekeeping.'**
   String get chooseASchedule;
 
   /// No description provided for @noDataTimekeeping.
   ///
   /// In en, this message translates to:
-  /// **'No data timekeeping'**
+  /// **'No timekeeping data'**
   String get noDataTimekeeping;
 
   /// No description provided for @notification.
@@ -4086,7 +4086,7 @@ abstract class AppLocalizations {
   /// No description provided for @sent.
   ///
   /// In en, this message translates to:
-  /// **'Sent'**
+  /// **'Unread'**
   String get sent;
 
   /// No description provided for @read.
@@ -4128,7 +4128,7 @@ abstract class AppLocalizations {
   /// No description provided for @workingTime1.
   ///
   /// In en, this message translates to:
-  /// **'Working time'**
+  /// **'Time'**
   String get workingTime1;
 
   /// No description provided for @recordedNumberOfShifts.
@@ -4140,7 +4140,7 @@ abstract class AppLocalizations {
   /// No description provided for @operationDay.
   ///
   /// In en, this message translates to:
-  /// **'Operation day '**
+  /// **'Date of operation'**
   String get operationDay;
 
   /// No description provided for @validTimeKeeping.
@@ -4152,13 +4152,13 @@ abstract class AppLocalizations {
   /// No description provided for @cancelShift1.
   ///
   /// In en, this message translates to:
-  /// **'Unsubscribe'**
+  /// **'Cancel shift registration'**
   String get cancelShift1;
 
   /// No description provided for @cancelShift2.
   ///
   /// In en, this message translates to:
-  /// **'Cancel Request to cancel shift'**
+  /// **'Shift status history'**
   String get cancelShift2;
 
   /// No description provided for @shiftHistory.
@@ -4170,7 +4170,7 @@ abstract class AppLocalizations {
   /// No description provided for @noConnected.
   ///
   /// In en, this message translates to:
-  /// **'No connected!'**
+  /// **'No Connection/ An error occured, please check again later!'**
   String get noConnected;
 
   /// No description provided for @reasonForCancellation.

@@ -11,7 +11,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
-  String get staySignedIn => 'Save Login';
+  String get staySignedIn => 'Stay Signed in';
 
   @override
   String get forgotPassword => 'Forgot Password';
@@ -32,7 +32,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logInNow => 'Log In Now';
 
   @override
-  String get whatIsYourEmail => 'What\'s Your Email?';
+  String get whatIsYourEmail => 'Your Email';
 
   @override
   String get chooseAUsername => 'Choose A Username';
@@ -41,7 +41,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chooseAPassword => 'Choose A Password';
 
   @override
-  String get confirmPassword => 'Re-enter The Password';
+  String get confirmPassword => 'Re-enter Password';
 
   @override
   String get weak => 'Weak';
@@ -74,13 +74,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recentRequest => 'Recent request';
 
   @override
-  String get requestIsProcessing => 'Request is processing';
+  String get requestIsProcessing => 'Request in Progress';
 
   @override
   String get requestProcessed => 'Request processed';
 
   @override
-  String get timeKeeping => 'Time Keeping';
+  String get timeKeeping => 'Timekeeping';
 
   @override
   String get changePassword => 'Change Password';
@@ -113,10 +113,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get approver => 'Approve';
 
   @override
-  String get createOvertimeRequestIsSuccess => 'Create A Successful OT Request';
+  String get createOvertimeRequestIsSuccess => 'Successfully Created OT Request';
 
   @override
-  String get successfullyCreatedRequest => 'The Request is Successfully Initiated';
+  String get successfullyCreatedRequest => 'Request Successfully Initiated';
 
   @override
   String get doYouWantToCreateARequest => 'Do you want to initiate a request?';
@@ -125,7 +125,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get doYouWantToDeleteTheRoom => 'Do you want to delete a room?';
 
   @override
-  String get doYouWantToUpdateARequest => 'Do you want to update your requirements?';
+  String get doYouWantToUpdateARequest => 'Do you want to update the request?';
 
   @override
   String get changePasswordSuccess => 'Password Change Successful!';
@@ -137,7 +137,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leaveACommentHere => 'Write Content Here';
 
   @override
-  String get previouslyAvailableSchedules => 'Availabale Schedules ';
+  String get previouslyAvailableSchedules => 'Available Schedules';
 
   @override
   String get thereAreCurrentlyNoMeetingsScheduled => 'No Meetings Are Currently Scheduled';
@@ -155,13 +155,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancel => 'Cancel';
 
   @override
-  String get create => 'Create/Initialization';
+  String get create => 'Create';
 
   @override
-  String get startTime => 'Begin/ Finish/ Start Time';
+  String get startTime => 'Start';
 
   @override
-  String get endTime => 'End Time';
+  String get endTime => 'End';
 
   @override
   String startTimeH(Object a) {
@@ -219,7 +219,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currentPassword => 'Old Password';
 
   @override
-  String get noteRoomLeader => 'Head\'s Note Manager\'s';
+  String get noteRoomLeader => 'Head\'s Note';
 
   @override
   String get noteManager => 'Manager\'s note';
@@ -249,13 +249,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get isNotApproval => 'No Approval Required';
 
   @override
-  String get updateSuccessful => 'Update information Successfully';
+  String get updateSuccessful => 'Information Updated Successfully!';
 
   @override
   String get save => 'Save';
 
   @override
-  String get success => 'Successfull!';
+  String get success => 'Successful!';
 
   @override
   String get unsuccessful => 'Fail!';
@@ -294,7 +294,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yesterday => 'Yesterday';
 
   @override
-  String get daysAgo => 'Previous Days';
+  String get daysAgo => 'Days Ago';
 
   @override
   String get setRoom => 'Book A Room';
@@ -318,22 +318,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get doYouWantToCreatePosition => 'Do you want to create a new position?';
 
   @override
-  String get doYouWantToUpdateDepartment => 'Do you want  to edit your department?';
+  String get doYouWantToUpdateDepartment => 'Do you want to edit the department information?';
 
   @override
-  String get doYouWantToUpdatePosition => 'Do you want to edit your job title?';
+  String get doYouWantToUpdatePosition => 'Do you want to edit the position information?';
 
   @override
-  String get code => 'Code/Horse';
+  String get code => 'Code';
 
   @override
   String get createDepartment => 'Department Initialization';
 
   @override
-  String get createPosition => 'Initiation Of The Position';
+  String get createPosition => 'Position Initialization';
 
   @override
-  String get updateDepartment => 'Edit A Department';
+  String get updateDepartment => 'Edit Department';
 
   @override
   String get updatePosition => 'Edit Position';
@@ -546,7 +546,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newPasswordOtherConfirmPassword => 'New password does not match the confirmation password!';
 
   @override
-  String get notRegisteredForBiometrics => 'You have not registered biometric authentication, please register';
+  String get notRegisteredForBiometrics => 'Please log in to the app to activate biometric authentication.';
 
   @override
   String get pleaseEnterYourUsernameAndPasswordHere => 'Enter your username and password here';
@@ -639,7 +639,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vehicleDispatch => 'Vehicle request form';
 
   @override
-  String get vehicleDispatchCreate => 'Create vehicle request form';
+  String get vehicleDispatchCreate => 'Vehicle Request Form Initialization';
 
   @override
   String get postalDelivery => 'Postal delivery request form';
@@ -744,7 +744,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vehicle => 'Vehicle';
 
   @override
-  String get destination => 'Location';
+  String get destination => 'Destination';
 
   @override
   String get workingContent => 'Business trip details';
@@ -780,10 +780,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reason => 'Reason';
 
   @override
-  String get reasonCreate => 'Reason create';
+  String get reasonCreate => 'Reason for Creating Request';
 
   @override
-  String get reasonForExplanation => 'Explanation reason';
+  String get reasonForExplanation => 'Reason for Explanation';
 
   @override
   String get detailedDescription => 'Detailed description';
@@ -852,7 +852,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get often => 'Regular';
 
   @override
-  String get superSpeed => 'Super fast';
+  String get superSpeed => 'Express';
 
   @override
   String get sendingPurpose => 'Shipping purpose';
@@ -873,10 +873,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moreOfficeProducts => 'Add stationery';
 
   @override
-  String get unit => 'Unit';
+  String get unit => 'Unit of Measure';
 
   @override
-  String get pieces => 'Piece';
+  String get pieces => 'Item';
 
   @override
   String get rolls => 'Roll';
@@ -906,7 +906,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pairs => 'Pair';
 
   @override
-  String get stationeryList => 'Item list';
+  String get stationeryList => 'Product List';
 
   @override
   String get product => 'Product';
@@ -1011,7 +1011,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get verticalCalendar => 'Vertical calendar';
 
   @override
-  String get unpaidLeave => 'Unpaid leave';
+  String get unpaidLeave => 'Company unpaid leave';
 
   @override
   String get theStartTimeMustBeAfterTheCurrentTime => 'Start time must be after the current time';
@@ -1098,7 +1098,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get duplicateBankAccountNumber => 'Duplicate bank account number';
 
   @override
-  String get listOvertime => 'Overtime hours list';
+  String get listOvertime => 'Overtime hours record';
 
   @override
   String get totalTime => 'Total time';
@@ -1128,22 +1128,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get maternityLeave => 'Maternity leave';
 
   @override
-  String get revoke => 'Cancel';
+  String get revoke => 'Cancel request';
 
   @override
-  String get leaveNumberUsed => 'Used leave days';
+  String get leaveNumberUsed => 'Maximum leave days';
 
   @override
-  String get leaveNumberPermission => 'Initial leave days';
+  String get leaveNumberPermission => 'Leave days taken';
 
   @override
   String get leaveNumberRemaining => 'Remaining leave days';
 
   @override
-  String get leaveNumberUsedH => 'Used leave hours';
+  String get leaveNumberUsedH => 'Maximum leave hours taken';
 
   @override
-  String get leaveNumberPermissionH => 'Initial leave hours';
+  String get leaveNumberPermissionH => 'Leave hours';
 
   @override
   String get leaveNumberRemainingH => 'Remaining leave hours';
@@ -1155,10 +1155,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get youLater => 'Late arrival';
 
   @override
-  String get timeKeepingList => 'Time list';
+  String get timeKeepingList => 'Time records';
 
   @override
-  String get listTime => 'Time list (repeated)';
+  String get listTime => 'Time records';
 
   @override
   String get workOffset => 'Make-up work';
@@ -1188,7 +1188,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get overTimeLeave => 'OT compensatory leave';
 
   @override
-  String get leaveList => 'Leave list';
+  String get leaveList => 'Leave records';
 
   @override
   String get leaveUseHistory => 'Leave history';
@@ -1233,7 +1233,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sourceOfLeave => 'Leave source';
 
   @override
-  String get doYouWantRevokeYourRequest => 'Do you want to disable this request?';
+  String get doYouWantRevokeYourRequest => 'Are you sure you want to cancel to request?';
 
   @override
   String get start => 'Start';
@@ -1242,16 +1242,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get end => 'End';
 
   @override
-  String get flow => 'Flow';
+  String get flow => 'Approval Flow';
 
   @override
-  String get trackFlowProgres => 'Track flow progress';
+  String get trackFlowProgres => 'Track approval progress';
 
   @override
   String get youDoNotHaveAShiftToday => 'You don\'t have a shift today!';
 
   @override
-  String get worksheet => 'Worksheet';
+  String get worksheet => 'Timesheet';
 
   @override
   String get actualWork => 'Actual work';
@@ -1263,55 +1263,55 @@ class AppLocalizationsEn extends AppLocalizations {
   String get holidayWork => 'Holiday Work';
 
   @override
-  String get salaryWork => 'Salary Work';
+  String get salaryWork => 'Paid work';
 
   @override
-  String get noSalaryWork => 'No Salary Work';
+  String get noSalaryWork => 'Unpaid work';
 
   @override
-  String get workTime => 'Work Time';
+  String get workTime => 'Work hours';
 
   @override
-  String get timeEarly => 'Time Early';
+  String get timeEarly => 'Early departure time';
 
   @override
-  String get timeLate => 'Time Late';
+  String get timeLate => 'Late arrival time';
 
   @override
-  String get realWork => 'Real Work';
+  String get realWork => 'Actual Work';
 
   @override
   String get seeDetails => 'See details';
 
   @override
-  String get onTime => 'On time';
+  String get onTime => 'On time clock-in';
 
   @override
-  String get forgotChecking => 'Forgot checking';
+  String get forgotChecking => 'Missed clock-in';
 
   @override
-  String get offWork => 'Off work';
+  String get offWork => 'No shift';
 
   @override
-  String get isRequest => 'Is request';
+  String get isRequest => 'Request exists';
 
   @override
   String get holiday => 'Holiday';
 
   @override
-  String get noAttendance => 'No attendance';
+  String get noAttendance => 'No attendance required';
 
   @override
-  String get offSet => 'Off set';
+  String get offSet => 'Compensatory work';
 
   @override
-  String get timeWork => 'Time work';
+  String get timeWork => 'Work hours';
 
   @override
-  String get detailWork => 'Detail work';
+  String get detailWork => 'Detailed work';
 
   @override
-  String get summary => 'Summary';
+  String get summary => 'Summary of work';
 
   @override
   String get year => 'Year';
@@ -1323,7 +1323,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shift => 'Work shift';
 
   @override
-  String get workInDay => 'Daily recorded attendance';
+  String get workInDay => 'Daily attendance record';
 
   @override
   String get minutesToLate => 'Minutes late';
@@ -1368,7 +1368,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get numberOfEarly => 'Late arrivals';
 
   @override
-  String get workOT => 'Overtime number hours';
+  String get workOT => 'Overtime hours';
 
   @override
   String get historyTimekeeping => 'Timekeeping history';
@@ -1383,7 +1383,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get titleBusiness => 'Business trip duration';
 
   @override
-  String get timeStart => 'Departure time';
+  String get timeStart => 'Leaving time';
 
   @override
   String get timeEnd => 'Return time';
@@ -1392,7 +1392,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get socialInsuranceLeave => 'Paid by social insurance (BHXH)';
 
   @override
-  String get lateOrEarly => 'Request for Late Arrival/Early Departure';
+  String get lateOrEarly => 'Late Arrival/Early Departure';
 
   @override
   String get lateOrEarlyCreate => 'Create request for Late Arrival/Early Departure';
@@ -1431,7 +1431,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get week => 'Week';
 
   @override
-  String get pendingCancel => 'Pending cancellation';
+  String get pendingCancel => 'Pending shift cancellation';
 
   @override
   String get remove => 'Stop';
@@ -1443,7 +1443,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unusable => 'Unavailable';
 
   @override
-  String get administrativeShift => 'Administrative shift';
+  String get administrativeShift => 'Business hour shift';
 
   @override
   String get singleShift => 'Single shift';
@@ -1485,22 +1485,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loading => 'Please wait...';
 
   @override
-  String get halfDayToOneDay => 'Request for 0.5-1 Day Leave';
+  String get halfDayToOneDay => 'Request for Leave (0.5 - 1 Day)';
 
   @override
-  String get twoDayToFourDay => 'Request for 2-4 Day Leave';
+  String get twoDayToFourDay => 'Request for Leave (2 - 4 Day)';
 
   @override
-  String get fiveDaysOrMore => 'Request for 5 or More Days Leave';
+  String get fiveDaysOrMore => 'Request for Leave (5 or More Days)';
 
   @override
-  String get halfDayToOneDayCreate => 'Create request for 0.5-1 Day Leave';
+  String get halfDayToOneDayCreate => 'Create Request for Leave (0.5 - 1 Day)';
 
   @override
-  String get twoDayToFourDayCreate => 'Create request for 2-4 Day Leave';
+  String get twoDayToFourDayCreate => 'CCreate Request for Leave (2 - 4 Day)';
 
   @override
-  String get fiveDaysOrMoreCreate => 'Create request for 5 or More Days Leave';
+  String get fiveDaysOrMoreCreate => 'Create Request for Leave (5 or More Days)';
 
   @override
   String get earlyLate => 'Request for Late Arrival/Early Departure';
@@ -1641,16 +1641,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sun => 'Sun';
 
   @override
-  String get numberTotalWork => 'Number total Work';
+  String get numberTotalWork => 'Total number of work days';
 
   @override
-  String get gPSAndFingerprint => 'Form of timekeeping: GPS & Fingerprint';
+  String get gPSAndFingerprint => 'Timekeeping method: GPS & Fingerprint';
 
   @override
-  String get noTimekeeping => 'Expression formula: No timekeeping';
+  String get noTimekeeping => 'Timekeeping method: No timekeeping';
 
   @override
-  String get reasonCreateRequest => 'Reason create request';
+  String get reasonCreateRequest => 'Reason for request';
 
   @override
   String get descriptionR => 'Description';
@@ -1659,91 +1659,91 @@ class AppLocalizationsEn extends AppLocalizations {
   String get caseL => 'Case';
 
   @override
-  String get revokeRequestSuccess => 'Revoke request success';
+  String get revokeRequestSuccess => 'Request canceled successfully';
 
   @override
-  String get revokeRequestUnsuccessful => 'Revoke request unsuccessful';
+  String get revokeRequestUnsuccessful => 'Request cancelation failed';
 
   @override
   String get notSelectedAShift => 'You have not selected a shift yet';
 
   @override
-  String get notSelectedAOverTime => 'You have not selected a overtime';
+  String get notSelectedAOverTime => 'You have not selected overtime hours yet';
 
   @override
-  String get selectTypeLeave => 'Select type leave';
+  String get selectTypeLeave => 'Leave type';
 
   @override
-  String get selectLeave => 'Leave';
+  String get selectLeave => 'Leave source';
 
   @override
-  String get destinationOT => 'Destination overtime';
+  String get destinationOT => 'Overtime location';
 
   @override
-  String get inCompany => 'Inside company';
+  String get inCompany => 'Inside the company';
 
   @override
-  String get outCompany => 'Outside Company';
+  String get outCompany => 'Outside the company';
 
   @override
-  String get makeUpWork => 'Make up work';
+  String get makeUpWork => 'Compensatory work request';
 
   @override
-  String get createMakeUpWork => 'Create makeup work request';
+  String get createMakeUpWork => 'Create compensatory work request';
 
   @override
-  String get reasonMakeUpWork => 'Makeup work reason ';
+  String get reasonMakeUpWork => 'Reason for compensatory work';
 
   @override
   String get leaveDate => 'Leave date';
 
   @override
-  String get makeUpWorkDate => 'Make up work date';
+  String get makeUpWorkDate => 'Compensatory work date';
 
   @override
-  String get totalMakeUpWorkTime => 'Total make up work time';
+  String get totalMakeUpWorkTime => 'Total compensatory work hours';
 
   @override
-  String get youDoNotHaveAShift => 'You don\'t have a shift in date!';
+  String get youDoNotHaveAShift => 'You don\'t have a shift on the selected date!';
 
   @override
-  String get shiftWasLeave => 'Shift was leave';
+  String get shiftWasLeave => 'Shift off';
 
   @override
-  String get realCheckIn => 'Real CheckIn';
+  String get realCheckIn => 'Actual Check-in time';
 
   @override
-  String get realCheckOut => 'Real CheckOut';
+  String get realCheckOut => 'Actual Check-out time';
 
   @override
   String get settingBiometric => 'Set up Touch Id/Face Id';
 
   @override
-  String get cancelBiometricSuccessful => 'Cancel biometric successful';
+  String get cancelBiometricSuccessful => 'Biometric login cancellation successful';
 
   @override
-  String get settingBiometricSuccessful => 'Setting biometric successful';
+  String get settingBiometricSuccessful => 'Biometric login setup successful';
 
   @override
-  String get authAccount => 'Auth account';
+  String get authAccount => 'Account verification';
 
   @override
-  String get offDay => 'Off day';
+  String get offDay => 'Day off';
 
   @override
-  String get oTSalary => 'OT coefficient calculates salary';
+  String get oTSalary => 'OT salary coefficient';
 
   @override
-  String get oTMakeUpLeave => 'Compensatory rest OT coefficient';
+  String get oTMakeUpLeave => 'Compensatory OT coefficient';
 
   @override
-  String get oTSalaryH => 'Number hours OT salary';
+  String get oTSalaryH => 'OT hours for salary';
 
   @override
-  String get oTMakeUpLeaveH => 'Number hours OT coefficient';
+  String get oTMakeUpLeaveH => 'OT hours for compensatory leave';
 
   @override
-  String get makeUpTime => 'Make up time';
+  String get makeUpTime => 'Compensatory time';
 
   @override
   String get nameNotNullOrEmpty => ' Name must not be empty';
@@ -1824,7 +1824,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currentStatusIsNotEdit => ' Current status is not editable';
 
   @override
-  String get currentStatusIsNotProcessOrEdit => ' Current status is neither in progress nor editable';
+  String get currentStatusIsNotProcessOrEdit => ' Request is not in a valid state for cancellation.';
 
   @override
   String get theNumberOfFormsCreatedHasExceededTheLimit => ' The number of requests created has exceeded the limit';
@@ -1842,10 +1842,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userIdOrPositionIdCanNotNull => ' User or position must not be empty';
 
   @override
-  String get flowDoesNotHaveEnoughComponents => ' Flow must have start, steps, and end components';
+  String get flowDoesNotHaveEnoughComponents => ' Flow must include start, steps, and end components';
 
   @override
-  String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId => ' If it is a start or end type, there should be no employee, position, or department';
+  String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId => 'If it is a start or end type, it should not include employee, position, or department';
 
   @override
   String get currentStatusNotNew => ' Current status is not new';
@@ -1857,7 +1857,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dataNotNull => ' Data must not be empty';
 
   @override
-  String get timeSlotAlreadyPleaseChooseAnother => ' A request already exists with the same time frame, please select a different time';
+  String get timeSlotAlreadyPleaseChooseAnother => 'A request with the same time frame already exists, please select a different time';
 
   @override
   String get mustCreateMinimumTimeInAdvance => ' Must be created before the minimum time';
@@ -1866,10 +1866,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pastTheDateOfExplanation => ' Past the explanation date';
 
   @override
-  String get errorTimeMakeUp1 => 'The total number of compensatory hours must be greater than or equal to the number of missed working hours. Please readjust';
+  String get errorTimeMakeUp1 => 'The total number of compensatory hours must be greater than or equal to the number of missed working hours. Please adjust.';
 
   @override
-  String get errorTimeMakeUp2 => 'Make-up time overlapped with another shift. Please select again';
+  String get errorTimeMakeUp2 => 'Compensation time overlaps with another shift. Please select again.';
 
   @override
   String get errorPlease => 'An error occurred, please try again later!';
@@ -1884,7 +1884,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createRequest => 'Create request';
 
   @override
-  String get setHoursAndMinutes => 'Set hours and minutes';
+  String get setHoursAndMinutes => 'Select time';
 
   @override
   String get january => 'January';
@@ -1923,28 +1923,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get december => 'December';
 
   @override
-  String get rejectSucceed => 'Reject Succeed';
+  String get rejectSucceed => 'Request rejected successfully';
 
   @override
-  String get requestSucceed => 'Request Succeed';
+  String get requestSucceed => 'Modification request submitted successfully';
 
   @override
-  String get cancelSucceed => 'Cancel Succeed';
+  String get cancelSucceed => 'Request canceled successfully';
 
   @override
-  String get approveSucceed => 'Approve Succeed';
+  String get approveSucceed => 'Request approved successfully';
 
   @override
-  String get rejectFailed => 'Reject Failed';
+  String get rejectFailed => 'Request rejection failed';
 
   @override
-  String get requestFailed => 'Request Failed';
+  String get requestFailed => 'Modification request submission failed';
 
   @override
-  String get cancelFailed => 'Cancel Failed';
+  String get cancelFailed => 'Request cancellation failed';
 
   @override
-  String get approveFailed => 'Approve Failed';
+  String get approveFailed => 'Request approval failed';
 
   @override
   String get contentPopUpOpenGPS => 'Allow HRM to access your location';
@@ -1962,31 +1962,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get retry => 'Retry';
 
   @override
-  String get rejectTitle => 'Are you sure you want to remove this employee from your current status?';
+  String get rejectTitle => 'Are you sure you want to remove this employee from the current shift?';
 
   @override
-  String get rejectTitle1 => 'Are you sure you want to refuse to approve this employee\'s request to cancel a shift?';
+  String get rejectTitle1 => 'Are you sure you want to reject this employee\'s shift cancellation request?';
 
   @override
   String get rejectTitle2 => 'Are you sure you want to refuse to approve this employee\'s shift registration request?';
 
   @override
-  String get proactiveCaseRegistrationManagement => 'Proactive case registration management';
+  String get proactiveCaseRegistrationManagement => 'Proactive shift registration management';
 
   @override
-  String get receivedShift => 'Received shift';
+  String get receivedShift => 'Shift received';
 
   @override
-  String get rejectShift => 'Reject shift';
+  String get rejectShift => 'Shift rejected';
 
   @override
   String get confirm => 'Confirm';
 
   @override
-  String get waitingForApprovalToCancelShift => 'Waiting for approval to cancel shift';
+  String get waitingForApprovalToCancelShift => 'Waiting for shift cancellation approval';
 
   @override
-  String get waitingForShiftRegistrationApproval => 'Waiting for approval for case registration';
+  String get waitingForShiftRegistrationApproval => 'Waiting for shift registration approval';
 
   @override
   String get notRegisteredYet => 'not registered yet';
@@ -1995,22 +1995,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dialogConfirmContent => 'Do you want to approve this shift?';
 
   @override
-  String get shiftOfDay => 'Shift of today:';
+  String get shiftOfDay => 'Today\'s shift: ';
 
   @override
-  String get moveToTheAppropriate => 'Please move to the appropriate location on the map';
+  String get moveToTheAppropriate => 'Please move to a valid location on the map';
 
   @override
-  String get chooseASchedule => 'You need to choose a schedule for timekeeping.';
+  String get chooseASchedule => 'You need to select a schedule for timekeeping.';
 
   @override
-  String get noDataTimekeeping => 'No data timekeeping';
+  String get noDataTimekeeping => 'No timekeeping data';
 
   @override
   String get notification => 'Notification';
 
   @override
-  String get sent => 'Sent';
+  String get sent => 'Unread';
 
   @override
   String get read => 'Read';
@@ -2031,28 +2031,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shiftName => 'Shift name';
 
   @override
-  String get workingTime1 => 'Working time';
+  String get workingTime1 => 'Time';
 
   @override
   String get recordedNumberOfShifts => 'Recorded number of shifts';
 
   @override
-  String get operationDay => 'Operation day ';
+  String get operationDay => 'Date of operation';
 
   @override
   String get validTimeKeeping => 'Valid timekeeping';
 
   @override
-  String get cancelShift1 => 'Unsubscribe';
+  String get cancelShift1 => 'Cancel shift registration';
 
   @override
-  String get cancelShift2 => 'Cancel Request to cancel shift';
+  String get cancelShift2 => 'Shift status history';
 
   @override
   String get shiftHistory => 'Case status history';
 
   @override
-  String get noConnected => 'No connected!';
+  String get noConnected => 'No Connection/ An error occured, please check again later!';
 
   @override
   String get reasonForCancellation => 'Reason for cancellation';

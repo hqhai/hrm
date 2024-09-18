@@ -159,6 +159,22 @@ const errorVi = {
   "InvalidTimeToCancel": "Thời gian để hủy không hợp lệ. ",
   "NoHaveWorkShiftToRegist": "Không có ca làm việc để đăng ký. ",
   "WorkShiftSettingDetailInvalid": "Chi tiết cài đặt ca làm việc không hợp lệ. ",
+//---------------------------------------17/9/2024
+  "LeaveDaysMustNotExceedOne": "Số ngày xin nghỉ phép không được lớn hơn 1 ngày ",
+  "LeaveDaysMustBeBetweenTwoAndFour":
+      "Số ngày xin nghỉ phép phải nhỏ hơn 4 ngày và lớn hơn 2 ngày ",
+  "LeaveDaysMustBeGreaterThanFive": "Số ngày xin nghỉ phép phải lớn hơn năm ngày ",
+  "LeaveDaysExceedTheConfiguredLimit": "Số ngày xin nghỉ phép vượt quá số ngày được phép nghỉ ",
+  "FlowTypeNotNull": "Kiểu luồng không được bỏ trống",
+
+  "CheckInStartTimeValidGreaterThanStartTime":
+      "Thời gian bắt đầu checkin hợp lệ đang lớn hơn thời gian bắt đầu làm việc ",
+  "StartTimeGreaterThanCheckInEndTimeValid":
+      "Thời gian bắt đầu làm việc đang lớn hơn thời gian kết thúc checkin hợp lệ ",
+  "CheckOutStartTimeValidGreaterThanEndTime":
+      "Thời gian bắt đầu checkout hợp lệ đang lớn hơn thời gian kết thúc ca làm việc ",
+  "EndTimeGreaterThanCheckOutEndTimeValid":
+      "Thời gian kết thúc checkout hợp lệ đang nhỏ hơn thời gian kết thúc ca làm việc",
 };
 
 const errorEn = {
@@ -307,4 +323,16 @@ const errorEn = {
   "InvalidTimeToCancel": "Invalid Time To Cancel ",
   "NoHaveWorkShiftToRegist": "No Have Work Shift To Regist ",
   "WorkShiftSettingDetailInvalid": "Work Shift Setting Detail Invalid ",
+
+  //---------------------------------------17/9/2024
+  "LeaveDaysMustNotExceedOne": "Leave Days Must Not Exceed One ",
+  "LeaveDaysMustBeBetweenTwoAndFour": "Leave Days Must Be Between Two And Four ",
+  "LeaveDaysMustBeGreaterThanFive": "Leave Days Must Be Greater Than Five ",
+  "LeaveDaysExceedTheConfiguredLimit": "Leave Days Exceeds The Limit ",
+  "FlowTypeNotNull": "Flow Type Must Not Be Null",
+
+  "CheckInStartTimeValidGreaterThanStartTime": "Check In Start Time Valid Greater Than Start Time ",
+  "StartTimeGreaterThanCheckInEndTimeValid": "Start Time Greater Than Check In End Time Valid ",
+  "CheckOutStartTimeValidGreaterThanEndTime": "Check Out Start Time Valid Greater Than End Time ",
+  "EndTimeGreaterThanCheckOutEndTimeValid": "End Time Greater Than Check Out End Time Valid",
 };
