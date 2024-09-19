@@ -44,27 +44,25 @@ class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
           marginTop: SpacingUnit.x2,
           paddingVertical: SpacingUnit.x4,
           width: width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                gender.configGenderName,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
+          child: InkWell(
+            onTap: () => _showBottomSheet(context),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  gender.configGenderName,
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                  ),
                 ),
-              ),
-              InkWell(
-                onTap: () => _showBottomSheet(
-                  context,
-                ),
-                child: Icon(
+                Icon(
                   Icons.arrow_drop_down,
                   color: colors.text,
                   size: SpacingUnit.x6,
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
         const SizedBox(

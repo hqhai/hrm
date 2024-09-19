@@ -257,31 +257,57 @@ deleteNoteEvent(BuildContext context, Note note) {
   Navigator.of(context).pop();
 }
 
-deleteAccountDialog(BuildContext context) async {
+deleteAccountDialog(BuildContext context, VoidCallback callback, VoidCallback callbackThen) async {
   return showDialog(
     context: context,
     builder: (context) {
       final appLocalizations = AppLocalizations.of(context)!;
       return AlertDialog(
         content: SizedBox(
-          height: SpacingUnit.x20,
+          height: SpacingUnit.x27,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(appLocalizations.doYouWantToDeleteYourAccount,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.white)),
+                Text(
+                  appLocalizations.doYouWantToDeleteYourAccount,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: SpacingUnit.x4,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(
+                  height: SpacingUnit.x4,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton(
-                      child: Text(appLocalizations.ok),
-                      onPressed: () => deleteAccountEvent(context),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+                        child: AppButton(
+                          color: Colors.blue,
+                          colorBorder: Colors.blue,
+                          colorText: Colors.white,
+                          title: appLocalizations.ok,
+                          onSubmit: () => deleteAccountEvent(context),
+                        ),
+                      ),
                     ),
-                    ElevatedButton(
-                      child: Text(appLocalizations.cancel),
-                      onPressed: () => closePopUp(context),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+                        child: AppButton(
+                          colorText: Colors.blue,
+                          color: Colors.white,
+                          colorBorder: Colors.blue,
+                          title: appLocalizations.cancel,
+                          onSubmit: () {
+                            callback.call();
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 )
@@ -291,7 +317,7 @@ deleteAccountDialog(BuildContext context) async {
         ),
       );
     },
-  );
+  ).then((value) => callbackThen.call());
 }
 
 deleteAccountEvent(BuildContext context) {
