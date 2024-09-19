@@ -3,6 +3,7 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:themes/themes.dart';
 
 class AvatarSystemUser extends StatefulWidget {
   const AvatarSystemUser({super.key});
@@ -14,6 +15,7 @@ class AvatarSystemUser extends StatefulWidget {
 class _AvatarSystemUserState extends State<AvatarSystemUser> {
   @override
   Widget build(BuildContext context) {
+    final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, stateUser) {
@@ -39,7 +41,7 @@ class _AvatarSystemUserState extends State<AvatarSystemUser> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         stateUser.user.fullName,
-                        style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x4_5),
+                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4_5),
                       ),
                     ),
                     const SizedBox(
@@ -51,7 +53,7 @@ class _AvatarSystemUserState extends State<AvatarSystemUser> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         stateUser.user.email,
-                        style: const TextStyle(color: Colors.white, fontSize: SpacingUnit.x3_5),
+                        style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
                       ),
                     ),
                   ],

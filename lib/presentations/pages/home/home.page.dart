@@ -21,6 +21,7 @@ import 'package:base_app/presentations/pages/home/bottom_bar.dart';
 import 'package:base_app/presentations/pages/home/popup_menu_account.dart';
 import 'package:base_app/presentations/pages/home/side_menu_tile.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/notification_bottom_sheet.dart';
+import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -50,11 +51,28 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  void selectedIndexFunction(dynamic entry) {
+  void selectedIndexFunction(dynamic entry, BuildContext context) {
     setState(() {
       selectedIndexSystem = entry.key;
-      Navigator.pop(context);
     });
+    if (selectedIndexSystem != 4) {
+      Navigator.pop(context);
+    } else {
+      deleteAccountDialog(
+        context,
+        () {
+          setState(() {
+            selectedIndexSystem = 0;
+            Navigator.of(context).pop(context);
+          });
+        },
+        () {
+          setState(() {
+            selectedIndexSystem = 0;
+          });
+        },
+      );
+    }
   }
 
   void logoutFunction() {
@@ -90,14 +108,16 @@ class _HomePageState extends State<HomePage> {
           appBar: AppBar(
             iconTheme: IconThemeData(color: colors.text),
             centerTitle: true,
-            title: Text(
-              titleValue(context, selectedIndex),
-              style: TextStyle(
-                fontSize: SpacingUnit.x4_5,
-                color: colors.text,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            title: _checkRole()
+                ? null
+                : Text(
+                    titleValue(context, selectedIndex),
+                    style: TextStyle(
+                      fontSize: SpacingUnit.x4_5,
+                      color: colors.text,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
             actions: !_checkRole() ? [popupMenu(selectedIndex, context)] : null,
           ),
           drawer: _checkRole()
@@ -106,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                     return Drawer(
                       width: width * 0.7,
                       child: Container(
-                        color: colors.surface,
+                        color: colors.background,
                         child: SafeArea(
                           child: Padding(
                             padding: const EdgeInsets.all(SpacingUnit.x3_75),
@@ -122,14 +142,14 @@ class _HomePageState extends State<HomePage> {
                                           text: entry.value['text'],
                                           checkSelect: selectedIndexSystem == entry.key,
                                           icon: entry.value['icon'],
-                                          onTap: () => selectedIndexFunction(entry),
+                                          onTap: () => selectedIndexFunction(entry, context),
                                         ),
                                       ),
                                   SideMenuTile(
                                     text: appLocalizations.logout,
                                     checkSelect: false,
-                                    icon: const Icon(Icons.logout,
-                                        color: Colors.white, size: SpacingUnit.x7_5),
+                                    icon: Icon(Icons.logout,
+                                        color: colors.text, size: SpacingUnit.x7_5),
                                     onTap: () => logoutFunction(),
                                   ),
                                 ],

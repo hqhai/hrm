@@ -11,6 +11,7 @@ import 'package:base_app/presentations/widgets/trash_app/create_note/create_note
 import 'package:base_app/presentations/widgets/trash_app/delete_account/delete_account.dart';
 import 'package:base_app/presentations/widgets/trash_app/salary/salary_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:themes/themes.dart';
 
 import '../../presentations/widgets/attendance/calendar/layout_calendar.dart';
 
@@ -28,8 +29,7 @@ class MenuValues {
       },
       {
         'text': appLocalizations.requestIsProcessing,
-        'icon':
-            const Icon(Icons.hourglass_bottom, color: Colors.white, size: 30)
+        'icon': const Icon(Icons.hourglass_bottom, color: Colors.white, size: 30)
       },
       {
         'text': appLocalizations.requestProcessed,
@@ -48,32 +48,26 @@ class MenuValues {
 
   static List<Map<String, dynamic>> menuUserSystemValues(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
     return [
-      {
-        'text': 'Salary',
-        'icon': const Icon(Icons.monetization_on, color: Colors.white, size: 30)
-      },
-      {
-        'text': 'Create Note',
-        'icon': const Icon(Icons.note, color: Colors.white, size: 30)
-      },
+      {'text': 'Salary', 'icon': Icon(Icons.monetization_on, color: colors.text, size: 30)},
+      {'text': 'Create Note', 'icon': Icon(Icons.note, color: colors.text, size: 30)},
       {
         'text': appLocalizations.calendar,
-        'icon': const Icon(Icons.calendar_month, color: Colors.white, size: 30)
+        'icon': Icon(Icons.calendar_month, color: colors.text, size: 30)
       },
       {
         'text': appLocalizations.changePassword,
-        'icon': const Icon(Icons.password, color: Colors.white, size: 30)
+        'icon': Icon(Icons.password, color: colors.text, size: 30)
       },
       {
         'text': appLocalizations.deleteAccount,
-        'icon': const Icon(Icons.no_accounts, color: Colors.white, size: 30)
+        'icon': Icon(Icons.no_accounts, color: colors.text, size: 30)
       }
     ];
   }
 
-  static List<Map<String, dynamic>> menuGeneralManagerValues(
-      BuildContext context) {
+  static List<Map<String, dynamic>> menuGeneralManagerValues(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
       /*{
@@ -90,8 +84,7 @@ class MenuValues {
       },*/
       {
         'text': 'Chấm công',
-        'icon':
-            const Icon(Icons.timelapse_outlined, color: Colors.white, size: 30)
+        'icon': const Icon(Icons.timelapse_outlined, color: Colors.white, size: 30)
       },
       {
         'text': appLocalizations.workingTime,
@@ -107,8 +100,7 @@ class MenuValues {
       },
       {
         'text': appLocalizations.department,
-        'icon':
-            const Icon(Icons.room_preferences, color: Colors.white, size: 30)
+        'icon': const Icon(Icons.room_preferences, color: Colors.white, size: 30)
       },
       {
         'text': appLocalizations.changePassword,

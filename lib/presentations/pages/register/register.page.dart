@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
   late PageController pageViewController;
   int currentIndex = 0;
   List<bool> checkInputs = [false, false, false, false];
-  List<String> valueInputs = ['', '', '', '', '', ''];
+  List<String> valueInputs = ['', '123', '123', GenderEnum.male.name, 'Admin@123', 'Admin@123'];
 
   @override
   void initState() {
@@ -152,8 +152,7 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
                       onTap: () => onLogin(context),
                       child: Text(
                         appLocalizations.logInNow,
-                        style:
-                            const TextStyle(fontSize: SpacingUnit.x4, color: Color(0xffABBFED)),
+                        style: const TextStyle(fontSize: SpacingUnit.x4, color: Color(0xffABBFED)),
                       ),
                     ),
                   ],

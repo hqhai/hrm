@@ -12,6 +12,8 @@ import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/use_cases/request_usecase.dart';
 import 'package:base_app/domain/use_cases/user_usecase.dart';
+import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
+import 'package:base_app/presentations/bloc/auth/auth_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -108,6 +110,7 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
     emit(state.copyWith(status: UserStatus.init));
     try {
       await userUseCase.deleteAccount();
+      dI<AuthBloc>().add(const LogoutEvent());
       emit(state.copyWith(status: UserStatus.success));
     } catch (e) {
       emit(state.copyWith(status: UserStatus.fail));

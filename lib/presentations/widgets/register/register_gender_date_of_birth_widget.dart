@@ -30,7 +30,7 @@ class RegisterGenderEnumAndDateOfBirth extends StatefulWidget {
 class _RegisterGenderEnumAndDateOfBirthState extends State<RegisterGenderEnumAndDateOfBirth> {
   late TextEditingController emailController;
   bool isCheckedInput = false;
-  String gender = '', dateOfBirth = '';
+  String gender = GenderEnum.male.name, dateOfBirth = '';
   final DateTime now = DateTime.now();
 
   @override
