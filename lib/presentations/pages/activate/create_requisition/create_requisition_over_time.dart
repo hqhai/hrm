@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/create_and_edit_request.dart';
@@ -227,11 +228,6 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => showToast(context: context, errorCode: errorDialog),
-      completerSuccess: () => completerSuccess(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
     );
   }
 
@@ -266,7 +262,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
 
   addOverTime() {
     setState(() {
-      requisitionOverTimes.add(RequisitionOverTime(date: DateTime.now()));
+      requisitionOverTimes.add(RequisitionOverTime(date: DateTime.now(), overtimeDay: EnumOvertimeDay.holiday));
     });
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
@@ -13,43 +12,23 @@ saveRequest({
   required bool checkCreate,
   required bool checkEdit,
   required VoidCallback checkLoadTrue,
-  required VoidCallback completerSuccess,
-  required VoidCallback completerFail,
   required PostRequestRequest postRequestRequest,
 }) async {
   if (checkCreate) {
     checkLoadTrue.call();
-    final Completer completer = Completer<bool>();
     dI<RequisitionBloc>().add(
       PostRequestEvent(
         files: files,
-        completer: completer,
         postRequestRequest: postRequestRequest,
       ),
     );
-    final status = await completer.future;
-    if (status == true) {
-      completerSuccess.call();
-    }
-    if (status == false) {
-      completerFail.call();
-    }
   } else if (checkEdit) {
     checkLoadTrue.call();
-    final Completer completer = Completer<bool>();
     dI<RequisitionBloc>().add(
       EditRequestEvent(
         files: files,
-        completer: completer,
         postRequestRequest: postRequestRequest,
       ),
     );
-    final status = await completer.future;
-    if (status == true) {
-      completerSuccess.call();
-    }
-    if (status == false) {
-      completerFail.call();
-    }
   }
 }

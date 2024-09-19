@@ -2,7 +2,6 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
-
 class AppButton extends StatefulWidget {
   final String title;
   final String? icon;
@@ -14,18 +13,17 @@ class AppButton extends StatefulWidget {
   final Color colorBorder;
   final Color colorText;
 
-  const AppButton({
-    super.key,
-    required this.title,
-    required this.onSubmit,
-    this.icon,
-    this.selected = false,
-    this.enable = true,
-    this.height = SpacingUnit.x11,
-    this.color = Colors.transparent,
-    this.colorText = Colors.white,
-    this.colorBorder = Colors.transparent
-  });
+  const AppButton(
+      {super.key,
+      required this.title,
+      required this.onSubmit,
+      this.icon,
+      this.selected = false,
+      this.enable = true,
+      this.height = SpacingUnit.x11,
+      this.color = Colors.transparent,
+      this.colorText = Colors.white,
+      this.colorBorder = Colors.transparent});
 
   @override
   State<StatefulWidget> createState() => _AppButton();
@@ -47,17 +45,19 @@ class _AppButton extends State<AppButton> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
           border: Border.all(
-            color: widget.colorBorder ,
+            color: widget.colorBorder,
             width: 1,
           ),
-          color: widget.color == Colors.transparent ?widget.enable ? colors.primary : colors.surface5:widget.color,
+          color: widget.enable
+                  ? widget.color
+                  : colors.text.withOpacity(0.3),
         ),
         child: Center(
           child: Text(
             widget.title,
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyLarge?.copyWith(
-                color: widget.enable ? widget.colorText : colors.textTertiary,
+                color: widget.enable ? widget.colorText : colors.background,
                 fontWeight: FontWeight.w600),
           ),
         ),
