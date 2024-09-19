@@ -283,14 +283,6 @@ class _CreateRequestVehicleDispatchPageState
       checkEdit:
           !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => completerFail(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
-      completerSuccess: () => completerSuccess(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
     );
   }
 

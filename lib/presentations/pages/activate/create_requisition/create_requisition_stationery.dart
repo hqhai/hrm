@@ -208,11 +208,6 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
       postRequestRequest: request(),
       checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => showToast(context: context, errorCode: errorDialog),
-      completerSuccess: () => completerSuccess(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
     );
   }
 

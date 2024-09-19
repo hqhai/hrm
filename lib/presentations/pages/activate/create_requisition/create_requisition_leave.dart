@@ -351,11 +351,6 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
       checkEdit:
           !checkClick && widget.requestId.isNotEmpty && checkValidate(context) && checkReason(),
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => showToast(context: context, errorCode: errorDialog),
-      completerSuccess: () => completerSuccess(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
     );
   }
 

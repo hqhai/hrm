@@ -155,7 +155,7 @@ showToast({required BuildContext context, String errorCode = ''}) {
       fontSize: SpacingUnit.x4);
 }
 
-completerSuccess({required String errorDialog, required String requestId}) {
+completerSuccess({required String requestId}) {
   final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
   final appLocalizations = AppLocalizations.of(currentContext)!;
   dI<AppNavigation>().pop(currentContext);

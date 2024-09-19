@@ -297,11 +297,6 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
           widget.requestId.isNotEmpty &&
           checkTotalWorkLeave(context),
       checkLoadTrue: () => setCheckLoad(),
-      completerFail: () => showToast(context: context, errorCode: errorDialog),
-      completerSuccess: () => completerSuccess(
-        requestId: widget.requestId,
-        errorDialog: errorDialog,
-      ),
     );
   }
 
