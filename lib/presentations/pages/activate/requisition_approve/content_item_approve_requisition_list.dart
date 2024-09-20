@@ -263,8 +263,12 @@ class _ContentItemRequestApproveListState
       },
     ).then((value) {
       setState(() {});
-      dI<AppNavigation>().pop(context);
+      popLoading();
     });
+  }
+
+  popLoading(){
+    dI<AppNavigation>().pop(context);
   }
 
   approverUnsuccessful(
