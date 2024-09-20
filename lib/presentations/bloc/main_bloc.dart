@@ -12,7 +12,7 @@ import 'package:base_app/presentations/bloc/location/address/address_bloc.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
 import 'package:base_app/presentations/bloc/location/school/school_bloc.dart';
 import 'package:base_app/presentations/bloc/login/login_bloc.dart';
-import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
+import 'package:base_app/presentations/bloc/notes/notes_system_cubit.dart';
 import 'package:base_app/presentations/bloc/notification/notification_bloc.dart';
 import 'package:base_app/presentations/bloc/personnel/personnel_bloc.dart';
 import 'package:base_app/presentations/bloc/position/position_bloc.dart';
@@ -50,7 +50,7 @@ class MainBloc {
         BlocProvider<PersonnelBloc>(create: (BuildContext context) => dI<PersonnelBloc>()),
         BlocProvider<CheckInSettingBloc>(
             create: (BuildContext context) => dI<CheckInSettingBloc>()),
-        BlocProvider<NotesBloc>(create: (BuildContext context) => dI<NotesBloc>()),
+        BlocProvider<NoteSystemCubit>(create: (BuildContext context) => dI<NoteSystemCubit>()),
         BlocProvider<AddressBloc>(create: (BuildContext context) => dI<AddressBloc>()),
         BlocProvider<BiometricCubit>(create: (BuildContext context) => dI<BiometricCubit>()),
         BlocProvider<RequisitionBloc>(create: (BuildContext context) => dI<RequisitionBloc>()),
