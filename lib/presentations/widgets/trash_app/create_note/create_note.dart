@@ -8,8 +8,7 @@ import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
-import 'package:base_app/presentations/bloc/notes/notes_event.dart';
+import 'package:base_app/presentations/bloc/notes/notes_system_cubit.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
@@ -109,7 +108,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
               iconTheme: IconThemeData(color: colors.text),
             )
           : null,
-      body: BlocListener<NotesBloc, NotesState>(
+      body: BlocListener<NoteSystemCubit, NotesState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => previous.status != current.status,
         child: Container(
@@ -265,7 +264,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
       required DateTime dateTime}) {
     final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
-      dI<NotesBloc>().add(UpdateNotesEvent(id: id, note: note, dateTime: dateTime));
+      dI<NoteSystemCubit>().updateNotesEvent(id: id, note: note, dateTime: dateTime);
     } else {
       setState(() {
         error = appLocalizations.theContentAndTitleCannotBeLeftBlank;
@@ -299,7 +298,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
             error = appLocalizations.theNoteDateCannotBeBeforeThePresentTime;
           });
         } else {
-          dI<NotesBloc>().add(CreateNotesEvent(note: note, dateTime: dateTime));
+          dI<NoteSystemCubit>().createNotesEvent(note: note, dateTime: dateTime);
         }
       } else {
         setState(() {

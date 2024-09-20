@@ -23,8 +23,7 @@ import 'package:base_app/presentations/bloc/location/schedule_school/schedule_sc
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_event.dart';
 import 'package:base_app/presentations/bloc/location/school/school_bloc.dart';
 import 'package:base_app/presentations/bloc/location/school/school_event.dart';
-import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
-import 'package:base_app/presentations/bloc/notes/notes_event.dart';
+import 'package:base_app/presentations/bloc/notes/notes_system_cubit.dart';
 import 'package:base_app/presentations/bloc/notification/notification_bloc.dart';
 import 'package:base_app/presentations/bloc/notification/notification_event.dart';
 import 'package:base_app/presentations/bloc/personnel/personnel_bloc.dart';
@@ -143,7 +142,7 @@ resetData() {
   dI<AddressBloc>().add(const ResetAddressEvent());
   dI<ScheduleSchoolBloc>().add(const ResetScheduleSchoolEvent());
   dI<SchoolBloc>().add(const ResetSchoolEvent());
-  dI<NotesBloc>().add(const ResetNotesEvent());
+  dI<NoteSystemCubit>().resetNotesEvent();
   dI<PersonnelBloc>().add(const ResetPersonnelEvent());
   dI<NotificationBloc>().add(const ResetNotificationEvent());
   dI<PositionBloc>().add(const ResetPositionEvent());

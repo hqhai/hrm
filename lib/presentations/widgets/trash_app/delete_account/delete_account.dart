@@ -2,8 +2,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
-import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
-import 'package:base_app/presentations/bloc/notes/notes_event.dart';
+import 'package:base_app/presentations/bloc/notes/notes_system_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
     setState(() {
       dI<AuthBloc>().add(const LogoutEvent());
       dI<UserBloc>().add(const ResetUserEvent());
-      dI<NotesBloc>().add(const ResetNoteEvent());
+      dI<NoteSystemCubit>().resetNotesEvent();
     });
   }
 }

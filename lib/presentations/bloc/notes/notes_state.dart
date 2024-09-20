@@ -1,5 +1,4 @@
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/data/models/draft_app/draft_note.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
@@ -12,17 +11,17 @@ part 'notes_state.g.dart';
 class NotesState extends Equatable {
   const NotesState(
       {this.notes = const [],
-      this.draftNote = const [],
       this.note = const Note(),
+      this.selectDay,
       this.status = NoteStatus.init});
 
   final List<Note> notes;
-  final List<DraftNote> draftNote;
   final Note note;
+  final DateTime? selectDay;
   final NoteStatus status;
 
   @override
-  List<Object> get props => [notes, status, note];
+  List<Object?> get props => [notes, status, note, selectDay];
 
   factory NotesState.fromJson(Map<String, dynamic> json) => _$NotesStateFromJson(json);
 

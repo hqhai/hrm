@@ -7,11 +7,11 @@ part of 'notes_state.dart';
 // **************************************************************************
 
 abstract class _$NotesStateCWProxy {
-  NotesState draftNote(List<DraftNote> draftNote);
-
   NotesState note(Note note);
 
   NotesState notes(List<Note> notes);
+
+  NotesState selectDay(DateTime? selectDay);
 
   NotesState status(NoteStatus status);
 
@@ -22,9 +22,9 @@ abstract class _$NotesStateCWProxy {
   /// NotesState(...).copyWith(id: 12, name: "My name")
   /// ````
   NotesState call({
-    List<DraftNote>? draftNote,
     Note? note,
     List<Note>? notes,
+    DateTime? selectDay,
     NoteStatus? status,
   });
 }
@@ -36,13 +36,13 @@ class _$NotesStateCWProxyImpl implements _$NotesStateCWProxy {
   const _$NotesStateCWProxyImpl(this._value);
 
   @override
-  NotesState draftNote(List<DraftNote> draftNote) => this(draftNote: draftNote);
-
-  @override
   NotesState note(Note note) => this(note: note);
 
   @override
   NotesState notes(List<Note> notes) => this(notes: notes);
+
+  @override
+  NotesState selectDay(DateTime? selectDay) => this(selectDay: selectDay);
 
   @override
   NotesState status(NoteStatus status) => this(status: status);
@@ -56,16 +56,12 @@ class _$NotesStateCWProxyImpl implements _$NotesStateCWProxy {
   /// NotesState(...).copyWith(id: 12, name: "My name")
   /// ````
   NotesState call({
-    Object? draftNote = const $CopyWithPlaceholder(),
     Object? note = const $CopyWithPlaceholder(),
     Object? notes = const $CopyWithPlaceholder(),
+    Object? selectDay = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
   }) {
     return NotesState(
-      draftNote: draftNote == const $CopyWithPlaceholder() || draftNote == null
-          ? _value.draftNote
-          // ignore: cast_nullable_to_non_nullable
-          : draftNote as List<DraftNote>,
       note: note == const $CopyWithPlaceholder() || note == null
           ? _value.note
           // ignore: cast_nullable_to_non_nullable
@@ -74,6 +70,10 @@ class _$NotesStateCWProxyImpl implements _$NotesStateCWProxy {
           ? _value.notes
           // ignore: cast_nullable_to_non_nullable
           : notes as List<Note>,
+      selectDay: selectDay == const $CopyWithPlaceholder()
+          ? _value.selectDay
+          // ignore: cast_nullable_to_non_nullable
+          : selectDay as DateTime?,
       status: status == const $CopyWithPlaceholder() || status == null
           ? _value.status
           // ignore: cast_nullable_to_non_nullable
@@ -97,24 +97,32 @@ NotesState _$NotesStateFromJson(Map<String, dynamic> json) => NotesState(
               ?.map((e) => Note.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      draftNote: (json['draftNote'] as List<dynamic>?)
-              ?.map((e) => DraftNote.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
       note: json['note'] == null
           ? const Note()
           : Note.fromJson(json['note'] as Map<String, dynamic>),
+      selectDay: json['selectDay'] == null
+          ? null
+          : DateTime.parse(json['selectDay'] as String),
       status: $enumDecodeNullable(_$NoteStatusEnumMap, json['status']) ??
           NoteStatus.init,
     );
 
-Map<String, dynamic> _$NotesStateToJson(NotesState instance) =>
-    <String, dynamic>{
-      'notes': instance.notes,
-      'draftNote': instance.draftNote,
-      'note': instance.note,
-      'status': _$NoteStatusEnumMap[instance.status]!,
-    };
+Map<String, dynamic> _$NotesStateToJson(NotesState instance) {
+  final val = <String, dynamic>{
+    'notes': instance.notes,
+    'note': instance.note,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('selectDay', instance.selectDay?.toIso8601String());
+  val['status'] = _$NoteStatusEnumMap[instance.status]!;
+  return val;
+}
 
 const _$NoteStatusEnumMap = {
   NoteStatus.init: 'init',

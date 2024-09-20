@@ -7,8 +7,7 @@ import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/notes/notes_bloc.dart';
-import 'package:base_app/presentations/bloc/notes/notes_event.dart';
+import 'package:base_app/presentations/bloc/notes/notes_system_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
@@ -253,7 +252,7 @@ closePopUp(BuildContext context) {
 }
 
 deleteNoteEvent(BuildContext context, Note note) {
-  dI<NotesBloc>().add(DeleteNoteEvent(id: note.id));
+  dI<NoteSystemCubit>().deleteNotesEvent(id: note.id);
   Navigator.of(context).pop();
 }
 

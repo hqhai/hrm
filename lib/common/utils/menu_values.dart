@@ -6,7 +6,7 @@ import 'package:base_app/presentations/widgets/change_password/change_password.d
 import 'package:base_app/presentations/widgets/home/home.widget.dart';
 import 'package:base_app/presentations/widgets/notification/notification.widget.dart';
 import 'package:base_app/presentations/widgets/profile/profile.widget.dart';
-import 'package:base_app/presentations/widgets/trash_app/calendar/layout_calendar_2.dart';
+import 'package:base_app/presentations/widgets/trash_app/calendar/notes_system_list.dart';
 import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
 import 'package:base_app/presentations/widgets/trash_app/delete_account/delete_account.dart';
 import 'package:base_app/presentations/widgets/trash_app/salary/salary_widget.dart';
@@ -142,7 +142,7 @@ class MenuValues {
   static const List<Widget> widgetOptionsUserSystem = <Widget>[
     SalaryWidget(),
     CreateNoteWidget(),
-    LayoutCalendar2(),
+    NotesSystemList(),
     ChangePassword(),
     DeleteAccountWidget(),
   ];

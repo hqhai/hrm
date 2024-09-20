@@ -45,7 +45,7 @@ import '../../data/use_cases/check_in_setting_usecase.implement.dart' as _i26;
 import '../../data/use_cases/department_usecase.implement.dart' as _i34;
 import '../../data/use_cases/location_usecase.implement.dart' as _i44;
 import '../../data/use_cases/login_usecase.implement.dart' as _i47;
-import '../../data/use_cases/note_usecase.implement.dart' as _i53;
+import '../../data/use_cases/note_usecase.implement.dart' as _i54;
 import '../../data/use_cases/notification_usecase.implement.dart' as _i61;
 import '../../data/use_cases/personnel_usecase.implement.dart' as _i68;
 import '../../data/use_cases/position_usecase.implement.dart' as _i75;
@@ -84,7 +84,7 @@ import '../../domain/use_cases/check_in_setting_usecase.dart' as _i25;
 import '../../domain/use_cases/departments_usecase.dart' as _i33;
 import '../../domain/use_cases/location.usecase.dart' as _i43;
 import '../../domain/use_cases/login_usecase.dart' as _i46;
-import '../../domain/use_cases/note.usecase.dart' as _i52;
+import '../../domain/use_cases/note.usecase.dart' as _i53;
 import '../../domain/use_cases/notification_usecase.dart' as _i60;
 import '../../domain/use_cases/personnel_usecase.dart' as _i67;
 import '../../domain/use_cases/position_usecase.dart' as _i74;
@@ -110,7 +110,7 @@ import '../../presentations/bloc/location/schedule_school/schedule_school_bloc.d
     as _i93;
 import '../../presentations/bloc/location/school/school_bloc.dart' as _i94;
 import '../../presentations/bloc/login/login_bloc.dart' as _i45;
-import '../../presentations/bloc/notes/notes_bloc.dart' as _i54;
+import '../../presentations/bloc/notes/notes_system_cubit.dart' as _i52;
 import '../../presentations/bloc/notification/notification_bloc.dart' as _i55;
 import '../../presentations/bloc/personnel/personnel_bloc.dart' as _i62;
 import '../../presentations/bloc/position/position_bloc.dart' as _i69;
@@ -195,8 +195,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i46.LoginUseCase>(() => _i47.LoginUseCaseImpl());
     gh.lazySingleton<_i48.NoteRepository>(() => _i49.NoteRepositoryImpl());
     gh.lazySingleton<_i50.NoteService>(() => _i51.NoteServiceImpl());
-    gh.lazySingleton<_i52.NoteUseCase>(() => _i53.NoteUseCaseImpl());
-    gh.lazySingleton<_i54.NotesBloc>(() => _i54.NotesBloc());
+    gh.lazySingleton<_i52.NoteSystemCubit>(() => _i52.NoteSystemCubit());
+    gh.lazySingleton<_i53.NoteUseCase>(() => _i54.NoteUseCaseImpl());
     gh.lazySingleton<_i55.NotificationBloc>(() => _i55.NotificationBloc());
     gh.lazySingleton<_i56.NotificationRepository>(
         () => _i57.NotificationRepositoryImpl());
