@@ -34,7 +34,14 @@ build-apk:
 	bash scripts/appendGitEnvs.sh
 	$(FLUTTER) pub get
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
-	$(FLUTTER) build apk -t lib/main.dart
+	$(FLUTTER) build apk -t lib/main.uat.dart
+
+.PHONY: release-apk
+release-apk:
+	bash scripts/appendGitEnvs.sh
+	$(FLUTTER) pub get
+	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+	$(FLUTTER) build appbundle -t lib/main.dart --release -v
 
 .PHONY: build-ipa
 build-ipa:

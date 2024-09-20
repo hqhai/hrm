@@ -12,6 +12,13 @@
             "program": "lib/main.dart",
         },
         {
+            "name": "staging release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main.dart",
+        },
+        {
             "name": "it_request",
             "request": "launch",
             "type": "dart"

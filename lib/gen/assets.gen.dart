@@ -18,15 +18,15 @@ class $AssetsEnvGen {
   /// File path: assets/env/.env.production
   String get envProduction => 'assets/env/.env.production';
 
-  /// File path: assets/env/.env.stagging
-  String get envStagging => 'assets/env/.env.stagging';
+  /// File path: assets/env/.env.staging
+  String get envStaging => 'assets/env/.env.staging';
 
   /// File path: assets/env/.env.uat
   String get envUat => 'assets/env/.env.uat';
 
   /// List of all assets
   List<String> get values =>
-      [envGitInformation, envProduction, envStagging, envUat];
+      [envGitInformation, envProduction, envStaging, envUat];
 }
 
 class $AssetsGifGen {
