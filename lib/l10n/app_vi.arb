@@ -685,5 +685,6 @@
   "shiftHistory":"Lịch sử trạng thái ca:",
   "noConnected": "Có lỗi sảy ra, vui lòng kiểm tra lại!",
   "reasonForCancellation":"Lí do huỷ ca",
-  "shiftIsCancelled":"Đã huỷ"
+  "shiftIsCancelled":"Đã huỷ",
+  "skipLogin":"Bỏ qua Đăng Nhập"
 }

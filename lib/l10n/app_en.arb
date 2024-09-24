@@ -684,5 +684,6 @@
   "shiftHistory":"Case status history",
   "noConnected": "No Connection/ An error occured, please check again later!",
   "reasonForCancellation":"Reason for cancellation",
-  "shiftIsCancelled":"Canceled"
+  "shiftIsCancelled":"Canceled",
+  "skipLogin":"Skip Login"
 }

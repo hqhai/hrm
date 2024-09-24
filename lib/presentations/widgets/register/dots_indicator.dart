@@ -69,10 +69,14 @@ class PageIndicator extends StatelessWidget {
             children: <Widget>[
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: checkInput[currentPageIndex] ? colors.blue : colors.blue.withOpacity(0.5),
+                  backgroundColor: checkInput[currentPageIndex]
+                      ? colors.blue
+                      : colors.blue.withOpacity(0.5),
                   elevation: 3,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  minimumSize: Size(MediaQuery.of(context).size.width * 0.65, 44),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  minimumSize:
+                      Size(MediaQuery.of(context).size.width * 0.65, 44),
                 ),
                 onPressed: () {
                   _currentPage(state);
@@ -85,7 +89,9 @@ class PageIndicator extends StatelessWidget {
                           : appLocalizations.continues,
                       style: TextStyle(
                           fontSize: 18,
-                          color: checkInput[currentPageIndex] ? colors.background : colors.background),
+                          color: checkInput[currentPageIndex]
+                              ? colors.background
+                              : colors.background),
                     ),
                     if (currentPageIndex != 2)
                       SvgPicture.asset(
@@ -106,15 +112,18 @@ class PageIndicator extends StatelessWidget {
 
   _currentPage(RegisterState state) {
     if (currentPageIndex == 0) {
-      dI<RegisterBloc>().add(RegisterEmailInputEvent(email: valueInputs[0],));
+      dI<RegisterBloc>().add(RegisterEmailInputEvent(
+        email: valueInputs[0],
+      ));
     }
     if (currentPageIndex == 1) {
-      dI<RegisterBloc>().add(RegisterNameInputEvent(firstName: valueInputs[1], lastName: valueInputs[2],));
+      dI<RegisterBloc>().add(RegisterNameInputEvent(
+        firstName: valueInputs[1],
+        lastName: valueInputs[2],
+      ));
     }
-    if(currentPageIndex == 2){
-      dI<RegisterBloc>().add(RegisterGenderDateOfBirthInputEvent(gender: valueInputs[3], dateOfBirth: valueInputs[4],));
-    }
-    if (currentPageIndex == 3) {
+
+    if (currentPageIndex == 2) {
       dI<RegisterBloc>().add(RegisterRequestEvent(password: valueInputs[5]));
     }
     onUpdateCurrentPageIndex(currentPageIndex + 1);

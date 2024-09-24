@@ -2062,4 +2062,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shiftIsCancelled => 'Canceled';
+
+  @override
+  String get skipLogin => 'Skip Login';
 }

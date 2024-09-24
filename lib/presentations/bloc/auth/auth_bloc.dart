@@ -66,9 +66,12 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<CheckAuthenticated>(_checkAuthenticated);
     on<LogoutEvent>(_logOut);
     on<ResetEvent>(_resetEvent);
+    on<IgnoreLoginEvent>(_ignoreLoginEvent);
   }
 
-  FutureOr<void> _checkAuthenticated(CheckAuthenticated event, Emitter<AuthState> emit) async {
+  FutureOr<void> _checkAuthenticated(
+      CheckAuthenticated event, Emitter<AuthState> emit) async {
+    if (state.status == AuthStatus.ignoreLogin) return;
     String userToken, email, password;
     List<String> roles;
     if (event.loginResponse != null) {
@@ -106,7 +109,9 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     if (dI<AuthBloc>().state.saveLogin) {
       resetData();
       emit(AuthState(
-          status: AuthStatus.unAuthentication, email: state.email, password: state.password));
+          status: AuthStatus.unAuthentication,
+          email: state.email,
+          password: state.password));
     } else {
       resetData();
       emit(const AuthState(status: AuthStatus.unAuthentication));
@@ -127,6 +132,11 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     emit(state.copyWith(
         token:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6Iml0QGF0bGFudGljLmVkdS52biIsIkZ1bGxOYW1lIjoiSFIgSFIiLCJFbWFpbCI6Iml0QGF0bGFudGljLmVkdS52biIsIlVzZXJJZCI6IjY0REYxOTRFLTY1QUItNEI0Mi04REE5LUI1QjE3NDQ0ODlBRCIsIlN1YiI6ImJhc2VXZWJBcGlTdWJqZWN0IiwiSnRpIjoiZGI2OGMwODAtMGY0My00NGU3LTk0ODYtMzQyZmUyMThmZjk4IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiSFIiLCJSb2xlcyI6IkhSIiwiZXhwIjoxNzA0MzY0NTMxLCJpc3MiOiJiYXNlV2ViQXBpSXNzdWVyIiwiYXVkIjoiYmFzZVdlYkFwaUF1ZGllbmNlIn0.stIeNHtQuT7O5ajACVDnd4RjXOtG9KciSULDDuunZGU"));
+  }
+
+  FutureOr<void> _ignoreLoginEvent(
+      IgnoreLoginEvent event, Emitter<AuthState> emit) {
+    emit(const AuthState(status: AuthStatus.ignoreLogin));
   }
 }
 

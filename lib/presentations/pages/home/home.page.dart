@@ -28,8 +28,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final homePageRoute =
-    GoRoute(path: Pages.home, builder: (context, GoRouterState state) => const HomePage());
+final homePageRoute = GoRoute(
+    path: Pages.home,
+    builder: (context, GoRouterState state) => const HomePage());
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -81,6 +82,10 @@ class _HomePageState extends State<HomePage> {
     dI<UserByRolesBloc>().add(const ResetUsersEvent());
   }
 
+  void loginFunction() {
+    dI<AuthBloc>().add(const LogoutEvent());
+  }
+
   _listener(BuildContext context, UserState state) {
     if (state.status == UserStatus.unauthorized) {
       logoutFunction();
@@ -106,20 +111,23 @@ class _HomePageState extends State<HomePage> {
       builder: (context, stateUser) {
         return Scaffold(
           appBar: AppBar(
-            iconTheme: IconThemeData(color: colors.text),
-            centerTitle: true,
-            title: _checkRole()
-                ? null
-                : Text(
-                    titleValue(context, selectedIndex),
-                    style: TextStyle(
-                      fontSize: SpacingUnit.x4_5,
-                      color: colors.text,
-                      fontWeight: FontWeight.w600,
+              iconTheme: IconThemeData(color: colors.text),
+              centerTitle: true,
+              title: _checkRole()
+                  ? null
+                  : Text(
+                      titleValue(context, selectedIndex),
+                      style: TextStyle(
+                        fontSize: SpacingUnit.x4_5,
+                        color: colors.text,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-            actions: !_checkRole() ? [popupMenu(selectedIndex, context)] : null,
-          ),
+              actions: !_checkRole()
+                  ? [
+                      popupMenu(selectedIndex, context),
+                    ]
+                  : null),
           drawer: _checkRole()
               ? BlocBuilder<UserBloc, UserState>(
                   builder: (context, stateUser) {
@@ -137,21 +145,56 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  ...MenuValues.menuUserSystemValues(context).asMap().entries.map(
-                                        (entry) => SideMenuTile(
-                                          text: entry.value['text'],
-                                          checkSelect: selectedIndexSystem == entry.key,
-                                          icon: entry.value['icon'],
-                                          onTap: () => selectedIndexFunction(entry, context),
+                                  if (dI<AuthBloc>().state.status !=
+                                      AuthStatus.ignoreLogin)
+                                    ...MenuValues.menuUserSystemValues(context)
+                                        .asMap()
+                                        .entries
+                                        .map(
+                                          (entry) => SideMenuTile(
+                                            text: entry.value['text'],
+                                            checkSelect: selectedIndexSystem ==
+                                                entry.key,
+                                            icon: entry.value['icon'],
+                                            onTap: () => selectedIndexFunction(
+                                                entry, context),
+                                          ),
                                         ),
-                                      ),
-                                  SideMenuTile(
-                                    text: appLocalizations.logout,
-                                    checkSelect: false,
-                                    icon: Icon(Icons.logout,
-                                        color: colors.text, size: SpacingUnit.x7_5),
-                                    onTap: () => logoutFunction(),
-                                  ),
+                                  if (dI<AuthBloc>().state.status ==
+                                      AuthStatus.ignoreLogin)
+                                    ...MenuValues.menuGuestValues(context)
+                                        .asMap()
+                                        .entries
+                                        .map(
+                                          (entry) => SideMenuTile(
+                                            text: entry.value['text'],
+                                            checkSelect: selectedIndexSystem ==
+                                                entry.key,
+                                            icon: entry.value['icon'],
+                                            onTap: () => selectedIndexFunction(
+                                                entry, context),
+                                          ),
+                                        ),
+                                  if (dI<AuthBloc>().state.status ==
+                                      AuthStatus.ignoreLogin)
+                                    SideMenuTile(
+                                      text: appLocalizations.login,
+                                      checkSelect: false,
+                                      icon: Icon(Icons.logout,
+                                          color: colors.text,
+                                          size: SpacingUnit.x7_5),
+                                      onTap: () => logoutFunction(),
+                                    ),
+                                  if (dI<AuthBloc>().state.status !=
+                                      AuthStatus.ignoreLogin)
+                                    SideMenuTile(
+                                      text: appLocalizations.logout,
+                                      checkSelect: false,
+                                      icon: Icon(Icons.logout,
+                                          color: colors.text,
+                                          size: SpacingUnit.x7_5),
+                                      onTap: () => logoutFunction(),
+                                    ),
                                 ],
                               ),
                             ),
@@ -180,7 +223,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool _checkRole() {
-    return dI<AuthBloc>().state.roles.contains(ConfigRoleStringValues.userSystem.name);
+    return dI<AuthBloc>()
+            .state
+            .roles
+            .contains(ConfigRoleStringValues.userSystem.name) ||
+        dI<AuthBloc>().state.status == AuthStatus.ignoreLogin;
   }
 
   Widget popupMenu(int selectedIndex, BuildContext context) {

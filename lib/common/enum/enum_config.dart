@@ -9,6 +9,7 @@ enum UserStatus { init, start, success, fail, unauthorized, unknown }
 
 enum AuthStatus {
   authInitial,
+  ignoreLogin,
   loading,
   loggedIn,
   loggedOut,

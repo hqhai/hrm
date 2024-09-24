@@ -136,6 +136,7 @@ Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
 
 const _$AuthStatusEnumMap = {
   AuthStatus.authInitial: 'authInitial',
+  AuthStatus.ignoreLogin: 'ignoreLogin',
   AuthStatus.loading: 'loading',
   AuthStatus.loggedIn: 'loggedIn',
   AuthStatus.loggedOut: 'loggedOut',

@@ -29,7 +29,8 @@ class MenuValues {
       },
       {
         'text': appLocalizations.requestIsProcessing,
-        'icon': const Icon(Icons.hourglass_bottom, color: Colors.white, size: 30)
+        'icon':
+            const Icon(Icons.hourglass_bottom, color: Colors.white, size: 30)
       },
       {
         'text': appLocalizations.requestProcessed,
@@ -46,12 +47,37 @@ class MenuValues {
     ];
   }
 
+  static List<Map<String, dynamic>> menuGuestValues(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
+    return [
+      {
+        'text': 'Salary',
+        'icon': Icon(Icons.monetization_on, color: colors.text, size: 30)
+      },
+      {
+        'text': 'Create Note',
+        'icon': Icon(Icons.note, color: colors.text, size: 30)
+      },
+      {
+        'text': appLocalizations.calendar,
+        'icon': Icon(Icons.calendar_month, color: colors.text, size: 30)
+      },
+    ];
+  }
+
   static List<Map<String, dynamic>> menuUserSystemValues(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return [
-      {'text': 'Salary', 'icon': Icon(Icons.monetization_on, color: colors.text, size: 30)},
-      {'text': 'Create Note', 'icon': Icon(Icons.note, color: colors.text, size: 30)},
+      {
+        'text': 'Salary',
+        'icon': Icon(Icons.monetization_on, color: colors.text, size: 30)
+      },
+      {
+        'text': 'Create Note',
+        'icon': Icon(Icons.note, color: colors.text, size: 30)
+      },
       {
         'text': appLocalizations.calendar,
         'icon': Icon(Icons.calendar_month, color: colors.text, size: 30)
@@ -67,7 +93,8 @@ class MenuValues {
     ];
   }
 
-  static List<Map<String, dynamic>> menuGeneralManagerValues(BuildContext context) {
+  static List<Map<String, dynamic>> menuGeneralManagerValues(
+      BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return [
       /*{
@@ -84,7 +111,8 @@ class MenuValues {
       },*/
       {
         'text': 'Chấm công',
-        'icon': const Icon(Icons.timelapse_outlined, color: Colors.white, size: 30)
+        'icon':
+            const Icon(Icons.timelapse_outlined, color: Colors.white, size: 30)
       },
       {
         'text': appLocalizations.workingTime,
@@ -100,7 +128,8 @@ class MenuValues {
       },
       {
         'text': appLocalizations.department,
-        'icon': const Icon(Icons.room_preferences, color: Colors.white, size: 30)
+        'icon':
+            const Icon(Icons.room_preferences, color: Colors.white, size: 30)
       },
       {
         'text': appLocalizations.changePassword,

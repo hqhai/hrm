@@ -4190,6 +4190,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Canceled'**
   String get shiftIsCancelled;
+
+  /// No description provided for @skipLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Login'**
+  String get skipLogin;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

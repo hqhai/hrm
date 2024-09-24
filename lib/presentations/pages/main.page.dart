@@ -16,8 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-final mainPageRoute =
-    GoRoute(path: Pages.main, builder: (context, GoRouterState state) => const MainPage());
+final mainPageRoute = GoRoute(
+    path: Pages.main,
+    builder: (context, GoRouterState state) => const MainPage());
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -41,14 +42,14 @@ class _MainPageState extends State<MainPage> {
           builder: (context, stateUser) {
             return BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
-                if (state.status == AuthStatus.loggedIn) {
-                  if (stateUser.status != UserStatus.unauthorized) {
-                    if (stateLogin.status == LoginStatus.firstLoginSuccess &&
-                        state.roles.first != ConfigRoleStringValues.userSystem.name) {
-                      return const ChangePassword();
-                    }
-                    return const HomePage();
+                if (state.status == AuthStatus.loggedIn ||
+                    state.status == AuthStatus.ignoreLogin) {
+                  if (stateLogin.status == LoginStatus.firstLoginSuccess &&
+                      state.roles.first !=
+                          ConfigRoleStringValues.userSystem.name) {
+                    return const ChangePassword();
                   }
+                  return const HomePage();
                 }
                 return const LoginPage();
               },

@@ -8,11 +8,10 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/register/register_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_state.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/register/dots_indicator.dart';
 import 'package:base_app/presentations/widgets/register/register_email_widget.dart';
-import 'package:base_app/presentations/widgets/register/register_gender_date_of_birth_widget.dart';
 import 'package:base_app/presentations/widgets/register/register_password.dart';
 import 'package:base_app/presentations/widgets/register/register_username.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +19,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final registerPageRoute =
-    GoRoute(path: Pages.register, builder: (context, GoRouterState state) => const RegisterPage());
+final registerPageRoute = GoRoute(
+    path: Pages.register,
+    builder: (context, GoRouterState state) => const RegisterPage());
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -30,12 +30,20 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMixin {
+class _RegisterPageState extends State<RegisterPage>
+    with TickerProviderStateMixin {
   late final TabController tabController;
   late PageController pageViewController;
   int currentIndex = 0;
-  List<bool> checkInputs = [false, false, false, false];
-  List<String> valueInputs = ['', '123', '123', GenderEnum.male.name, 'Admin@123', 'Admin@123'];
+  List<bool> checkInputs = [false, false, false];
+  List<String> valueInputs = [
+    '',
+    '123',
+    '123',
+    GenderEnum.male.name,
+    'Admin@123',
+    'Admin@123'
+  ];
 
   @override
   void initState() {
@@ -55,8 +63,10 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
     if (state.requestStatus == RegisterRequestStatus.registerInit) {
       progressIndicatorDialog(context);
     } else if (state.requestStatus == RegisterRequestStatus.registerSuccess) {
-      Navigator.of(context).pop();
-      successDialog(context);
+      successDialog(context, onPress: () {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      });
     } else if (state.requestStatus == RegisterRequestStatus.registerError) {
       Navigator.of(context).pop();
       unsuccessfulDialog(context);
@@ -90,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
                   width: SpacingUnit.x13,
                   height: SpacingUnit.x1_5,
                   currentIndex: currentIndex.toInt(),
-                  pageCount: 4,
+                  pageCount: 3,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.4,
@@ -114,16 +124,9 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
                           lastNameDefault: state.registerRequest.lastName,
                         ),
                       ),
-                      RegisterGenderEnumAndDateOfBirth(
-                        genderDefault: state.registerRequest.gender,
-                        dateOfBirthDefault: state.registerRequest.dayOfBirth,
-                        onChange: (value) => checkInputs2(value),
-                        onChangeDateOfBirth: (value) => valueInputs4(value),
-                        onChangeGender: (value) => valueInputs3(value),
-                      ),
                       SingleChildScrollView(
                         child: RegisterPassword(
-                          onChange: (value) => checkInputs3(value),
+                          onChange: (value) => checkInputs2(value),
                           onChangePassword: (value) => valueInputs5(value),
                           passwordDefault: state.registerRequest.password,
                         ),
@@ -146,13 +149,15 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
                   children: [
                     Text(
                       appLocalizations.alreadyAMember,
-                      style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
+                      style: TextStyle(
+                          fontSize: SpacingUnit.x4, color: colors.text),
                     ),
                     GestureDetector(
                       onTap: () => onLogin(context),
                       child: Text(
                         appLocalizations.logInNow,
-                        style: const TextStyle(fontSize: SpacingUnit.x4, color: Color(0xffABBFED)),
+                        style: const TextStyle(
+                            fontSize: SpacingUnit.x4, color: Color(0xffABBFED)),
                       ),
                     ),
                   ],
@@ -201,12 +206,6 @@ class _RegisterPageState extends State<RegisterPage> with TickerProviderStateMix
   checkInputs2(bool value) {
     setState(() {
       checkInputs[2] = value;
-    });
-  }
-
-  checkInputs3(bool value) {
-    setState(() {
-      checkInputs[3] = value;
     });
   }
 

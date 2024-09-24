@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/note.dart';
+import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
 import 'package:base_app/presentations/bloc/notes/notes_system_cubit.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calender/item_day_of_week.dart';
@@ -35,11 +37,15 @@ class _NotesSystemListState extends State<NotesSystemList> {
   bool isScroll = false;
 
   final ItemScrollController _scrollControllerHeader = ItemScrollController();
-  final ScrollOffsetController scrollOffsetController = ScrollOffsetController();
-  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
-  final ScrollOffsetListener scrollOffsetListener = ScrollOffsetListener.create();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
   final ItemScrollController scrollControllerBody = ItemScrollController();
-  final ItemPositionsListener itemPositionsListenerBody = ItemPositionsListener.create();
+  final ItemPositionsListener itemPositionsListenerBody =
+      ItemPositionsListener.create();
 
   @override
   void initState() {
@@ -61,7 +67,8 @@ class _NotesSystemListState extends State<NotesSystemList> {
   }
 
   List<DateTime> listDays(DateTime nowDate) {
-    final int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(nowDate)] ?? 0;
+    final int nowOfWeek =
+        mapNumberDayInWeek[DateFormat('EEE').format(nowDate)] ?? 0;
     setState(() {
       startOfWeek = nowDate.subtract(Duration(days: nowOfWeek - 1));
       endOfWeek = startOfWeek.add(const Duration(days: 7));
@@ -76,12 +83,15 @@ class _NotesSystemListState extends State<NotesSystemList> {
 
   _bodyScroll() {
     itemPositionsListenerBody.itemPositions.addListener(() async {
-      Iterable<ItemPosition> listIndex = itemPositionsListenerBody.itemPositions.value;
+      Iterable<ItemPosition> listIndex =
+          itemPositionsListenerBody.itemPositions.value;
       int nextIndex = currentHeaderScrollIndex + 7;
-      dI<NoteSystemCubit>().changeSelectDate(selectDate: listDateAppBar[(listIndex.first.index)]);
+      dI<NoteSystemCubit>().changeSelectDate(
+          selectDate: listDateAppBar[(listIndex.first.index)]);
       if (nextIndex <= listIndex.first.index && !isHeaderScroll) {
         setUpWeek();
-      } else if (currentHeaderScrollIndex > listIndex.first.index && !isHeaderScroll) {
+      } else if (currentHeaderScrollIndex > listIndex.first.index &&
+          !isHeaderScroll) {
         setDownWeek();
       }
     });
@@ -91,7 +101,8 @@ class _NotesSystemListState extends State<NotesSystemList> {
     int previousIndex = currentHeaderScrollIndex - 7;
     isHeaderScroll = true;
     _scrollControllerHeader
-        .scrollTo(index: previousIndex, duration: const Duration(milliseconds: 10))
+        .scrollTo(
+            index: previousIndex, duration: const Duration(milliseconds: 10))
         .whenComplete(() {
       // final index = isFistIndex ? 7 : 13;
       scrollControllerBody.jumpTo(index: previousIndex);
@@ -116,8 +127,10 @@ class _NotesSystemListState extends State<NotesSystemList> {
   }
 
   _getData() {
-    dI<NoteSystemCubit>()
-        .getNotesEvent(startDate: listDateAppBar.first, endDate: listDateAppBar.last);
+    if (dI<AuthBloc>().state.status != AuthStatus.ignoreLogin) {
+      dI<NoteSystemCubit>().getNotesEvent(
+          startDate: listDateAppBar.first, endDate: listDateAppBar.last);
+    }
   }
 
   List<DateTime> _getNextDate(DateTime date) {
@@ -174,7 +187,9 @@ class _NotesSystemListState extends State<NotesSystemList> {
   int _getCurrentIndex() {
     DateTime date = DateTime.now();
     int index = listDateAppBar.indexWhere((element) =>
-        date.day == element.day && date.month == element.month && date.year == element.year);
+        date.day == element.day &&
+        date.month == element.month &&
+        date.year == element.year);
     return index;
   }
 

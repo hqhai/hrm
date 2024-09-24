@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
-popDialog(BuildContext context) {
+popDialog(BuildContext context, {Function? onPress}) {
   Navigator.of(context).pop();
+  if (onPress != null) {
+    onPress.call();
+  }
 }
 
 onClickOK(BuildContext context, VoidCallback callback) {

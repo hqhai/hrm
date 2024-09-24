@@ -77,13 +77,7 @@ extension $RegisterStateCopyWith on RegisterState {
 RegisterState _$RegisterStateFromJson(Map<String, dynamic> json) =>
     RegisterState(
       registerRequest: json['registerRequest'] == null
-          ? const RegisterRequest(
-              firstName: '',
-              lastName: '',
-              password: '',
-              email: '',
-              dayOfBirth: '',
-              gender: '')
+          ? requestDefault
           : RegisterRequest.fromJson(
               json['registerRequest'] as Map<String, dynamic>),
       requestStatus: $enumDecodeNullable(

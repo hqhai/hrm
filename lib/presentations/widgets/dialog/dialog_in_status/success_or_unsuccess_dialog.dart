@@ -3,7 +3,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/dialog.dart';
 import 'package:flutter/material.dart';
 
-successDialog(BuildContext context) async {
+successDialog(BuildContext context, {Function? onPress}) async {
   final appLocalizations = AppLocalizations.of(context)!;
   return showDialog(
     context: context,
@@ -11,11 +11,12 @@ successDialog(BuildContext context) async {
       return AlertDialog(
         content: Scrollbar(
           child: Text(appLocalizations.success,
-              textAlign: TextAlign.center, style: const TextStyle(fontSize: SpacingUnit.x8)),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: SpacingUnit.x8)),
         ),
         actions: <Widget>[
           ElevatedButton(
-            onPressed: () => popDialog(context),
+            onPressed: () => popDialog(context, onPress: onPress),
             child: Text(appLocalizations.ok),
           ),
         ],
@@ -32,7 +33,8 @@ unsuccessfulDialog(BuildContext context) async {
       return AlertDialog(
         content: Scrollbar(
           child: Text(appLocalizations.unsuccessful,
-              textAlign: TextAlign.center, style: const TextStyle(fontSize: SpacingUnit.x8)),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: SpacingUnit.x8)),
         ),
         actions: <Widget>[
           ElevatedButton(

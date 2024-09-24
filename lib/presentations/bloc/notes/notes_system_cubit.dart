@@ -9,6 +9,7 @@ import 'package:base_app/domain/use_cases/note.usecase.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:uuid/uuid.dart';
 
 @lazySingleton
 class NoteSystemCubit extends HydratedCubit<NotesState> {
@@ -18,7 +19,27 @@ class NoteSystemCubit extends HydratedCubit<NotesState> {
       : noteUseCase = dI<NoteUseCase>(),
         super(const NotesState());
 
-  FutureOr<void> createNotesEvent({String note = '', required DateTime dateTime}) async {
+  FutureOr<void> createNotesLocalEvent(
+      {String note = '', required DateTime dateTime}) async {
+    emit(state.copyWith(status: NoteStatus.createNoteInit));
+    try {
+      final Note newNode = Note(
+          id: const Uuid().toString(),
+          createdDate: dateTime.toString(),
+          dateTime: dateTime,
+          createdFullName: 'local',
+          note: note);
+      final newNotes = List<Note>.from(state.notes); 
+      newNotes.add(newNode);
+      emit(state.copyWith(
+          notes: newNotes, status: NoteStatus.createNoteSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: NoteStatus.createNoteError));
+    }
+  }
+
+  FutureOr<void> createNotesEvent(
+      {String note = '', required DateTime dateTime}) async {
     emit(state.copyWith(status: NoteStatus.createNoteInit));
     try {
       await noteUseCase.createNoteRequest(note: note, dateTime: dateTime);
@@ -28,7 +49,8 @@ class NoteSystemCubit extends HydratedCubit<NotesState> {
     }
   }
 
-  FutureOr<void> getNotesEvent({required DateTime startDate, required DateTime endDate}) async {
+  FutureOr<void> getNotesEvent(
+      {required DateTime startDate, required DateTime endDate}) async {
     emit(state.copyWith(status: NoteStatus.getNotesInit));
     try {
       final notes = await noteUseCase.getNotesRequest(
@@ -43,7 +65,8 @@ class NoteSystemCubit extends HydratedCubit<NotesState> {
       {String note = '', String id = '', required DateTime dateTime}) async {
     emit(state.copyWith(status: NoteStatus.updateNoteInit));
     try {
-      await noteUseCase.updateNoteRequest(note: note, id: id, dateTime: dateTime);
+      await noteUseCase.updateNoteRequest(
+          note: note, id: id, dateTime: dateTime);
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       List<Note> notes = state.notes;
       final index = state.notes.indexWhere((element) => element.id == id);

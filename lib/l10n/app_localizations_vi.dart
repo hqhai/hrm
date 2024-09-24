@@ -2062,4 +2062,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get shiftIsCancelled => 'Đã huỷ';
+
+  @override
+  String get skipLogin => 'Bỏ qua Đăng Nhập';
 }

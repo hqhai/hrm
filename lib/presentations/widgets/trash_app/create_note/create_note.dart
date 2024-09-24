@@ -8,8 +8,9 @@ import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/note.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/notes/notes_system_cubit.dart';
+import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
+import 'package:base_app/presentations/bloc/notes/notes_system_cubit.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
 import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart';
@@ -50,15 +51,17 @@ class CreateNoteWidget extends StatefulWidget {
 class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   final TextEditingController contentController = TextEditingController();
   late String checkContent, error;
+  bool isShowMap = false;
   DateTime dateNote = DateTime.now();
   double latitude = 0, longitude = 0;
   Position? _currentLocation;
   LatLng? latLngFsel;
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
   @override
   void initState() {
-    _determinePosition();
+    // _determinePosition();
     checkContent = '';
     contentController.text = '';
     error = '';
@@ -86,7 +89,8 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
         unsuccessfulDialog(context);
         error = '';
       } else if (state.status == NoteStatus.createNoteErrorAlreadyExistOnDay) {
-        successFullDialog(context, "${appLocalizations.youMadeANoteOnTheDate} $dateNote");
+        successFullDialog(
+            context, "${appLocalizations.youMadeANoteOnTheDate} $dateNote");
       }
     });
   }
@@ -106,14 +110,29 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                 ),
               ),
               iconTheme: IconThemeData(color: colors.text),
+              actions: [
+                IconButton(
+                    icon: Icon(
+                      Icons.map,
+                      size: 24,
+                      color: colors.primary,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isShowMap = true;
+                      });
+                    })
+              ],
             )
           : null,
       body: BlocListener<NoteSystemCubit, NotesState>(
         listener: (context, state) => _listener(context, state),
         listenWhen: (previous, current) => previous.status != current.status,
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
-          padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+          margin: const EdgeInsets.symmetric(
+              horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingUnit.x2, vertical: SpacingUnit.x2),
           height: MediaQuery.sizeOf(context).height,
           decoration: BoxDecoration(
             color: colors.background,
@@ -143,37 +162,42 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                   ),
                 ),
                 const SizedBox(height: SpacingUnit.x4),
-                Text(
-                  appLocalizations.destination,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4_5,
-                    fontWeight: FontWeight.w600,
+                if (isShowMap) ...[
+                  Text(
+                    appLocalizations.destination,
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4_5,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: SpacingUnit.x60,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x2)),
-                      child: GoogleMap(
-                        gestureRecognizers: {
-                          Factory<PanGestureRecognizer>(() => PanGestureRecognizer())
-                        },
-                        onMapCreated: (GoogleMapController controller) {
-                          _controller.complete(controller);
-                        },
-                        myLocationEnabled: true,
-                        initialCameraPosition: CameraPosition(
-                          target: LatLng(latitude, longitude),
-                          zoom: 15,
+                  SizedBox(
+                    height: SpacingUnit.x60,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(SpacingUnit.x2)),
+                        child: GoogleMap(
+                          gestureRecognizers: {
+                            Factory<PanGestureRecognizer>(
+                                () => PanGestureRecognizer())
+                          },
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller.complete(controller);
+                          },
+                          myLocationEnabled: true,
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(latitude, longitude),
+                            zoom: 15,
+                          ),
+                          mapType: MapType.normal,
                         ),
-                        mapType: MapType.normal,
                       ),
                     ),
                   ),
-                ),
+                ],
                 Text(
                   appLocalizations.note,
                   style: TextStyle(
@@ -195,9 +219,13 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                 AppButton(
                   color: colors.blue,
                   colorText: colors.background,
-                  title: widget.note != null ? appLocalizations.update : appLocalizations.create,
+                  title: widget.note != null
+                      ? appLocalizations.update
+                      : appLocalizations.create,
                   onSubmit: () => _createNote(
-                      context: context, note: contentController.text, dateTime: dateNote),
+                      context: context,
+                      note: contentController.text,
+                      dateTime: dateNote),
                 ),
               ],
             ),
@@ -264,7 +292,8 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
       required DateTime dateTime}) {
     final appLocalizations = AppLocalizations.of(context)!;
     if (_checkTextField()) {
-      dI<NoteSystemCubit>().updateNotesEvent(id: id, note: note, dateTime: dateTime);
+      dI<NoteSystemCubit>()
+          .updateNotesEvent(id: id, note: note, dateTime: dateTime);
     } else {
       setState(() {
         error = appLocalizations.theContentAndTitleCannotBeLeftBlank;
@@ -277,7 +306,9 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   }
 
   _createNote(
-      {required BuildContext context, required String note, required DateTime dateTime}) async {
+      {required BuildContext context,
+      required String note,
+      required DateTime dateTime}) async {
     final appLocalizations = AppLocalizations.of(context)!;
     DateTime now = DateTime.now();
     if (widget.note != null) {
@@ -298,7 +329,13 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
             error = appLocalizations.theNoteDateCannotBeBeforeThePresentTime;
           });
         } else {
-          dI<NoteSystemCubit>().createNotesEvent(note: note, dateTime: dateTime);
+          if (dI<AuthBloc>().state.status == AuthStatus.ignoreLogin) {
+            dI<NoteSystemCubit>()
+                .createNotesLocalEvent(note: note, dateTime: dateTime);
+          } else {
+            dI<NoteSystemCubit>()
+                .createNotesEvent(note: note, dateTime: dateTime);
+          }
         }
       } else {
         setState(() {
@@ -330,7 +367,8 @@ class DialogOpenSetting extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height / 4.5,
       padding: const EdgeInsets.all(SpacingUnit.x4),
       decoration: BoxDecoration(
-          color: colors.background, borderRadius: BorderRadius.circular(SpacingUnit.x4)),
+          color: colors.background,
+          borderRadius: BorderRadius.circular(SpacingUnit.x4)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -350,7 +388,8 @@ class DialogOpenSetting extends StatelessWidget {
             child: Text(
               appLocalizations.contentPopUpOpenGPS,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.bodyLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: SpacingUnit.x4),

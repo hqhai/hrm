@@ -13,8 +13,6 @@ import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title.dart';
 import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
@@ -41,7 +39,8 @@ class NoteDialogSystem extends StatefulWidget {
 }
 
 class _NoteDialogSystemState extends State<NoteDialogSystem> {
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
   double latitude = 0, longitude = 0;
   Position? _currentLocation;
@@ -49,7 +48,7 @@ class _NoteDialogSystemState extends State<NoteDialogSystem> {
 
   @override
   void initState() {
-    _determinePosition();
+    // _determinePosition();
     super.initState();
   }
 
@@ -124,29 +123,29 @@ class _NoteDialogSystemState extends State<NoteDialogSystem> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(
-              height: SpacingUnit.x60,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x2)),
-                  child: GoogleMap(
-                    gestureRecognizers: {
-                      Factory<PanGestureRecognizer>(() => PanGestureRecognizer())
-                    },
-                    onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
-                    },
-                    myLocationEnabled: true,
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(latitude, longitude),
-                      zoom: 15,
-                    ),
-                    mapType: MapType.normal,
-                  ),
-                ),
-              ),
-            ),
+            // SizedBox(
+            //   height: SpacingUnit.x60,
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+            //     child: ClipRRect(
+            //       borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x2)),
+            //       child: GoogleMap(
+            //         gestureRecognizers: {
+            //           Factory<PanGestureRecognizer>(() => PanGestureRecognizer())
+            //         },
+            //         onMapCreated: (GoogleMapController controller) {
+            //           _controller.complete(controller);
+            //         },
+            //         myLocationEnabled: true,
+            //         initialCameraPosition: CameraPosition(
+            //           target: LatLng(latitude, longitude),
+            //           zoom: 15,
+            //         ),
+            //         mapType: MapType.normal,
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -155,20 +154,24 @@ class _NoteDialogSystemState extends State<NoteDialogSystem> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: SpacingUnit.x2),
                         child: AppButton(
-                          onSubmit: () => nextUpdateNotesPage(context, widget.note),
+                          onSubmit: () =>
+                              nextUpdateNotesPage(context, widget.note),
                           title: appLocalizations.update,
                         ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: SpacingUnit.x2),
                         child: AppButton(
                           color: colors.error,
                           colorBorder: colors.error,
-                          onSubmit: () => logDeleteNoteDialog(context, widget.note),
+                          onSubmit: () =>
+                              logDeleteNoteDialog(context, widget.note),
                           title: appLocalizations.delete,
                         ),
                       ),
@@ -244,7 +247,8 @@ logDeleteNoteDialog(BuildContext context, Note note) {
 }
 
 nextUpdateNotesPage(BuildContext context, Note note) {
-  dI<AppNavigation>().pushName(context, page: Pages.createNoteWidget, extra: {'note': note});
+  dI<AppNavigation>()
+      .pushName(context, page: Pages.createNoteWidget, extra: {'note': note});
 }
 
 closePopUp(BuildContext context) {
@@ -256,7 +260,8 @@ deleteNoteEvent(BuildContext context, Note note) {
   Navigator.of(context).pop();
 }
 
-deleteAccountDialog(BuildContext context, VoidCallback callback, VoidCallback callbackThen) async {
+deleteAccountDialog(BuildContext context, VoidCallback callback,
+    VoidCallback callbackThen) async {
   return showDialog(
     context: context,
     builder: (context) {
@@ -284,7 +289,8 @@ deleteAccountDialog(BuildContext context, VoidCallback callback, VoidCallback ca
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: SpacingUnit.x4),
                         child: AppButton(
                           color: Colors.blue,
                           colorBorder: Colors.blue,
@@ -296,7 +302,8 @@ deleteAccountDialog(BuildContext context, VoidCallback callback, VoidCallback ca
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: SpacingUnit.x4),
                         child: AppButton(
                           colorText: Colors.blue,
                           color: Colors.white,

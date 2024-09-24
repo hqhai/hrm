@@ -6,12 +6,19 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'register_state.g.dart';
 
+const requestDefault = RegisterRequest(
+    firstName: '',
+    lastName: '',
+    password: '',
+    email: '',
+    dayOfBirth: '1992-09-24T06:54:26.149Z',
+    gender: 'Male');
+
 @CopyWith()
 @JsonSerializable()
 class RegisterState extends Equatable {
   const RegisterState(
-      {this.registerRequest = const RegisterRequest(
-          firstName: '', lastName: '', password: '', email: '', dayOfBirth: '', gender: ''),
+      {this.registerRequest = requestDefault,
       this.requestStatus = RegisterRequestStatus.init});
 
   final RegisterRequest registerRequest;
@@ -20,7 +27,8 @@ class RegisterState extends Equatable {
   @override
   List<Object> get props => [registerRequest, requestStatus];
 
-  factory RegisterState.fromJson(Map<String, dynamic> json) => _$RegisterStateFromJson(json);
+  factory RegisterState.fromJson(Map<String, dynamic> json) =>
+      _$RegisterStateFromJson(json);
 
   Map<String, dynamic> toJson() => _$RegisterStateToJson(this);
 }

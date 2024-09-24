@@ -14,21 +14,30 @@ class CheckAuthenticated extends AuthEvent {
   final String email;
   final String password;
 
-  const CheckAuthenticated(
-      {this.loginResponse,
-      this.saveLogin = true,
-      this.email = '',
-      this.password = '',});
+  const CheckAuthenticated({
+    this.loginResponse,
+    this.saveLogin = true,
+    this.email = '',
+    this.password = '',
+  });
 
   @override
-  List<Object?> get props => [loginResponse, saveLogin, email, password,];
+  List<Object?> get props => [
+        loginResponse,
+        saveLogin,
+        email,
+        password,
+      ];
 }
 
 class LogoutEvent extends AuthEvent {
   const LogoutEvent();
 }
 
+class IgnoreLoginEvent extends AuthEvent {
+  const IgnoreLoginEvent();
+}
+
 class ResetEvent extends AuthEvent {
   const ResetEvent();
 }
-
