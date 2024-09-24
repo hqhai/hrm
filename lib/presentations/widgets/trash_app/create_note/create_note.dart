@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -16,8 +14,6 @@ import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_dialog_common.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -54,8 +50,8 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   DateTime dateNote = DateTime.now();
   double latitude = 0, longitude = 0;
   LatLng? latLngFsel;
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  // final Completer<GoogleMapController> _controller =
+  //     Completer<GoogleMapController>();
 
   @override
   void initState() {
@@ -160,42 +156,42 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                   ),
                 ),
                 const SizedBox(height: SpacingUnit.x4),
-                if (isShowMap) ...[
-                  Text(
-                    appLocalizations.destination,
-                    style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4_5,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: SpacingUnit.x60,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(SpacingUnit.x2)),
-                        child: GoogleMap(
-                          gestureRecognizers: {
-                            Factory<PanGestureRecognizer>(
-                                () => PanGestureRecognizer())
-                          },
-                          onMapCreated: (GoogleMapController controller) {
-                            _controller.complete(controller);
-                          },
-                          myLocationEnabled: true,
-                          initialCameraPosition: CameraPosition(
-                            target: LatLng(latitude, longitude),
-                            zoom: 15,
-                          ),
-                          mapType: MapType.normal,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                // if (isShowMap) ...[
+                //   Text(
+                //     appLocalizations.destination,
+                //     style: TextStyle(
+                //       color: colors.text,
+                //       fontSize: SpacingUnit.x4_5,
+                //       fontWeight: FontWeight.w600,
+                //     ),
+                //   ),
+                // SizedBox(
+                //   height: SpacingUnit.x60,
+                //   child: Padding(
+                //     padding:
+                //         const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                //     child: ClipRRect(
+                //       borderRadius: const BorderRadius.all(
+                //           Radius.circular(SpacingUnit.x2)),
+                //       child: GoogleMap(
+                //         gestureRecognizers: {
+                //           Factory<PanGestureRecognizer>(
+                //               () => PanGestureRecognizer())
+                //         },
+                //         onMapCreated: (GoogleMapController controller) {
+                //           _controller.complete(controller);
+                //         },
+                //         myLocationEnabled: true,
+                //         initialCameraPosition: CameraPosition(
+                //           target: LatLng(latitude, longitude),
+                //           zoom: 15,
+                //         ),
+                //         mapType: MapType.normal,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // ],
                 Text(
                   appLocalizations.note,
                   style: TextStyle(
@@ -232,6 +228,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
       ),
     );
   }
+
   _updateNote(
       {required BuildContext context,
       required String note,

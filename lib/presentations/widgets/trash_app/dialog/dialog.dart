@@ -1,4 +1,3 @@
-
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -36,7 +35,6 @@ class NoteDialogSystem extends StatefulWidget {
 }
 
 class _NoteDialogSystemState extends State<NoteDialogSystem> {
-
   double latitude = 0, longitude = 0;
   LatLng? latLngFsel;
 
