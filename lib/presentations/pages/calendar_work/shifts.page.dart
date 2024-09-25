@@ -18,6 +18,7 @@ import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calender/shift_reason.widget.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calender/shifts_content.widget.dart';
+import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -58,8 +59,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
   }
 
   DateTime date(WorkDayState state) {
-    final dateType =
-        DateTime(widget.date.year, widget.date.month, widget.date.day);
+    final dateType = DateTime(widget.date.year, widget.date.month, widget.date.day);
     return dateType;
   }
 
@@ -71,8 +71,8 @@ class _ShiftsPageState extends State<ShiftsPage> {
     return BlocConsumer<WorkDayBloc, WorkDayState>(
       listener: (context, state) => _listener(context, state.errorCode),
       builder: (context, state) {
-        final index = state.workDays[date(state)]?.items.indexWhere(
-                (element) => element.workShiftSettingDetailId == widget.id) ??
+        final index = state.workDays[date(state)]?.items
+                .indexWhere((element) => element.workShiftSettingDetailId == widget.id) ??
             0;
         final data = state.workDays[date(state)]?.items[index];
         return Scaffold(
@@ -84,9 +84,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: SpacingUnit.x5,
-                          right: SpacingUnit.x5,
-                          bottom: SpacingUnit.x5),
+                          left: SpacingUnit.x5, right: SpacingUnit.x5, bottom: SpacingUnit.x5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -101,8 +99,8 @@ class _ShiftsPageState extends State<ShiftsPage> {
                           const SizedBox(width: SpacingUnit.x4),
                           Text(
                             appLocalizations.registerShift,
-                            style: theme.textTheme.titleLarge!
-                                .copyWith(fontWeight: FontWeight.w600),
+                            style:
+                                theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -133,37 +131,40 @@ class _ShiftsPageState extends State<ShiftsPage> {
                       colorText: Colors.white,
                       title: mapByStatus(
                           context: context,
-                          status: data?.status ??
-                              WorkShiftRequestStatus.usable)['titleButton'],
+                          status: data?.status ?? WorkShiftRequestStatus.usable)['titleButton'],
                       onSubmit: () {
                         if (data?.status == WorkShiftRequestStatus.usable ||
                             data?.status == WorkShiftRequestStatus.reject ||
                             data?.status == WorkShiftRequestStatus.cancel) {
                           _register(
-                              context: context,
-                              map: state.workDays,
-                              workDays: [
-                                WorkDayRequest(
-                                  workShiftSettingDetailId:
-                                      data?.workShiftSettingDetailId ?? "",
-                                  workDate:
-                                      formatYYMMDD(widget.date.toString()),
-                                )
-                              ]);
+                            context: context,
+                            map: state.workDays,
+                            workDays: [
+                              WorkDayRequest(
+                                workShiftSettingDetailId: data?.workShiftSettingDetailId ?? "",
+                                workDate: formatYYMMDD(widget.date.toString()),
+                              ),
+                            ],
+                            titlePopUp: mapByStatus(
+                                context: context,
+                                status: data?.status ?? WorkShiftRequestStatus.usable)['success'],
+                          );
                         } else {
                           onSubmit(
-                            status:
-                                data?.status ?? WorkShiftRequestStatus.unknown,
+                            context: context,
+                            status: data?.status ?? WorkShiftRequestStatus.unknown,
                             note: reasonController.text,
                             id: data?.id ?? '',
                             map: state.workDays,
+                            titlePopUp: mapByStatus(
+                                context: context,
+                                status: data?.status ?? WorkShiftRequestStatus.usable)['success'],
                           );
                         }
                       },
                       color: mapByStatus(
                           context: context,
-                          status: data?.status ??
-                              WorkShiftRequestStatus.usable)['color'],
+                          status: data?.status ?? WorkShiftRequestStatus.usable)['color'],
                     ),
                 ],
               ),
@@ -177,8 +178,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
   bool checkType(WorkShiftRequestStatus status) {
     return
         // status != WorkShiftRequestStatus.cancel &&
-        status != WorkShiftRequestStatus.remove &&
-            status != WorkShiftRequestStatus.unusable;
+        status != WorkShiftRequestStatus.remove && status != WorkShiftRequestStatus.unusable;
   }
 
   Map<String, dynamic> mapByStatus({
@@ -192,27 +192,32 @@ class _ShiftsPageState extends State<ShiftsPage> {
         return {
           'color': colors.error,
           'titleButton': appLocalizations.cancelShiftReceiveRegistration,
+          'success': appLocalizations.cancelShiftSuccess1,
         };
       case WorkShiftRequestStatus.approve:
         return {
           'color': colors.error,
           'titleButton': appLocalizations.cancelShift1,
+          'success': appLocalizations.cancelShiftSuccess,
         };
       case WorkShiftRequestStatus.pendingCancel:
         return {
           'color': colors.error,
           'titleButton': appLocalizations.cancelShift2,
+          'success': appLocalizations.cancelCancelShiftSuccess,
         };
       case WorkShiftRequestStatus.usable:
         return {
           'color': colors.blue,
           'titleButton': appLocalizations.registerForShifts,
+          'success': appLocalizations.registeredShiftSuccessfully,
         };
       case WorkShiftRequestStatus.reject:
       case WorkShiftRequestStatus.cancel:
         return {
           'color': colors.blue,
           'titleButton': appLocalizations.registerForShifts,
+          'success': appLocalizations.registeredShiftSuccessfully,
         };
       case WorkShiftRequestStatus.remove:
       case WorkShiftRequestStatus.unusable:
@@ -221,22 +226,25 @@ class _ShiftsPageState extends State<ShiftsPage> {
     }
   }
 
-  onSubmit(
-      {required String note,
-      required String id,
-      required WorkShiftRequestStatus status,
-      required Map<DateTime, WorkDay> map}) async {
-    if (reasonController.text.isNotEmpty ||
-        status == WorkShiftRequestStatus.pending) {
+  onSubmit({
+    required BuildContext context,
+    required String note,
+    required String id,
+    required WorkShiftRequestStatus status,
+    required Map<DateTime, WorkDay> map,
+    required String titlePopUp,
+  }) async {
+    if (reasonController.text.isNotEmpty || status == WorkShiftRequestStatus.pending) {
       Completer completer = Completer<bool>();
       dI<WorkDayBloc>().add(CancelRegisterWorkDay(
-          completer: completer,
-          data: CancelWorkDayRequest(note: note, id: id)));
+          completer: completer, data: CancelWorkDayRequest(note: note, id: id)));
       bool isCheck = await completer.future;
       if (isCheck) {
-        dI<WorkDayBloc>().add(GetWorkDaysEvent(
-            startDate: map.keys.first, endDate: map.keys.last));
-        _onBack();
+        dI<WorkDayBloc>().add(GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
+        if (context.mounted) {
+          Navigator.pop(context);
+          dialogSuccess(context: context, title: titlePopUp, isPop: false);
+        }
       }
     } else {
       ToastUtils().showError("Lý do không được bỏ trống");
@@ -245,28 +253,25 @@ class _ShiftsPageState extends State<ShiftsPage> {
 
   _listener(BuildContext context, String errorCode) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty
-          ? ErrorUtils.getErrorMessage(errorCode, context: context)
-          : "";
+      errorDialog =
+          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
     });
   }
 
-  _register(
-      {required List<WorkDayRequest> workDays,
-      required BuildContext context,
-      required Map<DateTime, WorkDay> map}) async {
-    final appLocalizations = AppLocalizations.of(context)!;
+  _register({
+    required List<WorkDayRequest> workDays,
+    required BuildContext context,
+    required Map<DateTime, WorkDay> map,
+    required String titlePopUp,
+  }) async {
     Completer completer = Completer<bool>();
-    dI<WorkDayBloc>()
-        .add(RegisterWorkDay(request: workDays, completer: completer));
+    dI<WorkDayBloc>().add(RegisterWorkDay(request: workDays, completer: completer));
     final check = await completer.future;
     if (check) {
-      ToastUtils().showSuccess(appLocalizations.success);
-      dI<WorkDayBloc>().add(
-          GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
-
+      dI<WorkDayBloc>().add(GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
       if (context.mounted) {
         Navigator.pop(context);
+        dialogSuccess(context: context, title: titlePopUp, isPop: false);
       }
     } else {
       ToastUtils().showError(errorDialog);

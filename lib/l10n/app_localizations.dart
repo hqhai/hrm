@@ -4196,6 +4196,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Skip Login'**
   String get skipLogin;
+
+  /// No description provided for @cancelShiftSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit request to cancel shift successfully, the request needs to be confirmed'**
+  String get cancelShiftSuccess;
+
+  /// No description provided for @cancelShiftSuccess1.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shift successfully'**
+  String get cancelShiftSuccess1;
+
+  /// No description provided for @cancelCancelShiftSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel request cancel shift successfully'**
+  String get cancelCancelShiftSuccess;
+
+  /// No description provided for @registeredShiftSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered Shift Successfully, shift is awaiting approval'**
+  String get registeredShiftSuccessfully;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
