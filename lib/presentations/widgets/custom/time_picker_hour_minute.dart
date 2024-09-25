@@ -85,6 +85,8 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
               Padding(
                 padding: const EdgeInsets.all(SpacingUnit.x4),
                 child: AppButton(
+                  colorText: colors.background,
+                  color: colors.blue,
                   title: appLocalizations.apply,
                   onSubmit: () => _setTime(context: context, time: timeHS),
                 ),

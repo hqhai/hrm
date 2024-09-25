@@ -37,11 +37,9 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<FlowResponse> getFlowByUser(
-      {required GetRequestRequest getRequestRequest}) async {
+  Future<FlowResponse> getFlowByUser({required GetRequestRequest getRequestRequest}) async {
     final url = '$baseUrl${PathConfig.getFlowByUser}';
-    getRequestRequest =
-        getRequestRequest.copyWith(pageSize: RequisitionTypeEnum.values.length);
+    getRequestRequest = getRequestRequest.copyWith(pageSize: RequisitionTypeEnum.values.length);
     final params = getRequestRequest.toJson();
     final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
@@ -51,8 +49,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<Request> postRequest(
-      {required PostRequestRequest postRequestRequest}) async {
+  Future<Request> postRequest({required PostRequestRequest postRequestRequest}) async {
     final url = '$baseUrl${PathConfig.request}';
     final body = jsonEncode(postRequestRequest.toJson());
     final response = await client.post(url, body: body);
@@ -86,8 +83,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
 
   @override
   Future<RequestsResponse> getRequisitionsApproveByFilter(
-      {required GetRequestApproveFilterRequest
-          getRequestApproveFilterRequest}) async {
+      {required GetRequestApproveFilterRequest getRequestApproveFilterRequest}) async {
     final url = '$baseUrl${PathConfig.getRequestApprove}';
     final params = getRequestApproveFilterRequest.toJson();
     final response = await client.get(url, params: params);
@@ -111,8 +107,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
 
   @override
   Future<SearchStationeryByNameResponse> getStationery(
-      {required SearchStationeryByNameRequest
-          searchStationeryByNameRequest}) async {
+      {required SearchStationeryByNameRequest searchStationeryByNameRequest}) async {
     final url = '$baseUrl${PathConfig.stationery}';
     final params = searchStationeryByNameRequest.toJson();
     final response = await client.get(url, params: params);
@@ -124,8 +119,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<FlowRequest> getFlowById(
-      {required FlowByIdRequest flowByIdRequest}) async {
+  Future<FlowRequest> getFlowById({required FlowByIdRequest flowByIdRequest}) async {
     final url = '$baseUrl${PathConfig.flow}/${flowByIdRequest.id}';
     final response = await client.get(url);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
@@ -135,8 +129,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<bool> approveRequisition(
-      {required ApproveRequest approveRequest}) async {
+  Future<bool> approveRequisition({required ApproveRequest approveRequest}) async {
     final url = '$baseUrl${PathConfig.stepRequestApprover}';
     final body = jsonEncode(approveRequest.toJson());
     final response = await client.put(url, body: body);
@@ -146,11 +139,12 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<ApproveRequisitionCountStatusResponse>
-      approveRequisitionCountStatus() async {
+  Future<ApproveRequisitionCountStatusResponse> approveRequisitionCountStatus(
+      {required GetRequestApproveFilterRequest getRequestApproveFilterRequest}) async {
     try {
       final url = '$baseUrl${PathConfig.stepRequestApproverCountStatus}';
-      final response = await client.get(url);
+      final params = getRequestApproveFilterRequest.toJson();
+      final response = await client.get(url, params: params);
       final responseBase = ResponseBase.fromJson(json.decode(response.body));
       final ApproveRequisitionCountStatusResponse data =
           ApproveRequisitionCountStatusResponse.fromJson(responseBase.result);
@@ -171,8 +165,7 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<Request> editRequestEdit(
-      {required PostRequestRequest postRequestRequest}) async {
+  Future<Request> editRequestEdit({required PostRequestRequest postRequestRequest}) async {
     final url = '$baseUrl${PathConfig.editRequestEdit}';
     final body = jsonEncode(postRequestRequest.toJson());
     final response = await client.put(url, body: body);
@@ -183,16 +176,14 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<RequestsResponse> getRequestsByIds(
-      {required GetRequestsByIds getRequestsByIds}) async {
+  Future<RequestsResponse> getRequestsByIds({required GetRequestsByIds getRequestsByIds}) async {
     final url = '$baseUrl${PathConfig.requestByIds}';
     final body = jsonEncode(getRequestsByIds.toJson());
     final response = await client.post(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    final requests = (data as List<dynamic>)
-        .map((e) => Request.fromJson(e as Map<String, dynamic>))
-        .toList();
+    final requests =
+        (data as List<dynamic>).map((e) => Request.fromJson(e as Map<String, dynamic>)).toList();
     final requestsResponse = RequestsResponse(items: requests);
     return requestsResponse;
   }

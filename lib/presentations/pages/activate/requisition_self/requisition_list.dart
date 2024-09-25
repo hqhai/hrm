@@ -111,7 +111,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
 
   setStatus(StatusRequestEnum value) {
     setState(() {
-      status = value;
+      filterData = filterData.copyWith(status: value);
     });
   }
 

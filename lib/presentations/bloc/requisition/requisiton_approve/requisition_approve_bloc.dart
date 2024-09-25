@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/services/requisition.service.dart';
@@ -76,6 +77,13 @@ class RequisitionApproveBloc
           requisitions: mapRequests,
           countItem: totalItems,
         ));
+        dI<RequisitionApproveBloc>().add(GetRequisitionApproveCountEvent(
+          departmentId: event.departmentId,
+          endTime: event.endTime,
+          startTime: event.startTime,
+          type: event.type,
+          userCode: event.userIds,
+        ));
         event.completer?.complete(true);
       }
     } catch (e) {
@@ -91,13 +99,18 @@ class RequisitionApproveBloc
       ApproveRequestEvent event, Emitter<RequisitionApproveState> emit) async {
     try {
       final bool check = await requisitionUseCase.approveRequest(
-          id: event.id, status: event.status?.name ?? "", note: event.note ?? "");
+          id: event.id, status: event.status.name, note: event.note ?? "");
       if (check) {
         final requestIds =
             state.requisitionIds.where((element) => element != event.requestId).toList();
+        final statusRequestCount = state.statusRequestCount;
+        statusRequestCount[EnumStepRequestStatusEnum.newStatus] =
+        (statusRequestCount[EnumStepRequestStatusEnum.newStatus] ?? 0) - 1;
+        statusRequestCount[event.status] = (statusRequestCount[event.status] ?? 0) + 1;
         emit(
           state.copyWith(
             requisitionIds: requestIds,
+            statusRequestCount: statusRequestCount,
             errorCode: '',
           ),
         );
@@ -123,7 +136,14 @@ class RequisitionApproveBloc
 
   FutureOr<void> _getRequisitionApproveCountEvent(
       GetRequisitionApproveCountEvent event, Emitter<RequisitionApproveState> emit) async {
-    final requisitionCountStatus = await _requestService.approveRequisitionCountStatus();
+    final requisitionCountStatus = await _requestService.approveRequisitionCountStatus(
+      getRequestApproveFilterRequest: GetRequestApproveFilterRequest(
+          startDate: event.startTime,
+          endDate: event.endTime,
+          createdCode: event.userCode,
+          types: event.type,
+          createdDepartmentId: event.departmentId),
+    );
     final statusRequestCount = {
       EnumStepRequestStatusEnum.newStatus: requisitionCountStatus.newRequest,
       EnumStepRequestStatusEnum.reject: requisitionCountStatus.reject,
@@ -141,8 +161,14 @@ class RequisitionApproveBloc
       await _requestService.cancelRequestsById(id: event.requestId);
       final requestIds =
           state.requisitionIds.where((element) => element != event.requestId).toList();
+      final statusRequestCount = state.statusRequestCount;
+      statusRequestCount[EnumStepRequestStatusEnum.approve] =
+      (statusRequestCount[EnumStepRequestStatusEnum.approve] ?? 0) - 1;
+      statusRequestCount[EnumStepRequestStatusEnum.cancel] =
+          (statusRequestCount[EnumStepRequestStatusEnum.cancel] ?? 0) + 1;
       emit(
         state.copyWith(
+          statusRequestCount: statusRequestCount,
           requisitionIds: requestIds,
           errorCode: '',
         ),
@@ -174,7 +200,8 @@ class RequisitionApproveBloc
     return state.toJson();
   }
 
-  FutureOr<void> _resetRequisitionApproveEvent(ResetRequisitionApproveEvent event, Emitter<RequisitionApproveState> emit) {
+  FutureOr<void> _resetRequisitionApproveEvent(
+      ResetRequisitionApproveEvent event, Emitter<RequisitionApproveState> emit) {
     emit(const RequisitionApproveState());
   }
 }

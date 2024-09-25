@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
@@ -12,9 +11,7 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title.dart';
-import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:themes/themes.dart';
@@ -39,11 +36,8 @@ class NoteDialogSystem extends StatefulWidget {
 }
 
 class _NoteDialogSystemState extends State<NoteDialogSystem> {
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
 
   double latitude = 0, longitude = 0;
-  Position? _currentLocation;
   LatLng? latLngFsel;
 
   @override
@@ -184,56 +178,6 @@ class _NoteDialogSystemState extends State<NoteDialogSystem> {
         ),
       ),
     );
-  }
-
-  Future<void> _determinePosition() async {
-    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    final appLocalizations = AppLocalizations.of(currentContext)!;
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error(appLocalizations.locationServicesAreDisabled);
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error(appLocalizations.locationPermissionsAreDenied);
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      if (!currentContext.mounted) return;
-      showDialog(
-        context: currentContext,
-        builder: (BuildContext context) {
-          return const Dialog(
-            child: DialogOpenSetting(),
-          );
-        },
-      );
-    }
-    final position = await Geolocator.getCurrentPosition();
-    _setCurrentLocation(position: position);
-  }
-
-  _setCurrentLocation({required Position position}) {
-    setState(() {
-      _currentLocation = position;
-      double lo = _currentLocation?.longitude ?? 0;
-      double la = _currentLocation?.latitude ?? 0;
-      latLngFsel = LatLng(la, lo);
-      _goToTheLake();
-    });
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    final cameraMan = CameraPosition(
-      target: latLngFsel ?? const LatLng(0, 0),
-      zoom: 20,
-    );
-    await controller.animateCamera(CameraUpdate.newCameraPosition(cameraMan));
   }
 }
 
