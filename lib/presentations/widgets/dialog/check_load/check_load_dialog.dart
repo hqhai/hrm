@@ -24,9 +24,10 @@ class CreateRequestSuccess extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
+            textAlign: TextAlign.center,
             title.isNotEmpty ? title : appLocalizations.timekeepingUnSuccess,
             style: TextStyle(
-              color: colors.success,
+              color: colors.text,
               fontWeight: FontWeight.w600,
               fontSize: SpacingUnit.x4,
             ),
@@ -97,7 +98,7 @@ class CreateRequestUnsuccessful extends StatelessWidget {
   }
 }
 
-dialogSuccess({required BuildContext context, required String title}) {
+dialogSuccess({required BuildContext context, required String title, bool isPop = true}) {
   showDialog(
     barrierDismissible: true,
     context: context,
@@ -107,7 +108,9 @@ dialogSuccess({required BuildContext context, required String title}) {
       );
     },
   ).then((value) {
-    dI<AppNavigation>().pop(context);
+    if(isPop) {
+      dI<AppNavigation>().pop(context);
+    }
   });
 }
 

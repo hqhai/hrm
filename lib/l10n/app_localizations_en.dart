@@ -2065,4 +2065,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get skipLogin => 'Skip Login';
+
+  @override
+  String get cancelShiftSuccess => 'Submit request to cancel shift successfully, the request needs to be confirmed';
+
+  @override
+  String get cancelShiftSuccess1 => 'Cancel shift successfully';
+
+  @override
+  String get cancelCancelShiftSuccess => 'Cancel request cancel shift successfully';
+
+  @override
+  String get registeredShiftSuccessfully => 'Registered Shift Successfully, shift is awaiting approval';
 }

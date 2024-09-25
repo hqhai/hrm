@@ -2065,4 +2065,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get skipLogin => 'Bỏ qua Đăng Nhập';
+
+  @override
+  String get cancelShiftSuccess => 'Gửi yêu cầu hủy ca thành công, Yêu cầu cần được xác nhận';
+
+  @override
+  String get cancelShiftSuccess1 => 'Hủy ca thành công';
+
+  @override
+  String get cancelCancelShiftSuccess => 'Hủy yêu cầu hủy ca thành công';
+
+  @override
+  String get registeredShiftSuccessfully => 'Đăng ký ca thành công, ca đang được chờ duyệt';
 }
