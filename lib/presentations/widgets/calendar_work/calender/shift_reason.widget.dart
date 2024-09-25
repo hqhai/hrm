@@ -40,7 +40,7 @@ class ShiftReasonWidget extends StatelessWidget {
             ),
             TextField(
               controller: reasonController,
-              maxLines: 11,
+              maxLines: 7,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: colors.outline)),
