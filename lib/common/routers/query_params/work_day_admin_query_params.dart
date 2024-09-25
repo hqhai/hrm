@@ -5,11 +5,11 @@ part 'work_day_admin_query_params.g.dart';
 
 @JsonSerializable()
 class WorkDayAdminQueryParams {
-  final String workDayAdminIndex;
+  final String id;
   final WorkShiftRequestStatus type;
 
   WorkDayAdminQueryParams({
-    required this.workDayAdminIndex,
+    required this.id,
     required this.type,
   });
 

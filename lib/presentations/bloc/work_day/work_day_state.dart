@@ -15,7 +15,7 @@ class WorkDayState extends Equatable {
   final bool isLoading;
   final List<WorkDayAdmin> items;
   final PagingInfoRequest pagingInfo;
-  final List<UsableAdmin> electiveShiftItems;
+  final List<WorkShiftRegisteredDetails> electiveShiftItems;
   final PagingInfoRequest electiveShiftPagingInfo;
   final List<WorkDayAdmin> itemsDetail;
   final PagingInfoRequest pagingInfoDetail;

@@ -1437,7 +1437,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get pendingCancel => 'Chờ duyệt hủy ca';
 
   @override
-  String get remove => 'Dừng';
+  String get remove => 'Bị gỡ khỏi ca';
 
   @override
   String get usable => 'Khả dụng';
@@ -2061,7 +2061,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get reasonForCancellation => 'Lí do huỷ ca';
 
   @override
-  String get shiftIsCancelled => 'Đã huỷ';
+  String get shiftIsCancelled => 'Đã huỷ ca';
 
   @override
   String get skipLogin => 'Bỏ qua Đăng Nhập';

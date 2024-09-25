@@ -31,7 +31,7 @@ final registerWorkDayAdminDetailPageRoute = GoRoute(
         final query = state.uri.queryParameters;
         final data = WorkDayAdminQueryParams.fromJson(query);
         return RegisterWorkDayAdminDetail(
-          workDayAdminIndex: int.parse(data.workDayAdminIndex),
+          id: data.id,
           type: data.type,
         );
       }
@@ -40,9 +40,9 @@ final registerWorkDayAdminDetailPageRoute = GoRoute(
 
 class RegisterWorkDayAdminDetail extends StatefulWidget {
   final WorkShiftRequestStatus type;
-  final int workDayAdminIndex;
+  final String id;
   const RegisterWorkDayAdminDetail(
-      {super.key, required this.workDayAdminIndex, required this.type});
+      {super.key, required this.id, required this.type});
 
   @override
   State<RegisterWorkDayAdminDetail> createState() =>
@@ -60,15 +60,15 @@ class _RegisterWorkDayAdminDetailState
   @override
   void initState() {
     dI<FlowBloc>().add(const GetFlowsEvent());
-    final data = dI<WorkDayBloc>()
+    final electiveShiftItems = dI<WorkDayBloc>()
         .state
-        .electiveShiftItems[widget.workDayAdminIndex]
+        .electiveShiftItems;/*[widget.workDayAdminIndex]
         .workShiftRegisteredDetails
-        .first;
+        .first;*/
+    final data = electiveShiftItems.where((element) => element.workShiftSettingDetailId == widget.id).toList().first;
     dI<WorkDayBloc>().add(GetElectiveShiftDetail(
         data: GetElectiveShiftDetailRequest(
-            endDate: data.workDate.toString(),
-            startDate: data.workDate.toString(),
+            date: data.workDate.toString(),
             isApprove: widget.type == WorkShiftRequestStatus.approve,
             workShiftSettingDetailId: data.workShiftSettingDetailId)));
     super.initState();
@@ -203,9 +203,7 @@ class _RegisterWorkDayAdminDetailState
             ? BlocBuilder<WorkDayBloc, WorkDayState>(
                 builder: (context, state) {
                   final data = state
-                      .electiveShiftItems[widget.workDayAdminIndex]
-                      .workShiftRegisteredDetails
-                      .first;
+                      .electiveShiftItems.firstWhere((element) => element.workShiftSettingDetailId == widget.id);
                   return Text(
                     data.nameWorkShift,
                     style: theme.textTheme.titleLarge,
@@ -234,7 +232,8 @@ class _RegisterWorkDayAdminDetailState
     final theme = Theme.of(context);
     return BlocBuilder<WorkDayBloc, WorkDayState>(
       builder: (context, state) {
-        final data = state.items[widget.workDayAdminIndex];
+        final index = state.items.indexWhere((element) => element.workShiftSettingDetailId == widget.id);
+        final data = state.items[index];
         return Column(
           children: [
             Expanded(
@@ -347,9 +346,8 @@ class _RegisterWorkDayAdminDetailState
     final theme = Theme.of(context);
     return BlocBuilder<WorkDayBloc, WorkDayState>(
       builder: (context, state) {
-        final data = state.electiveShiftItems[widget.workDayAdminIndex]
-            .workShiftRegisteredDetails.first;
-
+        final index = state.electiveShiftItems.indexWhere((element) => element.workShiftSettingDetailId == widget.id);
+        final data = state.electiveShiftItems[index];
         return Column(
           children: [
             Text(

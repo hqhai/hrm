@@ -95,14 +95,12 @@ class WorkDayGetElectiveShiftRequest {
 class GetElectiveShiftDetailRequest {
   final String workShiftSettingDetailId;
   final bool isApprove;
-  final String startDate;
-  final String endDate;
+  final String date;
 
   const GetElectiveShiftDetailRequest({
     this.workShiftSettingDetailId = '',
     this.isApprove = true,
-    this.endDate = '',
-    this.startDate = '',
+    this.date = '',
   });
 
   factory GetElectiveShiftDetailRequest.fromJson(Map<String, dynamic> json) =>

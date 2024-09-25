@@ -18,12 +18,12 @@ import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calender/shift_reason.widget.dart';
 import 'package:base_app/presentations/widgets/calendar_work/calender/shifts_content.widget.dart';
+import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
-import 'package:widgets/app_button.dart';
 
 final shiftsPageRoute = GoRoute(
     path: Pages.shiftsPage,

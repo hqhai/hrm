@@ -132,8 +132,9 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       GetElectiveShift event, Emitter<WorkDayState> emit) async {
     final data =
         await _locationUseCase.workDayGetElectiveShift(request: event.data);
+    final electiveShiftItems = data.items.expand((element) => element.workShiftRegisteredDetails).toList();
     emit(state.copyWith(
-        electiveShiftItems: data.items,
+        electiveShiftItems: electiveShiftItems,
         electiveShiftPagingInfo: data.pagingInfo));
   }
 
