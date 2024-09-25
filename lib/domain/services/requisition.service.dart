@@ -24,7 +24,9 @@ abstract class RequisitionService {
     required GetRequestApproveFilterRequest getRequestApproveFilterRequest,
   });
 
-  Future<ApproveRequisitionCountStatusResponse> approveRequisitionCountStatus();
+  Future<ApproveRequisitionCountStatusResponse> approveRequisitionCountStatus({
+    required GetRequestApproveFilterRequest getRequestApproveFilterRequest,
+  });
 
   Future<RequestsResponse> getRequisitionsFollowerByFilter({
     required GetRequestFilterRequest getRequestFilterRequest,

@@ -262,7 +262,6 @@ class _ContentItemRequestApproveListState
         );
       },
     ).then((value) {
-      setState(() {});
       popLoading();
     });
   }
