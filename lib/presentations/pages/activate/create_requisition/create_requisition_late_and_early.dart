@@ -101,6 +101,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       type = request.config.explanationReason;
       endDate = request.config.endDate ?? DateTime.now();
       startTime = request.config.startTime;
+      endTime = request.config.endTime;
       listWorkShift = [...request.config.workShiftSettings];
     }
     super.initState();
@@ -421,8 +422,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
       type = value;
     });
   }
-  
-  bool setRequiredMakeUp(){
+
+  bool setRequiredMakeUp() {
     final check = listWorkShift.any((element) => element.numberTime > 3600);
     return check && type == EditTimekeeping.early;
   }
