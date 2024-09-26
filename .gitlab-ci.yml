@@ -37,6 +37,8 @@ manual_build_ios_uat:
   tags:
     - flutter
   stage: build_testing
+  variables:
+    SECURE_FILES_DOWNLOAD_PATH: './android/app/'
   needs: []
   retry: 2
   script:
@@ -44,6 +46,7 @@ manual_build_ios_uat:
     - export LANGUAGE=en_US.UTF-8
     - export LC_ALL=en_US.UTF-8
     - eval "$(/opt/homebrew/bin/brew shellenv)"
+    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
     - make clean
     - make build-apk
     - fastlane android publish_appcenter env:uat
