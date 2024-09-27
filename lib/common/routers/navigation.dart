@@ -98,6 +98,10 @@ class AppNavigation {
     return GoRouter.of(context).pop();
   }
 
+  bool canPop(context){
+    return GoRouter.of(context).canPop();
+  }
+
   pushReplacementNamed(context,
       {
         required String page,

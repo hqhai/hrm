@@ -108,10 +108,14 @@ dialogSuccess({required BuildContext context, required String title, bool isPop 
       );
     },
   ).then((value) {
-    if(isPop) {
-      dI<AppNavigation>().pop(context);
+    if (isPop && dI<AppNavigation>().canPop(context)) {
+      _popDialog(context);
     }
   });
+}
+
+_popDialog(BuildContext context) {
+  dI<AppNavigation>().pop(context);
 }
 
 dialogUnsuccessful({required BuildContext context, required String title}) {
