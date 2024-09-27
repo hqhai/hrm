@@ -48,7 +48,7 @@ abstract class LocationService {
     required CancelWorkDayAdminRequest request,
   });
 
-  Future<bool> addApprove({required ApproveRequest request});
+  Future<void> addApprove({required ApproveRequest request});
 
   Future<ScheduleSchools> getScheduleSchool(
       {required DatetimeRequest datetimeRequest});

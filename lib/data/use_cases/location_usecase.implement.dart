@@ -126,7 +126,7 @@ class LocationUseCaseImpl extends LocationUseCase {
   }
 
   @override
-  Future<bool> addApprove({required ApproveRequest request}) async {
+  Future<void> addApprove({required ApproveRequest request}) async {
     return await _locationRepository.addApprove(request: request);
   }
 

@@ -2077,4 +2077,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get registeredShiftSuccessfully => 'Registered Shift Successfully, shift is awaiting approval';
+
+  @override
+  String get remove2 => 'Remove';
 }

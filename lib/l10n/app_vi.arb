@@ -473,7 +473,7 @@
   "saturday": "Thứ bảy",
   "sunday": "Chủ nhật",
   "calendarWork": "Lịch làm việc",
-  "shiftManagement": "Quản lý lịch làm việc",
+  "shiftManagement": "Quản lý ca làm việc cá nhân",
   "week": "Tuần",
   "pendingCancel": "Chờ duyệt hủy ca",
   "remove": "Bị gỡ khỏi ca",
@@ -653,7 +653,7 @@
   "rejectTitle": "Bạn có chắc chắn muốn gỡ nhân viên này khỏi ca hiện tại?",
   "rejectTitle1": "Bạn có chắc chắn muốn từ chối duyệt yêu cầu hủy ca của nhân viên này?",
   "rejectTitle2": "Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?",
-  "proactiveCaseRegistrationManagement": "Quản lý đăng ký ca chủ động",
+  "proactiveCaseRegistrationManagement": "Quản lý ca làm việc của nhân viên",
   "confirm": "Xác nhận",
   "receivedShift": "Đã nhận ca",
   "rejectShift": "Ca bị từ chối duyệt",
@@ -687,5 +687,6 @@
   "cancelShiftSuccess": "Gửi yêu cầu hủy ca thành công, Yêu cầu cần được xác nhận",
   "cancelShiftSuccess1": "Hủy ca thành công",
   "cancelCancelShiftSuccess": "Hủy yêu cầu hủy ca thành công",
-  "registeredShiftSuccessfully": "Đăng ký ca thành công, ca đang được chờ duyệt"
+  "registeredShiftSuccessfully": "Đăng ký ca thành công, ca đang được chờ duyệt",
+  "remove2": "Gỡ khỏi ca"
 }

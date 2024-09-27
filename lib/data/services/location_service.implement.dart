@@ -20,7 +20,6 @@ import 'package:base_app/domain/entities/timekeeping/schedule_schools.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/domain/services/location.service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 import 'base.service.dart';
@@ -161,18 +160,10 @@ class LocationServiceImpl extends BaseService implements LocationService {
   }
 
   @override
-  Future<bool> addApprove({required ApproveRequest request}) async {
-    try {
+  Future<void> addApprove({required ApproveRequest request}) async {
       final url = '$baseSystem${PathConfig.workShiftApprove}';
       final body = jsonEncode(request.toJson());
       await client.put(url, body: body);
-      return true;
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      return false;
-    }
   }
 
   @override

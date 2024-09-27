@@ -1428,7 +1428,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get calendarWork => 'Lịch làm việc';
 
   @override
-  String get shiftManagement => 'Quản lý lịch làm việc';
+  String get shiftManagement => 'Quản lý ca làm việc cá nhân';
 
   @override
   String get week => 'Tuần';
@@ -1974,7 +1974,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get rejectTitle2 => 'Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?';
 
   @override
-  String get proactiveCaseRegistrationManagement => 'Quản lý đăng ký ca chủ động';
+  String get proactiveCaseRegistrationManagement => 'Quản lý ca làm việc của nhân viên';
 
   @override
   String get receivedShift => 'Đã nhận ca';
@@ -2077,4 +2077,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get registeredShiftSuccessfully => 'Đăng ký ca thành công, ca đang được chờ duyệt';
+
+  @override
+  String get remove2 => 'Gỡ khỏi ca';
 }

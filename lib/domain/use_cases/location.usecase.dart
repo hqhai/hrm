@@ -49,7 +49,7 @@ abstract class LocationUseCase {
     required CancelWorkDayAdminRequest request,
   });
 
-  Future<bool> addApprove({required ApproveRequest request});
+  Future<void> addApprove({required ApproveRequest request});
 
   Future<ShiftsAdminResponse> getWorkShiftRequestByUser();
 

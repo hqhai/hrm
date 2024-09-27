@@ -114,7 +114,7 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<bool> addApprove({required ApproveRequest request}) async {
+  Future<void> addApprove({required ApproveRequest request}) async {
     return await _locationService.addApprove(request: request);
   }
 

@@ -34,6 +34,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
     on<CancelRegisterWorkDayAdmin>(_cancelRegisterAdmin);
     on<GetWorkDayByUser>(_getWorkDayByUser);
     on<ResetWorkDayEvent>(_resetWorkDayEvent);
+    on<AddApprove>(_addApprove);
   }
 
   FutureOr<void> _getWorkDaysEvent(
@@ -124,18 +125,71 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
 
   FutureOr<void> _getWorkDayAdmin(
       GetWorkDayAdmin event, Emitter<WorkDayState> emit) async {
-    final data = await _locationUseCase.getWorkDaysAdmin(request: event.data);
-    emit(state.copyWith(items: data.items, pagingInfo: data.pagingInfo));
+    try {
+      final data = await _locationUseCase.getWorkDaysAdmin(request: event.data);
+      emit(state.copyWith(items: data.items, pagingInfo: data.pagingInfo));
+      event.completer?.complete(true);
+    } catch(e){
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+        if (currentContext.mounted) {
+          ToastUtils().showError(ErrorUtils.getErrorMessage(
+              errorCode ?? 'error',
+              context: currentContext));
+        }
+        event.completer?.complete(true);
+      } else {
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+        if (currentContext.mounted) {
+          ToastUtils().showError(
+              ErrorUtils.getErrorMessage('error', context: currentContext));
+        }
+        event.completer?.complete(false);
+      }
+    }
   }
 
   Future<FutureOr<void>> _getElectiveShift(
       GetElectiveShift event, Emitter<WorkDayState> emit) async {
-    final data =
-        await _locationUseCase.workDayGetElectiveShift(request: event.data);
-    final electiveShiftItems = data.items.expand((element) => element.workShiftRegisteredDetails).toList();
-    emit(state.copyWith(
-        electiveShiftItems: electiveShiftItems,
-        electiveShiftPagingInfo: data.pagingInfo));
+    try {
+      final data =
+      await _locationUseCase.workDayGetElectiveShift(request: event.data);
+      final electiveShiftItems = data.items.expand((element) => element.workShiftRegisteredDetails)
+          .toList();
+      emit(state.copyWith(
+          electiveShiftItems: electiveShiftItems,
+          electiveShiftPagingInfo: data.pagingInfo));
+      event.completer?.complete(true);
+    }catch(e){
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+        if (currentContext.mounted) {
+          ToastUtils().showError(ErrorUtils.getErrorMessage(
+              errorCode ?? 'error',
+              context: currentContext));
+        }
+        event.completer?.complete(true);
+      } else {
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+        if (currentContext.mounted) {
+          ToastUtils().showError(
+              ErrorUtils.getErrorMessage('error', context: currentContext));
+        }
+        event.completer?.complete(false);
+      }
+    }
   }
 
   FutureOr<void> _getElectiveShiftDetail(
@@ -145,7 +199,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
     emit(state.copyWith(
         itemsDetail: data.items, pagingInfoDetail: data.pagingInfo));
   }
-
+///Hủy chờ duyệt ca
   FutureOr<void> _registerAdmin(
       RegisterWorkDayAdmin event, Emitter<WorkDayState> emit) async {
     try {
@@ -235,6 +289,40 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
 
   FutureOr<void> _resetWorkDayEvent(ResetWorkDayEvent event, Emitter<WorkDayState> emit) {
     emit(const WorkDayState());
+  }
+
+  FutureOr<void> _addApprove(AddApprove event, Emitter<WorkDayState> emit) async {
+    try {
+      await _locationUseCase.addApprove(request: event.request);
+      event.completer?.complete(true);
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      if (currentContext.mounted) {
+        dI<AppNavigation>().pop(currentContext);
+      }
+    } catch (e) {
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(
+          errorCode: errorCode,
+        ));
+        if (currentContext.mounted) {
+          ToastUtils().showError(ErrorUtils.getErrorMessage(
+              errorCode ?? 'error',
+              context: currentContext));
+        }
+        event.completer?.complete(false);
+      } else {
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+        if (currentContext.mounted) {
+          ToastUtils().showError(
+              ErrorUtils.getErrorMessage('error', context: currentContext));
+        }
+        event.completer?.complete(false);
+      }
+    }
   }
 }
 

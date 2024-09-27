@@ -340,7 +340,7 @@ class _ShiftsContentWidget extends StatelessWidget {
           font: FontWeight.w700,
           title: appLocalizations.validTimeKeeping,
           value:
-              '${strSeconds(data.checkInEndTimeValid) ?? ''} - ${strSeconds(data.checkOutEndTimeValid) ?? ''}',
+              '${strSeconds(data.checkInStartTimeValid) ?? ''} - ${strSeconds(data.checkOutEndTimeValid) ?? ''}',
         ),
       ],
     );
