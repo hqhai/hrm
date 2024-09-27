@@ -153,7 +153,6 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
     final checkType = widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore ||
         widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay ||
         widget.type == RequisitionTypeEnum.bussiness;
-    final workShiftsReplicant = workShifts.map((e) => e.copyWith(numberTime: 0)).toList();
     if (checkType) {
       /// check phải ngày cuối hoặc đầu không
       final firstOrLast = workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
@@ -178,7 +177,10 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
       }
 
       ///Thêm ca
-      if (!workShifts.contains(workShift) && firstOrLast) {
+      if (!workShifts.any((element) =>
+      element.workDate.microsecond == workShift.workDate.microsecond &&
+          element.workShiftSettingDetailId == workShift.workShiftSettingDetailId &&
+          element.workShiftDetailId == workShift.workShiftDetailId) && firstOrLast) {
         for (var element in workShiftsAlikeDate) {
           ///Xử lý chọn ca đầu thì lấy luôn các ca sau
           if (element.startTime > workShift.startTime &&
@@ -200,7 +202,11 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
         });
 
         ///Xóa ca
-      } else if (workShifts.contains(workShift) && firstOrLast) {
+      } else if (workShifts.any((element) =>
+              element.workDate.microsecond == workShift.workDate.microsecond &&
+              element.workShiftSettingDetailId == workShift.workShiftSettingDetailId &&
+              element.workShiftDetailId == workShift.workShiftDetailId) &&
+          firstOrLast) {
         for (var element in workShiftsAlikeDate) {
           if (element.startTime < workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.first) {
@@ -219,13 +225,21 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
         });
       }
     } else {
-      if (!workShiftsReplicant.contains(workShift)) {
+      if (!workShifts.any((element) =>
+      element.workDate.microsecond == workShift.workDate.microsecond &&
+          element.workShiftSettingDetailId == workShift.workShiftSettingDetailId &&
+          element.workShiftDetailId == workShift.workShiftDetailId)) {
         setState(() {
           workShifts.add(workShift);
         });
-      } else if (workShiftsReplicant.contains(workShift)) {
+      } else if (workShifts.any((element) =>
+      element.workDate.microsecond == workShift.workDate.microsecond &&
+          element.workShiftSettingDetailId == workShift.workShiftSettingDetailId &&
+          element.workShiftDetailId == workShift.workShiftDetailId)) {
         setState(() {
-          final indexShift = workShiftsReplicant.indexWhere((element) => element == workShift);
+          final indexShift = workShifts.indexWhere((element) => element.workDate.microsecond == workShift.workDate.microsecond &&
+              element.workShiftSettingDetailId == workShift.workShiftSettingDetailId &&
+              element.workShiftDetailId == workShift.workShiftDetailId);
           workShifts.removeAt(indexShift);
         });
       }
@@ -254,7 +268,7 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
       required WorkShiftRegisteredDetail workShift}) {
     keyDate.sort();
     final checkId = workShifts.any((element) =>
-    element.workShiftDetailId == workShift.workShiftDetailId &&
+        element.workShiftDetailId == workShift.workShiftDetailId &&
         element.workShiftSettingDetailId == workShift.workShiftSettingDetailId &&
         element.workDate.microsecond == workShift.workDate.microsecond);
     final checkSE = keyDate.first < dateInt && keyDate.last > dateInt;
