@@ -61,6 +61,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     firstName = user.firstName;
     lastName = user.lastName;
     gender = user.gender;
+    province = Address(id: user.residentProvinceId, name: user.residentProvince);
+    ward = Address(id: user.residentWardId, name: user.residentWard);
+    district = Address(id: user.residentDistrictId, name: user.residentDistrict);
     super.initState();
   }
 
@@ -213,34 +216,13 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       lastName: lastName,
       dayOfBirth: dateOfBirth,
       gender: gender.name,
-      phoneNumber: setValueOnUpdateProfileRequest(
-        phoneNumber,
-        user.phoneNumber,
-      ),
-      residentProvince: setValueOnUpdateProfileRequest(
-        province?.name,
-        user.residentProvince,
-      ),
-      residentProvinceId: setValueOnUpdateProfileRequest(
-        province?.id,
-        user.residentProvinceId,
-      ),
-      residentDistrict: setValueOnUpdateProfileRequest(
-        district?.name,
-        user.residentDistrict,
-      ),
-      residentDistrictId: setValueOnUpdateProfileRequest(
-        district?.id,
-        user.residentDistrictId,
-      ),
-      residentWard: setValueOnUpdateProfileRequest(
-        ward?.name,
-        user.residentWard,
-      ),
-      residentWardId: setValueOnUpdateProfileRequest(
-        ward?.id,
-        user.residentWardId,
-      ),
+      phoneNumber: phoneNumber,
+      residentProvince: province?.name,
+      residentProvinceId: province?.id,
+      residentDistrict: district?.name,
+      residentDistrictId: district?.id,
+      residentWard: ward?.name,
+      residentWardId: ward?.id,
       residentAddress: setValueOnUpdateProfileRequest(address, user.residentAddress),
       avatarPath: setPath(user.avatarPath),
       vehicleType: setValueOnUpdateProfileRequest(
