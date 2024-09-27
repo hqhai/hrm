@@ -32,7 +32,7 @@ class ShiftReasonWidget extends StatelessWidget {
               ),
             ),
             Text(
-              state.shift.workShiftApprove.note,
+              state.shift.workShiftApproves.isNotEmpty ? state.shift.workShiftApproves.first.content : '',
               style: TextStyle(
                 fontSize: SpacingUnit.x3,
                 color: colors.text,
