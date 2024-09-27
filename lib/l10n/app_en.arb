@@ -689,5 +689,6 @@
   "cancelShiftSuccess": "Submit request to cancel shift successfully, the request needs to be confirmed",
   "cancelShiftSuccess1": "Cancel shift successfully",
   "cancelCancelShiftSuccess": "Cancel request cancel shift successfully",
-  "registeredShiftSuccessfully": "Registered Shift Successfully, shift is awaiting approval"
+  "registeredShiftSuccessfully": "Registered Shift Successfully, shift is awaiting approval",
+  "remove2": "Remove"
 }

@@ -138,8 +138,10 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                                     style: theme.textTheme.bodyLarge,
                                   ),
                                   if (widget.isCheckBox &&
-                                      e.status ==
-                                          WorkShiftRequestStatus.usable) ...[
+                                      (e.status ==
+                                          WorkShiftRequestStatus.usable || e.status ==
+                                      WorkShiftRequestStatus.reject|| e.status ==
+                                          WorkShiftRequestStatus.cancel)) ...[
                                     Checkbox(
                                       side: const BorderSide(
                                           color: Color(0xff585858)),
@@ -212,7 +214,7 @@ _colorByStatus(WorkShiftRequestStatus status) {
     case WorkShiftRequestStatus.reject:
       return ColorUtils.parseHex('#E8EBFA');
     case WorkShiftRequestStatus.remove:
-      return ColorUtils.parseHex('#FCE6EA');
+      return ColorUtils.parseHex('#F1F6FF');
     case WorkShiftRequestStatus.unusable:
       return ColorUtils.parseHex('#E3E3E3');
     case WorkShiftRequestStatus.usable:

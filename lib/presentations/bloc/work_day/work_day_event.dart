@@ -103,41 +103,38 @@ class CancelRegisterWorkDay extends WorkDayEvent {
 
 class AddApprove extends WorkDayEvent {
   final ApproveRequest request;
+  final Completer? completer;
 
   const AddApprove({
+    this.completer,
     required this.request,
   });
 
   @override
-  List<Object?> get props => [
-        request,
-      ];
+  List<Object?> get props => [request, completer];
 }
 
 class GetWorkDayAdmin extends WorkDayEvent {
   final WorkDayAdminRequest data;
+  final Completer? completer;
 
-  const GetWorkDayAdmin({
-    required this.data,
-  });
+  const GetWorkDayAdmin({required this.data, this.completer});
 
   @override
-  List<Object?> get props => [
-        data,
-      ];
+  List<Object?> get props => [data, completer];
 }
 
 class GetElectiveShift extends WorkDayEvent {
   final WorkDayGetElectiveShiftRequest data;
+  final Completer? completer;
 
   const GetElectiveShift({
     required this.data,
+    this.completer,
   });
 
   @override
-  List<Object?> get props => [
-        data,
-      ];
+  List<Object?> get props => [data, completer];
 }
 
 class GetElectiveShiftDetail extends WorkDayEvent {

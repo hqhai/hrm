@@ -4220,6 +4220,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Registered Shift Successfully, shift is awaiting approval'**
   String get registeredShiftSuccessfully;
+
+  /// No description provided for @remove2.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove2;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
