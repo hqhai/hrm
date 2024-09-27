@@ -84,7 +84,7 @@ class ItemListStepFlow extends StatelessWidget {
     }
     if (indexStepRequests != -1 && !create) {
       final stepRequest = stepRequests[indexStepRequests];
-      return stepRequest.status == EnumStepRequestStatusEnum.approve;
+      return stepRequest.status == EnumStepRequestStatusEnum.approve || stepRequest.status == EnumStepRequestStatusEnum.edit;
     }
     return false;
   }

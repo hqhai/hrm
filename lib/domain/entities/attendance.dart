@@ -179,11 +179,11 @@ class Attendance {
       ///Số phút về sớm
       Duration(seconds: timeEarly).inMinutes.toString(),
 
-      ///Số lần về sớm
-      countEarly.toString(),
-
       ///Số lần đi muộn
       countLate.toString(),
+
+      ///Số lần về sớm
+      countEarly.toString(),
     ];
   }
 }
