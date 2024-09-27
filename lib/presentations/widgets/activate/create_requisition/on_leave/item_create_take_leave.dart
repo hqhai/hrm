@@ -51,12 +51,18 @@ class _ItemTakeLeaveState extends State<ItemTakeLeave> {
             child: ContainerBorder(
               width: width,
               borderColors: colors.outline.withOpacity(0.3),
-              child: Text(
-                takeLeaveType.configTakeLeaveTypeName,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    takeLeaveType.configTakeLeaveTypeName,
+                    style: TextStyle(
+                      color: colors.text,
+                      fontSize: SpacingUnit.x4,
+                    ),
+                  ),
+                  Icon(Icons.arrow_drop_down_sharp, color: colors.text, size: SpacingUnit.x6,)
+                ],
               ),
             ),
           ),
