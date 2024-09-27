@@ -22,7 +22,7 @@ class ItemAddressUpdateProfile extends StatefulWidget {
     this.province = const Address(),
   });
 
-  final ValueChanged<Address> onChangeProvince, onChangeDistrict, onChangeWard;
+  final ValueChanged<Address?> onChangeProvince, onChangeDistrict, onChangeWard;
   final Address province, district, ward;
 
   @override
@@ -40,25 +40,34 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
     super.initState();
   }
 
+  setAddress(){
+    widget.onChangeProvince.call(province);
+    widget.onChangeDistrict.call(district);
+    widget.onChangeWard.call(ward);
+  }
+
   _getProvince(Address address) {
     setState(() {
       province = address;
-      widget.onChangeProvince.call(address);
+      district = null;
+      ward = null;
     });
+    setAddress();
   }
 
   _getDistrict(Address address) {
     setState(() {
       district = address;
-      widget.onChangeDistrict.call(address);
+      ward = null;
     });
+    setAddress();
   }
 
   _getWard(Address address) {
     setState(() {
       ward = address;
-      widget.onChangeWard.call(address);
     });
+    setAddress();
   }
 
   _addProvince(BuildContext context) {
@@ -141,44 +150,44 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
       required VoidCallback callback}) {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4,
-            fontWeight: FontWeight.w600,
+    return InkWell(
+      onTap: () => callback.call(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: colors.text,
+              fontSize: SpacingUnit.x4,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        ContainerBorder(
-          borderColors: colors.surfaceBright.withOpacity(0.6),
-          marginTop: SpacingUnit.x2,
-          paddingVertical: SpacingUnit.x4,
-          width: width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                value,
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
+          ContainerBorder(
+            borderColors: colors.surfaceBright.withOpacity(0.6),
+            marginTop: SpacingUnit.x2,
+            paddingVertical: SpacingUnit.x4,
+            width: width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                  ),
                 ),
-              ),
-              InkWell(
-                onTap: () => callback.call(),
-                child: Icon(
+                Icon(
                   Icons.arrow_drop_down,
                   color: colors.text,
                   size: SpacingUnit.x6,
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
