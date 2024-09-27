@@ -51,8 +51,7 @@ class ShiftsContentWidget extends StatelessWidget {
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
           title: appLocalizations.time,
-          value:
-              '${strSeconds(data.startTime) ?? ''} - ${strSeconds(data.endTime) ?? ''}',
+          value: '${strSeconds(data.startTime) ?? ''} - ${strSeconds(data.endTime) ?? ''}',
         ),
         TitleValueLeave(
           padding: SpacingUnit.x2,
@@ -61,12 +60,15 @@ class ShiftsContentWidget extends StatelessWidget {
           value:
               '${strSeconds(data.checkInEndTimeValid) ?? ''} - ${strSeconds(data.checkOutEndTimeValid) ?? ''}',
         ),
-        TitleValueLeave(
-          padding: SpacingUnit.x2,
-          font: FontWeight.w700,
-          title: appLocalizations.reasonForCancellation,
-          value: data.workShiftApprove.note,
-        ),
+        if (data.status == WorkShiftRequestStatus.reject ||
+            data.status == WorkShiftRequestStatus.cancel ||
+            data.status == WorkShiftRequestStatus.pendingCancel)
+          TitleValueLeave(
+            padding: SpacingUnit.x2,
+            font: FontWeight.w700,
+            title: appLocalizations.reasonForCancellation,
+            value: data.workShiftApproves.isNotEmpty ? data.workShiftApproves.first.content : '',
+          ),
         Divider(
           color: colors.textTertiary,
           height: SpacingUnit.x0_25,

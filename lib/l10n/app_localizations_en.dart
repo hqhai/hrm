@@ -2080,4 +2080,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get remove2 => 'Remove';
+
+  @override
+  String get inputNameStaff => 'Input name staff';
 }

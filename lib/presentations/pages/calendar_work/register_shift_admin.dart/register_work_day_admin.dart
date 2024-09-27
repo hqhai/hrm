@@ -69,7 +69,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         pageSize: days,
         isApprove: true,
         startDate: formatYYMMDD(DateTime.now().subtract(Duration(days: days)).toString()),
-        endDate: formatYYMMDD(DateTime.now().toString()),
+        endDate: formatYYMMDD(DateTime.now().add(Duration(days: days)).toString()),
       )));
       _loadData();
     }
@@ -103,20 +103,20 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
               data: WorkDayGetElectiveShiftRequest(
                 isApprove: true,
                 startDate: formatYYMMDD(DateTime.now().subtract(Duration(days: days)).toString()),
-                endDate: formatYYMMDD(DateTime.now().toString()),
+                endDate: formatYYMMDD(DateTime.now().add(Duration(days: days)).toString()),
               )));
           await completer.future;
           setState(() {
             isLoading = false;
           });
           break;
-        case WorkShiftRequestStatus.unusable:
+        case WorkShiftRequestStatus.usable:
           dI<WorkDayBloc>().add(GetElectiveShift(
               completer: completer,
               data: WorkDayGetElectiveShiftRequest(
                 isApprove: false,
                 startDate: formatYYMMDD(DateTime.now().subtract(Duration(days: days)).toString()),
-                endDate: formatYYMMDD(DateTime.now().toString()),
+                endDate: formatYYMMDD(DateTime.now().add(Duration(days: days)).toString()),
               )));
           await completer.future;
           setState(() {
@@ -167,7 +167,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
               pageSize: days,
               isApprove: true,
               startDate: formatYYMMDD(DateTime.now().subtract(Duration(days: days)).toString()),
-              endDate: formatYYMMDD(DateTime.now().toString()),
+              endDate: formatYYMMDD(DateTime.now().add(Duration(days: days)).toString()),
             )));
         if (isUnScroll) {
           await completer.future;
@@ -183,7 +183,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
               pageSize: days,
               isApprove: false,
               startDate: formatYYMMDD(DateTime.now().subtract(Duration(days: days)).toString()),
-              endDate: formatYYMMDD(DateTime.now().toString()),
+              endDate: formatYYMMDD(DateTime.now().add(Duration(days: days)).toString()),
             )));
         if (isUnScroll) {
           await completer.future;
@@ -372,7 +372,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                       selectType == WorkShiftRequestStatus.pendingCancel)
                     _Search(status: selectType),
                   if (selectType == WorkShiftRequestStatus.approve ||
-                      selectType == WorkShiftRequestStatus.unusable) ...[
+                      selectType == WorkShiftRequestStatus.usable) ...[
                     if (state.electiveShiftItems.isEmpty) Container(),
                     Expanded(
                         child: Container(
@@ -785,6 +785,7 @@ class _SearchState extends State<_Search> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     return Container(
       width: MediaQuery.sizeOf(context).width,
       height: SpacingUnit.x16,
@@ -800,7 +801,7 @@ class _SearchState extends State<_Search> {
               ),
               contentPadding: const EdgeInsets.only(top: 10),
               isDense: true,
-              hintText: "Nhập tên",
+              hintText: appLocalizations.inputNameStaff,
               prefixIcon: InkWell(
                 onTap: () {
                   FocusScope.of(context).unfocus();

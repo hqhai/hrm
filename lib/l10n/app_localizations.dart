@@ -4226,6 +4226,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove'**
   String get remove2;
+
+  /// No description provided for @inputNameStaff.
+  ///
+  /// In en, this message translates to:
+  /// **'Input name staff'**
+  String get inputNameStaff;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -20,7 +20,7 @@ class Shift {
   final String workShiftSettingDetailId;
   final String code;
   final String name;
-  final WorkShiftApprove workShiftApprove;
+  final List<WorkShiftApprove> workShiftApproves;
   final DateTime? createdDate;
   final DateTime? workDate;
   @JsonKey(unknownEnumValue: ShiftType.unknown)
@@ -43,7 +43,7 @@ class Shift {
     this.checkOutEndTimeValid = 0,
     this.checkOutStartTimeValid = 0,
     this.status = WorkShiftRequestStatus.unknown,
-    this.workShiftApprove = const WorkShiftApprove(),
+    this.workShiftApproves = const [],
     this.workEffort = 1,
     this.workDate,
   });

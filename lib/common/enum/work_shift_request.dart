@@ -10,6 +10,8 @@ enum WorkShiftRequestStatus {
   pendingCancel('PendingCancel'),
   @JsonValue('Pending')
   pending('Pending'),
+  @JsonValue('Usable')
+  usable('Usable'),
   @JsonValue('Unusable')
   unusable('Unusable'),
   @JsonValue('Reject')
@@ -18,8 +20,6 @@ enum WorkShiftRequestStatus {
   cancel('Cancel'),
   @JsonValue('Remove')
   remove('Remove'),
-  @JsonValue('Usable')
-  usable('Usable'),
   @JsonValue('')
   unknown('');
 

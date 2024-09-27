@@ -123,7 +123,8 @@ class _ShiftsPageState extends State<ShiftsPage> {
                       data?.status != WorkShiftRequestStatus.unusable &&
                       data?.status != WorkShiftRequestStatus.pending &&
                       data?.status != WorkShiftRequestStatus.reject &&
-                      data?.status != WorkShiftRequestStatus.cancel)
+                      data?.status != WorkShiftRequestStatus.cancel &&
+                      data?.status != WorkShiftRequestStatus.pendingCancel)
                     ShiftReasonWidget(reasonController: reasonController),
                   const Spacer(),
                   if (checkType(data?.status ?? WorkShiftRequestStatus.usable))

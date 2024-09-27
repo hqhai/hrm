@@ -195,7 +195,7 @@
   "createANewSingleWord": "Tạo mới đơn từ",
   "deadline": "Thời hạn",
   "all": "Tất cả",
-  "pending": "Chờ duyệt đăng kí ca",
+  "pending": "Chờ duyệt đăng ký ca",
   "reject": "Từ chối",
   "modification": "Y/c sửa lại",
   "done": "Đã duyệt",
@@ -678,7 +678,7 @@
   "operationDay": "Ngày thao tác",
   "validTimeKeeping": "Chấm công hợp lệ",
   "cancelShift1": "Hủy đăng ký ca",
-  "cancelShift2": "Hủy Yêu cầu huỷ ca",
+  "cancelShift2": "Hủy yêu cầu huỷ ca",
   "shiftHistory": "Lịch sử trạng thái ca:",
   "noConnected": "Có lỗi sảy ra, vui lòng kiểm tra lại!",
   "reasonForCancellation": "Lí do huỷ ca",
@@ -688,5 +688,6 @@
   "cancelShiftSuccess1": "Hủy ca thành công",
   "cancelCancelShiftSuccess": "Hủy yêu cầu hủy ca thành công",
   "registeredShiftSuccessfully": "Đăng ký ca thành công, ca đang được chờ duyệt",
-  "remove2": "Gỡ khỏi ca"
+  "remove2": "Gỡ khỏi ca",
+  "inputNameStaff": "Nhập tên nhân viên"
 }

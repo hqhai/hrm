@@ -600,7 +600,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get all => 'Tất cả';
 
   @override
-  String get pending => 'Chờ duyệt đăng kí ca';
+  String get pending => 'Chờ duyệt đăng ký ca';
 
   @override
   String get reject => 'Từ chối';
@@ -2049,7 +2049,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cancelShift1 => 'Hủy đăng ký ca';
 
   @override
-  String get cancelShift2 => 'Hủy Yêu cầu huỷ ca';
+  String get cancelShift2 => 'Hủy yêu cầu huỷ ca';
 
   @override
   String get shiftHistory => 'Lịch sử trạng thái ca:';
@@ -2080,4 +2080,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get remove2 => 'Gỡ khỏi ca';
+
+  @override
+  String get inputNameStaff => 'Nhập tên nhân viên';
 }
