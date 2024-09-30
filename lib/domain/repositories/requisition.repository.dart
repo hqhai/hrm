@@ -57,8 +57,4 @@ abstract class RequisitionRepository {
   Future<RequestsResponse> getRequestsByIds({
     required List<String> ids,
   });
-
-  Future<void> cancelRequestsById({
-    required String id,
-  });
 }

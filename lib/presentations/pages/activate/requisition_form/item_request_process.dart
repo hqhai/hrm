@@ -11,7 +11,8 @@ class ItemRequestProcess extends StatelessWidget {
       {super.key,
       required this.callBackApprover,
       required this.callBackEdit,
-      required this.callBackReject});
+      required this.callBackReject,
+      });
 
   final VoidCallback callBackApprover, callBackEdit, callBackReject;
 

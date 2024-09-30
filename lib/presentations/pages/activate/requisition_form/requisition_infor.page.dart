@@ -173,7 +173,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                             background: colors.error.withOpacity(0.2),
                             check: true,
                             title: appLocalizations.cancel,
-                            callback: () => cancelRequest(context: context),
+                            callback: () => _showDialogCancelRequest(context),
                           ),
                       ],
                     ),
@@ -306,22 +306,21 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     });
   }
 
-  cancelDialog(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
+  _showDialogCancelRequest(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          child: TitleCallbackDialog(
-            title: appLocalizations.doYouWantRevokeYourRequest,
-            callback: () => cancelRequest(context: context),
+          child: NoteCancelRequestDialog(
+            noteChange: (value) => _setNote(value),
+            callback: () => _cancelRequest(context: context),
           ),
         );
       },
     );
   }
 
-  cancelRequest({required BuildContext context}) async {
+  _cancelRequest({required BuildContext context}) async {
     final appLocalizations = AppLocalizations.of(context)!;
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     dI<AppNavigation>().pop(currentContext);
@@ -329,6 +328,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     final Completer completer = Completer<bool>();
     dI<RequisitionApproveBloc>().add(
       CancelRequestEvent(
+        note: note ?? '',
         requestId: widget.id,
         completer: completer,
       ),

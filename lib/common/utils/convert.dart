@@ -10,21 +10,13 @@ import 'package:intl/intl.dart';
 
 /// Từ int sang khoảng thời gian
 String strTimeFromInt(int time) {
-  final Duration duration = Duration(seconds: time);
-  final DateTime now = DateTime.now();
-  final DateTime startOfDay = DateTime(now.year, now.month, 1, 0, 0, 0);
-  final DateTime result = startOfDay.add(duration);
-  final hours = result.hour;
-  final seconds = result.minute;
-  final day = result.day - 1;
-  if (time == 0) {
-    return '0';
+  int hours = time~/3600;
+  int second = time%3600;
+  int minute = second~/60;
+  if(second == 0){
+    return '${hours}h';
   }
-  if (day < 1) {
-    return "${hours}h${seconds}m";
-  } else {
-    return "${hours + day * 24}h${seconds}m";
-  }
+  return '${hours}h${minute}m';
 }
 
 ///String sang int
