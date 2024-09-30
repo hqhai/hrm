@@ -201,7 +201,7 @@ class _LoginPageState extends State<LoginPage>
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: SpacingUnit.x8),
+                            vertical: SpacingUnit.x4),
                         child: BlocBuilder<BiometricCubit, BiometricState>(
                           builder: (context, stateBiometric) {
                             return GestureDetector(
@@ -235,8 +235,9 @@ class _LoginPageState extends State<LoginPage>
                           onPressed: () {
                             dI<AuthBloc>().add(const IgnoreLoginEvent());
                           }),
-                      const Expanded(flex: 5, child: SizedBox()),
+                      // const Expanded(flex: 5, child: SizedBox()),
                       //const ContactHelpWidget(),
+                      const Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

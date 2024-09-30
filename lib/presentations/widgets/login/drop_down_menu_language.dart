@@ -36,7 +36,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
           return InkWell(
             onTap: () => _language(context, state),
             child: Container(
-              width: SpacingUnit.x19,
+              width: SpacingUnit.x20,
               margin: const EdgeInsets.only(top: SpacingUnit.x4),
               padding: const EdgeInsets.all(SpacingUnit.x2),
               decoration: BoxDecoration(
@@ -57,7 +57,9 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                       fontSize: SpacingUnit.x4,
                     ),
                   ),
-                  const SizedBox(width: SpacingUnit.x0_5,),
+                  const SizedBox(
+                    width: SpacingUnit.x0_5,
+                  ),
                   Image.asset(
                     state.languageCode == LanguageEnum.vi
                         ? Assets.images.signIn.vn.path

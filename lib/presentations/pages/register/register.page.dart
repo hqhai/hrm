@@ -86,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage>
           body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            margin: const EdgeInsets.all(SpacingUnit.x8),
+            margin: const EdgeInsets.all(SpacingUnit.x4),
             color: colors.outline.withOpacity(0.1),
             child: Padding(
               padding: const EdgeInsets.all(SpacingUnit.x8),
@@ -141,9 +141,10 @@ class _RegisterPageState extends State<RegisterPage>
                   valueInputs: valueInputs,
                   onUpdateCurrentPageIndex: updateCurrentPageIndex,
                 ),
-                const Expanded(
-                  child: SizedBox(),
-                ),
+                // const Expanded(
+                //   child: SizedBox(),
+                // ),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
