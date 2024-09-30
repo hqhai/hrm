@@ -10,6 +10,7 @@ import 'package:base_app/data/models/requisition/requisition/post_request_reques
 import 'package:base_app/data/models/requisition/requisition/request/get_requests_by_ids.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/approve_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/cancel_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
@@ -189,14 +190,14 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
   }
 
   @override
-  Future<void> cancelRequestsById({required String id}) async {
+  Future<void> cancelRequestsById({required CancelRequest cancelRequest}) async {
     try {
-      final url = '$baseUrl${PathConfig.cancelRequest}/$id';
-      await client.put(url);
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      final url = '$baseUrl${PathConfig.cancelRequest}';
+      final body = jsonEncode(cancelRequest.toJson());
+      await client.put(url, body: body);
+    } catch (ex) {
+      debugPrint('🔎 : $ex ❗️');
+      rethrow;
     }
   }
 }

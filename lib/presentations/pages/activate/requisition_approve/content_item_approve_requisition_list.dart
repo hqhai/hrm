@@ -125,7 +125,7 @@ class _ContentItemRequestApproveListState
               ),
             //if (checkFirstStepApprove(request))
             if (checkFirstStepApprove(request))
-              ItemRequestCancel(callCancel: () => _cancelRequest(context)),
+              ItemRequestCancel(callCancel: () => _showDialogCancelRequest(context)),
           ],
         );
       },
@@ -262,11 +262,11 @@ class _ContentItemRequestApproveListState
         );
       },
     ).then((value) {
-      popLoading();
+      popLoading(context);
     });
   }
 
-  popLoading(){
+  popLoading(BuildContext context){
     dI<AppNavigation>().pop(context);
   }
 
@@ -364,14 +364,30 @@ class _ContentItemRequestApproveListState
     });
   }
 
-  _cancelRequest(BuildContext context) async {
-    final appLocalizations = AppLocalizations.of(context)!;
+  _showDialogCancelRequest(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: NoteCancelRequestDialog(
+              noteChange: (value) => _setNote(value),
+              callback: () =>
+                  _cancelRequest(),
+              ),
+        );
+      },
+    );
+  }
+
+  _cancelRequest() async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
     setCheckLoad();
     final Completer completer = Completer<bool>();
     dI<RequisitionApproveBloc>().add(
       CancelRequestEvent(
         requestId: widget.id,
+        note: note,
         completer: completer,
       ),
     );
@@ -379,7 +395,7 @@ class _ContentItemRequestApproveListState
     if (statusCompleter == true) {
       dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
       if (!currentContext.mounted) return;
-      approverSuccess(context: context, title: appLocalizations.cancelSucceed);
+      approverSuccess(context: currentContext, title: appLocalizations.cancelSucceed);
     }
     if (statusCompleter == false) {
       if (!currentContext.mounted) return;

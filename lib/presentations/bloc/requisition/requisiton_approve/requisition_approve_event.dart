@@ -76,12 +76,13 @@ class ApproveRequestEvent extends RequisitionApproveEvent {
 
 class CancelRequestEvent extends RequisitionApproveEvent {
   final String requestId;
+  final String note;
   final Completer? completer;
 
-  const CancelRequestEvent({this.requestId = '', this.completer});
+  const CancelRequestEvent({required this.requestId, this.completer, required this.note});
 
   @override
-  List<Object?> get props => [requestId, completer];
+  List<Object?> get props => [requestId, completer, note];
 }
 
 class ResetRequisitionApproveEvent extends RequisitionApproveEvent {

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/cancel_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
 import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
@@ -105,7 +106,7 @@ class RequisitionApproveBloc
             state.requisitionIds.where((element) => element != event.requestId).toList();
         final statusRequestCount = state.statusRequestCount;
         statusRequestCount[EnumStepRequestStatusEnum.newStatus] =
-        (statusRequestCount[EnumStepRequestStatusEnum.newStatus] ?? 0) - 1;
+            (statusRequestCount[EnumStepRequestStatusEnum.newStatus] ?? 0) - 1;
         statusRequestCount[event.status] = (statusRequestCount[event.status] ?? 0) + 1;
         emit(
           state.copyWith(
@@ -158,12 +159,16 @@ class RequisitionApproveBloc
   FutureOr<void> _cancelRequestEvent(
       CancelRequestEvent event, Emitter<RequisitionApproveState> emit) async {
     try {
-      await _requestService.cancelRequestsById(id: event.requestId);
+      await _requestService.cancelRequestsById(
+          cancelRequest: CancelRequest(
+        id: event.requestId,
+        note: event.note,
+      ));
       final requestIds =
           state.requisitionIds.where((element) => element != event.requestId).toList();
       final statusRequestCount = state.statusRequestCount;
       statusRequestCount[EnumStepRequestStatusEnum.approve] =
-      (statusRequestCount[EnumStepRequestStatusEnum.approve] ?? 0) - 1;
+          (statusRequestCount[EnumStepRequestStatusEnum.approve] ?? 0) - 1;
       statusRequestCount[EnumStepRequestStatusEnum.cancel] =
           (statusRequestCount[EnumStepRequestStatusEnum.cancel] ?? 0) + 1;
       emit(

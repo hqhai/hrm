@@ -146,9 +146,4 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
       getRequestsByIds: GetRequestsByIds(ids: ids),
     );
   }
-
-  @override
-  Future<void> cancelRequestsById({required String id}) async {
-    await _requestService.cancelRequestsById(id: id);
-  }
 }

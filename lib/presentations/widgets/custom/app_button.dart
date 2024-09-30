@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class AppButton extends StatefulWidget {
+  final double marginTop;
+  final double marginBot;
+  final double marginRight;
+  final double marginLeft;
   final String title;
   final String? icon;
   final bool selected;
@@ -23,7 +27,11 @@ class AppButton extends StatefulWidget {
       this.height = SpacingUnit.x11,
       this.color = Colors.transparent,
       this.colorText = Colors.white,
-      this.colorBorder = Colors.transparent});
+      this.colorBorder = Colors.transparent,
+      this.marginTop = 0,
+      this.marginBot = 0,
+      this.marginRight = 0,
+      this.marginLeft = 0});
 
   @override
   State<StatefulWidget> createState() => _AppButton();
@@ -40,6 +48,11 @@ class _AppButton extends State<AppButton> {
         if (widget.enable == true) widget.onSubmit();
       },
       child: Container(
+        margin: EdgeInsets.only(
+            top: widget.marginTop,
+            right: widget.marginRight,
+            bottom: widget.marginBot,
+            left: widget.marginLeft),
         width: MediaQuery.of(context).size.width,
         height: widget.height,
         decoration: BoxDecoration(
@@ -48,9 +61,7 @@ class _AppButton extends State<AppButton> {
             color: widget.colorBorder,
             width: 1,
           ),
-          color: widget.enable
-                  ? widget.color
-                  : colors.text.withOpacity(0.3),
+          color: widget.enable ? widget.color : colors.text.withOpacity(0.3),
         ),
         child: Center(
           child: Text(

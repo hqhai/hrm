@@ -74,7 +74,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
         final index = state.workDays[date(state)]?.items
                 .indexWhere((element) => element.workShiftSettingDetailId == widget.id) ??
             0;
-        final data = state.workDays[date(state)]?.items[index];
+        final data = state.workDays[date(state)]?.items[index] ?? const Shift();
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: PreferredSize(
@@ -117,55 +117,47 @@ class _ShiftsPageState extends State<ShiftsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ShiftsContentWidget(
-                    data: data ?? const Shift(),
+                    data: data,
                   ),
-                  if (data?.status != WorkShiftRequestStatus.usable &&
-                      data?.status != WorkShiftRequestStatus.unusable &&
-                      data?.status != WorkShiftRequestStatus.pending &&
-                      data?.status != WorkShiftRequestStatus.reject &&
-                      data?.status != WorkShiftRequestStatus.cancel &&
-                      data?.status != WorkShiftRequestStatus.pendingCancel)
-                    ShiftReasonWidget(reasonController: reasonController),
+                  if (data.status != WorkShiftRequestStatus.usable &&
+                      data.status != WorkShiftRequestStatus.unusable &&
+                      data.status != WorkShiftRequestStatus.pending &&
+                      data.status != WorkShiftRequestStatus.cancel)
+                    ShiftReasonWidget(reasonController: reasonController, data: data),
                   const Spacer(),
-                  if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
+                  if (checkType(data.status))
                     AppButton(
                       colorText: Colors.white,
-                      title: mapByStatus(
-                          context: context,
-                          status: data?.status ?? WorkShiftRequestStatus.usable)['titleButton'],
+                      title: mapByStatus(context: context, status: data.status)['titleButton'],
                       onSubmit: () {
-                        if (data?.status == WorkShiftRequestStatus.usable ||
-                            data?.status == WorkShiftRequestStatus.reject ||
-                            data?.status == WorkShiftRequestStatus.cancel) {
+                        if (data.status == WorkShiftRequestStatus.usable ||
+                            data.status == WorkShiftRequestStatus.reject ||
+                            data.status == WorkShiftRequestStatus.cancel) {
                           _register(
                             context: context,
                             map: state.workDays,
                             workDays: [
                               WorkDayRequest(
-                                workShiftSettingDetailId: data?.workShiftSettingDetailId ?? "",
+                                workShiftSettingDetailId: data.workShiftSettingDetailId,
                                 workDate: formatYYMMDD(widget.date.toString()),
                               ),
                             ],
-                            titlePopUp: mapByStatus(
-                                context: context,
-                                status: data?.status ?? WorkShiftRequestStatus.usable)['success'],
+                            titlePopUp:
+                                mapByStatus(context: context, status: data.status)['success'],
                           );
                         } else {
                           onSubmit(
                             context: context,
-                            status: data?.status ?? WorkShiftRequestStatus.unknown,
+                            status: data.status,
                             note: reasonController.text,
-                            id: data?.id ?? '',
+                            id: data.id,
                             map: state.workDays,
-                            titlePopUp: mapByStatus(
-                                context: context,
-                                status: data?.status ?? WorkShiftRequestStatus.usable)['success'],
+                            titlePopUp:
+                                mapByStatus(context: context, status: data.status)['success'],
                           );
                         }
                       },
-                      color: mapByStatus(
-                          context: context,
-                          status: data?.status ?? WorkShiftRequestStatus.usable)['color'],
+                      color: mapByStatus(context: context, status: data.status)['color'],
                     ),
                 ],
               ),
@@ -235,7 +227,9 @@ class _ShiftsPageState extends State<ShiftsPage> {
     required Map<DateTime, WorkDay> map,
     required String titlePopUp,
   }) async {
-    if (reasonController.text.isNotEmpty || status == WorkShiftRequestStatus.pending) {
+    if (reasonController.text.isNotEmpty ||
+        status == WorkShiftRequestStatus.pending ||
+        status == WorkShiftRequestStatus.pendingCancel) {
       Completer completer = Completer<bool>();
       dI<WorkDayBloc>().add(CancelRegisterWorkDay(
           completer: completer, data: CancelWorkDayRequest(note: note, id: id)));

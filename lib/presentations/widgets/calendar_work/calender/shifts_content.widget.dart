@@ -60,7 +60,7 @@ class ShiftsContentWidget extends StatelessWidget {
           value:
               '${strSeconds(data.checkInEndTimeValid) ?? ''} - ${strSeconds(data.checkOutEndTimeValid) ?? ''}',
         ),
-        if (data.status == WorkShiftRequestStatus.reject ||
+        /*if (data.status == WorkShiftRequestStatus.reject ||
             data.status == WorkShiftRequestStatus.cancel ||
             data.status == WorkShiftRequestStatus.pendingCancel)
           TitleValueLeave(
@@ -68,7 +68,7 @@ class ShiftsContentWidget extends StatelessWidget {
             font: FontWeight.w700,
             title: appLocalizations.reasonForCancellation,
             value: data.workShiftApproves.isNotEmpty ? data.workShiftApproves.first.content : '',
-          ),
+          ),*/
         Divider(
           color: colors.textTertiary,
           height: SpacingUnit.x0_25,
