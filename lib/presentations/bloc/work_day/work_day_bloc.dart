@@ -72,16 +72,26 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
           request: WorkDaysRequest(workShiftRequestList: event.request));
       event.completer.complete(true);
     } catch (e) {
+      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       if (e is ResponseBase) {
         final String? errorCode = e.errorMessages.first.errorCode;
         emit(state.copyWith(
           errorCode: errorCode,
         ));
+        if (currentContext.mounted) {
+          ToastUtils().showError(ErrorUtils.getErrorMessage(
+              errorCode ?? 'error',
+              context: currentContext));
+        }
         event.completer.complete(false);
       } else {
         emit(state.copyWith(
           errorCode: 'error',
         ));
+        if (currentContext.mounted) {
+          ToastUtils().showError(
+              ErrorUtils.getErrorMessage('error', context: currentContext));
+        }
         event.completer.complete(false);
       }
     }
@@ -141,7 +151,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
               errorCode ?? 'error',
               context: currentContext));
         }
-        event.completer?.complete(true);
+        event.completer?.complete(false);
       } else {
         emit(state.copyWith(
           errorCode: 'error',
@@ -178,7 +188,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
               errorCode ?? 'error',
               context: currentContext));
         }
-        event.completer?.complete(true);
+        event.completer?.complete(false);
       } else {
         emit(state.copyWith(
           errorCode: 'error',

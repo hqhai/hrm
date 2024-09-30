@@ -268,8 +268,6 @@ class _ShiftsPageState extends State<ShiftsPage> {
         Navigator.pop(context);
         dialogSuccess(context: context, title: titlePopUp, isPop: false);
       }
-    } else {
-      ToastUtils().showError(errorDialog);
     }
   }
 }
