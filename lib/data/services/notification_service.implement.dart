@@ -20,11 +20,14 @@ class NotificationServiceImpl extends BaseService implements NotificationService
   }
 
   @override
-  Future<void> changeNotificationStatus(
+  Future<bool> changeNotificationStatus(
       {required ChangeStatusNotificationRequest changeStatusNotificationRequest}) async {
     final url = '$baseNotification${PathConfig.notification}';
     final body = jsonEncode(changeStatusNotificationRequest.toJson());
-    await client.put(url, body: body);
+    final response = await client.put(url, body: body);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    return data;
   }
 
   @override

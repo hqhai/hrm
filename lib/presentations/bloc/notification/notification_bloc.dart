@@ -25,17 +25,22 @@ class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState
   FutureOr<void> _changeNotificationsEvent(
       ChangeNotificationsEvent event, Emitter<NotificationState> emit) async {
     try {
-      await _notificationUseCase.changeNotificationStatus(isAll: event.isAll, ids: event.ids);
+      final check =
+          await _notificationUseCase.changeNotificationStatus(isAll: event.isAll, ids: event.ids);
       final ids = event.ids ?? [];
-      if (ids.isEmpty) {
-        emit(state.copyWith(keys: [], totalItems: 0, notifications: {}, totalItemsSent: 0));
+      if (!check) {
+        event.completer?.complete(false);
       } else {
-        emit(state.copyWith(
-          totalItems: state.totalItems - 1,
-          totalItemsSent: state.totalItemsSent - 1,
-        ));
+        if (ids.isEmpty) {
+          emit(state.copyWith(keys: [], totalItems: 0, notifications: {}, totalItemsSent: 0));
+        } else {
+          emit(state.copyWith(
+            totalItems: state.totalItems - 1,
+            totalItemsSent: state.totalItemsSent - 1,
+          ));
+        }
+        event.completer?.complete(true);
       }
-      event.completer?.complete(true);
     } catch (e) {
       event.completer?.complete(false);
     }
@@ -86,7 +91,8 @@ class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState
     return state.toJson();
   }
 
-  FutureOr<void> _resetNotificationEvent(ResetNotificationEvent event, Emitter<NotificationState> emit) {
+  FutureOr<void> _resetNotificationEvent(
+      ResetNotificationEvent event, Emitter<NotificationState> emit) {
     emit(const NotificationState());
   }
 }

@@ -13,8 +13,8 @@ class NotificationUseCaseImpl extends NotificationUseCase {
   NotificationUseCaseImpl() : _notificationRepository = dI<NotificationRepository>();
 
   @override
-  Future<void> changeNotificationStatus({List<String>? ids, required bool isAll}) async {
-    await _notificationRepository.changeNotificationStatus(isAll: isAll, ids: ids);
+  Future<bool> changeNotificationStatus({List<String>? ids, required bool isAll}) async {
+    return await _notificationRepository.changeNotificationStatus(isAll: isAll, ids: ids);
   }
 
   @override

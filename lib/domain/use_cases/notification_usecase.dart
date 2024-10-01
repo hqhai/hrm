@@ -5,5 +5,5 @@ abstract class NotificationUseCase {
   Future<NotificationResponseUserCase> getNotification(
       {required int page, required NotificationStatus status});
 
-  Future<void> changeNotificationStatus({List<String>? ids, required bool isAll});
+  Future<bool> changeNotificationStatus({List<String>? ids, required bool isAll});
 }

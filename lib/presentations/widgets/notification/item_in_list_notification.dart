@@ -67,7 +67,7 @@ class _ItemInListNotificationState extends State<ItemInListNotification> {
                       ),
                     ),
                     Text(
-                      formatDMY(notification.createdDate.toString()),
+                      formatDMY(dateTimeLocal(notification.createdDate).toString()),
                       style: TextStyle(
                         color: colors.text.withOpacity(0.5),
                         fontSize: SpacingUnit.x4,

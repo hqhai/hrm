@@ -14,8 +14,8 @@ class NotificationRepositoryImpl extends NotificationRepository {
   NotificationRepositoryImpl() : _notificationService = dI<NotificationService>();
 
   @override
-  Future<void> changeNotificationStatus({List<String>? ids, required bool isAll}) async {
-    await _notificationService.changeNotificationStatus(
+  Future<bool> changeNotificationStatus({List<String>? ids, required bool isAll}) async {
+    return  await _notificationService.changeNotificationStatus(
       changeStatusNotificationRequest: ChangeStatusNotificationRequest(
         ids: ids,
         isAll: isAll,
