@@ -72,17 +72,20 @@ class ItemCalender extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Container(
-                    padding: const EdgeInsets.all(SpacingUnit.x1),
+                    width: SpacingUnit.x6_5,
+                    height: SpacingUnit.x4,
                     margin: const EdgeInsets.only(top: SpacingUnit.x1, bottom: SpacingUnit.x3),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(SpacingUnit.x10),
                       color: isNowDate ? colors.primary : Colors.transparent,
                     ),
-                    child: Text(
-                      date.day.toString(),
-                      style: TextStyle(
-                        color: _colorText(context),
-                        fontSize: SpacingUnit.x3_5,
+                    child: Center(
+                      child: Text(
+                        date.day.toString(),
+                        style: TextStyle(
+                          color: _colorText(context),
+                          fontSize: SpacingUnit.x3_5,
+                        ),
                       ),
                     ),
                   ),
@@ -102,13 +105,13 @@ class ItemCalender extends StatelessWidget {
                                 .mapIndexed(
                                   (index, element) => Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                                      borderRadius: BorderRadius.circular(SpacingUnit.x10),
                                       color: _color(context, index, userWorkingHistoryModel.status),
                                     ),
                                     margin: const EdgeInsetsDirectional.symmetric(
-                                        horizontal: SpacingUnit.x0_5, vertical: SpacingUnit.x2),
-                                    width: SpacingUnit.x1_5,
-                                    height: SpacingUnit.x1_5,
+                                        horizontal: SpacingUnit.x0_5, vertical: SpacingUnit.x0_5),
+                                    width: SpacingUnit.x2_5,
+                                    height: SpacingUnit.x2_5,
                                   ),
                                 )
                                 .toList(),
@@ -130,9 +133,11 @@ class ItemCalender extends StatelessWidget {
 
   Color _colorText(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return month != date.month
-        ? colors.neutralVariant40
-        : (isNowDate ? colors.background : colors.text);
+    return isNowDate
+        ? colors.background
+        : month == date.month
+            ? colors.text
+            : colors.neutralVariant40;
   }
 
   Color _color(BuildContext context, int index, List<UserWorkingHistoryStatus> list) {
@@ -198,8 +203,7 @@ class ItemCalender extends StatelessWidget {
         dI<AppNavigation>().pushName(currentContext, page: Pages.historyAttendancePage, extra: {
           'dateTime': userWorkingHistoryModel.date ?? date,
         });
-      }
-      else{
+      } else {
         if (!currentContext.mounted) return;
         dI<AppNavigation>().pop(context);
         dialogNoConnection(context: currentContext);
@@ -217,7 +221,7 @@ class ItemCalender extends StatelessWidget {
               strSeconds(userWorkingHistoryModel?.checkIn) ?? '',
               style: TextStyle(
                 color: colors.text,
-                fontSize: SpacingUnit.x2_5,
+                fontSize: SpacingUnit.x3_5,
               ),
             ),
             Text(
@@ -231,7 +235,7 @@ class ItemCalender extends StatelessWidget {
               strSeconds(userWorkingHistoryModel?.checkOut) ?? '',
               style: TextStyle(
                 color: colors.text,
-                fontSize: SpacingUnit.x2_5,
+                fontSize: SpacingUnit.x3_5,
               ),
             ),
           ],
@@ -243,7 +247,7 @@ class ItemCalender extends StatelessWidget {
               .toString(),
           style: TextStyle(
             color: colors.text,
-            fontSize: SpacingUnit.x2_5,
+            fontSize: SpacingUnit.x3_5,
           ),
         );
       case 3:
@@ -251,7 +255,7 @@ class ItemCalender extends StatelessWidget {
           (userWorkingHistoryModel?.salaryRate ?? 0).toString(),
           style: TextStyle(
             color: colors.text,
-            fontSize: SpacingUnit.x2_5,
+            fontSize: SpacingUnit.x3_5,
           ),
         );
       default:
