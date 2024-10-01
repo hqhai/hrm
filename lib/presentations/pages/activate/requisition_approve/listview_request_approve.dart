@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
@@ -78,21 +79,22 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
                                     fontSize: SpacingUnit.x4),
                               ),
                               BlocSelector<RequisitionApproveBloc, RequisitionApproveState, int>(
-                                  selector: (state) => state.statusRequestCount[status] ?? 0,
-                                  builder: (context, state) => state != 0
-                                      ? Chip(
-                                          padding: EdgeInsets.zero,
-                                          backgroundColor: colors.primary.withOpacity(0.3),
-                                          shape: RoundedRectangleBorder(
-                                              side: const BorderSide(style: BorderStyle.none),
-                                              borderRadius: BorderRadius.circular(SpacingUnit.x6)),
-                                          label: Text('$state',
-                                              style: TextStyle(
-                                                  fontSize: SpacingUnit.x3_5,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: colors.primary)),
-                                        )
-                                      : const SizedBox())
+                                selector: (state) => state.statusRequestCount[status] ?? 0,
+                                builder: (context, state) => Chip(
+                                  padding: EdgeInsets.zero,
+                                  backgroundColor: colors.primary.withOpacity(0.3),
+                                  shape: RoundedRectangleBorder(
+                                      side: const BorderSide(style: BorderStyle.none),
+                                      borderRadius: BorderRadius.circular(SpacingUnit.x6)),
+                                  label: Text(
+                                      countStatus(state),
+                                    style: TextStyle(
+                                        fontSize: SpacingUnit.x3_5,
+                                        fontWeight: FontWeight.w400,
+                                        color: colors.primary),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         );
@@ -120,6 +122,8 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
       },
     );
   }
+
+
 
   void _scrollListener() async {
     widget.onChangeStatus.call(
