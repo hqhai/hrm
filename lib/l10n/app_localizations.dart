@@ -4232,6 +4232,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Input name staff'**
   String get inputNameStaff;
+
+  /// No description provided for @edit2.
+  ///
+  /// In en, this message translates to:
+  /// **'Request revision'**
+  String get edit2;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

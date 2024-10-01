@@ -8,6 +8,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_following/req
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_follower/item_list_requisition_follower.dart';
 import 'package:base_app/presentations/widgets/custom/shimmer_load.dart';
+import 'package:base_app/presentations/widgets/erro_or_data_not_exist/data_not_exist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -73,20 +74,20 @@ class _TabBarViewListRequestFollowerState extends State<TabBarViewListRequestFol
     final colors = AppTheme.getColors(context);
     return BlocBuilder<RequisitionFollowingBloc, RequisitionFollowingState>(
       builder: (context, state) {
-        return SingleChildScrollView(
-          child: Container(
-            color: colors.outlineVariant.withOpacity(0.1),
-            height: height * 0.85,
-            child: widget.checkLoad
-                ? ListView.builder(
-                    controller: controller,
-                    itemCount: state.requisitions.length,
-                    itemBuilder: (context, index) => ItemRequisitionFollowerList(
-                      id: state.requisitionIds[index],
-                    ),
-                  )
-                : const ShimmerLoad(),
-          ),
+        return Container(
+          color: colors.outlineVariant.withOpacity(0.1),
+          height: height * 0.85,
+          child: widget.checkLoad
+              ? state.requisitionIds.isNotEmpty
+                  ? ListView.builder(
+                      controller: controller,
+                      itemCount: state.requisitionIds.length,
+                      itemBuilder: (context, index) => ItemRequisitionFollowerList(
+                        id: state.requisitionIds[index],
+                      ),
+                    )
+                  : const DataNotExist()
+              : const ShimmerLoad(),
         );
       },
     );

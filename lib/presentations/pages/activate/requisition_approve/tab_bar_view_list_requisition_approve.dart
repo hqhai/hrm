@@ -8,6 +8,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/item_list_requisition_approve.dart';
 import 'package:base_app/presentations/widgets/custom/shimmer_load.dart';
+import 'package:base_app/presentations/widgets/erro_or_data_not_exist/data_not_exist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -24,12 +25,10 @@ class TabBarViewListRequistionApprove extends StatefulWidget {
   final bool checkLoad;
 
   @override
-  State<TabBarViewListRequistionApprove> createState() =>
-      _TabBarViewListRequistionApproveState();
+  State<TabBarViewListRequistionApprove> createState() => _TabBarViewListRequistionApproveState();
 }
 
-class _TabBarViewListRequistionApproveState
-    extends State<TabBarViewListRequistionApprove> {
+class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequistionApprove> {
   late ScrollController controller;
   int pageIndex = 1, totalItems = 12, lengthList = 11;
   bool checkLoad = true;
@@ -44,9 +43,7 @@ class _TabBarViewListRequistionApproveState
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems &&
-        controller.position.extentAfter < totalItems &&
-        checkLoad) {
+    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
@@ -86,25 +83,24 @@ class _TabBarViewListRequistionApproveState
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) =>
-          previous.requisitions != current.requisitions,
+      listenWhen: (previous, current) => previous.requisitions != current.requisitions,
       // buildWhen: (previous, current) => previous.requisitionIds != current.requisitionIds ,
       builder: (context, state) {
-        return SingleChildScrollView(
-          child: Container(
-            color: colors.outlineVariant.withOpacity(0.1),
-            height: height * 0.85,
-            child: widget.checkLoad
-                ? ListView.builder(
-                    controller: controller,
-                    itemCount: state.requisitionIds.length,
-                    itemBuilder: (context, index) => ItemRequisitionApproveList(
-                      id: state.requisitionIds[index],
-                      status: widget.status,
-                    ),
-                  )
-                : const ShimmerLoad(),
-          ),
+        return Container(
+          color: colors.outlineVariant.withOpacity(0.1),
+          height: height * 0.85,
+          child: widget.checkLoad
+              ? state.requisitionIds.isNotEmpty
+                  ? ListView.builder(
+                      controller: controller,
+                      itemCount: state.requisitionIds.length,
+                      itemBuilder: (context, index) => ItemRequisitionApproveList(
+                        id: state.requisitionIds[index],
+                        status: widget.status,
+                      ),
+                    )
+                  : const DataNotExist()
+              : const ShimmerLoad(),
         );
       },
     );

@@ -81,7 +81,7 @@ class ContentItemMyRequisitionList extends StatelessWidget {
                     context: context, status: request.status)['color'],
                 icon: statusRequest(
                     context: context, status: request.status)['icon'],
-                status: request.status.getAppLocalizationName,
+                status: request.status.getRequestStatusNameSeft,
               ),
             ),
           ],
@@ -106,7 +106,7 @@ class ContentItemMyRequisitionList extends StatelessWidget {
         };
       case StatusRequestEnum.edit:
         return {
-          'color': colors.tertiary,
+          'color': colors.secondary.withOpacity(0.7),
           'icon': Assets.images.icon.work.edit,
         };
       case StatusRequestEnum.approve:

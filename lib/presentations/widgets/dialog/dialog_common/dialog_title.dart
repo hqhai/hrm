@@ -3,6 +3,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -19,23 +20,37 @@ class TitleDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Padding(
       padding: const EdgeInsets.all(SpacingUnit.x5),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x5,
+          ContainerBorder(
+            height: SpacingUnit.x50,
+            borderColors: colors.primary.withOpacity(0.3),
+            width: width,
+            child: SingleChildScrollView(
+              child: Text(
+                title,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                ),
+              ),
             ),
           ),
           const SizedBox(
             height: SpacingUnit.x4,
           ),
           AppButton(
+            colorBorder: colors.blue,
+            color: colors.blue,
+            colorText: colors.background,
             onSubmit: () => setApply(),
             title: appLocalizations.ok,
           ),
@@ -50,7 +65,8 @@ class TitleDialog extends StatelessWidget {
   }
 }
 
-updateNoteDialog({required BuildContext context, required VoidCallback callBack, required String title}) async {
+updateNoteDialog(
+    {required BuildContext context, required VoidCallback callBack, required String title}) async {
   return showDialog(
     context: context,
     builder: (context) {

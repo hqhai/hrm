@@ -8,6 +8,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/item_list_requisition.dart';
 import 'package:base_app/presentations/widgets/custom/shimmer_load.dart';
+import 'package:base_app/presentations/widgets/erro_or_data_not_exist/data_not_exist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,8 +24,7 @@ class TabBarViewListRequestSelf extends StatefulWidget {
   final bool checkLoad;
 
   @override
-  State<TabBarViewListRequestSelf> createState() =>
-      _TabBarViewListRequestSelfState();
+  State<TabBarViewListRequestSelf> createState() => _TabBarViewListRequestSelfState();
 }
 
 class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
@@ -40,9 +40,7 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems &&
-        controller.position.extentAfter < totalItems &&
-        checkLoad) {
+    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
         checkLoad = false;
         pageIndex++;
@@ -76,13 +74,15 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
           child: SizedBox(
             height: height * 0.85,
             child: widget.checkLoad
-                ? ListView.builder(
-                    controller: controller,
-                    itemCount: state.requisitionIds.length,
-                    itemBuilder: (context, index) => ItemRequisitionList(
-                      id: state.requisitionIds[index],
-                    ),
-                  )
+                ? state.requisitionIds.isNotEmpty
+                    ? ListView.builder(
+                        controller: controller,
+                        itemCount: state.requisitionIds.length,
+                        itemBuilder: (context, index) => ItemRequisitionList(
+                          id: state.requisitionIds[index],
+                        ),
+                      )
+                    : const DataNotExist()
                 : const ShimmerLoad(),
           ),
         );

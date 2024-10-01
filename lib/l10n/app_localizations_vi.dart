@@ -2083,4 +2083,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get inputNameStaff => 'Nhập tên nhân viên';
+
+  @override
+  String get edit2 => 'Chưa chỉnh sửa đơn';
 }

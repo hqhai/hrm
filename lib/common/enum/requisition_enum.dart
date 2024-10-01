@@ -212,6 +212,31 @@ extension ConfigRequestStatusExtension on StatusRequestEnum {
   }
 }
 
+extension ConfigRequestStatusSeftExtension on StatusRequestEnum {
+  String get getRequestStatusNameSeft {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
+    switch (this) {
+      case StatusRequestEnum.process:
+        return appLocalizations.process;
+      case StatusRequestEnum.reject:
+        return appLocalizations.reject;
+      case StatusRequestEnum.edit:
+        return appLocalizations.edit2;
+      case StatusRequestEnum.approve:
+        return appLocalizations.done;
+      case StatusRequestEnum.cancel:
+        return appLocalizations.cancel;
+      case StatusRequestEnum.overdueEdit:
+        return appLocalizations.overdueEdit;
+      case StatusRequestEnum.overdueApprove:
+        return appLocalizations.overdueApprove;
+      default:
+        return '';
+    }
+  }
+}
+
 enum EnumStepFlowType {
   @JsonValue('Start')
   start('Start'),

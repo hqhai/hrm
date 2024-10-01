@@ -2083,4 +2083,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get inputNameStaff => 'Input name staff';
+
+  @override
+  String get edit2 => 'Request revision';
 }
