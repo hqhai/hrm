@@ -7,7 +7,7 @@ abstract class NotificationService {
     required GetNotificationRequest getNotificationRequest,
   });
 
-  Future<void> changeNotificationStatus({
+  Future<bool> changeNotificationStatus({
     required ChangeStatusNotificationRequest changeStatusNotificationRequest,
   });
 }
