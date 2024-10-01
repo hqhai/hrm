@@ -434,7 +434,6 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                         color: colors.surfaceVariantLow.withOpacity(0.1),
                         child: ListView.builder(
                           itemCount: state.items.length,
-                          controller: scrollController,
                           itemBuilder: (context, index) => ItemPending(
                             data: state.items[index],
                             index: index,
@@ -861,6 +860,7 @@ class _SearchState extends State<_Search> {
         padding: const EdgeInsets.all(SpacingUnit.x2),
         child: TextField(
             controller: _textEditingController,
+            onEditingComplete: () => _onSearch(),
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: colors.outline, width: 0.5),
@@ -870,13 +870,7 @@ class _SearchState extends State<_Search> {
               isDense: true,
               hintText: appLocalizations.inputNameStaff,
               prefixIcon: InkWell(
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                  dI<WorkDayBloc>().add(GetWorkDayAdmin(
-                      data: WorkDayAdminRequest(
-                          requestStatus: widget.status,
-                          name: _textEditingController.text)));
-                },
+                onTap: () => _onSearch(),
                 child: const Icon(
                   Icons.search,
                   size: SpacingUnit.x8,
@@ -884,6 +878,18 @@ class _SearchState extends State<_Search> {
                 ),
               ),
             )),
+      ),
+    );
+  }
+
+  void _onSearch() {
+    FocusScope.of(context).unfocus();
+    dI<WorkDayBloc>().add(
+      GetWorkDayAdmin(
+        data: WorkDayAdminRequest(
+          requestStatus: widget.status,
+          name: _textEditingController.text,
+        ),
       ),
     );
   }
