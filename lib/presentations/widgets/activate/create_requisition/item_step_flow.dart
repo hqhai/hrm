@@ -46,7 +46,7 @@ class ItemStepFlow extends StatelessWidget {
               ),
             ),
             if (note.isNotEmpty)
-              GestureDetector(
+              InkWell(
                 onTap: () => getNote(context),
                 child: Icon(
                   Icons.edit,

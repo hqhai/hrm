@@ -689,5 +689,6 @@
   "cancelCancelShiftSuccess": "Hủy yêu cầu hủy ca thành công",
   "registeredShiftSuccessfully": "Đăng ký ca thành công, ca đang được chờ duyệt",
   "remove2": "Gỡ khỏi ca",
-  "inputNameStaff": "Nhập tên nhân viên"
+  "inputNameStaff": "Nhập tên nhân viên",
+  "edit2": "Chưa chỉnh sửa đơn"
 }
