@@ -322,30 +322,27 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                                         : ColorUtils.parseHex("#B2B7BC"),
                                   ),
                                 ),
-                                if (tabStatus[index] == selectType) ...[
-                                  const SizedBox(width: SpacingUnit.x2),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: SpacingUnit.x2,
-                                        vertical: SpacingUnit.x1),
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(SpacingUnit.x3),
-                                      color: ColorUtils.parseHex("#EAF0FF"),
+                                const SizedBox(width: SpacingUnit.x2),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: SpacingUnit.x2,
+                                      vertical: SpacingUnit.x1),
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(SpacingUnit.x3),
+                                    color: ColorUtils.parseHex("#EAF0FF"),
+                                  ),
+                                  child: Text(
+                                    state.items
+                                        .where((element) =>
+                                            element.status == tabStatus[index])
+                                        .length
+                                        .toString(),
+                                    style: theme.textTheme.titleSmall?.copyWith(
+                                      color: ColorUtils.parseHex("#2F6BFF"),
                                     ),
-                                    child: Text(
-                                      state.items
-                                          .where((element) =>
-                                              element.status == selectType)
-                                          .length
-                                          .toString(),
-                                      style:
-                                          theme.textTheme.titleSmall?.copyWith(
-                                        color: ColorUtils.parseHex("#2F6BFF"),
-                                      ),
-                                    ),
-                                  )
-                                ]
+                                  ),
+                                )
                               ],
                             ),
                           ),
