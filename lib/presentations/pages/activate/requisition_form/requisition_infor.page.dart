@@ -166,7 +166,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                             callBackReject: () => _isApprover(
                                 state.requisition, context, EnumStepRequestStatusEnum.reject),
                           ),
-                        if (checkFirstStepApprove(state.requisition) &&
+                        if (state.requisition.isFirstStep &&
                             widget.checkUser == RequestSeeByWho.manager)
                           ButtonItemListRequisition(
                             colorText: colors.error,
@@ -187,7 +187,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     );
   }
 
-  bool checkFirstStepApprove(Request request) {
+  /*bool checkFirstStepApprove(Request request) {
     if (request.status == StatusRequestEnum.approve) {
       final id = dI<UserBloc>().state.user.id;
       final stepRequests = request.stepRequests
@@ -199,9 +199,10 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
               0.compareTo(b.createdDate?.microsecondsSinceEpoch ?? 0);
           return dateComparison;
         });
-        final stepRequestApprovers = stepRequests.first.stepRequestApprovers;
+        final stepRequestApprovers = stepRequests.last.stepRequestApprovers;
         if (stepRequestApprovers != []) {
           final checkId = stepRequestApprovers!.first.approverId == id;
+          //final checkId = stepRequestApprovers!.any((element) => element.approverId == id,);
           return checkId;
         }
         return false;
@@ -209,7 +210,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
       return false;
     }
     return false;
-  }
+  }*/
 
   _isApprover(request, BuildContext context, EnumStepRequestStatusEnum status) {
     String idUser = dI<UserBloc>().state.user.id;

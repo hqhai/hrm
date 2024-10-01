@@ -28,6 +28,7 @@ class Request extends Equatable {
   @JsonKey(unknownEnumValue: StatusRequestEnum.unknown)
   final StatusRequestEnum status;
   final String createdPositionId;
+  final bool isFirstStep;
   final String createdDepartmentId;
   final List<String> followerIds;
   final List<StepRequests> stepRequests;
@@ -57,10 +58,10 @@ class Request extends Equatable {
       this.createdCode = '',
       this.nameCreatedDepartment = '',
       this.nameCreatedPosition = '',
-      this.nameFlow = ''});
+      this.nameFlow = '',
+      this.isFirstStep = false});
 
-  factory Request.fromJson(Map<String, dynamic> json) =>
-      _$RequestFromJson(json);
+  factory Request.fromJson(Map<String, dynamic> json) => _$RequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$RequestToJson(this);
 
@@ -85,5 +86,6 @@ class Request extends Equatable {
         createdCode,
         nameCreatedPosition,
         nameCreatedDepartment,
+        isFirstStep
       ];
 }

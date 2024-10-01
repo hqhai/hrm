@@ -268,3 +268,13 @@ bool listStatusRequestEquals<StatusRequestEnum>(
   }
   return true;
 }
+
+String countStatus(int count){
+  if(count > 99) {
+    return '99+';
+  }
+  if(count <= 99 && count >= 10){
+    return '$count';
+  }
+  return ' $count ';
+}

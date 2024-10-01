@@ -78,6 +78,7 @@ class PathConfig {
   static String shiftById = '/admin/work-shift';
   static String shiftByIds = '/work-shift/get-workshifts';
   static String getWorkShiftByUser = '/workshift-request/get-workshift-request-by-user';
+  static String workShiftApproveCount =  '/workshift-approve/count';
 
   ///notification
   static String notification = '/notification-message';
