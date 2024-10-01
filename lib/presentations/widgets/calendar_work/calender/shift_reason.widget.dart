@@ -9,7 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ShiftReasonWidget extends StatefulWidget {
-  const ShiftReasonWidget({super.key, required this.reasonController, required this.data});
+  const ShiftReasonWidget(
+      {super.key, required this.reasonController, required this.data});
 
   final TextEditingController reasonController;
   final Shift data;
@@ -29,14 +30,15 @@ class _ShiftReasonWidgetState extends State<ShiftReasonWidget> {
     if (widget.data.workShiftApproves.isEmpty) {
       return '';
     } else {
-      widget.data.workShiftApproves.sort(
-          (a, b) => (a.createdDate ?? DateTime.now()).compareTo(b.createdDate ?? DateTime.now()));
+      widget.data.workShiftApproves.sort((a, b) =>
+          (a.createdDate ?? DateTime.now())
+              .compareTo(b.createdDate ?? DateTime.now()));
       return widget.data.workShiftApproves.first.note;
     }
   }
 
   bool enabled() {
-    return content().isEmpty && widget.data.status == WorkShiftRequestStatus.reject;
+    return widget.data.status == WorkShiftRequestStatus.approve;
   }
 
   @override
@@ -73,7 +75,8 @@ class _ShiftReasonWidgetState extends State<ShiftReasonWidget> {
               controller: widget.reasonController,
               maxLines: 7,
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderSide: BorderSide(color: colors.outline)),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: colors.outline)),
                 disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: colors.outline),
                 ),
