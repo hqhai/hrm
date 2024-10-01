@@ -60,7 +60,7 @@ class _ItemInListNotificationState extends State<ItemInListNotification> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      formatHM(notification.createdDate.toString()),
+                      formatHM(dateTimeLocal(notification.createdDate).toString()),
                       style: TextStyle(
                         color: colors.text.withOpacity(0.5),
                         fontSize: SpacingUnit.x4,
