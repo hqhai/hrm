@@ -69,11 +69,14 @@ class CreateRequisitionLeavePage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionLeavePage> createState() => _CreateRequisitionLeavePageState();
+  State<CreateRequisitionLeavePage> createState() =>
+      _CreateRequisitionLeavePageState();
 }
 
-class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+class _CreateRequisitionLeavePageState
+    extends State<CreateRequisitionLeavePage> {
+  final TextEditingController detailedDescriptionController =
+      TextEditingController();
   String description = '';
   DateTime? startTime, endTime;
   double numberValue = 0;
@@ -84,7 +87,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   String errorShift = '', errorDialog = '', errorDescription = '';
   bool checkClick = false;
   final DateTime now = DateTime.now();
-  EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
+  EnumTakeLeaveType takeLeaveType =
+      EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
   EnumSocialInsuranceLeave? socialInsuranceLeave;
   EnumReasonLeave? reason;
 
@@ -104,7 +108,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         listWorkShift = [...request.config.workShiftSettings];
         checkShirtFirst = false;
         if (listWorkShift.isNotEmpty) {
-          numberValue = listWorkShift.map((e) => e.workEffort).reduce((a, b) => a + b);
+          numberValue =
+              listWorkShift.map((e) => e.workEffort).reduce((a, b) => a + b);
         }
       });
       /* dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
@@ -141,7 +146,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     final appLocalizations = AppLocalizations.of(context)!;
     final checkListWorkShift = listWorkShift.isNotEmpty;
     setState(() {
-      errorShift = !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
+      errorShift =
+          !checkListWorkShift ? appLocalizations.notSelectedAShift : '';
     });
 
     return checkListWorkShift;
@@ -153,8 +159,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -193,20 +200,26 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         typeSocialInsurance: socialInsuranceLeave,
                         onChange: (value) => _setReason(value),
                         type: takeLeaveType,
-                        onChangeSocialInsurance: (value) => setSocialInsurance(value),
+                        onChangeSocialInsurance: (value) =>
+                            setSocialInsurance(value),
                       ),
-                      if(takeLeaveType != EnumTakeLeaveType.unpaidLeave && checkReason())
-                      ItemTakeLeaveWork(reasonLeave: reason, type: takeLeaveType),
+                      if (takeLeaveType != EnumTakeLeaveType.unpaidLeave &&
+                          checkReason())
+                        ItemTakeLeaveWork(
+                            reasonLeave: reason, type: takeLeaveType),
                       const SizedBox(height: SpacingUnit.x4),
                       TitleRequired(
-                          title: appLocalizations.intervalOnLeave, requiredValidate: true),
+                          title: appLocalizations.intervalOnLeave,
+                          requiredValidate: true),
                       const SizedBox(height: SpacingUnit.x2),
                       PeriodTimePicker(
                         oldEndTime: endTime,
                         oldStarTime: startTime,
                         title: appLocalizations.intervalOnLeave,
-                        setStarTime: (value) => setStartTime(value ?? DateTime.now()),
-                        setEndTime: (value) => setEndTime(value ?? DateTime.now()),
+                        setStarTime: (value) =>
+                            setStartTime(value ?? DateTime.now()),
+                        setEndTime: (value) =>
+                            setEndTime(value ?? DateTime.now()),
                         fontWeightTitle: FontWeight.w600,
                       ),
                       if (!checkShirtFirst) ...[
@@ -225,7 +238,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                       ],
                       BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
                         builder: (context, stateShift) {
-                          return (errorShift.isNotEmpty) && stateShift.keys.isNotEmpty ||
+                          return (errorShift.isNotEmpty) &&
+                                      stateShift.keys.isNotEmpty ||
                                   checkShirtFirst
                               ? Text(
                                   errorShift,
@@ -243,7 +257,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                           value: numberValue.toString(),
                         ),
                       ItemCreateFollower(
-                        listFollower: _setListUser(stateUserById.subtitudePersons),
+                        listFollower:
+                            _setListUser(stateUserById.subtitudePersons),
                         title: appLocalizations.substitute,
                         onChange: (value) => _setSubstitute(value),
                       ),
@@ -257,7 +272,9 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
                         onChangeFiles: (value) => _setFile(value),
                       ),
                       ItemCreateInputArea(
-                        textInputFormatter: [LengthLimitingTextInputFormatter(500)],
+                        textInputFormatter: [
+                          LengthLimitingTextInputFormatter(500)
+                        ],
                         error: errorDescription,
                         textController: detailedDescriptionController,
                         title: appLocalizations.detailedDescription,
@@ -345,11 +362,15 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
     saveRequest(
       files: files,
       context: context,
-      checkCreate:
-          !checkClick && widget.requestId.isEmpty && checkValidate(context) && checkReason(),
+      checkCreate: !checkClick &&
+          widget.requestId.isEmpty &&
+          checkValidate(context) &&
+          checkReason(),
       postRequestRequest: request(),
-      checkEdit:
-          !checkClick && widget.requestId.isNotEmpty && checkValidate(context) && checkReason(),
+      checkEdit: !checkClick &&
+          widget.requestId.isNotEmpty &&
+          checkValidate(context) &&
+          checkReason(),
       checkLoadTrue: () => setCheckLoad(),
     );
   }
@@ -382,8 +403,8 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
         numberValue = 0;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: endTime!, startDate: startTime!, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: endTime!, startDate: startTime!, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {
@@ -396,17 +417,20 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   bool checkReason() {
     switch (takeLeaveType) {
       case EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave:
-        return reason == EnumReasonLeave.yearlyLeave || reason == EnumReasonLeave.seniorityLeave;
+        return reason == EnumReasonLeave.yearlyLeave ||
+            reason == EnumReasonLeave.seniorityLeave;
       case EnumTakeLeaveType.unpaidLeave:
         bool checkR = reason == EnumReasonLeave.noSalaryLeave ||
             reason == EnumReasonLeave.socialInsuranceLeave;
         bool checkS = reason != EnumReasonLeave.socialInsuranceLeave ||
-            (reason == EnumReasonLeave.socialInsuranceLeave && socialInsuranceLeave != null);
+            (reason == EnumReasonLeave.socialInsuranceLeave &&
+                socialInsuranceLeave != null);
         return checkR && checkS;
       case EnumTakeLeaveType.compensatoryLeave:
         return true;
       case EnumTakeLeaveType.otherPaidLeave:
-        return reason == EnumReasonLeave.mourningLeave || reason == EnumReasonLeave.weddingLeave;
+        return reason == EnumReasonLeave.mourningLeave ||
+            reason == EnumReasonLeave.weddingLeave;
       default:
         return false;
     }
@@ -421,7 +445,7 @@ class _CreateRequisitionLeavePageState extends State<CreateRequisitionLeavePage>
   _setType(EnumTakeLeaveType value) {
     setState(() {
       takeLeaveType = value;
-      if(value == EnumTakeLeaveType.compensatoryLeave){
+      if (value == EnumTakeLeaveType.compensatoryLeave) {
         reason = null;
       }
     });
