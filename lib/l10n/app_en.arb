@@ -693,5 +693,6 @@
   "remove2": "Remove",
   "inputNameStaff": "Input name staff",
   "edit2": "Request revision",
-  "errorNumber": "Quantity must not be left blank"
+  "errorNumber": "Quantity must not be left blank",
+  "errNotData": "Not data"
 }

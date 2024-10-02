@@ -55,7 +55,8 @@ class RequisitionInformationSenderInformation extends StatelessWidget {
     );
   }
 
-  Widget item({required String title, required String value, required Color color}) {
+  Widget item(
+      {required String title, required String value, required Color color}) {
     return Padding(
       padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
       child: Row(

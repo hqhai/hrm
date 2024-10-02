@@ -691,6 +691,7 @@
   "remove2": "Gỡ khỏi ca",
   "inputNameStaff": "Nhập tên nhân viên",
   "edit2": "Chưa chỉnh sửa đơn",
-  "errorNumber": "Số lượng không được để trống"
+  "errorNumber": "Số lượng không được để trống",
+  "errNotData": "Không có dữ liệu"
 
 }

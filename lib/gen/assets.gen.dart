@@ -60,8 +60,12 @@ class $AssetsImagesErrorGen {
   AssetGenImage get imageDataNoteExist =>
       const AssetGenImage('assets/images/error/image_data_note_exist.png');
 
+  /// File path: assets/images/error/no_data.png
+  AssetGenImage get noData =>
+      const AssetGenImage('assets/images/error/no_data.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [imageError, imageDataNoteExist];
+  List<AssetGenImage> get values => [imageError, imageDataNoteExist, noData];
 }
 
 class $AssetsImagesIconGen {
