@@ -46,9 +46,12 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   FutureOr<void> _userRejectRequestEvent(
       UserRejectRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
-      final bool check = await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
+      final bool check = await requisitionUseCase.userRejectRequisitionById(
+          id: event.id ?? "");
       if (check) {
-        final requestIds = state.requisitionIds.where((element) => element != event.id).toList();
+        final requestIds = state.requisitionIds
+            .where((element) => element != event.id)
+            .toList();
         emit(state.copyWith(
           requisitionIds: requestIds,
           errorCode: '',
@@ -74,7 +77,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
 
   ///get by filter ***********************************************
   FutureOr<void> _getRequisitionsByFilterEvent(
-      GetRequisitionsByFilterEvent event, Emitter<RequisitionState> emit) async {
+      GetRequisitionsByFilterEvent event,
+      Emitter<RequisitionState> emit) async {
     try {
       final RequestsResponse requestsResponse =
           await requisitionUseCase.getRequisitionsSelfByFilter(
@@ -171,20 +175,24 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   }
 
   ///Post Request     ***********************************************
-  FutureOr<void> _postRequestEvent(PostRequestEvent event, Emitter<RequisitionState> emit) async {
+  FutureOr<void> _postRequestEvent(
+      PostRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
       if (event.files.isNotEmpty) {
         final List<String> paths = [...await listPaths(event.files)];
-        final ConfigModelRequest configRequestModel = event.postRequestRequest.config;
+        final ConfigModelRequest configRequestModel =
+            event.postRequestRequest.config;
         final PostRequestRequest postRequestRequest = event.postRequestRequest
             .copyWith(config: configRequestModel.copyWith(attachments: paths));
-        await requisitionUseCase.postRequest(postRequestRequest: postRequestRequest);
+        await requisitionUseCase.postRequest(
+            postRequestRequest: postRequestRequest);
         emit(state.copyWith(
           errorCode: '',
         ));
         completerSuccess(requestId: '');
       } else {
-        await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
+        await requisitionUseCase.postRequest(
+            postRequestRequest: event.postRequestRequest);
         emit(state.copyWith(
           errorCode: '',
         ));
@@ -200,7 +208,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         if (currentContext.mounted) {
           final colors = AppTheme.getColors(currentContext);
           dI<AppNavigation>().pop(currentContext);
-          final errorDialog = ErrorUtils.getErrorMessage(errorCode, context: currentContext);
+          final errorDialog =
+              ErrorUtils.getErrorMessage(errorCode, context: currentContext);
           Fluttertoast.showToast(
               msg: errorDialog,
               toastLength: Toast.LENGTH_SHORT,
@@ -217,7 +226,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         if (currentContext.mounted) {
           final colors = AppTheme.getColors(currentContext);
           dI<AppNavigation>().pop(currentContext);
-          final errorDialog = ErrorUtils.getErrorMessage('error', context: currentContext);
+          final errorDialog =
+              ErrorUtils.getErrorMessage('error', context: currentContext);
           Fluttertoast.showToast(
               msg: errorDialog,
               toastLength: Toast.LENGTH_SHORT,
@@ -241,14 +251,17 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   }
 
   ///Edit Request     ***********************************************
-  FutureOr<void> _editRequestEvent(EditRequestEvent event, Emitter<RequisitionState> emit) async {
+  FutureOr<void> _editRequestEvent(
+      EditRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
       if (event.files.isNotEmpty) {
         final List<String> paths = [...await listPaths(event.files)];
-        final ConfigModelRequest configRequestModel = event.postRequestRequest.config;
+        final ConfigModelRequest configRequestModel =
+            event.postRequestRequest.config;
         final PostRequestRequest postRequestRequest = event.postRequestRequest
             .copyWith(config: configRequestModel.copyWith(attachments: paths));
-        final Request request = await requisitionUseCase.editRequestEdit(postRequestRequest: postRequestRequest);
+        final Request request = await requisitionUseCase.editRequestEdit(
+            postRequestRequest: postRequestRequest);
         final requests = state.requisitions;
         requests[event.postRequestRequest.id ?? ""] = request;
         emit(state.copyWith(
@@ -258,18 +271,23 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         ));
         completerSuccess(requestId: '');
       } else {
-        final Request request =
-        await requisitionUseCase.editRequestEdit(postRequestRequest: event.postRequestRequest);
+        final Request request = await requisitionUseCase.editRequestEdit(
+            postRequestRequest: event.postRequestRequest);
         final requests = state.requisitions;
         requests[event.postRequestRequest.id ?? ""] = request;
+
         emit(state.copyWith(
           errorCode: '',
           requisition: request,
           requisitions: requests,
         ));
-        completerSuccess(requestId: event.postRequestRequest.id ?? "");
-      }
 
+        final ids = state.requisitionIds
+            .where((element) => element != event.postRequestRequest.id)
+            .toList();
+        completerSuccess(requestId: event.postRequestRequest.id ?? "");
+        emit(state.copyWith(requisitionIds: ids));
+      }
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       if (e is ResponseBase) {
@@ -280,7 +298,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         if (currentContext.mounted) {
           final colors = AppTheme.getColors(currentContext);
           dI<AppNavigation>().pop(currentContext);
-          final errorDialog = ErrorUtils.getErrorMessage(errorCode, context: currentContext);
+          final errorDialog =
+              ErrorUtils.getErrorMessage(errorCode, context: currentContext);
           Fluttertoast.showToast(
               msg: errorDialog,
               toastLength: Toast.LENGTH_SHORT,
@@ -297,7 +316,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         if (currentContext.mounted) {
           final colors = AppTheme.getColors(currentContext);
           dI<AppNavigation>().pop(currentContext);
-          final errorDialog = ErrorUtils.getErrorMessage('error', context: currentContext);
+          final errorDialog =
+              ErrorUtils.getErrorMessage('error', context: currentContext);
           Fluttertoast.showToast(
               msg: errorDialog,
               toastLength: Toast.LENGTH_SHORT,
