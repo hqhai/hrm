@@ -236,7 +236,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
     required Map<DateTime, WorkDay> map,
     required String titlePopUp,
   }) async {
-    if (reasonController.text.isNotEmpty ||
+    if (reasonController.text.trim().isNotEmpty ||
         status == WorkShiftRequestStatus.pending ||
         status == WorkShiftRequestStatus.pendingCancel) {
       Completer completer = Completer<bool>();
