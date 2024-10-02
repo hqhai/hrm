@@ -68,6 +68,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       setState(() {
         selectType = WorkShiftRequestStatus.pending;
       });
+
       dI<WorkDayBloc>().add(
         const GetWorkDayAdmin(
           data: WorkDayAdminRequest(
@@ -244,7 +245,6 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         }
         break;
       default:
-        () {};
     }
   }
 
@@ -262,9 +262,10 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
           ]
         : [
             WorkShiftRequestStatus.approve,
-            WorkShiftRequestStatus.pendingCancel,
             WorkShiftRequestStatus.pending,
-            WorkShiftRequestStatus.usable,
+            WorkShiftRequestStatus.pendingCancel,
+            WorkShiftRequestStatus.cancel,
+            WorkShiftRequestStatus.reject,
           ];
     return Scaffold(
       appBar: AppBar(
