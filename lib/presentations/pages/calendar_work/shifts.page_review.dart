@@ -12,6 +12,7 @@ import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
+import 'package:base_app/presentations/pages/calendar_work/widgets/reason_work_day_detail.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:common/utils/color_utils.dart';
@@ -63,22 +64,45 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     Navigator.pop(context);
   }
 
-  _onSubmit(
-      {required String note,
-      required String id,
-      required Map<DateTime, WorkDay> map}) async {
-    Completer completerCancel = Completer();
-    dI<WorkDayBloc>().add(CancelRegisterWorkDay(
-      data: CancelWorkDayRequest(note: "note", id: id),
-      completer: completerCancel,
-    ));
-    final checkCancel = await completerCancel.future;
-    if (checkCancel) {
-      Completer completer = Completer();
-      dI<WorkDayBloc>().add(GetWorkDayByUser(completer: completer));
-      final check = await completer.future;
-      if (check) {
-        _onBack();
+  _onSubmit({
+    required String note,
+    required String id,
+    required Map<DateTime, WorkDay> map,
+    required WorkShiftRequestStatus status,
+  }) async {
+    if (status == WorkShiftRequestStatus.approve) {
+      if (reasonController.text.trim().isNotEmpty) {
+        Completer completerCancel = Completer();
+        dI<WorkDayBloc>().add(CancelRegisterWorkDay(
+          data: CancelWorkDayRequest(note: "note", id: id),
+          completer: completerCancel,
+        ));
+        final checkCancel = await completerCancel.future;
+        if (checkCancel) {
+          Completer completer = Completer();
+          dI<WorkDayBloc>().add(GetWorkDayByUser(completer: completer));
+          final check = await completer.future;
+          if (check) {
+            _onBack();
+          }
+        }
+      } else {
+        ToastUtils().showError("Lý do không được bỏ trống");
+      }
+    } else {
+      Completer completerCancel = Completer();
+      dI<WorkDayBloc>().add(CancelRegisterWorkDay(
+        data: CancelWorkDayRequest(note: "note", id: id),
+        completer: completerCancel,
+      ));
+      final checkCancel = await completerCancel.future;
+      if (checkCancel) {
+        Completer completer = Completer();
+        dI<WorkDayBloc>().add(GetWorkDayByUser(completer: completer));
+        final check = await completer.future;
+        if (check) {
+          _onBack();
+        }
       }
     }
   }
@@ -164,39 +188,55 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
           body: SizedBox(
             width: MediaQuery.sizeOf(context).width,
             height: MediaQuery.sizeOf(context).height,
-            child: Padding(
-              padding: const EdgeInsets.all(SpacingUnit.x4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _ShiftsContentWidget(
-                    data: data,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _ShiftsContentWidget(
+                          data: data,
+                        ),
+                        data.status == WorkShiftRequestStatus.approve
+                            ? ReasonWorkDayDetail(
+                                reasonController: reasonController,
+                                data: data.note,
+                                status: data.status,
+                              )
+                            : const SizedBox(),
+                        Divider(
+                          color: colors.textTertiary,
+                          height: SpacingUnit.x0_25,
+                        ),
+                        const SizedBox(height: SpacingUnit.x1),
+                        Text(
+                          appLocalizations.shiftHistory,
+                          style: theme.textTheme.titleMedium!
+                              .copyWith(fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: SpacingUnit.x2),
+                        _Item(listStatus[0], index),
+                        const _ItemLine(),
+                        _Item(listStatus[1], index),
+                        const _ItemLine(),
+                        _Item(listStatus[2], index),
+                        const _ItemLine(),
+                        _Item(listStatus[3], index),
+                        const _ItemLine(),
+                        _Item(listStatus[4], index),
+                        const _ItemLine(),
+                        _Item(listStatus[5], index),
+                      ],
+                    ),
                   ),
-                  Divider(
-                    color: colors.textTertiary,
-                    height: SpacingUnit.x0_25,
-                  ),
-                  const SizedBox(height: SpacingUnit.x1),
-                  Text(
-                    appLocalizations.shiftHistory,
-                    style: theme.textTheme.titleMedium!
-                        .copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: SpacingUnit.x2),
-                  _Item(listStatus[0], index),
-                  const _ItemLine(),
-                  _Item(listStatus[1], index),
-                  const _ItemLine(),
-                  _Item(listStatus[2], index),
-                  const _ItemLine(),
-                  _Item(listStatus[3], index),
-                  const _ItemLine(),
-                  _Item(listStatus[4], index),
-                  const _ItemLine(),
-                  _Item(listStatus[5], index),
-                  const SizedBox(height: SpacingUnit.x4),
-                  if (checkType(data.status))
-                    AppButton(
+                ),
+                if (checkType(data.status))
+                  Padding(
+                    padding: const EdgeInsets.all(SpacingUnit.x4),
+                    child: AppButton(
                       colorText: Colors.white,
                       title: mapByStatus(
                           context: context, status: data.status)['titleButton'],
@@ -218,16 +258,17 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                             note: reasonController.text,
                             id: data.id,
                             map: state.workDays,
+                            status: data.status,
                           );
                         }
                       },
                       color: mapByStatus(
                           context: context, status: data.status)['color'],
                     ),
-                  // if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
-                  //   ShiftReasonWidget(reasonController: reasonController),
-                ],
-              ),
+                  ),
+                // if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
+                //   ShiftReasonWidget(reasonController: reasonController),
+              ],
             ),
           ),
         );
