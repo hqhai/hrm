@@ -7,7 +7,11 @@ import 'package:themes/themes.dart';
 
 class ItemCreateTotalMinute extends StatefulWidget {
   const ItemCreateTotalMinute(
-      {super.key, this.error, this.totalMinuteController, this.onChange, this.title});
+      {super.key,
+      this.error,
+      this.totalMinuteController,
+      this.onChange,
+      this.title});
 
   final TextEditingController? totalMinuteController;
   final ValueChanged<String>? onChange;
@@ -25,7 +29,9 @@ class _ItemCreateTotalMinuteState extends State<ItemCreateTotalMinute> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: SpacingUnit.x3,),
+        const SizedBox(
+          height: SpacingUnit.x3,
+        ),
         TitleRequired(
           title: widget.title ?? "",
           requiredValidate: true,

@@ -692,5 +692,6 @@
   "registeredShiftSuccessfully": "Registered Shift Successfully, shift is awaiting approval",
   "remove2": "Remove",
   "inputNameStaff": "Input name staff",
-  "edit2": "Request revision"
+  "edit2": "Request revision",
+  "errorNumber": "Quantity must not be left blank"
 }

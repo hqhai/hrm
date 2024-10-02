@@ -2086,4 +2086,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get edit2 => 'Chưa chỉnh sửa đơn';
+
+  @override
+  String get errorNumber => 'Số lượng không được để trống';
 }

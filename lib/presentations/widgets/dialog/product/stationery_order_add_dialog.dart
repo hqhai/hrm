@@ -82,7 +82,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     productController.text = widget.stationery?.product ?? "";
     unitController.text = widget.stationery?.unit ?? "";
     unitPriceController.text = (widget.stationery?.unitPrice ?? 0).toString();
-    numberOfController.text = (widget.stationery?.quantity ?? 0).toString();
+    numberOfController.text = (widget.stationery?.quantity ?? '').toString();
     noteController.text = widget.stationery?.note ?? "";
     product = widget.stationery?.product ?? "";
     unit = widget.stationery?.unit ?? "";
@@ -113,7 +113,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
                     : product,
             callback: () => setTypeContainer(),
           ),
-          if (checkTypeContainer)
+          if (checkTypeContainer) ...[
             ItemAddStationeryDialog(
               type: RequisitionTypeEnum.stationery,
               check: true,
@@ -125,37 +125,44 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
               unitPriceController: unitPriceController,
               callBack: () => _showBottomSheet(context),
             ),
-          if (checkTypeContainer)
             ItemCreateTotalMinute(
               error: errorNumberOf,
               title: appLocalizations.numberOf,
               totalMinuteController: numberOfController,
               onChange: (value) => _setNumber(value, context),
             ),
-          if (checkTypeContainer)
             ItemIntoMoney(
               title: appLocalizations.intoMoneyNoVAT,
               content: intoMoney.toInt().toString(),
             ),
-          if (checkTypeContainer)
             ItemCreateInput(
               title: appLocalizations.note,
               inputController: noteController,
               onChange: (value) => _setNote(value),
             ),
-          if (checkTypeContainer)
             Padding(
               padding: const EdgeInsets.symmetric(
                   vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 title: appLocalizations.cancel,
-                onSubmit: () => widget.callBack.call(),
+                onSubmit: () => _onSubmit(),
                 color: colors.error.withOpacity(0.7),
               ),
             )
+          ]
         ],
       ),
     );
+  }
+
+  void _onSubmit() {
+    if (numberOfController.text.isEmpty) {
+      final appLocalizations = AppLocalizations.of(context)!;
+      setState(() {
+        errorNumberOf = appLocalizations.errorNumber;
+      });
+    }
+    widget.callBack.call();
   }
 
   _setNote(String value) {
@@ -177,6 +184,9 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
   }
 
   _setNumber(String value, BuildContext context) {
+    if (value.startsWith('0')) {
+      numberOfController.text = value.substring(1);
+    }
     setState(() {
       numberOf = value != '' ? int.parse(value) : 0;
       intoMoney = unitPrice * numberOf;

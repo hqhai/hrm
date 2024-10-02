@@ -4238,6 +4238,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Request revision'**
   String get edit2;
+
+  /// No description provided for @errorNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity must not be left blank'**
+  String get errorNumber;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
