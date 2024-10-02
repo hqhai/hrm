@@ -4244,6 +4244,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quantity must not be left blank'**
   String get errorNumber;
+
+  /// No description provided for @errNotData.
+  ///
+  /// In en, this message translates to:
+  /// **'Not data'**
+  String get errNotData;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

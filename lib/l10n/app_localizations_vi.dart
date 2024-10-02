@@ -2089,4 +2089,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get errorNumber => 'Số lượng không được để trống';
+
+  @override
+  String get errNotData => 'Không có dữ liệu';
 }

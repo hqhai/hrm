@@ -2089,4 +2089,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorNumber => 'Quantity must not be left blank';
+
+  @override
+  String get errNotData => 'Not data';
 }
