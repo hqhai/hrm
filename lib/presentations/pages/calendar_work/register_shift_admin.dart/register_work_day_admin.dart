@@ -68,15 +68,24 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       setState(() {
         selectType = WorkShiftRequestStatus.pending;
       });
-      dI<WorkDayBloc>().add(GetElectiveShift(
-          data: WorkDayGetElectiveShiftRequest(
-        pageSize: days,
-        isApprove: true,
-        startDate: formatYYMMDD(
-            DateTime.now().subtract(Duration(days: days)).toString()),
-        endDate:
-            formatYYMMDD(DateTime.now().add(Duration(days: days)).toString()),
-      )));
+      dI<WorkDayBloc>().add(
+        const GetWorkDayAdmin(
+          data: WorkDayAdminRequest(
+            requestStatus: WorkShiftRequestStatus.pending,
+            name: '',
+          ),
+        ),
+      );
+
+      dI<WorkDayBloc>().add(
+        const GetWorkDayAdmin(
+          data: WorkDayAdminRequest(
+            requestStatus: WorkShiftRequestStatus.pendingCancel,
+            name: '',
+          ),
+        ),
+      );
+
       _loadData();
     }
     super.initState();
@@ -298,7 +307,8 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: SpacingUnit.x4),
+                            horizontal: SpacingUnit.x4,
+                          ),
                           decoration: BoxDecoration(
                             border: Border(
                               top: const BorderSide(width: 0),
@@ -325,8 +335,9 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                                 const SizedBox(width: SpacingUnit.x2),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: SpacingUnit.x2,
-                                      vertical: SpacingUnit.x1),
+                                    horizontal: SpacingUnit.x2,
+                                    vertical: SpacingUnit.x1,
+                                  ),
                                   decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.circular(SpacingUnit.x3),
@@ -357,6 +368,9 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                           });
                         },
                         child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: SpacingUnit.x4,
+                          ),
                           decoration: BoxDecoration(
                             border: Border(
                               top: const BorderSide(width: 0),
@@ -368,12 +382,50 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                                   : const BorderSide(width: 0),
                             ),
                           ),
-                          width: MediaQuery.sizeOf(context).width /
-                              (index == 0 ? 2.35 : 2.5),
                           child: Center(
-                            child: Text(
-                              tabStatus[index].configWorkShiftRequestStatusName,
-                              style: theme.textTheme.titleMedium,
+                            child: Row(
+                              children: [
+                                Text(
+                                  tabStatus[index]
+                                      .configWorkShiftRequestStatusName,
+                                  style: theme.textTheme.titleMedium,
+                                ),
+                                index < 2
+                                    ? Row(
+                                        children: [
+                                          const SizedBox(width: SpacingUnit.x2),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: SpacingUnit.x2,
+                                              vertical: SpacingUnit.x1,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                SpacingUnit.x3,
+                                              ),
+                                              color: ColorUtils.parseHex(
+                                                  "#EAF0FF"),
+                                            ),
+                                            child: Text(
+                                              index == 0
+                                                  ? state.itemsPending.length
+                                                      .toString()
+                                                  : state
+                                                      .itemsPendingCancel.length
+                                                      .toString(),
+                                              style: theme.textTheme.titleSmall
+                                                  ?.copyWith(
+                                                color: ColorUtils.parseHex(
+                                                  "#2F6BFF",
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    : const SizedBox(),
+                              ],
                             ),
                           ),
                         ),

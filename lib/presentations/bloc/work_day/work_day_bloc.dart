@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/error_utils.dart';
 import 'package:base_app/common/utils/toast_utils.dart';
@@ -138,8 +139,18 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
     try {
       final data = await _locationUseCase.getWorkDaysAdmin(request: event.data);
       emit(state.copyWith(items: data.items, pagingInfo: data.pagingInfo));
+      if (event.data.requestStatus == WorkShiftRequestStatus.pending) {
+        emit(state.copyWith(
+          itemsPending: data.items,
+        ));
+      } else if (event.data.requestStatus ==
+          WorkShiftRequestStatus.pendingCancel) {
+        emit(state.copyWith(
+          itemsPendingCancel: data.items,
+        ));
+      }
       event.completer?.complete(true);
-    } catch(e){
+    } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       if (e is ResponseBase) {
         final String? errorCode = e.errorMessages.first.errorCode;
@@ -169,14 +180,15 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       GetElectiveShift event, Emitter<WorkDayState> emit) async {
     try {
       final data =
-      await _locationUseCase.workDayGetElectiveShift(request: event.data);
-      final electiveShiftItems = data.items.expand((element) => element.workShiftRegisteredDetails)
+          await _locationUseCase.workDayGetElectiveShift(request: event.data);
+      final electiveShiftItems = data.items
+          .expand((element) => element.workShiftRegisteredDetails)
           .toList();
       emit(state.copyWith(
           electiveShiftItems: electiveShiftItems,
           electiveShiftPagingInfo: data.pagingInfo));
       event.completer?.complete(true);
-    }catch(e){
+    } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       if (e is ResponseBase) {
         final String? errorCode = e.errorMessages.first.errorCode;
@@ -209,7 +221,8 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
     emit(state.copyWith(
         itemsDetail: data.items, pagingInfoDetail: data.pagingInfo));
   }
-///Hủy chờ duyệt ca
+
+  ///Hủy chờ duyệt ca
   FutureOr<void> _registerAdmin(
       RegisterWorkDayAdmin event, Emitter<WorkDayState> emit) async {
     try {
@@ -297,11 +310,13 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
     return state.toJson();
   }
 
-  FutureOr<void> _resetWorkDayEvent(ResetWorkDayEvent event, Emitter<WorkDayState> emit) {
+  FutureOr<void> _resetWorkDayEvent(
+      ResetWorkDayEvent event, Emitter<WorkDayState> emit) {
     emit(const WorkDayState());
   }
 
-  FutureOr<void> _addApprove(AddApprove event, Emitter<WorkDayState> emit) async {
+  FutureOr<void> _addApprove(
+      AddApprove event, Emitter<WorkDayState> emit) async {
     try {
       await _locationUseCase.addApprove(request: event.request);
       event.completer?.complete(true);
