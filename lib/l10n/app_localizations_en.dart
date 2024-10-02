@@ -2086,4 +2086,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get edit2 => 'Request revision';
+
+  @override
+  String get errorNumber => 'Quantity must not be left blank';
 }
