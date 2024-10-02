@@ -161,6 +161,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
                             titlePopUp: mapByStatus(
                                 context: context,
                                 status: data.status)['success'],
+                            errorCode: state.errorCode,
                           );
                         }
                       },
@@ -235,6 +236,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
     required WorkShiftRequestStatus status,
     required Map<DateTime, WorkDay> map,
     required String titlePopUp,
+    required String errorCode,
   }) async {
     if (reasonController.text.trim().isNotEmpty ||
         status == WorkShiftRequestStatus.pending ||
@@ -249,7 +251,9 @@ class _ShiftsPageState extends State<ShiftsPage> {
             startDate: map.keys.first, endDate: map.keys.last));
         if (context.mounted) {
           Navigator.pop(context);
-          dialogSuccess(context: context, title: titlePopUp, isPop: false);
+          if (errorCode.isEmpty) {
+            dialogSuccess(context: context, title: titlePopUp, isPop: false);
+          }
         }
       }
     } else {
