@@ -33,7 +33,7 @@ class _ShiftReasonWidgetState extends State<ShiftReasonWidget> {
       widget.data.workShiftApproves.sort((a, b) =>
           (a.createdDate ?? DateTime.now())
               .compareTo(b.createdDate ?? DateTime.now()));
-      return widget.data.workShiftApproves.first.note;
+      return widget.data.workShiftApproves.first.content;
     }
   }
 
