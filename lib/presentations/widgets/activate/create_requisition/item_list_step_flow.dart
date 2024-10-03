@@ -1,7 +1,7 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/entities/requisition/step_flow.dart';
-import 'package:base_app/domain/entities/requisition/step_requests.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
@@ -47,12 +47,9 @@ class ItemListStepFlow extends StatelessWidget {
                       children: state.flow.stepFlows
                           .mapIndexed(
                             (index, element) => ItemStepFlow(
-                              note: setNote(
-                                  stateRequisition.requisition.stepRequests,
-                                  element),
+                              note: '',
                               checkApprove: _setCheckAppRove(
-                                  stepRequests:
-                                      stateRequisition.requisition.stepRequests,
+                                  request: stateRequisition.requisition,
                                   indexData: index,
                                   stepFlows: state.flow.stepFlows),
                               nameUserApprove: element.name,
@@ -72,33 +69,35 @@ class ItemListStepFlow extends StatelessWidget {
   }
 
   bool _setCheckAppRove(
-      {required List<StepRequests> stepRequests,
+      {required Request request,
       required int indexData,
       required List<StepFlow> stepFlows}) {
-    final itemsRequest = stepRequests
-        .where(
-            (element) => element.status == EnumStepRequestStatusEnum.newStatus)
-        .toList();
+    final stepRequests = request.stepRequests;
+    if (request.status == StatusRequestEnum.approve) return true;
+    if (stepRequests.isEmpty) return false;
+    final dates =
+        stepRequests.map((e) => e.createdDate ?? DateTime.now()).toList();
+    final date = _nearestDate(data: dates);
+    final itemsRequest =
+        stepRequests.where((element) => element.createdDate == date).toList();
     if (itemsRequest.isEmpty) return false;
     final stepFlowId = itemsRequest[0].stepFlowId;
-    final index = stepFlows.indexWhere((element) => element.id == stepFlowId);
+    int index = stepFlows.indexWhere((element) => element.id == stepFlowId);
     if (index == -1) return false;
     if (indexData <= index) return true;
     return false;
   }
 
-  String setNote(List<StepRequests> stepRequests, StepFlow sFlow) {
-    final indexStepRequests =
-        stepRequests.indexWhere((element) => element.stepFlowId == sFlow.id);
-    if (indexStepRequests != -1 && !create) {
-      final stepRequest = stepRequests[indexStepRequests];
-      final stepRequestApprover = stepRequest.stepRequestApprovers ?? [];
-      final indexStepRequestApprove = stepRequestApprover
-          .indexWhere((element) => element.note?.isNotEmpty ?? false);
-      if (indexStepRequestApprove != -1 && !create) {
-        return stepRequestApprover[indexStepRequestApprove].note ?? "";
+  DateTime _nearestDate({required List<DateTime> data}) {
+    DateTime now = DateTime.now();
+    DateTime nearestDate = data[0];
+    for (DateTime date in data) {
+      if ((date.difference(now).abs()).inSeconds <
+          (nearestDate.difference(now).abs()).inSeconds) {
+        nearestDate = date;
       }
     }
-    return '';
+
+    return nearestDate;
   }
 }
