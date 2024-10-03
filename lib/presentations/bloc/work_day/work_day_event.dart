@@ -184,15 +184,15 @@ class CancelRegisterWorkDayAdmin extends WorkDayEvent {
 
 class GetWorkDayByUser extends WorkDayEvent {
   final Completer completer;
+  final WorkDayGetElectiveShiftRequest request;
 
   const GetWorkDayByUser({
+    required this.request,
     required this.completer,
   });
 
   @override
-  List<Object?> get props => [
-        completer,
-      ];
+  List<Object?> get props => [completer, request];
 }
 
 class ResetWorkDayEvent extends WorkDayEvent {

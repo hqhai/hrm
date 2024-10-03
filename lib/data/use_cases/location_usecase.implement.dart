@@ -131,8 +131,8 @@ class LocationUseCaseImpl extends LocationUseCase {
   }
 
   @override
-  Future<ShiftsAdminResponse> getWorkShiftRequestByUser() async {
-    return await _locationRepository.getWorkShiftRequestByUser();
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser({required WorkDayGetElectiveShiftRequest request}) async {
+    return await _locationRepository.getWorkShiftRequestByUser(request: request);
   }
 
   @override

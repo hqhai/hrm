@@ -17,6 +17,7 @@ class LayoutCalendarDialog extends StatefulWidget {
   final DateTime? startTime, endTime;
   final DateTime? startTimeOld, endTimeOld;
   final ValueChanged<DateTime?> callBackStartTime, callBackEndTime;
+  final bool bottomButton;
 
   const LayoutCalendarDialog(
       {super.key,
@@ -27,7 +28,8 @@ class LayoutCalendarDialog extends StatefulWidget {
       required this.callBackStartTime,
       required this.callBackEndTime,
       this.startTimeOld,
-      this.endTimeOld});
+      this.endTimeOld,
+      this.bottomButton = true});
 
   @override
   State<LayoutCalendarDialog> createState() => _LayoutCalendarDialogState();
@@ -159,12 +161,13 @@ class _LayoutCalendarDialogState extends State<LayoutCalendarDialog> {
               setEndTime: (value) => setEndTime(value),
               setStarTime: (value) => setStartTime(value),
             ),
-            ButtonRequest(
-              title1: appLocalizations.apply,
-              title2: appLocalizations.cancel,
-              apply: () => setApply(context),
-              reject: () => setReject(context),
-            ),
+            if (widget.bottomButton)
+              ButtonRequest(
+                title1: appLocalizations.apply,
+                title2: appLocalizations.cancel,
+                apply: () => setApply(context),
+                reject: () => setReject(context),
+              ),
           ],
         ),
       ),
@@ -198,12 +201,32 @@ class _LayoutCalendarDialogState extends State<LayoutCalendarDialog> {
   setStartTime(DateTime? value) {
     setState(() {
       startTime = value;
+      if (!widget.bottomButton) {
+        if (endTime == null && startTime != null) {
+          final date = timeE(startTime!);
+          widget.callBackStartTime.call(timeS(startTime!));
+          widget.callBackEndTime.call(date);
+        } else if (endTime != null && startTime != null) {
+          widget.callBackStartTime.call(timeS(startTime!));
+          widget.callBackEndTime.call(timeE(endTime!));
+        }
+      }
     });
   }
 
   setEndTime(DateTime? value) {
     setState(() {
       endTime = value;
+      if (!widget.bottomButton) {
+        if (endTime == null && startTime != null) {
+          final date = timeE(startTime!);
+          widget.callBackStartTime.call(timeS(startTime!));
+          widget.callBackEndTime.call(date);
+        } else if (endTime != null && startTime != null) {
+          widget.callBackStartTime.call(timeS(startTime!));
+          widget.callBackEndTime.call(timeE(endTime!));
+        }
+      }
     });
   }
 }

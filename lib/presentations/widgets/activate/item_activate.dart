@@ -5,10 +5,18 @@ import 'package:themes/themes.dart';
 
 class ItemActivateWidget extends StatefulWidget {
   const ItemActivateWidget(
-      {super.key, this.title = '', required this.callback});
+      {super.key,
+      this.title = '',
+      required this.callback,
+      this.color = Colors.white,
+      this.padding = SpacingUnit.x2,
+      this.paddingVertical = SpacingUnit.x2});
 
   final String title;
   final VoidCallback callback;
+  final Color color;
+  final double padding;
+  final double paddingVertical;
 
   @override
   State<ItemActivateWidget> createState() => _ItemActivateWidgetState();
@@ -22,10 +30,10 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
     return InkWell(
       onTap: widget.callback,
       child: ContainerBorder(
-        backgroundColors: colors.background,
-        borderColors: colors.background,
+        backgroundColors: widget.color,
+        borderColors: widget.color,
         width: width,
-        paddingVertical: SpacingUnit.x2,
+        paddingVertical: widget.paddingVertical,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,15 +41,13 @@ class _ItemActivateWidgetState extends State<ItemActivateWidget> {
             Expanded(
               flex: 7,
               child: Padding(
-                padding: const EdgeInsets.all(SpacingUnit.x2),
+                padding: EdgeInsets.all(widget.padding),
                 child: Text(
                   widget.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
-                      fontWeight: FontWeight.w600),
+                      color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
                 ),
               ),
             ),

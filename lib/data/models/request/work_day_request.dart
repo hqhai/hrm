@@ -1,4 +1,5 @@
 import 'package:base_app/common/enum/work_shift_request.dart';
+import 'package:base_app/common/utils/date_time_json.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'work_day_request.g.dart';
@@ -70,17 +71,18 @@ class WorkDayAdminRequest {
 }
 
 @JsonSerializable()
+@CustomDateTimeConverter()
 class WorkDayGetElectiveShiftRequest {
   final bool isApprove;
-  final String startDate;
-  final String endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final int page;
   final int pageSize;
 
   const WorkDayGetElectiveShiftRequest({
     this.isApprove = true,
-    this.endDate = '',
-    this.startDate = '',
+    this.endDate,
+    this.startDate,
     this.page = 1,
     this.pageSize = 7,
   });
@@ -118,6 +120,7 @@ class ApproveRequest {
     this.status = WorkShiftRequestStatus.approve,
     this.updateWorkShiftApproves = const [],
   });
+
   factory ApproveRequest.fromJson(Map<String, dynamic> json) =>
       _$ApproveRequestFromJson(json);
 

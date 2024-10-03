@@ -153,7 +153,7 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
     return startTime == null && endTime == null
         ? ''
         : startTime?.month == endTime?.month
-            ? '${mapMonthName[endTime?.month]} ${startTime?.day} - ${endTime?.day}, ${startTime?.year}'
+            ? '${GetMonth.mapMonthName[endTime?.month]} ${startTime?.day} - ${endTime?.day}, ${startTime?.year}'
             : '${formatYMD(startTime.toString())} - ${formatYMD(endTime.toString())}';
   }
 

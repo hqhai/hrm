@@ -80,7 +80,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
         final checkCancel = await completerCancel.future;
         if (checkCancel) {
           Completer completer = Completer();
-          dI<WorkDayBloc>().add(GetWorkDayByUser(completer: completer));
+          dI<WorkDayBloc>().add(GetWorkDayByUser(
+              completer: completer, request: const WorkDayGetElectiveShiftRequest()));
           final check = await completer.future;
           if (check) {
             _onBack();
@@ -98,7 +99,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
       final checkCancel = await completerCancel.future;
       if (checkCancel) {
         Completer completer = Completer();
-        dI<WorkDayBloc>().add(GetWorkDayByUser(completer: completer));
+        dI<WorkDayBloc>().add(GetWorkDayByUser(
+            completer: completer, request: const WorkDayGetElectiveShiftRequest()));
         final check = await completer.future;
         if (check) {
           _onBack();
@@ -109,9 +111,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
 
   _listener(BuildContext context, String errorCode) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty
-          ? ErrorUtils.getErrorMessage(errorCode, context: context)
-          : "";
+      errorDialog =
+          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
     });
   }
 
@@ -121,13 +122,13 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
       required Map<DateTime, WorkDay> map}) async {
     final appLocalizations = AppLocalizations.of(context)!;
     Completer completer = Completer<bool>();
-    dI<WorkDayBloc>()
-        .add(RegisterWorkDay(request: workDays, completer: completer));
+    dI<WorkDayBloc>().add(RegisterWorkDay(request: workDays, completer: completer));
     final check = await completer.future;
     if (check) {
       ToastUtils().showSuccess(appLocalizations.success);
       Completer completer = Completer();
-      dI<WorkDayBloc>().add(GetWorkDayByUser(completer: completer));
+      dI<WorkDayBloc>().add(
+          GetWorkDayByUser(completer: completer, request: const WorkDayGetElectiveShiftRequest()));
       await completer.future;
       if (context.mounted) {
         Navigator.pop(context);
@@ -146,8 +147,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     return BlocConsumer<WorkDayBloc, WorkDayState>(
       listener: (context, state) => _listener(context, state.errorCode),
       builder: (context, state) {
-        final data =
-            state.items.singleWhere((element) => element.id == widget.id);
+        final data = state.items.singleWhere((element) => element.id == widget.id);
         int index = listStatus.indexWhere((item) => item == data.status);
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -176,8 +176,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                           const SizedBox(width: SpacingUnit.x4),
                           Text(
                             appLocalizations.shiftDetails,
-                            style: theme.textTheme.titleLarge!
-                                .copyWith(fontWeight: FontWeight.w600),
+                            style:
+                                theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -214,8 +214,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                         const SizedBox(height: SpacingUnit.x1),
                         Text(
                           appLocalizations.shiftHistory,
-                          style: theme.textTheme.titleMedium!
-                              .copyWith(fontWeight: FontWeight.w600),
+                          style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: SpacingUnit.x2),
                         _Item(listStatus[0], index),
@@ -238,21 +237,15 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     child: AppButton(
                       colorText: Colors.white,
-                      title: mapByStatus(
-                          context: context, status: data.status)['titleButton'],
+                      title: mapByStatus(context: context, status: data.status)['titleButton'],
                       onSubmit: () {
                         if (data.status == WorkShiftRequestStatus.usable) {
-                          _register(
-                              context: context,
-                              map: state.workDays,
-                              workDays: [
-                                WorkDayRequest(
-                                  workShiftSettingDetailId:
-                                      data.workShiftSettingDetailId,
-                                  workDate:
-                                      formatYYMMDD(data.workDate.toString()),
-                                )
-                              ]);
+                          _register(context: context, map: state.workDays, workDays: [
+                            WorkDayRequest(
+                              workShiftSettingDetailId: data.workShiftSettingDetailId,
+                              workDate: formatYYMMDD(data.workDate.toString()),
+                            )
+                          ]);
                         } else {
                           _onSubmit(
                             note: reasonController.text,
@@ -262,8 +255,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                           );
                         }
                       },
-                      color: mapByStatus(
-                          context: context, status: data.status)['color'],
+                      color: mapByStatus(context: context, status: data.status)['color'],
                     ),
                   ),
                 // if (checkType(data?.status ?? WorkShiftRequestStatus.usable))
@@ -365,8 +357,7 @@ class _ShiftsContentWidget extends StatelessWidget {
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
           title: appLocalizations.workingTime1,
-          value:
-              '${strSeconds(data.startTime) ?? ''} - ${strSeconds(data.endTime) ?? ''}',
+          value: '${strSeconds(data.startTime) ?? ''} - ${strSeconds(data.endTime) ?? ''}',
         ),
         _TitleValueLeave(
           size: SpacingUnit.x3_5,
@@ -438,8 +429,7 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int statusIndex =
-        listStatus.indexWhere((element) => element == status);
+    final int statusIndex = listStatus.indexWhere((element) => element == status);
     final isCheck = index < statusIndex;
     return Row(
       children: [
