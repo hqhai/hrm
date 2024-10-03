@@ -17,6 +17,7 @@ class ItemDayOfWeek extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newDate = DateTime.now();
     final theme = Theme.of(context);
     final colors = AppTheme.getColors(context);
     return Container(
@@ -24,7 +25,11 @@ class ItemDayOfWeek extends StatelessWidget {
       height: SpacingUnit.x13,
       decoration: BoxDecoration(
           color: select ? ColorUtils.parseHex('#EAF0FF') : null,
-          borderRadius: BorderRadius.circular(SpacingUnit.x2)),
+          borderRadius: BorderRadius.circular(SpacingUnit.x2),
+          border: Border.all(
+              color:
+                  newDate.day == time.day ? colors.success : Colors.transparent,
+              width: 2)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

@@ -7,6 +7,7 @@ import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
@@ -21,6 +22,7 @@ class ItemDayOfList extends StatefulWidget {
   final bool selected;
   final VoidCallback onTap;
   final List<WorkDayRequest> listSelect;
+
   const ItemDayOfList({
     super.key,
     required this.dateTime,
@@ -103,6 +105,8 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                                   element.workShiftSettingDetailId ==
                                   e.workShiftSettingDetailId)
                               .isNotEmpty;
+                          final showCheckBox = _checkShowCheckBox(
+                              workDay: workDay, check: check, shift: e);
 
                           return InkWell(
                             onTap: () {
@@ -115,51 +119,59 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                                         .toJson());
                               }
                             },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: SpacingUnit.x4,
-                              ),
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: SpacingUnit.x1),
-                              alignment: Alignment.centerLeft,
-                              width: MediaQuery.sizeOf(context).width,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(SpacingUnit.x2),
-                                color: _colorByStatus(e.status),
-                              ),
-                              height: SpacingUnit.x12,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "${strSeconds(e.startTime)} - ${strSeconds(e.endTime)}",
-                                    style: theme.textTheme.bodyLarge,
-                                  ),
-                                  if (widget.isCheckBox &&
-                                      (e.status ==
-                                          WorkShiftRequestStatus.usable || e.status ==
-                                      WorkShiftRequestStatus.reject|| e.status ==
-                                          WorkShiftRequestStatus.cancel)) ...[
-                                    Checkbox(
-                                      side: const BorderSide(
-                                          color: Color(0xff585858)),
-                                      value: check,
-                                      onChanged: (value) {
-                                        widget.onChange(
-                                          WorkDayRequest(
-                                              workDate:
-                                                  widget.dateTime.toString(),
-                                              workShiftSettingDetailId:
-                                                  e.workShiftSettingDetailId),
-                                        );
-                                      },
+                            child: Opacity(
+                              opacity: showCheckBox ? 1 : 0.5,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: SpacingUnit.x4,
+                                ),
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: SpacingUnit.x1),
+                                alignment: Alignment.centerLeft,
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(SpacingUnit.x2),
+                                  color: _colorByStatus(e.status),
+                                ),
+                                height: SpacingUnit.x12,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${strSeconds(e.startTime)} - ${strSeconds(e.endTime)}",
+                                      style: theme.textTheme.bodyLarge,
                                     ),
-                                  ] else ...[
-                                    _widgetStatus(e.status)
-                                  ]
-                                ],
+                                    if (widget.isCheckBox &&
+                                        (e.status ==
+                                                WorkShiftRequestStatus.usable ||
+                                            e.status ==
+                                                WorkShiftRequestStatus.reject ||
+                                            e.status ==
+                                                WorkShiftRequestStatus
+                                                    .cancel)) ...[
+                                      showCheckBox
+                                          ? Checkbox(
+                                              side: const BorderSide(
+                                                  color: Color(0xff585858)),
+                                              value: check,
+                                              onChanged: (value) {
+                                                widget.onChange(
+                                                  WorkDayRequest(
+                                                      workDate: widget.dateTime
+                                                          .toString(),
+                                                      workShiftSettingDetailId:
+                                                          e.workShiftSettingDetailId),
+                                                );
+                                              },
+                                            )
+                                          : const SizedBox(),
+                                    ] else ...[
+                                      _widgetStatus(e.status)
+                                    ]
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -185,6 +197,32 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
         );
       },
     );
+  }
+
+  bool _checkShowCheckBox(
+      {required List<Shift> workDay,
+      required bool check,
+      required Shift shift}) {
+    final workShiftIds = widget.listSelect
+        .where((element) => element.workDate == widget.dateTime.toString())
+        .map((e) => e.workShiftSettingDetailId)
+        .toList();
+    final List<Shift> workShift = [];
+    workShiftIds.map((e) {
+      final index = workDay
+          .indexWhere((element) => element.workShiftSettingDetailId == e);
+      if (index != -1) {
+        workShift.add(workDay[index]);
+      }
+    }).toList();
+
+    bool showCheckBox = true;
+    if (!check) {
+      showCheckBox = workShift.every((element) =>
+          element.startTime < shift.startTime &&
+          element.endTime < shift.startTime);
+    }
+    return showCheckBox;
   }
 }
 
