@@ -53,7 +53,7 @@ abstract class LocationService {
   Future<ScheduleSchools> getScheduleSchool(
       {required DatetimeRequest datetimeRequest});
 
-  Future<ShiftsAdminResponse> getWorkShiftRequestByUser();
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser({required WorkDayGetElectiveShiftRequest request});
 
   Future<bool> registerDetailWorkDays({required WorkDayRequest request});
 }

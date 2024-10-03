@@ -107,7 +107,7 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
           ),
           Expanded(
             child: GridView.builder(
-              itemCount: mapMonth.length,
+              itemCount: GetMonth.mapMonth.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
                 mainAxisSpacing: 3,
@@ -121,7 +121,7 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
                   child: Center(
                     child: Text(
                       textAlign: TextAlign.center,
-                      mapMonth[index + 1].toString(),
+                      GetMonth.mapMonth[index + 1].toString(),
                       style: TextStyle(
                         color: colors.text,
                         fontSize: SpacingUnit.x5,

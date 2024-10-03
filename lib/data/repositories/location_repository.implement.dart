@@ -127,8 +127,8 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<ShiftsAdminResponse> getWorkShiftRequestByUser() async {
-    return await _locationService.getWorkShiftRequestByUser();
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser({required WorkDayGetElectiveShiftRequest request}) async {
+    return await _locationService.getWorkShiftRequestByUser(request: request);
   }
 
   @override

@@ -154,22 +154,24 @@ class LocationServiceImpl extends BaseService implements LocationService {
 
   @override
   Future<void> cancelWorkDay({required CancelWorkDayAdminRequest request}) async {
-      final url = '$baseSystem${PathConfig.workshiftRequest}';
-      final body = jsonEncode(request.toJson());
-      await client.put(url, body: body);
+    final url = '$baseSystem${PathConfig.workshiftRequest}';
+    final body = jsonEncode(request.toJson());
+    await client.put(url, body: body);
   }
 
   @override
   Future<void> addApprove({required ApproveRequest request}) async {
-      final url = '$baseSystem${PathConfig.workShiftApprove}';
-      final body = jsonEncode(request.toJson());
-      await client.put(url, body: body);
+    final url = '$baseSystem${PathConfig.workShiftApprove}';
+    final body = jsonEncode(request.toJson());
+    await client.put(url, body: body);
   }
 
   @override
-  Future<ShiftsAdminResponse> getWorkShiftRequestByUser() async {
-    final url = '$baseSystem${PathConfig.getWorkShiftByUser}?page=1&pageSize=10000';
-    final response = await client.get(url);
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser(
+      {required WorkDayGetElectiveShiftRequest request}) async {
+    final url = '$baseSystem${PathConfig.getWorkShiftByUser}';
+    final params = request.toJson();
+    final response = await client.get(url, params: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     return ShiftsAdminResponse.fromJson(responseBase.result);
   }
@@ -193,9 +195,8 @@ class LocationServiceImpl extends BaseService implements LocationService {
     final response = await client.post(url, body: body);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     final data = responseBase.result;
-    final shifts = (data as List<dynamic>)
-        .map((e) => Shift.fromJson(e as Map<String, dynamic>))
-        .toList();
+    final shifts =
+        (data as List<dynamic>).map((e) => Shift.fromJson(e as Map<String, dynamic>)).toList();
     return shifts;
   }
 }

@@ -49,7 +49,7 @@ abstract class LocationRepository {
 
   Future<void> addApprove({required ApproveRequest request});
 
-  Future<ShiftsAdminResponse> getWorkShiftRequestByUser();
+  Future<ShiftsAdminResponse> getWorkShiftRequestByUser({required WorkDayGetElectiveShiftRequest request});
 
   Future<bool> registerDetailWorkDays({required WorkDayRequest request});
 }
