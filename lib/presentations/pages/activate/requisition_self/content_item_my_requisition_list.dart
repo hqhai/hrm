@@ -107,7 +107,7 @@ class ContentItemMyRequisitionList extends StatelessWidget {
       case StatusRequestEnum.edit:
         return {
           'color': colors.secondary.withOpacity(0.7),
-          'icon': Assets.images.icon.work.edit,
+          'icon': Assets.images.icon.work.loading,
         };
       case StatusRequestEnum.approve:
         return {
