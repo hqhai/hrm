@@ -83,3 +83,21 @@ class ResetRequisitionEvent extends RequisitionEvent {
   @override
   List<Object> get props => [];
 }
+
+class GetRequisitionUserCountEvent extends RequisitionEvent {
+  final List<String>? flowIds;
+  final StatusRequestEnum? status;
+  final DateTime? startTime;
+  final DateTime? endTime;
+  final Completer? completer;
+
+  const GetRequisitionUserCountEvent(
+      {this.flowIds,
+        this.status,
+        this.startTime,
+        this.endTime,
+        this.completer});
+
+  @override
+  List<Object?> get props => [flowIds, status, startTime, endTime, completer];
+}

@@ -200,4 +200,21 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
       rethrow;
     }
   }
+
+  @override
+  Future<ApproveRequisitionCountStatusResponse> userRequisitionCountStatus(
+      {required GetRequestFilterRequest getRequestFilterRequest}) async {
+    try {
+      final url = '$baseUrl${PathConfig.stepRequestUserCountStatus}';
+      final params = getRequestFilterRequest.toJson();
+      final response = await client.get(url, params: params);
+      final responseBase = ResponseBase.fromJson(json.decode(response.body));
+      final ApproveRequisitionCountStatusResponse data =
+          ApproveRequisitionCountStatusResponse.fromJson(responseBase.result);
+      return data;
+    } catch (ex) {
+      debugPrint('🔎 : $ex ❗️');
+      rethrow;
+    }
+  }
 }

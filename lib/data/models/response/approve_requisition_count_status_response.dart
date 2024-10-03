@@ -12,6 +12,7 @@ class ApproveRequisitionCountStatusResponse {
   final int edit;
   final int overdueApprove;
   final int cancel;
+  final int overdueEdit;
 
   const ApproveRequisitionCountStatusResponse(
       {required this.total,
@@ -20,11 +21,11 @@ class ApproveRequisitionCountStatusResponse {
       required this.reject,
       required this.edit,
       required this.overdueApprove,
-      required this.cancel});
+      required this.cancel,
+      this.overdueEdit = 0});
 
-  factory ApproveRequisitionCountStatusResponse.fromJson(
-          Map<String, dynamic> json) =>
+  factory ApproveRequisitionCountStatusResponse.fromJson(Map<String, dynamic> json) =>
       _$ApproveRequisitionCountStatusResponseFromJson(json);
-  Map<String, dynamic> toJson() =>
-      _$ApproveRequisitionCountStatusResponseToJson(this);
+
+  Map<String, dynamic> toJson() => _$ApproveRequisitionCountStatusResponseToJson(this);
 }
