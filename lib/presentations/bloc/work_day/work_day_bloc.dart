@@ -141,12 +141,12 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       emit(state.copyWith(items: data.items, pagingInfo: data.pagingInfo));
       if (event.data.requestStatus == WorkShiftRequestStatus.pending) {
         emit(state.copyWith(
-          itemsPending: data.items,
+          totalPending: data.pagingInfo.totalItems,
         ));
       } else if (event.data.requestStatus ==
           WorkShiftRequestStatus.pendingCancel) {
         emit(state.copyWith(
-          itemsPendingCancel: data.items,
+          totalPendingCancel: data.pagingInfo.totalItems,
         ));
       }
       event.completer?.complete(true);
