@@ -2092,4 +2092,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errNotData => 'Not data';
+
+  @override
+  String get filterByMonth => 'Filter by month';
+
+  @override
+  String get filterByDay => 'Filter by day';
 }

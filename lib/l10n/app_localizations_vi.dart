@@ -2092,4 +2092,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get errNotData => 'Không có dữ liệu';
+
+  @override
+  String get filterByMonth => 'Lọc theo tháng';
+
+  @override
+  String get filterByDay => 'Lọc theo ngày';
 }

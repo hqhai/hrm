@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/type_filter_work_shift.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -16,6 +17,7 @@ class FilterDateTimeWork extends StatefulWidget {
   final DateTime startTime;
   final DateTime endTime;
   final VoidCallback callBack;
+  final ValueChanged<FilterType> onChangeFilterType;
 
   const FilterDateTimeWork({
     super.key,
@@ -24,6 +26,7 @@ class FilterDateTimeWork extends StatefulWidget {
     required this.startTime,
     required this.endTime,
     required this.callBack,
+    required this.onChangeFilterType,
   });
 
   @override
@@ -311,10 +314,21 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
     });
   }
 
-  _setTime(BuildContext context) {
+  setCall(){
     widget.changeEndTime.call(endTime);
     widget.changeStartTime.call(startTime);
     widget.callBack.call();
+  }
+
+  _setTime(BuildContext context) {
+    if(checkFilter == 2){
+      setCall();
+      widget.onChangeFilterType.call(FilterType.month);
+    }
+    if(checkFilter == 3){
+      setCall();
+      widget.onChangeFilterType.call(FilterType.day);
+    }
     dI<AppNavigation>().pop(context);
   }
 }
