@@ -11,6 +11,7 @@ class ItemDayOfWeek extends StatelessWidget {
       required this.index,
       required this.time,
       required this.select});
+
   final bool select;
   final int index;
   final DateTime time;
@@ -20,6 +21,9 @@ class ItemDayOfWeek extends StatelessWidget {
     final newDate = DateTime.now();
     final theme = Theme.of(context);
     final colors = AppTheme.getColors(context);
+    bool checkInDay = (newDate.day == time.day &&
+        newDate.month == time.month &&
+        newDate.year == time.year);
     return Container(
       width: MediaQuery.sizeOf(context).width / 7,
       height: SpacingUnit.x13,
@@ -27,8 +31,7 @@ class ItemDayOfWeek extends StatelessWidget {
           color: select ? ColorUtils.parseHex('#EAF0FF') : null,
           borderRadius: BorderRadius.circular(SpacingUnit.x2),
           border: Border.all(
-              color:
-                  newDate.day == time.day ? colors.success : Colors.transparent,
+              color: checkInDay ? colors.success : Colors.transparent,
               width: 2)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
