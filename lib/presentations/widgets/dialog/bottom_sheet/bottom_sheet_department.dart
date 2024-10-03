@@ -25,12 +25,10 @@ class BottomSheetDepartmentWidget extends StatefulWidget {
   final Department? department;
 
   @override
-  State<BottomSheetDepartmentWidget> createState() =>
-      _BottomSheetDepartmentWidgetState();
+  State<BottomSheetDepartmentWidget> createState() => _BottomSheetDepartmentWidgetState();
 }
 
-class _BottomSheetDepartmentWidgetState
-    extends State<BottomSheetDepartmentWidget> {
+class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidget> {
   late ScrollController controller;
   String searchStr = '';
   int pageIndex = 1, totalItems = 12, lengthList = 11;
@@ -47,8 +45,7 @@ class _BottomSheetDepartmentWidgetState
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return BlocConsumer<DepartmentBloc, DepartmentState>(
-      listenWhen: (previous, current) =>
-          previous.departments != current.departments,
+      listenWhen: (previous, current) => previous.departments != current.departments,
       listener: (context, state) => _listener(state),
       builder: (context, state) => Center(
         child: Padding(
@@ -79,8 +76,12 @@ class _BottomSheetDepartmentWidgetState
                         context: context,
                       ),
                       child: ContainerBorder(
-                        borderColors: colors.background,
-                        backgroundColors: colors.background,
+                        borderColors: widget.department?.id == department.id
+                            ? colors.orange.withOpacity(0.3)
+                            : colors.background,
+                        backgroundColors: widget.department?.id == department.id
+                            ? colors.orange.withOpacity(0.3)
+                            : colors.background,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -134,17 +135,14 @@ class _BottomSheetDepartmentWidgetState
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems &&
-        loadMore &&
-        controller.position.extentAfter < totalItems) {
+    if (lengthList < totalItems && loadMore && controller.position.extentAfter < totalItems) {
       setState(() {
         pageIndex++;
         loadMore = false;
       });
       final Completer completer = Completer<bool>();
       dI<DepartmentBloc>().add(
-        GetListDepartmentEvent(
-            page: pageIndex, completer: completer, key: searchStr),
+        GetListDepartmentEvent(page: pageIndex, completer: completer, key: searchStr),
       );
       final check = await completer.future;
       if (check) {

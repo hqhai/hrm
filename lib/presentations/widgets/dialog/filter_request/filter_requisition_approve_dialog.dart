@@ -1,6 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/domain/entities/user.dart';
@@ -43,7 +44,7 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
       user = widget.filter!.user;
       startTime = widget.filter!.startTime;
       endTime = widget.filter!.endTime;
-      types = widget.filter!.types??[];
+      types = widget.filter!.types ?? [];
       departments = widget.filter!.department;
     }
     super.initState();
@@ -80,22 +81,25 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
                     user: user,
                     department: departments,
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4, vertical: SpacingUnit.x4),
+                    child: PeriodTimePicker(
+                      oldEndTime: endTime,
+                      oldStarTime: startTime,
+                      title: appLocalizations.timeFrame,
+                      setStarTime: (value) => setStartTime(value: value),
+                      setEndTime: (value) => setEndTime(value: value),
+                    ),
+                  ),
+                  ButtonRequest(
+                    title1: appLocalizations.apply,
+                    title2: appLocalizations.cancel,
+                    apply: () => setApply(context),
+                    reject: () => setReject(context),
+                  ),
                 ],
               ),
             ),
-          ),
-          PeriodTimePicker(
-            oldEndTime: endTime,
-            oldStarTime: startTime,
-            title: appLocalizations.timeFrame,
-            setStarTime: (value) => setStartTime(value: value),
-            setEndTime: (value) => setEndTime(value: value),
-          ),
-          ButtonRequest(
-            title1: appLocalizations.apply,
-            title2: appLocalizations.cancel,
-            apply: () => setApply(context),
-            reject: () => setReject(context),
           ),
         ],
       ),

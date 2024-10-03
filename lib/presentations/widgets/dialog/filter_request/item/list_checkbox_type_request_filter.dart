@@ -46,7 +46,7 @@ class _ListCheckboxTypeRequestFilterState
           ),
         ),
         SizedBox(
-          height: width * 0.75,
+          height: width * 0.9,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
             child: GridView.builder(

@@ -19,10 +19,13 @@ class HeaderFilter extends StatelessWidget {
         InkWell(
           onTap: () => callback.call(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2_5),
+            padding: const EdgeInsets.symmetric(
+              horizontal: SpacingUnit.x2_5,
+              vertical: SpacingUnit.x4,
+            ),
             child: Icon(
               Icons.close,
-              size: SpacingUnit.x3_5,
+              size: SpacingUnit.x8,
               color: colors.text,
             ),
           ),
@@ -33,7 +36,7 @@ class HeaderFilter extends StatelessWidget {
             title ?? appLocalizations.filter,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: SpacingUnit.x4,
+              fontSize: SpacingUnit.x6,
               fontWeight: FontWeight.w600,
             ),
           ),

@@ -31,7 +31,11 @@ class _AddDepartmentAndUserState extends State<AddDepartmentAndUser> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return Padding(
-      padding: const EdgeInsets.all(SpacingUnit.x4),
+      padding: const EdgeInsets.only(
+        left: SpacingUnit.x4,
+        right: SpacingUnit.x4,
+        bottom: SpacingUnit.x4,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
