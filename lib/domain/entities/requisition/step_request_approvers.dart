@@ -10,34 +10,43 @@ part 'step_request_approvers.g.dart';
 @CustomDateTimeConverter()
 class StepRequestApprovers {
   final String id;
-  final String? createdUserId;
-  final String? updatedUserId;
-  final String? createdFullName;
-  final String? updatedFullName;
+  final String createdUserId;
+  final String updatedUserId;
+  final String createdFullName;
+  final String updatedFullName;
   final DateTime? createdDate;
   final DateTime? updatedDate;
-  final String? note;
+  final String note;
   @JsonKey(unknownEnumValue: EnumStepRequestStatusEnum.unknown)
   final EnumStepRequestStatusEnum status;
-  final String? stepRequestId;
-  final String? approverId;
-  final String? approverPositionId;
-  final String? approverDepartmentId;
+  final String stepRequestId;
+  final String approverId;
+  final String approverPositionId;
+  final String approverDepartmentId;
+  final String nameApprover;
+  final String nameApproverPosition;
+  final String nameApproverDepartment;
+  final bool isNote;
+
 
   const StepRequestApprovers({
-    required this.id,
+    this.id = '',
     this.status = EnumStepRequestStatusEnum.unknown,
-    this.note,
-    this.createdUserId,
-    this.createdFullName,
+    this.note = '',
+    this.createdUserId = '',
+    this.createdFullName = '',
     this.createdDate,
-    this.updatedFullName,
+    this.updatedFullName = '',
     this.updatedDate,
-    this.updatedUserId,
-    this.approverId,
-    this.approverDepartmentId,
-    this.approverPositionId,
-    this.stepRequestId,
+    this.updatedUserId = '',
+    this.approverId = '',
+    this.approverDepartmentId = '',
+    this.approverPositionId = '',
+    this.stepRequestId = '',
+    this.isNote = false,
+    this.nameApprover = '',
+    this.nameApproverDepartment = '',
+    this.nameApproverPosition = '',
   });
 
   factory StepRequestApprovers.fromJson(Map<String, dynamic> json) =>

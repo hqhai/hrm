@@ -2098,4 +2098,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get filterByDay => 'Lọc theo ngày';
+
+  @override
+  String get requestDeniedBy => 'Người từ chối duyệt đơn';
+
+  @override
+  String get requestCancelBy => 'Người hủy đơn';
+
+  @override
+  String get requestEditBy => 'Người YC sửa đơn';
+
+  @override
+  String get reasonReject => 'Lý do từ chối đơn:';
+
+  @override
+  String get reasonCancel => 'Lý do hủy đơn :';
 }

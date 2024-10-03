@@ -47,7 +47,7 @@ class _ItemRequisitionApproveListState
         child: ContainerBorder(
           backgroundColors: colors.background,
           borderColors: colors.background,
-          child: GestureDetector(
+          child: InkWell(
             onTap: () => nextScreenRequest(
               context: context,
               id: widget.id,
@@ -60,10 +60,12 @@ class _ItemRequisitionApproveListState
                 Opacity(
                   opacity: checkOpacity ? 1 : 0,
                   child: Center(
-                    child: Lottie.asset(Assets.images.icon.loading,
-                        width: SpacingUnit.x20,
-                        height: SpacingUnit.x20,
-                        fit: BoxFit.fill),
+                    child: Lottie.asset(
+                      Assets.images.icon.loading,
+                      width: SpacingUnit.x20,
+                      height: SpacingUnit.x20,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
                 Opacity(

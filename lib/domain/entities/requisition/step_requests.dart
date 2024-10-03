@@ -22,21 +22,22 @@ class StepRequests {
   final EnumStepRequestStatusEnum status;
   final String? requestId;
   final String? stepFlowId;
-  final List<StepRequestApprovers>? stepRequestApprovers;
+  final List<StepRequestApprovers> stepRequestApprovers;
 
-  const StepRequests(
-      {required this.id,
-      this.createdUserId,
-      this.createdFullName,
-      this.createdDate,
-      this.updatedFullName,
-      this.updatedDate,
-      this.updatedUserId,
-      this.visitCount,
-      this.status = EnumStepRequestStatusEnum.unknown,
-      this.requestId,
-      this.stepFlowId,
-      this.stepRequestApprovers});
+  const StepRequests({
+    required this.id,
+    this.createdUserId,
+    this.createdFullName,
+    this.createdDate,
+    this.updatedFullName,
+    this.updatedDate,
+    this.updatedUserId,
+    this.visitCount,
+    this.status = EnumStepRequestStatusEnum.unknown,
+    this.requestId,
+    this.stepFlowId,
+    this.stepRequestApprovers = const [],
+  });
 
   factory StepRequests.fromJson(Map<String, dynamic> json) =>
       _$StepRequestsFromJson(json);

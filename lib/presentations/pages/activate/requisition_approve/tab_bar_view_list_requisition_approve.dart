@@ -14,21 +14,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class TabBarViewListRequistionApprove extends StatefulWidget {
-  const TabBarViewListRequistionApprove(
-      {super.key,
-      required this.status,
-      this.filterData = const FilterDialogModel(),
-      required this.checkLoad});
-
   final EnumStepRequestStatusEnum status;
   final FilterDialogModel filterData;
   final bool checkLoad;
 
+  const TabBarViewListRequistionApprove({
+    super.key,
+    required this.status,
+    this.filterData = const FilterDialogModel(),
+    required this.checkLoad,
+  });
+
   @override
-  State<TabBarViewListRequistionApprove> createState() => _TabBarViewListRequistionApproveState();
+  State<TabBarViewListRequistionApprove> createState() =>
+      _TabBarViewListRequistionApproveState();
 }
 
-class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequistionApprove> {
+class _TabBarViewListRequistionApproveState
+    extends State<TabBarViewListRequistionApprove> {
   late ScrollController controller;
   int pageIndex = 1, totalItems = 12, lengthList = 11;
   bool checkLoad = true;
@@ -43,7 +46,9 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
+    if (lengthList < totalItems &&
+        controller.position.extentAfter < totalItems &&
+        checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
@@ -83,7 +88,8 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) => previous.requisitions != current.requisitions,
+      listenWhen: (previous, current) =>
+          previous.requisitions != current.requisitions,
       // buildWhen: (previous, current) => previous.requisitionIds != current.requisitionIds ,
       builder: (context, state) {
         return Container(
@@ -94,7 +100,8 @@ class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequisti
                   ? ListView.builder(
                       controller: controller,
                       itemCount: state.requisitionIds.length,
-                      itemBuilder: (context, index) => ItemRequisitionApproveList(
+                      itemBuilder: (context, index) =>
+                          ItemRequisitionApproveList(
                         id: state.requisitionIds[index],
                         status: widget.status,
                       ),

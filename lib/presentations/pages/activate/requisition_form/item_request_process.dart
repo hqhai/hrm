@@ -7,14 +7,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ItemRequestProcess extends StatelessWidget {
-  const ItemRequestProcess(
-      {super.key,
-      required this.callBackApprover,
-      required this.callBackEdit,
-      required this.callBackReject,
-      });
+  final VoidCallback callBackApprove;
+  final VoidCallback callBackEdit;
+  final VoidCallback callBackReject;
+  final bool hiddenApproveButton;
 
-  final VoidCallback callBackApprover, callBackEdit, callBackReject;
+  const ItemRequestProcess({
+    super.key,
+    required this.callBackApprove,
+    required this.callBackEdit,
+    required this.callBackReject,
+    required this.hiddenApproveButton,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +27,19 @@ class ItemRequestProcess extends StatelessWidget {
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
         return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Expanded(
-              child: ButtonItemListRequisition(
-                colorText: colors.success,
-                background: colors.success.withOpacity(0.2),
-                title: appLocalizations.approver,
-                callback: () => callBackApprover.call(),
-              ),
-            ),
+            hiddenApproveButton
+                ? const SizedBox()
+                : Expanded(
+                    child: ButtonItemListRequisition(
+                      colorText: colors.success,
+                      background: colors.success.withOpacity(0.2),
+                      title: appLocalizations.approver,
+                      callback: () => callBackApprove.call(),
+                    ),
+                  ),
             Expanded(
               child: ButtonItemListRequisition(
                 colorText: colors.tertiary,

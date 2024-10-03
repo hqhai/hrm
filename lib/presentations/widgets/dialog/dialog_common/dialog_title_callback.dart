@@ -27,6 +27,7 @@ class TitleCallbackDialog extends StatelessWidget {
         children: [
           Text(
             title,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: colors.text,
               fontSize: SpacingUnit.x5,
