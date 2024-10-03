@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/tab_bar_view_list_requisition_self.dart';
@@ -76,10 +78,23 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerPr
                                 color: isActive ? colors.text : colors.text.withOpacity(0.5),
                                 fontSize: SpacingUnit.x3_5),
                           ),
-                          // Chip(
-                          //     padding: EdgeInsets.zero,
-                          //     label: Text(
-                          //         state.requisitionIds.length.toString()))
+                          BlocSelector<RequisitionBloc, RequisitionState, int>(
+                            selector: (state) => state.statusCount[status] ?? 0,
+                            builder: (context, state) => Chip(
+                              padding: EdgeInsets.zero,
+                              backgroundColor: colors.primary.withOpacity(0.3),
+                              shape: RoundedRectangleBorder(
+                                  side: const BorderSide(style: BorderStyle.none),
+                                  borderRadius: BorderRadius.circular(SpacingUnit.x6)),
+                              label: Text(
+                                countStatus(state),
+                                style: TextStyle(
+                                    fontSize: SpacingUnit.x3_5,
+                                    fontWeight: FontWeight.w400,
+                                    color: colors.primary),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     );
