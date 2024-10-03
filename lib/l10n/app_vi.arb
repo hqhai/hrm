@@ -692,6 +692,7 @@
   "inputNameStaff": "Nhập tên nhân viên",
   "edit2": "Chưa chỉnh sửa đơn",
   "errorNumber": "Số lượng không được để trống",
-  "errNotData": "Không có dữ liệu"
-
+  "errNotData": "Không có dữ liệu",
+  "filterByMonth": "Lọc theo tháng",
+  "filterByDay": "Lọc theo ngày"
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
+import 'package:base_app/common/enum/type_filter_work_shift.dart';
 import 'package:base_app/common/enum/user_type.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
 import 'package:base_app/common/routers/navigation.dart';
@@ -11,6 +12,7 @@ import 'package:base_app/common/routers/query_params/work_day_admin_query_params
 import 'package:base_app/common/utils/color_utils.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/common/utils/time_utils.dart';
 import 'package:base_app/common/utils/toast_utils.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
@@ -22,6 +24,7 @@ import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
 import 'package:base_app/presentations/widgets/calendar_work/filter_date_time.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
+import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/custom/shimmer_load.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,6 +65,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
   ScrollController scrollController = ScrollController();
   int days = 30;
   bool isLoading = false;
+  FilterType filterType = FilterType.no;
 
   @override
   void initState() {
@@ -258,6 +262,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       context: context,
       builder: (BuildContext context) {
         return FilterDateTimeWork(
+          onChangeFilterType: (value) => _setFilterType(value),
           callBack: () => _setTime(),
           endTime: endTime,
           startTime: startTime,
@@ -266,6 +271,12 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         );
       },
     );
+  }
+
+  _setFilterType(FilterType value) {
+    setState(() {
+      filterType = value;
+    });
   }
 
   setEndTime(DateTime value) {
@@ -290,6 +301,22 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
     setState(() {
       startTime = value;
     });
+  }
+
+  _removeFilter() {
+    setState(() {
+      filterType = FilterType.no;
+      startTime = getFirstDayOfMonth(DateTime.now());
+      endTime = getLastDayOfMonth(DateTime.now());
+    });
+  }
+
+  String timeFilter() {
+    if (filterType == FilterType.month) {
+      return GetMonth.mapMonthName[startTime.month].toString();
+    } else {
+      return '${formatYMD(startTime.toString())} - ${formatYMD(endTime.toString())}';
+    }
   }
 
   @override
@@ -344,6 +371,62 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
             ),
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(filterType == FilterType.no ? 0 : SpacingUnit.x12),
+          child: filterType == FilterType.no
+              ? const SizedBox()
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      width: SpacingUnit.x4,
+                    ),
+                    Text(
+                      filterType == FilterType.month
+                          ? appLocalizations.filterByMonth
+                          : appLocalizations.filterByDay,
+                      style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
+                    ),
+                    const SizedBox(
+                      width: SpacingUnit.x4,
+                    ),
+                    ContainerBorder(
+                      borderColors: colors.blue.withOpacity(0.2),
+                      backgroundColors: colors.blue.withOpacity(0.2),
+                      marginTop: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            timeFilter(),
+                            style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
+                          ),
+                          const SizedBox(
+                            width: SpacingUnit.x3,
+                          ),
+                          InkWell(
+                            onTap: () => _removeFilter(),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(SpacingUnit.x1),
+                                border: Border.all(
+                                  color: colors.primary,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Icon(
+                                size: SpacingUnit.x4,
+                                Icons.close,
+                                color: colors.primary,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+        ),
       ),
       body: BlocBuilder<WorkDayBloc, WorkDayState>(
         // listener: (context, state) => _listener(context, state),

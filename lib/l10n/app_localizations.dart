@@ -4250,6 +4250,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not data'**
   String get errNotData;
+
+  /// No description provided for @filterByMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by month'**
+  String get filterByMonth;
+
+  /// No description provided for @filterByDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by day'**
+  String get filterByDay;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

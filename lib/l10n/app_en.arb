@@ -694,5 +694,7 @@
   "inputNameStaff": "Input name staff",
   "edit2": "Request revision",
   "errorNumber": "Quantity must not be left blank",
-  "errNotData": "Not data"
+  "errNotData": "Not data",
+  "filterByMonth": "Filter by month",
+  "filterByDay": "Filter by day"
 }
