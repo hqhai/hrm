@@ -20,8 +20,8 @@ class WorkDayState extends Equatable {
   final List<WorkDayAdmin> itemsDetail;
   final PagingInfoRequest pagingInfoDetail;
   final String errorCode;
-  final List<WorkDayAdmin> itemsPending;
-  final List<WorkDayAdmin> itemsPendingCancel;
+  final int totalPending;
+  final int totalPendingCancel;
 
   const WorkDayState({
     this.itemsDetail = const [],
@@ -35,8 +35,8 @@ class WorkDayState extends Equatable {
     this.items = const [],
     this.pagingInfo = const PagingInfoRequest(),
     this.errorCode = '',
-    this.itemsPending = const [],
-    this.itemsPendingCancel = const [],
+    this.totalPending = 0,
+    this.totalPendingCancel = 0,
   });
 
   @override
@@ -52,8 +52,8 @@ class WorkDayState extends Equatable {
         selectDate,
         isLoading,
         errorCode,
-        itemsPending,
-        itemsPendingCancel,
+        totalPending,
+        totalPendingCancel,
       ];
 
   factory WorkDayState.fromJson(Map<String, dynamic> json) =>

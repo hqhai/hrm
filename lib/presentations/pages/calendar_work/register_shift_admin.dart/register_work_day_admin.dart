@@ -232,11 +232,15 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         }
         break;
       case WorkShiftRequestStatus.pending:
-        dI<WorkDayBloc>().add(GetWorkDayAdmin(
+        dI<WorkDayBloc>().add(
+          GetWorkDayAdmin(
             completer: completer,
             data: WorkDayAdminRequest(
-                pageSize: pagingInfo.pageSize + 7,
-                requestStatus: WorkShiftRequestStatus.pending)));
+              pageSize: pagingInfo.pageSize + 7,
+              requestStatus: WorkShiftRequestStatus.pending,
+            ),
+          ),
+        );
         if (isUnScroll) {
           await completer.future;
           setState(() {
@@ -298,6 +302,11 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                   scrollDirection: Axis.horizontal,
                   itemCount: tabStatus.length,
                   itemBuilder: (context, index) {
+                    final totalItems = state.items
+                        .where((element) => element.status == tabStatus[index])
+                        .length;
+                    final items =
+                        totalItems > 99 ? '99+' : totalItems.toString();
                     if (widget.userType == UserType.user) {
                       return InkWell(
                         onTap: () {
@@ -345,11 +354,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                                     color: ColorUtils.parseHex("#EAF0FF"),
                                   ),
                                   child: Text(
-                                    state.items
-                                        .where((element) =>
-                                            element.status == tabStatus[index])
-                                        .length
-                                        .toString(),
+                                    items,
                                     style: theme.textTheme.titleSmall?.copyWith(
                                       color: ColorUtils.parseHex("#2F6BFF"),
                                     ),
@@ -410,11 +415,15 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                                             ),
                                             child: Text(
                                               index == 0
-                                                  ? state.itemsPending.length
-                                                      .toString()
-                                                  : state
-                                                      .itemsPendingCancel.length
-                                                      .toString(),
+                                                  ? state.totalPending > 99
+                                                      ? '99+'
+                                                      : state.totalPending
+                                                          .toString()
+                                                  : state.totalPendingCancel >
+                                                          99
+                                                      ? '99+'
+                                                      : state.totalPendingCancel
+                                                          .toString(),
                                               style: theme.textTheme.titleSmall
                                                   ?.copyWith(
                                                 color: ColorUtils.parseHex(
@@ -487,6 +496,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                         color: colors.surfaceVariantLow.withOpacity(0.1),
                         child: ListView.builder(
                           itemCount: state.items.length,
+                          controller: scrollController,
                           itemBuilder: (context, index) => ItemPending(
                             data: state.items[index],
                             index: index,

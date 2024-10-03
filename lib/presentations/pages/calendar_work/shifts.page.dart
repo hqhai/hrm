@@ -144,7 +144,9 @@ class _ShiftsPageState extends State<ShiftsPage> {
                               WorkDayRequest(
                                 workShiftSettingDetailId:
                                     data.workShiftSettingDetailId,
-                                workDate: formatYYMMDD(widget.date.toString()),
+                                workDate: formatYYMMDD(
+                                  widget.date.toString(),
+                                ),
                               ),
                             ],
                             titlePopUp: mapByStatus(
