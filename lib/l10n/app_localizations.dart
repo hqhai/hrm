@@ -4262,6 +4262,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Filter by day'**
   String get filterByDay;
+
+  /// No description provided for @requestDeniedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Denied by: '**
+  String get requestDeniedBy;
+
+  /// No description provided for @requestCancelBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Canceled by:'**
+  String get requestCancelBy;
+
+  /// No description provided for @requestEditBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Edited by:'**
+  String get requestEditBy;
+
+  /// No description provided for @reasonReject.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for rejection:'**
+  String get reasonReject;
+
+  /// No description provided for @reasonCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for cancellation:'**
+  String get reasonCancel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

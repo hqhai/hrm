@@ -21,16 +21,19 @@ import 'package:themes/themes.dart';
 final requisitionApproveListPageRoute = GoRoute(
     path: Pages.requisitionApproveListPage,
     name: Pages.requisitionApproveListPage,
-    builder: (context, GoRouterState state) => const RequisitionApproveListPage());
+    builder: (context, GoRouterState state) =>
+        const RequisitionApproveListPage());
 
 class RequisitionApproveListPage extends StatefulWidget {
   const RequisitionApproveListPage({super.key});
 
   @override
-  State<RequisitionApproveListPage> createState() => _RequisitionApproveListPageState();
+  State<RequisitionApproveListPage> createState() =>
+      _RequisitionApproveListPageState();
 }
 
-class _RequisitionApproveListPageState extends State<RequisitionApproveListPage> {
+class _RequisitionApproveListPageState
+    extends State<RequisitionApproveListPage> {
   bool checkOpacity = false;
   bool checkLoad = true;
   var random = Random();
@@ -56,10 +59,11 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
           ),
         ),
         iconTheme: IconThemeData(color: colors.text),
-        title: (Text(
+        title: Text(
           appLocalizations.requisitionYouApproval,
           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5),
-        )),
+        ),
+        centerTitle: true,
         actions: [
           InkWell(
             onTap: () => _showBottomSheet(),
@@ -102,7 +106,7 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
       ),
     );
     final checkCompleter = await completer.future;
-    if(checkCompleter){
+    if (checkCompleter) {
       setState(() {
         checkLoad = true;
       });
@@ -111,18 +115,18 @@ class _RequisitionApproveListPageState extends State<RequisitionApproveListPage>
 
   _showBottomSheet() async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (!currentContext.mounted) return;
-      showModalBottomSheet<void>(
-        isScrollControlled: true,
-        isDismissible: false,
-        context: currentContext,
-        builder: (BuildContext context) {
-          return FilterRequisitionApproveDialog(
-            filter: filterData,
-            sendData: (value) => setlLstFilter(value),
-          );
-        },
-      );
+    if (!currentContext.mounted) return;
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      isDismissible: false,
+      context: currentContext,
+      builder: (BuildContext context) {
+        return FilterRequisitionApproveDialog(
+          filter: filterData,
+          sendData: (value) => setlLstFilter(value),
+        );
+      },
+    );
   }
 
   setStatus(EnumStepRequestStatusEnum value) {

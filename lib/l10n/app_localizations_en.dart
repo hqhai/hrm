@@ -2098,4 +2098,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filterByDay => 'Filter by day';
+
+  @override
+  String get requestDeniedBy => 'Request Denied by: ';
+
+  @override
+  String get requestCancelBy => 'Request Canceled by:';
+
+  @override
+  String get requestEditBy => 'Request Edited by:';
+
+  @override
+  String get reasonReject => 'Reason for rejection:';
+
+  @override
+  String get reasonCancel => 'Reason for cancellation:';
 }

@@ -694,5 +694,10 @@
   "errorNumber": "Số lượng không được để trống",
   "errNotData": "Không có dữ liệu",
   "filterByMonth": "Lọc theo tháng",
-  "filterByDay": "Lọc theo ngày"
+  "filterByDay": "Lọc theo ngày",
+  "requestDeniedBy": "Người từ chối duyệt đơn",
+  "requestCancelBy": "Người hủy đơn",
+  "requestEditBy": "Người YC sửa đơn",
+  "reasonReject": "Lý do từ chối đơn:",
+  "reasonCancel": "Lý do hủy đơn :"
 }

@@ -1,5 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:themes/themes.dart';
 
 class TitleValueLeave extends StatelessWidget {
@@ -26,19 +28,27 @@ class TitleValueLeave extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            '$title: ',
-            style: TextStyle(
-              color: colors.text,
-              fontSize: size ,
-              fontWeight: font,
+          Flexible(
+            flex: 1,
+            child: Text(
+              '$title: ',
+              style: TextStyle(
+                color: colors.text,
+                fontSize: size ,
+                fontWeight: font,
+              ),
             ),
           ),
-          Text(
-            value,
-            style: TextStyle(
-              color: color ?? colors.text,
-              fontSize: size,
+
+          Flexible(
+            flex: 2,
+            child: Text(
+              value,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: color ?? colors.text,
+                fontSize: size,
+              ),
             ),
           ),
         ],
