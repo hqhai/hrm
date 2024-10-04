@@ -35,7 +35,8 @@ class PermissionDialog extends StatelessWidget {
                   child: AppButton(
                     onSubmit: () => _ok(context, callBack),
                     title: appLocalizations.cancel,
-                    color: colors.outline.withOpacity(0.4),
+                    colorText: colors.blue,
+                    colorBorder: colors.blue,
                   ),
                 ),
               ),
@@ -43,6 +44,8 @@ class PermissionDialog extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   child: AppButton(
+                    colorText: colors.background,
+                    color: colors.blue,
                     onSubmit: () => _setting(context, callBack),
                     title: appLocalizations.setting,
                   ),

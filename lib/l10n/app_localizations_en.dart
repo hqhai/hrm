@@ -2137,4 +2137,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectFilter => 'Select filter';
+
+  @override
+  String get loginBiometricAuthentication => 'Log in with biometric authentication';
+
+  @override
+  String get useFaceIDInsteadOfAPassword => 'Use your Face ID instead of a password';
 }
