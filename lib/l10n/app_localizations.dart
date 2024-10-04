@@ -4304,6 +4304,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reason for rejection'**
   String get reasonForRejection;
+
+  /// No description provided for @nameWorkShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Work shift name'**
+  String get nameWorkShift;
+
+  /// No description provided for @reasonForRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for stop'**
+  String get reasonForRemove;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -700,5 +700,7 @@
   "reasonReject": "Reason for rejection:",
   "reasonCancel": "Reason for cancellation:",
   "reasonForCanceling" : "Reason for canceling",
-  "reasonForRejection" : "Reason for rejection"
+  "reasonForRejection" : "Reason for rejection",
+  "nameWorkShift": "Work shift name",
+  "reasonForRemove": "Reason for stop"
 }
