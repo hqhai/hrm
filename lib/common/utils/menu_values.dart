@@ -176,6 +176,7 @@ class MenuValues {
     SalaryWidget(),
     CreateNoteWidget(),
     NotesSystemList(),
+    SalaryWidget(),
     ChangePassword(),
     DeleteAccountWidget(),
   ];
