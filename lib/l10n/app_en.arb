@@ -706,5 +706,8 @@
   "mapLocation": "Location",
   "reasonCannotBeLeftBlank": "Reason cannot be left blank",
   "reasonCancelShift": "Reason cancel shift",
-  "selectFilter": "Select filter"
+  "selectFilter": "Select filter",
+  "loginBiometricAuthentication": "Log in with biometric authentication",
+  "useFaceIDInsteadOfAPassword": "Use your Face ID instead of a password"
+
 }

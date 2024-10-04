@@ -707,6 +707,8 @@
   "mapLocation": "Vi Trí",
   "reasonCannotBeLeftBlank": "Lý do không được bỏ trống",
   "reasonCancelShift": "Lý do hủy ca",
-  "selectFilter": "Chọn bộ lọc"
+  "selectFilter": "Chọn bộ lọc",
+  "loginBiometricAuthentication": "Đăng nhập bằng sinh trắc học",
+  "useFaceIDInsteadOfAPassword": "Sử dụng FaceID của bạn thay cho mật khẩu đăng nhập"
 
 }

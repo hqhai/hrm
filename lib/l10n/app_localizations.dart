@@ -4340,6 +4340,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select filter'**
   String get selectFilter;
+
+  /// No description provided for @loginBiometricAuthentication.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in with biometric authentication'**
+  String get loginBiometricAuthentication;
+
+  /// No description provided for @useFaceIDInsteadOfAPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your Face ID instead of a password'**
+  String get useFaceIDInsteadOfAPassword;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

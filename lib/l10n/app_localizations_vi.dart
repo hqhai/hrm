@@ -2137,4 +2137,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get selectFilter => 'Chọn bộ lọc';
+
+  @override
+  String get loginBiometricAuthentication => 'Đăng nhập bằng sinh trắc học';
+
+  @override
+  String get useFaceIDInsteadOfAPassword => 'Sử dụng FaceID của bạn thay cho mật khẩu đăng nhập';
 }

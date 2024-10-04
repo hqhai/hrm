@@ -92,6 +92,7 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
   Widget checkBiometric({
     required BuildContext context,
   }) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
       backgroundColors: colors.background,
@@ -122,7 +123,7 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
             child: Column(
               children: [
                 Text(
-                  'Đăng nhập bằng sinh trắc học',
+                  appLocalizations.loginBiometricAuthentication,
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x3_5,
@@ -130,7 +131,7 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
                   ),
                 ),
                 Text(
-                  'Sử dụng FaceID của bạn thay cho mật khẩu đăng nhập',
+                  appLocalizations.useFaceIDInsteadOfAPassword,
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x3,
@@ -152,7 +153,7 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
 
   _setCheck({required bool value, required BuildContext context}) {
     setState(() {
-      if(!value) {
+      if (!value) {
         isCheckedInput = !isCheckedInput;
       }
     });
@@ -176,9 +177,10 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
                     dI<AppNavigation>().pop(context);
                   },
                 )
-              : AuthBiometric(callBack: () => setState(() {
-            isCheckedInput = true;
-          })),
+              : AuthBiometric(
+                  callBack: () => setState(() {
+                        isCheckedInput = true;
+                      })),
         );
       },
     );
