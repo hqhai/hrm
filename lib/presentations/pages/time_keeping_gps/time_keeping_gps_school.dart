@@ -174,12 +174,13 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
         },
       );
     }
-    if (!currentContext.mounted) return;
-    dialogIndicator(context: currentContext);
-    final position = await Geolocator.getCurrentPosition();
-    _setCurrentLocation(position, id);
+    if(permission != LocationPermission.deniedForever){
+      if (!currentContext.mounted) return;
+      dialogIndicator(context: currentContext);
+      final position = await Geolocator.getCurrentPosition();
+      _setCurrentLocation(position, id);
+    }
   }
-
   _setCurrentLocation(Position position, String id) {
     setState(() {
       checkClick = false;
@@ -279,6 +280,8 @@ class _DialogOpenSetting extends StatelessWidget {
           ),
           const SizedBox(height: SpacingUnit.x4),
           AppButton(
+            color: colors.blue,
+            colorText: colors.background,
             title: appLocalizations.allow,
             onSubmit: () => _openSetting(context),
           )

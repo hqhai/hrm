@@ -4322,6 +4322,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Location'**
   String get mapLocation;
+
+  /// No description provided for @reasonCannotBeLeftBlank.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason cannot be left blank'**
+  String get reasonCannotBeLeftBlank;
+
+  /// No description provided for @reasonCancelShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason cancel shift'**
+  String get reasonCancelShift;
+
+  /// No description provided for @selectFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Select filter'**
+  String get selectFilter;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

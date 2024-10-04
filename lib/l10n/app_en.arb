@@ -703,5 +703,8 @@
   "reasonForRejection" : "Reason for rejection",
   "nameWorkShift": "Work shift name",
   "reasonForRemove": "Reason for stop",
-  "mapLocation": "Location"
+  "mapLocation": "Location",
+  "reasonCannotBeLeftBlank": "Reason cannot be left blank",
+  "reasonCancelShift": "Reason cancel shift",
+  "selectFilter": "Select filter"
 }

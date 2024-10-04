@@ -2128,4 +2128,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get mapLocation => 'Vi Trí';
+
+  @override
+  String get reasonCannotBeLeftBlank => 'Lý do không được bỏ trống';
+
+  @override
+  String get reasonCancelShift => 'Lý do hủy ca';
+
+  @override
+  String get selectFilter => 'Chọn bộ lọc';
 }

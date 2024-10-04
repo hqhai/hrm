@@ -704,6 +704,9 @@
   "reasonForRejection" : "Lý do bị từ chối duyệt",
   "nameWorkShift": "Tên ca làm việc",
   "reasonForRemove": "Lý do bị gỡ khỏi ca",
-  "mapLocation": "Vi Trí"
+  "mapLocation": "Vi Trí",
+  "reasonCannotBeLeftBlank": "Lý do không được bỏ trống",
+  "reasonCancelShift": "Lý do hủy ca",
+  "selectFilter": "Chọn bộ lọc"
 
 }
