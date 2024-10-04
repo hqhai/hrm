@@ -2128,4 +2128,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mapLocation => 'Location';
+
+  @override
+  String get reasonCannotBeLeftBlank => 'Reason cannot be left blank';
+
+  @override
+  String get reasonCancelShift => 'Reason cancel shift';
+
+  @override
+  String get selectFilter => 'Select filter';
 }

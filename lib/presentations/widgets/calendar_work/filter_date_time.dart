@@ -4,6 +4,7 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/common/utils/time_utils.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/activate/item_activate.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/dialog/calendar_list_day/layout_calendar_dialog.dart';
@@ -49,6 +50,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     return SizedBox(
       height: height * 0.95,
       child: Column(
@@ -75,7 +77,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
                     color: colors.blue.withOpacity(0.2),
                     colorBorder: colors.blue.withOpacity(0.2),
                     colorText: colors.primary,
-                    title: 'Hủy',
+                    title: appLocalizations.cancel,
                     onSubmit: () => dI<AppNavigation>().pop(context),
                   ),
                 ),
@@ -87,7 +89,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
                     color: colors.primary,
                     colorBorder: colors.primary,
                     colorText: colors.background,
-                    title: 'Xác nhận',
+                    title: appLocalizations.confirm,
                     onSubmit: () => _setTime(context),
                   ),
                 ),
@@ -119,6 +121,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
 
   Widget _selectFilterWidget(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -128,7 +131,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
             top: SpacingUnit.x4,
           ),
           child: Text(
-            'Chọn bộ lọc',
+            appLocalizations.selectFilter,
             style: TextStyle(
               color: colors.text,
               fontSize: SpacingUnit.x6,
@@ -140,14 +143,14 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
           padding: 0,
           paddingVertical: SpacingUnit.x2,
           color: Colors.transparent,
-          title: 'Lọc theo tháng',
+          title: appLocalizations.filterByMonth,
           callback: () => _filterMonth(),
         ),
         ItemActivateWidget(
           padding: 0,
           paddingVertical: SpacingUnit.x2,
           color: Colors.transparent,
-          title: 'Lọc theo khoảng thời gian',
+          title: appLocalizations.filterByDay,
           callback: () => _filterDayToDay(),
         ),
       ],
@@ -158,6 +161,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
     BuildContext context,
   ) {
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     final now = DateTime.now();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +182,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
                   size: SpacingUnit.x4,
                 ),
                 Text(
-                  ' Chọn bộ lọc',
+                  appLocalizations.selectFilter,
                   style: TextStyle(
                     color: colors.orange,
                     fontSize: SpacingUnit.x3_5,
@@ -195,7 +199,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
             top: SpacingUnit.x4,
           ),
           child: Text(
-            'Lọc theo tháng',
+            appLocalizations.filterByMonth,
             style: TextStyle(
               color: colors.text,
               fontSize: SpacingUnit.x6,
@@ -247,6 +251,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
   Widget _selectFilterDayToDayWidget(
     BuildContext context,
   ) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -267,7 +272,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
                   size: SpacingUnit.x4,
                 ),
                 Text(
-                  ' Chọn bộ lọc',
+                  appLocalizations.selectFilter,
                   style: TextStyle(
                     color: colors.orange,
                     fontSize: SpacingUnit.x3_5,
@@ -284,7 +289,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
             top: SpacingUnit.x4,
           ),
           child: Text(
-            'Lọc theo tháng',
+            appLocalizations.filterByMonth,
             style: TextStyle(
               color: colors.text,
               fontSize: SpacingUnit.x6,

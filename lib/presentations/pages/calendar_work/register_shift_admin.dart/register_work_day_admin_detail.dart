@@ -154,7 +154,7 @@ class _RegisterWorkDayAdminDetailState
                       borderSide: BorderSide(color: colors.outline),
                     ),
                     suffixStyle: const TextStyle(color: Colors.green),
-                    hintText: "Nhập lý do...",
+                    hintText: "${appLocalizations.reason}...",
                   ),
                 ),
                 Padding(
@@ -202,12 +202,9 @@ class _RegisterWorkDayAdminDetailState
                                   BorderRadius.circular(SpacingUnit.x2),
                             ),
                             child: Center(
-                              child: Text(
-                                "Hủy",
-                                style: theme.textTheme.bodyMedium!.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              child: Text(appLocalizations.cancel,
+                                  style: theme.textTheme.bodyMedium!
+                                      .copyWith(fontWeight: FontWeight.w600)),
                             ),
                           ),
                         ),
@@ -312,7 +309,7 @@ class _RegisterWorkDayAdminDetailState
                   ),
                   LineWidget(color: colors.outline.withOpacity(0.8)),
                   if (data.content.isNotEmpty) ...[
-                    Text("Lý do hủy ca:",
+                    Text("${appLocalizations.reasonCancelShift}:",
                         style: theme.textTheme.titleMedium!.copyWith(
                           fontWeight: FontWeight.w500,
                         )),
@@ -398,10 +395,9 @@ class _RegisterWorkDayAdminDetailState
                         ),
                         child: Center(
                           child: Text(
-                            "Xác nhận",
-                            style: theme.textTheme.bodyMedium!.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
+                            appLocalizations.confirm,
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
                           ),
                         ),
                       ),
