@@ -45,13 +45,16 @@ class RegisterWorkDayAdminDetail extends StatefulWidget {
   final WorkShiftRequestStatus type;
   final String id;
 
-  const RegisterWorkDayAdminDetail({super.key, required this.id, required this.type});
+  const RegisterWorkDayAdminDetail(
+      {super.key, required this.id, required this.type});
 
   @override
-  State<RegisterWorkDayAdminDetail> createState() => _RegisterWorkDayAdminDetailState();
+  State<RegisterWorkDayAdminDetail> createState() =>
+      _RegisterWorkDayAdminDetailState();
 }
 
-class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail> {
+class _RegisterWorkDayAdminDetailState
+    extends State<RegisterWorkDayAdminDetail> {
   late ScrollController controller;
   int pageIndex = 1, totalItems = 12, lengthList = 11;
   FlowStatusEnum status = FlowStatusEnum.init;
@@ -71,16 +74,21 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
           .where((element) => element.workShiftSettingDetailId == widget.id)
           .toList()
           .first;
-      dI<WorkDayBloc>().add(GetElectiveShiftDetail(
+      dI<WorkDayBloc>().add(
+        GetElectiveShiftDetail(
           data: GetElectiveShiftDetailRequest(
-              date: data.workDate.toString(),
-              isApprove: widget.type == WorkShiftRequestStatus.approve,
-              workShiftSettingDetailId: data.workShiftSettingDetailId)));
+            date: data.workDate.toString(),
+            isApprove: widget.type == WorkShiftRequestStatus.approve,
+            workShiftSettingDetailId: data.workShiftSettingDetailId,
+          ),
+        ),
+      );
     }
     super.initState();
   }
 
-  _onClickCancel(String workShiftRequestId, AppLocalizations appLocalizations) async {
+  _onClickCancel(
+      String workShiftRequestId, AppLocalizations appLocalizations) async {
     final Completer completer = Completer<bool>();
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     setCheckLoad();
@@ -109,23 +117,32 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
     final colors = AppTheme.getColors(context);
     final theme = Theme.of(context);
     showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            padding: const EdgeInsets.all(SpacingUnit.x4),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(SpacingUnit.x4),
-                topRight: Radius.circular(SpacingUnit.x4),
-              ),
-              color: Colors.white,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(SpacingUnit.x4),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(SpacingUnit.x4),
+              topRight: Radius.circular(SpacingUnit.x4),
+            ),
+            color: Colors.white,
+          ),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(appLocalizations.rejectTitle,
-                    style: theme.textTheme.bodyMedium!
-                        .copyWith(fontWeight: FontWeight.w600, color: Colors.black)),
+                Text(
+                  appLocalizations.rejectTitle,
+                  style: theme.textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
                 const SizedBox(
                   height: SpacingUnit.x4,
                 ),
@@ -133,7 +150,9 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
                   controller: textEditingController,
                   maxLines: 7,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(borderSide: BorderSide(color: colors.outline)),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: colors.outline),
+                    ),
                     suffixStyle: const TextStyle(color: Colors.green),
                     hintText: "Nhập lý do...",
                   ),
@@ -145,17 +164,24 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
                     children: [
                       Expanded(
                         child: InkWell(
-                          onTap: () => _onClickCancel(workShiftRequestId, appLocalizations),
+                          onTap: () => _onClickCancel(
+                              workShiftRequestId, appLocalizations),
                           child: Container(
                             height: SpacingUnit.x12,
                             decoration: BoxDecoration(
-                                color: Colors.red,
-                                border: Border.all(color: Colors.transparent),
-                                borderRadius: BorderRadius.circular(SpacingUnit.x2)),
+                              color: Colors.red,
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius:
+                                  BorderRadius.circular(SpacingUnit.x2),
+                            ),
                             child: Center(
-                              child: Text(appLocalizations.reject,
-                                  style: theme.textTheme.bodyMedium!
-                                      .copyWith(fontWeight: FontWeight.w600, color: Colors.white)),
+                              child: Text(
+                                appLocalizations.reject,
+                                style: theme.textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -169,12 +195,19 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
                           child: Container(
                             height: SpacingUnit.x12,
                             decoration: BoxDecoration(
-                                border: Border.all(color: colors.outline.withOpacity(0.5)),
-                                borderRadius: BorderRadius.circular(SpacingUnit.x2)),
+                              border: Border.all(
+                                color: colors.outline.withOpacity(0.5),
+                              ),
+                              borderRadius:
+                                  BorderRadius.circular(SpacingUnit.x2),
+                            ),
                             child: Center(
-                              child: Text("Hủy",
-                                  style: theme.textTheme.bodyMedium!
-                                      .copyWith(fontWeight: FontWeight.w600)),
+                              child: Text(
+                                "Hủy",
+                                style: theme.textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -184,8 +217,10 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
                 )
               ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -206,8 +241,8 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
                 widget.type == WorkShiftRequestStatus.unusable
             ? BlocBuilder<WorkDayBloc, WorkDayState>(
                 builder: (context, state) {
-                  final data = state.electiveShiftItems
-                      .firstWhere((element) => element.workShiftSettingDetailId == widget.id);
+                  final data = state.electiveShiftItems.firstWhere((element) =>
+                      element.workShiftSettingDetailId == widget.id);
                   return Text(
                     data.nameWorkShift,
                     style: theme.textTheme.titleLarge,
@@ -221,7 +256,8 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
   }
 
   _getBody(WorkShiftRequestStatus type, BuildContext context) {
-    if (type == WorkShiftRequestStatus.approve || type == WorkShiftRequestStatus.unusable) {
+    if (type == WorkShiftRequestStatus.approve ||
+        type == WorkShiftRequestStatus.unusable) {
       return _bodyApprover(context);
     } else if (type == WorkShiftRequestStatus.pending ||
         type == WorkShiftRequestStatus.pendingCancel) {
@@ -235,7 +271,8 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
     final theme = Theme.of(context);
     return BlocBuilder<WorkDayBloc, WorkDayState>(
       builder: (context, state) {
-        final index = state.items.indexWhere((element) => element.workShiftApproveId == widget.id);
+        final index = state.items
+            .indexWhere((element) => element.workShiftApproveId == widget.id);
         final data = state.items[index];
         return Column(
           children: [
@@ -293,22 +330,28 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
               ),
             )),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x4),
+              padding: const EdgeInsets.symmetric(
+                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x4),
               child: Row(
                 children: [
                   Expanded(
                     child: InkWell(
-                      onTap: () => _onCancel(workShiftRequestId: data.workShiftRequestId),
+                      onTap: () => _onCancel(
+                          workShiftRequestId: data.workShiftRequestId),
                       child: Container(
                         height: SpacingUnit.x10,
                         decoration: BoxDecoration(
-                            border: Border.all(color: colors.outline.withOpacity(0.5)),
-                            borderRadius: BorderRadius.circular(SpacingUnit.x2)),
+                          border: Border.all(
+                            color: colors.outline.withOpacity(0.5),
+                          ),
+                          borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                        ),
                         child: Center(
-                          child: Text(appLocalizations.reject,
-                              style: theme.textTheme.bodyMedium!
-                                  .copyWith(fontWeight: FontWeight.w600)),
+                          child: Text(
+                            appLocalizations.reject,
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
                         ),
                       ),
                     ),
@@ -324,32 +367,42 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
                           AddApprove(
                             completer: completer,
                             request: ApproveRequest(
-                              status: data.status == WorkShiftRequestStatus.approve
-                                  ? WorkShiftRequestStatus.reject
-                                  : WorkShiftRequestStatus.approve,
+                              status:
+                                  data.status == WorkShiftRequestStatus.approve
+                                      ? WorkShiftRequestStatus.reject
+                                      : WorkShiftRequestStatus.approve,
                               updateWorkShiftApproves: [
                                 UpdateWorkShiftApprovesRequest(
-                                    id: data.workShiftApproveId, note: data.note)
+                                    id: data.workShiftApproveId,
+                                    note: data.note)
                               ],
                             ),
                           ),
                         );
                         final check = await completer.future;
                         if (check) {
-                          dI<WorkDayBloc>().add(GetWorkDayAdmin(
-                              data: WorkDayAdminRequest(requestStatus: data.status)));
+                          dI<WorkDayBloc>().add(
+                            GetWorkDayAdmin(
+                              data: WorkDayAdminRequest(
+                                  requestStatus: data.status),
+                            ),
+                          );
                         }
                       },
                       child: Container(
                         height: SpacingUnit.x10,
                         decoration: BoxDecoration(
-                            color: Colors.blue,
-                            border: Border.all(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(SpacingUnit.x2)),
+                          color: Colors.blue,
+                          border: Border.all(color: Colors.transparent),
+                          borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                        ),
                         child: Center(
-                          child: Text("Xác nhận",
-                              style: theme.textTheme.bodyMedium!
-                                  .copyWith(fontWeight: FontWeight.w600, color: Colors.white)),
+                          child: Text(
+                            "Xác nhận",
+                            style: theme.textTheme.bodyMedium!.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
@@ -369,8 +422,8 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
     final theme = Theme.of(context);
     return BlocBuilder<WorkDayBloc, WorkDayState>(
       builder: (context, state) {
-        final index = state.electiveShiftItems
-            .indexWhere((element) => element.workShiftSettingDetailId == widget.id);
+        final index = state.electiveShiftItems.indexWhere(
+            (element) => element.workShiftSettingDetailId == widget.id);
         final data = state.electiveShiftItems[index];
         return Column(
           children: [
@@ -380,16 +433,23 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
             ),
             const SizedBox(height: SpacingUnit.x2),
             Expanded(
-                child: Container(
-                    color: colors.surfaceVariantLow.withOpacity(0.1),
-                    padding: const EdgeInsets.all(SpacingUnit.x4),
-                    child: ListView.builder(
-                      itemCount: state.itemsDetail.length,
-                      itemBuilder: (context, index) =>
-                          _Item(state.itemsDetail[index], widget.type, onCancel: () {
-                        _onCancel(workShiftRequestId: state.itemsDetail[index].workShiftRequestId);
-                      }),
-                    ))),
+              child: Container(
+                color: colors.surfaceVariantLow.withOpacity(0.1),
+                padding: const EdgeInsets.all(SpacingUnit.x4),
+                child: ListView.builder(
+                  itemCount: state.itemsDetail.length,
+                  itemBuilder: (context, index) => _Item(
+                    state.itemsDetail[index],
+                    widget.type,
+                    onCancel: () {
+                      _onCancel(
+                          workShiftRequestId:
+                              state.itemsDetail[index].workShiftRequestId);
+                    },
+                  ),
+                ),
+              ),
+            ),
           ],
         );
       },
@@ -423,14 +483,23 @@ class _Item extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(data.name,
-                    style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500)),
+                Text(
+                  data.name,
+                  style: theme.textTheme.bodyLarge!
+                      .copyWith(fontWeight: FontWeight.w500),
+                ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text("#${data.code}",
-                    style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)),
+                Text(
+                  "#${data.code}",
+                  style: theme.textTheme.bodyLarge!
+                      .copyWith(fontWeight: FontWeight.w400),
+                ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(data.namePosition,
-                    style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)),
+                Text(
+                  data.namePosition,
+                  style: theme.textTheme.bodyLarge!
+                      .copyWith(fontWeight: FontWeight.w400),
+                ),
               ],
             ),
           ),
@@ -442,11 +511,17 @@ class _Item extends StatelessWidget {
                 child: Container(
                   height: SpacingUnit.x10,
                   decoration: BoxDecoration(
-                      border: Border.all(color: colors.outline.withOpacity(0.5)),
-                      borderRadius: BorderRadius.circular(SpacingUnit.x2)),
+                    border: Border.all(
+                      color: colors.outline.withOpacity(0.5),
+                    ),
+                    borderRadius: BorderRadius.circular(SpacingUnit.x2),
+                  ),
                   child: Center(
-                    child: Text(appLocalizations.remove2,
-                        style: theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600)),
+                    child: Text(
+                      appLocalizations.remove2,
+                      style: theme.textTheme.bodyMedium!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
               ),
