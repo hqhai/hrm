@@ -32,17 +32,12 @@ class ItemListStepFlow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    create
-                        ? appLocalizations.flow
-                        : appLocalizations.trackFlowProgres,
+                    create ? appLocalizations.flow : appLocalizations.trackFlowProgres,
                     style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x4,
-                        fontWeight: FontWeight.w800),
+                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w800),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                    padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                     child: Column(
                       children: state.flow.stepFlows
                           .mapIndexed(
@@ -69,17 +64,15 @@ class ItemListStepFlow extends StatelessWidget {
   }
 
   bool _setCheckAppRove(
-      {required Request request,
-      required int indexData,
-      required List<StepFlow> stepFlows}) {
+      {required Request request, required int indexData, required List<StepFlow> stepFlows}) {
     final stepRequests = request.stepRequests;
-    if (request.status == StatusRequestEnum.approve) return true;
+    if (request.status == StatusRequestEnum.approve ||
+        request.status == StatusRequestEnum.reject ||
+        request.status == StatusRequestEnum.cancel) return true;
     if (stepRequests.isEmpty) return false;
-    final dates =
-        stepRequests.map((e) => e.createdDate ?? DateTime.now()).toList();
+    final dates = stepRequests.map((e) => e.createdDate ?? DateTime.now()).toList();
     final date = _nearestDate(data: dates);
-    final itemsRequest =
-        stepRequests.where((element) => element.createdDate == date).toList();
+    final itemsRequest = stepRequests.where((element) => element.createdDate == date).toList();
     if (itemsRequest.isEmpty) return false;
     final stepFlowId = itemsRequest[0].stepFlowId;
     int index = stepFlows.indexWhere((element) => element.id == stepFlowId);
@@ -92,8 +85,7 @@ class ItemListStepFlow extends StatelessWidget {
     DateTime now = DateTime.now();
     DateTime nearestDate = data[0];
     for (DateTime date in data) {
-      if ((date.difference(now).abs()).inSeconds <
-          (nearestDate.difference(now).abs()).inSeconds) {
+      if ((date.difference(now).abs()).inSeconds < (nearestDate.difference(now).abs()).inSeconds) {
         nearestDate = date;
       }
     }
