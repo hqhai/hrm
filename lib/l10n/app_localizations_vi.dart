@@ -143,8 +143,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get previouslyAvailableSchedules => 'Lịch trình có sẵn';
 
   @override
-  String get thereAreCurrentlyNoMeetingsScheduled =>
-      'Hiện tại chưa có cuộc họp nào được lên lịch';
+  String get thereAreCurrentlyNoMeetingsScheduled => 'Hiện tại chưa có cuộc họp nào được lên lịch';
 
   @override
   String get scheduleAMeeting => 'Lên lịch cho cuộc họp';
@@ -283,16 +282,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get book => 'Đặt lịch';
 
   @override
-  String get errorEmailOrPassword =>
-      'Tên tài khoản hoặc mật khẩu không chính xác';
+  String get errorEmailOrPassword => 'Tên tài khoản hoặc mật khẩu không chính xác';
 
   @override
-  String get endTimeMustBeAfterStartTime =>
-      'Thời gian kết thúc phải sau thời gian bắt đầu!';
+  String get endTimeMustBeAfterStartTime => 'Thời gian kết thúc phải sau thời gian bắt đầu!';
 
   @override
-  String get bookingTimeMustBeAfterCurrentTime =>
-      'Thời gian đặt phòng phải sau thời gian hiện tại!';
+  String get bookingTimeMustBeAfterCurrentTime => 'Thời gian đặt phòng phải sau thời gian hiện tại!';
 
   @override
   String get today => 'Hôm nay';
@@ -307,8 +303,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get setRoom => 'Đặt phòng';
 
   @override
-  String get projectAndTasksCannotBeLeftBlank =>
-      'Project và task không thể để trống';
+  String get projectAndTasksCannotBeLeftBlank => 'Project và task không thể để trống';
 
   @override
   String get noDataFound => 'Không tìm thấy dữ liệu!';
@@ -317,23 +312,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get oops => 'Ôi!';
 
   @override
-  String get changeStatusRequestByManager =>
-      'Bạn có muốn sửa đổi trạng thái các yêu cầu không?';
+  String get changeStatusRequestByManager => 'Bạn có muốn sửa đổi trạng thái các yêu cầu không?';
 
   @override
-  String get doYouWantToCreateDepartment =>
-      'Bạn có muốn tạo phòng ban mới không?';
+  String get doYouWantToCreateDepartment => 'Bạn có muốn tạo phòng ban mới không?';
 
   @override
   String get doYouWantToCreatePosition => 'Bạn có muốn tạo chức vụ mới không?';
 
   @override
-  String get doYouWantToUpdateDepartment =>
-      'Bạn có muốn chỉnh sửa thông tin phòng ban không?';
+  String get doYouWantToUpdateDepartment => 'Bạn có muốn chỉnh sửa thông tin phòng ban không?';
 
   @override
-  String get doYouWantToUpdatePosition =>
-      'Bạn có muốn chỉnh sửa thông tin chức vụ không?';
+  String get doYouWantToUpdatePosition => 'Bạn có muốn chỉnh sửa thông tin chức vụ không?';
 
   @override
   String get code => 'Mã';
@@ -378,12 +369,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get doYouWantToCreatePersonnel => 'Bạn có muốn tạo nhân sự mới không?';
 
   @override
-  String get doYouWantToUpdatePersonnel =>
-      'Bạn có muốn chỉnh sửa thông tin nhân sự không?';
+  String get doYouWantToUpdatePersonnel => 'Bạn có muốn chỉnh sửa thông tin nhân sự không?';
 
   @override
-  String get doYouWantToCreateCheckInSetting =>
-      'Bạn có muốn tạo khung giờ làm việc mới không?';
+  String get doYouWantToCreateCheckInSetting => 'Bạn có muốn tạo khung giờ làm việc mới không?';
 
   @override
   String get startDate => 'Ngày bắt đầu làm việc';
@@ -419,12 +408,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get workingTime => 'Thời gian làm việc';
 
   @override
-  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword =>
-      'Vui lòng nhập email bạn muốn lấy lại mật khẩu!';
+  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword => 'Vui lòng nhập email bạn muốn lấy lại mật khẩu!';
 
   @override
-  String get newPasswordHasJustBeenSentToEmail =>
-      'Mật khẩu mới vừa được gửi tới email';
+  String get newPasswordHasJustBeenSentToEmail => 'Mật khẩu mới vừa được gửi tới email';
 
   @override
   String get pleaseCheckYourEmail => 'Vui lòng kiểm tra email của bạn.';
@@ -448,19 +435,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get dateNote => 'Ngày ghi chú';
 
   @override
-  String get enterYourRegisteredUsernameAndPassword =>
-      'Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản';
+  String get enterYourRegisteredUsernameAndPassword => 'Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản';
 
   @override
   String get supportContact => 'Liên hệ hỗ trợ';
 
   @override
-  String get theContentAndTitleCannotBeLeftBlank =>
-      'Nội dung và tiêu đề không được để trống';
+  String get theContentAndTitleCannotBeLeftBlank => 'Nội dung và tiêu đề không được để trống';
 
   @override
-  String get theNoteDateCannotBeBeforeThePresentTime =>
-      'Ngày ghi chú không được trước thời điểm hiện tại';
+  String get theNoteDateCannotBeBeforeThePresentTime => 'Ngày ghi chú không được trước thời điểm hiện tại';
 
   @override
   String get youMadeANoteOnTheDate => 'Bạn đã ghi chú vào ngày';
@@ -475,8 +459,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get doYouWantToDeleteTheNote => 'Bạn có muốn xóa ghi chú không?';
 
   @override
-  String get doYouWantToDeleteYourAccount =>
-      'Bạn có muốn xóa tài khoản này không?';
+  String get doYouWantToDeleteYourAccount => 'Bạn có muốn xóa tài khoản này không?';
 
   @override
   String get deleteAccount => 'Xóa tài khoản';
@@ -524,8 +507,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ward => 'Phường';
 
   @override
-  String get doYouWantToUpdateProfile =>
-      'Bạn có muốn chỉnh sửa thông tin cá nhân không?';
+  String get doYouWantToUpdateProfile => 'Bạn có muốn chỉnh sửa thông tin cá nhân không?';
 
   @override
   String get checkInOut => 'Check-in/out';
@@ -558,31 +540,25 @@ class AppLocalizationsVi extends AppLocalizations {
   String get date => 'ngày';
 
   @override
-  String get dialogWrongPasswordA =>
-      'Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ HCNS';
+  String get dialogWrongPasswordA => 'Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ HCNS';
 
   @override
   String get dialogWrongPasswordB => 'để đặt lại mật khẩu';
 
   @override
-  String get newPasswordOtherConfirmPassword =>
-      'Mật khẩu mới khác mật khẩu xác nhận!';
+  String get newPasswordOtherConfirmPassword => 'Mật khẩu mới khác mật khẩu xác nhận!';
 
   @override
-  String get notRegisteredForBiometrics =>
-      'Vui lòng đăng nhập ứng dụng để kích hoạt đăng nhập bằng sinh trắc học';
+  String get notRegisteredForBiometrics => 'Vui lòng đăng nhập ứng dụng để kích hoạt đăng nhập bằng sinh trắc học';
 
   @override
-  String get pleaseEnterYourUsernameAndPasswordHere =>
-      'Nhập tên đăng nhập và mật khẩu tại đây';
+  String get pleaseEnterYourUsernameAndPasswordHere => 'Nhập tên đăng nhập và mật khẩu tại đây';
 
   @override
-  String get youWantToSaveTheAboveAccountForBiometrics =>
-      'Bạn muôn lưu tài khoản này cho đăng nhập sinh trắc học?';
+  String get youWantToSaveTheAboveAccountForBiometrics => 'Bạn muôn lưu tài khoản này cho đăng nhập sinh trắc học?';
 
   @override
-  String get yourBiometricAccountIsIncorrect =>
-      'Tài khoản sinh trắc học của bạn không chính xác';
+  String get yourBiometricAccountIsIncorrect => 'Tài khoản sinh trắc học của bạn không chính xác';
 
   @override
   String get youPressYourFingerHere => 'Ấn ngón tay của bạn vào đây';
@@ -603,8 +579,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get locationPermissionsAreDenied => 'Quyền truy cập bị từ chối';
 
   @override
-  String get locationPermissionsArePermanentlyDenied =>
-      'Quyền truy cập bị từ chối, chúng tôi không thể yêu cầu được quyền truy cập định vị';
+  String get locationPermissionsArePermanentlyDenied => 'Quyền truy cập bị từ chối, chúng tôi không thể yêu cầu được quyền truy cập định vị';
 
   @override
   String get validateToolLocation => 'Xác thực vị trí chấm công';
@@ -841,8 +816,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get check => 'Kiểm tra';
 
   @override
-  String get timeHasBeenRequestedInAdvance =>
-      'Đã tồn tại đơn trùng thời gian đang chọn, vui lòng chọn lại';
+  String get timeHasBeenRequestedInAdvance => 'Đã tồn tại đơn trùng thời gian đang chọn, vui lòng chọn lại';
 
   @override
   String get workDay => 'Ngày công';
@@ -857,8 +831,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get intervalOnLeave => 'Thời gian nghỉ';
 
   @override
-  String get substitute =>
-      'Người giải quyết công việc thay trong thời gian nghỉ';
+  String get substitute => 'Người giải quyết công việc thay trong thời gian nghỉ';
 
   @override
   String get pdf => 'PDF';
@@ -873,8 +846,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get leaveWithoutPay => 'Nghỉ không lương';
 
   @override
-  String get permissionBiometric =>
-      'Bạn chưa cấp quyền xác thực sinh trắc học cho ứng dụng, vui lòng cấp quyền!';
+  String get permissionBiometric => 'Bạn chưa cấp quyền xác thực sinh trắc học cho ứng dụng, vui lòng cấp quyền!';
 
   @override
   String get transferType => 'Loại chuyển phát';
@@ -1045,8 +1017,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get unpaidLeave => 'Nghỉ không hưởng lương công ty';
 
   @override
-  String get theStartTimeMustBeAfterTheCurrentTime =>
-      'Thời gian bắt đầu phải sau thời gian hiện tại';
+  String get theStartTimeMustBeAfterTheCurrentTime => 'Thời gian bắt đầu phải sau thời gian hiện tại';
 
   @override
   String get month => 'tháng';
@@ -1115,12 +1086,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get emailCannotBeEmpty => 'Email không được rỗng';
 
   @override
-  String get onlyOneFulltimeInDepartment =>
-      'Chỉ có thể có một nhân viên toàn thời gian trong một phòng ban';
+  String get onlyOneFulltimeInDepartment => 'Chỉ có thể có một nhân viên toàn thời gian trong một phòng ban';
 
   @override
-  String get parttimeToFulltimeOnly =>
-      'Chỉ có thể chuyển từ bán thời gian sang toàn thời gian';
+  String get parttimeToFulltimeOnly => 'Chỉ có thể chuyển từ bán thời gian sang toàn thời gian';
 
   @override
   String get duplicateLicensePlate => 'Biển số xe bị trùng';
@@ -1630,8 +1599,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get editRequestSuccess => 'Sửa đơn thành công';
 
   @override
-  String get theTotalNumberOfLeaveIsNotEnough =>
-      'Bạn đã dùng hết số phép của mình rồi!';
+  String get theTotalNumberOfLeaveIsNotEnough => 'Bạn đã dùng hết số phép của mình rồi!';
 
   @override
   String get approvedSuccess => 'Phê duyệt thành công';
@@ -1754,12 +1722,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get settingBiometric => 'Cài đặt Touch Id/Face Id';
 
   @override
-  String get cancelBiometricSuccessful =>
-      'Hủy đăng nhập bằng FaceId thành công';
+  String get cancelBiometricSuccessful => 'Hủy đăng nhập bằng FaceId thành công';
 
   @override
-  String get settingBiometricSuccessful =>
-      'Cài đặt đăng nhập bằng FaceId thành công';
+  String get settingBiometricSuccessful => 'Cài đặt đăng nhập bằng FaceId thành công';
 
   @override
   String get authAccount => 'Xác thực tài khoản';
@@ -1786,8 +1752,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get nameNotNullOrEmpty => ' Tên không được để trống';
 
   @override
-  String get statusOtherActiveOrInActive =>
-      ' Trạng thái khác hoạt động hoặc không hoạt động';
+  String get statusOtherActiveOrInActive => ' Trạng thái khác hoạt động hoặc không hoạt động';
 
   @override
   String get stepFlowNotNull => ' Bước duyệt không được bỏ trống';
@@ -1799,20 +1764,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get nameAlreadyExist => ' Tên đã tồn tại';
 
   @override
-  String get thisDepartmentAlreadyExistFlow =>
-      ' Phòng ban đã tồn tại luồng của loại đơn từ này';
+  String get thisDepartmentAlreadyExistFlow => ' Phòng ban đã tồn tại luồng của loại đơn từ này';
 
   @override
-  String get thisPositionAlreadyExistFlow =>
-      ' Chức vụ đã tồn tại luồng của loại đơn từ này';
+  String get thisPositionAlreadyExistFlow => ' Chức vụ đã tồn tại luồng của loại đơn từ này';
 
   @override
-  String get thisDepartmentPositionAlreadyExistFlow =>
-      ' Phòng ban và chức vụ đã tồn luồng của loại tại đơn từ này';
+  String get thisDepartmentPositionAlreadyExistFlow => ' Phòng ban và chức vụ đã tồn luồng của loại tại đơn từ này';
 
   @override
-  String get thisUserAlreadyExistFlow =>
-      ' Nhân viên đã tồn tại luồng của loại đơn từ này';
+  String get thisUserAlreadyExistFlow => ' Nhân viên đã tồn tại luồng của loại đơn từ này';
 
   @override
   String get typeAlreadyHasStepFlow => ' Đơn từ này đã tồn tại luồng duyệt';
@@ -1827,37 +1788,31 @@ class AppLocalizationsVi extends AppLocalizations {
   String get flowIsNotCoreType => ' Luồng không phải loại luồng duyệt luồng';
 
   @override
-  String get statusInActiveUnableUpdate =>
-      ' Trạng thái không hoạt động không thể cập nhật';
+  String get statusInActiveUnableUpdate => ' Trạng thái không hoạt động không thể cập nhật';
 
   @override
   String get userIdNotNull => ' Người áp dụng không được bỏ trống';
 
   @override
-  String get departmentIdOrPositionIdMustNotExist =>
-      ' Phòng ban hoặc chức vụ không được tồn tại khi loại là nhân viên';
+  String get departmentIdOrPositionIdMustNotExist => ' Phòng ban hoặc chức vụ không được tồn tại khi loại là nhân viên';
 
   @override
-  String get departmentIdAndPositionIdNotNull =>
-      ' Phòng ban hoặc chức vụ không được bỏ trống';
+  String get departmentIdAndPositionIdNotNull => ' Phòng ban hoặc chức vụ không được bỏ trống';
 
   @override
-  String get userIdMustNotExist =>
-      ' Nhân viên không được tồn tại khi loại là phòng ban chức vụ';
+  String get userIdMustNotExist => ' Nhân viên không được tồn tại khi loại là phòng ban chức vụ';
 
   @override
   String get positionIdNotNull => ' Chức vụ không được bỏ trống';
 
   @override
-  String get departmentIdOrUserIdMustNotExist =>
-      ' Phòng ban và nhân viên không được tồn tại khi loại là chức vụ';
+  String get departmentIdOrUserIdMustNotExist => ' Phòng ban và nhân viên không được tồn tại khi loại là chức vụ';
 
   @override
   String get departmentIdNotNull => ' Phòng ban không được bỏ trống';
 
   @override
-  String get positionIdOrUserIdMustNotExist =>
-      ' Chức vụ và nhân viên không được tồn tại khi loại là phòng ban';
+  String get positionIdOrUserIdMustNotExist => ' Chức vụ và nhân viên không được tồn tại khi loại là phòng ban';
 
   @override
   String get inValidFormat => ' Sai định dạng';
@@ -1866,44 +1821,34 @@ class AppLocalizationsVi extends AppLocalizations {
   String get configNotNull => ' Dữ liệu đơn từ không được để trống';
 
   @override
-  String get exceededTheRequestedCreateTimeframe =>
-      ' Đã vượt quá thời gian được tạo yêu cầu';
+  String get exceededTheRequestedCreateTimeframe => ' Đã vượt quá thời gian được tạo yêu cầu';
 
   @override
-  String get currentStatusIsNotEdit =>
-      ' Trạng thái hiện tại không phải là chỉnh sửa';
+  String get currentStatusIsNotEdit => ' Trạng thái hiện tại không phải là chỉnh sửa';
 
   @override
-  String get currentStatusIsNotProcessOrEdit =>
-      ' Trạng thái hiện tại không phải là trong tiến trình hoặc chỉnh sửa';
+  String get currentStatusIsNotProcessOrEdit => ' Trạng thái hiện tại không phải là trong tiến trình hoặc chỉnh sửa';
 
   @override
-  String get theNumberOfFormsCreatedHasExceededTheLimit =>
-      ' Số lượng đơn tư được tạo đã vượt quá giới hạn';
+  String get theNumberOfFormsCreatedHasExceededTheLimit => ' Số lượng đơn tư được tạo đã vượt quá giới hạn';
 
   @override
-  String get endDateGreaterThanStartDate =>
-      ' Ngày kết thúc đang lớn hơn ngày bắt đầu';
+  String get endDateGreaterThanStartDate => ' Ngày kết thúc đang lớn hơn ngày bắt đầu';
 
   @override
-  String get employeeNotFullTimeOrPartTime =>
-      ' Nhân viên không phải là chính thức hoặc nhân viên bán thời gian';
+  String get employeeNotFullTimeOrPartTime => ' Nhân viên không phải là chính thức hoặc nhân viên bán thời gian';
 
   @override
-  String get userIdAndPositionIdCannotExistSameTime =>
-      ' Nhân viên và chức vụ không tồn tại cùng lúc';
+  String get userIdAndPositionIdCannotExistSameTime => ' Nhân viên và chức vụ không tồn tại cùng lúc';
 
   @override
-  String get userIdOrPositionIdCanNotNull =>
-      ' Người dùng hoặc chức vụ không thể bỏ trống';
+  String get userIdOrPositionIdCanNotNull => ' Người dùng hoặc chức vụ không thể bỏ trống';
 
   @override
-  String get flowDoesNotHaveEnoughComponents =>
-      ' Luồng phải đủ các thành phần bắt đầu, các bước, kết thúc';
+  String get flowDoesNotHaveEnoughComponents => ' Luồng phải đủ các thành phần bắt đầu, các bước, kết thúc';
 
   @override
-  String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId =>
-      ' Nếu là loạ bắt đầu hoặc kết thúc thì không có nhân viên, chức vụ và phòng ban';
+  String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId => ' Nếu là loạ bắt đầu hoặc kết thúc thì không có nhân viên, chức vụ và phòng ban';
 
   @override
   String get currentStatusNotNew => ' Trạng thái hiện tại không phải là mới';
@@ -1915,23 +1860,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get dataNotNull => ' Dữ liệu không được bỏ trống';
 
   @override
-  String get timeSlotAlreadyPleaseChooseAnother =>
-      ' Đã tồn tại đơn có cùng thời gian, vui lòng chọn lại thời gian';
+  String get timeSlotAlreadyPleaseChooseAnother => ' Đã tồn tại đơn có cùng thời gian, vui lòng chọn lại thời gian';
 
   @override
-  String get mustCreateMinimumTimeInAdvance =>
-      ' Phải tạo trước thời gian tối thiểu';
+  String get mustCreateMinimumTimeInAdvance => ' Phải tạo trước thời gian tối thiểu';
 
   @override
   String get pastTheDateOfExplanation => ' Quá ngày giải trình';
 
   @override
-  String get errorTimeMakeUp1 =>
-      'Tổng số giờ làm bù phải lớn hơn hoặc bằng số giờ làm việc đã nghỉ. Vui lòng điều chỉnh lại';
+  String get errorTimeMakeUp1 => 'Tổng số giờ làm bù phải lớn hơn hoặc bằng số giờ làm việc đã nghỉ. Vui lòng điều chỉnh lại';
 
   @override
-  String get errorTimeMakeUp2 =>
-      'Thời gian làm bù đã trùng với ca làm việc khác. Vui lòng chọn lại';
+  String get errorTimeMakeUp2 => 'Thời gian làm bù đã trùng với ca làm việc khác. Vui lòng chọn lại';
 
   @override
   String get errorPlease => 'Đã có lỗi xảy ra , vui lòng thử lại sau!';
@@ -2024,20 +1965,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get retry => 'Thử lại';
 
   @override
-  String get rejectTitle =>
-      'Bạn có chắc chắn muốn gỡ nhân viên này khỏi ca hiện tại?';
+  String get rejectTitle => 'Bạn có chắc chắn muốn gỡ nhân viên này khỏi ca hiện tại?';
 
   @override
-  String get rejectTitle1 =>
-      'Bạn có chắc chắn muốn từ chối duyệt yêu cầu hủy ca của nhân viên này?';
+  String get rejectTitle1 => 'Bạn có chắc chắn muốn từ chối duyệt yêu cầu hủy ca của nhân viên này?';
 
   @override
-  String get rejectTitle2 =>
-      'Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?';
+  String get rejectTitle2 => 'Bạn có chắc chắn muốn từ chối duyệt yêu cầu đăng ký ca của nhân viên này?';
 
   @override
-  String get proactiveCaseRegistrationManagement =>
-      'Quản lý ca làm việc của nhân viên';
+  String get proactiveCaseRegistrationManagement => 'Quản lý ca làm việc của nhân viên';
 
   @override
   String get receivedShift => 'Đã nhận ca';
@@ -2058,15 +1995,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get notRegisteredYet => 'Chưa đăng ký ca';
 
   @override
-  String get dialogConfirmContent =>
-      'Bạn có muốn phê duyệt ca làm việc này không ?';
+  String get dialogConfirmContent => 'Bạn có muốn phê duyệt ca làm việc này không ?';
 
   @override
   String get shiftOfDay => 'Ca làm việc hôm nay: ';
 
   @override
-  String get moveToTheAppropriate =>
-      ' Vui lòng di chuyển đến vị trí hợp lệ trên bản đồ';
+  String get moveToTheAppropriate => ' Vui lòng di chuyển đến vị trí hợp lệ trên bản đồ';
 
   @override
   String get chooseASchedule => 'Bạn cần chọn một lịch đi trường để chấm công.';
@@ -2132,8 +2067,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get skipLogin => 'Bỏ qua Đăng Nhập';
 
   @override
-  String get cancelShiftSuccess =>
-      'Gửi yêu cầu hủy ca thành công, Yêu cầu cần được xác nhận';
+  String get cancelShiftSuccess => 'Gửi yêu cầu hủy ca thành công, Yêu cầu cần được xác nhận';
 
   @override
   String get cancelShiftSuccess1 => 'Hủy ca thành công';
@@ -2142,8 +2076,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cancelCancelShiftSuccess => 'Hủy yêu cầu hủy ca thành công';
 
   @override
-  String get registeredShiftSuccessfully =>
-      'Đăng ký ca thành công, ca đang được chờ duyệt';
+  String get registeredShiftSuccessfully => 'Đăng ký ca thành công, ca đang được chờ duyệt';
 
   @override
   String get remove2 => 'Gỡ khỏi ca';
