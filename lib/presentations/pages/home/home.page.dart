@@ -90,12 +90,14 @@ class _HomePageState extends State<HomePage> {
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
+      LocationPermission newPermission = await Geolocator.requestPermission();
+      if (newPermission == LocationPermission.denied) {
+        await Geolocator.openLocationSettings();
         return Future.error('Location permissions are denied');
       }
     }
     if (permission == LocationPermission.deniedForever) {
+      permission = await Geolocator.requestPermission();
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
