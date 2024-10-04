@@ -128,26 +128,32 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       final Completer completer = Completer<bool>();
       switch (type) {
         case WorkShiftRequestStatus.approve:
-          dI<WorkDayBloc>().add(GetElectiveShift(
+          dI<WorkDayBloc>().add(
+            GetElectiveShift(
               completer: completer,
               data: WorkDayGetElectiveShiftRequest(
                 isApprove: true,
-                startDate: getFirstDayOfMonth(startTime),
-                endDate: getLastDayOfMonth(endTime),
-              )));
+                startDate: startTime,
+                endDate: endTime,
+              ),
+            ),
+          );
           await completer.future;
           setState(() {
             isLoading = false;
           });
           break;
         case WorkShiftRequestStatus.usable:
-          dI<WorkDayBloc>().add(GetElectiveShift(
+          dI<WorkDayBloc>().add(
+            GetElectiveShift(
               completer: completer,
               data: WorkDayGetElectiveShiftRequest(
                 isApprove: false,
-                startDate: getFirstDayOfMonth(startTime),
-                endDate: getLastDayOfMonth(endTime),
-              )));
+                startDate: startTime,
+                endDate: endTime,
+              ),
+            ),
+          );
           await completer.future;
           setState(() {
             isLoading = false;
@@ -195,14 +201,17 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
     final Completer completer = Completer<bool>();
     switch (type) {
       case WorkShiftRequestStatus.approve:
-        dI<WorkDayBloc>().add(GetElectiveShift(
-          completer: isUnScroll ? null : completer,
-          data: WorkDayGetElectiveShiftRequest(
+        dI<WorkDayBloc>().add(
+          GetElectiveShift(
+            completer: isUnScroll ? null : completer,
+            data: WorkDayGetElectiveShiftRequest(
               pageSize: days,
               isApprove: true,
-              startDate: getFirstDayOfMonth(startTime),
-              endDate: getLastDayOfMonth(endTime)),
-        ));
+              startDate: startTime,
+              endDate: endTime,
+            ),
+          ),
+        );
         if (isUnScroll) {
           await completer.future;
           setState(() {
@@ -211,14 +220,17 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         }
         break;
       case WorkShiftRequestStatus.unusable:
-        dI<WorkDayBloc>().add(GetElectiveShift(
-          completer: completer,
-          data: WorkDayGetElectiveShiftRequest(
+        dI<WorkDayBloc>().add(
+          GetElectiveShift(
+            completer: completer,
+            data: WorkDayGetElectiveShiftRequest(
               pageSize: days,
               isApprove: false,
-              startDate: getFirstDayOfMonth(startTime),
-              endDate: getLastDayOfMonth(endTime)),
-        ));
+              startDate: startTime,
+              endDate: endTime,
+            ),
+          ),
+        );
         if (isUnScroll) {
           await completer.future;
           setState(() {
@@ -287,7 +299,13 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
 
   setEndTime(DateTime value) {
     setState(() {
-      endTime = value;
+      endTime = filterType == FilterType.day ? value : getLastDayOfMonth(value);
+    });
+  }
+
+  setStartTime(DateTime value) {
+    setState(() {
+      startTime = filterType == FilterType.day ? value : getFirstDayOfMonth(value);
     });
   }
 
@@ -301,12 +319,6 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
     } else {
       _loadShift(type: selectType, isUnScroll: false);
     }
-  }
-
-  setStartTime(DateTime value) {
-    setState(() {
-      startTime = value;
-    });
   }
 
   _removeFilter() {

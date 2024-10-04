@@ -314,20 +314,20 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
     });
   }
 
-  setCall(){
+  setCall() {
     widget.changeEndTime.call(endTime);
     widget.changeStartTime.call(startTime);
     widget.callBack.call();
   }
 
   _setTime(BuildContext context) {
-    if(checkFilter == 2){
-      setCall();
+    if (checkFilter == 2) {
       widget.onChangeFilterType.call(FilterType.month);
-    }
-    if(checkFilter == 3){
       setCall();
+    }
+    if (checkFilter == 3) {
       widget.onChangeFilterType.call(FilterType.day);
+      setCall();
     }
     dI<AppNavigation>().pop(context);
   }
