@@ -2113,4 +2113,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get reasonCancel => 'Lý do hủy đơn :';
+
+  @override
+  String get reasonForCanceling => 'Lí do hủy ca';
+
+  @override
+  String get reasonForRejection => 'Lý do bị từ chối duyệt';
 }

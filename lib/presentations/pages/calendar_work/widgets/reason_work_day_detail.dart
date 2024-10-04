@@ -37,7 +37,6 @@ class _ReasonWorkDayDetailState extends State<ReasonWorkDayDetail> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<ShiftBloc, ShiftState>(
       builder: (context, state) {
         return Column(
@@ -46,7 +45,7 @@ class _ReasonWorkDayDetailState extends State<ReasonWorkDayDetail> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
               child: Text(
-                appLocalizations.reasonForCancelingRequest,
+                _getTextReason(),
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: SpacingUnit.x4,
@@ -69,7 +68,10 @@ class _ReasonWorkDayDetailState extends State<ReasonWorkDayDetail> {
               maxLines: 7,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderSide: BorderSide(color: colors.outline)),
+                  borderSide: BorderSide(
+                    color: colors.outline,
+                  ),
+                ),
                 disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: colors.outline),
                 ),
@@ -81,5 +83,18 @@ class _ReasonWorkDayDetailState extends State<ReasonWorkDayDetail> {
         );
       },
     );
+  }
+
+  String _getTextReason() {
+    final appLocalizations = AppLocalizations.of(context)!;
+    if (widget.status == WorkShiftRequestStatus.approve) {
+      return appLocalizations.reasonForCancelingRequest;
+    } else if (widget.status == WorkShiftRequestStatus.cancel) {
+      return appLocalizations.reasonForCanceling;
+    } else if (widget.status == WorkShiftRequestStatus.reject) {
+      return appLocalizations.reasonForRejection;
+    }
+
+    return '';
   }
 }

@@ -2113,4 +2113,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reasonCancel => 'Reason for cancellation:';
+
+  @override
+  String get reasonForCanceling => 'Reason for canceling';
+
+  @override
+  String get reasonForRejection => 'Reason for rejection';
 }
