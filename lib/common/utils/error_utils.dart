@@ -175,6 +175,7 @@ const errorVi = {
       "Thời gian bắt đầu checkout hợp lệ đang lớn hơn thời gian kết thúc ca làm việc ",
   "EndTimeGreaterThanCheckOutEndTimeValid":
       "Thời gian kết thúc checkout hợp lệ đang nhỏ hơn thời gian kết thúc ca làm việc",
+  "WorkShiftAlreadyExistsForDay" : "Ca làm việc đã tồn tại"
 };
 
 const errorEn = {
@@ -335,4 +336,5 @@ const errorEn = {
   "StartTimeGreaterThanCheckInEndTimeValid": "Start Time Greater Than Check In End Time Valid ",
   "CheckOutStartTimeValidGreaterThanEndTime": "Check Out Start Time Valid Greater Than End Time ",
   "EndTimeGreaterThanCheckOutEndTimeValid": "End Time Greater Than Check Out End Time Valid",
+  "WorkShiftAlreadyExistsForDay" : "Work Shift Already Exists For Day"
 };

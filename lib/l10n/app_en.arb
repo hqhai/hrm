@@ -698,5 +698,7 @@
   "requestCancelBy": "Request Canceled by:",
   "requestEditBy": "Request Edited by:",
   "reasonReject": "Reason for rejection:",
-  "reasonCancel": "Reason for cancellation:"
+  "reasonCancel": "Reason for cancellation:",
+  "reasonForCanceling" : "Reason for canceling",
+  "reasonForRejection" : "Reason for rejection"
 }

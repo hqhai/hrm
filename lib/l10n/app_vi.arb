@@ -699,5 +699,7 @@
   "requestCancelBy": "Người hủy đơn",
   "requestEditBy": "Người YC sửa đơn",
   "reasonReject": "Lý do từ chối đơn:",
-  "reasonCancel": "Lý do hủy đơn :"
+  "reasonCancel": "Lý do hủy đơn :",
+  "reasonForCanceling" : "Lí do hủy ca",
+  "reasonForRejection" : "Lý do bị từ chối duyệt"
 }

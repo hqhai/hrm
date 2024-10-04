@@ -4292,6 +4292,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reason for cancellation:'**
   String get reasonCancel;
+
+  /// No description provided for @reasonForCanceling.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for canceling'**
+  String get reasonForCanceling;
+
+  /// No description provided for @reasonForRejection.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for rejection'**
+  String get reasonForRejection;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
