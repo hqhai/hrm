@@ -174,7 +174,7 @@
   "checkOut": "Chấm công ra",
   "history": "Lịch sử",
   "timeWorking": "Ca làm việc",
-  "date": "Ngày",
+  "date": "ngày",
   "dialogWrongPasswordA": "Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ HCNS",
   "dialogWrongPasswordB": "để đặt lại mật khẩu",
   "newPasswordOtherConfirmPassword": "Mật khẩu mới khác mật khẩu xác nhận!",
@@ -335,7 +335,7 @@
   "verticalCalendar": "Lịch dọc",
   "unpaidLeave": "Nghỉ không hưởng lương công ty",
   "theStartTimeMustBeAfterTheCurrentTime": "Thời gian bắt đầu phải sau thời gian hiện tại",
-  "month": "Tháng",
+  "month": "tháng",
   "quantityCannotBeZero": "Số lượng không được bằng 0",
   "duplicateEmail": "Email bị trùng",
   "invalidParentId": "Id đối tượng không hợp lệ",
@@ -435,7 +435,7 @@
   "timeWork": "Số giờ làm việc",
   "detailWork": "Công chi tiết",
   "summary": "Công tổng hợp",
-  "year": "Năm",
+  "year": "năm",
   "request": "Đơn từ",
   "shift": "Ca công",
   "workInDay": "Công ghi nhận trong ngày",
@@ -701,5 +701,7 @@
   "reasonReject": "Lý do từ chối đơn:",
   "reasonCancel": "Lý do hủy đơn :",
   "reasonForCanceling" : "Lí do hủy ca",
-  "reasonForRejection" : "Lý do bị từ chối duyệt"
+  "reasonForRejection" : "Lý do bị từ chối duyệt",
+  "nameWorkShift": "Tên ca làm việc",
+  "reasonForRemove": "Lý do bị gỡ khỏi ca"
 }

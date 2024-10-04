@@ -2119,4 +2119,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reasonForRejection => 'Reason for rejection';
+
+  @override
+  String get nameWorkShift => 'Work shift name';
+
+  @override
+  String get reasonForRemove => 'Reason for stop';
 }

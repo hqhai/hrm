@@ -537,7 +537,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get timeWorking => 'Ca làm việc';
 
   @override
-  String get date => 'Ngày';
+  String get date => 'ngày';
 
   @override
   String get dialogWrongPasswordA => 'Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ HCNS';
@@ -1020,7 +1020,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get theStartTimeMustBeAfterTheCurrentTime => 'Thời gian bắt đầu phải sau thời gian hiện tại';
 
   @override
-  String get month => 'Tháng';
+  String get month => 'tháng';
 
   @override
   String get quantityCannotBeZero => 'Số lượng không được bằng 0';
@@ -1317,7 +1317,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get summary => 'Công tổng hợp';
 
   @override
-  String get year => 'Năm';
+  String get year => 'năm';
 
   @override
   String get request => 'Đơn từ';
@@ -2119,4 +2119,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get reasonForRejection => 'Lý do bị từ chối duyệt';
+
+  @override
+  String get nameWorkShift => 'Tên ca làm việc';
+
+  @override
+  String get reasonForRemove => 'Lý do bị gỡ khỏi ca';
 }

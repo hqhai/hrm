@@ -38,13 +38,13 @@ class ShiftsContentWidget extends StatelessWidget {
         TitleValueLeave(
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
-          title: appLocalizations.timeWorking,
+          title: appLocalizations.nameWorkShift,
           value: data.name,
         ),
         TitleValueLeave(
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
-          title: appLocalizations.code,
+          title: appLocalizations.shiftCode,
           value: data.code,
         ),
         TitleValueLeave(

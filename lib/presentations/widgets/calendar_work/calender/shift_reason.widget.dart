@@ -10,10 +10,11 @@ import 'package:themes/themes.dart';
 
 class ShiftReasonWidget extends StatefulWidget {
   const ShiftReasonWidget(
-      {super.key, required this.reasonController, required this.data});
+      {super.key, required this.reasonController, required this.data, this.title});
 
   final TextEditingController reasonController;
   final Shift data;
+  final String? title;
 
   @override
   State<ShiftReasonWidget> createState() => _ShiftReasonWidgetState();
@@ -30,9 +31,8 @@ class _ShiftReasonWidgetState extends State<ShiftReasonWidget> {
     if (widget.data.workShiftApproves.isEmpty) {
       return '';
     } else {
-      widget.data.workShiftApproves.sort((a, b) =>
-          (a.createdDate ?? DateTime.now())
-              .compareTo(b.createdDate ?? DateTime.now()));
+      widget.data.workShiftApproves.sort(
+          (a, b) => (a.createdDate ?? DateTime.now()).compareTo(b.createdDate ?? DateTime.now()));
       return widget.data.workShiftApproves.first.content;
     }
   }
@@ -53,7 +53,7 @@ class _ShiftReasonWidgetState extends State<ShiftReasonWidget> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
               child: Text(
-                appLocalizations.reasonForCancelingRequest,
+                widget.title ?? appLocalizations.reasonForCancelingRequest,
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: SpacingUnit.x4,
@@ -75,8 +75,7 @@ class _ShiftReasonWidgetState extends State<ShiftReasonWidget> {
               controller: widget.reasonController,
               maxLines: 7,
               decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: colors.outline)),
+                border: OutlineInputBorder(borderSide: BorderSide(color: colors.outline)),
                 disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: colors.outline),
                 ),
