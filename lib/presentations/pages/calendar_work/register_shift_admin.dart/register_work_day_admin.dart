@@ -373,6 +373,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
           style: TextStyle(
             color: colors.text,
             fontSize: SpacingUnit.x5,
+            fontWeight: FontWeight.w600
           ),
         ),
         actions: [
