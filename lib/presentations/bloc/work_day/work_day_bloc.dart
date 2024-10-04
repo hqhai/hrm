@@ -53,7 +53,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
           ),
         ),
       );
-      emit(state.copyWith(workDays: mapWorkDays, workDayIds: workDayId));
+      emit(state.copyWith(workDays: mapWorkDays, workDayIds: workDayId, errorCode: ''));
       event.completer?.complete(true);
     } catch (e) {
       event.completer?.complete(false);
@@ -68,6 +68,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
     try {
       await _locationUseCase.registerWorkDays(
           request: WorkDaysRequest(workShiftRequestList: event.request));
+      emit(state.copyWith(errorCode: ''));
       event.completer.complete(true);
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
@@ -97,6 +98,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       CancelRegisterWorkDay event, Emitter<WorkDayState> emit) async {
     try {
       await _locationUseCase.cancelRegisterWorkDays(request: event.data);
+      emit(state.copyWith(errorCode: ''));
       event.completer?.complete(true);
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
@@ -132,12 +134,11 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       emit(state.copyWith(items: data.items, pagingInfo: data.pagingInfo));
       if (event.data.requestStatus == WorkShiftRequestStatus.pending) {
         emit(state.copyWith(
+          errorCode: '',
           totalPending: data.pagingInfo.totalItems,
         ));
       } else if (event.data.requestStatus == WorkShiftRequestStatus.pendingCancel) {
-        emit(state.copyWith(
-          totalPendingCancel: data.pagingInfo.totalItems,
-        ));
+        emit(state.copyWith(totalPendingCancel: data.pagingInfo.totalItems, errorCode: ''));
       }
       event.completer?.complete(true);
     } catch (e) {
@@ -171,7 +172,9 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       final electiveShiftItems =
           data.items.expand((element) => element.workShiftRegisteredDetails).toList();
       emit(state.copyWith(
-          electiveShiftItems: electiveShiftItems, electiveShiftPagingInfo: data.pagingInfo));
+          errorCode: '',
+          electiveShiftItems: electiveShiftItems,
+          electiveShiftPagingInfo: data.pagingInfo));
       event.completer?.complete(true);
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
@@ -207,6 +210,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
   FutureOr<void> _registerAdmin(RegisterWorkDayAdmin event, Emitter<WorkDayState> emit) async {
     try {
       await _locationUseCase.addApprove(request: event.request);
+      emit(state.copyWith(errorCode: ''));
       event.completer.complete(true);
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
@@ -236,6 +240,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       CancelRegisterWorkDayAdmin event, Emitter<WorkDayState> emit) async {
     try {
       await _locationUseCase.cancelWorkDay(request: event.data);
+      emit(state.copyWith(errorCode: ''));
       event.completer.complete(true);
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
@@ -260,13 +265,14 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       }
     }
   }
-///-----------------
+
+  ///-----------------
   Future<FutureOr<void>> _getWorkDayByUser(
       GetWorkDayByUser event, Emitter<WorkDayState> emit) async {
     final data = await _locationUseCase.getWorkShiftRequestByUser(
       request: event.request,
     );
-    emit(state.copyWith(items: data.items));
+    emit(state.copyWith(items: data.items, errorCode: ''));
     event.completer.complete(data.items.isNotEmpty);
   }
 
@@ -294,6 +300,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
   FutureOr<void> _addApprove(AddApprove event, Emitter<WorkDayState> emit) async {
     try {
       await _locationUseCase.addApprove(request: event.request);
+      emit(state.copyWith(errorCode: ''));
       event.completer?.complete(true);
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       if (currentContext.mounted) {
