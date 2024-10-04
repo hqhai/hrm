@@ -83,7 +83,7 @@ DateTime getLastDayOfMonth(DateTime time) {
 ///Chuyển dạng Iso8601
 String formatIso8601(String? time) {
   DateTime dateTime1 = DateTime.parse(time ?? DateTime.now().toString());
-  String time1 = DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime1);
+  String time1 = DateFormat('dd/MM/yyyy HH:mm:ss').format(dateTime1);
   List<String> inputDateParts = time1.split(' ');
   List<String> dateParts = inputDateParts[0].split('-');
   List<String> timeParts = inputDateParts[1].split(':');
@@ -119,7 +119,7 @@ String formatMY(DateTime? time) {
 String formatYYMMDD(String time) {
   if (time != '') {
     DateTime dateTime = DateTime.parse(time);
-    return DateFormat('yyyy-MM-dd').format(dateTime);
+    return DateFormat('dd/MM/yyyy').format(dateTime);
   }
   return '';
 }
@@ -222,7 +222,7 @@ String formatYMDHMS(String? time) {
     return '';
   } else {
     DateTime dateTime = DateTime.parse(time!);
-    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
+    return DateFormat('dd/MM/yyyy HH:mm:ss').format(dateTime);
   }
 }
 

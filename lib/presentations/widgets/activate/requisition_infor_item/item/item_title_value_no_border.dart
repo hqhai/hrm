@@ -4,11 +4,17 @@ import 'package:themes/themes.dart';
 
 class ItemTitleValueNoBorder extends StatelessWidget {
   const ItemTitleValueNoBorder(
-      {super.key, required this.title, required this.value, this.size, this.font});
+      {super.key,
+      required this.title,
+      required this.value,
+      this.size,
+      this.font,
+      this.spaceBetween = true});
 
   final String title, value;
   final double? size;
   final FontWeight? font;
+  final bool spaceBetween;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class ItemTitleValueNoBorder extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: spaceBetween ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
         children: [
           Text(
             title,
@@ -26,14 +32,21 @@ class ItemTitleValueNoBorder extends StatelessWidget {
               fontWeight: font,
             ),
           ),
-          Expanded(
-            child: Text(
-              textAlign: TextAlign.right,
-              maxLines: 2,
-              value,
-              style: TextStyle(color: colors.text, fontSize: size ?? SpacingUnit.x3),
-            ),
-          )
+          spaceBetween
+              ? Expanded(
+                  child: Text(
+                    textAlign: TextAlign.right,
+                    maxLines: 2,
+                    value,
+                    style: TextStyle(color: colors.text, fontSize: size ?? SpacingUnit.x3),
+                  ),
+                )
+              : Text(
+                  textAlign: TextAlign.right,
+                  maxLines: 2,
+                  '   $value',
+                  style: TextStyle(color: colors.text, fontSize: size ?? SpacingUnit.x3),
+                ),
         ],
       ),
     );

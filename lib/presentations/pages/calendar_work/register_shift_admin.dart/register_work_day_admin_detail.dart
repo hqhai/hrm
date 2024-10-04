@@ -19,6 +19,7 @@ import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/line.dart';
 import 'package:flutter/material.dart';
@@ -250,34 +251,44 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
                   const SizedBox(
                     height: SpacingUnit.x4,
                   ),
-                  Text(
-                      "${appLocalizations.time}: ${strSeconds(data.startTime)} - ${strSeconds(data.endTime)} ${formatDMY(data.workDate.toString())}"),
-                  const SizedBox(
-                    height: SpacingUnit.x4,
+                  ItemTitleValueNoBorder(
+                    size: SpacingUnit.x4,
+                    font: FontWeight.w600,
+                    spaceBetween: false,
+                    title: appLocalizations.time,
+                    value:
+                        '${strSeconds(data.startTime)} - ${strSeconds(data.endTime)} ${formatDMY(data.workDate.toString())}',
                   ),
-                  LineWidget(color: colors.outline),
-                  const SizedBox(
-                    height: SpacingUnit.x4,
+                  LineWidget(color: colors.outline.withOpacity(0.8)),
+                  ItemTitleValueNoBorder(
+                    size: SpacingUnit.x4,
+                    font: FontWeight.w600,
+                    spaceBetween: false,
+                    title: data.name,
+                    value: '#${data.code}',
                   ),
-                  Text("${data.name} #${data.code}"),
-                  const SizedBox(
-                    height: SpacingUnit.x4,
+                  ItemTitleValueNoBorder(
+                    size: SpacingUnit.x4,
+                    spaceBetween: false,
+                    title: data.namePosition,
+                    value: '#${data.code}',
                   ),
-                  Text("${data.namePosition} #${data.code}"),
-                  const SizedBox(
-                    height: SpacingUnit.x4,
-                  ),
-                  Text("Lý do hủy ca:",
+                  LineWidget(color: colors.outline.withOpacity(0.8)),
+                  if (data.content.isNotEmpty) ...[
+                    Text("Lý do hủy ca:",
+                        style: theme.textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
+                        )),
+                    const SizedBox(
+                      height: SpacingUnit.x2,
+                    ),
+                    Text(
+                      data.content,
                       style: theme.textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      )),
-                  const SizedBox(
-                    height: SpacingUnit.x2,
-                  ),
-                  Text(data.content,
-                      style: theme.textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      )),
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             )),
@@ -313,7 +324,9 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
                           AddApprove(
                             completer: completer,
                             request: ApproveRequest(
-                              status: data.status == WorkShiftRequestStatus.approve? WorkShiftRequestStatus.reject : WorkShiftRequestStatus.approve,
+                              status: data.status == WorkShiftRequestStatus.approve
+                                  ? WorkShiftRequestStatus.reject
+                                  : WorkShiftRequestStatus.approve,
                               updateWorkShiftApproves: [
                                 UpdateWorkShiftApprovesRequest(
                                     id: data.workShiftApproveId, note: data.note)
