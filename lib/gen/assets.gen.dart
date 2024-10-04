@@ -107,6 +107,22 @@ class $AssetsImagesIconGen {
   /// File path: assets/images/icon/home.svg
   String get homeSvg => 'assets/images/icon/home.svg';
 
+  /// File path: assets/images/icon/icon_loaction.png
+  AssetGenImage get iconLoaction =>
+      const AssetGenImage('assets/images/icon/icon_loaction.png');
+
+  /// File path: assets/images/icon/img_fsel.jpg
+  AssetGenImage get imgFsel =>
+      const AssetGenImage('assets/images/icon/img_fsel.jpg');
+
+  /// File path: assets/images/icon/img_hoang_ngan.jpg
+  AssetGenImage get imgHoangNgan =>
+      const AssetGenImage('assets/images/icon/img_hoang_ngan.jpg');
+
+  /// File path: assets/images/icon/img_lac_trung.jpg
+  AssetGenImage get imgLacTrung =>
+      const AssetGenImage('assets/images/icon/img_lac_trung.jpg');
+
   $AssetsImagesIconNotificationGen get notification =>
       const $AssetsImagesIconNotificationGen();
 
@@ -133,6 +149,10 @@ class $AssetsImagesIconGen {
         attendance,
         circularProgressIndicator,
         homeSvg,
+        iconLoaction,
+        imgFsel,
+        imgHoangNgan,
+        imgLacTrung,
         person,
         profile
       ];

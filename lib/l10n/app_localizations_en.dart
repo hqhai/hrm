@@ -113,7 +113,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get approver => 'Approve';
 
   @override
-  String get createOvertimeRequestIsSuccess => 'Successfully Created OT Request';
+  String get createOvertimeRequestIsSuccess =>
+      'Successfully Created OT Request';
 
   @override
   String get successfullyCreatedRequest => 'Request Successfully Initiated';
@@ -134,7 +135,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePasswordSuccess => 'Password Change Successful!';
 
   @override
-  String get doYouWantToChangeYourPassword => 'Do you want to change your password?';
+  String get doYouWantToChangeYourPassword =>
+      'Do you want to change your password?';
 
   @override
   String get leaveACommentHere => 'Write Content Here';
@@ -143,7 +145,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get previouslyAvailableSchedules => 'Available Schedules';
 
   @override
-  String get thereAreCurrentlyNoMeetingsScheduled => 'No Meetings Are Currently Scheduled';
+  String get thereAreCurrentlyNoMeetingsScheduled =>
+      'No Meetings Are Currently Scheduled';
 
   @override
   String get scheduleAMeeting => 'Schedule A Meeting';
@@ -285,10 +288,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorEmailOrPassword => 'Incorrect Account Name Or Password';
 
   @override
-  String get endTimeMustBeAfterStartTime => 'The End Time Must Be After The Start Time!';
+  String get endTimeMustBeAfterStartTime =>
+      'The End Time Must Be After The Start Time!';
 
   @override
-  String get bookingTimeMustBeAfterCurrentTime => 'The Booking Time Must Be After The Current Time!';
+  String get bookingTimeMustBeAfterCurrentTime =>
+      'The Booking Time Must Be After The Current Time!';
 
   @override
   String get today => 'Today';
@@ -303,7 +308,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setRoom => 'Book A Room';
 
   @override
-  String get projectAndTasksCannotBeLeftBlank => 'Project And Task Can\'t Be Left Blank';
+  String get projectAndTasksCannotBeLeftBlank =>
+      'Project And Task Can\'t Be Left Blank';
 
   @override
   String get noDataFound => 'No Data Found!';
@@ -312,19 +318,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get oops => 'Oops/Oh';
 
   @override
-  String get changeStatusRequestByManager => 'Do you want to modify the status of the requests?';
+  String get changeStatusRequestByManager =>
+      'Do you want to modify the status of the requests?';
 
   @override
-  String get doYouWantToCreateDepartment => 'Do you want to create a new department?';
+  String get doYouWantToCreateDepartment =>
+      'Do you want to create a new department?';
 
   @override
-  String get doYouWantToCreatePosition => 'Do you want to create a new position?';
+  String get doYouWantToCreatePosition =>
+      'Do you want to create a new position?';
 
   @override
-  String get doYouWantToUpdateDepartment => 'Do you want to edit the department information?';
+  String get doYouWantToUpdateDepartment =>
+      'Do you want to edit the department information?';
 
   @override
-  String get doYouWantToUpdatePosition => 'Do you want to edit the position information?';
+  String get doYouWantToUpdatePosition =>
+      'Do you want to edit the position information?';
 
   @override
   String get code => 'Code';
@@ -366,13 +377,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updateCheckInSetting => 'Edit work hours information';
 
   @override
-  String get doYouWantToCreatePersonnel => 'Do you want to create a new employee?';
+  String get doYouWantToCreatePersonnel =>
+      'Do you want to create a new employee?';
 
   @override
-  String get doYouWantToUpdatePersonnel => 'Do you want to edit employee information?';
+  String get doYouWantToUpdatePersonnel =>
+      'Do you want to edit employee information?';
 
   @override
-  String get doYouWantToCreateCheckInSetting => 'Do you want to create a new work schedule?';
+  String get doYouWantToCreateCheckInSetting =>
+      'Do you want to create a new work schedule?';
 
   @override
   String get startDate => 'Start date';
@@ -408,10 +422,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get workingTime => 'Working hours';
 
   @override
-  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword => 'Please enter the email to retrieve your password!';
+  String get pleaseEnterTheEmailYouWantToRetrieveYourPassword =>
+      'Please enter the email to retrieve your password!';
 
   @override
-  String get newPasswordHasJustBeenSentToEmail => 'A new password has been sent to your email';
+  String get newPasswordHasJustBeenSentToEmail =>
+      'A new password has been sent to your email';
 
   @override
   String get pleaseCheckYourEmail => 'Please check your email.';
@@ -435,16 +451,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dateNote => 'Note date';
 
   @override
-  String get enterYourRegisteredUsernameAndPassword => 'Enter the registered username and password';
+  String get enterYourRegisteredUsernameAndPassword =>
+      'Enter the registered username and password';
 
   @override
   String get supportContact => 'Contact support';
 
   @override
-  String get theContentAndTitleCannotBeLeftBlank => 'Content and subject cannot be empty';
+  String get theContentAndTitleCannotBeLeftBlank =>
+      'Content and subject cannot be empty';
 
   @override
-  String get theNoteDateCannotBeBeforeThePresentTime => 'Note date cannot be before the current time';
+  String get theNoteDateCannotBeBeforeThePresentTime =>
+      'Note date cannot be before the current time';
 
   @override
   String get youMadeANoteOnTheDate => 'You have noted on the date';
@@ -459,7 +478,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get doYouWantToDeleteTheNote => 'Do you want to delete this note?';
 
   @override
-  String get doYouWantToDeleteYourAccount => 'Do you want to delete this account?';
+  String get doYouWantToDeleteYourAccount =>
+      'Do you want to delete this account?';
 
   @override
   String get deleteAccount => 'Delete account';
@@ -507,7 +527,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ward => 'Ward';
 
   @override
-  String get doYouWantToUpdateProfile => 'Do you want to edit personal information?';
+  String get doYouWantToUpdateProfile =>
+      'Do you want to edit personal information?';
 
   @override
   String get checkInOut => 'Check-in/out';
@@ -540,25 +561,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get date => 'Day';
 
   @override
-  String get dialogWrongPasswordA => 'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please contact HR to reset your password.';
+  String get dialogWrongPasswordA =>
+      'You have entered incorrect login information 5 times. Your account has been temporarily locked. Please contact HR to reset your password.';
 
   @override
   String get dialogWrongPasswordB => 'to reset password';
 
   @override
-  String get newPasswordOtherConfirmPassword => 'New password does not match the confirmation password!';
+  String get newPasswordOtherConfirmPassword =>
+      'New password does not match the confirmation password!';
 
   @override
-  String get notRegisteredForBiometrics => 'Please log in to the app to activate biometric authentication.';
+  String get notRegisteredForBiometrics =>
+      'Please log in to the app to activate biometric authentication.';
 
   @override
-  String get pleaseEnterYourUsernameAndPasswordHere => 'Enter your username and password here';
+  String get pleaseEnterYourUsernameAndPasswordHere =>
+      'Enter your username and password here';
 
   @override
-  String get youWantToSaveTheAboveAccountForBiometrics => 'Do you want to save this account for biometric login?';
+  String get youWantToSaveTheAboveAccountForBiometrics =>
+      'Do you want to save this account for biometric login?';
 
   @override
-  String get yourBiometricAccountIsIncorrect => 'Your biometric account is incorrect';
+  String get yourBiometricAccountIsIncorrect =>
+      'Your biometric account is incorrect';
 
   @override
   String get youPressYourFingerHere => 'Press your finger here';
@@ -579,7 +606,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get locationPermissionsAreDenied => 'Access denied';
 
   @override
-  String get locationPermissionsArePermanentlyDenied => 'Access denied, we are unable to request location access';
+  String get locationPermissionsArePermanentlyDenied =>
+      'Access denied, we are unable to request location access';
 
   @override
   String get validateToolLocation => 'Authenticate timekeeping location';
@@ -651,7 +679,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseOfWarehouse => 'Warehouse release request form';
 
   @override
-  String get releaseOfWarehouseCreate => 'Create warehouse release request form';
+  String get releaseOfWarehouseCreate =>
+      'Create warehouse release request form';
 
   @override
   String get stationeryOrder => 'Stationery order form';
@@ -816,7 +845,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get check => 'Check';
 
   @override
-  String get timeHasBeenRequestedInAdvance => 'A request already exists for the selected time, please choose again';
+  String get timeHasBeenRequestedInAdvance =>
+      'A request already exists for the selected time, please choose again';
 
   @override
   String get workDay => 'Workdays';
@@ -846,7 +876,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leaveWithoutPay => 'Unpaid leave';
 
   @override
-  String get permissionBiometric => 'You have not granted biometric authentication permissions to the app, please grant permission!';
+  String get permissionBiometric =>
+      'You have not granted biometric authentication permissions to the app, please grant permission!';
 
   @override
   String get transferType => 'Delivery type';
@@ -990,7 +1021,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cannotBeLeftBlank => 'Cannot be empty';
 
   @override
-  String get thereAreCurrentlyNoProducts => 'No products available at the moment';
+  String get thereAreCurrentlyNoProducts =>
+      'No products available at the moment';
 
   @override
   String get removeFilter => 'Clear filter';
@@ -1017,7 +1049,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unpaidLeave => 'Company unpaid leave';
 
   @override
-  String get theStartTimeMustBeAfterTheCurrentTime => 'Start time must be after the current time';
+  String get theStartTimeMustBeAfterTheCurrentTime =>
+      'Start time must be after the current time';
 
   @override
   String get month => 'Month';
@@ -1086,10 +1119,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailCannotBeEmpty => 'Email cannot be empty';
 
   @override
-  String get onlyOneFulltimeInDepartment => 'Only one full-time employee per department is allowed';
+  String get onlyOneFulltimeInDepartment =>
+      'Only one full-time employee per department is allowed';
 
   @override
-  String get parttimeToFulltimeOnly => 'Can only transition from part-time to full-time';
+  String get parttimeToFulltimeOnly =>
+      'Can only transition from part-time to full-time';
 
   @override
   String get duplicateLicensePlate => 'Duplicate license plate number';
@@ -1236,7 +1271,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sourceOfLeave => 'Leave source';
 
   @override
-  String get doYouWantRevokeYourRequest => 'Are you sure you want to cancel to request?';
+  String get doYouWantRevokeYourRequest =>
+      'Are you sure you want to cancel to request?';
 
   @override
   String get start => 'Start';
@@ -1398,7 +1434,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lateOrEarly => 'Late Arrival/Early Departure';
 
   @override
-  String get lateOrEarlyCreate => 'Create request for Late Arrival/Early Departure';
+  String get lateOrEarlyCreate =>
+      'Create request for Late Arrival/Early Departure';
 
   @override
   String get timekeepingError => 'Timekeeping error';
@@ -1461,7 +1498,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelShiftReceiveRegistration => 'Cancel shift acceptance';
 
   @override
-  String get cancelShiftCancellationRequest => 'Cancel shift cancellation request';
+  String get cancelShiftCancellationRequest =>
+      'Cancel shift cancellation request';
 
   @override
   String get registerForShifts => 'Register shift';
@@ -1503,7 +1541,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get twoDayToFourDayCreate => 'CCreate Request for Leave (2 - 4 Day)';
 
   @override
-  String get fiveDaysOrMoreCreate => 'Create Request for Leave (5 or More Days)';
+  String get fiveDaysOrMoreCreate =>
+      'Create Request for Leave (5 or More Days)';
 
   @override
   String get earlyLate => 'Request for Late Arrival/Early Departure';
@@ -1599,7 +1638,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editRequestSuccess => 'Request updated successfully';
 
   @override
-  String get theTotalNumberOfLeaveIsNotEnough => 'You have used up all your leave days!';
+  String get theTotalNumberOfLeaveIsNotEnough =>
+      'You have used up all your leave days!';
 
   @override
   String get approvedSuccess => 'Approval successful';
@@ -1707,7 +1747,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get totalMakeUpWorkTime => 'Total compensatory work hours';
 
   @override
-  String get youDoNotHaveAShift => 'You don\'t have a shift on the selected date!';
+  String get youDoNotHaveAShift =>
+      'You don\'t have a shift on the selected date!';
 
   @override
   String get shiftWasLeave => 'Shift off';
@@ -1722,7 +1763,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingBiometric => 'Set up Touch Id/Face Id';
 
   @override
-  String get cancelBiometricSuccessful => 'Biometric login cancellation successful';
+  String get cancelBiometricSuccessful =>
+      'Biometric login cancellation successful';
 
   @override
   String get settingBiometricSuccessful => 'Biometric login setup successful';
@@ -1752,7 +1794,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nameNotNullOrEmpty => ' Name must not be empty';
 
   @override
-  String get statusOtherActiveOrInActive => ' Status must be either Active or Inactive';
+  String get statusOtherActiveOrInActive =>
+      ' Status must be either Active or Inactive';
 
   @override
   String get stepFlowNotNull => ' Approval step must not be empty';
@@ -1764,19 +1807,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nameAlreadyExist => ' Name already exists';
 
   @override
-  String get thisDepartmentAlreadyExistFlow => ' Department already has a flow for this type of request';
+  String get thisDepartmentAlreadyExistFlow =>
+      ' Department already has a flow for this type of request';
 
   @override
-  String get thisPositionAlreadyExistFlow => ' Position already has a flow for this type of request';
+  String get thisPositionAlreadyExistFlow =>
+      ' Position already has a flow for this type of request';
 
   @override
-  String get thisDepartmentPositionAlreadyExistFlow => ' Department and position already have a flow for this type of request';
+  String get thisDepartmentPositionAlreadyExistFlow =>
+      ' Department and position already have a flow for this type of request';
 
   @override
-  String get thisUserAlreadyExistFlow => ' Employee already has a flow for this type of request';
+  String get thisUserAlreadyExistFlow =>
+      ' Employee already has a flow for this type of request';
 
   @override
-  String get typeAlreadyHasStepFlow => ' This request already has an approval flow';
+  String get typeAlreadyHasStepFlow =>
+      ' This request already has an approval flow';
 
   @override
   String get thisFlowAlreadyExistsRequest => ' This flow already has a request';
@@ -1794,25 +1842,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userIdNotNull => ' Applier must not be empty';
 
   @override
-  String get departmentIdOrPositionIdMustNotExist => ' Department or position must not exist when the type is employee';
+  String get departmentIdOrPositionIdMustNotExist =>
+      ' Department or position must not exist when the type is employee';
 
   @override
-  String get departmentIdAndPositionIdNotNull => ' Department or position must not be empty';
+  String get departmentIdAndPositionIdNotNull =>
+      ' Department or position must not be empty';
 
   @override
-  String get userIdMustNotExist => ' Employee must not exist when the type is department or position';
+  String get userIdMustNotExist =>
+      ' Employee must not exist when the type is department or position';
 
   @override
   String get positionIdNotNull => ' Position must not be empty';
 
   @override
-  String get departmentIdOrUserIdMustNotExist => ' Department and employee must not exist when the type is position';
+  String get departmentIdOrUserIdMustNotExist =>
+      ' Department and employee must not exist when the type is position';
 
   @override
   String get departmentIdNotNull => ' Department must not be empty';
 
   @override
-  String get positionIdOrUserIdMustNotExist => ' Position and employee must not exist when the type is department';
+  String get positionIdOrUserIdMustNotExist =>
+      ' Position and employee must not exist when the type is department';
 
   @override
   String get inValidFormat => ' Invalid format';
@@ -1821,34 +1874,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get configNotNull => ' Request data must not be empty';
 
   @override
-  String get exceededTheRequestedCreateTimeframe => ' Request creation time has exceeded the allowed limit';
+  String get exceededTheRequestedCreateTimeframe =>
+      ' Request creation time has exceeded the allowed limit';
 
   @override
   String get currentStatusIsNotEdit => ' Current status is not editable';
 
   @override
-  String get currentStatusIsNotProcessOrEdit => ' Request is not in a valid state for cancellation.';
+  String get currentStatusIsNotProcessOrEdit =>
+      ' Request is not in a valid state for cancellation.';
 
   @override
-  String get theNumberOfFormsCreatedHasExceededTheLimit => ' The number of requests created has exceeded the limit';
+  String get theNumberOfFormsCreatedHasExceededTheLimit =>
+      ' The number of requests created has exceeded the limit';
 
   @override
-  String get endDateGreaterThanStartDate => ' End date is greater than the start date';
+  String get endDateGreaterThanStartDate =>
+      ' End date is greater than the start date';
 
   @override
-  String get employeeNotFullTimeOrPartTime => ' Employee is neither full-time nor part-time';
+  String get employeeNotFullTimeOrPartTime =>
+      ' Employee is neither full-time nor part-time';
 
   @override
-  String get userIdAndPositionIdCannotExistSameTime => ' Employee and position cannot coexist simultaneously';
+  String get userIdAndPositionIdCannotExistSameTime =>
+      ' Employee and position cannot coexist simultaneously';
 
   @override
-  String get userIdOrPositionIdCanNotNull => ' User or position must not be empty';
+  String get userIdOrPositionIdCanNotNull =>
+      ' User or position must not be empty';
 
   @override
-  String get flowDoesNotHaveEnoughComponents => ' Flow must include start, steps, and end components';
+  String get flowDoesNotHaveEnoughComponents =>
+      ' Flow must include start, steps, and end components';
 
   @override
-  String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId => 'If it is a start or end type, it should not include employee, position, or department';
+  String get ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId =>
+      'If it is a start or end type, it should not include employee, position, or department';
 
   @override
   String get currentStatusNotNew => ' Current status is not new';
@@ -1860,19 +1922,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dataNotNull => ' Data must not be empty';
 
   @override
-  String get timeSlotAlreadyPleaseChooseAnother => 'A request with the same time frame already exists, please select a different time';
+  String get timeSlotAlreadyPleaseChooseAnother =>
+      'A request with the same time frame already exists, please select a different time';
 
   @override
-  String get mustCreateMinimumTimeInAdvance => ' Must be created before the minimum time';
+  String get mustCreateMinimumTimeInAdvance =>
+      ' Must be created before the minimum time';
 
   @override
   String get pastTheDateOfExplanation => ' Past the explanation date';
 
   @override
-  String get errorTimeMakeUp1 => 'The total number of compensatory hours must be greater than or equal to the number of missed working hours. Please adjust.';
+  String get errorTimeMakeUp1 =>
+      'The total number of compensatory hours must be greater than or equal to the number of missed working hours. Please adjust.';
 
   @override
-  String get errorTimeMakeUp2 => 'Compensation time overlaps with another shift. Please select again.';
+  String get errorTimeMakeUp2 =>
+      'Compensation time overlaps with another shift. Please select again.';
 
   @override
   String get errorPlease => 'An error occurred, please try again later!';
@@ -1956,7 +2022,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get allow => 'Allow';
 
   @override
-  String get contentDialogTimeKeepingUnSuccess => 'Timekeeping failed. Please try again';
+  String get contentDialogTimeKeepingUnSuccess =>
+      'Timekeeping failed. Please try again';
 
   @override
   String get contentDialogTimeKeepingSuccess => 'Attendance was successful';
@@ -1965,16 +2032,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get retry => 'Retry';
 
   @override
-  String get rejectTitle => 'Are you sure you want to remove this employee from the current shift?';
+  String get rejectTitle =>
+      'Are you sure you want to remove this employee from the current shift?';
 
   @override
-  String get rejectTitle1 => 'Are you sure you want to reject this employee\'s shift cancellation request?';
+  String get rejectTitle1 =>
+      'Are you sure you want to reject this employee\'s shift cancellation request?';
 
   @override
-  String get rejectTitle2 => 'Are you sure you want to refuse to approve this employee\'s shift registration request?';
+  String get rejectTitle2 =>
+      'Are you sure you want to refuse to approve this employee\'s shift registration request?';
 
   @override
-  String get proactiveCaseRegistrationManagement => 'Proactive shift registration management';
+  String get proactiveCaseRegistrationManagement =>
+      'Proactive shift registration management';
 
   @override
   String get receivedShift => 'Shift received';
@@ -1986,10 +2057,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirm => 'Confirm';
 
   @override
-  String get waitingForApprovalToCancelShift => 'Waiting for shift cancellation approval';
+  String get waitingForApprovalToCancelShift =>
+      'Waiting for shift cancellation approval';
 
   @override
-  String get waitingForShiftRegistrationApproval => 'Waiting for shift registration approval';
+  String get waitingForShiftRegistrationApproval =>
+      'Waiting for shift registration approval';
 
   @override
   String get notRegisteredYet => 'not registered yet';
@@ -2001,10 +2074,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shiftOfDay => 'Today\'s shift: ';
 
   @override
-  String get moveToTheAppropriate => 'Please move to a valid location on the map';
+  String get moveToTheAppropriate =>
+      'Please move to a valid location on the map';
 
   @override
-  String get chooseASchedule => 'You need to select a schedule for timekeeping.';
+  String get chooseASchedule =>
+      'You need to select a schedule for timekeeping.';
 
   @override
   String get noDataTimekeeping => 'No timekeeping data';
@@ -2055,7 +2130,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shiftHistory => 'Case status history';
 
   @override
-  String get noConnected => 'No Connection/ An error occured, please check again later!';
+  String get noConnected =>
+      'No Connection/ An error occured, please check again later!';
 
   @override
   String get reasonForCancellation => 'Reason for cancellation';
@@ -2067,16 +2143,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skipLogin => 'Skip Login';
 
   @override
-  String get cancelShiftSuccess => 'Submit request to cancel shift successfully, the request needs to be confirmed';
+  String get cancelShiftSuccess =>
+      'Submit request to cancel shift successfully, the request needs to be confirmed';
 
   @override
   String get cancelShiftSuccess1 => 'Cancel shift successfully';
 
   @override
-  String get cancelCancelShiftSuccess => 'Cancel request cancel shift successfully';
+  String get cancelCancelShiftSuccess =>
+      'Cancel request cancel shift successfully';
 
   @override
-  String get registeredShiftSuccessfully => 'Registered Shift Successfully, shift is awaiting approval';
+  String get registeredShiftSuccessfully =>
+      'Registered Shift Successfully, shift is awaiting approval';
 
   @override
   String get remove2 => 'Remove';
@@ -2125,4 +2204,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reasonForRemove => 'Reason for stop';
+
+  @override
+  String get mapLocation => 'Location';
 }

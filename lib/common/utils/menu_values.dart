@@ -63,6 +63,10 @@ class MenuValues {
         'text': appLocalizations.calendar,
         'icon': Icon(Icons.calendar_month, color: colors.text, size: 30)
       },
+      {
+        'text': appLocalizations.mapLocation,
+        'icon': Icon(Icons.location_on, color: colors.text, size: 30)
+      },
     ];
   }
 
