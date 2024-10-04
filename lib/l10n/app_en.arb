@@ -702,5 +702,6 @@
   "reasonForCanceling" : "Reason for canceling",
   "reasonForRejection" : "Reason for rejection",
   "nameWorkShift": "Work shift name",
-  "reasonForRemove": "Reason for stop"
+  "reasonForRemove": "Reason for stop",
+  "mapLocation": "Location"
 }

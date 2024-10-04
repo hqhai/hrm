@@ -2,6 +2,7 @@ import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/user_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
@@ -25,6 +26,7 @@ import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
@@ -56,7 +58,9 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       selectedIndexSystem = entry.key;
     });
-    if (selectedIndexSystem != 4) {
+    if (selectedIndexSystem == 3) {
+      _determinePosition(context: context);
+    } else if (selectedIndexSystem != 4) {
       Navigator.pop(context);
     } else {
       deleteAccountDialog(
@@ -72,6 +76,33 @@ class _HomePageState extends State<HomePage> {
             selectedIndexSystem = 0;
           });
         },
+      );
+    }
+  }
+
+  Future<void> _determinePosition({required BuildContext context}) async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    if (context.mounted) {
+      dI<AppNavigation>().push(
+        context,
+        page: Pages.mapLocation,
       );
     }
   }

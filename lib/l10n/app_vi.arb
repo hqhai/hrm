@@ -703,5 +703,7 @@
   "reasonForCanceling" : "Lí do hủy ca",
   "reasonForRejection" : "Lý do bị từ chối duyệt",
   "nameWorkShift": "Tên ca làm việc",
-  "reasonForRemove": "Lý do bị gỡ khỏi ca"
+  "reasonForRemove": "Lý do bị gỡ khỏi ca",
+  "mapLocation": "Vi Trí"
+
 }
