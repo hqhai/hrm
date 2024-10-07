@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -50,8 +49,8 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       completer: completer,
       flowIds: filterData.flows?.map((e) => e.id).toList(),
       status: filterData.status,
-      startTime: dateTimeLocal(filterData.startTime),
-      endTime: dateTimeLocal(filterData.endTime),
+      startTime: filterData.startTime,
+      endTime: filterData.endTime,
       page: 1,
     ));
     final checkCompleter = await completer.future;

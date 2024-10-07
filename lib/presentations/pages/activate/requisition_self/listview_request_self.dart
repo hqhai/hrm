@@ -127,6 +127,10 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerPr
   }
 
   void _scrollListener() async {
+    /// sau khi thay đổi hoàn toàn mới thực hiện để tránh double call
+    if (_tabController.indexIsChanging) {
+      return;
+    }
     widget.onChangeStatus.call(
       StatusRequestEnum.values[_tabController.index],
     );
