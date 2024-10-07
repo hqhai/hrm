@@ -38,7 +38,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
       child: ContainerBorder(
         borderColors: colors.background,
         backgroundColors: colors.background,
-        child: GestureDetector(
+        child: InkWell(
           onTap: () => nextScreenRequest(
             context: context,
             id: widget.id,
