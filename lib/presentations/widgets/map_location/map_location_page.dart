@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:base_app/presentations/widgets/map_location/widget/position_info.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -68,24 +67,24 @@ class _MapLocationState extends State<MapLocation> {
         );
       },
     ).toList();
-    final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(size: Size(24, 24)),
-      'assets/images/icon/icon_loaction.png',
-    );
-    _currentPosition = LatLng(position.latitude, position.longitude);
-    markers.add(Marker(
-      markerId: const MarkerId('3 Ids'),
-      position: LatLng(position.latitude, position.longitude),
-      // position: const LatLng(21.067419607000325, 105.74160439495525),
-      icon: customIcon,
-      infoWindow: const InfoWindow(
-        title: 'Vi tri cua toi',
-        snippet: '',
-      ),
-      onTap: () => _choiceLocation(index: 3),
-    ));
+    // final position = await Geolocator.getCurrentPosition(
+    //     desiredAccuracy: LocationAccuracy.high);
+    // BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
+    //   const ImageConfiguration(size: Size(24, 24)),
+    //   'assets/images/icon/icon_loaction.png',
+    // );
+    // _currentPosition = LatLng(position.latitude, position.longitude);
+    // markers.add(Marker(
+    //   markerId: const MarkerId('3 Ids'),
+    //   position: LatLng(position.latitude, position.longitude),
+    //   // position: const LatLng(21.067419607000325, 105.74160439495525),
+    //   icon: customIcon,
+    //   infoWindow: const InfoWindow(
+    //     title: 'Vi tri cua toi',
+    //     snippet: '',
+    //   ),
+    //   onTap: () => _choiceLocation(index: 3),
+    // ));
     setState(() {});
   }
 
@@ -110,6 +109,22 @@ class _MapLocationState extends State<MapLocation> {
           markers: markers,
           tiltGesturesEnabled: true,
         ),
+        Positioned(
+            top: 5,
+            left: 5,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(90)),
+              child: Center(
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+            )),
         if (_destination != null)
           Positioned(
               bottom: 0,
