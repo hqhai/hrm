@@ -41,8 +41,8 @@ class RequisitionApproveBloc
           await requisitionUseCase.getRequisitionsApproveByFilter(
         page: event.page,
         departmentId: event.departmentId,
-        endDate: event.endTime,
-        startDate: event.startTime,
+        endDate: event.endTime?.subtract(const Duration(hours: 7)),
+        startDate: event.startTime?.subtract(const Duration(hours: 7)),
         type: event.type,
         userId: event.userIds,
         status: event.status,
@@ -139,8 +139,8 @@ class RequisitionApproveBloc
       GetRequisitionApproveCountEvent event, Emitter<RequisitionApproveState> emit) async {
     final requisitionCountStatus = await _requestService.approveRequisitionCountStatus(
       getRequestApproveFilterRequest: GetRequestApproveFilterRequest(
-          startDate: event.startTime,
-          endDate: event.endTime,
+          startDate: event.startTime?.subtract(const Duration(hours: 7)),
+          endDate: event.endTime?.subtract(const Duration(hours: 7)),
           createdCode: event.userCode,
           types: event.type,
           createdDepartmentId: event.departmentId),

@@ -30,8 +30,8 @@ class RequisitionFollowingBloc extends HydratedBloc<RequisitionFollowingEvent, R
           await requisitionUseCase.getRequisitionsFollowerByFilter(
         page: event.page,
         departmentId: event.departmentId,
-        endDate: event.endTime,
-        startDate: event.startTime,
+        endDate: event.endTime?.subtract(const Duration(hours: 7)),
+        startDate: event.startTime?.subtract(const Duration(hours: 7)),
         type: event.type,
         userId: event.userIds,
         status: event.status,

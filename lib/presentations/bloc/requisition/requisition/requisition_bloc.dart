@@ -123,8 +123,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
       /// load more *********************
       else {
         dI<RequisitionBloc>().add(GetRequisitionUserCountEvent(
-          startTime: event.startTime?.subtract(const Duration(hours: 7)),
-          endTime: event.endTime?.subtract(const Duration(hours: 7)),
+          startTime: event.startTime,
+          endTime: event.endTime,
           flowIds: event.flowIds,
         ));
         emit(state.copyWith(
