@@ -112,6 +112,9 @@ class _NotificationWidgetState extends State<NotificationWidget> with TickerProv
   }
 
   _scrollListener() async {
+    if (_tabController.indexIsChanging) {
+      return;
+    }
     final Completer completer = Completer<bool>();
     setState(() {
       checkLoad = false;

@@ -140,6 +140,9 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
   }
 
   void _scrollListener() async {
+    if (_tabController.indexIsChanging) {
+      return;
+    }
     widget.onChangeStatus.call(
       EnumStepRequestStatusEnum.values[_tabController.index],
     );

@@ -37,13 +37,14 @@ enum ParentId {
 }
 
 enum LanguageEnum {
-  vi('VN', 'vi'),
-  en('UK', 'en');
+  vi('VN', 'vi', 'vi-VN'),
+  en('UK', 'en', 'en-US');
 
   final String name;
   final String code;
+  final String acceptLanguage;
 
-  const LanguageEnum(this.name, this.code);
+  const LanguageEnum(this.name, this.code, this.acceptLanguage);
 }
 
 enum LocationEnum {
