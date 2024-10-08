@@ -27,6 +27,7 @@ import 'package:base_app/presentations/pages/activate/requisition_self/content_r
 import 'package:base_app/presentations/widgets/custom/app_icon_status.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title_callback.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -44,12 +45,10 @@ class ContentItemMyRequisitionList extends StatefulWidget {
   final RequestSeeByWho self;
 
   @override
-  State<ContentItemMyRequisitionList> createState() =>
-      _ContentItemMyRequisitionListState();
+  State<ContentItemMyRequisitionList> createState() => _ContentItemMyRequisitionListState();
 }
 
-class _ContentItemMyRequisitionListState
-    extends State<ContentItemMyRequisitionList> {
+class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionList> {
   String errorDialog = '', errorDialogRevoke = '';
 
   @override
@@ -75,9 +74,7 @@ class _ContentItemMyRequisitionListState
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
-                      fontWeight: FontWeight.w700),
+                      color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
                 ),
                 Icon(
                   Icons.chevron_right,
@@ -96,10 +93,8 @@ class _ContentItemMyRequisitionListState
             Padding(
               padding: const EdgeInsets.only(top: SpacingUnit.x2_5),
               child: AppIconStatus(
-                color: statusRequest(
-                    context: context, status: request.status)['color'],
-                icon: statusRequest(
-                    context: context, status: request.status)['icon'],
+                color: statusRequest(context: context, status: request.status)['color'],
+                icon: statusRequest(context: context, status: request.status)['icon'],
                 status: request.status.getRequestStatusNameSeft,
               ),
             ),
@@ -148,9 +143,11 @@ class _ContentItemMyRequisitionListState
     required Request request,
   }) async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    dialogIndicator(context: currentContext);
     final check = await checkLoadScreen(flow, request);
     if (check) {
       if (!currentContext.mounted) return;
+      dI<AppNavigation>().pop(currentContext);
       switch (flow.flowType) {
         case RequisitionTypeEnum.explanation:
           _push(
@@ -300,56 +297,78 @@ class _ContentItemMyRequisitionListState
   Future<bool> checkLoadScreen(FlowRequest flow, Request request) async {
     switch (flow.flowType) {
       case RequisitionTypeEnum.leaveFiveDaysOrMore:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
         final checkWAS = await _loadWorkAndSalary();
         final checkWS = await _loadWorkShiftLeave(request);
-        return checkF && checkWAS && checkWS;
+        return checkF && checkWAS && checkWS && checkRequest;
       case RequisitionTypeEnum.leaveHalfDayToOneDay:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
         final checkWAS = await _loadWorkAndSalary();
         final checkWS = await _loadWorkShiftLeave(request);
-        return checkF && checkWAS && checkWS;
+        return checkF && checkWAS && checkWS && checkRequest;
       case RequisitionTypeEnum.leaveTwoDayToFourDay:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
         final checkWAS = await _loadWorkAndSalary();
         final checkWS = await _loadWorkShiftLeave(request);
-        return checkF && checkWAS && checkWS;
+        return checkF && checkWAS && checkWS && checkRequest;
       case RequisitionTypeEnum.bussiness:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
         final checkWS = await _loadWorkShiftLeave(request);
-        return checkF && checkWS;
+        return checkF && checkWS && checkRequest;
       case RequisitionTypeEnum.lateOrEarly:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
         final checkWS = await _loadWorkShiftOneDay(request);
-        return checkF && checkWS;
+        return checkF && checkWS && checkRequest;
       case RequisitionTypeEnum.overTime:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
-        return checkF;
+        return checkF && checkRequest;
       case RequisitionTypeEnum.vehicleDriver:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
-        return checkF;
+        return checkF && checkRequest;
       case RequisitionTypeEnum.warehouseReleased:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
-        return checkF;
+        return checkF && checkRequest;
       case RequisitionTypeEnum.stationery:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
-        return checkF;
+        return checkF && checkRequest;
       case RequisitionTypeEnum.explanation:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
-        return checkF;
+        return checkF && checkRequest;
       case RequisitionTypeEnum.makeUpWork:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
         final checkWS = await _loadWorkShiftOneDay(request);
-        return checkF && checkWS;
+        return checkF && checkWS && checkRequest;
       case RequisitionTypeEnum.postalDelivery:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
-        return checkF;
+        return checkF && checkRequest;
       case RequisitionTypeEnum.core:
+        final checkRequest = await _loadRequestById(request.id);
         final checkF = await _loadFlow(flow);
-        return checkF;
+        return checkF && checkRequest;
       default:
         return false;
     }
+  }
+
+  Future<bool> _loadRequestById(String id) async {
+    final Completer completer = Completer<bool>();
+    dI<RequisitionBloc>().add(
+      GetRequisitionByIdEvent(id: id, completer: completer),
+    );
+    final completerCheck = await completer.future;
+    return completerCheck;
   }
 
   Future<bool> _loadFlow(FlowRequest flow) async {
@@ -385,8 +404,8 @@ class _ContentItemMyRequisitionListState
   Future<bool> _loadWorkShiftOneDay(Request request) async {
     final Completer completer = Completer<bool>();
     final date = request.config.workShiftSettings.first.workDate;
-    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-        endDate: date, startDate: date, completer: completer));
+    dI<LeaveShiftBloc>()
+        .add(GetWorkShiftsEvent(endDate: date, startDate: date, completer: completer));
     return await completer.future;
   }
 
@@ -395,9 +414,7 @@ class _ContentItemMyRequisitionListState
     required BuildContext context,
   }) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty
-          ? setErrorValue(errorCode, context) ?? errorCode
-          : "";
+      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
@@ -436,8 +453,7 @@ class _ContentItemMyRequisitionListState
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(currentContext);
       approverUnsuccessful(
-          errorDialog: errorDialogRevoke,
-          title: appLocalizations.revokeRequestUnsuccessful);
+          errorDialog: errorDialogRevoke, title: appLocalizations.revokeRequestUnsuccessful);
     }
   }
 
