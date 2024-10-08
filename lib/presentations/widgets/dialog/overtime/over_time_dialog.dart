@@ -101,21 +101,21 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
               Text(
                 checkTypeContainer ? appLocalizations.date : formatYMD(date.toString()),
                 style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                  fontWeight: FontWeight.w600
-                ),
+                    color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
               ),
               InkWell(
                 onTap: () => _setTypeContainer(),
-                child: SvgPicture.asset(
+                child: SizedBox(
                   width: SpacingUnit.x6,
                   height: SpacingUnit.x6,
-                  checkTypeContainer
-                      ? Assets.images.icon.home.chevronForward
-                      : Assets.images.icon.activateIcon.drop,
-                  colorFilter: ColorFilter.mode(
-                      colors.text.withOpacity(0.4), BlendMode.srcIn),
+                  child: SvgPicture.asset(
+                    width: SpacingUnit.x6,
+                    height: SpacingUnit.x6,
+                    checkTypeContainer
+                        ? Assets.images.icon.home.chevronForward
+                        : Assets.images.icon.activateIcon.drop,
+                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                  ),
                 ),
               ),
             ],
@@ -169,9 +169,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                       ),
                     ),
                     TextSpan(
-                      text: errorTime.isEmpty
-                          ? strSeconds(((suggestTime)).toInt())
-                          : '0',
+                      text: errorTime.isEmpty ? strSeconds(((suggestTime)).toInt()) : '0',
                       style: TextStyle(
                         color: colors.text,
                         fontSize: SpacingUnit.x4,
@@ -192,8 +190,8 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                 onChange: (value) => _setNote(value),
               ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              padding:
+                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),
