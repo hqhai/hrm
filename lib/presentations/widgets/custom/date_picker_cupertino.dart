@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
-
 ///BottomSheet
 class DatePickerCupertino extends StatefulWidget {
-  const DatePickerCupertino({super.key, required this.dateOld, required this.onChange, this.maxDateNow});
+  const DatePickerCupertino(
+      {super.key, required this.dateOld, required this.onChange, this.maxDateNow});
 
   final DateTime dateOld;
   final ValueChanged<DateTime> onChange;
@@ -25,13 +25,14 @@ class DatePickerCupertino extends StatefulWidget {
 }
 
 class _DatePickerCupertinoState extends State<DatePickerCupertino> {
-
   DateTime dateTime = DateTime.now();
+
   @override
   void initState() {
     dateTime = widget.dateOld;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -121,7 +122,11 @@ class _DatePickerState extends State<DatePickerLoop> {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return DatePickerCupertino(onChange: (value) => setDate(value), dateOld: currentTime, maxDateNow: widget.maxDate,);
+        return DatePickerCupertino(
+          onChange: (value) => setDate(value),
+          dateOld: currentTime,
+          maxDateNow: widget.maxDate,
+        );
       },
     );
   }
@@ -137,37 +142,35 @@ class _DatePickerState extends State<DatePickerLoop> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
-      onTap: () => dialog(
-          context: context, currentTime: widget.oldDate ?? DateTime.now()),
+      onTap: () => dialog(context: context, currentTime: widget.oldDate ?? DateTime.now()),
       child: ContainerBorder(
         paddingVertical: SpacingUnit.x4_5,
-        borderColors:
-        widget.checkError ? colors.text.withOpacity(0.4) : colors.error,
+        borderColors: widget.checkError ? colors.text.withOpacity(0.4) : colors.error,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               formatYMD(currentDate.toString()),
               style: TextStyle(
-                  fontSize: SpacingUnit.x4,
-                  color: colors.text,
-                  fontWeight: FontWeight.w600),
+                  fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600),
             ),
             InkWell(
               onTap: () => widget.callBack?.call(),
-              child: SvgPicture.asset(
+              child: SizedBox(
                 height: SpacingUnit.x6,
                 width: SpacingUnit.x6,
-                !widget.changeType
-                    ? Assets.images.icon.home.bottomBar.calendar
-                    : widget.typeContainer
-                    ? Assets.images.icon.activateIcon.drop
-                    : Assets.images.icon.home.chevronForward,
-                colorFilter: ColorFilter.mode(
-                    !widget.changeType
-                        ? colors.text.withOpacity(0.4)
-                        : colors.text,
-                    BlendMode.srcIn),
+                child: SvgPicture.asset(
+                  height: SpacingUnit.x6,
+                  width: SpacingUnit.x6,
+                  !widget.changeType
+                      ? Assets.images.icon.home.bottomBar.calendar
+                      : widget.typeContainer
+                          ? Assets.images.icon.activateIcon.drop
+                          : Assets.images.icon.home.chevronForward,
+                  colorFilter: ColorFilter.mode(
+                      !widget.changeType ? colors.text.withOpacity(0.4) : colors.text,
+                      BlendMode.srcIn),
+                ),
               ),
             ),
           ],
@@ -176,4 +179,3 @@ class _DatePickerState extends State<DatePickerLoop> {
     );
   }
 }
-

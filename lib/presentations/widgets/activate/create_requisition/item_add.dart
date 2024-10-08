@@ -30,13 +30,17 @@ class ItemAdd extends StatelessWidget {
               TitleRequired(title: title, requiredValidate: true),
               InkWell(
                 onTap: () => callback.call(),
-                child: SvgPicture.asset(
+                child: SizedBox(
                   width: SpacingUnit.x8,
                   height: SpacingUnit.x8,
-                  checkTypeContainer
-                      ? Assets.images.icon.home.chevronForward
-                      : Assets.images.icon.activateIcon.drop,
-                  colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                  child: SvgPicture.asset(
+                    width: SpacingUnit.x8,
+                    height: SpacingUnit.x8,
+                    checkTypeContainer
+                        ? Assets.images.icon.home.chevronForward
+                        : Assets.images.icon.activateIcon.drop,
+                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                  ),
                 ),
               ),
             ],
