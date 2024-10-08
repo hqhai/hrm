@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/emun_time.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/common/utils/time_utils.dart';
@@ -153,7 +154,7 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
     return startTime == null && endTime == null
         ? ''
         : startTime?.month == endTime?.month
-            ? '${GetMonth.mapMonthName[endTime?.month]} ${startTime?.day} - ${endTime?.day}, ${startTime?.year}'
+            ? '${GetMonth.mapMonthName[endTime?.month]?.configMonthName} ${startTime?.day} - ${endTime?.day}, ${startTime?.year}'
             : '${formatYMD(startTime.toString())} - ${formatYMD(endTime.toString())}';
   }
 

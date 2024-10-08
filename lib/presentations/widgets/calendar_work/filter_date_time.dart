@@ -1,4 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/emun_time.dart';
 import 'package:base_app/common/enum/type_filter_work_shift.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
@@ -232,7 +233,7 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
                   ),
                   child: Center(
                     child: Text(
-                      GetMonth.mapMonthName[index + 1] ?? '',
+                      GetMonth.mapMonthName[index + 1]?.configMonthName ?? '',
                       style: TextStyle(
                         color: startTime.month == index + 1 ? colors.primary : colors.text,
                         fontSize: SpacingUnit.x4,
