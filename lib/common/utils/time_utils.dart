@@ -16,19 +16,19 @@ class GetMonth{
     12: 'Dec'
   };
 
-  static Map<int, String> mapMonthName = {
-    1: MonthEnum.january.configMonthName,
-    2: MonthEnum.february.configMonthName,
-    3: MonthEnum.march.configMonthName,
-    4: MonthEnum.april.configMonthName,
-    5: MonthEnum.may.configMonthName,
-    6: MonthEnum.june.configMonthName,
-    7: MonthEnum.july.configMonthName,
-    8: MonthEnum.august.configMonthName,
-    9: MonthEnum.september.configMonthName,
-    10: MonthEnum.october.configMonthName,
-    11: MonthEnum.november.configMonthName,
-    12: MonthEnum.december.configMonthName
+  static Map<int, MonthEnum> mapMonthName = {
+    1: MonthEnum.january,
+    2: MonthEnum.february,
+    3: MonthEnum.march,
+    4: MonthEnum.april,
+    5: MonthEnum.may,
+    6: MonthEnum.june,
+    7: MonthEnum.july,
+    8: MonthEnum.august,
+    9: MonthEnum.september,
+    10: MonthEnum.october,
+    11: MonthEnum.november,
+    12: MonthEnum.december
   };
 }
 

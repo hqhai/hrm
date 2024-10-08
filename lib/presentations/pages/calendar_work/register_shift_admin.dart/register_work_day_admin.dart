@@ -64,6 +64,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
   TextEditingController textEditingController = TextEditingController();
   ScrollController scrollController = ScrollController();
   int days = 30;
+  String name = '';
   bool isLoading = false;
   FilterType filterType = FilterType.no;
 
@@ -117,6 +118,9 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
   }
 
   _onTapHeader(WorkShiftRequestStatus type) async {
+    setState(() {
+      name = '';
+    });
     if (widget.userType == UserType.manage) {
       setState(() {
         days = 30;
@@ -161,8 +165,10 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         case WorkShiftRequestStatus.pendingCancel:
           dI<WorkDayBloc>().add(GetWorkDayAdmin(
               completer: completer,
-              data:
-                  const WorkDayAdminRequest(requestStatus: WorkShiftRequestStatus.pendingCancel)));
+              data: WorkDayAdminRequest(
+                requestStatus: WorkShiftRequestStatus.pendingCancel,
+                name: name,
+              )));
           await completer.future;
           setState(() {
             isLoading = false;
@@ -171,7 +177,8 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         case WorkShiftRequestStatus.pending:
           dI<WorkDayBloc>().add(GetWorkDayAdmin(
               completer: completer,
-              data: const WorkDayAdminRequest(requestStatus: WorkShiftRequestStatus.pending)));
+              data:
+                  WorkDayAdminRequest(requestStatus: WorkShiftRequestStatus.pending, name: name)));
           await completer.future;
           setState(() {
             isLoading = false;
@@ -237,10 +244,12 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         break;
       case WorkShiftRequestStatus.pendingCancel:
         dI<WorkDayBloc>().add(GetWorkDayAdmin(
-            completer: completer,
-            data: WorkDayAdminRequest(
-                pageSize: pagingInfo.pageSize + 7,
-                requestStatus: WorkShiftRequestStatus.pendingCancel)));
+          completer: completer,
+          data: WorkDayAdminRequest(
+              name: name,
+              pageSize: pagingInfo.pageSize + 7,
+              requestStatus: WorkShiftRequestStatus.pendingCancel),
+        ));
         if (isUnScroll) {
           await completer.future;
           setState(() {
@@ -253,6 +262,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
           GetWorkDayAdmin(
             completer: completer,
             data: WorkDayAdminRequest(
+              name: name,
               pageSize: pagingInfo.pageSize + 7,
               requestStatus: WorkShiftRequestStatus.pending,
             ),
@@ -484,6 +494,8 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                                 Text(
                                   tabStatus[index].configWorkShiftRequestStatusName,
                                   style: theme.textTheme.titleMedium?.copyWith(
+                                    fontWeight:
+                                        tabStatus[index] == selectType ? FontWeight.w600 : null,
                                     color: tabStatus[index] == selectType
                                         ? null
                                         : ColorUtils.parseHex("#B2B7BC"),
@@ -537,10 +549,15 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                           child: Center(
                             child: Row(
                               children: [
-                                Text(
-                                  tabStatus[index].configWorkShiftRequestStatusName,
-                                  style: theme.textTheme.titleMedium,
-                                ),
+                                Text(tabStatus[index].configWorkShiftRequestStatusName,
+                                    style: theme.textTheme.titleMedium?.copyWith(
+                                      fontWeight: tabStatus[index] == selectType
+                                          ? FontWeight.w600
+                                          : FontWeight.w400,
+                                      color: tabStatus[index] == selectType
+                                          ? null
+                                          : ColorUtils.parseHex("#B2B7BC"),
+                                    )),
                                 index < 2
                                     ? Row(
                                         children: [
@@ -610,7 +627,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                 ] else ...[
                   if (selectType == WorkShiftRequestStatus.pending ||
                       selectType == WorkShiftRequestStatus.pendingCancel)
-                    _Search(status: selectType),
+                    _Search(status: selectType, name: (value) => setName(value)),
                   if (selectType == WorkShiftRequestStatus.approve ||
                       selectType == WorkShiftRequestStatus.usable) ...[
                     if (state.electiveShiftItems.isEmpty) Container(),
@@ -828,6 +845,12 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       },
     );
   }
+
+  setName(String value) {
+    setState(() {
+      name = value;
+    });
+  }
 }
 
 class _ItemUser extends StatelessWidget {
@@ -1020,7 +1043,9 @@ class ItemPending extends StatelessWidget {
 class _Search extends StatefulWidget {
   final WorkShiftRequestStatus status;
 
-  const _Search({required this.status});
+  const _Search({required this.status, required this.name});
+
+  final ValueChanged<String> name;
 
   @override
   State<_Search> createState() => _SearchState();
@@ -1064,6 +1089,7 @@ class _SearchState extends State<_Search> {
   }
 
   void _onSearch() {
+    widget.name.call(_textEditingController.text);
     FocusScope.of(context).unfocus();
     dI<WorkDayBloc>().add(
       GetWorkDayAdmin(

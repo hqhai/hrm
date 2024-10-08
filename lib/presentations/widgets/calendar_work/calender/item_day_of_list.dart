@@ -51,8 +51,7 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
   }
 
   DateTime date(WorkDayState state) {
-    final dateType = DateTime(
-        widget.dateTime.year, widget.dateTime.month, widget.dateTime.day);
+    final dateType = DateTime(widget.dateTime.year, widget.dateTime.month, widget.dateTime.day);
     return dateType;
   }
 
@@ -70,9 +69,8 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
       builder: (context, state) {
         final workDay = state.workDays[date(state)]?.items ?? [];
         return Column(
-          crossAxisAlignment: workDay.isNotEmpty
-              ? CrossAxisAlignment.start
-              : CrossAxisAlignment.center,
+          crossAxisAlignment:
+              workDay.isNotEmpty ? CrossAxisAlignment.start : CrossAxisAlignment.center,
           children: [
             SizedBox(
               width: width,
@@ -84,9 +82,7 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                     context: context,
                   )}',
                   style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x3_5,
-                      fontWeight: FontWeight.w600),
+                      color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -102,11 +98,10 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                         ...workDay.map((e) {
                           bool check = widget.listSelect
                               .where((element) =>
-                                  element.workShiftSettingDetailId ==
-                                  e.workShiftSettingDetailId)
+                                  element.workShiftSettingDetailId == e.workShiftSettingDetailId)
                               .isNotEmpty;
-                          final showCheckBox = _checkShowCheckBox(
-                              workDay: workDay, check: check, shift: e);
+                          final showCheckBox =
+                              _checkShowCheckBox(workDay: workDay, check: check, shift: e);
 
                           return InkWell(
                             onTap: () {
@@ -114,8 +109,7 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                                 dI<AppNavigation>().push(context,
                                     page: Pages.shiftsPage,
                                     paramsQuerry: ShiftsQueryParams(
-                                            date: widget.dateTime,
-                                            id: e.workShiftSettingDetailId)
+                                            date: widget.dateTime, id: e.workShiftSettingDetailId)
                                         .toJson());
                               }
                             },
@@ -125,42 +119,33 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: SpacingUnit.x4,
                                 ),
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: SpacingUnit.x1),
+                                margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
                                 alignment: Alignment.centerLeft,
                                 width: MediaQuery.sizeOf(context).width,
                                 decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.circular(SpacingUnit.x2),
+                                  borderRadius: BorderRadius.circular(SpacingUnit.x2),
                                   color: _colorByStatus(e.status),
                                 ),
                                 height: SpacingUnit.x12,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "${strSeconds(e.startTime)} - ${strSeconds(e.endTime)}",
                                       style: theme.textTheme.bodyLarge,
                                     ),
                                     if (widget.isCheckBox &&
-                                        (e.status ==
-                                                WorkShiftRequestStatus.usable ||
-                                            e.status ==
-                                                WorkShiftRequestStatus.reject ||
-                                            e.status ==
-                                                WorkShiftRequestStatus
-                                                    .cancel)) ...[
+                                        (e.status == WorkShiftRequestStatus.usable ||
+                                            e.status == WorkShiftRequestStatus.reject ||
+                                            e.status == WorkShiftRequestStatus.cancel)) ...[
                                       showCheckBox
                                           ? Checkbox(
-                                              side: const BorderSide(
-                                                  color: Color(0xff585858)),
+                                              side: const BorderSide(color: Color(0xff585858)),
                                               value: check,
                                               onChanged: (value) {
                                                 widget.onChange(
                                                   WorkDayRequest(
-                                                      workDate: widget.dateTime
-                                                          .toString(),
+                                                      workDate: widget.dateTime.toString(),
                                                       workShiftSettingDetailId:
                                                           e.workShiftSettingDetailId),
                                                 );
@@ -200,17 +185,14 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
   }
 
   bool _checkShowCheckBox(
-      {required List<Shift> workDay,
-      required bool check,
-      required Shift shift}) {
+      {required List<Shift> workDay, required bool check, required Shift shift}) {
     final workShiftIds = widget.listSelect
         .where((element) => element.workDate == widget.dateTime.toString())
         .map((e) => e.workShiftSettingDetailId)
         .toList();
     final List<Shift> workShift = [];
     workShiftIds.map((e) {
-      final index = workDay
-          .indexWhere((element) => element.workShiftSettingDetailId == e);
+      final index = workDay.indexWhere((element) => element.workShiftSettingDetailId == e);
       if (index != -1) {
         workShift.add(workDay[index]);
       }
@@ -219,8 +201,8 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
     bool showCheckBox = true;
     if (!check) {
       showCheckBox = workShift.every((element) =>
-          element.startTime < shift.startTime &&
-          element.endTime < shift.startTime);
+          (element.startTime < shift.startTime && element.endTime < shift.startTime) ||
+          (element.startTime > shift.endTime && element.endTime > shift.endTime));
     }
     return showCheckBox;
   }

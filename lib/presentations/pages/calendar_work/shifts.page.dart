@@ -223,6 +223,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
           'color': colors.blue,
           'titleButton': appLocalizations.registerForShifts,
           'success': appLocalizations.registeredShiftSuccessfully,
+          'titleReason': appLocalizations.reasonCancelShift
         };
       case WorkShiftRequestStatus.remove:
         return {'titleReason': appLocalizations.reasonForRemove};
