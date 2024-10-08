@@ -10,7 +10,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class CheckInCheckOutGpsBloc extends HydratedBloc<CheckInCheckOutGpsEvent, CheckInCheckOutGpsState> {
+class CheckInCheckOutGpsBloc
+    extends HydratedBloc<CheckInCheckOutGpsEvent, CheckInCheckOutGpsState> {
   final LocationUseCase locationUseCase;
 
   CheckInCheckOutGpsBloc()
@@ -38,12 +39,16 @@ class CheckInCheckOutGpsBloc extends HydratedBloc<CheckInCheckOutGpsEvent, Check
         event.completer.complete(TimekeepingStatus.fail);
       }
     } catch (e) {
-      e as ResponseBase;
-      final listErrorCode = e.errorMessages.map((e) => e.errorCode).toList();
-      if (listErrorCode.contains("DistanceNotEnough")) {
-        emit(state.copyWith(
-            status: TimekeepingStatus.distanceNotEnough, errorCode: "DistanceNotEnough"));
-        event.completer.complete(TimekeepingStatus.distanceNotEnough);
+      if (e is ResponseBase) {
+        final listErrorCode = e.errorMessages.map((e) => e.errorCode).toList();
+        if (listErrorCode.contains("DistanceNotEnough")) {
+          emit(state.copyWith(
+              status: TimekeepingStatus.distanceNotEnough, errorCode: "DistanceNotEnough"));
+          event.completer.complete(TimekeepingStatus.distanceNotEnough);
+        } else {
+          emit(state.copyWith(errorCode: '', status: TimekeepingStatus.fail));
+          event.completer.complete(TimekeepingStatus.fail);
+        }
       } else {
         emit(state.copyWith(errorCode: '', status: TimekeepingStatus.fail));
         event.completer.complete(TimekeepingStatus.fail);
@@ -51,7 +56,8 @@ class CheckInCheckOutGpsBloc extends HydratedBloc<CheckInCheckOutGpsEvent, Check
     }
   }
 
-  FutureOr<void> _resetCheckInCheckOutGpsEvent(ResetCheckInCheckOutGpsEvent event, Emitter<CheckInCheckOutGpsState> emit) {
+  FutureOr<void> _resetCheckInCheckOutGpsEvent(
+      ResetCheckInCheckOutGpsEvent event, Emitter<CheckInCheckOutGpsState> emit) {
     emit(const CheckInCheckOutGpsState());
   }
 
