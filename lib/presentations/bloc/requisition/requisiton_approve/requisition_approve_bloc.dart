@@ -25,7 +25,8 @@ class RequisitionApproveBloc
         _requestService = dI<RequisitionService>(),
         super(const RequisitionApproveState()) {
     on<RequisitionApproveEvent>((event, emit) {});
-    on<GetRequisitionsApproveByFilterEvent>(_getRequisitionsApproveByFilterEvent);
+    on<GetRequisitionsApproveByFilterEvent>(
+        _getRequisitionsApproveByFilterEvent);
     on<ApproveRequestEvent>(_approveRequestEvent);
     on<GetRequisitionApproveCountEvent>(_getRequisitionApproveCountEvent);
     on<CancelRequestEvent>(_cancelRequestEvent);
@@ -35,7 +36,8 @@ class RequisitionApproveBloc
   ///get by filter ***********************************************
 
   FutureOr<void> _getRequisitionsApproveByFilterEvent(
-      GetRequisitionsApproveByFilterEvent event, Emitter<RequisitionApproveState> emit) async {
+      GetRequisitionsApproveByFilterEvent event,
+      Emitter<RequisitionApproveState> emit) async {
     try {
       final RequestsResponse requestsResponse =
           await requisitionUseCase.getRequisitionsApproveByFilter(
@@ -102,12 +104,14 @@ class RequisitionApproveBloc
       final bool check = await requisitionUseCase.approveRequest(
           id: event.id, status: event.status.name, note: event.note ?? "");
       if (check) {
-        final requestIds =
-            state.requisitionIds.where((element) => element != event.requestId).toList();
+        final requestIds = state.requisitionIds
+            .where((element) => element != event.requestId)
+            .toList();
         final statusRequestCount = state.statusRequestCount;
         statusRequestCount[EnumStepRequestStatusEnum.newStatus] =
             (statusRequestCount[EnumStepRequestStatusEnum.newStatus] ?? 0) - 1;
-        statusRequestCount[event.status] = (statusRequestCount[event.status] ?? 0) + 1;
+        statusRequestCount[event.status] =
+            (statusRequestCount[event.status] ?? 0) + 1;
         emit(
           state.copyWith(
             requisitionIds: requestIds,
@@ -136,8 +140,10 @@ class RequisitionApproveBloc
   }
 
   FutureOr<void> _getRequisitionApproveCountEvent(
-      GetRequisitionApproveCountEvent event, Emitter<RequisitionApproveState> emit) async {
-    final requisitionCountStatus = await _requestService.approveRequisitionCountStatus(
+      GetRequisitionApproveCountEvent event,
+      Emitter<RequisitionApproveState> emit) async {
+    final requisitionCountStatus =
+        await _requestService.approveRequisitionCountStatus(
       getRequestApproveFilterRequest: GetRequestApproveFilterRequest(
           startDate: event.startTime?.subtract(const Duration(hours: 7)),
           endDate: event.endTime?.subtract(const Duration(hours: 7)),
@@ -151,7 +157,8 @@ class RequisitionApproveBloc
       EnumStepRequestStatusEnum.edit: requisitionCountStatus.edit,
       EnumStepRequestStatusEnum.approve: requisitionCountStatus.approve,
       EnumStepRequestStatusEnum.cancel: requisitionCountStatus.cancel,
-      EnumStepRequestStatusEnum.overdueApprove: requisitionCountStatus.overdueApprove,
+      EnumStepRequestStatusEnum.overdueApprove:
+          requisitionCountStatus.overdueApprove,
     };
     emit(state.copyWith(statusRequestCount: statusRequestCount));
   }
@@ -164,8 +171,9 @@ class RequisitionApproveBloc
         id: event.requestId,
         note: event.note,
       ));
-      final requestIds =
-          state.requisitionIds.where((element) => element != event.requestId).toList();
+      final requestIds = state.requisitionIds
+          .where((element) => element != event.requestId)
+          .toList();
       final statusRequestCount = state.statusRequestCount;
       statusRequestCount[EnumStepRequestStatusEnum.approve] =
           (statusRequestCount[EnumStepRequestStatusEnum.approve] ?? 0) - 1;
@@ -206,7 +214,8 @@ class RequisitionApproveBloc
   }
 
   FutureOr<void> _resetRequisitionApproveEvent(
-      ResetRequisitionApproveEvent event, Emitter<RequisitionApproveState> emit) {
+      ResetRequisitionApproveEvent event,
+      Emitter<RequisitionApproveState> emit) {
     emit(const RequisitionApproveState());
   }
 }

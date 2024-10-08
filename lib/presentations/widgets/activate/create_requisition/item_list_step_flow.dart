@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/boundary_status.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
@@ -76,6 +77,8 @@ class ItemListStepFlow extends StatelessWidget {
     if (request.status == StatusRequestEnum.approve ||
         request.status == StatusRequestEnum.reject ||
         request.status == StatusRequestEnum.cancel) return true;
+    if (request.status == StatusRequestEnum.overdueApprove ||
+        request.status == StatusRequestEnum.overdueEdit) return false;
     if (stepRequests.isEmpty) return false;
     final dates =
         stepRequests.map((e) => e.createdDate ?? DateTime.now()).toList();
@@ -83,7 +86,9 @@ class ItemListStepFlow extends StatelessWidget {
     final itemsRequest = stepRequests
         .where((element) =>
             element.createdDate == date &&
-            element.status == EnumStepRequestStatusEnum.newStatus)
+            (request.status == StatusRequestEnum.edit
+                ? element.boundaryStatus == EnumBoundaryStatus.newStatus
+                : element.status == EnumStepRequestStatusEnum.newStatus))
         .toList();
     if (itemsRequest.isEmpty) return false;
     final stepFlowId = itemsRequest[0].stepFlowId;
