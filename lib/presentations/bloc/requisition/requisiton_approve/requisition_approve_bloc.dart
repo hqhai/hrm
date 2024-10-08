@@ -90,10 +90,14 @@ class RequisitionApproveBloc
         event.completer?.complete(true);
       }
     } catch (e) {
-      event.completer?.complete(false);
-      e as ResponseBase;
-      final String? errorCode = e.errorMessages.first.errorCode;
-      emit(state.copyWith(errorCode: errorCode));
+      if (e is ResponseBase) {
+        final String? errorCode = e.errorMessages.first.errorCode;
+        emit(state.copyWith(errorCode: errorCode));
+        event.completer?.complete(false);
+      } else {
+        emit(state.copyWith(errorCode: 'errorCode'));
+        event.completer?.complete(false);
+      }
     }
   }
 

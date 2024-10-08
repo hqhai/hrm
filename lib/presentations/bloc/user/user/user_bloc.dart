@@ -43,10 +43,13 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
       User user = await userUseCase.getUserInfo();
       emit(state.copyWith(user: user, status: UserStatus.success));
     } catch (e) {
-      e as ResponseBase;
-      if (e.statusCode == 401) {
-        emit(state.copyWith(status: UserStatus.unauthorized));
-        AppConfig.setToken('');
+      if (e is ResponseBase) {
+        if (e.statusCode == 401) {
+          emit(state.copyWith(status: UserStatus.unauthorized));
+          AppConfig.setToken('');
+        } else {
+          emit(state.copyWith(status: UserStatus.fail));
+        }
       } else {
         emit(state.copyWith(status: UserStatus.fail));
       }
@@ -137,19 +140,18 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
         event.completer?.complete(true);
       }
     } catch (e) {
-      e as ResponseBase;
-      if (e.errorMessages.length > 1) {
-        final String? errorCode = e.errorMessages[1].errorCode;
-        emit(state.copyWith(
-          errorCode: errorCode,
-        ));
-      } else {
+      if (e is ResponseBase) {
         final String? errorCode = e.errorMessages.first.errorCode;
         emit(state.copyWith(
           errorCode: errorCode,
         ));
+        event.completer?.complete(false);
+      } else {
+        emit(state.copyWith(
+          errorCode: 'error',
+        ));
+        event.completer?.complete(false);
       }
-      event.completer?.complete(false);
     }
   }
 

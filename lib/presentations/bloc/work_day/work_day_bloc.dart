@@ -111,7 +111,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
           ToastUtils()
               .showError(ErrorUtils.getErrorMessage(errorCode ?? 'error', context: currentContext));
         }
-        event.completer?.complete(true);
+        event.completer?.complete(false);
       } else {
         emit(state.copyWith(
           errorCode: 'error',

@@ -61,10 +61,18 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
               status: LoginStatus.loginSuccess));
         }
       } catch (e) {
-        e as ResponseBase;
-        if (e.statusCode == 403) {
-          emit(state.copyWith(
-              username: event.username, password: event.password, status: LoginStatus.userLocked));
+        if (e is ResponseBase) {
+          if (e.statusCode == 403) {
+            emit(state.copyWith(
+                username: event.username,
+                password: event.password,
+                status: LoginStatus.userLocked));
+          } else {
+            emit(state.copyWith(
+                username: event.username,
+                password: event.password,
+                status: LoginStatus.loginFailed));
+          }
         } else {
           emit(state.copyWith(
               username: event.username, password: event.password, status: LoginStatus.loginFailed));
@@ -157,11 +165,14 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
               status: LoginStatus.loginSuccess));
         }
       } catch (e) {
-        e as ResponseBase;
-        if (e.statusCode == 403) {
-          emit(state.copyWith(status: LoginStatus.userLocked));
-        } else if (e.statusCode == 401) {
-          emit(state.copyWith(status: LoginStatus.wrongBiometricAccount));
+        if (e is ResponseBase) {
+          if (e.statusCode == 403) {
+            emit(state.copyWith(status: LoginStatus.userLocked));
+          } else if (e.statusCode == 401) {
+            emit(state.copyWith(status: LoginStatus.wrongBiometricAccount));
+          } else {
+            emit(state.copyWith(status: LoginStatus.loginFailed));
+          }
         } else {
           emit(state.copyWith(status: LoginStatus.loginFailed));
         }
