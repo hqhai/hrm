@@ -537,7 +537,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get timeWorking => 'Ca làm việc';
 
   @override
-  String get date => 'ngày';
+  String get date => 'Ngày';
 
   @override
   String get dialogWrongPasswordA => 'Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ HCNS';

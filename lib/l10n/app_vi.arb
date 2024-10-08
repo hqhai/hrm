@@ -174,7 +174,7 @@
   "checkOut": "Chấm công ra",
   "history": "Lịch sử",
   "timeWorking": "Ca làm việc",
-  "date": "ngày",
+  "date": "Ngày",
   "dialogWrongPasswordA": "Bạn đã nhập sai thông tin đăng nhập 5 lần. Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ HCNS",
   "dialogWrongPasswordB": "để đặt lại mật khẩu",
   "newPasswordOtherConfirmPassword": "Mật khẩu mới khác mật khẩu xác nhận!",

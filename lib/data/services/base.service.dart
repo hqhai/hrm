@@ -5,12 +5,10 @@ import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/constants/key_constance.dart';
 import 'package:base_app/common/log/logger.dart';
-import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/data/models/device_info_model.dart';
 import 'package:base_app/data/models/response.dart';
-//import 'package:base_app/presentations/bloc/language/language_cubit.dart';
+import 'package:base_app/presentations/bloc/language/language_cubit.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
@@ -38,9 +36,7 @@ abstract class BaseService {
 
 Map<String, String> _defaultHeaders = {
   'Content-Type': 'application/json',
-  'Accept-Language': Localizations.localeOf(dI<AppNavigation>().navigatorKey.currentContext!)
-      .languageCode
-      .toString()
+  'Accept-Language': dI<LanguageCubit>().state.languageCode.acceptLanguage,
 };
 const mobileChannel = {'x-channel': 'E'};
 const jwtPrefixToken = 'Bearer ';
