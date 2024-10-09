@@ -1,5 +1,6 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
+import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -162,11 +163,18 @@ showToast({required BuildContext context, String errorCode = ''}) {
       fontSize: SpacingUnit.x4);
 }
 
-completerSuccess({required String requestId}) {
+completerSuccess({required String requestId, bool isEdit = false}) {
   final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
   final appLocalizations = AppLocalizations.of(currentContext)!;
-  dI<AppNavigation>().pop(currentContext);
-  dI<AppNavigation>().pop(currentContext);
+  if (isEdit) {
+    dI<AppNavigation>().popUtil(
+      Pages.requisitionListPage,
+      buildContext: currentContext,
+    );
+  } else {
+    dI<AppNavigation>().pop(currentContext);
+    dI<AppNavigation>().pop(currentContext);
+  }
   dialogSuccess(
     context: currentContext,
     title:
