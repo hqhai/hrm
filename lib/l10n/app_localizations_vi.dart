@@ -2163,4 +2163,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get removeEmployeeSuccessful => 'Gỡ nhân viên khỏi ca thanh công';
+
+  @override
+  String areYouSureCancelShift(Object a) {
+    return 'Bạn có chắc chắn muốn hủy ca làm của nhân sự $a?';
+  }
 }

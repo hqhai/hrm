@@ -2163,4 +2163,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get removeEmployeeSuccessful => 'Remove employee from successful shift';
+
+  @override
+  String areYouSureCancelShift(Object a) {
+    return 'Are you sure you want to cancel employee $a\'s shift?';
+  }
 }

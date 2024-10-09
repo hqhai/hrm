@@ -659,6 +659,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                             index: index,
                             type: selectType,
                             onConfirm: () => _openDialogConfirm(
+                                name: state.items[index].name,
                                 workShiftRequestId: state.items[index].workShiftApproveId,
                                 type: selectType),
                             onReject: () => _onCancel(
@@ -802,7 +803,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                                   border: Border.all(color: colors.outline.withOpacity(0.5)),
                                   borderRadius: BorderRadius.circular(SpacingUnit.x2)),
                               child: Center(
-                                child: Text(appLocalizations.reject,
+                                child: Text(appLocalizations.cancel,
                                     style: theme.textTheme.bodyMedium!
                                         .copyWith(fontWeight: FontWeight.w600)),
                               ),
@@ -844,12 +845,17 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
     }
   }
 
-  _openDialogConfirm({required String workShiftRequestId, required WorkShiftRequestStatus type}) {
+  _openDialogConfirm(
+      {required String workShiftRequestId, required WorkShiftRequestStatus type, String? name}) {
+    final appLocalizations = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           child: DialogConfirm(
+            title: type == WorkShiftRequestStatus.pending
+                ? appLocalizations.dialogConfirmContent
+                : appLocalizations.areYouSureCancelShift(name ?? ""),
             onConfirm: () => _onConfirm(workShiftRequestId: workShiftRequestId, type: type),
           ),
         );
@@ -1115,8 +1121,9 @@ class _SearchState extends State<_Search> {
 
 class DialogConfirm extends StatelessWidget {
   final VoidCallback onConfirm;
+  final String title;
 
-  const DialogConfirm({super.key, required this.onConfirm});
+  const DialogConfirm({super.key, required this.onConfirm, required this.title});
 
   _onClose(context) {
     Navigator.pop(context);
@@ -1151,12 +1158,18 @@ class DialogConfirm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x10),
             child: Text(
-              appLocalizations.dialogConfirmContent,
+              title,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: SpacingUnit.x4),
+          Image.asset(
+            Assets.images.error.chacChan.path,
+            width: SpacingUnit.x50,
+            height: SpacingUnit.x36,
+          ),
+          const SizedBox(height: SpacingUnit.x3),
           AppButton(
             color: colors.blue,
             colorText: colors.background,

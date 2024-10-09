@@ -18,6 +18,7 @@ import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
+import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
@@ -111,7 +112,7 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
           context: currentContext,
           title: mapByStatus(status: status, context: currentContext)['rejectApprove'] ?? "",
           isPop: false);
-    }else{
+    } else {
       _onBack();
       _onBack();
     }
@@ -364,7 +365,8 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
                   ),
                   Expanded(
                     child: InkWell(
-                      onTap: () => _approveRequestShift(
+                      onTap: () => _dialogConfirm(
+                        context: context,
                         data: data,
                       ),
                       child: Container(
@@ -434,6 +436,26 @@ class _RegisterWorkDayAdminDetailState extends State<RegisterWorkDayAdminDetail>
     );
   }
 
+  _dialogConfirm({required BuildContext context, required WorkDayAdmin data}) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: DialogConfirm(
+              title: data.status == WorkShiftRequestStatus.pending
+                  ? appLocalizations.dialogConfirmContent
+                  : appLocalizations.areYouSureCancelShift(data.name),
+              onConfirm: () {
+                _onBack();
+                _approveRequestShift(data: data);
+              }),
+        );
+      },
+    );
+  }
+
+  ///-----------------------------------------
   _approveRequestShift({required WorkDayAdmin data}) async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final Completer completer = Completer<bool>();
