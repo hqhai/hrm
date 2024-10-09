@@ -250,7 +250,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                             ? ReasonWorkDayDetail(
                                 reasonController: reasonController,
                                 data: data.workShiftApproves.isNotEmpty
-                                    ? data.workShiftApproves.last.note
+                                    ? data.workShiftApproves.first.note
                                     : '',
                                 status: data.status,
                               )

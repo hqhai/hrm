@@ -64,7 +64,6 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
   WorkShiftRequestStatus selectType = WorkShiftRequestStatus.approve;
   TextEditingController textEditingController = TextEditingController();
   ScrollController scrollController = ScrollController();
-  int days = 30;
   String name = '';
   bool isLoading = false;
   FilterType filterType = FilterType.no;
@@ -77,7 +76,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
         GetWorkDayByUser(
           completer: completer,
           request: WorkDayGetElectiveShiftRequest(
-              startDate: startTime, endDate: endTime, pageSize: days, page: 1),
+              startDate: startTime, endDate: endTime, page: 1),
         ),
       );
     } else {
@@ -123,9 +122,6 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       name = '';
     });
     if (widget.userType == UserType.manage) {
-      setState(() {
-        days = 30;
-      });
       setState(() {
         isLoading = true;
       });
@@ -193,11 +189,6 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
 
   _loadShift({required WorkShiftRequestStatus type, bool isUnScroll = false}) async {
     final pagingInfo = dI<WorkDayBloc>().state.pagingInfo;
-    if (!isUnScroll) {
-      setState(() {
-        days = days + 30;
-      });
-    }
     if (isUnScroll) {
       setState(() {
         isLoading = true;
@@ -210,7 +201,6 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
           GetElectiveShift(
             completer: isUnScroll ? null : completer,
             data: WorkDayGetElectiveShiftRequest(
-              pageSize: days,
               isApprove: true,
               startDate: startTime,
               endDate: endTime,
@@ -229,7 +219,6 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
           GetElectiveShift(
             completer: completer,
             data: WorkDayGetElectiveShiftRequest(
-              pageSize: days,
               isApprove: false,
               startDate: startTime,
               endDate: endTime,
