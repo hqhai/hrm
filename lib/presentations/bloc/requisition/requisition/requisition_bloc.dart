@@ -268,29 +268,45 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
             await requisitionUseCase.editRequestEdit(postRequestRequest: postRequestRequest);
         final requests = state.requisitions;
         requests[event.postRequestRequest.id ?? ""] = request;
+        final countRequest = state.statusCount;
+        countRequest[StatusRequestEnum.edit] = (countRequest[StatusRequestEnum.edit] ?? 0) - 1;
+        countRequest[StatusRequestEnum.process] =
+            (countRequest[StatusRequestEnum.process] ?? 0) + 1;
         emit(state.copyWith(
           errorCode: '',
           requisition: request,
           requisitions: requests,
+          statusCount: countRequest,
         ));
-        completerSuccess(requestId: '');
+        completerSuccess(
+          requestId: '',
+          isEdit: true,
+        );
       } else {
         final Request request =
             await requisitionUseCase.editRequestEdit(postRequestRequest: event.postRequestRequest);
         final requests = state.requisitions;
         requests[event.postRequestRequest.id ?? ""] = request;
-
+        final countRequest = state.statusCount;
+        countRequest[StatusRequestEnum.edit] = (countRequest[StatusRequestEnum.edit] ?? 0) - 1;
+        countRequest[StatusRequestEnum.process] =
+            (countRequest[StatusRequestEnum.process] ?? 0) + 1;
         emit(state.copyWith(
           errorCode: '',
           requisition: request,
           requisitions: requests,
         ));
-
         final ids = state.requisitionIds
             .where((element) => element != event.postRequestRequest.id)
             .toList();
-        completerSuccess(requestId: event.postRequestRequest.id ?? "");
-        emit(state.copyWith(requisitionIds: ids));
+        completerSuccess(
+          requestId: event.postRequestRequest.id ?? "",
+          isEdit: true,
+        );
+        emit(state.copyWith(
+          requisitionIds: ids,
+          statusCount: countRequest,
+        ));
       }
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
