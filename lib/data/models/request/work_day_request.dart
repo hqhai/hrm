@@ -84,7 +84,7 @@ class WorkDayGetElectiveShiftRequest {
     this.endDate,
     this.startDate,
     this.page = 1,
-    this.pageSize = 7,
+    this.pageSize = 1000,
   });
 
   factory WorkDayGetElectiveShiftRequest.fromJson(Map<String, dynamic> json) =>
