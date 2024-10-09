@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/convert.dart';
@@ -15,13 +16,13 @@ import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:base_app/presentations/pages/calendar_work/widgets/reason_work_day_detail.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
+import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:common/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-import '../../../common/utils/toast_utils.dart';
 import '../../bloc/work_day/work_day_event.dart';
 
 const List<WorkShiftRequestStatus> listStatus = [
@@ -70,13 +71,14 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     required Map<DateTime, WorkDay> map,
     required WorkShiftRequestStatus status,
   }) async {
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     DateTime startTime = getFirstDayOfMonth(DateTime.now()),
         endTime = getLastDayOfMonth(DateTime.now());
     if (status == WorkShiftRequestStatus.approve) {
       if (reasonController.text.trim().isNotEmpty) {
         Completer completerCancel = Completer();
         dI<WorkDayBloc>().add(CancelRegisterWorkDay(
-          data: CancelWorkDayRequest(note: "note", id: id),
+          data: CancelWorkDayRequest(note: note, id: id),
           completer: completerCancel,
         ));
         final checkCancel = await completerCancel.future;
@@ -95,16 +97,19 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
           );
           final check = await completer.future;
           if (check) {
+            if (!currentContext.mounted) return;
             _onBack();
+            dialogSuccess(
+                context: currentContext,
+                title: mapByStatus(status: status, context: currentContext)['success']??"",
+                isPop: false);
           }
         }
-      } else {
-        ToastUtils().showError("Lý do không được bỏ trống");
       }
     } else {
       Completer completerCancel = Completer();
       dI<WorkDayBloc>().add(CancelRegisterWorkDay(
-        data: CancelWorkDayRequest(note: "note", id: id),
+        data: CancelWorkDayRequest(note: note, id: id),
         completer: completerCancel,
       ));
       final checkCancel = await completerCancel.future;
@@ -123,7 +128,12 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
         );
         final check = await completer.future;
         if (check) {
+          if (!currentContext.mounted) return;
           _onBack();
+          dialogSuccess(
+              context: currentContext,
+              title: mapByStatus(status: status, context: currentContext)['success']??"",
+              isPop: false);
         }
       }
     }
@@ -140,14 +150,13 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
       {required List<WorkDayRequest> workDays,
       required BuildContext context,
       required Map<DateTime, WorkDay> map}) async {
-    final appLocalizations = AppLocalizations.of(context)!;
+    final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     Completer completer = Completer<bool>();
     dI<WorkDayBloc>().add(RegisterWorkDay(request: workDays, completer: completer));
     final check = await completer.future;
     if (check) {
       DateTime startTime = getFirstDayOfMonth(DateTime.now()),
           endTime = getLastDayOfMonth(DateTime.now());
-      ToastUtils().showSuccess(appLocalizations.success);
       Completer completer = Completer();
       dI<WorkDayBloc>().add(
         GetWorkDayByUser(
@@ -160,12 +169,16 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
           ),
         ),
       );
-      await completer.future;
-      if (context.mounted) {
-        Navigator.pop(context);
+      final check = await completer.future;
+      if (check) {
+        if (!currentContext.mounted) return;
+        _onBack();
+        dialogSuccess(
+            context: currentContext,
+            title: mapByStatus(
+                status: WorkShiftRequestStatus.usable, context: currentContext)['success']??"",
+            isPop: false);
       }
-    } else {
-      ToastUtils().showError(errorDialog);
     }
     dI<WorkDayBloc>().add(const ChangeLoading(status: true));
   }
@@ -272,7 +285,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     child: AppButton(
                       colorText: Colors.white,
-                      title: mapByStatus(context: context, status: data.status)['titleButton'],
+                      title: mapByStatus(context: context, status: data.status)['titleButton']??"",
                       onSubmit: () {
                         if (data.status == WorkShiftRequestStatus.cancel ||
                             data.status == WorkShiftRequestStatus.reject ||
@@ -303,50 +316,6 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
         );
       },
     );
-  }
-
-  Map<String, dynamic> mapByStatus({
-    required BuildContext context,
-    required WorkShiftRequestStatus status,
-  }) {
-    final colors = AppTheme.getColors(context);
-    final appLocalizations = AppLocalizations.of(context)!;
-    switch (status) {
-      case WorkShiftRequestStatus.pending:
-        return {
-          'color': colors.error,
-          'titleButton': appLocalizations.cancelShiftReceiveRegistration,
-        };
-      case WorkShiftRequestStatus.approve:
-        return {
-          'color': colors.error,
-          'titleButton': appLocalizations.cancelShift1,
-        };
-      case WorkShiftRequestStatus.pendingCancel:
-        return {
-          'color': colors.error,
-          'titleButton': appLocalizations.cancelShift2,
-        };
-      case WorkShiftRequestStatus.usable:
-        return {
-          'color': colors.blue,
-          'titleButton': appLocalizations.registerForShifts,
-        };
-      case WorkShiftRequestStatus.reject:
-        return {
-          'color': ColorUtils.parseHex('#2F6BFF'),
-          'titleButton': appLocalizations.registerForShifts,
-        };
-      case WorkShiftRequestStatus.cancel:
-        return {
-          'color': ColorUtils.parseHex('#2F6BFF'),
-          'titleButton': appLocalizations.registerForShifts,
-        };
-      case WorkShiftRequestStatus.remove:
-      case WorkShiftRequestStatus.unusable:
-      default:
-        return {};
-    }
   }
 
   bool checkType(WorkShiftRequestStatus status) {
@@ -534,5 +503,54 @@ Color setColor({
       return colors.shadow;
     default:
       return Colors.transparent;
+  }
+}
+
+Map<String, dynamic> mapByStatus({
+  required BuildContext context,
+  required WorkShiftRequestStatus status,
+}) {
+  final colors = AppTheme.getColors(context);
+  final appLocalizations = AppLocalizations.of(context)!;
+  switch (status) {
+    case WorkShiftRequestStatus.pending:
+      return {
+        'color': colors.error,
+        'titleButton': appLocalizations.cancelShiftReceiveRegistration,
+        'success': appLocalizations.cancelShiftSuccess1,
+      };
+    case WorkShiftRequestStatus.approve:
+      return {
+        'color': colors.error,
+        'titleButton': appLocalizations.cancelShift1,
+        'success': appLocalizations.cancelShiftSuccess,
+      };
+    case WorkShiftRequestStatus.pendingCancel:
+      return {
+        'color': colors.error,
+        'titleButton': appLocalizations.cancelShift2,
+        'success': appLocalizations.cancelCancelShiftSuccess,
+      };
+    case WorkShiftRequestStatus.usable:
+      return {
+        'color': colors.blue,
+        'titleButton': appLocalizations.registerForShifts,
+        'success': appLocalizations.registeredShiftSuccessfully,
+      };
+    case WorkShiftRequestStatus.reject:
+      return {
+        'color': ColorUtils.parseHex('#2F6BFF'),
+        'titleButton': appLocalizations.registerForShifts,
+      };
+    case WorkShiftRequestStatus.cancel:
+      return {
+        'color': ColorUtils.parseHex('#2F6BFF'),
+        'titleButton': appLocalizations.registerForShifts,
+        'success': appLocalizations.registeredShiftSuccessfully,
+      };
+    case WorkShiftRequestStatus.remove:
+    case WorkShiftRequestStatus.unusable:
+    default:
+      return {};
   }
 }

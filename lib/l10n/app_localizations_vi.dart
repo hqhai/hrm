@@ -2143,4 +2143,24 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get useFaceIDInsteadOfAPassword => 'Sử dụng FaceID của bạn thay cho mật khẩu đăng nhập';
+
+  @override
+  String get approveShiftSuccessfully => 'Duyệt đăng ký ca thành công';
+
+  @override
+  String get refusedToRegisterASuccessfulShift => 'Từ chối đăng ký ca thành công';
+
+  @override
+  String get approveTheRequestToCancelTheShiftSuccessfully => 'Duyệt yêu cầu hủy ca làm thành công';
+
+  @override
+  String get rejectTheRequestToCancelTheShiftSuccessfully => 'Từ chối yêu cầu hủy ca làm thành công';
+
+  @override
+  String removeTheEmployeeShift(Object a) {
+    return 'Bạn có chắc muốn gỡ nhân viên $a khỏi ca?';
+  }
+
+  @override
+  String get removeEmployeeSuccessful => 'Gỡ nhân viên khỏi ca thanh công';
 }

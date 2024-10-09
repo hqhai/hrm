@@ -2143,4 +2143,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get useFaceIDInsteadOfAPassword => 'Use your Face ID instead of a password';
+
+  @override
+  String get approveShiftSuccessfully => 'Approve shift registration successfully';
+
+  @override
+  String get refusedToRegisterASuccessfulShift => 'Refused to register a successful shift';
+
+  @override
+  String get approveTheRequestToCancelTheShiftSuccessfully => 'Approve the request to cancel the shift successfully';
+
+  @override
+  String get rejectTheRequestToCancelTheShiftSuccessfully => 'Reject the request to cancel the shift successfully';
+
+  @override
+  String removeTheEmployeeShift(Object a) {
+    return 'Are you sure you want to remove the employee $a from the shift?';
+  }
+
+  @override
+  String get removeEmployeeSuccessful => 'Remove employee from successful shift';
 }

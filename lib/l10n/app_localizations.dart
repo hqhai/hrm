@@ -4352,6 +4352,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use your Face ID instead of a password'**
   String get useFaceIDInsteadOfAPassword;
+
+  /// No description provided for @approveShiftSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve shift registration successfully'**
+  String get approveShiftSuccessfully;
+
+  /// No description provided for @refusedToRegisterASuccessfulShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Refused to register a successful shift'**
+  String get refusedToRegisterASuccessfulShift;
+
+  /// No description provided for @approveTheRequestToCancelTheShiftSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve the request to cancel the shift successfully'**
+  String get approveTheRequestToCancelTheShiftSuccessfully;
+
+  /// No description provided for @rejectTheRequestToCancelTheShiftSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject the request to cancel the shift successfully'**
+  String get rejectTheRequestToCancelTheShiftSuccessfully;
+
+  /// No description provided for @removeTheEmployeeShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove the employee {a} from the shift?'**
+  String removeTheEmployeeShift(Object a);
+
+  /// No description provided for @removeEmployeeSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove employee from successful shift'**
+  String get removeEmployeeSuccessful;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

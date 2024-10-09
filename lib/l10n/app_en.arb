@@ -708,6 +708,12 @@
   "reasonCancelShift": "Reason cancel shift",
   "selectFilter": "Select filter",
   "loginBiometricAuthentication": "Log in with biometric authentication",
-  "useFaceIDInsteadOfAPassword": "Use your Face ID instead of a password"
+  "useFaceIDInsteadOfAPassword": "Use your Face ID instead of a password",
+  "approveShiftSuccessfully": "Approve shift registration successfully",
+  "refusedToRegisterASuccessfulShift": "Refused to register a successful shift",
+  "approveTheRequestToCancelTheShiftSuccessfully": "Approve the request to cancel the shift successfully",
+  "rejectTheRequestToCancelTheShiftSuccessfully": "Reject the request to cancel the shift successfully",
+  "removeTheEmployeeShift": "Are you sure you want to remove the employee {a} from the shift?",
+  "removeEmployeeSuccessful": "Remove employee from successful shift"
 
 }

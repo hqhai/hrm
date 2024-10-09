@@ -242,6 +242,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
     required String titlePopUp,
     required String errorCode,
   }) async {
+    final appLocalizations = AppLocalizations.of(context)!;
     if (reasonController.text.trim().isNotEmpty ||
         status == WorkShiftRequestStatus.pending ||
         status == WorkShiftRequestStatus.pendingCancel) {
@@ -259,7 +260,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
         }
       }
     } else {
-      ToastUtils().showError("Lý do không được bỏ trống");
+      ToastUtils().showError(appLocalizations.reasonCannotBeLeftBlank);
     }
   }
 

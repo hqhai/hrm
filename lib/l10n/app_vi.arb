@@ -709,6 +709,12 @@
   "reasonCancelShift": "Lý do hủy ca",
   "selectFilter": "Chọn bộ lọc",
   "loginBiometricAuthentication": "Đăng nhập bằng sinh trắc học",
-  "useFaceIDInsteadOfAPassword": "Sử dụng FaceID của bạn thay cho mật khẩu đăng nhập"
+  "useFaceIDInsteadOfAPassword": "Sử dụng FaceID của bạn thay cho mật khẩu đăng nhập",
+  "approveShiftSuccessfully": "Duyệt đăng ký ca thành công",
+  "refusedToRegisterASuccessfulShift": "Từ chối đăng ký ca thành công",
+  "approveTheRequestToCancelTheShiftSuccessfully": "Duyệt yêu cầu hủy ca làm thành công",
+  "rejectTheRequestToCancelTheShiftSuccessfully": "Từ chối yêu cầu hủy ca làm thành công",
+  "removeTheEmployeeShift": "Bạn có chắc muốn gỡ nhân viên {a} khỏi ca?",
+  "removeEmployeeSuccessful": "Gỡ nhân viên khỏi ca thanh công"
 
 }
