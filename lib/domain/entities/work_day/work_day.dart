@@ -37,8 +37,7 @@ class WorkDay {
     this.dayOfWeek = WeekDayEnum.monday,
   });
 
-  factory WorkDay.fromJson(Map<String, dynamic> json) =>
-      _$WorkDayFromJson(json);
+  factory WorkDay.fromJson(Map<String, dynamic> json) => _$WorkDayFromJson(json);
 
   Map<String, dynamic> toJson() => _$WorkDayToJson(this);
 }
@@ -76,8 +75,10 @@ class WorkDayAdmin {
   final String createdFullName;
   final String updatedFullName;
   final String updatedDate;
+  final List<WorkShiftApprove> workShiftApproves;
 
   const WorkDayAdmin({
+    this.workShiftApproves = const [],
     this.workShiftApproveId = '',
     this.workDate,
     this.nameWorkShift = '',
@@ -110,8 +111,7 @@ class WorkDayAdmin {
     this.updatedDate = '',
   });
 
-  factory WorkDayAdmin.fromJson(Map<String, dynamic> json) =>
-      _$WorkDayAdminFromJson(json);
+  factory WorkDayAdmin.fromJson(Map<String, dynamic> json) => _$WorkDayAdminFromJson(json);
 
   Map<String, dynamic> toJson() => _$WorkDayAdminToJson(this);
 }
@@ -127,8 +127,7 @@ class UsableAdmin {
     this.workShiftRegisteredDetails = const [],
   });
 
-  factory UsableAdmin.fromJson(Map<String, dynamic> json) =>
-      _$UsableAdminFromJson(json);
+  factory UsableAdmin.fromJson(Map<String, dynamic> json) => _$UsableAdminFromJson(json);
 
   Map<String, dynamic> toJson() => _$UsableAdminToJson(this);
 }
