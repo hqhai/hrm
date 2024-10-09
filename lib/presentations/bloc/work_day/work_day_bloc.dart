@@ -302,10 +302,6 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       await _locationUseCase.addApprove(request: event.request);
       emit(state.copyWith(errorCode: ''));
       event.completer?.complete(true);
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (currentContext.mounted) {
-        dI<AppNavigation>().pop(currentContext);
-      }
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       if (e is ResponseBase) {
