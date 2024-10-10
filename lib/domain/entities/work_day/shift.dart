@@ -23,6 +23,8 @@ class Shift {
   final List<WorkShiftApprove> workShiftApproves;
   final DateTime? createdDate;
   final DateTime? workDate;
+  final int validRegistTime;
+  final String validRegistTimeType;
   @JsonKey(unknownEnumValue: ShiftType.unknown)
   final ShiftType type;
   @JsonKey(unknownEnumValue: WorkShiftRequestStatus.unknown)
@@ -46,6 +48,8 @@ class Shift {
     this.workShiftApproves = const [],
     this.workEffort = 1,
     this.workDate,
+    this.validRegistTime = 0,
+    this.validRegistTimeType = ''
   });
 
   factory Shift.fromJson(Map<String, dynamic> json) => _$ShiftFromJson(json);

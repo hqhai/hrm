@@ -1,6 +1,7 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
@@ -20,10 +21,7 @@ class TitleDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(SpacingUnit.x5),
       child: Column(
@@ -116,4 +114,34 @@ updateNoteDialog(
       );
     },
   );
+}
+
+class TimeKeepingErrorNoShift extends StatelessWidget {
+  const TimeKeepingErrorNoShift({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
+    return Padding(
+      padding: const EdgeInsets.all(SpacingUnit.x4),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            Assets.images.timeKeeping.fail.path,
+            fit: BoxFit.fill,
+            height: SpacingUnit.x20,
+            width: SpacingUnit.x20,
+          ),
+          const SizedBox(
+            height: SpacingUnit.x4,
+          ),
+          Text(appLocalizations.youDoNotHaveAShiftToday,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
+        ],
+      ),
+    );
+  }
 }

@@ -184,8 +184,18 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
     );
   }
 
-  bool _checkShowCheckBox(
-      {required List<Shift> workDay, required bool check, required Shift shift}) {
+  bool _checkShowCheckBox({
+    required List<Shift> workDay,
+    required bool check,
+    required Shift shift,
+  }) {
+    final now = DateTime.now();
+    final dayValidate = firstDate(time: shift.workDate ?? now)
+        .subtract(Duration(days: shift.validRegistTime))
+        .add(Duration(seconds: shift.startTime));
+    if (dayValidate.isBefore(now)) {
+      return false;
+    }
     final workShiftIds = widget.listSelect
         .where((element) => element.workDate == widget.dateTime.toString())
         .map((e) => e.workShiftSettingDetailId)
