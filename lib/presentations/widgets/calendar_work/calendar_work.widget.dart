@@ -7,7 +7,6 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/item_data.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_event.dart';
 import 'package:base_app/presentations/widgets/activate/item_activate.dart';
@@ -94,13 +93,10 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        final appLocalizations = AppLocalizations.of(context)!;
         final colors = AppTheme.getColors(context);
         return Dialog(
           backgroundColor: colors.background,
-          child: TitleDialog(
-            title: appLocalizations.youDoNotHaveAShiftToday,
-          ),
+          child: const TimeKeepingErrorNoShift(),
         );
       },
     );

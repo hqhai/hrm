@@ -19,6 +19,16 @@ String strTimeFromInt(int time) {
   return '${hours}h${minute}m';
 }
 
+///Đầu ngày
+DateTime firstDate({required DateTime time}) {
+  return DateTime(time.year, time.month, time.day, 0, 0, 0);
+}
+
+///Cuối ngày
+DateTime lastDate({required DateTime time}) {
+  return DateTime(time.year, time.month, time.day, 23, 59, 59);
+}
+
 ///String sang int
 int timeToSeconds(String time) {
   final DateFormat format = DateFormat('HH:mm:ss');
@@ -60,9 +70,7 @@ bool isAtSameMomentAsDay({
   DateTime? end,
 }) {
   if (start != null && end != null) {
-    return start.year == end.year &&
-        start.month == end.month &&
-        start.day == end.day;
+    return start.year == end.year && start.month == end.month && start.day == end.day;
   }
   return false;
 }
@@ -78,8 +86,7 @@ DateTime getFirstDayOfMonth(DateTime time) {
 DateTime getLastDayOfMonth(DateTime time) {
   final int year = time.year;
   final int month = time.month;
-  var firstDayNextMonth =
-      (month < 12) ? DateTime(year, month + 1, 1) : DateTime(year + 1, 1, 1);
+  var firstDayNextMonth = (month < 12) ? DateTime(year, month + 1, 1) : DateTime(year + 1, 1, 1);
   return firstDayNextMonth.subtract(const Duration(days: 1));
 }
 
@@ -129,8 +136,7 @@ String formatYYMMDD(String time) {
 
 ///Từ số sang thứ trong tuần
 String formatWeekDay(int weekDayIndex) {
-  List weekDayToString =
-      WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
+  List weekDayToString = WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
   return weekDayToString[weekDayIndex - 1];
 }
 
@@ -138,8 +144,7 @@ String formatWeekDay(int weekDayIndex) {
 
 String nameWeekDay(DateTime? time) {
   if (time != null) {
-    final int nowOfWeek =
-        mapNumberDayInWeek[DateFormat('EEE').format(time)] ?? 0;
+    final int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(time)] ?? 0;
     final List<String> weekDayToString =
         WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
     return weekDayToString[nowOfWeek - 1];

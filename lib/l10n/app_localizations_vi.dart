@@ -1251,7 +1251,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get trackFlowProgres => 'Tiến trình duyệt';
 
   @override
-  String get youDoNotHaveAShiftToday => 'Bạn không có ca làm việc vào hôm nay!';
+  String get youDoNotHaveAShiftToday => 'Bạn không có lịch đi trường vào ngày hôm nay!';
 
   @override
   String get worksheet => 'Bảng công';
