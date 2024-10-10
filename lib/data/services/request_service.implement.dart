@@ -102,7 +102,7 @@ class RequestServiceImpl extends BaseService implements RequestService {
   Future<String> uploadFile({UploadFileRequest? uploadFileRequest}) async {
     bool isFile = uploadFileRequest!.originFile!.path.endsWith('png') ||
         uploadFileRequest.originFile!.path.endsWith('jpg');
-    String sendFileType = isFile ? 'Images' : 'Files';
+    String sendFileType = isFile ? 'HRM' : 'HRM';
     final url = '$baseURLFile${PathConfig.file}/$sendFileType';
     String filename = uploadFileRequest.originFile!.path.split('/').last;
     final response = await client.postUploadFile(url,
