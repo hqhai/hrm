@@ -2168,4 +2168,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String areYouSureCancelShift(Object a) {
     return 'Bạn có chắc chắn muốn hủy ca làm của nhân sự $a?';
   }
+
+  @override
+  String get quitLoggingInAccessUtilities => 'Bỏ qua đăng nhập, truy cập tiện ích';
+
+  @override
+  String get ifYouDoNotHaveAnAccountPleaseContactHCNS => 'Nếu bạn chưa có tài khoản, hãy liên hệ hành chính nhân sự';
 }

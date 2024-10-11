@@ -2168,4 +2168,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String areYouSureCancelShift(Object a) {
     return 'Are you sure you want to cancel employee $a\'s shift?';
   }
+
+  @override
+  String get quitLoggingInAccessUtilities => 'Skip login, access utilities';
+
+  @override
+  String get ifYouDoNotHaveAnAccountPleaseContactHCNS => 'If you don\'t have an account, please contact Human Resources.';
 }

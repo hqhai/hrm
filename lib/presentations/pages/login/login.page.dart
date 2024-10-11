@@ -30,9 +30,8 @@ import 'package:local_auth/local_auth.dart';
 import 'package:themes/themes.dart';
 import 'package:widgets/app_show_dialog.dart';
 
-final loginPageRoute = GoRoute(
-    path: Pages.login,
-    builder: (context, GoRouterState state) => const LoginPage());
+final loginPageRoute =
+    GoRoute(path: Pages.login, builder: (context, GoRouterState state) => const LoginPage());
 
 //User: minhchien@atlantic.edu.vn          Admin@123
 
@@ -43,16 +42,12 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
-    with SingleTickerProviderStateMixin {
+class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
   final TextEditingController emailController = TextEditingController(),
       passwordController = TextEditingController();
   String checkEmail = '', checkPassword = '';
   final LocalAuthentication auth = LocalAuthentication();
-  List<BiometricType> availableBiometrics = [
-    BiometricType.fingerprint,
-    BiometricType.face
-  ];
+  List<BiometricType> availableBiometrics = [BiometricType.fingerprint, BiometricType.face];
   bool isCheck = false;
   String notification = '';
 
@@ -133,8 +128,7 @@ class _LoginPageState extends State<LoginPage>
           errorEmail = appLocalizations.errorEmailOrPassword;
           errorPass = appLocalizations.errorEmailOrPassword;
         });
-        ShowDialog.instance
-            .showDialogCommon(context, appLocalizations.errorEmailOrPassword);
+        ShowDialog.instance.showDialogCommon(context, appLocalizations.errorEmailOrPassword);
       case LoginStatus.emailOrUserFalse:
         setState(() {
           errorEmail = appLocalizations.requiredDataFields;
@@ -200,20 +194,17 @@ class _LoginPageState extends State<LoginPage>
                         setCheck: (bool? value) => setCheckSaveLogin(value),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: SpacingUnit.x4),
+                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
                         child: BlocBuilder<BiometricCubit, BiometricState>(
                           builder: (context, stateBiometric) {
                             return GestureDetector(
-                              onTap: () =>
-                                  _getBiometric(context, stateBiometric),
+                              onTap: () => _getBiometric(context, stateBiometric),
                               child: SvgPicture.asset(
                                 height: SpacingUnit.x12,
                                 width: SpacingUnit.x12,
                                 Assets.images.signIn.biometric,
-                                colorFilter: ColorFilter.mode(
-                                    colors.text.withOpacity(0.5),
-                                    BlendMode.srcIn),
+                                colorFilter:
+                                    ColorFilter.mode(colors.text.withOpacity(0.5), BlendMode.srcIn),
                               ),
                             );
                           },
@@ -223,13 +214,11 @@ class _LoginPageState extends State<LoginPage>
                         title: appLocalizations.login,
                         onSubmit: () => onSubmit(),
                         color: checkInput() ? colors.blue : colors.navy,
-                        colorText: checkInput()
-                            ? colors.background
-                            : colors.background,
+                        colorText: checkInput() ? colors.background : colors.background,
                       ),
                       TextButton(
                           child: Text(
-                            appLocalizations.skipLogin,
+                            appLocalizations.quitLoggingInAccessUtilities,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
@@ -238,29 +227,13 @@ class _LoginPageState extends State<LoginPage>
                       // const Expanded(flex: 5, child: SizedBox()),
                       //const ContactHelpWidget(),
                       const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            appLocalizations.notAMember,
-                            style: TextStyle(
-                              fontSize: SpacingUnit.x4,
-                              color: colors.text.withOpacity(0.6),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              onRegister(context);
-                            },
-                            child: Text(
-                              appLocalizations.signUpNow,
-                              style: TextStyle(
-                                fontSize: SpacingUnit.x4,
-                                color: colors.blue,
-                              ),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        appLocalizations.ifYouDoNotHaveAnAccountPleaseContactHCNS,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: SpacingUnit.x4,
+                          color: colors.text.withOpacity(0.6),
+                        ),
                       ),
                     ],
                   ),
@@ -283,8 +256,8 @@ class _LoginPageState extends State<LoginPage>
         checkLoadLogin = false;
       });
       Future.delayed(const Duration(seconds: 1), () {
-        dI<LoginBloc>().add(ValidateLogin(
-            username: emailController.text, password: passwordController.text));
+        dI<LoginBloc>()
+            .add(ValidateLogin(username: emailController.text, password: passwordController.text));
       });
     }
   }
@@ -293,8 +266,7 @@ class _LoginPageState extends State<LoginPage>
     final appLocalizations = AppLocalizations.of(context)!;
     availableBiometrics = await auth.getAvailableBiometrics();
     final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
-    final bool canAuthenticate =
-        canAuthenticateWithBiometrics && await auth.isDeviceSupported();
+    final bool canAuthenticate = canAuthenticateWithBiometrics && await auth.isDeviceSupported();
     if (!canAuthenticate) {
       setState(() {
         checkPermission = true;
@@ -318,8 +290,7 @@ class _LoginPageState extends State<LoginPage>
       );
       if (didAuthenticate) {
         dI<LoginBloc>().add(BiometricRequestLogin(
-            username: state.loginRequest.username,
-            password: state.loginRequest.password));
+            username: state.loginRequest.username, password: state.loginRequest.password));
       }
     } else {
       setState(() {
