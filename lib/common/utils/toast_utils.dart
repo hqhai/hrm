@@ -7,11 +7,11 @@ class ToastUtils {
     Fluttertoast.showToast(
         msg: mess,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
+        gravity: ToastGravity.TOP,
         timeInSecForIosWeb: 3,
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        fontSize: 16.0);
+        fontSize: 16.0,);
   }
 
   showSuccess(String mess) {
