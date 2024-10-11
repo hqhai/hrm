@@ -91,7 +91,7 @@ const errorVi = {
   "UserFailToCreate": "Tạo mới người dùng thất bại ",
   "OtherRoleUserSystem": "Khác role user system ",
   "UserNameAlreadyExist": "Tên đăng nhập đã tồn tại ",
-  "UserNameNotNull": "Tên đăng nhập không được để trống ",
+  "UserNameNotNull": "Email không được để trống ",
   "UserNameNotExist": "Tên người dùng không tồn tại ",
   "EmailAndCompanyEmailNull": "Không có email cá nhân và email công ty ",
   "PassPortNumberAlreadyExist": "Số hộ chiếu đã tồn tại ",

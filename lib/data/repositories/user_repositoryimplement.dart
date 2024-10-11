@@ -40,7 +40,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<String> forgotPassword({required String email}) async {
     return await userService.forgotPassword(
-        forgotPasswordRequest: ForgotPasswordRequest(userName: email));
+        forgotPasswordRequest: ForgotPasswordRequest(email: email));
   }
 
   @override

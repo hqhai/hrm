@@ -57,62 +57,59 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         appBar: AppBar(
           iconTheme: IconThemeData(color: colors.text),
         ),
-        body: Container(
-          alignment: Alignment.topCenter,
-          child: Center(
-            child: Container(
-              width: width,
-              height: height,
-              color: colors.background,
-              margin: const EdgeInsets.all(SpacingUnit.x2),
-              child: Padding(
-                padding: const EdgeInsets.all(SpacingUnit.x4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x15),
-                      child: Center(
-                        child: Image.asset(
-                          Assets.images.signIn.logo.path,
-                          fit: BoxFit.fill,
+        body: Center(
+          child: Container(
+            width: width,
+            height: height,
+            color: colors.background,
+            margin: const EdgeInsets.all(SpacingUnit.x2),
+            child: Padding(
+              padding: const EdgeInsets.all(SpacingUnit.x4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x15),
+                    child: Center(
+                      child: Image.asset(
+                        Assets.images.signIn.logo.path,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    appLocalizations.email,
+                    style: const TextStyle(
+                      fontSize: SpacingUnit.x4,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                    child: AppInputEmail(
+                      iconLeft: Padding(
+                        padding: const EdgeInsets.all(SpacingUnit.x2_5),
+                        child: SvgPicture.asset(
+                          Assets.images.icon.person,
                         ),
                       ),
+                      placeHolder: appLocalizations.email,
+                      autofocus: false,
+                      error: errorEmail,
+                      controller: emailController,
+                      onChange: (value) => setCheckEmail(value),
                     ),
-                    Text(
-                      appLocalizations.email,
-                      style: const TextStyle(
-                        fontSize: SpacingUnit.x4,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+                    child: AppButton(
+                      title: checkInput() ? appLocalizations.continues : appLocalizations.forgotPassword,
+                      onSubmit: () => onSubmit(context),
+                      color: checkInput() ? colors.blue : colors.navy,
+                      colorText: colors.background,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
-                      child: AppInputEmail(
-                        iconLeft: Padding(
-                          padding: const EdgeInsets.all(SpacingUnit.x2_5),
-                          child: SvgPicture.asset(
-                            Assets.images.icon.person,
-                          ),
-                        ),
-                        placeHolder: appLocalizations.email,
-                        autofocus: false,
-                        error: errorEmail,
-                        controller: emailController,
-                        onChange: (value) => setCheckEmail(value),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
-                      child: AppButton(
-                        title: checkInput() ? appLocalizations.continues : appLocalizations.forgotPassword,
-                        onSubmit: () => onSubmit(context),
-                        color: checkInput() ? colors.blue : colors.navy,
-                        colorText: colors.background,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
