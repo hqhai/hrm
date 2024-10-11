@@ -716,6 +716,8 @@
   "rejectTheRequestToCancelTheShiftSuccessfully": "Từ chối yêu cầu hủy ca làm thành công",
   "removeTheEmployeeShift": "Bạn có chắc muốn gỡ nhân viên {a} khỏi ca?",
   "removeEmployeeSuccessful": "Gỡ nhân viên khỏi ca thanh công",
-  "areYouSureCancelShift": "Bạn có chắc chắn muốn hủy ca làm của nhân sự {a}?"
+  "areYouSureCancelShift": "Bạn có chắc chắn muốn hủy ca làm của nhân sự {a}?",
+  "quitLoggingInAccessUtilities": "Bỏ qua đăng nhập, truy cập tiện ích",
+  "ifYouDoNotHaveAnAccountPleaseContactHCNS": "Nếu bạn chưa có tài khoản, hãy liên hệ hành chính nhân sự"
 
 }

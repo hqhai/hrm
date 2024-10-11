@@ -4394,6 +4394,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to cancel employee {a}\'s shift?'**
   String areYouSureCancelShift(Object a);
+
+  /// No description provided for @quitLoggingInAccessUtilities.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip login, access utilities'**
+  String get quitLoggingInAccessUtilities;
+
+  /// No description provided for @ifYouDoNotHaveAnAccountPleaseContactHCNS.
+  ///
+  /// In en, this message translates to:
+  /// **'If you don\'t have an account, please contact Human Resources.'**
+  String get ifYouDoNotHaveAnAccountPleaseContactHCNS;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
