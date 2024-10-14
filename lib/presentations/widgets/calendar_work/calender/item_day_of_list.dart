@@ -9,6 +9,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,7 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.sizeOf(context).width;
+    final appLocalizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return BlocBuilder<WorkDayBloc, WorkDayState>(
       builder: (context, state) {
@@ -114,7 +116,7 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                               }
                             },
                             child: Opacity(
-                              opacity: showCheckBox ? 1 : 0.5,
+                              opacity: showCheckBox || !widget.isCheckBox ? 1 : 0.5,
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: SpacingUnit.x4,
@@ -170,7 +172,7 @@ class _ItemDayOfListState extends State<ItemDayOfList> {
                     padding: const EdgeInsets.all(SpacingUnit.x7),
                     child: Center(
                       child: Text(
-                        'Không có ca làm việc',
+                        appLocalizations.noShiftsWork,
                         style: TextStyle(
                           color: colors.text,
                           fontSize: SpacingUnit.x3_5,

@@ -56,7 +56,7 @@ class ShiftWidget extends StatelessWidget {
               title: reason == EditTimekeeping.late
                   ? appLocalizations.minutesToLate
                   : appLocalizations.minutesToEarly,
-              value: workShift.numberTime.toString(),
+              value: strSeconds(workShift.numberTime) ?? '0',
             ),
         ],
       ),

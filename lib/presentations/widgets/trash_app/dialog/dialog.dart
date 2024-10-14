@@ -149,6 +149,8 @@ class _NoteDialogSystemState extends State<NoteDialogSystem> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: SpacingUnit.x2),
                         child: AppButton(
+                          color: colors.blue,
+                          colorText: colors.background,
                           onSubmit: () =>
                               nextUpdateNotesPage(context, widget.note),
                           title: appLocalizations.update,

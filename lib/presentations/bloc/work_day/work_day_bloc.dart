@@ -68,7 +68,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
     try {
       await _locationUseCase.registerWorkDays(
           request: WorkDaysRequest(workShiftRequestList: event.request));
-      emit(state.copyWith(errorCode: ''));
+      emit(state.copyWith(errorCode: '',));
       event.completer.complete(true);
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
@@ -206,7 +206,7 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
     emit(state.copyWith(itemsDetail: data.items, pagingInfoDetail: data.pagingInfo));
   }
 
-  ///Hủy chờ duyệt ca
+
   FutureOr<void> _registerAdmin(RegisterWorkDayAdmin event, Emitter<WorkDayState> emit) async {
     try {
       await _locationUseCase.addApprove(request: event.request);

@@ -35,10 +35,14 @@ class ShiftsBuyUserQueryParams {
 
 @JsonSerializable()
 class ShiftsReviewQueryParams {
-  String id;
+  final String id;
+  final DateTime? startTime;
+  final DateTime? endTime;
 
   ShiftsReviewQueryParams({
     required this.id,
+    this.startTime,
+    this.endTime,
   });
 
   factory ShiftsReviewQueryParams.fromJson(Map<String, dynamic> json) =>

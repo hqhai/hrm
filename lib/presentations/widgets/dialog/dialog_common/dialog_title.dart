@@ -90,6 +90,8 @@ updateNoteDialog(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
                     child: AppButton(
+                      color: colors.blue,
+                      colorText: colors.background,
                       title: appLocalizations.ok,
                       onSubmit: () => callBack.call(),
                     ),

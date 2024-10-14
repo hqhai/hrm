@@ -338,6 +338,8 @@ class DialogOpenSetting extends StatelessWidget {
           ),
           const SizedBox(height: SpacingUnit.x4),
           AppButton(
+            color: colors.blue,
+            colorText: colors.background,
             title: appLocalizations.allow,
             onSubmit: () => _openSetting(context),
           )

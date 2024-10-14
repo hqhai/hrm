@@ -2174,4 +2174,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get ifYouDoNotHaveAnAccountPleaseContactHCNS => 'Nếu bạn chưa có tài khoản, hãy liên hệ hành chính nhân sự';
+
+  @override
+  String get enterReason => 'Nhập lý do...';
+
+  @override
+  String get forgotPasswordSuccess => 'Gửi mật khẩu thành công!';
 }

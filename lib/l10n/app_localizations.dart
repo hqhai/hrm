@@ -4406,6 +4406,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If you don\'t have an account, please contact Human Resources.'**
   String get ifYouDoNotHaveAnAccountPleaseContactHCNS;
+
+  /// No description provided for @enterReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter reason...'**
+  String get enterReason;
+
+  /// No description provided for @forgotPasswordSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password success!'**
+  String get forgotPasswordSuccess;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

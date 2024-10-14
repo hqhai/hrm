@@ -718,6 +718,7 @@
   "removeEmployeeSuccessful": "Gỡ nhân viên khỏi ca thanh công",
   "areYouSureCancelShift": "Bạn có chắc chắn muốn hủy ca làm của nhân sự {a}?",
   "quitLoggingInAccessUtilities": "Bỏ qua đăng nhập, truy cập tiện ích",
-  "ifYouDoNotHaveAnAccountPleaseContactHCNS": "Nếu bạn chưa có tài khoản, hãy liên hệ hành chính nhân sự"
-
+  "ifYouDoNotHaveAnAccountPleaseContactHCNS": "Nếu bạn chưa có tài khoản, hãy liên hệ hành chính nhân sự",
+  "enterReason": "Nhập lý do...",
+  "forgotPasswordSuccess": "Gửi mật khẩu thành công!"
 }

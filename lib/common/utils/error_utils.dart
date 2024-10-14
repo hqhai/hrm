@@ -96,23 +96,23 @@ const errorVi = {
   "EmailAndCompanyEmailNull": "Không có email cá nhân và email công ty ",
   "PassPortNumberAlreadyExist": "Số hộ chiếu đã tồn tại ",
   "CitizenIdentificationCardNumberAlreadyExist": "Số CCCD đã tồn tại ",
-  "EmailNotNull ": "Email không được rỗng ",
-  "OnlyFulltimeInOneDepartmentAndPosition ":
+  "EmailNotNull": "Email không được rỗng ",
+  "OnlyFulltimeInOneDepartmentAndPosition":
       "Chỉ được phép tồn tại 1 fulltime trong 1 chức vụ và phòng ban ",
-  "ParttimeOnlyUpdateToFullTimeCantAdd ":
+  "ParttimeOnlyUpdateToFullTimeCantAdd":
       "Người này chỉ có thể update thêm fulltime không thể thêm fulltime ",
-  "LisencePlateAlreadyExist ": "Biển số xe đã tồn tại ",
-  "TaxAlreadyExist ": "Mã số thuế đã tồn tại ",
+  "LisencePlateAlreadyExist": "Biển số xe đã tồn tại ",
+  "TaxAlreadyExist": "Mã số thuế đã tồn tại ",
   "BankAccountNumberAlreadyExist": "Số tài khoản ngân hàng đã tồn tại",
   //---------------------
   "ServerError": "Server bị lỗi",
-  "ExportFaile ": "Lỗi xuất file ",
-  "Required ": "Có trường bắt buộc ",
-  "MaxLength ": "Trường có độ dài quá mức cho phép ",
-  "Min ": "Trường có độ dài quá ngắn ",
-  "DataNotExist ": "Dữ liệu không tồn tại ",
-  "DataAlreadyExist ": "Dữ liệu đã tồn tại ",
-  "ImportFileRequired ": "Yêu cầu phải truyền tệp vào ",
+  "ExportFaile": "Lỗi xuất file ",
+  "Required": "Có trường bắt buộc ",
+  "MaxLength": "Trường có độ dài quá mức cho phép ",
+  "Min": "Trường có độ dài quá ngắn ",
+  "DataNotExist": "Dữ liệu không tồn tại ",
+  "DataAlreadyExist": "Dữ liệu đã tồn tại ",
+  "ImportFileRequired": "Yêu cầu phải truyền tệp vào ",
   //----------------------------------9/6/2024
   "WorkShiftTimeThanTimeMakeUpWorkTime": "Thời gian làm bù nhỏ hơn thời gian ca",
   "CheckInGreaterThanCheckOut": "Check In lớn hơn Check Out",
@@ -265,23 +265,23 @@ const errorEn = {
   "EmailAndCompanyEmailNull": "No personal email and company email provided ",
   "PassPortNumberAlreadyExist": "Passport number already exists ",
   "CitizenIdentificationCardNumberAlreadyExist": "Citizen ID number already exists ",
-  "EmailNotNull ": "Email must not be empty ",
-  "OnlyFulltimeInOneDepartmentAndPosition ":
+  "EmailNotNull": "Email must not be empty",
+  "OnlyFulltimeInOneDepartmentAndPosition":
       "Only one full-time employee is allowed in one position and department ",
-  "ParttimeOnlyUpdateToFullTimeCantAdd ":
+  "ParttimeOnlyUpdateToFullTimeCantAdd":
       "This person can only update existing full-time, cannot add new full-time ",
-  "LisencePlateAlreadyExist ": "License plate already exists ",
-  "TaxAlreadyExist ": "Tax code already exists ",
+  "LisencePlateAlreadyExist": "License plate already exists ",
+  "TaxAlreadyExist": "Tax code already exists ",
   "BankAccountNumberAlreadyExist": "Bank account number already exists",
   //-----------------------------------
   "ServerError": "ServerError",
-  "ExportFaile ": "File export error ",
-  "Required ": "There is a required field ",
-  "MaxLength ": "Field length exceeds the allowed limit ",
-  "Min ": "Field length is too short ",
-  "DataNotExist ": "Data does not exist ",
-  "DataAlreadyExist ": "Data already exists ",
-  "ImportFileRequired ": "File is required to be uploaded ",
+  "ExportFaile": "File export error ",
+  "Required": "There is a required field ",
+  "MaxLength": "Field length exceeds the allowed limit ",
+  "Min": "Field length is too short ",
+  "DataNotExist": "Data does not exist ",
+  "DataAlreadyExist": "Data already exists ",
+  "ImportFileRequired": "File is required to be uploaded ",
   //-------------------------------9/6/2024
   "WorkShiftTimeThanTimeMakeUpWorkTime": "Work Shift Time Less Than Time Make Up Work Time",
   "CheckInGreaterThanCheckOut": "Check In Greater Than Check Out",

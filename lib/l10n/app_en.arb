@@ -717,6 +717,9 @@
   "removeEmployeeSuccessful": "Remove employee from successful shift",
   "areYouSureCancelShift": "Are you sure you want to cancel employee {a}'s shift?",
   "quitLoggingInAccessUtilities": "Skip login, access utilities",
-  "ifYouDoNotHaveAnAccountPleaseContactHCNS": "If you don't have an account, please contact Human Resources."
+  "ifYouDoNotHaveAnAccountPleaseContactHCNS": "If you don't have an account, please contact Human Resources.",
+  "enterReason": "Enter reason...",
+  "forgotPasswordSuccess": "Forgot Password success!"
+
 
 }

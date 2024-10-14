@@ -37,6 +37,7 @@ class _ReasonWorkDayDetailState extends State<ReasonWorkDayDetail> {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<ShiftBloc, ShiftState>(
       builder: (context, state) {
         return Column(
@@ -76,7 +77,7 @@ class _ReasonWorkDayDetailState extends State<ReasonWorkDayDetail> {
                   borderSide: BorderSide(color: colors.outline),
                 ),
                 suffixStyle: const TextStyle(color: Colors.green),
-                hintText: "Nhập lý do...",
+                hintText: appLocalizations.enterReason,
               ),
             ),
           ],
