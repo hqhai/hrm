@@ -58,6 +58,8 @@ class ApplyBiometric extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(SpacingUnit.x2),
             child: AppButton(
+              color: colors.blue,
+              colorText: colors.background,
               title: appLocalizations.continues,
               onSubmit: () => callback.call(),
             ),
@@ -264,6 +266,8 @@ class NotRegister extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(SpacingUnit.x2),
             child: AppButton(
+              colorText: colors.background,
+              color: colors.blue,
               title: appLocalizations.ok,
               onSubmit: () => dI<AppNavigation>().pop(context),
             ),

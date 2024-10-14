@@ -43,6 +43,8 @@ final shiftsPageReviewRoute = GoRoute(
         final data = ShiftsReviewQueryParams.fromJson(query);
         return ShiftsPageReview(
           id: data.id,
+          startTime: data.startTime,
+          endTime: data.endTime,
         );
       }
       return const ErrorPage();
@@ -50,8 +52,9 @@ final shiftsPageReviewRoute = GoRoute(
 
 class ShiftsPageReview extends StatefulWidget {
   final String id;
+  final DateTime? startTime, endTime;
 
-  const ShiftsPageReview({super.key, required this.id});
+  const ShiftsPageReview({super.key, required this.id, this.startTime, this.endTime});
 
   @override
   State<ShiftsPageReview> createState() => _ShiftsPageReviewState();
@@ -72,8 +75,6 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     required WorkShiftRequestStatus status,
   }) async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    DateTime startTime = getFirstDayOfMonth(DateTime.now()),
-        endTime = getLastDayOfMonth(DateTime.now());
     if (status == WorkShiftRequestStatus.approve) {
       if (reasonController.text.trim().isNotEmpty) {
         Completer completerCancel = Completer();
@@ -88,10 +89,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
             GetWorkDayByUser(
               completer: completer,
               request: WorkDayGetElectiveShiftRequest(
-                startDate: startTime,
-                endDate: endTime,
-                pageSize: 30,
-                page: 1,
+                startDate: widget.startTime,
+                endDate: widget.endTime,
               ),
             ),
           );
@@ -101,7 +100,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
             _onBack();
             dialogSuccess(
                 context: currentContext,
-                title: mapByStatus(status: status, context: currentContext)['success']??"",
+                title: mapByStatus(status: status, context: currentContext)['success'] ?? "",
                 isPop: false);
           }
         }
@@ -119,10 +118,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
           GetWorkDayByUser(
             completer: completer,
             request: WorkDayGetElectiveShiftRequest(
-              startDate: startTime,
-              endDate: endTime,
-              page: 1,
-              pageSize: 30,
+              startDate: widget.startTime,
+              endDate: widget.endTime,
             ),
           ),
         );
@@ -132,7 +129,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
           _onBack();
           dialogSuccess(
               context: currentContext,
-              title: mapByStatus(status: status, context: currentContext)['success']??"",
+              title: mapByStatus(status: status, context: currentContext)['success'] ?? "",
               isPop: false);
         }
       }
@@ -155,28 +152,27 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     dI<WorkDayBloc>().add(RegisterWorkDay(request: workDays, completer: completer));
     final check = await completer.future;
     if (check) {
-      DateTime startTime = getFirstDayOfMonth(DateTime.now()),
-          endTime = getLastDayOfMonth(DateTime.now());
-      Completer completer = Completer();
+      /*DateTime startTime = getFirstDayOfMonth(DateTime.now()),
+          endTime = getLastDayOfMonth(DateTime.now());*/
+      Completer completerGetWorkDay = Completer<bool>();
       dI<WorkDayBloc>().add(
         GetWorkDayByUser(
-          completer: completer,
+          completer: completerGetWorkDay,
           request: WorkDayGetElectiveShiftRequest(
-            startDate: startTime,
-            endDate: endTime,
-            pageSize: 30,
-            page: 1,
+            startDate: widget.startTime,
+            endDate: widget.endTime,
           ),
         ),
       );
-      final check = await completer.future;
-      if (check) {
+      final checkGetWorkDay = await completerGetWorkDay.future;
+      if (checkGetWorkDay) {
         if (!currentContext.mounted) return;
         _onBack();
         dialogSuccess(
             context: currentContext,
             title: mapByStatus(
-                status: WorkShiftRequestStatus.usable, context: currentContext)['success']??"",
+                    status: WorkShiftRequestStatus.usable, context: currentContext)['success'] ??
+                "",
             isPop: false);
       }
     }
@@ -191,7 +187,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     return BlocConsumer<WorkDayBloc, WorkDayState>(
       listener: (context, state) => _listener(context, state.errorCode),
       builder: (context, state) {
-        final data = state.items.singleWhere((element) => element.id == widget.id);
+        final data= state.items.singleWhere((element) => element.id == widget.id);
         int index = listStatus.indexWhere((item) => item == data.status);
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -250,7 +246,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                             ? ReasonWorkDayDetail(
                                 reasonController: reasonController,
                                 data: data.workShiftApproves.isNotEmpty
-                                    ? data.workShiftApproves.first.note
+                                    ? data.workShiftApproves.first.content
                                     : '',
                                 status: data.status,
                               )
@@ -285,7 +281,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     child: AppButton(
                       colorText: Colors.white,
-                      title: mapByStatus(context: context, status: data.status)['titleButton']??"",
+                      title:
+                          mapByStatus(context: context, status: data.status)['titleButton'] ?? "",
                       onSubmit: () {
                         if (data.status == WorkShiftRequestStatus.cancel ||
                             data.status == WorkShiftRequestStatus.reject ||

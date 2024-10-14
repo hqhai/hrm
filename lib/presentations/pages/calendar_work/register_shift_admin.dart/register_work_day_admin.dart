@@ -75,8 +75,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       dI<WorkDayBloc>().add(
         GetWorkDayByUser(
           completer: completer,
-          request: WorkDayGetElectiveShiftRequest(
-              startDate: startTime, endDate: endTime, page: 1),
+          request: WorkDayGetElectiveShiftRequest(startDate: startTime, endDate: endTime, page: 1),
         ),
       );
     } else {
@@ -603,7 +602,9 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                             ...state.items.map((e) {
                               if (e.status == selectType) {
                                 return _ItemUser(
-                                  e,
+                                  data: e,
+                                  endTime: endTime,
+                                  startTime: startTime,
                                 );
                               } else {
                                 return const SizedBox();
@@ -861,8 +862,10 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
 
 class _ItemUser extends StatelessWidget {
   final WorkDayAdmin data;
+  final DateTime? startTime;
+  final DateTime? endTime;
 
-  const _ItemUser(this.data);
+  const _ItemUser({required this.data, this.startTime, this.endTime});
 
   @override
   Widget build(BuildContext context) {
@@ -872,9 +875,8 @@ class _ItemUser extends StatelessWidget {
     return InkWell(
       onTap: () => dI<AppNavigation>().push(context,
           page: Pages.shiftsPageReview,
-          paramsQuerry: ShiftsReviewQueryParams(
-            id: data.id,
-          ).toJson()),
+          paramsQuerry: ShiftsReviewQueryParams(id: data.id, endTime: endTime, startTime: startTime)
+              .toJson()),
       child: Container(
         margin: const EdgeInsets.only(bottom: SpacingUnit.x4),
         padding: const EdgeInsets.all(SpacingUnit.x3),

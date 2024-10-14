@@ -2174,4 +2174,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ifYouDoNotHaveAnAccountPleaseContactHCNS => 'If you don\'t have an account, please contact Human Resources.';
+
+  @override
+  String get enterReason => 'Enter reason...';
+
+  @override
+  String get forgotPasswordSuccess => 'Forgot Password success!';
 }

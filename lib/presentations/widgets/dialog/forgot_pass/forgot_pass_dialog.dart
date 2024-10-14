@@ -42,7 +42,7 @@ class ForgotPassSuccess extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x8),
           child: Text(
-            appLocalizations.changePasswordSuccess,
+            appLocalizations.forgotPasswordSuccess,
             style: const TextStyle(
               fontSize: SpacingUnit.x6,
               fontWeight: FontWeight.w600,

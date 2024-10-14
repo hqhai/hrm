@@ -362,6 +362,7 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
             ),
           )
         : PostRequestRequest(
+            id: widget.requestId,
             followerIds: followers,
             flowId: widget.flowId,
             config: ConfigModelRequest(

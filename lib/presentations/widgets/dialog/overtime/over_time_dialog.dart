@@ -196,6 +196,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),
                 color: colors.error.withOpacity(0.7),
+                colorText: colors.text,
               ),
             ),
           ]
