@@ -4,7 +4,6 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/error_response.dart';
-import 'package:base_app/common/utils/regex_exp.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -103,9 +102,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
                     child: AppButton(
-                      title: checkInput() ? appLocalizations.continues : appLocalizations.forgotPassword,
+                      title: appLocalizations.continues,
                       onSubmit: () => onSubmit(context),
-                      color: checkInput() ? colors.blue : colors.navy,
+                      color: colors.blue,
                       colorText: colors.background,
                     ),
                   ),
@@ -118,14 +117,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
   }
 
-  bool checkInput() {
-    RegExp regExpEmail = RegExp(checkEmailRegexExp);
-    return (regExpEmail.hasMatch(checkEmail)) ? isCheckedInput = true : isCheckedInput = false;
-  }
-
   void onSubmit(BuildContext context) async {
-    bool check = checkInput();
-    if (check) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
       dialogIndicator(context: currentContext);
       Completer completer = Completer<bool>();
@@ -139,7 +131,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         dI<AppNavigation>().pop(currentContext);
         forgotPassSuccess(context: currentContext, email: checkEmail);
       }
-    }
   }
 
   setCheckEmail(String value) {
