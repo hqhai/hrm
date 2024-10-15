@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/enum/emun_time.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
 import 'package:base_app/common/enum/type_filter_work_shift.dart';
 import 'package:base_app/common/enum/user_type.dart';
@@ -310,8 +311,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       Completer completer = Completer();
       dI<WorkDayBloc>().add(GetWorkDayByUser(
           completer: completer,
-          request: WorkDayGetElectiveShiftRequest(
-              startDate: startTime, endDate: endTime, pageSize: 30, page: 1)));
+          request: WorkDayGetElectiveShiftRequest(startDate: startTime, endDate: endTime)));
     } else {
       _loadShift(type: selectType, isUnScroll: false);
     }
@@ -323,11 +323,12 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
       startTime = getFirstDayOfMonth(DateTime.now());
       endTime = getLastDayOfMonth(DateTime.now());
     });
+    _setTime();
   }
 
   String timeFilter() {
     if (filterType == FilterType.month) {
-      return GetMonth.mapMonthName[startTime.month].toString();
+      return GetMonth.mapMonthName[startTime.month]?.configMonthName ?? "";
     } else {
       return '${formatYMD(startTime.toString())} - ${formatYMD(endTime.toString())}';
     }

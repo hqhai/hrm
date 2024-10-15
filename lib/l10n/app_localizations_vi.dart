@@ -2173,7 +2173,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get quitLoggingInAccessUtilities => 'Bỏ qua đăng nhập, truy cập tiện ích';
 
   @override
-  String get ifYouDoNotHaveAnAccountPleaseContactHCNS => 'Nếu bạn chưa có tài khoản, hãy liên hệ hành chính nhân sự';
+  String get ifYouDoNotHaveAnAccountPleaseContactHCNS => 'Nếu bạn chưa có tài khoản, hãy liên hệ HCNS';
 
   @override
   String get enterReason => 'Nhập lý do...';
