@@ -2180,4 +2180,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get forgotPasswordSuccess => 'Gửi mật khẩu thành công!';
+
+  @override
+  String get saveUpdateInfo => 'Lưu thông tin';
 }

@@ -28,6 +28,7 @@ import 'package:base_app/presentations/widgets/profile/item_department_and_posit
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:themes/themes.dart';
 
 final updateProfilePageRoute = GoRoute(
@@ -108,8 +109,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
               child: Column(
                 children: [
                   ItemProfile(
-                      isCheck: true,
-                      onChange: (value) => _setFileAvatar(value)),
+                    isCheck: true,
+                    onChange: (value) => _setFileAvatar(value),
+                  ),
                   Container(
                     margin: const EdgeInsets.only(top: SpacingUnit.x4),
                     padding: const EdgeInsets.all(SpacingUnit.x4),
@@ -189,7 +191,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   AppButton(
                     color: colors.blue,
                     colorText: colors.background,
-                    title: appLocalizations.update,
+                    title: appLocalizations.saveUpdateInfo,
                     onSubmit: () => _updateProfile(context, state.user),
                   ),
                   const SizedBox(
@@ -352,10 +354,22 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     });
   }
 
-  _setFileAvatar(File value) {
-    setState(() {
-      _file = value;
-    });
+  _setFileAvatar(File value) async {
+    Map<Permission, PermissionStatus> statuses = Platform.isIOS
+        ? await [
+            Permission.photos,
+            Permission.storage,
+          ].request()
+        : await [Permission.photos, Permission.videos].request();
+    if (statuses.containsValue(PermissionStatus.permanentlyDenied) ||
+        statuses.containsValue(PermissionStatus.denied)) {
+      await openAppSettings();
+      return;
+    } else {
+      setState(() {
+        _file = value;
+      });
+    }
   }
 
   _setDateOfBirth(DateTime value) {

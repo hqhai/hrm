@@ -719,7 +719,8 @@
   "quitLoggingInAccessUtilities": "Skip login, access utilities",
   "ifYouDoNotHaveAnAccountPleaseContactHCNS": "If you don't have an account, please contact Human Resources.",
   "enterReason": "Enter reason...",
-  "forgotPasswordSuccess": "Forgot Password success!"
+  "forgotPasswordSuccess": "Forgot Password success!",
+  "saveUpdateInfo" : "Save"
 
 
 }

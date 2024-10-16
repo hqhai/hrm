@@ -9,6 +9,7 @@ import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:themes/themes.dart';
 
 class ItemProfile extends StatefulWidget {
@@ -163,17 +164,29 @@ class _ItemProfileState extends State<ItemProfile> {
   }
 
   Future<void> getImagePath() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        pathImage = pickedFile.path;
-        file = File(pathImage);
-      });
-      widget.onChange?.call(file);
+    Map<Permission, PermissionStatus> statuses = Platform.isIOS
+        ? await [
+            Permission.photos,
+            Permission.storage,
+          ].request()
+        : await [Permission.photos,].request();
+    if (statuses.containsValue(PermissionStatus.permanentlyDenied) ||
+        statuses.containsValue(PermissionStatus.denied)) {
+      await openAppSettings();
+      return;
     } else {
-      pathImage = '';
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+      if (pickedFile != null) {
+        setState(() {
+          pathImage = pickedFile.path;
+          file = File(pathImage);
+        });
+        widget.onChange?.call(file);
+      } else {
+        pathImage = '';
+      }
     }
   }
 }

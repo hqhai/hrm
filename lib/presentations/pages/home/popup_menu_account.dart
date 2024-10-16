@@ -42,14 +42,17 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
 
   _editPersonalInformation() {
     dI<AppNavigation>().push(context, page: Pages.updateProfilePage);
+    Navigator.of(context).pop();
   }
 
   _setting(BuildContext context) {
     dI<AppNavigation>().push(context, page: Pages.biometricRegister);
+    Navigator.of(context).pop();
   }
 
   _changePassword(BuildContext context) {
     dI<AppNavigation>().push(context, page: Pages.changePasswordPage);
+    Navigator.of(context).pop();
   }
 
   void logoutFunction() {
@@ -98,7 +101,8 @@ class _PopupMenuAccountState extends State<PopupMenuAccount> {
                   children: [
                     SvgPicture.asset(
                       Assets.images.icon.popupAppbar.ngonNgu,
-                      colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                      colorFilter:
+                          ColorFilter.mode(colors.text, BlendMode.srcIn),
                     ),
                     const SizedBox(
                       width: SpacingUnit.x3,

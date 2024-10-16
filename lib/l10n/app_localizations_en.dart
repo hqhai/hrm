@@ -2180,4 +2180,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forgotPasswordSuccess => 'Forgot Password success!';
+
+  @override
+  String get saveUpdateInfo => 'Save';
 }

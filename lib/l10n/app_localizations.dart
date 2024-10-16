@@ -4418,6 +4418,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Forgot Password success!'**
   String get forgotPasswordSuccess;
+
+  /// No description provided for @saveUpdateInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get saveUpdateInfo;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -99,7 +99,91 @@ class CreateRequestUnsuccessful extends StatelessWidget {
   }
 }
 
-dialogSuccess({required BuildContext context, required String title, bool isPop = true}) {
+class CreateRequestUnsuccessfulTwoButton extends StatelessWidget {
+  final VoidCallback onTapRetry;
+
+  const CreateRequestUnsuccessfulTwoButton({
+    super.key,
+    this.title = '',
+    required this.onTapRetry,
+  });
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(SpacingUnit.x4),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(SpacingUnit.x4),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+              child: Text(
+                title.isNotEmpty
+                    ? title
+                    : appLocalizations.timekeepingUnSuccess,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: SpacingUnit.x5,
+                ),
+              ),
+            ),
+            const SizedBox(height: SpacingUnit.x2),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4),
+              child: Image.asset(
+                Assets.images.signIn.no.path,
+                fit: BoxFit.fill,
+                height: SpacingUnit.x20,
+                width: SpacingUnit.x20,
+              ),
+            ),
+            const SizedBox(height: SpacingUnit.x4),
+            Row(
+              children: [
+                Flexible(
+                  child: AppButton(
+                    onSubmit: () => submit(context),
+                    title: appLocalizations.cancel,
+                    colorText: const Color(0xFF808890),
+                    color: Colors.transparent,
+                    colorBorder: colors.outline,
+                  ),
+                ),
+                const SizedBox(width: SpacingUnit.x4),
+                Flexible(
+                  child: AppButton(
+                    onSubmit: () => onTapRetry.call(),
+                    title: appLocalizations.retry,
+                    colorText: colors.background,
+                    color: const Color(0xFF2F6BFF),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  submit(BuildContext context) {
+    dI<AppNavigation>().pop(context);
+  }
+}
+
+dialogSuccess(
+    {required BuildContext context, required String title, bool isPop = true}) {
   showDialog(
     barrierDismissible: true,
     context: context,
@@ -125,7 +209,30 @@ dialogUnsuccessful({required BuildContext context, required String title}) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        child: CreateRequestUnsuccessful(title: title),
+        child: CreateRequestUnsuccessful(
+          title: title,
+        ),
+      );
+    },
+  );
+}
+
+dialogUnsuccessfulTwoButton(
+    {required BuildContext context,
+    required String title,
+    required VoidCallback onTapRetry}) {
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        child: CreateRequestUnsuccessfulTwoButton(
+          title: title,
+          onTapRetry: () {
+            onTapRetry.call();
+            Navigator.pop(context);
+          },
+        ),
       );
     },
   );
@@ -177,8 +284,9 @@ completerSuccess({required String requestId, bool isEdit = false}) {
   }
   dialogSuccess(
     context: currentContext,
-    title:
-        requestId.isNotEmpty ? appLocalizations.editRequestSuccess : appLocalizations.createSuccess,
+    title: requestId.isNotEmpty
+        ? appLocalizations.editRequestSuccess
+        : appLocalizations.createSuccess,
   );
 }
 
@@ -196,24 +304,29 @@ approverUnsuccessful({required String errorDialog, String? title}) {
   final appLocalizations = AppLocalizations.of(currentContext)!;
   dialogUnsuccessful(
     context: currentContext,
-    title: errorDialog.isNotEmpty ? errorDialog : title ?? appLocalizations.approvedUnsuccessful,
+    title: errorDialog.isNotEmpty
+        ? errorDialog
+        : title ?? appLocalizations.approvedUnsuccessful,
   );
 }
 
-updateProfileFail({required String errorDialog}) {
+updateProfileFail({
+  required String errorDialog,
+}) {
   final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
   final appLocalizations = AppLocalizations.of(currentContext)!;
   dI<AppNavigation>().pop(currentContext);
   dialogUnsuccessful(
     context: currentContext,
-    title: errorDialog.isNotEmpty ? errorDialog : appLocalizations.updateUnsuccessful,
+    title: errorDialog.isNotEmpty
+        ? errorDialog
+        : appLocalizations.updateUnsuccessful,
   );
 }
 
 updateProfileSuccess() {
   final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
   final appLocalizations = AppLocalizations.of(currentContext)!;
-  dI<AppNavigation>().pop(currentContext);
   dI<AppNavigation>().pop(currentContext);
   dialogSuccess(
     context: currentContext,
