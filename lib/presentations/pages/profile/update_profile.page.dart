@@ -44,26 +44,34 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  String? address;
-  Address? province, ward, district;
-  String errorFirstName = '', errorLastName = '', firstName = '', lastName = '', phoneNumber = '';
-  DateTime dateOfBirth = DateTime.now();
-  File file = File('');
-  GenderEnum gender = GenderEnum.male;
-  VehicleTypeEnum? vehicleType;
-  String errorDialog = '';
+  String? _address;
+  Address? _province;
+  Address? _ward;
+  Address? _district;
+  String _errorFirstName = '';
+  String _errorLastName = '';
+  String _firstName = '';
+  String _lastName = '';
+  String _phoneNumber = '';
+  DateTime _dateOfBirth = DateTime.now();
+  File _file = File('');
+  GenderEnum _gender = GenderEnum.male;
+  VehicleTypeEnum? _vehicleType;
+  final String _errorDialog = '';
 
   @override
   void initState() {
     User user = dI<UserBloc>().state.user;
-    phoneNumber = user.phoneNumber;
-    dateOfBirth = user.dayOfBirth??DateTime.now();
-    firstName = user.firstName;
-    lastName = user.lastName;
-    gender = user.gender;
-    province = Address(id: user.residentProvinceId, name: user.residentProvince);
-    ward = Address(id: user.residentWardId, name: user.residentWard);
-    district = Address(id: user.residentDistrictId, name: user.residentDistrict);
+    _phoneNumber = user.phoneNumber;
+    _dateOfBirth = user.dayOfBirth ?? DateTime.now();
+    _firstName = user.firstName;
+    _lastName = user.lastName;
+    _gender = user.gender;
+    _province =
+        Address(id: user.residentProvinceId, name: user.residentProvince);
+    _ward = Address(id: user.residentWardId, name: user.residentWard);
+    _district =
+        Address(id: user.residentDistrictId, name: user.residentDistrict);
     super.initState();
   }
 
@@ -99,7 +107,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  ItemProfile(isCheck: true, onChange: (value) => _setFileAvatar(value)),
+                  ItemProfile(
+                      isCheck: true,
+                      onChange: (value) => _setFileAvatar(value)),
                   Container(
                     margin: const EdgeInsets.only(top: SpacingUnit.x4),
                     padding: const EdgeInsets.all(SpacingUnit.x4),
@@ -124,19 +134,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             content: state.user.companyEmail),
                         ItemDateOfBirthUpdateProfile(
                           title: appLocalizations.dateOfBirth,
-                          dateOfBirth: state.user.dayOfBirth??DateTime.now(),
-                          onChangeDateOfBirth: (value) => _setDateOfBirth(value),
+                          dateOfBirth: state.user.dayOfBirth ?? DateTime.now(),
+                          onChangeDateOfBirth: (value) =>
+                              _setDateOfBirth(value),
                         ),
                         ItemInputUpdateProfile(
                           requiredValidate: true,
-                          error: errorFirstName,
+                          error: _errorFirstName,
                           title: appLocalizations.firstName,
                           content: state.user.firstName,
                           onChange: (value) => _setFirstName(value),
                         ),
                         ItemInputUpdateProfile(
                           requiredValidate: true,
-                          error: errorLastName,
+                          error: _errorLastName,
                           title: appLocalizations.lastName,
                           content: state.user.lastName,
                           onChange: (value) => _setLastName(value),
@@ -158,7 +169,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                 id: state.user.residentDistrictId,
                                 name: state.user.residentDistrict),
                             ward: Address(
-                                id: state.user.residentWardId, name: state.user.residentWard),
+                                id: state.user.residentWardId,
+                                name: state.user.residentWard),
                             onChangeProvince: (value) => _setProvince(value),
                             onChangeDistrict: (value) => _setDistrict(value),
                             onChangeWard: (value) => _setWard(value)),
@@ -212,30 +224,42 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     final appLocalizations = AppLocalizations.of(context)!;
     final UpdateProfileRequest updateProfileRequest = UpdateProfileRequest(
       id: user.id,
-      firstName: firstName,
-      lastName: lastName,
-      dayOfBirth: dateOfBirth,
-      gender: gender.name,
-      phoneNumber: phoneNumber,
-      residentProvince: province?.name,
-      residentProvinceId: province?.id,
-      residentDistrict: district?.name,
-      residentDistrictId: district?.id,
-      residentWard: ward?.name,
-      residentWardId: ward?.id,
-      residentAddress: setValueOnUpdateProfileRequest(address, user.residentAddress),
+      firstName: _firstName,
+      lastName: _lastName,
+      dayOfBirth: _dateOfBirth,
+      gender: _gender.name,
+      phoneNumber: _phoneNumber,
+      residentProvince: _province?.name,
+      residentProvinceId: (_province != null &&
+              _province!.id != null &&
+              _province!.id!.isNotEmpty)
+          ? _province!.id
+          : null,
+      residentDistrict: _district?.name,
+      residentDistrictId: (_district != null &&
+              _district!.id != null &&
+              _district!.id!.isNotEmpty)
+          ? _district!.id
+          : null,
+      residentWard: _ward?.name,
+      residentWardId:
+          (_ward != null && _ward!.id != null && _ward!.id!.isNotEmpty)
+              ? _ward!.id
+              : null,
+      residentAddress:
+          setValueOnUpdateProfileRequest(_address, user.residentAddress),
       avatarPath: setPath(user.avatarPath),
       vehicleType: setValueOnUpdateProfileRequest(
-        vehicleType?.name,
+        _vehicleType?.name,
         user.vehicleType.name,
       ),
     );
     setState(() {
-      if (firstName == '') {
-        errorFirstName = appLocalizations.cannotBeLeftBlank;
+      if (_firstName == '') {
+        _errorFirstName = appLocalizations.cannotBeLeftBlank;
       }
-      if (lastName == '') {
-        errorLastName = appLocalizations.cannotBeLeftBlank;
+      if (_lastName == '') {
+        _errorLastName = appLocalizations.cannotBeLeftBlank;
       }
     });
     if (isCheckOnClick(user)) {
@@ -255,7 +279,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     dI<UserBloc>().add(
       UpdateProfileEvent(
         updateProfileRequest: updateProfileRequest,
-        file: file,
+        file: _file,
         completer: completer,
       ),
     );
@@ -267,75 +291,76 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     } else {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(currentContext);
-      updateProfileFail(errorDialog: errorDialog);
+      updateProfileFail(errorDialog: _errorDialog);
     }
   }
 
   bool isCheckOnClick(User user) {
     RegExp regExpPhoneNumber = RegExp(checkPhoneNumberRegexExp);
-    bool check = (regExpPhoneNumber.hasMatch(phoneNumber) || phoneNumber.isNotEmpty) &&
-        firstName != '' &&
-        lastName != '';
+    bool check =
+        (regExpPhoneNumber.hasMatch(_phoneNumber) || _phoneNumber.isNotEmpty) &&
+            _firstName != '' &&
+            _lastName != '';
     return check;
   }
 
   _setPhoneNumber(String value) {
     setState(() {
-      phoneNumber = value;
+      _phoneNumber = value;
     });
   }
 
   _setGender(GenderEnum value) {
     setState(() {
-      gender = value;
+      _gender = value;
     });
   }
 
   _setAddress(String value) {
     setState(() {
-      address = value;
+      _address = value;
     });
   }
 
   _setProvince(Address? value) {
     setState(() {
-      province = value;
+      _province = value;
     });
   }
 
   _setDistrict(Address? value) {
     setState(() {
-      district = value;
+      _district = value;
     });
   }
 
   _setWard(Address? value) {
     setState(() {
-      ward = value;
+      _ward = value;
     });
   }
 
   _setFirstName(String value) {
     setState(() {
-      firstName = value;
+      _firstName = value;
     });
   }
 
   _setLastName(String value) {
     setState(() {
-      lastName = value;
+      _lastName = value;
     });
   }
 
   _setFileAvatar(File value) {
     setState(() {
-      file = value;
+      _file = value;
     });
   }
 
   _setDateOfBirth(DateTime value) {
     setState(() {
-      dateOfBirth = value;
+      _dateOfBirth = value;
     });
   }
 }
