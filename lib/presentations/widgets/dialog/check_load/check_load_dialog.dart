@@ -68,8 +68,9 @@ class CreateRequestUnsuccessful extends StatelessWidget {
         children: [
           Text(
             title.isNotEmpty ? title : appLocalizations.timekeepingUnSuccess,
+            textAlign: TextAlign.center,
             style: TextStyle(
-              color: colors.error,
+              color: colors.text,
               fontWeight: FontWeight.w600,
               fontSize: SpacingUnit.x4,
             ),
@@ -83,11 +84,15 @@ class CreateRequestUnsuccessful extends StatelessWidget {
               width: SpacingUnit.x20,
             ),
           ),
-          AppButton(
-            onSubmit: () => submit(context),
-            title: appLocalizations.cancel,
-            colorText: colors.background,
-            color: colors.blue,
+          Row(
+            children: [
+              AppButton(
+                onSubmit: () => submit(context),
+                title: appLocalizations.cancel,
+                colorText: colors.background,
+                color: colors.blue,
+              ),
+            ],
           ),
         ],
       ),

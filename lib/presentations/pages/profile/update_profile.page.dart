@@ -291,7 +291,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       updateProfileSuccess();
     } else {
       if (!currentContext.mounted) return;
-      dI<AppNavigation>().pop(currentContext);
       updateProfileFail(errorDialog: _errorDialog);
     }
   }

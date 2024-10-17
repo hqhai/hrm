@@ -41,8 +41,8 @@ class CheckSaveDialog extends StatelessWidget {
                     child: AppButton(
                       onSubmit: () => cancel(context),
                       title: appLocalizations.cancel,
-                      colorText: colors.background,
-                      color: colors.text.withOpacity(0.3),
+                      colorText: colors.blue,
+                      colorBorder: colors.blue,
                     ),
                   ),
                 ),
@@ -54,6 +54,7 @@ class CheckSaveDialog extends StatelessWidget {
                       title: appLocalizations.save,
                       colorText: colors.background,
                       color: colors.blue,
+                      colorBorder: colors.blue,
                     ),
                   ),
                 ),
