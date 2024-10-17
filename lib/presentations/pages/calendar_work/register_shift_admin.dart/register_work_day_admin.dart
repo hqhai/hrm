@@ -889,8 +889,12 @@ class _ItemUser extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(data.name,
-                  style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500)),
+              Expanded(
+                child: Text(data.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500)),
+              ),
               const Icon(Icons.chevron_right)
             ]),
             const SizedBox(height: SpacingUnit.x3),
@@ -921,10 +925,14 @@ class ItemShiftApprove extends StatelessWidget {
     final theme = Theme.of(context);
     // final colors = AppTheme.getColors(context);
     return InkWell(
-      onTap: () => dI<AppNavigation>().push(context,
-          page: Pages.registerWorkDayAdminDetail,
-          paramsQuerry:
-              WorkDayAdminQueryParams(id: data.workShiftSettingDetailId, type: type).toJson()),
+      onTap: () {
+        if (type != WorkShiftRequestStatus.usable) {
+          dI<AppNavigation>().push(context,
+              page: Pages.registerWorkDayAdminDetail,
+              paramsQuerry:
+                  WorkDayAdminQueryParams(id: data.workShiftSettingDetailId, type: type).toJson());
+        }
+      },
       child: Container(
         margin: const EdgeInsets.only(bottom: SpacingUnit.x4),
         padding: const EdgeInsets.all(SpacingUnit.x3),
@@ -936,8 +944,12 @@ class ItemShiftApprove extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(data.nameWorkShift,
-                  style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500)),
+              Expanded(
+                child: Text(data.nameWorkShift,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500)),
+              ),
               const Icon(Icons.chevron_right)
             ]),
             const SizedBox(height: SpacingUnit.x3),

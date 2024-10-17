@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
@@ -42,54 +43,56 @@ class ShiftTab extends StatelessWidget {
           padding: const EdgeInsets.all(SpacingUnit.x4),
           child: Stack(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TitleValueLeave(
-                    font: FontWeight.w600,
-                    title: appLocalizations.workInDay,
-                    value: userWorkingHistoryModel.actualRate.toString(),
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),
-
-                  ///Cụ Hảo kêu không cần 16/9/2024
-                  /*TitleValueLeave(
-                    title: appLocalizations.totalTimeWork,
-                    value: userWorkingHistoryModel.workTimeActual.toString(),
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),*/
-                  TitleValueLeave(
-                    font: FontWeight.w600,
-                    title: appLocalizations.minutesToLate,
-                    value: userWorkingHistoryModel.timeLate.toString(),
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),
-                  TitleValueLeave(
-                    font: FontWeight.w600,
-                    title: appLocalizations.minutesToEarly,
-                    value: userWorkingHistoryModel.timeEarly.toString(),
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),
-                  TitleValueLeave(
-                    font: FontWeight.w600,
-                    title: appLocalizations.totalOTHours,
-                    value: userWorkingHistoryModel.overTime.toString(),
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),
-                  const ListShiftInTab(),
-                  TitleValueLeave(
-                    font: FontWeight.w600,
-                    title: appLocalizations.totalTimeWorkCompensatory,
-                    value: userWorkingHistoryModel.makeUpTime.toString(),
-                    size: SpacingUnit.x4,
-                    padding: SpacingUnit.x3,
-                  ),
-                ],
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TitleValueLeave(
+                      font: FontWeight.w600,
+                      title: appLocalizations.workInDay,
+                      value: userWorkingHistoryModel.actualRate.toString(),
+                      size: SpacingUnit.x4,
+                      padding: SpacingUnit.x3,
+                    ),
+                    TitleValueLeave(
+                      font: FontWeight.w600,
+                      title: appLocalizations.totalTimeWork,
+                      value: strSeconds(userWorkingHistoryModel.workTimeActual.toInt())??"",
+                      size: SpacingUnit.x4,
+                      padding: SpacingUnit.x3,
+                    ),
+                    TitleValueLeave(
+                      font: FontWeight.w600,
+                      title: appLocalizations.minutesToLate,
+                      value: strSeconds(userWorkingHistoryModel.timeLate.toInt())??"",
+                      size: SpacingUnit.x4,
+                      padding: SpacingUnit.x3,
+                    ),
+                    TitleValueLeave(
+                      font: FontWeight.w600,
+                      title: appLocalizations.minutesToEarly,
+                      value: strSeconds(userWorkingHistoryModel.timeEarly.toInt())??"",
+                      size: SpacingUnit.x4,
+                      padding: SpacingUnit.x3,
+                    ),
+                    /*TitleValueLeave(
+                      font: FontWeight.w600,
+                      title: appLocalizations.totalOTHours,
+                      value: userWorkingHistoryModel.overTime.toString(),
+                      size: SpacingUnit.x4,
+                      padding: SpacingUnit.x3,
+                    ),*/
+                    const ListShiftInTab(),
+                    TitleValueLeave(
+                      font: FontWeight.w600,
+                      title: appLocalizations.totalTimeWorkCompensatory,
+                      value: strSeconds(userWorkingHistoryModel.makeUpTime)??"",
+                      size: SpacingUnit.x4,
+                      padding: SpacingUnit.x3,
+                    ),
+                    const SizedBox(height: SpacingUnit.x10,)
+                  ],
+                ),
               ),
               Align(
                 alignment: Alignment.bottomRight,
