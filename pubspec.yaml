@@ -60,7 +60,7 @@ dependencies:
   flutter_keyboard_visibility: ^6.0.0
   universal_platform: ^1.0.0+1
   flutter_svg: ^2.0.10+1
-  image_picker: ^1.1.2
+  image_picker: ^1.0.8
   file_picker: ^8.0.0+1
   http_parser: ^4.0.1
   omni_datetime_picker: ^1.0.9
