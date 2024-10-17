@@ -164,29 +164,38 @@ class _ItemProfileState extends State<ItemProfile> {
   }
 
   Future<void> getImagePath() async {
-    Map<Permission, PermissionStatus> statuses = Platform.isIOS
-        ? await [
-            Permission.photos,
-            Permission.storage,
-          ].request()
-        : await [Permission.photos,].request();
-    if (statuses.containsValue(PermissionStatus.permanentlyDenied) ||
-        statuses.containsValue(PermissionStatus.denied)) {
-      await openAppSettings();
-      return;
-    } else {
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-      if (pickedFile != null) {
-        setState(() {
-          pathImage = pickedFile.path;
-          file = File(pathImage);
-        });
-        widget.onChange?.call(file);
+    try {
+      Map<Permission, PermissionStatus> statuses = Platform.isIOS
+          ? await [
+        Permission.photos,
+        Permission.storage,
+      ].request()
+          : await [
+        Permission.photos,
+        Permission.storage,
+        Permission.camera,
+      ].request();
+      if (statuses.containsValue(PermissionStatus.permanentlyDenied) ||
+          statuses.containsValue(PermissionStatus.denied)) {
+        await openAppSettings();
+        return;
       } else {
-        pathImage = '';
+        final picker = ImagePicker();
+        final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+        if (pickedFile != null) {
+          setState(() {
+            pathImage = pickedFile.path;
+            file = File(pathImage);
+          });
+          widget.onChange?.call(file);
+        } else {
+          pathImage = '';
+        }
       }
+    } catch (e) {
+      print('ERROR: ${e.toString()}');
     }
+
   }
 }
