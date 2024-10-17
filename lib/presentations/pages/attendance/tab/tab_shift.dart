@@ -23,7 +23,11 @@ class ShiftTab extends StatelessWidget {
   final DateTime dateTime;
 
   UserWorkingHistoryModel userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
-    return list.firstWhere((element) => element.date?.isAtSameMomentAs(dateTime) ?? false);
+    final index = list.indexWhere((element) => element.date?.isAtSameMomentAs(dateTime) ?? false);
+    if(index != -1) {
+      return list[index];
+    }
+    return const UserWorkingHistoryModel();
   }
 
   @override
