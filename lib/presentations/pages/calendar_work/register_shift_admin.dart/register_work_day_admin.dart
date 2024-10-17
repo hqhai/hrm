@@ -68,9 +68,11 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
   String name = '';
   bool isLoading = false;
   FilterType filterType = FilterType.no;
+  bool isFilter = true;
 
   @override
   void initState() {
+    isFilter = widget.userType == UserType.user;
     if (widget.userType == UserType.user) {
       Completer completer = Completer();
       dI<WorkDayBloc>().add(
@@ -117,9 +119,13 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
     });
   }
 
+  ///--------------------------
   _onTapHeader(WorkShiftRequestStatus type) async {
     setState(() {
       name = '';
+      isFilter = !((WorkShiftRequestStatus.pendingCancel == type ||
+              WorkShiftRequestStatus.pending == type) &&
+          widget.userType == UserType.manage);
     });
     if (widget.userType == UserType.manage) {
       setState(() {
@@ -370,75 +376,77 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
           style:
               TextStyle(color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w600),
         ),
-        actions: [
-          InkWell(
-            onTap: () => _showBottomSheet(context),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
-              child: SvgPicture.asset(
-                Assets.images.icon.activateIcon.iconamoonOptionsThin,
-                height: SpacingUnit.x6,
-                width: SpacingUnit.x6,
-                colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
-              ),
-            ),
-          ),
-        ],
+        actions: isFilter
+            ? [
+                InkWell(
+                  onTap: () => _showBottomSheet(context),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+                    child: SvgPicture.asset(
+                      Assets.images.icon.activateIcon.iconamoonOptionsThin,
+                      height: SpacingUnit.x6,
+                      width: SpacingUnit.x6,
+                      colorFilter: ColorFilter.mode(colors.text, BlendMode.srcIn),
+                    ),
+                  ),
+                ),
+              ]
+            : [],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(filterType == FilterType.no ? 0 : SpacingUnit.x12),
-          child: filterType == FilterType.no
+          preferredSize: Size.fromHeight(filterType == FilterType.no || !isFilter ? 0 : SpacingUnit.x12),
+          child: filterType == FilterType.no || !isFilter
               ? const SizedBox()
               : Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: SpacingUnit.x4,
-                    ),
-                    Text(
-                      filterType == FilterType.month
-                          ? appLocalizations.filterByMonth
-                          : appLocalizations.filterByDay,
-                      style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
-                    ),
-                    const SizedBox(
-                      width: SpacingUnit.x4,
-                    ),
-                    ContainerBorder(
-                      borderColors: colors.blue.withOpacity(0.2),
-                      backgroundColors: colors.blue.withOpacity(0.2),
-                      marginTop: 0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            timeFilter(),
-                            style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
-                          ),
-                          const SizedBox(
-                            width: SpacingUnit.x3,
-                          ),
-                          InkWell(
-                            onTap: () => _removeFilter(),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                                border: Border.all(
-                                  color: colors.primary,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Icon(
-                                size: SpacingUnit.x4,
-                                Icons.close,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    width: SpacingUnit.x4,
+                  ),
+                  Text(
+                    filterType == FilterType.month
+                        ? appLocalizations.filterByMonth
+                        : appLocalizations.filterByDay,
+                    style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
+                  ),
+                  const SizedBox(
+                    width: SpacingUnit.x4,
+                  ),
+                  ContainerBorder(
+                    borderColors: colors.blue.withOpacity(0.2),
+                    backgroundColors: colors.blue.withOpacity(0.2),
+                    marginTop: 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          timeFilter(),
+                          style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
+                        ),
+                        const SizedBox(
+                          width: SpacingUnit.x3,
+                        ),
+                        InkWell(
+                          onTap: () => _removeFilter(),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(SpacingUnit.x1),
+                              border: Border.all(
                                 color: colors.primary,
+                                width: 1,
                               ),
                             ),
-                          )
-                        ],
-                      ),
+                            child: Icon(
+                              size: SpacingUnit.x4,
+                              Icons.close,
+                              color: colors.primary,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
         ),
       ),
       body: BlocBuilder<WorkDayBloc, WorkDayState>(
