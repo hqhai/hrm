@@ -84,15 +84,11 @@ class CreateRequestUnsuccessful extends StatelessWidget {
               width: SpacingUnit.x20,
             ),
           ),
-          Row(
-            children: [
-              AppButton(
-                onSubmit: () => submit(context),
-                title: appLocalizations.cancel,
-                colorText: colors.background,
-                color: colors.blue,
-              ),
-            ],
+          AppButton(
+            onSubmit: () => submit(context),
+            title: appLocalizations.cancel,
+            colorText: colors.background,
+            color: colors.blue,
           ),
         ],
       ),
