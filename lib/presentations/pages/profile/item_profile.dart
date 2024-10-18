@@ -167,6 +167,7 @@ class _ItemProfileState extends State<ItemProfile> {
     Map<Permission, PermissionStatus> statuses = Platform.isIOS
         ? await [
             Permission.photos,
+            Permission.storage,
           ].request()
         : await [
             Permission.photos,
