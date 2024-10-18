@@ -13,12 +13,15 @@ class TitleValueLeave extends StatelessWidget {
     this.size = SpacingUnit.x3,
     this.font = FontWeight.normal,
     this.padding = 0,
+    this.flexTitle = 1,
+    this.flexValue = 2,
   });
 
   final String title, value;
   final Color? color;
   final double size, padding;
   final FontWeight font;
+  final int flexTitle, flexValue;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class TitleValueLeave extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible(
-            flex: 1,
+            flex: flexTitle,
             child: Text(
               '$title: ',
               style: TextStyle(
@@ -41,7 +44,7 @@ class TitleValueLeave extends StatelessWidget {
           ),
 
           Flexible(
-            flex: 2,
+            flex: flexValue,
             child: Text(
               value,
               overflow: TextOverflow.ellipsis,

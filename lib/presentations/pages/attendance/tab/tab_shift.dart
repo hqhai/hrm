@@ -48,6 +48,8 @@ class ShiftTab extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TitleValueLeave(
+                      flexTitle: 2,
+                      flexValue: 1,
                       font: FontWeight.w600,
                       title: appLocalizations.workInDay,
                       value: userWorkingHistoryModel.actualRate.toString(),
@@ -55,6 +57,8 @@ class ShiftTab extends StatelessWidget {
                       padding: SpacingUnit.x3,
                     ),
                     TitleValueLeave(
+                      flexTitle: 2,
+                      flexValue: 1,
                       font: FontWeight.w600,
                       title: appLocalizations.totalTimeWork,
                       value: strSeconds(userWorkingHistoryModel.workTimeActual.toInt())??"",
@@ -62,6 +66,8 @@ class ShiftTab extends StatelessWidget {
                       padding: SpacingUnit.x3,
                     ),
                     TitleValueLeave(
+                      flexTitle: 2,
+                      flexValue: 1,
                       font: FontWeight.w600,
                       title: appLocalizations.minutesToLate,
                       value: strSeconds(userWorkingHistoryModel.timeLate.toInt())??"",
@@ -69,6 +75,8 @@ class ShiftTab extends StatelessWidget {
                       padding: SpacingUnit.x3,
                     ),
                     TitleValueLeave(
+                      flexTitle: 2,
+                      flexValue: 1,
                       font: FontWeight.w600,
                       title: appLocalizations.minutesToEarly,
                       value: strSeconds(userWorkingHistoryModel.timeEarly.toInt())??"",
@@ -84,6 +92,8 @@ class ShiftTab extends StatelessWidget {
                     ),*/
                     const ListShiftInTab(),
                     TitleValueLeave(
+                      flexTitle: 2,
+                      flexValue: 1,
                       font: FontWeight.w600,
                       title: appLocalizations.totalTimeWorkCompensatory,
                       value: strSeconds(userWorkingHistoryModel.makeUpTime)??"",
