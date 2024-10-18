@@ -22,20 +22,26 @@ class ItemOverTimeHistory extends StatelessWidget {
         child: Column(
           children: [
             TitleValueLeave(
+              flexValue: 1,
+              flexTitle: 2,
               font: FontWeight.w600,
-              title: appLocalizations.oTSalary,
-              value: userOverTimeHistory.overTimeSalaryMultiplier.toString(),
+              title: appLocalizations.oTSalaryH,
+              value: strTimeFromInt(userOverTimeHistory.overTimeSalaryMultiplier.toInt()),
               size: SpacingUnit.x4,
               padding: SpacingUnit.x3,
             ),
             TitleValueLeave(
+              flexValue: 1,
+              flexTitle: 2,
               font: FontWeight.w600,
-              title: appLocalizations.oTMakeUpLeave,
-              value: userOverTimeHistory.overTimeLeaveMultiplier.toString(),
+              title: appLocalizations.oTMakeUpLeaveH,
+              value: strTimeFromInt(userOverTimeHistory.overTimeLeaveMultiplier.toInt()),
               size: SpacingUnit.x4,
               padding: SpacingUnit.x3,
             ),
             TitleValueLeave(
+              flexValue: 1,
+              flexTitle: 2,
               font: FontWeight.w600,
               title: appLocalizations.oTCoefficient,
               value: userOverTimeHistory.overTimeRate.toString(),
@@ -43,6 +49,8 @@ class ItemOverTimeHistory extends StatelessWidget {
               padding: SpacingUnit.x3,
             ),
             TitleValueLeave(
+              flexValue: 1,
+              flexTitle: 2,
               font: FontWeight.w600,
               title: appLocalizations.dateType,
               value: userOverTimeHistory.overTimeDay.configEnumOvertimeDayName,
@@ -50,6 +58,8 @@ class ItemOverTimeHistory extends StatelessWidget {
               padding: SpacingUnit.x3,
             ),
             TitleValueLeave(
+              flexValue: 1,
+              flexTitle: 2,
               font: FontWeight.w600,
               title: appLocalizations.timeFrame,
               value:

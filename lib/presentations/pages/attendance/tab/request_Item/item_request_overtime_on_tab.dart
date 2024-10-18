@@ -93,6 +93,8 @@ class _ItemRequestOverTimeOnTabState extends State<ItemRequestOverTimeOnTab> {
                 ),
               ),
               TitleValueLeave(
+                flexTitle: 2,
+                flexValue: 1,
                 font: FontWeight.w600,
                 title: appLocalizations.totalOTHours,
                 value: setTotalOT(request.config.overTimes),
@@ -100,6 +102,8 @@ class _ItemRequestOverTimeOnTabState extends State<ItemRequestOverTimeOnTab> {
                 padding: SpacingUnit.x2,
               ),
               TitleValueLeave(
+                flexTitle: 2,
+                flexValue: 1,
                 title: appLocalizations.statusRequest,
                 value: request.status.getAppLocalizationName,
                 size: SpacingUnit.x4,
@@ -143,6 +147,6 @@ class _ItemRequestOverTimeOnTabState extends State<ItemRequestOverTimeOnTab> {
         time = time + (item.suggestTime).toDouble();
       }
     }
-    return strSeconds(time.toInt()) ?? "";
+    return strTimeFromInt(time.toInt());
   }
 }

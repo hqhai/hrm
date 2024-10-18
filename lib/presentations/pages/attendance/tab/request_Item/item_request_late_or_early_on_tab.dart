@@ -73,9 +73,8 @@ class _ItemRequestLateOrEarlyOnTabState
                 TitleValueLeave(
                   font: FontWeight.w600,
                   title: appLocalizations.makeUpTime,
-                  value: strSeconds(
-                          request.config.endTime - request.config.startTime) ??
-                      "",
+                  value: strTimeFromInt(
+                          request.config.endTime - request.config.startTime),
                   size: SpacingUnit.x4,
                   padding: SpacingUnit.x2,
                 ),
