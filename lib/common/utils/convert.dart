@@ -19,6 +19,16 @@ String strTimeFromInt(int time) {
   return '${hours}h${minute}m';
 }
 
+/// Từ int sang khoảng phút (đến giây)
+String strTimeSFromInt(int time) {
+  int minute = time ~/ 60;
+  int second = time % 60;
+  if (second == 0) {
+    return '${minute}m';
+  }
+  return '${minute}m${second}s';
+}
+
 ///Đầu ngày
 DateTime firstDate({required DateTime time}) {
   return DateTime(time.year, time.month, time.day, 0, 0, 0);

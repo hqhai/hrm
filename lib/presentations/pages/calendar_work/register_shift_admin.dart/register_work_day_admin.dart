@@ -28,6 +28,7 @@ import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/custom/shimmer_load.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
+import 'package:base_app/presentations/widgets/erro_or_data_not_exist/data_not_exist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -393,60 +394,61 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
               ]
             : [],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(filterType == FilterType.no || !isFilter ? 0 : SpacingUnit.x12),
+          preferredSize:
+              Size.fromHeight(filterType == FilterType.no || !isFilter ? 0 : SpacingUnit.x12),
           child: filterType == FilterType.no || !isFilter
               ? const SizedBox()
               : Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    width: SpacingUnit.x4,
-                  ),
-                  Text(
-                    filterType == FilterType.month
-                        ? appLocalizations.filterByMonth
-                        : appLocalizations.filterByDay,
-                    style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
-                  ),
-                  const SizedBox(
-                    width: SpacingUnit.x4,
-                  ),
-                  ContainerBorder(
-                    borderColors: colors.blue.withOpacity(0.2),
-                    backgroundColors: colors.blue.withOpacity(0.2),
-                    marginTop: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          timeFilter(),
-                          style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
-                        ),
-                        const SizedBox(
-                          width: SpacingUnit.x3,
-                        ),
-                        InkWell(
-                          onTap: () => _removeFilter(),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(SpacingUnit.x1),
-                              border: Border.all(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      width: SpacingUnit.x4,
+                    ),
+                    Text(
+                      filterType == FilterType.month
+                          ? appLocalizations.filterByMonth
+                          : appLocalizations.filterByDay,
+                      style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
+                    ),
+                    const SizedBox(
+                      width: SpacingUnit.x4,
+                    ),
+                    ContainerBorder(
+                      borderColors: colors.blue.withOpacity(0.2),
+                      backgroundColors: colors.blue.withOpacity(0.2),
+                      marginTop: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            timeFilter(),
+                            style: TextStyle(color: colors.primary, fontSize: SpacingUnit.x3_5),
+                          ),
+                          const SizedBox(
+                            width: SpacingUnit.x3,
+                          ),
+                          InkWell(
+                            onTap: () => _removeFilter(),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(SpacingUnit.x1),
+                                border: Border.all(
+                                  color: colors.primary,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Icon(
+                                size: SpacingUnit.x4,
+                                Icons.close,
                                 color: colors.primary,
-                                width: 1,
                               ),
                             ),
-                            child: Icon(
-                              size: SpacingUnit.x4,
-                              Icons.close,
-                              color: colors.primary,
-                            ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
         ),
       ),
       body: BlocBuilder<WorkDayBloc, WorkDayState>(
@@ -605,23 +607,25 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                       width: MediaQuery.sizeOf(context).width,
                       padding: const EdgeInsets.all(SpacingUnit.x4),
                       color: colors.surfaceVariantLow.withOpacity(0.1),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ...state.items.map((e) {
-                              if (e.status == selectType) {
-                                return _ItemUser(
-                                  data: e,
-                                  endTime: endTime,
-                                  startTime: startTime,
-                                );
-                              } else {
-                                return const SizedBox();
-                              }
-                            })
-                          ],
-                        ),
-                      ),
+                      child: state.items.where((element) => element.status == selectType).isNotEmpty
+                          ? SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  ...state.items.map((e) {
+                                    if (e.status == selectType) {
+                                      return _ItemUser(
+                                        data: e,
+                                        endTime: endTime,
+                                        startTime: startTime,
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  })
+                                ],
+                              ),
+                            )
+                          : const DataNotExist(),
                     ),
                   )
                 ] else ...[
@@ -635,14 +639,16 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                       child: Container(
                         padding: const EdgeInsets.all(SpacingUnit.x4),
                         color: colors.surfaceVariantLow.withOpacity(0.1),
-                        child: ListView.builder(
-                          controller: scrollController,
-                          itemCount: state.electiveShiftItems.length,
-                          itemBuilder: (context, index) => ItemShiftApprove(
-                              data: state.electiveShiftItems[index],
-                              index: index,
-                              type: selectType),
-                        ),
+                        child: state.electiveShiftItems.isNotEmpty
+                            ? ListView.builder(
+                                controller: scrollController,
+                                itemCount: state.electiveShiftItems.length,
+                                itemBuilder: (context, index) => ItemShiftApprove(
+                                    data: state.electiveShiftItems[index],
+                                    index: index,
+                                    type: selectType),
+                              )
+                            : const DataNotExist(),
                       ),
                     )
                   ] else ...[
@@ -650,22 +656,24 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                       child: Container(
                         padding: const EdgeInsets.all(SpacingUnit.x4),
                         color: colors.surfaceVariantLow.withOpacity(0.1),
-                        child: ListView.builder(
-                          itemCount: state.items.length,
-                          controller: scrollController,
-                          itemBuilder: (context, index) => ItemPending(
-                            data: state.items[index],
-                            index: index,
-                            type: selectType,
-                            onConfirm: () => _openDialogConfirm(
-                                name: state.items[index].name,
-                                workShiftRequestId: state.items[index].workShiftApproveId,
-                                type: selectType),
-                            onReject: () => _onCancel(
-                                workShiftRequestId: state.items[index].workShiftApproveId,
-                                type: selectType),
-                          ),
-                        ),
+                        child: state.items.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: state.items.length,
+                                controller: scrollController,
+                                itemBuilder: (context, index) => ItemPending(
+                                  data: state.items[index],
+                                  index: index,
+                                  type: selectType,
+                                  onConfirm: () => _openDialogConfirm(
+                                      name: state.items[index].name,
+                                      workShiftRequestId: state.items[index].workShiftApproveId,
+                                      type: selectType),
+                                  onReject: () => _onCancel(
+                                      workShiftRequestId: state.items[index].workShiftApproveId,
+                                      type: selectType),
+                                ),
+                              )
+                            : const DataNotExist(),
                       ),
                     )
                   ],
