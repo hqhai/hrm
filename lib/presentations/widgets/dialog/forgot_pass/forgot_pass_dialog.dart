@@ -38,11 +38,13 @@ class ForgotPassSuccess extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.only(top: SpacingUnit.x8),
           child: Text(
             appLocalizations.forgotPasswordSuccess,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: SpacingUnit.x6,
               fontWeight: FontWeight.w600,
