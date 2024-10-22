@@ -6,9 +6,9 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:themes/themes.dart';
 
@@ -163,34 +163,39 @@ class _ItemProfileState extends State<ItemProfile> {
     }
   }
 
+
   Future<void> getImagePath() async {
     Map<Permission, PermissionStatus> statuses = Platform.isIOS
         ? await [
-            Permission.photos,
             Permission.storage,
           ].request()
         : await [
-            Permission.photos,
             Permission.storage,
-            Permission.camera,
           ].request();
     if (statuses.containsValue(PermissionStatus.permanentlyDenied) ||
         statuses.containsValue(PermissionStatus.denied)) {
       await openAppSettings();
       return;
-    } else {
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    }
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: [
+        'jpg',
+        'png',
+      ],
+    );
 
-      if (pickedFile != null) {
-        setState(() {
-          pathImage = pickedFile.path;
-          file = File(pathImage);
-        });
-        widget.onChange?.call(file);
-      } else {
+    if (result != null) {
+      File pickedFile = File(result.files.single.path!);
+      setState(() {
+        pathImage = pickedFile.path;
+        file = File(pathImage);
+      });
+      widget.onChange?.call(file);
+    } else {
+      setState(() {
         pathImage = '';
-      }
+      });
     }
   }
 }
