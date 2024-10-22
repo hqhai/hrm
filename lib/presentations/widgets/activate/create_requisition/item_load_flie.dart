@@ -11,6 +11,7 @@ import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:themes/themes.dart';
 
 class ItemLoadFile extends StatefulWidget {
@@ -141,6 +142,18 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
   }
 
   Future<void> _getFile() async {
+    Map<Permission, PermissionStatus> statuses = Platform.isIOS
+        ? await [
+            Permission.storage,
+          ].request()
+        : await [
+            Permission.storage,
+          ].request();
+    if (statuses.containsValue(PermissionStatus.permanentlyDenied) ||
+        statuses.containsValue(PermissionStatus.denied)) {
+      await openAppSettings();
+      return;
+    }
     if (files.length <= 5) {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
@@ -168,10 +181,8 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
 
   _onClickFLie(BuildContext context, int index) {
     if (_checkTypeFile(index)) {
-      dI<AppNavigation>().pushName(context, page: Pages.pDFPage, extra: {
-        'url': paths[index],
-        'checkLocal': true
-      });
+      dI<AppNavigation>()
+          .pushName(context, page: Pages.pDFPage, extra: {'url': paths[index], 'checkLocal': true});
     } else {
       showDialog(
         context: context,
