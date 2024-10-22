@@ -19,6 +19,7 @@ final pDFPageRoute = GoRoute(
       Map data = state.extra as Map;
       return PDFPage(
         url: data['url'],
+        checkLocal: data['checkLocal'],
       );
     });
 
@@ -26,9 +27,11 @@ class PDFPage extends StatefulWidget {
   const PDFPage({
     super.key,
     required this.url,
+    required this.checkLocal,
   });
 
   final String url;
+  final bool checkLocal;
 
   @override
   State<PDFPage> createState() => _PDFPageState();
@@ -44,6 +47,9 @@ class _PDFPageState extends State<PDFPage> {
   }
 
   Future<File> _fileFromImageUrl() async {
+    if(widget.checkLocal){
+      return File(widget.url);
+    }
     final response = await http.get(Uri.parse(widget.url));
     final documentDirectory = await getApplicationDocumentsDirectory();
     final filePath = '${documentDirectory.path}/meo_an_url.pdf';

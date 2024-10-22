@@ -103,6 +103,7 @@ class _RequisitionInformationAttachState extends State<RequisitionInformationAtt
     if (_checkTypeFile(index, list)) {
       dI<AppNavigation>().pushName(context, page: Pages.pDFPage, extra: {
         'url': list[index],
+        'checkLocal': false,
       });
     } else {
       showDialog(

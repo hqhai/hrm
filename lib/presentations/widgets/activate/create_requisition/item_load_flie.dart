@@ -170,6 +170,7 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
     if (_checkTypeFile(index)) {
       dI<AppNavigation>().pushName(context, page: Pages.pDFPage, extra: {
         'url': paths[index],
+        'checkLocal': true
       });
     } else {
       showDialog(
