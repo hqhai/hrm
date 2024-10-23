@@ -103,6 +103,8 @@ class _CreateRequisitionLeavePageState
         detailedDescriptionController.text = description;
         reason = request.config.reasonLeave;
         followers = [...request.followerIds];
+        takeLeaveType = request.config.takeLeaveType;
+        socialInsuranceLeave= request.config.socialInsuranceLeave;
         files = [...setListFiles(request.config.attachments)];
         substitutes = [...request.config.subtitudePersons];
         listWorkShift = [...request.config.workShiftSettings];

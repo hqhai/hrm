@@ -36,8 +36,6 @@
 		<true/>
 		<key>NSCameraUsageDescription</key>
 		<string> Camera Usage Description</string>
-		<key>NSPhotoLibraryUsageDescription </key>
-        <string>Photo Library Usage Description</string>
 		<key>NSFaceIDUsageDescription</key>
 		<string>Use it for biometric login</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
