@@ -111,7 +111,12 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
                                         workShift: workShift))
                                       MinutesInShift(
                                         type: widget.typeLE,
-                                        minutes: numberTimeShift(workShift: workShift),
+                                        minutes: numberTimeShift(
+                                          workShift: workShifts.firstWhere(
+                                                (e) => checkShift(
+                                                workShiftDetail: e, workShift: workShift),
+                                          ),
+                                        ),
                                         changeMinutes: (value) =>
                                             changeMinutes(value: value, workShift: workShift),
                                       ),
