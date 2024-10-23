@@ -16,7 +16,8 @@ class ItemWorkShiftADate extends StatefulWidget {
   const ItemWorkShiftADate({
     super.key,
     required this.workShiftSettings,
-    this.type = RequisitionTypeEnum.leaveHalfDayToOneDay, required this.workShiftSettingsOld,
+    this.type = RequisitionTypeEnum.leaveHalfDayToOneDay,
+    required this.workShiftSettingsOld,
   });
 
   final ValueChanged<List<WorkShiftRegisteredDetail>> workShiftSettings;
@@ -40,10 +41,7 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
     return BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
       builder: (context, state) {
         return Column(
@@ -68,46 +66,42 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: state.keys.mapIndexed(
-                      (index, element) {
+                  (index, element) {
                     final listKey = state.mapKeyDate[element] ?? [];
                     return !checkSE(dateInt: element, keyDate: state.keys)
                         ? Column(
-                      children: listKey.map(
-                            (e) {
-                          final workShift = state.workShifts[e] ??
-                              WorkShiftRegisteredDetail(
-                                  workDate: DateTime.now());
-                          return ContainerBorder(
-                            borderColors: colors.outline.withOpacity(0.4),
-                            width: width,
-                            paddingVertical: 0,
-                            child: CheckboxListTile(
-                              controlAffinity:
-                              ListTileControlAffinity.leading,
-                              value: check(
-                                  dateInt: element,
-                                  keyDate: state.keys,
-                                  workShift: workShift),
-                              onChanged: (value) =>
-                                  _onChange(
-                                      value: value,
-                                      workShift: workShift,
-                                      dateInt: element,
-                                      keyDate: state.keys,
-                                      state: state),
-                              title: Text(
-                                '${strSeconds(workShift.startTime)} - ${strSeconds(
-                                    workShift.endTime)}',
-                                style: TextStyle(
-                                  color: colors.text,
-                                  fontSize: SpacingUnit.x4,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ).toList(),
-                    )
+                            children: listKey.map(
+                              (e) {
+                                final workShift = state.workShifts[e] ??
+                                    WorkShiftRegisteredDetail(workDate: DateTime.now());
+                                return ContainerBorder(
+                                  borderColors: colors.outline.withOpacity(0.4),
+                                  width: width,
+                                  paddingVertical: 0,
+                                  child: CheckboxListTile(
+                                    controlAffinity: ListTileControlAffinity.leading,
+                                    value: check(
+                                        dateInt: element,
+                                        keyDate: state.keys,
+                                        workShift: workShift),
+                                    onChanged: (value) => _onChange(
+                                        value: value,
+                                        workShift: workShift,
+                                        dateInt: element,
+                                        keyDate: state.keys,
+                                        state: state),
+                                    title: Text(
+                                      '${strSeconds(workShift.startTime)} - ${strSeconds(workShift.endTime)}',
+                                      style: TextStyle(
+                                        color: colors.text,
+                                        fontSize: SpacingUnit.x4,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).toList(),
+                          )
                         : const SizedBox();
                   },
                 ).toList(),
@@ -119,34 +113,32 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
     );
   }
 
-  _onChange({bool? value,
-    required WorkShiftRegisteredDetail workShift,
-    required int dateInt,
-    required List<int> keyDate,
-    required LeaveShiftState state}) {
+  _onChange(
+      {bool? value,
+      required WorkShiftRegisteredDetail workShift,
+      required int dateInt,
+      required List<int> keyDate,
+      required LeaveShiftState state}) {
     final checkType = widget.type == RequisitionTypeEnum.leaveFiveDaysOrMore ||
         widget.type == RequisitionTypeEnum.leaveTwoDayToFourDay ||
         widget.type == RequisitionTypeEnum.bussiness;
     if (checkType) {
       /// check phải ngày cuối hoặc đầu không
-      final firstOrLast =
-          workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
-              workShift.workDate.microsecondsSinceEpoch == state.keys.last;
+      final firstOrLast = workShift.workDate.microsecondsSinceEpoch == state.keys.first ||
+          workShift.workDate.microsecondsSinceEpoch == state.keys.last;
 
       ///list ca
       final listWorkShift = state.workShifts.values.toList();
       final workShiftsAlikeDate = state.workShifts.values
           .where((element) =>
-      element.workDate.microsecondsSinceEpoch ==
-          workShift.workDate.microsecondsSinceEpoch)
+              element.workDate.microsecondsSinceEpoch == workShift.workDate.microsecondsSinceEpoch)
           .toList();
 
       ///Không phải ca thuộc ngày đầu và cuối th cho hết vào list
       for (var element in listWorkShift) {
-        final notFirstOrLast =
-            element.workDate.microsecondsSinceEpoch != state.keys.first &&
-                element.workDate.microsecondsSinceEpoch != state.keys.last;
-        if (!workShifts.contains(element) && notFirstOrLast) {
+        final notFirstOrLast = element.workDate.microsecondsSinceEpoch != state.keys.first &&
+            element.workDate.microsecondsSinceEpoch != state.keys.last;
+        if (!checkAnyList(workShift: element) && notFirstOrLast) {
           setState(() {
             workShifts.add(element);
           });
@@ -154,7 +146,7 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
       }
 
       ///Thêm ca
-      if (!workShifts.contains(workShift) && firstOrLast) {
+      if (!checkAnyList(workShift: workShift) && firstOrLast) {
         for (var element in workShiftsAlikeDate) {
           ///Xử lý chọn ca đầu thì lấy luôn các ca sau
           if (element.startTime > workShift.startTime &&
@@ -176,7 +168,7 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
         });
 
         ///Xóa ca
-      } else if (workShifts.contains(workShift) && firstOrLast) {
+      } else if (checkAnyList(workShift: workShift) && firstOrLast) {
         for (var element in workShiftsAlikeDate) {
           if (element.startTime < workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.first) {
@@ -186,22 +178,28 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
           } else if (element.startTime > workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.last) {
             setState(() {
-              workShifts.remove(element);
+              workShifts = workShifts
+                  .where((e) => !checkShift(workShift: element, workShiftDetail: e))
+                  .toList();
             });
           }
         }
         setState(() {
-          workShifts.remove(workShift);
+          workShifts = workShifts
+              .where((e) => !checkShift(workShift: workShift, workShiftDetail: e))
+              .toList();
         });
       }
     } else {
-      if (!workShifts.contains(workShift)) {
+      if (!checkAnyList(workShift: workShift)) {
         setState(() {
           workShifts.add(workShift);
         });
-      } else if (workShifts.contains(workShift)) {
+      } else if (checkAnyList(workShift: workShift)) {
         setState(() {
-          workShifts.remove(workShift);
+          workShifts = workShifts
+              .where((e) => !checkShift(workShift: workShift, workShiftDetail: e))
+              .toList();
         });
       }
     }
@@ -224,15 +222,33 @@ class _ItemWorkShiftADateState extends State<ItemWorkShiftADate> {
   }
 
   ///
-  bool check({required int dateInt,
-    required List<int> keyDate,
-    required WorkShiftRegisteredDetail workShift}) {
+  bool check(
+      {required int dateInt,
+      required List<int> keyDate,
+      required WorkShiftRegisteredDetail workShift}) {
     keyDate.sort();
     final checkSE = keyDate.first < dateInt && keyDate.last > dateInt;
     final checkId = workShifts.any((element) =>
-    element.workShiftDetailId == workShift.workShiftDetailId &&
+        element.workShiftDetailId == workShift.workShiftDetailId &&
         element.workShiftSettingDetailId == workShift.workShiftSettingDetailId &&
         element.workDate.microsecond == workShift.workDate.microsecond);
     return checkSE || checkId;
+  }
+
+  bool checkShift(
+      {required WorkShiftRegisteredDetail workShiftDetail,
+      required WorkShiftRegisteredDetail workShift}) {
+    return workShiftDetail.workShiftDetailId == workShift.workShiftDetailId &&
+        workShiftDetail.workDate.microsecond == workShift.workDate.microsecond &&
+        workShiftDetail.workShiftSettingDetailId == workShift.workShiftSettingDetailId;
+  }
+
+  bool checkAnyList({
+    required WorkShiftRegisteredDetail workShift,
+  }) {
+    return workShifts.any((element) =>
+        element.workShiftDetailId == workShift.workShiftDetailId &&
+        element.workDate.microsecond == workShift.workDate.microsecond &&
+        element.workShiftSettingDetailId == workShift.workShiftSettingDetailId);
   }
 }

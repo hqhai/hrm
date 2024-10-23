@@ -184,7 +184,7 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
       for (var element in listWorkShift) {
         final notFirstOrLast = element.workDate.microsecondsSinceEpoch != state.keys.first &&
             element.workDate.microsecondsSinceEpoch != state.keys.last;
-        if (!workShifts.contains(element) && notFirstOrLast) {
+        if (!checkAnyList(workShift: element) && notFirstOrLast) {
           setState(() {
             workShifts.add(element);
           });
@@ -192,13 +192,13 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
       }
 
       ///Thêm ca
-      if (!workShifts.contains(workShift) && firstOrLast) {
+      if (!checkAnyList(workShift: workShift) && firstOrLast) {
         for (var element in workShiftsAlikeDate) {
           ///Xử lý chọn ca đầu thì lấy luôn các ca sau
           if (element.startTime > workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.first) {
             setState(() {
-              if (!workShifts.contains(element)) {
+              if (!checkAnyList(workShift: element)) {
                 workShifts.add(element);
               }
             });
@@ -207,7 +207,7 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
           } else if (element.startTime < workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.last) {
             setState(() {
-              if (!workShifts.contains(element)) {
+              if (!checkAnyList(workShift: element)) {
                 workShifts.add(element);
               }
             });
@@ -218,7 +218,7 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
         });
 
         ///Xóa ca
-      } else if (workShifts.contains(workShift) && firstOrLast) {
+      } else if (checkAnyList(workShift: workShift) && firstOrLast) {
         for (var element in workShiftsAlikeDate) {
           if (element.startTime < workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.first) {
@@ -228,13 +228,17 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
                 .toList();
             setState(() {
               if (listLast.isNotEmpty) {
-                workShifts.remove(element);
+                workShifts = workShifts
+                    .where((e) => !checkShift(workShift: element, workShiftDetail: e))
+                    .toList();
               } else {
                 workShifts.clear();
               }
             });
             setState(() {
-              workShifts.remove(element);
+              workShifts = workShifts
+                  .where((e) => !checkShift(workShift: element, workShiftDetail: e))
+                  .toList();
             });
           } else if (element.startTime > workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.last) {
@@ -244,7 +248,9 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
                 .toList();
             setState(() {
               if (listLast.isNotEmpty) {
-                workShifts.remove(element);
+                workShifts = workShifts
+                    .where((e) => !checkShift(workShift: element, workShiftDetail: e))
+                    .toList();
               } else {
                 workShifts.clear();
               }
@@ -252,17 +258,21 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
           }
         }
         setState(() {
-          workShifts.remove(workShift);
+          workShifts = workShifts
+              .where((e) => !checkShift(workShift: workShift, workShiftDetail: e))
+              .toList();
         });
       }
     } else {
-      if (!workShifts.contains(workShift)) {
+      if (!checkAnyList(workShift: workShift)) {
         setState(() {
           workShifts.add(workShift);
         });
-      } else if (workShifts.contains(workShift)) {
+      } else if (checkAnyList(workShift: workShift)) {
         setState(() {
-          workShifts.remove(workShift);
+          workShifts = workShifts
+              .where((e) => !checkShift(workShift: workShift, workShiftDetail: e))
+              .toList();
         });
       }
     }
@@ -278,18 +288,19 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
         }
       });
     }
+
     ///check xem đã lấy ngày đầu cuối chưa?
     final checkS =
-    workShifts.any((element) => element.workDate.microsecondsSinceEpoch == state.keys.first);
+        workShifts.any((element) => element.workDate.microsecondsSinceEpoch == state.keys.first);
     final checkE =
-    workShifts.any((element) => element.workDate.microsecondsSinceEpoch == state.keys.last);
+        workShifts.any((element) => element.workDate.microsecondsSinceEpoch == state.keys.last);
     if (checkS && checkE) {
       widget.workShiftSettings.call(workShifts);
     } else {
       final list = workShifts
           .where((element) =>
-      element.workDate.microsecondsSinceEpoch == state.keys.last ||
-          element.workDate.microsecondsSinceEpoch == state.keys.first)
+              element.workDate.microsecondsSinceEpoch == state.keys.last ||
+              element.workDate.microsecondsSinceEpoch == state.keys.first)
           .toList();
       widget.workShiftSettings.call(list);
     }
@@ -306,9 +317,25 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
       required List<int> keyDate,
       required WorkShiftRegisteredDetail workShift}) {
     keyDate.sort();
-    final workShiftReplicant = workShift.copyWith(nameWorkShift: '');
     final checkSE = keyDate.first < dateInt && keyDate.last > dateInt;
-    final checkId = workShifts.contains(workShiftReplicant) || workShifts.contains(workShift);
+    final checkId = checkAnyList(workShift: workShift);
     return checkSE || checkId;
+  }
+
+  bool checkShift(
+      {required WorkShiftRegisteredDetail workShiftDetail,
+      required WorkShiftRegisteredDetail workShift}) {
+    return workShiftDetail.workShiftDetailId == workShift.workShiftDetailId &&
+        workShiftDetail.workDate.microsecond == workShift.workDate.microsecond &&
+        workShiftDetail.workShiftSettingDetailId == workShift.workShiftSettingDetailId;
+  }
+
+  bool checkAnyList({
+    required WorkShiftRegisteredDetail workShift,
+  }) {
+    return workShifts.any((element) =>
+        element.workShiftDetailId == workShift.workShiftDetailId &&
+        element.workDate.microsecond == workShift.workDate.microsecond &&
+        element.workShiftSettingDetailId == workShift.workShiftSettingDetailId);
   }
 }

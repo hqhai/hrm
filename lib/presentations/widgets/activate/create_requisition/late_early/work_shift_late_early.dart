@@ -216,17 +216,24 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
           if (element.startTime < workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.first) {
             setState(() {
-              workShifts.remove(element);
+              workShifts = workShifts
+                  .where((e) => !checkShift(workShift: element, workShiftDetail: e))
+                  .toList();
             });
           } else if (element.startTime > workShift.startTime &&
               element.workDate.microsecondsSinceEpoch == state.keys.last) {
             setState(() {
-              workShifts.remove(element);
+
+              workShifts = workShifts
+                  .where((e) => !checkShift(workShift: element, workShiftDetail: e))
+                  .toList();
             });
           }
         }
         setState(() {
-          workShifts.remove(workShift);
+          workShifts = workShifts
+              .where((e) => !checkShift(workShift: workShift, workShiftDetail: e))
+              .toList();
         });
       }
     } else {
@@ -291,5 +298,22 @@ class _WorkShiftLateEarlyState extends State<WorkShiftLateEarly> {
       workShifts[index] = workShifts[index].copyWith(numberTime: value);
       widget.workShiftSettings.call(workShifts);
     });
+  }
+
+  bool checkShift(
+      {required WorkShiftRegisteredDetail workShiftDetail,
+        required WorkShiftRegisteredDetail workShift}) {
+    return workShiftDetail.workShiftDetailId == workShift.workShiftDetailId &&
+        workShiftDetail.workDate.microsecond == workShift.workDate.microsecond &&
+        workShiftDetail.workShiftSettingDetailId == workShift.workShiftSettingDetailId;
+  }
+
+  bool checkAnyList({
+    required WorkShiftRegisteredDetail workShift,
+  }) {
+    return workShifts.any((element) =>
+    element.workShiftDetailId == workShift.workShiftDetailId &&
+        element.workDate.microsecond == workShift.workDate.microsecond &&
+        element.workShiftSettingDetailId == workShift.workShiftSettingDetailId);
   }
 }
