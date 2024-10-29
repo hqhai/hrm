@@ -16,8 +16,9 @@ class ItemLeave extends StatelessWidget {
 
   final EnumLeaveHistoryType type;
 
-  UserLeaveHistoryTypes userLeaveHistoryTypes(UserLeave userLeave) {
-    int index = userLeave.userLeaveHistoryTypes.indexWhere((element) => element.type == type);
+  UserLeaveHistoryTypes _userLeaveHistoryTypes(UserLeave userLeave) {
+    int index = userLeave.userLeaveHistoryTypes
+        .indexWhere((element) => element.type == type);
     if (type == EnumLeaveHistoryType.total) {
       return UserLeaveHistoryTypes(
         type: type,
@@ -45,7 +46,7 @@ class ItemLeave extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     return BlocBuilder<WorkAndSalaryBloc, WorkAndSalaryState>(
       builder: (context, state) {
-        final leave = userLeaveHistoryTypes(state.userLeave);
+        final leave = _userLeaveHistoryTypes(state.userLeave);
         return ContainerBorder(
           widthBorder: 0,
           borderColors: colors.background,
@@ -63,15 +64,23 @@ class ItemLeave extends StatelessWidget {
               PaddingRowLeave(
                 title1: appLocalizations.total,
                 title2: appLocalizations.expired,
-                value1: leave.total.toString(),
-                value2: leave.totalExpired.toString(),
+                value1: type == EnumLeaveHistoryType.overTimeLeave
+                    ? '${(leave.total.toStringAsFixed(1))} ${appLocalizations.i18nHours}'
+                    : '${(leave.total)} ${appLocalizations.i18nDays}',
+                value2: type == EnumLeaveHistoryType.overTimeLeave
+                    ? '${(leave.totalExpired.toStringAsFixed(1))} ${appLocalizations.i18nHours}'
+                    : '${(leave.totalExpired)} ${appLocalizations.i18nDays}',
                 color: colors.error,
               ),
               PaddingRowLeave(
                 title1: appLocalizations.used,
                 title2: appLocalizations.remaining,
-                value1: leave.totalUsed.toString(),
-                value2: leave.totalRemaining.toString(),
+                value1: type == EnumLeaveHistoryType.overTimeLeave
+                    ? '${(leave.totalUsed.toStringAsFixed(1))} ${appLocalizations.i18nHours}'
+                    : '${(leave.totalUsed)} ${appLocalizations.i18nDays}',
+                value2: type == EnumLeaveHistoryType.overTimeLeave
+                    ? '${(leave.totalRemaining.toStringAsFixed(1))} ${appLocalizations.i18nHours}'
+                    : '${(leave.totalRemaining)} ${appLocalizations.i18nDays}',
                 color: colors.success,
               ),
             ],

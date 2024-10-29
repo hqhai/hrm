@@ -4424,6 +4424,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save'**
   String get saveUpdateInfo;
+
+  /// No description provided for @i18nDays.
+  ///
+  /// In en, this message translates to:
+  /// **'days'**
+  String get i18nDays;
+
+  /// No description provided for @i18nHours.
+  ///
+  /// In en, this message translates to:
+  /// **'hours'**
+  String get i18nHours;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

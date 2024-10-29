@@ -2183,4 +2183,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get saveUpdateInfo => 'Lưu thông tin';
+
+  @override
+  String get i18nDays => 'ngày';
+
+  @override
+  String get i18nHours => 'giờ';
 }
