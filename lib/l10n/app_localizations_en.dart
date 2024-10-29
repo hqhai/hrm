@@ -2183,4 +2183,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveUpdateInfo => 'Save';
+
+  @override
+  String get i18nDays => 'days';
+
+  @override
+  String get i18nHours => 'hours';
 }

@@ -721,5 +721,7 @@
   "ifYouDoNotHaveAnAccountPleaseContactHCNS": "Nếu bạn chưa có tài khoản, hãy liên hệ HCNS",
   "enterReason": "Nhập lý do...",
   "forgotPasswordSuccess": "Gửi mật khẩu thành công!",
-  "saveUpdateInfo" : "Lưu thông tin"
+  "saveUpdateInfo" : "Lưu thông tin",
+  "i18nDays" : "ngày",
+  "i18nHours" : "giờ"
 }
