@@ -4,7 +4,7 @@ import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/init.dart';
 
 Future<void> main() async {
-  final env = await AppConfigUtils.getConfigFromEnv(Assets.env.envUat);
+  final env = await AppConfigUtils.getConfigFromEnv(Assets.env.envProduction);
   setConfig(env);
   await initApp();
 }
