@@ -43,7 +43,7 @@
 		<key>NSMicrophoneUsageDescription</key>
 		<string>Microphone Usage Description</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>This App require access for</string>
+		<string>We need Photos access to allow you to update Profile Picture.</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UILaunchStoryboardName</key>
