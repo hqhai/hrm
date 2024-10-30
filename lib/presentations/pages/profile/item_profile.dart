@@ -183,10 +183,6 @@ class _ItemProfileState extends State<ItemProfile> {
           file = File(pathImage);
         });
         widget.onChange?.call(file);
-      } else {
-        setState(() {
-          pathImage = '';
-        });
       }
     }
   }
