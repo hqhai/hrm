@@ -995,19 +995,14 @@ class ItemShiftApprove extends StatelessWidget {
     // final colors = AppTheme.getColors(context);
     return InkWell(
       onTap: () {
-        try {
-          dI<AppNavigation>().push(context,
-              page: Pages.registerWorkDayAdminDetail,
-              paramsQuerry: WorkDayAdminQueryParams(
-                id: data.workShiftSettingDetailId,
-                type: type,
-                nameWorkShift: data.nameWorkShift,
-                workDate: data.workDate.toString(),
-              ).toJson());
-        } catch (e) {
-          print('ERROR: $e');
-        }
-
+        dI<AppNavigation>().push(context,
+            page: Pages.registerWorkDayAdminDetail,
+            paramsQuerry: WorkDayAdminQueryParams(
+              id: data.workShiftSettingDetailId,
+              type: type,
+              nameWorkShift: data.nameWorkShift,
+              workDate: data.workDate.toString(),
+            ).toJson());
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: SpacingUnit.x4),
