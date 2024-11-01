@@ -146,8 +146,8 @@ class LocationServiceImpl extends BaseService implements LocationService {
   Future<ShiftsAdminResponse> getElectiveShiftDetail(
       {required GetElectiveShiftDetailRequest request}) async {
     final url = '$baseSystem${PathConfig.workshiftSettingGetUser}';
-    final params = request.toJson();
-    final response = await client.get(url, params: params);
+    final params = jsonEncode(request.toJson());
+    final response = await client.post(url, body: params);
     final responseBase = ResponseBase.fromJson(json.decode(response.body));
     return ShiftsAdminResponse.fromJson(responseBase.result);
   }

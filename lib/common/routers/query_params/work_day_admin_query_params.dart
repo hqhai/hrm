@@ -7,10 +7,14 @@ part 'work_day_admin_query_params.g.dart';
 class WorkDayAdminQueryParams {
   final String id;
   final WorkShiftRequestStatus type;
+  final String workDate;
+  final String nameWorkShift;
 
   WorkDayAdminQueryParams({
     required this.id,
     required this.type,
+    required this.nameWorkShift,
+    required this.workDate,
   });
 
   factory WorkDayAdminQueryParams.fromJson(Map<String, dynamic> json) =>

@@ -95,12 +95,12 @@ class WorkDayGetElectiveShiftRequest {
 
 @JsonSerializable()
 class GetElectiveShiftDetailRequest {
-  final String workShiftSettingDetailId;
+  final List<String> workShiftSettingDetailIds;
   final bool isApprove;
   final String date;
 
   const GetElectiveShiftDetailRequest({
-    this.workShiftSettingDetailId = '',
+    required this.workShiftSettingDetailIds,
     this.isApprove = true,
     this.date = '',
   });
