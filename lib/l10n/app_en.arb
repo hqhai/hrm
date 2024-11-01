@@ -722,7 +722,7 @@
   "forgotPasswordSuccess": "Forgot Password success!",
   "saveUpdateInfo" : "Save",
   "i18nDays" : "days",
-  "i18nHours" : "hours"
-
+  "i18nHours" : "hours",
+  "i18nNotFullTimeOrPartTime" : "You are not eligible to submit a request."
 
 }

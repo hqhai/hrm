@@ -680,7 +680,7 @@
   "cancelShift1": "Hủy đăng ký ca",
   "cancelShift2": "Hủy yêu cầu huỷ ca",
   "shiftHistory": "Lịch sử trạng thái ca:",
-  "noConnected": "Có lỗi sảy ra, vui lòng kiểm tra lại!",
+  "noConnected": "Có lỗi xảy ra, vui lòng kiểm tra lại!",
   "reasonForCancellation": "Lí do huỷ ca",
   "shiftIsCancelled": "Đã huỷ ca",
   "skipLogin": "Bỏ qua Đăng Nhập",
@@ -723,5 +723,6 @@
   "forgotPasswordSuccess": "Gửi mật khẩu thành công!",
   "saveUpdateInfo" : "Lưu thông tin",
   "i18nDays" : "ngày",
-  "i18nHours" : "giờ"
+  "i18nHours" : "giờ",
+  "i18nNotFullTimeOrPartTime" : "Bạn không thuộc diện nhân sự được phép đăng ký đơn"
 }

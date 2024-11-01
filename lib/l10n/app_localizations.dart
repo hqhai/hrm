@@ -4436,6 +4436,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'hours'**
   String get i18nHours;
+
+  /// No description provided for @i18nNotFullTimeOrPartTime.
+  ///
+  /// In en, this message translates to:
+  /// **'You are not eligible to submit a request.'**
+  String get i18nNotFullTimeOrPartTime;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

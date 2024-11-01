@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class NoConnectionDialog extends StatelessWidget {
-  const NoConnectionDialog({super.key});
+  final String error;
+
+  const NoConnectionDialog({
+    super.key,
+    this.error = '',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,8 @@ class NoConnectionDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            appLocalizations.noConnected,
+            error.isEmpty ? appLocalizations.noConnected : error,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: SpacingUnit.x4,
               color: colors.error,
@@ -28,9 +34,8 @@ class NoConnectionDialog extends StatelessWidget {
           ),
           Image.asset(
             Assets.images.timeKeeping.fail.path,
-            fit: BoxFit.fill,
-            height: SpacingUnit.x20,
-            width: SpacingUnit.x20,
+            height: SpacingUnit.x15,
+            width: SpacingUnit.x15,
           ),
         ],
       ),
@@ -38,7 +43,10 @@ class NoConnectionDialog extends StatelessWidget {
   }
 }
 
-dialogNoConnection({required BuildContext context}) {
+dialogNoConnection({
+  required BuildContext context,
+  String error = '',
+}) {
   final colors = AppTheme.getColors(context);
   showDialog(
     barrierDismissible: true,
@@ -46,7 +54,9 @@ dialogNoConnection({required BuildContext context}) {
     builder: (BuildContext context) {
       return Dialog(
         backgroundColor: colors.background,
-        child: const NoConnectionDialog(),
+        child: NoConnectionDialog(
+          error: error,
+        ),
       );
     },
   );

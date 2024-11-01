@@ -14,18 +14,29 @@ class FlowState extends Equatable {
   final FlowStatusEnum statusGet;
   final FlowStatusEnum statusGetById;
   final int totalItems;
+  final String? errorCode;
 
-  const FlowState(
-      {this.flow = const FlowRequest(id: ''),
-      this.flows = const [],
-      this.statusGet = FlowStatusEnum.init,
-      this.statusGetById = FlowStatusEnum.init,
-      this.totalItems = 0});
+  const FlowState({
+    this.flow = const FlowRequest(id: ''),
+    this.flows = const [],
+    this.statusGet = FlowStatusEnum.init,
+    this.statusGetById = FlowStatusEnum.init,
+    this.totalItems = 0,
+    this.errorCode,
+  });
 
   @override
-  List<Object> get props => [flow, flows, statusGet, statusGetById, totalItems];
+  List<Object> get props => [
+        flow,
+        flows,
+        statusGet,
+        statusGetById,
+        totalItems,
+        errorCode ?? '',
+      ];
 
-  factory FlowState.fromJson(Map<String, dynamic> json) => _$FlowStateFromJson(json);
+  factory FlowState.fromJson(Map<String, dynamic> json) =>
+      _$FlowStateFromJson(json);
 
   Map<String, dynamic> toJson() => _$FlowStateToJson(this);
 }

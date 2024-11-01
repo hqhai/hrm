@@ -4,6 +4,7 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/flow_enum.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
+import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
@@ -39,10 +40,25 @@ class FlowBloc extends HydratedBloc<FlowEvent, FlowState> {
         flows: newFlows,
         statusGet: FlowStatusEnum.success,
         totalItems: total,
+        errorCode: null,
       ));
       event.completer?.complete(true);
     } catch (e) {
-      emit(state.copyWith(statusGet: FlowStatusEnum.fail));
+      if (e is ResponseBase) {
+        emit(
+          state.copyWith(
+            statusGet: FlowStatusEnum.fail,
+            errorCode: e.errorMessages.first.errorCode,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            statusGet: FlowStatusEnum.fail,
+            errorCode: '',
+          ),
+        );
+      }
       event.completer?.complete(false);
     }
   }
@@ -56,6 +72,7 @@ class FlowBloc extends HydratedBloc<FlowEvent, FlowState> {
       emit(state.copyWith(
         flow: flow,
         statusGetById: FlowStatusEnum.success,
+        errorCode: null,
       ));
       event.completer?.complete(true);
     } catch (e) {
@@ -74,7 +91,8 @@ class FlowBloc extends HydratedBloc<FlowEvent, FlowState> {
     return state.toJson();
   }
 
-  FutureOr<void> _resetFlowEvent(ResetFlowEvent event, Emitter<FlowState> emit) {
+  FutureOr<void> _resetFlowEvent(
+      ResetFlowEvent event, Emitter<FlowState> emit) {
     emit(const FlowState());
   }
 }

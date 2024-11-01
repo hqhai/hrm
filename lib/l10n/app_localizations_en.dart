@@ -2189,4 +2189,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get i18nHours => 'hours';
+
+  @override
+  String get i18nNotFullTimeOrPartTime => 'You are not eligible to submit a request.';
 }

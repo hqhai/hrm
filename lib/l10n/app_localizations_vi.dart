@@ -2055,7 +2055,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get shiftHistory => 'Lịch sử trạng thái ca:';
 
   @override
-  String get noConnected => 'Có lỗi sảy ra, vui lòng kiểm tra lại!';
+  String get noConnected => 'Có lỗi xảy ra, vui lòng kiểm tra lại!';
 
   @override
   String get reasonForCancellation => 'Lí do huỷ ca';
@@ -2189,4 +2189,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get i18nHours => 'giờ';
+
+  @override
+  String get i18nNotFullTimeOrPartTime => 'Bạn không thuộc diện nhân sự được phép đăng ký đơn';
 }

@@ -6,10 +6,12 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/item_data.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/department/department_bloc.dart';
 import 'package:base_app/presentations/bloc/department/department_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
+import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
@@ -21,6 +23,7 @@ import 'package:base_app/presentations/widgets/dialog/no_connection/no_connectio
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ActivateWidget extends StatefulWidget {
@@ -31,6 +34,8 @@ class ActivateWidget extends StatefulWidget {
 }
 
 class _ActivateWidgetState extends State<ActivateWidget> {
+  late String _errorName = '';
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -54,12 +59,19 @@ class _ActivateWidgetState extends State<ActivateWidget> {
           ),
           Align(
             alignment: Alignment.bottomRight,
-            child: IconButton(
-              onPressed: () => _nextCreateScreen(context),
-              icon: Icon(
-                Icons.add_circle_rounded,
-                color: colors.primary,
-                size: SpacingUnit.x12,
+            child: BlocListener<FlowBloc, FlowState>(
+              listener: (context, state) {
+                if (state.errorCode != null) {
+                  _setErrorCode(errorCode: state.errorCode ?? '');
+                }
+              },
+              child: IconButton(
+                onPressed: () => _nextCreateScreen(context),
+                icon: Icon(
+                  Icons.add_circle_rounded,
+                  color: colors.primary,
+                  size: SpacingUnit.x12,
+                ),
               ),
             ),
           ),
@@ -109,8 +121,9 @@ class _ActivateWidgetState extends State<ActivateWidget> {
     if (check && checkRequest) {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
-      dI<AppNavigation>().pushName(currentContext, page: Pages.requisitionListPage);
-    }else{
+      dI<AppNavigation>()
+          .pushName(currentContext, page: Pages.requisitionListPage);
+    } else {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
       dialogNoConnection(context: currentContext);
@@ -139,8 +152,9 @@ class _ActivateWidgetState extends State<ActivateWidget> {
     if (check && checkDepartment) {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
-      dI<AppNavigation>().pushName(currentContext, page: Pages.requisitionApproveListPage);
-    }else{
+      dI<AppNavigation>()
+          .pushName(currentContext, page: Pages.requisitionApproveListPage);
+    } else {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
       dialogNoConnection(context: currentContext);
@@ -164,8 +178,9 @@ class _ActivateWidgetState extends State<ActivateWidget> {
     if (check) {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
-      dI<AppNavigation>().pushName(currentContext, page: Pages.requisitionFollowerListPage);
-    }else{
+      dI<AppNavigation>()
+          .pushName(currentContext, page: Pages.requisitionFollowerListPage);
+    } else {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
       dialogNoConnection(context: currentContext);
@@ -188,11 +203,28 @@ class _ActivateWidgetState extends State<ActivateWidget> {
     if (check) {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
-      dI<AppNavigation>().pushName(currentContext, page: Pages.createRequestPage);
-    } else{
+      dI<AppNavigation>()
+          .pushName(currentContext, page: Pages.createRequestPage);
+    } else {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
-      dialogNoConnection(context: currentContext);
+      dialogNoConnection(
+        context: currentContext,
+        error: _errorName,
+      );
     }
+  }
+
+  void _setErrorCode({
+    required String errorCode,
+  }) {
+    final appLocalizations = AppLocalizations.of(context)!;
+    final Map<String, String> errorCodes = {
+      'EmployeeNotFullTimeOrPartTime':
+          appLocalizations.i18nNotFullTimeOrPartTime,
+    };
+    setState(() {
+      _errorName = errorCodes[errorCode] ?? '';
+    });
   }
 }
