@@ -20,25 +20,30 @@ import 'item_day_calendar.dart';
 
 final layoutCalendarPageRoute = GoRoute(
   path: Pages.layoutCalendarPage,
-  name: Pages.layoutCalendarPage,
-  builder: (context, GoRouterState state) => const LayoutCalendar(),
+  builder: (context, GoRouterState state) {
+    final query = state.uri.queryParameters;
+    return LayoutCalendar(
+      currentDateTime: query['currentDateTime'] == null
+          ? DateTime.now()
+          : DateTime.parse(query['currentDateTime']!),
+    );
+  },
 );
 
 class LayoutCalendar extends StatefulWidget {
-  final ValueChanged<List<DateTime>>? getCurrentDate;
-  final List<DateTime>? listDate;
-  final List<DateTime>? listItemDate;
-  final Map<DateTime, Widget>? item;
+  final DateTime? currentDateTime;
 
-  const LayoutCalendar(
-      {super.key, this.getCurrentDate, this.listDate, this.item, this.listItemDate});
+  const LayoutCalendar({
+    super.key,
+    this.currentDateTime,
+  });
 
   @override
   State<LayoutCalendar> createState() => _LayoutCalendarState();
 }
 
 class _LayoutCalendarState extends State<LayoutCalendar> {
-  DateTime currentDateTime = DateTime.now();
+  late DateTime currentDateTime;
   DateTime oldDateTime = DateTime.now();
   DateTime lastDateTime = DateTime.now();
   DateTime startTime = DateTime.now(), endTime = DateTime.now();
@@ -52,9 +57,11 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
 
   @override
   void initState() {
+    currentDateTime = widget.currentDateTime ?? DateTime.now();
     startTime = getFirstDayOfMonth(currentDateTime);
     endTime = getLastDayOfMonth(currentDateTime);
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     super.initState();
     _getListDate();
   }
@@ -64,12 +71,14 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       if (currentDateTime.month == 12) {
         currentDateTime = DateTime(currentDateTime.year + 1, 1, 1);
       } else {
-        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
+        currentDateTime =
+            DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
       }
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     _getListDate();
   }
 
@@ -78,25 +87,25 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       if (currentDateTime.month == 1) {
         currentDateTime = DateTime(currentDateTime.year - 1, 12, 1);
       } else {
-        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
+        currentDateTime =
+            DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
       }
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     _getListDate();
   }
 
   _getListDate() {
-    int fistDate = MenuValues.mapNumberDayInWeek[
-            DateFormat('EEE').format(DateTime(currentDateTime.year, currentDateTime.month, 1))] ??
+    int fistDate = MenuValues.mapNumberDayInWeek[DateFormat('EEE').format(
+            DateTime(currentDateTime.year, currentDateTime.month, 1))] ??
         0;
-    int lastDate = MenuValues.mapNumberDayInWeek[DateFormat('EEE')
-            .format(DateTime(currentDateTime.year, currentDateTime.month + 1, 0))] ??
+    int lastDate = MenuValues.mapNumberDayInWeek[DateFormat('EEE').format(
+            DateTime(currentDateTime.year, currentDateTime.month + 1, 0))] ??
         0;
-    widget.getCurrentDate?.call(getDaysInBetween(
-        DateTime(currentDateTime.year, currentDateTime.month, 1),
-        DateTime(currentDateTime.year, currentDateTime.month + 1, 0)));
+
     if (fistDate != 8) {
       int oldDaysCount = fistDate - 2;
       DateTime date = DateTime(currentDateTime.year, currentDateTime.month, 0);
@@ -108,19 +117,22 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
       int oldDaysCount = fistDate - 2;
       DateTime date = DateTime(currentDateTime.year, currentDateTime.month, 0);
       setState(() {
-        oldDateTime = DateTime(date.year, date.month, date.day - oldDaysCount - 7);
+        oldDateTime =
+            DateTime(date.year, date.month, date.day - oldDaysCount - 7);
       });
     }
     if (lastDate != 7) {
       int nextDaysCount = 7 - lastDate;
       setState(() {
-        lastDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
+        lastDateTime = DateTime(
+            currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
       });
     }
     if (lastDate == 0) {
       int nextDaysCount = 6 - lastDate;
       setState(() {
-        lastDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
+        lastDateTime = DateTime(
+            currentDateTime.year, currentDateTime.month + 1, 1 + nextDaysCount);
       });
     }
 
@@ -176,8 +188,8 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
                         .map(
                           (e) => Expanded(
                             child: Center(
-                              child:
-                                  Text(e.configDayOfWeekName, style: theme.textTheme.titleMedium),
+                              child: Text(e.configDayOfWeekName,
+                                  style: theme.textTheme.titleMedium),
                             ),
                           ),
                         )
@@ -186,8 +198,6 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
                 ),
                 BodyCalendar(
                   displayType: displayType,
-                  widget: widget.item,
-                  listItemDate: widget.listItemDate,
                   listDate: listDate,
                   month: currentDateTime.month,
                   year: currentDateTime.year,
@@ -205,11 +215,11 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
 
   setting() {
     setState(() {
-      currentDateTime = DateTime.now();
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     _getListDate();
   }
 
