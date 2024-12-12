@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -35,7 +37,8 @@ class _HomeWidgetState extends State<HomeWidget> {
   void initState() {
     startTime = getFirstDayOfMonth(currentDateTime);
     endTime = getLastDayOfMonth(currentDateTime);
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
     super.initState();
   }
 
@@ -95,12 +98,14 @@ class _HomeWidgetState extends State<HomeWidget> {
       if (currentDateTime.month == 1) {
         currentDateTime = DateTime(currentDateTime.year - 1, 12, 1);
       } else {
-        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
+        currentDateTime =
+            DateTime(currentDateTime.year, currentDateTime.month - 1, 1);
       }
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
   }
 
   upMonth() {
@@ -108,15 +113,25 @@ class _HomeWidgetState extends State<HomeWidget> {
       if (currentDateTime.month == 12) {
         currentDateTime = DateTime(currentDateTime.year + 1, 1, 1);
       } else {
-        currentDateTime = DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
+        currentDateTime =
+            DateTime(currentDateTime.year, currentDateTime.month + 1, 1);
       }
       startTime = getFirstDayOfMonth(currentDateTime);
       endTime = getLastDayOfMonth(currentDateTime);
     });
-    dI<AttendanceBloc>().add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
+    dI<AttendanceBloc>()
+        .add(GetWorkSheetEvent(endTime: endTime, startTime: startTime));
   }
 
   nextWorkSheet(BuildContext context) {
-    dI<AppNavigation>().pushName(context, page: Pages.layoutCalendarPage);
+    dI<AppNavigation>().push(
+      context,
+      page: Pages.layoutCalendarPage,
+      paramsQuerry: jsonDecode(
+        jsonEncode(
+          {'currentDateTime': currentDateTime.toString()},
+        ),
+      ),
+    );
   }
 }
