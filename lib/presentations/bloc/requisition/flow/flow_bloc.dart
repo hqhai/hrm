@@ -93,6 +93,10 @@ class FlowBloc extends HydratedBloc<FlowEvent, FlowState> {
 
   FutureOr<void> _resetFlowEvent(
       ResetFlowEvent event, Emitter<FlowState> emit) {
-    emit(const FlowState());
+    emit(
+      state.copyWith(
+        flow: const FlowRequest(id: ''),
+      ),
+    );
   }
 }
