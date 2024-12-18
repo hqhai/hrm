@@ -16,6 +16,8 @@ import 'package:base_app/presentations/bloc/requisition/flow/flow_event.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_state.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
 import 'package:base_app/presentations/widgets/dialog/no_connection/no_connection_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +45,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
 
   @override
   void initState() {
+    dI<FlowBloc>().add(const ResetFlowEvent());
+    dI<RequisitionBloc>().add(const ResetRequisitionEvent());
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
@@ -100,7 +104,9 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 Expanded(
@@ -201,8 +207,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
       context: context,
     );
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-    final check = await checkLoadScreen(flow);
-    if(check) {
+    final check = await _checkLoadScreen(flow);
+    if (check) {
       if (!currentContext.mounted) return;
       switch (flow.flowType) {
         case RequisitionTypeEnum.explanation:
@@ -287,14 +293,14 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
         case RequisitionTypeEnum.unknown:
         default:
       }
-    } else{
+    } else {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
       dialogNoConnection(context: currentContext);
     }
   }
 
-  Future<bool> loadFlow(FlowRequest flow) async {
+  Future<bool> _loadFlow(FlowRequest flow) async {
     final Completer completer = Completer<bool>();
     dI<FlowBloc>().add(
       GetFlowEvent(
@@ -318,57 +324,59 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
   Future<bool> loadWorkShiftOneDay() async {
     final Completer completer = Completer<bool>();
     dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-        endDate:DateTime.now(),
+        endDate: DateTime.now(),
         startDate: DateTime.now(),
         completer: completer));
     return await completer.future;
   }
 
-  Future<bool> checkLoadScreen(FlowRequest flow,) async {
+  Future<bool> _checkLoadScreen(
+    FlowRequest flow,
+  ) async {
     switch (flow.flowType) {
       case RequisitionTypeEnum.leaveFiveDaysOrMore:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         final checkWAS = await loadWorkAndSalary();
         return checkF && checkWAS;
       case RequisitionTypeEnum.leaveHalfDayToOneDay:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         final checkWAS = await loadWorkAndSalary();
         return checkF && checkWAS;
       case RequisitionTypeEnum.leaveTwoDayToFourDay:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         final checkWAS = await loadWorkAndSalary();
         return checkF && checkWAS;
       case RequisitionTypeEnum.bussiness:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         return checkF;
       case RequisitionTypeEnum.lateOrEarly:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         final checkWS = await loadWorkShiftOneDay();
         return checkF && checkWS;
       case RequisitionTypeEnum.overTime:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         return checkF;
       case RequisitionTypeEnum.vehicleDriver:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         return checkF;
       case RequisitionTypeEnum.warehouseReleased:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         return checkF;
       case RequisitionTypeEnum.stationery:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         return checkF;
       case RequisitionTypeEnum.explanation:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         return checkF;
       case RequisitionTypeEnum.makeUpWork:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         final checkWS = await loadWorkShiftOneDay();
         return checkF && checkWS;
       case RequisitionTypeEnum.postalDelivery:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         return checkF;
       case RequisitionTypeEnum.core:
-        final checkF = await loadFlow(flow);
+        final checkF = await _loadFlow(flow);
         return checkF;
       default:
         return false;
