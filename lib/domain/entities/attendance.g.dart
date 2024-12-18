@@ -11,6 +11,8 @@ abstract class _$AttendanceCWProxy {
 
   Attendance code(String? code);
 
+  Attendance compensatoryLeaveRate(double compensatoryLeaveRate);
+
   Attendance countEarly(int countEarly);
 
   Attendance countLate(int countLate);
@@ -59,6 +61,7 @@ abstract class _$AttendanceCWProxy {
   Attendance call({
     double? actualRate,
     String? code,
+    double? compensatoryLeaveRate,
     int? countEarly,
     int? countLate,
     double? holidayRate,
@@ -92,6 +95,10 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
 
   @override
   Attendance code(String? code) => this(code: code);
+
+  @override
+  Attendance compensatoryLeaveRate(double compensatoryLeaveRate) =>
+      this(compensatoryLeaveRate: compensatoryLeaveRate);
 
   @override
   Attendance countEarly(int countEarly) => this(countEarly: countEarly);
@@ -168,6 +175,7 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
   Attendance call({
     Object? actualRate = const $CopyWithPlaceholder(),
     Object? code = const $CopyWithPlaceholder(),
+    Object? compensatoryLeaveRate = const $CopyWithPlaceholder(),
     Object? countEarly = const $CopyWithPlaceholder(),
     Object? countLate = const $CopyWithPlaceholder(),
     Object? holidayRate = const $CopyWithPlaceholder(),
@@ -198,6 +206,12 @@ class _$AttendanceCWProxyImpl implements _$AttendanceCWProxy {
           ? _value.code
           // ignore: cast_nullable_to_non_nullable
           : code as String?,
+      compensatoryLeaveRate:
+          compensatoryLeaveRate == const $CopyWithPlaceholder() ||
+                  compensatoryLeaveRate == null
+              ? _value.compensatoryLeaveRate
+              // ignore: cast_nullable_to_non_nullable
+              : compensatoryLeaveRate as double,
       countEarly:
           countEarly == const $CopyWithPlaceholder() || countEarly == null
               ? _value.countEarly
@@ -329,6 +343,8 @@ Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
           const [],
       overTimeLeave: json['overTimeLeave'] as int? ?? 0,
       overTimeSalary: json['overTimeSalary'] as int? ?? 0,
+      compensatoryLeaveRate:
+          (json['compensatoryLeaveRate'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
@@ -346,6 +362,7 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
   val['actualRate'] = instance.actualRate;
   val['leaveRate'] = instance.leaveRate;
   val['holidayRate'] = instance.holidayRate;
+  val['compensatoryLeaveRate'] = instance.compensatoryLeaveRate;
   val['noSalaryRate'] = instance.noSalaryRate;
   val['overTime'] = instance.overTime;
   val['overTimeRate'] = instance.overTimeRate;

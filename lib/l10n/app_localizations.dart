@@ -4442,6 +4442,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You are not eligible to submit a request.'**
   String get i18nNotFullTimeOrPartTime;
+
+  /// No description provided for @i18nCompensatoryLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Compensatory Leave'**
+  String get i18nCompensatoryLeave;
+
+  /// No description provided for @i18nOTRate.
+  ///
+  /// In en, this message translates to:
+  /// **'OT rate'**
+  String get i18nOTRate;
+
+  /// No description provided for @i18nYouWantToApproveThisApplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to approve this application?'**
+  String get i18nYouWantToApproveThisApplication;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

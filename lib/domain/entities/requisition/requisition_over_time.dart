@@ -15,6 +15,7 @@ class RequisitionOverTime {
   @JsonKey(unknownEnumValue: EnumOvertimeDay.unknown)
   final EnumOvertimeDay overtimeDay;
   final bool isChecking;
+  final double rate;
 
   const RequisitionOverTime({
     this.endTime = 0,
@@ -24,6 +25,7 @@ class RequisitionOverTime {
     this.suggestTime = 0,
     this.overtimeDay = EnumOvertimeDay.unknown,
     this.isChecking = true,
+    this.rate = 0,
   });
 
   factory RequisitionOverTime.fromJson(Map<String, dynamic> json) =>

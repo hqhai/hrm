@@ -2192,4 +2192,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get i18nNotFullTimeOrPartTime => 'You are not eligible to submit a request.';
+
+  @override
+  String get i18nCompensatoryLeave => 'Compensatory Leave';
+
+  @override
+  String get i18nOTRate => 'OT rate';
+
+  @override
+  String get i18nYouWantToApproveThisApplication => 'Are you sure you want to approve this application?';
 }
