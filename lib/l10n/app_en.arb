@@ -699,8 +699,8 @@
   "requestEditBy": "Request Edited by:",
   "reasonReject": "Reason for rejection:",
   "reasonCancel": "Reason for cancellation:",
-  "reasonForCanceling" : "Reason for canceling",
-  "reasonForRejection" : "Reason for rejection",
+  "reasonForCanceling": "Reason for canceling",
+  "reasonForRejection": "Reason for rejection",
   "nameWorkShift": "Work shift name",
   "reasonForRemove": "Reason for stop",
   "mapLocation": "Location",
@@ -720,9 +720,11 @@
   "ifYouDoNotHaveAnAccountPleaseContactHCNS": "If you don't have an account, please contact Human Resources.",
   "enterReason": "Enter reason...",
   "forgotPasswordSuccess": "Forgot Password success!",
-  "saveUpdateInfo" : "Save",
-  "i18nDays" : "days",
-  "i18nHours" : "hours",
-  "i18nNotFullTimeOrPartTime" : "You are not eligible to submit a request."
-
+  "saveUpdateInfo": "Save",
+  "i18nDays": "days",
+  "i18nHours": "hours",
+  "i18nNotFullTimeOrPartTime": "You are not eligible to submit a request.",
+  "i18nCompensatoryLeave": "Compensatory Leave",
+  "i18nOTRate": "OT rate",
+  "i18nYouWantToApproveThisApplication": "Are you sure you want to approve this application?"
 }

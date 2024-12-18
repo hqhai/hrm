@@ -37,6 +37,11 @@ class Attendance {
   final double leaveRate;
 
   /// <summary>
+  /// công nghỉ bù OT
+  /// </summary>
+  final double compensatoryLeaveRate;
+
+  /// <summary>
   /// công nghỉ lễ
   /// </summary>
   final double holidayRate;
@@ -117,30 +122,33 @@ class Attendance {
   /// </summary>
   final List<UserWorkingHistoryModel> userWorkingHistories;
 
-  const Attendance(
-      {this.workTimeReal = 0,
-      this.workTimeActual = 0,
-      this.overTime = 0,
-      this.realRate = 0,
-      this.overTimeRate = 0,
-      this.overTimeDay = EnumOvertimeDay.unknown,
-      this.noSalaryRate = 0,
-      this.leaveRate = 0,
-      this.holidayRate = 0,
-      this.actualRate = 0,
-      this.userId,
-      this.timeLate = 0,
-      this.salaryRate = 0,
-      this.name,
-      this.code,
-      this.countEarly = 0,
-      this.countLate = 0,
-      this.timeEarly = 0,
-      this.userWorkingHistories = const [],
-      this.overTimeLeave = 0,
-      this.overTimeSalary = 0});
+  const Attendance({
+    this.workTimeReal = 0,
+    this.workTimeActual = 0,
+    this.overTime = 0,
+    this.realRate = 0,
+    this.overTimeRate = 0,
+    this.overTimeDay = EnumOvertimeDay.unknown,
+    this.noSalaryRate = 0,
+    this.leaveRate = 0,
+    this.holidayRate = 0,
+    this.actualRate = 0,
+    this.userId,
+    this.timeLate = 0,
+    this.salaryRate = 0,
+    this.name,
+    this.code,
+    this.countEarly = 0,
+    this.countLate = 0,
+    this.timeEarly = 0,
+    this.userWorkingHistories = const [],
+    this.overTimeLeave = 0,
+    this.overTimeSalary = 0,
+    this.compensatoryLeaveRate = 0,
+  });
 
-  factory Attendance.fromJson(Map<String, dynamic> json) => _$AttendanceFromJson(json);
+  factory Attendance.fromJson(Map<String, dynamic> json) =>
+      _$AttendanceFromJson(json);
 
   Map<String, dynamic> toJson() => _$AttendanceToJson(this);
 
@@ -154,6 +162,9 @@ class Attendance {
 
       ///Công nghỉ
       leaveRate.toString(),
+
+      ///Cong nghi bu OT
+      compensatoryLeaveRate.toString(),
 
       ///Công nghỉ lễ
       holidayRate.toString(),

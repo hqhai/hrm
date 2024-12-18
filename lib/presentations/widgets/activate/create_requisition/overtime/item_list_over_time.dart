@@ -83,6 +83,12 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
               size: SpacingUnit.x4,
             ),
           if (widget.checkType == RequestType.oT)
+            ItemTitleValueNoBorder(
+              title: appLocalizations.i18nOTRate,
+              value: widget.requisitionOverTime.rate.toString(),
+              size: SpacingUnit.x4,
+            ),
+          if (widget.checkType == RequestType.oT)
             Padding(
               padding: const EdgeInsets.only(
                   left: SpacingUnit.x1,

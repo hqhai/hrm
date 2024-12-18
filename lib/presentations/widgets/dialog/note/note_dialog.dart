@@ -11,7 +11,11 @@ class NoteDialog extends StatefulWidget {
   final VoidCallback callback;
   final EnumStepRequestStatusEnum? status;
 
-  const NoteDialog({super.key, required this.noteChange, required this.callback, this.status});
+  const NoteDialog(
+      {super.key,
+      required this.noteChange,
+      required this.callback,
+      this.status});
 
   @override
   State<NoteDialog> createState() => _NoteDialogState();
@@ -39,21 +43,38 @@ class _NoteDialogState extends State<NoteDialog> {
     return Padding(
       padding: const EdgeInsets.all(SpacingUnit.x4_5),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: widget.status == EnumStepRequestStatusEnum.approve
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(appLocalizations.note),
+          Text(
+            widget.status == EnumStepRequestStatusEnum.approve
+                ? appLocalizations.notification
+                : appLocalizations.note,
+            style: const TextStyle(
+              fontSize: SpacingUnit.x6,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           const SizedBox(
             height: SpacingUnit.x4_5,
           ),
-          AppInputArea(
-            onTap: () => onTap(),
-            minLines: 5,
-            maxLines: 5,
-            placeHolder: appLocalizations.note,
-            controller: noteController,
-            onChange: (value) => widget.noteChange.call(value),
-          ),
+          widget.status == EnumStepRequestStatusEnum.approve
+              ? Text(
+                  appLocalizations.i18nYouWantToApproveThisApplication,
+                  style: const TextStyle(
+                    fontSize: SpacingUnit.x4,
+                  ),
+                )
+              : AppInputArea(
+                  onTap: () => onTap(),
+                  minLines: 5,
+                  maxLines: 5,
+                  placeHolder: appLocalizations.note,
+                  controller: noteController,
+                  onChange: (value) => widget.noteChange.call(value),
+                ),
           if (errorNote.isNotEmpty)
             Text(errorNote,
                 style: TextStyle(
@@ -108,10 +129,12 @@ class NoteCancelRequestDialog extends StatefulWidget {
   final ValueChanged<String> noteChange;
   final VoidCallback callback;
 
-  const NoteCancelRequestDialog({super.key, required this.noteChange, required this.callback});
+  const NoteCancelRequestDialog(
+      {super.key, required this.noteChange, required this.callback});
 
   @override
-  State<NoteCancelRequestDialog> createState() => _NoteCancelRequestDialogState();
+  State<NoteCancelRequestDialog> createState() =>
+      _NoteCancelRequestDialogState();
 }
 
 class _NoteCancelRequestDialogState extends State<NoteCancelRequestDialog> {
@@ -133,7 +156,9 @@ class _NoteCancelRequestDialogState extends State<NoteCancelRequestDialog> {
             height: SpacingUnit.x4_5,
           ),
           AppInputArea(
-            error: noteController.text == '' ? appLocalizations.cannotBeLeftBlank : '',
+            error: noteController.text == ''
+                ? appLocalizations.cannotBeLeftBlank
+                : '',
             minLines: 5,
             maxLines: 5,
             placeHolder: appLocalizations.note,

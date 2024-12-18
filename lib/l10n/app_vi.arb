@@ -724,5 +724,8 @@
   "saveUpdateInfo" : "Lưu thông tin",
   "i18nDays" : "ngày",
   "i18nHours" : "giờ",
-  "i18nNotFullTimeOrPartTime" : "Bạn không thuộc diện nhân sự được phép đăng ký đơn"
+  "i18nNotFullTimeOrPartTime" : "Bạn không thuộc diện nhân sự được phép đăng ký đơn",
+  "i18nCompensatoryLeave" : "Công nghỉ bù OT",
+  "i18nOTRate" : "Hệ số OT",
+  "i18nYouWantToApproveThisApplication" : "Bạn có chắc chắn phê duyệt đơn này?"
 }

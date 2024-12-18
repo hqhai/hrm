@@ -10,6 +10,7 @@ class TitleHome {
       appLocalizations.realWork,
       appLocalizations.actualWork,
       appLocalizations.leaveWork,
+      appLocalizations.i18nCompensatoryLeave,
       appLocalizations.holidayWork,
       appLocalizations.salaryWork,
       appLocalizations.leaveWithoutPay,

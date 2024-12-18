@@ -2192,4 +2192,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get i18nNotFullTimeOrPartTime => 'Bạn không thuộc diện nhân sự được phép đăng ký đơn';
+
+  @override
+  String get i18nCompensatoryLeave => 'Công nghỉ bù OT';
+
+  @override
+  String get i18nOTRate => 'Hệ số OT';
+
+  @override
+  String get i18nYouWantToApproveThisApplication => 'Bạn có chắc chắn phê duyệt đơn này?';
 }

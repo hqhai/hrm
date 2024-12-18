@@ -14,20 +14,20 @@ class UserOverTimeHistoryModel {
   /// </summary>
   final double overTimeRate;
 
-  /// <summary>
-  /// số công tíng lương chưa nhân hệ số
-  /// </summary>
-  final double overTimeSalaryDefault;
+  // /// <summary>
+  // /// số công tíng lương chưa nhân hệ số
+  // /// </summary>
+  // final double overTimeSalaryDefault;
 
   /// <summary>
   /// số công tính lương đã nhân hệ số
   /// </summary>
   final double overTimeSalaryMultiplier;
 
-  /// <summary>
-  /// số công tính nghỉ bù chưa nhân hệ số
-  /// </summary>
-  final double overTimeLeaveDefault;
+  // /// <summary>
+  // /// số công tính nghỉ bù chưa nhân hệ số
+  // /// </summary>
+  // final double overTimeLeaveDefault;
 
   /// <summary>
   /// số công tính nghỉ bù đã nhân hệ số
@@ -61,9 +61,9 @@ class UserOverTimeHistoryModel {
     this.isChecking = true,
     this.overTimeDay = EnumOvertimeDay.unknown,
     this.overTimeRate = 0,
-    this.overTimeLeaveDefault = 0,
+    // this.overTimeLeaveDefault = 0,
     this.overTimeLeaveMultiplier = 0,
-    this.overTimeSalaryDefault = 0,
+    // this.overTimeSalaryDefault = 0,
     this.overTimeSalaryMultiplier = 0,
   });
 
