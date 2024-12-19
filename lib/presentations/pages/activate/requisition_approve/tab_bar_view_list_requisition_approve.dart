@@ -26,12 +26,10 @@ class TabBarViewListRequistionApprove extends StatefulWidget {
   });
 
   @override
-  State<TabBarViewListRequistionApprove> createState() =>
-      _TabBarViewListRequistionApproveState();
+  State<TabBarViewListRequistionApprove> createState() => _TabBarViewListRequistionApproveState();
 }
 
-class _TabBarViewListRequistionApproveState
-    extends State<TabBarViewListRequistionApprove> {
+class _TabBarViewListRequistionApproveState extends State<TabBarViewListRequistionApprove> {
   late ScrollController controller;
   int pageIndex = 1, totalItems = 12, lengthList = 11;
   bool checkLoad = true;
@@ -46,9 +44,7 @@ class _TabBarViewListRequistionApproveState
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems &&
-        controller.position.extentAfter < totalItems &&
-        checkLoad) {
+    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
@@ -88,8 +84,7 @@ class _TabBarViewListRequistionApproveState
     final colors = AppTheme.getColors(context);
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, state) => _listener(context, state),
-      listenWhen: (previous, current) =>
-          previous.requisitions != current.requisitions,
+      listenWhen: (previous, current) => previous.requisitions != current.requisitions,
       // buildWhen: (previous, current) => previous.requisitionIds != current.requisitionIds ,
       builder: (context, state) {
         return Container(
@@ -100,10 +95,13 @@ class _TabBarViewListRequistionApproveState
                   ? ListView.builder(
                       controller: controller,
                       itemCount: state.requisitionIds.length,
-                      itemBuilder: (context, index) =>
-                          ItemRequisitionApproveList(
+                      itemBuilder: (context, index) => ItemRequisitionApproveList(
                         id: state.requisitionIds[index],
                         status: widget.status,
+                        departmentId: widget.filterData.department?.id,
+                        startTime: widget.filterData.startTime,
+                        endTime: widget.filterData.endTime,
+                        type: widget.filterData.types,
                       ),
                     )
                   : const DataNotExist()

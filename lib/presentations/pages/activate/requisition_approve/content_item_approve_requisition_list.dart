@@ -26,19 +26,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ContentItemRequestApproveList extends StatefulWidget {
-  const ContentItemRequestApproveList(
-      {super.key, required this.id, required this.status});
+  const ContentItemRequestApproveList({super.key, required this.id, required this.status, this.startDate, this.endDate, this.type, this.departmentId, this.userId});
 
-  final EnumStepRequestStatusEnum status;
   final String id;
+  final EnumStepRequestStatusEnum status;
+  final DateTime? startDate;
+  final String? departmentId;
+  final String? userId;
+
+  final DateTime? endDate;
+  final List<RequisitionTypeEnum>? type;
 
   @override
-  State<ContentItemRequestApproveList> createState() =>
-      _ContentItemRequestApproveListState();
+  State<ContentItemRequestApproveList> createState() => _ContentItemRequestApproveListState();
 }
 
-class _ContentItemRequestApproveListState
-    extends State<ContentItemRequestApproveList> {
+class _ContentItemRequestApproveListState extends State<ContentItemRequestApproveList> {
   String note = '';
   String errorCodeDialog = '';
 
@@ -63,10 +66,7 @@ class _ContentItemRequestApproveListState
                     request.flowType.configTypeName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: colors.text,
-                        fontSize: SpacingUnit.x4,
-                        fontWeight: FontWeight.w700),
+                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
                   ),
                   Icon(
                     Icons.chevron_right,
@@ -107,28 +107,33 @@ class _ContentItemRequestApproveListState
             ),
             if (statusApprove(request) == EnumStepRequestStatusEnum.newStatus)
               ItemRequestProcess(
-                callBackApprove: () => _isApprover(
-                  request,
-                  context,
-                  EnumStepRequestStatusEnum.approve,
-                ),
+                callBackApprove: () => _isApprover(request, context, EnumStepRequestStatusEnum.approve, widget.status, widget.startDate, widget.endDate, widget.departmentId, widget.type, widget.userId),
                 callBackEdit: () => _isApprover(
                   request,
                   context,
                   EnumStepRequestStatusEnum.edit,
+                  widget.status,
+                  widget.startDate,
+                  widget.endDate,
+                  widget.departmentId,
+                  widget.type,
+                  widget.userId,
                 ),
                 callBackReject: () => _isApprover(
                   request,
                   context,
                   EnumStepRequestStatusEnum.reject,
+                  widget.status,
+                  widget.startDate,
+                  widget.endDate,
+                  widget.departmentId,
+                  widget.type,
+                  widget.userId,
                 ),
                 hiddenApproveButton: request.isFirstStep && request.isEdit,
               ),
             //if (checkFirstStepApprove(request))
-            if (request.isFirstStep &&
-                request.status == StatusRequestEnum.approve)
-              ItemRequestCancel(
-                  callCancel: () => _showDialogCancelRequest(context)),
+            if (request.isFirstStep && request.status == StatusRequestEnum.approve) ItemRequestCancel(callCancel: () => _showDialogCancelRequest(context)),
           ],
         );
       },
@@ -159,17 +164,25 @@ class _ContentItemRequestApproveListState
     return false;
   }*/
 
-  _isApprover(request, BuildContext context, EnumStepRequestStatusEnum status) {
+  _isApprover(
+    request,
+    BuildContext context,
+    EnumStepRequestStatusEnum status,
+    EnumStepRequestStatusEnum statusCall,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? departmentId,
+    List<RequisitionTypeEnum>? type,
+    String? userId,
+  ) {
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests?.isNotEmpty ?? false) {
       final stepRequests = request.stepRequests ?? [];
-      final indexNewStepRequest = stepRequests.indexWhere(
-          (element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests.indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest = stepRequestApproves
-            .indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest = stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
           showDialog(
@@ -177,10 +190,20 @@ class _ContentItemRequestApproveListState
             builder: (BuildContext context) {
               return Dialog(
                 child: NoteDialog(
-                    noteChange: (value) => _setNote(value),
-                    callback: () =>
-                        _setApprove(idStepRequestApprove, status, context),
-                    status: status),
+                  noteChange: (value) => _setNote(value),
+                  callback: () => _setApprove(
+                    id: idStepRequestApprove,
+                    status: status,
+                    context: context,
+                    userId: userId,
+                    startDate: startDate,
+                    endDate: endDate,
+                    type: type,
+                    departmentId: departmentId,
+                    statusCall: statusCall,
+                  ),
+                  status: status,
+                ),
               );
             },
           );
@@ -189,8 +212,17 @@ class _ContentItemRequestApproveListState
     }
   }
 
-  _setApprove(
-      String id, EnumStepRequestStatusEnum status, BuildContext context) async {
+  _setApprove({
+    required String id,
+    required EnumStepRequestStatusEnum status,
+    required EnumStepRequestStatusEnum statusCall,
+    required BuildContext context,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? departmentId,
+    List<RequisitionTypeEnum>? type,
+    String? userId,
+  }) async {
     setCheckLoad();
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final Completer completer = Completer<bool>();
@@ -199,8 +231,14 @@ class _ContentItemRequestApproveListState
         id: id,
         note: note,
         status: status,
+        statusCall: statusCall,
         requestId: widget.id,
         completer: completer,
+        departmentId: departmentId,
+        type: type,
+        userId: userId,
+        endDate: endDate,
+        startDate: startDate,
       ),
     );
     final statusCompleter = await completer.future;
@@ -211,15 +249,11 @@ class _ContentItemRequestApproveListState
     }
     if (statusCompleter == false) {
       if (!currentContext.mounted) return;
-      approverUnsuccessful(
-          errorDialog: errorCodeDialog,
-          context: currentContext,
-          title: _getTextFailed(context, status));
+      approverUnsuccessful(errorDialog: errorCodeDialog, context: currentContext, title: _getTextFailed(context, status));
     }
   }
 
-  String _getTextSucceed(
-      BuildContext context, EnumStepRequestStatusEnum status) {
+  String _getTextSucceed(BuildContext context, EnumStepRequestStatusEnum status) {
     final appLocalizations = AppLocalizations.of(context)!;
     switch (status) {
       case EnumStepRequestStatusEnum.approve:
@@ -235,8 +269,7 @@ class _ContentItemRequestApproveListState
     }
   }
 
-  String _getTextFailed(
-      BuildContext context, EnumStepRequestStatusEnum status) {
+  String _getTextFailed(BuildContext context, EnumStepRequestStatusEnum status) {
     final appLocalizations = AppLocalizations.of(context)!;
     switch (status) {
       case EnumStepRequestStatusEnum.approve:
@@ -272,10 +305,7 @@ class _ContentItemRequestApproveListState
     dI<AppNavigation>().pop(context);
   }
 
-  approverUnsuccessful(
-      {required String errorDialog,
-      required BuildContext context,
-      required String title}) {
+  approverUnsuccessful({required String errorDialog, required BuildContext context, required String title}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -301,16 +331,13 @@ class _ContentItemRequestApproveListState
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests.isNotEmpty) {
       final stepRequests = request.stepRequests;
-      final indexNewStepRequest = stepRequests.indexWhere(
-          (element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests.indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers;
-        final int indexNewRequest = stepRequestApproves
-            .indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest = stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
-          EnumStepRequestStatusEnum? statusStepRequestApprove =
-              stepRequestApproves[indexNewRequest].status;
+          EnumStepRequestStatusEnum? statusStepRequestApprove = stepRequestApproves[indexNewRequest].status;
           return statusStepRequestApprove;
         }
       }
@@ -360,9 +387,7 @@ class _ContentItemRequestApproveListState
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorCodeDialog = errorCode.isNotEmpty
-          ? setErrorValue(errorCode, context) ?? errorCode
-          : "";
+      errorCodeDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
@@ -396,15 +421,11 @@ class _ContentItemRequestApproveListState
     if (statusCompleter == true) {
       dI<RequisitionBloc>().add(GetRequisitionByIdEvent(id: widget.id));
       if (!currentContext.mounted) return;
-      approverSuccess(
-          context: currentContext, title: appLocalizations.cancelSucceed);
+      approverSuccess(context: currentContext, title: appLocalizations.cancelSucceed);
     }
     if (statusCompleter == false) {
       if (!currentContext.mounted) return;
-      approverUnsuccessful(
-          context: currentContext,
-          errorDialog: errorCodeDialog,
-          title: appLocalizations.cancelFailed);
+      approverUnsuccessful(context: currentContext, errorDialog: errorCodeDialog, title: appLocalizations.cancelFailed);
     }
   }
 }

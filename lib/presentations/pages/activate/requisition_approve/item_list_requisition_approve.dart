@@ -15,20 +15,28 @@ import 'package:themes/themes.dart';
 class ItemRequisitionApproveList extends StatefulWidget {
   final String id;
   final EnumStepRequestStatusEnum status;
+  final String? departmentId;
+  final DateTime? startTime;
+  final DateTime? endTime;
+  final List<RequisitionTypeEnum>? type;
+  final String? userId;
 
   const ItemRequisitionApproveList({
     super.key,
     this.id = '',
     this.status = EnumStepRequestStatusEnum.newStatus,
+    required this.departmentId,
+    required this.startTime,
+    required this.endTime,
+    this.type,
+    this.userId,
   });
 
   @override
-  State<ItemRequisitionApproveList> createState() =>
-      _ItemRequisitionApproveListState();
+  State<ItemRequisitionApproveList> createState() => _ItemRequisitionApproveListState();
 }
 
-class _ItemRequisitionApproveListState
-    extends State<ItemRequisitionApproveList> {
+class _ItemRequisitionApproveListState extends State<ItemRequisitionApproveList> {
   String? note;
   bool checkOpacity = false;
 
@@ -40,8 +48,7 @@ class _ItemRequisitionApproveListState
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return BlocBuilder<RequisitionApproveBloc, RequisitionApproveState>(
-        builder: (context, state) {
+    return BlocBuilder<RequisitionApproveBloc, RequisitionApproveState>(builder: (context, state) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
         child: ContainerBorder(
@@ -70,10 +77,7 @@ class _ItemRequisitionApproveListState
                 ),
                 Opacity(
                   opacity: checkOpacity ? 0.5 : 1,
-                  child: ContentItemRequestApproveList(
-                    id: widget.id,
-                    status: widget.status,
-                  ),
+                  child: ContentItemRequestApproveList(id: widget.id, status: widget.status, startDate: widget.startTime, endDate: widget.endTime, type: widget.type, userId: widget.userId),
                 ),
               ],
             ),
@@ -90,9 +94,7 @@ class _ItemRequisitionApproveListState
   }
 
   bool checkNote(EnumStepRequestStatusEnum status) {
-    if ((status == EnumStepRequestStatusEnum.reject ||
-            status == EnumStepRequestStatusEnum.edit) &&
-        note == null) {
+    if ((status == EnumStepRequestStatusEnum.reject || status == EnumStepRequestStatusEnum.edit) && note == null) {
       return false;
     }
     return true;
