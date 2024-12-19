@@ -36,8 +36,7 @@ class RequisitionState extends Equatable {
   });
 
   @override
-  List<Object> get props =>
-      [requisition, requisitions, requisitionIds, countItem, errorCode, statusCount];
+  List<Object> get props => [requisition, requisitions, requisitionIds, countItem, errorCode, statusCount];
 
   factory RequisitionState.fromJson(Map<String, dynamic> json) => _$RequisitionStateFromJson(json);
 

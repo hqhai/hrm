@@ -120,9 +120,9 @@ String formatIso8601(String? time) {
 }
 
 ///Định dạng Năm Tháng Ngày
-String formatYMD(String time) {
+String formatYMD(String? time) {
   if (time != '') {
-    DateTime dateTime = DateTime.parse(time);
+    DateTime dateTime = DateTime.parse(time!);
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }
   return '';
@@ -155,8 +155,7 @@ String formatWeekDay(int weekDayIndex) {
 String nameWeekDay(DateTime? time) {
   if (time != null) {
     final int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(time)] ?? 0;
-    final List<String> weekDayToString =
-        WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
+    final List<String> weekDayToString = WeekDayEnum.values.map((e) => e.configWeekDayEnumName).toList();
     return weekDayToString[nowOfWeek - 1];
   }
   return '';
@@ -270,8 +269,7 @@ Future<String> convertToBase64(File imageFile) async {
   return base64Image;
 }
 
-bool listStatusRequestEquals<StatusRequestEnum>(
-    List<StatusRequestEnum>? list1, List<StatusRequestEnum>? list2) {
+bool listStatusRequestEquals<StatusRequestEnum>(List<StatusRequestEnum>? list1, List<StatusRequestEnum>? list2) {
   if (list1 == null) {
     return list2 == null;
   }

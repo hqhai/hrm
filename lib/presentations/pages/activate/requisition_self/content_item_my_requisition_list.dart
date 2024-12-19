@@ -24,6 +24,8 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/content_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/content_requisition_expand.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/dialog_requisition_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_over_time_widget.dart';
 import 'package:base_app/presentations/widgets/custom/app_icon_status.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title_callback.dart';
@@ -74,7 +76,10 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 Icon(
                   Icons.chevron_right,
@@ -83,9 +88,7 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
                 ),
               ],
             ),
-            (request.status != StatusRequestEnum.reject &&
-                    request.status != StatusRequestEnum.edit &&
-                    request.status != StatusRequestEnum.cancel)
+            (request.status != StatusRequestEnum.reject && request.status != StatusRequestEnum.edit && request.status != StatusRequestEnum.cancel)
                 ? ContentRequisition(request: request)
                 : ContentRequisitionExpand(
                     request: request,
@@ -97,6 +100,22 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
                 icon: statusRequest(context: context, status: request.status)['icon'],
                 status: request.status.getRequestStatusNameSeft,
               ),
+            ),
+            request.config.overTimes != null
+                ? RequisitionOverTimeBody(
+                    data: request.config.overTimes!,
+                    onShowDialog: () {
+                      showCustomDialog(
+                        context: context,
+                        data: request.config.overTimes,
+                        onCancel: _cancelPop,
+                      );
+                    },
+                    // onCancel: _cancelPop(context),
+                  )
+                : const SizedBox(),
+            const SizedBox(
+              height: 10,
             ),
             request.status == StatusRequestEnum.edit
                 ? Column(
@@ -394,18 +413,14 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
 
   Future<bool> _loadWorkShiftLeave(Request request) async {
     final Completer completer = Completer<bool>();
-    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-        endDate: request.config.endDate ?? DateTime.now(),
-        startDate: request.config.startDate ?? DateTime.now(),
-        completer: completer));
+    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(endDate: request.config.endDate ?? DateTime.now(), startDate: request.config.startDate ?? DateTime.now(), completer: completer));
     return await completer.future;
   }
 
   Future<bool> _loadWorkShiftOneDay(Request request) async {
     final Completer completer = Completer<bool>();
     final date = request.config.workShiftSettings.first.workDate;
-    dI<LeaveShiftBloc>()
-        .add(GetWorkShiftsEvent(endDate: date, startDate: date, completer: completer));
+    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(endDate: date, startDate: date, completer: completer));
     return await completer.future;
   }
 
@@ -452,13 +467,11 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
     } else {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(currentContext);
-      approverUnsuccessful(
-          errorDialog: errorDialogRevoke, title: appLocalizations.revokeRequestUnsuccessful);
+      approverUnsuccessful(errorDialog: errorDialogRevoke, title: appLocalizations.revokeRequestUnsuccessful);
     }
   }
 
-  Map<String, dynamic> statusRequest(
-      {required BuildContext context, required StatusRequestEnum status}) {
+  Map<String, dynamic> statusRequest({required BuildContext context, required StatusRequestEnum status}) {
     final colors = AppTheme.getColors(context);
     switch (status) {
       case StatusRequestEnum.process:
@@ -500,4 +513,9 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
         return {};
     }
   }
+}
+
+_cancelPop() {
+  final currentContext = dI<AppNavigation>().navigatorKey.currentContext;
+  dI<AppNavigation>().pop(currentContext);
 }

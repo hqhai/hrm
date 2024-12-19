@@ -726,5 +726,15 @@
   "i18nNotFullTimeOrPartTime": "You are not eligible to submit a request.",
   "i18nCompensatoryLeave": "Compensatory Leave",
   "i18nOTRate": "OT rate",
-  "i18nYouWantToApproveThisApplication": "Are you sure you want to approve this application?"
+  "i18nYouWantToApproveThisApplication": "Are you sure you want to approve this application?",
+  "saveUpdateInfo" : "Save",
+  "i18nDays" : "days",
+  "i18nHours" : "hours",
+  "i18nNotFullTimeOrPartTime" : "You are not eligible to submit a request.",
+  "i18nOTInformation" : "OT Information",
+  "i18nOTInformationList" : "OT Information List",
+  "i18nRate" : "Coefficient",
+  "i18nTotalHour" : "Total Hours",
+  "i18nReadMore" : "Read more",
+  "i18nClose" : "Close"
 }
