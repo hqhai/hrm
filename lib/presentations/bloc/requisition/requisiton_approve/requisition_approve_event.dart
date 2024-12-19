@@ -21,19 +21,10 @@ class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
   final DateTime? endTime;
   final Completer? completer;
 
-  const GetRequisitionsApproveByFilterEvent(
-      {this.startTime,
-      this.endTime,
-      this.page = 1,
-      this.departmentId,
-      this.status,
-      this.type,
-      this.completer,
-      this.userIds});
+  const GetRequisitionsApproveByFilterEvent({this.startTime, this.endTime, this.page = 1, this.departmentId, this.status, this.type, this.completer, this.userIds});
 
   @override
-  List<Object?> get props =>
-      [startTime, endTime, page, departmentId, status, userIds, completer, type];
+  List<Object?> get props => [startTime, endTime, page, departmentId, status, userIds, completer, type];
 }
 
 class GetRequisitionApproveByIdEvent extends RequisitionApproveEvent {
@@ -53,8 +44,7 @@ class GetRequisitionApproveCountEvent extends RequisitionApproveEvent {
   final DateTime? endTime;
   final Completer? completer;
 
-  const GetRequisitionApproveCountEvent(
-      {this.startTime, this.endTime, this.departmentId, this.type, this.completer, this.userCode});
+  const GetRequisitionApproveCountEvent({this.startTime, this.endTime, this.departmentId, this.type, this.completer, this.userCode});
 
   @override
   List<Object?> get props => [endTime, startTime, departmentId, type, completer, userCode];
@@ -64,11 +54,28 @@ class ApproveRequestEvent extends RequisitionApproveEvent {
   final String id;
   final String? note;
   final EnumStepRequestStatusEnum status;
+  final EnumStepRequestStatusEnum statusCall;
   final String requestId;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final Completer? completer;
+  final String? departmentId;
+  final List<RequisitionTypeEnum>? type;
+  final String? userId;
 
-  const ApproveRequestEvent(
-      {this.id = '', this.note, this.status = EnumStepRequestStatusEnum.unknown, this.requestId = '', this.completer});
+  const ApproveRequestEvent({
+    this.id = '',
+    this.note,
+    this.status = EnumStepRequestStatusEnum.unknown,
+    this.requestId = '',
+    this.completer,
+    this.startDate,
+    this.endDate,
+    this.departmentId,
+    this.type,
+    this.userId,
+    this.statusCall = EnumStepRequestStatusEnum.unknown,
+  });
 
   @override
   List<Object?> get props => [id, note, status, requestId, completer];
