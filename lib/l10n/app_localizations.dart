@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'app_localizations_en.dart';
 import 'app_localizations_vi.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of AppLocalizations
 /// returned by `AppLocalizations.of(context)`.
 ///
@@ -4460,6 +4462,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to approve this application?'**
   String get i18nYouWantToApproveThisApplication;
+
+  /// No description provided for @i18nOTInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'OT Information'**
+  String get i18nOTInformation;
+
+  /// No description provided for @i18nOTInformationList.
+  ///
+  /// In en, this message translates to:
+  /// **'OT Information List'**
+  String get i18nOTInformationList;
+
+  /// No description provided for @i18nRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Coefficient'**
+  String get i18nRate;
+
+  /// No description provided for @i18nTotalHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Hours'**
+  String get i18nTotalHour;
+
+  /// No description provided for @i18nReadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Read more'**
+  String get i18nReadMore;
+
+  /// No description provided for @i18nClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get i18nClose;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -92,8 +92,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                 appBar: AppBar(
                   iconTheme: IconThemeData(color: colors.text),
                   centerTitle: true,
-                  title: Text(stateFlow.flow.flowType.configTypeName,
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                  title: Text(stateFlow.flow.flowType.configTypeName, style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
                   actions: const [
                     SizedBox(width: SpacingUnit.x15),
                   ],
@@ -106,22 +105,16 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (widget.checkUser != RequestSeeByWho.user)
-                          const RequisitionInformationSenderInformation(),
+                        if (widget.checkUser != RequestSeeByWho.user) const RequisitionInformationSenderInformation(),
                         const RequisitionInformationGeneraliInformation(),
                         const RequisitionInformationType(),
-                        if (state.requisition.flowType != RequisitionTypeEnum.stationery &&
-                            state.requisition.flowType != RequisitionTypeEnum.makeUpWork &&
-                            state.requisition.flowType != RequisitionTypeEnum.overTime)
-                          const RequisitionInformationContent(),
-                        if (state.requisition.config.attachments.isNotEmpty)
-                          const RequisitionInformationAttach(),
+                        if (state.requisition.flowType != RequisitionTypeEnum.stationery && state.requisition.flowType != RequisitionTypeEnum.makeUpWork && state.requisition.flowType != RequisitionTypeEnum.overTime) const RequisitionInformationContent(),
+                        if (state.requisition.config.attachments.isNotEmpty) const RequisitionInformationAttach(),
                         const ItemFollowersInformationRequest(),
                         const ItemListStepFlow(
                           create: false,
                         ),
-                        if (state.requisition.status == StatusRequestEnum.process &&
-                            widget.checkUser == RequestSeeByWho.user)
+                        if (state.requisition.status == StatusRequestEnum.process && widget.checkUser == RequestSeeByWho.user)
                           ButtonItemListRequisition(
                             colorText: colors.error,
                             background: colors.error.withOpacity(0.2),
@@ -129,8 +122,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                             title: appLocalizations.revoke,
                             callback: () => rejectDialog(context),
                           ),
-                        if (state.requisition.status == StatusRequestEnum.edit &&
-                            widget.checkUser == RequestSeeByWho.user)
+                        if (state.requisition.status == StatusRequestEnum.edit && widget.checkUser == RequestSeeByWho.user)
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -155,22 +147,14 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
                               ),
                             ],
                           ),
-                        if (statusApprove(state.requisition) ==
-                                EnumStepRequestStatusEnum.newStatus &&
-                            widget.checkUser == RequestSeeByWho.manager)
+                        if (statusApprove(state.requisition) == EnumStepRequestStatusEnum.newStatus && widget.checkUser == RequestSeeByWho.manager)
                           ItemRequestProcess(
-                            callBackApprove: () => _isApprover(
-                                state.requisition, context, EnumStepRequestStatusEnum.approve),
-                            callBackEdit: () => _isApprover(
-                                state.requisition, context, EnumStepRequestStatusEnum.edit),
-                            callBackReject: () => _isApprover(
-                                state.requisition, context, EnumStepRequestStatusEnum.reject),
-                            hiddenApproveButton:
-                                state.requisition.isEdit && state.requisition.isFirstStep,
+                            callBackApprove: () => _isApprover(state.requisition, context, EnumStepRequestStatusEnum.approve),
+                            callBackEdit: () => _isApprover(state.requisition, context, EnumStepRequestStatusEnum.edit),
+                            callBackReject: () => _isApprover(state.requisition, context, EnumStepRequestStatusEnum.reject),
+                            hiddenApproveButton: state.requisition.isEdit && state.requisition.isFirstStep,
                           ),
-                        if (state.requisition.isFirstStep &&
-                            state.requisition.status == StatusRequestEnum.approve &&
-                            widget.checkUser == RequestSeeByWho.manager)
+                        if (state.requisition.isFirstStep && state.requisition.status == StatusRequestEnum.approve && widget.checkUser == RequestSeeByWho.manager)
                           ButtonItemListRequisition(
                             colorText: colors.error,
                             background: colors.error.withOpacity(0.2),
@@ -219,23 +203,18 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests?.isNotEmpty ?? false) {
       final stepRequests = request.stepRequests ?? [];
-      final indexNewStepRequest = stepRequests
-          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests.indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers ?? [];
-        final int indexNewRequest =
-            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest = stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
           String idStepRequestApprove = stepRequestApproves[indexNewRequest].id;
           showDialog(
             context: context,
             builder: (BuildContext context) {
               return Dialog(
-                child: NoteDialog(
-                    noteChange: (value) => _setNote(value),
-                    callback: () => _setApprove(idStepRequestApprove, status, context),
-                    status: status),
+                child: NoteDialog(noteChange: (value) => _setNote(value), callback: () => _setApprove(idStepRequestApprove, status, context), status: status),
               );
             },
           );
@@ -248,16 +227,13 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     String idUser = dI<UserBloc>().state.user.id;
     if (request.stepRequests.isNotEmpty) {
       final stepRequests = request.stepRequests;
-      final indexNewStepRequest = stepRequests
-          .indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
+      final indexNewStepRequest = stepRequests.indexWhere((element) => element.status == EnumStepRequestStatusEnum.newStatus);
       if (indexNewStepRequest != -1) {
         final stepRequest = stepRequests[indexNewStepRequest];
         final stepRequestApproves = stepRequest.stepRequestApprovers;
-        final int indexNewRequest =
-            stepRequestApproves.indexWhere((element) => element.approverId == idUser);
+        final int indexNewRequest = stepRequestApproves.indexWhere((element) => element.approverId == idUser);
         if (indexNewRequest != -1) {
-          EnumStepRequestStatusEnum? statusStepRequestApprove =
-              stepRequestApproves[indexNewRequest].status;
+          EnumStepRequestStatusEnum? statusStepRequestApprove = stepRequestApproves[indexNewRequest].status;
           return statusStepRequestApprove;
         }
       }
@@ -299,8 +275,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     } else {
       if (!context.mounted) return;
       dI<AppNavigation>().pop(currentContext);
-      approverUnsuccessful(
-          errorDialog: errorDialogRevoke, title: appLocalizations.revokeRequestUnsuccessful);
+      approverUnsuccessful(errorDialog: errorDialogRevoke, title: appLocalizations.revokeRequestUnsuccessful);
     }
   }
 
@@ -345,8 +320,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
     if (statusCompleter == false) {
       if (!context.mounted) return;
       dI<AppNavigation>().pop(currentContext);
-      approverUnsuccessful(
-          errorDialog: errorDialog, title: appLocalizations.revokeRequestUnsuccessful);
+      approverUnsuccessful(errorDialog: errorDialog, title: appLocalizations.revokeRequestUnsuccessful);
     }
   }
 
@@ -416,8 +390,7 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
 
   listenerMyRequest(String errorCode, BuildContext context) {
     setState(() {
-      errorDialogRevoke =
-          errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
+      errorDialogRevoke = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
     });
   }
 
@@ -595,18 +568,14 @@ class _RequisitionInformationPageState extends State<RequisitionInformationPage>
 
   Future<bool> loadWorkShiftLeave(Request request) async {
     final Completer completer = Completer<bool>();
-    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
-        endDate: request.config.endDate ?? DateTime.now(),
-        startDate: request.config.startDate ?? DateTime.now(),
-        completer: completer));
+    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(endDate: request.config.endDate ?? DateTime.now(), startDate: request.config.startDate ?? DateTime.now(), completer: completer));
     return await completer.future;
   }
 
   Future<bool> loadWorkShiftOneDay(Request request) async {
     final Completer completer = Completer<bool>();
     final date = request.config.workShiftSettings.first.workDate;
-    dI<LeaveShiftBloc>()
-        .add(GetWorkShiftsEvent(endDate: date, startDate: date, completer: completer));
+    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(endDate: date, startDate: date, completer: completer));
     return await completer.future;
   }
 

@@ -46,8 +46,8 @@ class _RequisitionInformationContentTypeMakeUpWorkState
             startTime: state.requisition.config.startTime,
             endTime: state.requisition.config.endTime,
             suggestTime: (state.requisition.config.endTime -
-                    state.requisition.config.startTime)
-                .toDouble());
+                    state.requisition.config.startTime).toInt()
+                );
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           child: Column(

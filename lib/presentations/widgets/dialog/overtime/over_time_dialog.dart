@@ -39,7 +39,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
   String errorTime = '';
   DateTime date = DateTime.now();
   int startTime = 0, endTime = 0;
-  double suggestTime = 0;
+  int suggestTime = 0;
   String note = '';
   RequisitionOverTime requisitionOverTime = const RequisitionOverTime();
   EnumOvertimeDay typeDate = EnumOvertimeDay.holiday;
@@ -62,7 +62,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
       date = value.date ?? DateTime.now();
       startTime = value.startTime;
       endTime = value.endTime;
-      suggestTime = double.parse((endTime - startTime).toString());
+      suggestTime = int.parse((endTime - startTime).toString());
       note = value.note;
       typeDate = value.overtimeDay;
       isCheck = value.isChecking;
@@ -77,7 +77,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
       date = widget.requisitionOverTime.date ?? DateTime.now();
       startTime = widget.requisitionOverTime.startTime;
       endTime = widget.requisitionOverTime.endTime;
-      suggestTime = double.parse((endTime - startTime).toString());
+      suggestTime = int.parse((endTime - startTime).toString());
       note = widget.requisitionOverTime.note;
     }
     super.initState();
@@ -100,8 +100,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
             children: [
               Text(
                 checkTypeContainer ? appLocalizations.date : formatYMD(date.toString()),
-                style: TextStyle(
-                    color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
+                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
               ),
               InkWell(
                 onTap: () => _setTypeContainer(),
@@ -111,9 +110,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                   child: SvgPicture.asset(
                     width: SpacingUnit.x6,
                     height: SpacingUnit.x6,
-                    checkTypeContainer
-                        ? Assets.images.icon.home.chevronForward
-                        : Assets.images.icon.activateIcon.drop,
+                    checkTypeContainer ? Assets.images.icon.home.chevronForward : Assets.images.icon.activateIcon.drop,
                     colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
                   ),
                 ),
@@ -190,8 +187,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                 onChange: (value) => _setNote(value),
               ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),
@@ -236,7 +232,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
   _setStart(DateTime value) {
     setState(() {
       startTime = dateTimeToSeconds(time: value);
-      suggestTime = double.parse((endTime - startTime).toString());
+      suggestTime = int.parse((endTime - startTime).toString());
     });
     checkOnClick(context);
     widget.onChangeOverTimes?.call(
@@ -250,7 +246,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
   _setEnd(DateTime value) {
     setState(() {
       endTime = dateTimeToSeconds(time: value);
-      suggestTime = double.parse((endTime - startTime).toString());
+      suggestTime = int.parse((endTime - startTime).toString());
     });
     checkOnClick(context);
     widget.onChangeOverTimes?.call(

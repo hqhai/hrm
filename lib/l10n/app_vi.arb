@@ -727,5 +727,13 @@
   "i18nNotFullTimeOrPartTime" : "Bạn không thuộc diện nhân sự được phép đăng ký đơn",
   "i18nCompensatoryLeave" : "Công nghỉ bù OT",
   "i18nOTRate" : "Hệ số OT",
-  "i18nYouWantToApproveThisApplication" : "Bạn có chắc chắn phê duyệt đơn này?"
+  "i18nYouWantToApproveThisApplication" : "Bạn có chắc chắn phê duyệt đơn này?",
+  "i18nNotFullTimeOrPartTime" : "Bạn không thuộc diện nhân sự được phép đăng ký đơn",
+  "i18nOTInformation" : "Thông tin OT",
+  "i18nOTInformationList" : "Danh sách thông tin OT",
+  "i18nRate" : "Hệ số",
+  "i18nTotalHour" : "Tổng số giờ",
+  "i18nReadMore" : "Xem thêm",
+  "i18nClose" : "Đóng"
+
 }

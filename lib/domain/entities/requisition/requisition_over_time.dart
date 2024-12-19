@@ -10,7 +10,7 @@ class RequisitionOverTime {
   final DateTime? date;
   final int startTime;
   final int endTime;
-  final double suggestTime;
+  final int suggestTime;
   final String note;
   @JsonKey(unknownEnumValue: EnumOvertimeDay.unknown)
   final EnumOvertimeDay overtimeDay;
@@ -28,8 +28,7 @@ class RequisitionOverTime {
     this.rate = 0,
   });
 
-  factory RequisitionOverTime.fromJson(Map<String, dynamic> json) =>
-      _$RequisitionOverTimeFromJson(json);
+  factory RequisitionOverTime.fromJson(Map<String, dynamic> json) => _$RequisitionOverTimeFromJson(json);
 
   Map<String, dynamic> toJson() => _$RequisitionOverTimeToJson(this);
 }

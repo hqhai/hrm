@@ -1,4 +1,6 @@
+import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/gen/assets.gen.dart';
@@ -6,6 +8,8 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_state.dart';
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/dialog_requisition_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_over_time_widget.dart';
 import 'package:base_app/presentations/widgets/custom/app_icon_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,10 +41,7 @@ class ContentItemRequestFollowerList extends StatelessWidget {
                   request?.flowType.configTypeName ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: colors.text,
-                      fontSize: SpacingUnit.x4,
-                      fontWeight: FontWeight.w700),
+                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
                 ),
                 Icon(
                   Icons.chevron_right,
@@ -74,14 +75,22 @@ class ContentItemRequestFollowerList extends StatelessWidget {
             const SizedBox(
               height: SpacingUnit.x2,
             ),
+            request?.config.overTimes != null
+                ? RequisitionOverTimeBody(
+                    data: request!.config.overTimes!,
+                    onShowDialog: () {
+                      showCustomDialog(
+                        context: context,
+                        data: request.config.overTimes,
+                        onCancel: _cancelPop,
+                      );
+                    },
+                    // onCancel: _cancelPop(context),
+                  )
+                : const SizedBox(),
             AppIconStatus(
-              color: statusRequest(
-                  context: context,
-                  status:
-                      request?.status ?? StatusRequestEnum.process)['color'],
-              icon: statusRequest(
-                  context: context,
-                  status: request?.status ?? StatusRequestEnum.process)['icon'],
+              color: statusRequest(context: context, status: request?.status ?? StatusRequestEnum.process)['color'],
+              icon: statusRequest(context: context, status: request?.status ?? StatusRequestEnum.process)['icon'],
               status: request?.status.getAppLocalizationName ?? "",
             ),
           ],
@@ -90,8 +99,7 @@ class ContentItemRequestFollowerList extends StatelessWidget {
     );
   }
 
-  Map<String, dynamic> statusRequest(
-      {required BuildContext context, required StatusRequestEnum status}) {
+  Map<String, dynamic> statusRequest({required BuildContext context, required StatusRequestEnum status}) {
     final colors = AppTheme.getColors(context);
     switch (status) {
       case StatusRequestEnum.process:
@@ -133,4 +141,9 @@ class ContentItemRequestFollowerList extends StatelessWidget {
         return {};
     }
   }
+}
+
+_cancelPop() {
+  final currentContext = dI<AppNavigation>().navigatorKey.currentContext;
+  dI<AppNavigation>().pop(currentContext);
 }

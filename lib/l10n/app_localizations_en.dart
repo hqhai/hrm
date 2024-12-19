@@ -1,5 +1,7 @@
 import 'app_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for English (`en`).
 class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
@@ -2201,4 +2203,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get i18nYouWantToApproveThisApplication => 'Are you sure you want to approve this application?';
+
+  @override
+  String get i18nOTInformation => 'OT Information';
+
+  @override
+  String get i18nOTInformationList => 'OT Information List';
+
+  @override
+  String get i18nRate => 'Coefficient';
+
+  @override
+  String get i18nTotalHour => 'Total Hours';
+
+  @override
+  String get i18nReadMore => 'Read more';
+
+  @override
+  String get i18nClose => 'Close';
 }

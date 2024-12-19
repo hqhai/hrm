@@ -18,6 +18,8 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_cancel.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_process.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/dialog_requisition_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_over_time_widget.dart';
 import 'package:base_app/presentations/widgets/custom/app_icon_status.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
@@ -105,6 +107,18 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
                 status: widget.status.configStepRequestStatusName,
               ),
             ),
+            request.config.overTimes != null
+                ? RequisitionOverTimeBody(
+                    data: request.config.overTimes!,
+                    onShowDialog: () {
+                      showCustomDialog(
+                        context: context,
+                        data: request.config.overTimes,
+                        onCancel: _cancelPop,
+                      );
+                    },
+                  )
+                : const SizedBox(),
             if (statusApprove(request) == EnumStepRequestStatusEnum.newStatus)
               ItemRequestProcess(
                 callBackApprove: () => _isApprover(request, context, EnumStepRequestStatusEnum.approve, widget.status, widget.startDate, widget.endDate, widget.departmentId, widget.type, widget.userId),
@@ -133,7 +147,10 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
                 hiddenApproveButton: request.isFirstStep && request.isEdit,
               ),
             //if (checkFirstStepApprove(request))
-            if (request.isFirstStep && request.status == StatusRequestEnum.approve) ItemRequestCancel(callCancel: () => _showDialogCancelRequest(context)),
+            if (request.isFirstStep && request.status == StatusRequestEnum.approve)
+              ItemRequestCancel(
+                callCancel: () => _showDialogCancelRequest(context),
+              ),
           ],
         );
       },
@@ -428,4 +445,9 @@ class _ContentItemRequestApproveListState extends State<ContentItemRequestApprov
       approverUnsuccessful(context: currentContext, errorDialog: errorCodeDialog, title: appLocalizations.cancelFailed);
     }
   }
+}
+
+_cancelPop() {
+  final currentContext = dI<AppNavigation>().navigatorKey.currentContext;
+  dI<AppNavigation>().pop(currentContext);
 }
