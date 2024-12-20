@@ -16,10 +16,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final requisitionListPageRoute = GoRoute(
-    path: Pages.requisitionListPage,
-    name: Pages.requisitionListPage,
-    builder: (context, GoRouterState state) => const RequisitionListPage());
+final requisitionListPageRoute = GoRoute(path: Pages.requisitionListPage, name: Pages.requisitionListPage, builder: (context, GoRouterState state) => const RequisitionListPage());
 
 class RequisitionListPage extends StatefulWidget {
   const RequisitionListPage({super.key});
@@ -63,8 +60,8 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: colors.scaffoldBackground,
       appBar: AppBar(
@@ -109,6 +106,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
   }
 
   setStatus(StatusRequestEnum value) {
+    status = value;
     setState(() {
       filterData = filterData.copyWith(status: value);
     });
@@ -121,6 +119,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
       context: context,
       builder: (BuildContext context) {
         return FilterRequestSelfDialog(
+          statusPage: status,
           filter: filterData,
           sendData: (value) => _setFilters(value),
         );

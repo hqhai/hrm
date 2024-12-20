@@ -14,10 +14,11 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class FilterRequestSelfDialog extends StatefulWidget {
-  const FilterRequestSelfDialog({super.key, required this.sendData, this.filter});
+  const FilterRequestSelfDialog({super.key, required this.sendData, this.filter, required this.statusPage});
 
   final ValueChanged<FilterDialogModel> sendData;
   final FilterDialogModel? filter;
+  final StatusRequestEnum statusPage;
 
   @override
   State<FilterRequestSelfDialog> createState() => _FilterRequestSelfDialogState();
@@ -75,7 +76,9 @@ class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
             title1: appLocalizations.apply,
             title2: appLocalizations.cancel,
             apply: () => setApply(context),
-            reject: () => setReject(context),
+            reject: () => setReject(
+              context,
+            ),
           ),
         ],
       ),
@@ -101,7 +104,9 @@ class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
   }
 
   setReject(BuildContext context) {
-    widget.sendData.call(const FilterDialogModel());
+    widget.sendData.call(FilterDialogModel(
+      status: widget.statusPage,
+    ));
     popDialog(context);
   }
 
