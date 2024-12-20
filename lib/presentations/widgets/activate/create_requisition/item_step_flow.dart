@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemStepFlow extends StatelessWidget {
-  const ItemStepFlow(
-      {super.key,
-      this.nameUserApprove = '',
-      this.checkApprove = false,
-      this.isNotFirst = true,
-      this.note = ''});
+  const ItemStepFlow({
+    super.key,
+    this.nameUserApprove = '',
+    this.checkApprove = false,
+    this.isNotFirst = true,
+    this.note = '',
+  });
 
   final String note;
   final String nameUserApprove;
