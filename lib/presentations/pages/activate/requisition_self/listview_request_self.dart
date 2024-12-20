@@ -17,11 +17,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ListviewRequestSelf extends StatefulWidget {
-  const ListviewRequestSelf(
-      {super.key,
-      required this.onChangeStatus,
-      this.filterData = const FilterDialogModel(),
-      required this.checkLoad});
+  const ListviewRequestSelf({
+    super.key,
+    required this.onChangeStatus,
+    this.filterData = const FilterDialogModel(),
+    required this.checkLoad,
+  });
 
   final ValueChanged<StatusRequestEnum> onChangeStatus;
   final FilterDialogModel filterData;
@@ -38,8 +39,7 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerPr
 
   @override
   void initState() {
-    _tabController = TabController(length: StatusRequestEnum.values.length - 1, vsync: this)
-      ..addListener(_scrollListener);
+    _tabController = TabController(length: StatusRequestEnum.values.length - 1, vsync: this)..addListener(_scrollListener);
     super.initState();
   }
 
@@ -64,34 +64,24 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerPr
                   dividerHeight: 0.1,
                   indicatorColor: colors.textLight,
                   tabAlignment: TabAlignment.start,
-                  tabs: StatusRequestEnum.values
-                      .where((element) => element != StatusRequestEnum.unknown)
-                      .mapIndexed((index, status) {
+                  tabs: StatusRequestEnum.values.where((element) => element != StatusRequestEnum.unknown).mapIndexed((index, status) {
                     final isActive = index == _tabController.index;
                     return Tab(
                       child: Row(
                         children: [
                           Text(
                             status.getAppLocalizationName,
-                            style: TextStyle(
-                                fontWeight: isActive ? FontWeight.w600 : null,
-                                color: isActive ? colors.text : colors.text.withOpacity(0.5),
-                                fontSize: SpacingUnit.x3_5),
+                            style: TextStyle(fontWeight: isActive ? FontWeight.w600 : null, color: isActive ? colors.text : colors.text.withOpacity(0.5), fontSize: SpacingUnit.x3_5),
                           ),
                           BlocSelector<RequisitionBloc, RequisitionState, int>(
                             selector: (state) => state.statusCount[status] ?? 0,
                             builder: (context, state) => Chip(
                               padding: EdgeInsets.zero,
                               backgroundColor: colors.primary.withOpacity(0.3),
-                              shape: RoundedRectangleBorder(
-                                  side: const BorderSide(style: BorderStyle.none),
-                                  borderRadius: BorderRadius.circular(SpacingUnit.x6)),
+                              shape: RoundedRectangleBorder(side: const BorderSide(style: BorderStyle.none), borderRadius: BorderRadius.circular(SpacingUnit.x6)),
                               label: Text(
                                 countStatus(state),
-                                style: TextStyle(
-                                    fontSize: SpacingUnit.x3_5,
-                                    fontWeight: FontWeight.w400,
-                                    color: colors.primary),
+                                style: TextStyle(fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w400, color: colors.primary),
                               ),
                             ),
                           ),

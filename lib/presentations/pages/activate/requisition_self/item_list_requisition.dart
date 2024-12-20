@@ -51,10 +51,7 @@ class _ItemRequisitionListState extends State<ItemRequisitionList> {
               Opacity(
                 opacity: checkOpacity ? 1 : 0,
                 child: Center(
-                  child: Lottie.asset(Assets.images.icon.loading,
-                      width: SpacingUnit.x20,
-                      height: SpacingUnit.x20,
-                      fit: BoxFit.fill),
+                  child: Lottie.asset(Assets.images.icon.loading, width: SpacingUnit.x20, height: SpacingUnit.x20, fit: BoxFit.fill),
                 ),
               ),
               Opacity(
