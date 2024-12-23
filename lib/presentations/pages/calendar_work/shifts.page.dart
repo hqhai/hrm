@@ -7,7 +7,6 @@ import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/error_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/common/utils/toast_utils.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
@@ -53,6 +52,7 @@ class ShiftsPage extends StatefulWidget {
 class _ShiftsPageState extends State<ShiftsPage> {
   final TextEditingController reasonController = TextEditingController();
   String errorDialog = '';
+  String? errorTextField;
 
   _onBack() {
     Navigator.pop(context);
@@ -71,9 +71,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
     return BlocConsumer<WorkDayBloc, WorkDayState>(
       listener: (context, state) => _listener(context, state.errorCode),
       builder: (context, state) {
-        final index = state.workDays[date(state)]?.items
-                .indexWhere((element) => element.workShiftSettingDetailId == widget.id) ??
-            0;
+        final index = state.workDays[date(state)]?.items.indexWhere((element) => element.workShiftSettingDetailId == widget.id) ?? 0;
         final data = state.workDays[date(state)]?.items[index] ?? const Shift();
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -83,8 +81,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(
-                          left: SpacingUnit.x5, right: SpacingUnit.x5, bottom: SpacingUnit.x5),
+                      padding: const EdgeInsets.only(left: SpacingUnit.x5, right: SpacingUnit.x5, bottom: SpacingUnit.x5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -99,8 +96,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
                           const SizedBox(width: SpacingUnit.x4),
                           Text(
                             appLocalizations.registerShift,
-                            style:
-                                theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
+                            style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -119,24 +115,25 @@ class _ShiftsPageState extends State<ShiftsPage> {
                   ShiftsContentWidget(
                     data: data,
                   ),
-                  if (data.status != WorkShiftRequestStatus.usable &&
-                      data.status != WorkShiftRequestStatus.unusable &&
-                      data.status != WorkShiftRequestStatus.pending)
+                  if (data.status != WorkShiftRequestStatus.usable && data.status != WorkShiftRequestStatus.unusable && data.status != WorkShiftRequestStatus.pending)
                     ShiftReasonWidget(
                       reasonController: reasonController,
                       data: data,
                       title: mapByStatus(context: context, status: data.status)['titleReason'],
+                      errorTextField: errorTextField,
                     ),
                   const Spacer(),
                   if (checkType(data.status))
                     AppButton(
                       colorText: Colors.white,
-                      title:
-                          mapByStatus(context: context, status: data.status)['titleButton'] ?? '',
+                      title: mapByStatus(context: context, status: data.status)['titleButton'] ?? '',
                       onSubmit: () {
-                        if (data.status == WorkShiftRequestStatus.usable ||
-                            data.status == WorkShiftRequestStatus.reject ||
-                            data.status == WorkShiftRequestStatus.cancel) {
+                        if (reasonController.text.trim().isEmpty) {
+                          setState(() {
+                            errorTextField = appLocalizations.cannotBeLeftBlank;
+                          });
+                        }
+                        if (data.status == WorkShiftRequestStatus.usable || data.status == WorkShiftRequestStatus.reject || data.status == WorkShiftRequestStatus.cancel) {
                           _register(
                             context: context,
                             map: state.workDays,
@@ -148,8 +145,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
                                 ),
                               ),
                             ],
-                            titlePopUp:
-                                mapByStatus(context: context, status: data.status)['success'] ?? '',
+                            titlePopUp: mapByStatus(context: context, status: data.status)['success'] ?? '',
                           );
                         } else {
                           onSubmit(
@@ -158,14 +154,12 @@ class _ShiftsPageState extends State<ShiftsPage> {
                             note: reasonController.text,
                             id: data.id,
                             map: state.workDays,
-                            titlePopUp:
-                                mapByStatus(context: context, status: data.status)['success'] ?? '',
+                            titlePopUp: mapByStatus(context: context, status: data.status)['success'] ?? '',
                             errorCode: state.errorCode,
                           );
                         }
                       },
-                      color: mapByStatus(context: context, status: data.status)['color'] ??
-                          Colors.transparent,
+                      color: mapByStatus(context: context, status: data.status)['color'] ?? Colors.transparent,
                     ),
                 ],
               ),
@@ -190,26 +184,11 @@ class _ShiftsPageState extends State<ShiftsPage> {
     final appLocalizations = AppLocalizations.of(context)!;
     switch (status) {
       case WorkShiftRequestStatus.pending:
-        return {
-          'color': colors.error,
-          'titleButton': appLocalizations.cancelShiftReceiveRegistration,
-          'success': appLocalizations.cancelShiftSuccess1,
-          'titleReason': null
-        };
+        return {'color': colors.error, 'titleButton': appLocalizations.cancelShiftReceiveRegistration, 'success': appLocalizations.cancelShiftSuccess1, 'titleReason': null};
       case WorkShiftRequestStatus.approve:
-        return {
-          'color': colors.error,
-          'titleButton': appLocalizations.cancelShift1,
-          'success': appLocalizations.cancelShiftSuccess,
-          'titleReason': null
-        };
+        return {'color': colors.error, 'titleButton': appLocalizations.cancelShift1, 'success': appLocalizations.cancelShiftSuccess, 'titleReason': null};
       case WorkShiftRequestStatus.pendingCancel:
-        return {
-          'color': colors.error,
-          'titleButton': appLocalizations.cancelShift2,
-          'success': appLocalizations.cancelCancelShiftSuccess,
-          'titleReason': null
-        };
+        return {'color': colors.error, 'titleButton': appLocalizations.cancelShift2, 'success': appLocalizations.cancelCancelShiftSuccess, 'titleReason': null};
       case WorkShiftRequestStatus.usable:
         return {
           'color': colors.blue,
@@ -219,12 +198,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
       case WorkShiftRequestStatus.reject:
         return {'titleReason': appLocalizations.reasonForRejection};
       case WorkShiftRequestStatus.cancel:
-        return {
-          'color': colors.blue,
-          'titleButton': appLocalizations.registerForShifts,
-          'success': appLocalizations.registeredShiftSuccessfully,
-          'titleReason': appLocalizations.reasonCancelShift
-        };
+        return {'color': colors.blue, 'titleButton': appLocalizations.registerForShifts, 'success': appLocalizations.registeredShiftSuccessfully, 'titleReason': appLocalizations.reasonCancelShift};
       case WorkShiftRequestStatus.remove:
         return {'titleReason': appLocalizations.reasonForRemove};
       case WorkShiftRequestStatus.unusable:
@@ -242,13 +216,10 @@ class _ShiftsPageState extends State<ShiftsPage> {
     required String titlePopUp,
     required String errorCode,
   }) async {
-    final appLocalizations = AppLocalizations.of(context)!;
-    if (reasonController.text.trim().isNotEmpty ||
-        status == WorkShiftRequestStatus.pending ||
-        status == WorkShiftRequestStatus.pendingCancel) {
+    // final appLocalizations = AppLocalizations.of(context)!;
+    if (reasonController.text.trim().isNotEmpty || status == WorkShiftRequestStatus.pending || status == WorkShiftRequestStatus.pendingCancel) {
       Completer completer = Completer<bool>();
-      dI<WorkDayBloc>().add(CancelRegisterWorkDay(
-          completer: completer, data: CancelWorkDayRequest(note: note, id: id)));
+      dI<WorkDayBloc>().add(CancelRegisterWorkDay(completer: completer, data: CancelWorkDayRequest(note: note, id: id)));
       bool isCheck = await completer.future;
       if (isCheck) {
         dI<WorkDayBloc>().add(GetWorkDaysEvent(startDate: map.keys.first, endDate: map.keys.last));
@@ -259,15 +230,12 @@ class _ShiftsPageState extends State<ShiftsPage> {
           }
         }
       }
-    } else {
-      ToastUtils().showError(appLocalizations.reasonCannotBeLeftBlank);
     }
   }
 
   _listener(BuildContext context, String errorCode) {
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
     });
   }
 
