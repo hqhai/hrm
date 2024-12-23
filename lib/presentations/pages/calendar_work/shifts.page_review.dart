@@ -63,6 +63,7 @@ class ShiftsPageReview extends StatefulWidget {
 class _ShiftsPageReviewState extends State<ShiftsPageReview> {
   final TextEditingController reasonController = TextEditingController();
   String errorDialog = '';
+  String? errorTextField;
 
   _onBack() {
     Navigator.pop(context);
@@ -98,10 +99,8 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
           if (check) {
             if (!currentContext.mounted) return;
             _onBack();
-            dialogSuccess(
-                context: currentContext,
-                title: mapByStatus(status: status, context: currentContext)['success'] ?? "",
-                isPop: false);
+
+            dialogSuccess(context: currentContext, title: mapByStatus(status: status, context: currentContext)['success'] ?? "", isPop: false);
           }
         }
       }
@@ -127,10 +126,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
         if (check) {
           if (!currentContext.mounted) return;
           _onBack();
-          dialogSuccess(
-              context: currentContext,
-              title: mapByStatus(status: status, context: currentContext)['success'] ?? "",
-              isPop: false);
+          dialogSuccess(context: currentContext, title: mapByStatus(status: status, context: currentContext)['success'] ?? "", isPop: false);
         }
       }
     }
@@ -138,15 +134,11 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
 
   _listener(BuildContext context, String errorCode) {
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
     });
   }
 
-  _register(
-      {required List<WorkDayRequest> workDays,
-      required BuildContext context,
-      required Map<DateTime, WorkDay> map}) async {
+  _register({required List<WorkDayRequest> workDays, required BuildContext context, required Map<DateTime, WorkDay> map}) async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     Completer completer = Completer<bool>();
     dI<WorkDayBloc>().add(RegisterWorkDay(request: workDays, completer: completer));
@@ -168,12 +160,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
       if (checkGetWorkDay) {
         if (!currentContext.mounted) return;
         _onBack();
-        dialogSuccess(
-            context: currentContext,
-            title: mapByStatus(
-                    status: WorkShiftRequestStatus.usable, context: currentContext)['success'] ??
-                "",
-            isPop: false);
+        dialogSuccess(context: currentContext, title: mapByStatus(status: WorkShiftRequestStatus.usable, context: currentContext)['success'] ?? "", isPop: false);
       }
     }
     dI<WorkDayBloc>().add(const ChangeLoading(status: true));
@@ -187,7 +174,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
     return BlocConsumer<WorkDayBloc, WorkDayState>(
       listener: (context, state) => _listener(context, state.errorCode),
       builder: (context, state) {
-        final data= state.items.singleWhere((element) => element.id == widget.id);
+        final data = state.items.singleWhere((element) => element.id == widget.id);
         int index = listStatus.indexWhere((item) => item == data.status);
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -216,8 +203,7 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                           const SizedBox(width: SpacingUnit.x4),
                           Text(
                             appLocalizations.shiftDetails,
-                            style:
-                                theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
+                            style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -240,17 +226,15 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                         _ShiftsContentWidget(
                           data: data,
                         ),
-                        data.status == WorkShiftRequestStatus.approve ||
-                                data.status == WorkShiftRequestStatus.cancel ||
-                                data.status == WorkShiftRequestStatus.reject
+                        data.status == WorkShiftRequestStatus.approve || data.status == WorkShiftRequestStatus.cancel || data.status == WorkShiftRequestStatus.reject
                             ? ReasonWorkDayDetail(
                                 reasonController: reasonController,
-                                data: data.workShiftApproves.isNotEmpty
-                                    ? data.workShiftApproves.first.content
-                                    : '',
+                                data: data.workShiftApproves.isNotEmpty ? data.workShiftApproves.first.content : '',
                                 status: data.status,
+                                errorTextField: errorTextField,
                               )
                             : const SizedBox(),
+                        const SizedBox(height: SpacingUnit.x1),
                         Divider(
                           color: colors.textTertiary,
                           height: SpacingUnit.x0_25,
@@ -281,12 +265,14 @@ class _ShiftsPageReviewState extends State<ShiftsPageReview> {
                     padding: const EdgeInsets.all(SpacingUnit.x4),
                     child: AppButton(
                       colorText: Colors.white,
-                      title:
-                          mapByStatus(context: context, status: data.status)['titleButton'] ?? "",
+                      title: mapByStatus(context: context, status: data.status)['titleButton'] ?? "",
                       onSubmit: () {
-                        if (data.status == WorkShiftRequestStatus.cancel ||
-                            data.status == WorkShiftRequestStatus.reject ||
-                            data.status == WorkShiftRequestStatus.usable) {
+                        if (reasonController.text.trim().isEmpty) {
+                          setState(() {
+                            errorTextField = appLocalizations.cannotBeLeftBlank;
+                          });
+                        }
+                        if (data.status == WorkShiftRequestStatus.cancel || data.status == WorkShiftRequestStatus.reject || data.status == WorkShiftRequestStatus.usable) {
                           _register(context: context, map: state.workDays, workDays: [
                             WorkDayRequest(
                               workShiftSettingDetailId: data.workShiftSettingDetailId,
@@ -379,8 +365,7 @@ class _ShiftsContentWidget extends StatelessWidget {
           padding: SpacingUnit.x2,
           font: FontWeight.w700,
           title: appLocalizations.validTimeKeeping,
-          value:
-              '${strSeconds(data.checkInStartTimeValid) ?? ''} - ${strSeconds(data.checkOutEndTimeValid) ?? ''}',
+          value: '${strSeconds(data.checkInStartTimeValid) ?? ''} - ${strSeconds(data.checkOutEndTimeValid) ?? ''}',
         ),
       ],
     );
@@ -441,19 +426,14 @@ class _Item extends StatelessWidget {
     final isCheck = index < statusIndex;
     return Row(
       children: [
-        Icon(Icons.radio_button_checked,
-            color: isCheck
-                ? ColorUtils.parseHex("#B2B7BC")
-                : setColor(context: context, status: status)),
+        Icon(Icons.radio_button_checked, color: isCheck ? ColorUtils.parseHex("#B2B7BC") : setColor(context: context, status: status)),
         const SizedBox(width: SpacingUnit.x2),
         Text(
           status.configWorkShiftRequestStatusName,
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: SpacingUnit.x4,
-            color: isCheck
-                ? ColorUtils.parseHex("#B2B7BC")
-                : setColor(context: context, status: status),
+            color: isCheck ? ColorUtils.parseHex("#B2B7BC") : setColor(context: context, status: status),
           ),
         ),
       ],
@@ -467,8 +447,7 @@ class _ItemLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-          left: SpacingUnit.x2_5, top: SpacingUnit.x1, bottom: SpacingUnit.x1),
+      margin: const EdgeInsets.only(left: SpacingUnit.x2_5, top: SpacingUnit.x1, bottom: SpacingUnit.x1),
       width: SpacingUnit.x0_5,
       height: SpacingUnit.x6,
       color: ColorUtils.parseHex("#B2B7BC"),
