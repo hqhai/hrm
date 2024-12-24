@@ -437,7 +437,7 @@ class _RegisterWorkDayAdminDetailState
         return Column(
           children: [
             Text(
-              "${appLocalizations.time}: ${strSeconds(data.startTime)} - ${strSeconds(data.endTime)} ${formatDMY(data.workDate.toString())}",
+              "${appLocalizations.time}: ${strSeconds(data.startTime)} - ${strSeconds(data.endTime)} ${formatDMY(widget.workDate.toString())}",
               style: theme.textTheme.bodyLarge,
             ),
             const SizedBox(height: SpacingUnit.x2),

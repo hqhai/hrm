@@ -2127,7 +2127,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get reasonForRemove => 'Lý do bị gỡ khỏi ca';
 
   @override
-  String get mapLocation => 'Vi Trí';
+  String get mapLocation => 'Vị trí';
 
   @override
   String get reasonCannotBeLeftBlank => 'Lý do không được bỏ trống';

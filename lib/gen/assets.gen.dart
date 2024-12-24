@@ -112,6 +112,10 @@ class $AssetsImagesIconGen {
   /// File path: assets/images/icon/home.svg
   String get homeSvg => 'assets/images/icon/home.svg';
 
+  /// File path: assets/images/icon/ic_my_position.png
+  AssetGenImage get icMyPosition =>
+      const AssetGenImage('assets/images/icon/ic_my_position.png');
+
   /// File path: assets/images/icon/icon_loaction.png
   AssetGenImage get iconLoaction =>
       const AssetGenImage('assets/images/icon/icon_loaction.png');
@@ -154,6 +158,7 @@ class $AssetsImagesIconGen {
         attendance,
         circularProgressIndicator,
         homeSvg,
+        icMyPosition,
         iconLoaction,
         imgFsel,
         imgHoangNgan,
