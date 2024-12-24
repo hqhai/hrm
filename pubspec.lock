@@ -602,6 +602,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.19"
+  flutter_polyline_points:
+    dependency: "direct main"
+    description:
+      name: flutter_polyline_points
+      sha256: "0e07862139cb65a88789cd6efbe284c0b6f1fcb5ed5ec87781759c48190d84b9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -892,14 +900,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.1.5"
+  image:
+    dependency: transitive
+    description:
+      name: image
+      sha256: "2237616a36c0d69aef7549ab439b833fb7f9fb9fc861af2cc9ac3eedddd69ca8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
   image_picker:
     dependency: "direct main"
     description:
       name: image_picker
-      sha256: "021834d9c0c3de46bf0fe40341fa07168407f694d9b2bb18d532dc1261867f7a"
+      sha256: "1f498d086203360cca099d20ffea2963f48c39ce91bdd8a3b6d4a045786b02c8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2"
+    version: "1.0.8"
   image_picker_android:
     dependency: transitive
     description:
@@ -944,10 +960,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_platform_interface
-      sha256: "9ec26d410ff46f483c5519c29c02ef0e02e13a543f882b152d4bfd2f06802f80"
+      sha256: fa4e815e6fcada50e35718727d83ba1c92f1edf95c0b4436554cec301b56233b
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.0"
+    version: "2.9.3"
   image_picker_windows:
     dependency: transitive
     description:
@@ -1132,6 +1148,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  maplibre_gl:
+    dependency: "direct main"
+    description:
+      name: maplibre_gl
+      sha256: "9dd9eebee52f42a45aaa9cdb912afa47845c37007b26a799aa482ecd368804c8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.0+2"
+  maplibre_gl_platform_interface:
+    dependency: transitive
+    description:
+      name: maplibre_gl_platform_interface
+      sha256: a95fa38a3532253f32dfe181389adfe9f402773e58ac902d9c4efad3209e0903
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.0+2"
+  maplibre_gl_web:
+    dependency: transitive
+    description:
+      name: maplibre_gl_web
+      sha256: "7f1540b384f16f3c9bc8b4ebdfca96fb07f6dab5d9ef4dd0e102985dba238691"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.0+2"
   matcher:
     dependency: transitive
     description:
@@ -1856,5 +1896,5 @@ packages:
     source: hosted
     version: "1.4.3"
 sdks:
-  dart: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.0"
+  dart: ">=3.2.0 <4.0.0"
+  flutter: ">=3.16.0"

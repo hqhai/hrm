@@ -26,6 +26,7 @@ import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
@@ -81,32 +82,32 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _determinePosition({required BuildContext context}) async {
     ///TODO: sau neu can map chi duong thi mo
-    // bool serviceEnabled;
-    // LocationPermission permission;
-    // serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    // if (!serviceEnabled) {
-    //   return Future.error('Location services are disabled.');
-    // }
-    //
-    // permission = await Geolocator.checkPermission();
-    // if (permission == LocationPermission.denied) {
-    //   LocationPermission newPermission = await Geolocator.requestPermission();
-    //   if (newPermission == LocationPermission.denied) {
-    //     await Geolocator.openLocationSettings();
-    //     return Future.error('Location permissions are denied');
-    //   }
-    // }
-    // if (permission == LocationPermission.deniedForever) {
-    //   permission = await Geolocator.requestPermission();
-    //   return Future.error(
-    //       'Location permissions are permanently denied, we cannot request permissions.');
-    // }
-    // if (context.mounted) {
-    dI<AppNavigation>().push(
-      context,
-      page: Pages.mapLocation,
-    );
-    // }
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      LocationPermission newPermission = await Geolocator.requestPermission();
+      if (newPermission == LocationPermission.denied) {
+        await Geolocator.openLocationSettings();
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      permission = await Geolocator.requestPermission();
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    if (context.mounted) {
+      dI<AppNavigation>().push(
+        context,
+        page: Pages.mapLocation,
+      );
+    }
   }
 
   void logoutFunction() {
@@ -178,36 +179,19 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  if (dI<AuthBloc>().state.status !=
-                                      AuthStatus.ignoreLogin)
-                                    ...MenuValues.menuUserSystemValues(context)
-                                        .asMap()
-                                        .entries
-                                        .map(
-                                          (entry) => SideMenuTile(
-                                            text: entry.value['text'],
-                                            checkSelect: selectedIndexSystem ==
-                                                entry.key,
-                                            icon: entry.value['icon'],
-                                            onTap: () => selectedIndexFunction(
-                                                entry, context),
-                                          ),
+                                  ...MenuValues.menuGuestValues(context)
+                                      .asMap()
+                                      .entries
+                                      .map(
+                                        (entry) => SideMenuTile(
+                                          text: entry.value['text'],
+                                          checkSelect:
+                                              selectedIndexSystem == entry.key,
+                                          icon: entry.value['icon'],
+                                          onTap: () => selectedIndexFunction(
+                                              entry, context),
                                         ),
-                                  if (dI<AuthBloc>().state.status ==
-                                      AuthStatus.ignoreLogin)
-                                    ...MenuValues.menuGuestValues(context)
-                                        .asMap()
-                                        .entries
-                                        .map(
-                                          (entry) => SideMenuTile(
-                                            text: entry.value['text'],
-                                            checkSelect: selectedIndexSystem ==
-                                                entry.key,
-                                            icon: entry.value['icon'],
-                                            onTap: () => selectedIndexFunction(
-                                                entry, context),
-                                          ),
-                                        ),
+                                      ),
                                   if (dI<AuthBloc>().state.status ==
                                       AuthStatus.ignoreLogin)
                                     SideMenuTile(
