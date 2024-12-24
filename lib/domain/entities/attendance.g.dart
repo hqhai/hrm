@@ -361,8 +361,8 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) {
   writeNotNull('userId', instance.userId);
   val['actualRate'] = instance.actualRate;
   val['leaveRate'] = instance.leaveRate;
-  val['holidayRate'] = instance.holidayRate;
   val['compensatoryLeaveRate'] = instance.compensatoryLeaveRate;
+  val['holidayRate'] = instance.holidayRate;
   val['noSalaryRate'] = instance.noSalaryRate;
   val['overTime'] = instance.overTime;
   val['overTimeRate'] = instance.overTimeRate;
