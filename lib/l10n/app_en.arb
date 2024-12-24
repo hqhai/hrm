@@ -736,5 +736,7 @@
   "i18nRate" : "Coefficient",
   "i18nTotalHour" : "Total Hours",
   "i18nReadMore" : "Read more",
-  "i18nClose" : "Close"
+  "i18nClose" : "Close",
+  "i18nTokenExpired": "Your session has expired. Please log in again to continue."
+
 }

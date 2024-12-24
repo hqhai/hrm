@@ -151,12 +151,12 @@ class _ActivateWidgetState extends State<ActivateWidget> {
     final checkDepartment = await completer.future;
     if (check && checkDepartment) {
       if (!currentContext.mounted) return;
-      dI<AppNavigation>().pop(context);
+      dI<AppNavigation>().pop(currentContext);
       dI<AppNavigation>()
-          .pushName(currentContext, page: Pages.requisitionApproveListPage);
+          .push(currentContext, page: Pages.requisitionApproveListPage);
     } else {
       if (!currentContext.mounted) return;
-      dI<AppNavigation>().pop(context);
+      dI<AppNavigation>().pop(currentContext);
       dialogNoConnection(context: currentContext);
     }
   }

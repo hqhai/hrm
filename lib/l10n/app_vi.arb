@@ -734,6 +734,8 @@
   "i18nRate" : "Hệ số",
   "i18nTotalHour" : "Tổng số giờ",
   "i18nReadMore" : "Xem thêm",
-  "i18nClose" : "Đóng"
+  "i18nClose" : "Đóng",
+  "i18nTokenExpired": "Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại để tiếp tục."
+
 
 }

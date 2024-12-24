@@ -65,17 +65,17 @@ class _SeeListRequisitionPageState extends State<SeeListRequisitionPage> {
     if (check) {
       if (!currentContext.mounted) return;
       dI<AppNavigation>()
-          .pushName(currentContext, page: Pages.requisitionListPage);
+          .push(currentContext, page: Pages.requisitionListPage);
     }
   }
 
   _nextRequisitionApproveListScreen(BuildContext context) {
     dI<AppNavigation>()
-        .pushName(context, page: Pages.requisitionApproveListPage);
+        .push(context, page: Pages.requisitionApproveListPage);
   }
 
   _nextRequisitionFollowerListScreen(BuildContext context) {
     dI<AppNavigation>()
-        .pushName(context, page: Pages.requisitionFollowerListPage);
+        .push(context, page: Pages.requisitionFollowerListPage);
   }
 }

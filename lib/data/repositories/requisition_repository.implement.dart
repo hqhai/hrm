@@ -7,6 +7,7 @@ import 'package:base_app/data/models/requisition/requisition/request/get_request
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/get_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/approve_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/approves_step_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_request.dart';
@@ -145,5 +146,10 @@ class RequisitionRepositoryImplement extends RequisitionRepository {
     return await _requestService.getRequestsByIds(
       getRequestsByIds: GetRequestsByIds(ids: ids),
     );
+  }
+
+  @override
+  Future<bool> approveRequisitions({required ApprovesStepRequest approvesStepRequest}) {
+    return _requestService.approveRequisitions(approvesStepRequest: approvesStepRequest);
   }
 }

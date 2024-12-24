@@ -33,6 +33,8 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
   late final TabController _tabController;
   bool checkLoad = true;
 
+
+
   @override
   void initState() {
     _tabController = TabController(
@@ -162,6 +164,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
         userIds: widget.filterData.user?.code,
       ),
     );
+    dI<RequisitionApproveBloc>().add(const ResetAllIdRequisitionApproveEvent());
     final check = await completer.future;
     if (check) {
       setState(() {

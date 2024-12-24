@@ -3,6 +3,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/approves_step_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
 import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
@@ -125,5 +126,10 @@ class RequisitionUseCaseImpl extends RequisitionUseCase {
   @override
   Future<RequestsResponse> getRequestsByIds({required List<String> ids}) async {
     return await _requisitionRepository.getRequestsByIds(ids: ids);
+  }
+
+  @override
+  Future<bool> approveRequisitions({required ApprovesStepRequest approvesStepRequest}) async {
+    return await _requisitionRepository.approveRequisitions(approvesStepRequest: approvesStepRequest);
   }
 }

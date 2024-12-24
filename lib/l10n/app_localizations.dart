@@ -4496,6 +4496,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close'**
   String get i18nClose;
+
+  /// No description provided for @i18nTokenExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Please log in again to continue.'**
+  String get i18nTokenExpired;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

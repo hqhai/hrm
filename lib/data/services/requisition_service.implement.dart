@@ -10,6 +10,7 @@ import 'package:base_app/data/models/requisition/requisition/post_request_reques
 import 'package:base_app/data/models/requisition/requisition/request/get_requests_by_ids.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/approve_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/approves_step_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/cancel_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
@@ -216,5 +217,15 @@ class RequisitionServiceImpl extends BaseService implements RequisitionService {
       debugPrint('🔎 : $ex ❗️');
       rethrow;
     }
+  }
+
+  @override
+  Future<bool> approveRequisitions({required ApprovesStepRequest approvesStepRequest}) async {
+    final url = '$baseUrl${PathConfig.stepRequestApprovers}';
+    final body = jsonEncode(approvesStepRequest.toJson());
+    final response = await client.put(url, body: body);
+    final responseBase = ResponseBase.fromJson(json.decode(response.body));
+    final data = responseBase.result;
+    return data as bool;
   }
 }

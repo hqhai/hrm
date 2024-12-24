@@ -14,8 +14,7 @@ Map errorResponse() {
     "NameAlreadyExist": appLocalizations.nameAlreadyExist,
     "ThisDepartmentAlreadyExistFlow": appLocalizations.thisDepartmentAlreadyExistFlow,
     "ThisPositionAlreadyExistFlow": appLocalizations.thisPositionAlreadyExistFlow,
-    "ThisDepartmentPositionAlreadyExistFlow":
-        appLocalizations.thisDepartmentPositionAlreadyExistFlow,
+    "ThisDepartmentPositionAlreadyExistFlow": appLocalizations.thisDepartmentPositionAlreadyExistFlow,
     "ThisUserAlreadyExistFlow": appLocalizations.thisUserAlreadyExistFlow,
     "TypeAlreadyHasStepFlow": appLocalizations.typeAlreadyHasStepFlow,
     "ThisFlowAlreadyExistsRequest": appLocalizations.thisFlowAlreadyExistsRequest,
@@ -37,12 +36,10 @@ Map errorResponse() {
     "CurrentStatusIsNotProcessOrEdit": appLocalizations.currentStatusIsNotProcessOrEdit,
     "EndDateGreaterThanStartDate": appLocalizations.endDateGreaterThanStartDate,
     "EmployeeNotFullTimeOrPartTime": appLocalizations.employeeNotFullTimeOrPartTime,
-    "UserIdAndPositionIdCannotExistSameTime":
-        appLocalizations.userIdAndPositionIdCannotExistSameTime,
+    "UserIdAndPositionIdCannotExistSameTime": appLocalizations.userIdAndPositionIdCannotExistSameTime,
     "UserIdOrPositionIdCanNotNull": appLocalizations.userIdOrPositionIdCanNotNull,
     "FlowDoesNotHaveEnoughComponents": appLocalizations.flowDoesNotHaveEnoughComponents,
-    "IfStepTypeStartOrEndNoUserIdPositionIdDepartmentId":
-        appLocalizations.ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId,
+    "IfStepTypeStartOrEndNoUserIdPositionIdDepartmentId": appLocalizations.ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId,
     "CurrentStatusNotNew": appLocalizations.currentStatusNotNew,
     "NameStepFlowNotNull": appLocalizations.nameStepFlowNotNull,
     "DataNotNull": appLocalizations.dataNotNull,
@@ -74,11 +71,11 @@ Map errorResponse() {
     "DuplicateTaxNumber": appLocalizations.duplicateTaxNumber,
     "DuplicateBankAccountNumber": appLocalizations.duplicateBankAccountNumber,
     "TimeSlotAlreadyPleaseChooseAnother": appLocalizations.timeSlotAlreadyPleaseChooseAnother,
-    "TheNumberOfFormsCreatedHasExceededTheLimit":
-        appLocalizations.theNumberOfFormsCreatedHasExceededTheLimit,
+    "TheNumberOfFormsCreatedHasExceededTheLimit": appLocalizations.theNumberOfFormsCreatedHasExceededTheLimit,
     "DistanceNotEnough": "DistanceNotEnough",
     "UserNameNotExist": appLocalizations.userDoesNotExist,
-    "TheTotalNumberOfLeaveIsNotEnough": appLocalizations.theTotalNumberOfLeaveIsNotEnough
+    "TheTotalNumberOfLeaveIsNotEnough": appLocalizations.theTotalNumberOfLeaveIsNotEnough,
+    "TokenExpired": appLocalizations.i18nTokenExpired
   };
 }
 
