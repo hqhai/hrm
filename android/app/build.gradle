@@ -65,6 +65,26 @@ android {
          
     }
 
+    flavorDimensions "app"
+    productFlavors {
+        production {
+            flavorDimensions "app"
+            signingConfig signingConfigs.release
+        }
+        staging {
+            flavorDimensions "app"
+            applicationIdSuffix ".staging"
+            signingConfig signingConfigs.release
+            versionNameSuffix "-staging"
+        }
+        uat {
+            flavorDimensions "app"
+            signingConfig signingConfigs.release
+            applicationIdSuffix ".uat"
+            versionNameSuffix "-uat"
+        }
+    }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release

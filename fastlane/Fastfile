@@ -71,8 +71,9 @@ platform :android do
 
   desc "Deploy a new version to the App Center"
   lane :publish_appcenter do |options|
-    #TODO fastlane lane env 
-      pathApk = "./build/app/outputs/flutter-apk/app-release.apk"
+    #TODO fastlane lane env
+      env = options[:env]
+      pathApk = "./build/app/outputs/flutter-apk/app-"+env+"-release.apk"
       puts "pathApk = " + pathApk
       apiToken = "1e147a9c50de6a7ccbda935b8968be79559104fe"
       appName = "HRM"

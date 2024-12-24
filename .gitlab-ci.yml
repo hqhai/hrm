@@ -10,7 +10,8 @@
 stages:
   - test
   - build_testing
-  # - build_beta
+  - build_beta
+  - build_production
 # manual_only_build_android_uat:
 #   extends: .build_android_testing
 #   only:
@@ -23,7 +24,7 @@ manual_build_android_uat:
     - web
   except:
     variables:
-      - $ENV == "auto"
+      - $ENV != "uat"
 
 manual_build_ios_uat:
   extends: .build_ios_testing
@@ -31,7 +32,40 @@ manual_build_ios_uat:
     - web
   except:
     variables:
-      - $ENV == "auto"
+      - $ENV != "uat"
+
+manual_android_staging:
+  extends: .build_android_staging
+  only:
+    - web
+  except:
+    variables:
+      - $ENV != "staging"
+
+manual_ios_staging:
+  extends: .build_ios_staging
+  only:
+    - web
+  except:
+    variables:
+      - $ENV != "staging"
+
+manual_android_production:
+  extends: .build_android_production
+  only:
+    - web
+  except:
+    variables:
+      - $ENV != "production"
+
+manual_ios_production:
+  extends: .build_ios_production
+  only:
+    - web
+  except:
+    variables:
+      - $ENV != "production"
+
 
 .build_android_testing:
   tags:
@@ -39,7 +73,7 @@ manual_build_ios_uat:
   stage: build_testing
   variables:
     SECURE_FILES_DOWNLOAD_PATH: './android/app/'
-  needs: []
+  needs: [ ]
   retry: 2
   script:
     - export LANG=en_US.UTF-8
@@ -48,14 +82,74 @@ manual_build_ios_uat:
     - eval "$(/opt/homebrew/bin/brew shellenv)"
     - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
     - make clean
-    - make build-apk
+    - make build-apk-uat
     - fastlane android publish_appcenter env:uat
 
 .build_ios_testing:
   tags:
     - flutter
   stage: build_testing
-  needs: []
+  needs: [ ]
+  retry: 2
+  script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US.UTF-8
+    - export LC_ALL=en_US.UTF-8
+    - eval "$(/opt/homebrew/bin/brew shellenv)"
+    - make clean
+    - make build-ipa-uat
+    - fastlane ios publish_appcenter env:uat
+
+.build_android_staging:
+  tags:
+    - flutter
+  stage: build_beta
+  needs: [ ]
+  retry: 2
+  script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US.UTF-8
+    - export LC_ALL=en_US.UTF-8
+    - eval "$(/opt/homebrew/bin/brew shellenv)"
+    - make clean
+    - make build-apk-staging
+    - fastlane android publish_appcenter env:staging
+
+.build_ios_staging:
+  tags:
+    - flutter
+  stage: build_beta
+  needs: [ ]
+  retry: 2
+  script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US.UTF-8
+    - export LC_ALL=en_US.UTF-8
+    - eval "$(/opt/homebrew/bin/brew shellenv)"
+    - make clean
+    - make build-ipa-staging
+    - fastlane ios publish_appcenter env:staging
+
+.build_android_production:
+  tags:
+    - flutter
+  stage: build_production
+  needs: [ ]
+  retry: 2
+  script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US.UTF-8
+    - export LC_ALL=en_US.UTF-8
+    - eval "$(/opt/homebrew/bin/brew shellenv)"
+    - make clean
+    - make build-apk-production
+    - fastlane android publish_appcenter env:production
+
+.build_ios_production:
+  tags:
+    - flutter
+  stage: build_production
+  needs: [ ]
   retry: 2
   script:
     - export LANG=en_US.UTF-8
@@ -64,8 +158,7 @@ manual_build_ios_uat:
     - eval "$(/opt/homebrew/bin/brew shellenv)"
     - make clean
     - make build-ipa
-    - fastlane ios publish_appcenter env:uat
-
+    - fastlane ios publish_appcenter env:production
 test:
   tags:
     - flutter

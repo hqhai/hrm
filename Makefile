@@ -29,26 +29,54 @@ init:
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
 
 	
-.PHONY: build-apk
-build-apk:
+.PHONY: build-apk-uat
+build-apk-uat:
 	bash scripts/appendGitEnvs.sh
 	$(FLUTTER) pub get
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
-	$(FLUTTER) build apk -t lib/main.uat.dart
+	$(FLUTTER) build apk --flavor uat -t lib/main.uat.dart -v
+
+.PHONY: build-apk-staging
+build-apk-staging:
+	bash scripts/appendGitEnvs.sh
+	$(FLUTTER) pub get
+	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+	$(FLUTTER) build apk --flavor staging -t lib/main.staging.dart --verbose
+
+.PHONY: build-apk-production
+build-apk-production:
+	bash scripts/appendGitEnvs.sh
+	$(FLUTTER) pub get
+	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+	$(FLUTTER) build apk --flavor production --release -v
 
 .PHONY: release-apk
 release-apk:
 	bash scripts/appendGitEnvs.sh
 	$(FLUTTER) pub get
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
-	$(FLUTTER) build appbundle -t lib/main.uat.dart --release -v
+	$(FLUTTER) build appbundle --flavor production -t lib/main.dart --release -v
 
 .PHONY: build-ipa
 build-ipa:
 	$(FLUTTER) pub get
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
 	cd ios && pod install --repo-update && cd ..
-	$(FLUTTER) build ipa --release --export-method=ad-hoc
+	$(FLUTTER) build ipa -t lib/main.dart --release --export-method=ad-hoc -v
+
+.PHONY: build-ipa-uat
+build-ipa-uat:
+	$(FLUTTER) pub get
+	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+	cd ios && pod install --repo-update && cd ..
+	$(FLUTTER) build ipa --flavor uat -t lib/main.uat.dart --release --export-method=ad-hoc -v
+
+.PHONY: build-ipa-staging
+build-ipa-staging:
+	$(FLUTTER) pub get
+	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+	cd ios && pod install --repo-update && cd ..
+	$(FLUTTER) build ipa --flavor staging -t lib/main.staging.dart --release --export-method=ad-hoc -v
 
 .PHONY: git-hook
 git-hook:

@@ -1,7 +1,4 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -10,87 +7,82 @@
             "type": "dart",
             "flutterMode": "debug",
             "program": "lib/main.uat.dart",
+            "args": [
+                "--flavor",
+                "uat",
+                "--verbose"
+            ]
+        },
+        {
+            "name": "staging debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main.staging.dart",
+            "args": [
+                "--flavor",
+                "staging",
+                "--verbose"
+            ]
         },
         {
             "name": "staging release",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
+            "program": "lib/main.staging.dart",
+            "args": [
+                "--flavor",
+                "staging"
+            ]
+        },
+        {
+            "name": "android production debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
             "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "production"
+            ]
         },
         {
-            "name": "it_request",
+            "name": "ios production debug",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main.dart",
+            "args": []
         },
         {
-            "name": "it_request (profile mode)",
+            "name": "release uat ",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main.uat.dart",
+            "args": [
+                "--flavor",
+                "uat",
+                "--verbose"
+            ]
+        },
+        {
+            "name": "release ios production ",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main.dart",
+            "args": []
+        },
+        {
+            "name": "hrm (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "it_request (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "common",
-            "cwd": "packages/common",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "common (profile mode)",
-            "cwd": "packages/common",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "common (release mode)",
-            "cwd": "packages/common",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "themes",
-            "cwd": "packages/themes",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "themes (profile mode)",
-            "cwd": "packages/themes",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "themes (release mode)",
-            "cwd": "packages/themes",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "widgets",
-            "cwd": "packages/widgets",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "widgets (profile mode)",
-            "cwd": "packages/widgets",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "widgets (release mode)",
-            "cwd": "packages/widgets",
+            "name": "hrm(release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
