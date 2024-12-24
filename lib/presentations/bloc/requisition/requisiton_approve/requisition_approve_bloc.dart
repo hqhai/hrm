@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/approves_step_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/cancel_request.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
 import 'package:base_app/data/models/response.dart';
@@ -15,7 +16,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, RequisitionApproveState> {
+class RequisitionApproveBloc
+    extends HydratedBloc<RequisitionApproveEvent, RequisitionApproveState> {
   final RequisitionUseCase requisitionUseCase;
   final RequisitionService _requestService;
 
@@ -24,18 +26,25 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
         _requestService = dI<RequisitionService>(),
         super(const RequisitionApproveState()) {
     on<RequisitionApproveEvent>((event, emit) {});
-    on<GetRequisitionsApproveByFilterEvent>(_getRequisitionsApproveByFilterEvent);
+    on<GetRequisitionsApproveByFilterEvent>(
+        _getRequisitionsApproveByFilterEvent);
     on<ApproveRequestEvent>(_approveRequestEvent);
     on<GetRequisitionApproveCountEvent>(_getRequisitionApproveCountEvent);
     on<CancelRequestEvent>(_cancelRequestEvent);
     on<ResetRequisitionApproveEvent>(_resetRequisitionApproveEvent);
+    on<AddIdRequisitionEvent>(_addIdRequisitionEvent);
+    on<AddAllRequisitionEvent>(_addAllRequisitionEvent);
+    on<ResetAllIdRequisitionApproveEvent>(_resetAllIdRequisitionApproveEvent);
   }
 
   ///get by filter ***********************************************
 
-  FutureOr<void> _getRequisitionsApproveByFilterEvent(GetRequisitionsApproveByFilterEvent event, Emitter<RequisitionApproveState> emit) async {
+  FutureOr<void> _getRequisitionsApproveByFilterEvent(
+      GetRequisitionsApproveByFilterEvent event,
+      Emitter<RequisitionApproveState> emit) async {
     try {
-      final RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsApproveByFilter(
+      final RequestsResponse requestsResponse =
+          await requisitionUseCase.getRequisitionsApproveByFilter(
         page: event.page,
         departmentId: event.departmentId,
         endDate: event.endTime?.subtract(const Duration(hours: 7)),
@@ -97,7 +106,8 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
   }
 
   ///Approved request ****************************
-  FutureOr<void> _approveRequestEvent(ApproveRequestEvent event, Emitter<RequisitionApproveState> emit) async {
+  FutureOr<void> _approveRequestEvent(
+      ApproveRequestEvent event, Emitter<RequisitionApproveState> emit) async {
     try {
       final bool check = await requisitionUseCase.approveRequest(
         id: event.id,
@@ -105,10 +115,14 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
         note: event.note ?? "",
       );
       if (check) {
-        final requestIds = state.requisitionIds.where((element) => element != event.requestId).toList();
+        final requestIds = state.requisitionIds
+            .where((element) => element != event.requestId)
+            .toList();
         final statusRequestCount = state.statusRequestCount;
-        statusRequestCount[EnumStepRequestStatusEnum.newStatus] = (statusRequestCount[EnumStepRequestStatusEnum.newStatus] ?? 0) - 1;
-        statusRequestCount[event.status] = (statusRequestCount[event.status] ?? 0) + 1;
+        statusRequestCount[EnumStepRequestStatusEnum.newStatus] =
+            (statusRequestCount[EnumStepRequestStatusEnum.newStatus] ?? 0) - 1;
+        statusRequestCount[event.status] =
+            (statusRequestCount[event.status] ?? 0) + 1;
         emit(
           state.copyWith(
             requisitionIds: requestIds,
@@ -116,7 +130,6 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
             errorCode: '',
           ),
         );
-        event.completer?.complete(true);
 
         dI<RequisitionApproveBloc>().add(
           GetRequisitionsApproveByFilterEvent(
@@ -130,6 +143,7 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
             userIds: event.userId,
           ),
         );
+        event.completer?.complete(true);
       } else {
         event.completer?.complete(false);
       }
@@ -149,9 +163,17 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
     }
   }
 
-  FutureOr<void> _getRequisitionApproveCountEvent(GetRequisitionApproveCountEvent event, Emitter<RequisitionApproveState> emit) async {
-    final requisitionCountStatus = await _requestService.approveRequisitionCountStatus(
-      getRequestApproveFilterRequest: GetRequestApproveFilterRequest(startDate: event.startTime?.subtract(const Duration(hours: 7)), endDate: event.endTime?.subtract(const Duration(hours: 7)), createdCode: event.userCode, types: event.type, createdDepartmentId: event.departmentId),
+  FutureOr<void> _getRequisitionApproveCountEvent(
+      GetRequisitionApproveCountEvent event,
+      Emitter<RequisitionApproveState> emit) async {
+    final requisitionCountStatus =
+        await _requestService.approveRequisitionCountStatus(
+      getRequestApproveFilterRequest: GetRequestApproveFilterRequest(
+          startDate: event.startTime?.subtract(const Duration(hours: 7)),
+          endDate: event.endTime?.subtract(const Duration(hours: 7)),
+          createdCode: event.userCode,
+          types: event.type,
+          createdDepartmentId: event.departmentId),
     );
     final statusRequestCount = {
       EnumStepRequestStatusEnum.newStatus: requisitionCountStatus.newRequest,
@@ -159,22 +181,28 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
       EnumStepRequestStatusEnum.edit: requisitionCountStatus.edit,
       EnumStepRequestStatusEnum.approve: requisitionCountStatus.approve,
       EnumStepRequestStatusEnum.cancel: requisitionCountStatus.cancel,
-      EnumStepRequestStatusEnum.overdueApprove: requisitionCountStatus.overdueApprove,
+      EnumStepRequestStatusEnum.overdueApprove:
+          requisitionCountStatus.overdueApprove,
     };
     emit(state.copyWith(statusRequestCount: statusRequestCount));
   }
 
-  FutureOr<void> _cancelRequestEvent(CancelRequestEvent event, Emitter<RequisitionApproveState> emit) async {
+  FutureOr<void> _cancelRequestEvent(
+      CancelRequestEvent event, Emitter<RequisitionApproveState> emit) async {
     try {
       await _requestService.cancelRequestsById(
           cancelRequest: CancelRequest(
         id: event.requestId,
         note: event.note,
       ));
-      final requestIds = state.requisitionIds.where((element) => element != event.requestId).toList();
+      final requestIds = state.requisitionIds
+          .where((element) => element != event.requestId)
+          .toList();
       final statusRequestCount = state.statusRequestCount;
-      statusRequestCount[EnumStepRequestStatusEnum.approve] = (statusRequestCount[EnumStepRequestStatusEnum.approve] ?? 0) - 1;
-      statusRequestCount[EnumStepRequestStatusEnum.cancel] = (statusRequestCount[EnumStepRequestStatusEnum.cancel] ?? 0) + 1;
+      statusRequestCount[EnumStepRequestStatusEnum.approve] =
+          (statusRequestCount[EnumStepRequestStatusEnum.approve] ?? 0) - 1;
+      statusRequestCount[EnumStepRequestStatusEnum.cancel] =
+          (statusRequestCount[EnumStepRequestStatusEnum.cancel] ?? 0) + 1;
       emit(
         state.copyWith(
           statusRequestCount: statusRequestCount,
@@ -199,6 +227,17 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
     }
   }
 
+  void _addIdRequisitionEvent(
+      AddIdRequisitionEvent event, Emitter<RequisitionApproveState> emit) {
+    List<String> ids = [...state.ids];
+    if (ids.contains(event.id)) {
+      ids.remove(event.id);
+    } else {
+      ids = [...ids, event.id];
+    }
+    emit(state.copyWith(ids: ids));
+  }
+
   @override
   RequisitionApproveState? fromJson(Map<String, dynamic> json) {
     return RequisitionApproveState.fromJson(json);
@@ -209,7 +248,58 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
     return state.toJson();
   }
 
-  FutureOr<void> _resetRequisitionApproveEvent(ResetRequisitionApproveEvent event, Emitter<RequisitionApproveState> emit) {
+  FutureOr<void> _resetRequisitionApproveEvent(
+    ResetRequisitionApproveEvent event,
+    Emitter<RequisitionApproveState> emit,
+  ) {
     emit(const RequisitionApproveState());
+  }
+
+  void _resetAllIdRequisitionApproveEvent(
+    ResetAllIdRequisitionApproveEvent event,
+    Emitter<RequisitionApproveState> emit,
+  ) {
+    emit(state.copyWith(ids: []));
+  }
+
+  FutureOr<void> _addAllRequisitionEvent(
+    AddAllRequisitionEvent event,
+    Emitter<RequisitionApproveState> emit,
+  ) async {
+    try {
+      final request = ApprovesStepRequest(
+          stepRequestApproverId: event.stepRequestApproverId);
+      final response = await requisitionUseCase.approveRequisitions(
+          approvesStepRequest: request);
+      if (response) {
+        final Completer completer2 = Completer<bool>();
+        dI<RequisitionApproveBloc>().add(GetRequisitionsApproveByFilterEvent(
+          departmentId: event.departmentId,
+          startTime: event.startTime,
+          endTime: event.endTime,
+          userIds: event.userIds,
+          status: event.status,
+          type: event.type,
+          completer: completer2,
+        ));
+        await completer2.future;
+        event.completer?.complete(true);
+        emit(state.copyWith(ids: []));
+      } else {
+        event.completer?.complete(false);
+      }
+    } catch (e) {
+      if (e is ResponseBase) {
+        final error = e.errorMessages;
+        if (error.isNotEmpty) {
+          emit(state.copyWith(errorCode: error.first.errorCode));
+        } else {
+          emit(state.copyWith(errorCode: ''));
+        }
+      } else {
+        emit(state.copyWith(errorCode: 'error'));
+      }
+      event.completer?.complete(false);
+    }
   }
 }

@@ -2219,4 +2219,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get i18nClose => 'Đóng';
+
+  @override
+  String get i18nTokenExpired => 'Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại để tiếp tục.';
 }

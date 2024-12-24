@@ -128,9 +128,7 @@ class CreateRequestUnsuccessfulTwoButton extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
               child: Text(
-                title.isNotEmpty
-                    ? title
-                    : appLocalizations.timekeepingUnSuccess,
+                title.isNotEmpty ? title : appLocalizations.timekeepingUnSuccess,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.black,
@@ -183,8 +181,7 @@ class CreateRequestUnsuccessfulTwoButton extends StatelessWidget {
   }
 }
 
-dialogSuccess(
-    {required BuildContext context, required String title, bool isPop = true}) {
+dialogSuccess({required BuildContext context, required String title, bool isPop = true}) {
   showDialog(
     barrierDismissible: true,
     context: context,
@@ -205,9 +202,11 @@ _popDialog(BuildContext context) {
 }
 
 dialogUnsuccessful({required BuildContext context, required String title}) {
+  final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+
   showDialog(
     barrierDismissible: false,
-    context: context,
+    context: currentContext,
     builder: (BuildContext context) {
       return Dialog(
         child: CreateRequestUnsuccessful(
@@ -218,10 +217,7 @@ dialogUnsuccessful({required BuildContext context, required String title}) {
   );
 }
 
-dialogUnsuccessfulTwoButton(
-    {required BuildContext context,
-    required String title,
-    required VoidCallback onTapRetry}) {
+dialogUnsuccessfulTwoButton({required BuildContext context, required String title, required VoidCallback onTapRetry}) {
   showDialog(
     barrierDismissible: false,
     context: context,
@@ -261,14 +257,7 @@ completerFail({required String errorDialog, required String requestId}) {
 showToast({required BuildContext context, String errorCode = ''}) {
   final colors = AppTheme.getColors(context);
   dI<AppNavigation>().pop(context);
-  Fluttertoast.showToast(
-      msg: errorCode,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: colors.error,
-      textColor: colors.background,
-      fontSize: SpacingUnit.x4);
+  Fluttertoast.showToast(msg: errorCode, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: colors.error, textColor: colors.background, fontSize: SpacingUnit.x4);
 }
 
 completerSuccess({required String requestId, bool isEdit = false}) {
@@ -285,9 +274,7 @@ completerSuccess({required String requestId, bool isEdit = false}) {
   }
   dialogSuccess(
     context: currentContext,
-    title: requestId.isNotEmpty
-        ? appLocalizations.editRequestSuccess
-        : appLocalizations.createSuccess,
+    title: requestId.isNotEmpty ? appLocalizations.editRequestSuccess : appLocalizations.createSuccess,
   );
 }
 
@@ -305,9 +292,7 @@ approverUnsuccessful({required String errorDialog, String? title}) {
   final appLocalizations = AppLocalizations.of(currentContext)!;
   dialogUnsuccessful(
     context: currentContext,
-    title: errorDialog.isNotEmpty
-        ? errorDialog
-        : title ?? appLocalizations.approvedUnsuccessful,
+    title: errorDialog.isNotEmpty ? errorDialog : title ?? appLocalizations.approvedUnsuccessful,
   );
 }
 
@@ -319,9 +304,7 @@ updateProfileFail({
   dI<AppNavigation>().pop(currentContext);
   dialogUnsuccessful(
     context: currentContext,
-    title: errorDialog.isNotEmpty
-        ? errorDialog
-        : appLocalizations.updateUnsuccessful,
+    title: errorDialog.isNotEmpty ? errorDialog : appLocalizations.updateUnsuccessful,
   );
 }
 
@@ -337,12 +320,5 @@ updateProfileSuccess() {
 
 showToastTimeKeeping({required BuildContext context, String errorCode = ''}) {
   final colors = AppTheme.getColors(context);
-  Fluttertoast.showToast(
-      msg: errorCode,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.TOP,
-      timeInSecForIosWeb: 1,
-      backgroundColor: colors.tertiary,
-      textColor: colors.background,
-      fontSize: SpacingUnit.x4);
+  Fluttertoast.showToast(msg: errorCode, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.TOP, timeInSecForIosWeb: 1, backgroundColor: colors.tertiary, textColor: colors.background, fontSize: SpacingUnit.x4);
 }

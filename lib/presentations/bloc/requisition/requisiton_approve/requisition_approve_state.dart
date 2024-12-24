@@ -24,6 +24,7 @@ class RequisitionApproveState extends Equatable {
   final Map<EnumStepRequestStatusEnum, int> statusRequestCount;
   final String errorCode;
   final int countItem;
+  final List<String> ids;
 
   const RequisitionApproveState({
     this.requisition = const Request(id: ''),
@@ -32,6 +33,7 @@ class RequisitionApproveState extends Equatable {
     this.statusRequestCount = statusCountDefault,
     this.countItem = 0,
     this.errorCode = '',
+    this.ids=const [],
   });
 
   @override
@@ -41,7 +43,8 @@ class RequisitionApproveState extends Equatable {
         requisitionIds,
         countItem,
         errorCode,
-        statusRequestCount.hashCode
+        statusRequestCount.hashCode,
+        ids,
       ];
 
   factory RequisitionApproveState.fromJson(Map<String, dynamic> json) => _$RequisitionApproveStateFromJson(json);

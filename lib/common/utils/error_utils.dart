@@ -18,8 +18,7 @@ const errorVi = {
   "NameAlreadyExist": " Tên đã tồn tại",
   "ThisDepartmentAlreadyExistFlow": " Phòng ban đã tồn tại luồng của loại đơn từ này",
   "ThisPositionAlreadyExistFlow": " Chức vụ đã tồn tại luồng của loại đơn từ này",
-  "ThisDepartmentPositionAlreadyExistFlow":
-      " Phòng ban và chức vụ đã tồn luồng của loại tại đơn từ này",
+  "ThisDepartmentPositionAlreadyExistFlow": " Phòng ban và chức vụ đã tồn luồng của loại tại đơn từ này",
   "ThisUserAlreadyExistFlow": " Nhân viên đã tồn tại luồng của loại đơn từ này",
   "TypeAlreadyHasStepFlow": " Đơn từ này đã tồn tại luồng duyệt",
   "ThisFlowAlreadyExistsRequest": " Luồng này đã có đơn từ",
@@ -27,36 +26,29 @@ const errorVi = {
   "FlowIsNotCoreType": " Luồng không phải loại luồng duyệt luồng",
   "StatusInActiveUnableUpdate": " Trạng thái không hoạt động không thể cập nhật",
   "UserIdNotNull": " Người áp dụng không được bỏ trống",
-  "DepartmentIdOrPositionIdMustNotExist":
-      " Phòng ban hoặc chức vụ không được tồn tại khi loại là nhân viên",
+  "DepartmentIdOrPositionIdMustNotExist": " Phòng ban hoặc chức vụ không được tồn tại khi loại là nhân viên",
   "DepartmentIdAndPositionIdNotNull": " Phòng ban hoặc chức vụ không được bỏ trống",
   "UserIdMustNotExist": " Nhân viên không được tồn tại khi loại là phòng ban chức vụ",
   "PositionIdNotNull": " Chức vụ không được bỏ trống",
-  "DepartmentIdOrUserIdMustNotExist":
-      " Phòng ban và nhân viên không được tồn tại khi loại là chức vụ",
+  "DepartmentIdOrUserIdMustNotExist": " Phòng ban và nhân viên không được tồn tại khi loại là chức vụ",
   "DepartmentIdNotNull": " Phòng ban không được bỏ trống",
-  "PositionIdOrUserIdMustNotExist":
-      " Chức vụ và nhân viên không được tồn tại khi loại là phòng ban",
+  "PositionIdOrUserIdMustNotExist": " Chức vụ và nhân viên không được tồn tại khi loại là phòng ban",
   "InValidFormat": " Sai định dạng",
   "ConfigNotNull": " Dữ liệu đơn từ không được để trống",
   "ExceededTheRequestedCreateTimeframe": " Đã vượt quá thời gian được tạo yêu cầu",
   "CurrentStatusIsNotEdit": " Trạng thái hiện tại không phải là chỉnh sửa",
-  "CurrentStatusIsNotProcessOrEdit":
-      " Trạng thái hiện tại không phải là trong tiến trình hoặc chỉnh sửa",
+  "CurrentStatusIsNotProcessOrEdit": " Trạng thái hiện tại không phải là trong tiến trình hoặc chỉnh sửa",
   "TheNumberOfFormsCreatedHasExceededTheLimit": " Số lượng đơn tư được tạo đã vượt quá giới hạn",
   "EndDateGreaterThanStartDate": " Ngày kết thúc đang lớn hơn ngày bắt đầu",
-  "EmployeeNotFullTimeOrPartTime":
-      " Nhân viên không phải là chính thức hoặc nhân viên bán thời gian",
+  "EmployeeNotFullTimeOrPartTime": " Nhân viên không phải là chính thức hoặc nhân viên bán thời gian",
   "UserIdAndPositionIdCannotExistSameTime": " Nhân viên và chức vụ không tồn tại cùng lúc",
   "UserIdOrPositionIdCanNotNull": " Người dùng hoặc chức vụ không thể bỏ trống",
   "FlowDoesNotHaveEnoughComponents": " Luồng phải đủ các thành phần bắt đầu, các bước, kết thúc",
-  "IfStepTypeStartOrEndNoUserIdPositionIdDepartmentId":
-      " Nếu là loạ bắt đầu hoặc kết thúc thì không có nhân viên, chức vụ và phòng ban",
+  "IfStepTypeStartOrEndNoUserIdPositionIdDepartmentId": " Nếu là loạ bắt đầu hoặc kết thúc thì không có nhân viên, chức vụ và phòng ban",
   "CurrentStatusNotNew": " Trạng thái hiện tại không phải là mới",
   "NameStepFlowNotNull": " Tên bước duyệt không được để trống",
   "DataNotNull": " Dữ liệu không được bỏ trống",
-  "TimeSlotAlreadyPleaseChooseAnother":
-      " Đã tồn tại đơn có cùng thời gian, vui lòng chọn lại thời gian",
+  "TimeSlotAlreadyPleaseChooseAnother": " Đã tồn tại đơn có cùng thời gian, vui lòng chọn lại thời gian",
   "MustCreateMinimumTimeInAdvance": " Phải tạo trước thời gian tối thiểu",
   "PastTheDateOfExplanation": " Quá ngày giải trình",
   //28/8/2024----------------------------
@@ -74,8 +66,7 @@ const errorVi = {
   "ThisPeriodOverlapsWithTheWorkShift": "Khoảng thời gian này đang có ca làm việc",
   "MakeupDayCanNotRecedeRequestDate": "Ngày làm bù không nhỏ hơn ngày nghỉ",
   "OnlyAllowedToEditWorkThisMonthOrLastMonth": "Chỉ giải trình công tháng này hoặc tháng trước",
-  "ReportLastMonthIsWorkOnlyOnThe1stAnd2nd":
-      "Giải trình công của tháng trước đã hết hạn vào ngày 2 tháng này",
+  "ReportLastMonthIsWorkOnlyOnThe1stAnd2nd": "Giải trình công của tháng trước đã hết hạn vào ngày 2 tháng này",
 //-------------------------
   "DuplicateName": "Tên bị trùng ",
   "ParentIdCannotBeHimself": "Đối tượng trực thuộc không được là chính mình ",
@@ -97,10 +88,8 @@ const errorVi = {
   "PassPortNumberAlreadyExist": "Số hộ chiếu đã tồn tại ",
   "CitizenIdentificationCardNumberAlreadyExist": "Số CCCD đã tồn tại ",
   "EmailNotNull": "Email không được rỗng ",
-  "OnlyFulltimeInOneDepartmentAndPosition":
-      "Chỉ được phép tồn tại 1 fulltime trong 1 chức vụ và phòng ban ",
-  "ParttimeOnlyUpdateToFullTimeCantAdd":
-      "Người này chỉ có thể update thêm fulltime không thể thêm fulltime ",
+  "OnlyFulltimeInOneDepartmentAndPosition": "Chỉ được phép tồn tại 1 fulltime trong 1 chức vụ và phòng ban ",
+  "ParttimeOnlyUpdateToFullTimeCantAdd": "Người này chỉ có thể update thêm fulltime không thể thêm fulltime ",
   "LisencePlateAlreadyExist": "Biển số xe đã tồn tại ",
   "TaxAlreadyExist": "Mã số thuế đã tồn tại ",
   "BankAccountNumberAlreadyExist": "Số tài khoản ngân hàng đã tồn tại",
@@ -126,34 +115,21 @@ const errorVi = {
   "TheTimeCannotBeLessThanTheCurrentTime": "Thời gian đang nhỏ hơn thời gian hiện tại ",
   "StatusWorkShiftApproveNotPending": "Trạng thái cần phê duyệt không phải đang chờ xử lý ",
   "WorkDateIsPastTheCurrentDate": "Ngày làm việc đã qua ngày hiện tại ",
-  "StartTimeValidGreaterThanEndTimeValid":
-      "Thời gian bắt đầu hợp lệ lớn hơn thời gian kết thúc hợp lệ ",
-  "CheckInTimeValidGreaterThanCheckOutTimeValid":
-      "Thời gian checkin hợp lệ lớn hơn thời gian checkout tính hợp lệ ",
-  "TheNumberOfWorkMustNotBeLessThanOrEqualToZero":
-      "Số lượng công việc không được nhỏ hơn hoặc bằng 0 ",
-  "OnlyOneOfTwoWorkDayOrWorkDateExists":
-      "Chỉ một trong hai trường 'Ngày làm việc' hoặc Lịch làm việc tồn tại. ",
+  "StartTimeValidGreaterThanEndTimeValid": "Thời gian bắt đầu hợp lệ lớn hơn thời gian kết thúc hợp lệ ",
+  "CheckInTimeValidGreaterThanCheckOutTimeValid": "Thời gian checkin hợp lệ lớn hơn thời gian checkout tính hợp lệ ",
+  "TheNumberOfWorkMustNotBeLessThanOrEqualToZero": "Số lượng công việc không được nhỏ hơn hoặc bằng 0 ",
+  "OnlyOneOfTwoWorkDayOrWorkDateExists": "Chỉ một trong hai trường 'Ngày làm việc' hoặc Lịch làm việc tồn tại. ",
   "WorkDateAlreadyExist": "Ngày đã tồn tại ",
   "InOneWorkDayThereIsOnlyOneWorkShiftId": "Trong một ngày làm việc, chỉ có một mã ca làm việc. ",
-  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkday":
-      "Có những ca làm việc trùng lặp về thời gian trong cùng một ngày làm việc ",
-  "ShiftsThatHaveBeenAppliedCannotBeEditTheWorkDate":
-      "Các ca làm việc đã được áp dụng không thể chỉnh sửa ngày làm việc.",
-  "ShiftThatHasBeenAppliedCannotEditTheStartdate":
-      "Ca làm việc đã được áp dụng không thể chỉnh sửa ngày bắt đầu. ",
-  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkShift":
-      "Có các ca làm việc trùng lặp về thời gian trong cùng một ca làm việc. ",
-  "CheckingStartTimeValidGreaterThanChecking":
-      "Thời gian bắt đầu kiểm tra phải lớn hơn thời gian kiểm tra. ",
-  "CheckingGreaterThanCheckingEndTimeValid":
-      "Thời gian kiểm tra phải lớn hơn thời gian kết thúc kiểm tra. ",
-  "ValidRegistTimeAndValidRegistTimeTypeMustBothBeSet":
-      "Thời gian đăng ký hợp lệ và loại thời gian đăng ký hợp lệ phải được đặt cả hai. ",
-  "ValidCancelTimeAndValidCancelTimeTypeMustBothBeSet":
-      "Thời gian hủy hợp lệ và loại thời gian hủy hợp lệ phải được đặt cả hai. ",
-  "SingleCaseCanNotHaveMoreThanOneDetailCase":
-      "Một trường hợp không thể có nhiều hơn một trường hợp chi tiết. ",
+  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkday": "Có những ca làm việc trùng lặp về thời gian trong cùng một ngày làm việc ",
+  "ShiftsThatHaveBeenAppliedCannotBeEditTheWorkDate": "Các ca làm việc đã được áp dụng không thể chỉnh sửa ngày làm việc.",
+  "ShiftThatHasBeenAppliedCannotEditTheStartdate": "Ca làm việc đã được áp dụng không thể chỉnh sửa ngày bắt đầu. ",
+  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkShift": "Có các ca làm việc trùng lặp về thời gian trong cùng một ca làm việc. ",
+  "CheckingStartTimeValidGreaterThanChecking": "Thời gian bắt đầu kiểm tra phải lớn hơn thời gian kiểm tra. ",
+  "CheckingGreaterThanCheckingEndTimeValid": "Thời gian kiểm tra phải lớn hơn thời gian kết thúc kiểm tra. ",
+  "ValidRegistTimeAndValidRegistTimeTypeMustBothBeSet": "Thời gian đăng ký hợp lệ và loại thời gian đăng ký hợp lệ phải được đặt cả hai. ",
+  "ValidCancelTimeAndValidCancelTimeTypeMustBothBeSet": "Thời gian hủy hợp lệ và loại thời gian hủy hợp lệ phải được đặt cả hai. ",
+  "SingleCaseCanNotHaveMoreThanOneDetailCase": "Một trường hợp không thể có nhiều hơn một trường hợp chi tiết. ",
   "RegistedNotRequiredCantRegist": "Đã đăng ký không yêu cầu nên không thể đăng ký. ",
   "InvalidTimeToRegist": "Thời gian để đăng ký không hợp lệ. ",
   "InvalidTimeToCancel": "Thời gian để hủy không hợp lệ. ",
@@ -161,21 +137,18 @@ const errorVi = {
   "WorkShiftSettingDetailInvalid": "Chi tiết cài đặt ca làm việc không hợp lệ. ",
 //---------------------------------------17/9/2024
   "LeaveDaysMustNotExceedOne": "Số ngày xin nghỉ phép không được lớn hơn 1 ngày ",
-  "LeaveDaysMustBeBetweenTwoAndFour":
-      "Số ngày xin nghỉ phép phải nhỏ hơn 4 ngày và lớn hơn 2 ngày ",
+  "LeaveDaysMustBeBetweenTwoAndFour": "Số ngày xin nghỉ phép phải nhỏ hơn 4 ngày và lớn hơn 2 ngày ",
   "LeaveDaysMustBeGreaterThanFive": "Số ngày xin nghỉ phép phải lớn hơn năm ngày ",
   "LeaveDaysExceedTheConfiguredLimit": "Số ngày xin nghỉ phép vượt quá số ngày được phép nghỉ ",
   "FlowTypeNotNull": "Kiểu luồng không được bỏ trống",
 
-  "CheckInStartTimeValidGreaterThanStartTime":
-      "Thời gian bắt đầu checkin hợp lệ đang lớn hơn thời gian bắt đầu làm việc ",
-  "StartTimeGreaterThanCheckInEndTimeValid":
-      "Thời gian bắt đầu làm việc đang lớn hơn thời gian kết thúc checkin hợp lệ ",
-  "CheckOutStartTimeValidGreaterThanEndTime":
-      "Thời gian bắt đầu checkout hợp lệ đang lớn hơn thời gian kết thúc ca làm việc ",
-  "EndTimeGreaterThanCheckOutEndTimeValid":
-      "Thời gian kết thúc checkout hợp lệ đang nhỏ hơn thời gian kết thúc ca làm việc",
-  "WorkShiftAlreadyExistsForDay" : "Ca làm việc đã tồn tại"
+  "CheckInStartTimeValidGreaterThanStartTime": "Thời gian bắt đầu checkin hợp lệ đang lớn hơn thời gian bắt đầu làm việc ",
+  "StartTimeGreaterThanCheckInEndTimeValid": "Thời gian bắt đầu làm việc đang lớn hơn thời gian kết thúc checkin hợp lệ ",
+  "CheckOutStartTimeValidGreaterThanEndTime": "Thời gian bắt đầu checkout hợp lệ đang lớn hơn thời gian kết thúc ca làm việc ",
+  "EndTimeGreaterThanCheckOutEndTimeValid": "Thời gian kết thúc checkout hợp lệ đang nhỏ hơn thời gian kết thúc ca làm việc",
+  "WorkShiftAlreadyExistsForDay": "Ca làm việc đã tồn tại",
+  "TokenExpired": "Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại để tiếp tục."
+
 };
 
 const errorEn = {
@@ -186,8 +159,7 @@ const errorEn = {
   "NameAlreadyExist": " Name already exists",
   "ThisDepartmentAlreadyExistFlow": " Department already has a flow for this type of request",
   "ThisPositionAlreadyExistFlow": " Position already has a flow for this type of request",
-  "ThisDepartmentPositionAlreadyExistFlow":
-      " Department and position already have a flow for this type of request",
+  "ThisDepartmentPositionAlreadyExistFlow": " Department and position already have a flow for this type of request",
   "ThisUserAlreadyExistFlow": " Employee already has a flow for this type of request",
   "TypeAlreadyHasStepFlow": " This request already has an approval flow",
   "ThisFlowAlreadyExistsRequest": " This flow already has a request",
@@ -195,35 +167,29 @@ const errorEn = {
   "FlowIsNotCoreType": " Flow type is not an approval flow",
   "StatusInActiveUnableUpdate": " Inactive status cannot be updated",
   "UserIdNotNull": " Applier must not be empty",
-  "DepartmentIdOrPositionIdMustNotExist":
-      " Department or position must not exist when the type is employee",
+  "DepartmentIdOrPositionIdMustNotExist": " Department or position must not exist when the type is employee",
   "DepartmentIdAndPositionIdNotNull": " Department or position must not be empty",
   "UserIdMustNotExist": " Employee must not exist when the type is department or position",
   "PositionIdNotNull": " Position must not be empty",
-  "DepartmentIdOrUserIdMustNotExist":
-      " Department and employee must not exist when the type is position",
+  "DepartmentIdOrUserIdMustNotExist": " Department and employee must not exist when the type is position",
   "DepartmentIdNotNull": " Department must not be empty",
-  "PositionIdOrUserIdMustNotExist":
-      " Position and employee must not exist when the type is department",
+  "PositionIdOrUserIdMustNotExist": " Position and employee must not exist when the type is department",
   "InValidFormat": " Invalid format",
   "ConfigNotNull": " Request data must not be empty",
   "ExceededTheRequestedCreateTimeframe": " Request creation time has exceeded the allowed limit",
   "CurrentStatusIsNotEdit": " Current status is not editable",
   "CurrentStatusIsNotProcessOrEdit": " Current status is neither in progress nor editable",
-  "TheNumberOfFormsCreatedHasExceededTheLimit":
-      " The number of requests created has exceeded the limit",
+  "TheNumberOfFormsCreatedHasExceededTheLimit": " The number of requests created has exceeded the limit",
   "EndDateGreaterThanStartDate": " End date is greater than the start date",
   "EmployeeNotFullTimeOrPartTime": " Employee is neither full-time nor part-time",
   "UserIdAndPositionIdCannotExistSameTime": " Employee and position cannot coexist simultaneously",
   "UserIdOrPositionIdCanNotNull": " User or position must not be empty",
   "FlowDoesNotHaveEnoughComponents": " Flow must have start, steps, and end components",
-  "IfStepTypeStartOrEndNoUserIdPositionIdDepartmentId":
-      " If it is a start or end type, there should be no employee, position, or department",
+  "IfStepTypeStartOrEndNoUserIdPositionIdDepartmentId": " If it is a start or end type, there should be no employee, position, or department",
   "CurrentStatusNotNew": " Current status is not new",
   "NameStepFlowNotNull": " Approval step name must not be empty",
   "DataNotNull": " Data must not be empty",
-  "TimeSlotAlreadyPleaseChooseAnother":
-      " A request already exists with the same time frame, please select a different time",
+  "TimeSlotAlreadyPleaseChooseAnother": " A request already exists with the same time frame, please select a different time",
   "MustCreateMinimumTimeInAdvance": " Must be created before the minimum time",
   //28/8/2024-----------------------
   "PastTheDateOfExplanation": " Past the explanation date",
@@ -237,14 +203,11 @@ const errorEn = {
   "YouHaveCanceledThisRequest": "This request has been canceled by you.",
   "TheTotalNumberOfLeaveIsNotEnough": "Insufficient leave days.",
   "StartTimeGreaterThanEndTime": "Start time is later than the end time.",
-  "RegisteredMakeupOrOvertime":
-      "This time period already has compensatory work or overtime registered.",
+  "RegisteredMakeupOrOvertime": "This time period already has compensatory work or overtime registered.",
   "ThisPeriodOverlapsWithTheWorkShift": "There is a work shift during this time period.",
   "MakeupDayCanNotRecedeRequestDate": "Make-up work day cannot be earlier than the day off.",
-  "OnlyAllowedToEditWorkThisMonthOrLastMonth":
-      "Only attendance explanations for this month or last month are allowed.",
-  "ReportLastMonthIsWorkOnlyOnThe1stAnd2nd":
-      "The attendance explanation for last month expired on the 2nd of this month.",
+  "OnlyAllowedToEditWorkThisMonthOrLastMonth": "Only attendance explanations for this month or last month are allowed.",
+  "ReportLastMonthIsWorkOnlyOnThe1stAnd2nd": "The attendance explanation for last month expired on the 2nd of this month.",
   //-----------------------------
   "DuplicateName": "Name is duplicated ",
   "ParentIdCannotBeHimself": "Dependent entity cannot be itself ",
@@ -266,10 +229,8 @@ const errorEn = {
   "PassPortNumberAlreadyExist": "Passport number already exists ",
   "CitizenIdentificationCardNumberAlreadyExist": "Citizen ID number already exists ",
   "EmailNotNull": "Email must not be empty",
-  "OnlyFulltimeInOneDepartmentAndPosition":
-      "Only one full-time employee is allowed in one position and department ",
-  "ParttimeOnlyUpdateToFullTimeCantAdd":
-      "This person can only update existing full-time, cannot add new full-time ",
+  "OnlyFulltimeInOneDepartmentAndPosition": "Only one full-time employee is allowed in one position and department ",
+  "ParttimeOnlyUpdateToFullTimeCantAdd": "This person can only update existing full-time, cannot add new full-time ",
   "LisencePlateAlreadyExist": "License plate already exists ",
   "TaxAlreadyExist": "Tax code already exists ",
   "BankAccountNumberAlreadyExist": "Bank account number already exists",
@@ -296,29 +257,20 @@ const errorEn = {
   "StatusWorkShiftApproveNotPending": "Status Work Shift Approve Not Pending ",
   "WorkDateIsPastTheCurrentDate": "Work Date Is Past The Current Date ",
   "StartTimeValidGreaterThanEndTimeValid": "Start Time Valid Greater Than End Time Valid ",
-  "CheckInTimeValidGreaterThanCheckOutTimeValid":
-      "Check In Time Valid Greater Than Check Out Time Valid ",
-  "TheNumberOfWorkMustNotBeLessThanOrEqualToZero":
-      "The Number Of Work Must Not Be Less Than Or Equal To Zero ",
+  "CheckInTimeValidGreaterThanCheckOutTimeValid": "Check In Time Valid Greater Than Check Out Time Valid ",
+  "TheNumberOfWorkMustNotBeLessThanOrEqualToZero": "The Number Of Work Must Not Be Less Than Or Equal To Zero ",
   "OnlyOneOfTwoWorkDayOrWorkDateExists": "Only One Of Two Work Day Or Work Date Exists ",
   "WorkDateAlreadyExist": "Work Date Already Exist ",
   "InOneWorkDayThereIsOnlyOneWorkShiftId": "In One Work Day There Is Only One Work Shift Id ",
-  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkday":
-      "There Are Work Shifts That Overlap In Time Within The Same Workday ",
-  "ShiftsThatHaveBeenAppliedCannotBeEditTheWorkDate":
-      "Shifts That Have Been Applied Cannot Be Edit The Work Date",
-  "ShiftThatHasBeenAppliedCannotEditTheStartdate":
-      "Shift That Has Been Applied Cannot Edit The Start Date ",
-  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkShift":
-      "There Are Work Shifts That Overlap In Time Within The Same Work Shift ",
+  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkday": "There Are Work Shifts That Overlap In Time Within The Same Workday ",
+  "ShiftsThatHaveBeenAppliedCannotBeEditTheWorkDate": "Shifts That Have Been Applied Cannot Be Edit The Work Date",
+  "ShiftThatHasBeenAppliedCannotEditTheStartdate": "Shift That Has Been Applied Cannot Edit The Start Date ",
+  "ThereAreWorkShiftsThatOverlapInTimeWithinTheSameWorkShift": "There Are Work Shifts That Overlap In Time Within The Same Work Shift ",
   "CheckingStartTimeValidGreaterThanChecking": "Checking Start Time Valid Greater Than Checking ",
   "CheckingGreaterThanCheckingEndTimeValid": "Checking Greater Than Checking End Time Valid ",
-  "ValidRegistTimeAndValidRegistTimeTypeMustBothBeSet":
-      "Valid Regist Time And Valid Regist Time Type Must Both Be Set ",
-  "ValidCancelTimeAndValidCancelTimeTypeMustBothBeSet":
-      "Valid Cancel Time And Valid Cancel Time Type Must Both Be Set ",
-  "SingleCaseCanNotHaveMoreThanOneDetailCase":
-      "Single Case Can Not Have More Than One Detail Case ",
+  "ValidRegistTimeAndValidRegistTimeTypeMustBothBeSet": "Valid Regist Time And Valid Regist Time Type Must Both Be Set ",
+  "ValidCancelTimeAndValidCancelTimeTypeMustBothBeSet": "Valid Cancel Time And Valid Cancel Time Type Must Both Be Set ",
+  "SingleCaseCanNotHaveMoreThanOneDetailCase": "Single Case Can Not Have More Than One Detail Case ",
   "RegistedNotRequiredCantRegist": "Registed Not Required Cant Regist ",
   "InvalidTimeToRegist": "Invalid Time To Regist ",
   "InvalidTimeToCancel": "Invalid Time To Cancel ",
@@ -336,5 +288,6 @@ const errorEn = {
   "StartTimeGreaterThanCheckInEndTimeValid": "Start Time Greater Than Check In End Time Valid ",
   "CheckOutStartTimeValidGreaterThanEndTime": "Check Out Start Time Valid Greater Than End Time ",
   "EndTimeGreaterThanCheckOutEndTimeValid": "End Time Greater Than Check Out End Time Valid",
-  "WorkShiftAlreadyExistsForDay" : "Work Shift Already Exists For Day"
+  "WorkShiftAlreadyExistsForDay": "Work Shift Already Exists For Day",
+  "TokenExpired": "Your session has expired. Please log in again to continue."
 };

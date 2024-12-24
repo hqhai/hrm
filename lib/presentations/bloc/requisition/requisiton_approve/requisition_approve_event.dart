@@ -21,10 +21,27 @@ class GetRequisitionsApproveByFilterEvent extends RequisitionApproveEvent {
   final DateTime? endTime;
   final Completer? completer;
 
-  const GetRequisitionsApproveByFilterEvent({this.startTime, this.endTime, this.page = 1, this.departmentId, this.status, this.type, this.completer, this.userIds});
+  const GetRequisitionsApproveByFilterEvent(
+      {this.startTime,
+      this.endTime,
+      this.page = 1,
+      this.departmentId,
+      this.status,
+      this.type,
+      this.completer,
+      this.userIds});
 
   @override
-  List<Object?> get props => [startTime, endTime, page, departmentId, status, userIds, completer, type];
+  List<Object?> get props => [
+        startTime,
+        endTime,
+        page,
+        departmentId,
+        status,
+        userIds,
+        completer,
+        type
+      ];
 }
 
 class GetRequisitionApproveByIdEvent extends RequisitionApproveEvent {
@@ -44,10 +61,24 @@ class GetRequisitionApproveCountEvent extends RequisitionApproveEvent {
   final DateTime? endTime;
   final Completer? completer;
 
-  const GetRequisitionApproveCountEvent({this.startTime, this.endTime, this.departmentId, this.type, this.completer, this.userCode});
+  const GetRequisitionApproveCountEvent({
+    this.startTime,
+    this.endTime,
+    this.departmentId,
+    this.type,
+    this.completer,
+    this.userCode,
+  });
 
   @override
-  List<Object?> get props => [endTime, startTime, departmentId, type, completer, userCode];
+  List<Object?> get props => [
+        endTime,
+        startTime,
+        departmentId,
+        type,
+        completer,
+        userCode,
+      ];
 }
 
 class ApproveRequestEvent extends RequisitionApproveEvent {
@@ -86,7 +117,8 @@ class CancelRequestEvent extends RequisitionApproveEvent {
   final String note;
   final Completer? completer;
 
-  const CancelRequestEvent({required this.requestId, this.completer, required this.note});
+  const CancelRequestEvent(
+      {required this.requestId, this.completer, required this.note});
 
   @override
   List<Object?> get props => [requestId, completer, note];
@@ -97,4 +129,47 @@ class ResetRequisitionApproveEvent extends RequisitionApproveEvent {
 
   @override
   List<Object> get props => [];
+}
+
+class ResetAllIdRequisitionApproveEvent extends RequisitionApproveEvent {
+  const ResetAllIdRequisitionApproveEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class AddIdRequisitionEvent extends RequisitionApproveEvent {
+  final String id;
+
+  const AddIdRequisitionEvent({
+    required this.id,
+  });
+
+  @override
+  List<Object> get props => [id];
+}
+
+class AddAllRequisitionEvent extends RequisitionApproveEvent {
+  final List<String> stepRequestApproverId;
+  final Completer? completer;
+  final List<RequisitionTypeEnum>? type;
+  final String? userIds;
+  final String? departmentId;
+  final EnumStepRequestStatusEnum? status;
+  final DateTime? startTime;
+  final DateTime? endTime;
+
+  const AddAllRequisitionEvent({
+    required this.stepRequestApproverId,
+    this.completer,
+    this.type,
+    this.userIds,
+    this.departmentId,
+    this.status,
+    this.startTime,
+    this.endTime,
+  });
+
+  @override
+  List<Object> get props => [stepRequestApproverId];
 }

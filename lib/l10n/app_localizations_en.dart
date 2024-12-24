@@ -2219,4 +2219,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get i18nClose => 'Close';
+
+  @override
+  String get i18nTokenExpired => 'Your session has expired. Please log in again to continue.';
 }
