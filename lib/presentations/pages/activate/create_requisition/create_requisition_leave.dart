@@ -48,7 +48,7 @@ final createRequestLeavePageRoute = GoRoute(
     name: Pages.createRequestLeavePage,
     builder: (context, GoRouterState state) {
       debugPrint('🔎 : ${state.extra} ❗️');
-      Map data = state.extra as Map;
+      Map data = state.extra == null ? {} : state.extra as Map;
       return CreateRequisitionLeavePage(
         flowId: data['flowId'],
         requestId: data['requestId'],
@@ -104,14 +104,13 @@ class _CreateRequisitionLeavePageState
         reason = request.config.reasonLeave;
         followers = [...request.followerIds];
         takeLeaveType = request.config.takeLeaveType;
-        socialInsuranceLeave= request.config.socialInsuranceLeave;
+        socialInsuranceLeave = request.config.socialInsuranceLeave;
         files = [...setListFiles(request.config.attachments)];
         substitutes = [...request.config.subtitudePersons];
         listWorkShift = [...request.config.workShiftSettings];
         checkShirtFirst = false;
         if (listWorkShift.isNotEmpty) {
-          numberValue =
-              listWorkShift.map((e) => e.workEffort).reduce((a, b) => a + b);
+          numberValue = _getNumberValue();
         }
       });
       /* dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
@@ -122,6 +121,9 @@ class _CreateRequisitionLeavePageState
     detailedDescriptionController.addListener(_checkWords);
     super.initState();
   }
+
+  double _getNumberValue() =>
+      listWorkShift.map((e) => e.workEffort).reduce((a, b) => a + b);
 
   _checkWords() {
     final text = detailedDescriptionController.text;
@@ -457,7 +459,7 @@ class _CreateRequisitionLeavePageState
     setState(() {
       listWorkShift = value;
       if (value.isNotEmpty) {
-        numberValue = value.map((e) => e.workEffort).reduce((a, b) => a + b);
+        numberValue = _getNumberValue();
       } else {
         numberValue = 0;
       }
