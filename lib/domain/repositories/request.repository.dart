@@ -11,7 +11,7 @@ import 'package:base_app/domain/entities/user.dart';
 import 'package:flutter/services.dart';
 
 abstract class RequestRepository {
-  Future<int> createRequest({
+  Future<int?> createRequest({
     required String type,
     required bool isApprove,
     required String priority,
@@ -22,13 +22,13 @@ abstract class RequestRepository {
     String? config,
   });
 
-  Future<int> createOvertimeRequest({
+  Future<int?> createOvertimeRequest({
     required String type,
     required bool isApprove,
     ListRequestTypes? config,
   });
 
-  Future<int> createOnLeaveRequest({
+  Future<int?> createOnLeaveRequest({
     required String type,
     required bool isApprove,
     required String priority,
@@ -37,7 +37,7 @@ abstract class RequestRepository {
     CreateOnLeaveConfigRequest? config,
   });
 
-  Future<int> createExplanationRequest({
+  Future<int?> createExplanationRequest({
     required String type,
     required bool isApprove,
     required String priority,
@@ -46,45 +46,45 @@ abstract class RequestRepository {
     CreateExplanationConfigRequest? config,
   });
 
-  Future<String> uploadFile({
+  Future<String?> uploadFile({
     File? originFile,
     Uint8List? imageData,
   });
 
-  Future<List<String>> uploadFiles({
+  Future<List<String>?> uploadFiles({
     List<File>? originFile,
     List<Uint8List>? imageData,
   });
 
-  Future<int> getRequest(
+  Future<int?> getRequest(
     String status,
     int page,
   );
 
-  Future<List<Request>> getRequestByAdmin(
+  Future<List<Request>?> getRequestByAdmin(
     String type,
     String startDate,
     String endDate,
   );
 
-  Future<Request> getRequestById(
+  Future<Request?> getRequestById(
     String id,
   );
 
-  Future<Request> updateRequestById(
+  Future<Request?> updateRequestById(
       {required String priority,
       String? title,
       String? content,
       List<String>? filePaths,
       required String id});
 
-  Future<int> changeListStatus({
+  Future<int?> changeListStatus({
     required List<ChangeStatusRequestCommandModels>
         changeStatusRequestCommandModels,
     required String enumRequestType,
   });
 
-  Future<int> createRoomMeeting({
+  Future<int?> createRoomMeeting({
     String? roomName,
     int? numberOfSeats,
     String? address,
@@ -92,19 +92,19 @@ abstract class RequestRepository {
     bool? isApproval,
   });
 
-  Future<List<RoomMeeting>> getRoomMeeting();
+  Future<List<RoomMeeting>?> getRoomMeeting();
 
-  Future<int> createRoomMeetingRequest({
+  Future<int?> createRoomMeetingRequest({
     required String type,
     String? title,
     String? content,
     required CreateRequestTypeRoomMeetingConfigRequest config,
   });
 
-  Future<List<User>> getListUserByRequest(
+  Future<List<User>?> getListUserByRequest(
       {required String startDate, required String endDate});
 
-  Future<int> updateRoomMeeting({
+  Future<int?> updateRoomMeeting({
     String? roomName,
     int? numberOfSeats,
     String? address,
@@ -112,7 +112,7 @@ abstract class RequestRepository {
     String? id,
   });
 
-  Future<int> deleteRoomMeeting({
+  Future<int?> deleteRoomMeeting({
     String? id,
   });
 }

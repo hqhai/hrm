@@ -12,7 +12,7 @@ ResponseBase _$ResponseBaseFromJson(Map<String, dynamic> json) => ResponseBase(
               ?.map((e) => ErrorMessages.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      statusCode: json['statusCode'] as int? ?? 404,
+      statusCode: (json['statusCode'] as num?)?.toInt() ?? 404,
     );
 
 Map<String, dynamic> _$ResponseBaseToJson(ResponseBase instance) {

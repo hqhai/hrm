@@ -155,8 +155,9 @@ class _RequisitionApproveListPageState
   }
 
   _buttonBack(BuildContext context) {
-    dI<AppNavigation>().pop(context);
     dI<RequisitionApproveBloc>().add(const ResetAllIdRequisitionApproveEvent());
+    dI<RequisitionApproveBloc>().add(const GetRequisitionApproveCountEvent());
+    dI<AppNavigation>().pop(context);
   }
 
   _showBottomSheet() async {
@@ -207,6 +208,8 @@ class _RequisitionApproveListPageState
       if (statusCompleter == true) {
         approverSuccess(title: appLocalizations?.approvedSuccess);
       } else {
+        if (!currentContext.mounted) return;
+        dI<AppNavigation>().pop(buildContext);
         final error = dI<RequisitionApproveBloc>().state.errorCode;
         String errorCodeDialog = error.isNotEmpty
             ? setErrorValue(error, currentContext) ?? error

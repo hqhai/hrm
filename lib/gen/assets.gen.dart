@@ -13,20 +13,20 @@ class $AssetsEnvGen {
   const $AssetsEnvGen();
 
   /// File path: assets/env/.env.git_information
-  String get envGitInformation => 'assets/env/.env.git_information';
+  String get aEnvGitInformation => 'assets/env/.env.git_information';
 
   /// File path: assets/env/.env.production
-  String get envProduction => 'assets/env/.env.production';
+  String get aEnvProduction => 'assets/env/.env.production';
 
   /// File path: assets/env/.env.staging
-  String get envStaging => 'assets/env/.env.staging';
+  String get aEnvStaging => 'assets/env/.env.staging';
 
   /// File path: assets/env/.env.uat
-  String get envUat => 'assets/env/.env.uat';
+  String get aEnvUat => 'assets/env/.env.uat';
 
   /// List of all assets
   List<String> get values =>
-      [envGitInformation, envProduction, envStaging, envUat];
+      [aEnvGitInformation, aEnvProduction, aEnvStaging, aEnvUat];
 }
 
 class $AssetsGifGen {
@@ -42,9 +42,16 @@ class $AssetsGifGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// Directory path: assets/images/error
   $AssetsImagesErrorGen get error => const $AssetsImagesErrorGen();
+
+  /// Directory path: assets/images/icon
   $AssetsImagesIconGen get icon => const $AssetsImagesIconGen();
+
+  /// Directory path: assets/images/sign_in
   $AssetsImagesSignInGen get signIn => const $AssetsImagesSignInGen();
+
+  /// Directory path: assets/images/time_keeping
   $AssetsImagesTimeKeepingGen get timeKeeping =>
       const $AssetsImagesTimeKeepingGen();
 }
@@ -97,6 +104,7 @@ class $AssetsImagesIconGen {
   /// File path: assets/images/icon/activate.svg
   String get activate => 'assets/images/icon/activate.svg';
 
+  /// Directory path: assets/images/icon/activate_icon
   $AssetsImagesIconActivateIconGen get activateIcon =>
       const $AssetsImagesIconActivateIconGen();
 
@@ -107,6 +115,7 @@ class $AssetsImagesIconGen {
   AssetGenImage get circularProgressIndicator =>
       const AssetGenImage('assets/images/icon/circular_progress_indicator.png');
 
+  /// Directory path: assets/images/icon/home
   $AssetsImagesIconHomeGen get home => const $AssetsImagesIconHomeGen();
 
   /// File path: assets/images/icon/home.svg
@@ -132,18 +141,25 @@ class $AssetsImagesIconGen {
   AssetGenImage get imgLacTrung =>
       const AssetGenImage('assets/images/icon/img_lac_trung.jpg');
 
+  /// Directory path: assets/images/icon/notification
   $AssetsImagesIconNotificationGen get notification =>
       const $AssetsImagesIconNotificationGen();
 
   /// File path: assets/images/icon/person.svg
   String get person => 'assets/images/icon/person.svg';
 
+  /// Directory path: assets/images/icon/popup_appbar
   $AssetsImagesIconPopupAppbarGen get popupAppbar =>
       const $AssetsImagesIconPopupAppbarGen();
 
   /// File path: assets/images/icon/profile.svg
   String get profile => 'assets/images/icon/profile.svg';
 
+  /// File path: assets/images/icon/school_marker.png
+  AssetGenImage get schoolMarker =>
+      const AssetGenImage('assets/images/icon/school_marker.png');
+
+  /// Directory path: assets/images/icon/work
   $AssetsImagesIconWorkGen get work => const $AssetsImagesIconWorkGen();
 
   /// List of all assets
@@ -164,7 +180,8 @@ class $AssetsImagesIconGen {
         imgHoangNgan,
         imgLacTrung,
         person,
-        profile
+        profile,
+        schoolMarker
       ];
 }
 
@@ -283,6 +300,7 @@ class $AssetsImagesIconActivateIconGen {
 class $AssetsImagesIconHomeGen {
   const $AssetsImagesIconHomeGen();
 
+  /// Directory path: assets/images/icon/home/bottom_bar
   $AssetsImagesIconHomeBottomBarGen get bottomBar =>
       const $AssetsImagesIconHomeBottomBarGen();
 
@@ -310,6 +328,7 @@ class $AssetsImagesIconHomeGen {
   String get phFingerprintFill =>
       'assets/images/icon/home/ph_fingerprint-fill.svg';
 
+  /// Directory path: assets/images/icon/home/worksheet
   $AssetsImagesIconHomeWorksheetGen get worksheet =>
       const $AssetsImagesIconHomeWorksheetGen();
 
@@ -485,9 +504,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
+
+  final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,
@@ -507,7 +533,7 @@ class AssetGenImage {
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
     FilterQuality filterQuality = FilterQuality.low,

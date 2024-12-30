@@ -315,11 +315,11 @@ extension $AttendanceCopyWith on Attendance {
 // **************************************************************************
 
 Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
-      workTimeReal: json['workTimeReal'] as int? ?? 0,
-      workTimeActual: json['workTimeActual'] as int? ?? 0,
-      overTime: json['overTime'] as int? ?? 0,
+      workTimeReal: (json['workTimeReal'] as num?)?.toInt() ?? 0,
+      workTimeActual: (json['workTimeActual'] as num?)?.toInt() ?? 0,
+      overTime: (json['overTime'] as num?)?.toInt() ?? 0,
       realRate: (json['realRate'] as num?)?.toDouble() ?? 0,
-      overTimeRate: json['overTimeRate'] as int? ?? 0,
+      overTimeRate: (json['overTimeRate'] as num?)?.toInt() ?? 0,
       overTimeDay: $enumDecodeNullable(
               _$EnumOvertimeDayEnumMap, json['overTimeDay'],
               unknownValue: EnumOvertimeDay.unknown) ??
@@ -329,20 +329,20 @@ Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
       holidayRate: (json['holidayRate'] as num?)?.toDouble() ?? 0,
       actualRate: (json['actualRate'] as num?)?.toDouble() ?? 0,
       userId: json['userId'] as String?,
-      timeLate: json['timeLate'] as int? ?? 0,
+      timeLate: (json['timeLate'] as num?)?.toInt() ?? 0,
       salaryRate: (json['salaryRate'] as num?)?.toDouble() ?? 0,
       name: json['name'] as String?,
       code: json['code'] as String?,
-      countEarly: json['countEarly'] as int? ?? 0,
-      countLate: json['countLate'] as int? ?? 0,
-      timeEarly: json['timeEarly'] as int? ?? 0,
+      countEarly: (json['countEarly'] as num?)?.toInt() ?? 0,
+      countLate: (json['countLate'] as num?)?.toInt() ?? 0,
+      timeEarly: (json['timeEarly'] as num?)?.toInt() ?? 0,
       userWorkingHistories: (json['userWorkingHistories'] as List<dynamic>?)
               ?.map((e) =>
                   UserWorkingHistoryModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      overTimeLeave: json['overTimeLeave'] as int? ?? 0,
-      overTimeSalary: json['overTimeSalary'] as int? ?? 0,
+      overTimeLeave: (json['overTimeLeave'] as num?)?.toInt() ?? 0,
+      overTimeSalary: (json['overTimeSalary'] as num?)?.toInt() ?? 0,
       compensatoryLeaveRate:
           (json['compensatoryLeaveRate'] as num?)?.toDouble() ?? 0,
     );

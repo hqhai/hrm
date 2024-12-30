@@ -3,14 +3,18 @@ import 'package:base_app/data/models/requisition/flow/flow_response.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
 import 'package:base_app/data/models/requisition/requisition/requisition_approve/approves_step_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/cancel_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
+import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
 import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
+import 'package:base_app/data/models/response/approve_requisition_count_status_response.dart';
 import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
 
 abstract class RequisitionRepository {
-  Future<Request> postRequest({required PostRequestRequest postRequestRequest});
+  Future<Request?> postRequest({required PostRequestRequest postRequestRequest});
 
-  Future<RequestsResponse> getRequisitionsSelfByFilter({
+  Future<RequestsResponse?> getRequisitionsSelfByFilter({
     int? page,
     List<String>? flowId,
     DateTime? startDate,
@@ -18,7 +22,7 @@ abstract class RequisitionRepository {
     StatusRequestEnum? status,
   });
 
-  Future<RequestsResponse> getRequisitionsApproveByFilter({
+  Future<RequestsResponse?> getRequisitionsApproveByFilter({
     int? page,
     List<RequisitionTypeEnum>? type,
     String? departmentId,
@@ -28,7 +32,7 @@ abstract class RequisitionRepository {
     EnumStepRequestStatusEnum? status,
   });
 
-  Future<RequestsResponse> getRequisitionsFollowerByFilter({
+  Future<RequestsResponse?> getRequisitionsFollowerByFilter({
     int? page,
     List<RequisitionTypeEnum>? type,
     String? departmentId,
@@ -38,26 +42,30 @@ abstract class RequisitionRepository {
     StatusRequestEnum? status,
   });
 
-  Future<Request> getRequisitionById({required String id});
+  Future<Request?> getRequisitionById({required String id});
 
-  Future<bool> approveRequisition(
-      {required String id, String? note, required String status});
+  Future<bool?> approveRequisition({required String id, String? note, required String status});
 
-  Future<FlowResponse> getFlowByUser({required int page});
+  Future<FlowResponse?> getFlowByUser({required int page});
 
-  Future<FlowRequest> getFlowById({required String id});
+  Future<FlowRequest?> getFlowById({required String id});
 
-  Future<SearchStationeryByNameResponse> getStationery(
-      {required String name, required int page});
+  Future<SearchStationeryByNameResponse?> getStationery({required String name, required int page});
 
-  Future<bool> userRejectRequisitionById({required String id});
+  Future<bool?> userRejectRequisitionById({required String id});
 
-  Future<Request> editRequestEdit(
-      {required PostRequestRequest postRequestRequest});
+  Future<Request?> editRequestEdit({required PostRequestRequest postRequestRequest});
 
-  Future<RequestsResponse> getRequestsByIds({
+  Future<RequestsResponse?> getRequestsByIds({
     required List<String> ids,
   });
 
-  Future<bool> approveRequisitions({required ApprovesStepRequest approvesStepRequest});
+  Future<bool> approveRequisitions(
+      {required ApprovesStepRequest approvesStepRequest});
+
+  Future<void> cancelRequestsById({required CancelRequest cancelRequest});
+
+  Future<ApproveRequisitionCountStatusResponse?> approveRequisitionCountStatus({required GetRequestApproveFilterRequest getRequestApproveFilterRequest});
+
+  Future<ApproveRequisitionCountStatusResponse?> userRequisitionCountStatus({required GetRequestFilterRequest getRequestFilterRequest});
 }

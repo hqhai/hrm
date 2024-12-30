@@ -22,10 +22,10 @@ CreatePersonnelRequest _$CreatePersonnelRequestFromJson(
       positionId: (json['positionId'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      morningStartTime: json['morningStartTime'] as int?,
-      morningEndTime: json['morningEndTime'] as int?,
-      afternoonStartTime: json['afternoonStartTime'] as int?,
-      afternoonEndTime: json['afternoonEndTime'] as int?,
+      morningStartTime: (json['morningStartTime'] as num?)?.toInt(),
+      morningEndTime: (json['morningEndTime'] as num?)?.toInt(),
+      afternoonStartTime: (json['afternoonStartTime'] as num?)?.toInt(),
+      afternoonEndTime: (json['afternoonEndTime'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$CreatePersonnelRequestToJson(

@@ -11,6 +11,8 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
+import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/form_change_time.dart';
 import 'package:base_app/presentations/widgets/attendance/attendance/item_work_sheet.dart';
 import 'package:base_app/presentations/widgets/custom/app_button_next_screen.dart';
@@ -39,6 +41,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     endTime = getLastDayOfMonth(currentDateTime);
     dI<AttendanceBloc>()
         .add(GetWorkSheetEvent(startTime: startTime, endTime: endTime));
+    dI<RequisitionApproveBloc>().add(const GetRequisitionApproveCountEvent());
     super.initState();
   }
 

@@ -1,33 +1,29 @@
 import 'dart:async';
 
-import 'package:base_app/common/configs/locators.dart';
+import 'package:base_app/common/exception/remote/remote_exception.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
-import 'package:base_app/data/models/response.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
-import 'package:base_app/domain/use_cases/requisition.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../domain/use_cases/requisition_usecase.dart';
+
 @lazySingleton
 class RequisitionFollowingBloc extends HydratedBloc<RequisitionFollowingEvent, RequisitionFollowingState> {
   final RequisitionUseCase requisitionUseCase;
 
-  RequisitionFollowingBloc()
-      : requisitionUseCase = dI<RequisitionUseCase>(),
-        super(const RequisitionFollowingState()) {
+  RequisitionFollowingBloc(this.requisitionUseCase) : super(const RequisitionFollowingState()) {
     on<RequisitionFollowingEvent>((event, emit) {});
     on<GetRequisitionsFollowingByFilterEvent>(_getRequisitionsFollowingByFilterEvent);
     on<ResetRequisitionFollowingEvent>(_resetRequisitionFollowingEvent);
   }
 
   ///get by filter ***********************************************
-  FutureOr<void> _getRequisitionsFollowingByFilterEvent(
-      GetRequisitionsFollowingByFilterEvent event, Emitter<RequisitionFollowingState> emit) async {
+  FutureOr<void> _getRequisitionsFollowingByFilterEvent(GetRequisitionsFollowingByFilterEvent event, Emitter<RequisitionFollowingState> emit) async {
     try {
-      final RequestsResponse requestsResponse =
-          await requisitionUseCase.getRequisitionsFollowerByFilter(
+      final RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsFollowerByFilter(
         page: event.page,
         departmentId: event.departmentId,
         endDate: event.endTime?.subtract(const Duration(hours: 7)),
@@ -68,11 +64,15 @@ class RequisitionFollowingBloc extends HydratedBloc<RequisitionFollowingEvent, R
         event.completer?.complete(true);
       }
     } catch (e) {
-      if (e is ResponseBase) {
-        final String? errorCode = e.errorMessages.first.errorCode;
-        emit(state.copyWith(
-          errorCode: errorCode,
-        ));
+      if (e is RemoteException) {
+        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
+        if (listErrorCode != null && listErrorCode.isNotEmpty) {
+          emit(state.copyWith(
+            errorCode: listErrorCode.first,
+          ));
+        } else {
+          emit(state.copyWith(errorCode: 'error'));
+        }
         event.completer?.complete(false);
       } else {
         emit(state.copyWith(

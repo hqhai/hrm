@@ -7,6 +7,7 @@ import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/routers/query_params/shifts_query_params.dart';
 import 'package:base_app/common/utils/item_data.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_event.dart';
 import 'package:base_app/presentations/widgets/activate/item_activate.dart';
@@ -51,13 +52,9 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
       case 0:
         dI<AppNavigation>().pushName(context, page: Pages.registerShiftsPage);
       case 1:
-        dI<AppNavigation>().push(context,
-            page: Pages.registerWorkDayAdmin,
-            paramsQuerry: ShiftsBuyUserQueryParams(type: UserType.user).toJson());
+        dI<AppNavigation>().push(context, page: Pages.registerWorkDayAdmin, paramsQuerry: ShiftsBuyUserQueryParams(type: UserType.user).toJson());
       case 2:
-        dI<AppNavigation>().push(context,
-            page: Pages.registerWorkDayAdmin,
-            paramsQuerry: ShiftsBuyUserQueryParams(type: UserType.manage).toJson());
+        dI<AppNavigation>().push(context, page: Pages.registerWorkDayAdmin, paramsQuerry: ShiftsBuyUserQueryParams(type: UserType.manage).toJson());
       case 3:
         _nextTimekeepingGPSScreen(context);
     }
@@ -65,38 +62,43 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
 
   _nextTimekeepingGPSScreen(BuildContext context) async {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+    final appLocalizations = AppLocalizations.of(currentContext)!;
     final Completer completer = Completer<bool?>();
-    dialogIndicator(
-      context: context,
-    );
+    dialogIndicator(context: currentContext);
     dI<ScheduleSchoolBloc>().add(GetScheduleSchoolEvent(
       dateTime: DateTime.now(),
       completer: completer,
     ));
     final completerCheck = await completer.future;
+
     if (completerCheck == true) {
       if (!currentContext.mounted) return;
-      dI<AppNavigation>().pop(context);
+      dI<AppNavigation>().pop(currentContext);
       dI<AppNavigation>().pushName(
         currentContext,
         //page: Pages.timekeepingGPSPage,
         page: Pages.timekeepingGPSSchool,
       );
-    } else if (completerCheck == null) {
+    } else if (completerCheck == false) {
       if (!currentContext.mounted) return;
-      dI<AppNavigation>().pop(context);
-      getNote(currentContext);
+      dI<AppNavigation>().pop(currentContext);
+      final error = dI<ScheduleSchoolBloc>().state.errorMessage;
+      String? errorConvert;
+      if (error.contains('DataNotExist')) {
+        errorConvert = appLocalizations.youDoNotHaveAShiftToday;
+      }
+      getNote(currentContext, errorConvert);
     }
   }
 
-  getNote(BuildContext context) {
+  getNote(BuildContext context, String? error) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         final colors = AppTheme.getColors(context);
         return Dialog(
           backgroundColor: colors.background,
-          child: const TimeKeepingErrorNoShift(),
+          child: TimeKeepingErrorNoShift(error: error),
         );
       },
     );

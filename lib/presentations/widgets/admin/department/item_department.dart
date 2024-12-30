@@ -26,11 +26,10 @@ class _ItemDepartmentState extends State<ItemDepartment> {
     return BlocBuilder<DepartmentBloc, DepartmentState>(
       builder: (context, state) {
         return GestureDetector(
-          onTap: () => {}/*_information(context, state)*/,
+          onTap: () => {} /*_information(context, state)*/,
           child: Container(
             margin: const EdgeInsets.only(bottom: SpacingUnit.x4),
-            padding:
-                const EdgeInsets.symmetric(vertical: SpacingUnit.x2, horizontal: SpacingUnit.x2),
+            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2, horizontal: SpacingUnit.x2),
             decoration: const BoxDecoration(
               color: Color(0xff293656),
               borderRadius: BorderRadius.all(
@@ -44,9 +43,7 @@ class _ItemDepartmentState extends State<ItemDepartment> {
                   flex: 15,
                   child: CircleAvatar(
                     backgroundColor: const Color(0xff42558A),
-                    child: Text('${widget.index + 1}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: SpacingUnit.x6, color: colors.text)),
+                    child: Text('${widget.index + 1}', textAlign: TextAlign.center, style: TextStyle(fontSize: SpacingUnit.x6, color: colors.text)),
                   ),
                 ),
                 Expanded(
@@ -58,20 +55,20 @@ class _ItemDepartmentState extends State<ItemDepartment> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          state.departments[widget.index].name??"",
+                          state.departments[widget.index].name,
                           maxLines: 1,
                           textAlign: TextAlign.left,
                           style: const TextStyle(fontSize: SpacingUnit.x5, color: Colors.orange),
                         ),
                         Text(
-                          state.departments[widget.index].address??"",
+                          state.departments[widget.index].address,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: TextStyle(fontSize: SpacingUnit.x4, color: colors.text),
                         ),
                         Text(
-                          state.departments[widget.index].phoneNumber??"",
+                          state.departments[widget.index].phoneNumber,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
@@ -103,15 +100,11 @@ class _ItemDepartmentState extends State<ItemDepartment> {
   }
 
   _deleteDialog(BuildContext context, DepartmentState state) {
-    deleteDialog(
-        context,
-        () => dI<DepartmentBloc>()
-            .add(DeleteDepartmentsEvent(id: state.departments[widget.index].id)));
+    deleteDialog(context, () => dI<DepartmentBloc>().add(DeleteDepartmentsEvent(id: state.departments[widget.index].id)));
   }
 
-  _update(BuildContext context){
-    dI<AppNavigation>().pushName(context,
-        page: Pages.updateDepartmentPage, extra: {'index': widget.index});
+  _update(BuildContext context) {
+    dI<AppNavigation>().pushName(context, page: Pages.updateDepartmentPage, extra: {'index': widget.index});
   }
 
   //Chưa có Department by id nên để trống

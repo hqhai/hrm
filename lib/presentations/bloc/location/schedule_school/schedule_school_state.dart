@@ -9,13 +9,15 @@ part 'schedule_school_state.g.dart';
 @JsonSerializable()
 class ScheduleSchoolState extends Equatable {
   final ScheduleSchools scheduleSchools;
+  final String errorMessage;
 
-  const ScheduleSchoolState({
+  const ScheduleSchoolState( {
     this.scheduleSchools = const ScheduleSchools(),
+    this.errorMessage = '',
   });
 
   @override
-  List<Object> get props => [scheduleSchools];
+  List<Object> get props => [scheduleSchools, errorMessage];
 
   factory ScheduleSchoolState.fromJson(Map<String, dynamic> json) =>
       _$ScheduleSchoolStateFromJson(json);

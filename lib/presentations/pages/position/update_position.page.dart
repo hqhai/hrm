@@ -8,8 +8,8 @@ import 'package:base_app/presentations/bloc/position/position_event.dart';
 import 'package:base_app/presentations/bloc/position/position_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -36,8 +36,7 @@ class UpdatePositionPage extends StatefulWidget {
 }
 
 class _UpdatePositionPageState extends State<UpdatePositionPage> {
-  final TextEditingController nameController = TextEditingController(),
-      descriptionController = TextEditingController();
+  final TextEditingController nameController = TextEditingController(), descriptionController = TextEditingController();
   late String name;
 
   @override
@@ -49,7 +48,7 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
 
   _listener(BuildContext context, PositionState state) {
     nameController.text = state.positions[widget.index].name;
-    descriptionController.text = state.positions[widget.index].description ?? '';
+    descriptionController.text = state.positions[widget.index].description;
     if (state.status == PositionStatus.updatePositionSuccess) {
       Navigator.of(context).pop();
       Navigator.of(context).pop();
@@ -72,8 +71,7 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
     return BasePage(
       appbar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
-        title: Text(appLocalizations.updatePosition,
-            style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
+        title: Text(appLocalizations.updatePosition, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),
       body: BlocConsumer<PositionBloc, PositionState>(
         listener: (context, state) {
@@ -94,8 +92,7 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: SpacingUnit.x4),
-                Text(appLocalizations.name,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.name, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.name,
@@ -103,8 +100,7 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
                   onChange: (value) => setState(() => name = value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.description,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.description, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInputArea(
                   placeHolder: appLocalizations.description,
@@ -114,11 +110,9 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
                 ),
                 const SizedBox(height: SpacingUnit.x4),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
+                  style: ElevatedButton.styleFrom(backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
                   onPressed: () => _updateDialog(context, state),
-                  child: Text(appLocalizations.update,
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                  child: Text(appLocalizations.update, style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
                 ),
               ],
             ),
@@ -134,7 +128,6 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
 
   _updateDialog(BuildContext context, PositionState state) {
     //final appLocalizations = AppLocalizations.of(context)!;
-    if (_checkTextField()) {
-    }
+    if (_checkTextField()) {}
   }
 }

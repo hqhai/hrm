@@ -108,7 +108,7 @@ DepartmentState _$DepartmentStateFromJson(Map<String, dynamic> json) =>
           const [],
       status: $enumDecodeNullable(_$DepartmentStatusEnumMap, json['status']) ??
           DepartmentStatus.init,
-      totalItems: json['totalItems'] as int? ?? 0,
+      totalItems: (json['totalItems'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$DepartmentStateToJson(DepartmentState instance) =>

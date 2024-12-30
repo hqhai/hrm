@@ -12,7 +12,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ItemPosition extends StatefulWidget {
-  const ItemPosition({super.key, required this.id,});
+  const ItemPosition({
+    super.key,
+    required this.id,
+  });
 
   final String id;
 
@@ -21,18 +24,16 @@ class ItemPosition extends StatefulWidget {
 }
 
 class _ItemPositionState extends State<ItemPosition> {
-
   int index = 0;
 
-  
-  Position getPositionInId(PositionState state){
+  Position getPositionInId(PositionState state) {
     Position position = state.positions.firstWhere((element) => element.id == widget.id);
     setState(() {
       index = state.positions.indexOf(position);
     });
     return position;
-  } 
-  
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -42,8 +43,7 @@ class _ItemPositionState extends State<ItemPosition> {
           onTap: () => {} /*_information(context, state)*/,
           child: Container(
             margin: const EdgeInsets.only(bottom: SpacingUnit.x4),
-            padding:
-                const EdgeInsets.symmetric(vertical: SpacingUnit.x2, horizontal: SpacingUnit.x2),
+            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2, horizontal: SpacingUnit.x2),
             decoration: const BoxDecoration(
               color: Color(0xff293656),
               borderRadius: BorderRadius.all(
@@ -57,9 +57,7 @@ class _ItemPositionState extends State<ItemPosition> {
                   flex: 15,
                   child: CircleAvatar(
                     backgroundColor: const Color(0xff42558A),
-                    child: Text('${index + 1}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: SpacingUnit.x6, color: colors.text)),
+                    child: Text('${index + 1}', textAlign: TextAlign.center, style: TextStyle(fontSize: SpacingUnit.x6, color: colors.text)),
                   ),
                 ),
                 Expanded(
@@ -76,7 +74,7 @@ class _ItemPositionState extends State<ItemPosition> {
                           style: const TextStyle(fontSize: SpacingUnit.x5, color: Colors.orange),
                         ),
                         Text(
-                          getPositionInId(state).description ?? '',
+                          getPositionInId(state).description,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
@@ -108,13 +106,11 @@ class _ItemPositionState extends State<ItemPosition> {
   }
 
   _deleteDialog(BuildContext context, PositionState state) {
-    deleteDialog(context,
-        () => dI<PositionBloc>().add(DeletePositionsEvent(id: getPositionInId(state).id)));
+    deleteDialog(context, () => dI<PositionBloc>().add(DeletePositionsEvent(id: getPositionInId(state).id)));
   }
 
   _update(BuildContext context) {
-    dI<AppNavigation>()
-        .pushName(context, page: Pages.updatePositionPage, extra: {'index': index});
+    dI<AppNavigation>().pushName(context, page: Pages.updatePositionPage, extra: {'index': index});
   }
 
 /*_information(BuildContext context, PositionState state){

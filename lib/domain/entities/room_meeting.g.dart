@@ -15,7 +15,7 @@ RoomMeeting _$RoomMeetingFromJson(Map<String, dynamic> json) => RoomMeeting(
       createdDate: json['createdDate'] as String?,
       updatedDate: json['updatedDate'] as String?,
       roomName: json['roomName'] as String?,
-      numberOfSeats: json['numberOfSeats'] as int?,
+      numberOfSeats: (json['numberOfSeats'] as num?)?.toInt(),
       address: json['address'] as String?,
       description: json['description'] as String?,
       isApproval: json['isApproval'] as bool?,

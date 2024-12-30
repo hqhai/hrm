@@ -40,34 +40,9 @@ class Request extends Equatable {
   final bool isEdit;
   final FlowRequest? flow;
 
-  const Request(
-      {required this.id,
-      this.createdUserId = '',
-      this.updatedUserId = '',
-      this.flowType = RequisitionTypeEnum.unknown,
-      this.status = StatusRequestEnum.unknown,
-      this.updatedDate,
-      this.updatedFullName = '',
-      this.createdDate,
-      this.createdFullName = '',
-      this.code = '',
-      this.config = const ConfigRequestModel(),
-      this.createdDepartmentId = '',
-      this.createdPositionId = '',
-      this.flowId = '',
-      this.followerIds = const [],
-      this.stepRequests = const [],
-      this.attachments = const [],
-      this.createdCode = '',
-      this.nameCreatedDepartment = '',
-      this.nameCreatedPosition = '',
-      this.nameFlow = '',
-      this.isFirstStep = false,
-      this.isEdit = false,
-      this.flow});
+  const Request({this.id = '', this.createdUserId = '', this.updatedUserId = '', this.flowType = RequisitionTypeEnum.unknown, this.status = StatusRequestEnum.unknown, this.updatedDate, this.updatedFullName = '', this.createdDate, this.createdFullName = '', this.code = '', this.config = const ConfigRequestModel(), this.createdDepartmentId = '', this.createdPositionId = '', this.flowId = '', this.followerIds = const [], this.stepRequests = const [], this.attachments = const [], this.createdCode = '', this.nameCreatedDepartment = '', this.nameCreatedPosition = '', this.nameFlow = '', this.isFirstStep = false, this.isEdit = false, this.flow});
 
-  factory Request.fromJson(Map<String, dynamic> json) =>
-      _$RequestFromJson(json);
+  factory Request.fromJson(Map<String, dynamic> json) => _$RequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$RequestToJson(this);
 

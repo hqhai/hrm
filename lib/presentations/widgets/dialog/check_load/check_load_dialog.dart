@@ -292,7 +292,7 @@ approverUnsuccessful({required String errorDialog, String? title}) {
   final appLocalizations = AppLocalizations.of(currentContext)!;
   dialogUnsuccessful(
     context: currentContext,
-    title: errorDialog.isNotEmpty ? errorDialog : title ?? appLocalizations.approvedUnsuccessful,
+    title: errorDialog.isNotEmpty ? errorDialog : title ?? appLocalizations.noConnected,
   );
 }
 

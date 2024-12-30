@@ -7,46 +7,45 @@ import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/attendance/work_sheet.dart';
 import 'package:base_app/domain/entities/work_day/attendance_by_date.dart';
 import 'package:base_app/domain/repositories/attendances.repository.dart';
-import 'package:base_app/domain/services/attendances.service.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import '../source/api/services/attendances_service.dart';
+
 @LazySingleton(as: AttendanceRepository)
 class AttendanceRepositoryImplement extends AttendanceRepository {
-  final AttendanceService attendanceService;
+  final AttendanceService _attendanceService;
 
-  AttendanceRepositoryImplement() : attendanceService = dI<AttendanceService>();
+  AttendanceRepositoryImplement(this._attendanceService);
 
   @override
-  Future<Attendance> workSheet({
+  Future<Attendance?> workSheet({
     required DateTime startTime,
     required DateTime endTime,
   }) async {
-    final attendances = await attendanceService
-        .workSheet(GetAttendanceRequest(startDate: startTime, endDate: endTime));
-    return attendances;
+    final attendances = await _attendanceService.workSheet(GetAttendanceRequest(startDate: startTime, endDate: endTime));
+    return attendances?.data;
   }
 
   @override
   Future<WorkSheet> getWorkSheet({required DateTime time}) async {
-    return await attendanceService.getWorkSheet(time: GetWorkSheetRequest(time: time));
+    return await _attendanceService.getWorkSheet(time: GetWorkSheetRequest(time: time));
   }
 
   @override
-  Future<Attendance> getAttendance(
-      {required String month, required String year, required String id}) async {
-    final attendances = await attendanceService
-        .getAttendance(GetAttendancesRequest(month: month, year: year, userid: id));
-    return attendances;
+  Future<Attendance?> getAttendance({required String month, required String year, required String id}) async {
+    final attendances = await _attendanceService.getAttendance(GetAttendancesRequest(month: month, year: year, userid: id));
+    return attendances?.data;
   }
 
   @override
-  Future<List<AttendanceByDate>> getAttendancesByDate({required DateTime time}) async {
+  Future<List<AttendanceByDate>?> getAttendancesByDate({required DateTime time}) async {
     final id = dI<UserBloc>().state.user.id;
-    return await attendanceService.getAttendancesByDate(
+    final data = await _attendanceService.getAttendancesByDate(
         workSheetHistoryRequest: WorkSheetHistoryRequest(
       date: time,
       userId: id,
     ));
+    return data?.result;
   }
 }

@@ -9,8 +9,8 @@ import 'package:base_app/presentations/bloc/department/department_event.dart';
 import 'package:base_app/presentations/bloc/department/department_state.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -37,12 +37,7 @@ class UpdateDepartmentPage extends StatefulWidget {
 }
 
 class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
-  final TextEditingController nameController = TextEditingController(),
-      codeController = TextEditingController(),
-      emailController = TextEditingController(),
-      phoneNumberController = TextEditingController(),
-      addressController = TextEditingController(),
-      descriptionController = TextEditingController();
+  final TextEditingController nameController = TextEditingController(), codeController = TextEditingController(), emailController = TextEditingController(), phoneNumberController = TextEditingController(), addressController = TextEditingController(), descriptionController = TextEditingController();
   String name = '', code = '', email = '', address = '', phoneNumber = '', parent = '';
   List<String> listParents = const [];
 
@@ -53,20 +48,16 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
   }
 
   _listener(BuildContext context, DepartmentState state) {
-    nameController.text = state.departments[widget.index].name ?? "";
-    emailController.text = state.departments[widget.index].email ?? "";
-    phoneNumberController.text = state.departments[widget.index].phoneNumber ?? "";
-    addressController.text = state.departments[widget.index].address ?? "";
-    descriptionController.text = state.departments[widget.index].description ?? '';
-    parent = state.departments
-            .where((e) => e.parentId == state.departments[widget.index].parentId)
-            .first
-            .name ??
-        "";
-    name = state.departments[widget.index].name ?? "";
-    email = state.departments[widget.index].email ?? "";
-    address = state.departments[widget.index].address ?? "";
-    phoneNumber = state.departments[widget.index].phoneNumber ?? "";
+    nameController.text = state.departments[widget.index].name;
+    emailController.text = state.departments[widget.index].email;
+    phoneNumberController.text = state.departments[widget.index].phoneNumber;
+    addressController.text = state.departments[widget.index].address;
+    descriptionController.text = state.departments[widget.index].description;
+    parent = state.departments.where((e) => e.parentId == state.departments[widget.index].parentId).first.name;
+    name = state.departments[widget.index].name;
+    email = state.departments[widget.index].email;
+    address = state.departments[widget.index].address;
+    phoneNumber = state.departments[widget.index].phoneNumber;
     if (state.status == DepartmentStatus.updateDepartmentSuccess) {
       Navigator.of(context).pop();
       Navigator.of(context).pop();
@@ -90,8 +81,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
     return BasePage(
       appbar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
-        title: Text(appLocalizations.updateDepartment,
-            style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
+        title: Text(appLocalizations.updateDepartment, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),
       body: BlocConsumer<DepartmentBloc, DepartmentState>(
         listener: (context, state) {
@@ -112,8 +102,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: SpacingUnit.x4),
-                Text(appLocalizations.name,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.name, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.name,
@@ -121,8 +110,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
                   onChange: (value) => setState(() => name = value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.code,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.code, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.code,
@@ -130,8 +118,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
                   onChange: (value) => setState(() => code = value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.phoneNumber,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.phoneNumber, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.phoneNumber,
@@ -139,8 +126,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
                   onChange: (value) => setState(() => phoneNumber = value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.email,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.email, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.email,
@@ -148,8 +134,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
                   onChange: (value) => setState(() => email = value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.address,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.address, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.address,
@@ -157,8 +142,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
                   onChange: (value) => setState(() => address = value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.description,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.description, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInputArea(
                   placeHolder: appLocalizations.description,
@@ -167,8 +151,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
                   maxLines: 5,
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.parent,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.parent, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 DropdownMenu<String>(
                   width: width * 0.6,
                   initialSelection: _parentInit(state),
@@ -177,20 +160,15 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
                       parent = value!;
                     });
                   },
-                  dropdownMenuEntries: state.departments
-                      .map((e) => e.name ?? "")
-                      .toList()
-                      .map<DropdownMenuEntry<String>>((String value) {
+                  dropdownMenuEntries: state.departments.map((e) => e.name).toList().map<DropdownMenuEntry<String>>((String value) {
                     return DropdownMenuEntry<String>(value: value, label: value);
                   }).toList(),
                 ),
                 const SizedBox(height: SpacingUnit.x4),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
+                  style: ElevatedButton.styleFrom(backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
                   onPressed: () => _updateDialog(context, state),
-                  child: Text(appLocalizations.update,
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                  child: Text(appLocalizations.update, style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
                 ),
               ],
             ),
@@ -201,11 +179,7 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
   }
 
   String _parentInit(DepartmentState state) {
-    return state.departments
-            .where((e) => e.parentId == state.departments[widget.index].parentId)
-            .first
-            .name ??
-        "";
+    return state.departments.where((e) => e.parentId == state.departments[widget.index].parentId).first.name;
   }
 
   bool _checkTextField() {
@@ -213,16 +187,12 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
   }
 
   String parentId(String parentName, DepartmentState state) {
-    Department department = state.departments
-        .where((element) => element.name.toString() == parentName.toString())
-        .first;
+    Department department = state.departments.where((element) => element.name.toString() == parentName.toString()).first;
     return department.id;
   }
 
   _updateDialog(BuildContext context, DepartmentState state) {
     //final appLocalizations = AppLocalizations.of(context)!;
-    if (_checkTextField()) {
-
-    }
+    if (_checkTextField()) {}
   }
 }

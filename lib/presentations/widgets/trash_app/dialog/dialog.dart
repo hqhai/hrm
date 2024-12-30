@@ -12,7 +12,6 @@ import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:themes/themes.dart';
 
 final noteSystemPageRoute = GoRoute(
@@ -36,7 +35,6 @@ class NoteDialogSystem extends StatefulWidget {
 
 class _NoteDialogSystemState extends State<NoteDialogSystem> {
   double latitude = 0, longitude = 0;
-  LatLng? latLngFsel;
 
   @override
   void initState() {

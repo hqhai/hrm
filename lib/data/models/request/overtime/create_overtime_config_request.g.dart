@@ -13,7 +13,7 @@ CreateOverTimeConfigRequest _$CreateOverTimeConfigRequestFromJson(
       task: json['task'] as String? ?? '',
       endOverTime: json['endOverTime'] as String? ?? '',
       startOverTime: json['startOverTime'] as String? ?? '',
-      totalTime: json['totalTime'] as int? ?? 0,
+      totalTime: (json['totalTime'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$CreateOverTimeConfigRequestToJson(

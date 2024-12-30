@@ -10,7 +10,7 @@ CreateRoomMeetingRequest _$CreateRoomMeetingRequestFromJson(
         Map<String, dynamic> json) =>
     CreateRoomMeetingRequest(
       roomName: json['roomName'] as String?,
-      numberOfSeats: json['numberOfSeats'] as int?,
+      numberOfSeats: (json['numberOfSeats'] as num?)?.toInt(),
       address: json['address'] as String?,
       description: json['description'] as String?,
       isApproval: json['isApproval'] as bool?,

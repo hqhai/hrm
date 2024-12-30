@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/exception/remote/remote_exception.dart';
 import 'package:base_app/domain/use_cases/login_usecase.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
@@ -10,7 +11,6 @@ import 'package:base_app/presentations/bloc/login/login_state.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:base_app/data/models/response.dart';
 
 part 'login_event.dart';
 
@@ -35,47 +35,26 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
 
   FutureOr<void> _requestLogin(RequestLogin event, Emitter<LoginState> emit) async {
     if (event.username.isEmpty && event.password.isEmpty) {
-      emit(state.copyWith(
-          username: event.username,
-          password: event.password,
-          status: LoginStatus.loginAccountRequired));
+      emit(state.copyWith(username: event.username, password: event.password, status: LoginStatus.loginAccountRequired));
       return;
     } else {
       try {
-        final loginResponse =
-            await _loginUseCase.login(username: event.username, password: event.password);
-        _authBloc.add(CheckAuthenticated(
-            loginResponse: loginResponse,
-            saveLogin: event.saveLogin,
-            email: event.username,
-            password: event.password));
-        if (loginResponse.isFirstLogin == true) {
-          emit(state.copyWith(
-              username: event.username,
-              password: event.password,
-              status: LoginStatus.firstLoginSuccess));
+        final loginResponse = await _loginUseCase.login(username: event.username, password: event.password);
+        _authBloc.add(CheckAuthenticated(loginResponse: loginResponse, saveLogin: event.saveLogin, email: event.username, password: event.password));
+        if (loginResponse?.isFirstLogin == true) {
+          emit(state.copyWith(username: event.username, password: event.password, status: LoginStatus.firstLoginSuccess));
         } else {
-          emit(state.copyWith(
-              username: event.username,
-              password: event.password,
-              status: LoginStatus.loginSuccess));
+          emit(state.copyWith(username: event.username, password: event.password, status: LoginStatus.loginSuccess));
         }
       } catch (e) {
-        if (e is ResponseBase) {
-          if (e.statusCode == 403) {
-            emit(state.copyWith(
-                username: event.username,
-                password: event.password,
-                status: LoginStatus.userLocked));
+        if (e is RemoteException) {
+          if (e.httpErrorCode == 403) {
+            emit(state.copyWith(username: event.username, password: event.password, status: LoginStatus.userLocked));
           } else {
-            emit(state.copyWith(
-                username: event.username,
-                password: event.password,
-                status: LoginStatus.loginFailed));
+            emit(state.copyWith(username: event.username, password: event.password, status: LoginStatus.loginFailed));
           }
         } else {
-          emit(state.copyWith(
-              username: event.username, password: event.password, status: LoginStatus.loginFailed));
+          emit(state.copyWith(username: event.username, password: event.password, status: LoginStatus.loginFailed));
         }
       }
     }
@@ -126,49 +105,33 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
     }
   }
 
-  FutureOr<void> _changePasswordSuccessEvent(
-      ChangePasswordSuccessEvent event, Emitter<LoginState> emit) {
+  FutureOr<void> _changePasswordSuccessEvent(ChangePasswordSuccessEvent event, Emitter<LoginState> emit) {
     emit(state.copyWith(status: LoginStatus.loginSuccess));
   }
 
-  FutureOr<void> _biometricRequestLogin(
-      BiometricRequestLogin event, Emitter<LoginState> emit) async {
+  FutureOr<void> _biometricRequestLogin(BiometricRequestLogin event, Emitter<LoginState> emit) async {
     BiometricEnum biometricEnum = dI<BiometricCubit>().state.status;
     if (biometricEnum == BiometricEnum.notRegistered) {
       emit(state.copyWith(
         status: LoginStatus.notRegisteredForBiometrics,
       ));
     } else if (event.username.isEmpty && event.password.isEmpty) {
-      emit(state.copyWith(
-          username: event.username,
-          password: event.password,
-          status: LoginStatus.loginAccountRequired));
+      emit(state.copyWith(username: event.username, password: event.password, status: LoginStatus.loginAccountRequired));
       return;
     } else {
       try {
-        final loginResponse =
-            await _loginUseCase.login(username: event.username, password: event.password);
-        _authBloc.add(CheckAuthenticated(
-            loginResponse: loginResponse,
-            saveLogin: true,
-            email: event.username,
-            password: event.password));
-        if (loginResponse.isFirstLogin == true) {
-          emit(state.copyWith(
-              username: event.username,
-              password: event.password,
-              status: LoginStatus.firstLoginSuccess));
+        final loginResponse = await _loginUseCase.login(username: event.username, password: event.password);
+        _authBloc.add(CheckAuthenticated(loginResponse: loginResponse, saveLogin: true, email: event.username, password: event.password));
+        if (loginResponse?.isFirstLogin == true) {
+          emit(state.copyWith(username: event.username, password: event.password, status: LoginStatus.firstLoginSuccess));
         } else {
-          emit(state.copyWith(
-              username: event.username,
-              password: event.password,
-              status: LoginStatus.loginSuccess));
+          emit(state.copyWith(username: event.username, password: event.password, status: LoginStatus.loginSuccess));
         }
       } catch (e) {
-        if (e is ResponseBase) {
-          if (e.statusCode == 403) {
+        if (e is RemoteException) {
+          if (e.httpErrorCode == 403) {
             emit(state.copyWith(status: LoginStatus.userLocked));
-          } else if (e.statusCode == 401) {
+          } else if (e.httpErrorCode == 401) {
             emit(state.copyWith(status: LoginStatus.wrongBiometricAccount));
           } else {
             emit(state.copyWith(status: LoginStatus.loginFailed));
@@ -180,8 +143,7 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
     }
   }
 
-  FutureOr<void> _checkBiometricAccount(
-      CheckBiometricAccount event, Emitter<LoginState> emit) async {
+  FutureOr<void> _checkBiometricAccount(CheckBiometricAccount event, Emitter<LoginState> emit) async {
     try {
       await _loginUseCase.checkAccountBiometric(
         username: event.username,

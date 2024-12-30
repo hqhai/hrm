@@ -9,7 +9,7 @@ part of 'get_request.dart';
 GetRequestRequest _$GetRequestRequestFromJson(Map<String, dynamic> json) =>
     GetRequestRequest(
       status: json['status'] as String,
-      page: json['page'] as int,
+      page: (json['page'] as num).toInt(),
     );
 
 Map<String, dynamic> _$GetRequestRequestToJson(GetRequestRequest instance) =>

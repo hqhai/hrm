@@ -1,5 +1,5 @@
 abstract class CheckInSettingRepository {
-  Future<int> createCheckInSetting({
+  Future<int?> createCheckInSetting({
     required int morningStartTime,
     required int morningEndTime,
     required int afternoonStartTime,

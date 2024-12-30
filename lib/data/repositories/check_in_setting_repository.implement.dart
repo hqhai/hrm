@@ -1,17 +1,17 @@
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/data/models/check_in_setting/create_check_in_setting_request.dart';
 import 'package:base_app/domain/repositories/check_in_setting.repository.dart';
-import 'package:base_app/domain/services/check_in_setting.service.dart';
 import 'package:injectable/injectable.dart';
+
+import '../source/api/services/check_in_setting_service.dart';
 
 @LazySingleton(as: CheckInSettingRepository)
 class CheckInSettingRepositoryImpl extends CheckInSettingRepository {
-  final CheckInSettingService personnelService;
+  final CheckInSettingService _personnelService;
 
-  CheckInSettingRepositoryImpl() : personnelService = dI<CheckInSettingService>();
+  CheckInSettingRepositoryImpl(this._personnelService);
 
   @override
-  Future<int> createCheckInSetting({
+  Future<int?> createCheckInSetting({
     String? code,
     required int morningStartTime,
     required int morningEndTime,
@@ -19,14 +19,14 @@ class CheckInSettingRepositoryImpl extends CheckInSettingRepository {
     required int afternoonEndTime,
     required String departmentId,
   }) async {
-    int codeStatus = await personnelService.createCheckInSetting(
+    final data = await _personnelService.createCheckInSetting(
         createCheckInSettingRequest: CreateCheckInSettingRequest(
-          departmentId: departmentId,
+      departmentId: departmentId,
       morningStartTime: morningStartTime,
       morningEndTime: morningEndTime,
       afternoonStartTime: afternoonStartTime,
       afternoonEndTime: afternoonEndTime,
     ));
-    return codeStatus;
+    return data?.statusCode;
   }
 }

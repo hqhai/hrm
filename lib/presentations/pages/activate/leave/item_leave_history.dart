@@ -101,7 +101,7 @@ class _ItemLeaveHistoryState extends State<ItemLeaveHistory> {
     final Completer completer = Completer<bool>();
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     dialogIndicator(
-      context: context,
+      context: currentContext,
     );
     dI<RequisitionBloc>().add(
       GetRequisitionByIdEvent(id: id, completer: completer),

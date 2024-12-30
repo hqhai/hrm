@@ -1,20 +1,49 @@
 import 'package:base_app/data/models/work_and_salary/work_sheet_history_response.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/attendance/work_sheet.dart';
+import 'package:base_app/domain/repositories/attendances.repository.dart';
+import 'package:injectable/injectable.dart';
 
-abstract class AttendanceUseCase {
-  Future<Attendance> workSheet({
+@Injectable()
+class AttendanceUseCase {
+  AttendanceUseCase(this._attendanceRepository);
+
+  final AttendanceRepository _attendanceRepository;
+
+  Future<Attendance?> workSheet({
     required DateTime startTime,
     required DateTime endTime,
-  });
+  }) async {
+    final attendances = await _attendanceRepository.workSheet(
+        endTime: endTime, startTime: startTime);
+    return attendances;
+  }
 
-  Future<Attendance> getAttendance({
-    required String month,
-    required String year,
-    required String id,
-  });
+  Future<WorkSheet?> getWorkSheet({required DateTime time}) async {
+    return await _attendanceRepository.getWorkSheet(time: time);
+  }
 
-  Future<WorkSheet> getWorkSheet({required DateTime time});
+  Future<Attendance?> getAttendance(
+      {required String month, required String year, required String id}) async {
+    final attendances = await _attendanceRepository.getAttendance(
+        month: month, year: year, id: id);
+    return attendances;
+  }
 
-  Future<WorkSheetHistoryResponse> getAttendancesByDate({required DateTime time});
+  Future<WorkSheetHistoryResponse?> getAttendancesByDate(
+      {required DateTime time}) async {
+    final attendances =
+        await _attendanceRepository.getAttendancesByDate(time: time) ?? [];
+    final map = Map.fromEntries(
+      attendances.map(
+        (item) => MapEntry(
+          item.timeChecking.microsecondsSinceEpoch,
+          item,
+        ),
+      ),
+    );
+    final keys =
+        attendances.map((e) => e.timeChecking.microsecondsSinceEpoch).toList();
+    return WorkSheetHistoryResponse(keys: keys, attendances: map);
+  }
 }

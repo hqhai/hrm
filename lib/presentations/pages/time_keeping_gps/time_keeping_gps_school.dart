@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:themes/themes.dart';
 
 final timekeepingGPSSchoolPageRoute = GoRoute(
@@ -39,13 +38,13 @@ class TimekeepingGPSSchoolPage extends StatefulWidget {
   });
 
   @override
-  State<TimekeepingGPSSchoolPage> createState() => _TimekeepingGPSSchoolPageState();
+  State<TimekeepingGPSSchoolPage> createState() =>
+      _TimekeepingGPSSchoolPageState();
 }
 
 class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
   ScheduleSchool scheduleSchool = const ScheduleSchool();
-  Position? _currentLocation;
-  LatLng? latLngFsel;
+  Position? latLngFsel;
   bool checkClick = true, checkPermission = true;
 
   @override
@@ -90,7 +89,8 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
                           child: ListSchoolWidget(
                             scheduleSchoolId: scheduleSchool.id,
                             onChange: (value) => setSchool(
-                                value: value, schools: state.scheduleSchools.scheduleSchools),
+                                value: value,
+                                schools: state.scheduleSchools.scheduleSchools),
                           ),
                         ),
                       ],
@@ -98,8 +98,10 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
                   ),
                 ),
                 ButtonTimekeepingItem(
-                  callBackHistoryTimekeeping: () => nextHistoryTimekeepingScreen(context),
-                  callBackTimekeeping: () => timekeeping(context, scheduleSchool.id),
+                  callBackHistoryTimekeeping: () =>
+                      nextHistoryTimekeepingScreen(context),
+                  callBackTimekeeping: () =>
+                      timekeeping(context, scheduleSchool.id),
                   checkClick: scheduleSchool.id != '',
                 ),
               ],
@@ -125,7 +127,7 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
       completer: completer,
     ));
     final checkCompleter = await completer.future;
-    if(checkCompleter){
+    if (checkCompleter) {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(currentContext);
       dI<AppNavigation>().push(
@@ -138,7 +140,8 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
   timekeeping(BuildContext context, String schoolId) {
     final appLocalizations = AppLocalizations.of(context)!;
     if (scheduleSchool.id == '') {
-      showToastTimeKeeping(context: context, errorCode: appLocalizations.chooseASchedule);
+      showToastTimeKeeping(
+          context: context, errorCode: appLocalizations.chooseASchedule);
     } else if (checkClick) {
       _determinePosition(context, schoolId);
     }
@@ -174,21 +177,17 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
         },
       );
     }
-    if(permission != LocationPermission.deniedForever){
+    if (permission != LocationPermission.deniedForever) {
       if (!currentContext.mounted) return;
       dialogIndicator(context: currentContext);
-      final position = await Geolocator.getCurrentPosition();
-      _setCurrentLocation(position, id);
+      _setCurrentLocation(id);
     }
   }
-  _setCurrentLocation(Position position, String id) {
-    setState(() {
-      checkClick = false;
-      _currentLocation = position;
-      double lo = _currentLocation?.longitude ?? 0;
-      double la = _currentLocation?.latitude ?? 0;
-      latLngFsel = LatLng(la, lo);
-    });
+
+  _setCurrentLocation(String id) async {
+    checkClick = false;
+    latLngFsel = await Geolocator.getCurrentPosition();
+    setState(() {});
     checkTimekeeping(id);
   }
 
@@ -215,7 +214,8 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
           'scheduleSchoolId': scheduleSchool.id,
         },
       );
-    } else if (status == TimekeepingStatus.distanceNotEnough || status == TimekeepingStatus.fail) {
+    } else if (status == TimekeepingStatus.distanceNotEnough ||
+        status == TimekeepingStatus.fail) {
       if (!currentContext.mounted) return;
       setState(() {
         checkClick = true;
@@ -255,7 +255,8 @@ class _DialogOpenSetting extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height / 4.5,
       padding: const EdgeInsets.all(SpacingUnit.x4),
       decoration: BoxDecoration(
-          color: colors.background, borderRadius: BorderRadius.circular(SpacingUnit.x4)),
+          color: colors.background,
+          borderRadius: BorderRadius.circular(SpacingUnit.x4)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -275,7 +276,8 @@ class _DialogOpenSetting extends StatelessWidget {
             child: Text(
               appLocalizations.contentPopUpOpenGPS,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.bodyLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: SpacingUnit.x4),

@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
-import 'package:base_app/domain/use_cases/location.usecase.dart';
+import 'package:base_app/domain/use_cases/location_usecase.dart';
 import 'package:base_app/presentations/bloc/shift/shift_event.dart';
 import 'package:base_app/presentations/bloc/shift/shift_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -12,9 +11,7 @@ import 'package:injectable/injectable.dart';
 class ShiftBloc extends HydratedBloc<ShiftEvent, ShiftState> {
   final LocationUseCase _locationUseCase;
 
-  ShiftBloc()
-      : _locationUseCase = dI<LocationUseCase>(),
-        super(const ShiftState()) {
+  ShiftBloc(this._locationUseCase) : super(const ShiftState()) {
     on<ShiftEvent>((event, emit) {});
     on<GetShiftByIdEvent>(_getShiftByIdEvent);
     on<GetShiftByIdsEvent>(_getShiftByIdsEvent);
@@ -22,21 +19,21 @@ class ShiftBloc extends HydratedBloc<ShiftEvent, ShiftState> {
   }
 
   FutureOr<void> _getShiftByIdEvent(GetShiftByIdEvent event, Emitter<ShiftState> emit) async {
-    try{
+    try {
       final shift = await _locationUseCase.getShift(id: event.id);
       emit(state.copyWith(shift: shift));
       event.completer?.complete(true);
-    }catch(e){
+    } catch (e) {
       event.completer?.complete(false);
     }
   }
 
   FutureOr<void> _getShiftByIdsEvent(GetShiftByIdsEvent event, Emitter<ShiftState> emit) async {
-    try{
+    try {
       final shifts = await _locationUseCase.getShifts(ids: event.ids);
       final Map<String, Shift> mapShifts = Map.fromEntries(
         shifts.map(
-              (item) => MapEntry(
+          (item) => MapEntry(
             item.id,
             item,
           ),
@@ -44,7 +41,7 @@ class ShiftBloc extends HydratedBloc<ShiftEvent, ShiftState> {
       );
       emit(state.copyWith(mapShift: mapShifts, keys: event.ids));
       event.completer?.complete(true);
-    }catch(e){
+    } catch (e) {
       event.completer?.complete(false);
     }
   }

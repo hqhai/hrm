@@ -910,7 +910,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       userName: json['userName'] as String? ?? '',
       code: json['code'] as String? ?? '',
       tax: json['tax'] as String? ?? '',
-      attendanceId: json['attendanceId'] as int? ?? 0,
+      attendanceId: (json['attendanceId'] as num?)?.toInt() ?? 0,
       firstName: json['firstName'] as String? ?? '',
       lastName: json['lastName'] as String? ?? '',
       fullName: json['fullName'] as String? ?? '',
@@ -980,7 +980,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
               .toList() ??
           const [],
       isActive: json['isActive'] as bool? ?? true,
-      id: json['id'] as String,
+      id: json['id'] as String? ?? '',
       createdUserId: json['createdUserId'] as String? ?? '',
       updatedUserId: json['updatedUserId'] as String? ?? '',
       createdFullName: json['createdFullName'] as String? ?? '',

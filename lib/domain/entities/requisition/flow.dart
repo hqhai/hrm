@@ -21,7 +21,7 @@ class FlowRequest {
   final List<StepFlow> stepFlows;
 
   const FlowRequest({
-    required this.id,
+    this.id = '',
     this.flowType = RequisitionTypeEnum.unknown,
     this.name,
     this.timeLimitBeforeCreation,
@@ -31,7 +31,6 @@ class FlowRequest {
     this.quantityLimit,
     this.quantityLimitType,
     this.stepFlows = const [],
-
   });
 
   factory FlowRequest.fromJson(Map<String, dynamic> json) => _$FlowRequestFromJson(json);

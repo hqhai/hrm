@@ -13,7 +13,6 @@ class ContentItemRequisitionList extends StatelessWidget {
   const ContentItemRequisitionList({super.key, required this.id});
 
   final String id;
-
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -32,8 +31,7 @@ class ContentItemRequisitionList extends StatelessWidget {
                 request?.flowType.configTypeName ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
+                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w700),
               ),
             ),
             TitleValueLeave(

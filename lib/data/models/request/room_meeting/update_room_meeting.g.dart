@@ -10,7 +10,7 @@ UpdateRoomMeetingRequest _$UpdateRoomMeetingRequestFromJson(
         Map<String, dynamic> json) =>
     UpdateRoomMeetingRequest(
       roomName: json['roomName'] as String?,
-      numberOfSeats: json['numberOfSeats'] as int?,
+      numberOfSeats: (json['numberOfSeats'] as num?)?.toInt(),
       address: json['address'] as String?,
       description: json['description'] as String?,
       id: json['id'] as String?,

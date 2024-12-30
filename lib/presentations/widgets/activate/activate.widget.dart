@@ -52,6 +52,7 @@ class _ActivateWidgetState extends State<ActivateWidget> {
                     (index, element) => ItemActivateWidget(
                       title: ItemUtils.titlesActivate(index, context),
                       callback: () => _nextScreen(context, index),
+                      index: index,
                     ),
                   )
                   .toList(),
@@ -106,7 +107,7 @@ class _ActivateWidgetState extends State<ActivateWidget> {
     final Completer completer = Completer<bool>();
     final Completer completerRequest = Completer<bool>();
     dialogIndicator(
-      context: context,
+      context: currentContext,
     );
     dI<RequisitionBloc>().add(
       GetRequisitionsByFilterEvent(

@@ -5,6 +5,7 @@ part 'login_response.g.dart';
 @JsonSerializable()
 class LoginResponse {
   final String accessToken;
+  final String refreshToken;
   final String fullName;
   final List<String> roles;
   final bool isFirstLogin;
@@ -12,6 +13,7 @@ class LoginResponse {
   const LoginResponse(
       {required this.accessToken,
       required this.fullName,
+      required this.refreshToken,
       required this.roles,
       required this.isFirstLogin});
 

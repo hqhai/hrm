@@ -9,10 +9,10 @@ part of 'create_check_in_setting_request.dart';
 CreateCheckInSettingRequest _$CreateCheckInSettingRequestFromJson(
         Map<String, dynamic> json) =>
     CreateCheckInSettingRequest(
-      morningStartTime: json['morningStartTime'] as int,
-      morningEndTime: json['morningEndTime'] as int,
-      afternoonStartTime: json['afternoonStartTime'] as int,
-      afternoonEndTime: json['afternoonEndTime'] as int,
+      morningStartTime: (json['morningStartTime'] as num).toInt(),
+      morningEndTime: (json['morningEndTime'] as num).toInt(),
+      afternoonStartTime: (json['afternoonStartTime'] as num).toInt(),
+      afternoonEndTime: (json['afternoonEndTime'] as num).toInt(),
       departmentId: json['departmentId'] as String,
     );
 

@@ -11,7 +11,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initHydratedBloc();
-  configureDependencies();
+  await configureInjection();
   runApp(const _InitApp());
 }
 
