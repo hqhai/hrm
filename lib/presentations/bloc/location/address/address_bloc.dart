@@ -1,24 +1,26 @@
 import 'dart:async';
 
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/enum/value_string.dart';
 import 'package:base_app/data/models/location/get_location_response.dart';
 import 'package:base_app/domain/entities/address.dart';
-import 'package:base_app/domain/use_cases/location.usecase.dart';
 import 'package:base_app/presentations/bloc/location/address/address_event.dart';
 import 'package:base_app/presentations/bloc/location/address/address_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../domain/use_cases/location_usecase.dart';
+
 @lazySingleton
 class AddressBloc extends HydratedBloc<AddressEvent, AddressState> {
   final LocationUseCase locationUseCase;
 
-  AddressBloc()
-      : locationUseCase = dI<LocationUseCase>(),
-        super(const AddressState(
-            provinces: [], districts: [], wards: [], status: AddressStatus.init)) {
+  AddressBloc(this.locationUseCase)
+      : super(const AddressState(
+            provinces: [],
+            districts: [],
+            wards: [],
+            status: AddressStatus.init)) {
     on<AddressEvent>((event, emit) {});
     on<GetProvincesEvent>(_getProvincesEvent);
     on<GetWardsEvent>(_getWardsEvent);
@@ -29,12 +31,15 @@ class AddressBloc extends HydratedBloc<AddressEvent, AddressState> {
     on<ResetAddressEvent>(_resetAddressEvent);
   }
 
-  FutureOr<void> _getProvincesEvent(GetProvincesEvent event, Emitter<AddressState> emit) async {
+  FutureOr<void> _getProvincesEvent(
+      GetProvincesEvent event, Emitter<AddressState> emit) async {
     emit(state.copyWith(status: AddressStatus.init));
     try {
       List<Address> provinces = [];
       GetLocationResponse newProvinces = await locationUseCase.getAddress(
-          page: event.page, pageSize: 10, locationType: LocationEnum.province.name);
+          page: event.page,
+          pageSize: 10,
+          locationType: LocationEnum.province.name);
       if (event.page > 1) {
         provinces.addAll(state.provinces);
         provinces.addAll(newProvinces.items);
@@ -54,7 +59,8 @@ class AddressBloc extends HydratedBloc<AddressEvent, AddressState> {
     }
   }
 
-  FutureOr<void> _getWardsEvent(GetWardsEvent event, Emitter<AddressState> emit) async {
+  FutureOr<void> _getWardsEvent(
+      GetWardsEvent event, Emitter<AddressState> emit) async {
     emit(state.copyWith(status: AddressStatus.init));
     try {
       List<Address> wards = [];
@@ -83,7 +89,8 @@ class AddressBloc extends HydratedBloc<AddressEvent, AddressState> {
     }
   }
 
-  FutureOr<void> _getDistrictsEvent(GetDistrictsEvent event, Emitter<AddressState> emit) async {
+  FutureOr<void> _getDistrictsEvent(
+      GetDistrictsEvent event, Emitter<AddressState> emit) async {
     emit(state.copyWith(status: AddressStatus.init));
     try {
       List<Address> districts = [];
@@ -106,7 +113,8 @@ class AddressBloc extends HydratedBloc<AddressEvent, AddressState> {
             totalItemDistricts: newDistricts.pagingInfo.totalItems,
             status: AddressStatus.getDistrictsSuccess));
       }
-      emit(state.copyWith(districts: districts, status: AddressStatus.getDistrictsSuccess));
+      emit(state.copyWith(
+          districts: districts, status: AddressStatus.getDistrictsSuccess));
     } catch (e) {
       emit(state.copyWith(status: AddressStatus.fail));
     }
@@ -127,7 +135,8 @@ class AddressBloc extends HydratedBloc<AddressEvent, AddressState> {
     }*/
   }
 
-  FutureOr<void> _getWardsByKeyEvent(GetWardsByKeyEvent event, Emitter<AddressState> emit) async {
+  FutureOr<void> _getWardsByKeyEvent(
+      GetWardsByKeyEvent event, Emitter<AddressState> emit) async {
     /*emit(state.copyWith(status: AddressStatus.getWardsByKeyInit));
     try {
       List<Address> wards = await locationUseCase.getAddress(
@@ -166,7 +175,8 @@ class AddressBloc extends HydratedBloc<AddressEvent, AddressState> {
     return state.toJson();
   }
 
-  FutureOr<void> _resetAddressEvent(ResetAddressEvent event, Emitter<AddressState> emit) {
+  FutureOr<void> _resetAddressEvent(
+      ResetAddressEvent event, Emitter<AddressState> emit) {
     emit(const AddressState());
   }
 }

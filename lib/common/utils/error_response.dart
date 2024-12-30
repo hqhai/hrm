@@ -12,38 +12,54 @@ Map errorResponse() {
     "StepFlowNotNull": appLocalizations.stepFlowNotNull,
     "NameNull": appLocalizations.nameNull,
     "NameAlreadyExist": appLocalizations.nameAlreadyExist,
-    "ThisDepartmentAlreadyExistFlow": appLocalizations.thisDepartmentAlreadyExistFlow,
-    "ThisPositionAlreadyExistFlow": appLocalizations.thisPositionAlreadyExistFlow,
-    "ThisDepartmentPositionAlreadyExistFlow": appLocalizations.thisDepartmentPositionAlreadyExistFlow,
+    "ThisDepartmentAlreadyExistFlow":
+        appLocalizations.thisDepartmentAlreadyExistFlow,
+    "ThisPositionAlreadyExistFlow":
+        appLocalizations.thisPositionAlreadyExistFlow,
+    "ThisDepartmentPositionAlreadyExistFlow":
+        appLocalizations.thisDepartmentPositionAlreadyExistFlow,
     "ThisUserAlreadyExistFlow": appLocalizations.thisUserAlreadyExistFlow,
     "TypeAlreadyHasStepFlow": appLocalizations.typeAlreadyHasStepFlow,
-    "ThisFlowAlreadyExistsRequest": appLocalizations.thisFlowAlreadyExistsRequest,
+    "ThisFlowAlreadyExistsRequest":
+        appLocalizations.thisFlowAlreadyExistsRequest,
     "FlowNotExist": appLocalizations.flowNotExist,
     "FlowIsNotCoreType": appLocalizations.flowIsNotCoreType,
     "StatusInActiveUnableUpdate": appLocalizations.statusInActiveUnableUpdate,
     "UserIdNotNull": appLocalizations.userIdNotNull,
-    "DepartmentIdOrPositionIdMustNotExist": appLocalizations.departmentIdOrPositionIdMustNotExist,
-    "DepartmentIdAndPositionIdNotNull": appLocalizations.departmentIdAndPositionIdNotNull,
+    "DepartmentIdOrPositionIdMustNotExist":
+        appLocalizations.departmentIdOrPositionIdMustNotExist,
+    "DepartmentIdAndPositionIdNotNull":
+        appLocalizations.departmentIdAndPositionIdNotNull,
     "UserIdMustNotExist": appLocalizations.userIdMustNotExist,
     "PositionIdNotNull": appLocalizations.positionIdNotNull,
-    "DepartmentIdOrUserIdMustNotExist": appLocalizations.departmentIdOrUserIdMustNotExist,
+    "DepartmentIdOrUserIdMustNotExist":
+        appLocalizations.departmentIdOrUserIdMustNotExist,
     "DepartmentIdNotNull": appLocalizations.departmentIdNotNull,
-    "PositionIdOrUserIdMustNotExist": appLocalizations.positionIdOrUserIdMustNotExist,
+    "PositionIdOrUserIdMustNotExist":
+        appLocalizations.positionIdOrUserIdMustNotExist,
     "InValidFormat": appLocalizations.inValidFormat,
     "ConfigNotNull": appLocalizations.configNotNull,
-    "ExceededTheRequestedCreateTimeframe": appLocalizations.exceededTheRequestedCreateTimeframe,
+    "ExceededTheRequestedCreateTimeframe":
+        appLocalizations.exceededTheRequestedCreateTimeframe,
     "CurrentStatusIsNotEdit": appLocalizations.currentStatusIsNotEdit,
-    "CurrentStatusIsNotProcessOrEdit": appLocalizations.currentStatusIsNotProcessOrEdit,
+    "CurrentStatusIsNotProcessOrEdit":
+        appLocalizations.currentStatusIsNotProcessOrEdit,
     "EndDateGreaterThanStartDate": appLocalizations.endDateGreaterThanStartDate,
-    "EmployeeNotFullTimeOrPartTime": appLocalizations.employeeNotFullTimeOrPartTime,
-    "UserIdAndPositionIdCannotExistSameTime": appLocalizations.userIdAndPositionIdCannotExistSameTime,
-    "UserIdOrPositionIdCanNotNull": appLocalizations.userIdOrPositionIdCanNotNull,
-    "FlowDoesNotHaveEnoughComponents": appLocalizations.flowDoesNotHaveEnoughComponents,
-    "IfStepTypeStartOrEndNoUserIdPositionIdDepartmentId": appLocalizations.ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId,
+    "EmployeeNotFullTimeOrPartTime":
+        appLocalizations.employeeNotFullTimeOrPartTime,
+    "UserIdAndPositionIdCannotExistSameTime":
+        appLocalizations.userIdAndPositionIdCannotExistSameTime,
+    "UserIdOrPositionIdCanNotNull":
+        appLocalizations.userIdOrPositionIdCanNotNull,
+    "FlowDoesNotHaveEnoughComponents":
+        appLocalizations.flowDoesNotHaveEnoughComponents,
+    "IfStepTypeStartOrEndNoUserIdPositionIdDepartmentId":
+        appLocalizations.ifStepTypeStartOrEndNoUserIdPositionIdDepartmentId,
     "CurrentStatusNotNew": appLocalizations.currentStatusNotNew,
     "NameStepFlowNotNull": appLocalizations.nameStepFlowNotNull,
     "DataNotNull": appLocalizations.dataNotNull,
-    "MustCreateMinimumTimeInAdvance": appLocalizations.mustCreateMinimumTimeInAdvance,
+    "MustCreateMinimumTimeInAdvance":
+        appLocalizations.mustCreateMinimumTimeInAdvance,
     "pastTheDateOfExplanation": appLocalizations.pastTheDateOfExplanation,
     "DuplicateEmail": appLocalizations.duplicateEmail,
     "InvalidParentId": appLocalizations.invalidParentId,
@@ -70,12 +86,20 @@ Map errorResponse() {
     "DuplicateLicensePlate": appLocalizations.duplicateLicensePlate,
     "DuplicateTaxNumber": appLocalizations.duplicateTaxNumber,
     "DuplicateBankAccountNumber": appLocalizations.duplicateBankAccountNumber,
-    "TimeSlotAlreadyPleaseChooseAnother": appLocalizations.timeSlotAlreadyPleaseChooseAnother,
-    "TheNumberOfFormsCreatedHasExceededTheLimit": appLocalizations.theNumberOfFormsCreatedHasExceededTheLimit,
+    "TimeSlotAlreadyPleaseChooseAnother":
+        appLocalizations.timeSlotAlreadyPleaseChooseAnother,
+    "TheNumberOfFormsCreatedHasExceededTheLimit":
+        appLocalizations.theNumberOfFormsCreatedHasExceededTheLimit,
     "DistanceNotEnough": "DistanceNotEnough",
     "UserNameNotExist": appLocalizations.userDoesNotExist,
-    "TheTotalNumberOfLeaveIsNotEnough": appLocalizations.theTotalNumberOfLeaveIsNotEnough,
-    "TokenExpired": appLocalizations.i18nTokenExpired
+    "TheTotalNumberOfLeaveIsNotEnough":
+        appLocalizations.theTotalNumberOfLeaveIsNotEnough,
+    "TokenExpired": appLocalizations.i18nTokenExpired,
+    "ReportLastMonthIsWorkOnlyOnThe1stAnd2nd":
+        appLocalizations.i18nReportLastMonthIsWorkOnlyOnThe1stAnd2nd,
+    "OnlyAllowedToEditWorkThisMonthOrLastMonth":
+        appLocalizations.i18nOnlyAllowedToEditWorkThisMonthOrLastMonth,
+    "InvalidToken":appLocalizations.i18nTokenExpired,
   };
 }
 

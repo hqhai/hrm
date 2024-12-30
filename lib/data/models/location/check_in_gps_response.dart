@@ -9,11 +9,10 @@ class CheckInGPSResponse {
   final bool checkIn;
 
   const CheckInGPSResponse({
-    required this.checkIn,
+    this.checkIn = false,
   });
 
-  factory CheckInGPSResponse.fromJson(Map<String, dynamic> json) =>
-      _$CheckInGPSResponseFromJson(json);
+  factory CheckInGPSResponse.fromJson(Map<String, dynamic> json) => _$CheckInGPSResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$CheckInGPSResponseToJson(this);
 }

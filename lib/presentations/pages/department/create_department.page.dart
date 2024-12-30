@@ -10,18 +10,15 @@ import 'package:base_app/presentations/bloc/department/department_state.dart';
 import 'package:base_app/presentations/widgets/admin/department/item_dropdown_department.dart';
 import 'package:base_app/presentations/widgets/base_page.dart';
 import 'package:base_app/presentations/widgets/custom/app_input_area.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
+import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 import 'package:widgets/app_input.dart';
 
-final createDepartmentPageRoute = GoRoute(
-    name: Pages.createDepartmentPage,
-    path: Pages.createDepartmentPage,
-    builder: (context, GoRouterState state) => const CreateDepartmentWidget());
+final createDepartmentPageRoute = GoRoute(name: Pages.createDepartmentPage, path: Pages.createDepartmentPage, builder: (context, GoRouterState state) => const CreateDepartmentWidget());
 
 class CreateDepartmentWidget extends StatefulWidget {
   const CreateDepartmentWidget({super.key});
@@ -31,12 +28,7 @@ class CreateDepartmentWidget extends StatefulWidget {
 }
 
 class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
-  final TextEditingController nameController = TextEditingController(),
-      codeController = TextEditingController(),
-      emailController = TextEditingController(),
-      phoneNumberController = TextEditingController(),
-      addressController = TextEditingController(),
-      descriptionController = TextEditingController();
+  final TextEditingController nameController = TextEditingController(), codeController = TextEditingController(), emailController = TextEditingController(), phoneNumberController = TextEditingController(), addressController = TextEditingController(), descriptionController = TextEditingController();
   String name = '', code = '', email = '', address = '', phoneNumber = '', parent = '';
   List<String> listParents = const [];
 
@@ -48,7 +40,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
 
   _listener(BuildContext context, DepartmentState state) {
     if (state.status == DepartmentStatus.getDepartmentSuccess) {
-      parent = state.departments.map((e) => e.name??"").toList().first;
+      parent = state.departments.map((e) => e.name).toList().first;
     }
     if (state.status == DepartmentStatus.createDepartmentSuccess) {
       Navigator.of(context).pop();
@@ -76,8 +68,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
     return BasePage(
       appbar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
-        title: Text(appLocalizations.createDepartment,
-            style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
+        title: Text(appLocalizations.createDepartment, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),
       body: BlocConsumer<DepartmentBloc, DepartmentState>(
         listener: (context, state) {
@@ -98,8 +89,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: SpacingUnit.x4),
-                Text(appLocalizations.name,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.name, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.name,
@@ -107,8 +97,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                   onChange: (value) => setName(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.code,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.code, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.code,
@@ -116,8 +105,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                   onChange: (value) => setCode(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.phoneNumber,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.phoneNumber, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.phoneNumber,
@@ -125,8 +113,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                   onChange: (value) => setPhoneNumber(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.email,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.email, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.email,
@@ -134,8 +121,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                   onChange: (value) => setEmail(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.address,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.address, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInput(
                   placeHolder: appLocalizations.address,
@@ -143,8 +129,7 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                   onChange: (value) => setAddress(value),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.description,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.description, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 AppInputArea(
                   placeHolder: appLocalizations.description,
@@ -153,18 +138,15 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
                   maxLines: 5,
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.parent,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.parent, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 ItemDropdownDepartment(
                   onChange: (value) => setParent(value),
                 ),
                 const SizedBox(height: SpacingUnit.x4),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
+                  style: ElevatedButton.styleFrom(backgroundColor: _checkTextField() ? Colors.blue : Colors.indigo),
                   onPressed: () => _createDialog(context, state),
-                  child: Text(appLocalizations.create,
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
+                  child: Text(appLocalizations.create, style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5)),
                 ),
               ],
             ),
@@ -179,16 +161,13 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
   }
 
   String parentId(String parentName, DepartmentState state) {
-    Department department = state.departments
-        .where((element) => element.name.toString() == parentName.toString())
-        .first;
+    Department department = state.departments.where((element) => element.name.toString() == parentName.toString()).first;
     return department.id;
   }
 
   _createDialog(BuildContext context, DepartmentState state) {
     //final appLocalizations = AppLocalizations.of(context)!;
-    if (_checkTextField()) {
-    }
+    if (_checkTextField()) {}
   }
 
   setName(String value) {

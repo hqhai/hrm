@@ -2200,9 +2200,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get i18nOTRate => 'OT rate';
 
   @override
-  String get i18nYouWantToApproveThisApplication => 'Are you sure you want to approve this application?';
-
-  @override
   String get i18nOTInformation => 'OT Information';
 
   @override
@@ -2222,4 +2219,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get i18nTokenExpired => 'Your session has expired. Please log in again to continue.';
+
+  @override
+  String get i18nYouWantToApproveThisApplication => 'Are you sure you want to approve this application?';
+
+  @override
+  String get i18nReportLastMonthIsWorkOnlyOnThe1stAnd2nd => 'The attendance explanation for last month expired on the 2nd of this month.';
+
+  @override
+  String get i18nOnlyAllowedToEditWorkThisMonthOrLastMonth => 'Only allowed to edit work this month or last month.';
 }

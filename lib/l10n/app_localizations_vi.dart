@@ -2200,9 +2200,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get i18nOTRate => 'Hệ số OT';
 
   @override
-  String get i18nYouWantToApproveThisApplication => 'Bạn có chắc chắn phê duyệt đơn này?';
-
-  @override
   String get i18nOTInformation => 'Thông tin OT';
 
   @override
@@ -2222,4 +2219,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get i18nTokenExpired => 'Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại để tiếp tục.';
+
+  @override
+  String get i18nYouWantToApproveThisApplication => 'Bạn có chắc chắn phê duyệt đơn này?';
+
+  @override
+  String get i18nReportLastMonthIsWorkOnlyOnThe1stAnd2nd => 'Giải trình công của tháng trước đã hết hạn vào ngày 2 tháng này';
+
+  @override
+  String get i18nOnlyAllowedToEditWorkThisMonthOrLastMonth => 'Chỉ cho phép chỉnh sửa tháng này hoặc tháng trước.';
 }

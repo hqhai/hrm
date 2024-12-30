@@ -18,7 +18,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:themes/themes.dart';
 
 final createNoteWidgetPageRoute = GoRoute(
@@ -49,7 +48,6 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   bool isShowMap = false;
   DateTime dateNote = DateTime.now();
   double latitude = 0, longitude = 0;
-  LatLng? latLngFsel;
   // final Completer<GoogleMapController> _controller =
   //     Completer<GoogleMapController>();
 

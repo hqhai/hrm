@@ -3,7 +3,6 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/timekeeping/schedule_school.dart';
-import 'package:base_app/domain/entities/timekeeping/school.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
@@ -12,11 +11,11 @@ import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/time_keeping/item_time_keeping_gps.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maplibre_gl/maplibre_gl.dart';
 import 'package:themes/themes.dart';
 
 final timekeepingGPSUnsuccessfulRoute = GoRoute(
@@ -43,37 +42,17 @@ class UnSuccessfulTimekeepingPage extends StatefulWidget {
   final double latitude, longitude;
 
   @override
-  State<UnSuccessfulTimekeepingPage> createState() => _UnSuccessfulTimekeepingPageState();
+  State<UnSuccessfulTimekeepingPage> createState() =>
+      _UnSuccessfulTimekeepingPageState();
 }
 
-class _UnSuccessfulTimekeepingPageState extends State<UnSuccessfulTimekeepingPage> {
-  Set<Circle> _circles(School? school) {
-    final LatLng locationSchool =
-        LatLng(school?.latitude ?? 105.865963, school?.longitude ?? 21.002852);
-
-    return {
-      Circle(
-          circleId: const CircleId('currentCircle1'),
-          center: locationSchool,
-          radius: school?.minDistance.toDouble() ?? 0,
-          strokeWidth: 1),
-    };
-  }
-
-  Set<Marker> _markers(School? school) {
-    final LatLng locationSchool =
-        LatLng(school?.latitude ?? 105.865963, school?.longitude ?? 21.002852);
-    return {
-      Marker(
-        markerId: const MarkerId('customMarker1'),
-        position: locationSchool,
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      ),
-    };
-  }
+class _UnSuccessfulTimekeepingPageState
+    extends State<UnSuccessfulTimekeepingPage> {
+  late MaplibreMapController? _mapController;
 
   ScheduleSchool _school(List<ScheduleSchool> listSchool) {
-    return listSchool.firstWhere((element) => element.id == widget.scheduleSchoolId);
+    return listSchool
+        .firstWhere((element) => element.id == widget.scheduleSchoolId);
   }
 
   @override
@@ -127,23 +106,27 @@ class _UnSuccessfulTimekeepingPageState extends State<UnSuccessfulTimekeepingPag
                         SizedBox(
                           height: SpacingUnit.x59,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: SpacingUnit.x3),
                             child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x2)),
-                              child: GoogleMap(
-                                gestureRecognizers: {
-                                  Factory<PanGestureRecognizer>(() => PanGestureRecognizer())
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(SpacingUnit.x2)),
+                              child: MaplibreMap(
+                                attributionButtonPosition: null,
+                                onMapCreated: (controller) {
+                                  setState(() {
+                                    _mapController = controller;
+                                  });
                                 },
-                                myLocationEnabled: true,
-                                initialCameraPosition: CameraPosition(
-                                  target: LatLng(widget.latitude, widget.longitude),
-                                  zoom: 15,
+                                onStyleLoadedCallback: () =>
+                                    _onStyleLoadedCallback(),
+                                styleString:
+                                    'https://tiles.goong.io/assets/goong_satellite.json?api_key=o88RMDWHRyeOZfzpG3jhn8JlU4Z0oa6R3kAKnMVu',
+                                initialCameraPosition: const CameraPosition(
+                                  target: LatLng(
+                                      21.03357551700003, 105.81911236900004),
+                                  zoom: 14.0,
                                 ),
-                                markers:
-                                    _markers(_school(state.scheduleSchools.scheduleSchools).school),
-                                mapType: MapType.normal,
-                                circles:
-                                    _circles(_school(state.scheduleSchools.scheduleSchools).school),
                               ),
                             ),
                           ),
@@ -177,5 +160,80 @@ class _UnSuccessfulTimekeepingPageState extends State<UnSuccessfulTimekeepingPag
 
   _complete(BuildContext context) {
     dI<AppNavigation>().pop(context);
+  }
+
+  Future<void> _onStyleLoadedCallback() async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text("Map loading..."),
+        backgroundColor: Theme.of(context).primaryColor,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+    if (_mapController == null) {
+      debugPrint("Map controller is not initialized");
+      return;
+    }
+
+    await _loadMyPositionMarkerImage();
+
+    await _addMyPositionMarker();
+  }
+
+  Future<void> _addMyPositionMarker() async {
+    if (_mapController == null) {
+      return;
+    }
+
+    try {
+      await _mapController?.addSymbol(
+        SymbolOptions(
+          geometry: LatLng(widget.latitude, widget.longitude),
+          iconImage: 'myLocation',
+          iconSize: 1,
+        ),
+      );
+
+      final school = _school(
+              dI<ScheduleSchoolBloc>().state.scheduleSchools.scheduleSchools)
+          .school;
+
+      await _mapController?.addSymbol(
+        SymbolOptions(
+          geometry: LatLng(school.latitude, school.longitude),
+          iconImage: 'mySchoolLocation',
+          iconSize: 0.2,
+        ),
+      );
+
+      await _moveToMyPosition();
+    } catch (e) {
+      debugPrint("Error adding marker: $e");
+    }
+  }
+
+  Future<void> _moveToMyPosition() async {
+    try {
+      await _mapController?.animateCamera(
+        CameraUpdate.newLatLngZoom(
+            LatLng(widget.latitude, widget.longitude), 20),
+      );
+    } catch (e) {
+      debugPrint("Error moving to my position: $e");
+    }
+  }
+
+  Future<void> _loadMyPositionMarkerImage() async {
+    try {
+      final ByteData bytes =
+          await rootBundle.load(Assets.images.icon.icMyPosition.path);
+      _mapController?.addImage('myLocation', bytes.buffer.asUint8List());
+      final ByteData byteSchool =
+          await rootBundle.load(Assets.images.icon.schoolMarker.path);
+      _mapController?.addImage(
+          'mySchoolLocation', byteSchool.buffer.asUint8List());
+    } catch (e) {
+      rethrow;
+    }
   }
 }

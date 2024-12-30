@@ -1,83 +1,62 @@
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/data/models/department/create_department_request.dart';
 import 'package:base_app/data/models/department/department_response.dart';
 import 'package:base_app/data/models/department/update_department_request.dart';
 import 'package:base_app/data/models/name_page_request.dart';
 import 'package:base_app/data/models/object_by_id_request.dart';
+import 'package:base_app/data/source/api/services/department_service.dart';
 import 'package:base_app/domain/entities/department.dart';
 import 'package:base_app/domain/repositories/department.repository.dart';
-import 'package:base_app/domain/services/department.service.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: DepartmentRepository)
 class DepartmentRepositoryImpl extends DepartmentRepository {
-  final DepartmentService departmentService;
+  final DepartmentService _departmentService;
 
-  DepartmentRepositoryImpl() : departmentService = dI<DepartmentService>();
+  DepartmentRepositoryImpl(this._departmentService);
 
   @override
-  Future<int> createDepartment(
-      {required String name,
-      required String code,
-      required String phoneNumber,
-      required String email,
-      required String address,
-      String? description,
-      String? parentId}) async {
-    int codeStatus = await departmentService.createDepartment(
-        createDepartmentRequest: CreateDepartmentRequest(
-            name: name,
-            phoneNumber: phoneNumber,
-            email: email,
-            address: address,
-            code: code,
-            description: description,
-            parentId: parentId));
-    return codeStatus;
+  Future<int?> createDepartment({required String name, required String code, required String phoneNumber, required String email, required String address, String? description, String? parentId}) async {
+    final response = await _departmentService.createDepartment(
+      createDepartmentRequest: CreateDepartmentRequest(
+        name: name,
+        phoneNumber: phoneNumber,
+        email: email,
+        address: address,
+        code: code,
+        description: description,
+        parentId: parentId,
+      ),
+    );
+    return response?.statusCode;
   }
 
   @override
-  Future<List<Department>> getDepartments() async {
-    return await departmentService.getDepartments();
+  Future<List<Department>?> getDepartments() async {
+    final response = await _departmentService.getDepartments();
+    return response?.meta?.items;
   }
 
   @override
-  Future<Department> getDepartment({required String id}) async {
-    return await departmentService.getDepartment(
-        id: id);
+  Future<Department?> getDepartment({required String id}) async {
+    final response = await _departmentService.getDepartment(id: id);
+    return response?.data;
   }
 
   @override
-  Future<int> deleteDepartments({required String id}) async {
-    return await departmentService.deleteDepartment(
-        deleteDepartmentRequest: ObjectByIdRequest(id: id));
+  Future<int?> deleteDepartments({required String id}) async {
+    final response = await _departmentService.deleteDepartment(deleteDepartmentRequest: ObjectByIdRequest(id: id));
+    return response?.statusCode;
   }
 
   @override
-  Future<int> updateDepartment(
-      {required String id,
-      required String name,
-      required String code,
-      required String phoneNumber,
-      required String email,
-      required String address,
-      String? description,
-      String? parentId}) async {
-    return await departmentService.updateDepartment(
-        updateDepartmentRequest: UpdateDepartmentRequest(
-            id: id,
-            name: name,
-            code: code,
-            phoneNumber: phoneNumber,
-            email: email,
-            address: address,
-            parentId: parentId,
-            description: description));
+  Future<int?> updateDepartment({required String id, required String name, required String code, required String phoneNumber, required String email, required String address, String? description, String? parentId}) async {
+    final response = await _departmentService.updateDepartment(updateDepartmentRequest: UpdateDepartmentRequest(id: id, name: name, code: code, phoneNumber: phoneNumber, email: email, address: address, parentId: parentId, description: description));
+    return response?.statusCode;
   }
 
   @override
-  Future<DepartmentResponse> getListDepartment({required String key, required int page}) async {
-    return await departmentService.getListDepartment(
-        keyPageRequest: NamePageRequest(page: page, name: key));
+  Future<DepartmentResponse?> getListDepartment({required String key, required int page}) async {
+    final response = await _departmentService.getListDepartment(keyPageRequest: NamePageRequest(page: page, name: key));
+    return response?.data;
   }
 }

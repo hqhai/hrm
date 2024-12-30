@@ -5,19 +5,18 @@ import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/domain/entities/note.dart';
-import 'package:base_app/domain/use_cases/note.usecase.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../domain/use_cases/note_usecase.dart';
+
 @lazySingleton
 class NoteSystemCubit extends HydratedCubit<NotesState> {
   final NoteUseCase noteUseCase;
 
-  NoteSystemCubit()
-      : noteUseCase = dI<NoteUseCase>(),
-        super(const NotesState());
+  NoteSystemCubit(this.noteUseCase) : super(const NotesState());
 
   FutureOr<void> createNotesLocalEvent(
       {String note = '', required DateTime dateTime}) async {
@@ -29,7 +28,7 @@ class NoteSystemCubit extends HydratedCubit<NotesState> {
           dateTime: dateTime,
           createdFullName: 'local',
           note: note);
-      final newNotes = List<Note>.from(state.notes); 
+      final newNotes = List<Note>.from(state.notes);
       newNotes.add(newNode);
       emit(state.copyWith(
           notes: newNotes, status: NoteStatus.createNoteSuccess));

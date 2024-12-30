@@ -1,6 +1,12 @@
+import 'package:base_app/domain/repositories/personnel.repository.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable()
+class PersonnelUseCase {
+  PersonnelUseCase(this._personnelRepository);
 
-abstract class PersonnelUseCase{
+  final PersonnelRepository _personnelRepository;
+
   Future<int> createPersonnel({
     String? code,
     required String firstName,
@@ -15,20 +21,58 @@ abstract class PersonnelUseCase{
     int? morningEndTime,
     int? afternoonStartTime,
     int? afternoonEndTime,
-  });
+  }) async {
+    final response = await _personnelRepository.createPersonnel(
+      code: code,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+      startDate: startDate,
+      attendanceId: attendanceId,
+      departmentId: departmentId,
+      positionId: positionId,
+      morningStartTime: morningStartTime,
+      morningEndTime: morningStartTime,
+      afternoonStartTime: afternoonStartTime,
+      afternoonEndTime: afternoonEndTime,
+    );
+    return response ?? 0;
+  }
 
-  /*Future<List<Personnel>> getPersonnels();
-  Future<Personnel> getPersonnel({required String id});
-  Future<int> deletePersonnels({required String id});*/
+/*@override
+  Future<List<Personnel>> getPersonnels() async {
+    return await _personnelRepository.getPersonnels();
+  }
 
-  /*Future<int> updatePersonnel({
-    required String id,
-    required String name,
-    required String code,
-    required String phoneNumber,
-    required String email,
-    required String address,
-    String? description,
-    String? parentId,
-  });*/
+
+  Future<Personnel> getPersonnel({required String id}) async {
+    return await _personnelRepository.getPersonnel(id: id);
+  }
+
+
+  Future<int> deletePersonnels({required String id}) async {
+    return await _personnelRepository.deletePersonnels(id: id);
+  }
+
+
+  Future<int> updatePersonnel(
+      {required String id,
+      required String name,
+      required String code,
+      required String phoneNumber,
+      required String email,
+      required String address,
+      String? description,
+      String? parentId}) async {
+    return await _personnelRepository.updatePersonnel(
+        id: id,
+        name: name,
+        code: code,
+        phoneNumber: phoneNumber,
+        email: email,
+        address: address,
+        description: description,
+        parentId: parentId);
+  }*/
 }

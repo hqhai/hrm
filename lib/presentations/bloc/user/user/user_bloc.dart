@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
+import 'package:base_app/common/exception/remote/remote_exception.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/error_utils.dart';
 import 'package:base_app/common/utils/toast_utils.dart';
-import 'package:base_app/data/models/response.dart';
 import 'package:base_app/data/models/user/profile/update_profile_request.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/use_cases/request_usecase.dart';
@@ -43,8 +43,8 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
       User user = await userUseCase.getUserInfo();
       emit(state.copyWith(user: user, status: UserStatus.success));
     } catch (e) {
-      if (e is ResponseBase) {
-        if (e.statusCode == 401) {
+      if (e is RemoteException) {
+        if (e.httpErrorCode == 401) {
           emit(state.copyWith(status: UserStatus.unauthorized));
           AppConfig.setToken('');
         } else {
@@ -59,8 +59,7 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
   FutureOr<void> _changePassword(ChangePasswordEvent event, Emitter<UserState> emit) async {
     emit(state.copyWith(status: UserStatus.init));
     try {
-      bool checkChangePassword = await userUseCase.changePassword(
-          newPassword: event.newPassword, currentPassword: event.currentPassword);
+      bool checkChangePassword = await userUseCase.changePassword(newPassword: event.newPassword, currentPassword: event.currentPassword);
       if (checkChangePassword) {
         emit(state.copyWith(status: UserStatus.success));
         event.completer?.complete(true);
@@ -85,16 +84,20 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
       event.completer?.complete(true);
     } catch (e) {
       final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is ResponseBase) {
-        final String? errorCode = e.errorMessages.first.errorCode;
-        emit(state.copyWith(
-          errorCode: errorCode,
-        ));
-        if (currentContext.mounted) {
-          dI<AppNavigation>().pop(currentContext);
-          ToastUtils()
-              .showError(ErrorUtils.getErrorMessage(errorCode ?? 'error', context: currentContext));
+      if (e is RemoteException) {
+        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
+        if (listErrorCode != null && listErrorCode.isNotEmpty) {
+          emit(state.copyWith(
+            errorCode: listErrorCode.first,
+          ));
+          if (currentContext.mounted) {
+            dI<AppNavigation>().pop(currentContext);
+            ToastUtils().showError(ErrorUtils.getErrorMessage(listErrorCode.first, context: currentContext));
+          }
+        } else {
+          emit(state.copyWith(errorCode: 'error'));
         }
+
         event.completer?.complete(false);
       } else {
         emit(state.copyWith(
@@ -123,9 +126,17 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
   FutureOr<void> _updateProfileEvent(UpdateProfileEvent event, Emitter<UserState> emit) async {
     try {
       if (event.file.path != File('').path) {
-        String path = await _requestUseCase.uploadFile(originFile: event.file, imageData: null);
-        UpdateProfileRequest updateProfileRequest =
-            event.updateProfileRequest.copyWith(avatarPath: path);
+        String path ='';
+        try{
+          path = await _requestUseCase.uploadFile(originFile: event.file, imageData: null);
+        }catch(e){
+          emit(state.copyWith(
+            errorCode: 'error',
+          ));
+          event.completer?.complete(false);
+          return;
+        }
+        UpdateProfileRequest updateProfileRequest = event.updateProfileRequest.copyWith(avatarPath: path);
         final user = await userUseCase.updateProfile(updateProfileRequest: updateProfileRequest);
         emit(
           state.copyWith(
@@ -134,17 +145,22 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
         );
         event.completer?.complete(true);
       } else {
-        User user =
-            await userUseCase.updateProfile(updateProfileRequest: event.updateProfileRequest);
+        User user = await userUseCase.updateProfile(updateProfileRequest: event.updateProfileRequest);
         emit(state.copyWith(user: user));
         event.completer?.complete(true);
       }
     } catch (e) {
-      if (e is ResponseBase) {
-        final String? errorCode = e.errorMessages.first.errorCode;
-        emit(state.copyWith(
-          errorCode: errorCode,
-        ));
+      if (e is RemoteException) {
+        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
+        if (listErrorCode != null && listErrorCode.isNotEmpty) {
+          emit(state.copyWith(
+            errorCode: listErrorCode.first,
+          ));
+        } else {
+          emit(state.copyWith(
+            errorCode: 'error',
+          ));
+        }
         event.completer?.complete(false);
       } else {
         emit(state.copyWith(

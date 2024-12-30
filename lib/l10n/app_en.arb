@@ -726,17 +726,14 @@
   "i18nNotFullTimeOrPartTime": "You are not eligible to submit a request.",
   "i18nCompensatoryLeave": "Compensatory Leave",
   "i18nOTRate": "OT rate",
+  "i18nOTInformation": "OT Information",
+  "i18nOTInformationList": "OT Information List",
+  "i18nRate": "Coefficient",
+  "i18nTotalHour": "Total Hours",
+  "i18nReadMore": "Read more",
+  "i18nClose": "Close",
+  "i18nTokenExpired": "Your session has expired. Please log in again to continue.",
   "i18nYouWantToApproveThisApplication": "Are you sure you want to approve this application?",
-  "saveUpdateInfo" : "Save",
-  "i18nDays" : "days",
-  "i18nHours" : "hours",
-  "i18nNotFullTimeOrPartTime" : "You are not eligible to submit a request.",
-  "i18nOTInformation" : "OT Information",
-  "i18nOTInformationList" : "OT Information List",
-  "i18nRate" : "Coefficient",
-  "i18nTotalHour" : "Total Hours",
-  "i18nReadMore" : "Read more",
-  "i18nClose" : "Close",
-  "i18nTokenExpired": "Your session has expired. Please log in again to continue."
-
+  "i18nReportLastMonthIsWorkOnlyOnThe1stAnd2nd": "The attendance explanation for last month expired on the 2nd of this month.",
+  "i18nOnlyAllowedToEditWorkThisMonthOrLastMonth": "Only allowed to edit work this month or last month."
 }

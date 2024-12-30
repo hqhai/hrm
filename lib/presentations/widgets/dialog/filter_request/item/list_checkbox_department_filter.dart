@@ -39,8 +39,7 @@ class _ListCheckboxDepartmentFilterState extends State<ListCheckboxDepartmentFil
             children: [
               Text(
                 appLocalizations.department,
-                style: TextStyle(
-                    color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w400),
+                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w400),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
@@ -53,14 +52,10 @@ class _ListCheckboxDepartmentFilterState extends State<ListCheckboxDepartmentFil
                           children: [
                             CheckboxListTile(
                               value: listCheck[index],
-                              onChanged: (value) =>
-                                  setValue(index: index, value: value, department: element),
+                              onChanged: (value) => setValue(index: index, value: value, department: element),
                               subtitle: Text(
-                                element.name ?? '',
-                                style: TextStyle(
-                                    color: colors.text,
-                                    fontSize: SpacingUnit.x3_5,
-                                    fontWeight: FontWeight.w400),
+                                element.name,
+                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w400),
                               ),
                             ),
                             Divider(

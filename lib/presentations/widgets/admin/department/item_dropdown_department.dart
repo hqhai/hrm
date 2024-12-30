@@ -14,12 +14,12 @@ class ItemDropdownDepartment extends StatefulWidget {
 }
 
 class _ItemDropdownDepartmentState extends State<ItemDropdownDepartment> {
-
   String departmentName = '';
 
   _listenerDepartment(BuildContext context, DepartmentState state) {
-    departmentName = state.departments.map((e) => e.name??"").toList().first;
+    departmentName = state.departments.map((e) => e.name).toList().first;
   }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
@@ -32,10 +32,7 @@ class _ItemDropdownDepartmentState extends State<ItemDropdownDepartment> {
             width: width * 0.6,
             initialSelection: departmentName,
             onSelected: (String? value) => _select(value),
-            dropdownMenuEntries: state.departments
-                .map((e) => e.name??"")
-                .toList()
-                .map<DropdownMenuEntry<String>>((String value) {
+            dropdownMenuEntries: state.departments.map((e) => e.name).toList().map<DropdownMenuEntry<String>>((String value) {
               return DropdownMenuEntry<String>(value: value, label: value);
             }).toList(),
           ),
@@ -44,7 +41,7 @@ class _ItemDropdownDepartmentState extends State<ItemDropdownDepartment> {
     );
   }
 
-  _select(String? value){
+  _select(String? value) {
     setState(() {
       departmentName = value!;
       widget.onChange.call(departmentName);

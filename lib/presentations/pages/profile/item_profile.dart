@@ -6,6 +6,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -164,19 +165,29 @@ class _ItemProfileState extends State<ItemProfile> {
   }
 
   Future<void> getImagePath() async {
-    final PermissionStatus photoPermission =
-    await Permission.photos.request();
-    final PermissionStatus storagePermission = await Permission.storage.request();
-    if (photoPermission == PermissionStatus.permanentlyDenied ||
-        photoPermission == PermissionStatus.denied ||
-        storagePermission == PermissionStatus.permanentlyDenied ||
-        storagePermission == PermissionStatus.denied) {
+    DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    AndroidDeviceInfo androidDeviceInfo = await deviceInfoPlugin.androidInfo;
+
+    PermissionStatus? storagePermission;
+    PermissionStatus? photoPermission;
+    if (int.parse(androidDeviceInfo.version.release) < 13) {
+      storagePermission = await Permission.storage.request();
+    } else {
+      photoPermission = await Permission.photos.request();
+    }
+    if ((photoPermission != null &&
+        (photoPermission == PermissionStatus.permanentlyDenied ||
+            photoPermission == PermissionStatus.denied)) ||
+        (storagePermission != null &&
+            (storagePermission == PermissionStatus.permanentlyDenied ||
+                storagePermission == PermissionStatus.denied))) {
       await openAppSettings();
     } else {
       final ImagePicker picker = ImagePicker();
       final XFile? pickedFile = await picker.pickImage(
         source: ImageSource.gallery,
       );
+
       if (pickedFile != null) {
         setState(() {
           pathImage = pickedFile.path;

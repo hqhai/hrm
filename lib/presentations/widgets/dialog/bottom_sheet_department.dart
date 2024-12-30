@@ -39,14 +39,14 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
   }
 
   addDepartment(Department department) {
-    for (var e in department.childrens) {
+    for (var e in department.children) {
       setState(() {
         mapDepartment.add({
           'department': e,
-          'name': "${department.name ?? ""} - ${e.name ?? ""}",
+          'name': "${department.name} - ${e.name}",
         });
       });
-      if (e.childrens.isNotEmpty) {
+      if (e.children.isNotEmpty) {
         addDepartment(e);
       }
     }
@@ -54,7 +54,7 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
 
   listDepartment(List<Department> departments) {
     for (var element in departments) {
-      if (element.childrens.isNotEmpty) {
+      if (element.children.isNotEmpty) {
         addDepartment(element);
       }
     }
@@ -66,7 +66,7 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
         setState(() {
           mapDepartment.add({
             'department': element,
-            'name': element.name ?? "",
+            'name': element.name,
           });
         });
         listDepartment(state.departments);
@@ -80,8 +80,8 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return BlocListener<DepartmentBloc, DepartmentState>(
-      listener: (context, state) => _listener(context, state),
-      child: Container(
+        listener: (context, state) => _listener(context, state),
+        child: Container(
           height: height * 0.6,
           color: colors.background,
           child: Center(
@@ -115,7 +115,7 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
                           ),
                         ),
                         SizedBox(
-                          width: width*0.8,
+                          width: width * 0.8,
                           child: Text(
                             mapDepartment[index]['name'],
                             maxLines: 4,
@@ -133,8 +133,7 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
               ),
             ),
           ),
-        )
-    );
+        ));
   }
 
   setOnChange({required Map departmentMap}) {

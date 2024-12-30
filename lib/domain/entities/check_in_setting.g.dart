@@ -8,10 +8,10 @@ part of 'check_in_setting.dart';
 
 CheckInSetting _$CheckInSettingFromJson(Map<String, dynamic> json) =>
     CheckInSetting(
-      morningStartTime: json['morningStartTime'] as int,
-      morningEndTime: json['morningEndTime'] as int,
-      afternoonStartTime: json['afternoonStartTime'] as int,
-      afternoonEndTime: json['afternoonEndTime'] as int,
+      morningStartTime: (json['morningStartTime'] as num).toInt(),
+      morningEndTime: (json['morningEndTime'] as num).toInt(),
+      afternoonStartTime: (json['afternoonStartTime'] as num).toInt(),
+      afternoonEndTime: (json['afternoonEndTime'] as num).toInt(),
       departmentId: json['departmentId'] as String,
       id: json['id'] as String,
       createdUserId: json['createdUserId'] as String,

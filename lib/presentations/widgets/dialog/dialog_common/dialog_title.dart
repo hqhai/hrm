@@ -119,7 +119,8 @@ updateNoteDialog(
 }
 
 class TimeKeepingErrorNoShift extends StatelessWidget {
-  const TimeKeepingErrorNoShift({super.key});
+  const TimeKeepingErrorNoShift({super.key, this.error});
+  final String? error;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +140,7 @@ class TimeKeepingErrorNoShift extends StatelessWidget {
           const SizedBox(
             height: SpacingUnit.x4,
           ),
-          Text(appLocalizations.youDoNotHaveAShiftToday,
+          Text(error ?? appLocalizations.noConnected,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
         ],

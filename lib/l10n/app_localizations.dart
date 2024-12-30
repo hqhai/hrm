@@ -4455,12 +4455,6 @@ abstract class AppLocalizations {
   /// **'OT rate'**
   String get i18nOTRate;
 
-  /// No description provided for @i18nYouWantToApproveThisApplication.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you want to approve this application?'**
-  String get i18nYouWantToApproveThisApplication;
-
   /// No description provided for @i18nOTInformation.
   ///
   /// In en, this message translates to:
@@ -4502,6 +4496,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your session has expired. Please log in again to continue.'**
   String get i18nTokenExpired;
+
+  /// No description provided for @i18nYouWantToApproveThisApplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to approve this application?'**
+  String get i18nYouWantToApproveThisApplication;
+
+  /// No description provided for @i18nReportLastMonthIsWorkOnlyOnThe1stAnd2nd.
+  ///
+  /// In en, this message translates to:
+  /// **'The attendance explanation for last month expired on the 2nd of this month.'**
+  String get i18nReportLastMonthIsWorkOnlyOnThe1stAnd2nd;
+
+  /// No description provided for @i18nOnlyAllowedToEditWorkThisMonthOrLastMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Only allowed to edit work this month or last month.'**
+  String get i18nOnlyAllowedToEditWorkThisMonthOrLastMonth;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

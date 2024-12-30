@@ -1,7 +1,5 @@
-
-
 abstract class PersonnelRepository {
-  Future<int> createPersonnel({
+  Future<int?> createPersonnel({
     String? code,
     required String firstName,
     required String lastName,

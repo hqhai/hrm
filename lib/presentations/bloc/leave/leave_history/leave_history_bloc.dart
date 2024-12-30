@@ -1,19 +1,18 @@
 import 'dart:async';
 
-import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/domain/use_cases/work_and_salary.usecase.dart';
+import 'package:base_app/domain/use_cases/work_and_salary_usecase.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_event.dart';
 import 'package:base_app/presentations/bloc/leave/leave_history/leave_history_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class LeaveHistoryBloc extends HydratedBloc<LeaveHistoryEvent, LeaveHistoryState> {
+class LeaveHistoryBloc
+    extends HydratedBloc<LeaveHistoryEvent, LeaveHistoryState> {
   final WorkAndSalaryUseCase _workAndSalaryUseCase;
 
-  LeaveHistoryBloc()
-      : _workAndSalaryUseCase = dI<WorkAndSalaryUseCase>(),
-        super(const LeaveHistoryState()) {
+  LeaveHistoryBloc(this._workAndSalaryUseCase)
+      : super(const LeaveHistoryState()) {
     on<LeaveHistoryEvent>((event, emit) {});
     on<GetLeaveHistoryEvent>(_getLeaveHistoryEvent);
     on<ResetLeaveHistoryEvent>(_resetLeaveHistoryEvent);
@@ -22,7 +21,8 @@ class LeaveHistoryBloc extends HydratedBloc<LeaveHistoryEvent, LeaveHistoryState
   FutureOr<void> _getLeaveHistoryEvent(
       GetLeaveHistoryEvent event, Emitter<LeaveHistoryState> emit) async {
     try {
-      final userLeaveHistoryResponseMap = await _workAndSalaryUseCase.totalLeaveUserHistory(
+      final userLeaveHistoryResponseMap =
+          await _workAndSalaryUseCase.totalLeaveUserHistory(
         date: event.time,
         type: event.type,
         page: event.page,
@@ -35,10 +35,15 @@ class LeaveHistoryBloc extends HydratedBloc<LeaveHistoryEvent, LeaveHistoryState
         final mapLeave = state.userLeaveHistory;
         listIds.addAll(newListIds);
         mapLeave.addAll(newMapLeave);
-        emit(state.copyWith(listIds: listIds, userLeaveHistory: mapLeave, totalItems: totalItems));
+        emit(state.copyWith(
+            listIds: listIds,
+            userLeaveHistory: mapLeave,
+            totalItems: totalItems));
       } else {
         emit(state.copyWith(
-            listIds: newListIds, userLeaveHistory: newMapLeave, totalItems: totalItems));
+            listIds: newListIds,
+            userLeaveHistory: newMapLeave,
+            totalItems: totalItems));
       }
       event.completer?.complete(true);
     } catch (e) {
@@ -56,7 +61,8 @@ class LeaveHistoryBloc extends HydratedBloc<LeaveHistoryEvent, LeaveHistoryState
     return state.toJson();
   }
 
-  FutureOr<void> _resetLeaveHistoryEvent(ResetLeaveHistoryEvent event, Emitter<LeaveHistoryState> emit) {
+  FutureOr<void> _resetLeaveHistoryEvent(
+      ResetLeaveHistoryEvent event, Emitter<LeaveHistoryState> emit) {
     emit(const LeaveHistoryState());
   }
 }

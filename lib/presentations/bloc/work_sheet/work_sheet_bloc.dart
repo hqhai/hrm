@@ -20,7 +20,8 @@ class WorkSheetBloc extends HydratedBloc<WorkSheetEvent, WorkSheetState> {
     on<ResetWorkSheetEvent>(_resetWorkSheetEvent);
   }
 
-  FutureOr<void> _getWorkSheetEvent(GetWorkSheetEvent event, Emitter<WorkSheetState> emit) async {
+  FutureOr<void> _getWorkSheetEvent(
+      GetWorkSheetEvent event, Emitter<WorkSheetState> emit) async {
     try {
       final workSheet = await _attendanceUseCase.getWorkSheet(time: event.time);
       emit(state.copyWith(workSheet: workSheet));
@@ -33,11 +34,15 @@ class WorkSheetBloc extends HydratedBloc<WorkSheetEvent, WorkSheetState> {
   FutureOr<void> _getAttendancesByDateEvent(
       GetAttendancesByDateEvent event, Emitter<WorkSheetState> emit) async {
     try {
-      final workSheet = await _attendanceUseCase.getAttendancesByDate(time: event.date);
-      emit(state.copyWith(
-        attendances: workSheet.attendances,
-        keys: workSheet.keys,
-      ));
+      final workSheet =
+          await _attendanceUseCase.getAttendancesByDate(time: event.date);
+      if (workSheet != null) {
+        emit(state.copyWith(
+          attendances: workSheet.attendances,
+          keys: workSheet.keys,
+        ));
+      }
+
       event.completer?.complete(true);
     } catch (e) {
       event.completer?.complete(false);
@@ -54,7 +59,8 @@ class WorkSheetBloc extends HydratedBloc<WorkSheetEvent, WorkSheetState> {
     return state.toJson();
   }
 
-  FutureOr<void> _resetWorkSheetEvent(ResetWorkSheetEvent event, Emitter<WorkSheetState> emit) {
+  FutureOr<void> _resetWorkSheetEvent(
+      ResetWorkSheetEvent event, Emitter<WorkSheetState> emit) {
     emit(const WorkSheetState());
   }
 }

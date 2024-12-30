@@ -1,19 +1,17 @@
 import 'dart:async';
 
-import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/domain/use_cases/work_and_salary.usecase.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../domain/use_cases/work_and_salary_usecase.dart';
+
 @lazySingleton
 class LeaveShiftBloc extends HydratedBloc<LeaveShiftEvent, LeaveShiftState> {
   final WorkAndSalaryUseCase _workAndSalaryUseCase;
 
-  LeaveShiftBloc()
-      : _workAndSalaryUseCase = dI<WorkAndSalaryUseCase>(),
-        super(const LeaveShiftState()) {
+  LeaveShiftBloc(this._workAndSalaryUseCase) : super(const LeaveShiftState()) {
     on<LeaveShiftEvent>((event, emit) {});
     on<GetWorkShiftsEvent>(_getWorkShiftsEvent);
     on<GetWorkShiftsExplanationEvent>(_getWorkShiftsExplanationEvent);
@@ -40,7 +38,8 @@ class LeaveShiftBloc extends HydratedBloc<LeaveShiftEvent, LeaveShiftState> {
   }
 
   FutureOr<void> _getWorkShiftsExplanationEvent(
-      GetWorkShiftsExplanationEvent event, Emitter<LeaveShiftState> emit) async {
+      GetWorkShiftsExplanationEvent event,
+      Emitter<LeaveShiftState> emit) async {
     try {
       final response = await _workAndSalaryUseCase.workShiftExplanation();
       final map = response.mapWorkShift;
@@ -67,7 +66,8 @@ class LeaveShiftBloc extends HydratedBloc<LeaveShiftEvent, LeaveShiftState> {
     return state.toJson();
   }
 
-  FutureOr<void> _resetLeaveShiftEvent(ResetLeaveShiftEvent event, Emitter<LeaveShiftState> emit) {
+  FutureOr<void> _resetLeaveShiftEvent(
+      ResetLeaveShiftEvent event, Emitter<LeaveShiftState> emit) {
     emit(const LeaveShiftState());
   }
 }

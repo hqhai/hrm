@@ -27,7 +27,9 @@ enum UserWorkingHistoryStatus {
   @JsonValue('OffDay')
   offDay('OffDay'),
   @JsonValue('')
-  unknown('');
+  unknown(''),
+  @JsonValue('LateWork')
+  lateWork('LateWork'),;
 
   final String name;
 

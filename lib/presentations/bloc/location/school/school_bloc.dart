@@ -1,31 +1,31 @@
 import 'dart:async';
 
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/school_status.dart';
 import 'package:base_app/data/models/location/get_list_schools_usecase.dart';
 import 'package:base_app/domain/entities/timekeeping/school.dart';
-import 'package:base_app/domain/use_cases/location.usecase.dart';
+import 'package:base_app/domain/use_cases/location_usecase.dart';
 import 'package:base_app/presentations/bloc/location/school/school_event.dart';
 import 'package:base_app/presentations/bloc/location/school/school_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+
 @lazySingleton
 class SchoolBloc extends HydratedBloc<SchoolEvent, SchoolState> {
   final LocationUseCase _locationUseCase;
 
-  SchoolBloc()
-      : _locationUseCase = dI<LocationUseCase>(),
-        super(const SchoolState()) {
+  SchoolBloc(this._locationUseCase) : super(const SchoolState()) {
     on<SchoolEvent>((event, emit) {});
     on<GetListSchoolsEvent>(_getListSchoolsEvent);
     on<ResetSchoolEvent>(_resetSchoolEvent);
   }
 
-  FutureOr<void> _getListSchoolsEvent(GetListSchoolsEvent event, Emitter<SchoolState> emit) async {
+  FutureOr<void> _getListSchoolsEvent(
+      GetListSchoolsEvent event, Emitter<SchoolState> emit) async {
     emit(state.copyWith(status: SchoolStatus.init));
     try {
-      final GetListSchoolsUseCase getListSchoolsUseCase = await _locationUseCase.getListSchools(
+      final GetListSchoolsUseCase getListSchoolsUseCase =
+          await _locationUseCase.getListSchools(
         page: event.page,
         keyword: event.keyword,
       );
@@ -69,7 +69,8 @@ class SchoolBloc extends HydratedBloc<SchoolEvent, SchoolState> {
     return state.toJson();
   }
 
-  FutureOr<void> _resetSchoolEvent(ResetSchoolEvent event, Emitter<SchoolState> emit) {
+  FutureOr<void> _resetSchoolEvent(
+      ResetSchoolEvent event, Emitter<SchoolState> emit) {
     emit(const SchoolState());
   }
 }

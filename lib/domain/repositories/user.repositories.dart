@@ -4,21 +4,23 @@ import 'package:base_app/data/models/user/search/search_user_by_name_response.da
 import 'package:base_app/domain/entities/user.dart';
 
 abstract class UserRepository {
-  Future<bool> changePassword(String newPassword, String currentPassword);
+  Future<bool?> changePassword(String newPassword, String currentPassword);
 
-  Future<User> getUserInfo();
+  Future<User?> getUserInfo();
 
-  Future<int> deleteAccount();
+  Future<int?> deleteAccount();
 
-  Future<List<User>> getUserByRole({required String role});
+  Future<List<User>?> getUserByRole({required String role});
 
-  Future<String> forgotPassword({required String email});
+  Future<String?> forgotPassword({required String email});
 
-  Future<int> register({required RegisterRequest registerRequest});
+  Future<int?> register({required RegisterRequest registerRequest});
 
-  Future<User> updateProfile({required UpdateProfileRequest updateProfileRequest});
+  Future<User?> updateProfile(
+      {required UpdateProfileRequest updateProfileRequest});
 
-  Future<SearchUserByNameResponse> getUserByFullName({required String fullName, int? page});
+  Future<SearchUserByNameResponse?> getUserByFullName(
+      {required String fullName, int? page});
 
-  Future<List<User>> getUserById({required List<String> id});
+  Future<List<User>?> getUserById({required List<String> id});
 }

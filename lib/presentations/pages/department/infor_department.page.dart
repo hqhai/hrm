@@ -38,7 +38,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
   }
 
   String _parent(DepartmentState state) {
-    return state.departments.where((e) => e.parentId == state.department.parentId).first.name ?? "";
+    return state.departments.where((e) => e.parentId == state.department.parentId).first.name;
   }
 
   @override
@@ -49,8 +49,7 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
     return BasePage(
       appbar: AppBar(
         iconTheme: IconThemeData(color: colors.text),
-        title: Text(appLocalizations.updateDepartment,
-            style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
+        title: Text(appLocalizations.updateDepartment, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text)),
       ),
       body: BlocBuilder<DepartmentBloc, DepartmentState>(
         builder: (context, state) => Container(
@@ -68,48 +67,42 @@ class _InformationDepartmentPageState extends State<InformationDepartmentPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: SpacingUnit.x4),
-                Text(appLocalizations.name,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.name, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(
-                  state.department.name ?? "",
+                  state.department.name,
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.phoneNumber,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.phoneNumber, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(
-                  state.department.phoneNumber ?? "",
+                  state.department.phoneNumber,
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.email,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.email, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(
-                  state.department.email ?? "",
+                  state.department.email,
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.address,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.address, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(
-                  state.department.address ?? "",
+                  state.department.address,
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.description,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.description, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 const SizedBox(height: SpacingUnit.x2),
                 Text(
-                  state.department.description ?? '',
+                  state.department.description,
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),
                 ),
                 const SizedBox(height: SpacingUnit.x2),
-                Text(appLocalizations.parent,
-                    style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
+                Text(appLocalizations.parent, style: TextStyle(fontSize: SpacingUnit.x5, color: colors.orange)),
                 Text(
                   _parent(state),
                   style: TextStyle(fontSize: SpacingUnit.x5, color: colors.text),

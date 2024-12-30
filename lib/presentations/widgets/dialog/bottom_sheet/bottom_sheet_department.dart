@@ -76,12 +76,8 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
                         context: context,
                       ),
                       child: ContainerBorder(
-                        borderColors: widget.department?.id == department.id
-                            ? colors.orange.withOpacity(0.3)
-                            : colors.background,
-                        backgroundColors: widget.department?.id == department.id
-                            ? colors.orange.withOpacity(0.3)
-                            : colors.background,
+                        borderColors: widget.department?.id == department.id ? colors.orange.withOpacity(0.3) : colors.background,
+                        backgroundColors: widget.department?.id == department.id ? colors.orange.withOpacity(0.3) : colors.background,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -89,17 +85,14 @@ class _BottomSheetDepartmentWidgetState extends State<BottomSheetDepartmentWidge
                           children: [
                             Text(
                               '${index + 1}.',
-                              style: TextStyle(
-                                  color: colors.text,
-                                  fontSize: SpacingUnit.x5,
-                                  fontWeight: FontWeight.w600),
+                              style: TextStyle(color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
                               width: SpacingUnit.x2,
                             ),
                             Expanded(
                               child: Text(
-                                department.name ?? "",
+                                department.name,
                                 maxLines: 4,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
