@@ -203,6 +203,28 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
           listWorkShift: listWorkShift,
         );
       }
+    }else{
+      if(currentListWorkShifts.isEmpty){
+         workShiftSettings.call([workShift]);
+      setState(() {
+        listWorkShifts = [workShift];
+      });
+      }else{
+        bool check = currentListWorkShifts.where((element) => element == workShift).isEmpty;
+        if(check){
+          final data = [...currentListWorkShifts,workShift];
+                   workShiftSettings.call(data);
+          setState(() {
+            listWorkShifts = data;
+          });
+        }else{
+          List<WorkShiftRegisteredDetail> data = currentListWorkShifts.where((element) => element != workShift).toList();
+                   workShiftSettings.call(data);
+          setState(() {
+            listWorkShifts = data;
+          });
+        }
+      }
     }
   }
 
