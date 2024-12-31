@@ -140,7 +140,7 @@
   "activate": "Activity",
   "home": "Home",
   "profile": "Profile",
-  "dateNote": "Note date",
+  "reviewDate": "Review date",
   "enterYourRegisteredUsernameAndPassword": "Enter the registered username and password",
   "supportContact": "Contact support",
   "theContentAndTitleCannotBeLeftBlank": "Content and subject cannot be empty",

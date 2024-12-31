@@ -139,7 +139,7 @@
   "activate": "Hoạt Động",
   "home": "Trang chủ",
   "profile": "Hồ sơ",
-  "dateNote": "Ngày ghi chú",
+  "reviewDate": "Ngày review",
   "enterYourRegisteredUsernameAndPassword": "Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản",
   "supportContact": "Liên hệ hỗ trợ",
   "theContentAndTitleCannotBeLeftBlank": "Nội dung và tiêu đề không được để trống",

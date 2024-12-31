@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
@@ -7,8 +9,8 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/image_dialog/image_dialog.dart';
 import 'package:collection/collection.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:file_picker/file_picker.dart';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -46,7 +48,8 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: SpacingUnit.x4, bottom: SpacingUnit.x2),
+          padding: const EdgeInsets.only(
+              top: SpacingUnit.x4, bottom: SpacingUnit.x2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -79,7 +82,8 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                         child: Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x0_5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: SpacingUnit.x0_5),
                               child: SvgPicture.asset(
                                 Assets.images.icon.activateIcon.fileAttach,
                                 colorFilter: ColorFilter.mode(
@@ -100,7 +104,8 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x0_5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: SpacingUnit.x0_5),
                               child: InkWell(
                                 onTap: () => _deleteFile(index),
                                 child: Icon(
@@ -142,12 +147,19 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
   }
 
   Future<void> _getFile() async {
+    AndroidDeviceInfo? androidDeviceInfo;
+    if (Platform.isAndroid) {
+      DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      androidDeviceInfo = await deviceInfoPlugin.androidInfo;
+    }
     Map<Permission, PermissionStatus> statuses = Platform.isIOS
         ? await [
             Permission.storage,
           ].request()
         : await [
-            Permission.storage,
+            int.parse(androidDeviceInfo?.version.release ?? '12') < 13
+                ? Permission.storage
+                : Permission.photos,
           ].request();
     if (statuses.containsValue(PermissionStatus.permanentlyDenied) ||
         statuses.containsValue(PermissionStatus.denied)) {
@@ -181,8 +193,9 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
 
   _onClickFLie(BuildContext context, int index) {
     if (_checkTypeFile(index)) {
-      dI<AppNavigation>()
-          .pushName(context, page: Pages.pDFPage, extra: {'url': paths[index], 'checkLocal': true});
+      dI<AppNavigation>().pushName(context,
+          page: Pages.pDFPage,
+          extra: {'url': paths[index], 'checkLocal': true});
     } else {
       showDialog(
         context: context,

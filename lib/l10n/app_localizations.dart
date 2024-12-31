@@ -939,11 +939,11 @@ abstract class AppLocalizations {
   /// **'Profile'**
   String get profile;
 
-  /// No description provided for @dateNote.
+  /// No description provided for @reviewDate.
   ///
   /// In en, this message translates to:
-  /// **'Note date'**
-  String get dateNote;
+  /// **'Review date'**
+  String get reviewDate;
 
   /// No description provided for @enterYourRegisteredUsernameAndPassword.
   ///

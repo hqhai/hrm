@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/note.dart';
+import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/notes/notes_state.dart';
@@ -14,10 +17,13 @@ import 'package:base_app/presentations/widgets/custom/date_picker_cupertino.dart
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_dialog_common.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_in_status/success_or_unsuccess_dialog.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:themes/themes.dart';
 
 final createNoteWidgetPageRoute = GoRoute(
@@ -48,6 +54,8 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
   bool isShowMap = false;
   DateTime dateNote = DateTime.now();
   double latitude = 0, longitude = 0;
+  late List<String> _files = const [];
+
   // final Completer<GoogleMapController> _controller =
   //     Completer<GoogleMapController>();
 
@@ -67,8 +75,9 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
 
   @override
   void dispose() {
-    super.dispose();
     contentController.dispose();
+    _files = [];
+    super.dispose();
   }
 
   _listener(BuildContext context, NotesState state) {
@@ -138,7 +147,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
               children: [
                 const SizedBox(height: SpacingUnit.x4_5),
                 Text(
-                  appLocalizations.dateNote,
+                  appLocalizations.reviewDate,
                   style: TextStyle(
                     fontSize: SpacingUnit.x4_5,
                     color: colors.text,
@@ -208,6 +217,60 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                   error: error,
                 ),
                 const SizedBox(height: SpacingUnit.x4_5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      appLocalizations.attachedFiles,
+                      style: TextStyle(
+                        color: colors.text,
+                        fontSize: SpacingUnit.x4,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => _getFile(),
+                      child: SvgPicture.asset(
+                        Assets.images.icon.activateIcon.loadFile,
+                        colorFilter:
+                            ColorFilter.mode(colors.text, BlendMode.srcIn),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: SpacingUnit.x5),
+                Column(
+                  children: List<Widget>.generate(
+                    _files.length,
+                    (index) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _files[index].split('/').last,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: colors.text,
+                            fontSize: SpacingUnit.x3,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: SpacingUnit.x0_5),
+                          child: InkWell(
+                            onTap: () => _deleteFile(index),
+                            child: Icon(
+                              size: SpacingUnit.x6,
+                              Icons.cancel,
+                              color: colors.text.withOpacity(0.5),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: SpacingUnit.x4),
                 AppButton(
                   color: colors.blue,
                   colorText: colors.background,
@@ -286,63 +349,44 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
       }
     }
   }
-}
 
-class DialogOpenSetting extends StatelessWidget {
-  const DialogOpenSetting({super.key});
-
-  _onClose(context) {
-    Navigator.pop(context);
+  void _deleteFile(int index) {
+    _files.removeAt(index);
+    setState(() {});
   }
 
-  _openSetting(context) {
-    Navigator.pop(context);
-    Geolocator.openLocationSettings();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colors = AppTheme.getColors(context);
-    final appLocalizations = AppLocalizations.of(context)!;
-    return Container(
-      height: MediaQuery.sizeOf(context).height / 4.5,
-      padding: const EdgeInsets.all(SpacingUnit.x4),
-      decoration: BoxDecoration(
-          color: colors.background,
-          borderRadius: BorderRadius.circular(SpacingUnit.x4)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          InkWell(
-            onTap: () {
-              _onClose(context);
-            },
-            child: Container(
-                width: MediaQuery.sizeOf(context).width,
-                alignment: Alignment.topRight,
-                child: const Icon(Icons.close)),
-          ),
-          const SizedBox(height: SpacingUnit.x3),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x10),
-            child: Text(
-              appLocalizations.contentPopUpOpenGPS,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodyLarge!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(height: SpacingUnit.x4),
-          AppButton(
-            color: colors.blue,
-            colorText: colors.background,
-            title: appLocalizations.allow,
-            onSubmit: () => _openSetting(context),
-          )
-        ],
-      ),
+  Future<void> _getFile() async {
+    AndroidDeviceInfo? androidDeviceInfo;
+    if (Platform.isAndroid) {
+      DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      androidDeviceInfo = await deviceInfoPlugin.androidInfo;
+    }
+    Map<Permission, PermissionStatus> statuses = Platform.isIOS
+        ? await [
+            Permission.storage,
+          ].request()
+        : await [
+            int.parse(androidDeviceInfo?.version.release ?? '12') < 13
+                ? Permission.storage
+                : Permission.photos,
+          ].request();
+    if (statuses.containsValue(PermissionStatus.permanentlyDenied) ||
+        statuses.containsValue(PermissionStatus.denied)) {
+      await openAppSettings();
+      return;
+    }
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
     );
+
+    if (result != null) {
+      final dataPaths = result.files.map((e) => e.path ?? '').toList();
+      final newFile = [..._files];
+      newFile.addAll(dataPaths);
+      _files = newFile;
+      setState(() {});
+    }
   }
 }

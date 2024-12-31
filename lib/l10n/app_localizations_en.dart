@@ -432,7 +432,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile => 'Profile';
 
   @override
-  String get dateNote => 'Note date';
+  String get reviewDate => 'Review date';
 
   @override
   String get enterYourRegisteredUsernameAndPassword => 'Enter the registered username and password';

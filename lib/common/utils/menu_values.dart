@@ -56,7 +56,7 @@ class MenuValues {
         'icon': Icon(Icons.monetization_on, color: colors.text, size: 30)
       },
       {
-        'text': 'Create Note',
+        'text': 'Review my app',
         'icon': Icon(Icons.note, color: colors.text, size: 30)
       },
       {

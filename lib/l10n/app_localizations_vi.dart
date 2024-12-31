@@ -432,7 +432,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get profile => 'Hồ sơ';
 
   @override
-  String get dateNote => 'Ngày ghi chú';
+  String get reviewDate => 'Ngày review';
 
   @override
   String get enterYourRegisteredUsernameAndPassword => 'Nhập tên đăng nhập và mật khẩu đã đăng ký tài khoản';

@@ -166,34 +166,55 @@ class _ItemProfileState extends State<ItemProfile> {
 
   Future<void> getImagePath() async {
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-    AndroidDeviceInfo androidDeviceInfo = await deviceInfoPlugin.androidInfo;
+    AndroidDeviceInfo? androidDeviceInfo = await deviceInfoPlugin.androidInfo;
 
-    PermissionStatus? storagePermission;
-    PermissionStatus? photoPermission;
-    if (int.parse(androidDeviceInfo.version.release) < 13) {
-      storagePermission = await Permission.storage.request();
-    } else {
-      photoPermission = await Permission.photos.request();
-    }
-    if ((photoPermission != null &&
-        (photoPermission == PermissionStatus.permanentlyDenied ||
-            photoPermission == PermissionStatus.denied)) ||
-        (storagePermission != null &&
-            (storagePermission == PermissionStatus.permanentlyDenied ||
-                storagePermission == PermissionStatus.denied))) {
-      await openAppSettings();
-    } else {
-      final ImagePicker picker = ImagePicker();
-      final XFile? pickedFile = await picker.pickImage(
-        source: ImageSource.gallery,
-      );
+    if (Platform.isAndroid) {
+      PermissionStatus? storagePermission;
+      PermissionStatus? photoPermission;
+      if (int.parse(androidDeviceInfo.version.release) < 13) {
+        storagePermission = await Permission.storage.request();
+      } else {
+        photoPermission = await Permission.photos.request();
+      }
+      if ((photoPermission != null &&
+              (photoPermission == PermissionStatus.permanentlyDenied ||
+                  photoPermission == PermissionStatus.denied)) ||
+          (storagePermission != null &&
+              (storagePermission == PermissionStatus.permanentlyDenied ||
+                  storagePermission == PermissionStatus.denied))) {
+        await openAppSettings();
+      } else {
+        final ImagePicker picker = ImagePicker();
+        final XFile? pickedFile = await picker.pickImage(
+          source: ImageSource.gallery,
+        );
 
-      if (pickedFile != null) {
-        setState(() {
-          pathImage = pickedFile.path;
-          file = File(pathImage);
-        });
-        widget.onChange?.call(file);
+        if (pickedFile != null) {
+          setState(() {
+            pathImage = pickedFile.path;
+            file = File(pathImage);
+          });
+          widget.onChange?.call(file);
+        }
+      }
+    } else {
+      final storagePermission = await Permission.storage.request();
+      if ((storagePermission == PermissionStatus.permanentlyDenied ||
+          storagePermission == PermissionStatus.denied)) {
+        await openAppSettings();
+      } else {
+        final ImagePicker picker = ImagePicker();
+        final XFile? pickedFile = await picker.pickImage(
+          source: ImageSource.gallery,
+        );
+
+        if (pickedFile != null) {
+          setState(() {
+            pathImage = pickedFile.path;
+            file = File(pathImage);
+          });
+          widget.onChange?.call(file);
+        }
       }
     }
   }
