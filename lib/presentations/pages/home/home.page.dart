@@ -49,8 +49,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     if (AppConfig.getToken.isNotEmpty) {
       dI<UserBloc>().add(const GetUserInfo());
+      dI<NotificationBloc>().add(const GetNotificationsEvent());
     }
-    dI<NotificationBloc>().add(const GetNotificationsEvent());
     super.initState();
   }
 
