@@ -156,7 +156,7 @@ class LocationService {
     return _systemApiClient.request(
       method: RestMethod.post,
       path: PathConfig.workshiftSettingGetUser,
-      queryParameters: request.toJson(),
+      body: request.toJson(),
       decoder: (json) =>
           ShiftsAdminResponse.fromJson(json as Map<String, dynamic>),
       successResponseMapperType: SuccessResponseMapperType.dataJsonObject,

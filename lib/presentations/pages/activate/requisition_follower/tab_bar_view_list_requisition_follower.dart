@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_following/requisition_following_event.dart';
@@ -25,10 +26,12 @@ class TabBarViewListRequestFollower extends StatefulWidget {
   final bool checkLoad;
 
   @override
-  State<TabBarViewListRequestFollower> createState() => _TabBarViewListRequestFollowerState();
+  State<TabBarViewListRequestFollower> createState() =>
+      _TabBarViewListRequestFollowerState();
 }
 
-class _TabBarViewListRequestFollowerState extends State<TabBarViewListRequestFollower> {
+class _TabBarViewListRequestFollowerState
+    extends State<TabBarViewListRequestFollower> {
   late ScrollController controller;
   bool loadMore = true;
   int pageIndex = 1, totalItems = 12, lengthList = 11;
@@ -41,7 +44,9 @@ class _TabBarViewListRequestFollowerState extends State<TabBarViewListRequestFol
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
+    if (lengthList < totalItems &&
+        controller.position.extentAfter < totalItems &&
+        checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
@@ -70,24 +75,31 @@ class _TabBarViewListRequestFollowerState extends State<TabBarViewListRequestFol
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
     final colors = AppTheme.getColors(context);
     return BlocBuilder<RequisitionFollowingBloc, RequisitionFollowingState>(
       builder: (context, state) {
         return Container(
           color: colors.outlineVariant.withOpacity(0.1),
-          height: height * 0.85,
-          child: widget.checkLoad
-              ? state.requisitionIds.isNotEmpty
-                  ? ListView.builder(
-                      controller: controller,
-                      itemCount: state.requisitionIds.length,
-                      itemBuilder: (context, index) => ItemRequisitionFollowerList(
-                        id: state.requisitionIds[index],
-                      ),
-                    )
-                  : const DataNotExist()
-              : const ShimmerLoad(),
+          child: Column(
+            children: [
+              widget.checkLoad
+                  ? state.requisitionIds.isNotEmpty
+                      ? Expanded(
+                          child: ListView.builder(
+                            controller: controller,
+                            shrinkWrap: true,
+                            itemCount: state.requisitionIds.length,
+                            itemBuilder: (context, index) =>
+                                ItemRequisitionFollowerList(
+                              id: state.requisitionIds[index],
+                            ),
+                          ),
+                        )
+                      : const DataNotExist()
+                  : const ShimmerLoad(),
+              const SizedBox(height: SpacingUnit.x7_5)
+            ],
+          ),
         );
       },
     );

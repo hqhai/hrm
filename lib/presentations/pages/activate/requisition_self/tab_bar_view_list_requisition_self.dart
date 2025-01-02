@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_event.dart';
@@ -67,24 +68,26 @@ class _TabBarViewListRequestSelfState extends State<TabBarViewListRequestSelf> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
     return BlocBuilder<RequisitionBloc, RequisitionState>(
       builder: (context, state) {
-        return SingleChildScrollView(
-          child: SizedBox(
-            height: height * 0.85,
-            child: widget.checkLoad
+        return Column(
+          children: [
+            widget.checkLoad
                 ? state.requisitionIds.isNotEmpty
-                    ? ListView.builder(
-                        controller: controller,
-                        itemCount: state.requisitionIds.length,
-                        itemBuilder: (context, index) => ItemRequisitionList(
-                          id: state.requisitionIds[index],
+                    ? Expanded(
+                      child: ListView.builder(
+                          controller: controller,
+                          shrinkWrap: true,
+                          itemCount: state.requisitionIds.length,
+                          itemBuilder: (context, index) => ItemRequisitionList(
+                            id: state.requisitionIds[index],
+                          ),
                         ),
-                      )
+                    )
                     : const DataNotExist()
                 : const ShimmerLoad(),
-          ),
+            const SizedBox(height: SpacingUnit.x7_5)
+          ],
         );
       },
     );

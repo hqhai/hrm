@@ -13,6 +13,7 @@ class DataNotExist extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(height: SpacingUnit.x5),
           Text(
             appLocalizations.errNotData,
             style: const TextStyle(

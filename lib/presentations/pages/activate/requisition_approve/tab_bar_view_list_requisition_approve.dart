@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
+import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
@@ -33,7 +34,6 @@ class TabBarViewListRequistionApprove extends StatefulWidget {
 class _TabBarViewListRequistionApproveState
     extends State<TabBarViewListRequistionApprove> {
   late ScrollController controller;
-
 
   int pageIndex = 1, totalItems = 12, lengthList = 11;
   bool checkLoad = true;
@@ -86,36 +86,39 @@ class _TabBarViewListRequistionApproveState
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
     final colors = AppTheme.getColors(context);
-
-
     return BlocConsumer<RequisitionApproveBloc, RequisitionApproveState>(
       listener: (context, state) => _listener(context, state),
       listenWhen: (previous, current) =>
           previous.requisitions != current.requisitions,
-      // buildWhen: (previous, current) => previous.requisitionIds != current.requisitionIds ,
       builder: (context, state) {
         return Container(
           color: colors.outlineVariant.withOpacity(0.1),
-          height: height * 0.85,
-          child: widget.checkLoad
-              ? state.requisitionIds.isNotEmpty
-                  ? ListView.builder(
-                      controller: controller,
-                      itemCount: state.requisitionIds.length,
-                      itemBuilder: (context, index) =>
-                          ItemRequisitionApproveList(
-                        id: state.requisitionIds[index],
-                        status: widget.status,
-                        departmentId: widget.filterData.department?.id,
-                        startTime: widget.filterData.startTime,
-                        endTime: widget.filterData.endTime,
-                        type: widget.filterData.types,
-                      ),
-                    )
-                  : const DataNotExist()
-              : const ShimmerLoad(),
+          child: Column(
+            children: [
+              widget.checkLoad
+                  ? state.requisitionIds.isNotEmpty
+                      ? Expanded(
+                          child: ListView.builder(
+                            controller: controller,
+                            shrinkWrap: true,
+                            itemCount: state.requisitionIds.length,
+                            itemBuilder: (context, index) =>
+                                ItemRequisitionApproveList(
+                              id: state.requisitionIds[index],
+                              status: widget.status,
+                              departmentId: widget.filterData.department?.id,
+                              startTime: widget.filterData.startTime,
+                              endTime: widget.filterData.endTime,
+                              type: widget.filterData.types,
+                            ),
+                          ),
+                        )
+                      : const DataNotExist()
+                  : const ShimmerLoad(),
+              const SizedBox(height: SpacingUnit.x7_5)
+            ],
+          ),
         );
       },
     );

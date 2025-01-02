@@ -195,12 +195,11 @@ extension GetItInjectableX on _i1.GetIt {
             ));
     gh.lazySingleton<_i29.RefreshTokenApiService>(
         () => _i29.RefreshTokenApiService(gh<_i28.RefreshTokenApiClient>()));
-    gh.lazySingleton<_i30.RefreshTokenInterceptor>(
-        () => _i30.RefreshTokenInterceptor(
-              gh<_i26.AppPreferences>(),
-              gh<_i29.RefreshTokenApiService>(),
-              gh<_i14.NoneAuthAppServerApiClient>(),
-            ));
+    gh.factory<_i30.RefreshTokenInterceptor>(() => _i30.RefreshTokenInterceptor(
+          gh<_i26.AppPreferences>(),
+          gh<_i29.RefreshTokenApiService>(),
+          gh<_i14.NoneAuthAppServerApiClient>(),
+        ));
     gh.lazySingleton<_i31.RequestApiClient>(() => _i31.RequestApiClient(
           gh<_i10.HeaderInterceptor>(),
           gh<_i27.AccessTokenInterceptor>(),

@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ServerError {
   /// server-defined status code
-  int? get generalServerStatusCode => throw _privateConstructorUsedError;
+  int? get statusCode => throw _privateConstructorUsedError;
   List<String> get errors => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +31,7 @@ abstract class $ServerErrorCopyWith<$Res> {
           ServerError value, $Res Function(ServerError) then) =
       _$ServerErrorCopyWithImpl<$Res, ServerError>;
   @useResult
-  $Res call({int? generalServerStatusCode, List<String> errors});
+  $Res call({int? statusCode, List<String> errors});
 }
 
 /// @nodoc
@@ -47,13 +47,13 @@ class _$ServerErrorCopyWithImpl<$Res, $Val extends ServerError>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? generalServerStatusCode = freezed,
+    Object? statusCode = freezed,
     Object? errors = null,
   }) {
     return _then(_value.copyWith(
-      generalServerStatusCode: freezed == generalServerStatusCode
-          ? _value.generalServerStatusCode
-          : generalServerStatusCode // ignore: cast_nullable_to_non_nullable
+      statusCode: freezed == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
               as int?,
       errors: null == errors
           ? _value.errors
@@ -71,7 +71,7 @@ abstract class _$$ServerErrorImplCopyWith<$Res>
       __$$ServerErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? generalServerStatusCode, List<String> errors});
+  $Res call({int? statusCode, List<String> errors});
 }
 
 /// @nodoc
@@ -85,13 +85,13 @@ class __$$ServerErrorImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? generalServerStatusCode = freezed,
+    Object? statusCode = freezed,
     Object? errors = null,
   }) {
     return _then(_$ServerErrorImpl(
-      generalServerStatusCode: freezed == generalServerStatusCode
-          ? _value.generalServerStatusCode
-          : generalServerStatusCode // ignore: cast_nullable_to_non_nullable
+      statusCode: freezed == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
               as int?,
       errors: null == errors
           ? _value._errors
@@ -105,14 +105,13 @@ class __$$ServerErrorImplCopyWithImpl<$Res>
 
 class _$ServerErrorImpl extends _ServerError {
   const _$ServerErrorImpl(
-      {this.generalServerStatusCode,
-      final List<String> errors = ServerError.defaultErrors})
+      {this.statusCode, final List<String> errors = ServerError.defaultErrors})
       : _errors = errors,
         super._();
 
   /// server-defined status code
   @override
-  final int? generalServerStatusCode;
+  final int? statusCode;
   final List<String> _errors;
   @override
   @JsonKey()
@@ -127,15 +126,14 @@ class _$ServerErrorImpl extends _ServerError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ServerErrorImpl &&
-            (identical(
-                    other.generalServerStatusCode, generalServerStatusCode) ||
-                other.generalServerStatusCode == generalServerStatusCode) &&
+            (identical(other.statusCode, statusCode) ||
+                other.statusCode == statusCode) &&
             const DeepCollectionEquality().equals(other._errors, _errors));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, generalServerStatusCode,
-      const DeepCollectionEquality().hash(_errors));
+  int get hashCode => Object.hash(
+      runtimeType, statusCode, const DeepCollectionEquality().hash(_errors));
 
   @JsonKey(ignore: true)
   @override
@@ -146,14 +144,13 @@ class _$ServerErrorImpl extends _ServerError {
 
 abstract class _ServerError extends ServerError {
   const factory _ServerError(
-      {final int? generalServerStatusCode,
-      final List<String> errors}) = _$ServerErrorImpl;
+      {final int? statusCode, final List<String> errors}) = _$ServerErrorImpl;
   const _ServerError._() : super._();
 
   @override
 
   /// server-defined status code
-  int? get generalServerStatusCode;
+  int? get statusCode;
   @override
   List<String> get errors;
   @override
