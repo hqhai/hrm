@@ -401,6 +401,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 4NPZ8U86N9;
 				ENABLE_BITCODE = NO;
+				FLUTTER_BUILD_NUMBER = 10;
+				FLUTTER_TARGET = /Users/admin/projects/it_request/lib/main.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlantic GC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -486,6 +488,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 4NPZ8U86N9;
 				ENABLE_BITCODE = NO;
+				FLUTTER_BUILD_NUMBER = 10;
+				FLUTTER_TARGET = /Users/admin/projects/it_request/lib/main.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlantic GC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -572,6 +576,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 4NPZ8U86N9;
 				ENABLE_BITCODE = NO;
+				FLUTTER_BUILD_NUMBER = 10;
+				FLUTTER_TARGET = /Users/admin/projects/it_request/lib/main.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlantic GC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -655,6 +661,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 4NPZ8U86N9;
 				ENABLE_BITCODE = NO;
+				FLUTTER_BUILD_NUMBER = 10;
+				FLUTTER_TARGET = /Users/admin/projects/it_request/lib/main.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlantic GC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -737,6 +745,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 4NPZ8U86N9;
 				ENABLE_BITCODE = NO;
+				FLUTTER_BUILD_NUMBER = 10;
+				FLUTTER_TARGET = /Users/admin/projects/it_request/lib/main.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlantic GC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -817,6 +827,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 4NPZ8U86N9;
 				ENABLE_BITCODE = NO;
+				FLUTTER_BUILD_NUMBER = 10;
+				FLUTTER_TARGET = /Users/admin/projects/it_request/lib/main.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlantic GC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -897,6 +909,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 4NPZ8U86N9;
 				ENABLE_BITCODE = NO;
+				FLUTTER_BUILD_NUMBER = 10;
+				FLUTTER_TARGET = /Users/admin/projects/it_request/lib/main.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlantic GC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -1034,6 +1048,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 4NPZ8U86N9;
 				ENABLE_BITCODE = NO;
+				FLUTTER_BUILD_NUMBER = 10;
+				FLUTTER_TARGET = /Users/admin/projects/it_request/lib/main.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlantic GC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -1065,6 +1081,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 4NPZ8U86N9;
 				ENABLE_BITCODE = NO;
+				FLUTTER_BUILD_NUMBER = 10;
+				FLUTTER_TARGET = /Users/admin/projects/it_request/lib/main.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlantic GC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
