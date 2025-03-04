@@ -9,7 +9,7 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/pages/profile/item_profile.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_colum.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value_colum.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

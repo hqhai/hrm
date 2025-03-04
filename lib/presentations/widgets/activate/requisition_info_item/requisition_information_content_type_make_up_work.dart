@@ -1,8 +1,5 @@
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_request.dart';
-import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/enum/time_keeping_enum.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
 import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
@@ -11,23 +8,23 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/leave/shift_widget.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value_area_colum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
-class RequisitionInformationContentTypeEarly extends StatefulWidget {
-  const RequisitionInformationContentTypeEarly({
+class RequisitionInformationContentTypeMakeUpWork extends StatefulWidget {
+  const RequisitionInformationContentTypeMakeUpWork({
     super.key,
   });
 
   @override
-  State<RequisitionInformationContentTypeEarly> createState() =>
-      _RequisitionInformationContentTypeEarlyState();
+  State<RequisitionInformationContentTypeMakeUpWork> createState() =>
+      _RequisitionInformationContentTypeMakeUpWorkState();
 }
 
-class _RequisitionInformationContentTypeEarlyState
-    extends State<RequisitionInformationContentTypeEarly> {
+class _RequisitionInformationContentTypeMakeUpWorkState
+    extends State<RequisitionInformationContentTypeMakeUpWork> {
   List<bool> listCheck = [];
 
   @override
@@ -45,39 +42,27 @@ class _RequisitionInformationContentTypeEarlyState
       builder: (context, state) {
         final workShiftSettings = state.requisition.config.workShiftSettings;
         final replace = RequisitionOverTime(
-          date: state.requisition.config.endDate,
-          startTime: state.requisition.config.startTime,
-          endTime: state.requisition.config.endTime,
-        );
+            date: state.requisition.config.startDate,
+            startTime: state.requisition.config.startTime,
+            endTime: state.requisition.config.endTime,
+            suggestTime: (state.requisition.config.endTime -
+                    state.requisition.config.startTime)
+                .toInt());
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ItemTitleValue(
+              ItemTitleValueAreaColum(
                 size: SpacingUnit.x4,
-                title: appLocalizations.caseL,
-                value: state.requisition.config.explanationReason
-                        .configEditTimekeepingName,
+                title: appLocalizations.reasonMakeUpWork,
+                value: state.requisition.config.description,
                 font: FontWeight.w600,
               ),
-              ItemTitleValue(
-                size: SpacingUnit.x4,
-                title: appLocalizations.reason,
-                value:
-                    state.requisition.config.reason.configEnumReasonName,
-                font: FontWeight.w600,
-              ),
-              ItemTitleValue(
-                size: SpacingUnit.x4,
-                title: appLocalizations.time,
-                value: formatYMD(
-                    (state.requisition.config.startDate ?? "").toString()),
-                font: FontWeight.w600,
-              ),
+              const SizedBox(height: SpacingUnit.x4),
               Text(
-                appLocalizations.timeWorking,
+                appLocalizations.shiftWasLeave,
                 style: TextStyle(
                   color: colors.text,
                   fontSize: SpacingUnit.x4,
@@ -90,25 +75,22 @@ class _RequisitionInformationContentTypeEarlyState
                     context: context,
                     title: "",
                     workShift: e,
-                    reason: state.requisition.config.explanationReason,
                   ),
                 ),
-              if (state.requisition.config.explanationReason ==
-                  EditTimekeeping.early) ...[
-                Text(
-                  appLocalizations.workOffset,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                    fontWeight: FontWeight.w600,
-                  ),
+              const SizedBox(height: SpacingUnit.x4),
+              Text(
+                appLocalizations.workOffset,
+                style: TextStyle(
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w600,
                 ),
-                ItemListOverTime(
-                  requisitionOverTime: replace,
-                  index: 0,
-                  checkType: RequestType.early,
-                ),
-              ],
+              ),
+              ItemListOverTime(
+                requisitionOverTime: replace,
+                index: 0,
+                checkType: RequestType.makeUp,
+              ),
             ],
           ),
         );

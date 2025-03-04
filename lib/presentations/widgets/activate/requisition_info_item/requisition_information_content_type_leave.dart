@@ -7,9 +7,9 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/activate/leave/shift_widget.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_person_information_request.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_colum.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_person_information_request.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value_colum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -26,7 +26,8 @@ class RequisitionInformationContentTypeLeave extends StatefulWidget {
 
 class _RequisitionInformationContentTypeLeaveState
     extends State<RequisitionInformationContentTypeLeave> {
-  List<WorkShiftRegisteredDetail> _workShiftSettings(List<WorkShiftRegisteredDetail> list) {
+  List<WorkShiftRegisteredDetail> _workShiftSettings(
+      List<WorkShiftRegisteredDetail> list) {
     final workShiftSettings = list;
     if (workShiftSettings.isNotEmpty) {
       workShiftSettings.sort((a, b) {
@@ -50,7 +51,8 @@ class _RequisitionInformationContentTypeLeaveState
         return BlocBuilder<RequisitionBloc, RequisitionState>(
           builder: (context, state) {
             final request = state.requisition;
-            final workShiftSettings = _workShiftSettings(request.config.workShiftSettings);
+            final workShiftSettings =
+                _workShiftSettings(request.config.workShiftSettings);
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
               child: Column(
@@ -80,11 +82,13 @@ class _RequisitionInformationContentTypeLeaveState
                           : appLocalizations.reason,
                       value: request.config.reasonLeave.configEnumTakeLeaveName,
                     ),
-                  if (request.config.socialInsuranceLeave != EnumSocialInsuranceLeave.unknown)
+                  if (request.config.socialInsuranceLeave !=
+                      EnumSocialInsuranceLeave.unknown)
                     ItemTitleValue(
                       size: SpacingUnit.x4,
                       title: appLocalizations.reason,
-                      value: request.config.socialInsuranceLeave.configSocialInsuranceLeaveName,
+                      value: request.config.socialInsuranceLeave
+                          .configSocialInsuranceLeaveName,
                     ),
                   Padding(
                     padding: const EdgeInsets.only(top: SpacingUnit.x2),

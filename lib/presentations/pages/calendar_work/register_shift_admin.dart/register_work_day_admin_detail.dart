@@ -20,7 +20,7 @@ import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value_no_border.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/line.dart';
 import 'package:flutter/material.dart';

@@ -4,7 +4,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_list_over_time.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_area_colum.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value_area_colum.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,13 +50,15 @@ class _RequisitionInformationContentTypeOverTimeState
               ),
               (overTimes != null && overTimes.isNotEmpty)
                   ? Container(
-                      padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+                      padding: const EdgeInsets.only(
+                          left: SpacingUnit.x1, top: SpacingUnit.x2),
                       child: Column(
                         children: overTimes
                             .mapIndexed(
                               (index, element) => ItemListOverTime(
                                 checkType: RequestType.oT,
-                                requisitionOverTime: state.requisition.config.overTimes![index],
+                                requisitionOverTime:
+                                    state.requisition.config.overTimes![index],
                                 index: index,
                               ),
                             )

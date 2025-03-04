@@ -1,22 +1,25 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/warehouse_releaseds.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemListReleaseOfWarehouse extends StatefulWidget {
-  const ItemListReleaseOfWarehouse({super.key, this.requisitionReleaseOfWarehouse, this.index});
+  const ItemListReleaseOfWarehouse(
+      {super.key, this.requisitionReleaseOfWarehouse, this.index});
 
   final WarehouseReleaseds? requisitionReleaseOfWarehouse;
   final int? index;
 
   @override
-  State<ItemListReleaseOfWarehouse> createState() => _ItemListReleaseOfWarehouseState();
+  State<ItemListReleaseOfWarehouse> createState() =>
+      _ItemListReleaseOfWarehouseState();
 }
 
-class _ItemListReleaseOfWarehouseState extends State<ItemListReleaseOfWarehouse> {
+class _ItemListReleaseOfWarehouseState
+    extends State<ItemListReleaseOfWarehouse> {
   bool checkType = true;
 
   @override

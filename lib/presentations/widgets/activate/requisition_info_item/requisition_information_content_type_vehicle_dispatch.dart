@@ -5,8 +5,8 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_person_information_request.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_person_information_request.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -38,12 +38,14 @@ class RequisitionInformationContentTypeVehicleDispatch extends StatelessWidget {
                   ItemTitleValue(
                     size: SpacingUnit.x4,
                     title: appLocalizations.startTime,
-                    value: formatYMDHMS((state.requisition.config.startDate ?? "").toString()),
+                    value: formatYMDHMS(
+                        (state.requisition.config.startDate ?? "").toString()),
                   ),
                   ItemTitleValue(
                     size: SpacingUnit.x4,
                     title: appLocalizations.endTime,
-                    value: formatYMDHMS((state.requisition.config.endDate ?? "").toString()),
+                    value: formatYMDHMS(
+                        (state.requisition.config.endDate ?? "").toString()),
                   ),
                   ItemTitleValue(
                     size: SpacingUnit.x4,

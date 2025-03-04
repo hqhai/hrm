@@ -5,7 +5,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value_no_border.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,8 +52,8 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
           if (widget.checkType == RequestType.oT)
             ItemTitleValueNoBorder(
               title: appLocalizations.dateType,
-              value: widget.requisitionOverTime.overtimeDay
-                      .configEnumOvertimeDayName,
+              value: widget
+                  .requisitionOverTime.overtimeDay.configEnumOvertimeDayName,
               size: SpacingUnit.x4,
             ),
           if (widget.checkType == RequestType.oT)
