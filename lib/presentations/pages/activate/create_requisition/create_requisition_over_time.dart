@@ -50,10 +50,12 @@ class CreateRequisitionOverTimePage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionOverTimePage> createState() => _CreateRequisitionOverTimePageState();
+  State<CreateRequisitionOverTimePage> createState() =>
+      _CreateRequisitionOverTimePageState();
 }
 
-class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTimePage> {
+class _CreateRequisitionOverTimePageState
+    extends State<CreateRequisitionOverTimePage> {
   List<RequisitionOverTime> requisitionOverTimes = [];
   List<String> followers = [];
   String description = "", error = '', errorDescription = '', errorDialog = '';
@@ -79,20 +81,23 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     final bool checkDescription = description.isNotEmpty;
     setState(() {
       error = check ? '' : appLocalizations.notSelectedAOverTime;
-      errorDescription = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDescription =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return check && checkDescription;
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -129,10 +134,13 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                         title: appLocalizations.listOvertime,
                         error: error,
                         requisitionOverTimes: requisitionOverTimes,
-                        onChangeList: (value) => _setChangeRequisitionOverTimes(value),
+                        onChangeList: (value) =>
+                            _setChangeRequisitionOverTimes(value),
                       ),
                       ItemCreateInputArea(
-                        textInputFormatter: [LengthLimitingTextInputFormatter(500)],
+                        textInputFormatter: [
+                          LengthLimitingTextInputFormatter(500)
+                        ],
                         requiredValidate: true,
                         title: appLocalizations.reasonCreateRequest,
                         error: errorDescription,
@@ -224,9 +232,11 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
     );
   }
@@ -262,7 +272,8 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
 
   addOverTime() {
     setState(() {
-      requisitionOverTimes.add(RequisitionOverTime(date: DateTime.now(), overtimeDay: EnumOvertimeDay.holiday));
+      requisitionOverTimes.add(RequisitionOverTime(
+          date: DateTime.now(), overtimeDay: EnumOvertimeDay.holiday));
     });
   }
 }
