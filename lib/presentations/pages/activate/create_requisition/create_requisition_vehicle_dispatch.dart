@@ -163,14 +163,14 @@ class _CreateRequestVehicleDispatchPageState
                       endTime: (value) => setEndTime(value),
                       total: (value) => setTotal(value),
                     ),
-                    ItemCreateFollower(
-                      requiredValidate: true,
-                      error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
-                      listFollower:
-                          _setListUser(stateUserById.subtitudePersons),
-                      title: appLocalizations.walker,
-                      onChange: (value) => _setWalker(value),
-                    ),
+                    // ItemCreateFollower(
+                    //   requiredValidate: true,
+                    //   error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
+                    //   listFollower:
+                    //       _setListUser(stateUserById.subtitudePersons),
+                    //   title: appLocalizations.walker,
+                    //   onChange: (value) => _setWalker(value),
+                    // ),
                     ItemCreateInputArea(
                       requiredValidate: true,
                       error: errorSchedule,
@@ -178,11 +178,11 @@ class _CreateRequestVehicleDispatchPageState
                       title: appLocalizations.schedule,
                       onChange: (value) => _setSchedule(value),
                     ),
-                    ItemCreateFollower(
-                      listFollower: _setListUser(stateUserById.userById),
-                      title: appLocalizations.follower,
-                      onChange: (value) => _setFollower(value),
-                    ),
+                    // ItemCreateFollower(
+                    //   listFollower: _setListUser(stateUserById.userById),
+                    //   title: appLocalizations.follower,
+                    //   onChange: (value) => _setFollower(value),
+                    // ),
                     const ItemListStepFlow(),
                     ItemButton(
                       id: widget.requestId,

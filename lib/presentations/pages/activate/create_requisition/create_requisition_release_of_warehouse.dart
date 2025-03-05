@@ -38,7 +38,8 @@ final createRequestReleaseOfWarehousePageRoute = GoRoute(
     });
 
 class CreateRequisitionReleaseOfWarehousePage extends StatefulWidget {
-  const CreateRequisitionReleaseOfWarehousePage({super.key, this.flowId, this.requestId = ''});
+  const CreateRequisitionReleaseOfWarehousePage(
+      {super.key, this.flowId, this.requestId = ''});
 
   final String? flowId;
   final String requestId;
@@ -53,7 +54,10 @@ class _CreateRequisitionReleaseOfWarehousePageState
   List<WarehouseReleaseds> requisitionReleaseOfWarehouse = [];
   final TextEditingController scheduleController = TextEditingController();
   List<String> followers = [];
-  String description = '', errorList = '', errorDescription = '', errorDialog = '';
+  String description = '',
+      errorList = '',
+      errorDescription = '',
+      errorDialog = '';
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   bool checkClick = false;
 
@@ -70,13 +74,16 @@ class _CreateRequisitionReleaseOfWarehousePageState
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -119,12 +126,12 @@ class _CreateRequisitionReleaseOfWarehousePageState
                         listProducts: requisitionReleaseOfWarehouse,
                         onChangeList: (value) => _setList(value),
                       ),
-                      ItemCreateFollower(
-                          listFollower: _setListUser(
-                            stateUserById.userById,
-                          ),
-                          title: appLocalizations.follower,
-                          onChange: (value) => _setFollower(value)),
+                      // ItemCreateFollower(
+                      //     listFollower: _setListUser(
+                      //       stateUserById.userById,
+                      //     ),
+                      //     title: appLocalizations.follower,
+                      //     onChange: (value) => _setFollower(value)),
                       const ItemListStepFlow(),
                       Padding(
                         padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
@@ -161,7 +168,8 @@ class _CreateRequisitionReleaseOfWarehousePageState
     final appLocalizations = AppLocalizations.of(context)!;
     bool check = requisitionReleaseOfWarehouse.isNotEmpty && description != '';
     setState(() {
-      errorDescription = description != '' ? "" : appLocalizations.cannotBeLeftBlank;
+      errorDescription =
+          description != '' ? "" : appLocalizations.cannotBeLeftBlank;
       errorList = requisitionReleaseOfWarehouse.isNotEmpty
           ? ''
           : appLocalizations.thereAreCurrentlyNoProducts;
@@ -199,9 +207,11 @@ class _CreateRequisitionReleaseOfWarehousePageState
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
     );
   }

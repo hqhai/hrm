@@ -62,10 +62,12 @@ class CreateRequisitionMakeUpWorkPage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionMakeUpWorkPage> createState() => _CreateRequisitionMakeUpWorkPageState();
+  State<CreateRequisitionMakeUpWorkPage> createState() =>
+      _CreateRequisitionMakeUpWorkPageState();
 }
 
-class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeUpWorkPage> {
+class _CreateRequisitionMakeUpWorkPageState
+    extends State<CreateRequisitionMakeUpWorkPage> {
   final TextEditingController descriptionController = TextEditingController();
   String errorDescription = '',
       errorDialog = '',
@@ -99,8 +101,9 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
   _listener(String errorCode, BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
       if (errorCode == "TimeSlotAlreadyPleaseChooseAnother") {
         errorTime = appLocalizations.errorTimeMakeUp2;
       }
@@ -122,7 +125,9 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
               title: Text(
                 widget.type.configTypeCreateName,
                 style: TextStyle(
-                    color: colors.text, fontSize: SpacingUnit.x4_5, fontWeight: FontWeight.w600),
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4_5,
+                    fontWeight: FontWeight.w600),
               ),
             ),
             body: SingleChildScrollView(
@@ -158,11 +163,13 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
                         : ItemWorkShiftADate(
                             workShiftSettingsOld: workShiftSettings,
                             type: widget.type,
-                            workShiftSettings: (value) => _setWorkShiftSettings(value),
+                            workShiftSettings: (value) =>
+                                _setWorkShiftSettings(value),
                           ),
                     BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
                       builder: (context, stateShift) {
-                        return errorWorkShiftSettings.isNotEmpty || stateShift.keys.isNotEmpty
+                        return errorWorkShiftSettings.isNotEmpty ||
+                                stateShift.keys.isNotEmpty
                             ? Text(
                                 errorWorkShiftSettings,
                                 style: TextStyle(
@@ -202,12 +209,12 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
                       errorTime: errorTime,
                       checkNumberValue: false,
                     ),
-                    ItemCreateFollower(
-                        listFollower: _setListUser(
-                          stateUserById.userById,
-                        ),
-                        title: appLocalizations.follower,
-                        onChange: (value) => _setFollower(value)),
+                    // ItemCreateFollower(
+                    //     listFollower: _setListUser(
+                    //       stateUserById.userById,
+                    //     ),
+                    //     title: appLocalizations.follower,
+                    //     onChange: (value) => _setFollower(value)),
                     const ItemListStepFlow(),
                     ItemButton(
                       id: widget.requestId,
@@ -236,8 +243,10 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
     final bool checkDescription = description.isNotEmpty;
     final bool checkList = workShiftSettings.isNotEmpty;
     setState(() {
-      errorDescription = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
-      errorWorkShiftSettings = checkList ? '' : appLocalizations.notSelectedAShift;
+      errorDescription =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorWorkShiftSettings =
+          checkList ? '' : appLocalizations.notSelectedAShift;
     });
     return checkList && checkDescription;
   }
@@ -335,8 +344,8 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
         checkShirt = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: startDate, startDate: startDate, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: startDate, startDate: startDate, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {

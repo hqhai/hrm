@@ -54,11 +54,14 @@ class CreateRequisitionExplanationPage extends StatefulWidget {
   final String requestId;
 
   @override
-  State<CreateRequisitionExplanationPage> createState() => _CreateRequisitionExplanationPageState();
+  State<CreateRequisitionExplanationPage> createState() =>
+      _CreateRequisitionExplanationPageState();
 }
 
-class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExplanationPage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+class _CreateRequisitionExplanationPageState
+    extends State<CreateRequisitionExplanationPage> {
+  final TextEditingController detailedDescriptionController =
+      TextEditingController();
   List<RequisitionOverTime> listRequisitionOverTimes = [];
   String errorTime = '', errorDialog = '', errorExplanations = '';
   String? description;
@@ -81,14 +84,16 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -128,17 +133,18 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                       title: appLocalizations.detailedDescription,
                       onChange: (value) => _setDetailedDescription(value),
                     ),
-                    ItemCreateFollower(
-                        listFollower: _setListUser(
-                          stateUserById.userById,
-                        ),
-                        title: appLocalizations.follower,
-                        onChange: (value) => _setFollower(value)),
+                    // ItemCreateFollower(
+                    //     listFollower: _setListUser(
+                    //       stateUserById.userById,
+                    //     ),
+                    //     title: appLocalizations.follower,
+                    //     onChange: (value) => _setFollower(value)),
                     const ItemListStepFlow(),
                     ItemButton(
                       id: widget.requestId,
                       callbackSave: explanations.any((element) =>
-                              element.note.isEmpty || element.checkOut - element.checkIn <= 0)
+                              element.note.isEmpty ||
+                              element.checkOut - element.checkIn <= 0)
                           ? null
                           : () => _save(context),
                       callbackCancel: () => _cancel(context),
@@ -219,9 +225,11 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
     );
   }
