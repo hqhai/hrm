@@ -45,6 +45,7 @@ final createRequestMakeUpWorkPageRoute = GoRoute(
       flowId: data['flowId'],
       requestId: data['requestId'],
       type: data['type'],
+      date: DateTime.parse(data['date']),
     );
   },
 );
@@ -55,11 +56,13 @@ class CreateRequisitionMakeUpWorkPage extends StatefulWidget {
     this.flowId = '',
     this.requestId = '',
     this.type = RequisitionTypeEnum.makeUpWork,
+    this.date,
   });
 
   final RequisitionTypeEnum type;
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
   State<CreateRequisitionMakeUpWorkPage> createState() =>
@@ -87,13 +90,14 @@ class _CreateRequisitionMakeUpWorkPageState
       final request = dI<RequisitionBloc>().state.requisition;
       description = request.config.description;
       workShiftSettings = [...request.config.workShiftSettings];
-      startDate = request.config.startDate ?? DateTime.now();
+      startDate = request.config.startDate ?? widget.date ?? DateTime.now();
       startTime = request.config.startTime;
       endTime = request.config.endTime;
       numberValue = (request.config.numberValue);
       followers = [...request.followerIds];
-
       descriptionController.text = description;
+    } else {
+      startDate = widget.date ?? DateTime.now();
     }
     super.initState();
   }

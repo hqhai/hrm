@@ -50,6 +50,7 @@ final createRequestLateAndEarlyPageRoute = GoRoute(
       flowId: data['flowId'],
       requestId: data['requestId'],
       type: data['type'],
+      date: DateTime.parse(data['date']),
     );
   },
 );
@@ -60,11 +61,13 @@ class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
     this.flowId = '',
     this.requestId = '',
     this.type = RequisitionTypeEnum.lateOrEarly,
+    this.date,
   });
 
   final RequisitionTypeEnum type;
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
   State<CreateRequisitionLateAndEarlyPage> createState() =>
@@ -106,6 +109,8 @@ class _CreateRequisitionLateAndEarlyPageState
       endTime = request.config.endTime;
       listWorkShift = [...request.config.workShiftSettings];
     }
+    workDate = widget.date ?? DateTime.now();
+    endDate = widget.date ?? DateTime.now();
     super.initState();
   }
 

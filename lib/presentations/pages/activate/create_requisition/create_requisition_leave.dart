@@ -53,6 +53,7 @@ final createRequestLeavePageRoute = GoRoute(
         flowId: data['flowId'],
         requestId: data['requestId'],
         type: data['type'],
+        date: DateTime.parse(data['date']),
       );
     });
 
@@ -62,11 +63,13 @@ class CreateRequisitionLeavePage extends StatefulWidget {
     this.flowId = '',
     this.requestId = '',
     this.type = RequisitionTypeEnum.leaveHalfDayToOneDay,
+    this.date,
   });
 
   final RequisitionTypeEnum type;
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
   State<CreateRequisitionLeavePage> createState() =>

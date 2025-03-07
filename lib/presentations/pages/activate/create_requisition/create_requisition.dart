@@ -32,7 +32,6 @@ final createRequestPageRoute = GoRoute(
     if (state.uri.hasQuery) {
       final query = state.uri.queryParameters;
       final date = query['date'] ?? '';
-      print(date);
       return CreateRequestPage(
         date: DateTime.parse(date),
       );
@@ -59,7 +58,6 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
 
   @override
   void initState() {
-    print(widget.date);
     dI<FlowBloc>().add(const ResetFlowEvent());
     dI<RequisitionBloc>().add(const ResetRequisitionEvent());
     controller = ScrollController()..addListener(_scrollListener);

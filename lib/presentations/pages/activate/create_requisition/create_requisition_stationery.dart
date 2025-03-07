@@ -35,6 +35,7 @@ final createRequestStationeryOderPageRoute = GoRoute(
       return CreateRequisitionStationeryOderPage(
         flowId: data['flowId'],
         requestId: data['requestId'],
+        date: DateTime.parse(data['date']),
       );
     });
 
@@ -43,10 +44,12 @@ class CreateRequisitionStationeryOderPage extends StatefulWidget {
     super.key,
     this.flowId = '',
     this.requestId = '',
+    this.date,
   });
 
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
   State<CreateRequisitionStationeryOderPage> createState() =>

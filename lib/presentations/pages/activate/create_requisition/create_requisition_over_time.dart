@@ -36,6 +36,7 @@ final createRequestOverTimePageRoute = GoRoute(
       return CreateRequisitionOverTimePage(
         flowId: data['flowId'],
         requestId: data['requestId'],
+        date: DateTime.parse(data['date']),
       );
     });
 
@@ -44,10 +45,12 @@ class CreateRequisitionOverTimePage extends StatefulWidget {
     super.key,
     this.flowId = '',
     this.requestId = '',
+    this.date,
   });
 
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
   State<CreateRequisitionOverTimePage> createState() =>

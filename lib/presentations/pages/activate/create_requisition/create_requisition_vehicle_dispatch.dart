@@ -33,15 +33,21 @@ final createRequestVehicleDispatchPageRoute = GoRoute(
       return CreateRequestVehicleDispatchPage(
         flowId: data['flowId'],
         requestId: data['requestId'],
+        date: DateTime.parse(data['date']),
       );
     });
 
 class CreateRequestVehicleDispatchPage extends StatefulWidget {
-  const CreateRequestVehicleDispatchPage(
-      {super.key, this.flowId, this.requestId = ''});
+  const CreateRequestVehicleDispatchPage({
+    super.key,
+    this.flowId,
+    this.requestId = '',
+    this.date,
+  });
 
   final String? flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
   State<CreateRequestVehicleDispatchPage> createState() =>
@@ -77,7 +83,14 @@ class _CreateRequestVehicleDispatchPageState
       startTime = request.config.startDate ?? DateTime.now();
       endTime = request.config.endDate ?? DateTime.now();
       followers = [...request.followerIds];
+    } else {
+      final currentDate = widget.date ?? DateTime.now();
+      startTime = DateTime(currentDate.year, currentDate.month, currentDate.day,
+          DateTime.now().hour, DateTime.now().minute);
+      endTime = DateTime(currentDate.year, currentDate.month, currentDate.day,
+          DateTime.now().hour, DateTime.now().minute);
     }
+
     super.initState();
   }
 
