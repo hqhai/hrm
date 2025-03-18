@@ -4,7 +4,6 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/date_over_time.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/item_type_day_ot.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/location_ot.dart';
@@ -220,15 +219,15 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     return formatHM(result.toString());
   }
 
-  _setNote(String value) {
-    setState(() {
-      note = value;
-    });
-    checkOnClick(context);
-    widget.onChangeOverTimes?.call(
-      widget.requisitionOverTime.copyWith(note: value),
-    );
-  }
+  // _setNote(String value) {
+  //   setState(() {
+  //     note = value;
+  //   });
+  //   checkOnClick(context);
+  //   widget.onChangeOverTimes?.call(
+  //     widget.requisitionOverTime.copyWith(note: value),
+  //   );
+  // }
 
   setDate(DateTime value) {
     setState(() {
