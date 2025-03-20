@@ -98,7 +98,6 @@ dependencies:
   device_info_plus:
   firebase_core: ^3.12.1
   onesignal_flutter: ^5.3.0
-  app_settings: ^5.2.0
 
 dev_dependencies:
   flutter_test:

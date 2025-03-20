@@ -16,6 +16,7 @@ AppConfig _$AppConfigFromJson(Map<String, dynamic> json) => AppConfig(
       baseSystemUrl: json['BASE_SYSTEM_URL'] as String? ?? '',
       baseSystemGatewayUrl: json['BASE_SYSTEM_GATEWAY_URL'] as String? ?? '',
       baseNotificationUrl: json['BASE_NOTIFICATION_URL'] as String? ?? '',
+      oneSignalAppId: json['ONE_SIGNAL_APP_ID'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AppConfigToJson(AppConfig instance) => <String, dynamic>{
@@ -28,4 +29,5 @@ Map<String, dynamic> _$AppConfigToJson(AppConfig instance) => <String, dynamic>{
       'BASE_SYSTEM_GATEWAY_URL': instance.baseSystemGatewayUrl,
       'BASE_URL': instance.baseUrl,
       'ENV': instance.env,
+      'ONE_SIGNAL_APP_ID': instance.oneSignalAppId,
     };
