@@ -23,23 +23,14 @@ CreateRequestRequest _$CreateRequestRequestFromJson(
     );
 
 Map<String, dynamic> _$CreateRequestRequestToJson(
-    CreateRequestRequest instance) {
-  final val = <String, dynamic>{
-    'type': instance.type,
-    'isApprove': instance.isApprove,
-    'priority': instance.priority,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('title', instance.title);
-  writeNotNull('content', instance.content);
-  writeNotNull('filePaths', instance.filePaths);
-  writeNotNull('approverId', instance.approverId);
-  writeNotNull('config', instance.config);
-  return val;
-}
+        CreateRequestRequest instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'isApprove': instance.isApprove,
+      'priority': instance.priority,
+      if (instance.title case final value?) 'title': value,
+      if (instance.content case final value?) 'content': value,
+      if (instance.filePaths case final value?) 'filePaths': value,
+      if (instance.approverId case final value?) 'approverId': value,
+      if (instance.config case final value?) 'config': value,
+    };

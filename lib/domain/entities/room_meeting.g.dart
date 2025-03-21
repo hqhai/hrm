@@ -26,28 +26,19 @@ RoomMeeting _$RoomMeetingFromJson(Map<String, dynamic> json) => RoomMeeting(
           const [],
     );
 
-Map<String, dynamic> _$RoomMeetingToJson(RoomMeeting instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'createdUserId': instance.createdUserId,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('updatedUserId', instance.updatedUserId);
-  writeNotNull('createdFullName', instance.createdFullName);
-  writeNotNull('updatedFullName', instance.updatedFullName);
-  writeNotNull('createdDate', instance.createdDate);
-  writeNotNull('updatedDate', instance.updatedDate);
-  writeNotNull('roomName', instance.roomName);
-  writeNotNull('numberOfSeats', instance.numberOfSeats);
-  writeNotNull('address', instance.address);
-  writeNotNull('description', instance.description);
-  writeNotNull('isApproval', instance.isApproval);
-  val['requestRoomMeeting'] = instance.requestRoomMeeting;
-  return val;
-}
+Map<String, dynamic> _$RoomMeetingToJson(RoomMeeting instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'createdUserId': instance.createdUserId,
+      if (instance.updatedUserId case final value?) 'updatedUserId': value,
+      if (instance.createdFullName case final value?) 'createdFullName': value,
+      if (instance.updatedFullName case final value?) 'updatedFullName': value,
+      if (instance.createdDate case final value?) 'createdDate': value,
+      if (instance.updatedDate case final value?) 'updatedDate': value,
+      if (instance.roomName case final value?) 'roomName': value,
+      if (instance.numberOfSeats case final value?) 'numberOfSeats': value,
+      if (instance.address case final value?) 'address': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.isApproval case final value?) 'isApproval': value,
+      'requestRoomMeeting': instance.requestRoomMeeting,
+    };

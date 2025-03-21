@@ -22,9 +22,9 @@ abstract class _$PersonnelStateCWProxy {
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfPersonnelState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfPersonnelState.copyWith.fieldName(...)`
 class _$PersonnelStateCWProxyImpl implements _$PersonnelStateCWProxy {
-  final PersonnelState _value;
-
   const _$PersonnelStateCWProxyImpl(this._value);
+
+  final PersonnelState _value;
 
   @override
   PersonnelState status(PersonnelStatus status) => this(status: status);

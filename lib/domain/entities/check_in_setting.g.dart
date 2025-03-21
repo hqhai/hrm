@@ -23,28 +23,19 @@ CheckInSetting _$CheckInSettingFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String?,
     );
 
-Map<String, dynamic> _$CheckInSettingToJson(CheckInSetting instance) {
-  final val = <String, dynamic>{
-    'morningStartTime': instance.morningStartTime,
-    'morningEndTime': instance.morningEndTime,
-    'afternoonStartTime': instance.afternoonStartTime,
-    'afternoonEndTime': instance.afternoonEndTime,
-    'departmentId': instance.departmentId,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('userId', instance.userId);
-  val['id'] = instance.id;
-  val['createdUserId'] = instance.createdUserId;
-  writeNotNull('updatedUserId', instance.updatedUserId);
-  val['createdFullName'] = instance.createdFullName;
-  writeNotNull('updatedFullName', instance.updatedFullName);
-  val['createdDate'] = instance.createdDate;
-  writeNotNull('updatedDate', instance.updatedDate);
-  return val;
-}
+Map<String, dynamic> _$CheckInSettingToJson(CheckInSetting instance) =>
+    <String, dynamic>{
+      'morningStartTime': instance.morningStartTime,
+      'morningEndTime': instance.morningEndTime,
+      'afternoonStartTime': instance.afternoonStartTime,
+      'afternoonEndTime': instance.afternoonEndTime,
+      'departmentId': instance.departmentId,
+      if (instance.userId case final value?) 'userId': value,
+      'id': instance.id,
+      'createdUserId': instance.createdUserId,
+      if (instance.updatedUserId case final value?) 'updatedUserId': value,
+      'createdFullName': instance.createdFullName,
+      if (instance.updatedFullName case final value?) 'updatedFullName': value,
+      'createdDate': instance.createdDate,
+      if (instance.updatedDate case final value?) 'updatedDate': value,
+    };

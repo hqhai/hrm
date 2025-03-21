@@ -12,16 +12,9 @@ RequestRoomMeeting _$RequestRoomMeetingFromJson(Map<String, dynamic> json) =>
       meetingEndTime: json['meetingEndTime'] as String? ?? '',
     );
 
-Map<String, dynamic> _$RequestRoomMeetingToJson(RequestRoomMeeting instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('meetingStartTime', instance.meetingStartTime);
-  writeNotNull('meetingEndTime', instance.meetingEndTime);
-  return val;
-}
+Map<String, dynamic> _$RequestRoomMeetingToJson(RequestRoomMeeting instance) =>
+    <String, dynamic>{
+      if (instance.meetingStartTime case final value?)
+        'meetingStartTime': value,
+      if (instance.meetingEndTime case final value?) 'meetingEndTime': value,
+    };

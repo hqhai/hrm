@@ -7,15 +7,15 @@ part of 'register_request.dart';
 // **************************************************************************
 
 abstract class _$RegisterRequestCWProxy {
-  RegisterRequest dayOfBirth(String dayOfBirth);
-
-  RegisterRequest email(String email);
-
   RegisterRequest firstName(String firstName);
+
+  RegisterRequest lastName(String lastName);
 
   RegisterRequest gender(String gender);
 
-  RegisterRequest lastName(String lastName);
+  RegisterRequest dayOfBirth(String dayOfBirth);
+
+  RegisterRequest email(String email);
 
   RegisterRequest password(String password);
 
@@ -26,35 +26,35 @@ abstract class _$RegisterRequestCWProxy {
   /// RegisterRequest(...).copyWith(id: 12, name: "My name")
   /// ````
   RegisterRequest call({
+    String? firstName,
+    String? lastName,
+    String? gender,
     String? dayOfBirth,
     String? email,
-    String? firstName,
-    String? gender,
-    String? lastName,
     String? password,
   });
 }
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfRegisterRequest.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfRegisterRequest.copyWith.fieldName(...)`
 class _$RegisterRequestCWProxyImpl implements _$RegisterRequestCWProxy {
+  const _$RegisterRequestCWProxyImpl(this._value);
+
   final RegisterRequest _value;
 
-  const _$RegisterRequestCWProxyImpl(this._value);
+  @override
+  RegisterRequest firstName(String firstName) => this(firstName: firstName);
+
+  @override
+  RegisterRequest lastName(String lastName) => this(lastName: lastName);
+
+  @override
+  RegisterRequest gender(String gender) => this(gender: gender);
 
   @override
   RegisterRequest dayOfBirth(String dayOfBirth) => this(dayOfBirth: dayOfBirth);
 
   @override
   RegisterRequest email(String email) => this(email: email);
-
-  @override
-  RegisterRequest firstName(String firstName) => this(firstName: firstName);
-
-  @override
-  RegisterRequest gender(String gender) => this(gender: gender);
-
-  @override
-  RegisterRequest lastName(String lastName) => this(lastName: lastName);
 
   @override
   RegisterRequest password(String password) => this(password: password);
@@ -68,14 +68,26 @@ class _$RegisterRequestCWProxyImpl implements _$RegisterRequestCWProxy {
   /// RegisterRequest(...).copyWith(id: 12, name: "My name")
   /// ````
   RegisterRequest call({
+    Object? firstName = const $CopyWithPlaceholder(),
+    Object? lastName = const $CopyWithPlaceholder(),
+    Object? gender = const $CopyWithPlaceholder(),
     Object? dayOfBirth = const $CopyWithPlaceholder(),
     Object? email = const $CopyWithPlaceholder(),
-    Object? firstName = const $CopyWithPlaceholder(),
-    Object? gender = const $CopyWithPlaceholder(),
-    Object? lastName = const $CopyWithPlaceholder(),
     Object? password = const $CopyWithPlaceholder(),
   }) {
     return RegisterRequest(
+      firstName: firstName == const $CopyWithPlaceholder() || firstName == null
+          ? _value.firstName
+          // ignore: cast_nullable_to_non_nullable
+          : firstName as String,
+      lastName: lastName == const $CopyWithPlaceholder() || lastName == null
+          ? _value.lastName
+          // ignore: cast_nullable_to_non_nullable
+          : lastName as String,
+      gender: gender == const $CopyWithPlaceholder() || gender == null
+          ? _value.gender
+          // ignore: cast_nullable_to_non_nullable
+          : gender as String,
       dayOfBirth:
           dayOfBirth == const $CopyWithPlaceholder() || dayOfBirth == null
               ? _value.dayOfBirth
@@ -85,18 +97,6 @@ class _$RegisterRequestCWProxyImpl implements _$RegisterRequestCWProxy {
           ? _value.email
           // ignore: cast_nullable_to_non_nullable
           : email as String,
-      firstName: firstName == const $CopyWithPlaceholder() || firstName == null
-          ? _value.firstName
-          // ignore: cast_nullable_to_non_nullable
-          : firstName as String,
-      gender: gender == const $CopyWithPlaceholder() || gender == null
-          ? _value.gender
-          // ignore: cast_nullable_to_non_nullable
-          : gender as String,
-      lastName: lastName == const $CopyWithPlaceholder() || lastName == null
-          ? _value.lastName
-          // ignore: cast_nullable_to_non_nullable
-          : lastName as String,
       password: password == const $CopyWithPlaceholder() || password == null
           ? _value.password
           // ignore: cast_nullable_to_non_nullable

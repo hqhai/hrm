@@ -25,9 +25,9 @@ abstract class _$RegisterStateCWProxy {
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfRegisterState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfRegisterState.copyWith.fieldName(...)`
 class _$RegisterStateCWProxyImpl implements _$RegisterStateCWProxy {
-  final RegisterState _value;
-
   const _$RegisterStateCWProxyImpl(this._value);
+
+  final RegisterState _value;
 
   @override
   RegisterState registerRequest(RegisterRequest registerRequest) =>

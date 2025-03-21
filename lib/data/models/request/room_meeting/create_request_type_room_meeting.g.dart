@@ -20,19 +20,10 @@ CreateRequestTypeRoomMeetingRequest
         );
 
 Map<String, dynamic> _$CreateRequestTypeRoomMeetingRequestToJson(
-    CreateRequestTypeRoomMeetingRequest instance) {
-  final val = <String, dynamic>{
-    'type': instance.type,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('title', instance.title);
-  writeNotNull('content', instance.content);
-  val['config'] = instance.config;
-  return val;
-}
+        CreateRequestTypeRoomMeetingRequest instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      if (instance.title case final value?) 'title': value,
+      if (instance.content case final value?) 'content': value,
+      'config': instance.config,
+    };

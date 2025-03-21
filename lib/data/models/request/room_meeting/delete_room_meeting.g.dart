@@ -13,15 +13,7 @@ DeleteRoomMeetingRequest _$DeleteRoomMeetingRequestFromJson(
     );
 
 Map<String, dynamic> _$DeleteRoomMeetingRequestToJson(
-    DeleteRoomMeetingRequest instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  return val;
-}
+        DeleteRoomMeetingRequest instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+    };

@@ -25,9 +25,9 @@ abstract class _$AttendanceStateCWProxy {
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfAttendanceState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfAttendanceState.copyWith.fieldName(...)`
 class _$AttendanceStateCWProxyImpl implements _$AttendanceStateCWProxy {
-  final AttendanceState _value;
-
   const _$AttendanceStateCWProxyImpl(this._value);
+
+  final AttendanceState _value;
 
   @override
   AttendanceState attendance(Attendance attendance) =>

@@ -7,23 +7,23 @@ part of 'note.dart';
 // **************************************************************************
 
 abstract class _$NoteCWProxy {
-  Note createdDate(String createdDate);
-
-  Note createdFullName(String createdFullName);
-
-  Note createdUserId(String createdUserId);
+  Note note(String note);
 
   Note dateTime(DateTime? dateTime);
 
   Note id(String id);
 
-  Note note(String note);
+  Note createdUserId(String createdUserId);
 
-  Note updatedDate(String updatedDate);
+  Note updatedUserId(String updatedUserId);
+
+  Note createdFullName(String createdFullName);
 
   Note updatedFullName(String updatedFullName);
 
-  Note updatedUserId(String updatedUserId);
+  Note createdDate(String createdDate);
+
+  Note updatedDate(String updatedDate);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Note(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -32,34 +32,26 @@ abstract class _$NoteCWProxy {
   /// Note(...).copyWith(id: 12, name: "My name")
   /// ````
   Note call({
-    String? createdDate,
-    String? createdFullName,
-    String? createdUserId,
+    String? note,
     DateTime? dateTime,
     String? id,
-    String? note,
-    String? updatedDate,
-    String? updatedFullName,
+    String? createdUserId,
     String? updatedUserId,
+    String? createdFullName,
+    String? updatedFullName,
+    String? createdDate,
+    String? updatedDate,
   });
 }
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfNote.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfNote.copyWith.fieldName(...)`
 class _$NoteCWProxyImpl implements _$NoteCWProxy {
-  final Note _value;
-
   const _$NoteCWProxyImpl(this._value);
 
-  @override
-  Note createdDate(String createdDate) => this(createdDate: createdDate);
+  final Note _value;
 
   @override
-  Note createdFullName(String createdFullName) =>
-      this(createdFullName: createdFullName);
-
-  @override
-  Note createdUserId(String createdUserId) =>
-      this(createdUserId: createdUserId);
+  Note note(String note) => this(note: note);
 
   @override
   Note dateTime(DateTime? dateTime) => this(dateTime: dateTime);
@@ -68,18 +60,26 @@ class _$NoteCWProxyImpl implements _$NoteCWProxy {
   Note id(String id) => this(id: id);
 
   @override
-  Note note(String note) => this(note: note);
+  Note createdUserId(String createdUserId) =>
+      this(createdUserId: createdUserId);
 
   @override
-  Note updatedDate(String updatedDate) => this(updatedDate: updatedDate);
+  Note updatedUserId(String updatedUserId) =>
+      this(updatedUserId: updatedUserId);
+
+  @override
+  Note createdFullName(String createdFullName) =>
+      this(createdFullName: createdFullName);
 
   @override
   Note updatedFullName(String updatedFullName) =>
       this(updatedFullName: updatedFullName);
 
   @override
-  Note updatedUserId(String updatedUserId) =>
-      this(updatedUserId: updatedUserId);
+  Note createdDate(String createdDate) => this(createdDate: createdDate);
+
+  @override
+  Note updatedDate(String updatedDate) => this(updatedDate: updatedDate);
 
   @override
 
@@ -90,32 +90,21 @@ class _$NoteCWProxyImpl implements _$NoteCWProxy {
   /// Note(...).copyWith(id: 12, name: "My name")
   /// ````
   Note call({
-    Object? createdDate = const $CopyWithPlaceholder(),
-    Object? createdFullName = const $CopyWithPlaceholder(),
-    Object? createdUserId = const $CopyWithPlaceholder(),
+    Object? note = const $CopyWithPlaceholder(),
     Object? dateTime = const $CopyWithPlaceholder(),
     Object? id = const $CopyWithPlaceholder(),
-    Object? note = const $CopyWithPlaceholder(),
-    Object? updatedDate = const $CopyWithPlaceholder(),
-    Object? updatedFullName = const $CopyWithPlaceholder(),
+    Object? createdUserId = const $CopyWithPlaceholder(),
     Object? updatedUserId = const $CopyWithPlaceholder(),
+    Object? createdFullName = const $CopyWithPlaceholder(),
+    Object? updatedFullName = const $CopyWithPlaceholder(),
+    Object? createdDate = const $CopyWithPlaceholder(),
+    Object? updatedDate = const $CopyWithPlaceholder(),
   }) {
     return Note(
-      createdDate:
-          createdDate == const $CopyWithPlaceholder() || createdDate == null
-              ? _value.createdDate
-              // ignore: cast_nullable_to_non_nullable
-              : createdDate as String,
-      createdFullName: createdFullName == const $CopyWithPlaceholder() ||
-              createdFullName == null
-          ? _value.createdFullName
+      note: note == const $CopyWithPlaceholder() || note == null
+          ? _value.note
           // ignore: cast_nullable_to_non_nullable
-          : createdFullName as String,
-      createdUserId:
-          createdUserId == const $CopyWithPlaceholder() || createdUserId == null
-              ? _value.createdUserId
-              // ignore: cast_nullable_to_non_nullable
-              : createdUserId as String,
+          : note as String,
       dateTime: dateTime == const $CopyWithPlaceholder()
           ? _value.dateTime
           // ignore: cast_nullable_to_non_nullable
@@ -124,25 +113,36 @@ class _$NoteCWProxyImpl implements _$NoteCWProxy {
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
           : id as String,
-      note: note == const $CopyWithPlaceholder() || note == null
-          ? _value.note
-          // ignore: cast_nullable_to_non_nullable
-          : note as String,
-      updatedDate:
-          updatedDate == const $CopyWithPlaceholder() || updatedDate == null
-              ? _value.updatedDate
+      createdUserId:
+          createdUserId == const $CopyWithPlaceholder() || createdUserId == null
+              ? _value.createdUserId
               // ignore: cast_nullable_to_non_nullable
-              : updatedDate as String,
-      updatedFullName: updatedFullName == const $CopyWithPlaceholder() ||
-              updatedFullName == null
-          ? _value.updatedFullName
-          // ignore: cast_nullable_to_non_nullable
-          : updatedFullName as String,
+              : createdUserId as String,
       updatedUserId:
           updatedUserId == const $CopyWithPlaceholder() || updatedUserId == null
               ? _value.updatedUserId
               // ignore: cast_nullable_to_non_nullable
               : updatedUserId as String,
+      createdFullName: createdFullName == const $CopyWithPlaceholder() ||
+              createdFullName == null
+          ? _value.createdFullName
+          // ignore: cast_nullable_to_non_nullable
+          : createdFullName as String,
+      updatedFullName: updatedFullName == const $CopyWithPlaceholder() ||
+              updatedFullName == null
+          ? _value.updatedFullName
+          // ignore: cast_nullable_to_non_nullable
+          : updatedFullName as String,
+      createdDate:
+          createdDate == const $CopyWithPlaceholder() || createdDate == null
+              ? _value.createdDate
+              // ignore: cast_nullable_to_non_nullable
+              : createdDate as String,
+      updatedDate:
+          updatedDate == const $CopyWithPlaceholder() || updatedDate == null
+              ? _value.updatedDate
+              // ignore: cast_nullable_to_non_nullable
+              : updatedDate as String,
     );
   }
 }
@@ -170,30 +170,20 @@ Note _$NoteFromJson(Map<String, dynamic> json) => Note(
       updatedDate: json['updatedDate'] as String? ?? '',
     );
 
-Map<String, dynamic> _$NoteToJson(Note instance) {
-  final val = <String, dynamic>{
-    'note': instance.note,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'dateTime',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.dateTime, const CustomDateTimeConverter().toJson));
-  val['id'] = instance.id;
-  val['createdUserId'] = instance.createdUserId;
-  val['updatedUserId'] = instance.updatedUserId;
-  val['createdFullName'] = instance.createdFullName;
-  val['updatedFullName'] = instance.updatedFullName;
-  val['createdDate'] = instance.createdDate;
-  val['updatedDate'] = instance.updatedDate;
-  return val;
-}
+Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
+      'note': instance.note,
+      if (_$JsonConverterToJson<String, DateTime>(
+              instance.dateTime, const CustomDateTimeConverter().toJson)
+          case final value?)
+        'dateTime': value,
+      'id': instance.id,
+      'createdUserId': instance.createdUserId,
+      'updatedUserId': instance.updatedUserId,
+      'createdFullName': instance.createdFullName,
+      'updatedFullName': instance.updatedFullName,
+      'createdDate': instance.createdDate,
+      'updatedDate': instance.updatedDate,
+    };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,

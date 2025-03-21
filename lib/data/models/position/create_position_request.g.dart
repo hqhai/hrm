@@ -14,17 +14,8 @@ CreatePositionRequest _$CreatePositionRequestFromJson(
     );
 
 Map<String, dynamic> _$CreatePositionRequestToJson(
-    CreatePositionRequest instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  return val;
-}
+        CreatePositionRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+    };

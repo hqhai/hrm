@@ -7,83 +7,63 @@ part of 'user.dart';
 // **************************************************************************
 
 abstract class _$UserCWProxy {
-  User accountHolderName(String accountHolderName);
+  User isUseLogin(bool isUseLogin);
 
-  User accountNumber(String accountNumber);
-
-  User attendanceId(int attendanceId);
-
-  User autoMaker(String autoMaker);
-
-  User avatarPath(String avatarPath);
-
-  User bankName(String bankName);
-
-  User ciExpiryDate(String ciExpiryDate);
-
-  User ciIssueDate(String ciIssueDate);
-
-  User ciIssuePlace(String ciIssuePlace);
-
-  User ciNumber(String ciNumber);
+  User userName(String userName);
 
   User code(String code);
 
-  User companyEmail(String companyEmail);
+  User tax(String tax);
 
-  User createdDate(String createdDate);
-
-  User createdFullName(String createdFullName);
-
-  User createdUserId(String createdUserId);
-
-  User dayOfBirth(DateTime? dayOfBirth);
-
-  User description(String description);
-
-  User education(String education);
-
-  User educationLevel(EducationLevelEnum educationLevel);
-
-  User email(String email);
-
-  User emergencyAddress(String emergencyAddress);
-
-  User emergencyName(String emergencyName);
-
-  User emergencyPhoneNumber(String emergencyPhoneNumber);
-
-  User endDate(String endDate);
-
-  User ethnicity(String ethnicity);
-
-  User families(List<Family> families);
+  User attendanceId(int attendanceId);
 
   User firstName(String firstName);
 
+  User lastName(String lastName);
+
   User fullName(String fullName);
+
+  User dayOfBirth(DateTime? dayOfBirth);
 
   User gender(GenderEnum gender);
 
-  User graduationType(String graduationType);
+  User avatarPath(String avatarPath);
 
-  User graduationYear(String graduationYear);
+  User ciNumber(String ciNumber);
 
-  User id(String id);
+  User ciIssuePlace(String ciIssuePlace);
 
-  User isActive(bool isActive);
+  User ciIssueDate(String ciIssueDate);
 
-  User isUseLogin(bool isUseLogin);
+  User ciExpiryDate(String ciExpiryDate);
 
-  User lastName(String lastName);
+  User passPortNumber(String passPortNumber);
 
-  User licensePlate(String licensePlate);
+  User passPortIssuePlace(String passPortIssuePlace);
 
-  User maritalStatus(String maritalStatus);
+  User passPortIssueDate(String passPortIssueDate);
 
-  User officialDay(String officialDay);
+  User passPortExpiryDate(String passPortExpiryDate);
+
+  User residentProvince(String residentProvince);
+
+  User residentProvinceId(String residentProvinceId);
+
+  User residentAddress(String residentAddress);
+
+  User residentDistrict(String residentDistrict);
+
+  User residentDistrictId(String residentDistrictId);
+
+  User residentWard(String residentWard);
+
+  User residentWardId(String residentWardId);
 
   User originAddress(String originAddress);
+
+  User originWard(String originWard);
+
+  User originWardId(String originWardId);
 
   User originDistrict(String originDistrict);
 
@@ -93,60 +73,80 @@ abstract class _$UserCWProxy {
 
   User originProvinceId(String originProvinceId);
 
-  User originWard(String originWard);
+  User maritalStatus(String maritalStatus);
 
-  User originWardId(String originWardId);
-
-  User passPortExpiryDate(String passPortExpiryDate);
-
-  User passPortIssueDate(String passPortIssueDate);
-
-  User passPortIssuePlace(String passPortIssuePlace);
-
-  User passPortNumber(String passPortNumber);
-
-  User phoneNumber(String phoneNumber);
-
-  User probationDay(String probationDay);
-
-  User profileStatus(bool profileStatus);
+  User ethnicity(String ethnicity);
 
   User religion(String religion);
 
-  User residentAddress(String residentAddress);
+  User bankName(String bankName);
 
-  User residentDistrict(String residentDistrict);
+  User accountHolderName(String accountHolderName);
 
-  User residentDistrictId(String residentDistrictId);
+  User accountNumber(String accountNumber);
 
-  User residentProvince(String residentProvince);
+  User families(List<Family> families);
 
-  User residentProvinceId(String residentProvinceId);
+  User phoneNumber(String phoneNumber);
 
-  User residentWard(String residentWard);
+  User email(String email);
 
-  User residentWardId(String residentWardId);
+  User companyEmail(String companyEmail);
+
+  User educationLevel(EducationLevelEnum educationLevel);
+
+  User education(String education);
 
   User specializes(String specializes);
 
-  User tax(String tax);
+  User graduationType(String graduationType);
+
+  User graduationYear(String graduationYear);
+
+  User profileStatus(bool profileStatus);
+
+  User probationDay(String probationDay);
+
+  User officialDay(String officialDay);
+
+  User endDate(String endDate);
+
+  User workingStatus(WorkingStatusEnum workingStatus);
 
   User typeOfPersonnel(String typeOfPersonnel);
 
-  User updatedDate(String updatedDate);
-
-  User updatedFullName(String updatedFullName);
-
-  User updatedUserId(String updatedUserId);
+  User description(String description);
 
   User userDepartmentPositions(
       List<UserDepartmentPosition> userDepartmentPositions);
 
-  User userName(String userName);
+  User isActive(bool isActive);
+
+  User id(String id);
+
+  User createdUserId(String createdUserId);
+
+  User updatedUserId(String updatedUserId);
+
+  User createdFullName(String createdFullName);
+
+  User updatedFullName(String updatedFullName);
+
+  User createdDate(String createdDate);
+
+  User updatedDate(String updatedDate);
+
+  User emergencyAddress(String emergencyAddress);
+
+  User emergencyName(String emergencyName);
+
+  User emergencyPhoneNumber(String emergencyPhoneNumber);
+
+  User autoMaker(String autoMaker);
+
+  User licensePlate(String licensePlate);
 
   User vehicleType(VehicleTypeEnum vehicleType);
-
-  User workingStatus(WorkingStatusEnum workingStatus);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `User(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -155,213 +155,182 @@ abstract class _$UserCWProxy {
   /// User(...).copyWith(id: 12, name: "My name")
   /// ````
   User call({
-    String? accountHolderName,
-    String? accountNumber,
-    int? attendanceId,
-    String? autoMaker,
-    String? avatarPath,
-    String? bankName,
-    String? ciExpiryDate,
-    String? ciIssueDate,
-    String? ciIssuePlace,
-    String? ciNumber,
-    String? code,
-    String? companyEmail,
-    String? createdDate,
-    String? createdFullName,
-    String? createdUserId,
-    DateTime? dayOfBirth,
-    String? description,
-    String? education,
-    EducationLevelEnum? educationLevel,
-    String? email,
-    String? emergencyAddress,
-    String? emergencyName,
-    String? emergencyPhoneNumber,
-    String? endDate,
-    String? ethnicity,
-    List<Family>? families,
-    String? firstName,
-    String? fullName,
-    GenderEnum? gender,
-    String? graduationType,
-    String? graduationYear,
-    String? id,
-    bool? isActive,
     bool? isUseLogin,
+    String? userName,
+    String? code,
+    String? tax,
+    int? attendanceId,
+    String? firstName,
     String? lastName,
-    String? licensePlate,
-    String? maritalStatus,
-    String? officialDay,
+    String? fullName,
+    DateTime? dayOfBirth,
+    GenderEnum? gender,
+    String? avatarPath,
+    String? ciNumber,
+    String? ciIssuePlace,
+    String? ciIssueDate,
+    String? ciExpiryDate,
+    String? passPortNumber,
+    String? passPortIssuePlace,
+    String? passPortIssueDate,
+    String? passPortExpiryDate,
+    String? residentProvince,
+    String? residentProvinceId,
+    String? residentAddress,
+    String? residentDistrict,
+    String? residentDistrictId,
+    String? residentWard,
+    String? residentWardId,
     String? originAddress,
+    String? originWard,
+    String? originWardId,
     String? originDistrict,
     String? originDistrictId,
     String? originProvince,
     String? originProvinceId,
-    String? originWard,
-    String? originWardId,
-    String? passPortExpiryDate,
-    String? passPortIssueDate,
-    String? passPortIssuePlace,
-    String? passPortNumber,
-    String? phoneNumber,
-    String? probationDay,
-    bool? profileStatus,
+    String? maritalStatus,
+    String? ethnicity,
     String? religion,
-    String? residentAddress,
-    String? residentDistrict,
-    String? residentDistrictId,
-    String? residentProvince,
-    String? residentProvinceId,
-    String? residentWard,
-    String? residentWardId,
+    String? bankName,
+    String? accountHolderName,
+    String? accountNumber,
+    List<Family>? families,
+    String? phoneNumber,
+    String? email,
+    String? companyEmail,
+    EducationLevelEnum? educationLevel,
+    String? education,
     String? specializes,
-    String? tax,
-    String? typeOfPersonnel,
-    String? updatedDate,
-    String? updatedFullName,
-    String? updatedUserId,
-    List<UserDepartmentPosition>? userDepartmentPositions,
-    String? userName,
-    VehicleTypeEnum? vehicleType,
+    String? graduationType,
+    String? graduationYear,
+    bool? profileStatus,
+    String? probationDay,
+    String? officialDay,
+    String? endDate,
     WorkingStatusEnum? workingStatus,
+    String? typeOfPersonnel,
+    String? description,
+    List<UserDepartmentPosition>? userDepartmentPositions,
+    bool? isActive,
+    String? id,
+    String? createdUserId,
+    String? updatedUserId,
+    String? createdFullName,
+    String? updatedFullName,
+    String? createdDate,
+    String? updatedDate,
+    String? emergencyAddress,
+    String? emergencyName,
+    String? emergencyPhoneNumber,
+    String? autoMaker,
+    String? licensePlate,
+    VehicleTypeEnum? vehicleType,
   });
 }
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfUser.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfUser.copyWith.fieldName(...)`
 class _$UserCWProxyImpl implements _$UserCWProxy {
-  final User _value;
-
   const _$UserCWProxyImpl(this._value);
 
-  @override
-  User accountHolderName(String accountHolderName) =>
-      this(accountHolderName: accountHolderName);
-
-  @override
-  User accountNumber(String accountNumber) =>
-      this(accountNumber: accountNumber);
-
-  @override
-  User attendanceId(int attendanceId) => this(attendanceId: attendanceId);
-
-  @override
-  User autoMaker(String autoMaker) => this(autoMaker: autoMaker);
-
-  @override
-  User avatarPath(String avatarPath) => this(avatarPath: avatarPath);
-
-  @override
-  User bankName(String bankName) => this(bankName: bankName);
-
-  @override
-  User ciExpiryDate(String ciExpiryDate) => this(ciExpiryDate: ciExpiryDate);
-
-  @override
-  User ciIssueDate(String ciIssueDate) => this(ciIssueDate: ciIssueDate);
-
-  @override
-  User ciIssuePlace(String ciIssuePlace) => this(ciIssuePlace: ciIssuePlace);
-
-  @override
-  User ciNumber(String ciNumber) => this(ciNumber: ciNumber);
-
-  @override
-  User code(String code) => this(code: code);
-
-  @override
-  User companyEmail(String companyEmail) => this(companyEmail: companyEmail);
-
-  @override
-  User createdDate(String createdDate) => this(createdDate: createdDate);
-
-  @override
-  User createdFullName(String createdFullName) =>
-      this(createdFullName: createdFullName);
-
-  @override
-  User createdUserId(String createdUserId) =>
-      this(createdUserId: createdUserId);
-
-  @override
-  User dayOfBirth(DateTime? dayOfBirth) => this(dayOfBirth: dayOfBirth);
-
-  @override
-  User description(String description) => this(description: description);
-
-  @override
-  User education(String education) => this(education: education);
-
-  @override
-  User educationLevel(EducationLevelEnum educationLevel) =>
-      this(educationLevel: educationLevel);
-
-  @override
-  User email(String email) => this(email: email);
-
-  @override
-  User emergencyAddress(String emergencyAddress) =>
-      this(emergencyAddress: emergencyAddress);
-
-  @override
-  User emergencyName(String emergencyName) =>
-      this(emergencyName: emergencyName);
-
-  @override
-  User emergencyPhoneNumber(String emergencyPhoneNumber) =>
-      this(emergencyPhoneNumber: emergencyPhoneNumber);
-
-  @override
-  User endDate(String endDate) => this(endDate: endDate);
-
-  @override
-  User ethnicity(String ethnicity) => this(ethnicity: ethnicity);
-
-  @override
-  User families(List<Family> families) => this(families: families);
-
-  @override
-  User firstName(String firstName) => this(firstName: firstName);
-
-  @override
-  User fullName(String fullName) => this(fullName: fullName);
-
-  @override
-  User gender(GenderEnum gender) => this(gender: gender);
-
-  @override
-  User graduationType(String graduationType) =>
-      this(graduationType: graduationType);
-
-  @override
-  User graduationYear(String graduationYear) =>
-      this(graduationYear: graduationYear);
-
-  @override
-  User id(String id) => this(id: id);
-
-  @override
-  User isActive(bool isActive) => this(isActive: isActive);
+  final User _value;
 
   @override
   User isUseLogin(bool isUseLogin) => this(isUseLogin: isUseLogin);
 
   @override
+  User userName(String userName) => this(userName: userName);
+
+  @override
+  User code(String code) => this(code: code);
+
+  @override
+  User tax(String tax) => this(tax: tax);
+
+  @override
+  User attendanceId(int attendanceId) => this(attendanceId: attendanceId);
+
+  @override
+  User firstName(String firstName) => this(firstName: firstName);
+
+  @override
   User lastName(String lastName) => this(lastName: lastName);
 
   @override
-  User licensePlate(String licensePlate) => this(licensePlate: licensePlate);
+  User fullName(String fullName) => this(fullName: fullName);
 
   @override
-  User maritalStatus(String maritalStatus) =>
-      this(maritalStatus: maritalStatus);
+  User dayOfBirth(DateTime? dayOfBirth) => this(dayOfBirth: dayOfBirth);
 
   @override
-  User officialDay(String officialDay) => this(officialDay: officialDay);
+  User gender(GenderEnum gender) => this(gender: gender);
+
+  @override
+  User avatarPath(String avatarPath) => this(avatarPath: avatarPath);
+
+  @override
+  User ciNumber(String ciNumber) => this(ciNumber: ciNumber);
+
+  @override
+  User ciIssuePlace(String ciIssuePlace) => this(ciIssuePlace: ciIssuePlace);
+
+  @override
+  User ciIssueDate(String ciIssueDate) => this(ciIssueDate: ciIssueDate);
+
+  @override
+  User ciExpiryDate(String ciExpiryDate) => this(ciExpiryDate: ciExpiryDate);
+
+  @override
+  User passPortNumber(String passPortNumber) =>
+      this(passPortNumber: passPortNumber);
+
+  @override
+  User passPortIssuePlace(String passPortIssuePlace) =>
+      this(passPortIssuePlace: passPortIssuePlace);
+
+  @override
+  User passPortIssueDate(String passPortIssueDate) =>
+      this(passPortIssueDate: passPortIssueDate);
+
+  @override
+  User passPortExpiryDate(String passPortExpiryDate) =>
+      this(passPortExpiryDate: passPortExpiryDate);
+
+  @override
+  User residentProvince(String residentProvince) =>
+      this(residentProvince: residentProvince);
+
+  @override
+  User residentProvinceId(String residentProvinceId) =>
+      this(residentProvinceId: residentProvinceId);
+
+  @override
+  User residentAddress(String residentAddress) =>
+      this(residentAddress: residentAddress);
+
+  @override
+  User residentDistrict(String residentDistrict) =>
+      this(residentDistrict: residentDistrict);
+
+  @override
+  User residentDistrictId(String residentDistrictId) =>
+      this(residentDistrictId: residentDistrictId);
+
+  @override
+  User residentWard(String residentWard) => this(residentWard: residentWard);
+
+  @override
+  User residentWardId(String residentWardId) =>
+      this(residentWardId: residentWardId);
 
   @override
   User originAddress(String originAddress) =>
       this(originAddress: originAddress);
+
+  @override
+  User originWard(String originWard) => this(originWard: originWard);
+
+  @override
+  User originWardId(String originWardId) => this(originWardId: originWardId);
 
   @override
   User originDistrict(String originDistrict) =>
@@ -380,86 +349,78 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
       this(originProvinceId: originProvinceId);
 
   @override
-  User originWard(String originWard) => this(originWard: originWard);
+  User maritalStatus(String maritalStatus) =>
+      this(maritalStatus: maritalStatus);
 
   @override
-  User originWardId(String originWardId) => this(originWardId: originWardId);
-
-  @override
-  User passPortExpiryDate(String passPortExpiryDate) =>
-      this(passPortExpiryDate: passPortExpiryDate);
-
-  @override
-  User passPortIssueDate(String passPortIssueDate) =>
-      this(passPortIssueDate: passPortIssueDate);
-
-  @override
-  User passPortIssuePlace(String passPortIssuePlace) =>
-      this(passPortIssuePlace: passPortIssuePlace);
-
-  @override
-  User passPortNumber(String passPortNumber) =>
-      this(passPortNumber: passPortNumber);
-
-  @override
-  User phoneNumber(String phoneNumber) => this(phoneNumber: phoneNumber);
-
-  @override
-  User probationDay(String probationDay) => this(probationDay: probationDay);
-
-  @override
-  User profileStatus(bool profileStatus) => this(profileStatus: profileStatus);
+  User ethnicity(String ethnicity) => this(ethnicity: ethnicity);
 
   @override
   User religion(String religion) => this(religion: religion);
 
   @override
-  User residentAddress(String residentAddress) =>
-      this(residentAddress: residentAddress);
+  User bankName(String bankName) => this(bankName: bankName);
 
   @override
-  User residentDistrict(String residentDistrict) =>
-      this(residentDistrict: residentDistrict);
+  User accountHolderName(String accountHolderName) =>
+      this(accountHolderName: accountHolderName);
 
   @override
-  User residentDistrictId(String residentDistrictId) =>
-      this(residentDistrictId: residentDistrictId);
+  User accountNumber(String accountNumber) =>
+      this(accountNumber: accountNumber);
 
   @override
-  User residentProvince(String residentProvince) =>
-      this(residentProvince: residentProvince);
+  User families(List<Family> families) => this(families: families);
 
   @override
-  User residentProvinceId(String residentProvinceId) =>
-      this(residentProvinceId: residentProvinceId);
+  User phoneNumber(String phoneNumber) => this(phoneNumber: phoneNumber);
 
   @override
-  User residentWard(String residentWard) => this(residentWard: residentWard);
+  User email(String email) => this(email: email);
 
   @override
-  User residentWardId(String residentWardId) =>
-      this(residentWardId: residentWardId);
+  User companyEmail(String companyEmail) => this(companyEmail: companyEmail);
+
+  @override
+  User educationLevel(EducationLevelEnum educationLevel) =>
+      this(educationLevel: educationLevel);
+
+  @override
+  User education(String education) => this(education: education);
 
   @override
   User specializes(String specializes) => this(specializes: specializes);
 
   @override
-  User tax(String tax) => this(tax: tax);
+  User graduationType(String graduationType) =>
+      this(graduationType: graduationType);
+
+  @override
+  User graduationYear(String graduationYear) =>
+      this(graduationYear: graduationYear);
+
+  @override
+  User profileStatus(bool profileStatus) => this(profileStatus: profileStatus);
+
+  @override
+  User probationDay(String probationDay) => this(probationDay: probationDay);
+
+  @override
+  User officialDay(String officialDay) => this(officialDay: officialDay);
+
+  @override
+  User endDate(String endDate) => this(endDate: endDate);
+
+  @override
+  User workingStatus(WorkingStatusEnum workingStatus) =>
+      this(workingStatus: workingStatus);
 
   @override
   User typeOfPersonnel(String typeOfPersonnel) =>
       this(typeOfPersonnel: typeOfPersonnel);
 
   @override
-  User updatedDate(String updatedDate) => this(updatedDate: updatedDate);
-
-  @override
-  User updatedFullName(String updatedFullName) =>
-      this(updatedFullName: updatedFullName);
-
-  @override
-  User updatedUserId(String updatedUserId) =>
-      this(updatedUserId: updatedUserId);
+  User description(String description) => this(description: description);
 
   @override
   User userDepartmentPositions(
@@ -467,15 +428,54 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
       this(userDepartmentPositions: userDepartmentPositions);
 
   @override
-  User userName(String userName) => this(userName: userName);
+  User isActive(bool isActive) => this(isActive: isActive);
+
+  @override
+  User id(String id) => this(id: id);
+
+  @override
+  User createdUserId(String createdUserId) =>
+      this(createdUserId: createdUserId);
+
+  @override
+  User updatedUserId(String updatedUserId) =>
+      this(updatedUserId: updatedUserId);
+
+  @override
+  User createdFullName(String createdFullName) =>
+      this(createdFullName: createdFullName);
+
+  @override
+  User updatedFullName(String updatedFullName) =>
+      this(updatedFullName: updatedFullName);
+
+  @override
+  User createdDate(String createdDate) => this(createdDate: createdDate);
+
+  @override
+  User updatedDate(String updatedDate) => this(updatedDate: updatedDate);
+
+  @override
+  User emergencyAddress(String emergencyAddress) =>
+      this(emergencyAddress: emergencyAddress);
+
+  @override
+  User emergencyName(String emergencyName) =>
+      this(emergencyName: emergencyName);
+
+  @override
+  User emergencyPhoneNumber(String emergencyPhoneNumber) =>
+      this(emergencyPhoneNumber: emergencyPhoneNumber);
+
+  @override
+  User autoMaker(String autoMaker) => this(autoMaker: autoMaker);
+
+  @override
+  User licensePlate(String licensePlate) => this(licensePlate: licensePlate);
 
   @override
   User vehicleType(VehicleTypeEnum vehicleType) =>
       this(vehicleType: vehicleType);
-
-  @override
-  User workingStatus(WorkingStatusEnum workingStatus) =>
-      this(workingStatus: workingStatus);
 
   @override
 
@@ -486,258 +486,214 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
   /// User(...).copyWith(id: 12, name: "My name")
   /// ````
   User call({
-    Object? accountHolderName = const $CopyWithPlaceholder(),
-    Object? accountNumber = const $CopyWithPlaceholder(),
-    Object? attendanceId = const $CopyWithPlaceholder(),
-    Object? autoMaker = const $CopyWithPlaceholder(),
-    Object? avatarPath = const $CopyWithPlaceholder(),
-    Object? bankName = const $CopyWithPlaceholder(),
-    Object? ciExpiryDate = const $CopyWithPlaceholder(),
-    Object? ciIssueDate = const $CopyWithPlaceholder(),
-    Object? ciIssuePlace = const $CopyWithPlaceholder(),
-    Object? ciNumber = const $CopyWithPlaceholder(),
-    Object? code = const $CopyWithPlaceholder(),
-    Object? companyEmail = const $CopyWithPlaceholder(),
-    Object? createdDate = const $CopyWithPlaceholder(),
-    Object? createdFullName = const $CopyWithPlaceholder(),
-    Object? createdUserId = const $CopyWithPlaceholder(),
-    Object? dayOfBirth = const $CopyWithPlaceholder(),
-    Object? description = const $CopyWithPlaceholder(),
-    Object? education = const $CopyWithPlaceholder(),
-    Object? educationLevel = const $CopyWithPlaceholder(),
-    Object? email = const $CopyWithPlaceholder(),
-    Object? emergencyAddress = const $CopyWithPlaceholder(),
-    Object? emergencyName = const $CopyWithPlaceholder(),
-    Object? emergencyPhoneNumber = const $CopyWithPlaceholder(),
-    Object? endDate = const $CopyWithPlaceholder(),
-    Object? ethnicity = const $CopyWithPlaceholder(),
-    Object? families = const $CopyWithPlaceholder(),
-    Object? firstName = const $CopyWithPlaceholder(),
-    Object? fullName = const $CopyWithPlaceholder(),
-    Object? gender = const $CopyWithPlaceholder(),
-    Object? graduationType = const $CopyWithPlaceholder(),
-    Object? graduationYear = const $CopyWithPlaceholder(),
-    Object? id = const $CopyWithPlaceholder(),
-    Object? isActive = const $CopyWithPlaceholder(),
     Object? isUseLogin = const $CopyWithPlaceholder(),
+    Object? userName = const $CopyWithPlaceholder(),
+    Object? code = const $CopyWithPlaceholder(),
+    Object? tax = const $CopyWithPlaceholder(),
+    Object? attendanceId = const $CopyWithPlaceholder(),
+    Object? firstName = const $CopyWithPlaceholder(),
     Object? lastName = const $CopyWithPlaceholder(),
-    Object? licensePlate = const $CopyWithPlaceholder(),
-    Object? maritalStatus = const $CopyWithPlaceholder(),
-    Object? officialDay = const $CopyWithPlaceholder(),
+    Object? fullName = const $CopyWithPlaceholder(),
+    Object? dayOfBirth = const $CopyWithPlaceholder(),
+    Object? gender = const $CopyWithPlaceholder(),
+    Object? avatarPath = const $CopyWithPlaceholder(),
+    Object? ciNumber = const $CopyWithPlaceholder(),
+    Object? ciIssuePlace = const $CopyWithPlaceholder(),
+    Object? ciIssueDate = const $CopyWithPlaceholder(),
+    Object? ciExpiryDate = const $CopyWithPlaceholder(),
+    Object? passPortNumber = const $CopyWithPlaceholder(),
+    Object? passPortIssuePlace = const $CopyWithPlaceholder(),
+    Object? passPortIssueDate = const $CopyWithPlaceholder(),
+    Object? passPortExpiryDate = const $CopyWithPlaceholder(),
+    Object? residentProvince = const $CopyWithPlaceholder(),
+    Object? residentProvinceId = const $CopyWithPlaceholder(),
+    Object? residentAddress = const $CopyWithPlaceholder(),
+    Object? residentDistrict = const $CopyWithPlaceholder(),
+    Object? residentDistrictId = const $CopyWithPlaceholder(),
+    Object? residentWard = const $CopyWithPlaceholder(),
+    Object? residentWardId = const $CopyWithPlaceholder(),
     Object? originAddress = const $CopyWithPlaceholder(),
+    Object? originWard = const $CopyWithPlaceholder(),
+    Object? originWardId = const $CopyWithPlaceholder(),
     Object? originDistrict = const $CopyWithPlaceholder(),
     Object? originDistrictId = const $CopyWithPlaceholder(),
     Object? originProvince = const $CopyWithPlaceholder(),
     Object? originProvinceId = const $CopyWithPlaceholder(),
-    Object? originWard = const $CopyWithPlaceholder(),
-    Object? originWardId = const $CopyWithPlaceholder(),
-    Object? passPortExpiryDate = const $CopyWithPlaceholder(),
-    Object? passPortIssueDate = const $CopyWithPlaceholder(),
-    Object? passPortIssuePlace = const $CopyWithPlaceholder(),
-    Object? passPortNumber = const $CopyWithPlaceholder(),
-    Object? phoneNumber = const $CopyWithPlaceholder(),
-    Object? probationDay = const $CopyWithPlaceholder(),
-    Object? profileStatus = const $CopyWithPlaceholder(),
+    Object? maritalStatus = const $CopyWithPlaceholder(),
+    Object? ethnicity = const $CopyWithPlaceholder(),
     Object? religion = const $CopyWithPlaceholder(),
-    Object? residentAddress = const $CopyWithPlaceholder(),
-    Object? residentDistrict = const $CopyWithPlaceholder(),
-    Object? residentDistrictId = const $CopyWithPlaceholder(),
-    Object? residentProvince = const $CopyWithPlaceholder(),
-    Object? residentProvinceId = const $CopyWithPlaceholder(),
-    Object? residentWard = const $CopyWithPlaceholder(),
-    Object? residentWardId = const $CopyWithPlaceholder(),
+    Object? bankName = const $CopyWithPlaceholder(),
+    Object? accountHolderName = const $CopyWithPlaceholder(),
+    Object? accountNumber = const $CopyWithPlaceholder(),
+    Object? families = const $CopyWithPlaceholder(),
+    Object? phoneNumber = const $CopyWithPlaceholder(),
+    Object? email = const $CopyWithPlaceholder(),
+    Object? companyEmail = const $CopyWithPlaceholder(),
+    Object? educationLevel = const $CopyWithPlaceholder(),
+    Object? education = const $CopyWithPlaceholder(),
     Object? specializes = const $CopyWithPlaceholder(),
-    Object? tax = const $CopyWithPlaceholder(),
-    Object? typeOfPersonnel = const $CopyWithPlaceholder(),
-    Object? updatedDate = const $CopyWithPlaceholder(),
-    Object? updatedFullName = const $CopyWithPlaceholder(),
-    Object? updatedUserId = const $CopyWithPlaceholder(),
-    Object? userDepartmentPositions = const $CopyWithPlaceholder(),
-    Object? userName = const $CopyWithPlaceholder(),
-    Object? vehicleType = const $CopyWithPlaceholder(),
+    Object? graduationType = const $CopyWithPlaceholder(),
+    Object? graduationYear = const $CopyWithPlaceholder(),
+    Object? profileStatus = const $CopyWithPlaceholder(),
+    Object? probationDay = const $CopyWithPlaceholder(),
+    Object? officialDay = const $CopyWithPlaceholder(),
+    Object? endDate = const $CopyWithPlaceholder(),
     Object? workingStatus = const $CopyWithPlaceholder(),
+    Object? typeOfPersonnel = const $CopyWithPlaceholder(),
+    Object? description = const $CopyWithPlaceholder(),
+    Object? userDepartmentPositions = const $CopyWithPlaceholder(),
+    Object? isActive = const $CopyWithPlaceholder(),
+    Object? id = const $CopyWithPlaceholder(),
+    Object? createdUserId = const $CopyWithPlaceholder(),
+    Object? updatedUserId = const $CopyWithPlaceholder(),
+    Object? createdFullName = const $CopyWithPlaceholder(),
+    Object? updatedFullName = const $CopyWithPlaceholder(),
+    Object? createdDate = const $CopyWithPlaceholder(),
+    Object? updatedDate = const $CopyWithPlaceholder(),
+    Object? emergencyAddress = const $CopyWithPlaceholder(),
+    Object? emergencyName = const $CopyWithPlaceholder(),
+    Object? emergencyPhoneNumber = const $CopyWithPlaceholder(),
+    Object? autoMaker = const $CopyWithPlaceholder(),
+    Object? licensePlate = const $CopyWithPlaceholder(),
+    Object? vehicleType = const $CopyWithPlaceholder(),
   }) {
     return User(
-      accountHolderName: accountHolderName == const $CopyWithPlaceholder() ||
-              accountHolderName == null
-          ? _value.accountHolderName
-          // ignore: cast_nullable_to_non_nullable
-          : accountHolderName as String,
-      accountNumber:
-          accountNumber == const $CopyWithPlaceholder() || accountNumber == null
-              ? _value.accountNumber
-              // ignore: cast_nullable_to_non_nullable
-              : accountNumber as String,
-      attendanceId:
-          attendanceId == const $CopyWithPlaceholder() || attendanceId == null
-              ? _value.attendanceId
-              // ignore: cast_nullable_to_non_nullable
-              : attendanceId as int,
-      autoMaker: autoMaker == const $CopyWithPlaceholder() || autoMaker == null
-          ? _value.autoMaker
-          // ignore: cast_nullable_to_non_nullable
-          : autoMaker as String,
-      avatarPath:
-          avatarPath == const $CopyWithPlaceholder() || avatarPath == null
-              ? _value.avatarPath
-              // ignore: cast_nullable_to_non_nullable
-              : avatarPath as String,
-      bankName: bankName == const $CopyWithPlaceholder() || bankName == null
-          ? _value.bankName
-          // ignore: cast_nullable_to_non_nullable
-          : bankName as String,
-      ciExpiryDate:
-          ciExpiryDate == const $CopyWithPlaceholder() || ciExpiryDate == null
-              ? _value.ciExpiryDate
-              // ignore: cast_nullable_to_non_nullable
-              : ciExpiryDate as String,
-      ciIssueDate:
-          ciIssueDate == const $CopyWithPlaceholder() || ciIssueDate == null
-              ? _value.ciIssueDate
-              // ignore: cast_nullable_to_non_nullable
-              : ciIssueDate as String,
-      ciIssuePlace:
-          ciIssuePlace == const $CopyWithPlaceholder() || ciIssuePlace == null
-              ? _value.ciIssuePlace
-              // ignore: cast_nullable_to_non_nullable
-              : ciIssuePlace as String,
-      ciNumber: ciNumber == const $CopyWithPlaceholder() || ciNumber == null
-          ? _value.ciNumber
-          // ignore: cast_nullable_to_non_nullable
-          : ciNumber as String,
-      code: code == const $CopyWithPlaceholder() || code == null
-          ? _value.code
-          // ignore: cast_nullable_to_non_nullable
-          : code as String,
-      companyEmail:
-          companyEmail == const $CopyWithPlaceholder() || companyEmail == null
-              ? _value.companyEmail
-              // ignore: cast_nullable_to_non_nullable
-              : companyEmail as String,
-      createdDate:
-          createdDate == const $CopyWithPlaceholder() || createdDate == null
-              ? _value.createdDate
-              // ignore: cast_nullable_to_non_nullable
-              : createdDate as String,
-      createdFullName: createdFullName == const $CopyWithPlaceholder() ||
-              createdFullName == null
-          ? _value.createdFullName
-          // ignore: cast_nullable_to_non_nullable
-          : createdFullName as String,
-      createdUserId:
-          createdUserId == const $CopyWithPlaceholder() || createdUserId == null
-              ? _value.createdUserId
-              // ignore: cast_nullable_to_non_nullable
-              : createdUserId as String,
-      dayOfBirth: dayOfBirth == const $CopyWithPlaceholder()
-          ? _value.dayOfBirth
-          // ignore: cast_nullable_to_non_nullable
-          : dayOfBirth as DateTime?,
-      description:
-          description == const $CopyWithPlaceholder() || description == null
-              ? _value.description
-              // ignore: cast_nullable_to_non_nullable
-              : description as String,
-      education: education == const $CopyWithPlaceholder() || education == null
-          ? _value.education
-          // ignore: cast_nullable_to_non_nullable
-          : education as String,
-      educationLevel: educationLevel == const $CopyWithPlaceholder() ||
-              educationLevel == null
-          ? _value.educationLevel
-          // ignore: cast_nullable_to_non_nullable
-          : educationLevel as EducationLevelEnum,
-      email: email == const $CopyWithPlaceholder() || email == null
-          ? _value.email
-          // ignore: cast_nullable_to_non_nullable
-          : email as String,
-      emergencyAddress: emergencyAddress == const $CopyWithPlaceholder() ||
-              emergencyAddress == null
-          ? _value.emergencyAddress
-          // ignore: cast_nullable_to_non_nullable
-          : emergencyAddress as String,
-      emergencyName:
-          emergencyName == const $CopyWithPlaceholder() || emergencyName == null
-              ? _value.emergencyName
-              // ignore: cast_nullable_to_non_nullable
-              : emergencyName as String,
-      emergencyPhoneNumber:
-          emergencyPhoneNumber == const $CopyWithPlaceholder() ||
-                  emergencyPhoneNumber == null
-              ? _value.emergencyPhoneNumber
-              // ignore: cast_nullable_to_non_nullable
-              : emergencyPhoneNumber as String,
-      endDate: endDate == const $CopyWithPlaceholder() || endDate == null
-          ? _value.endDate
-          // ignore: cast_nullable_to_non_nullable
-          : endDate as String,
-      ethnicity: ethnicity == const $CopyWithPlaceholder() || ethnicity == null
-          ? _value.ethnicity
-          // ignore: cast_nullable_to_non_nullable
-          : ethnicity as String,
-      families: families == const $CopyWithPlaceholder() || families == null
-          ? _value.families
-          // ignore: cast_nullable_to_non_nullable
-          : families as List<Family>,
-      firstName: firstName == const $CopyWithPlaceholder() || firstName == null
-          ? _value.firstName
-          // ignore: cast_nullable_to_non_nullable
-          : firstName as String,
-      fullName: fullName == const $CopyWithPlaceholder() || fullName == null
-          ? _value.fullName
-          // ignore: cast_nullable_to_non_nullable
-          : fullName as String,
-      gender: gender == const $CopyWithPlaceholder() || gender == null
-          ? _value.gender
-          // ignore: cast_nullable_to_non_nullable
-          : gender as GenderEnum,
-      graduationType: graduationType == const $CopyWithPlaceholder() ||
-              graduationType == null
-          ? _value.graduationType
-          // ignore: cast_nullable_to_non_nullable
-          : graduationType as String,
-      graduationYear: graduationYear == const $CopyWithPlaceholder() ||
-              graduationYear == null
-          ? _value.graduationYear
-          // ignore: cast_nullable_to_non_nullable
-          : graduationYear as String,
-      id: id == const $CopyWithPlaceholder() || id == null
-          ? _value.id
-          // ignore: cast_nullable_to_non_nullable
-          : id as String,
-      isActive: isActive == const $CopyWithPlaceholder() || isActive == null
-          ? _value.isActive
-          // ignore: cast_nullable_to_non_nullable
-          : isActive as bool,
       isUseLogin:
           isUseLogin == const $CopyWithPlaceholder() || isUseLogin == null
               ? _value.isUseLogin
               // ignore: cast_nullable_to_non_nullable
               : isUseLogin as bool,
+      userName: userName == const $CopyWithPlaceholder() || userName == null
+          ? _value.userName
+          // ignore: cast_nullable_to_non_nullable
+          : userName as String,
+      code: code == const $CopyWithPlaceholder() || code == null
+          ? _value.code
+          // ignore: cast_nullable_to_non_nullable
+          : code as String,
+      tax: tax == const $CopyWithPlaceholder() || tax == null
+          ? _value.tax
+          // ignore: cast_nullable_to_non_nullable
+          : tax as String,
+      attendanceId:
+          attendanceId == const $CopyWithPlaceholder() || attendanceId == null
+              ? _value.attendanceId
+              // ignore: cast_nullable_to_non_nullable
+              : attendanceId as int,
+      firstName: firstName == const $CopyWithPlaceholder() || firstName == null
+          ? _value.firstName
+          // ignore: cast_nullable_to_non_nullable
+          : firstName as String,
       lastName: lastName == const $CopyWithPlaceholder() || lastName == null
           ? _value.lastName
           // ignore: cast_nullable_to_non_nullable
           : lastName as String,
-      licensePlate:
-          licensePlate == const $CopyWithPlaceholder() || licensePlate == null
-              ? _value.licensePlate
+      fullName: fullName == const $CopyWithPlaceholder() || fullName == null
+          ? _value.fullName
+          // ignore: cast_nullable_to_non_nullable
+          : fullName as String,
+      dayOfBirth: dayOfBirth == const $CopyWithPlaceholder()
+          ? _value.dayOfBirth
+          // ignore: cast_nullable_to_non_nullable
+          : dayOfBirth as DateTime?,
+      gender: gender == const $CopyWithPlaceholder() || gender == null
+          ? _value.gender
+          // ignore: cast_nullable_to_non_nullable
+          : gender as GenderEnum,
+      avatarPath:
+          avatarPath == const $CopyWithPlaceholder() || avatarPath == null
+              ? _value.avatarPath
               // ignore: cast_nullable_to_non_nullable
-              : licensePlate as String,
-      maritalStatus:
-          maritalStatus == const $CopyWithPlaceholder() || maritalStatus == null
-              ? _value.maritalStatus
+              : avatarPath as String,
+      ciNumber: ciNumber == const $CopyWithPlaceholder() || ciNumber == null
+          ? _value.ciNumber
+          // ignore: cast_nullable_to_non_nullable
+          : ciNumber as String,
+      ciIssuePlace:
+          ciIssuePlace == const $CopyWithPlaceholder() || ciIssuePlace == null
+              ? _value.ciIssuePlace
               // ignore: cast_nullable_to_non_nullable
-              : maritalStatus as String,
-      officialDay:
-          officialDay == const $CopyWithPlaceholder() || officialDay == null
-              ? _value.officialDay
+              : ciIssuePlace as String,
+      ciIssueDate:
+          ciIssueDate == const $CopyWithPlaceholder() || ciIssueDate == null
+              ? _value.ciIssueDate
               // ignore: cast_nullable_to_non_nullable
-              : officialDay as String,
+              : ciIssueDate as String,
+      ciExpiryDate:
+          ciExpiryDate == const $CopyWithPlaceholder() || ciExpiryDate == null
+              ? _value.ciExpiryDate
+              // ignore: cast_nullable_to_non_nullable
+              : ciExpiryDate as String,
+      passPortNumber: passPortNumber == const $CopyWithPlaceholder() ||
+              passPortNumber == null
+          ? _value.passPortNumber
+          // ignore: cast_nullable_to_non_nullable
+          : passPortNumber as String,
+      passPortIssuePlace: passPortIssuePlace == const $CopyWithPlaceholder() ||
+              passPortIssuePlace == null
+          ? _value.passPortIssuePlace
+          // ignore: cast_nullable_to_non_nullable
+          : passPortIssuePlace as String,
+      passPortIssueDate: passPortIssueDate == const $CopyWithPlaceholder() ||
+              passPortIssueDate == null
+          ? _value.passPortIssueDate
+          // ignore: cast_nullable_to_non_nullable
+          : passPortIssueDate as String,
+      passPortExpiryDate: passPortExpiryDate == const $CopyWithPlaceholder() ||
+              passPortExpiryDate == null
+          ? _value.passPortExpiryDate
+          // ignore: cast_nullable_to_non_nullable
+          : passPortExpiryDate as String,
+      residentProvince: residentProvince == const $CopyWithPlaceholder() ||
+              residentProvince == null
+          ? _value.residentProvince
+          // ignore: cast_nullable_to_non_nullable
+          : residentProvince as String,
+      residentProvinceId: residentProvinceId == const $CopyWithPlaceholder() ||
+              residentProvinceId == null
+          ? _value.residentProvinceId
+          // ignore: cast_nullable_to_non_nullable
+          : residentProvinceId as String,
+      residentAddress: residentAddress == const $CopyWithPlaceholder() ||
+              residentAddress == null
+          ? _value.residentAddress
+          // ignore: cast_nullable_to_non_nullable
+          : residentAddress as String,
+      residentDistrict: residentDistrict == const $CopyWithPlaceholder() ||
+              residentDistrict == null
+          ? _value.residentDistrict
+          // ignore: cast_nullable_to_non_nullable
+          : residentDistrict as String,
+      residentDistrictId: residentDistrictId == const $CopyWithPlaceholder() ||
+              residentDistrictId == null
+          ? _value.residentDistrictId
+          // ignore: cast_nullable_to_non_nullable
+          : residentDistrictId as String,
+      residentWard:
+          residentWard == const $CopyWithPlaceholder() || residentWard == null
+              ? _value.residentWard
+              // ignore: cast_nullable_to_non_nullable
+              : residentWard as String,
+      residentWardId: residentWardId == const $CopyWithPlaceholder() ||
+              residentWardId == null
+          ? _value.residentWardId
+          // ignore: cast_nullable_to_non_nullable
+          : residentWardId as String,
       originAddress:
           originAddress == const $CopyWithPlaceholder() || originAddress == null
               ? _value.originAddress
               // ignore: cast_nullable_to_non_nullable
               : originAddress as String,
+      originWard:
+          originWard == const $CopyWithPlaceholder() || originWard == null
+              ? _value.originWard
+              // ignore: cast_nullable_to_non_nullable
+              : originWard as String,
+      originWardId:
+          originWardId == const $CopyWithPlaceholder() || originWardId == null
+              ? _value.originWardId
+              // ignore: cast_nullable_to_non_nullable
+              : originWardId as String,
       originDistrict: originDistrict == const $CopyWithPlaceholder() ||
               originDistrict == null
           ? _value.originDistrict
@@ -758,139 +714,183 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
           ? _value.originProvinceId
           // ignore: cast_nullable_to_non_nullable
           : originProvinceId as String,
-      originWard:
-          originWard == const $CopyWithPlaceholder() || originWard == null
-              ? _value.originWard
+      maritalStatus:
+          maritalStatus == const $CopyWithPlaceholder() || maritalStatus == null
+              ? _value.maritalStatus
               // ignore: cast_nullable_to_non_nullable
-              : originWard as String,
-      originWardId:
-          originWardId == const $CopyWithPlaceholder() || originWardId == null
-              ? _value.originWardId
+              : maritalStatus as String,
+      ethnicity: ethnicity == const $CopyWithPlaceholder() || ethnicity == null
+          ? _value.ethnicity
+          // ignore: cast_nullable_to_non_nullable
+          : ethnicity as String,
+      religion: religion == const $CopyWithPlaceholder() || religion == null
+          ? _value.religion
+          // ignore: cast_nullable_to_non_nullable
+          : religion as String,
+      bankName: bankName == const $CopyWithPlaceholder() || bankName == null
+          ? _value.bankName
+          // ignore: cast_nullable_to_non_nullable
+          : bankName as String,
+      accountHolderName: accountHolderName == const $CopyWithPlaceholder() ||
+              accountHolderName == null
+          ? _value.accountHolderName
+          // ignore: cast_nullable_to_non_nullable
+          : accountHolderName as String,
+      accountNumber:
+          accountNumber == const $CopyWithPlaceholder() || accountNumber == null
+              ? _value.accountNumber
               // ignore: cast_nullable_to_non_nullable
-              : originWardId as String,
-      passPortExpiryDate: passPortExpiryDate == const $CopyWithPlaceholder() ||
-              passPortExpiryDate == null
-          ? _value.passPortExpiryDate
+              : accountNumber as String,
+      families: families == const $CopyWithPlaceholder() || families == null
+          ? _value.families
           // ignore: cast_nullable_to_non_nullable
-          : passPortExpiryDate as String,
-      passPortIssueDate: passPortIssueDate == const $CopyWithPlaceholder() ||
-              passPortIssueDate == null
-          ? _value.passPortIssueDate
-          // ignore: cast_nullable_to_non_nullable
-          : passPortIssueDate as String,
-      passPortIssuePlace: passPortIssuePlace == const $CopyWithPlaceholder() ||
-              passPortIssuePlace == null
-          ? _value.passPortIssuePlace
-          // ignore: cast_nullable_to_non_nullable
-          : passPortIssuePlace as String,
-      passPortNumber: passPortNumber == const $CopyWithPlaceholder() ||
-              passPortNumber == null
-          ? _value.passPortNumber
-          // ignore: cast_nullable_to_non_nullable
-          : passPortNumber as String,
+          : families as List<Family>,
       phoneNumber:
           phoneNumber == const $CopyWithPlaceholder() || phoneNumber == null
               ? _value.phoneNumber
               // ignore: cast_nullable_to_non_nullable
               : phoneNumber as String,
-      probationDay:
-          probationDay == const $CopyWithPlaceholder() || probationDay == null
-              ? _value.probationDay
+      email: email == const $CopyWithPlaceholder() || email == null
+          ? _value.email
+          // ignore: cast_nullable_to_non_nullable
+          : email as String,
+      companyEmail:
+          companyEmail == const $CopyWithPlaceholder() || companyEmail == null
+              ? _value.companyEmail
               // ignore: cast_nullable_to_non_nullable
-              : probationDay as String,
-      profileStatus:
-          profileStatus == const $CopyWithPlaceholder() || profileStatus == null
-              ? _value.profileStatus
-              // ignore: cast_nullable_to_non_nullable
-              : profileStatus as bool,
-      religion: religion == const $CopyWithPlaceholder() || religion == null
-          ? _value.religion
+              : companyEmail as String,
+      educationLevel: educationLevel == const $CopyWithPlaceholder() ||
+              educationLevel == null
+          ? _value.educationLevel
           // ignore: cast_nullable_to_non_nullable
-          : religion as String,
-      residentAddress: residentAddress == const $CopyWithPlaceholder() ||
-              residentAddress == null
-          ? _value.residentAddress
+          : educationLevel as EducationLevelEnum,
+      education: education == const $CopyWithPlaceholder() || education == null
+          ? _value.education
           // ignore: cast_nullable_to_non_nullable
-          : residentAddress as String,
-      residentDistrict: residentDistrict == const $CopyWithPlaceholder() ||
-              residentDistrict == null
-          ? _value.residentDistrict
-          // ignore: cast_nullable_to_non_nullable
-          : residentDistrict as String,
-      residentDistrictId: residentDistrictId == const $CopyWithPlaceholder() ||
-              residentDistrictId == null
-          ? _value.residentDistrictId
-          // ignore: cast_nullable_to_non_nullable
-          : residentDistrictId as String,
-      residentProvince: residentProvince == const $CopyWithPlaceholder() ||
-              residentProvince == null
-          ? _value.residentProvince
-          // ignore: cast_nullable_to_non_nullable
-          : residentProvince as String,
-      residentProvinceId: residentProvinceId == const $CopyWithPlaceholder() ||
-              residentProvinceId == null
-          ? _value.residentProvinceId
-          // ignore: cast_nullable_to_non_nullable
-          : residentProvinceId as String,
-      residentWard:
-          residentWard == const $CopyWithPlaceholder() || residentWard == null
-              ? _value.residentWard
-              // ignore: cast_nullable_to_non_nullable
-              : residentWard as String,
-      residentWardId: residentWardId == const $CopyWithPlaceholder() ||
-              residentWardId == null
-          ? _value.residentWardId
-          // ignore: cast_nullable_to_non_nullable
-          : residentWardId as String,
+          : education as String,
       specializes:
           specializes == const $CopyWithPlaceholder() || specializes == null
               ? _value.specializes
               // ignore: cast_nullable_to_non_nullable
               : specializes as String,
-      tax: tax == const $CopyWithPlaceholder() || tax == null
-          ? _value.tax
+      graduationType: graduationType == const $CopyWithPlaceholder() ||
+              graduationType == null
+          ? _value.graduationType
           // ignore: cast_nullable_to_non_nullable
-          : tax as String,
+          : graduationType as String,
+      graduationYear: graduationYear == const $CopyWithPlaceholder() ||
+              graduationYear == null
+          ? _value.graduationYear
+          // ignore: cast_nullable_to_non_nullable
+          : graduationYear as String,
+      profileStatus:
+          profileStatus == const $CopyWithPlaceholder() || profileStatus == null
+              ? _value.profileStatus
+              // ignore: cast_nullable_to_non_nullable
+              : profileStatus as bool,
+      probationDay:
+          probationDay == const $CopyWithPlaceholder() || probationDay == null
+              ? _value.probationDay
+              // ignore: cast_nullable_to_non_nullable
+              : probationDay as String,
+      officialDay:
+          officialDay == const $CopyWithPlaceholder() || officialDay == null
+              ? _value.officialDay
+              // ignore: cast_nullable_to_non_nullable
+              : officialDay as String,
+      endDate: endDate == const $CopyWithPlaceholder() || endDate == null
+          ? _value.endDate
+          // ignore: cast_nullable_to_non_nullable
+          : endDate as String,
+      workingStatus:
+          workingStatus == const $CopyWithPlaceholder() || workingStatus == null
+              ? _value.workingStatus
+              // ignore: cast_nullable_to_non_nullable
+              : workingStatus as WorkingStatusEnum,
       typeOfPersonnel: typeOfPersonnel == const $CopyWithPlaceholder() ||
               typeOfPersonnel == null
           ? _value.typeOfPersonnel
           // ignore: cast_nullable_to_non_nullable
           : typeOfPersonnel as String,
-      updatedDate:
-          updatedDate == const $CopyWithPlaceholder() || updatedDate == null
-              ? _value.updatedDate
+      description:
+          description == const $CopyWithPlaceholder() || description == null
+              ? _value.description
               // ignore: cast_nullable_to_non_nullable
-              : updatedDate as String,
-      updatedFullName: updatedFullName == const $CopyWithPlaceholder() ||
-              updatedFullName == null
-          ? _value.updatedFullName
-          // ignore: cast_nullable_to_non_nullable
-          : updatedFullName as String,
-      updatedUserId:
-          updatedUserId == const $CopyWithPlaceholder() || updatedUserId == null
-              ? _value.updatedUserId
-              // ignore: cast_nullable_to_non_nullable
-              : updatedUserId as String,
+              : description as String,
       userDepartmentPositions:
           userDepartmentPositions == const $CopyWithPlaceholder() ||
                   userDepartmentPositions == null
               ? _value.userDepartmentPositions
               // ignore: cast_nullable_to_non_nullable
               : userDepartmentPositions as List<UserDepartmentPosition>,
-      userName: userName == const $CopyWithPlaceholder() || userName == null
-          ? _value.userName
+      isActive: isActive == const $CopyWithPlaceholder() || isActive == null
+          ? _value.isActive
           // ignore: cast_nullable_to_non_nullable
-          : userName as String,
+          : isActive as bool,
+      id: id == const $CopyWithPlaceholder() || id == null
+          ? _value.id
+          // ignore: cast_nullable_to_non_nullable
+          : id as String,
+      createdUserId:
+          createdUserId == const $CopyWithPlaceholder() || createdUserId == null
+              ? _value.createdUserId
+              // ignore: cast_nullable_to_non_nullable
+              : createdUserId as String,
+      updatedUserId:
+          updatedUserId == const $CopyWithPlaceholder() || updatedUserId == null
+              ? _value.updatedUserId
+              // ignore: cast_nullable_to_non_nullable
+              : updatedUserId as String,
+      createdFullName: createdFullName == const $CopyWithPlaceholder() ||
+              createdFullName == null
+          ? _value.createdFullName
+          // ignore: cast_nullable_to_non_nullable
+          : createdFullName as String,
+      updatedFullName: updatedFullName == const $CopyWithPlaceholder() ||
+              updatedFullName == null
+          ? _value.updatedFullName
+          // ignore: cast_nullable_to_non_nullable
+          : updatedFullName as String,
+      createdDate:
+          createdDate == const $CopyWithPlaceholder() || createdDate == null
+              ? _value.createdDate
+              // ignore: cast_nullable_to_non_nullable
+              : createdDate as String,
+      updatedDate:
+          updatedDate == const $CopyWithPlaceholder() || updatedDate == null
+              ? _value.updatedDate
+              // ignore: cast_nullable_to_non_nullable
+              : updatedDate as String,
+      emergencyAddress: emergencyAddress == const $CopyWithPlaceholder() ||
+              emergencyAddress == null
+          ? _value.emergencyAddress
+          // ignore: cast_nullable_to_non_nullable
+          : emergencyAddress as String,
+      emergencyName:
+          emergencyName == const $CopyWithPlaceholder() || emergencyName == null
+              ? _value.emergencyName
+              // ignore: cast_nullable_to_non_nullable
+              : emergencyName as String,
+      emergencyPhoneNumber:
+          emergencyPhoneNumber == const $CopyWithPlaceholder() ||
+                  emergencyPhoneNumber == null
+              ? _value.emergencyPhoneNumber
+              // ignore: cast_nullable_to_non_nullable
+              : emergencyPhoneNumber as String,
+      autoMaker: autoMaker == const $CopyWithPlaceholder() || autoMaker == null
+          ? _value.autoMaker
+          // ignore: cast_nullable_to_non_nullable
+          : autoMaker as String,
+      licensePlate:
+          licensePlate == const $CopyWithPlaceholder() || licensePlate == null
+              ? _value.licensePlate
+              // ignore: cast_nullable_to_non_nullable
+              : licensePlate as String,
       vehicleType:
           vehicleType == const $CopyWithPlaceholder() || vehicleType == null
               ? _value.vehicleType
               // ignore: cast_nullable_to_non_nullable
               : vehicleType as VehicleTypeEnum,
-      workingStatus:
-          workingStatus == const $CopyWithPlaceholder() || workingStatus == null
-              ? _value.workingStatus
-              // ignore: cast_nullable_to_non_nullable
-              : workingStatus as WorkingStatusEnum,
     );
   }
 }
@@ -998,91 +998,81 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
           VehicleTypeEnum.car,
     );
 
-Map<String, dynamic> _$UserToJson(User instance) {
-  final val = <String, dynamic>{
-    'isUseLogin': instance.isUseLogin,
-    'userName': instance.userName,
-    'code': instance.code,
-    'tax': instance.tax,
-    'attendanceId': instance.attendanceId,
-    'firstName': instance.firstName,
-    'lastName': instance.lastName,
-    'fullName': instance.fullName,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'dayOfBirth',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.dayOfBirth, const CustomDateTimeConverter().toJson));
-  val['gender'] = _$GenderEnumEnumMap[instance.gender]!;
-  val['avatarPath'] = instance.avatarPath;
-  val['ciNumber'] = instance.ciNumber;
-  val['ciIssuePlace'] = instance.ciIssuePlace;
-  val['ciIssueDate'] = instance.ciIssueDate;
-  val['ciExpiryDate'] = instance.ciExpiryDate;
-  val['passPortNumber'] = instance.passPortNumber;
-  val['passPortIssuePlace'] = instance.passPortIssuePlace;
-  val['passPortIssueDate'] = instance.passPortIssueDate;
-  val['passPortExpiryDate'] = instance.passPortExpiryDate;
-  val['residentProvince'] = instance.residentProvince;
-  val['residentProvinceId'] = instance.residentProvinceId;
-  val['residentAddress'] = instance.residentAddress;
-  val['residentDistrict'] = instance.residentDistrict;
-  val['residentDistrictId'] = instance.residentDistrictId;
-  val['residentWard'] = instance.residentWard;
-  val['residentWardId'] = instance.residentWardId;
-  val['originAddress'] = instance.originAddress;
-  val['originWard'] = instance.originWard;
-  val['originWardId'] = instance.originWardId;
-  val['originDistrict'] = instance.originDistrict;
-  val['originDistrictId'] = instance.originDistrictId;
-  val['originProvince'] = instance.originProvince;
-  val['originProvinceId'] = instance.originProvinceId;
-  val['maritalStatus'] = instance.maritalStatus;
-  val['ethnicity'] = instance.ethnicity;
-  val['religion'] = instance.religion;
-  val['bankName'] = instance.bankName;
-  val['accountHolderName'] = instance.accountHolderName;
-  val['accountNumber'] = instance.accountNumber;
-  val['families'] = instance.families;
-  val['phoneNumber'] = instance.phoneNumber;
-  val['email'] = instance.email;
-  val['companyEmail'] = instance.companyEmail;
-  val['educationLevel'] = _$EducationLevelEnumEnumMap[instance.educationLevel]!;
-  val['education'] = instance.education;
-  val['specializes'] = instance.specializes;
-  val['graduationType'] = instance.graduationType;
-  val['graduationYear'] = instance.graduationYear;
-  val['profileStatus'] = instance.profileStatus;
-  val['probationDay'] = instance.probationDay;
-  val['officialDay'] = instance.officialDay;
-  val['endDate'] = instance.endDate;
-  val['workingStatus'] = _$WorkingStatusEnumEnumMap[instance.workingStatus]!;
-  val['typeOfPersonnel'] = instance.typeOfPersonnel;
-  val['description'] = instance.description;
-  val['userDepartmentPositions'] = instance.userDepartmentPositions;
-  val['isActive'] = instance.isActive;
-  val['id'] = instance.id;
-  val['createdUserId'] = instance.createdUserId;
-  val['updatedUserId'] = instance.updatedUserId;
-  val['createdFullName'] = instance.createdFullName;
-  val['updatedFullName'] = instance.updatedFullName;
-  val['createdDate'] = instance.createdDate;
-  val['updatedDate'] = instance.updatedDate;
-  val['emergencyName'] = instance.emergencyName;
-  val['emergencyPhoneNumber'] = instance.emergencyPhoneNumber;
-  val['emergencyAddress'] = instance.emergencyAddress;
-  val['vehicleType'] = _$VehicleTypeEnumEnumMap[instance.vehicleType]!;
-  val['licensePlate'] = instance.licensePlate;
-  val['autoMaker'] = instance.autoMaker;
-  return val;
-}
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'isUseLogin': instance.isUseLogin,
+      'userName': instance.userName,
+      'code': instance.code,
+      'tax': instance.tax,
+      'attendanceId': instance.attendanceId,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'fullName': instance.fullName,
+      if (_$JsonConverterToJson<String, DateTime>(
+              instance.dayOfBirth, const CustomDateTimeConverter().toJson)
+          case final value?)
+        'dayOfBirth': value,
+      'gender': _$GenderEnumEnumMap[instance.gender]!,
+      'avatarPath': instance.avatarPath,
+      'ciNumber': instance.ciNumber,
+      'ciIssuePlace': instance.ciIssuePlace,
+      'ciIssueDate': instance.ciIssueDate,
+      'ciExpiryDate': instance.ciExpiryDate,
+      'passPortNumber': instance.passPortNumber,
+      'passPortIssuePlace': instance.passPortIssuePlace,
+      'passPortIssueDate': instance.passPortIssueDate,
+      'passPortExpiryDate': instance.passPortExpiryDate,
+      'residentProvince': instance.residentProvince,
+      'residentProvinceId': instance.residentProvinceId,
+      'residentAddress': instance.residentAddress,
+      'residentDistrict': instance.residentDistrict,
+      'residentDistrictId': instance.residentDistrictId,
+      'residentWard': instance.residentWard,
+      'residentWardId': instance.residentWardId,
+      'originAddress': instance.originAddress,
+      'originWard': instance.originWard,
+      'originWardId': instance.originWardId,
+      'originDistrict': instance.originDistrict,
+      'originDistrictId': instance.originDistrictId,
+      'originProvince': instance.originProvince,
+      'originProvinceId': instance.originProvinceId,
+      'maritalStatus': instance.maritalStatus,
+      'ethnicity': instance.ethnicity,
+      'religion': instance.religion,
+      'bankName': instance.bankName,
+      'accountHolderName': instance.accountHolderName,
+      'accountNumber': instance.accountNumber,
+      'families': instance.families,
+      'phoneNumber': instance.phoneNumber,
+      'email': instance.email,
+      'companyEmail': instance.companyEmail,
+      'educationLevel': _$EducationLevelEnumEnumMap[instance.educationLevel]!,
+      'education': instance.education,
+      'specializes': instance.specializes,
+      'graduationType': instance.graduationType,
+      'graduationYear': instance.graduationYear,
+      'profileStatus': instance.profileStatus,
+      'probationDay': instance.probationDay,
+      'officialDay': instance.officialDay,
+      'endDate': instance.endDate,
+      'workingStatus': _$WorkingStatusEnumEnumMap[instance.workingStatus]!,
+      'typeOfPersonnel': instance.typeOfPersonnel,
+      'description': instance.description,
+      'userDepartmentPositions': instance.userDepartmentPositions,
+      'isActive': instance.isActive,
+      'id': instance.id,
+      'createdUserId': instance.createdUserId,
+      'updatedUserId': instance.updatedUserId,
+      'createdFullName': instance.createdFullName,
+      'updatedFullName': instance.updatedFullName,
+      'createdDate': instance.createdDate,
+      'updatedDate': instance.updatedDate,
+      'emergencyName': instance.emergencyName,
+      'emergencyPhoneNumber': instance.emergencyPhoneNumber,
+      'emergencyAddress': instance.emergencyAddress,
+      'vehicleType': _$VehicleTypeEnumEnumMap[instance.vehicleType]!,
+      'licensePlate': instance.licensePlate,
+      'autoMaker': instance.autoMaker,
+    };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,

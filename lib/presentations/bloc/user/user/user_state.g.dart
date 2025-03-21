@@ -7,13 +7,13 @@ part of 'user_state.dart';
 // **************************************************************************
 
 abstract class _$UserStateCWProxy {
-  UserState email(String email);
+  UserState user(User user);
 
-  UserState errorCode(String errorCode);
+  UserState email(String email);
 
   UserState status(UserStatus status);
 
-  UserState user(User user);
+  UserState errorCode(String errorCode);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `UserState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -22,30 +22,30 @@ abstract class _$UserStateCWProxy {
   /// UserState(...).copyWith(id: 12, name: "My name")
   /// ````
   UserState call({
-    String? email,
-    String? errorCode,
-    UserStatus? status,
     User? user,
+    String? email,
+    UserStatus? status,
+    String? errorCode,
   });
 }
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfUserState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfUserState.copyWith.fieldName(...)`
 class _$UserStateCWProxyImpl implements _$UserStateCWProxy {
+  const _$UserStateCWProxyImpl(this._value);
+
   final UserState _value;
 
-  const _$UserStateCWProxyImpl(this._value);
+  @override
+  UserState user(User user) => this(user: user);
 
   @override
   UserState email(String email) => this(email: email);
 
   @override
-  UserState errorCode(String errorCode) => this(errorCode: errorCode);
-
-  @override
   UserState status(UserStatus status) => this(status: status);
 
   @override
-  UserState user(User user) => this(user: user);
+  UserState errorCode(String errorCode) => this(errorCode: errorCode);
 
   @override
 
@@ -56,28 +56,28 @@ class _$UserStateCWProxyImpl implements _$UserStateCWProxy {
   /// UserState(...).copyWith(id: 12, name: "My name")
   /// ````
   UserState call({
-    Object? email = const $CopyWithPlaceholder(),
-    Object? errorCode = const $CopyWithPlaceholder(),
-    Object? status = const $CopyWithPlaceholder(),
     Object? user = const $CopyWithPlaceholder(),
+    Object? email = const $CopyWithPlaceholder(),
+    Object? status = const $CopyWithPlaceholder(),
+    Object? errorCode = const $CopyWithPlaceholder(),
   }) {
     return UserState(
-      email: email == const $CopyWithPlaceholder() || email == null
-          ? _value.email
-          // ignore: cast_nullable_to_non_nullable
-          : email as String,
-      errorCode: errorCode == const $CopyWithPlaceholder() || errorCode == null
-          ? _value.errorCode
-          // ignore: cast_nullable_to_non_nullable
-          : errorCode as String,
-      status: status == const $CopyWithPlaceholder() || status == null
-          ? _value.status
-          // ignore: cast_nullable_to_non_nullable
-          : status as UserStatus,
       user: user == const $CopyWithPlaceholder() || user == null
           ? _value.user
           // ignore: cast_nullable_to_non_nullable
           : user as User,
+      email: email == const $CopyWithPlaceholder() || email == null
+          ? _value.email
+          // ignore: cast_nullable_to_non_nullable
+          : email as String,
+      status: status == const $CopyWithPlaceholder() || status == null
+          ? _value.status
+          // ignore: cast_nullable_to_non_nullable
+          : status as UserStatus,
+      errorCode: errorCode == const $CopyWithPlaceholder() || errorCode == null
+          ? _value.errorCode
+          // ignore: cast_nullable_to_non_nullable
+          : errorCode as String,
     );
   }
 }

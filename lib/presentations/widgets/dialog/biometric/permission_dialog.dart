@@ -1,10 +1,11 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
 import 'package:flutter/material.dart';
-import 'package:open_settings/open_settings.dart';
+// import 'package:open_settings/open_settings.dart';
 import 'package:themes/themes.dart';
 
 class PermissionDialog extends StatelessWidget {
@@ -59,7 +60,7 @@ class PermissionDialog extends StatelessWidget {
   }
 
   _setting(BuildContext context, VoidCallback callBack) {
-    OpenSettings.openBiometricEnrollSetting();
+    AppSettings.openAppSettings(type: AppSettingsType.location);
     callBack.call();
     dI<AppNavigation>().pop(context);
   }

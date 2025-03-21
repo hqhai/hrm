@@ -15,18 +15,9 @@ UpdatePositionRequest _$UpdatePositionRequestFromJson(
     );
 
 Map<String, dynamic> _$UpdatePositionRequestToJson(
-    UpdatePositionRequest instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  return val;
-}
+        UpdatePositionRequest instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+    };
