@@ -260,17 +260,17 @@ class _CreateRequisitionLeavePageState
                           title: appLocalizations.totalLeaveWork,
                           value: numberValue.toString(),
                         ),
-                      ItemCreateFollower(
-                        listFollower:
-                            _setListUser(stateUserById.subtitudePersons),
-                        title: appLocalizations.substitute,
-                        onChange: (value) => _setSubstitute(value),
-                      ),
-                      ItemCreateFollower(
-                        listFollower: _setListUser(stateUserById.userById),
-                        title: appLocalizations.follower,
-                        onChange: (value) => _setFollower(value),
-                      ),
+                      // ItemCreateFollower(
+                      //   listFollower:
+                      //       _setListUser(stateUserById.subtitudePersons),
+                      //   title: appLocalizations.substitute,
+                      //   onChange: (value) => _setSubstitute(value),
+                      // ),
+                      // ItemCreateFollower(
+                      //   listFollower: _setListUser(stateUserById.userById),
+                      //   title: appLocalizations.follower,
+                      //   onChange: (value) => _setFollower(value),
+                      // ),
                       ItemLoadFile(
                         files: files,
                         onChangeFiles: (value) => _setFile(value),

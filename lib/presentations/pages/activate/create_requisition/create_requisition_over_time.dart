@@ -147,12 +147,12 @@ class _CreateRequisitionOverTimePageState
                         textController: inputController,
                         onChange: (value) => setDescription(value),
                       ),
-                      ItemCreateFollower(
-                          listFollower: _setListUser(
-                            stateUserById.userById,
-                          ),
-                          title: appLocalizations.follower,
-                          onChange: (value) => _setFollower(value)),
+                      // ItemCreateFollower(
+                      //     listFollower: _setListUser(
+                      //       stateUserById.userById,
+                      //     ),
+                      //     title: appLocalizations.follower,
+                      //     onChange: (value) => _setFollower(value)),
                       const ItemListStepFlow(),
                       Padding(
                         padding: const EdgeInsets.only(top: SpacingUnit.x3_5),

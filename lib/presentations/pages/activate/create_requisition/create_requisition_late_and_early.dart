@@ -71,8 +71,10 @@ class CreateRequisitionLateAndEarlyPage extends StatefulWidget {
       _CreateRequisitionLateAndEarlyPageState();
 }
 
-class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLateAndEarlyPage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+class _CreateRequisitionLateAndEarlyPageState
+    extends State<CreateRequisitionLateAndEarlyPage> {
+  final TextEditingController detailedDescriptionController =
+      TextEditingController();
   String errorTime = '',
       errorDestination = '',
       errorDialog = '',
@@ -109,8 +111,9 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
       if (errorCode == 'MakeupDayCanNotRecedeRequestDate') {
         errorListener = errorDialog;
       } else {
@@ -153,7 +156,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       requiredValidate: true,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
                       child: GestureDetector(
                         onTap: () => _showBottomSheet(context),
                         child: ContainerBorder(
@@ -175,7 +179,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       height: SpacingUnit.x4,
                     ),
                     TitleRequired(
-                      title: '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
+                      title:
+                          '${appLocalizations.time} ${appLocalizations.lateOrEarly}',
                       requiredValidate: true,
                     ),
                     DateOverTime(
@@ -198,7 +203,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                           ),
                     BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
                       builder: (context, stateShift) {
-                        return errorShift.isNotEmpty && stateShift.keys.isNotEmpty
+                        return errorShift.isNotEmpty &&
+                                stateShift.keys.isNotEmpty
                             ? Text(
                                 errorShift,
                                 style: TextStyle(
@@ -211,7 +217,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                     ),
                     if (checkMakeUp())
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: SpacingUnit.x2),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -235,13 +242,17 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                               title3: appLocalizations.totalMakeUpWorkTime,
                               setEndTime: (value) => _setEndTime(
                                 value: value,
-                                title: appLocalizations.endTimeMustBeAfterStartTime,
+                                title: appLocalizations
+                                    .endTimeMustBeAfterStartTime,
                               ),
                               setStartTime: (value) => _setStartTime(
                                 value: value,
-                                title: appLocalizations.endTimeMustBeAfterStartTime,
+                                title: appLocalizations
+                                    .endTimeMustBeAfterStartTime,
                               ),
-                              errorTime: errorListener != '' ? errorListener : errorTime,
+                              errorTime: errorListener != ''
+                                  ? errorListener
+                                  : errorTime,
                             ),
                           ],
                         ),
@@ -256,10 +267,10 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
                       title: appLocalizations.detailedDescription,
                       onChange: (value) => _setDetailedDescription(value),
                     ),
-                    ItemCreateFollower(
-                        listFollower: _setListUser(stateUserById.userById),
-                        title: appLocalizations.follower,
-                        onChange: (value) => _setFollower(value)),
+                    // ItemCreateFollower(
+                    //     listFollower: _setListUser(stateUserById.userById),
+                    //     title: appLocalizations.follower,
+                    //     onChange: (value) => _setFollower(value)),
                     const ItemListStepFlow(),
                     ItemButton(
                       id: widget.requestId,
@@ -301,7 +312,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
     final bool checkDescription = description.isNotEmpty;
     final checkShiftEmpty = listWorkShift.isNotEmpty;
     setState(() {
-      errorDestination = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDestination =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
       errorShift = !checkShiftEmpty ? appLocalizations.notSelectedAShift : '';
     });
     return checkDescription && checkShiftEmpty;
@@ -381,9 +393,11 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
     );
   }
@@ -401,8 +415,8 @@ class _CreateRequisitionLateAndEarlyPageState extends State<CreateRequisitionLat
         checkShirt = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: workDate, startDate: workDate, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: workDate, startDate: workDate, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {

@@ -53,7 +53,8 @@ class CreateRequisitionStationeryOderPage extends StatefulWidget {
       _CreateRequisitionStationeryOderPageState();
 }
 
-class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionStationeryOderPage> {
+class _CreateRequisitionStationeryOderPageState
+    extends State<CreateRequisitionStationeryOderPage> {
   List<Stationeries> listRequisitionStationery = [];
   List<String> followers = [];
   DateTime month = DateTime.now();
@@ -82,13 +83,16 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -123,19 +127,20 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                       ),
                       ListStationeries(
                         title: appLocalizations.stationeryList,
-                        error: listRequisitionStationery.isNotEmpty ? '' : error,
+                        error:
+                            listRequisitionStationery.isNotEmpty ? '' : error,
                         listRequisitionStationery: listRequisitionStationery,
                         onChangeList: (value) => setList(value),
                       ),
                       ItemTotalAmount(
                         totalAmount: _totalAmount(),
                       ),
-                      ItemCreateFollower(
-                          listFollower: _setListUser(
-                            stateUserById.userById,
-                          ),
-                          title: appLocalizations.follower,
-                          onChange: (value) => _setFollower(value)),
+                      // ItemCreateFollower(
+                      //     listFollower: _setListUser(
+                      //       stateUserById.userById,
+                      //     ),
+                      //     title: appLocalizations.follower,
+                      //     onChange: (value) => _setFollower(value)),
                       const ItemListStepFlow(),
                       Padding(
                         padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
@@ -204,9 +209,11 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
     );
   }
