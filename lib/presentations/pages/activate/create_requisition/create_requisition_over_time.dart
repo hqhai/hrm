@@ -72,6 +72,7 @@ class _CreateRequisitionOverTimePageState
       description = request.config.description;
       inputController.text = description;
     }
+    addOverTime();
     super.initState();
   }
 

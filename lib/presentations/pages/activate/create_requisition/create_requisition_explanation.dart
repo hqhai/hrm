@@ -80,6 +80,7 @@ class _CreateRequisitionExplanationPageState
       detailedDescriptionController.text = description ?? "";
       explanations = [...request.config.explanations];
     }
+    _addExplanation();
     super.initState();
   }
 
