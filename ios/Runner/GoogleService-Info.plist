@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.atlanticgroup.app</string>
+	<string>com.atlanticgroup.app.uat</string>
 	<key>PROJECT_ID</key>
 	<string>hrm-ee18e</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:270904267396:ios:8242db32e45db6864668d1</string>
+	<string>1:270904267396:ios:2d4eb79bd0ea0f074668d1</string>
 </dict>
 </plist>
