@@ -132,11 +132,11 @@ class _CreateRequisitionExplanationPageState
                       title: appLocalizations.workDay,
                       callback: () => _addExplanation(),
                     ),
-                    ItemCreateInputArea(
-                      textController: detailedDescriptionController,
-                      title: appLocalizations.detailedDescription,
-                      onChange: (value) => _setDetailedDescription(value),
-                    ),
+                    // ItemCreateInputArea(
+                    //   textController: detailedDescriptionController,
+                    //   title: appLocalizations.detailedDescription,
+                    //   onChange: (value) => _setDetailedDescription(value),
+                    // ),
                     // ItemCreateFollower(
                     //     listFollower: _setListUser(
                     //       stateUserById.userById,

@@ -141,16 +141,16 @@ class _CreateRequisitionOverTimePageState
                         onChangeList: (value) =>
                             _setChangeRequisitionOverTimes(value),
                       ),
-                      ItemCreateInputArea(
-                        textInputFormatter: [
-                          LengthLimitingTextInputFormatter(500)
-                        ],
-                        requiredValidate: true,
-                        title: appLocalizations.reasonCreateRequest,
-                        error: errorDescription,
-                        textController: inputController,
-                        onChange: (value) => setDescription(value),
-                      ),
+                      // ItemCreateInputArea(
+                      //   textInputFormatter: [
+                      //     LengthLimitingTextInputFormatter(500)
+                      //   ],
+                      //   requiredValidate: true,
+                      //   title: appLocalizations.reasonCreateRequest,
+                      //   error: errorDescription,
+                      //   textController: inputController,
+                      //   onChange: (value) => setDescription(value),
+                      // ),
                       // ItemCreateFollower(
                       //     listFollower: _setListUser(
                       //       stateUserById.userById,
