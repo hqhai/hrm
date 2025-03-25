@@ -18,6 +18,7 @@ class WorkSheetBloc extends HydratedBloc<WorkSheetEvent, WorkSheetState> {
     on<GetWorkSheetEvent>(_getWorkSheetEvent);
     on<GetAttendancesByDateEvent>(_getAttendancesByDateEvent);
     on<ResetWorkSheetEvent>(_resetWorkSheetEvent);
+    on<GetAttendanceByListDateEvent>(_getAttendanceByListDateEvent);
   }
 
   FutureOr<void> _getWorkSheetEvent(
@@ -62,5 +63,17 @@ class WorkSheetBloc extends HydratedBloc<WorkSheetEvent, WorkSheetState> {
   FutureOr<void> _resetWorkSheetEvent(
       ResetWorkSheetEvent event, Emitter<WorkSheetState> emit) {
     emit(const WorkSheetState());
+  }
+
+  FutureOr<void> _getAttendanceByListDateEvent(
+      GetAttendanceByListDateEvent event, Emitter<WorkSheetState> emit) async {
+    final attendanceByListDates =
+        await _attendanceUseCase.getAttendanceByListDate(
+      dates: event.dates,
+      userId: event.userId,
+    );
+    emit(state.copyWith(
+      attendanceByListDates: attendanceByListDates,
+    ));
   }
 }

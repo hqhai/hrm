@@ -10,14 +10,12 @@ import 'package:base_app/data/models/requisition/requisition/config_model_reques
 import 'package:base_app/data/models/requisition/requisition/explanation.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
-import 'package:base_app/domain/entities/user.dart';
+// import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_list_explanations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
@@ -175,12 +173,12 @@ class _CreateRequisitionExplanationPageState
     });
   }
 
-  List<User> _setListUser(List<User> userById) {
-    if (widget.requestId.isNotEmpty) {
-      return userById;
-    }
-    return [];
-  }
+  // List<User> _setListUser(List<User> userById) {
+  //   if (widget.requestId.isNotEmpty) {
+  //     return userById;
+  //   }
+  //   return [];
+  // }
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -192,17 +190,17 @@ class _CreateRequisitionExplanationPageState
     return checkList;
   }
 
-  _setFollower(List<User> value) {
-    setState(() {
-      followers = value.map((e) => e.id).toList();
-    });
-  }
+  // _setFollower(List<User> value) {
+  //   setState(() {
+  //     followers = value.map((e) => e.id).toList();
+  //   });
+  // }
 
-  _setDetailedDescription(String value) {
-    setState(() {
-      description = value;
-    });
-  }
+  // _setDetailedDescription(String value) {
+  //   setState(() {
+  //     description = value;
+  //   });
+  // }
 
   PostRequestRequest request() {
     return widget.requestId.isEmpty

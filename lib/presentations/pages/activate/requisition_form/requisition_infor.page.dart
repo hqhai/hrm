@@ -25,6 +25,8 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
+import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
+import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_process.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
@@ -73,12 +75,6 @@ class _RequisitionInformationPageState
   String? note;
   bool checkLoad = false, checkSuccess = false, checkUnSuccess = false;
   String errorDialog = '', errorDialogRevoke = '';
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;

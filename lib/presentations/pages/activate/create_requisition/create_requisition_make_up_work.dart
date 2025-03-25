@@ -10,7 +10,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
-import 'package:base_app/domain/entities/user.dart';
+// import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
@@ -20,7 +20,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
+// import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
@@ -235,12 +235,12 @@ class _CreateRequisitionMakeUpWorkPageState
     );
   }
 
-  List<User> _setListUser(List<User> userById) {
-    if (widget.requestId.isNotEmpty) {
-      return userById;
-    }
-    return [];
-  }
+  // List<User> _setListUser(List<User> userById) {
+  //   if (widget.requestId.isNotEmpty) {
+  //     return userById;
+  //   }
+  //   return [];
+  // }
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -255,11 +255,11 @@ class _CreateRequisitionMakeUpWorkPageState
     return checkList && checkDescription;
   }
 
-  _setFollower(List<User> value) {
-    setState(() {
-      followers = value.map((e) => e.id).toList();
-    });
-  }
+  // _setFollower(List<User> value) {
+  //   setState(() {
+  //     followers = value.map((e) => e.id).toList();
+  //   });
+  // }
 
   _setDetailedDescription(String value) {
     setState(() {

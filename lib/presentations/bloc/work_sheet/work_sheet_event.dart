@@ -38,3 +38,15 @@ class ResetWorkSheetEvent extends WorkSheetEvent {
   @override
   List<Object> get props => [];
 }
+
+class GetAttendanceByListDateEvent extends WorkSheetEvent {
+  final List<String> dates;
+  final String userId;
+  const GetAttendanceByListDateEvent({
+    required this.dates,
+    required this.userId,
+  });
+
+  @override
+  List<Object> get props => [dates, userId];
+}

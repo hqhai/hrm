@@ -29,7 +29,8 @@ enum UserWorkingHistoryStatus {
   @JsonValue('')
   unknown(''),
   @JsonValue('LateWork')
-  lateWork('LateWork'),;
+  lateWork('LateWork'),
+  ;
 
   final String name;
 
@@ -118,6 +119,8 @@ enum CheckInMethodEnum {
   all('All'),
   @JsonValue('None')
   none('None'),
+  @JsonValue("EditAttendance")
+  editAttendance("EditAttendance"),
   @JsonValue('')
   unknown('');
 
