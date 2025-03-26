@@ -736,5 +736,6 @@
   "i18nOTRate": "Hệ số OT",
   "i18nYouWantToApproveThisApplication": "Bạn có chắc chắn phê duyệt đơn này?",
   "i18nReportLastMonthIsWorkOnlyOnThe1stAnd2nd": "Giải trình công của tháng trước đã hết hạn vào ngày 2 tháng này",
-  "i18nOnlyAllowedToEditWorkThisMonthOrLastMonth": "Chỉ cho phép chỉnh sửa tháng này hoặc tháng trước."
+  "i18nOnlyAllowedToEditWorkThisMonthOrLastMonth": "Chỉ cho phép chỉnh sửa tháng này hoặc tháng trước.",
+  "editAttendance":"edit attendance"
 }

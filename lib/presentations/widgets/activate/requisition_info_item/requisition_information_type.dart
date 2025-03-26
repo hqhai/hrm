@@ -62,7 +62,6 @@ Widget inFlowType(RequisitionTypeEnum? type) {
     case RequisitionTypeEnum.core:
     case null:
     case RequisitionTypeEnum.unknown:
-    default:
       return Container();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/explanation.dart';
@@ -73,56 +74,79 @@ class _ItemExplanationState extends State<ItemExplanation> {
                 ),
               ),
               if (state.attendanceByListDates.isNotEmpty && showNote) ...[
+                Text(
+                  appLocalizations.historyTimekeeping,
+                  style:
+                      theme.textTheme.titleMedium!.copyWith(color: colors.text),
+                ),
                 SizedBox(
                   height: SpacingUnit.x4,
                 ),
-                Column(
-                  children: state.attendanceByListDates.last.checkings
-                      .mapIndexed((index, e) {
-                    DateFormat inputFormat = DateFormat('hh:mm');
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.circle,
-                                  size: SpacingUnit.x4,
-                                  color: colors.primary,
+                if (state.attendanceByListDates.last.checkings.isEmpty) ...[
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width,
+                    child: Text(
+                      appLocalizations.noDataTimekeeping,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyMedium!
+                          .copyWith(color: colors.text),
+                    ),
+                  ),
+                ] else ...[
+                  Column(
+                    children: state.attendanceByListDates.last.checkings
+                        .mapIndexed((index, e) {
+                      DateFormat inputFormat = DateFormat('hh:mm');
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    size: SpacingUnit.x4,
+                                    color: colors.primary,
+                                  ),
+                                  SizedBox(
+                                    width: SpacingUnit.x1,
+                                  ),
+                                  Text(inputFormat.format(e.timeChecking)),
+                                ],
+                              ),
+                              Text(
+                                getTextCheckInMethodEnum(
+                                  appLocalizations,
+                                  e.checkInMethod,
                                 ),
-                                SizedBox(
-                                  width: SpacingUnit.x1,
-                                ),
-                                Text(inputFormat.format(e.timeChecking)),
-                              ],
-                            ),
-                            Text(
-                              e.checkInMethod.name,
-                              style: theme.textTheme.bodyMedium!
-                                  .copyWith(color: colors.primary),
-                            ),
-                          ],
-                        ),
-                        if (index < state.attendanceByListDates.length - 1) ...[
-                          Container(
-                            width: SpacingUnit.x4,
-                            alignment: Alignment.center,
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              height: SpacingUnit.x7,
-                              width: 1,
-                              color: colors.primary,
-                            ),
+                                style: theme.textTheme.bodyMedium!
+                                    .copyWith(color: colors.primary),
+                              ),
+                            ],
                           ),
-                        ]
-                      ],
-                    );
-                  }).toList(),
-                ),
+                          if (index <
+                              state.attendanceByListDates.last.checkings
+                                      .length -
+                                  1) ...[
+                            Container(
+                              width: SpacingUnit.x4,
+                              alignment: Alignment.center,
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                height: SpacingUnit.x7,
+                                width: 1,
+                                color: colors.primary,
+                              ),
+                            ),
+                          ]
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ],
                 SizedBox(
                   height: SpacingUnit.x4,
                 ),
@@ -177,5 +201,21 @@ class _ItemExplanationState extends State<ItemExplanation> {
     setState(() {
       showNote = !showNote;
     });
+  }
+}
+
+getTextCheckInMethodEnum(
+    AppLocalizations appLocalizations, CheckInMethodEnum checkInMethodEnum) {
+  switch (checkInMethodEnum) {
+    case CheckInMethodEnum.all:
+      return appLocalizations.all;
+    case CheckInMethodEnum.editAttendance:
+      return appLocalizations.editAttendance;
+    case CheckInMethodEnum.fingerprint:
+      return appLocalizations.fingerprint;
+    case CheckInMethodEnum.gPS:
+      return appLocalizations.gPS;
+    default:
+      return "";
   }
 }

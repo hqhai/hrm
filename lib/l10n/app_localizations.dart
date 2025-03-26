@@ -260,7 +260,7 @@ abstract class AppLocalizations {
   /// No description provided for @managementRequests.
   ///
   /// In en, this message translates to:
-  /// **'Requirements Management'**
+  /// **'Request management'**
   String get managementRequests;
 
   /// No description provided for @managementRoom.
@@ -644,7 +644,7 @@ abstract class AppLocalizations {
   /// No description provided for @errorEmailOrPassword.
   ///
   /// In en, this message translates to:
-  /// **'Incorrect Account Name Or Password'**
+  /// **'Incorrect Username or Password'**
   String get errorEmailOrPassword;
 
   /// No description provided for @endTimeMustBeAfterStartTime.
@@ -962,7 +962,7 @@ abstract class AppLocalizations {
   /// No description provided for @theContentAndTitleCannotBeLeftBlank.
   ///
   /// In en, this message translates to:
-  /// **'Content and subject cannot be empty'**
+  /// **'Content and title cannot be empty'**
   String get theContentAndTitleCannotBeLeftBlank;
 
   /// No description provided for @theNoteDateCannotBeBeforeThePresentTime.
@@ -1130,13 +1130,13 @@ abstract class AppLocalizations {
   /// No description provided for @checkIn.
   ///
   /// In en, this message translates to:
-  /// **'Clock in'**
+  /// **'Check-in'**
   String get checkIn;
 
   /// No description provided for @checkOut.
   ///
   /// In en, this message translates to:
-  /// **'Clock out'**
+  /// **'Check-out'**
   String get checkOut;
 
   /// No description provided for @history.
@@ -1436,7 +1436,7 @@ abstract class AppLocalizations {
   /// No description provided for @secondarySchool.
   ///
   /// In en, this message translates to:
-  /// **'Middle school'**
+  /// **'Secondary school'**
   String get secondarySchool;
 
   /// No description provided for @highSchool.
@@ -2642,7 +2642,7 @@ abstract class AppLocalizations {
   /// No description provided for @realWork.
   ///
   /// In en, this message translates to:
-  /// **'Actual Work'**
+  /// **'Standard work'**
   String get realWork;
 
   /// No description provided for @seeDetails.
@@ -3218,7 +3218,7 @@ abstract class AppLocalizations {
   /// No description provided for @companyReasons.
   ///
   /// In en, this message translates to:
-  /// **'Company reason'**
+  /// **'Work'**
   String get companyReasons;
 
   /// No description provided for @firstShift.
@@ -4016,7 +4016,7 @@ abstract class AppLocalizations {
   /// No description provided for @proactiveCaseRegistrationManagement.
   ///
   /// In en, this message translates to:
-  /// **'Proactive shift registration management'**
+  /// **'Employee shift management'**
   String get proactiveCaseRegistrationManagement;
 
   /// No description provided for @receivedShift.
@@ -4082,7 +4082,7 @@ abstract class AppLocalizations {
   /// No description provided for @noDataTimekeeping.
   ///
   /// In en, this message translates to:
-  /// **'No timekeeping data'**
+  /// **'No attendance data'**
   String get noDataTimekeeping;
 
   /// No description provided for @notification.
@@ -4178,13 +4178,13 @@ abstract class AppLocalizations {
   /// No description provided for @noConnected.
   ///
   /// In en, this message translates to:
-  /// **'No Connection/ An error occured, please check again later!'**
+  /// **'An error occurred, please check again!'**
   String get noConnected;
 
   /// No description provided for @reasonForCancellation.
   ///
   /// In en, this message translates to:
-  /// **'Reason for cancellation'**
+  /// **'Reason for canceling the shift'**
   String get reasonForCancellation;
 
   /// No description provided for @shiftIsCancelled.
@@ -4238,7 +4238,7 @@ abstract class AppLocalizations {
   /// No description provided for @edit2.
   ///
   /// In en, this message translates to:
-  /// **'Request revision'**
+  /// **'Request not revised'**
   String get edit2;
 
   /// No description provided for @errorNumber.
@@ -4250,7 +4250,7 @@ abstract class AppLocalizations {
   /// No description provided for @errNotData.
   ///
   /// In en, this message translates to:
-  /// **'Not data'**
+  /// **'No data'**
   String get errNotData;
 
   /// No description provided for @filterByMonth.
@@ -4316,7 +4316,7 @@ abstract class AppLocalizations {
   /// No description provided for @reasonForRemove.
   ///
   /// In en, this message translates to:
-  /// **'Reason for stop'**
+  /// **'Reason for being removed from the shift'**
   String get reasonForRemove;
 
   /// No description provided for @mapLocation.
@@ -4334,7 +4334,7 @@ abstract class AppLocalizations {
   /// No description provided for @reasonCancelShift.
   ///
   /// In en, this message translates to:
-  /// **'Reason cancel shift'**
+  /// **'Reason for canceling the shift'**
   String get reasonCancelShift;
 
   /// No description provided for @selectFilter.
@@ -4418,7 +4418,7 @@ abstract class AppLocalizations {
   /// No description provided for @forgotPasswordSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Forgot Password success!'**
+  /// **'Password reset successful!'**
   String get forgotPasswordSuccess;
 
   /// No description provided for @saveUpdateInfo.
@@ -4516,6 +4516,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Only allowed to edit work this month or last month.'**
   String get i18nOnlyAllowedToEditWorkThisMonthOrLastMonth;
+
+  /// No description provided for @editAttendance.
+  ///
+  /// In en, this message translates to:
+  /// **'sửa chấm công'**
+  String get editAttendance;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

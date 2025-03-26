@@ -2230,4 +2230,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get i18nOnlyAllowedToEditWorkThisMonthOrLastMonth => 'Chỉ cho phép chỉnh sửa tháng này hoặc tháng trước.';
+
+  @override
+  String get editAttendance => 'edit attendance';
 }

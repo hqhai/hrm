@@ -113,16 +113,16 @@ class _RequisitionInformationPageState
                           const RequisitionInformationSenderInformation(),
                         const RequisitionInformationGeneraliInformation(),
                         const RequisitionInformationType(),
-                        if (state.requisition.flowType !=
-                                RequisitionTypeEnum.stationery &&
-                            state.requisition.flowType !=
-                                RequisitionTypeEnum.makeUpWork &&
-                            state.requisition.flowType !=
-                                RequisitionTypeEnum.overTime)
-                          const RequisitionInformationContent(),
+                        // if (state.requisition.flowType !=
+                        //         RequisitionTypeEnum.stationery &&
+                        //     state.requisition.flowType !=
+                        //         RequisitionTypeEnum.makeUpWork &&
+                        //     state.requisition.flowType !=
+                        //         RequisitionTypeEnum.overTime)
+                        //   const RequisitionInformationContent(),
                         if (state.requisition.config.attachments.isNotEmpty)
                           const RequisitionInformationAttach(),
-                        const ItemFollowersInformationRequest(),
+                        // const ItemFollowersInformationRequest(),
                         const ItemListStepFlow(
                           create: false,
                         ),
