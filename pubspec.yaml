@@ -92,13 +92,12 @@ dependencies:
   connectivity_plus: ^6.1.0
   tuple: ^2.0.2
   shared_preferences: ^2.2.3
-  encrypt_shared_preferences: ^0.9.9
+  encrypt_shared_preferences: ^0.8.8
   freezed_annotation: ^3.0.0
   freezed: ^3.0.0-0.0.dev
   device_info_plus:
   firebase_core: ^3.12.1
   onesignal_flutter: ^5.3.0
-  app_settings: ^5.2.0
 
 dev_dependencies:
   flutter_test:
@@ -110,7 +109,8 @@ dev_dependencies:
   json_serializable: ^6.7.1
   copy_with_extension_gen: ^5.0.4
   injectable_generator: ^2.4.1
-  analyzer: ^6.11.0
+  analyzer: ^6.7.0
+  
 
 
 flutter:
