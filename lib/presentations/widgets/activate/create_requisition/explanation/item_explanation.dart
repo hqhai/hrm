@@ -114,7 +114,8 @@ class _ItemExplanationState extends State<ItemExplanation> {
                                   SizedBox(
                                     width: SpacingUnit.x1,
                                   ),
-                                  Text(inputFormat.format(e.timeChecking)),
+                                  Text(
+                                      "${e.timeChecking.hour}:${e.timeChecking.minute}"),
                                 ],
                               ),
                               Text(
