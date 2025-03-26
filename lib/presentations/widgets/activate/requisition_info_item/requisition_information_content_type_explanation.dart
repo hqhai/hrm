@@ -3,7 +3,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
-// import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
+import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_explanation.dart';
@@ -32,11 +32,11 @@ class _RequisitionInformationContentTypeExplanationState
       dI<WorkSheetBloc>().add(GetAttendanceByListDateEvent(
         dates: data.length != 1
             ? [
-                getStringDate(data.first.workDate ?? DateTime.now()),
-                getStringDate(data.last.workDate ?? DateTime.now()),
+                data.first.workDate.toString(),
+                data.last.workDate.toString(),
               ]
             : [
-                getStringDate(data.first.workDate ?? DateTime.now()),
+                data.first.workDate.toString(),
               ],
         userId: dI<RequisitionBloc>().state.requisition.createdUserId,
       ));
