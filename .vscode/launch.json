@@ -8,7 +8,7 @@
             "flutterMode": "debug",
             "program": "lib/main.uat.dart",
             "args": [
-                // "--flavor",
+                "--flavor",
                 "uat",
                 "--verbose"
             ]
