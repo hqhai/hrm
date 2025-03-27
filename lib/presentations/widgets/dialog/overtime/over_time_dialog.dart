@@ -79,6 +79,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
       suggestTime = int.parse((endTime - startTime).toString());
       note = widget.requisitionOverTime.note;
     }
+    date = widget.requisitionOverTime.date ?? DateTime.now();
     super.initState();
   }
 

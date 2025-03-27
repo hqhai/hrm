@@ -81,7 +81,7 @@ class _CreateRequisitionExplanationPageState
       detailedDescriptionController.text = description ?? "";
       explanations = [...request.config.explanations];
     }
-    _addExplanation();
+    _addExplanation(widget.date ?? DateTime.now());
     super.initState();
   }
 
@@ -128,7 +128,8 @@ class _CreateRequisitionExplanationPageState
                       changeExplanations: (value) => _setExplanations(value),
                       explanations: explanations,
                       title: appLocalizations.workDay,
-                      callback: () => _addExplanation(),
+                      callback: () =>
+                          _addExplanation(widget.date ?? DateTime.now()),
                     ),
                     // ItemCreateInputArea(
                     //   textController: detailedDescriptionController,
@@ -246,10 +247,10 @@ class _CreateRequisitionExplanationPageState
     });
   }
 
-  _addExplanation() {
+  _addExplanation(DateTime date) {
     setState(() {
       explanations.add(
-        Explanation(workDate: DateTime.now()),
+        Explanation(workDate: date),
       );
     });
   }

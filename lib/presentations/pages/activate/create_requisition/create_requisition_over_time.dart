@@ -75,7 +75,7 @@ class _CreateRequisitionOverTimePageState
       description = request.config.description;
       inputController.text = description;
     }
-    addOverTime();
+    addOverTime(widget.date ?? DateTime.now());
     super.initState();
   }
 
@@ -134,7 +134,7 @@ class _CreateRequisitionOverTimePageState
                         checkUpdate: widget.requestId.isNotEmpty,
                         requiredValidate: true,
                         checkExplanation: true,
-                        callback: () => addOverTime(),
+                        callback: () => addOverTime(DateTime.now()),
                         title: appLocalizations.listOvertime,
                         error: error,
                         requisitionOverTimes: requisitionOverTimes,
@@ -274,10 +274,10 @@ class _CreateRequisitionOverTimePageState
     });
   }
 
-  addOverTime() {
+  addOverTime(DateTime date) {
     setState(() {
       requisitionOverTimes.add(RequisitionOverTime(
-          date: DateTime.now(), overtimeDay: EnumOvertimeDay.holiday));
+          date: date, overtimeDay: EnumOvertimeDay.holiday));
     });
   }
 }
