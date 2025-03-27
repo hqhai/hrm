@@ -3,8 +3,10 @@ import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-enum EnumLoadingRequest{
-  success, fail, noConnected,
+enum EnumLoadingRequest {
+  success,
+  fail,
+  noConnected,
 }
 
 enum EnumTakeLeaveType {
@@ -38,7 +40,6 @@ extension ConfigTakeLeaveTypeExtension on EnumTakeLeaveType {
       case EnumTakeLeaveType.otherPaidLeave:
         return appLocalizations.otherPaidLeave;
       case EnumTakeLeaveType.unknown:
-      default:
         return '';
     }
   }
@@ -336,7 +337,6 @@ extension ConfigTypeFilter on RequisitionTypeEnum {
       case RequisitionTypeEnum.core:
         return appLocalizations.core;
       case RequisitionTypeEnum.unknown:
-      default:
         return '';
     }
   }
@@ -374,7 +374,6 @@ extension ConfigTypeCreate on RequisitionTypeEnum {
       case RequisitionTypeEnum.core:
         return appLocalizations.core;
       case RequisitionTypeEnum.unknown:
-      default:
         return '';
     }
   }
@@ -412,7 +411,6 @@ extension ConfigTypeExtension on RequisitionTypeEnum {
       case RequisitionTypeEnum.core:
         return appLocalizations.core;
       case RequisitionTypeEnum.unknown:
-      default:
         return '';
     }
   }
@@ -428,7 +426,8 @@ enum RequisitionTypeExplanationEnum {
   const RequisitionTypeExplanationEnum(this.name);
 }
 
-extension ConfigRequisitionTypeExplanationExtension on RequisitionTypeExplanationEnum {
+extension ConfigRequisitionTypeExplanationExtension
+    on RequisitionTypeExplanationEnum {
   String get configRequisitionTypeExplanationName {
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final appLocalizations = AppLocalizations.of(currentContext)!;
@@ -439,8 +438,6 @@ extension ConfigRequisitionTypeExplanationExtension on RequisitionTypeExplanatio
         return appLocalizations.late;
       case RequisitionTypeExplanationEnum.other:
         return appLocalizations.other;
-      default:
-        return '';
     }
   }
 }

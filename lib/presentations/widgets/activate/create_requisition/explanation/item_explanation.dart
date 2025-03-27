@@ -11,7 +11,7 @@ import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:themes/themes.dart';
 import 'package:collection/collection.dart';
 
@@ -36,7 +36,7 @@ class _ItemExplanationState extends State<ItemExplanation> {
     return BlocBuilder<WorkSheetBloc, WorkSheetState>(
       builder: (context, state) {
         return ContainerBorder(
-          borderColors: colors.text.withOpacity(0.3),
+          borderColors: colors.text.withValues(alpha: 0.3),
           paddingVertical: 0,
           paddingHorizontal: SpacingUnit.x2,
           child: Column(
@@ -67,7 +67,8 @@ class _ItemExplanationState extends State<ItemExplanation> {
                             ? Assets.images.icon.home.chevronForward
                             : Assets.images.icon.activateIcon.drop,
                         colorFilter: ColorFilter.mode(
-                            colors.text.withOpacity(0.4), BlendMode.srcIn),
+                            colors.text.withValues(alpha: 0.4),
+                            BlendMode.srcIn),
                       ),
                     ),
                   ],
@@ -96,7 +97,6 @@ class _ItemExplanationState extends State<ItemExplanation> {
                   Column(
                     children: state.attendanceByListDates.last.checkings
                         .mapIndexed((index, e) {
-                      DateFormat inputFormat = DateFormat('hh:mm');
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -173,7 +173,7 @@ class _ItemExplanationState extends State<ItemExplanation> {
                   ),
                 ),
                 ContainerBorder(
-                  borderColors: colors.text.withOpacity(0.3),
+                  borderColors: colors.text.withValues(alpha: 0.3),
                   paddingVertical: SpacingUnit.x4,
                   height: SpacingUnit.x30,
                   width: width,

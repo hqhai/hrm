@@ -32,14 +32,17 @@ class ListviewRequestSelf extends StatefulWidget {
   State<ListviewRequestSelf> createState() => _ListviewRequestSelfState();
 }
 
-class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerProviderStateMixin {
+class _ListviewRequestSelfState extends State<ListviewRequestSelf>
+    with TickerProviderStateMixin {
   late final TabController _tabController;
   bool checkLoad = true;
   int indexTab = 0;
 
   @override
   void initState() {
-    _tabController = TabController(length: StatusRequestEnum.values.length - 1, vsync: this)..addListener(_scrollListener);
+    _tabController =
+        TabController(length: StatusRequestEnum.values.length - 1, vsync: this)
+          ..addListener(_scrollListener);
     super.initState();
   }
 
@@ -60,28 +63,43 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerPr
                   isScrollable: true,
                   controller: _tabController,
                   indicatorSize: TabBarIndicatorSize.tab,
-                  dividerColor: colors.textLight.withOpacity(0.1),
+                  dividerColor: colors.textLight.withValues(alpha: 0.1),
                   dividerHeight: 0.1,
                   indicatorColor: colors.textLight,
                   tabAlignment: TabAlignment.start,
-                  tabs: StatusRequestEnum.values.where((element) => element != StatusRequestEnum.unknown).mapIndexed((index, status) {
+                  tabs: StatusRequestEnum.values
+                      .where((element) => element != StatusRequestEnum.unknown)
+                      .mapIndexed((index, status) {
                     final isActive = index == _tabController.index;
                     return Tab(
                       child: Row(
                         children: [
                           Text(
                             status.getAppLocalizationName,
-                            style: TextStyle(fontWeight: isActive ? FontWeight.w600 : null, color: isActive ? colors.text : colors.text.withOpacity(0.5), fontSize: SpacingUnit.x3_5),
+                            style: TextStyle(
+                                fontWeight: isActive ? FontWeight.w600 : null,
+                                color: isActive
+                                    ? colors.text
+                                    : colors.text.withValues(alpha: 0.5),
+                                fontSize: SpacingUnit.x3_5),
                           ),
                           BlocSelector<RequisitionBloc, RequisitionState, int>(
                             selector: (state) => state.statusCount[status] ?? 0,
                             builder: (context, state) => Chip(
                               padding: EdgeInsets.zero,
-                              backgroundColor: colors.primary.withOpacity(0.3),
-                              shape: RoundedRectangleBorder(side: const BorderSide(style: BorderStyle.none), borderRadius: BorderRadius.circular(SpacingUnit.x6)),
+                              backgroundColor:
+                                  colors.primary.withValues(alpha: 0.3),
+                              shape: RoundedRectangleBorder(
+                                  side:
+                                      const BorderSide(style: BorderStyle.none),
+                                  borderRadius:
+                                      BorderRadius.circular(SpacingUnit.x6)),
                               label: Text(
                                 countStatus(state),
-                                style: TextStyle(fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w400, color: colors.primary),
+                                style: TextStyle(
+                                    fontSize: SpacingUnit.x3_5,
+                                    fontWeight: FontWeight.w400,
+                                    color: colors.primary),
                               ),
                             ),
                           ),
@@ -93,11 +111,12 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf> with TickerPr
               ),
               Expanded(
                 child: Container(
-                  color: colors.secondaryContainer.withOpacity(0.1),
+                  color: colors.secondaryContainer.withValues(alpha: 0.1),
                   child: TabBarView(
                     controller: _tabController,
                     children: StatusRequestEnum.values
-                        .where((element) => element != StatusRequestEnum.unknown)
+                        .where(
+                            (element) => element != StatusRequestEnum.unknown)
                         .map(
                           (status) => TabBarViewListRequestSelf(
                             checkLoad: checkLoad && widget.checkLoad,

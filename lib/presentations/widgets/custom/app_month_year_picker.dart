@@ -11,7 +11,11 @@ import 'package:themes/themes.dart';
 
 class MonthYearPicker extends StatefulWidget {
   const MonthYearPicker(
-      {super.key, required this.onChange, this.timeOld, this.title, this.requiredValidate = false});
+      {super.key,
+      required this.onChange,
+      this.timeOld,
+      this.title,
+      this.requiredValidate = false});
 
   final ValueChanged<DateTime> onChange;
   final DateTime? timeOld;
@@ -51,7 +55,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
               backgroundColors: colors.background,
               marginTop: SpacingUnit.x2,
               // padding: SpacingUnit.x4,
-              borderColors: colors.text.withOpacity(0.4),
+              borderColors: colors.text.withValues(alpha: 0.4),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -64,7 +68,8 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
                   ),
                   SvgPicture.asset(
                     Assets.images.icon.home.bottomBar.calendar,
-                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        colors.text.withValues(alpha: 0.4), BlendMode.srcIn),
                   ),
                 ],
               ),

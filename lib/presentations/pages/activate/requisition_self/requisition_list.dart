@@ -16,7 +16,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
 
-final requisitionListPageRoute = GoRoute(path: Pages.requisitionListPage, name: Pages.requisitionListPage, builder: (context, GoRouterState state) => const RequisitionListPage());
+final requisitionListPageRoute = GoRoute(
+    path: Pages.requisitionListPage,
+    name: Pages.requisitionListPage,
+    builder: (context, GoRouterState state) => const RequisitionListPage());
 
 class RequisitionListPage extends StatefulWidget {
   const RequisitionListPage({super.key});
@@ -68,7 +71,7 @@ class _RequisitionListPageState extends State<RequisitionListPage> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
-            color: colors.outline.withOpacity(0.3),
+            color: colors.outline.withValues(alpha: 0.3),
             height: SpacingUnit.x0_5,
           ),
         ),

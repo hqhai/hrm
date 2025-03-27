@@ -7,13 +7,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class ItemShiftOnTab extends StatelessWidget {
-  const ItemShiftOnTab({
-    super.key,
-    required this.title,
-    this.value,
-    this.last,
-    this.checkInMethodEnum = CheckInMethodEnum.gPS
-  });
+  const ItemShiftOnTab(
+      {super.key,
+      required this.title,
+      this.value,
+      this.last,
+      this.checkInMethodEnum = CheckInMethodEnum.gPS});
 
   final String title;
   final String? value;
@@ -27,7 +26,8 @@ class ItemShiftOnTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,8 +36,8 @@ class ItemShiftOnTab extends StatelessWidget {
                   padding: const EdgeInsets.only(right: SpacingUnit.x2),
                   child: SvgPicture.asset(
                     Assets.images.icon.home.worksheet.dotTimeline,
-                     height: SpacingUnit.x4,
-                      width: SpacingUnit.x4,
+                    height: SpacingUnit.x4,
+                    width: SpacingUnit.x4,
                   ),
                 ),
                 Text(
@@ -61,9 +61,10 @@ class ItemShiftOnTab extends StatelessWidget {
         if (last ?? false)
           Container(
             height: SpacingUnit.x10,
-            padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x0_5 + SpacingUnit.x0_25),
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpacingUnit.x0_5 + SpacingUnit.x0_25),
             child: VerticalDivider(
-              color: colors.text.withOpacity(0.5),
+              color: colors.text.withValues(alpha: 0.5),
               width: SpacingUnit.x2,
             ),
           ),

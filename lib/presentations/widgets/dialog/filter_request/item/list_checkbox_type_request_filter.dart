@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ListCheckboxTypeRequestFilter extends StatefulWidget {
-  const ListCheckboxTypeRequestFilter({super.key, required this.onChange, required this.listTypes});
+  const ListCheckboxTypeRequestFilter(
+      {super.key, required this.onChange, required this.listTypes});
 
   final ValueChanged<List<RequisitionTypeEnum>> onChange;
   final List<RequisitionTypeEnum> listTypes;
@@ -68,7 +69,7 @@ class _ListCheckboxTypeRequestFilterState
                     backgroundColors: listTypes.contains(type)
                         ? colors.blue
                         : colors.background,
-                    borderColors: colors.text.withOpacity(0.3),
+                    borderColors: colors.text.withValues(alpha: 0.3),
                     child: Center(
                       child: Text(
                         type.configTypeNameFilter,

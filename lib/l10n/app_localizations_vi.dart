@@ -2232,5 +2232,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get i18nOnlyAllowedToEditWorkThisMonthOrLastMonth => 'Chỉ cho phép chỉnh sửa tháng này hoặc tháng trước.';
 
   @override
-  String get editAttendance => 'edit attendance';
+  String get editAttendance => 'sửa chấm công';
+
+  @override
+  String get youAreSelecting => 'Bạn đang chọn';
 }

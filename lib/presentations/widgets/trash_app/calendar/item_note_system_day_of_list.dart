@@ -19,7 +19,8 @@ class ItemNoteSystemDayOfList extends StatefulWidget {
   });
 
   @override
-  State<ItemNoteSystemDayOfList> createState() => _ItemNoteSystemDayOfListState();
+  State<ItemNoteSystemDayOfList> createState() =>
+      _ItemNoteSystemDayOfListState();
 }
 
 class _ItemNoteSystemDayOfListState extends State<ItemNoteSystemDayOfList> {
@@ -43,7 +44,8 @@ class _ItemNoteSystemDayOfListState extends State<ItemNoteSystemDayOfList> {
 
   List<Note> getNote(List<Note> listNotes) {
     final List<Note> list = listNotes
-        .where((element) => date(element.dateTime ?? DateTime.now()) == date(widget.dateTime))
+        .where((element) =>
+            date(element.dateTime ?? DateTime.now()) == date(widget.dateTime))
         .toList();
     return list;
   }
@@ -57,8 +59,9 @@ class _ItemNoteSystemDayOfListState extends State<ItemNoteSystemDayOfList> {
       builder: (context, state) {
         final notes = getNote(state.notes);
         return Column(
-          crossAxisAlignment:
-              notes.isNotEmpty ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+          crossAxisAlignment: notes.isNotEmpty
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.center,
           children: [
             SizedBox(
               width: width,
@@ -70,7 +73,9 @@ class _ItemNoteSystemDayOfListState extends State<ItemNoteSystemDayOfList> {
                     context: context,
                   )}',
                   style: TextStyle(
-                      color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w600),
+                      color: colors.text,
+                      fontSize: SpacingUnit.x3_5,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -87,22 +92,25 @@ class _ItemNoteSystemDayOfListState extends State<ItemNoteSystemDayOfList> {
                           return InkWell(
                             onTap: () {
                               if (notes.isNotEmpty) {
-                                dI<AppNavigation>()
-                                    .pushName(context, page: Pages.noteSystem, extra: {
-                                  'note': e,
-                                });
+                                dI<AppNavigation>().pushName(context,
+                                    page: Pages.noteSystem,
+                                    extra: {
+                                      'note': e,
+                                    });
                               }
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: SpacingUnit.x4,
                               ),
-                              margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x1),
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: SpacingUnit.x1),
                               alignment: Alignment.centerLeft,
                               width: MediaQuery.sizeOf(context).width,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(SpacingUnit.x2),
-                                color: colors.text.withOpacity(0.2),
+                                borderRadius:
+                                    BorderRadius.circular(SpacingUnit.x2),
+                                color: colors.text.withValues(alpha: 0.2),
                               ),
                               height: SpacingUnit.x12,
                               child: Text(

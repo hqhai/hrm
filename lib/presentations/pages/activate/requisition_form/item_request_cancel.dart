@@ -23,8 +23,8 @@ class ItemRequestCancel extends StatelessWidget {
           children: [
             Expanded(
               child: ButtonItemListRequisition(
-                colorText: colors.text.withOpacity(0.7),
-                background: colors.text.withOpacity(0.2),
+                colorText: colors.text.withValues(alpha: 0.7),
+                background: colors.text.withValues(alpha: 0.2),
                 title: appLocalizations.approver,
                 callback: () {},
               ),
@@ -32,8 +32,8 @@ class ItemRequestCancel extends StatelessWidget {
             const SizedBox(width: SpacingUnit.x4),
             Expanded(
               child: ButtonItemListRequisition(
-                colorText: colors.text.withOpacity(0.7),
-                background: colors.text.withOpacity(0.2),
+                colorText: colors.text.withValues(alpha: 0.7),
+                background: colors.text.withValues(alpha: 0.2),
                 title: appLocalizations.modification,
                 callback: () {},
               ),
@@ -42,7 +42,7 @@ class ItemRequestCancel extends StatelessWidget {
             Expanded(
               child: ButtonItemListRequisition(
                 colorText: colors.error,
-                background: colors.error.withOpacity(0.2),
+                background: colors.error.withValues(alpha: 0.2),
                 title: appLocalizations.cancelRequest,
                 callback: () => callCancel.call(),
               ),

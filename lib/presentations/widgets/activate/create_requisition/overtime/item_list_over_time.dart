@@ -37,7 +37,7 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
     return ContainerBorder(
       paddingVertical: SpacingUnit.x2_5,
       marginTop: SpacingUnit.x2_5,
-      borderColors: colors.text.withOpacity(0.3),
+      borderColors: colors.text.withValues(alpha: 0.3),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +114,7 @@ class _ItemListOverTimeState extends State<ItemListOverTime> {
                           ? Assets.images.icon.home.chevronForward
                           : Assets.images.icon.activateIcon.drop,
                       colorFilter: ColorFilter.mode(
-                          colors.text.withOpacity(0.4), BlendMode.srcIn),
+                          colors.text.withValues(alpha: 0.4), BlendMode.srcIn),
                     ),
                   ),
                 ],

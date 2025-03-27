@@ -7,11 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class MonthYearDialog extends StatefulWidget {
-  const MonthYearDialog({
-    super.key,
-    required this.onChange,
-    this.timeOld
-  });
+  const MonthYearDialog({super.key, required this.onChange, this.timeOld});
 
   final ValueChanged<DateTime> onChange;
   final DateTime? timeOld;
@@ -47,13 +43,12 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
   setTimeMonth(int month) {
     setState(() {
       time = DateTime(year, month);
-
     });
   }
 
   @override
   void initState() {
-    if(widget.timeOld != null){
+    if (widget.timeOld != null) {
       time = widget.timeOld!;
       year = widget.timeOld!.year;
     }
@@ -66,8 +61,8 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
     return ContainerBorder(
-      borderColors: colors.text.withOpacity(0.1),
-      height: width*0.9,
+      borderColors: colors.text.withValues(alpha: 0.1),
+      height: width * 0.9,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -78,7 +73,7 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
                 onTap: () => setYear(true),
                 child: Icon(
                   Icons.arrow_left,
-                  color: colors.text.withOpacity(0.5),
+                  color: colors.text.withValues(alpha: 0.5),
                   size: SpacingUnit.x12_5,
                 ),
               ),
@@ -99,7 +94,7 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
                 onTap: () => setYear(false),
                 child: Icon(
                   Icons.arrow_right,
-                  color: colors.text.withOpacity(0.5),
+                  color: colors.text.withValues(alpha: 0.5),
                   size: SpacingUnit.x12_5,
                 ),
               ),
@@ -116,8 +111,11 @@ class _MonthYearDialogState extends State<MonthYearDialog> {
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () => setTimeMonth(index + 1),
                 child: ContainerBorder(
-                  backgroundColors: _checkMonth(index) ? colors.tertiary.withOpacity(0.2) : null,
-                  borderColors: _checkMonthNow(index) ? colors.error : Colors.transparent,
+                  backgroundColors: _checkMonth(index)
+                      ? colors.tertiary.withValues(alpha: 0.2)
+                      : null,
+                  borderColors:
+                      _checkMonthNow(index) ? colors.error : Colors.transparent,
                   child: Center(
                     child: Text(
                       textAlign: TextAlign.center,

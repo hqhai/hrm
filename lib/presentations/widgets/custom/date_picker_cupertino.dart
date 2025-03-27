@@ -149,8 +149,9 @@ class _DatePickerState extends State<DatePickerLoop> {
           context: context, currentTime: widget.oldDate ?? DateTime.now()),
       child: ContainerBorder(
         paddingVertical: SpacingUnit.x4_5,
-        borderColors:
-            widget.checkError ? colors.text.withOpacity(0.4) : colors.error,
+        borderColors: widget.checkError
+            ? colors.text.withValues(alpha: 0.4)
+            : colors.error,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -176,7 +177,7 @@ class _DatePickerState extends State<DatePickerLoop> {
                           : Assets.images.icon.home.chevronForward,
                   colorFilter: ColorFilter.mode(
                       !widget.changeType
-                          ? colors.text.withOpacity(0.4)
+                          ? colors.text.withValues(alpha: 0.4)
                           : colors.text,
                       BlendMode.srcIn),
                 ),

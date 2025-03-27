@@ -75,8 +75,8 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
                 child: Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   child: AppButton(
-                    color: colors.blue.withOpacity(0.2),
-                    colorBorder: colors.blue.withOpacity(0.2),
+                    color: colors.blue.withValues(alpha: 0.2),
+                    colorBorder: colors.blue.withValues(alpha: 0.2),
                     colorText: colors.primary,
                     title: appLocalizations.cancel,
                     onSubmit: () => dI<AppNavigation>().pop(context),
@@ -228,14 +228,16 @@ class _FilterDateTimeWorkState extends State<FilterDateTimeWork> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(SpacingUnit.x2),
                     color: startTime.month == index + 1
-                        ? colors.blue.withOpacity(0.1)
+                        ? colors.blue.withValues(alpha: 0.1)
                         : Colors.transparent,
                   ),
                   child: Center(
                     child: Text(
                       GetMonth.mapMonthName[index + 1]?.configMonthName ?? '',
                       style: TextStyle(
-                        color: startTime.month == index + 1 ? colors.primary : colors.text,
+                        color: startTime.month == index + 1
+                            ? colors.primary
+                            : colors.text,
                         fontSize: SpacingUnit.x4,
                       ),
                     ),

@@ -22,7 +22,8 @@ class ItemTakeLeave extends StatefulWidget {
 }
 
 class _ItemTakeLeaveState extends State<ItemTakeLeave> {
-  EnumTakeLeaveType takeLeaveType = EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
+  EnumTakeLeaveType takeLeaveType =
+      EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
 
   @override
   void initState() {
@@ -50,7 +51,7 @@ class _ItemTakeLeaveState extends State<ItemTakeLeave> {
             onTap: () => setTakeLeave(context),
             child: ContainerBorder(
               width: width,
-              borderColors: colors.outline.withOpacity(0.3),
+              borderColors: colors.outline.withValues(alpha: 0.3),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -61,7 +62,11 @@ class _ItemTakeLeaveState extends State<ItemTakeLeave> {
                       fontSize: SpacingUnit.x4,
                     ),
                   ),
-                  Icon(Icons.arrow_drop_down_sharp, color: colors.text, size: SpacingUnit.x6,)
+                  Icon(
+                    Icons.arrow_drop_down_sharp,
+                    color: colors.text,
+                    size: SpacingUnit.x6,
+                  )
                 ],
               ),
             ),

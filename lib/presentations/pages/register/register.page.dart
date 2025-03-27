@@ -87,7 +87,7 @@ class _RegisterPageState extends State<RegisterPage>
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             margin: const EdgeInsets.all(SpacingUnit.x4),
-            color: colors.outline.withOpacity(0.1),
+            color: colors.outline.withValues(alpha: 0.1),
             child: Padding(
               padding: const EdgeInsets.all(SpacingUnit.x8),
               child: Column(children: [

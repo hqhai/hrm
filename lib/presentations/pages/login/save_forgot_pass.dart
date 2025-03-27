@@ -34,7 +34,7 @@ class SaveForgotPass extends StatelessWidget {
           child: Text(appLocalizations.forgotPassword,
               style: TextStyle(
                 fontSize: SpacingUnit.x3_5,
-                color: colors.text.withOpacity(0.5),
+                color: colors.text.withValues(alpha: 0.5),
               )),
         ),
       ],

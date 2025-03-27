@@ -14,7 +14,8 @@ import 'package:themes/themes.dart';
 
 ///BottomSheet
 class DateMonthCupertino extends StatefulWidget {
-  const DateMonthCupertino({super.key, required this.dateOld, required this.onChange});
+  const DateMonthCupertino(
+      {super.key, required this.dateOld, required this.onChange});
 
   final DateTime dateOld;
   final ValueChanged<DateTime> onChange;
@@ -150,17 +151,22 @@ class _DatePickerState extends State<MonthPickerLoop> {
             title: widget.title ?? appLocalizations.time,
             requiredValidate: widget.requiredValidate),
         GestureDetector(
-          onTap: () => dialog(context: context, currentTime: widget.oldDate ?? DateTime.now()),
+          onTap: () => dialog(
+              context: context, currentTime: widget.oldDate ?? DateTime.now()),
           child: ContainerBorder(
             paddingVertical: SpacingUnit.x4_5,
-            borderColors: widget.checkError ? colors.text.withOpacity(0.4) : colors.error,
+            borderColors: widget.checkError
+                ? colors.text.withValues(alpha: 0.4)
+                : colors.error,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   formatMY(currentDate),
                   style: TextStyle(
-                      fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600),
+                      fontSize: SpacingUnit.x4,
+                      color: colors.text,
+                      fontWeight: FontWeight.w600),
                 ),
                 InkWell(
                   onTap: () => widget.callBack?.call(),
@@ -173,7 +179,9 @@ class _DatePickerState extends State<MonthPickerLoop> {
                             ? Assets.images.icon.activateIcon.drop
                             : Assets.images.icon.home.chevronForward,
                     colorFilter: ColorFilter.mode(
-                        !widget.changeType ? colors.text.withOpacity(0.4) : colors.text,
+                        !widget.changeType
+                            ? colors.text.withValues(alpha: 0.4)
+                            : colors.text,
                         BlendMode.srcIn),
                   ),
                 ),
@@ -181,7 +189,9 @@ class _DatePickerState extends State<MonthPickerLoop> {
             ),
           ),
         ),
-        const SizedBox(height: SpacingUnit.x4,)
+        const SizedBox(
+          height: SpacingUnit.x4,
+        )
       ],
     );
   }

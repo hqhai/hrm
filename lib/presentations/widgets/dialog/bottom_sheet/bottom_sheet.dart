@@ -66,7 +66,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child: SearchInput(onChange: (value) => _onChangeSearch(value)),
+                  child:
+                      SearchInput(onChange: (value) => _onChangeSearch(value)),
                 ),
                 Expanded(
                   child: SizedBox(
@@ -81,7 +82,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                           child: ItemSelected(
                             label:
                                 '${state.usersByName[index].fullName} - ${nameDepartment(state.usersByName[index].userDepartmentPositions)} - #${state.usersByName[index].code}',
-                            isActive: listPerson.contains(state.usersByName[index].id),
+                            isActive: listPerson
+                                .contains(state.usersByName[index].id),
                           ),
                         );
                       },
@@ -91,7 +93,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x4),
                   child: AppButton(
-                    color: colors.blue.withOpacity(0.8),
+                    color: colors.blue.withValues(alpha: 0.8),
                     colorText: colors.background,
                     title: appLocalizations.add,
                     onSubmit: () => setOnChange(),
@@ -104,8 +106,6 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       },
     );
   }
-
-
 
   addListPerson({required String listValueByIndex, required User user}) {
     setState(() {
@@ -132,14 +132,16 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   }
 
   _scrollListener() async {
-    if (lengthList < totalItems && controller.position.extentAfter < totalItems && checkLoad) {
+    if (lengthList < totalItems &&
+        controller.position.extentAfter < totalItems &&
+        checkLoad) {
       setState(() {
         pageIndex++;
         checkLoad = false;
       });
       final Completer completer = Completer<bool>();
-      dI<UserByNameBloc>()
-          .add(GetUserByNameEvent(name: searchStr, page: pageIndex, completer: completer));
+      dI<UserByNameBloc>().add(GetUserByNameEvent(
+          name: searchStr, page: pageIndex, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {
@@ -157,7 +159,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   }
 
   String nameDepartment(List<UserDepartmentPosition> userDepartmentPositions) {
-    if(userDepartmentPositions.isNotEmpty){
+    if (userDepartmentPositions.isNotEmpty) {
       return userDepartmentPositions.first.department?.name ?? "";
     }
     return 'Không rõ phòng ban';

@@ -58,11 +58,15 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
 //
 
   final ItemScrollController _scrollControllerHeader = ItemScrollController();
-  final ScrollOffsetController scrollOffsetController = ScrollOffsetController();
-  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
-  final ScrollOffsetListener scrollOffsetListener = ScrollOffsetListener.create();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
   final ItemScrollController scrollControllerBody = ItemScrollController();
-  final ItemPositionsListener itemPositionsListenerBody = ItemPositionsListener.create();
+  final ItemPositionsListener itemPositionsListenerBody =
+      ItemPositionsListener.create();
 
   @override
   void initState() {
@@ -84,7 +88,8 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   }
 
   _getData() {
-    dI<WorkDayBloc>().add(GetWorkDaysEvent(startDate: listDateAppBar.first, endDate: listDateAppBar.last));
+    dI<WorkDayBloc>().add(GetWorkDaysEvent(
+        startDate: listDateAppBar.first, endDate: listDateAppBar.last));
   }
 
   // bool _checkNextScrollHeader(Iterable<ItemPosition> listIndex) {
@@ -116,12 +121,15 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
 
   _bodyScroll() {
     itemPositionsListenerBody.itemPositions.addListener(() async {
-      Iterable<ItemPosition> listIndex = itemPositionsListenerBody.itemPositions.value;
+      Iterable<ItemPosition> listIndex =
+          itemPositionsListenerBody.itemPositions.value;
       int nextIndex = currentHeaderScrollIndex + 7;
-      dI<WorkDayBloc>().add(ChangeSelectDate(date: listDateAppBar[(listIndex.first.index)]));
+      dI<WorkDayBloc>()
+          .add(ChangeSelectDate(date: listDateAppBar[(listIndex.first.index)]));
       if (nextIndex <= listIndex.first.index && !isHeaderScroll) {
         setUpWeek();
-      } else if (currentHeaderScrollIndex > listIndex.first.index && !isHeaderScroll) {
+      } else if (currentHeaderScrollIndex > listIndex.first.index &&
+          !isHeaderScroll) {
         setDownWeek();
       }
     });
@@ -150,7 +158,8 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   }
 
   List<DateTime> listDays(DateTime nowDate) {
-    final int nowOfWeek = mapNumberDayInWeek[DateFormat('EEE').format(nowDate)] ?? 0;
+    final int nowOfWeek =
+        mapNumberDayInWeek[DateFormat('EEE').format(nowDate)] ?? 0;
     setState(() {
       startOfWeek = nowDate.subtract(Duration(days: nowOfWeek - 1));
       endOfWeek = startOfWeek.add(const Duration(days: 7));
@@ -169,7 +178,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
 
   _listener(BuildContext context, String errorCode) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -180,7 +191,8 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     final theme = Theme.of(context);
     return BlocConsumer<WorkDayBloc, WorkDayState>(
       listener: (context, state) => _listener(context, state.errorCode),
-      buildWhen: (previous, current) => previous.selectDate != current.selectDate,
+      buildWhen: (previous, current) =>
+          previous.selectDate != current.selectDate,
       builder: (context, state) {
         return Scaffold(
           appBar: PreferredSize(
@@ -189,7 +201,10 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: SpacingUnit.x5, right: SpacingUnit.x5, bottom: SpacingUnit.x5),
+                    padding: const EdgeInsets.only(
+                        left: SpacingUnit.x5,
+                        right: SpacingUnit.x5,
+                        bottom: SpacingUnit.x5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -203,7 +218,8 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                         ),
                         Text(
                           appLocalizations.registerShift,
-                          style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
+                          style: theme.textTheme.titleLarge!
+                              .copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox()
                       ],
@@ -234,7 +250,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                           child: ItemDayOfWeek(
                             index: index,
                             time: listDateAppBar[index],
-                            select: date.day == listDateAppBar[index].day && date.month == listDateAppBar[index].month && date.year == listDateAppBar[index].year,
+                            select: date.day == listDateAppBar[index].day &&
+                                date.month == listDateAppBar[index].month &&
+                                date.year == listDateAppBar[index].year,
                           ),
                         );
                       },
@@ -247,7 +265,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
             ),
           ),
           body: Container(
-            color: colors.surfaceVariantLow.withOpacity(0.1),
+            color: colors.surfaceVariantLow.withValues(alpha: 0.1),
             width: MediaQuery.sizeOf(context).width,
             height: MediaQuery.sizeOf(context).height,
             child: Stack(
@@ -262,7 +280,8 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                       selected: false,
                       isCheckBox: isShowCheckBox,
                       dateTime: listDateAppBar[index],
-                      onChange: (WorkDayRequest value) => _addItemRegister(value),
+                      onChange: (WorkDayRequest value) =>
+                          _addItemRegister(value),
                       onTap: () {},
                       listSelect: workDays,
                     );
@@ -289,12 +308,15 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
                           width: SpacingUnit.x40,
                           height: SpacingUnit.x10,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(SpacingUnit.x13),
-                            color: colors.primary.withOpacity(0.7),
+                            borderRadius:
+                                BorderRadius.circular(SpacingUnit.x13),
+                            color: colors.primary.withValues(alpha: 0.7),
                           ),
                           child: Text(
-                            "Đăng ký ca",
-                            style: theme.textTheme.bodyLarge!.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+                            appLocalizations.registerForShifts,
+                            style: theme.textTheme.bodyLarge!.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
                           )),
                     ),
                   ),
@@ -345,12 +367,18 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   }
 
   _addItemRegister(WorkDayRequest workDayRequest) {
-    if (workDays.where((e) => e.workShiftSettingDetailId == workDayRequest.workShiftSettingDetailId).isEmpty) {
+    if (workDays
+        .where((e) =>
+            e.workShiftSettingDetailId ==
+            workDayRequest.workShiftSettingDetailId)
+        .isEmpty) {
       setState(() {
         workDays = [...workDays, workDayRequest];
       });
     } else {
-      final index = workDays.indexWhere((e) => e.workShiftSettingDetailId == workDayRequest.workShiftSettingDetailId);
+      final index = workDays.indexWhere((e) =>
+          e.workShiftSettingDetailId ==
+          workDayRequest.workShiftSettingDetailId);
       setState(() {
         workDays.removeAt(index);
       });
@@ -362,7 +390,8 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     try {
       if (isShowCheckBox && workDays.isNotEmpty) {
         Completer completer = Completer<bool>();
-        dI<WorkDayBloc>().add(RegisterWorkDay(request: workDays, completer: completer));
+        dI<WorkDayBloc>()
+            .add(RegisterWorkDay(request: workDays, completer: completer));
         final check = await completer.future;
         if (check) {
           ToastUtils().showSuccess(appLocalizations.success);
@@ -393,7 +422,10 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
 
   int _getCurrentIndex() {
     DateTime date = DateTime.now();
-    int index = listDateAppBar.indexWhere((element) => date.day == element.day && date.month == element.month && date.year == element.year);
+    int index = listDateAppBar.indexWhere((element) =>
+        date.day == element.day &&
+        date.month == element.month &&
+        date.year == element.year);
     return index;
   }
 
@@ -416,7 +448,10 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   setDownWeek({Completer? completer, bool isFistIndex = false}) {
     int previousIndex = currentHeaderScrollIndex - 7;
     isHeaderScroll = true;
-    _scrollControllerHeader.scrollTo(index: previousIndex, duration: const Duration(milliseconds: 10)).whenComplete(() {
+    _scrollControllerHeader
+        .scrollTo(
+            index: previousIndex, duration: const Duration(milliseconds: 10))
+        .whenComplete(() {
       // final index = isFistIndex ? 7 : 13;
       scrollControllerBody.jumpTo(index: previousIndex);
       if (previousIndex == 0 && isHeaderScroll && previousIndex != 7) {
@@ -442,7 +477,9 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
   setUpWeek({Completer? completer}) {
     int nextIndex = currentHeaderScrollIndex + 7;
     isHeaderScroll = true;
-    _scrollControllerHeader.scrollTo(index: nextIndex, duration: const Duration(milliseconds: 10)).whenComplete(() {
+    _scrollControllerHeader
+        .scrollTo(index: nextIndex, duration: const Duration(milliseconds: 10))
+        .whenComplete(() {
       if (isScroll) {
         scrollControllerBody.jumpTo(index: nextIndex);
       }
@@ -471,7 +508,8 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Lottie.asset(Assets.images.icon.loading, width: SpacingUnit.x25, height: SpacingUnit.x25, fit: BoxFit.fill),
+        Lottie.asset(Assets.images.icon.loading,
+            width: SpacingUnit.x25, height: SpacingUnit.x25, fit: BoxFit.fill),
       ],
     );
   }

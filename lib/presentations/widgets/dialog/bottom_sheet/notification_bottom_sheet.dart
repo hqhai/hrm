@@ -34,11 +34,12 @@ class NotificationBottomSheet extends StatelessWidget {
                   paddingHorizontal: SpacingUnit.x1,
                   paddingVertical: SpacingUnit.x1,
                   circular: SpacingUnit.x20,
-                  borderColors: colors.blue.withOpacity(0.3),
-                  backgroundColors: colors.blue.withOpacity(0.3),
+                  borderColors: colors.blue.withValues(alpha: 0.3),
+                  backgroundColors: colors.blue.withValues(alpha: 0.3),
                   child: SvgPicture.asset(
                     Assets.images.icon.work.success,
-                    colorFilter: ColorFilter.mode(colors.primary, BlendMode.srcIn),
+                    colorFilter:
+                        ColorFilter.mode(colors.primary, BlendMode.srcIn),
                   ),
                 ),
                 const SizedBox(
@@ -47,7 +48,9 @@ class NotificationBottomSheet extends StatelessWidget {
                 Text(
                   appLocalizations.readAll,
                   style: TextStyle(
-                      fontSize: SpacingUnit.x4, color: colors.primary, fontWeight: FontWeight.w600),
+                      fontSize: SpacingUnit.x4,
+                      color: colors.primary,
+                      fontWeight: FontWeight.w600),
                 )
               ],
             ),
@@ -59,7 +62,8 @@ class NotificationBottomSheet extends StatelessWidget {
 
   readAllNotification(List<String> state, BuildContext context) {
     if (state.isNotEmpty) {
-      dI<NotificationBloc>().add(const ChangeNotificationsEvent(ids: null, isAll: true));
+      dI<NotificationBloc>()
+          .add(const ChangeNotificationsEvent(ids: null, isAll: true));
     }
     dI<AppNavigation>().pop(context);
   }

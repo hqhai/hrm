@@ -79,72 +79,72 @@ class _AppInputState extends State<AppInput> {
         children: [
           SizedBox(
               child: Focus(
-                onFocusChange: (focus) {
-                  if (!focus) {
-                    setState(() {});
-                  }
-                },
-                child: TextField(
-                  keyboardType: widget.keyboardType,
-                  minLines:  1,
-                  maxLines: widget.maxLines,
-                  onChanged: (value) {
-                    if (widget.onChange != null) {
-                      widget.onChange!(value);
-                    }
-                  },
-                  enabled: widget.enabled,
-                  inputFormatters: widget.inputFormatter,
-                  controller: widget.controller,
-                  style: theme.textTheme.bodyLarge,
-                  decoration: InputDecoration(
-                      labelText: widget.label,
-                      contentPadding: const EdgeInsets.only(
-                          bottom: 0,
-                          left: 16,
-                          top: 0,
-                          right: 16 // HERE THE IMPORTANT PART
+            onFocusChange: (focus) {
+              if (!focus) {
+                setState(() {});
+              }
+            },
+            child: TextField(
+              keyboardType: widget.keyboardType,
+              minLines: 1,
+              maxLines: widget.maxLines,
+              onChanged: (value) {
+                if (widget.onChange != null) {
+                  widget.onChange!(value);
+                }
+              },
+              enabled: widget.enabled,
+              inputFormatters: widget.inputFormatter,
+              controller: widget.controller,
+              style: theme.textTheme.bodyLarge,
+              decoration: InputDecoration(
+                  labelText: widget.label,
+                  contentPadding: const EdgeInsets.only(
+                      bottom: 0,
+                      left: 16,
+                      top: 0,
+                      right: 16 // HERE THE IMPORTANT PART
+                      ),
+                  suffixIcon: widget.icon != null
+                      ? IconButton(
+                          onPressed: () {
+                            widget.onClickIcon!();
+                          },
+                          icon: Icon(
+                            widget.icon,
+                            color: colors.textTertiary,
                           ),
-                      suffixIcon: widget.icon != null
-                          ? IconButton(
-                              onPressed: () {
-                                widget.onClickIcon!();
-                              },
-                              icon: Icon(
-                                widget.icon,
-                                color: colors.textTertiary,
-                              ),
-                            )
-                          : const SizedBox(),
-                      prefixIconColor: colors.text,
-                      hintText: widget.placeHolder,
-                      hintStyle: theme.textTheme.bodyLarge
-                          ?.copyWith(color: colors.textTertiary),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: isEmpty(widget.error)
-                              ? colors.outline.withOpacity(0.4)
-                              : colors.error,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: colors.primary,
-                          width: 1.0,
-                        ),
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: colors.outline,
-                          width: 1.0,
-                        ),
-                      )),
-                ),
-              )),
+                        )
+                      : const SizedBox(),
+                  prefixIconColor: colors.text,
+                  hintText: widget.placeHolder,
+                  hintStyle: theme.textTheme.bodyLarge
+                      ?.copyWith(color: colors.textTertiary),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: isEmpty(widget.error)
+                          ? colors.outline.withValues(alpha: 0.4)
+                          : colors.error,
+                      width: 1.0,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: colors.primary,
+                      width: 1.0,
+                    ),
+                  ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: colors.outline,
+                      width: 1.0,
+                    ),
+                  )),
+            ),
+          )),
           isEmpty(widget.error)
               ? const SizedBox()
               : Container(

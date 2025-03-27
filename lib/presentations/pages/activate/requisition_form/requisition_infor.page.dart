@@ -25,14 +25,14 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requi
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
-import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
-import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
+// import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
+// import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_process.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_followes_information_request.dart';
+// import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_followes_information_request.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_info_item/requisition_information_attach.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_info_item/requisition_information_content.dart';
+// import 'package:base_app/presentations/widgets/activate/requisition_info_item/requisition_information_content.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_info_item/requisition_information_general_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_info_item/requisition_information_sender_information.dart';
 import 'package:base_app/presentations/widgets/activate/requisition_info_item/requisition_information_type.dart';
@@ -131,7 +131,7 @@ class _RequisitionInformationPageState
                             widget.checkUser == RequestSeeByWho.user)
                           ButtonItemListRequisition(
                             colorText: colors.error,
-                            background: colors.error.withOpacity(0.2),
+                            background: colors.error.withValues(alpha: 0.2),
                             check: true,
                             title: appLocalizations.revoke,
                             callback: () => rejectDialog(context),
@@ -145,7 +145,8 @@ class _RequisitionInformationPageState
                               Expanded(
                                 child: ButtonItemListRequisition(
                                   colorText: colors.tertiary,
-                                  background: colors.tertiary.withOpacity(0.2),
+                                  background:
+                                      colors.tertiary.withValues(alpha: 0.2),
                                   check: true,
                                   title: appLocalizations.update,
                                   callback: () => _nextScreen(
@@ -156,7 +157,8 @@ class _RequisitionInformationPageState
                               Expanded(
                                 child: ButtonItemListRequisition(
                                   colorText: colors.error,
-                                  background: colors.error.withOpacity(0.2),
+                                  background:
+                                      colors.error.withValues(alpha: 0.2),
                                   check: true,
                                   title: appLocalizations.revoke,
                                   callback: () => rejectDialog(context),
@@ -185,7 +187,7 @@ class _RequisitionInformationPageState
                             widget.checkUser == RequestSeeByWho.manager)
                           ButtonItemListRequisition(
                             colorText: colors.error,
-                            background: colors.error.withOpacity(0.2),
+                            background: colors.error.withValues(alpha: 0.2),
                             check: true,
                             title: appLocalizations.cancel,
                             callback: () => _showDialogCancelRequest(context),

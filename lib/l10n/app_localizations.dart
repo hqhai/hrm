@@ -4520,8 +4520,14 @@ abstract class AppLocalizations {
   /// No description provided for @editAttendance.
   ///
   /// In en, this message translates to:
-  /// **'sửa chấm công'**
+  /// **'edit attendance'**
   String get editAttendance;
+
+  /// No description provided for @youAreSelecting.
+  ///
+  /// In en, this message translates to:
+  /// **'You are selecting'**
+  String get youAreSelecting;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

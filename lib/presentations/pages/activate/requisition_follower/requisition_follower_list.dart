@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
@@ -21,23 +20,27 @@ import 'package:themes/themes.dart';
 final requisitionFollowerListPageRoute = GoRoute(
     path: Pages.requisitionFollowerListPage,
     name: Pages.requisitionFollowerListPage,
-    builder: (context, GoRouterState state) => const RequisitionFollowerListPage());
+    builder: (context, GoRouterState state) =>
+        const RequisitionFollowerListPage());
 
 class RequisitionFollowerListPage extends StatefulWidget {
   const RequisitionFollowerListPage({super.key});
 
   @override
-  State<RequisitionFollowerListPage> createState() => _RequisitionFollowerListPageState();
+  State<RequisitionFollowerListPage> createState() =>
+      _RequisitionFollowerListPageState();
 }
 
-class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPage> {
+class _RequisitionFollowerListPageState
+    extends State<RequisitionFollowerListPage> {
   bool checkOpacity = false, checkLoad = true;
   FilterDialogModel filterData = const FilterDialogModel();
   StatusRequestEnum status = StatusRequestEnum.process;
 
   @override
   void initState() {
-    dI<RequisitionFollowingBloc>().add(const GetRequisitionsFollowingByFilterEvent());
+    dI<RequisitionFollowingBloc>()
+        .add(const GetRequisitionsFollowingByFilterEvent());
     super.initState();
   }
 
@@ -58,7 +61,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
       page: 1,
     ));
     final checkCompleter = await completer.future;
-    if(checkCompleter){
+    if (checkCompleter) {
       setState(() {
         checkLoad = true;
       });
@@ -74,7 +77,7 @@ class _RequisitionFollowerListPageState extends State<RequisitionFollowerListPag
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
-            color: colors.outline.withOpacity(0.3),
+            color: colors.outline.withValues(alpha: 0.3),
             height: SpacingUnit.x0_5,
           ),
         ),

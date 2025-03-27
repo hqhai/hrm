@@ -736,5 +736,6 @@
   "i18nYouWantToApproveThisApplication": "Are you sure you want to approve this application?",
   "i18nReportLastMonthIsWorkOnlyOnThe1stAnd2nd": "The attendance explanation for last month expired on the 2nd of this month.",
   "i18nOnlyAllowedToEditWorkThisMonthOrLastMonth": "Only allowed to edit work this month or last month.",
-  "editAttendance":"sửa chấm công"
+    "editAttendance":"edit attendance",
+  "youAreSelecting":"You are selecting"
 }

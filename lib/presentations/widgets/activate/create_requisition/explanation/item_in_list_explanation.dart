@@ -85,7 +85,7 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
               colorText: colors.background,
               title: appLocalizations.cancel,
               onSubmit: () => widget.callBackDelete.call(),
-              color: colors.error.withOpacity(0.7),
+              color: colors.error.withValues(alpha: 0.7),
             ),
           ),
         ],

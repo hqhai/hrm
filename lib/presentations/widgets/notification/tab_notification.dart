@@ -70,7 +70,7 @@ class _NotificationTabState extends State<NotificationTab> {
                         Text(
                           appLocalizations.noNotification,
                           style: TextStyle(
-                            color: colors.text.withOpacity(0.6),
+                            color: colors.text.withValues(alpha: 0.6),
                             fontSize: SpacingUnit.x4,
                             fontWeight: FontWeight.w400,
                           ),

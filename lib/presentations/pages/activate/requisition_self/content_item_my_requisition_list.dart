@@ -133,7 +133,8 @@ class _ContentItemMyRequisitionListState
                           Expanded(
                             child: ButtonItemListRequisition(
                               colorText: colors.tertiary,
-                              background: colors.tertiary.withOpacity(0.2),
+                              background:
+                                  colors.tertiary.withValues(alpha: 0.2),
                               check: false,
                               title: appLocalizations.update,
                               callback: () => _nextScreen(
@@ -146,7 +147,7 @@ class _ContentItemMyRequisitionListState
                           Expanded(
                             child: ButtonItemListRequisition(
                               colorText: colors.error,
-                              background: colors.error.withOpacity(0.2),
+                              background: colors.error.withValues(alpha: 0.2),
                               check: false,
                               title: appLocalizations.revoke,
                               callback: () => _rejectDialog(context),
@@ -501,7 +502,7 @@ class _ContentItemMyRequisitionListState
         };
       case StatusRequestEnum.edit:
         return {
-          'color': colors.secondary.withOpacity(0.7),
+          'color': colors.secondary.withValues(alpha: 0.7),
           'icon': Assets.images.icon.work.loading,
         };
       case StatusRequestEnum.approve:

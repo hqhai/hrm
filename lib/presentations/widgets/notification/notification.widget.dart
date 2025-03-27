@@ -18,7 +18,8 @@ class NotificationWidget extends StatefulWidget {
   State<NotificationWidget> createState() => _NotificationWidgetState();
 }
 
-class _NotificationWidgetState extends State<NotificationWidget> with TickerProviderStateMixin {
+class _NotificationWidgetState extends State<NotificationWidget>
+    with TickerProviderStateMixin {
   late final TabController _tabController;
   bool checkLoad = true;
 
@@ -36,7 +37,7 @@ class _NotificationWidgetState extends State<NotificationWidget> with TickerProv
     return Column(
       children: [
         Divider(
-          color: colors.outline.withOpacity(0.2),
+          color: colors.outline.withValues(alpha: 0.2),
           height: SpacingUnit.x0_25,
         ),
         Container(
@@ -44,7 +45,7 @@ class _NotificationWidgetState extends State<NotificationWidget> with TickerProv
           child: TabBar(
             controller: _tabController,
             indicatorSize: TabBarIndicatorSize.tab,
-            dividerColor: colors.textLight.withOpacity(0.1),
+            dividerColor: colors.textLight.withValues(alpha: 0.1),
             dividerHeight: 0.1,
             indicatorColor: colors.textLight,
             labelColor: colors.text,
@@ -53,11 +54,11 @@ class _NotificationWidgetState extends State<NotificationWidget> with TickerProv
               fontSize: SpacingUnit.x4,
             ),
             unselectedLabelStyle: TextStyle(
-              color: colors.text.withOpacity(0.5),
+              color: colors.text.withValues(alpha: 0.5),
               fontSize: SpacingUnit.x4,
               fontWeight: FontWeight.normal,
             ),
-            unselectedLabelColor: colors.text.withOpacity(0.5),
+            unselectedLabelColor: colors.text.withValues(alpha: 0.5),
             tabs: NotificationStatus.values
                 .where((element) => element != NotificationStatus.unknown)
                 .map(
@@ -67,15 +68,19 @@ class _NotificationWidgetState extends State<NotificationWidget> with TickerProv
                       children: [
                         Text(e.configNotificationName),
                         if (e == NotificationStatus.sent)
-                          BlocSelector<NotificationBloc, NotificationState, int>(
+                          BlocSelector<NotificationBloc, NotificationState,
+                              int>(
                             selector: (state) => state.totalItemsSent,
                             builder: (context, state) => state != 0
                                 ? Chip(
                                     padding: EdgeInsets.zero,
-                                    backgroundColor: colors.primary.withOpacity(0.3),
+                                    backgroundColor:
+                                        colors.primary.withValues(alpha: 0.3),
                                     shape: RoundedRectangleBorder(
-                                      side: const BorderSide(style: BorderStyle.none),
-                                      borderRadius: BorderRadius.circular(SpacingUnit.x6),
+                                      side: const BorderSide(
+                                          style: BorderStyle.none),
+                                      borderRadius:
+                                          BorderRadius.circular(SpacingUnit.x6),
                                     ),
                                     label: Text(
                                       '$state',

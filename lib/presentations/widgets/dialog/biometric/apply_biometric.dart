@@ -20,7 +20,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:themes/themes.dart';
 
 class ApplyBiometric extends StatelessWidget {
-  const ApplyBiometric({super.key, required this.check, required this.callback});
+  const ApplyBiometric(
+      {super.key, required this.check, required this.callback});
 
   final bool check;
   final VoidCallback callback;
@@ -111,7 +112,7 @@ class _AuthBiometricState extends State<AuthBiometric> {
           ContainerBorder(
             width: width,
             paddingVertical: SpacingUnit.x4,
-            borderColors: colors.outline.withOpacity(0.5),
+            borderColors: colors.outline.withValues(alpha: 0.5),
             child: Text(
               email,
               style: TextStyle(
@@ -137,7 +138,9 @@ class _AuthBiometricState extends State<AuthBiometric> {
           AppButton(
               title: appLocalizations.continues,
               onSubmit: () => onSubmit(context),
-              color: checkInput() ? colors.blue : colors.outline.withOpacity(0.4),
+              color: checkInput()
+                  ? colors.blue
+                  : colors.outline.withValues(alpha: 0.4),
               colorText: colors.background),
         ],
       ),
@@ -253,12 +256,14 @@ class NotRegister extends StatelessWidget {
               height: SpacingUnit.x25,
               width: SpacingUnit.x25,
               child: CircleAvatar(
-                backgroundColor: colors.secondaryContainer.withOpacity(0.1),
+                backgroundColor:
+                    colors.secondaryContainer.withValues(alpha: 0.1),
                 child: SvgPicture.asset(
                   height: SpacingUnit.x13,
                   width: SpacingUnit.x13,
                   Assets.images.signIn.biometric,
-                  colorFilter: ColorFilter.mode(colors.text.withOpacity(0.5), BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                      colors.text.withValues(alpha: 0.5), BlendMode.srcIn),
                 ),
               ),
             ),

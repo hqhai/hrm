@@ -345,6 +345,7 @@ class _ContentItemRequestApproveListState
         );
       },
     ).then((value) {
+      if (!context.mounted) return;
       popLoading(context);
     });
   }
@@ -368,6 +369,7 @@ class _ContentItemRequestApproveListState
         );
       },
     ).then((value) {
+      if (!context.mounted) return;
       dI<AppNavigation>().pop(context);
     });
   }

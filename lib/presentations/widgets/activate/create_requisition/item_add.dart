@@ -39,7 +39,8 @@ class ItemAdd extends StatelessWidget {
                     checkTypeContainer
                         ? Assets.images.icon.home.chevronForward
                         : Assets.images.icon.activateIcon.drop,
-                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        colors.text.withValues(alpha: 0.4), BlendMode.srcIn),
                   ),
                 ),
               ),

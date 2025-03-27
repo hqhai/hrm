@@ -14,14 +14,19 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class FilterRequestSelfDialog extends StatefulWidget {
-  const FilterRequestSelfDialog({super.key, required this.sendData, this.filter, required this.statusPage});
+  const FilterRequestSelfDialog(
+      {super.key,
+      required this.sendData,
+      this.filter,
+      required this.statusPage});
 
   final ValueChanged<FilterDialogModel> sendData;
   final FilterDialogModel? filter;
   final StatusRequestEnum statusPage;
 
   @override
-  State<FilterRequestSelfDialog> createState() => _FilterRequestSelfDialogState();
+  State<FilterRequestSelfDialog> createState() =>
+      _FilterRequestSelfDialogState();
 }
 
 class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
@@ -54,7 +59,7 @@ class _FilterRequestSelfDialogState extends State<FilterRequestSelfDialog> {
         children: [
           HeaderFilter(callback: () => close(context)),
           Divider(
-            color: colors.outline.withOpacity(0.5),
+            color: colors.outline.withValues(alpha: 0.5),
             thickness: 1,
           ),
           Expanded(

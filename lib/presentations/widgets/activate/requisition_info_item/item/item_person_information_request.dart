@@ -38,7 +38,7 @@ class ItemPersonInformationRequest extends StatelessWidget {
                       .mapIndexed(
                         (index, element) => ContainerBorder(
                           paddingVertical: SpacingUnit.x4,
-                          borderColors: colors.text.withOpacity(0.4),
+                          borderColors: colors.text.withValues(alpha: 0.4),
                           marginTop: SpacingUnit.x2,
                           child: Row(
                             children: [

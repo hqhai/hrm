@@ -76,9 +76,13 @@ class ItemListStepFlow extends StatelessWidget {
     final stepRequests = request.stepRequests;
     if (request.status == StatusRequestEnum.approve ||
         request.status == StatusRequestEnum.reject ||
-        request.status == StatusRequestEnum.cancel) return true;
+        request.status == StatusRequestEnum.cancel) {
+      return true;
+    }
     if (request.status == StatusRequestEnum.overdueApprove ||
-        request.status == StatusRequestEnum.overdueEdit) return false;
+        request.status == StatusRequestEnum.overdueEdit) {
+      return false;
+    }
     if (stepRequests.isEmpty) return false;
     final dates =
         stepRequests.map((e) => e.createdDate ?? DateTime.now()).toList();

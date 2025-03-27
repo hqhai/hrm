@@ -19,10 +19,12 @@ class BottomSheetStationeryWidget extends StatefulWidget {
   final ValueChanged<Stationery> onChange;
 
   @override
-  State<BottomSheetStationeryWidget> createState() => _BottomSheetStationeryWidgetState();
+  State<BottomSheetStationeryWidget> createState() =>
+      _BottomSheetStationeryWidgetState();
 }
 
-class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidget> {
+class _BottomSheetStationeryWidgetState
+    extends State<BottomSheetStationeryWidget> {
   late ScrollController controller;
   String? searchStr;
   int pageIndex = 1, totalItems = 12, lengthList = 11;
@@ -44,13 +46,14 @@ class _BottomSheetStationeryWidgetState extends State<BottomSheetStationeryWidge
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.text.withOpacity(0.05),
+          color: colors.text.withValues(alpha: 0.05),
           child: Center(
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(SpacingUnit.x2),
-                  child: SearchInput(onChange: (value) => _onChangeSearch(value)),
+                  child:
+                      SearchInput(onChange: (value) => _onChangeSearch(value)),
                 ),
                 Expanded(
                   child: ListView.builder(

@@ -25,7 +25,8 @@ class ListviewRequestFollower extends StatefulWidget {
   final bool checkLoad;
 
   @override
-  State<ListviewRequestFollower> createState() => _ListviewRequestFollowerState();
+  State<ListviewRequestFollower> createState() =>
+      _ListviewRequestFollowerState();
 }
 
 class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
@@ -35,8 +36,9 @@ class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
 
   @override
   void initState() {
-    _tabController = TabController(length: StatusRequestEnum.values.length - 1, vsync: this)
-      ..addListener(_scrollListener);
+    _tabController =
+        TabController(length: StatusRequestEnum.values.length - 1, vsync: this)
+          ..addListener(_scrollListener);
     super.initState();
   }
 
@@ -57,22 +59,25 @@ class _ListviewRequestFollowerState extends State<ListviewRequestFollower>
                     isScrollable: true,
                     controller: _tabController,
                     indicatorSize: TabBarIndicatorSize.tab,
-                    dividerColor: colors.textLight.withOpacity(0.1),
+                    dividerColor: colors.textLight.withValues(alpha: 0.1),
                     dividerHeight: 0.1,
                     indicatorColor: colors.textLight,
                     tabAlignment: TabAlignment.start,
                     tabs: StatusRequestEnum.values
-                        .where((element) => element != StatusRequestEnum.unknown)
+                        .where(
+                            (element) => element != StatusRequestEnum.unknown)
                         .map(
                       (status) {
                         final isActive =
-                            StatusRequestEnum.values.indexOf(status) == _tabController.index;
+                            StatusRequestEnum.values.indexOf(status) ==
+                                _tabController.index;
                         return Tab(
                           child: Text(
                             status.getAppLocalizationName,
                             style: TextStyle(
                                 fontWeight: isActive ? FontWeight.w600 : null,
-                                color: isActive ? colors.text : colors.textLight,
+                                color:
+                                    isActive ? colors.text : colors.textLight,
                                 fontSize: SpacingUnit.x4),
                           ),
                         );

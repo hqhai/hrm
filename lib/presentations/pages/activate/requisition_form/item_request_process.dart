@@ -35,7 +35,7 @@ class ItemRequestProcess extends StatelessWidget {
                 : Expanded(
                     child: ButtonItemListRequisition(
                       colorText: colors.success,
-                      background: colors.success.withOpacity(0.2),
+                      background: colors.success.withValues(alpha: 0.2),
                       title: appLocalizations.approver,
                       callback: () => callBackApprove.call(),
                     ),
@@ -43,7 +43,7 @@ class ItemRequestProcess extends StatelessWidget {
             Expanded(
               child: ButtonItemListRequisition(
                 colorText: colors.tertiary,
-                background: colors.tertiary.withOpacity(0.2),
+                background: colors.tertiary.withValues(alpha: 0.2),
                 title: appLocalizations.modification,
                 callback: () => callBackEdit.call(),
               ),
@@ -51,7 +51,7 @@ class ItemRequestProcess extends StatelessWidget {
             Expanded(
               child: ButtonItemListRequisition(
                 colorText: colors.error,
-                background: colors.error.withOpacity(0.2),
+                background: colors.error.withValues(alpha: 0.2),
                 title: appLocalizations.refuse,
                 callback: () => callBackReject.call(),
               ),

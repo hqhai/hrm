@@ -39,7 +39,7 @@ class RequisitionInformationContent extends StatelessWidget {
                 height: SpacingUnit.x30,
                 marginTop: 0,
                 width: width,
-                borderColors: colors.text.withOpacity(0.2),
+                borderColors: colors.text.withValues(alpha: 0.2),
                 child: SingleChildScrollView(
                   child: Text(
                     state.requisition.config.description,

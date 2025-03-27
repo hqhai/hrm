@@ -15,10 +15,12 @@ class ListCheckboxDepartmentFilter extends StatefulWidget {
   final ValueChanged<List<Department>> onChange;
 
   @override
-  State<ListCheckboxDepartmentFilter> createState() => _ListCheckboxDepartmentFilterState();
+  State<ListCheckboxDepartmentFilter> createState() =>
+      _ListCheckboxDepartmentFilterState();
 }
 
-class _ListCheckboxDepartmentFilterState extends State<ListCheckboxDepartmentFilter> {
+class _ListCheckboxDepartmentFilterState
+    extends State<ListCheckboxDepartmentFilter> {
   List<bool> listCheck = [];
   List<Department> listDepartment = [];
 
@@ -39,7 +41,10 @@ class _ListCheckboxDepartmentFilterState extends State<ListCheckboxDepartmentFil
             children: [
               Text(
                 appLocalizations.department,
-                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w400),
+                style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x3_5,
+                    fontWeight: FontWeight.w400),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
@@ -52,15 +57,21 @@ class _ListCheckboxDepartmentFilterState extends State<ListCheckboxDepartmentFil
                           children: [
                             CheckboxListTile(
                               value: listCheck[index],
-                              onChanged: (value) => setValue(index: index, value: value, department: element),
+                              onChanged: (value) => setValue(
+                                  index: index,
+                                  value: value,
+                                  department: element),
                               subtitle: Text(
                                 element.name,
-                                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5, fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    color: colors.text,
+                                    fontSize: SpacingUnit.x3_5,
+                                    fontWeight: FontWeight.w400),
                               ),
                             ),
                             Divider(
                               height: SpacingUnit.x0_25,
-                              color: colors.outline.withOpacity(0.2),
+                              color: colors.outline.withValues(alpha: 0.2),
                             )
                           ],
                         ),

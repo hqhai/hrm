@@ -2232,5 +2232,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get i18nOnlyAllowedToEditWorkThisMonthOrLastMonth => 'Only allowed to edit work this month or last month.';
 
   @override
-  String get editAttendance => 'sửa chấm công';
+  String get editAttendance => 'edit attendance';
+
+  @override
+  String get youAreSelecting => 'You are selecting';
 }

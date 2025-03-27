@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ContainerScreenMain extends StatelessWidget {
-  const ContainerScreenMain({super.key, required this.child, this.padding, this.margin, this.color});
+  const ContainerScreenMain(
+      {super.key, required this.child, this.padding, this.margin, this.color});
 
   final double? padding, margin;
-final Color? color;
+  final Color? color;
   final Widget child;
 
   @override
@@ -15,7 +16,7 @@ final Color? color;
     return Column(
       children: [
         Divider(
-          color: colors.outline.withOpacity(0.2),
+          color: colors.outline.withValues(alpha: 0.2),
           height: SpacingUnit.x0_25,
         ),
         Container(

@@ -20,10 +20,12 @@ class BottomSheetTypeLeaveWidget extends StatefulWidget {
   final ValueChanged<FilterLeaveHistoryModel> onChange;
 
   @override
-  State<BottomSheetTypeLeaveWidget> createState() => _BottomSheetTypeLeaveWidgetState();
+  State<BottomSheetTypeLeaveWidget> createState() =>
+      _BottomSheetTypeLeaveWidgetState();
 }
 
-class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget> {
+class _BottomSheetTypeLeaveWidgetState
+    extends State<BottomSheetTypeLeaveWidget> {
   TypeLeaveEnum? typeLeave;
   DateTime? date = DateTime.now();
 
@@ -58,14 +60,18 @@ class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget>
                 Text(
                   appLocalizations.sourceOfLeave,
                   style: TextStyle(
-                      color: colors.text, fontSize: SpacingUnit.x5, fontWeight: FontWeight.w600),
+                      color: colors.text,
+                      fontSize: SpacingUnit.x5,
+                      fontWeight: FontWeight.w600),
                 ),
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   spacing: SpacingUnit.x4,
                   runSpacing: SpacingUnit.x3,
                   children: TypeLeaveEnum.values
-                      .where((e) => e != TypeLeaveEnum.total && e != TypeLeaveEnum.unknown)
+                      .where((e) =>
+                          e != TypeLeaveEnum.total &&
+                          e != TypeLeaveEnum.unknown)
                       .mapIndexed(
                         (index, element) => GestureDetector(
                           onTap: () => setOnChange(
@@ -74,14 +80,18 @@ class _BottomSheetTypeLeaveWidgetState extends State<BottomSheetTypeLeaveWidget>
                           child: ContainerBorder(
                             paddingVertical: 8,
                             marginTop: 8,
-                            backgroundColors:
-                                element == typeLeave ? colors.blue : colors.background,
-                            borderColors:
-                                element == typeLeave ? colors.blue : colors.text.withOpacity(0.3),
+                            backgroundColors: element == typeLeave
+                                ? colors.blue
+                                : colors.background,
+                            borderColors: element == typeLeave
+                                ? colors.blue
+                                : colors.text.withValues(alpha: 0.3),
                             child: Text(
                               element.configTypeLeaveEnum,
                               style: TextStyle(
-                                color: element == typeLeave ? colors.background : colors.text,
+                                color: element == typeLeave
+                                    ? colors.background
+                                    : colors.text,
                                 fontSize: SpacingUnit.x3,
                               ),
                             ),

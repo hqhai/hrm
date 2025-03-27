@@ -92,13 +92,13 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
                 ),
                 ContainerBorder(
                   width: width,
-                  borderColors: colors.text.withOpacity(0.3),
+                  borderColors: colors.text.withValues(alpha: 0.3),
                   marginTop: SpacingUnit.x2,
                   paddingVertical: SpacingUnit.x4,
                   child: Text(
                     setIntervalOnLeave().toStringAsFixed(2),
                     style: TextStyle(
-                      color: colors.text.withOpacity(0.6),
+                      color: colors.text.withValues(alpha: 0.6),
                       fontSize: SpacingUnit.x4,
                     ),
                   ),
@@ -106,7 +106,8 @@ class _ItemCreateTimeStartAndEndState extends State<ItemCreateTimeStartAndEnd> {
               ],
             ),
           ),
-        if (widget.error != '' && !(endTime.difference(startTime).inSeconds > 0))
+        if (widget.error != '' &&
+            !(endTime.difference(startTime).inSeconds > 0))
           Padding(
             padding: const EdgeInsets.only(
                 top: SpacingUnit.x0_25, bottom: SpacingUnit.x3),

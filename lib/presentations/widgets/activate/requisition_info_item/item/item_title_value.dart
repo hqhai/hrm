@@ -41,7 +41,7 @@ class ItemTitleValue extends StatelessWidget {
               padding: const EdgeInsets.only(left: SpacingUnit.x3),
               child: ContainerBorder(
                 marginTop: 0,
-                borderColors: colors.text.withOpacity(0.2),
+                borderColors: colors.text.withValues(alpha: 0.2),
                 child: Center(
                   child: Text(
                     value,

@@ -43,7 +43,7 @@ class _ItemVehicleUpdateProfileState extends State<ItemVehicleUpdateProfile> {
           style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
         ),
         ContainerBorder(
-          borderColors: colors.surfaceBright.withOpacity(0.6),
+          borderColors: colors.surfaceBright.withValues(alpha: 0.6),
           paddingVertical: SpacingUnit.x4,
           width: width,
           child: Row(

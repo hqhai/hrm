@@ -33,8 +33,9 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
     return GestureDetector(
       onTap: () => showTimeDialog(context: context),
       child: ContainerBorder(
-        borderColors:
-            widget.checkError ? colors.outline.withOpacity(0.4) : colors.error,
+        borderColors: widget.checkError
+            ? colors.outline.withValues(alpha: 0.4)
+            : colors.error,
         paddingVertical: SpacingUnit.x4,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,7 +49,7 @@ class _TimePickerHourMinuteState extends State<TimePickerHourMinute> {
             SvgPicture.asset(
               Assets.images.icon.home.mingcuteTimeLine,
               colorFilter: ColorFilter.mode(
-                  colors.text.withOpacity(0.4), BlendMode.srcIn),
+                  colors.text.withValues(alpha: 0.4), BlendMode.srcIn),
             ),
           ],
         ),

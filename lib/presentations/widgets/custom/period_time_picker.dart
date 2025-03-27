@@ -90,7 +90,7 @@ class _PeriodTimePickerState extends State<PeriodTimePicker> {
                     marginTop: 0,
                     borderColors: widget.error.isNotEmpty
                         ? colors.error
-                        : colors.text.withOpacity(0.2),
+                        : colors.text.withValues(alpha: 0.2),
                     child: Padding(
                       padding: const EdgeInsets.all(SpacingUnit.x1),
                       child: Row(

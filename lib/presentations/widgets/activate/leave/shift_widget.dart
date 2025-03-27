@@ -26,7 +26,7 @@ class ShiftWidget extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     final appLocalizations = AppLocalizations.of(context)!;
     return ContainerBorder(
-      borderColors: colors.text.withOpacity(0.3),
+      borderColors: colors.text.withValues(alpha: 0.3),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -46,7 +46,8 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: SpacingUnit.x4, bottom: SpacingUnit.x2),
+          padding: const EdgeInsets.only(
+              top: SpacingUnit.x4, bottom: SpacingUnit.x2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -75,15 +76,16 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                 .mapIndexed((index, element) => InkWell(
                       onTap: () => _onClickFLie(context, index),
                       child: ContainerBorder(
-                        borderColors: colors.text.withOpacity(0.3),
+                        borderColors: colors.text.withValues(alpha: 0.3),
                         child: Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x0_5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: SpacingUnit.x0_5),
                               child: SvgPicture.asset(
                                 Assets.images.icon.activateIcon.fileAttach,
                                 colorFilter: ColorFilter.mode(
-                                  colors.text.withOpacity(0.5),
+                                  colors.text.withValues(alpha: 0.5),
                                   BlendMode.srcIn,
                                 ),
                               ),
@@ -100,13 +102,14 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x0_5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: SpacingUnit.x0_5),
                               child: InkWell(
                                 onTap: () => _deleteFile(index),
                                 child: Icon(
                                   size: SpacingUnit.x6,
                                   Icons.cancel,
-                                  color: colors.text.withOpacity(0.5),
+                                  color: colors.text.withValues(alpha: 0.5),
                                 ),
                               ),
                             )
@@ -181,8 +184,9 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
 
   _onClickFLie(BuildContext context, int index) {
     if (_checkTypeFile(index)) {
-      dI<AppNavigation>()
-          .pushName(context, page: Pages.pDFPage, extra: {'url': paths[index], 'checkLocal': true});
+      dI<AppNavigation>().pushName(context,
+          page: Pages.pDFPage,
+          extra: {'url': paths[index], 'checkLocal': true});
     } else {
       showDialog(
         context: context,

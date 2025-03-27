@@ -24,7 +24,7 @@ class ItemButton extends StatelessWidget {
             child: AppButton(
               title: appLocalizations.cancelRequest,
               onSubmit: () => _cancel(),
-              color: colors.blue.withOpacity(0.2),
+              color: colors.blue.withValues(alpha: 0.2),
               colorText: colors.primary,
             ),
           ),

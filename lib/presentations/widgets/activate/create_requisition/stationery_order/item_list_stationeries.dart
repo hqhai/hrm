@@ -30,7 +30,7 @@ class ItemListStationeries extends StatelessWidget {
           child: ContainerBorder(
             paddingVertical: SpacingUnit.x2_5,
             marginTop: SpacingUnit.x2_5,
-            borderColors: colors.text.withOpacity(0.5),
+            borderColors: colors.text.withValues(alpha: 0.5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

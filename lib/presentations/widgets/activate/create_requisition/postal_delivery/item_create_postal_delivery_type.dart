@@ -7,16 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateReasonTransferType extends StatefulWidget {
-  const ItemCreateReasonTransferType({super.key, this.onChange, this.typeDefault});
+  const ItemCreateReasonTransferType(
+      {super.key, this.onChange, this.typeDefault});
 
   final RequisitionDeliveryTypeEnum? typeDefault;
   final ValueChanged<RequisitionDeliveryTypeEnum>? onChange;
 
   @override
-  State<ItemCreateReasonTransferType> createState() => _ItemCreateReasonTransferTypeState();
+  State<ItemCreateReasonTransferType> createState() =>
+      _ItemCreateReasonTransferTypeState();
 }
 
-class _ItemCreateReasonTransferTypeState extends State<ItemCreateReasonTransferType> {
+class _ItemCreateReasonTransferTypeState
+    extends State<ItemCreateReasonTransferType> {
   RequisitionDeliveryTypeEnum type = RequisitionDeliveryTypeEnum.express;
 
   @override
@@ -45,7 +48,7 @@ class _ItemCreateReasonTransferTypeState extends State<ItemCreateReasonTransferT
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
             child: ContainerBorder(
-              borderColors: colors.outline.withOpacity(0.3),
+              borderColors: colors.outline.withValues(alpha: 0.3),
               width: width,
               child: Text(
                 type.configDeliveryTypeName,

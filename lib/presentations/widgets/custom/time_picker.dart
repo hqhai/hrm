@@ -46,7 +46,7 @@ class _TimePickerState extends State<TimePicker> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
           border: Border.all(
-            color: colors.text.withOpacity(0.3),
+            color: colors.text.withValues(alpha: 0.3),
             width: SpacingUnit.x0_25,
           ),
         ),
@@ -90,7 +90,7 @@ class _TimePickerState extends State<TimePicker> {
                     SvgPicture.asset(
                       Assets.images.icon.home.bottomBar.calendar,
                       colorFilter: ColorFilter.mode(
-                        colors.text.withOpacity(0.3),
+                        colors.text.withValues(alpha: 0.3),
                         BlendMode.srcIn,
                       ),
                     ),

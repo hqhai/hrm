@@ -54,8 +54,12 @@ class ButtonTimekeepingItem extends StatelessWidget {
               ),
               AppButton(
                 title: appLocalizations.timekeepingImmediately,
-                colorText: checkClick ? colors.background : colors.text.withOpacity(0.7),
-                color: checkClick ? colors.primary : colors.text.withOpacity(0.2),
+                colorText: checkClick
+                    ? colors.background
+                    : colors.text.withValues(alpha: 0.7),
+                color: checkClick
+                    ? colors.primary
+                    : colors.text.withValues(alpha: 0.2),
                 onSubmit: () => callBackTimekeeping.call(),
               ),
             ],

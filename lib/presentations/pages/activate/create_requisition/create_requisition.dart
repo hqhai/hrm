@@ -189,7 +189,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
         ),
         Divider(
           height: 1,
-          color: colors.text.withOpacity(0.2),
+          color: colors.text.withValues(alpha: 0.2),
         )
       ],
     );
@@ -317,7 +317,6 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           );
         case RequisitionTypeEnum.core:
         case RequisitionTypeEnum.unknown:
-        default:
       }
     } else {
       if (!currentContext.mounted) return;

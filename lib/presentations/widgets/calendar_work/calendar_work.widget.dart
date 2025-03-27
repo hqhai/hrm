@@ -29,7 +29,7 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Container(
-      color: colors.text.withOpacity(0.1),
+      color: colors.text.withValues(alpha: 0.1),
       child: Padding(
         padding: const EdgeInsets.all(SpacingUnit.x4),
         child: Column(
@@ -52,9 +52,15 @@ class _CalendarWorkWidgetState extends State<CalendarWorkWidget> {
       case 0:
         dI<AppNavigation>().pushName(context, page: Pages.registerShiftsPage);
       case 1:
-        dI<AppNavigation>().push(context, page: Pages.registerWorkDayAdmin, paramsQuerry: ShiftsBuyUserQueryParams(type: UserType.user).toJson());
+        dI<AppNavigation>().push(context,
+            page: Pages.registerWorkDayAdmin,
+            paramsQuerry:
+                ShiftsBuyUserQueryParams(type: UserType.user).toJson());
       case 2:
-        dI<AppNavigation>().push(context, page: Pages.registerWorkDayAdmin, paramsQuerry: ShiftsBuyUserQueryParams(type: UserType.manage).toJson());
+        dI<AppNavigation>().push(context,
+            page: Pages.registerWorkDayAdmin,
+            paramsQuerry:
+                ShiftsBuyUserQueryParams(type: UserType.manage).toJson());
       case 3:
         _nextTimekeepingGPSScreen(context);
     }

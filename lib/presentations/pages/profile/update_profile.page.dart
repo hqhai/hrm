@@ -103,7 +103,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         builder: (context, state) {
           return Container(
             padding: const EdgeInsets.all(SpacingUnit.x4),
-            color: colors.outline.withOpacity(0.1),
+            color: colors.outline.withValues(alpha: 0.1),
             child: SingleChildScrollView(
               child: Column(
                 children: [

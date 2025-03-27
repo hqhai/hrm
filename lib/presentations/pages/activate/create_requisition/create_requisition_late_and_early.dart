@@ -168,7 +168,7 @@ class _CreateRequisitionLateAndEarlyPageState
                         child: ContainerBorder(
                           marginTop: 0,
                           paddingVertical: SpacingUnit.x4,
-                          borderColors: colors.outline.withOpacity(0.3),
+                          borderColors: colors.outline.withValues(alpha: 0.3),
                           width: width,
                           child: Text(
                             reason.configEnumReasonName,

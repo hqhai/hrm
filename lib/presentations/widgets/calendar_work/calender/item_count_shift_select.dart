@@ -1,4 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -18,8 +19,10 @@ class ItemCountShiftSelect extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     return Container(
-      padding: const EdgeInsets.only(left: SpacingUnit.x5, right: SpacingUnit.x8),
+      padding:
+          const EdgeInsets.only(left: SpacingUnit.x5, right: SpacingUnit.x8),
       alignment: Alignment.centerLeft,
       height: SpacingUnit.x10,
       width: width,
@@ -31,7 +34,7 @@ class ItemCountShiftSelect extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(
-                  text: 'Bạn đang chọn ',
+                  text: '${appLocalizations.youAreSelecting} ',
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x4,
@@ -46,7 +49,7 @@ class ItemCountShiftSelect extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: " ca làm việc",
+                  text: " ${appLocalizations.timeWorking}",
                   style: TextStyle(
                     color: colors.text,
                     fontSize: SpacingUnit.x4,
@@ -56,11 +59,9 @@ class ItemCountShiftSelect extends StatelessWidget {
             ),
           ),
           Checkbox(
-            side: const BorderSide(
-                color: Color(0xff585858)),
-            value: checkSelect,
-            onChanged: (value) => callBack.call()
-          ),
+              side: const BorderSide(color: Color(0xff585858)),
+              value: checkSelect,
+              onChanged: (value) => callBack.call()),
         ],
       ),
     );

@@ -43,7 +43,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 borderRadius: BorderRadius.circular(SpacingUnit.x2),
                 color: colors.background,
                 border: Border.all(
-                  color: colors.text.withOpacity(0.1),
+                  color: colors.text.withValues(alpha: 0.1),
                   width: 1,
                 ),
               ),

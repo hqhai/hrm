@@ -90,7 +90,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     return ContainerBorder(
       paddingVertical: SpacingUnit.x4,
       marginTop: 0,
-      borderColors: colors.text.withOpacity(0.4),
+      borderColors: colors.text.withValues(alpha: 0.4),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +119,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                         ? Assets.images.icon.home.chevronForward
                         : Assets.images.icon.activateIcon.drop,
                     colorFilter: ColorFilter.mode(
-                        colors.text.withOpacity(0.4), BlendMode.srcIn),
+                        colors.text.withValues(alpha: 0.4), BlendMode.srcIn),
                   ),
                 ),
               ),
@@ -202,7 +202,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),
-                color: colors.error.withOpacity(0.7),
+                color: colors.error.withValues(alpha: 0.7),
                 colorText: colors.text,
               ),
             ),

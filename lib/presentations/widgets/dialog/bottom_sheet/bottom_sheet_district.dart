@@ -23,7 +23,8 @@ class BottomSheetDistrictWidget extends StatefulWidget {
   final String parentId;
 
   @override
-  State<BottomSheetDistrictWidget> createState() => _BottomSheetDistrictWidgetState();
+  State<BottomSheetDistrictWidget> createState() =>
+      _BottomSheetDistrictWidgetState();
 }
 
 class _BottomSheetDistrictWidgetState extends State<BottomSheetDistrictWidget> {
@@ -52,11 +53,13 @@ class _BottomSheetDistrictWidgetState extends State<BottomSheetDistrictWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.text.withOpacity(0.1),
+          color: colors.text.withValues(alpha: 0.1),
           child: Center(
             child: Column(
               children: [
-                HeaderFilter(callback: () => close(context), title: appLocalizations.district),
+                HeaderFilter(
+                    callback: () => close(context),
+                    title: appLocalizations.district),
                 Expanded(
                   child: ListView.builder(
                     controller: controller,

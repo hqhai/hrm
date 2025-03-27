@@ -58,7 +58,7 @@ class _LeavePageState extends State<LeavePage> with TickerProviderStateMixin {
                   color: colors.background,
                   child: TabBar(
                     indicatorSize: TabBarIndicatorSize.tab,
-                    dividerColor: colors.textLight.withOpacity(0.1),
+                    dividerColor: colors.textLight.withValues(alpha: 0.1),
                     dividerHeight: 0.1,
                     indicatorColor: colors.textLight,
                     controller: _tabController,

@@ -40,24 +40,27 @@ class HistoryTimekeepingPage extends StatelessWidget {
         title: Text(
           appLocalizations.historyTimekeeping,
           style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x4_5,
-            fontWeight: FontWeight.w600
-          ),
+              color: colors.text,
+              fontSize: SpacingUnit.x4_5,
+              fontWeight: FontWeight.w600),
         ),
       ),
       body: BlocBuilder<WorkSheetBloc, WorkSheetState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.only(
-                right: SpacingUnit.x4, left: SpacingUnit.x4, top: SpacingUnit.x4),
+                right: SpacingUnit.x4,
+                left: SpacingUnit.x4,
+                top: SpacingUnit.x4),
             child: SizedBox(
               width: width,
               child: Column(
-                mainAxisAlignment:
-                    state.keys.isNotEmpty ? MainAxisAlignment.start : MainAxisAlignment.center,
-                crossAxisAlignment:
-                    state.keys.isNotEmpty ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+                mainAxisAlignment: state.keys.isNotEmpty
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+                crossAxisAlignment: state.keys.isNotEmpty
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.center,
                 children: [
                   if (state.keys.isEmpty) ...[
                     Image.asset(
@@ -71,7 +74,7 @@ class HistoryTimekeepingPage extends StatelessWidget {
                     Text(
                       appLocalizations.noDataTimekeeping,
                       style: TextStyle(
-                        color: colors.text.withOpacity(0.7),
+                        color: colors.text.withValues(alpha: 0.7),
                         fontSize: SpacingUnit.x4,
                       ),
                     ),
@@ -83,7 +86,7 @@ class HistoryTimekeepingPage extends StatelessWidget {
                       ),
                       child: AppButton(
                         title: appLocalizations.timekeepingImmediately,
-                        color: colors.blue.withOpacity(0.4),
+                        color: colors.blue.withValues(alpha: 0.4),
                         colorText: colors.primary,
                         onSubmit: () => _onSubmit(context),
                       ),
@@ -93,7 +96,8 @@ class HistoryTimekeepingPage extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x6),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: SpacingUnit.x6),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,9 +105,10 @@ class HistoryTimekeepingPage extends StatelessWidget {
                               final attendance = state.attendances[element];
                               return ItemShiftOnTab(
                                 title: appLocalizations.checkIn,
-                                value: formatHM(attendance?.timeChecking.toString()),
-                                checkInMethodEnum:
-                                    attendance?.checkInMethod ?? CheckInMethodEnum.gPS,
+                                value: formatHM(
+                                    attendance?.timeChecking.toString()),
+                                checkInMethodEnum: attendance?.checkInMethod ??
+                                    CheckInMethodEnum.gPS,
                                 last: element != state.keys.last,
                               );
                             }).toList(),

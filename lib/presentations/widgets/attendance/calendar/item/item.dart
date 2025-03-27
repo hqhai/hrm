@@ -66,7 +66,7 @@ class ItemCalender extends StatelessWidget {
             paddingHorizontal: 0,
             circular: 0,
             widthBorder: 0.5,
-            borderColors: colors.outlineVariant.withOpacity(0.2),
+            borderColors: colors.outlineVariant.withValues(alpha: 0.2),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,13 +159,13 @@ class ItemCalender extends StatelessWidget {
       case UserWorkingHistoryStatus.early:
         return colors.tertiary;
       case UserWorkingHistoryStatus.offDay:
-        return colors.outline.withOpacity(0.3);
+        return colors.outline.withValues(alpha: 0.3);
       case UserWorkingHistoryStatus.isRequest:
         return colors.primary;
       case UserWorkingHistoryStatus.forgotChecking:
         return colors.error;
       case UserWorkingHistoryStatus.offWork:
-        return colors.outline.withOpacity(0.3);
+        return colors.outline.withValues(alpha: 0.3);
       case UserWorkingHistoryStatus.holiday:
         return colors.sunriseYellow;
       case UserWorkingHistoryStatus.noAttendance:
