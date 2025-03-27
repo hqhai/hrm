@@ -79,6 +79,7 @@ class _CreateRequisitionMakeUpWorkPageState
       description = '';
   List<String> followers = [];
   DateTime startDate = DateTime.now();
+  DateTime? endDate;
   int startTime = 0, endTime = 0;
   double numberValue = 0;
   List<WorkShiftRegisteredDetail> workShiftSettings = [];
@@ -91,6 +92,7 @@ class _CreateRequisitionMakeUpWorkPageState
       description = request.config.description;
       workShiftSettings = [...request.config.workShiftSettings];
       startDate = request.config.startDate ?? widget.date ?? DateTime.now();
+      endDate = request.config.startDate ?? widget.date ?? DateTime.now();
       startTime = request.config.startTime;
       endTime = request.config.endTime;
       numberValue = (request.config.numberValue);
@@ -192,8 +194,8 @@ class _CreateRequisitionMakeUpWorkPageState
                       requiredValidate: true,
                     ),
                     DateOverTime(
-                      dateOld: startDate,
-                      changeValue: (value) => setDate(value),
+                      dateOld: endDate,
+                      changeValue: (value) => setEndDate(value),
                     ),
                     AppStartEndTime(
                       endTime: endTime,
@@ -317,9 +319,10 @@ class _CreateRequisitionMakeUpWorkPageState
     dI<AppNavigation>().pop(context);
   }
 
-  setDate(DateTime value) {
+  setEndDate(DateTime value) {
     setState(() {
       startDate = value;
+      endDate = value;
     });
   }
 

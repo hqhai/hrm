@@ -14,7 +14,10 @@ import 'package:themes/themes.dart';
 ///BottomSheet
 class DatePickerCupertino extends StatefulWidget {
   const DatePickerCupertino(
-      {super.key, required this.dateOld, required this.onChange, this.maxDateNow});
+      {super.key,
+      required this.dateOld,
+      required this.onChange,
+      this.maxDateNow});
 
   final DateTime dateOld;
   final ValueChanged<DateTime> onChange;
@@ -142,17 +145,21 @@ class _DatePickerState extends State<DatePickerLoop> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return GestureDetector(
-      onTap: () => dialog(context: context, currentTime: widget.oldDate ?? DateTime.now()),
+      onTap: () => dialog(
+          context: context, currentTime: widget.oldDate ?? DateTime.now()),
       child: ContainerBorder(
         paddingVertical: SpacingUnit.x4_5,
-        borderColors: widget.checkError ? colors.text.withOpacity(0.4) : colors.error,
+        borderColors:
+            widget.checkError ? colors.text.withOpacity(0.4) : colors.error,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              formatYMD(currentDate.toString()),
+              formatYMD(widget.oldDate != null ? currentDate.toString() : ''),
               style: TextStyle(
-                  fontSize: SpacingUnit.x4, color: colors.text, fontWeight: FontWeight.w600),
+                  fontSize: SpacingUnit.x4,
+                  color: colors.text,
+                  fontWeight: FontWeight.w600),
             ),
             InkWell(
               onTap: () => widget.callBack?.call(),
@@ -168,7 +175,9 @@ class _DatePickerState extends State<DatePickerLoop> {
                           ? Assets.images.icon.activateIcon.drop
                           : Assets.images.icon.home.chevronForward,
                   colorFilter: ColorFilter.mode(
-                      !widget.changeType ? colors.text.withOpacity(0.4) : colors.text,
+                      !widget.changeType
+                          ? colors.text.withOpacity(0.4)
+                          : colors.text,
                       BlendMode.srcIn),
                 ),
               ),
