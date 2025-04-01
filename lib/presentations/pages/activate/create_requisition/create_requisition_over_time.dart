@@ -82,13 +82,14 @@ class _CreateRequisitionOverTimePageState
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool check = requisitionOverTimes.isNotEmpty;
-    final bool checkDescription = description.isNotEmpty;
+    // final bool checkDescription = description.isEmpty;
     setState(() {
       error = check ? '' : appLocalizations.notSelectedAOverTime;
-      errorDescription =
-          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      // errorDescription =
+      //     checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
-    return check && checkDescription;
+    // return check && checkDescription;
+    return check;
   }
 
   double opacity() {
