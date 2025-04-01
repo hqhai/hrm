@@ -53,18 +53,20 @@ class ItemCalenderOneDateDialog extends StatelessWidget {
 
   Color _colorCircular(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return checkOnSelect ? colors.primary : colors.background.withOpacity(0);
+    return checkOnSelect
+        ? colors.primary
+        : colors.background.withValues(alpha: 0);
   }
 
   Color _colorCircularBorder(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    return isNowDate ? colors.primary : colors.background.withOpacity(0);
+    return isNowDate ? colors.primary : colors.background.withValues(alpha: 0);
   }
 
   Color _colorText(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return month != date.month
-        ? colors.outlineVariant.withOpacity(0.3)
+        ? colors.outlineVariant.withValues(alpha: 0.3)
         : (checkOnSelect ? colors.background : colors.text);
   }
 }

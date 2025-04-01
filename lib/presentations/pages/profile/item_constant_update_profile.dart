@@ -4,7 +4,10 @@ import 'package:themes/themes.dart';
 
 class ItemUpdateProfileConstant extends StatelessWidget {
   const ItemUpdateProfileConstant(
-      {super.key, this.title = '', this.content = '', this.checkOpacity = false});
+      {super.key,
+      this.title = '',
+      this.content = '',
+      this.checkOpacity = false});
 
   final String title, content;
   final bool checkOpacity;
@@ -32,14 +35,15 @@ class ItemUpdateProfileConstant extends StatelessWidget {
             borderRadius: BorderRadius.circular(SpacingUnit.x2),
             color: colors.background,
             border: Border.all(
-              color: colors.surfaceBright.withOpacity(0.4),
+              color: colors.surfaceBright.withValues(alpha: 0.4),
               width: 1,
             ),
           ),
           child: Text(
             content,
             style: TextStyle(
-                color: colors.text.withOpacity(checkOpacity ? 0.7 : 1), fontSize: SpacingUnit.x4),
+                color: colors.text.withValues(alpha: checkOpacity ? 0.7 : 1),
+                fontSize: SpacingUnit.x4),
           ),
         ),
       ],

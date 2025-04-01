@@ -9,21 +9,21 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
-import 'package:base_app/domain/entities/user.dart';
+// import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
+// import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
+// import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/overtime/list_overtime.dart';
 import 'package:base_app/presentations/widgets/custom/app_container_screen_main.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:themes/themes.dart';
@@ -36,6 +36,7 @@ final createRequestOverTimePageRoute = GoRoute(
       return CreateRequisitionOverTimePage(
         flowId: data['flowId'],
         requestId: data['requestId'],
+        date: DateTime.parse(data['date']),
       );
     });
 
@@ -44,16 +45,20 @@ class CreateRequisitionOverTimePage extends StatefulWidget {
     super.key,
     this.flowId = '',
     this.requestId = '',
+    this.date,
   });
 
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
-  State<CreateRequisitionOverTimePage> createState() => _CreateRequisitionOverTimePageState();
+  State<CreateRequisitionOverTimePage> createState() =>
+      _CreateRequisitionOverTimePageState();
 }
 
-class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTimePage> {
+class _CreateRequisitionOverTimePageState
+    extends State<CreateRequisitionOverTimePage> {
   List<RequisitionOverTime> requisitionOverTimes = [];
   List<String> followers = [];
   String description = "", error = '', errorDescription = '', errorDialog = '';
@@ -70,6 +75,7 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
       description = request.config.description;
       inputController.text = description;
     }
+    addOverTime(widget.date ?? DateTime.now());
     super.initState();
   }
 
@@ -79,20 +85,23 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     final bool checkDescription = description.isNotEmpty;
     setState(() {
       error = check ? '' : appLocalizations.notSelectedAOverTime;
-      errorDescription = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorDescription =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
     });
     return check && checkDescription;
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -125,26 +134,29 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
                         checkUpdate: widget.requestId.isNotEmpty,
                         requiredValidate: true,
                         checkExplanation: true,
-                        callback: () => addOverTime(),
+                        callback: () => addOverTime(DateTime.now()),
                         title: appLocalizations.listOvertime,
                         error: error,
                         requisitionOverTimes: requisitionOverTimes,
-                        onChangeList: (value) => _setChangeRequisitionOverTimes(value),
+                        onChangeList: (value) =>
+                            _setChangeRequisitionOverTimes(value),
                       ),
-                      ItemCreateInputArea(
-                        textInputFormatter: [LengthLimitingTextInputFormatter(500)],
-                        requiredValidate: true,
-                        title: appLocalizations.reasonCreateRequest,
-                        error: errorDescription,
-                        textController: inputController,
-                        onChange: (value) => setDescription(value),
-                      ),
-                      ItemCreateFollower(
-                          listFollower: _setListUser(
-                            stateUserById.userById,
-                          ),
-                          title: appLocalizations.follower,
-                          onChange: (value) => _setFollower(value)),
+                      // ItemCreateInputArea(
+                      //   textInputFormatter: [
+                      //     LengthLimitingTextInputFormatter(500)
+                      //   ],
+                      //   requiredValidate: true,
+                      //   title: appLocalizations.reasonCreateRequest,
+                      //   error: errorDescription,
+                      //   textController: inputController,
+                      //   onChange: (value) => setDescription(value),
+                      // ),
+                      // ItemCreateFollower(
+                      //     listFollower: _setListUser(
+                      //       stateUserById.userById,
+                      //     ),
+                      //     title: appLocalizations.follower,
+                      //     onChange: (value) => _setFollower(value)),
                       const ItemListStepFlow(),
                       Padding(
                         padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
@@ -224,9 +236,11 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
     );
   }
@@ -241,18 +255,18 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     dI<AppNavigation>().pop(context);
   }
 
-  _setFollower(List<User> value) {
-    setState(() {
-      followers = value.map((e) => e.id).toList();
-    });
-  }
+  // _setFollower(List<User> value) {
+  //   setState(() {
+  //     followers = value.map((e) => e.id).toList();
+  //   });
+  // }
 
-  List<User> _setListUser(List<User> userById) {
-    if (widget.requestId.isNotEmpty) {
-      return userById;
-    }
-    return [];
-  }
+  // List<User> _setListUser(List<User> userById) {
+  //   if (widget.requestId.isNotEmpty) {
+  //     return userById;
+  //   }
+  //   return [];
+  // }
 
   _setChangeRequisitionOverTimes(List<RequisitionOverTime> value) {
     setState(() {
@@ -260,9 +274,10 @@ class _CreateRequisitionOverTimePageState extends State<CreateRequisitionOverTim
     });
   }
 
-  addOverTime() {
+  addOverTime(DateTime date) {
     setState(() {
-      requisitionOverTimes.add(RequisitionOverTime(date: DateTime.now(), overtimeDay: EnumOvertimeDay.holiday));
+      requisitionOverTimes.add(RequisitionOverTime(
+          date: date, overtimeDay: EnumOvertimeDay.holiday));
     });
   }
 }

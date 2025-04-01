@@ -17,19 +17,11 @@ CreateRoomMeetingRequest _$CreateRoomMeetingRequestFromJson(
     );
 
 Map<String, dynamic> _$CreateRoomMeetingRequestToJson(
-    CreateRoomMeetingRequest instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('roomName', instance.roomName);
-  writeNotNull('numberOfSeats', instance.numberOfSeats);
-  writeNotNull('address', instance.address);
-  writeNotNull('description', instance.description);
-  writeNotNull('isApproval', instance.isApproval);
-  return val;
-}
+        CreateRoomMeetingRequest instance) =>
+    <String, dynamic>{
+      if (instance.roomName case final value?) 'roomName': value,
+      if (instance.numberOfSeats case final value?) 'numberOfSeats': value,
+      if (instance.address case final value?) 'address': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.isApproval case final value?) 'isApproval': value,
+    };

@@ -29,7 +29,7 @@ class TitleDialog extends StatelessWidget {
         children: [
           ContainerBorder(
             height: SpacingUnit.x50,
-            borderColors: colors.primary.withOpacity(0.3),
+            borderColors: colors.primary.withValues(alpha: 0.3),
             width: width,
             child: SingleChildScrollView(
               child: Text(
@@ -64,7 +64,9 @@ class TitleDialog extends StatelessWidget {
 }
 
 updateNoteDialog(
-    {required BuildContext context, required VoidCallback callBack, required String title}) async {
+    {required BuildContext context,
+    required VoidCallback callBack,
+    required String title}) async {
   return showDialog(
     context: context,
     builder: (context) {
@@ -78,7 +80,8 @@ updateNoteDialog(
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: SpacingUnit.x4, color: Colors.black),
+              style: const TextStyle(
+                  fontSize: SpacingUnit.x4, color: Colors.black),
             ),
             const SizedBox(
               height: SpacingUnit.x4,
@@ -88,7 +91,8 @@ updateNoteDialog(
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
                     child: AppButton(
                       color: colors.blue,
                       colorText: colors.background,
@@ -99,7 +103,8 @@ updateNoteDialog(
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: SpacingUnit.x2),
                     child: AppButton(
                       colorText: colors.blue,
                       color: colors.background,

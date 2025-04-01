@@ -7,17 +7,17 @@ part of 'auth_state.dart';
 // **************************************************************************
 
 abstract class _$AuthStateCWProxy {
+  AuthState status(AuthStatus status);
+
+  AuthState token(String token);
+
+  AuthState saveLogin(bool saveLogin);
+
   AuthState email(String email);
 
   AuthState password(String password);
 
   AuthState roles(List<String> roles);
-
-  AuthState saveLogin(bool saveLogin);
-
-  AuthState status(AuthStatus status);
-
-  AuthState token(String token);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AuthState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -26,20 +26,29 @@ abstract class _$AuthStateCWProxy {
   /// AuthState(...).copyWith(id: 12, name: "My name")
   /// ````
   AuthState call({
+    AuthStatus? status,
+    String? token,
+    bool? saveLogin,
     String? email,
     String? password,
     List<String>? roles,
-    bool? saveLogin,
-    AuthStatus? status,
-    String? token,
   });
 }
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfAuthState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfAuthState.copyWith.fieldName(...)`
 class _$AuthStateCWProxyImpl implements _$AuthStateCWProxy {
+  const _$AuthStateCWProxyImpl(this._value);
+
   final AuthState _value;
 
-  const _$AuthStateCWProxyImpl(this._value);
+  @override
+  AuthState status(AuthStatus status) => this(status: status);
+
+  @override
+  AuthState token(String token) => this(token: token);
+
+  @override
+  AuthState saveLogin(bool saveLogin) => this(saveLogin: saveLogin);
 
   @override
   AuthState email(String email) => this(email: email);
@@ -51,15 +60,6 @@ class _$AuthStateCWProxyImpl implements _$AuthStateCWProxy {
   AuthState roles(List<String> roles) => this(roles: roles);
 
   @override
-  AuthState saveLogin(bool saveLogin) => this(saveLogin: saveLogin);
-
-  @override
-  AuthState status(AuthStatus status) => this(status: status);
-
-  @override
-  AuthState token(String token) => this(token: token);
-
-  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AuthState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -68,14 +68,26 @@ class _$AuthStateCWProxyImpl implements _$AuthStateCWProxy {
   /// AuthState(...).copyWith(id: 12, name: "My name")
   /// ````
   AuthState call({
+    Object? status = const $CopyWithPlaceholder(),
+    Object? token = const $CopyWithPlaceholder(),
+    Object? saveLogin = const $CopyWithPlaceholder(),
     Object? email = const $CopyWithPlaceholder(),
     Object? password = const $CopyWithPlaceholder(),
     Object? roles = const $CopyWithPlaceholder(),
-    Object? saveLogin = const $CopyWithPlaceholder(),
-    Object? status = const $CopyWithPlaceholder(),
-    Object? token = const $CopyWithPlaceholder(),
   }) {
     return AuthState(
+      status: status == const $CopyWithPlaceholder() || status == null
+          ? _value.status
+          // ignore: cast_nullable_to_non_nullable
+          : status as AuthStatus,
+      token: token == const $CopyWithPlaceholder() || token == null
+          ? _value.token
+          // ignore: cast_nullable_to_non_nullable
+          : token as String,
+      saveLogin: saveLogin == const $CopyWithPlaceholder() || saveLogin == null
+          ? _value.saveLogin
+          // ignore: cast_nullable_to_non_nullable
+          : saveLogin as bool,
       email: email == const $CopyWithPlaceholder() || email == null
           ? _value.email
           // ignore: cast_nullable_to_non_nullable
@@ -88,18 +100,6 @@ class _$AuthStateCWProxyImpl implements _$AuthStateCWProxy {
           ? _value.roles
           // ignore: cast_nullable_to_non_nullable
           : roles as List<String>,
-      saveLogin: saveLogin == const $CopyWithPlaceholder() || saveLogin == null
-          ? _value.saveLogin
-          // ignore: cast_nullable_to_non_nullable
-          : saveLogin as bool,
-      status: status == const $CopyWithPlaceholder() || status == null
-          ? _value.status
-          // ignore: cast_nullable_to_non_nullable
-          : status as AuthStatus,
-      token: token == const $CopyWithPlaceholder() || token == null
-          ? _value.token
-          // ignore: cast_nullable_to_non_nullable
-          : token as String,
     );
   }
 }

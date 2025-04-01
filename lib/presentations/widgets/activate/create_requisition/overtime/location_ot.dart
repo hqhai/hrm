@@ -35,7 +35,7 @@ class _LocationOverTimeState extends State<LocationOverTime> {
         ),
         ContainerBorder(
           paddingVertical: 0,
-          borderColors: colors.text.withOpacity(0.4),
+          borderColors: colors.text.withValues(alpha: 0.4),
           child: ListTile(
             contentPadding: EdgeInsets.zero,
             title: Row(
@@ -60,7 +60,7 @@ class _LocationOverTimeState extends State<LocationOverTime> {
         ),
         ContainerBorder(
           paddingVertical: 0,
-          borderColors: colors.text.withOpacity(0.4),
+          borderColors: colors.text.withValues(alpha: 0.4),
           child: ListTile(
             contentPadding: EdgeInsets.zero,
             title: Row(

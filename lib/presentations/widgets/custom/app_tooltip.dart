@@ -25,7 +25,7 @@ class _AppTooltipState extends State<AppTooltip> {
     return Tooltip(
       key: tooltipKey,
       decoration: BoxDecoration(
-        color: colors.text.withOpacity(0.1),
+        color: colors.text.withValues(alpha: 0.1),
         borderRadius: const BorderRadius.all(Radius.circular(SpacingUnit.x4)),
       ),
       verticalOffset: -SpacingUnit.x12,
@@ -39,7 +39,7 @@ class _AppTooltipState extends State<AppTooltip> {
           width: SpacingUnit.x16,
           Assets.images.icon.activateIcon.information,
           colorFilter: ColorFilter.mode(
-            colors.text.withOpacity(0.5),
+            colors.text.withValues(alpha: 0.5),
             BlendMode.srcIn,
           ),
         ),

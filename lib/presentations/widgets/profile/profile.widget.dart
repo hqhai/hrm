@@ -9,7 +9,7 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:base_app/presentations/pages/profile/item_profile.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_colum.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value_colum.dart';
 import 'package:base_app/presentations/widgets/profile/item_department_and_position_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +48,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         builder: (context, state) {
           return Container(
             padding: const EdgeInsets.all(SpacingUnit.x4),
-            color: colors.outline.withOpacity(0.1),
+            color: colors.outline.withValues(alpha: 0.1),
             child: SingleChildScrollView(
               child: Column(
                 children: [

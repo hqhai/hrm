@@ -28,9 +28,9 @@ abstract class _$PositionStateCWProxy {
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfPositionState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfPositionState.copyWith.fieldName(...)`
 class _$PositionStateCWProxyImpl implements _$PositionStateCWProxy {
-  final PositionState _value;
-
   const _$PositionStateCWProxyImpl(this._value);
+
+  final PositionState _value;
 
   @override
   PositionState position(Position position) => this(position: position);

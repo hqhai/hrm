@@ -61,7 +61,8 @@ class _AppButton extends State<AppButton> {
             color: widget.colorBorder,
             width: 1,
           ),
-          color: widget.enable ? widget.color : colors.text.withOpacity(0.3),
+          color:
+              widget.enable ? widget.color : colors.text.withValues(alpha: 0.3),
         ),
         child: Center(
           child: Text(

@@ -10,7 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ListCheckboxFlowRequestFilter extends StatefulWidget {
-  const ListCheckboxFlowRequestFilter({super.key, required this.onChange, required this.listFlows});
+  const ListCheckboxFlowRequestFilter(
+      {super.key, required this.onChange, required this.listFlows});
 
   final ValueChanged<List<FlowRequest>> onChange;
   final List<FlowRequest> listFlows;
@@ -58,7 +59,8 @@ class _ListCheckboxFlowRequestFilterState
                           (index, element) => Column(
                             children: [
                               CheckboxListTile(
-                                value: listFlows.any((e) => e.flowType == element.flowType),
+                                value: listFlows
+                                    .any((e) => e.flowType == element.flowType),
                                 onChanged: (value) => setValue(
                                     index: index, value: value, flow: element),
                                 subtitle: Text(
@@ -71,7 +73,7 @@ class _ListCheckboxFlowRequestFilterState
                               ),
                               Divider(
                                 height: SpacingUnit.x0_25,
-                                color: colors.outline.withOpacity(0.2),
+                                color: colors.outline.withValues(alpha: 0.2),
                               )
                             ],
                           ),

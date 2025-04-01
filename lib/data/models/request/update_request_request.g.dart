@@ -19,19 +19,10 @@ UpdateRequestRequest _$UpdateRequestRequestFromJson(
     );
 
 Map<String, dynamic> _$UpdateRequestRequestToJson(
-    UpdateRequestRequest instance) {
-  final val = <String, dynamic>{
-    'priority': instance.priority,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('title', instance.title);
-  writeNotNull('content', instance.content);
-  writeNotNull('filePaths', instance.filePaths);
-  return val;
-}
+        UpdateRequestRequest instance) =>
+    <String, dynamic>{
+      'priority': instance.priority,
+      if (instance.title case final value?) 'title': value,
+      if (instance.content case final value?) 'content': value,
+      if (instance.filePaths case final value?) 'filePaths': value,
+    };

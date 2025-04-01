@@ -99,7 +99,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
-      borderColors: colors.text.withOpacity(0.4),
+      borderColors: colors.text.withValues(alpha: 0.4),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +146,7 @@ class _StationeryOderAddDialogState extends State<StationeryOderAddDialog> {
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => _onSubmit(),
-                color: colors.error.withOpacity(0.7),
+                color: colors.error.withValues(alpha: 0.7),
               ),
             )
           ]

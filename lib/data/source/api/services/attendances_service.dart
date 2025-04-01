@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:base_app/common/configs/path_config.dart';
 import 'package:base_app/data/models/request/attendances/get_attendance_request.dart';
 import 'package:base_app/data/models/request/attendances/get_attendances_request.dart';
@@ -6,6 +8,7 @@ import 'package:base_app/data/models/work_and_salary/work_sheet_history_request.
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/attendance/work_sheet.dart';
 import 'package:base_app/domain/entities/work_day/attendance_by_date.dart';
+import 'package:base_app/domain/entities/work_day/attendance_by_list_date.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../models/base/data_response.dart';
@@ -19,7 +22,8 @@ class AttendanceService {
 
   final UserApiClient _apiClient;
 
-  Future<DataResponse<Attendance>?> getAttendance(GetAttendancesRequest getAttendanceRequest) async {
+  Future<DataResponse<Attendance>?> getAttendance(
+      GetAttendancesRequest getAttendanceRequest) async {
     return _apiClient.request(
       method: RestMethod.get,
       path: PathConfig.worksheet,
@@ -44,7 +48,8 @@ class AttendanceService {
     );
   }
 
-  Future<DataResponse<Attendance>?> workSheet(GetAttendanceRequest getAttendanceRequest) async {
+  Future<DataResponse<Attendance>?> workSheet(
+      GetAttendanceRequest getAttendanceRequest) async {
     return _apiClient.request(
       method: RestMethod.get,
       path: PathConfig.worksheet,
@@ -54,12 +59,31 @@ class AttendanceService {
     );
   }
 
-  Future<DataListResponse<AttendanceByDate>?> getAttendancesByDate({required WorkSheetHistoryRequest workSheetHistoryRequest}) async {
+  Future<DataListResponse<AttendanceByDate>?> getAttendancesByDate(
+      {required WorkSheetHistoryRequest workSheetHistoryRequest}) async {
     return _apiClient.request(
       method: RestMethod.get,
       path: PathConfig.attendanceByDate,
       queryParameters: workSheetHistoryRequest.toJson(),
-      decoder: (json) => AttendanceByDate.fromJson(json as Map<String, dynamic>),
+      decoder: (json) =>
+          AttendanceByDate.fromJson(json as Map<String, dynamic>),
+      successResponseMapperType: SuccessResponseMapperType.dataJsonArray,
+    );
+  }
+
+  Future<DataListResponse<AttendanceByListDate>?> getAttendanceByListDate({
+    required List<String> dates,
+    required String userId,
+  }) async {
+    return _apiClient.request(
+      method: RestMethod.post,
+      path: PathConfig.attendanceByListDate,
+      body: jsonEncode({
+        'dates': dates,
+        'userId': userId,
+      }),
+      decoder: (json) =>
+          AttendanceByListDate.fromJson(json as Map<String, dynamic>),
       successResponseMapperType: SuccessResponseMapperType.dataJsonArray,
     );
   }

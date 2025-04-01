@@ -105,7 +105,10 @@ class _AppInputPasswordState extends State<AppInputPassword> {
                 style: theme.textTheme.bodyLarge,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.only(
-                      bottom: 0, left: 16, top: 0, right: 16 // HERE THE IMPORTANT PART
+                      bottom: 0,
+                      left: 16,
+                      top: 0,
+                      right: 16 // HERE THE IMPORTANT PART
                       ),
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -125,11 +128,14 @@ class _AppInputPasswordState extends State<AppInputPassword> {
                           ),
                   ),
                   hintText: widget.placeHolder,
-                  hintStyle: theme.textTheme.bodyLarge?.copyWith(color: colors.textTertiary),
+                  hintStyle: theme.textTheme.bodyLarge
+                      ?.copyWith(color: colors.textTertiary),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(
-                      color: isEmpty(widget.error) ? colors.outline.withOpacity(0.5) : colors.error,
+                      color: isEmpty(widget.error)
+                          ? colors.outline.withValues(alpha: 0.5)
+                          : colors.error,
                       width: 1.0,
                     ),
                   ),
@@ -149,8 +155,8 @@ class _AppInputPasswordState extends State<AppInputPassword> {
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
                   widget.error!,
-                  style: theme.textTheme.bodyLarge
-                      ?.copyWith(color: colors.error, fontSize: SpacingUnit.x3_5),
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                      color: colors.error, fontSize: SpacingUnit.x3_5),
                   maxLines: 2,
                 ),
               )

@@ -10,7 +10,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
-import 'package:base_app/domain/entities/user.dart';
+// import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
@@ -20,7 +20,7 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
+// import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
@@ -45,6 +45,7 @@ final createRequestMakeUpWorkPageRoute = GoRoute(
       flowId: data['flowId'],
       requestId: data['requestId'],
       type: data['type'],
+      date: DateTime.parse(data['date']),
     );
   },
 );
@@ -55,17 +56,21 @@ class CreateRequisitionMakeUpWorkPage extends StatefulWidget {
     this.flowId = '',
     this.requestId = '',
     this.type = RequisitionTypeEnum.makeUpWork,
+    this.date,
   });
 
   final RequisitionTypeEnum type;
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
-  State<CreateRequisitionMakeUpWorkPage> createState() => _CreateRequisitionMakeUpWorkPageState();
+  State<CreateRequisitionMakeUpWorkPage> createState() =>
+      _CreateRequisitionMakeUpWorkPageState();
 }
 
-class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeUpWorkPage> {
+class _CreateRequisitionMakeUpWorkPageState
+    extends State<CreateRequisitionMakeUpWorkPage> {
   final TextEditingController descriptionController = TextEditingController();
   String errorDescription = '',
       errorDialog = '',
@@ -74,6 +79,7 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
       description = '';
   List<String> followers = [];
   DateTime startDate = DateTime.now();
+  DateTime? endDate;
   int startTime = 0, endTime = 0;
   double numberValue = 0;
   List<WorkShiftRegisteredDetail> workShiftSettings = [];
@@ -85,13 +91,15 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
       final request = dI<RequisitionBloc>().state.requisition;
       description = request.config.description;
       workShiftSettings = [...request.config.workShiftSettings];
-      startDate = request.config.startDate ?? DateTime.now();
+      startDate = request.config.startDate ?? widget.date ?? DateTime.now();
+      endDate = request.config.startDate ?? widget.date ?? DateTime.now();
       startTime = request.config.startTime;
       endTime = request.config.endTime;
       numberValue = (request.config.numberValue);
       followers = [...request.followerIds];
-
       descriptionController.text = description;
+    } else {
+      startDate = widget.date ?? DateTime.now();
     }
     super.initState();
   }
@@ -99,8 +107,9 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
   _listener(String errorCode, BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
       if (errorCode == "TimeSlotAlreadyPleaseChooseAnother") {
         errorTime = appLocalizations.errorTimeMakeUp2;
       }
@@ -122,7 +131,9 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
               title: Text(
                 widget.type.configTypeCreateName,
                 style: TextStyle(
-                    color: colors.text, fontSize: SpacingUnit.x4_5, fontWeight: FontWeight.w600),
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4_5,
+                    fontWeight: FontWeight.w600),
               ),
             ),
             body: SingleChildScrollView(
@@ -158,11 +169,13 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
                         : ItemWorkShiftADate(
                             workShiftSettingsOld: workShiftSettings,
                             type: widget.type,
-                            workShiftSettings: (value) => _setWorkShiftSettings(value),
+                            workShiftSettings: (value) =>
+                                _setWorkShiftSettings(value),
                           ),
                     BlocBuilder<LeaveShiftBloc, LeaveShiftState>(
                       builder: (context, stateShift) {
-                        return errorWorkShiftSettings.isNotEmpty || stateShift.keys.isNotEmpty
+                        return errorWorkShiftSettings.isNotEmpty ||
+                                stateShift.keys.isNotEmpty
                             ? Text(
                                 errorWorkShiftSettings,
                                 style: TextStyle(
@@ -181,8 +194,8 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
                       requiredValidate: true,
                     ),
                     DateOverTime(
-                      dateOld: startDate,
-                      changeValue: (value) => setDate(value),
+                      dateOld: endDate,
+                      changeValue: (value) => setEndDate(value),
                     ),
                     AppStartEndTime(
                       endTime: endTime,
@@ -202,12 +215,12 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
                       errorTime: errorTime,
                       checkNumberValue: false,
                     ),
-                    ItemCreateFollower(
-                        listFollower: _setListUser(
-                          stateUserById.userById,
-                        ),
-                        title: appLocalizations.follower,
-                        onChange: (value) => _setFollower(value)),
+                    // ItemCreateFollower(
+                    //     listFollower: _setListUser(
+                    //       stateUserById.userById,
+                    //     ),
+                    //     title: appLocalizations.follower,
+                    //     onChange: (value) => _setFollower(value)),
                     const ItemListStepFlow(),
                     ItemButton(
                       id: widget.requestId,
@@ -224,29 +237,31 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
     );
   }
 
-  List<User> _setListUser(List<User> userById) {
-    if (widget.requestId.isNotEmpty) {
-      return userById;
-    }
-    return [];
-  }
+  // List<User> _setListUser(List<User> userById) {
+  //   if (widget.requestId.isNotEmpty) {
+  //     return userById;
+  //   }
+  //   return [];
+  // }
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkDescription = description.isNotEmpty;
     final bool checkList = workShiftSettings.isNotEmpty;
     setState(() {
-      errorDescription = checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
-      errorWorkShiftSettings = checkList ? '' : appLocalizations.notSelectedAShift;
+      errorDescription =
+          checkDescription ? '' : appLocalizations.cannotBeLeftBlank;
+      errorWorkShiftSettings =
+          checkList ? '' : appLocalizations.notSelectedAShift;
     });
     return checkList && checkDescription;
   }
 
-  _setFollower(List<User> value) {
-    setState(() {
-      followers = value.map((e) => e.id).toList();
-    });
-  }
+  // _setFollower(List<User> value) {
+  //   setState(() {
+  //     followers = value.map((e) => e.id).toList();
+  //   });
+  // }
 
   _setDetailedDescription(String value) {
     setState(() {
@@ -304,9 +319,10 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
     dI<AppNavigation>().pop(context);
   }
 
-  setDate(DateTime value) {
+  setEndDate(DateTime value) {
     setState(() {
       startDate = value;
+      endDate = value;
     });
   }
 
@@ -335,8 +351,8 @@ class _CreateRequisitionMakeUpWorkPageState extends State<CreateRequisitionMakeU
         checkShirt = false;
       });
       Completer completer = Completer<bool>();
-      dI<LeaveShiftBloc>()
-          .add(GetWorkShiftsEvent(endDate: startDate, startDate: startDate, completer: completer));
+      dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+          endDate: startDate, startDate: startDate, completer: completer));
       final check = await completer.future;
       if (check) {
         setState(() {

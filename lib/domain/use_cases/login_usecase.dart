@@ -16,14 +16,15 @@ class LoginUseCase {
     final loginResponse = await _authRepository.login(username, password);
     AppLocalStorage.saveData(DataKey.token, loginResponse?.accessToken);
     AppLocalStorage.saveData(DataKey.fullName, loginResponse?.fullName);
+    AppLocalStorage.saveData(DataKey.passwordBiometric, password);
     AppLocalStorage.saveListData(DataKey.roles, loginResponse?.roles);
     AppConfig.setToken(loginResponse?.accessToken ?? "");
     return loginResponse;
   }
 
-  Future<void> checkAccountBiometric(
+  Future<bool> checkAccountBiometric(
       {required String username, required String password}) async {
-    await _authRepository.checkAccountBiometric(
+    return await _authRepository.checkAccountBiometric(
         username: username, password: password);
   }
 }

@@ -7,9 +7,9 @@ part of 'user_by_roles_state.dart';
 // **************************************************************************
 
 abstract class _$UserByRolesStateCWProxy {
-  UserByRolesState status(UserStatus status);
-
   UserByRolesState users(List<User> users);
+
+  UserByRolesState status(UserStatus status);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `UserByRolesState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -18,22 +18,22 @@ abstract class _$UserByRolesStateCWProxy {
   /// UserByRolesState(...).copyWith(id: 12, name: "My name")
   /// ````
   UserByRolesState call({
-    UserStatus? status,
     List<User>? users,
+    UserStatus? status,
   });
 }
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfUserByRolesState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfUserByRolesState.copyWith.fieldName(...)`
 class _$UserByRolesStateCWProxyImpl implements _$UserByRolesStateCWProxy {
-  final UserByRolesState _value;
-
   const _$UserByRolesStateCWProxyImpl(this._value);
 
-  @override
-  UserByRolesState status(UserStatus status) => this(status: status);
+  final UserByRolesState _value;
 
   @override
   UserByRolesState users(List<User> users) => this(users: users);
+
+  @override
+  UserByRolesState status(UserStatus status) => this(status: status);
 
   @override
 
@@ -44,18 +44,18 @@ class _$UserByRolesStateCWProxyImpl implements _$UserByRolesStateCWProxy {
   /// UserByRolesState(...).copyWith(id: 12, name: "My name")
   /// ````
   UserByRolesState call({
-    Object? status = const $CopyWithPlaceholder(),
     Object? users = const $CopyWithPlaceholder(),
+    Object? status = const $CopyWithPlaceholder(),
   }) {
     return UserByRolesState(
-      status: status == const $CopyWithPlaceholder() || status == null
-          ? _value.status
-          // ignore: cast_nullable_to_non_nullable
-          : status as UserStatus,
       users: users == const $CopyWithPlaceholder() || users == null
           ? _value.users
           // ignore: cast_nullable_to_non_nullable
           : users as List<User>,
+      status: status == const $CopyWithPlaceholder() || status == null
+          ? _value.status
+          // ignore: cast_nullable_to_non_nullable
+          : status as UserStatus,
     );
   }
 }

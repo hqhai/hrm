@@ -23,9 +23,11 @@ class ShiftTab extends StatelessWidget {
 
   final DateTime dateTime;
 
-  UserWorkingHistoryModel userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
-    final index = list.indexWhere((element) => element.date?.isAtSameMomentAs(dateTime) ?? false);
-    if(index != -1) {
+  UserWorkingHistoryModel userWorkingHistoryModelByDate(
+      List<UserWorkingHistoryModel> list) {
+    final index = list.indexWhere(
+        (element) => element.date?.isAtSameMomentAs(dateTime) ?? false);
+    if (index != -1) {
       return list[index];
     }
     return const UserWorkingHistoryModel();
@@ -37,8 +39,8 @@ class ShiftTab extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     return BlocBuilder<AttendanceBloc, AttendanceState>(
       builder: (context, state) {
-        final userWorkingHistoryModel =
-            userWorkingHistoryModelByDate(state.attendance.userWorkingHistories);
+        final userWorkingHistoryModel = userWorkingHistoryModelByDate(
+            state.attendance.userWorkingHistories);
         return Padding(
           padding: const EdgeInsets.all(SpacingUnit.x4),
           child: Stack(
@@ -61,7 +63,8 @@ class ShiftTab extends StatelessWidget {
                       flexValue: 1,
                       font: FontWeight.w600,
                       title: appLocalizations.totalTimeWork,
-                      value: strTimeFromInt(userWorkingHistoryModel.workTimeActual.toInt()),
+                      value: strTimeFromInt(
+                          userWorkingHistoryModel.workTimeActual.toInt()),
                       size: SpacingUnit.x4,
                       padding: SpacingUnit.x3,
                     ),
@@ -70,7 +73,8 @@ class ShiftTab extends StatelessWidget {
                       flexValue: 1,
                       font: FontWeight.w600,
                       title: appLocalizations.minutesToLate,
-                      value: strTimeSFromInt(userWorkingHistoryModel.timeLate.toInt()),
+                      value: strTimeSFromInt(
+                          userWorkingHistoryModel.timeLate.toInt()),
                       size: SpacingUnit.x4,
                       padding: SpacingUnit.x3,
                     ),
@@ -79,7 +83,8 @@ class ShiftTab extends StatelessWidget {
                       flexValue: 1,
                       font: FontWeight.w600,
                       title: appLocalizations.minutesToEarly,
-                      value: strTimeSFromInt(userWorkingHistoryModel.timeEarly.toInt()),
+                      value: strTimeSFromInt(
+                          userWorkingHistoryModel.timeEarly.toInt()),
                       size: SpacingUnit.x4,
                       padding: SpacingUnit.x3,
                     ),
@@ -100,7 +105,9 @@ class ShiftTab extends StatelessWidget {
                       size: SpacingUnit.x4,
                       padding: SpacingUnit.x3,
                     ),
-                    const SizedBox(height: SpacingUnit.x10,)
+                    const SizedBox(
+                      height: SpacingUnit.x10,
+                    )
                   ],
                 ),
               ),
@@ -138,7 +145,11 @@ class ShiftTab extends StatelessWidget {
     if (check) {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(context);
-      dI<AppNavigation>().pushName(currentContext, page: Pages.createRequestPage);
+      dI<AppNavigation>().push(
+        currentContext,
+        page: Pages.createRequestPage,
+        paramsQuerry: {'date': dateTime},
+      );
     }
   }
 }

@@ -15,7 +15,8 @@ class VehicleBottomSheetWidget extends StatefulWidget {
   final VehicleTypeEnum vehicle;
 
   @override
-  State<VehicleBottomSheetWidget> createState() => _VehicleBottomSheetWidgetState();
+  State<VehicleBottomSheetWidget> createState() =>
+      _VehicleBottomSheetWidgetState();
 }
 
 class _VehicleBottomSheetWidgetState extends State<VehicleBottomSheetWidget> {
@@ -29,7 +30,7 @@ class _VehicleBottomSheetWidgetState extends State<VehicleBottomSheetWidget> {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
     return Container(
-      color: colors.text.withOpacity(0.1),
+      color: colors.text.withValues(alpha: 0.1),
       child: Padding(
         padding: const EdgeInsets.all(SpacingUnit.x4),
         child: Column(
@@ -40,12 +41,16 @@ class _VehicleBottomSheetWidgetState extends State<VehicleBottomSheetWidget> {
                   onTap: () => _onChange(e),
                   child: ContainerBorder(
                     width: width,
-                    borderColors: e == widget.vehicle ? colors.blue : colors.background,
-                    backgroundColors: e == widget.vehicle ? colors.blue : colors.background,
+                    borderColors:
+                        e == widget.vehicle ? colors.blue : colors.background,
+                    backgroundColors:
+                        e == widget.vehicle ? colors.blue : colors.background,
                     child: Text(
                       e.configVehicleTypeName,
                       style: TextStyle(
-                        color: e == widget.vehicle ? colors.background : colors.text,
+                        color: e == widget.vehicle
+                            ? colors.background
+                            : colors.text,
                         fontSize: SpacingUnit.x4,
                       ),
                     ),

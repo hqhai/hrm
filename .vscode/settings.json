@@ -2,5 +2,6 @@
   "cSpell.words": [
     "Nguyeenx"
   ],
-  "dart.flutterSdkPath": ".fvm/versions/3.19.6"
+  "dart.flutterSdkPath": ".fvm/versions/3.24.5",
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

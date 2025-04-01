@@ -10,14 +10,12 @@ import 'package:base_app/data/models/requisition/requisition/config_model_reques
 import 'package:base_app/data/models/requisition/requisition/explanation.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/requisition/requisition_over_time.dart';
-import 'package:base_app/domain/entities/user.dart';
+// import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_list_explanations.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
@@ -37,6 +35,7 @@ final createRequestExplanationPageRoute = GoRoute(
       flowId: data['flowId'],
       requestId: data['requestId'],
       type: data['type'],
+      date: DateTime.parse(data['date']),
     );
   },
 );
@@ -47,18 +46,23 @@ class CreateRequisitionExplanationPage extends StatefulWidget {
     this.flowId = '',
     this.requestId = '',
     this.type = RequisitionTypeEnum.explanation,
+    this.date,
   });
 
   final RequisitionTypeEnum type;
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
-  State<CreateRequisitionExplanationPage> createState() => _CreateRequisitionExplanationPageState();
+  State<CreateRequisitionExplanationPage> createState() =>
+      _CreateRequisitionExplanationPageState();
 }
 
-class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExplanationPage> {
-  final TextEditingController detailedDescriptionController = TextEditingController();
+class _CreateRequisitionExplanationPageState
+    extends State<CreateRequisitionExplanationPage> {
+  final TextEditingController detailedDescriptionController =
+      TextEditingController();
   List<RequisitionOverTime> listRequisitionOverTimes = [];
   String errorTime = '', errorDialog = '', errorExplanations = '';
   String? description;
@@ -77,18 +81,21 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
       detailedDescriptionController.text = description ?? "";
       explanations = [...request.config.explanations];
     }
+    _addExplanation(widget.date ?? DateTime.now());
     super.initState();
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog =
-          errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -121,24 +128,26 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
                       changeExplanations: (value) => _setExplanations(value),
                       explanations: explanations,
                       title: appLocalizations.workDay,
-                      callback: () => _addExplanation(),
+                      callback: () =>
+                          _addExplanation(widget.date ?? DateTime.now()),
                     ),
-                    ItemCreateInputArea(
-                      textController: detailedDescriptionController,
-                      title: appLocalizations.detailedDescription,
-                      onChange: (value) => _setDetailedDescription(value),
-                    ),
-                    ItemCreateFollower(
-                        listFollower: _setListUser(
-                          stateUserById.userById,
-                        ),
-                        title: appLocalizations.follower,
-                        onChange: (value) => _setFollower(value)),
+                    // ItemCreateInputArea(
+                    //   textController: detailedDescriptionController,
+                    //   title: appLocalizations.detailedDescription,
+                    //   onChange: (value) => _setDetailedDescription(value),
+                    // ),
+                    // ItemCreateFollower(
+                    //     listFollower: _setListUser(
+                    //       stateUserById.userById,
+                    //     ),
+                    //     title: appLocalizations.follower,
+                    //     onChange: (value) => _setFollower(value)),
                     const ItemListStepFlow(),
                     ItemButton(
                       id: widget.requestId,
                       callbackSave: explanations.any((element) =>
-                              element.note.isEmpty || element.checkOut - element.checkIn <= 0)
+                              element.note.isEmpty ||
+                              element.checkOut - element.checkIn <= 0)
                           ? null
                           : () => _save(context),
                       callbackCancel: () => _cancel(context),
@@ -165,12 +174,12 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  List<User> _setListUser(List<User> userById) {
-    if (widget.requestId.isNotEmpty) {
-      return userById;
-    }
-    return [];
-  }
+  // List<User> _setListUser(List<User> userById) {
+  //   if (widget.requestId.isNotEmpty) {
+  //     return userById;
+  //   }
+  //   return [];
+  // }
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
@@ -182,17 +191,17 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     return checkList;
   }
 
-  _setFollower(List<User> value) {
-    setState(() {
-      followers = value.map((e) => e.id).toList();
-    });
-  }
+  // _setFollower(List<User> value) {
+  //   setState(() {
+  //     followers = value.map((e) => e.id).toList();
+  //   });
+  // }
 
-  _setDetailedDescription(String value) {
-    setState(() {
-      description = value;
-    });
-  }
+  // _setDetailedDescription(String value) {
+  //   setState(() {
+  //     description = value;
+  //   });
+  // }
 
   PostRequestRequest request() {
     return widget.requestId.isEmpty
@@ -219,9 +228,11 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
     );
   }
@@ -236,10 +247,10 @@ class _CreateRequisitionExplanationPageState extends State<CreateRequisitionExpl
     });
   }
 
-  _addExplanation() {
+  _addExplanation(DateTime date) {
     setState(() {
       explanations.add(
-        Explanation(workDate: DateTime.now()),
+        Explanation(workDate: date),
       );
     });
   }

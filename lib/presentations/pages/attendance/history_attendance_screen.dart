@@ -70,7 +70,7 @@ class _HistoryAttendancePageState extends State<HistoryAttendancePage>
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
-            color: colors.outline.withOpacity(0.3),
+            color: colors.outline.withValues(alpha: 0.3),
             height: SpacingUnit.x0_5,
           ),
         ),
@@ -90,7 +90,7 @@ class _HistoryAttendancePageState extends State<HistoryAttendancePage>
             color: colors.background,
             child: TabBar(
               indicatorSize: TabBarIndicatorSize.tab,
-              dividerColor: colors.textLight.withOpacity(0.1),
+              dividerColor: colors.textLight.withValues(alpha: 0.1),
               dividerHeight: 0.1,
               indicatorColor: colors.textLight,
               tabAlignment: TabAlignment.start,
@@ -100,11 +100,11 @@ class _HistoryAttendancePageState extends State<HistoryAttendancePage>
                 fontSize: SpacingUnit.x4,
               ),
               unselectedLabelStyle: TextStyle(
-                color: colors.text.withOpacity(0.5),
+                color: colors.text.withValues(alpha: 0.5),
                 fontSize: SpacingUnit.x4,
                 fontWeight: FontWeight.normal,
               ),
-              unselectedLabelColor: colors.text.withOpacity(0.5),
+              unselectedLabelColor: colors.text.withValues(alpha: 0.5),
               controller: _tabController,
               isScrollable: true,
               tabs: tabBarAttendance(context).mapIndexed((index, element) {

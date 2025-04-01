@@ -79,7 +79,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   child: AppButtonNextScreen(
                     title: appLocalizations.seeDetails,
                     onSubmit: () => nextWorkSheet(context),
-                    color: colors.navy.withOpacity(0.15),
+                    color: colors.navy.withValues(alpha: 0.15),
                     colorText: colors.primary,
                   ),
                 )

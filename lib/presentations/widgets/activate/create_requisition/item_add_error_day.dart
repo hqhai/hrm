@@ -40,7 +40,7 @@ class ItemAddErrorDay extends StatelessWidget {
                 flex: 2,
                 child: ContainerBorder(
                   paddingVertical: SpacingUnit.x1,
-                  borderColors: colors.text.withOpacity(0.4),
+                  borderColors: colors.text.withValues(alpha: 0.4),
                   child: GestureDetector(
                     onTap: () => callback.call(),
                     child: Center(

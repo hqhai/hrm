@@ -39,9 +39,9 @@ class AuthRepositoryImpl extends AuthRepository {
       _appPreferences.saveRefreshToken(refreshToken);
 
   @override
-  Future<void> checkAccountBiometric(
+  Future<bool> checkAccountBiometric(
       {required String username, required String password}) async {
-    await _authService.checkAccountBiometric(
+    return await _authService.checkAccountBiometric(
         request: LoginRequest(password: password, username: username));
   }
 }

@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class TabBarWorkSheet extends StatefulWidget {
-  const TabBarWorkSheet({super.key, required this.setIndex, required this.index});
-final ValueChanged<int> setIndex;
-final int index;
+  const TabBarWorkSheet(
+      {super.key, required this.setIndex, required this.index});
+  final ValueChanged<int> setIndex;
+  final int index;
   @override
   State<TabBarWorkSheet> createState() => _TabBarWorkSheetState();
 }
@@ -36,9 +37,9 @@ class _TabBarWorkSheetState extends State<TabBarWorkSheet> {
                 child: Text(
                   tabBarAttendance(context)[index],
                   style: TextStyle(
-                    color: index ==  widget.index
+                    color: index == widget.index
                         ? colors.text
-                        : colors.outline.withOpacity(0.6),
+                        : colors.outline.withValues(alpha: 0.6),
                     fontSize: SpacingUnit.x4,
                   ),
                 ),

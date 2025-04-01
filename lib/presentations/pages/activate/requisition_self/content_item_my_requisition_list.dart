@@ -24,8 +24,8 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/pages/activate/requisition_approve/button_item_list_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/content_requisition.dart';
 import 'package:base_app/presentations/pages/activate/requisition_self/content_requisition_expand.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/dialog_requisition_over_time.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_over_time_widget.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/dialog_requisition_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/requisition_over_time_widget.dart';
 import 'package:base_app/presentations/widgets/custom/app_icon_status.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/dialog_common/dialog_title_callback.dart';
@@ -47,10 +47,12 @@ class ContentItemMyRequisitionList extends StatefulWidget {
   final RequestSeeByWho self;
 
   @override
-  State<ContentItemMyRequisitionList> createState() => _ContentItemMyRequisitionListState();
+  State<ContentItemMyRequisitionList> createState() =>
+      _ContentItemMyRequisitionListState();
 }
 
-class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionList> {
+class _ContentItemMyRequisitionListState
+    extends State<ContentItemMyRequisitionList> {
   String errorDialog = '', errorDialogRevoke = '';
 
   @override
@@ -88,7 +90,9 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
                 ),
               ],
             ),
-            (request.status != StatusRequestEnum.reject && request.status != StatusRequestEnum.edit && request.status != StatusRequestEnum.cancel)
+            (request.status != StatusRequestEnum.reject &&
+                    request.status != StatusRequestEnum.edit &&
+                    request.status != StatusRequestEnum.cancel)
                 ? ContentRequisition(request: request)
                 : ContentRequisitionExpand(
                     request: request,
@@ -96,8 +100,10 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
             Padding(
               padding: const EdgeInsets.only(top: SpacingUnit.x2_5),
               child: AppIconStatus(
-                color: statusRequest(context: context, status: request.status)['color'],
-                icon: statusRequest(context: context, status: request.status)['icon'],
+                color: statusRequest(
+                    context: context, status: request.status)['color'],
+                icon: statusRequest(
+                    context: context, status: request.status)['icon'],
                 status: request.status.getRequestStatusNameSeft,
               ),
             ),
@@ -127,7 +133,8 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
                           Expanded(
                             child: ButtonItemListRequisition(
                               colorText: colors.tertiary,
-                              background: colors.tertiary.withOpacity(0.2),
+                              background:
+                                  colors.tertiary.withValues(alpha: 0.2),
                               check: false,
                               title: appLocalizations.update,
                               callback: () => _nextScreen(
@@ -140,7 +147,7 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
                           Expanded(
                             child: ButtonItemListRequisition(
                               colorText: colors.error,
-                              background: colors.error.withOpacity(0.2),
+                              background: colors.error.withValues(alpha: 0.2),
                               check: false,
                               title: appLocalizations.revoke,
                               callback: () => _rejectDialog(context),
@@ -413,14 +420,18 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
 
   Future<bool> _loadWorkShiftLeave(Request request) async {
     final Completer completer = Completer<bool>();
-    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(endDate: request.config.endDate ?? DateTime.now(), startDate: request.config.startDate ?? DateTime.now(), completer: completer));
+    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+        endDate: request.config.endDate ?? DateTime.now(),
+        startDate: request.config.startDate ?? DateTime.now(),
+        completer: completer));
     return await completer.future;
   }
 
   Future<bool> _loadWorkShiftOneDay(Request request) async {
     final Completer completer = Completer<bool>();
     final date = request.config.workShiftSettings.first.workDate;
-    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(endDate: date, startDate: date, completer: completer));
+    dI<LeaveShiftBloc>().add(GetWorkShiftsEvent(
+        endDate: date, startDate: date, completer: completer));
     return await completer.future;
   }
 
@@ -429,7 +440,9 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
     required BuildContext context,
   }) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? setErrorValue(errorCode, context) ?? errorCode : "";
+      errorDialog = errorCode.isNotEmpty
+          ? setErrorValue(errorCode, context) ?? errorCode
+          : "";
     });
   }
 
@@ -467,11 +480,14 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
     } else {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(currentContext);
-      approverUnsuccessful(errorDialog: errorDialogRevoke, title: appLocalizations.revokeRequestUnsuccessful);
+      approverUnsuccessful(
+          errorDialog: errorDialogRevoke,
+          title: appLocalizations.revokeRequestUnsuccessful);
     }
   }
 
-  Map<String, dynamic> statusRequest({required BuildContext context, required StatusRequestEnum status}) {
+  Map<String, dynamic> statusRequest(
+      {required BuildContext context, required StatusRequestEnum status}) {
     final colors = AppTheme.getColors(context);
     switch (status) {
       case StatusRequestEnum.process:
@@ -486,7 +502,7 @@ class _ContentItemMyRequisitionListState extends State<ContentItemMyRequisitionL
         };
       case StatusRequestEnum.edit:
         return {
-          'color': colors.secondary.withOpacity(0.7),
+          'color': colors.secondary.withValues(alpha: 0.7),
           'icon': Assets.images.icon.work.loading,
         };
       case StatusRequestEnum.approve:

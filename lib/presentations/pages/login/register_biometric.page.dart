@@ -76,7 +76,7 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
       ),
       body: Center(
         child: Container(
-          color: colors.secondaryContainer.withOpacity(0.1),
+          color: colors.secondaryContainer.withValues(alpha: 0.1),
           child: Padding(
             padding: const EdgeInsets.all(SpacingUnit.x4),
             child: Column(
@@ -108,12 +108,14 @@ class _RegisterBiometricPageState extends State<RegisterBiometricPage>
               height: SpacingUnit.x12,
               width: SpacingUnit.x12,
               child: CircleAvatar(
-                backgroundColor: colors.secondaryContainer.withOpacity(0.1),
+                backgroundColor:
+                    colors.secondaryContainer.withValues(alpha: 0.1),
                 child: SvgPicture.asset(
                   height: SpacingUnit.x5,
                   width: SpacingUnit.x5,
                   Assets.images.signIn.biometric,
-                  colorFilter: ColorFilter.mode(colors.text.withOpacity(0.5), BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                      colors.text.withValues(alpha: 0.5), BlendMode.srcIn),
                 ),
               ),
             ),

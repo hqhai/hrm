@@ -1,6 +1,6 @@
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_info_over_time.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_overtime_header.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_info_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/requisition_overtime_header.dart';
 import 'package:flutter/material.dart';
 import 'package:widgets/app_button.dart';
 

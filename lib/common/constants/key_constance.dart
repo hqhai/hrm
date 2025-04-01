@@ -30,4 +30,5 @@ class DataKey {
   static String forgotPassOtp = "forgot_pass_otp";
   static String forgotEmail = "forgot_email";
   static String user = "user";
+  static String passwordBiometric = 'passwordBiometric';
 }

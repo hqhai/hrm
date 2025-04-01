@@ -39,7 +39,7 @@ class ItemTitleValueColum extends StatelessWidget {
               paddingVertical: SpacingUnit.x4,
               width: width,
               marginTop: 0,
-              borderColors: colors.text.withOpacity(0.2),
+              borderColors: colors.text.withValues(alpha: 0.2),
               child: Text(
                 value,
                 style: TextStyle(

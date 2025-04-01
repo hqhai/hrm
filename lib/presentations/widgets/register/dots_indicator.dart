@@ -71,7 +71,7 @@ class PageIndicator extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: checkInput[currentPageIndex]
                       ? colors.blue
-                      : colors.blue.withOpacity(0.5),
+                      : colors.blue.withValues(alpha: 0.5),
                   elevation: 3,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),

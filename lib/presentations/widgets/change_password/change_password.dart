@@ -33,9 +33,11 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
-  final TextEditingController currentPasswordController = TextEditingController();
+  final TextEditingController currentPasswordController =
+      TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   String notification1 = '', notification2 = '';
 
   @override
@@ -101,7 +103,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                   if (newPasswordController.text != '')
                     AppInputNewPasswordValidate(
-                        password: newPasswordController.text, condition: condition),
+                        password: newPasswordController.text,
+                        condition: condition),
                   const SizedBox(
                     height: SpacingUnit.x3_75,
                   ),
@@ -109,7 +112,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                       onSubmit: () => onSubmit(state),
                       colorText: colors.background,
                       title: appLocalizations.changePassword,
-                      color: !_checkPass() ? colors.outline.withOpacity(0.4) : colors.navy),
+                      color: !_checkPass()
+                          ? colors.outline.withValues(alpha: 0.4)
+                          : colors.navy),
                 ],
               ),
             );
@@ -119,13 +124,25 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-  int condition = 0, condition_1 = 0, condition_2 = 0, condition_3 = 0, condition_4 = 0;
+  int condition = 0,
+      condition_1 = 0,
+      condition_2 = 0,
+      condition_3 = 0,
+      condition_4 = 0;
 
   void progress() {
-    RegExp(r'^.{9,}$').hasMatch(newPasswordController.text) ? condition_1 = 1 : condition_1 = 0;
-    RegExp(r'.*[0-9]+.*').hasMatch(newPasswordController.text) ? condition_2 = 1 : condition_2 = 0;
-    RegExp(r'.*[A-Z]+.*').hasMatch(newPasswordController.text) ? condition_3 = 1 : condition_3 = 0;
-    RegExp(r'.*[\W_]+.*').hasMatch(newPasswordController.text) ? condition_4 = 1 : condition_4 = 0;
+    RegExp(r'^.{9,}$').hasMatch(newPasswordController.text)
+        ? condition_1 = 1
+        : condition_1 = 0;
+    RegExp(r'.*[0-9]+.*').hasMatch(newPasswordController.text)
+        ? condition_2 = 1
+        : condition_2 = 0;
+    RegExp(r'.*[A-Z]+.*').hasMatch(newPasswordController.text)
+        ? condition_3 = 1
+        : condition_3 = 0;
+    RegExp(r'.*[\W_]+.*').hasMatch(newPasswordController.text)
+        ? condition_4 = 1
+        : condition_4 = 0;
     condition = condition_1 + condition_2 + condition_3 + condition_4;
   }
 
@@ -156,7 +173,8 @@ class _ChangePasswordState extends State<ChangePassword> {
             ),
           );
           final check = await completer.future;
-          final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+          final currentContext =
+              dI<AppNavigation>().navigatorKey.currentContext!;
           if (check) {
             if (!currentContext.mounted) return;
             successDialog(currentContext);

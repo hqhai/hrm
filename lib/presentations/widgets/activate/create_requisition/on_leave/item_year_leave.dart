@@ -39,14 +39,16 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
   bool checkReason() {
     switch (widget.type) {
       case EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave:
-        return type == EnumReasonLeave.yearlyLeave || type == EnumReasonLeave.seniorityLeave;
+        return type == EnumReasonLeave.yearlyLeave ||
+            type == EnumReasonLeave.seniorityLeave;
       case EnumTakeLeaveType.unpaidLeave:
         return type == EnumReasonLeave.noSalaryLeave ||
             type == EnumReasonLeave.socialInsuranceLeave;
       case EnumTakeLeaveType.compensatoryLeave:
         return true;
       case EnumTakeLeaveType.otherPaidLeave:
-        return type == EnumReasonLeave.mourningLeave || type == EnumReasonLeave.weddingLeave;
+        return type == EnumReasonLeave.mourningLeave ||
+            type == EnumReasonLeave.weddingLeave;
       default:
         return false;
     }
@@ -139,7 +141,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
             (e) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x1),
               child: ContainerBorder(
-                borderColors: colors.text.withOpacity(0.3),
+                borderColors: colors.text.withValues(alpha: 0.3),
                 marginTop: SpacingUnit.x2,
                 paddingVertical: 0,
                 child: ListTile(
@@ -153,7 +155,8 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
                   leading: Radio<EnumSocialInsuranceLeave>(
                     value: e,
                     groupValue: socialInsuranceLeave,
-                    onChanged: (EnumSocialInsuranceLeave? value) => _setSocialInsuranceLeave(value),
+                    onChanged: (EnumSocialInsuranceLeave? value) =>
+                        _setSocialInsuranceLeave(value),
                   ),
                 ),
               ),
@@ -173,7 +176,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
         Expanded(
           child: ContainerBorder(
             height: SpacingUnit.x20,
-            borderColors: colors.text.withOpacity(0.3),
+            borderColors: colors.text.withValues(alpha: 0.3),
             marginTop: 0,
             paddingVertical: 0,
             paddingHorizontal: 0,
@@ -201,7 +204,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
           child: ContainerBorder(
             height: SpacingUnit.x20,
             marginTop: 0,
-            borderColors: colors.text.withOpacity(0.3),
+            borderColors: colors.text.withValues(alpha: 0.3),
             paddingHorizontal: 0,
             paddingVertical: 0,
             child: Center(

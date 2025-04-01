@@ -28,6 +28,8 @@ class AppConfig {
   final String baseUrl;
   @JsonKey(name: 'ENV', defaultValue: '')
   final String env;
+  @JsonKey(name: 'ONE_SIGNAL_APP_ID', defaultValue: '')
+  final String oneSignalAppId;
   static String _token = '';
 
   static String get getToken => _token;
@@ -42,6 +44,7 @@ class AppConfig {
     this.baseSystemUrl = '',
     this.baseSystemGatewayUrl = '',
     this.baseNotificationUrl = '',
+    this.oneSignalAppId = '',
   });
 
   static AppConfig? _instance;
@@ -52,7 +55,8 @@ class AppConfig {
     _token = token;
   }
 
-  factory AppConfig.fromJson(Map<String, dynamic> json) => _$AppConfigFromJson(json);
+  factory AppConfig.fromJson(Map<String, dynamic> json) =>
+      _$AppConfigFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppConfigToJson(this);
 }

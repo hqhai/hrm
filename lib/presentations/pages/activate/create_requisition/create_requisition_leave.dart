@@ -12,7 +12,7 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
-import 'package:base_app/domain/entities/user.dart';
+// import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
@@ -24,7 +24,7 @@ import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/pages/activate/leave/item_work_shift.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/business/number_work.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
+// import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
@@ -53,6 +53,7 @@ final createRequestLeavePageRoute = GoRoute(
         flowId: data['flowId'],
         requestId: data['requestId'],
         type: data['type'],
+        date: DateTime.parse(data['date']),
       );
     });
 
@@ -62,11 +63,13 @@ class CreateRequisitionLeavePage extends StatefulWidget {
     this.flowId = '',
     this.requestId = '',
     this.type = RequisitionTypeEnum.leaveHalfDayToOneDay,
+    this.date,
   });
 
   final RequisitionTypeEnum type;
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
   State<CreateRequisitionLeavePage> createState() =>
@@ -260,17 +263,17 @@ class _CreateRequisitionLeavePageState
                           title: appLocalizations.totalLeaveWork,
                           value: numberValue.toString(),
                         ),
-                      ItemCreateFollower(
-                        listFollower:
-                            _setListUser(stateUserById.subtitudePersons),
-                        title: appLocalizations.substitute,
-                        onChange: (value) => _setSubstitute(value),
-                      ),
-                      ItemCreateFollower(
-                        listFollower: _setListUser(stateUserById.userById),
-                        title: appLocalizations.follower,
-                        onChange: (value) => _setFollower(value),
-                      ),
+                      // ItemCreateFollower(
+                      //   listFollower:
+                      //       _setListUser(stateUserById.subtitudePersons),
+                      //   title: appLocalizations.substitute,
+                      //   onChange: (value) => _setSubstitute(value),
+                      // ),
+                      // ItemCreateFollower(
+                      //   listFollower: _setListUser(stateUserById.userById),
+                      //   title: appLocalizations.follower,
+                      //   onChange: (value) => _setFollower(value),
+                      // ),
                       ItemLoadFile(
                         files: files,
                         onChangeFiles: (value) => _setFile(value),
@@ -301,18 +304,18 @@ class _CreateRequisitionLeavePageState
     );
   }
 
-  List<User> _setListUser(List<User> userById) {
-    if (widget.requestId.isNotEmpty) {
-      return userById;
-    }
-    return [];
-  }
+  // List<User> _setListUser(List<User> userById) {
+  //   if (widget.requestId.isNotEmpty) {
+  //     return userById;
+  //   }
+  //   return [];
+  // }
 
-  _setFollower(List<User> value) {
-    setState(() {
-      followers = value.map((e) => e.id).toList();
-    });
-  }
+  // _setFollower(List<User> value) {
+  //   setState(() {
+  //     followers = value.map((e) => e.id).toList();
+  //   });
+  // }
 
   _setDescription(String value) {
     setState(() {
@@ -383,11 +386,11 @@ class _CreateRequisitionLeavePageState
     dI<AppNavigation>().pop(context);
   }
 
-  _setSubstitute(List<User> value) {
-    setState(() {
-      substitutes = value.map((e) => e.id).toList();
-    });
-  }
+  // _setSubstitute(List<User> value) {
+  //   setState(() {
+  //     substitutes = value.map((e) => e.id).toList();
+  //   });
+  // }
 
   setStartTime(DateTime value) {
     setState(() {

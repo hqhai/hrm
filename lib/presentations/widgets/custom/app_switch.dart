@@ -14,8 +14,8 @@ class AppSwitch extends StatelessWidget {
       value: check,
       activeTrackColor: colors.blue,
       activeColor: colors.background,
-      inactiveTrackColor: colors.secondaryContainer.withOpacity(0.1),
-      inactiveThumbColor: colors.secondaryContainer.withOpacity(0.5),
+      inactiveTrackColor: colors.secondaryContainer.withValues(alpha: 0.1),
+      inactiveThumbColor: colors.secondaryContainer.withValues(alpha: 0.5),
       onChanged: (bool value) => onChange.call(value),
     );
   }

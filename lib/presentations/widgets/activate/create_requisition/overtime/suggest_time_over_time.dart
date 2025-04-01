@@ -27,12 +27,12 @@ class SuggestTimeOverTime extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Container(
-            margin: const EdgeInsets.symmetric(vertical:  SpacingUnit.x3),
-            padding: const EdgeInsets.all( SpacingUnit.x1),
+            margin: const EdgeInsets.symmetric(vertical: SpacingUnit.x3),
+            padding: const EdgeInsets.all(SpacingUnit.x1),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(SpacingUnit.x3),
               border: Border.all(
-                color: colors.outline.withOpacity(0.3),
+                color: colors.outline.withValues(alpha: 0.3),
                 width: 1,
               ),
             ),

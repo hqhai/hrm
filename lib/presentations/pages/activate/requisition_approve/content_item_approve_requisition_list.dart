@@ -18,8 +18,8 @@ import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_cancel.dart';
 import 'package:base_app/presentations/pages/activate/requisition_form/item_request_process.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/dialog_requisition_over_time.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/requisition_over_time_widget.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/dialog_requisition_over_time.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/requisition_over_time_widget.dart';
 import 'package:base_app/presentations/widgets/custom/app_icon_status.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/note/note_dialog.dart';
@@ -345,6 +345,7 @@ class _ContentItemRequestApproveListState
         );
       },
     ).then((value) {
+      if (!context.mounted) return;
       popLoading(context);
     });
   }
@@ -368,6 +369,7 @@ class _ContentItemRequestApproveListState
         );
       },
     ).then((value) {
+      if (!context.mounted) return;
       dI<AppNavigation>().pop(context);
     });
   }

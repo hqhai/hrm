@@ -29,27 +29,22 @@ CreatePersonnelRequest _$CreatePersonnelRequestFromJson(
     );
 
 Map<String, dynamic> _$CreatePersonnelRequestToJson(
-    CreatePersonnelRequest instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('code', instance.code);
-  val['firstName'] = instance.firstName;
-  val['lastName'] = instance.lastName;
-  val['email'] = instance.email;
-  writeNotNull('phoneNumber', instance.phoneNumber);
-  val['startDate'] = instance.startDate;
-  writeNotNull('attendanceId', instance.attendanceId);
-  val['departmentId'] = instance.departmentId;
-  val['positionId'] = instance.positionId;
-  writeNotNull('morningStartTime', instance.morningStartTime);
-  writeNotNull('morningEndTime', instance.morningEndTime);
-  writeNotNull('afternoonStartTime', instance.afternoonStartTime);
-  writeNotNull('afternoonEndTime', instance.afternoonEndTime);
-  return val;
-}
+        CreatePersonnelRequest instance) =>
+    <String, dynamic>{
+      if (instance.code case final value?) 'code': value,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'email': instance.email,
+      if (instance.phoneNumber case final value?) 'phoneNumber': value,
+      'startDate': instance.startDate,
+      if (instance.attendanceId case final value?) 'attendanceId': value,
+      'departmentId': instance.departmentId,
+      'positionId': instance.positionId,
+      if (instance.morningStartTime case final value?)
+        'morningStartTime': value,
+      if (instance.morningEndTime case final value?) 'morningEndTime': value,
+      if (instance.afternoonStartTime case final value?)
+        'afternoonStartTime': value,
+      if (instance.afternoonEndTime case final value?)
+        'afternoonEndTime': value,
+    };

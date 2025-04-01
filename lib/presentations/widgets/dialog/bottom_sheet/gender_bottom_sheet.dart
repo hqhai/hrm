@@ -17,7 +17,8 @@ class GenderBottomSheetWidget extends StatefulWidget {
   final GenderEnum gender;
 
   @override
-  State<GenderBottomSheetWidget> createState() => _GenderBottomSheetWidgetState();
+  State<GenderBottomSheetWidget> createState() =>
+      _GenderBottomSheetWidgetState();
 }
 
 class _GenderBottomSheetWidgetState extends State<GenderBottomSheetWidget> {
@@ -34,7 +35,7 @@ class _GenderBottomSheetWidgetState extends State<GenderBottomSheetWidget> {
     final colors = AppTheme.getColors(context);
     final width = MediaQuery.of(context).size.width;
     return Container(
-      color: colors.text.withOpacity(0.1),
+      color: colors.text.withValues(alpha: 0.1),
       child: Padding(
         padding: const EdgeInsets.all(SpacingUnit.x4),
         child: Column(
@@ -47,7 +48,8 @@ class _GenderBottomSheetWidgetState extends State<GenderBottomSheetWidget> {
                   child: ContainerBorder(
                     width: width,
                     borderColors: e == gender ? colors.blue : colors.background,
-                    backgroundColors: e == gender ? colors.blue : colors.background,
+                    backgroundColors:
+                        e == gender ? colors.blue : colors.background,
                     child: Text(
                       e.configGenderName,
                       style: TextStyle(

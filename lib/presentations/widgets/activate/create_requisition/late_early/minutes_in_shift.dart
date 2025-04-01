@@ -27,7 +27,7 @@ class _MinutesInShiftState extends State<MinutesInShift> {
 
   @override
   void initState() {
-    numberController.text = (widget.minutes/60).toString();
+    numberController.text = (widget.minutes / 60).toString();
     super.initState();
   }
 
@@ -37,7 +37,7 @@ class _MinutesInShiftState extends State<MinutesInShift> {
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
       borderColors: colors.blue,
-      backgroundColors: colors.blue.withOpacity(0.3),
+      backgroundColors: colors.blue.withValues(alpha: 0.3),
       child: Row(
         children: [
           Expanded(
@@ -58,7 +58,6 @@ class _MinutesInShiftState extends State<MinutesInShift> {
               placeHolder: "0",
               controller: numberController,
               onChange: (value) => _onChangeMinutes(value),
-
             ),
           )
         ],
@@ -68,7 +67,7 @@ class _MinutesInShiftState extends State<MinutesInShift> {
 
   _onChangeMinutes(String value) {
     if (value.isNotEmpty) {
-      widget.changeMinutes.call(int.parse(value)*60);
+      widget.changeMinutes.call(int.parse(value) * 60);
     } else {
       widget.changeMinutes.call(0);
     }

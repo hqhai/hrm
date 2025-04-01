@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "270904267396",
+    "project_id": "hrm-ee18e",
+    "storage_bucket": "hrm-ee18e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270904267396:android:bf51e38732ca706e4668d1",
+        "android_client_info": {
+          "package_name": "com.atlantic.gc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk6JBYQ6SYdKX_JQri0QNfEqFeyAYfLHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270904267396:android:dde9789eeb0a5db14668d1",
+        "android_client_info": {
+          "package_name": "com.atlantic.gc.staging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk6JBYQ6SYdKX_JQri0QNfEqFeyAYfLHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270904267396:android:03e198662b0eabb44668d1",
+        "android_client_info": {
+          "package_name": "com.atlantic.gc.uat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk6JBYQ6SYdKX_JQri0QNfEqFeyAYfLHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

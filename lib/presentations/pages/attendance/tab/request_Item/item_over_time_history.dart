@@ -18,7 +18,7 @@ class ItemOverTimeHistory extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
-        borderColors: colors.outline.withOpacity(0.3),
+        borderColors: colors.outline.withValues(alpha: 0.3),
         child: Column(
           children: [
             TitleValueLeave(
@@ -26,7 +26,8 @@ class ItemOverTimeHistory extends StatelessWidget {
               flexTitle: 2,
               font: FontWeight.w600,
               title: appLocalizations.oTSalaryH,
-              value: strTimeFromInt(userOverTimeHistory.overTimeSalaryMultiplier.toInt()),
+              value: strTimeFromInt(
+                  userOverTimeHistory.overTimeSalaryMultiplier.toInt()),
               size: SpacingUnit.x4,
               padding: SpacingUnit.x3,
             ),
@@ -35,7 +36,8 @@ class ItemOverTimeHistory extends StatelessWidget {
               flexTitle: 2,
               font: FontWeight.w600,
               title: appLocalizations.oTMakeUpLeaveH,
-              value: strTimeFromInt(userOverTimeHistory.overTimeLeaveMultiplier.toInt()),
+              value: strTimeFromInt(
+                  userOverTimeHistory.overTimeLeaveMultiplier.toInt()),
               size: SpacingUnit.x4,
               padding: SpacingUnit.x3,
             ),

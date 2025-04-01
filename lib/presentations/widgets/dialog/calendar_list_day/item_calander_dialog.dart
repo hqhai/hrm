@@ -77,14 +77,14 @@ class ItemCalenderDialog extends StatelessWidget {
   Color _colorStart(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return (checkStartSelectDay || checkOnSelect) && checkEnd
-        ? colors.tertiary.withOpacity(0.5)
+        ? colors.tertiary.withValues(alpha: 0.5)
         : colors.background;
   }
 
   Color _colorEnd(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return (checkEndSelectDay || checkOnSelect) && checkEnd
-        ? colors.tertiary.withOpacity(0.5)
+        ? colors.tertiary.withValues(alpha: 0.5)
         : colors.background;
   }
 
@@ -94,20 +94,20 @@ class ItemCalenderDialog extends StatelessWidget {
         ? colors.tertiary
         : isNowDate
             ? colors.primary
-            : colors.background.withOpacity(0);
+            : colors.background.withValues(alpha: 0);
   }
 
   Color _colorCircularBorder(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return checkEndSelectDay || checkStartSelectDay
         ? colors.tertiary
-        : colors.background.withOpacity(0);
+        : colors.background.withValues(alpha: 0);
   }
 
   Color _colorText(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return month != date.month
-        ? colors.outlineVariant.withOpacity(0.3)
+        ? colors.outlineVariant.withValues(alpha: 0.3)
         : (isNowDate ? colors.background : colors.text);
   }
 }

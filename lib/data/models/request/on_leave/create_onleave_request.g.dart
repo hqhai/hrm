@@ -21,21 +21,12 @@ CreateOnLeaveRequest _$CreateOnLeaveRequestFromJson(
     );
 
 Map<String, dynamic> _$CreateOnLeaveRequestToJson(
-    CreateOnLeaveRequest instance) {
-  final val = <String, dynamic>{
-    'type': instance.type,
-    'isApprove': instance.isApprove,
-    'priority': instance.priority,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('title', instance.title);
-  writeNotNull('content', instance.content);
-  writeNotNull('config', instance.config);
-  return val;
-}
+        CreateOnLeaveRequest instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'isApprove': instance.isApprove,
+      'priority': instance.priority,
+      if (instance.title case final value?) 'title': value,
+      if (instance.content case final value?) 'content': value,
+      if (instance.config case final value?) 'config': value,
+    };

@@ -123,11 +123,14 @@ class _AppInputAreaState extends State<AppInputArea> {
                       )
                     : const SizedBox(),
                 hintText: widget.placeHolder,
-                hintStyle: theme.textTheme.bodyLarge?.copyWith(color: colors.textTertiary),
+                hintStyle: theme.textTheme.bodyLarge
+                    ?.copyWith(color: colors.textTertiary),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                    color: isEmpty(widget.error) ? colors.outline.withOpacity(0.4) : colors.error,
+                    color: isEmpty(widget.error)
+                        ? colors.outline.withValues(alpha: 0.4)
+                        : colors.error,
                     width: 1.0,
                   ),
                 ),
@@ -154,8 +157,8 @@ class _AppInputAreaState extends State<AppInputArea> {
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
                     widget.error!,
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(color: colors.error, fontSize: SpacingUnit.x3),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                        color: colors.error, fontSize: SpacingUnit.x3),
                     maxLines: 2,
                   ),
                 )

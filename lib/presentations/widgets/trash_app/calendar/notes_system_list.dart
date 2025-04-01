@@ -249,7 +249,7 @@ class _NotesSystemListState extends State<NotesSystemList> {
                 ),
               )),
           body: Container(
-            color: colors.surfaceVariantLow.withOpacity(0.1),
+            color: colors.surfaceVariantLow.withValues(alpha: 0.1),
             width: MediaQuery.sizeOf(context).width,
             height: MediaQuery.sizeOf(context).height,
             child: ScrollablePositionedList.builder(

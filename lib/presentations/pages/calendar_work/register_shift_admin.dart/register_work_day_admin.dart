@@ -424,8 +424,8 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                       width: SpacingUnit.x4,
                     ),
                     ContainerBorder(
-                      borderColors: colors.blue.withOpacity(0.2),
-                      backgroundColors: colors.blue.withOpacity(0.2),
+                      borderColors: colors.blue.withValues(alpha: 0.2),
+                      backgroundColors: colors.blue.withValues(alpha: 0.2),
                       marginTop: 0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -633,7 +633,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                     child: Container(
                       width: MediaQuery.sizeOf(context).width,
                       padding: const EdgeInsets.all(SpacingUnit.x4),
-                      color: colors.surfaceVariantLow.withOpacity(0.1),
+                      color: colors.surfaceVariantLow.withValues(alpha: 0.1),
                       child: state.items
                               .where((element) => element.status == selectType)
                               .isNotEmpty
@@ -668,7 +668,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.all(SpacingUnit.x4),
-                        color: colors.surfaceVariantLow.withOpacity(0.1),
+                        color: colors.surfaceVariantLow.withValues(alpha: 0.1),
                         child: state.electiveShiftItems.isNotEmpty
                             ? ListView.builder(
                                 controller: scrollController,
@@ -686,7 +686,7 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.all(SpacingUnit.x4),
-                        color: colors.surfaceVariantLow.withOpacity(0.1),
+                        color: colors.surfaceVariantLow.withValues(alpha: 0.1),
                         child: state.items.isNotEmpty
                             ? ListView.builder(
                                 itemCount: state.items.length,
@@ -848,7 +848,8 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
                               height: SpacingUnit.x12,
                               decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: colors.outline.withOpacity(0.5)),
+                                      color: colors.outline
+                                          .withValues(alpha: 0.5)),
                                   borderRadius:
                                       BorderRadius.circular(SpacingUnit.x2)),
                               child: Center(
@@ -1103,7 +1104,7 @@ class ItemPending extends StatelessWidget {
                       height: SpacingUnit.x10,
                       decoration: BoxDecoration(
                           border: Border.all(
-                              color: colors.outline.withOpacity(0.5)),
+                              color: colors.outline.withValues(alpha: 0.5)),
                           borderRadius: BorderRadius.circular(SpacingUnit.x2)),
                       child: Center(
                         child: Text(appLocalizations.reject,

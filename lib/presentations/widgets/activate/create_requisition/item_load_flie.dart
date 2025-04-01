@@ -78,7 +78,7 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                 .mapIndexed((index, element) => InkWell(
                       onTap: () => _onClickFLie(context, index),
                       child: ContainerBorder(
-                        borderColors: colors.text.withOpacity(0.3),
+                        borderColors: colors.text.withValues(alpha: 0.3),
                         child: Row(
                           children: [
                             Padding(
@@ -87,7 +87,7 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                               child: SvgPicture.asset(
                                 Assets.images.icon.activateIcon.fileAttach,
                                 colorFilter: ColorFilter.mode(
-                                  colors.text.withOpacity(0.5),
+                                  colors.text.withValues(alpha: 0.5),
                                   BlendMode.srcIn,
                                 ),
                               ),
@@ -111,7 +111,7 @@ class _ItemLoadFileState extends State<ItemLoadFile> {
                                 child: Icon(
                                   size: SpacingUnit.x6,
                                   Icons.cancel,
-                                  color: colors.text.withOpacity(0.5),
+                                  color: colors.text.withValues(alpha: 0.5),
                                 ),
                               ),
                             )

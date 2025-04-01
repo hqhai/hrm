@@ -22,9 +22,9 @@ abstract class _$CheckInSettingStateCWProxy {
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfCheckInSettingState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfCheckInSettingState.copyWith.fieldName(...)`
 class _$CheckInSettingStateCWProxyImpl implements _$CheckInSettingStateCWProxy {
-  final CheckInSettingState _value;
-
   const _$CheckInSettingStateCWProxyImpl(this._value);
+
+  final CheckInSettingState _value;
 
   @override
   CheckInSettingState status(CheckInSettingStatus status) =>

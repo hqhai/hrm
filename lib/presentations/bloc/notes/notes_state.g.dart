@@ -7,9 +7,9 @@ part of 'notes_state.dart';
 // **************************************************************************
 
 abstract class _$NotesStateCWProxy {
-  NotesState note(Note note);
-
   NotesState notes(List<Note> notes);
+
+  NotesState note(Note note);
 
   NotesState selectDay(DateTime? selectDay);
 
@@ -22,8 +22,8 @@ abstract class _$NotesStateCWProxy {
   /// NotesState(...).copyWith(id: 12, name: "My name")
   /// ````
   NotesState call({
-    Note? note,
     List<Note>? notes,
+    Note? note,
     DateTime? selectDay,
     NoteStatus? status,
   });
@@ -31,15 +31,15 @@ abstract class _$NotesStateCWProxy {
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfNotesState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfNotesState.copyWith.fieldName(...)`
 class _$NotesStateCWProxyImpl implements _$NotesStateCWProxy {
-  final NotesState _value;
-
   const _$NotesStateCWProxyImpl(this._value);
 
-  @override
-  NotesState note(Note note) => this(note: note);
+  final NotesState _value;
 
   @override
   NotesState notes(List<Note> notes) => this(notes: notes);
+
+  @override
+  NotesState note(Note note) => this(note: note);
 
   @override
   NotesState selectDay(DateTime? selectDay) => this(selectDay: selectDay);
@@ -56,20 +56,20 @@ class _$NotesStateCWProxyImpl implements _$NotesStateCWProxy {
   /// NotesState(...).copyWith(id: 12, name: "My name")
   /// ````
   NotesState call({
-    Object? note = const $CopyWithPlaceholder(),
     Object? notes = const $CopyWithPlaceholder(),
+    Object? note = const $CopyWithPlaceholder(),
     Object? selectDay = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
   }) {
     return NotesState(
-      note: note == const $CopyWithPlaceholder() || note == null
-          ? _value.note
-          // ignore: cast_nullable_to_non_nullable
-          : note as Note,
       notes: notes == const $CopyWithPlaceholder() || notes == null
           ? _value.notes
           // ignore: cast_nullable_to_non_nullable
           : notes as List<Note>,
+      note: note == const $CopyWithPlaceholder() || note == null
+          ? _value.note
+          // ignore: cast_nullable_to_non_nullable
+          : note as Note,
       selectDay: selectDay == const $CopyWithPlaceholder()
           ? _value.selectDay
           // ignore: cast_nullable_to_non_nullable
@@ -107,22 +107,14 @@ NotesState _$NotesStateFromJson(Map<String, dynamic> json) => NotesState(
           NoteStatus.init,
     );
 
-Map<String, dynamic> _$NotesStateToJson(NotesState instance) {
-  final val = <String, dynamic>{
-    'notes': instance.notes,
-    'note': instance.note,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('selectDay', instance.selectDay?.toIso8601String());
-  val['status'] = _$NoteStatusEnumMap[instance.status]!;
-  return val;
-}
+Map<String, dynamic> _$NotesStateToJson(NotesState instance) =>
+    <String, dynamic>{
+      'notes': instance.notes,
+      'note': instance.note,
+      if (instance.selectDay?.toIso8601String() case final value?)
+        'selectDay': value,
+      'status': _$NoteStatusEnumMap[instance.status]!,
+    };
 
 const _$NoteStatusEnumMap = {
   NoteStatus.init: 'init',

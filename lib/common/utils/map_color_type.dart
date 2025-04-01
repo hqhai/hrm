@@ -11,14 +11,20 @@ class ColorAndTitle {
     final colors = AppTheme.getColors(context);
     final List<MapColorAndTitle> colorAndTitle = [
       MapColorAndTitle(color: colors.success, title: appLocalizations.onTime),
-      MapColorAndTitle(color: colors.orange, title: appLocalizations.lateOrEarly),
       MapColorAndTitle(
-          color: colors.outline.withOpacity(0.3), title: appLocalizations.offDay),
+          color: colors.orange, title: appLocalizations.lateOrEarly),
+      MapColorAndTitle(
+          color: colors.outline.withValues(alpha: 0.3),
+          title: appLocalizations.offDay),
       MapColorAndTitle(color: colors.navy, title: appLocalizations.isRequest),
-      MapColorAndTitle(color: colors.error, title: appLocalizations.timekeepingError),
-      MapColorAndTitle(color: colors.sunriseYellow, title: appLocalizations.holiday),
-      MapColorAndTitle(color: colors.goldenPurple, title: appLocalizations.workOffset),
-      MapColorAndTitle(color: colors.cyan, title: appLocalizations.noAttendance),
+      MapColorAndTitle(
+          color: colors.error, title: appLocalizations.timekeepingError),
+      MapColorAndTitle(
+          color: colors.sunriseYellow, title: appLocalizations.holiday),
+      MapColorAndTitle(
+          color: colors.goldenPurple, title: appLocalizations.workOffset),
+      MapColorAndTitle(
+          color: colors.cyan, title: appLocalizations.noAttendance),
     ];
     return colorAndTitle;
   }

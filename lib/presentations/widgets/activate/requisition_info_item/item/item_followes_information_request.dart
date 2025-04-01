@@ -1,4 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
@@ -7,13 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
-class ItemPersonInformationRequest extends StatelessWidget {
-  const ItemPersonInformationRequest({super.key, required this.title});
-  final String title;
+class ItemFollowersInformationRequest extends StatelessWidget {
+  const ItemFollowersInformationRequest({super.key});
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final appLocalizations = AppLocalizations.of(context)!;
     return BlocBuilder<UserByIdBloc, UserByIdState>(
       builder: (context, state) {
         return Padding(
@@ -23,7 +24,7 @@ class ItemPersonInformationRequest extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
+                appLocalizations.follower,
                 style: TextStyle(
                   color: colors.text,
                   fontSize: SpacingUnit.x4,
@@ -34,16 +35,16 @@ class ItemPersonInformationRequest extends StatelessWidget {
               SizedBox(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: state.subtitudePersons
+                  children: state.userById
                       .mapIndexed(
                         (index, element) => ContainerBorder(
                           paddingVertical: SpacingUnit.x4,
-                          borderColors: colors.text.withOpacity(0.4),
+                          borderColors: colors.text.withValues(alpha: 0.4),
                           marginTop: SpacingUnit.x2,
                           child: Row(
                             children: [
                               Text(
-                                '${index + 1}.   ${state.subtitudePersons[index].fullName}',
+                                '${index + 1}.   ${state.userById[index].fullName}',
                                 style: TextStyle(
                                   color: colors.text,
                                   fontSize: SpacingUnit.x4,

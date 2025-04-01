@@ -45,7 +45,7 @@ class _AppStartEndTimeState extends State<AppStartEndTime> {
           height: SpacingUnit.x4,
         ),
         ContainerBorder(
-          borderColors: colors.outline.withOpacity(0.4),
+          borderColors: colors.outline.withValues(alpha: 0.4),
           paddingHorizontal: SpacingUnit.x4,
           paddingVertical: SpacingUnit.x4,
           child: TimeOverTime(
@@ -62,7 +62,7 @@ class _AppStartEndTimeState extends State<AppStartEndTime> {
           height: SpacingUnit.x4,
         ),
         ContainerBorder(
-          borderColors: colors.outline.withOpacity(0.4),
+          borderColors: colors.outline.withValues(alpha: 0.4),
           paddingHorizontal: SpacingUnit.x4,
           paddingVertical: SpacingUnit.x4,
           child: TimeOverTime(

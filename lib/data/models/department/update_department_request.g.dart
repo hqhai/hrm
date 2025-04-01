@@ -20,23 +20,14 @@ UpdateDepartmentRequest _$UpdateDepartmentRequestFromJson(
     );
 
 Map<String, dynamic> _$UpdateDepartmentRequestToJson(
-    UpdateDepartmentRequest instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-    'code': instance.code,
-    'phoneNumber': instance.phoneNumber,
-    'email': instance.email,
-    'address': instance.address,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('parentId', instance.parentId);
-  return val;
-}
+        UpdateDepartmentRequest instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'code': instance.code,
+      'phoneNumber': instance.phoneNumber,
+      'email': instance.email,
+      'address': instance.address,
+      if (instance.description case final value?) 'description': value,
+      if (instance.parentId case final value?) 'parentId': value,
+    };

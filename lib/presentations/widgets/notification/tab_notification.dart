@@ -15,7 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class NotificationTab extends StatefulWidget {
-  const NotificationTab({super.key, required this.checkLoad, required this.checkSent});
+  const NotificationTab(
+      {super.key, required this.checkLoad, required this.checkSent});
 
   final bool checkLoad;
   final bool checkSent;
@@ -69,7 +70,7 @@ class _NotificationTabState extends State<NotificationTab> {
                         Text(
                           appLocalizations.noNotification,
                           style: TextStyle(
-                            color: colors.text.withOpacity(0.6),
+                            color: colors.text.withValues(alpha: 0.6),
                             fontSize: SpacingUnit.x4,
                             fontWeight: FontWeight.w400,
                           ),
@@ -94,7 +95,9 @@ class _NotificationTabState extends State<NotificationTab> {
       dI<NotificationBloc>().add(
         GetNotificationsEvent(
           page: pageIndex,
-          status: widget.checkSent ? NotificationStatus.sent : NotificationStatus.read,
+          status: widget.checkSent
+              ? NotificationStatus.sent
+              : NotificationStatus.read,
           completer: completer,
         ),
       );

@@ -17,18 +17,9 @@ CreateOverTimeRequest _$CreateOverTimeRequestFromJson(
     );
 
 Map<String, dynamic> _$CreateOverTimeRequestToJson(
-    CreateOverTimeRequest instance) {
-  final val = <String, dynamic>{
-    'type': instance.type,
-    'isApprove': instance.isApprove,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('config', instance.config);
-  return val;
-}
+        CreateOverTimeRequest instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'isApprove': instance.isApprove,
+      if (instance.config case final value?) 'config': value,
+    };

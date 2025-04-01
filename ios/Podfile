@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
- platform :ios, '12.0'
+ platform :ios, '13.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -33,8 +33,7 @@ target 'Runner' do
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
-
-
+  
 # post_install do |installer|
 #   installer.pods_project.targets.each do |target|
 #     flutter_additional_ios_build_settings(target)
@@ -44,23 +43,22 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12'
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = [
+        '$(inherited)',
 
-    if target.name == 'permission_handler_apple'
-      target.build_configurations.each do |config|
-        # Preprocessor definitions can be found in: https://github.com/Baseflow/flutter-permission-handler/blob/master/permission_handler/ios/Classes/PermissionHandlerEnums.h
-        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
-          '$(inherited)',
-
-          ## dart: PermissionGroup.camera
-          'PERMISSION_CAMERA=1',
-
-          ## dart: PermissionGroup.photos
-          'PERMISSION_PHOTOS=1',
-
-          ## dart: PermissionGroup.microphone
-          'PERMISSION_MICROPHONE=1'
-        ]
-      end
+        # Permission groups for Dart
+        'PERMISSION_CAMERA=1',
+        'PERMISSION_PHOTOS=1',
+        'PERMISSION_NOTIFICATIONS=1',
+        'PERMISSION_MICROPHONE=1',
+      ]
     end
+  end
+
+  target 'OneSignalNotificationServiceExtension' do
+    pod 'OneSignalXCFramework', '>= 5.0.0', '< 6.0'
+    pod 'OneSignal/OneSignalInAppMessages', '>= 5.0.0', '< 6.0'
   end
 end

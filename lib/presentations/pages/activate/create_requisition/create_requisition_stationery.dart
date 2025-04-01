@@ -8,13 +8,13 @@ import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/stationeries.dart';
-import 'package:base_app/domain/entities/user.dart';
+// import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
+// import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_list_step_flow.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_total_amount.dart';
@@ -35,6 +35,7 @@ final createRequestStationeryOderPageRoute = GoRoute(
       return CreateRequisitionStationeryOderPage(
         flowId: data['flowId'],
         requestId: data['requestId'],
+        date: DateTime.parse(data['date']),
       );
     });
 
@@ -43,17 +44,20 @@ class CreateRequisitionStationeryOderPage extends StatefulWidget {
     super.key,
     this.flowId = '',
     this.requestId = '',
+    this.date,
   });
 
   final String flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
   State<CreateRequisitionStationeryOderPage> createState() =>
       _CreateRequisitionStationeryOderPageState();
 }
 
-class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionStationeryOderPage> {
+class _CreateRequisitionStationeryOderPageState
+    extends State<CreateRequisitionStationeryOderPage> {
   List<Stationeries> listRequisitionStationery = [];
   List<String> followers = [];
   DateTime month = DateTime.now();
@@ -82,13 +86,16 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   }
 
   double opacity() {
-    bool check = checkLoad == false && checkSuccess == false && checkUnSuccess == false;
+    bool check =
+        checkLoad == false && checkSuccess == false && checkUnSuccess == false;
     return check ? 1 : 0.3;
   }
 
   _listener(String errorCode, BuildContext context) {
     setState(() {
-      errorDialog = errorCode.isNotEmpty ? ErrorUtils.getErrorMessage(errorCode, context: context) : "";
+      errorDialog = errorCode.isNotEmpty
+          ? ErrorUtils.getErrorMessage(errorCode, context: context)
+          : "";
     });
   }
 
@@ -123,19 +130,20 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
                       ),
                       ListStationeries(
                         title: appLocalizations.stationeryList,
-                        error: listRequisitionStationery.isNotEmpty ? '' : error,
+                        error:
+                            listRequisitionStationery.isNotEmpty ? '' : error,
                         listRequisitionStationery: listRequisitionStationery,
                         onChangeList: (value) => setList(value),
                       ),
                       ItemTotalAmount(
                         totalAmount: _totalAmount(),
                       ),
-                      ItemCreateFollower(
-                          listFollower: _setListUser(
-                            stateUserById.userById,
-                          ),
-                          title: appLocalizations.follower,
-                          onChange: (value) => _setFollower(value)),
+                      // ItemCreateFollower(
+                      //     listFollower: _setListUser(
+                      //       stateUserById.userById,
+                      //     ),
+                      //     title: appLocalizations.follower,
+                      //     onChange: (value) => _setFollower(value)),
                       const ItemListStepFlow(),
                       Padding(
                         padding: const EdgeInsets.only(top: SpacingUnit.x3_5),
@@ -204,9 +212,11 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
   _save(BuildContext context) async {
     saveRequest(
       context: context,
-      checkCreate: !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate:
+          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
-      checkEdit: !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
+      checkEdit:
+          !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,
       checkLoadTrue: () => setCheckLoad(),
     );
   }
@@ -237,18 +247,18 @@ class _CreateRequisitionStationeryOderPageState extends State<CreateRequisitionS
     dI<AppNavigation>().pop(context);
   }
 
-  _setFollower(List<User> value) {
-    setState(() {
-      followers = value.map((e) => e.id).toList();
-    });
-  }
+  // _setFollower(List<User> value) {
+  //   setState(() {
+  //     followers = value.map((e) => e.id).toList();
+  //   });
+  // }
 
-  List<User> _setListUser(List<User> userById) {
-    if (widget.requestId.isNotEmpty) {
-      return userById;
-    }
-    return [];
-  }
+  // List<User> _setListUser(List<User> userById) {
+  //   if (widget.requestId.isNotEmpty) {
+  //     return userById;
+  //   }
+  //   return [];
+  // }
 
   setList(List<Stationeries> value) {
     setState(() {

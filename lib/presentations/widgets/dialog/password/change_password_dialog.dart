@@ -48,7 +48,7 @@ class ChangePassWord extends StatelessWidget {
                     child: AppButton(
                       onSubmit: () => popDialog(),
                       colorText: colors.background,
-                      color: colors.text.withOpacity(0.3),
+                      color: colors.text.withValues(alpha: 0.3),
                       title: appLocalizations.cancel,
                     ),
                   ),
@@ -73,7 +73,8 @@ class ChangePassWord extends StatelessWidget {
   }
 }
 
-changePasswordDialog({required BuildContext context, required VoidCallback callback}) async {
+changePasswordDialog(
+    {required BuildContext context, required VoidCallback callback}) async {
   return showDialog(
     context: context,
     builder: (context) {

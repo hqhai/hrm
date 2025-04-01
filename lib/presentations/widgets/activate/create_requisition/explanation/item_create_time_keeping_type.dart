@@ -8,13 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
 class ItemCreateTimeKeepingType extends StatefulWidget {
-  const ItemCreateTimeKeepingType({super.key, this.onChange, required this.typeDefault});
+  const ItemCreateTimeKeepingType(
+      {super.key, this.onChange, required this.typeDefault});
 
   final EditTimekeeping typeDefault;
   final ValueChanged<EditTimekeeping>? onChange;
 
   @override
-  State<ItemCreateTimeKeepingType> createState() => _ItemCreateTimeKeepingTypeState();
+  State<ItemCreateTimeKeepingType> createState() =>
+      _ItemCreateTimeKeepingTypeState();
 }
 
 class _ItemCreateTimeKeepingTypeState extends State<ItemCreateTimeKeepingType> {
@@ -39,7 +41,7 @@ class _ItemCreateTimeKeepingTypeState extends State<ItemCreateTimeKeepingType> {
           onTap: () => _showBottomSheet(context),
           child: ContainerBorder(
             paddingVertical: SpacingUnit.x4,
-            borderColors: colors.outline.withOpacity(0.3),
+            borderColors: colors.outline.withValues(alpha: 0.3),
             width: width,
             child: Text(
               type.configEditTimekeepingName,
@@ -50,7 +52,9 @@ class _ItemCreateTimeKeepingTypeState extends State<ItemCreateTimeKeepingType> {
             ),
           ),
         ),
-        const SizedBox(height: SpacingUnit.x4,)
+        const SizedBox(
+          height: SpacingUnit.x4,
+        )
       ],
     );
   }

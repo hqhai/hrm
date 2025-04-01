@@ -67,7 +67,7 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
         builder: (context, state) {
           return Container(
             width: width,
-            color: colors.text.withOpacity(0.05),
+            color: colors.text.withValues(alpha: 0.05),
             child: Column(
               children: [
                 Expanded(

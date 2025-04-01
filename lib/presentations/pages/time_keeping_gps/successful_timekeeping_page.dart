@@ -70,13 +70,13 @@ class SuccessfulTimekeepingPage extends StatelessWidget {
             const SizedBox(height: SpacingUnit.x4),
             ContainerBorder(
               backgroundColors: colors.background,
-              borderColors: colors.text.withOpacity(0.3),
+              borderColors: colors.text.withValues(alpha: 0.3),
               child: ItemTimeKeepingGPS(scheduleSchoolId: scheduleSchoolId),
             ),
             const SizedBox(height: SpacingUnit.x4),
             AppButton(
               title: appLocalizations.complete,
-              color: colors.blue.withOpacity(0.3),
+              color: colors.blue.withValues(alpha: 0.3),
               colorText: colors.primary,
               onSubmit: () => _complete(context),
             ),

@@ -40,7 +40,7 @@ class _ActivateWidgetState extends State<ActivateWidget> {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return Container(
-      color: colors.secondaryContainer.withOpacity(0.1),
+      color: colors.secondaryContainer.withValues(alpha: 0.1),
       child: Stack(
         children: [
           Padding(

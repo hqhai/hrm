@@ -86,7 +86,7 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
                       keyDate: state.keys,
                     )
                         ? ContainerBorder(
-                            borderColors: colors.outline.withOpacity(0.4),
+                            borderColors: colors.outline.withValues(alpha: 0.4),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: SpacingUnit.x4,
@@ -121,8 +121,8 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
                                             WorkShiftRegisteredDetail(
                                                 workDate: DateTime.now());
                                         return ContainerBorder(
-                                          borderColors:
-                                              colors.outline.withOpacity(0.4),
+                                          borderColors: colors.outline
+                                              .withValues(alpha: 0.4),
                                           width: width,
                                           paddingVertical: 0,
                                           child: CheckboxListTile(
@@ -203,23 +203,27 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
           listWorkShift: listWorkShift,
         );
       }
-    }else{
-      if(currentListWorkShifts.isEmpty){
-         workShiftSettings.call([workShift]);
-      setState(() {
-        listWorkShifts = [workShift];
-      });
-      }else{
-        bool check = currentListWorkShifts.where((element) => element == workShift).isEmpty;
-        if(check){
-          final data = [...currentListWorkShifts,workShift];
-                   workShiftSettings.call(data);
+    } else {
+      if (currentListWorkShifts.isEmpty) {
+        workShiftSettings.call([workShift]);
+        setState(() {
+          listWorkShifts = [workShift];
+        });
+      } else {
+        bool check = currentListWorkShifts
+            .where((element) => element == workShift)
+            .isEmpty;
+        if (check) {
+          final data = [...currentListWorkShifts, workShift];
+          workShiftSettings.call(data);
           setState(() {
             listWorkShifts = data;
           });
-        }else{
-          List<WorkShiftRegisteredDetail> data = currentListWorkShifts.where((element) => element != workShift).toList();
-                   workShiftSettings.call(data);
+        } else {
+          List<WorkShiftRegisteredDetail> data = currentListWorkShifts
+              .where((element) => element != workShift)
+              .toList();
+          workShiftSettings.call(data);
           setState(() {
             listWorkShifts = data;
           });

@@ -22,7 +22,8 @@ class BottomSheetProvinceWidget extends StatefulWidget {
   final ValueChanged<Address> onChange;
 
   @override
-  State<BottomSheetProvinceWidget> createState() => _BottomSheetProvinceWidgetState();
+  State<BottomSheetProvinceWidget> createState() =>
+      _BottomSheetProvinceWidgetState();
 }
 
 class _BottomSheetProvinceWidgetState extends State<BottomSheetProvinceWidget> {
@@ -50,11 +51,13 @@ class _BottomSheetProvinceWidgetState extends State<BottomSheetProvinceWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.text.withOpacity(0.1),
+          color: colors.text.withValues(alpha: 0.1),
           child: Center(
             child: Column(
               children: [
-                HeaderFilter(callback: () => close(context), title: appLocalizations.province),
+                HeaderFilter(
+                    callback: () => close(context),
+                    title: appLocalizations.province),
                 Expanded(
                   child: ListView.builder(
                     controller: controller,

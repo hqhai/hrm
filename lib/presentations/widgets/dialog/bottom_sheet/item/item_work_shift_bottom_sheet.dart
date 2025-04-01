@@ -26,21 +26,24 @@ class ItemSheetWorkShiftBSWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final newSelectExplanations = selectExplanations.map((e) => e.copyWith(note: '')).toList();
-    final explanationsUnSelect =
-        explanations.where((element) => !newSelectExplanations.contains(element));
+    final newSelectExplanations =
+        selectExplanations.map((e) => e.copyWith(note: '')).toList();
+    final explanationsUnSelect = explanations
+        .where((element) => !newSelectExplanations.contains(element));
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
       child: ContainerBorder(
-        borderColors: colors.tertiary.withOpacity(0.1),
-        backgroundColors: colors.tertiary.withOpacity(0.1),
+        borderColors: colors.tertiary.withValues(alpha: 0.1),
+        backgroundColors: colors.tertiary.withValues(alpha: 0.1),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               value,
               style: TextStyle(
-                  color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w500),
+                  color: colors.text,
+                  fontSize: SpacingUnit.x4,
+                  fontWeight: FontWeight.w500),
             ),
             Column(
               children: explanationsUnSelect

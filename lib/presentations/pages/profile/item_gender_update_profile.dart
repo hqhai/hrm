@@ -18,7 +18,8 @@ class ItemGenderUpdateProfile extends StatefulWidget {
   final GenderEnum gender;
 
   @override
-  State<ItemGenderUpdateProfile> createState() => _ItemGenderUpdateProfileState();
+  State<ItemGenderUpdateProfile> createState() =>
+      _ItemGenderUpdateProfileState();
 }
 
 class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
@@ -40,7 +41,7 @@ class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
       children: [
         TitleRequired(title: appLocalizations.gender, requiredValidate: true),
         ContainerBorder(
-          borderColors: colors.surfaceBright.withOpacity(0.6),
+          borderColors: colors.surfaceBright.withValues(alpha: 0.6),
           marginTop: SpacingUnit.x2,
           paddingVertical: SpacingUnit.x4,
           width: width,

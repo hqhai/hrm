@@ -51,7 +51,7 @@ class _ItemTakeOvertimeDayState extends State<ItemTakeOvertimeDay> {
             child: ContainerBorder(
               paddingVertical: SpacingUnit.x4,
               width: width,
-              borderColors: colors.text.withOpacity(0.4),
+              borderColors: colors.text.withValues(alpha: 0.4),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

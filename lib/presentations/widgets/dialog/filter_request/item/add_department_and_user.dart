@@ -101,7 +101,7 @@ class _AddDepartmentAndUserState extends State<AddDepartmentAndUser> {
         InkWell(
           onTap: () => callback.call(),
           child: ContainerBorder(
-            borderColors: colors.text.withOpacity(0.2),
+            borderColors: colors.text.withValues(alpha: 0.2),
             child: Row(
               children: [
                 Expanded(

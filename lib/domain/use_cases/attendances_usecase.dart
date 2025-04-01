@@ -1,6 +1,7 @@
 import 'package:base_app/data/models/work_and_salary/work_sheet_history_response.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/attendance/work_sheet.dart';
+import 'package:base_app/domain/entities/work_day/attendance_by_list_date.dart';
 import 'package:base_app/domain/repositories/attendances.repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -45,5 +46,17 @@ class AttendanceUseCase {
     final keys =
         attendances.map((e) => e.timeChecking.microsecondsSinceEpoch).toList();
     return WorkSheetHistoryResponse(keys: keys, attendances: map);
+  }
+
+  Future<List<AttendanceByListDate>?> getAttendanceByListDate({
+    required List<String> dates,
+    required String userId,
+  }) async {
+    final listAttendances = await _attendanceRepository.getAttendanceByListDate(
+          dates: dates,
+          userId: userId,
+        ) ??
+        [];
+    return listAttendances;
   }
 }

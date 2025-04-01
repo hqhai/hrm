@@ -1,5 +1,7 @@
 import 'app_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Vietnamese (`vi`).
 class AppLocalizationsVi extends AppLocalizations {
   AppLocalizationsVi([String locale = 'vi']) : super(locale);
@@ -2228,4 +2230,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get i18nOnlyAllowedToEditWorkThisMonthOrLastMonth => 'Chỉ cho phép chỉnh sửa tháng này hoặc tháng trước.';
+
+  @override
+  String get editAttendance => 'sửa chấm công';
+
+  @override
+  String get youAreSelecting => 'Bạn đang chọn';
 }

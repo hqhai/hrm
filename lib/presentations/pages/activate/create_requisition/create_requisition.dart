@@ -28,11 +28,24 @@ import 'package:themes/themes.dart';
 final createRequestPageRoute = GoRoute(
   path: Pages.createRequestPage,
   name: Pages.createRequestPage,
-  builder: (context, GoRouterState state) => const CreateRequestPage(),
+  builder: (context, GoRouterState state) {
+    if (state.uri.hasQuery) {
+      final query = state.uri.queryParameters;
+      final date = query['date'] ?? '';
+      return CreateRequestPage(
+        date: DateTime.parse(date),
+      );
+    } else {
+      return CreateRequestPage(
+        date: DateTime.now(),
+      );
+    }
+  },
 );
 
 class CreateRequestPage extends StatefulWidget {
-  const CreateRequestPage({super.key});
+  final DateTime date;
+  const CreateRequestPage({super.key, required this.date});
 
   @override
   State<CreateRequestPage> createState() => _CreateRequestPageState();
@@ -117,6 +130,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                       onTap: () => _nextScreen(
                         context,
                         state.flows[index],
+                        widget.date,
                       ),
                       child: item(
                         title: state.flows[index].flowType.configTypeName,
@@ -175,7 +189,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
         ),
         Divider(
           height: 1,
-          color: colors.text.withOpacity(0.2),
+          color: colors.text.withValues(alpha: 0.2),
         )
       ],
     );
@@ -202,7 +216,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
     }
   }
 
-  _nextScreen(BuildContext context, FlowRequest flow) async {
+  _nextScreen(BuildContext context, FlowRequest flow, DateTime date) async {
     dialogIndicator(
       context: context,
     );
@@ -215,83 +229,94 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           _push(
             type: RequisitionTypeEnum.explanation,
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             page: Pages.createRequestExplanationPage,
           );
         case RequisitionTypeEnum.lateOrEarly:
           _push(
             type: RequisitionTypeEnum.lateOrEarly,
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             page: Pages.createRequestLateAndEarlyPage,
           );
         case RequisitionTypeEnum.overTime:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             page: Pages.createRequestOverTimePage,
           );
         case RequisitionTypeEnum.vehicleDriver:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             page: Pages.createRequestVehicleDispatchPage,
           );
         case RequisitionTypeEnum.postalDelivery:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             page: Pages.createRequestPostalDeliveryPage,
           );
         case RequisitionTypeEnum.warehouseReleased:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             page: Pages.createRequestReleaseOfWarehousePage,
           );
         case RequisitionTypeEnum.stationery:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             page: Pages.createRequestStationeryOderPage,
           );
         case RequisitionTypeEnum.bussiness:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             page: Pages.createRequestBusinessPage,
           );
         case RequisitionTypeEnum.leaveFiveDaysOrMore:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             type: RequisitionTypeEnum.leaveFiveDaysOrMore,
             page: Pages.createRequestLeavePage,
           );
         case RequisitionTypeEnum.leaveHalfDayToOneDay:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             type: RequisitionTypeEnum.leaveHalfDayToOneDay,
             page: Pages.createRequestLeavePage,
           );
         case RequisitionTypeEnum.leaveTwoDayToFourDay:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             type: RequisitionTypeEnum.leaveTwoDayToFourDay,
             page: Pages.createRequestLeavePage,
           );
         case RequisitionTypeEnum.makeUpWork:
           _push(
             context: currentContext,
-            informationRequestExtra: InformationRequestExtra(flowId: flow.id),
+            informationRequestExtra:
+                InformationRequestExtra(flowId: flow.id, date: date),
             type: RequisitionTypeEnum.makeUpWork,
             page: Pages.createRequestMakeUpWorkPage,
           );
         case RequisitionTypeEnum.core:
         case RequisitionTypeEnum.unknown:
-        default:
       }
     } else {
       if (!currentContext.mounted) return;

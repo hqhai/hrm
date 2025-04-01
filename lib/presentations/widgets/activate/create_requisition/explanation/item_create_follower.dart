@@ -82,14 +82,14 @@ class _ItemCreateFollowerState extends State<ItemCreateFollower> {
               onTap: () => _add(context),
               child: ContainerBorder(
                 marginTop: 8,
-                borderColors: colors.text.withOpacity(0.4),
+                borderColors: colors.text.withValues(alpha: 0.4),
                 width: width,
                 paddingVertical: SpacingUnit.x4,
                 child: Text(
                   widget.title ?? "",
                   style: TextStyle(
                     overflow: TextOverflow.ellipsis,
-                    color: colors.text.withOpacity(0.4),
+                    color: colors.text.withValues(alpha: 0.4),
                     fontSize: SpacingUnit.x4,
                   ),
                 ),
@@ -176,7 +176,7 @@ class ItemUserFollower extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
     return ContainerBorder(
-      borderColors: colors.text.withOpacity(0.4),
+      borderColors: colors.text.withValues(alpha: 0.4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

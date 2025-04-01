@@ -26,10 +26,12 @@ class FilterRequisitionApproveDialog extends StatefulWidget {
   final FilterDialogModel? filter;
 
   @override
-  State<FilterRequisitionApproveDialog> createState() => _FilterRequisitionApproveDialogState();
+  State<FilterRequisitionApproveDialog> createState() =>
+      _FilterRequisitionApproveDialogState();
 }
 
-class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApproveDialog> {
+class _FilterRequisitionApproveDialogState
+    extends State<FilterRequisitionApproveDialog> {
   String errorTime = '';
   DateTime? startTime, endTime;
 
@@ -63,7 +65,7 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
         children: [
           HeaderFilter(callback: () => close(context)),
           Divider(
-            color: colors.outline.withOpacity(0.5),
+            color: colors.outline.withValues(alpha: 0.5),
             thickness: 1,
           ),
           Expanded(
@@ -82,7 +84,8 @@ class _FilterRequisitionApproveDialogState extends State<FilterRequisitionApprov
                     department: departments,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4, vertical: SpacingUnit.x4),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: SpacingUnit.x4, vertical: SpacingUnit.x4),
                     child: PeriodTimePicker(
                       oldEndTime: endTime,
                       oldStarTime: startTime,

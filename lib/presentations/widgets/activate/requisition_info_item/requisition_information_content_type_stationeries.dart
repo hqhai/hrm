@@ -5,7 +5,7 @@ import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/stationery_order/item_list_stationeries_extend.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,8 +27,14 @@ class _RequisitionInformationContentTypeStationeriesState
 
   @override
   void initState() {
-    if (dI<RequisitionBloc>().state.requisition.config.stationeries.isNotEmpty) {
-      int count = dI<RequisitionBloc>().state.requisition.config.stationeries.length;
+    if (dI<RequisitionBloc>()
+        .state
+        .requisition
+        .config
+        .stationeries
+        .isNotEmpty) {
+      int count =
+          dI<RequisitionBloc>().state.requisition.config.stationeries.length;
       listCheck = List.filled(count, true);
     }
 
@@ -64,12 +70,14 @@ class _RequisitionInformationContentTypeStationeriesState
               ),
               if (state.requisition.config.stationeries.isNotEmpty)
                 Container(
-                  padding: const EdgeInsets.only(left: SpacingUnit.x1, top: SpacingUnit.x2),
+                  padding: const EdgeInsets.only(
+                      left: SpacingUnit.x1, top: SpacingUnit.x2),
                   child: Column(
                     children: state.requisition.config.stationeries
                         .mapIndexed(
                           (index, element) => ItemListStationeriesExtend(
-                            stationeries: state.requisition.config.stationeries[index],
+                            stationeries:
+                                state.requisition.config.stationeries[index],
                             index: index,
                           ),
                         )

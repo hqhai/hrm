@@ -63,7 +63,7 @@ class _RequisitionApproveListPageState
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
-            color: colors.outline.withOpacity(0.3),
+            color: colors.outline.withValues(alpha: 0.3),
             height: SpacingUnit.x0_5,
           ),
         ),

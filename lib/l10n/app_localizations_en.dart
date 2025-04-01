@@ -1,5 +1,7 @@
 import 'app_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for English (`en`).
 class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
@@ -86,7 +88,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePassword => 'Change Password';
 
   @override
-  String get managementRequests => 'Requirements Management';
+  String get managementRequests => 'Request management';
 
   @override
   String get managementRoom => 'Meeting Room Management';
@@ -282,7 +284,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get book => 'Book An Appointment/ Booking';
 
   @override
-  String get errorEmailOrPassword => 'Incorrect Account Name Or Password';
+  String get errorEmailOrPassword => 'Incorrect Username or Password';
 
   @override
   String get endTimeMustBeAfterStartTime => 'The End Time Must Be After The Start Time!';
@@ -441,7 +443,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get supportContact => 'Contact support';
 
   @override
-  String get theContentAndTitleCannotBeLeftBlank => 'Content and subject cannot be empty';
+  String get theContentAndTitleCannotBeLeftBlank => 'Content and title cannot be empty';
 
   @override
   String get theNoteDateCannotBeBeforeThePresentTime => 'Note date cannot be before the current time';
@@ -525,10 +527,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get formOfTimekeeping => 'Timekeeping method';
 
   @override
-  String get checkIn => 'Clock in';
+  String get checkIn => 'Check-in';
 
   @override
-  String get checkOut => 'Clock out';
+  String get checkOut => 'Check-out';
 
   @override
   String get history => 'History';
@@ -678,7 +680,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get primarySchool => 'Primary school';
 
   @override
-  String get secondarySchool => 'Middle school';
+  String get secondarySchool => 'Secondary school';
 
   @override
   String get highSchool => 'High school';
@@ -1281,7 +1283,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeLate => 'Late arrival time';
 
   @override
-  String get realWork => 'Actual Work';
+  String get realWork => 'Standard work';
 
   @override
   String get seeDetails => 'See details';
@@ -1575,7 +1577,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get personalReasons => 'Personal reason';
 
   @override
-  String get companyReasons => 'Company reason';
+  String get companyReasons => 'Work';
 
   @override
   String get firstShift => 'First shift';
@@ -1974,7 +1976,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rejectTitle2 => 'Are you sure you want to refuse to approve this employee\'s shift registration request?';
 
   @override
-  String get proactiveCaseRegistrationManagement => 'Proactive shift registration management';
+  String get proactiveCaseRegistrationManagement => 'Employee shift management';
 
   @override
   String get receivedShift => 'Shift received';
@@ -2007,7 +2009,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chooseASchedule => 'You need to select a schedule for timekeeping.';
 
   @override
-  String get noDataTimekeeping => 'No timekeeping data';
+  String get noDataTimekeeping => 'No attendance data';
 
   @override
   String get notification => 'Notification';
@@ -2055,10 +2057,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shiftHistory => 'Case status history';
 
   @override
-  String get noConnected => 'No Connection/ An error occured, please check again later!';
+  String get noConnected => 'An error occurred, please check again!';
 
   @override
-  String get reasonForCancellation => 'Reason for cancellation';
+  String get reasonForCancellation => 'Reason for canceling the shift';
 
   @override
   String get shiftIsCancelled => 'Canceled';
@@ -2085,13 +2087,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get inputNameStaff => 'Input name staff';
 
   @override
-  String get edit2 => 'Request revision';
+  String get edit2 => 'Request not revised';
 
   @override
   String get errorNumber => 'Quantity must not be left blank';
 
   @override
-  String get errNotData => 'Not data';
+  String get errNotData => 'No data';
 
   @override
   String get filterByMonth => 'Filter by month';
@@ -2124,7 +2126,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nameWorkShift => 'Work shift name';
 
   @override
-  String get reasonForRemove => 'Reason for stop';
+  String get reasonForRemove => 'Reason for being removed from the shift';
 
   @override
   String get mapLocation => 'Location';
@@ -2133,7 +2135,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reasonCannotBeLeftBlank => 'Reason cannot be left blank';
 
   @override
-  String get reasonCancelShift => 'Reason cancel shift';
+  String get reasonCancelShift => 'Reason for canceling the shift';
 
   @override
   String get selectFilter => 'Select filter';
@@ -2179,7 +2181,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterReason => 'Enter reason...';
 
   @override
-  String get forgotPasswordSuccess => 'Forgot Password success!';
+  String get forgotPasswordSuccess => 'Password reset successful!';
 
   @override
   String get saveUpdateInfo => 'Save';
@@ -2228,4 +2230,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get i18nOnlyAllowedToEditWorkThisMonthOrLastMonth => 'Only allowed to edit work this month or last month.';
+
+  @override
+  String get editAttendance => 'edit attendance';
+
+  @override
+  String get youAreSelecting => 'You are selecting';
 }

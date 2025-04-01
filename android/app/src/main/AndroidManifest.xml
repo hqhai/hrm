@@ -34,12 +34,32 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.onesignal.NotificationExtender" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <service
+            android:name="com.onesignal.NotificationServiceExtension"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationServiceExtension.RECEIVE"/>
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.onesignal.NotificationOpenedReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationOpenedReceiver.OPEN"/>
+            </intent-filter>
+        </receiver>
+        
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.onesignal.NotificationServiceExtension"
+            android:value="com.onesignal.example.NotificationServiceExtension" />
     </application>
 </manifest>

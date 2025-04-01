@@ -15,20 +15,12 @@ ResponseBase _$ResponseBaseFromJson(Map<String, dynamic> json) => ResponseBase(
       statusCode: (json['statusCode'] as num?)?.toInt() ?? 404,
     );
 
-Map<String, dynamic> _$ResponseBaseToJson(ResponseBase instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('result', instance.result);
-  val['errorMessages'] = instance.errorMessages;
-  val['statusCode'] = instance.statusCode;
-  return val;
-}
+Map<String, dynamic> _$ResponseBaseToJson(ResponseBase instance) =>
+    <String, dynamic>{
+      if (instance.result case final value?) 'result': value,
+      'errorMessages': instance.errorMessages,
+      'statusCode': instance.statusCode,
+    };
 
 ErrorMessages _$ErrorMessagesFromJson(Map<String, dynamic> json) =>
     ErrorMessages(
@@ -38,19 +30,11 @@ ErrorMessages _$ErrorMessagesFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$ErrorMessagesToJson(ErrorMessages instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('errorCode', instance.errorCode);
-  writeNotNull('errors', instance.errors);
-  return val;
-}
+Map<String, dynamic> _$ErrorMessagesToJson(ErrorMessages instance) =>
+    <String, dynamic>{
+      if (instance.errorCode case final value?) 'errorCode': value,
+      if (instance.errors case final value?) 'errors': value,
+    };
 
 Errors _$ErrorsFromJson(Map<String, dynamic> json) => Errors(
       fieldName: json['fieldName'] as String?,
@@ -62,17 +46,8 @@ Errors _$ErrorsFromJson(Map<String, dynamic> json) => Errors(
           .toList(),
     );
 
-Map<String, dynamic> _$ErrorsToJson(Errors instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('fieldName', instance.fieldName);
-  writeNotNull('errorValues', instance.errorValues);
-  writeNotNull('exactValues', instance.exactValues);
-  return val;
-}
+Map<String, dynamic> _$ErrorsToJson(Errors instance) => <String, dynamic>{
+      if (instance.fieldName case final value?) 'fieldName': value,
+      if (instance.errorValues case final value?) 'errorValues': value,
+      if (instance.exactValues case final value?) 'exactValues': value,
+    };

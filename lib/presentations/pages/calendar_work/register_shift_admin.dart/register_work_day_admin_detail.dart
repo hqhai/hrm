@@ -20,7 +20,7 @@ import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_state.dart';
 import 'package:base_app/presentations/pages/calendar_work/register_shift_admin.dart/register_work_day_admin.dart';
 import 'package:base_app/presentations/pages/error.page.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value_no_border.dart';
 import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
 import 'package:base_app/presentations/widgets/line.dart';
 import 'package:flutter/material.dart';
@@ -231,7 +231,7 @@ class _RegisterWorkDayAdminDetailState
                             height: SpacingUnit.x12,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: colors.outline.withOpacity(0.5),
+                                color: colors.outline.withValues(alpha: 0.5),
                               ),
                               borderRadius:
                                   BorderRadius.circular(SpacingUnit.x2),
@@ -328,7 +328,7 @@ class _RegisterWorkDayAdminDetailState
                     value:
                         '${strSeconds(data.startTime)} - ${strSeconds(data.endTime)} ${formatDMY(data.workDate.toString())}',
                   ),
-                  LineWidget(color: colors.outline.withOpacity(0.8)),
+                  LineWidget(color: colors.outline.withValues(alpha: 0.8)),
                   ItemTitleValueNoBorder(
                     size: SpacingUnit.x4,
                     font: FontWeight.w600,
@@ -342,7 +342,7 @@ class _RegisterWorkDayAdminDetailState
                     title: data.namePosition,
                     value: '#${data.code}',
                   ),
-                  LineWidget(color: colors.outline.withOpacity(0.8)),
+                  LineWidget(color: colors.outline.withValues(alpha: 0.8)),
                   if (data.content.isNotEmpty) ...[
                     Text("${appLocalizations.reasonCancelShift}:",
                         style: theme.textTheme.titleMedium!.copyWith(
@@ -375,7 +375,7 @@ class _RegisterWorkDayAdminDetailState
                         height: SpacingUnit.x10,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: colors.outline.withOpacity(0.5),
+                            color: colors.outline.withValues(alpha: 0.5),
                           ),
                           borderRadius: BorderRadius.circular(SpacingUnit.x2),
                         ),
@@ -443,7 +443,7 @@ class _RegisterWorkDayAdminDetailState
             const SizedBox(height: SpacingUnit.x2),
             Expanded(
               child: Container(
-                color: colors.surfaceVariantLow.withOpacity(0.1),
+                color: colors.surfaceVariantLow.withValues(alpha: 0.1),
                 padding: const EdgeInsets.all(SpacingUnit.x4),
                 child: ListView.builder(
                   itemCount: state.itemsDetail.length,
@@ -579,7 +579,7 @@ class _Item extends StatelessWidget {
                   height: SpacingUnit.x10,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: colors.outline.withOpacity(0.5),
+                      color: colors.outline.withValues(alpha: 0.5),
                     ),
                     borderRadius: BorderRadius.circular(SpacingUnit.x2),
                   ),

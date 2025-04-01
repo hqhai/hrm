@@ -134,7 +134,7 @@ class _UnSuccessfulTimekeepingPageState
                         const SizedBox(height: SpacingUnit.x4),
                         ContainerBorder(
                           marginTop: 0,
-                          borderColors: colors.text.withOpacity(0.1),
+                          borderColors: colors.text.withValues(alpha: 0.1),
                           child: ItemTimeKeepingGPS(
                             scheduleSchoolId: widget.scheduleSchoolId,
                             checkSuccessful: false,
@@ -147,7 +147,7 @@ class _UnSuccessfulTimekeepingPageState
                 AppButton(
                   title: appLocalizations.retry,
                   onSubmit: () => _complete(context),
-                  color: colors.blue.withOpacity(0.3),
+                  color: colors.blue.withValues(alpha: 0.3),
                   colorText: colors.primary,
                 ),
               ],

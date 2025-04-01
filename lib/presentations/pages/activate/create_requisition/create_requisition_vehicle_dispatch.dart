@@ -7,13 +7,11 @@ import 'package:base_app/common/utils/error_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
-import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
-import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_common/item_create_time_start_and_end.dart';
@@ -33,15 +31,21 @@ final createRequestVehicleDispatchPageRoute = GoRoute(
       return CreateRequestVehicleDispatchPage(
         flowId: data['flowId'],
         requestId: data['requestId'],
+        date: DateTime.parse(data['date']),
       );
     });
 
 class CreateRequestVehicleDispatchPage extends StatefulWidget {
-  const CreateRequestVehicleDispatchPage(
-      {super.key, this.flowId, this.requestId = ''});
+  const CreateRequestVehicleDispatchPage({
+    super.key,
+    this.flowId,
+    this.requestId = '',
+    this.date,
+  });
 
   final String? flowId;
   final String requestId;
+  final DateTime? date;
 
   @override
   State<CreateRequestVehicleDispatchPage> createState() =>
@@ -77,7 +81,14 @@ class _CreateRequestVehicleDispatchPageState
       startTime = request.config.startDate ?? DateTime.now();
       endTime = request.config.endDate ?? DateTime.now();
       followers = [...request.followerIds];
+    } else {
+      final currentDate = widget.date ?? DateTime.now();
+      startTime = DateTime(currentDate.year, currentDate.month, currentDate.day,
+          DateTime.now().hour, DateTime.now().minute);
+      endTime = DateTime(currentDate.year, currentDate.month, currentDate.day,
+          DateTime.now().hour, DateTime.now().minute);
     }
+
     super.initState();
   }
 
@@ -163,14 +174,14 @@ class _CreateRequestVehicleDispatchPageState
                       endTime: (value) => setEndTime(value),
                       total: (value) => setTotal(value),
                     ),
-                    ItemCreateFollower(
-                      requiredValidate: true,
-                      error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
-                      listFollower:
-                          _setListUser(stateUserById.subtitudePersons),
-                      title: appLocalizations.walker,
-                      onChange: (value) => _setWalker(value),
-                    ),
+                    // ItemCreateFollower(
+                    //   requiredValidate: true,
+                    //   error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
+                    //   listFollower:
+                    //       _setListUser(stateUserById.subtitudePersons),
+                    //   title: appLocalizations.walker,
+                    //   onChange: (value) => _setWalker(value),
+                    // ),
                     ItemCreateInputArea(
                       requiredValidate: true,
                       error: errorSchedule,
@@ -178,11 +189,11 @@ class _CreateRequestVehicleDispatchPageState
                       title: appLocalizations.schedule,
                       onChange: (value) => _setSchedule(value),
                     ),
-                    ItemCreateFollower(
-                      listFollower: _setListUser(stateUserById.userById),
-                      title: appLocalizations.follower,
-                      onChange: (value) => _setFollower(value),
-                    ),
+                    // ItemCreateFollower(
+                    //   listFollower: _setListUser(stateUserById.userById),
+                    //   title: appLocalizations.follower,
+                    //   onChange: (value) => _setFollower(value),
+                    // ),
                     const ItemListStepFlow(),
                     ItemButton(
                       id: widget.requestId,
@@ -211,17 +222,17 @@ class _CreateRequestVehicleDispatchPageState
     });
   }
 
-  _setFollower(List<User> value) {
-    setState(() {
-      followers = value.map((e) => e.id).toList();
-    });
-  }
+  // _setFollower(List<User> value) {
+  //   setState(() {
+  //     followers = value.map((e) => e.id).toList();
+  //   });
+  // }
 
-  _setWalker(List<User> value) {
-    setState(() {
-      subtitudePersons = value.map((e) => e.id).toList();
-    });
-  }
+  // _setWalker(List<User> value) {
+  //   setState(() {
+  //     subtitudePersons = value.map((e) => e.id).toList();
+  //   });
+  // }
 
   setStartTime(DateTime value) {
     setState(() {
@@ -296,10 +307,10 @@ class _CreateRequestVehicleDispatchPageState
     });
   }
 
-  List<User> _setListUser(List<User> userById) {
-    if (widget.requestId.isNotEmpty) {
-      return userById;
-    }
-    return [];
-  }
+  // List<User> _setListUser(List<User> userById) {
+  //   if (widget.requestId.isNotEmpty) {
+  //     return userById;
+  //   }
+  //   return [];
+  // }
 }

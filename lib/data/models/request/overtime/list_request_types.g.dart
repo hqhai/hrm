@@ -15,15 +15,8 @@ ListRequestTypes _$ListRequestTypesFromJson(Map<String, dynamic> json) =>
           const [],
     );
 
-Map<String, dynamic> _$ListRequestTypesToJson(ListRequestTypes instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('listRequestTypes', instance.listRequestTypes);
-  return val;
-}
+Map<String, dynamic> _$ListRequestTypesToJson(ListRequestTypes instance) =>
+    <String, dynamic>{
+      if (instance.listRequestTypes case final value?)
+        'listRequestTypes': value,
+    };

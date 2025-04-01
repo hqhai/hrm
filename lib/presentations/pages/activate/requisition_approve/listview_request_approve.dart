@@ -33,8 +33,6 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
   late final TabController _tabController;
   bool checkLoad = true;
 
-
-
   @override
   void initState() {
     _tabController = TabController(
@@ -62,7 +60,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
                   isScrollable: true,
                   controller: _tabController,
                   indicatorSize: TabBarIndicatorSize.tab,
-                  dividerColor: colors.textLight.withOpacity(0.1),
+                  dividerColor: colors.textLight.withValues(alpha: 0.1),
                   dividerHeight: 0.1,
                   indicatorColor: colors.textLight,
                   tabAlignment: TabAlignment.start,
@@ -93,7 +91,7 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
                               builder: (context, state) => Chip(
                                 padding: EdgeInsets.zero,
                                 backgroundColor:
-                                    colors.primary.withOpacity(0.3),
+                                    colors.primary.withValues(alpha: 0.3),
                                 shape: RoundedRectangleBorder(
                                   side:
                                       const BorderSide(style: BorderStyle.none),

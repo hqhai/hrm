@@ -8,10 +8,12 @@ import 'package:base_app/presentations/bloc/notification/notification_state.dart
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:common/utils/color_utils.dart';
 import 'package:themes/themes.dart';
 
 class ItemInListNotification extends StatefulWidget {
-  const ItemInListNotification({super.key, required this.id, required this.checkSent});
+  const ItemInListNotification(
+      {super.key, required this.id, required this.checkSent});
 
   final String id;
   final bool checkSent;
@@ -34,14 +36,17 @@ class _ItemInListNotificationState extends State<ItemInListNotification> {
     final colors = AppTheme.getColors(context);
     return BlocBuilder<NotificationBloc, NotificationState>(
       builder: (context, state) {
-        final notification = state.notifications[widget.id] ?? const NotificationMessage();
+        final notification =
+            state.notifications[widget.id] ?? const NotificationMessage();
         return InkWell(
           onTap: () => _onClick(),
           child: ContainerBorder(
-            borderColors:
-                widget.checkSent && !checkClick ? const Color(0xFFF4F7FF) : colors.background,
-            backgroundColors:
-                widget.checkSent && !checkClick ? const Color(0xFFF4F7FF) : colors.background,
+            borderColors: widget.checkSent && !checkClick
+                ? ColorUtils.parseHex("#BFD0EA")
+                : colors.background,
+            backgroundColors: widget.checkSent && !checkClick
+                ? ColorUtils.parseHex("#BFD0EA")
+                : colors.background,
             child: Column(
               children: [
                 Text(
@@ -60,16 +65,18 @@ class _ItemInListNotificationState extends State<ItemInListNotification> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      formatHM(dateTimeLocal(notification.createdDate).toString()),
+                      formatHM(
+                          dateTimeLocal(notification.createdDate).toString()),
                       style: TextStyle(
-                        color: colors.text.withOpacity(0.5),
+                        color: colors.text.withValues(alpha: 0.5),
                         fontSize: SpacingUnit.x4,
                       ),
                     ),
                     Text(
-                      formatDMY(dateTimeLocal(notification.createdDate).toString()),
+                      formatDMY(
+                          dateTimeLocal(notification.createdDate).toString()),
                       style: TextStyle(
-                        color: colors.text.withOpacity(0.5),
+                        color: colors.text.withValues(alpha: 0.5),
                         fontSize: SpacingUnit.x4,
                       ),
                     ),
@@ -84,7 +91,7 @@ class _ItemInListNotificationState extends State<ItemInListNotification> {
   }
 
   _onClick() {
-    if(!checkClick) {
+    if (!checkClick) {
       dI<NotificationBloc>().add(ChangeNotificationsEvent(
         ids: [widget.id],
       ));
@@ -93,6 +100,5 @@ class _ItemInListNotificationState extends State<ItemInListNotification> {
       checkClick = true;
       checkRead = !checkRead;
     });
-
   }
 }

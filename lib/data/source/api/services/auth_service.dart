@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:base_app/common/configs/path_config.dart';
+import 'package:base_app/common/constants/key_constance.dart';
+import 'package:base_app/common/storage/local_storage.dart';
 import 'package:base_app/data/models/request/login_request.dart';
 import 'package:base_app/data/models/response/login_response.dart';
 import 'package:base_app/data/source/api/client/auth_api_client.dart';
@@ -26,12 +28,15 @@ class AuthService {
     );
   }
 
-  Future<void> checkAccountBiometric({required LoginRequest request}) async {
-    await _authApiClient.request(
-      method: RestMethod.post,
-      path: PathConfig.login,
-      decoder: (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
-      successResponseMapperType: SuccessResponseMapperType.dataJsonObject,
-    );
+  Future<bool> checkAccountBiometric({required LoginRequest request}) async {
+    final passwordBiometric =
+        await AppLocalStorage.getData(DataKey.passwordBiometric);
+    final password = request.password;
+    if (passwordBiometric == null) return false;
+    if (passwordBiometric.contains(password)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

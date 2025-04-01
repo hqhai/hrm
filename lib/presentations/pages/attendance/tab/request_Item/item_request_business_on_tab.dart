@@ -9,7 +9,7 @@ import 'package:base_app/presentations/bloc/requisition/request_history_work_she
 import 'package:base_app/presentations/pages/activate/leave/title_value_leave.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_request_on_tab_common.dart';
 import 'package:base_app/presentations/pages/attendance/tab/request_Item/item_type_on_tab.dart';
-import 'package:base_app/presentations/widgets/activate/requisition_infor_item/item/item_title_value_no_border_colum.dart';
+import 'package:base_app/presentations/widgets/activate/requisition_info_item/item/item_title_value_no_border_colum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

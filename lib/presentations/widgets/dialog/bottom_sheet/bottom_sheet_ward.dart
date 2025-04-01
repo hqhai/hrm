@@ -52,11 +52,13 @@ class _BottomSheetWardWidgetState extends State<BottomSheetWardWidget> {
       builder: (context, state) {
         return Container(
           height: height * 0.6,
-          color: colors.text.withOpacity(0.1),
+          color: colors.text.withValues(alpha: 0.1),
           child: Center(
             child: Column(
               children: [
-                HeaderFilter(callback: () => close(context), title: appLocalizations.ward),
+                HeaderFilter(
+                    callback: () => close(context),
+                    title: appLocalizations.ward),
                 Expanded(
                   child: ListView.builder(
                     controller: controller,

@@ -154,7 +154,7 @@ class LockUpAccount extends StatelessWidget {
                   appLocalizations.supportContact,
                   style: TextStyle(
                     decoration: TextDecoration.underline,
-                    color: colors.text.withOpacity(0.4),
+                    color: colors.text.withValues(alpha: 0.4),
                     fontSize: SpacingUnit.x3,
                   ),
                 ),

@@ -31,9 +31,9 @@ abstract class _$DepartmentStateCWProxy {
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfDepartmentState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfDepartmentState.copyWith.fieldName(...)`
 class _$DepartmentStateCWProxyImpl implements _$DepartmentStateCWProxy {
-  final DepartmentState _value;
-
   const _$DepartmentStateCWProxyImpl(this._value);
+
+  final DepartmentState _value;
 
   @override
   DepartmentState department(Department department) =>

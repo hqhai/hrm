@@ -43,7 +43,7 @@ class ItemDepartmentAndPositionProfile extends StatelessWidget {
                         paddingVertical: SpacingUnit.x4,
                         width: width,
                         marginTop: 0,
-                        borderColors: colors.text.withOpacity(0.2),
+                        borderColors: colors.text.withValues(alpha: 0.2),
                         child: Text(
                           e.department?.name ?? "",
                           style: TextStyle(
@@ -73,7 +73,7 @@ class ItemDepartmentAndPositionProfile extends StatelessWidget {
                         paddingVertical: SpacingUnit.x4,
                         width: width,
                         marginTop: 0,
-                        borderColors: colors.text.withOpacity(0.2),
+                        borderColors: colors.text.withValues(alpha: 0.2),
                         child: Text(
                           e.position?.name ?? "",
                           style: TextStyle(

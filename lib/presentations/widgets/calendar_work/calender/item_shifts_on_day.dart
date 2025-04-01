@@ -63,7 +63,7 @@ class ItemShiftsOnDay extends StatelessWidget {
     final colors = AppTheme.getColors(context);
     switch (shift.status) {
       case WorkShiftRequestStatus.pending:
-        return colors.error.withOpacity(0.16);
+        return colors.error.withValues(alpha: 0.16);
       case WorkShiftRequestStatus.approve:
         return colors.success;
       case WorkShiftRequestStatus.reject:

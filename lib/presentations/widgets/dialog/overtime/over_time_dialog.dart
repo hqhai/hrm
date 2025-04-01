@@ -80,6 +80,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
       suggestTime = int.parse((endTime - startTime).toString());
       note = widget.requisitionOverTime.note;
     }
+    date = widget.requisitionOverTime.date ?? DateTime.now();
     super.initState();
   }
 
@@ -90,7 +91,7 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
     return ContainerBorder(
       paddingVertical: SpacingUnit.x4,
       marginTop: 0,
-      borderColors: colors.text.withOpacity(0.4),
+      borderColors: colors.text.withValues(alpha: 0.4),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,8 +100,13 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                checkTypeContainer ? appLocalizations.date : formatYMD(date.toString()),
-                style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4, fontWeight: FontWeight.w600),
+                checkTypeContainer
+                    ? appLocalizations.date
+                    : formatYMD(date.toString()),
+                style: TextStyle(
+                    color: colors.text,
+                    fontSize: SpacingUnit.x4,
+                    fontWeight: FontWeight.w600),
               ),
               InkWell(
                 onTap: () => _setTypeContainer(),
@@ -110,8 +116,11 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                   child: SvgPicture.asset(
                     width: SpacingUnit.x6,
                     height: SpacingUnit.x6,
-                    checkTypeContainer ? Assets.images.icon.home.chevronForward : Assets.images.icon.activateIcon.drop,
-                    colorFilter: ColorFilter.mode(colors.text.withOpacity(0.4), BlendMode.srcIn),
+                    checkTypeContainer
+                        ? Assets.images.icon.home.chevronForward
+                        : Assets.images.icon.activateIcon.drop,
+                    colorFilter: ColorFilter.mode(
+                        colors.text.withValues(alpha: 0.4), BlendMode.srcIn),
                   ),
                 ),
               ),
@@ -166,7 +175,9 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                       ),
                     ),
                     TextSpan(
-                      text: errorTime.isEmpty ? strSeconds(((suggestTime)).toInt()) : '0',
+                      text: errorTime.isEmpty
+                          ? strSeconds(((suggestTime)).toInt())
+                          : '0',
                       style: TextStyle(
                         color: colors.text,
                         fontSize: SpacingUnit.x4,
@@ -187,11 +198,12 @@ class _OverTimeAddDialogState extends State<OverTimeAddDialog> {
                 onChange: (value) => _setNote(value),
               ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
+              padding: const EdgeInsets.symmetric(
+                  vertical: SpacingUnit.x4, horizontal: SpacingUnit.x1),
               child: AppButton(
                 title: appLocalizations.cancel,
                 onSubmit: () => widget.callBack.call(),
-                color: colors.error.withOpacity(0.7),
+                color: colors.error.withValues(alpha: 0.7),
                 colorText: colors.text,
               ),
             ),
