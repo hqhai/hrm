@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCTh2eaI2lo98JEhSOcxqdzsdeMIbhP93c</string>
+	<string>AIzaSyDrXMh81pIIMkRZ1-62luFQhMT7PhgeSvQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>270904267396</string>
+	<string>676127376352</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.atlanticgroup.app.uat</string>
+	<string>com.atlanticgroup.app</string>
 	<key>PROJECT_ID</key>
-	<string>hrm-ee18e</string>
+	<string>hrm-production-9575c</string>
 	<key>STORAGE_BUCKET</key>
-	<string>hrm-ee18e.firebasestorage.app</string>
+	<string>hrm-production-9575c.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:270904267396:ios:2d4eb79bd0ea0f074668d1</string>
+	<string>1:676127376352:ios:13c3c2b6f39cb446a1e185</string>
 </dict>
 </plist>

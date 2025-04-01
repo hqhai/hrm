@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "270904267396",
-    "project_id": "hrm-ee18e",
-    "storage_bucket": "hrm-ee18e.firebasestorage.app"
+    "project_number": "676127376352",
+    "project_id": "hrm-production-9575c",
+    "storage_bucket": "hrm-production-9575c.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:270904267396:android:bf51e38732ca706e4668d1",
+        "mobilesdk_app_id": "1:676127376352:android:512e678f99d682d0a1e185",
         "android_client_info": {
           "package_name": "com.atlantic.gc"
         }
@@ -15,45 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCk6JBYQ6SYdKX_JQri0QNfEqFeyAYfLHQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:270904267396:android:dde9789eeb0a5db14668d1",
-        "android_client_info": {
-          "package_name": "com.atlantic.gc.staging"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCk6JBYQ6SYdKX_JQri0QNfEqFeyAYfLHQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:270904267396:android:03e198662b0eabb44668d1",
-        "android_client_info": {
-          "package_name": "com.atlantic.gc.uat"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCk6JBYQ6SYdKX_JQri0QNfEqFeyAYfLHQ"
+          "current_key": "AIzaSyDRDa6xmXD_5iyPU50Q8BzIun4_PTHoPxM"
         }
       ],
       "services": {
