@@ -58,6 +58,7 @@ import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 @lazySingleton
 class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
@@ -69,7 +70,8 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<IgnoreLoginEvent>(_ignoreLoginEvent);
   }
 
-  FutureOr<void> _checkAuthenticated(CheckAuthenticated event, Emitter<AuthState> emit) async {
+  FutureOr<void> _checkAuthenticated(
+      CheckAuthenticated event, Emitter<AuthState> emit) async {
     if (state.status == AuthStatus.ignoreLogin) return;
     String userToken, email, password;
     List<String> roles;
@@ -89,7 +91,13 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         AppConfig.setToken(userToken);
         dI<UserBloc>().add(const GetUserInfo());
 
-        emit(AuthState(status: AuthStatus.loggedIn, token: userToken, saveLogin: event.saveLogin, email: email, password: password, roles: roles));
+        emit(AuthState(
+            status: AuthStatus.loggedIn,
+            token: userToken,
+            saveLogin: event.saveLogin,
+            email: email,
+            password: password,
+            roles: roles));
       } else {
         emit(const AuthState(status: AuthStatus.unAuthentication));
       }
@@ -101,11 +109,15 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   FutureOr<void> _logOut(LogoutEvent event, Emitter<AuthState> emit) async {
     if (dI<AuthBloc>().state.saveLogin) {
       resetData();
-      emit(AuthState(status: AuthStatus.unAuthentication, email: state.email, password: state.password));
+      emit(AuthState(
+          status: AuthStatus.unAuthentication,
+          email: state.email,
+          password: state.password));
     } else {
       resetData();
       emit(const AuthState(status: AuthStatus.unAuthentication));
     }
+    OneSignal.logout();
   }
 
   @override
@@ -119,10 +131,13 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   }
 
   void _resetEvent(ResetEvent event, Emitter<AuthState> emit) {
-    emit(state.copyWith(token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6Iml0QGF0bGFudGljLmVkdS52biIsIkZ1bGxOYW1lIjoiSFIgSFIiLCJFbWFpbCI6Iml0QGF0bGFudGljLmVkdS52biIsIlVzZXJJZCI6IjY0REYxOTRFLTY1QUItNEI0Mi04REE5LUI1QjE3NDQ0ODlBRCIsIlN1YiI6ImJhc2VXZWJBcGlTdWJqZWN0IiwiSnRpIjoiZGI2OGMwODAtMGY0My00NGU3LTk0ODYtMzQyZmUyMThmZjk4IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiSFIiLCJSb2xlcyI6IkhSIiwiZXhwIjoxNzA0MzY0NTMxLCJpc3MiOiJiYXNlV2ViQXBpSXNzdWVyIiwiYXVkIjoiYmFzZVdlYkFwaUF1ZGllbmNlIn0.stIeNHtQuT7O5ajACVDnd4RjXOtG9KciSULDDuunZGU"));
+    emit(state.copyWith(
+        token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6Iml0QGF0bGFudGljLmVkdS52biIsIkZ1bGxOYW1lIjoiSFIgSFIiLCJFbWFpbCI6Iml0QGF0bGFudGljLmVkdS52biIsIlVzZXJJZCI6IjY0REYxOTRFLTY1QUItNEI0Mi04REE5LUI1QjE3NDQ0ODlBRCIsIlN1YiI6ImJhc2VXZWJBcGlTdWJqZWN0IiwiSnRpIjoiZGI2OGMwODAtMGY0My00NGU3LTk0ODYtMzQyZmUyMThmZjk4IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiSFIiLCJSb2xlcyI6IkhSIiwiZXhwIjoxNzA0MzY0NTMxLCJpc3MiOiJiYXNlV2ViQXBpSXNzdWVyIiwiYXVkIjoiYmFzZVdlYkFwaUF1ZGllbmNlIn0.stIeNHtQuT7O5ajACVDnd4RjXOtG9KciSULDDuunZGU"));
   }
 
-  FutureOr<void> _ignoreLoginEvent(IgnoreLoginEvent event, Emitter<AuthState> emit) {
+  FutureOr<void> _ignoreLoginEvent(
+      IgnoreLoginEvent event, Emitter<AuthState> emit) {
     emit(const AuthState(status: AuthStatus.ignoreLogin));
   }
 }

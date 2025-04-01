@@ -18,6 +18,7 @@ import 'package:base_app/presentations/bloc/user/user/user_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 @lazySingleton
 class UserBloc extends HydratedBloc<UserEvent, UserState> {
@@ -37,10 +38,13 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
     on<UpdateProfileEvent>(_updateProfileEvent);
   }
 
-  FutureOr<void> _getUserInfo(GetUserInfo event, Emitter<UserState> emit) async {
+  FutureOr<void> _getUserInfo(
+      GetUserInfo event, Emitter<UserState> emit) async {
     emit(state.copyWith(status: UserStatus.init));
     try {
       User user = await userUseCase.getUserInfo();
+      OneSignal.login(user.id);
+      OneSignal.User.addTagWithKey('UserId', user.id);
       emit(state.copyWith(user: user, status: UserStatus.success));
     } catch (e) {
       if (e is RemoteException) {
@@ -56,10 +60,13 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
     }
   }
 
-  FutureOr<void> _changePassword(ChangePasswordEvent event, Emitter<UserState> emit) async {
+  FutureOr<void> _changePassword(
+      ChangePasswordEvent event, Emitter<UserState> emit) async {
     emit(state.copyWith(status: UserStatus.init));
     try {
-      bool checkChangePassword = await userUseCase.changePassword(newPassword: event.newPassword, currentPassword: event.currentPassword);
+      bool checkChangePassword = await userUseCase.changePassword(
+          newPassword: event.newPassword,
+          currentPassword: event.currentPassword);
       if (checkChangePassword) {
         emit(state.copyWith(status: UserStatus.success));
         event.completer?.complete(true);
@@ -73,11 +80,13 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
     }
   }
 
-  FutureOr<void> _resetUserEvent(ResetUserEvent event, Emitter<UserState> emit) async {
+  FutureOr<void> _resetUserEvent(
+      ResetUserEvent event, Emitter<UserState> emit) async {
     emit(const UserState(status: UserStatus.unknown));
   }
 
-  FutureOr<void> _forgotPasswordEvent(ForgotPasswordEvent event, Emitter<UserState> emit) async {
+  FutureOr<void> _forgotPasswordEvent(
+      ForgotPasswordEvent event, Emitter<UserState> emit) async {
     try {
       String email = await userUseCase.forgotPassword(email: event.email);
       emit(state.copyWith(email: email, errorCode: ''));
@@ -92,7 +101,9 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
           ));
           if (currentContext.mounted) {
             dI<AppNavigation>().pop(currentContext);
-            ToastUtils().showError(ErrorUtils.getErrorMessage(listErrorCode.first, context: currentContext));
+            ToastUtils().showError(ErrorUtils.getErrorMessage(
+                listErrorCode.first,
+                context: currentContext));
           }
         } else {
           emit(state.copyWith(errorCode: 'error'));
@@ -105,14 +116,16 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
         ));
         if (currentContext.mounted) {
           dI<AppNavigation>().pop(currentContext);
-          ToastUtils().showError(ErrorUtils.getErrorMessage('error', context: currentContext));
+          ToastUtils().showError(
+              ErrorUtils.getErrorMessage('error', context: currentContext));
         }
         event.completer?.complete(false);
       }
     }
   }
 
-  FutureOr<void> _deleteAccountEvent(DeleteAccountEvent event, Emitter<UserState> emit) async {
+  FutureOr<void> _deleteAccountEvent(
+      DeleteAccountEvent event, Emitter<UserState> emit) async {
     emit(state.copyWith(status: UserStatus.init));
     try {
       await userUseCase.deleteAccount();
@@ -123,21 +136,25 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
     }
   }
 
-  FutureOr<void> _updateProfileEvent(UpdateProfileEvent event, Emitter<UserState> emit) async {
+  FutureOr<void> _updateProfileEvent(
+      UpdateProfileEvent event, Emitter<UserState> emit) async {
     try {
       if (event.file.path != File('').path) {
-        String path ='';
-        try{
-          path = await _requestUseCase.uploadFile(originFile: event.file, imageData: null);
-        }catch(e){
+        String path = '';
+        try {
+          path = await _requestUseCase.uploadFile(
+              originFile: event.file, imageData: null);
+        } catch (e) {
           emit(state.copyWith(
             errorCode: 'error',
           ));
           event.completer?.complete(false);
           return;
         }
-        UpdateProfileRequest updateProfileRequest = event.updateProfileRequest.copyWith(avatarPath: path);
-        final user = await userUseCase.updateProfile(updateProfileRequest: updateProfileRequest);
+        UpdateProfileRequest updateProfileRequest =
+            event.updateProfileRequest.copyWith(avatarPath: path);
+        final user = await userUseCase.updateProfile(
+            updateProfileRequest: updateProfileRequest);
         emit(
           state.copyWith(
             user: user,
@@ -145,7 +162,8 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
         );
         event.completer?.complete(true);
       } else {
-        User user = await userUseCase.updateProfile(updateProfileRequest: event.updateProfileRequest);
+        User user = await userUseCase.updateProfile(
+            updateProfileRequest: event.updateProfileRequest);
         emit(state.copyWith(user: user));
         event.completer?.complete(true);
       }
