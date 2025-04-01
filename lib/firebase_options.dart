@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -50,20 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCk6JBYQ6SYdKX_JQri0QNfEqFeyAYfLHQ',
-    appId: '1:270904267396:android:bf51e38732ca706e4668d1',
-    messagingSenderId: '270904267396',
-    projectId: 'hrm-ee18e',
-    storageBucket: 'hrm-ee18e.firebasestorage.app',
+    apiKey: 'AIzaSyDRDa6xmXD_5iyPU50Q8BzIun4_PTHoPxM',
+    appId: '1:676127376352:android:512e678f99d682d0a1e185',
+    messagingSenderId: '676127376352',
+    projectId: 'hrm-production-9575c',
+    storageBucket: 'hrm-production-9575c.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCTh2eaI2lo98JEhSOcxqdzsdeMIbhP93c',
-    appId: '1:270904267396:ios:8242db32e45db6864668d1',
-    messagingSenderId: '270904267396',
-    projectId: 'hrm-ee18e',
-    storageBucket: 'hrm-ee18e.firebasestorage.app',
+    apiKey: 'AIzaSyDrXMh81pIIMkRZ1-62luFQhMT7PhgeSvQ',
+    appId: '1:676127376352:ios:13c3c2b6f39cb446a1e185',
+    messagingSenderId: '676127376352',
+    projectId: 'hrm-production-9575c',
+    storageBucket: 'hrm-production-9575c.firebasestorage.app',
     iosBundleId: 'com.atlanticgroup.app',
+  );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBQE_kGIORkIgIbdLKXt0JplhqJP2rsiLM',
+    appId: '1:676127376352:web:d315116e88dc6a5ba1e185',
+    messagingSenderId: '676127376352',
+    projectId: 'hrm-production-9575c',
+    authDomain: 'hrm-production-9575c.firebaseapp.com',
+    storageBucket: 'hrm-production-9575c.firebasestorage.app',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDrXMh81pIIMkRZ1-62luFQhMT7PhgeSvQ',
+    appId: '1:676127376352:ios:0f89ecbfedaac163a1e185',
+    messagingSenderId: '676127376352',
+    projectId: 'hrm-production-9575c',
+    storageBucket: 'hrm-production-9575c.firebasestorage.app',
+    iosBundleId: 'com.example.baseApp',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBQE_kGIORkIgIbdLKXt0JplhqJP2rsiLM',
+    appId: '1:676127376352:web:4f8adbbfd3b5e943a1e185',
+    messagingSenderId: '676127376352',
+    projectId: 'hrm-production-9575c',
+    authDomain: 'hrm-production-9575c.firebaseapp.com',
+    storageBucket: 'hrm-production-9575c.firebasestorage.app',
   );
 
 }
