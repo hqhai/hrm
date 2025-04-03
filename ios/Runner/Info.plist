@@ -37,7 +37,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>App app want's to access your location to get address.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open.</string>
+	<string>App app want's to access your location to get address.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone Usage Description</string>
 	<key>NSPhotoLibraryUsageDescription</key>
