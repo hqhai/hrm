@@ -181,6 +181,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: DateTime.now(),
             ),
             context: currentContext,
             page: Pages.createRequestExplanationPage,
