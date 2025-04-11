@@ -80,8 +80,10 @@ class _CreateRequisitionExplanationPageState
       description = request.config.description;
       detailedDescriptionController.text = description ?? "";
       explanations = [...request.config.explanations];
+    } else {
+      _addExplanation(widget.date ?? DateTime.now());
     }
-    _addExplanation(widget.date ?? DateTime.now());
+
     super.initState();
   }
 

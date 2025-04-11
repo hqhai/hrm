@@ -32,6 +32,7 @@ class _ItemInListExplanationState extends State<ItemInListExplanation> {
   @override
   void initState() {
     noteController.text = widget.explanation.note;
+    note = widget.explanation.note;
     super.initState();
   }
 
