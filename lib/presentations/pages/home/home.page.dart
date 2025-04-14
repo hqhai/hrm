@@ -120,11 +120,11 @@ class _HomePageState extends State<HomePage> {
     dI<AuthBloc>().add(const LogoutEvent());
   }
 
-  _listener(BuildContext context, UserState state) {
-    if (state.status == UserStatus.unauthorized) {
-      logoutFunction();
-    }
-  }
+  // _listener(BuildContext context, UserState state) {
+  //   if (state.status == UserStatus.unauthorized) {
+  //     logoutFunction();
+  //   }
+  // }
 
   _opacity(bool check) {
     setState(() {
@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
     final width = MediaQuery.of(context).size.width;
     return BlocConsumer<UserBloc, UserState>(
       listener: (context, stateUser) {
-        _listener(context, stateUser);
+        // _listener(context, stateUser);
       },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, stateUser) {

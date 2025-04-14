@@ -16,7 +16,8 @@ import 'base/base_interceptor.dart';
 
 @Injectable()
 class RefreshTokenInterceptor extends BaseInterceptor {
-  RefreshTokenInterceptor(this.appPreferences, this.refreshTokenApiService, this._noneAuthAppServerApiClient);
+  RefreshTokenInterceptor(this.appPreferences, this.refreshTokenApiService,
+      this._noneAuthAppServerApiClient);
 
   final AppPreferences appPreferences;
   final RefreshTokenApiService refreshTokenApiService;
@@ -33,8 +34,10 @@ class RefreshTokenInterceptor extends BaseInterceptor {
     if (err.response?.statusCode == HttpStatus.unauthorized) {
       final options = err.response!.requestOptions;
       _onExpiredToken(options: options, handler: handler);
+      return;
     } else {
       handler.next(err);
+      return;
     }
   }
 
@@ -42,7 +45,8 @@ class RefreshTokenInterceptor extends BaseInterceptor {
     required Map<String, dynamic> headers,
     required String accessToken,
   }) {
-    headers[ServerRequestResponseConstants.basicAuthorization] = '${ServerRequestResponseConstants.bearer} $accessToken';
+    headers[ServerRequestResponseConstants.basicAuthorization] =
+        '${ServerRequestResponseConstants.bearer} $accessToken';
   }
 
   Future<void> _onExpiredToken({
@@ -68,7 +72,8 @@ class RefreshTokenInterceptor extends BaseInterceptor {
     _isRefreshing = true;
     final refreshToken = appPreferences.refreshToken;
     final accessToken = appPreferences.accessToken;
-    final refreshTokenResponse = await refreshTokenApiService.refreshToken(refreshToken ?? "", accessToken ?? "");
+    final refreshTokenResponse = await refreshTokenApiService.refreshToken(
+        refreshToken ?? "", accessToken ?? "");
     await Future.wait(
       [
         appPreferences.saveAccessToken(
