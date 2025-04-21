@@ -70,8 +70,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     on<IgnoreLoginEvent>(_ignoreLoginEvent);
   }
 
-  FutureOr<void> _checkAuthenticated(
-      CheckAuthenticated event, Emitter<AuthState> emit) async {
+  void _checkAuthenticated(CheckAuthenticated event, Emitter<AuthState> emit) {
     if (state.status == AuthStatus.ignoreLogin) return;
     String userToken, email, password;
     List<String> roles;
@@ -91,7 +90,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         AppConfig.setToken(userToken);
         dI<UserBloc>().add(const GetUserInfo());
 
-        emit(AuthState(
+        emit(state.copyWith(
             status: AuthStatus.loggedIn,
             token: userToken,
             saveLogin: event.saveLogin,
@@ -99,23 +98,23 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
             password: password,
             roles: roles));
       } else {
-        emit(const AuthState(status: AuthStatus.unAuthentication));
+        emit(state.copyWith(status: AuthStatus.unAuthentication));
       }
     } catch (e) {
-      emit(const AuthState(status: AuthStatus.unAuthentication));
+      emit(state.copyWith(status: AuthStatus.unAuthentication));
     }
   }
 
   FutureOr<void> _logOut(LogoutEvent event, Emitter<AuthState> emit) async {
     if (dI<AuthBloc>().state.saveLogin) {
       resetData();
-      emit(AuthState(
+      emit(state.copyWith(
           status: AuthStatus.unAuthentication,
           email: state.email,
           password: state.password));
     } else {
       resetData();
-      emit(const AuthState(status: AuthStatus.unAuthentication));
+      emit(state.copyWith(status: AuthStatus.unAuthentication));
     }
     OneSignal.logout();
   }
