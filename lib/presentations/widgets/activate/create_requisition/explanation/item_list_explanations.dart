@@ -45,14 +45,14 @@ class _ListExplanationsWidgetState extends State<ListExplanationsWidget> {
                 title: widget.title,
                 requiredValidate: true,
               ),
-              InkWell(
-                onTap: () => widget.callback.call(),
-                child: Icon(
-                  Icons.add,
-                  size: SpacingUnit.x8,
-                  color: colors.success,
-                ),
-              )
+              // InkWell(
+              //   onTap: () => widget.callback.call(),
+              //   child: Icon(
+              //     Icons.add,
+              //     size: SpacingUnit.x8,
+              //     color: colors.success,
+              //   ),
+              // )
             ],
           ),
           if (widget.error.isNotEmpty)
