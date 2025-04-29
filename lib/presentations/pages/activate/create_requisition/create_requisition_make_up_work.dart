@@ -45,8 +45,7 @@ final createRequestMakeUpWorkPageRoute = GoRoute(
       flowId: data['flowId'],
       requestId: data['requestId'],
       type: data['type'],
-      date:
-          data["date"] == null ? DateTime.now() : DateTime.parse(data['date']),
+      date: DateTime.parse(data['date']),
     );
   },
 );
@@ -302,7 +301,6 @@ class _CreateRequisitionMakeUpWorkPageState
 
   _save(BuildContext context) async {
     saveRequest(
-      context: context,
       checkCreate: !checkClick &&
           _checkValue(context) &&
           widget.requestId.isEmpty &&
