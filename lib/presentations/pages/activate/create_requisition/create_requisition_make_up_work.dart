@@ -45,7 +45,8 @@ final createRequestMakeUpWorkPageRoute = GoRoute(
       flowId: data['flowId'],
       requestId: data['requestId'],
       type: data['type'],
-      date: DateTime.parse(data['date']),
+      date:
+          data["date"] == null ? DateTime.now() : DateTime.parse(data['date']),
     );
   },
 );

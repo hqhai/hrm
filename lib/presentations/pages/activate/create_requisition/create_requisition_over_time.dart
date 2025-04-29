@@ -36,7 +36,9 @@ final createRequestOverTimePageRoute = GoRoute(
       return CreateRequisitionOverTimePage(
         flowId: data['flowId'],
         requestId: data['requestId'],
-        date: DateTime.parse(data['date']),
+        date: data["date"] == null
+            ? DateTime.now()
+            : DateTime.parse(data['date']),
       );
     });
 

@@ -35,7 +35,9 @@ final createRequestStationeryOderPageRoute = GoRoute(
       return CreateRequisitionStationeryOderPage(
         flowId: data['flowId'],
         requestId: data['requestId'],
-        date: DateTime.parse(data['date']),
+        date: data["date"] == null
+            ? DateTime.now()
+            : DateTime.parse(data['date']),
       );
     });
 
