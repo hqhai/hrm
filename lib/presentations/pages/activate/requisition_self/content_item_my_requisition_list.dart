@@ -171,7 +171,7 @@ class _ContentItemMyRequisitionListState
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     dialogIndicator(context: currentContext);
     final check = await checkLoadScreen(flow, request);
-    final date = request.config.workShiftSettings.first.workDate;
+    DateTime date = DateTime.now();
     if (check) {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(currentContext);

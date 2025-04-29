@@ -76,8 +76,9 @@ class _CreateRequisitionOverTimePageState
       requisitionOverTimes = [...?request.config.overTimes];
       description = request.config.description;
       inputController.text = description;
+    } else {
+      addOverTime(widget.date ?? DateTime.now());
     }
-    addOverTime(widget.date ?? DateTime.now());
     super.initState();
   }
 
