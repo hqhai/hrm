@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
 import 'package:base_app/common/exception/remote/remote_exception.dart';
@@ -47,16 +46,7 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
       OneSignal.User.addTagWithKey('UserId', user.id);
       emit(state.copyWith(user: user, status: UserStatus.success));
     } catch (e) {
-      if (e is RemoteException) {
-        if (e.httpErrorCode == 401) {
-          emit(state.copyWith(status: UserStatus.unauthorized));
-          AppConfig.setToken('');
-        } else {
-          emit(state.copyWith(status: UserStatus.fail));
-        }
-      } else {
-        emit(state.copyWith(status: UserStatus.fail));
-      }
+      emit(state.copyWith(status: UserStatus.fail));
     }
   }
 

@@ -85,22 +85,19 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       password = state.password;
       roles = state.roles;
     }
-    try {
-      if (userToken.isNotEmpty) {
-        AppConfig.setToken(userToken);
-        dI<UserBloc>().add(const GetUserInfo());
+    if (userToken.isNotEmpty) {
+      AppConfig.setToken(userToken);
 
-        emit(state.copyWith(
-            status: AuthStatus.loggedIn,
-            token: userToken,
-            saveLogin: event.saveLogin,
-            email: email,
-            password: password,
-            roles: roles));
-      } else {
-        emit(state.copyWith(status: AuthStatus.unAuthentication));
-      }
-    } catch (e) {
+      emit(state.copyWith(
+          status: AuthStatus.loggedIn,
+          token: userToken,
+          saveLogin: event.saveLogin,
+          email: email,
+          password: password,
+          roles: roles));
+
+      dI<UserBloc>().add(const GetUserInfo());
+    } else {
       emit(state.copyWith(status: AuthStatus.unAuthentication));
     }
   }
