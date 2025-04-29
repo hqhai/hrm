@@ -463,6 +463,7 @@ class _RequisitionInformationPageState
   }
 
   _nextScreen(FlowRequest flow, Request request) async {
+    final date = request.config.workShiftSettings.first.workDate;
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     final check = await checkLoadScreen(flow, request);
     if (check) {
@@ -474,6 +475,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestExplanationPage,
@@ -484,6 +486,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestLateAndEarlyPage,
@@ -494,6 +497,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestOverTimePage,
@@ -504,6 +508,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestVehicleDispatchPage,
@@ -514,6 +519,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestPostalDeliveryPage,
@@ -524,6 +530,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestReleaseOfWarehousePage,
@@ -534,6 +541,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestStationeryOderPage,
@@ -544,6 +552,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestBusinessPage,
@@ -554,6 +563,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestLeavePage,
@@ -564,6 +574,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestLeavePage,
@@ -574,6 +585,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestLeavePage,
@@ -584,6 +596,7 @@ class _RequisitionInformationPageState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestMakeUpWorkPage,

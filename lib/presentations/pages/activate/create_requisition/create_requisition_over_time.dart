@@ -36,7 +36,9 @@ final createRequestOverTimePageRoute = GoRoute(
       return CreateRequisitionOverTimePage(
         flowId: data['flowId'],
         requestId: data['requestId'],
-        date: DateTime.parse(data['date']),
+        date: data["date"] == null
+            ? DateTime.now()
+            : DateTime.parse(data['date']),
       );
     });
 
@@ -236,7 +238,6 @@ class _CreateRequisitionOverTimePageState
 
   _save(BuildContext context) async {
     saveRequest(
-      context: context,
       checkCreate:
           !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),

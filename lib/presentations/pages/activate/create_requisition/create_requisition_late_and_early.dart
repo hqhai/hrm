@@ -50,7 +50,8 @@ final createRequestLateAndEarlyPageRoute = GoRoute(
       flowId: data['flowId'],
       requestId: data['requestId'],
       type: data['type'],
-      date: DateTime.parse(data['date']),
+      date:
+          data["date"] == null ? DateTime.now() : DateTime.parse(data['date']),
     );
   },
 );
@@ -279,7 +280,7 @@ class _CreateRequisitionLateAndEarlyPageState
                     const ItemListStepFlow(),
                     ItemButton(
                       id: widget.requestId,
-                      callbackSave: () => _save(context),
+                      callbackSave: () => _save(),
                       callbackCancel: () => _cancel(context),
                     )
                   ],
@@ -395,11 +396,9 @@ class _CreateRequisitionLateAndEarlyPageState
           );
   }
 
-  _save(BuildContext context) async {
+  _save() {
     saveRequest(
-      context: context,
-      checkCreate:
-          !checkClick && _checkValue(context) && widget.requestId.isEmpty,
+      checkCreate: !checkClick && widget.requestId.isEmpty,
       postRequestRequest: request(),
       checkEdit:
           !checkClick && _checkValue(context) && widget.requestId.isNotEmpty,

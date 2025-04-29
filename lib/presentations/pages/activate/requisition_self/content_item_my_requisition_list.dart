@@ -171,6 +171,7 @@ class _ContentItemMyRequisitionListState
     final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
     dialogIndicator(context: currentContext);
     final check = await checkLoadScreen(flow, request);
+    final date = request.config.workShiftSettings.first.workDate;
     if (check) {
       if (!currentContext.mounted) return;
       dI<AppNavigation>().pop(currentContext);
@@ -181,7 +182,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
-              date: DateTime.now(),
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestExplanationPage,
@@ -192,6 +193,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestLateAndEarlyPage,
@@ -202,6 +204,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestOverTimePage,
@@ -212,6 +215,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestVehicleDispatchPage,
@@ -222,6 +226,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestPostalDeliveryPage,
@@ -232,6 +237,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestReleaseOfWarehousePage,
@@ -242,6 +248,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestStationeryOderPage,
@@ -252,6 +259,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestBusinessPage,
@@ -262,6 +270,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestLeavePage,
@@ -272,6 +281,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestLeavePage,
@@ -282,6 +292,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestLeavePage,
@@ -292,6 +303,7 @@ class _ContentItemMyRequisitionListState
             informationRequestExtra: InformationRequestExtra(
               requestId: widget.id,
               flowId: flow.id,
+              date: date,
             ),
             context: currentContext,
             page: Pages.createRequestMakeUpWorkPage,

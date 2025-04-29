@@ -35,7 +35,9 @@ final createRequestStationeryOderPageRoute = GoRoute(
       return CreateRequisitionStationeryOderPage(
         flowId: data['flowId'],
         requestId: data['requestId'],
-        date: DateTime.parse(data['date']),
+        date: data["date"] == null
+            ? DateTime.now()
+            : DateTime.parse(data['date']),
       );
     });
 
@@ -211,7 +213,6 @@ class _CreateRequisitionStationeryOderPageState
 
   _save(BuildContext context) async {
     saveRequest(
-      context: context,
       checkCreate:
           !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),

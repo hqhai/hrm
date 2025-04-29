@@ -7,11 +7,13 @@ import 'package:base_app/common/utils/error_utils.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
+import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_state.dart';
+import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_follower.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/explanation/item_create_input_area.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_button.dart';
 import 'package:base_app/presentations/widgets/activate/create_requisition/item_common/item_create_time_start_and_end.dart';
@@ -31,7 +33,9 @@ final createRequestVehicleDispatchPageRoute = GoRoute(
       return CreateRequestVehicleDispatchPage(
         flowId: data['flowId'],
         requestId: data['requestId'],
-        date: DateTime.parse(data['date']),
+        date: data["date"] == null
+            ? DateTime.now()
+            : DateTime.parse(data['date']),
       );
     });
 
@@ -93,18 +97,18 @@ class _CreateRequestVehicleDispatchPageState
   }
 
   bool checkTime() {
-    return totalMinute > 0 || endTime.difference(startTime).inSeconds > 0;
+    final check =
+        totalMinute > 0 || endTime.difference(startTime).inSeconds > 0;
+    return check;
   }
 
   bool _checkValue(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     final bool checkDescription = description != '' && description != null;
     final bool checkContent = content != '' && content != null;
-    final bool check =
-        checkDescription && checkContent && subtitudePersons.isNotEmpty;
+    final bool check = checkDescription && checkContent;
     setState(() {
-      errorSubtitude =
-          subtitudePersons.isNotEmpty ? '' : appLocalizations.cannotBeLeftBlank;
+      errorSubtitude = appLocalizations.cannotBeLeftBlank;
       errorTime =
           !checkTime() ? appLocalizations.endTimeMustBeAfterStartTime : "";
       errorSchedule =
@@ -174,14 +178,14 @@ class _CreateRequestVehicleDispatchPageState
                       endTime: (value) => setEndTime(value),
                       total: (value) => setTotal(value),
                     ),
-                    // ItemCreateFollower(
-                    //   requiredValidate: true,
-                    //   error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
-                    //   listFollower:
-                    //       _setListUser(stateUserById.subtitudePersons),
-                    //   title: appLocalizations.walker,
-                    //   onChange: (value) => _setWalker(value),
-                    // ),
+                    ItemCreateFollower(
+                      requiredValidate: true,
+                      error: subtitudePersons.isNotEmpty ? '' : errorSubtitude,
+                      listFollower:
+                          _setListUser(stateUserById.subtitudePersons),
+                      title: appLocalizations.walker,
+                      onChange: (value) => _setWalker(value),
+                    ),
                     ItemCreateInputArea(
                       requiredValidate: true,
                       error: errorSchedule,
@@ -197,7 +201,7 @@ class _CreateRequestVehicleDispatchPageState
                     const ItemListStepFlow(),
                     ItemButton(
                       id: widget.requestId,
-                      callbackSave: () => _save(context),
+                      callbackSave: () => _save(),
                       callbackCancel: () => _cancel(context),
                     )
                   ],
@@ -222,15 +226,15 @@ class _CreateRequestVehicleDispatchPageState
     });
   }
 
+  _setWalker(List<User> value) {
+    setState(() {
+      subtitudePersons = value.map((e) => e.id).toList();
+    });
+  }
+
   // _setFollower(List<User> value) {
   //   setState(() {
   //     followers = value.map((e) => e.id).toList();
-  //   });
-  // }
-
-  // _setWalker(List<User> value) {
-  //   setState(() {
-  //     subtitudePersons = value.map((e) => e.id).toList();
   //   });
   // }
 
@@ -285,9 +289,8 @@ class _CreateRequestVehicleDispatchPageState
           );
   }
 
-  _save(BuildContext context) async {
+  _save() async {
     saveRequest(
-      context: context,
       checkCreate:
           !checkClick && _checkValue(context) && widget.requestId.isEmpty,
       postRequestRequest: request(),
@@ -307,10 +310,10 @@ class _CreateRequestVehicleDispatchPageState
     });
   }
 
-  // List<User> _setListUser(List<User> userById) {
-  //   if (widget.requestId.isNotEmpty) {
-  //     return userById;
-  //   }
-  //   return [];
-  // }
+  List<User> _setListUser(List<User> userById) {
+    if (widget.requestId.isNotEmpty) {
+      return userById;
+    }
+    return [];
+  }
 }
