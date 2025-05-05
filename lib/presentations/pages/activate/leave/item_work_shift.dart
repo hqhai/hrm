@@ -173,8 +173,12 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
 
   Iterable<WorkShiftRegisteredDetail> _checkValue(
       WorkShiftRegisteredDetail workShift) {
-    return listWorkShifts
-        .where((element) => element.workDate == workShift.workDate);
+    return listWorkShifts.where(
+      (element) =>
+          element.workDate == workShift.workDate &&
+          element.startTime == workShift.startTime &&
+          element.endTime == workShift.endTime,
+    );
   }
 
   _onChange({
