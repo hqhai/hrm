@@ -94,7 +94,8 @@ class _CreateRequisitionLeavePageState
   final DateTime now = DateTime.now();
   EnumTakeLeaveType takeLeaveType =
       EnumTakeLeaveType.yearlyLeaveAndSeniorityLeave;
-  EnumSocialInsuranceLeave? socialInsuranceLeave;
+  EnumSocialInsuranceLeave socialInsuranceLeave =
+      EnumSocialInsuranceLeave.unknown;
   EnumReasonLeave? reason;
 
   @override
@@ -344,7 +345,7 @@ class _CreateRequisitionLeavePageState
               startDate: startTime,
               workShiftSettings: listWorkShift,
               reasonLeave: reason,
-              socialInsuranceLeave: socialInsuranceLeave,
+              // socialInsuranceLeave: socialInsuranceLeave,
               takeLeaveType: takeLeaveType,
               numberValue: numberValue,
             ),
@@ -361,7 +362,7 @@ class _CreateRequisitionLeavePageState
                 startDate: startTime,
                 workShiftSettings: listWorkShift,
                 reasonLeave: reason,
-                socialInsuranceLeave: socialInsuranceLeave,
+                // socialInsuranceLeave: socialInsuranceLeave,
                 takeLeaveType: takeLeaveType,
                 numberValue: numberValue),
           );
@@ -472,7 +473,7 @@ class _CreateRequisitionLeavePageState
 
   setSocialInsurance(EnumSocialInsuranceLeave? value) {
     setState(() {
-      socialInsuranceLeave = value;
+      socialInsuranceLeave = value ?? EnumSocialInsuranceLeave.unknown;
     });
   }
 }

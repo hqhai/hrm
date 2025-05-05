@@ -192,7 +192,11 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
   }) {
     final checkType = keyDate.length > 1;
     if (checkType) {
-      final isEnable = currentListWorkShifts.contains(workShift);
+      final isEnable = currentListWorkShifts.any((element) =>
+          element.workDate == workShift.workDate &&
+          element.workShiftDetailId == workShift.workShiftDetailId &&
+          element.workShiftSettingDetailId ==
+              workShift.workShiftSettingDetailId);
       final listWorkShift = dataWorkShifts.values.toList();
       if (!isEnable) {
         _addWorkShift(
@@ -345,9 +349,10 @@ class _ItemWorkShiftState extends State<ItemWorkShift> {
       WorkShiftRegisteredDetail workShift) {
     int startIndex = listWorkShift.length - 2;
     int endIndex = listWorkShift.length - 1;
+    int fistIndex = 0;
     if (currentListWorkShifts.isNotEmpty) {
       final items = listWorkShift.sublist(
-        listWorkShift.indexOf(currentListWorkShifts.first),
+        fistIndex,
         currentIndex + 1,
       );
       return items;

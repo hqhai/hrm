@@ -32,7 +32,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   final RequisitionUseCase requisitionUseCase;
   final RequestUseCase _requestUseCase;
 
-  RequisitionBloc(this.requisitionUseCase, this._requestUseCase) : super(const RequisitionState()) {
+  RequisitionBloc(this.requisitionUseCase, this._requestUseCase)
+      : super(const RequisitionState()) {
     on<RequisitionEvent>((event, emit) {});
     on<GetRequisitionsByFilterEvent>(_getRequisitionsByFilterEvent);
     on<GetRequisitionByIdEvent>(_getRequisitionByIdEvent);
@@ -44,14 +45,20 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   }
 
   ///Reject request      ***********************************************
-  FutureOr<void> _userRejectRequestEvent(UserRejectRequestEvent event, Emitter<RequisitionState> emit) async {
+  FutureOr<void> _userRejectRequestEvent(
+      UserRejectRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
-      final bool check = await requisitionUseCase.userRejectRequisitionById(id: event.id ?? "");
+      final bool check = await requisitionUseCase.userRejectRequisitionById(
+          id: event.id ?? "");
       if (check) {
-        final requestIds = state.requisitionIds.where((element) => element != event.id).toList();
+        final requestIds = state.requisitionIds
+            .where((element) => element != event.id)
+            .toList();
         final countRequest = state.statusCount;
-        countRequest[StatusRequestEnum.approve] = (countRequest[StatusRequestEnum.approve] ?? 0) - 1;
-        countRequest[StatusRequestEnum.cancel] = (countRequest[StatusRequestEnum.cancel] ?? 0) + 1;
+        countRequest[StatusRequestEnum.approve] =
+            (countRequest[StatusRequestEnum.approve] ?? 0) - 1;
+        countRequest[StatusRequestEnum.cancel] =
+            (countRequest[StatusRequestEnum.cancel] ?? 0) + 1;
         emit(state.copyWith(
           requisitionIds: requestIds,
           errorCode: '',
@@ -80,9 +87,12 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   }
 
   ///get by filter ***********************************************
-  FutureOr<void> _getRequisitionsByFilterEvent(GetRequisitionsByFilterEvent event, Emitter<RequisitionState> emit) async {
+  FutureOr<void> _getRequisitionsByFilterEvent(
+      GetRequisitionsByFilterEvent event,
+      Emitter<RequisitionState> emit) async {
     try {
-      final RequestsResponse requestsResponse = await requisitionUseCase.getRequisitionsSelfByFilter(
+      final RequestsResponse requestsResponse =
+          await requisitionUseCase.getRequisitionsSelfByFilter(
         page: event.page,
         flowId: event.flowIds,
         status: event.status,
@@ -148,7 +158,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   }
 
   ///get by id     ***********************************************
-  FutureOr<void> _getRequisitionByIdEvent(GetRequisitionByIdEvent event, Emitter<RequisitionState> emit) async {
+  FutureOr<void> _getRequisitionByIdEvent(
+      GetRequisitionByIdEvent event, Emitter<RequisitionState> emit) async {
     try {
       final request = await requisitionUseCase.getRequisitionById(
         id: event.id ?? "",
@@ -184,33 +195,47 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   }
 
   ///Post Request     ***********************************************
-  FutureOr<void> _postRequestEvent(PostRequestEvent event, Emitter<RequisitionState> emit) async {
+  FutureOr<void> _postRequestEvent(
+      PostRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
       if (event.files.isNotEmpty) {
-        List<String>? paths ;
+        List<String>? paths;
         try {
           paths = await listPaths(event.files);
         } catch (e) {
-          final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
+          final currentContext =
+              dI<AppNavigation>().navigatorKey.currentContext!;
           emit(state.copyWith(errorCode: 'error'));
           if (currentContext.mounted) {
             final colors = AppTheme.getColors(currentContext);
-            final errorDialog = ErrorUtils.getErrorMessage('error', context: currentContext);
+            final errorDialog =
+                ErrorUtils.getErrorMessage('error', context: currentContext);
             dI<AppNavigation>().pop(currentContext);
-            Fluttertoast.showToast(msg: errorDialog, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: colors.error, textColor: colors.background, fontSize: SpacingUnit.x4);
+            Fluttertoast.showToast(
+                msg: errorDialog,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: colors.error,
+                textColor: colors.background,
+                fontSize: SpacingUnit.x4);
           }
           return;
         }
-        if(paths.isNotEmpty){
-          final ConfigModelRequest configRequestModel = event.postRequestRequest.config;
-          final PostRequestRequest postRequestRequest = event.postRequestRequest.copyWith(config: configRequestModel.copyWith(attachments: paths));
-          await requisitionUseCase.postRequest(postRequestRequest: postRequestRequest);
+        if (paths.isNotEmpty) {
+          final ConfigModelRequest configRequestModel =
+              event.postRequestRequest.config;
+          final PostRequestRequest postRequestRequest = event.postRequestRequest
+              .copyWith(
+                  config: configRequestModel.copyWith(attachments: paths));
+          await requisitionUseCase.postRequest(
+              postRequestRequest: postRequestRequest);
           emit(state.copyWith(errorCode: ''));
           completerSuccess(requestId: '');
         }
-
       } else {
-        await requisitionUseCase.postRequest(postRequestRequest: event.postRequestRequest);
+        await requisitionUseCase.postRequest(
+            postRequestRequest: event.postRequestRequest);
         emit(state.copyWith(errorCode: ''));
         completerSuccess(requestId: '');
       }
@@ -223,8 +248,16 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
           if (currentContext.mounted) {
             final colors = AppTheme.getColors(currentContext);
             dI<AppNavigation>().pop(currentContext);
-            final errorDialog = ErrorUtils.getErrorMessage(listErrorCode.first, context: currentContext);
-            Fluttertoast.showToast(msg: errorDialog, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: colors.error, textColor: colors.background, fontSize: SpacingUnit.x4);
+            final errorDialog = ErrorUtils.getErrorMessage(listErrorCode.first,
+                context: currentContext);
+            Fluttertoast.showToast(
+                msg: errorDialog,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: colors.error,
+                textColor: colors.background,
+                fontSize: SpacingUnit.x4);
           }
         }
         // else {
@@ -241,8 +274,16 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         if (currentContext.mounted) {
           final colors = AppTheme.getColors(currentContext);
           dI<AppNavigation>().pop(currentContext);
-          final errorDialog = ErrorUtils.getErrorMessage('error', context: currentContext);
-          Fluttertoast.showToast(msg: errorDialog, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: colors.error, textColor: colors.background, fontSize: SpacingUnit.x4);
+          final errorDialog =
+              ErrorUtils.getErrorMessage('error', context: currentContext);
+          Fluttertoast.showToast(
+              msg: errorDialog,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: colors.error,
+              textColor: colors.background,
+              fontSize: SpacingUnit.x4);
         }
       }
     }
@@ -262,18 +303,24 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
   }
 
   ///Edit Request     ***********************************************
-  FutureOr<void> _editRequestEvent(EditRequestEvent event, Emitter<RequisitionState> emit) async {
+  FutureOr<void> _editRequestEvent(
+      EditRequestEvent event, Emitter<RequisitionState> emit) async {
     try {
       if (event.files.isNotEmpty) {
         final List<String> paths = [...await listPaths(event.files)];
-        final ConfigModelRequest configRequestModel = event.postRequestRequest.config;
-        final PostRequestRequest postRequestRequest = event.postRequestRequest.copyWith(config: configRequestModel.copyWith(attachments: paths));
-        final Request request = await requisitionUseCase.editRequestEdit(postRequestRequest: postRequestRequest);
+        final ConfigModelRequest configRequestModel =
+            event.postRequestRequest.config;
+        final PostRequestRequest postRequestRequest = event.postRequestRequest
+            .copyWith(config: configRequestModel.copyWith(attachments: paths));
+        final Request request = await requisitionUseCase.editRequestEdit(
+            postRequestRequest: postRequestRequest);
         final requests = state.requisitions;
         requests[event.postRequestRequest.id ?? ""] = request;
         final countRequest = state.statusCount;
-        countRequest[StatusRequestEnum.edit] = (countRequest[StatusRequestEnum.edit] ?? 0) - 1;
-        countRequest[StatusRequestEnum.process] = (countRequest[StatusRequestEnum.process] ?? 0) + 1;
+        countRequest[StatusRequestEnum.edit] =
+            (countRequest[StatusRequestEnum.edit] ?? 0) - 1;
+        countRequest[StatusRequestEnum.process] =
+            (countRequest[StatusRequestEnum.process] ?? 0) + 1;
         emit(state.copyWith(
           errorCode: '',
           requisition: request,
@@ -285,18 +332,23 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
           isEdit: true,
         );
       } else {
-        final Request request = await requisitionUseCase.editRequestEdit(postRequestRequest: event.postRequestRequest);
+        final Request request = await requisitionUseCase.editRequestEdit(
+            postRequestRequest: event.postRequestRequest);
         final requests = state.requisitions;
         requests[event.postRequestRequest.id ?? ""] = request;
         final countRequest = state.statusCount;
-        countRequest[StatusRequestEnum.edit] = (countRequest[StatusRequestEnum.edit] ?? 0) - 1;
-        countRequest[StatusRequestEnum.process] = (countRequest[StatusRequestEnum.process] ?? 0) + 1;
+        countRequest[StatusRequestEnum.edit] =
+            (countRequest[StatusRequestEnum.edit] ?? 0) - 1;
+        countRequest[StatusRequestEnum.process] =
+            (countRequest[StatusRequestEnum.process] ?? 0) + 1;
         emit(state.copyWith(
           errorCode: '',
           requisition: request,
           requisitions: requests,
         ));
-        final ids = state.requisitionIds.where((element) => element != event.postRequestRequest.id).toList();
+        final ids = state.requisitionIds
+            .where((element) => element != event.postRequestRequest.id)
+            .toList();
         completerSuccess(
           requestId: event.postRequestRequest.id ?? "",
           isEdit: true,
@@ -315,8 +367,16 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
           if (currentContext.mounted) {
             final colors = AppTheme.getColors(currentContext);
             dI<AppNavigation>().pop(currentContext);
-            final errorDialog = ErrorUtils.getErrorMessage(listErrorCode.first, context: currentContext);
-            Fluttertoast.showToast(msg: errorDialog, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: colors.error, textColor: colors.background, fontSize: SpacingUnit.x4);
+            final errorDialog = ErrorUtils.getErrorMessage(listErrorCode.first,
+                context: currentContext);
+            Fluttertoast.showToast(
+                msg: errorDialog,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: colors.error,
+                textColor: colors.background,
+                fontSize: SpacingUnit.x4);
           }
         } else {
           emit(state.copyWith(errorCode: 'error'));
@@ -328,16 +388,27 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         if (currentContext.mounted) {
           final colors = AppTheme.getColors(currentContext);
           dI<AppNavigation>().pop(currentContext);
-          final errorDialog = ErrorUtils.getErrorMessage('error', context: currentContext);
-          Fluttertoast.showToast(msg: errorDialog, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: colors.error, textColor: colors.background, fontSize: SpacingUnit.x4);
+          final errorDialog =
+              ErrorUtils.getErrorMessage('error', context: currentContext);
+          Fluttertoast.showToast(
+              msg: errorDialog,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: colors.error,
+              textColor: colors.background,
+              fontSize: SpacingUnit.x4);
         }
       }
     }
   }
 
   /// Lay so luong request
-  FutureOr<void> _getRequisitionUserCountEvent(GetRequisitionUserCountEvent event, Emitter<RequisitionState> emit) async {
-    final requisitionCountStatus = await requisitionUseCase.userRequisitionCountStatus(
+  FutureOr<void> _getRequisitionUserCountEvent(
+      GetRequisitionUserCountEvent event,
+      Emitter<RequisitionState> emit) async {
+    final requisitionCountStatus =
+        await requisitionUseCase.userRequisitionCountStatus(
       getRequestFilterRequest: GetRequestFilterRequest(
         flowIds: event.flowIds,
         startDate: event.startTime?.subtract(const Duration(hours: 7)),
@@ -366,7 +437,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
     return state.toJson();
   }
 
-  FutureOr<void> _resetRequisitionEvent(ResetRequisitionEvent event, Emitter<RequisitionState> emit) {
+  FutureOr<void> _resetRequisitionEvent(
+      ResetRequisitionEvent event, Emitter<RequisitionState> emit) {
     emit(const RequisitionState());
   }
 }

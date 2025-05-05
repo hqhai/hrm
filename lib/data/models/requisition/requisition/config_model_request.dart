@@ -37,7 +37,7 @@ class ConfigModelRequest {
   final List<RequisitionOverTime>? overTimes;
   final EnumTakeLeaveType? takeLeaveType;
   final EnumReasonLeave? reasonLeave;
-  final EnumSocialInsuranceLeave? socialInsuranceLeave;
+  // final EnumSocialInsuranceLeave socialInsuranceLeave;
   final List<WorkShiftRegisteredDetail>? workShiftSettings;
   final List<Explanation>? explanations;
   final EnumReason? reason;
@@ -65,7 +65,7 @@ class ConfigModelRequest {
       this.takeLeaveReason,
       this.total,
       this.warehourseReleaseds,
-      this.socialInsuranceLeave,
+      // this.socialInsuranceLeave = EnumSocialInsuranceLeave.unknown,
       this.reasonLeave,
       this.takeLeaveType,
       this.workShiftSettings,

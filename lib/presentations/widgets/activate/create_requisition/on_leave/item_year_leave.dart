@@ -238,7 +238,7 @@ class _ItemYearLeaveState extends State<ItemYearLeave> {
       type = value;
       if (widget.type != EnumTakeLeaveType.unpaidLeave ||
           value != EnumReasonLeave.socialInsuranceLeave) {
-        socialInsuranceLeave = null;
+        socialInsuranceLeave = EnumSocialInsuranceLeave.unknown;
         widget.onChangeSocialInsurance.call(socialInsuranceLeave);
       }
       widget.onChange.call(value);
