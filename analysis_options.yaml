@@ -9,9 +9,10 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 analyzer:
-  exclude: [build/**, packages/**, lib/l10n/**]
+  exclude: [build/**, packages/flutter_subtitle_wrapper/**, packages/themes, packages/localizations/**]
   errors:
     unnecessary_question_mark: ignore
+    strict_top_level_inference: ignore
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`

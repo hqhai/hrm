@@ -11,115 +11,90 @@ part 'attendance.g.dart';
 @CopyWith()
 @CustomDateTimeConverter()
 class Attendance {
-  /// <summary>
   /// tên nhân viên
-  /// </summary>
   final String? name;
 
-  /// <summary>
   /// mã nhân viên
-  /// </summary>
   final String? code;
 
-  /// <summary>
   /// Id nhân viên
-  /// </summary>
   final String? userId;
 
-  /// <summary>
   /// công thực tế
-  /// </summary>
+
   final double actualRate;
 
-  /// <summary>
   /// công nghỉ phép
-  /// </summary>
+
   final double leaveRate;
 
-  /// <summary>
   /// công nghỉ bù OT
-  /// </summary>
+
   final double compensatoryLeaveRate;
 
-  /// <summary>
   /// công nghỉ lễ
-  /// </summary>
+
   final double holidayRate;
 
-  /// <summary>
   /// nghỉ không lương
-  /// </summary>
+
   final double noSalaryRate;
 
-  /// <summary>
   /// số giờ OT
-  /// </summary>
+
   final int overTime;
 
-  /// <summary>
   /// số công OT
-  /// </summary>
+
   final int overTimeRate;
 
-  /// <summary>
   /// số giờ OT tính lương
-  /// </summary>
+
   final int overTimeSalary;
 
-  /// <summary>
   /// số giờ OT nghỉ bù
-  /// </summary>
+
   final int overTimeLeave;
 
-  /// <summary>
   /// số giờ OT
-  /// </summary>
+
   @JsonKey(unknownEnumValue: EnumOvertimeDay.unknown)
   final EnumOvertimeDay overTimeDay;
 
-  /// <summary>
   /// số giờ làm việc chuẩn
-  /// </summary>
+
   final int workTimeReal;
 
-  /// <summary>
   /// số giờ làm việc thực tế
-  /// </summary>
+
   final int workTimeActual;
 
-  /// <summary>
   /// số phút về sớm
-  /// </summary>
+
   final int timeEarly;
 
-  /// <summary>
   /// số phút đến muộn
-  /// </summary>
+
   final int timeLate;
 
-  /// <summary>
   /// số lần về sớm
-  /// </summary>
+
   final int countEarly;
 
-  /// <summary>
   /// số lần đến muộn
-  /// </summary>
+
   final int countLate;
 
-  /// <summary>
   /// công tính lương
-  /// </summary>
+
   final double salaryRate;
 
-  /// <summary>
   /// công chuẩn
-  /// </summary>
+
   final double realRate;
 
-  /// <summary>
   /// chi tiết từng ngày
-  /// </summary>
+
   final List<UserWorkingHistoryModel> userWorkingHistories;
 
   const Attendance({

@@ -48,7 +48,7 @@ class UnSuccessfulTimekeepingPage extends StatefulWidget {
 
 class _UnSuccessfulTimekeepingPageState
     extends State<UnSuccessfulTimekeepingPage> {
-  late MaplibreMapController? _mapController;
+  late MapLibreMapController? _mapController;
 
   ScheduleSchool _school(List<ScheduleSchool> listSchool) {
     return listSchool
@@ -111,7 +111,7 @@ class _UnSuccessfulTimekeepingPageState
                             child: ClipRRect(
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(SpacingUnit.x2)),
-                              child: MaplibreMap(
+                              child: MapLibreMap(
                                 attributionButtonPosition: null,
                                 onMapCreated: (controller) {
                                   setState(() {

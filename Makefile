@@ -23,10 +23,12 @@ clean:
 
 .PHONY: init
 init:
+	bash scripts/appendGitEnvs.sh
 	git submodule update --init
 	git submodule update --recursive --remote
-	$(FLUTTER) pub get
-	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+	fvm use 3.32.5
+	fvm flutter pub get
+	fvm flutter pub run build_runner build --delete-conflicting-outputs
 
 	
 .PHONY: build-apk-uat
@@ -53,9 +55,10 @@ build-apk-production:
 .PHONY: release-apk
 release-apk:
 	bash scripts/appendGitEnvs.sh
-	$(FLUTTER) pub get
-	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
-	$(FLUTTER) build appbundle --flavor production -t lib/main.dart --release -v
+	fvm use 3.32.5
+	fvm flutter pub get
+	fvm flutter pub run build_runner build --delete-conflicting-outputs
+	fvm flutter build appbundle --flavor production -t lib/main.dart --release -v
 
 .PHONY: build-ipa
 build-ipa:

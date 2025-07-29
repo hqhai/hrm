@@ -9,50 +9,43 @@ part 'user_overtime_history.g.dart';
 @CopyWith()
 @CustomDateTimeConverter()
 class UserOverTimeHistoryModel {
-  /// <summary>
   /// hệ số
-  /// </summary>
+
   final double overTimeRate;
 
-  // /// <summary>
+  //
   // /// số công tíng lương chưa nhân hệ số
-  // /// </summary>
+  //
   // final double overTimeSalaryDefault;
 
-  /// <summary>
   /// số công tính lương đã nhân hệ số
-  /// </summary>
+
   final double overTimeSalaryMultiplier;
 
-  // /// <summary>
+  //
   // /// số công tính nghỉ bù chưa nhân hệ số
-  // /// </summary>
+  //
   // final double overTimeLeaveDefault;
 
-  /// <summary>
   /// số công tính nghỉ bù đã nhân hệ số
-  /// </summary>
+
   final double overTimeLeaveMultiplier;
 
-  /// <summary>
   /// kiểu ngày nghỉ
-  /// </summary>
+
   @JsonKey(unknownEnumValue: EnumOvertimeDay.unknown)
   final EnumOvertimeDay overTimeDay;
 
-  /// <summary>
   /// bắt đầu
-  /// </summary>
+
   final int startTime;
 
-  /// <summary>
   /// kết thúc
-  /// </summary>
+
   final int endTime;
 
-  /// <summary>
   /// số giờ tăng ca
-  /// </summary>
+
   final bool isChecking;
 
   const UserOverTimeHistoryModel({

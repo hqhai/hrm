@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/routers/navigation.dart';

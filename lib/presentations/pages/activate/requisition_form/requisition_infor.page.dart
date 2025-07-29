@@ -136,7 +136,7 @@ class _RequisitionInformationPageState
                             widget.checkUser == RequestSeeByWho.user)
                           ButtonItemListRequisition(
                             colorText: colors.error,
-                            background: colors.error.withOpacity(0.2),
+                            background: colors.error.withValues(alpha: 0.2),
                             check: true,
                             title: appLocalizations.revoke,
                             callback: () => rejectDialog(context),
@@ -150,7 +150,7 @@ class _RequisitionInformationPageState
                               Expanded(
                                 child: ButtonItemListRequisition(
                                   colorText: colors.tertiary,
-                                  background: colors.tertiary.withOpacity(0.2),
+                                  background: colors.tertiary.withValues(alpha: 0.2),
                                   check: true,
                                   title: appLocalizations.update,
                                   callback: () => _nextScreen(
@@ -161,7 +161,7 @@ class _RequisitionInformationPageState
                               Expanded(
                                 child: ButtonItemListRequisition(
                                   colorText: colors.error,
-                                  background: colors.error.withOpacity(0.2),
+                                  background: colors.error.withValues(alpha: 0.2),
                                   check: true,
                                   title: appLocalizations.revoke,
                                   callback: () => rejectDialog(context),
@@ -190,7 +190,7 @@ class _RequisitionInformationPageState
                             widget.checkUser == RequestSeeByWho.manager)
                           ButtonItemListRequisition(
                             colorText: colors.error,
-                            background: colors.error.withOpacity(0.2),
+                            background: colors.error.withValues(alpha: 0.2),
                             check: true,
                             title: appLocalizations.cancel,
                             callback: () => _showDialogCancelRequest(context),

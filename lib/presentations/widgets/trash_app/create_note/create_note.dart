@@ -262,7 +262,7 @@ class _CreateNoteWidgetState extends State<CreateNoteWidget> {
                             child: Icon(
                               size: SpacingUnit.x6,
                               Icons.cancel,
-                              color: colors.text.withOpacity(0.5),
+                              color: colors.text.withValues(alpha: 0.5),
                             ),
                           ),
                         )

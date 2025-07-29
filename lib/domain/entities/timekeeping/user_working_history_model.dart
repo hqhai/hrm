@@ -10,122 +10,98 @@ part 'user_working_history_model.g.dart';
 @CopyWith()
 @CustomDateTimeConverter()
 class UserWorkingHistoryModel {
-  /// <summary>
   /// id của nhân sự
-  /// </summary>
+
   final String userId;
 
-  /// <summary>
   /// ngày checking
-  /// </summary>
+
   final DateTime? date;
 
-  /// <summary>
   /// trạng thái của ngày
-  /// </summary>
+
   final List<UserWorkingHistoryStatus> status;
 
-  /// <summary>
   /// công chuẩn
-  /// </summary>
+
   final double realRate;
 
-  /// <summary>
   /// công thực tế
-  /// </summary>
+
   final double actualRate;
 
-  /// <summary>
   /// công nghỉ phép
-  /// </summary>
+
   final double leaveRate;
 
-  /// <summary>
   /// công nghỉ lễ
-  /// </summary>
+
   final double holidayRate;
 
-  /// <summary>
   /// công không tính lương
-  /// </summary>
+
   final double noSalaryRate;
 
-  /// <summary>
   /// số giờ tăng ca
-  /// </summary>
+
   final double overTime;
 
-  /// <summary>
   /// hệ số
-  /// </summary>
+
   final double overTimeRate;
 
-  /// <summary>
   /// loại tăng ca
-  /// </summary>
+
   @JsonKey(unknownEnumValue: EnumOvertimeDay.unknown)
   final EnumOvertimeDay overTimeDay;
 
-  /// <summary>
   /// số giờ thực tế
-  /// </summary>
+
   final double workTimeActual;
 
-  /// <summary>
   /// số giờ chuẩn
-  /// </summary>
+
   final double workTimeReal;
 
-  /// <summary>
   /// số phút về sớm
-  /// </summary>
+
   final double timeEarly;
 
-  /// <summary>
   /// số phút đi muộn
-  /// </summary>
+
   final double timeLate;
 
-  /// <summary>
   /// công được tính lương
-  /// </summary>
+
   final double salaryRate;
 
-  /// <summary>
   /// các đơn từ
-  /// </summary>
+
   final List<String> requestIds;
 
-  /// <summary>
   /// ca làm việc
-  /// </summary>
+
   final List<String> workShiftIds;
 
-  /// <summary>
   /// ca chi tiết
-  /// </summary>
+
   final String workShiftDetailId;
 
-  /// <summary>
   /// giờ checkin
-  /// </summary>
+
   final int? checkIn;
 
-  /// <summary>
   /// giờ checkout
-  /// </summary>
+
   final int? checkOut;
 
-  /// <summary>
   /// Tổng thời gian làm bù
-  /// </summary>
+
   final int makeUpTime;
 
-  /// <summary>
   /// OT trong bảng công
-  /// </summary>
-  final List<UserOverTimeHistoryModel> userOverTimeHistories;
 
+  final List<UserOverTimeHistoryModel> userOverTimeHistories;
 
   const UserWorkingHistoryModel({
     this.userOverTimeHistories = const [],

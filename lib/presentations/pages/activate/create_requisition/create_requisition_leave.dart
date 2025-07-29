@@ -432,8 +432,7 @@ class _CreateRequisitionLeavePageState
         bool checkR = reason == EnumReasonLeave.noSalaryLeave ||
             reason == EnumReasonLeave.socialInsuranceLeave;
         bool checkS = reason != EnumReasonLeave.socialInsuranceLeave ||
-            (reason == EnumReasonLeave.socialInsuranceLeave &&
-                socialInsuranceLeave != null);
+            (reason == EnumReasonLeave.socialInsuranceLeave);
         return checkR && checkS;
       case EnumTakeLeaveType.compensatoryLeave:
         return true;

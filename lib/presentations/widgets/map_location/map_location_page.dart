@@ -19,7 +19,7 @@ class MapLocation extends StatefulWidget {
 
 class _MapLocationState extends State<MapLocation> {
   late Position? _myPosition;
-  late MaplibreMapController? _mapController;
+  late MapLibreMapController? _mapController;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _MapLocationState extends State<MapLocation> {
 
   Future<void> _getLocation() async {
     _myPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+        locationSettings: LocationSettings(accuracy: LocationAccuracy.high));
     setState(() {});
   }
 
@@ -38,7 +38,7 @@ class _MapLocationState extends State<MapLocation> {
       body: SafeArea(
         child: Stack(
           children: [
-            MaplibreMap(
+            MapLibreMap(
               attributionButtonPosition: null,
               onMapCreated: (controller) {
                 setState(() {

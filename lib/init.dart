@@ -25,8 +25,8 @@ Future<void> initApp() async {
 Future<void> _initHydratedBloc() async {
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: kIsWeb
-          ? HydratedStorage.webStorageDirectory
-          : await getTemporaryDirectory());
+          ? HydratedStorageDirectory.web
+          : HydratedStorageDirectory((await getTemporaryDirectory()).path));
 }
 
 class _InitApp extends StatelessWidget {

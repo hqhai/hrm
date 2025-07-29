@@ -6,54 +6,44 @@ part 'work_sheet.g.dart';
 @CopyWith()
 @JsonSerializable()
 class WorkSheet {
-  /// <summary>
   /// công thực tế
-  /// </summary>
+
   final double actualWork;
 
-  /// <summary>
   /// công nghỉ phép
-  /// </summary>
+
   final double leaveWork;
 
-  /// <summary>
   /// công nghỉ lễ
-  /// </summary>
+
   final double holidayWork;
 
-  /// <summary>
   /// nghỉ không lương
-  /// </summary>
+
   final double noSalaryWork;
 
-  /// <summary>
   /// số giờ OT
-  /// </summary>
+
   final int overTime;
 
-  /// <summary>
   /// số giờ làm việc
-  /// </summary>
+
   final int workTime;
 
-  /// <summary>
   /// số phút đi sớm
-  /// </summary>
+
   final int timeEarly;
 
-  /// <summary>
   /// số phút đến muộn
-  /// </summary>
+
   final int timeLate;
 
-  /// <summary>
   /// công tính lương
-  /// </summary>
+
   final double salaryWork;
 
-  /// <summary>
   /// công chuẩn
-  /// </summary>
+
   final double realWork;
 
   const WorkSheet({
@@ -69,7 +59,8 @@ class WorkSheet {
     this.holidayWork = 0,
   });
 
-  factory WorkSheet.fromJson(Map<String, dynamic> json) => _$WorkSheetFromJson(json);
+  factory WorkSheet.fromJson(Map<String, dynamic> json) =>
+      _$WorkSheetFromJson(json);
 
   Map<String, dynamic> toJson() => _$WorkSheetToJson(this);
 
