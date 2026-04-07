@@ -16,7 +16,6 @@ class FlowBloc extends HydratedBloc<FlowEvent, FlowState> {
   final RequisitionUseCase requisitionUseCase;
 
   FlowBloc(this.requisitionUseCase) : super(const FlowState()) {
-    on<FlowEvent>((event, emit) {});
     on<GetFlowsEvent>(_getFlowsEvent);
     on<GetFlowEvent>(_getFlowEvent);
     on<ResetFlowEvent>(_resetFlowEvent);

@@ -18,7 +18,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         super(const RegisterState(
             registerRequest: requestDefault,
             requestStatus: RegisterRequestStatus.init)) {
-    on<RegisterEvent>((event, emit) {});
     on<RegisterEmailInputEvent>(registerEmailInputEvent);
     on<RegisterNameInputEvent>(registerNameInputEvent);
     on<RegisterPasswordInputEvent>(registerPasswordInputEvent);

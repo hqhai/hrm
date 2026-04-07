@@ -12,7 +12,6 @@ class LeaveShiftBloc extends HydratedBloc<LeaveShiftEvent, LeaveShiftState> {
   final WorkAndSalaryUseCase _workAndSalaryUseCase;
 
   LeaveShiftBloc(this._workAndSalaryUseCase) : super(const LeaveShiftState()) {
-    on<LeaveShiftEvent>((event, emit) {});
     on<GetWorkShiftsEvent>(_getWorkShiftsEvent);
     on<GetWorkShiftsExplanationEvent>(_getWorkShiftsExplanationEvent);
     on<ResetLeaveShiftEvent>(_resetLeaveShiftEvent);

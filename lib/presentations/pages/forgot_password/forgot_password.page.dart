@@ -37,6 +37,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   String checkEmail = '';
   bool isCheckedInput = false;
 
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
   _listener(String errorCode) {
     setState(() {
       errorEmail = errorResponse()[errorCode];

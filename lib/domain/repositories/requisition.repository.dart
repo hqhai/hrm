@@ -1,13 +1,13 @@
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/data/models/requisition/flow/flow_response.dart';
-import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
-import 'package:base_app/data/models/requisition/requisition/request_response.dart';
-import 'package:base_app/data/models/requisition/requisition/requisition_approve/approves_step_request.dart';
-import 'package:base_app/data/models/requisition/requisition/requisition_approve/cancel_request.dart';
-import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_approve_filter_request.dart';
-import 'package:base_app/data/models/requisition/requisition/requisition_approve/get_request_filter_request.dart';
-import 'package:base_app/data/models/requisition/staionery/search_stationery_by_name_response.dart';
-import 'package:base_app/data/models/response/approve_requisition_count_status_response.dart';
+import 'package:base_app/domain/models/requisition/flow_response.dart';
+import 'package:base_app/domain/models/requisition/post_request_request.dart';
+import 'package:base_app/domain/models/requisition/request_response.dart';
+import 'package:base_app/domain/models/requisition/approve/approves_step_request.dart';
+import 'package:base_app/domain/models/requisition/approve/cancel_request.dart';
+import 'package:base_app/domain/models/requisition/approve/get_request_approve_filter_request.dart';
+import 'package:base_app/domain/models/requisition/approve/get_request_filter_request.dart';
+import 'package:base_app/domain/models/requisition/search_stationery_by_name_response.dart';
+import 'package:base_app/domain/models/requisition/approve_requisition_count_status_response.dart';
 import 'package:base_app/domain/entities/requisition/flow.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
 

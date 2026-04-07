@@ -34,8 +34,6 @@ final loginPageRoute = GoRoute(
     path: Pages.login,
     builder: (context, GoRouterState state) => const LoginPage());
 
-//User: minhchien@atlantic.edu.vn          Admin@123
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 

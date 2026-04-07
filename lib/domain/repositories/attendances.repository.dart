@@ -18,7 +18,7 @@ abstract class AttendanceRepository {
   });
 
   Future<List<AttendanceByDate>?> getAttendancesByDate(
-      {required DateTime time});
+      {required DateTime time, required String userId});
 
   Future<List<AttendanceByListDate>?> getAttendanceByListDate({
     required List<String> dates,

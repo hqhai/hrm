@@ -28,7 +28,6 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
       : userUseCase = dI<UserUseCase>(),
         _requestUseCase = dI<RequestUseCase>(),
         super(const UserState()) {
-    on<UserEvent>((event, emit) {});
     on<GetUserInfo>(_getUserInfo);
     on<ChangePasswordEvent>(_changePassword);
     on<ResetUserEvent>(_resetUserEvent);

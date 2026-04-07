@@ -16,7 +16,6 @@ class UserByIdBloc extends HydratedBloc<UserByIdEvent, UserByIdState> {
   UserByIdBloc()
       : userUseCase = dI<UserUseCase>(),
         super(const UserByIdState()) {
-    on<UserByIdEvent>((event, emit) {});
     on<GetUsersByIdEvent>(_getUsersByIdEvent);
     on<GetSubtitudePersonsByIdEvent>(_getSubtitudePersonsByIdEvent);
     on<ResetUserByIdEvent>(_resetUserByIdEvent);

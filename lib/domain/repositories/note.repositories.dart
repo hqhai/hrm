@@ -1,4 +1,4 @@
-import 'package:base_app/data/models/draft_app/draft_note.dart';
+import 'package:base_app/domain/models/note/draft_note.dart';
 import 'package:base_app/domain/entities/note.dart';
 
 abstract class NoteRepository {

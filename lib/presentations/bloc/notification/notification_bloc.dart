@@ -16,7 +16,6 @@ class NotificationBloc extends HydratedBloc<NotificationEvent, NotificationState
   NotificationBloc()
       : _notificationUseCase = dI<NotificationUseCase>(),
         super(const NotificationState()) {
-    on<NotificationEvent>((event, emit) {});
     on<ChangeNotificationsEvent>(_changeNotificationsEvent);
     on<GetNotificationsEvent>(_getNotificationsEvent);
     on<ResetNotificationEvent>(_resetNotificationEvent);

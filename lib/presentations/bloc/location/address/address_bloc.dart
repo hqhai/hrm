@@ -21,7 +21,6 @@ class AddressBloc extends HydratedBloc<AddressEvent, AddressState> {
             districts: [],
             wards: [],
             status: AddressStatus.init)) {
-    on<AddressEvent>((event, emit) {});
     on<GetProvincesEvent>(_getProvincesEvent);
     on<GetWardsEvent>(_getWardsEvent);
     on<GetDistrictsEvent>(_getDistrictsEvent);

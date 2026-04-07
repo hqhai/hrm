@@ -46,6 +46,13 @@ class _UpdatePositionPageState extends State<UpdatePositionPage> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    nameController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
   _listener(BuildContext context, PositionState state) {
     nameController.text = state.positions[widget.index].name;
     descriptionController.text = state.positions[widget.index].description;

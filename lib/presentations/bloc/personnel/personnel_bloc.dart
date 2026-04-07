@@ -15,7 +15,6 @@ class PersonnelBloc extends HydratedBloc<PersonnelEvent, PersonnelState> {
   PersonnelBloc()
       : personnelUseCase = dI<PersonnelUseCase>(),
         super(const PersonnelState()) {
-    on<PersonnelEvent>((event, emit) {});
     on<CreatePersonnelEvent>(_createPersonnelEvent);
     on<GetPersonnelEvent>(_getPersonnelEvent);
     on<ResetPersonnelEvent>(_resetPersonnelEvent);

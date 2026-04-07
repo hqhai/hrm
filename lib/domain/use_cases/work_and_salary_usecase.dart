@@ -1,6 +1,6 @@
 import 'package:base_app/common/enum/work_and_salary_enum.dart';
-import 'package:base_app/data/models/work_and_salary/user_leave_history_response_map.dart';
-import 'package:base_app/data/models/work_and_salary/work_shifts_map_keys.dart';
+import 'package:base_app/domain/models/work_and_salary/user_leave_history_response_map.dart';
+import 'package:base_app/domain/models/work_and_salary/work_shifts_map_keys.dart';
 import 'package:base_app/domain/entities/leave/user_leave.dart';
 import 'package:base_app/domain/entities/leave/user_leave_hisory_types.dart';
 import 'package:base_app/domain/entities/leave/user_leave_history.dart';
@@ -8,7 +8,7 @@ import 'package:base_app/domain/entities/requisition/work_shift_registered_detai
 import 'package:base_app/domain/repositories/work_and_salary.repositories.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../data/models/work_and_salary/user_leave_history_response.dart';
+import 'package:base_app/domain/models/work_and_salary/user_leave_history_response.dart';
 
 @Injectable()
 class WorkAndSalaryUseCase {

@@ -1,10 +1,10 @@
 import 'package:base_app/common/enum/notification_enum.dart';
-import 'package:base_app/data/models/notification/notification_response_usecase.dart';
+import 'package:base_app/domain/models/notification/notification_response_usecase.dart';
 import 'package:base_app/domain/entities/notification/notification_message.dart';
 import 'package:base_app/domain/repositories/notification_repository.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../data/models/notification/notification_response.dart';
+import 'package:base_app/domain/models/notification/notification_response.dart';
 
 @Injectable()
 class NotificationUseCase {

@@ -3,10 +3,7 @@ import 'dart:io';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/exception/remote/remote_exception.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/utils/error_utils.dart';
-import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/common/mixins/bloc_error_handler_mixin.dart';
 import 'package:base_app/data/models/requisition/requisition/config_model_request.dart';
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/data/models/requisition/requisition/request_response.dart';
@@ -19,22 +16,19 @@ import 'package:base_app/presentations/bloc/requisition/requisition/requisition_
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_state.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_event.dart';
-import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dialog.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:themes/themes.dart';
 
 import '../../../../domain/use_cases/requisition_usecase.dart';
 
 @lazySingleton
-class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
+class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState>
+    with BlocErrorHandlerMixin {
   final RequisitionUseCase requisitionUseCase;
   final RequestUseCase _requestUseCase;
 
   RequisitionBloc(this.requisitionUseCase, this._requestUseCase)
       : super(const RequisitionState()) {
-    on<RequisitionEvent>((event, emit) {});
     on<GetRequisitionsByFilterEvent>(_getRequisitionsByFilterEvent);
     on<GetRequisitionByIdEvent>(_getRequisitionByIdEvent);
     on<PostRequestEvent>(_postRequestEvent);
@@ -69,20 +63,9 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         event.completer?.complete(false);
       }
     } catch (e) {
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(errorCode: listErrorCode.first));
-        } else {
-          emit(state.copyWith(errorCode: ''));
-        }
-
-        event.completer?.complete(false);
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer?.complete(false);
     }
   }
 
@@ -140,20 +123,9 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         event.completer?.complete(true);
       }
     } catch (e) {
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(errorCode: listErrorCode.first));
-        } else {
-          emit(state.copyWith(errorCode: 'error'));
-        }
-        event.completer?.complete(false);
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-        event.completer?.complete(false);
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer?.complete(false);
     }
   }
 
@@ -177,20 +149,9 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
       emit(state.copyWith(requisition: request, errorCode: ''));
       event.completer?.complete(true);
     } catch (e) {
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(errorCode: listErrorCode.first));
-        } else {
-          emit(state.copyWith(errorCode: 'error'));
-        }
-        event.completer?.complete(false);
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-        event.completer?.complete(false);
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer?.complete(false);
     }
   }
 
@@ -203,23 +164,7 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
         try {
           paths = await listPaths(event.files);
         } catch (e) {
-          final currentContext =
-              dI<AppNavigation>().navigatorKey.currentContext!;
           emit(state.copyWith(errorCode: 'error'));
-          if (currentContext.mounted) {
-            final colors = AppTheme.getColors(currentContext);
-            final errorDialog =
-                ErrorUtils.getErrorMessage('error', context: currentContext);
-            dI<AppNavigation>().pop(currentContext);
-            Fluttertoast.showToast(
-                msg: errorDialog,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: colors.error,
-                textColor: colors.background,
-                fontSize: SpacingUnit.x4);
-          }
           return;
         }
         if (paths.isNotEmpty) {
@@ -230,76 +175,26 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
                   config: configRequestModel.copyWith(attachments: paths));
           await requisitionUseCase.postRequest(
               postRequestRequest: postRequestRequest);
-          emit(state.copyWith(errorCode: ''));
-          completerSuccess(requestId: '');
+          emit(state.copyWith(errorCode: '', postSuccess: true));
         }
       } else {
         await requisitionUseCase.postRequest(
             postRequestRequest: event.postRequestRequest);
-        emit(state.copyWith(errorCode: ''));
-        completerSuccess(requestId: '');
+        emit(state.copyWith(errorCode: '', postSuccess: true));
       }
     } catch (e) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(errorCode: listErrorCode.first));
-          if (currentContext.mounted) {
-            final colors = AppTheme.getColors(currentContext);
-            dI<AppNavigation>().pop(currentContext);
-            final errorDialog = ErrorUtils.getErrorMessage(listErrorCode.first,
-                context: currentContext);
-            Fluttertoast.showToast(
-                msg: errorDialog,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: colors.error,
-                textColor: colors.background,
-                fontSize: SpacingUnit.x4);
-          }
-        }
-        // else {
-        //   emit(state.copyWith(errorCode: 'dsd'));
-        //   if (currentContext.mounted) {
-        //     final colors = AppTheme.getColors(currentContext);
-        //     dI<AppNavigation>().pop(currentContext);
-        //     final errorDialog = ErrorUtils.getErrorMessage('dsds', context: currentContext);
-        //     Fluttertoast.showToast(msg: errorDialog, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: colors.error, textColor: colors.background, fontSize: SpacingUnit.x4);
-        //   }
-        // }
-      } else {
-        emit(state.copyWith(errorCode: 'error'));
-        if (currentContext.mounted) {
-          final colors = AppTheme.getColors(currentContext);
-          dI<AppNavigation>().pop(currentContext);
-          final errorDialog =
-              ErrorUtils.getErrorMessage('error', context: currentContext);
-          Fluttertoast.showToast(
-              msg: errorDialog,
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: colors.error,
-              textColor: colors.background,
-              fontSize: SpacingUnit.x4);
-        }
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
     }
   }
 
   ///Post files *******************************
   Future<List<String>> listPaths(List<File> files) async {
-    try {
-      List<Future<String>> futures = files.map((file) async {
-        return await _requestUseCase.uploadFile(originFile: file);
-      }).toList();
-      List<String> paths = await Future.wait(futures);
-      return paths;
-    } catch (e) {
-      rethrow;
-    }
+    List<Future<String>> futures = files.map((file) async {
+      return await _requestUseCase.uploadFile(originFile: file);
+    }).toList();
+    List<String> paths = await Future.wait(futures);
+    return paths;
   }
 
   ///Edit Request     ***********************************************
@@ -326,11 +221,8 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
           requisition: request,
           requisitions: requests,
           statusCount: countRequest,
+          editSuccess: true,
         ));
-        completerSuccess(
-          requestId: '',
-          isEdit: true,
-        );
       } else {
         final Request request = await requisitionUseCase.editRequestEdit(
             postRequestRequest: event.postRequestRequest);
@@ -341,65 +233,21 @@ class RequisitionBloc extends HydratedBloc<RequisitionEvent, RequisitionState> {
             (countRequest[StatusRequestEnum.edit] ?? 0) - 1;
         countRequest[StatusRequestEnum.process] =
             (countRequest[StatusRequestEnum.process] ?? 0) + 1;
+        final ids = state.requisitionIds
+            .where((element) => element != event.postRequestRequest.id)
+            .toList();
         emit(state.copyWith(
           errorCode: '',
           requisition: request,
           requisitions: requests,
-        ));
-        final ids = state.requisitionIds
-            .where((element) => element != event.postRequestRequest.id)
-            .toList();
-        completerSuccess(
-          requestId: event.postRequestRequest.id ?? "",
-          isEdit: true,
-        );
-        emit(state.copyWith(
           requisitionIds: ids,
           statusCount: countRequest,
+          editSuccess: true,
         ));
       }
     } catch (e) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(errorCode: listErrorCode.first));
-          if (currentContext.mounted) {
-            final colors = AppTheme.getColors(currentContext);
-            dI<AppNavigation>().pop(currentContext);
-            final errorDialog = ErrorUtils.getErrorMessage(listErrorCode.first,
-                context: currentContext);
-            Fluttertoast.showToast(
-                msg: errorDialog,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: colors.error,
-                textColor: colors.background,
-                fontSize: SpacingUnit.x4);
-          }
-        } else {
-          emit(state.copyWith(errorCode: 'error'));
-        }
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-        if (currentContext.mounted) {
-          final colors = AppTheme.getColors(currentContext);
-          dI<AppNavigation>().pop(currentContext);
-          final errorDialog =
-              ErrorUtils.getErrorMessage('error', context: currentContext);
-          Fluttertoast.showToast(
-              msg: errorDialog,
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: colors.error,
-              textColor: colors.background,
-              fontSize: SpacingUnit.x4);
-        }
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
     }
   }
 

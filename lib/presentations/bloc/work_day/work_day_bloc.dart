@@ -1,11 +1,7 @@
 import 'dart:async';
 
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/work_shift_request.dart';
-import 'package:base_app/common/exception/remote/remote_exception.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/utils/error_utils.dart';
-import 'package:base_app/common/utils/toast_utils.dart';
+import 'package:base_app/common/mixins/bloc_error_handler_mixin.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
 import 'package:base_app/domain/entities/work_day/work_day.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
@@ -16,11 +12,11 @@ import 'package:injectable/injectable.dart';
 import '../../../domain/use_cases/location_usecase.dart';
 
 @lazySingleton
-class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
+class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState>
+    with BlocErrorHandlerMixin {
   final LocationUseCase _locationUseCase;
 
   WorkDayBloc(this._locationUseCase) : super(const WorkDayState()) {
-    on<WorkDayEvent>((event, emit) {});
     on<GetWorkDaysEvent>(_getWorkDaysEvent);
     on<ChangeSelectDate>(_changeSelectDate);
     on<RegisterWorkDay>(_registerWorkDay);
@@ -71,39 +67,12 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
     try {
       await _locationUseCase.registerWorkDays(
           request: WorkDaysRequest(workShiftRequestList: event.request));
-      emit(state.copyWith(
-        errorCode: '',
-      ));
+      emit(state.copyWith(errorCode: ''));
       event.completer.complete(true);
     } catch (e) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(
-            errorCode: listErrorCode.first,
-          ));
-          if (currentContext.mounted) {
-            ToastUtils().showError(ErrorUtils.getErrorMessage(
-                listErrorCode.first,
-                context: currentContext));
-          }
-        } else {
-          emit(state.copyWith(
-            errorCode: 'error',
-          ));
-        }
-        event.completer.complete(false);
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-        if (currentContext.mounted) {
-          ToastUtils().showError(
-              ErrorUtils.getErrorMessage('error', context: currentContext));
-        }
-        event.completer.complete(false);
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer.complete(false);
     }
   }
 
@@ -114,34 +83,9 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       emit(state.copyWith(errorCode: ''));
       event.completer?.complete(true);
     } catch (e) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(
-            errorCode: listErrorCode.first,
-          ));
-          if (currentContext.mounted) {
-            ToastUtils().showError(ErrorUtils.getErrorMessage(
-                listErrorCode.first,
-                context: currentContext));
-          }
-        } else {
-          emit(state.copyWith(
-            errorCode: 'error',
-          ));
-        }
-        event.completer?.complete(false);
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-        if (currentContext.mounted) {
-          ToastUtils().showError(
-              ErrorUtils.getErrorMessage('error', context: currentContext));
-        }
-        event.completer?.complete(false);
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer?.complete(false);
     }
   }
 
@@ -167,34 +111,9 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       }
       event.completer?.complete(true);
     } catch (e) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(
-            errorCode: listErrorCode.first,
-          ));
-          if (currentContext.mounted) {
-            ToastUtils().showError(ErrorUtils.getErrorMessage(
-                listErrorCode.first,
-                context: currentContext));
-          }
-        } else {
-          emit(state.copyWith(
-            errorCode: 'error',
-          ));
-        }
-        event.completer?.complete(false);
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-        if (currentContext.mounted) {
-          ToastUtils().showError(
-              ErrorUtils.getErrorMessage('error', context: currentContext));
-        }
-        event.completer?.complete(false);
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer?.complete(false);
     }
   }
 
@@ -213,35 +132,9 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       ));
       event.completer?.complete(true);
     } catch (e) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(
-            errorCode: listErrorCode.first,
-          ));
-          if (currentContext.mounted) {
-            ToastUtils().showError(ErrorUtils.getErrorMessage(
-                listErrorCode.first,
-                context: currentContext));
-          }
-        } else {
-          emit(state.copyWith(
-            errorCode: 'error',
-          ));
-        }
-
-        event.completer?.complete(false);
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-        if (currentContext.mounted) {
-          ToastUtils().showError(
-              ErrorUtils.getErrorMessage('error', context: currentContext));
-        }
-        event.completer?.complete(false);
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer?.complete(false);
     }
   }
 
@@ -260,31 +153,9 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       emit(state.copyWith(errorCode: ''));
       event.completer.complete(true);
     } catch (e) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(errorCode: listErrorCode.first));
-          if (currentContext.mounted) {
-            ToastUtils().showError(ErrorUtils.getErrorMessage(
-                listErrorCode.first,
-                context: currentContext));
-          }
-        } else {
-          emit(state.copyWith(errorCode: 'error'));
-        }
-
-        event.completer.complete(false);
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-        if (currentContext.mounted) {
-          ToastUtils().showError(
-              ErrorUtils.getErrorMessage('error', context: currentContext));
-        }
-        event.completer.complete(false);
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer.complete(false);
     }
   }
 
@@ -295,28 +166,9 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       emit(state.copyWith(errorCode: ''));
       event.completer.complete(true);
     } catch (e) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(errorCode: listErrorCode.first));
-          if (currentContext.mounted) {
-            ToastUtils().showError(ErrorUtils.getErrorMessage(
-                listErrorCode.first,
-                context: currentContext));
-          }
-        } else {
-          emit(state.copyWith(errorCode: 'error'));
-        }
-        event.completer.complete(false);
-      } else {
-        emit(state.copyWith(errorCode: 'error'));
-        if (currentContext.mounted) {
-          ToastUtils().showError(
-              ErrorUtils.getErrorMessage('error', context: currentContext));
-        }
-        event.completer.complete(false);
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer.complete(false);
     }
   }
 
@@ -360,30 +212,9 @@ class WorkDayBloc extends HydratedBloc<WorkDayEvent, WorkDayState> {
       emit(state.copyWith(errorCode: ''));
       event.completer?.complete(true);
     } catch (e) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      if (e is RemoteException) {
-        final listErrorCode = e.serverError?.errors.map((e) => e).toList();
-        if (listErrorCode != null && listErrorCode.isNotEmpty) {
-          emit(state.copyWith(errorCode: listErrorCode.first));
-          if (currentContext.mounted) {
-            ToastUtils().showError(ErrorUtils.getErrorMessage(
-                listErrorCode.first,
-                context: currentContext));
-          }
-        } else {
-          emit(state.copyWith(errorCode: 'error'));
-        }
-        event.completer?.complete(false);
-      } else {
-        emit(state.copyWith(
-          errorCode: 'error',
-        ));
-        if (currentContext.mounted) {
-          ToastUtils().showError(
-              ErrorUtils.getErrorMessage('error', context: currentContext));
-        }
-        event.completer?.complete(false);
-      }
+      final errorCode = extractErrorCode(e);
+      emit(state.copyWith(errorCode: errorCode));
+      event.completer?.complete(false);
     }
   }
 }

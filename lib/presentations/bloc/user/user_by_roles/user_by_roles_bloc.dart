@@ -17,7 +17,6 @@ class UserByRolesBloc extends HydratedBloc<UserByRolesEvent, UserByRolesState> {
   UserByRolesBloc()
       : userUseCase = dI<UserUseCase>(),
         super(const UserByRolesState()) {
-    on<UserByRolesEvent>((event, emit) {});
     on<GetUserByRoleEvent>(_getUserByRoleEvent);
     on<ResetUsersEvent>(_resetUsersEvent);
     on<ResetUserByRolesEvent>(_resetUserByRolesEvent);

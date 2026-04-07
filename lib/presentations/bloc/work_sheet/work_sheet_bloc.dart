@@ -14,7 +14,6 @@ class WorkSheetBloc extends HydratedBloc<WorkSheetEvent, WorkSheetState> {
   WorkSheetBloc()
       : _attendanceUseCase = dI<AttendanceUseCase>(),
         super(const WorkSheetState()) {
-    on<WorkSheetEvent>((event, emit) {});
     on<GetWorkSheetEvent>(_getWorkSheetEvent);
     on<GetAttendancesByDateEvent>(_getAttendancesByDateEvent);
     on<ResetWorkSheetEvent>(_resetWorkSheetEvent);
@@ -36,7 +35,7 @@ class WorkSheetBloc extends HydratedBloc<WorkSheetEvent, WorkSheetState> {
       GetAttendancesByDateEvent event, Emitter<WorkSheetState> emit) async {
     try {
       final workSheet =
-          await _attendanceUseCase.getAttendancesByDate(time: event.date);
+          await _attendanceUseCase.getAttendancesByDate(time: event.date, userId: event.userId);
       if (workSheet != null) {
         emit(state.copyWith(
           attendances: workSheet.attendances,

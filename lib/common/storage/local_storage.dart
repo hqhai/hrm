@@ -11,42 +11,41 @@ class AppLocalStorage {
     return _secureStorageApp;
   }
 
-  static saveData(String? key, var value) async {
-    var storage = const FlutterSecureStorage();
+  static saveData(String? key, dynamic value) async {
+    if (key == null || key.isEmpty) return;
+    const storage = FlutterSecureStorage();
     String s = value.toString();
-    await storage.write(key: key!, value: s);
+    await storage.write(key: key, value: s);
   }
 
   static Future<String?> getData(String? key) async {
-    var storage = const FlutterSecureStorage();
-    return await storage.read(key: key!);
+    if (key == null || key.isEmpty) return null;
+    const storage = FlutterSecureStorage();
+    return await storage.read(key: key);
   }
 
-  static saveListData(String? key, var value) async {
-    var storage = const FlutterSecureStorage();
+  static saveListData(String? key, dynamic value) async {
+    if (key == null || key.isEmpty) return;
+    const storage = FlutterSecureStorage();
     List<String> listViewerBuilderString = value;
-    if(key != null) {
-      await storage.write(key: key, value: jsonEncode(listViewerBuilderString));
-    }
+    await storage.write(key: key, value: jsonEncode(listViewerBuilderString));
   }
 
   static Future<List<String>?> getDataList(String? key) async {
-    var storage = const FlutterSecureStorage();
-    if(key != null) {
-      String? stringOfItems = await storage.read(key: key);
-      return jsonDecode(stringOfItems!);
-    }
-    return null;
+    if (key == null || key.isEmpty) return null;
+    const storage = FlutterSecureStorage();
+    String? stringOfItems = await storage.read(key: key);
+    if (stringOfItems == null) return null;
+    return (jsonDecode(stringOfItems) as List).cast<String>();
   }
 
-
   static Future<void> clearByKey(String key) async {
-    var storage = const FlutterSecureStorage();
+    const storage = FlutterSecureStorage();
     return await storage.delete(key: key);
   }
 
   static clearAll() async {
-    var storage = const FlutterSecureStorage();
+    const storage = FlutterSecureStorage();
     return await storage.deleteAll();
   }
 }

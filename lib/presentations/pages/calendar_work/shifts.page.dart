@@ -54,6 +54,12 @@ class _ShiftsPageState extends State<ShiftsPage> {
   String errorDialog = '';
   String? errorTextField;
 
+  @override
+  void dispose() {
+    reasonController.dispose();
+    super.dispose();
+  }
+
   _onBack() {
     Navigator.pop(context);
   }

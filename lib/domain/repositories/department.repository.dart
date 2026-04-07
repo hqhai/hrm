@@ -1,4 +1,4 @@
-import 'package:base_app/data/models/department/department_response.dart';
+import 'package:base_app/domain/models/department/department_response.dart';
 import 'package:base_app/domain/entities/department.dart';
 
 abstract class DepartmentRepository {

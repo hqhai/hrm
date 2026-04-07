@@ -1,4 +1,4 @@
-import 'package:base_app/data/models/work_and_salary/work_sheet_history_response.dart';
+import 'package:base_app/domain/models/work_and_salary/work_sheet_history_response.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/attendance/work_sheet.dart';
 import 'package:base_app/domain/entities/work_day/attendance_by_list_date.dart';
@@ -32,9 +32,9 @@ class AttendanceUseCase {
   }
 
   Future<WorkSheetHistoryResponse?> getAttendancesByDate(
-      {required DateTime time}) async {
+      {required DateTime time, required String userId}) async {
     final attendances =
-        await _attendanceRepository.getAttendancesByDate(time: time) ?? [];
+        await _attendanceRepository.getAttendancesByDate(time: time, userId: userId) ?? [];
     final map = Map.fromEntries(
       attendances.map(
         (item) => MapEntry(

@@ -15,7 +15,6 @@ class WorkAndSalaryBloc extends HydratedBloc<WorkAndSalaryEvent, WorkAndSalarySt
   final WorkAndSalaryUseCase _workAndSalaryUseCase;
 
   WorkAndSalaryBloc(this._workAndSalaryUseCase) : super(const WorkAndSalaryState()) {
-    on<WorkAndSalaryEvent>((event, emit) {});
     on<GetTotalLeaveDayEvent>(_getTotalLeaveDayEvent);
     on<GetTotalWorkdayEvent>(_getTotalWorkdayEvent);
     on<GetTotalLeaveTypeEvent>(_getTotalLeaveTypeEvent);

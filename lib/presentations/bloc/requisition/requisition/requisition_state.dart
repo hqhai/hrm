@@ -25,6 +25,10 @@ class RequisitionState extends Equatable {
   final String errorCode;
   final int countItem;
   final Map<StatusRequestEnum, int> statusCount;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final bool postSuccess;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final bool editSuccess;
 
   const RequisitionState({
     this.requisition = const Request(id: ''),
@@ -33,10 +37,12 @@ class RequisitionState extends Equatable {
     this.countItem = 0,
     this.errorCode = '',
     this.statusCount = statusCountDefault,
+    this.postSuccess = false,
+    this.editSuccess = false,
   });
 
   @override
-  List<Object> get props => [requisition, requisitions, requisitionIds, countItem, errorCode, statusCount];
+  List<Object> get props => [requisition, requisitions, requisitionIds, countItem, errorCode, statusCount, postSuccess, editSuccess];
 
   factory RequisitionState.fromJson(Map<String, dynamic> json) => _$RequisitionStateFromJson(json);
 

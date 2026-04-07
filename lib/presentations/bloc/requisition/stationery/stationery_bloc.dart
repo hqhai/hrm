@@ -15,7 +15,6 @@ class StationeryBloc extends HydratedBloc<StationeryEvent, StationeryState> {
   final RequisitionUseCase requisitionUseCase;
 
   StationeryBloc(this.requisitionUseCase) : super(const StationeryState()) {
-    on<StationeryEvent>((event, emit) {});
     on<GetStationeriesEvent>(_getStationeriesEvent);
   }
 

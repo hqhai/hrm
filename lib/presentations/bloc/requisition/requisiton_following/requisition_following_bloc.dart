@@ -15,7 +15,6 @@ class RequisitionFollowingBloc extends HydratedBloc<RequisitionFollowingEvent, R
   final RequisitionUseCase requisitionUseCase;
 
   RequisitionFollowingBloc(this.requisitionUseCase) : super(const RequisitionFollowingState()) {
-    on<RequisitionFollowingEvent>((event, emit) {});
     on<GetRequisitionsFollowingByFilterEvent>(_getRequisitionsFollowingByFilterEvent);
     on<ResetRequisitionFollowingEvent>(_resetRequisitionFollowingEvent);
   }

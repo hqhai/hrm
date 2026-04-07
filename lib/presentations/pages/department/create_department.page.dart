@@ -38,6 +38,17 @@ class _CreateDepartmentWidgetState extends State<CreateDepartmentWidget> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    nameController.dispose();
+    codeController.dispose();
+    emailController.dispose();
+    phoneNumberController.dispose();
+    addressController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
   _listener(BuildContext context, DepartmentState state) {
     if (state.status == DepartmentStatus.getDepartmentSuccess) {
       parent = state.departments.map((e) => e.name).toList().first;

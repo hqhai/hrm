@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:io';
 
@@ -10,7 +11,6 @@ import 'package:base_app/presentations/bloc/auth/auth_bloc.dart';
 import 'package:base_app/presentations/bloc/auth/auth_event.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:tuple/tuple.dart';
 
 import 'base/base_interceptor.dart';
 
@@ -23,8 +23,8 @@ class RefreshTokenInterceptor extends BaseInterceptor {
   final RefreshTokenApiService refreshTokenApiService;
   final NoneAuthAppServerApiClient _noneAuthAppServerApiClient;
 
-  var _isRefreshing = false;
-  final _queue = Queue<Tuple2<RequestOptions, ErrorInterceptorHandler>>();
+  Completer<String>? _refreshCompleter;
+  final _queue = Queue<_QueuedRequest>();
 
   @override
   int get priority => BaseInterceptor.refreshTokenPriority;
@@ -53,23 +53,34 @@ class RefreshTokenInterceptor extends BaseInterceptor {
     required RequestOptions options,
     required ErrorInterceptorHandler handler,
   }) async {
-    _queue.addLast(Tuple2(options, handler));
-    if (!_isRefreshing) {
-      _isRefreshing = true;
+    _queue.addLast(_QueuedRequest(options, handler));
+
+    if (_refreshCompleter != null) {
+      // Another refresh is already in progress, wait for it
       try {
-        final newToken = await _refreshToken();
-        await _onRefreshTokenSuccess(newToken);
+        final newToken = await _refreshCompleter!.future;
+        await _retryQueuedRequest(_queue.removeLast(), newToken);
       } catch (e) {
-        _onRefreshTokenError(e);
-      } finally {
-        _isRefreshing = false;
-        _queue.clear();
+        _handleQueuedRequestError(_queue.removeLast(), e);
       }
+      return;
+    }
+
+    _refreshCompleter = Completer<String>();
+    try {
+      final newToken = await _refreshToken();
+      _refreshCompleter!.complete(newToken);
+      await _onRefreshTokenSuccess(newToken);
+    } catch (e) {
+      _refreshCompleter!.completeError(e);
+      _onRefreshTokenError(e);
+    } finally {
+      _refreshCompleter = null;
+      _queue.clear();
     }
   }
 
   Future<String> _refreshToken() async {
-    _isRefreshing = true;
     final refreshToken = appPreferences.refreshToken;
     final accessToken = appPreferences.accessToken;
     final refreshTokenResponse = await refreshTokenApiService.refreshToken(
@@ -89,38 +100,39 @@ class RefreshTokenInterceptor extends BaseInterceptor {
   }
 
   Future<void> _onRefreshTokenSuccess(String newToken) async {
-    await Future.wait(_queue.map(
-      (requestInfo) => _requestWithNewToken(
-        options: requestInfo.item1,
-        handler: requestInfo.item2,
-        newAccessToken: newToken,
-      ),
+    final requests = _queue.toList();
+    await Future.wait(requests.map(
+      (requestInfo) => _retryQueuedRequest(requestInfo, newToken),
     ));
+  }
+
+  Future<void> _retryQueuedRequest(_QueuedRequest request, String newToken) async {
+    _putAccessToken(headers: request.options.headers, accessToken: newToken);
+    try {
+      final response = await _noneAuthAppServerApiClient.dio.fetch(request.options);
+      request.handler.resolve(response);
+    } catch (e) {
+      request.handler.next(DioException(requestOptions: request.options, error: e));
+    }
+  }
+
+  void _handleQueuedRequestError(_QueuedRequest request, Object error) {
+    request.handler.next(DioException(requestOptions: request.options, error: error));
   }
 
   void _onRefreshTokenError(Object? error) {
     for (var element in _queue) {
-      final options = element.item1;
-      final handler = element.item2;
-      handler.next(DioException(requestOptions: options, error: error));
+      element.handler.next(DioException(requestOptions: element.options, error: error));
     }
-    // nên xu ly cho khac
     dI<AuthBloc>().add(const LogoutEvent());
     appPreferences.saveAccessToken('');
     appPreferences.saveRefreshToken('');
   }
+}
 
-  Future<void> _requestWithNewToken({
-    required RequestOptions options,
-    required ErrorInterceptorHandler handler,
-    required String newAccessToken,
-  }) async {
-    _putAccessToken(headers: options.headers, accessToken: newAccessToken);
-    try {
-      final response = await _noneAuthAppServerApiClient.dio.fetch(options);
-      handler.resolve(response);
-    } catch (e) {
-      handler.next(DioException(requestOptions: options, error: e));
-    }
-  }
+class _QueuedRequest {
+  final RequestOptions options;
+  final ErrorInterceptorHandler handler;
+
+  _QueuedRequest(this.options, this.handler);
 }

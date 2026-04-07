@@ -15,7 +15,6 @@ class CheckInCheckOutGpsBloc
 
   CheckInCheckOutGpsBloc(this.locationUseCase)
       : super(const CheckInCheckOutGpsState()) {
-    on<CheckInCheckOutGpsEvent>((event, emit) {});
     on<PostTimekeepingGPSRequestEvent>(_postTimekeepingGPSRequestEvent);
     on<ResetCheckInCheckOutGpsEvent>(_resetCheckInCheckOutGpsEvent);
   }

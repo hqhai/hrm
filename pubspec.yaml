@@ -38,7 +38,7 @@ dependencies:
     path: ./packages/common
   widgets:
     path: ./packages/widgets
-  intl: any
+  intl: ^0.19.0
   bloc: ^9.0.0
   equatable: ^2.0.5
   flutter_bloc: ^9.1.1
@@ -60,7 +60,7 @@ dependencies:
   flutter_keyboard_visibility: ^6.0.0
   universal_platform: ^1.0.0+1
   flutter_svg: ^2.0.10+1
-  image_picker:
+  image_picker: ^1.1.2
   file_picker: ^10.2.0
   http_parser: ^4.0.1
   omni_datetime_picker: ^2.0.5
@@ -85,17 +85,16 @@ dependencies:
   time_picker_spinner: ^1.0.0
   fluttertoast: ^8.2.5
   popover: ^0.3.0
-  flutter_polyline_points:
+  flutter_polyline_points: ^2.1.0
   maplibre_gl: ^0.22.0
   dartx: ^1.2.0
   dio: ^5.7.0
   connectivity_plus: ^6.1.0
-  tuple: ^2.0.2
   shared_preferences: ^2.2.3
   encrypt_shared_preferences: ^0.9.9
   freezed_annotation: ^3.0.0
   freezed: ^3.0.0-0.0.dev
-  device_info_plus:
+  device_info_plus: ^11.2.0
   firebase_core: ^3.15.2
   onesignal_flutter: ^5.3.0
 

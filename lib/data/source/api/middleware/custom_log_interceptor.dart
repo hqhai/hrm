@@ -17,6 +17,30 @@ class CustomLogInterceptor extends BaseInterceptor {
 
   static const _enableLogInterceptor = LogConfig.enableLogInterceptor;
 
+  static const _sensitiveHeaders = {'authorization', 'cookie', 'set-cookie'};
+  static const _sensitiveBodyKeys = {'password', 'token', 'refreshToken', 'accessToken', 'apiKey', 'secret'};
+
+  Map<String, dynamic> _maskHeaders(Map<String, dynamic> headers) {
+    return headers.map((key, value) {
+      if (_sensitiveHeaders.contains(key.toLowerCase())) {
+        return MapEntry(key, '***REDACTED***');
+      }
+      return MapEntry(key, value);
+    });
+  }
+
+  dynamic _maskBody(dynamic data) {
+    if (data is Map<String, dynamic>) {
+      return data.map((key, value) {
+        if (_sensitiveBodyKeys.contains(key.toLowerCase())) {
+          return MapEntry(key, '***REDACTED***');
+        }
+        return MapEntry(key, value);
+      });
+    }
+    return data;
+  }
+
   @override
   int get priority => BaseInterceptor.customLogPriority;
 
@@ -33,7 +57,7 @@ class CustomLogInterceptor extends BaseInterceptor {
     log.add('🌐 Request: ${options.method} ${options.uri}');
     if (options.headers.isNotEmpty) {
       log.add('🌐 Request Headers:');
-      log.add('🌐 ${_prettyResponse(options.headers)}');
+      log.add('🌐 ${_prettyResponse(_maskHeaders(options.headers))}');
     }
 
     if (options.data != null) {
@@ -49,7 +73,7 @@ class CustomLogInterceptor extends BaseInterceptor {
           );
         }
       } else {
-        log.add('🌐 ${_prettyResponse(options.data)}');
+        log.add('🌐 ${_prettyResponse(_maskBody(options.data))}');
       }
     }
 

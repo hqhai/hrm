@@ -21,15 +21,17 @@ class GetWorkSheetEvent extends WorkSheetEvent {
 
 class GetAttendancesByDateEvent extends WorkSheetEvent {
   final DateTime date;
+  final String userId;
   final Completer? completer;
 
   const GetAttendancesByDateEvent({
     required this.date,
+    required this.userId,
     this.completer,
   });
 
   @override
-  List<Object?> get props => [date, completer];
+  List<Object?> get props => [date, userId, completer];
 }
 
 class ResetWorkSheetEvent extends WorkSheetEvent {

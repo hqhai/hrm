@@ -13,6 +13,7 @@ import 'package:base_app/presentations/bloc/requisition/request_history_work_she
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_event.dart';
 import 'package:base_app/presentations/bloc/shift/shift_bloc.dart';
 import 'package:base_app/presentations/bloc/shift/shift_event.dart';
+import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
@@ -201,6 +202,7 @@ class ItemCalender extends StatelessWidget {
       ));
       dI<WorkSheetBloc>().add(GetAttendancesByDateEvent(
         date: userWorkingHistoryModel.date ?? date,
+        userId: dI<UserBloc>().state.user.id,
         completer: completerAttendances,
       ));
       final checkRequest = await completerRequest.future;

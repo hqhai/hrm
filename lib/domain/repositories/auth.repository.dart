@@ -1,4 +1,4 @@
-import 'package:base_app/data/models/response/login_response.dart';
+import 'package:base_app/domain/models/auth/login_response.dart';
 
 abstract class AuthRepository {
   bool get isLoggedIn;

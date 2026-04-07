@@ -17,7 +17,6 @@ class UserByNameBloc extends HydratedBloc<UserByNameEvent, UserByNameState> {
   UserByNameBloc()
       : userUseCase = dI<UserUseCase>(),
         super(const UserByNameState()) {
-    on<UserByNameEvent>((event, emit) {});
     on<GetUserByNameEvent>(_getUserByNameEvent);
     on<ResetUserByNameEvent>(_resetUserByNameEvent);
   }

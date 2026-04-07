@@ -13,7 +13,6 @@ class AttendanceBloc extends HydratedBloc<AttendanceEvent, AttendanceState> {
   final AttendanceUseCase _attendanceUseCase;
 
   AttendanceBloc(this._attendanceUseCase) : super(const AttendanceState()) {
-    on<AttendanceEvent>((event, emit) {});
     on<GetAttendanceEvent>(_getAttendanceEvent);
     on<GetAttendanceNowEvent>(_getAttendanceNowEvent);
     on<GetWorkSheetEvent>(_getWorkSheetEvent);

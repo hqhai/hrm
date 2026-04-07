@@ -39,6 +39,13 @@ class _CreatePositionWidgetState extends State<CreatePositionWidget> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    nameController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
   _listener(BuildContext context, PositionState state) {
     if (state.status == PositionStatus.createPositionSuccess) {
       Navigator.of(context).pop();

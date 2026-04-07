@@ -11,6 +11,7 @@ import 'package:base_app/presentations/bloc/check_in_check_out_gps/check_in_chec
 import 'package:base_app/presentations/bloc/check_in_check_out_gps/check_in_check_out_gps_event.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_bloc.dart';
 import 'package:base_app/presentations/bloc/location/schedule_school/schedule_school_state.dart';
+import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
 import 'package:base_app/presentations/widgets/custom/app_button.dart';
@@ -124,6 +125,7 @@ class _TimekeepingGPSSchoolPageState extends State<TimekeepingGPSSchoolPage> {
     dialogIndicator(context: currentContext);
     dI<WorkSheetBloc>().add(GetAttendancesByDateEvent(
       date: DateTime.now(),
+      userId: dI<UserBloc>().state.user.id,
       completer: completer,
     ));
     final checkCompleter = await completer.future;

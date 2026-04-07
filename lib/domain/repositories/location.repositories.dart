@@ -1,9 +1,9 @@
-import 'package:base_app/data/models/location/check_in_gps_response.dart';
-import 'package:base_app/data/models/location/get_list_schools_response.dart';
-import 'package:base_app/data/models/location/get_location_response.dart';
-import 'package:base_app/data/models/request/cancel_work_day_request.dart';
-import 'package:base_app/data/models/shifts/shifts_response.dart';
-import 'package:base_app/data/models/request/work_day_request.dart';
+import 'package:base_app/domain/models/location/check_in_gps_response.dart';
+import 'package:base_app/domain/models/location/get_list_schools_response.dart';
+import 'package:base_app/domain/models/location/get_location_response.dart';
+import 'package:base_app/domain/models/location/cancel_work_day_request.dart';
+import 'package:base_app/domain/models/location/shifts_response.dart';
+import 'package:base_app/domain/models/location/work_day_request.dart';
 import 'package:base_app/domain/entities/timekeeping/schedule_schools.dart';
 import 'package:base_app/domain/entities/work_day/shift.dart';
 

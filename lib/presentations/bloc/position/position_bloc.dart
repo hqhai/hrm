@@ -16,7 +16,6 @@ class PositionBloc extends HydratedBloc<PositionEvent, PositionState> {
   PositionBloc()
       : positionUseCase = dI<PositionUseCase>(),
         super(const PositionState()) {
-    on<PositionEvent>((event, emit) {});
     on<CreatePositionEvent>(_createPositionEvent);
     on<GetPositionsEvent>(_getPositionsEvent);
     on<DeletePositionsEvent>(_deletePositionsEvent);

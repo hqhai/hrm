@@ -1,6 +1,6 @@
-import 'package:base_app/data/models/register/register_request.dart';
-import 'package:base_app/data/models/user/profile/update_profile_request.dart';
-import 'package:base_app/data/models/user/search/search_user_by_name_response.dart';
+import 'package:base_app/domain/models/user/register_request.dart';
+import 'package:base_app/domain/models/user/update_profile_request.dart';
+import 'package:base_app/domain/models/user/search_user_by_name_response.dart';
 import 'package:base_app/domain/entities/user.dart';
 import 'package:base_app/domain/repositories/user.repositories.dart';
 import 'package:injectable/injectable.dart';

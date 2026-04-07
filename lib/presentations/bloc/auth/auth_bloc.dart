@@ -63,7 +63,6 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 @lazySingleton
 class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthState(status: AuthStatus.authInitial)) {
-    on<AuthEvent>((event, emit) {});
     on<CheckAuthenticated>(_checkAuthenticated);
     on<LogoutEvent>(_logOut);
     on<ResetEvent>(_resetEvent);

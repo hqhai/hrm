@@ -1,7 +1,7 @@
 import 'package:base_app/common/configs/app_configs.dart';
 import 'package:base_app/common/constants/key_constance.dart';
 import 'package:base_app/common/storage/local_storage.dart';
-import 'package:base_app/data/models/response/login_response.dart';
+import 'package:base_app/domain/models/auth/login_response.dart';
 import 'package:base_app/domain/repositories/auth.repository.dart';
 import 'package:injectable/injectable.dart';
 

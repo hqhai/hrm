@@ -15,7 +15,6 @@ class SchoolBloc extends HydratedBloc<SchoolEvent, SchoolState> {
   final LocationUseCase _locationUseCase;
 
   SchoolBloc(this._locationUseCase) : super(const SchoolState()) {
-    on<SchoolEvent>((event, emit) {});
     on<GetListSchoolsEvent>(_getListSchoolsEvent);
     on<ResetSchoolEvent>(_resetSchoolEvent);
   }

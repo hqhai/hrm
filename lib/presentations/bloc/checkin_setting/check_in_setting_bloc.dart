@@ -15,7 +15,6 @@ class CheckInSettingBloc extends HydratedBloc<CheckInSettingEvent, CheckInSettin
   CheckInSettingBloc()
       : checkInSettingUseCase = dI<CheckInSettingUseCase>(),
         super(const CheckInSettingState()) {
-    on<CheckInSettingEvent>((event, emit) {});
     on<CreateCheckInSettingEvent>(_createCheckInSettingEvent);
     on<ResetCheckInSettingEvent>(_resetCheckInSettingEvent);
   }

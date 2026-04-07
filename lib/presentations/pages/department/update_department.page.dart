@@ -47,6 +47,17 @@ class _UpdateDepartmentPageState extends State<UpdateDepartmentPage> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    nameController.dispose();
+    codeController.dispose();
+    emailController.dispose();
+    phoneNumberController.dispose();
+    addressController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
   _listener(BuildContext context, DepartmentState state) {
     nameController.text = state.departments[widget.index].name;
     emailController.text = state.departments[widget.index].email;

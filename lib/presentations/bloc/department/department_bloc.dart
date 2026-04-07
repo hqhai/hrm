@@ -14,7 +14,6 @@ class DepartmentBloc extends HydratedBloc<DepartmentEvent, DepartmentState> {
   final DepartmentUseCase departmentUseCase;
 
   DepartmentBloc(this.departmentUseCase) : super(const DepartmentState()) {
-    on<DepartmentEvent>((event, emit) {});
     on<CreateDepartmentEvent>(_createDepartmentEvent);
     on<GetDepartmentsEvent>(_getDepartmentsEvent);
     on<DeleteDepartmentsEvent>(_deleteDepartmentsEvent);

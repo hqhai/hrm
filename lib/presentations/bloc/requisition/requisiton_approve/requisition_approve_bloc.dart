@@ -19,7 +19,6 @@ class RequisitionApproveBloc extends HydratedBloc<RequisitionApproveEvent, Requi
   final RequisitionUseCase requisitionUseCase;
 
   RequisitionApproveBloc(this.requisitionUseCase) : super(const RequisitionApproveState()) {
-    on<RequisitionApproveEvent>((event, emit) {});
     on<GetRequisitionsApproveByFilterEvent>(_getRequisitionsApproveByFilterEvent);
     on<ApproveRequestEvent>(_approveRequestEvent);
     on<GetRequisitionApproveCountEvent>(_getRequisitionApproveCountEvent);

@@ -73,6 +73,13 @@ class _RegisterWorkDayAdminPageState extends State<RegisterWorkDayAdminPage> {
   bool isFilter = true;
 
   @override
+  void dispose() {
+    textEditingController.dispose();
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     isFilter = widget.userType == UserType.user;
     if (widget.userType == UserType.user) {

@@ -13,7 +13,6 @@ class ScheduleSchoolBloc extends HydratedBloc<ScheduleSchoolEvent, ScheduleSchoo
   final LocationUseCase _locationUseCase;
 
   ScheduleSchoolBloc(this._locationUseCase) : super(const ScheduleSchoolState()) {
-    on<ScheduleSchoolEvent>((event, emit) {});
     on<GetScheduleSchoolEvent>(_getScheduleSchoolEvent);
     on<ResetScheduleSchoolEvent>(_resetScheduleSchoolEvent);
   }

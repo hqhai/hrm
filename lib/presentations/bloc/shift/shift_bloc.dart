@@ -12,7 +12,6 @@ class ShiftBloc extends HydratedBloc<ShiftEvent, ShiftState> {
   final LocationUseCase _locationUseCase;
 
   ShiftBloc(this._locationUseCase) : super(const ShiftState()) {
-    on<ShiftEvent>((event, emit) {});
     on<GetShiftByIdEvent>(_getShiftByIdEvent);
     on<GetShiftByIdsEvent>(_getShiftByIdsEvent);
     on<ResetShiftEvent>(_resetShiftEvent);

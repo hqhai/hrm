@@ -13,7 +13,6 @@ class LeaveHistoryBloc
 
   LeaveHistoryBloc(this._workAndSalaryUseCase)
       : super(const LeaveHistoryState()) {
-    on<LeaveHistoryEvent>((event, emit) {});
     on<GetLeaveHistoryEvent>(_getLeaveHistoryEvent);
     on<ResetLeaveHistoryEvent>(_resetLeaveHistoryEvent);
   }

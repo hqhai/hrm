@@ -15,7 +15,6 @@ class RequestWorkSheetBloc
 
   RequestWorkSheetBloc(this.requisitionUseCase)
       : super(const RequestWorkSheetState()) {
-    on<RequestWorkSheetEvent>((event, emit) {});
     on<GetRequestsByIdsEvent>(_getRequestsByIdsEvent);
     on<ResetRequestWorkSheetEvent>(_resetRequestWorkSheetEvent);
   }
