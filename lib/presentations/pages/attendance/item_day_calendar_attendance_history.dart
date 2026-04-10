@@ -1,97 +1,208 @@
-
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
-import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/pages/attendance/item_calendar_attendance_history.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:themes/themes.dart';
 
-class BodyCalendarAttendanceHistory extends StatefulWidget {
-  final int month;
-  final int year;
-  final Map<int, String> mapMonth;
-  final Map<String, String> mapDayInWeek;
-  final Map<String, int> mapNumberDayInWeek;
-  final List<DateTime> listDate;
-  final List<DateTime>? listItemDate;
-  final Map<DateTime, Widget>? widget;
+// ---------------------------------------------------------------------------
+// Public re-usable widgets
+// ---------------------------------------------------------------------------
 
-  const BodyCalendarAttendanceHistory(
-      {super.key,
-      required this.month,
-      required this.year,
-      required this.mapMonth,
-      required this.mapDayInWeek,
-      required this.mapNumberDayInWeek,
-      required this.listDate,
-      this.widget,
-      this.listItemDate});
+/// Sticky weekday header row used at the top of the calendar.
+class WeekdayHeaderRow extends StatelessWidget {
+  const WeekdayHeaderRow({super.key});
 
   @override
-  State<BodyCalendarAttendanceHistory> createState() => _BodyCalendarAttendanceHistoryState();
+  Widget build(BuildContext context) {
+    final colors = AppTheme.getColors(context);
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+    final labels = [
+      l10n.mon, l10n.tue, l10n.wed, l10n.thu, l10n.fri, l10n.sat, l10n.sun
+    ];
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: SpacingUnit.x4,
+        vertical: SpacingUnit.x2,
+      ),
+      child: Row(
+        children: List.generate(7, (i) {
+          return Expanded(
+            child: Center(
+              child: Text(
+                labels[i],
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: colors.text.withValues(alpha: 0.4),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
 }
 
-class _BodyCalendarAttendanceHistoryState extends State<BodyCalendarAttendanceHistory> {
-  late String token;
-  int checkIn = 3;
+/// A single month's calendar grid.
+/// Accepts [workingHistories] directly so the parent can manage caching.
+class MonthGridAttendanceHistory extends StatelessWidget {
+  final int month;
+  final int year;
+  final List<UserWorkingHistoryModel> workingHistories;
+  final DateTime? selectedDate;
+  final ValueChanged<DateTime>? onDaySelected;
 
-  Widget _getWidgetContent(DateTime date) {
-    if (widget.widget == null) return const SizedBox();
-    return widget.widget?[date] ?? Container();
+  const MonthGridAttendanceHistory({
+    super.key,
+    required this.month,
+    required this.year,
+    this.workingHistories = const [],
+    this.selectedDate,
+    this.onDaySelected,
+  });
+
+  List<DateTime> _buildDays() {
+    final firstOfMonth = DateTime(year, month, 1);
+    final lastOfMonth = DateTime(year, month + 1, 0);
+    final leading = firstOfMonth.weekday - 1;
+    final start = firstOfMonth.subtract(Duration(days: leading));
+    final totalCells = ((leading + lastOfMonth.day) / 7).ceil() * 7;
+    return List<DateTime>.generate(
+      totalCells,
+      (i) => start.add(Duration(days: i)),
+    );
   }
 
-  bool _checkDateNow(DateTime date) {
-    DateTime dateTime = DateTime.now();
-    if (dateTime.day == date.day && dateTime.month == date.month && dateTime.year == date.year) {
-      return true;
+  UserWorkingHistoryModel? _findFor(DateTime date) {
+    for (final w in workingHistories) {
+      final d = w.date;
+      if (d == null) continue;
+      if (d.year == date.year && d.month == date.month && d.day == date.day) {
+        return w;
+      }
     }
-    return false;
-  }
-
-  @override
-  void initState() {
-    super.initState();
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final height = MediaQuery.sizeOf(context).height;
-    return BlocBuilder<AttendanceBloc, AttendanceState>(
-      builder: (context, state) {
-        return Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 3),
-              width: width,
-              height: height * 0.9,
-              child: GridView.builder(
-                itemCount: widget.listDate.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 1,
-                    childAspectRatio: 4),
-                itemBuilder: (context, index) {
-                  return _item(context, index, state);
-                },
-              ),
-            ),
-            const SizedBox(height: SpacingUnit.x4),
-          ],
+    final today = DateTime.now();
+    final days = _buildDays();
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      itemCount: days.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 7,
+        childAspectRatio: 1.0,
+        mainAxisSpacing: 4,
+      ),
+      itemBuilder: (context, index) {
+        final date = days[index];
+        final isCurrentMonth = date.month == month;
+        final isToday = date.year == today.year &&
+            date.month == today.month &&
+            date.day == today.day;
+        final isWeekend = date.weekday >= 6;
+        final isSelected = selectedDate != null &&
+            date.year == selectedDate!.year &&
+            date.month == selectedDate!.month &&
+            date.day == selectedDate!.day;
+
+        return ItemCalendarAttendanceHistory(
+          date: date,
+          isToday: isToday,
+          isCurrentMonth: isCurrentMonth,
+          isWeekend: isWeekend,
+          isSelected: isSelected,
+          working: isCurrentMonth ? _findFor(date) : null,
+          onTap: onDaySelected,
         );
       },
     );
   }
+}
 
-  Widget _item(BuildContext context, int index, AttendanceState state) {
-    return ItemCalendarAttendanceHistory(
-      userWorkingHistoryModel: const UserWorkingHistoryModel(),
-      date: widget.listDate[index],
-      month: widget.month,
-      itemDate: _getWidgetContent(widget.listDate[index]),
-      isNowDate: _checkDateNow(widget.listDate[index]),
+/// Legend explaining the status dot colors.
+class AttendanceLegend extends StatelessWidget {
+  const AttendanceLegend({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final colors = AppTheme.getColors(context);
+    final theme = Theme.of(context);
+    final entries = <(Color, String)>[
+      (Colors.green, l10n.onTime),
+      (Colors.orange, l10n.timeLate),
+      (Colors.red, l10n.forgotChecking),
+      (Colors.purple, l10n.isRequest),
+      (Colors.teal, l10n.ot),
+      (Colors.grey, l10n.holiday),
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x4),
+      child: Wrap(
+        spacing: SpacingUnit.x4,
+        runSpacing: SpacingUnit.x2,
+        children: [
+          for (final e in entries)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 6,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    color: e.$1,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: SpacingUnit.x1),
+                Text(
+                  e.$2,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colors.text.withValues(alpha: 0.5),
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// Legacy widget kept for backward compatibility.
+class BodyCalendarAttendanceHistory extends StatelessWidget {
+  final int month;
+  final int year;
+
+  const BodyCalendarAttendanceHistory({
+    super.key,
+    required this.month,
+    required this.year,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const WeekdayHeaderRow(),
+        const SizedBox(height: SpacingUnit.x1),
+        MonthGridAttendanceHistory(month: month, year: year),
+        const SizedBox(height: SpacingUnit.x3),
+        const AttendanceLegend(),
+        const SizedBox(height: SpacingUnit.x3),
+      ],
     );
   }
 }

@@ -8,54 +8,80 @@ class FormChangeMonth extends StatelessWidget {
   final String month;
   final VoidCallback upMonth;
   final VoidCallback downMonth;
-  const FormChangeMonth(
-      {super.key,
-      required this.year,
-      required this.month,
-      required this.upMonth,
-      required this.downMonth});
+  final VoidCallback? onTodayPressed;
+
+  const FormChangeMonth({
+    super.key,
+    required this.year,
+    required this.month,
+    required this.upMonth,
+    required this.downMonth,
+    this.onTodayPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    return Container(
-      alignment: Alignment.center,
-      height: SpacingUnit.x16,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          InkWell(
-            onTap: () => downMonth.call(),
-            child: Icon(
-              Icons.arrow_left,
-              color: colors.textTertiary,
-              size: SpacingUnit.x8,
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            "${l10n.month} $month, $year",
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: colors.text,
             ),
           ),
-          Expanded(
-            child: Center(
-              child: Text(
-                "${appLocalizations.month} $month, $year",
-                style: TextStyle(
-                  color: colors.text,
-                  fontSize: SpacingUnit.x4,
-                  fontWeight: FontWeight.w600
+        ),
+        if (onTodayPressed != null)
+          Padding(
+            padding: const EdgeInsets.only(right: SpacingUnit.x2),
+            child: GestureDetector(
+              onTap: onTodayPressed,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingUnit.x3,
+                  vertical: SpacingUnit.x1_5,
+                ),
+                decoration: BoxDecoration(
+                  color: colors.text.withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(SpacingUnit.x5),
+                ),
+                child: Text(
+                  l10n.today,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: colors.text.withValues(alpha: 0.7),
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
           ),
-          InkWell(
-            onTap: () => upMonth.call(),
+        GestureDetector(
+          onTap: downMonth,
+          child: Padding(
+            padding: const EdgeInsets.all(SpacingUnit.x1),
             child: Icon(
-              Icons.arrow_right,
-              color: colors.textTertiary,
-              size: SpacingUnit.x8,
+              Icons.chevron_left_rounded,
+              color: colors.text.withValues(alpha: 0.5),
+              size: SpacingUnit.x7,
             ),
           ),
-        ],
-      ),
+        ),
+        GestureDetector(
+          onTap: upMonth,
+          child: Padding(
+            padding: const EdgeInsets.all(SpacingUnit.x1),
+            child: Icon(
+              Icons.chevron_right_rounded,
+              color: colors.text.withValues(alpha: 0.5),
+              size: SpacingUnit.x7,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -41,14 +41,14 @@ class _BottomBarDefaultState extends State<BottomBarDefault> {
               color2: colors.primary,
             ),
             item(
-              title: appLocalizations.worksheet,
-              icon: Assets.images.icon.home.bottomBar.home,
+              title: appLocalizations.calendarWork,
+              icon: Assets.images.icon.home.bottomBar.calendar,
               color1: colors.textLight,
               color2: colors.primary,
             ),
             item(
-              title: appLocalizations.calendarWork,
-              icon: Assets.images.icon.home.bottomBar.calendar,
+              title: appLocalizations.worksheet,
+              icon: Assets.images.icon.home.bottomBar.home,
               color1: colors.textLight,
               color2: colors.primary,
             ),

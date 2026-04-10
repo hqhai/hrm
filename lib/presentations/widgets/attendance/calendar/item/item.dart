@@ -4,8 +4,6 @@ import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
-import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
@@ -16,10 +14,8 @@ import 'package:base_app/presentations/bloc/shift/shift_event.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
 import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/no_connection/no_connection_dialog.dart';
 import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -51,133 +47,134 @@ class ItemCalender extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
+    final theme = Theme.of(context);
     return BlocBuilder<AttendanceBloc, AttendanceState>(
       builder: (context, state) {
         final userWorkingHistoryModel = userWorkingHistoryModelByDate(
           state.attendance.userWorkingHistories,
         );
+        final dotColors = _statusDotColors(userWorkingHistoryModel, colors);
+        final isCurrentMonth = date.month == month;
+        final isWeekend = date.weekday >= 6;
+
         return InkWell(
           onTap: () => _nextItemAttendanceHistoryPage(
             userWorkingHistoryModel: userWorkingHistoryModel,
             context: context,
           ),
-          child: ContainerBorder(
-            marginTop: 0,
-            paddingVertical: 0,
-            paddingHorizontal: 0,
-            circular: 0,
-            widthBorder: 0.5,
-            borderColors: colors.outlineVariant.withValues(alpha: 0.2),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    width: SpacingUnit.x6_5,
-                    height: SpacingUnit.x4,
-                    margin: const EdgeInsets.only(
-                        top: SpacingUnit.x1, bottom: SpacingUnit.x3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(SpacingUnit.x10),
-                      color: isNowDate ? colors.primary : Colors.transparent,
-                    ),
-                    child: Center(
-                      child: Text(
-                        date.day.toString(),
-                        style: TextStyle(
-                          color: _colorText(context),
-                          fontSize: SpacingUnit.x3_5,
-                        ),
-                      ),
-                    ),
+          customBorder: const CircleBorder(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Day number circle
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isNowDate ? Colors.red : Colors.transparent,
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  date.day.toString(),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: isNowDate ? FontWeight.w700 : FontWeight.w400,
+                    color: isNowDate
+                        ? Colors.white
+                        : !isCurrentMonth
+                            ? colors.text.withValues(alpha: 0.25)
+                            : isWeekend
+                                ? colors.text.withValues(alpha: 0.4)
+                                : colors.text,
+                    fontSize: 15,
                   ),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: value(context, userWorkingHistoryModel),
-                ),
-                Expanded(
-                  child: check(userWorkingHistoryModel)
-                      ? SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: userWorkingHistoryModel!.status
-                                .mapIndexed(
-                                  (index, element) => Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          SpacingUnit.x10),
-                                      color: _color(context, index,
-                                          userWorkingHistoryModel.status),
-                                    ),
-                                    margin:
-                                        const EdgeInsetsDirectional.symmetric(
-                                            horizontal: SpacingUnit.x0_5,
-                                            vertical: SpacingUnit.x0_5),
-                                    width: SpacingUnit.x2_5,
-                                    height: SpacingUnit.x2_5,
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        )
-                      : const SizedBox(),
-                )
-              ],
-            ),
+              ),
+              const SizedBox(height: 3),
+              // Status dots
+              SizedBox(
+                height: 6,
+                child: dotColors.isEmpty
+                    ? const SizedBox.shrink()
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          for (int i = 0;
+                              i < dotColors.length && i < 3;
+                              i++) ...[
+                            if (i > 0) const SizedBox(width: 2),
+                            Container(
+                              width: 5,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                color: dotColors[i],
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+              ),
+            ],
           ),
         );
       },
     );
   }
 
-  bool check(UserWorkingHistoryModel? userWorkingHistoryModel) {
-    return userWorkingHistoryModel != null &&
-        userWorkingHistoryModel.status.isNotEmpty;
-  }
-
-  Color _colorText(BuildContext context) {
-    final colors = AppTheme.getColors(context);
-    return isNowDate
-        ? colors.background
-        : month == date.month
-            ? colors.text
-            : colors.neutralVariant40;
-  }
-
-  Color _color(
-      BuildContext context, int index, List<UserWorkingHistoryStatus> list) {
-    final colors = AppTheme.getColors(context);
-    switch (list[index]) {
-      case UserWorkingHistoryStatus.onTime:
-        return colors.success;
-      case UserWorkingHistoryStatus.late:
-        return colors.tertiary;
-      case UserWorkingHistoryStatus.early:
-        return colors.tertiary;
-      case UserWorkingHistoryStatus.offDay:
-        return colors.outline.withValues(alpha: 0.3);
-      case UserWorkingHistoryStatus.isRequest:
-        return colors.primary;
-      case UserWorkingHistoryStatus.forgotChecking:
-        return colors.error;
-      case UserWorkingHistoryStatus.offWork:
-        return colors.outline.withValues(alpha: 0.3);
-      case UserWorkingHistoryStatus.holiday:
-        return colors.sunriseYellow;
-      case UserWorkingHistoryStatus.noAttendance:
-        return colors.cyan;
-      case UserWorkingHistoryStatus.offSet:
-        return colors.goldenPurple;
-      case UserWorkingHistoryStatus.invalid:
-        return colors.error;
-      default:
-        return Colors.transparent;
+  List<Color> _statusDotColors(
+    UserWorkingHistoryModel? working,
+    dynamic colors,
+  ) {
+    if (working == null) return const [];
+    final hasStatus = working.status.isNotEmpty;
+    if (!hasStatus && working.checkIn == null && working.checkOut == null) {
+      return const [];
     }
+    final result = <Color>[];
+
+    for (final s in working.status) {
+      switch (s) {
+        case UserWorkingHistoryStatus.onTime:
+          result.add(colors.success);
+          break;
+        case UserWorkingHistoryStatus.late:
+        case UserWorkingHistoryStatus.early:
+          result.add(colors.tertiary);
+          break;
+        case UserWorkingHistoryStatus.forgotChecking:
+        case UserWorkingHistoryStatus.invalid:
+          result.add(colors.error);
+          break;
+        case UserWorkingHistoryStatus.isRequest:
+          result.add(colors.primary);
+          break;
+        case UserWorkingHistoryStatus.offDay:
+        case UserWorkingHistoryStatus.offWork:
+          result.add(colors.outline.withValues(alpha: 0.5));
+          break;
+        case UserWorkingHistoryStatus.holiday:
+          result.add(colors.sunriseYellow);
+          break;
+        case UserWorkingHistoryStatus.noAttendance:
+          result.add(colors.cyan);
+          break;
+        case UserWorkingHistoryStatus.offSet:
+          result.add(colors.goldenPurple);
+          break;
+        default:
+          break;
+      }
+    }
+    // Deduplicate adjacent same colors
+    final deduped = <Color>[];
+    for (final c in result) {
+      if (deduped.isEmpty || deduped.last != c) {
+        deduped.add(c);
+      }
+    }
+    return deduped;
   }
 
   _nextItemAttendanceHistoryPage({
@@ -221,60 +218,6 @@ class ItemCalender extends StatelessWidget {
         dI<AppNavigation>().pop(context);
         dialogNoConnection(context: currentContext);
       }
-    }
-  }
-
-  Widget value(
-      BuildContext context, UserWorkingHistoryModel? userWorkingHistoryModel) {
-    final colors = AppTheme.getColors(context);
-    switch (displayType) {
-      case 2:
-        return Column(
-          children: [
-            Text(
-              strSeconds(userWorkingHistoryModel?.checkIn) ?? '',
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x3_5,
-              ),
-            ),
-            Text(
-              userWorkingHistoryModel?.checkIn != null ? '-' : '',
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x3,
-              ),
-            ),
-            Text(
-              strSeconds(userWorkingHistoryModel?.checkOut) ?? '',
-              style: TextStyle(
-                color: colors.text,
-                fontSize: SpacingUnit.x3_5,
-              ),
-            ),
-          ],
-        );
-      case 1:
-        return Text(
-          Duration(
-                  seconds: userWorkingHistoryModel?.workTimeActual.toInt() ?? 0)
-              .inHours
-              .toString(),
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x3_5,
-          ),
-        );
-      case 3:
-        return Text(
-          (userWorkingHistoryModel?.salaryRate ?? 0).toString(),
-          style: TextStyle(
-            color: colors.text,
-            fontSize: SpacingUnit.x3_5,
-          ),
-        );
-      default:
-        return Container();
     }
   }
 }

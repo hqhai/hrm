@@ -1,125 +1,130 @@
-import 'package:base_app/common/configs/locators.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/common/utils/convert.dart';
-import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/common/enum/user_working_history_status.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
-import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
+/// A single cell in the monthly attendance calendar (iOS Calendar style).
 class ItemCalendarAttendanceHistory extends StatelessWidget {
-  final bool isNowDate;
-  final UserWorkingHistoryModel userWorkingHistoryModel;
-  final int month;
   final DateTime date;
-  final Widget itemDate;
+  final bool isToday;
+  final bool isCurrentMonth;
+  final bool isWeekend;
+  final bool isSelected;
+  final UserWorkingHistoryModel? working;
+  final ValueChanged<DateTime>? onTap;
 
   const ItemCalendarAttendanceHistory({
     super.key,
-    required this.userWorkingHistoryModel,
     required this.date,
-    required this.month,
-    required this.itemDate,
-    required this.isNowDate,
+    required this.isToday,
+    required this.isCurrentMonth,
+    required this.isWeekend,
+    this.isSelected = false,
+    this.working,
+    this.onTap,
   });
-
-  _nextItemAttendanceHistoryPage(BuildContext context,) {
-    if(userWorkingHistoryModel.date != null) {
-      dI<AppNavigation>().pushName(context, page: Pages.historyAttendancePage, extra: {
-      'dateTime': date});
-    }
-  }
-
-  UserWorkingHistoryModel userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
-    return list.firstWhere((element) => element.date?.isAtSameMomentAs(date) ?? false);
-  }
 
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final appLocalizations = AppLocalizations.of(context)!;
-    return GestureDetector(
-      onTap: () => _nextItemAttendanceHistoryPage(context),
-      child: Container(
-        color: colors.surfaceDim,
-        child: Padding(
-          padding: const EdgeInsets.only(
-              top: SpacingUnit.x1,
-              right: SpacingUnit.x1,
-              left: SpacingUnit.x1,
-              bottom: SpacingUnit.x1),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: _checkAttendanceEmpty() ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.spaceBetween,
-            children: [
-              if (isNowDate)
-                Text(
-                  '${appLocalizations.today} ( ${formatWeekDay(date.weekday)} - ${formatYMD(date.toString())} )',
-                  style: TextStyle(
-                      color: isNowDate ? colors.error : colors.text, fontSize: SpacingUnit.x3_5),
-                ),
-              if (!isNowDate)
-                Text(
-                  '${formatWeekDay(date.weekday)} - ${formatYMD(date.toString())}',
-                  style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                ),
-              if (_checkAttendanceEmpty())
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.circle, color: Colors.white, size: SpacingUnit.x1),
-                        const SizedBox(width: SpacingUnit.x1,),
-                        Text(
-                          'attendance.checkIn ?? appLocalizations.noData',
-                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      appLocalizations.administrativeTime,
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                    ),
-                  ],
-                ),
-              if (_checkAttendanceEmpty())
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.circle, color: Colors.white, size: SpacingUnit.x1),
-                        const SizedBox(width: SpacingUnit.x1,),
-                        Text(
-                          'attendance.checkOut ?? appLocalizations.noData',
-                          style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      appLocalizations.administrativeTime,
-                      style: TextStyle(color: colors.text, fontSize: SpacingUnit.x3_5),
-                    ),
-                  ],
-                ),
-              if (!_checkAttendanceEmpty())
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    appLocalizations.noData,
-                    style: TextStyle(color: colors.text, fontSize: SpacingUnit.x4),
-                  ),
-                ),
-            ],
+    final theme = Theme.of(context);
+    final dotColors = _statusDotColors(working);
+
+    return InkWell(
+      onTap: isCurrentMonth ? () => onTap?.call(date) : null,
+      customBorder: const CircleBorder(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Day number in circle
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isToday
+                  ? Colors.red
+                  : isSelected
+                      ? colors.text.withValues(alpha: 0.1)
+                      : Colors.transparent,
+              border: isSelected && !isToday
+                  ? Border.all(color: colors.text.withValues(alpha: 0.3), width: 1.5)
+                  : null,
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              date.day.toString(),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: (isToday || isSelected)
+                    ? FontWeight.w700
+                    : FontWeight.w400,
+                color: _textColor(colors),
+                fontSize: 15,
+              ),
+            ),
           ),
-        ),
+          const SizedBox(height: 3),
+          // Status dots
+          SizedBox(
+            height: 6,
+            child: dotColors.isEmpty
+                ? const SizedBox.shrink()
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      for (int i = 0; i < dotColors.length && i < 3; i++) ...[
+                        if (i > 0) const SizedBox(width: 2),
+                        Container(
+                          width: 5,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: dotColors[i],
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+          ),
+        ],
       ),
     );
   }
 
-  bool _checkAttendanceEmpty(){
-    return userWorkingHistoryModel.date != null;
+  Color _textColor(dynamic colors) {
+    if (isToday) return Colors.white;
+    if (!isCurrentMonth) return colors.text.withValues(alpha: 0.25);
+    if (isWeekend) return colors.text.withValues(alpha: 0.4);
+    return colors.text;
+  }
+
+  List<Color> _statusDotColors(UserWorkingHistoryModel? working) {
+    if (working == null || working.date == null) return const [];
+    final result = <Color>[];
+
+    if (working.status.contains(UserWorkingHistoryStatus.late) ||
+        working.status.contains(UserWorkingHistoryStatus.early)) {
+      result.add(Colors.orange);
+    }
+    if (working.status.contains(UserWorkingHistoryStatus.forgotChecking)) {
+      result.add(Colors.red);
+    }
+    if (working.status.contains(UserWorkingHistoryStatus.isRequest) ||
+        working.requestIds.isNotEmpty) {
+      result.add(Colors.purple);
+    }
+    if (working.overTime > 0) {
+      result.add(Colors.teal);
+    }
+    if (working.status.contains(UserWorkingHistoryStatus.holiday) ||
+        working.status.contains(UserWorkingHistoryStatus.offDay)) {
+      result.add(Colors.grey);
+    }
+    if (result.isEmpty &&
+        (working.checkIn != null || working.checkOut != null)) {
+      result.add(Colors.green);
+    }
+    return result;
   }
 }

@@ -42,23 +42,18 @@ class BodyCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AttendanceBloc, AttendanceState>(
       builder: (context, state) {
-        return Column(
-          children: [
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              height: MediaQuery.sizeOf(context).height * 0.8,
-              child: GridView.builder(
-                itemCount: listDate.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.4,
-                  crossAxisCount: 7,
-                ),
-                itemBuilder: (context, index) {
-                  return _item(context, index, state);
-                },
-              ),
-            ),
-          ],
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: listDate.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 7,
+            childAspectRatio: 1.0,
+            mainAxisSpacing: 2,
+          ),
+          itemBuilder: (context, index) {
+            return _item(context, index, state);
+          },
         );
       },
     );

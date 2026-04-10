@@ -1,4 +1,5 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
+import 'package:base_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
 
@@ -7,46 +8,82 @@ class FormChangeMonthAttendanceHistory extends StatelessWidget {
   final String month;
   final VoidCallback upMonth;
   final VoidCallback downMonth;
-  const FormChangeMonthAttendanceHistory(
-      {super.key,
-        required this.year,
-        required this.month,
-        required this.upMonth,
-        required this.downMonth});
+  final VoidCallback? onTodayPressed;
+
+  const FormChangeMonthAttendanceHistory({
+    super.key,
+    required this.year,
+    required this.month,
+    required this.upMonth,
+    required this.downMonth,
+    this.onTodayPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = AppTheme.getColors(context);
-    return Container(
-      alignment: Alignment.center,
-      height: SpacingUnit.x16,
-      padding: const EdgeInsets.symmetric(horizontal: SpacingUnit.x6),
+    final l10n = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: SpacingUnit.x4,
+        vertical: SpacingUnit.x3,
+      ),
       child: Row(
         children: [
           Expanded(
             child: Text(
-              "$month $year",
-              style: theme.textTheme.titleLarge,
+              '$month $year',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: colors.text,
+              ),
             ),
           ),
-          InkWell(
-            onTap: () => upMonth.call(),
-            child: Icon(
-              Icons.arrow_drop_up,
-              color: colors.textTertiary,
-              size: 50,
+          if (onTodayPressed != null)
+            Padding(
+              padding: const EdgeInsets.only(right: SpacingUnit.x2),
+              child: GestureDetector(
+                onTap: onTodayPressed,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingUnit.x3,
+                    vertical: SpacingUnit.x1_5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: colors.text.withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(SpacingUnit.x5),
+                  ),
+                  child: Text(
+                    l10n.today,
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: colors.text.withValues(alpha: 0.7),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          GestureDetector(
+            onTap: downMonth,
+            child: Padding(
+              padding: const EdgeInsets.all(SpacingUnit.x1),
+              child: Icon(
+                Icons.chevron_left_rounded,
+                color: colors.text.withValues(alpha: 0.5),
+                size: SpacingUnit.x7,
+              ),
             ),
           ),
-          const SizedBox(
-            width: SpacingUnit.x4,
-          ),
-          InkWell(
-            onTap: () => downMonth.call(),
-            child: Icon(
-              Icons.arrow_drop_down,
-              color: colors.textTertiary,
-              size: 50,
+          GestureDetector(
+            onTap: upMonth,
+            child: Padding(
+              padding: const EdgeInsets.all(SpacingUnit.x1),
+              child: Icon(
+                Icons.chevron_right_rounded,
+                color: colors.text.withValues(alpha: 0.5),
+                size: SpacingUnit.x7,
+              ),
             ),
           ),
         ],
@@ -54,4 +91,3 @@ class FormChangeMonthAttendanceHistory extends StatelessWidget {
     );
   }
 }
-
