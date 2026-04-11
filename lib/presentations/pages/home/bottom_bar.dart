@@ -35,8 +35,8 @@ class _BottomBarDefaultState extends State<BottomBarDefault> {
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             item(
-              title: appLocalizations.request,
-              icon: Assets.images.icon.home.bottomBar.document,
+              title: appLocalizations.home,
+              icon: Assets.images.icon.home.bottomBar.home,
               color1: colors.textLight,
               color2: colors.primary,
             ),
@@ -47,8 +47,8 @@ class _BottomBarDefaultState extends State<BottomBarDefault> {
               color2: colors.primary,
             ),
             item(
-              title: appLocalizations.worksheet,
-              icon: Assets.images.icon.home.bottomBar.home,
+              title: appLocalizations.request,
+              icon: Assets.images.icon.home.bottomBar.document,
               color1: colors.textLight,
               color2: colors.primary,
             ),

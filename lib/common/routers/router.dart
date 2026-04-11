@@ -47,10 +47,24 @@ import 'package:base_app/presentations/widgets/change_password/change_password.d
 import 'package:base_app/presentations/widgets/map_location/map_location_page.dart';
 import 'package:base_app/presentations/widgets/trash_app/create_note/create_note.dart';
 import 'package:base_app/presentations/widgets/trash_app/dialog/dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 
-import 'pages.dart';
+/// Wraps a GoRoute so it uses CupertinoPage (iOS-style swipe-back gesture).
+GoRoute _cupertino(GoRoute route) {
+  return GoRoute(
+    path: route.path,
+    name: route.name,
+    redirect: route.redirect,
+    routes: route.routes,
+    pageBuilder: (context, state) {
+      // Call the original builder to get the widget.
+      final child = route.builder!(context, state);
+      return CupertinoPage(child: child);
+    },
+  );
+}
 
 @lazySingleton
 class AppRouters {
@@ -63,56 +77,63 @@ class AppRouters {
       navigatorKey: dI<AppNavigation>().navigatorKey,
       initialLocation: '/');
 
-  static List<GoRoute> routerPages = {
-    Pages.main: mainPageRoute,
-    Pages.error: errorPageRoute,
-    Pages.login: loginPageRoute,
-    Pages.register: registerPageRoute,
-    Pages.home: homePageRoute,
-    Pages.createDepartmentPage: createDepartmentPageRoute,
-    Pages.updateDepartmentPage: updateDepartmentPageRoute,
-    Pages.informationDepartmentPage: informationDepartmentPageRoute,
-    Pages.createPositionPage: createPositionPageRoute,
-    Pages.updatePositionPage: updatePositionPageRoute,
-    Pages.forgotPasswordPage: forgotPasswordPageRoute,
-    Pages.changePasswordPage: changePasswordPageRoute,
-    Pages.updateProfilePage: updateProfilePageRoute,
-    Pages.layoutCalendarAttendanceHistoryPage:
-        layoutCalendarAttendanceHistoryPageRoute,
-    Pages.historyAttendancePage: historyAttendancePageRoute,
-    Pages.biometricRegister: registerBiometricPageRoute,
-    Pages.timekeepingGPSSchool: timekeepingGPSSchoolPageRoute,
-    Pages.timekeepingGPSSuccessful: timekeepingGPSSuccessfulRoute,
-    Pages.timekeepingGPSUnsuccessful: timekeepingGPSUnsuccessfulRoute,
-    Pages.requisitionListPage: requisitionListPageRoute,
-    Pages.seeRequestListPage: seeRequestListPageRoute,
-    Pages.requisitionInformationPage: requisitionInformationPageRoute,
-    Pages.createRequestPage: createRequestPageRoute,
-    Pages.createRequestExplanationPage: createRequestExplanationPageRoute,
-    Pages.createRequestLeavePage: createRequestLeavePageRoute,
-    Pages.pDFPage: pDFPageRoute,
-    Pages.createRequestBusinessPage: createRequestBusinessPageRoute,
-    Pages.createRequestPostalDeliveryPage: createRequestPostalDeliveryPageRoute,
-    Pages.createRequestVehicleDispatchPage:
-        createRequestVehicleDispatchPageRoute,
-    Pages.createRequestStationeryOderPage: createRequestStationeryOderPageRoute,
-    Pages.createRequestReleaseOfWarehousePage:
-        createRequestReleaseOfWarehousePageRoute,
-    Pages.requisitionApproveListPage: requisitionApproveListPageRoute,
-    Pages.requisitionFollowerListPage: requisitionFollowerListPageRoute,
-    Pages.createRequestOverTimePage: createRequestOverTimePageRoute,
-    Pages.createRequestLateAndEarlyPage: createRequestLateAndEarlyPageRoute,
-    Pages.createRequestMakeUpWorkPage: createRequestMakeUpWorkPageRoute,
-    Pages.leavePage: leavePageRoute,
-    Pages.layoutCalendarPage: layoutCalendarPageRoute,
-    Pages.registerShiftsPage: registerShiftsPageRoute,
-    Pages.shiftsPage: shiftsPageRoute,
-    Pages.registerWorkDayAdmin: registerWorkDayPageRoute,
-    Pages.registerWorkDayAdminDetail: registerWorkDayAdminDetailPageRoute,
-    Pages.timekeepingGPSSHistory: timekeepingGPSHistoryRoute,
-    Pages.shiftsPageReview: shiftsPageReviewRoute,
-    Pages.noteSystem: noteSystemPageRoute,
-    Pages.createNoteWidget: createNoteWidgetPageRoute,
-    Pages.mapLocation: mapLocationRoute
-  }.entries.map((entry) => entry.value).toList();
+  // Routes that should NOT have swipe-back (root/auth screens).
+  static final _noSwipeRoutes = <GoRoute>[
+    mainPageRoute,
+    loginPageRoute,
+    registerPageRoute,
+    homePageRoute,
+  ];
+
+  // All other routes get iOS-style CupertinoPage (swipe-back enabled).
+  static final _swipeRoutes = <GoRoute>[
+    errorPageRoute,
+    createDepartmentPageRoute,
+    updateDepartmentPageRoute,
+    informationDepartmentPageRoute,
+    createPositionPageRoute,
+    updatePositionPageRoute,
+    forgotPasswordPageRoute,
+    changePasswordPageRoute,
+    updateProfilePageRoute,
+    layoutCalendarAttendanceHistoryPageRoute,
+    historyAttendancePageRoute,
+    registerBiometricPageRoute,
+    timekeepingGPSSchoolPageRoute,
+    timekeepingGPSSuccessfulRoute,
+    timekeepingGPSUnsuccessfulRoute,
+    requisitionListPageRoute,
+    seeRequestListPageRoute,
+    requisitionInformationPageRoute,
+    createRequestPageRoute,
+    createRequestExplanationPageRoute,
+    createRequestLeavePageRoute,
+    pDFPageRoute,
+    createRequestBusinessPageRoute,
+    createRequestPostalDeliveryPageRoute,
+    createRequestVehicleDispatchPageRoute,
+    createRequestStationeryOderPageRoute,
+    createRequestReleaseOfWarehousePageRoute,
+    requisitionApproveListPageRoute,
+    requisitionFollowerListPageRoute,
+    createRequestOverTimePageRoute,
+    createRequestLateAndEarlyPageRoute,
+    createRequestMakeUpWorkPageRoute,
+    leavePageRoute,
+    layoutCalendarPageRoute,
+    registerShiftsPageRoute,
+    shiftsPageRoute,
+    registerWorkDayPageRoute,
+    registerWorkDayAdminDetailPageRoute,
+    timekeepingGPSHistoryRoute,
+    shiftsPageReviewRoute,
+    noteSystemPageRoute,
+    createNoteWidgetPageRoute,
+    mapLocationRoute,
+  ].map(_cupertino).toList();
+
+  static List<GoRoute> routerPages = [
+    ..._noSwipeRoutes,
+    ..._swipeRoutes,
+  ];
 }

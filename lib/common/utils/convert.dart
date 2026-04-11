@@ -16,7 +16,7 @@ String strTimeFromInt(int time) {
   if (second == 0) {
     return '${hours}h';
   }
-  return '${hours}h${minute}m';
+  return '${hours}h ${minute}m';
 }
 
 /// Từ int sang khoảng phút (đến giây)
@@ -26,7 +26,7 @@ String strTimeSFromInt(int time) {
   if (second == 0) {
     return '${minute}m';
   }
-  return '${minute}m${second}s';
+  return '${minute}m ${second}s';
 }
 
 ///Đầu ngày

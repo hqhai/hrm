@@ -1,21 +1,8 @@
-import 'dart:async';
-
-import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/user_working_history_status.dart';
-import 'package:base_app/common/routers/navigation.dart';
-import 'package:base_app/common/routers/pages.dart';
+import 'package:base_app/common/utils/attendance_navigation.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
-import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
-import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_event.dart';
-import 'package:base_app/presentations/bloc/shift/shift_bloc.dart';
-import 'package:base_app/presentations/bloc/shift/shift_event.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
-import 'package:base_app/presentations/bloc/work_sheet/work_sheet_bloc.dart';
-import 'package:base_app/presentations/bloc/work_sheet/work_sheet_event.dart';
-import 'package:base_app/presentations/widgets/dialog/no_connection/no_connection_dialog.dart';
-import 'package:base_app/presentations/widgets/dialog/progress_indicator_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
@@ -36,10 +23,12 @@ class ItemCalender extends StatelessWidget {
 
   UserWorkingHistoryModel? userWorkingHistoryModelByDate(
       List<UserWorkingHistoryModel> list) {
-    final int index = list
-        .indexWhere((element) => element.date?.isAtSameMomentAs(date) ?? false);
-    if (index != -1) {
-      return list[index];
+    for (final element in list) {
+      final d = element.date;
+      if (d == null) continue;
+      if (d.year == date.year && d.month == date.month && d.day == date.day) {
+        return element;
+      }
     }
     return null;
   }
@@ -72,7 +61,7 @@ class ItemCalender extends StatelessWidget {
                 height: 36,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: isNowDate ? Colors.red : Colors.transparent,
+                  color: isNowDate ? const Color(0xFFf38120) : Colors.transparent,
                 ),
                 alignment: Alignment.center,
                 child: Text(
@@ -181,43 +170,11 @@ class ItemCalender extends StatelessWidget {
     required BuildContext context,
     UserWorkingHistoryModel? userWorkingHistoryModel,
   }) async {
-    if (userWorkingHistoryModel != null) {
-      final currentContext = dI<AppNavigation>().navigatorKey.currentContext!;
-      final Completer completerRequest = Completer<bool>();
-      final Completer completerAttendances = Completer<bool>();
-      final Completer completerShift = Completer<bool>();
-      dialogIndicator(
-        context: context,
-      );
-      dI<ShiftBloc>().add(GetShiftByIdsEvent(
-        ids: userWorkingHistoryModel.workShiftIds,
-        completer: completerShift,
-      ));
-      dI<RequestWorkSheetBloc>().add(GetRequestsByIdsEvent(
-        ids: userWorkingHistoryModel.requestIds,
-        completer: completerRequest,
-      ));
-      dI<WorkSheetBloc>().add(GetAttendancesByDateEvent(
-        date: userWorkingHistoryModel.date ?? date,
-        userId: dI<UserBloc>().state.user.id,
-        completer: completerAttendances,
-      ));
-      final checkRequest = await completerRequest.future;
-      final checkAttendances = await completerAttendances.future;
-      final checkShift = await completerShift.future;
-      if (checkRequest && checkAttendances && checkShift) {
-        if (!currentContext.mounted) return;
-        dI<AppNavigation>().pop(context);
-        dI<AppNavigation>().pushName(currentContext,
-            page: Pages.historyAttendancePage,
-            extra: {
-              'dateTime': userWorkingHistoryModel.date ?? date,
-            });
-      } else {
-        if (!currentContext.mounted) return;
-        dI<AppNavigation>().pop(context);
-        dialogNoConnection(context: currentContext);
-      }
-    }
+    if (userWorkingHistoryModel == null) return;
+    await navigateToAttendanceDetail(
+      context: context,
+      working: userWorkingHistoryModel,
+      fallbackDate: date,
+    );
   }
 }

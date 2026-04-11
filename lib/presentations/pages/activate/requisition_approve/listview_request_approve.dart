@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
@@ -55,59 +54,77 @@ class _ListviewRequestApproveState extends State<ListviewRequestApprove>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                color: colors.background,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: SpacingUnit.x4,
+                  vertical: SpacingUnit.x2,
+                ),
+                decoration: BoxDecoration(
+                  color: colors.text.withValues(alpha: 0.05),
+                  borderRadius: BorderRadius.circular(SpacingUnit.x3),
+                ),
+                padding: const EdgeInsets.all(3),
                 child: TabBar(
                   isScrollable: true,
                   controller: _tabController,
                   indicatorSize: TabBarIndicatorSize.tab,
-                  dividerColor: colors.textLight.withValues(alpha: 0.1),
-                  dividerHeight: 0.1,
-                  indicatorColor: colors.textLight,
+                  dividerHeight: 0,
+                  indicator: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: colors.text.withValues(alpha: 0.08),
+                        blurRadius: 4,
+                        offset: const Offset(0, 1),
+                      ),
+                    ],
+                  ),
+                  labelColor: colors.text,
+                  labelStyle: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                  unselectedLabelColor: colors.text.withValues(alpha: 0.5),
+                  unselectedLabelStyle: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                  ),
                   tabAlignment: TabAlignment.start,
                   tabs: EnumStepRequestStatusEnum.values
                       .where((element) =>
                           element != EnumStepRequestStatusEnum.unknown)
                       .map(
                     (status) {
-                      final isActive =
-                          EnumStepRequestStatusEnum.values.indexOf(status) ==
-                              _tabController.index;
                       return Tab(
+                        height: 36,
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              status.configStepRequestStatusName,
-                              style: TextStyle(
-                                fontWeight: isActive ? FontWeight.w600 : null,
-                                color:
-                                    isActive ? colors.text : colors.textLight,
-                                fontSize: SpacingUnit.x4,
-                              ),
-                            ),
+                            Text(status.configStepRequestStatusName),
                             BlocSelector<RequisitionApproveBloc,
                                 RequisitionApproveState, int>(
                               selector: (state) =>
                                   state.statusRequestCount[status] ?? 0,
-                              builder: (context, state) => Chip(
-                                padding: EdgeInsets.zero,
-                                backgroundColor:
-                                    colors.primary.withValues(alpha: 0.3),
-                                shape: RoundedRectangleBorder(
-                                  side:
-                                      const BorderSide(style: BorderStyle.none),
-                                  borderRadius: BorderRadius.circular(
-                                    SpacingUnit.x6,
-                                  ),
-                                ),
-                                label: Text(
-                                  countStatus(state),
-                                  style: TextStyle(
-                                    fontSize: SpacingUnit.x3_5,
-                                    fontWeight: FontWeight.w400,
-                                    color: colors.primary,
-                                  ),
-                                ),
-                              ),
+                              builder: (context, count) => count > 0
+                                  ? Container(
+                                      margin: const EdgeInsets.only(left: 6),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 7, vertical: 1),
+                                      decoration: BoxDecoration(
+                                        color: colors.primary,
+                                        borderRadius:
+                                            BorderRadius.circular(10),
+                                      ),
+                                      child: Text(
+                                        count > 99 ? '99+' : '$count',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
                             ),
                           ],
                         ),

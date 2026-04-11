@@ -22,7 +22,11 @@ class FlowBloc extends HydratedBloc<FlowEvent, FlowState> {
   }
 
   FutureOr<void> _getFlowsEvent(GetFlowsEvent event, Emitter<FlowState> emit) async {
-    emit(state.copyWith(statusGet: FlowStatusEnum.init));
+    // Only emit loading state if no flows loaded yet — avoids UI flash
+    // when data already exists (e.g. from HydratedBloc or prior fetch).
+    if (state.flows.isEmpty) {
+      emit(state.copyWith(statusGet: FlowStatusEnum.init));
+    }
     try {
       final FlowResponse flowResponse = await requisitionUseCase.getFlowByUser(page: event.page);
       final newFlows = flowResponse.items.where((element) => element.flowType != RequisitionTypeEnum.postalDelivery).toList();
@@ -59,7 +63,10 @@ class FlowBloc extends HydratedBloc<FlowEvent, FlowState> {
   }
 
   FutureOr<void> _getFlowEvent(GetFlowEvent event, Emitter<FlowState> emit) async {
-    emit(state.copyWith(statusGetById: FlowStatusEnum.init));
+    // Only emit loading if no flow loaded yet — avoids UI flash on re-fetch.
+    if (state.flow.id.isEmpty) {
+      emit(state.copyWith(statusGetById: FlowStatusEnum.init));
+    }
     try {
       final FlowRequest flow = await requisitionUseCase.getFlowById(id: event.id);
       emit(state.copyWith(

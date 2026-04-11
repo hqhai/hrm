@@ -1,8 +1,6 @@
 import 'package:base_app/common/enum/user_enum.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
-import 'package:base_app/presentations/widgets/custom/title_required.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/gender_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:themes/themes.dart';
@@ -32,60 +30,97 @@ class _ItemGenderUpdateProfileState extends State<ItemGenderUpdateProfile> {
   }
 
   @override
+  void didUpdateWidget(covariant ItemGenderUpdateProfile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.gender != oldWidget.gender && widget.gender != gender) {
+      setState(() => gender = widget.gender);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TitleRequired(title: appLocalizations.gender, requiredValidate: true),
-        ContainerBorder(
-          borderColors: colors.surfaceBright.withValues(alpha: 0.6),
-          marginTop: SpacingUnit.x2,
-          paddingVertical: SpacingUnit.x4,
-          width: width,
-          child: InkWell(
-            onTap: () => _showBottomSheet(context),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  gender.configGenderName,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                  ),
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                l10n.gender,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: colors.text.withValues(alpha: 0.5),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
                 ),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: colors.text,
-                  size: SpacingUnit.x6,
-                )
-              ],
+              ),
+              Text(
+                ' *',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: Colors.red,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: SpacingUnit.x1_5),
+          GestureDetector(
+            onTap: () => _showBottomSheet(context),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: SpacingUnit.x3,
+                vertical: SpacingUnit.x3,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                border: Border.all(
+                  color: colors.text.withValues(alpha: 0.12),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    gender.configGenderName,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colors.text,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: colors.text.withValues(alpha: 0.4),
+                    size: 22,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: SpacingUnit.x4,
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  _showBottomSheet(BuildContext context) {
+  void _showBottomSheet(BuildContext context) {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
         return GenderBottomSheetWidget(
           gender: gender,
-          onChange: (value) => setGender(value),
+          onChange: (value) => _setGender(value),
         );
       },
     );
   }
 
-  setGender(GenderEnum value) {
+  void _setGender(GenderEnum value) {
     setState(() {
       gender = value;
       widget.onChangeGender.call(value);

@@ -2,12 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:base_app/common/routers/pages.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/app_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:themes/themes.dart';
 import 'package:http/http.dart' as http;
@@ -87,14 +86,10 @@ class _PDFPageState extends State<PDFPage> {
               child: Text(snapshot.error.toString()),
             );
           } else {
-            return Dialog(
+            return const Dialog(
               backgroundColor: Colors.transparent,
               surfaceTintColor: Colors.transparent,
-              child: Lottie.asset(
-                Assets.gif.loading,
-                height: 150,
-                width: 150,
-              ),
+              child: Center(child: AppLoadingIndicator(size: 100)),
             );
           }
         },

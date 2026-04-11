@@ -39,8 +39,8 @@ class _RequisitionFollowerListPageState
 
   @override
   void initState() {
-    dI<RequisitionFollowingBloc>()
-        .add(const GetRequisitionsFollowingByFilterEvent());
+    // Data is already loaded by the caller (_nextFollowerRequestScreen).
+    // Dispatching again here would cause a UI flash and reset filters.
     super.initState();
   }
 

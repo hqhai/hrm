@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/requisition_enum.dart';
-import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/filter_dialog_model.dart';
 import 'package:base_app/presentations/bloc/requisition/requisition/requisition_bloc.dart';
@@ -58,50 +57,72 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                color: colors.background,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: SpacingUnit.x4,
+                  vertical: SpacingUnit.x2,
+                ),
+                decoration: BoxDecoration(
+                  color: colors.text.withValues(alpha: 0.05),
+                  borderRadius: BorderRadius.circular(SpacingUnit.x3),
+                ),
+                padding: const EdgeInsets.all(3),
                 child: TabBar(
                   isScrollable: true,
                   controller: _tabController,
                   indicatorSize: TabBarIndicatorSize.tab,
-                  dividerColor: colors.textLight.withValues(alpha: 0.1),
-                  dividerHeight: 0.1,
-                  indicatorColor: colors.textLight,
+                  dividerHeight: 0,
+                  indicator: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: colors.text.withValues(alpha: 0.08),
+                        blurRadius: 4,
+                        offset: const Offset(0, 1),
+                      ),
+                    ],
+                  ),
+                  labelColor: colors.text,
+                  labelStyle: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                  unselectedLabelColor: colors.text.withValues(alpha: 0.5),
+                  unselectedLabelStyle: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                  ),
                   tabAlignment: TabAlignment.start,
                   tabs: StatusRequestEnum.values
                       .where((element) => element != StatusRequestEnum.unknown)
                       .mapIndexed((index, status) {
-                    final isActive = index == _tabController.index;
                     return Tab(
+                      height: 36,
                       child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            status.getAppLocalizationName,
-                            style: TextStyle(
-                                fontWeight: isActive ? FontWeight.w600 : null,
-                                color: isActive
-                                    ? colors.text
-                                    : colors.text.withValues(alpha: 0.5),
-                                fontSize: SpacingUnit.x3_5),
-                          ),
+                          Text(status.getAppLocalizationName),
                           BlocSelector<RequisitionBloc, RequisitionState, int>(
                             selector: (state) => state.statusCount[status] ?? 0,
-                            builder: (context, state) => Chip(
-                              padding: EdgeInsets.zero,
-                              backgroundColor:
-                                  colors.primary.withValues(alpha: 0.3),
-                              shape: RoundedRectangleBorder(
-                                  side:
-                                      const BorderSide(style: BorderStyle.none),
-                                  borderRadius:
-                                      BorderRadius.circular(SpacingUnit.x6)),
-                              label: Text(
-                                countStatus(state),
-                                style: TextStyle(
-                                    fontSize: SpacingUnit.x3_5,
-                                    fontWeight: FontWeight.w400,
-                                    color: colors.primary),
-                              ),
-                            ),
+                            builder: (context, count) => count > 0
+                                ? Container(
+                                    margin: const EdgeInsets.only(left: 6),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7, vertical: 1),
+                                    decoration: BoxDecoration(
+                                      color: colors.primary,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Text(
+                                      count > 99 ? '99+' : '$count',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(),
                           ),
                         ],
                       ),
@@ -110,22 +131,19 @@ class _ListviewRequestSelfState extends State<ListviewRequestSelf>
                 ),
               ),
               Expanded(
-                child: Container(
-                  color: colors.secondaryContainer.withValues(alpha: 0.1),
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: StatusRequestEnum.values
-                        .where(
-                            (element) => element != StatusRequestEnum.unknown)
-                        .map(
-                          (status) => TabBarViewListRequestSelf(
-                            checkLoad: checkLoad && widget.checkLoad,
-                            filterData: widget.filterData,
-                            status: status,
-                          ),
-                        )
-                        .toList(),
-                  ),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: StatusRequestEnum.values
+                      .where(
+                          (element) => element != StatusRequestEnum.unknown)
+                      .map(
+                        (status) => TabBarViewListRequestSelf(
+                          checkLoad: checkLoad && widget.checkLoad,
+                          filterData: widget.filterData,
+                          status: status,
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ],

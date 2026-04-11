@@ -1,32 +1,17 @@
-import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:base_app/presentations/widgets/custom/app_loading_indicator.dart';
 
 progressIndicatorDialog(BuildContext context) async {
   return showDialog(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
+      return const AlertDialog(
+        backgroundColor: Colors.white,
         content: SizedBox(
-          height: SpacingUnit.x50,
-          width: SpacingUnit.x50,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Center(
-                child: SizedBox(
-                  height: SpacingUnit.x50,
-                  width: SpacingUnit.x50,
-                  child: Lottie.asset(Assets.images.icon.loading,
-                      width: SpacingUnit.x50,
-                      height: SpacingUnit.x50,
-                      fit: BoxFit.fill),
-                ),
-              ),
-            ],
-          ),
+          height: 140,
+          width: 140,
+          child: Center(child: AppLoadingIndicator(size: 100)),
         ),
       );
     },
@@ -38,18 +23,11 @@ class ProgressIndicatorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(
-            height: SpacingUnit.x20,
-            width: SpacingUnit.x20,
-            child: Lottie.asset(
-              Assets.gif.loading,
-              height: 150,
-              width: 150,
-            )),
+        AppLoadingIndicator(size: 80),
       ],
     );
   }
@@ -60,14 +38,10 @@ dialogIndicator({required BuildContext context}) {
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return Dialog(
+      return const Dialog(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        child: Lottie.asset(
-          Assets.gif.loading,
-          height: 150,
-          width: 150,
-        ),
+        child: Center(child: AppLoadingIndicator(size: 100)),
       );
     },
   );

@@ -42,13 +42,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectedIndexSystem = 0, selectedIndex = 2;
+  int selectedIndexSystem = 0, selectedIndex = 0;
   bool checkOpacity = false;
 
   @override
   void initState() {
     if (AppConfig.getToken.isNotEmpty) {
       dI<UserBloc>().add(const GetUserInfo());
+      // Clear stale hydrated notification data before fetching fresh.
+      dI<NotificationBloc>().add(const ResetNotificationEvent());
       dI<NotificationBloc>().add(const GetNotificationsEvent());
     }
     super.initState();
@@ -231,7 +233,10 @@ class _HomePageState extends State<HomePage> {
           body: Opacity(
             opacity: checkOpacity ? 0.5 : 1,
             child: !_checkRole()
-                ? MenuValues.widgetOptionsUser.elementAt(selectedIndex)
+                ? IndexedStack(
+                    index: selectedIndex,
+                    children: MenuValues.widgetOptionsUser,
+                  )
                 : MenuValues.widgetOptionsUserSystem[selectedIndexSystem],
           ),
         );
@@ -282,4 +287,5 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+
 }

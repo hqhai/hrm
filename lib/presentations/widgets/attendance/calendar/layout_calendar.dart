@@ -2,17 +2,18 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/presentations/widgets/custom/app_loading_indicator.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
+import 'package:base_app/common/utils/attendance_navigation.dart';
 import 'package:base_app/presentations/pages/attendance/item_day_calendar_attendance_history.dart';
 import 'package:base_app/presentations/pages/attendance/layout_calendar_attendance_history.dart';
 import 'package:base_app/presentations/widgets/attendance/calendar/popup_menu_calender.dart';
@@ -152,6 +153,16 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
     return null;
   }
 
+  Future<void> _navigateToDetail(BuildContext context) async {
+    final working = _selectedWorking();
+    if (working == null) return;
+    await navigateToAttendanceDetail(
+      context: context,
+      working: working,
+      fallbackDate: _selectedDate,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -219,7 +230,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
                     child: Text(
                       l10n.today,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.red,
+                        color: const Color(0xFFf38120),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -312,10 +323,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
                     ),
                     child: (loading && att == null)
                         ? const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.red,
-                            ),
+                            child: AppLoadingIndicator(),
                           )
                         : MonthGridAttendanceHistory(
                             month: month.month,
@@ -335,13 +343,7 @@ class _LayoutCalendarState extends State<LayoutCalendar> {
             date: _selectedDate,
             working: _selectedWorking(),
             displayType: displayType,
-            onViewDetail: () {
-              dI<AppNavigation>().pushName(
-                context,
-                page: Pages.historyAttendancePage,
-                extra: {'dateTime': _selectedDate},
-              );
-            },
+            onViewDetail: () => _navigateToDetail(context),
             l10n: l10n,
             colors: colors,
             theme: theme,
@@ -398,16 +400,25 @@ class _SelectedDayPanel extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: working?.date != null ? onViewDetail : null,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(l10n.detailWork,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                            color: Colors.red, fontWeight: FontWeight.w600)),
-                    const SizedBox(width: 2),
-                    const Icon(Icons.chevron_right_rounded,
-                        color: Colors.red, size: 18),
-                  ],
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: working?.date != null
+                        ? const Color(0xFF014282)
+                        : colors.text.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(SpacingUnit.x5),
+                  ),
+                  child: Text(
+                    l10n.detailWork,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: working?.date != null
+                          ? Colors.white
+                          : colors.text.withValues(alpha: 0.3),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                    ),
+                  ),
                 ),
               ),
             ],

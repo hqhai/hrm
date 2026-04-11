@@ -8,7 +8,7 @@ import 'package:base_app/common/utils/menu_values.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/common/utils/toast_utils.dart';
 import 'package:base_app/data/models/request/work_day_request.dart';
-import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/presentations/widgets/custom/app_loading_indicator.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_bloc.dart';
 import 'package:base_app/presentations/bloc/work_day/work_day_event.dart';
@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:themes/themes.dart';
 
@@ -508,8 +507,7 @@ class _RegisterShiftsPageState extends State<RegisterShiftsPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Lottie.asset(Assets.images.icon.loading,
-            width: SpacingUnit.x25, height: SpacingUnit.x25, fit: BoxFit.fill),
+        const AppLoadingIndicator(),
       ],
     );
   }

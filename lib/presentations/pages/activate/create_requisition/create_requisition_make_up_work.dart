@@ -11,7 +11,7 @@ import 'package:base_app/data/models/requisition/requisition/config_model_reques
 import 'package:base_app/data/models/requisition/requisition/post_request_request.dart';
 import 'package:base_app/domain/entities/requisition/work_shift_registered_details.dart';
 // import 'package:base_app/domain/entities/user.dart';
-import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/presentations/widgets/custom/app_loading_indicator.dart';
 import 'package:base_app/l10n/app_localizations.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_event.dart';
@@ -33,7 +33,6 @@ import 'package:base_app/presentations/widgets/dialog/check_load/check_load_dial
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 final createRequestMakeUpWorkPageRoute = GoRoute(
@@ -160,12 +159,8 @@ class _CreateRequisitionMakeUpWorkPageState
                       changeValue: (value) => _setStartDate(value),
                     ),
                     !checkShirt
-                        ? Center(
-                            child: Lottie.asset(
-                            Assets.gif.loading,
-                            height: 50,
-                            width: 50,
-                          ))
+                        ? const Center(
+                            child: AppLoadingIndicator())
                         : ItemWorkShiftADate(
                             workShiftSettingsOld: workShiftSettings,
                             type: widget.type,

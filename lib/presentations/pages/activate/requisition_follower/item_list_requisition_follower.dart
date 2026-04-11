@@ -2,10 +2,9 @@
 import 'package:base_app/common/enum/enum_request.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/gen/assets.gen.dart';
 import 'package:base_app/presentations/pages/activate/requisition_follower/content_item_follwer_requisition_list.dart';
+import 'package:base_app/presentations/widgets/custom/app_loading_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 import '../../../widgets/custom/container_border.dart';
@@ -51,8 +50,7 @@ class _ItemRequisitionFollowerListState extends State<ItemRequisitionFollowerLis
                 Opacity(
                   opacity: checkOpacity ? 1 : 0,
                   child: Center(
-                    child: Lottie.asset(Assets.images.icon.loading,
-                        width: SpacingUnit.x20, height: SpacingUnit.x20, fit: BoxFit.fill),
+                    child: const AppLoadingIndicator(),
                   ),
                 ),
                 Opacity(

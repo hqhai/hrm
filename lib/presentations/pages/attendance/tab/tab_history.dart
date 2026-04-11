@@ -16,10 +16,16 @@ class OTHistory extends StatelessWidget {
 
   final DateTime dateTime;
 
-  UserWorkingHistoryModel userWorkingHistoryModelByDate(
+  UserWorkingHistoryModel? userWorkingHistoryModelByDate(
       List<UserWorkingHistoryModel> list) {
-    return list.firstWhere(
-        (element) => element.date?.isAtSameMomentAs(dateTime) ?? false);
+    for (final element in list) {
+      final d = element.date;
+      if (d == null) continue;
+      if (d.year == dateTime.year && d.month == dateTime.month && d.day == dateTime.day) {
+        return element;
+      }
+    }
+    return null;
   }
 
   @override

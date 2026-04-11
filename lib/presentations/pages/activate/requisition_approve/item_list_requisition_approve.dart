@@ -4,7 +4,7 @@ import 'package:base_app/common/enum/requisition_enum.dart';
 import 'package:base_app/common/utils/next_screen_request_information.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/requisition/request.dart';
-import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/presentations/widgets/custom/app_loading_indicator.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_event.dart';
 import 'package:base_app/presentations/bloc/requisition/requisiton_approve/requisition_approve_state.dart';
@@ -13,7 +13,6 @@ import 'package:base_app/presentations/pages/activate/requisition_approve/conten
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 class ItemRequisitionApproveList extends StatefulWidget {
@@ -75,11 +74,7 @@ class _ItemRequisitionApproveListState
                 Opacity(
                   opacity: checkOpacity ? 1 : 0,
                   child: Center(
-                    child: Lottie.asset(
-                      Assets.images.icon.loading,
-                      width: SpacingUnit.x20,
-                      height: SpacingUnit.x20,
-                      fit: BoxFit.fill,
+                    child: const AppLoadingIndicator(
                     ),
                   ),
                 ),

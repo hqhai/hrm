@@ -1,8 +1,7 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
-import 'package:base_app/gen/assets.gen.dart';
+import 'package:base_app/presentations/widgets/custom/app_loading_indicator.dart';
 import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:themes/themes.dart';
 
 class ItemRequestOnTabCommon extends StatefulWidget {
@@ -34,8 +33,7 @@ class _ItemRequestOnTabCommonState extends State<ItemRequestOnTabCommon> {
           Opacity(
             opacity: widget.checkOpacity ? 1 : 0,
             child: Center(
-              child: Lottie.asset(Assets.images.icon.loading,
-                  width: SpacingUnit.x30, height: SpacingUnit.x30, fit: BoxFit.fill),
+              child: const AppLoadingIndicator(),
             ),
           ),
           Opacity(

@@ -43,7 +43,7 @@ class ItemCalendarAttendanceHistory extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isToday
-                  ? Colors.red
+                  ? const Color(0xFFf38120)
                   : isSelected
                       ? colors.text.withValues(alpha: 0.1)
                       : Colors.transparent,

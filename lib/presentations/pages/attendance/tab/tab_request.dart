@@ -31,15 +31,23 @@ class _RequestTabState extends State<RequestTab> {
     final list = dI<AttendanceBloc>().state.attendance.userWorkingHistories;
     final userWorkingHistoryModel = userWorkingHistoryModelByDate(list);
     dI<RequestWorkSheetBloc>().add(GetRequestsByIdsEvent(
-      ids: userWorkingHistoryModel.requestIds,
+      ids: userWorkingHistoryModel?.requestIds ?? [],
     ));
     super.initState();
   }
 
-  UserWorkingHistoryModel userWorkingHistoryModelByDate(
+  UserWorkingHistoryModel? userWorkingHistoryModelByDate(
       List<UserWorkingHistoryModel> list) {
-    return list.firstWhere(
-        (element) => element.date?.isAtSameMomentAs(widget.dateTime) ?? false);
+    for (final element in list) {
+      final d = element.date;
+      if (d == null) continue;
+      if (d.year == widget.dateTime.year &&
+          d.month == widget.dateTime.month &&
+          d.day == widget.dateTime.day) {
+        return element;
+      }
+    }
+    return null;
   }
 
   @override

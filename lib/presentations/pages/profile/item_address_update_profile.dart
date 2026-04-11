@@ -1,14 +1,10 @@
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/address.dart';
 import 'package:base_app/l10n/app_localizations.dart';
-import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
-import 'package:base_app/presentations/bloc/user/user/user_state.dart';
-import 'package:base_app/presentations/widgets/custom/container_border.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_district.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_province.dart';
 import 'package:base_app/presentations/widgets/dialog/bottom_sheet/bottom_sheet_ward.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:themes/themes.dart';
 
 class ItemAddressUpdateProfile extends StatefulWidget {
@@ -41,37 +37,51 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
     super.initState();
   }
 
-  setAddress() {
+  @override
+  void didUpdateWidget(covariant ItemAddressUpdateProfile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.province != oldWidget.province) {
+      setState(() => province = widget.province);
+    }
+    if (widget.district != oldWidget.district) {
+      setState(() => district = widget.district);
+    }
+    if (widget.ward != oldWidget.ward) {
+      setState(() => ward = widget.ward);
+    }
+  }
+
+  void _setAddress() {
     widget.onChangeProvince.call(province);
     widget.onChangeDistrict.call(district);
     widget.onChangeWard.call(ward);
   }
 
-  _getProvince(Address address) {
+  void _getProvince(Address address) {
     setState(() {
       province = address;
       district = null;
       ward = null;
     });
-    setAddress();
+    _setAddress();
   }
 
-  _getDistrict(Address address) {
+  void _getDistrict(Address address) {
     setState(() {
       district = address;
       ward = null;
     });
-    setAddress();
+    _setAddress();
   }
 
-  _getWard(Address address) {
+  void _getWard(Address address) {
     setState(() {
       ward = address;
     });
-    setAddress();
+    _setAddress();
   }
 
-  _addProvince(BuildContext context) {
+  void _addProvince(BuildContext context) {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -82,7 +92,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
     );
   }
 
-  _addDistrict(BuildContext context) {
+  void _addDistrict(BuildContext context) {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -94,7 +104,7 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
     );
   }
 
-  _addWard(BuildContext context) {
+  void _addWard(BuildContext context) {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -108,83 +118,97 @@ class _ItemAddressUpdateProfileState extends State<ItemAddressUpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context)!;
-    return BlocBuilder<UserBloc, UserState>(
-      builder: (context, stateUser) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            item(
-              title: appLocalizations.province,
-              value: province?.name ?? "",
-              context: context,
-              callback: () => _addProvince(context),
-            ),
-            const SizedBox(
-              height: SpacingUnit.x4,
-            ),
-            item(
-              title: appLocalizations.district,
-              value: district?.name ?? "",
-              context: context,
-              callback: () => _addDistrict(context),
-            ),
-            const SizedBox(
-              height: SpacingUnit.x4,
-            ),
-            item(
-              title: appLocalizations.ward,
-              value: ward?.name ?? "",
-              context: context,
-              callback: () => _addWard(context),
-            ),
-          ],
-        );
-      },
+    final l10n = AppLocalizations.of(context)!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _DropdownField(
+          label: l10n.province,
+          value: province?.name ?? '',
+          onTap: () => _addProvince(context),
+        ),
+        _DropdownField(
+          label: l10n.district,
+          value: district?.name ?? '',
+          onTap: () => _addDistrict(context),
+        ),
+        _DropdownField(
+          label: l10n.ward,
+          value: ward?.name ?? '',
+          onTap: () => _addWard(context),
+        ),
+      ],
     );
   }
+}
 
-  Widget item(
-      {required BuildContext context,
-      required String title,
-      required String value,
-      required VoidCallback callback}) {
+class _DropdownField extends StatelessWidget {
+  final String label;
+  final String value;
+  final VoidCallback onTap;
+
+  const _DropdownField({
+    required this.label,
+    required this.value,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
-    final width = MediaQuery.of(context).size.width;
-    return InkWell(
-      onTap: () => callback.call(),
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: SpacingUnit.x2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title,
-            style: TextStyle(
-              color: colors.text,
-              fontSize: SpacingUnit.x4,
-              fontWeight: FontWeight.w600,
+            label,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: colors.text.withValues(alpha: 0.5),
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
             ),
           ),
-          ContainerBorder(
-            borderColors: colors.surfaceBright.withValues(alpha: 0.6),
-            marginTop: SpacingUnit.x2,
-            paddingVertical: SpacingUnit.x4,
-            width: width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  value,
-                  style: TextStyle(
-                    color: colors.text,
-                    fontSize: SpacingUnit.x4,
-                  ),
+          const SizedBox(height: SpacingUnit.x1_5),
+          GestureDetector(
+            onTap: onTap,
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: SpacingUnit.x3,
+                vertical: SpacingUnit.x3,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                border: Border.all(
+                  color: colors.text.withValues(alpha: 0.12),
                 ),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: colors.text,
-                  size: SpacingUnit.x6,
-                )
-              ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      value.isNotEmpty ? value : '--',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: value.isNotEmpty
+                            ? colors.text
+                            : colors.text.withValues(alpha: 0.3),
+                        fontSize: 14,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: colors.text.withValues(alpha: 0.4),
+                    size: 22,
+                  ),
+                ],
+              ),
             ),
           ),
         ],

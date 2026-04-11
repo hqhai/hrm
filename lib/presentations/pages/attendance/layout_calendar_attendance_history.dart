@@ -2,16 +2,17 @@ import 'dart:async';
 
 import 'package:base_app/common/configs/locators.dart';
 import 'package:base_app/common/enum/enum_config.dart';
-import 'package:base_app/common/routers/navigation.dart';
 import 'package:base_app/common/routers/pages.dart';
 import 'package:base_app/common/utils/convert.dart';
 import 'package:base_app/common/utils/spacing_unit.dart';
 import 'package:base_app/domain/entities/attendance.dart';
 import 'package:base_app/domain/entities/timekeeping/user_working_history_model.dart';
 import 'package:base_app/l10n/app_localizations.dart';
+import 'package:base_app/presentations/widgets/custom/app_loading_indicator.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_bloc.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_event.dart';
 import 'package:base_app/presentations/bloc/attendance/attendance_state.dart';
+import 'package:base_app/common/utils/attendance_navigation.dart';
 import 'package:base_app/presentations/pages/attendance/item_day_calendar_attendance_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -158,6 +159,16 @@ class _LayoutCalendarAttendanceHistoryState
     return null;
   }
 
+  Future<void> _navigateToDetail(BuildContext context) async {
+    final working = _selectedWorking();
+    if (working == null) return;
+    await navigateToAttendanceDetail(
+      context: context,
+      working: working,
+      fallbackDate: _selectedDate,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = AppTheme.getColors(context);
@@ -192,7 +203,7 @@ class _LayoutCalendarAttendanceHistoryState
                 child: Text(
                   l10n.today,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.red,
+                    color: const Color(0xFFf38120),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -263,7 +274,7 @@ class _LayoutCalendarAttendanceHistoryState
             // Weekday header
             const WeekdayHeaderRow(),
             Divider(height: 1, color: colors.text.withValues(alpha: 0.08)),
-            // Calendar grid only (swipe up/down to change month)
+            // Calendar grid (swipe up/down to change month)
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -287,10 +298,7 @@ class _LayoutCalendarAttendanceHistoryState
                         if (loading && att == null)
                           const Expanded(
                             child: Center(
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.red,
-                              ),
+                              child: AppLoadingIndicator(),
                             ),
                           )
                         else ...[
@@ -316,13 +324,7 @@ class _LayoutCalendarAttendanceHistoryState
             _SelectedDayPanel(
               date: _selectedDate,
               working: _selectedWorking(),
-              onViewDetail: () {
-                dI<AppNavigation>().pushName(
-                  context,
-                  page: Pages.historyAttendancePage,
-                  extra: {'dateTime': _selectedDate},
-                );
-              },
+              onViewDetail: () => _navigateToDetail(context),
             ),
           ],
         ),
@@ -383,20 +385,25 @@ class _SelectedDayPanel extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: working?.date != null ? onViewDetail : null,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        l10n.detailWork,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: Colors.red,
-                          fontWeight: FontWeight.w600,
-                        ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: working?.date != null
+                          ? const Color(0xFF014282)
+                          : colors.text.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(SpacingUnit.x5),
+                    ),
+                    child: Text(
+                      l10n.detailWork,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: working?.date != null
+                            ? Colors.white
+                            : colors.text.withValues(alpha: 0.3),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
                       ),
-                      const SizedBox(width: 2),
-                      const Icon(Icons.chevron_right_rounded,
-                          color: Colors.red, size: 18),
-                    ],
+                    ),
                   ),
                 ),
               ],

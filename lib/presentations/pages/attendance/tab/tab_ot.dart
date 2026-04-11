@@ -11,8 +11,15 @@ class OTTab extends StatelessWidget {
 
   final DateTime dateTime;
 
-  UserWorkingHistoryModel userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
-    return list.firstWhere((element) => element.date?.isAtSameMomentAs(dateTime) ?? false);
+  UserWorkingHistoryModel? userWorkingHistoryModelByDate(List<UserWorkingHistoryModel> list) {
+    for (final element in list) {
+      final d = element.date;
+      if (d == null) continue;
+      if (d.year == dateTime.year && d.month == dateTime.month && d.day == dateTime.day) {
+        return element;
+      }
+    }
+    return null;
   }
 
   @override
@@ -21,10 +28,11 @@ class OTTab extends StatelessWidget {
       builder: (context, state) {
         final userWorkingHistoryModel =
             userWorkingHistoryModelByDate(state.attendance.userWorkingHistories);
+        final histories = userWorkingHistoryModel?.userOverTimeHistories ?? [];
         return Padding(
           padding: const EdgeInsets.all(SpacingUnit.x4),
           child: Column(
-              children: userWorkingHistoryModel.userOverTimeHistories
+              children: histories
                   .map(
                     (e) => ItemOverTimeHistory(
                       userOverTimeHistory: e,

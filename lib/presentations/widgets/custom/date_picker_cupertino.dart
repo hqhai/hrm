@@ -121,6 +121,14 @@ class _DatePickerState extends State<DatePickerLoop> {
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(covariant DatePickerLoop oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.oldDate != oldWidget.oldDate && widget.oldDate != null) {
+      setState(() => currentDate = widget.oldDate!);
+    }
+  }
+
   dialog({required BuildContext context, required DateTime currentTime}) {
     showModalBottomSheet<void>(
       context: context,

@@ -38,7 +38,10 @@ class UserBloc extends HydratedBloc<UserEvent, UserState> {
 
   FutureOr<void> _getUserInfo(
       GetUserInfo event, Emitter<UserState> emit) async {
-    emit(state.copyWith(status: UserStatus.init));
+    // Only emit loading if no user data yet — avoids UI flash on refresh.
+    if (state.user.id.isEmpty) {
+      emit(state.copyWith(status: UserStatus.init));
+    }
     try {
       User user = await userUseCase.getUserInfo();
       OneSignal.login(user.id);

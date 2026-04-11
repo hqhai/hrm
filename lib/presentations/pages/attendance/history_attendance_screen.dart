@@ -87,28 +87,45 @@ class _HistoryAttendancePageState extends State<HistoryAttendancePage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            color: colors.background,
+            margin: const EdgeInsets.symmetric(
+              horizontal: SpacingUnit.x4,
+              vertical: SpacingUnit.x2,
+            ),
+            decoration: BoxDecoration(
+              color: colors.text.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(SpacingUnit.x3),
+            ),
+            padding: const EdgeInsets.all(3),
             child: TabBar(
               indicatorSize: TabBarIndicatorSize.tab,
-              dividerColor: colors.textLight.withValues(alpha: 0.1),
-              dividerHeight: 0.1,
-              indicatorColor: colors.textLight,
-              tabAlignment: TabAlignment.start,
+              dividerHeight: 0,
+              indicator: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(SpacingUnit.x2_5),
+                boxShadow: [
+                  BoxShadow(
+                    color: colors.text.withValues(alpha: 0.08),
+                    blurRadius: 4,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
+              ),
               labelColor: colors.text,
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: SpacingUnit.x4,
-              ),
-              unselectedLabelStyle: TextStyle(
-                color: colors.text.withValues(alpha: 0.5),
-                fontSize: SpacingUnit.x4,
-                fontWeight: FontWeight.normal,
+                fontSize: 13,
               ),
               unselectedLabelColor: colors.text.withValues(alpha: 0.5),
+              unselectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 13,
+              ),
               controller: _tabController,
               isScrollable: true,
+              tabAlignment: TabAlignment.start,
               tabs: tabBarAttendance(context).mapIndexed((index, element) {
                 return Tab(
+                  height: 36,
                   text: element,
                 );
               }).toList(),
