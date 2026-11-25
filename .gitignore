@@ -78,6 +78,7 @@ lib/gen
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
+**/android/.kotlin/
 *.jks
 
 # iOS/XCode related

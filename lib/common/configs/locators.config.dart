@@ -114,6 +114,8 @@ import '../../presentations/bloc/notification/notification_bloc.dart' as _i44;
 import '../../presentations/bloc/personnel/personnel_bloc.dart' as _i368;
 import '../../presentations/bloc/position/position_bloc.dart' as _i383;
 import '../../presentations/bloc/register/register_bloc.dart' as _i435;
+import '../../presentations/bloc/requisition/create_leave_form/create_leave_form_cubit.dart'
+    as _i46;
 import '../../presentations/bloc/requisition/flow/flow_bloc.dart' as _i276;
 import '../../presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart'
     as _i256;
@@ -129,6 +131,8 @@ import '../../presentations/bloc/requisition/stationery/stationery_bloc.dart'
     as _i102;
 import '../../presentations/bloc/shift/shift_bloc.dart' as _i74;
 import '../../presentations/bloc/themes/theme_cubit.dart' as _i431;
+import '../../presentations/bloc/user/update_profile_form/update_profile_form_cubit.dart'
+    as _i348;
 import '../../presentations/bloc/user/user/user_bloc.dart' as _i987;
 import '../../presentations/bloc/user/user_by_id/user_by_id_bloc.dart' as _i173;
 import '../../presentations/bloc/user/user_by_name/user_by_name_bloc.dart'
@@ -161,29 +165,33 @@ extension GetItInjectableX on _i174.GetIt {
       () => appModule.prefs2,
       preResolve: true,
     );
-    gh.factory<_i388.HeaderInterceptor>(() => _i388.HeaderInterceptor());
-    gh.factory<_i672.ConnectivityInterceptor>(
-        () => _i672.ConnectivityInterceptor());
     gh.factory<_i29.JsonArrayErrorResponseMapper>(
         () => _i29.JsonArrayErrorResponseMapper());
-    gh.lazySingleton<_i267.AppRouters>(() => _i267.AppRouters());
+    gh.factory<_i672.ConnectivityInterceptor>(
+        () => _i672.ConnectivityInterceptor());
+    gh.factory<_i388.HeaderInterceptor>(() => _i388.HeaderInterceptor());
     gh.lazySingleton<_i888.AppNavigation>(() => _i888.AppNavigation());
+    gh.lazySingleton<_i267.AppRouters>(() => _i267.AppRouters());
     gh.lazySingleton<_i101.AuthBloc>(() => _i101.AuthBloc());
-    gh.lazySingleton<_i44.NotificationBloc>(() => _i44.NotificationBloc());
-    gh.lazySingleton<_i383.PositionBloc>(() => _i383.PositionBloc());
-    gh.lazySingleton<_i595.LanguageCubit>(() => _i595.LanguageCubit());
-    gh.lazySingleton<_i615.UserByRolesBloc>(() => _i615.UserByRolesBloc());
-    gh.lazySingleton<_i987.UserBloc>(() => _i987.UserBloc());
-    gh.lazySingleton<_i945.UserByNameBloc>(() => _i945.UserByNameBloc());
-    gh.lazySingleton<_i173.UserByIdBloc>(() => _i173.UserByIdBloc());
-    gh.lazySingleton<_i435.RegisterBloc>(() => _i435.RegisterBloc());
     gh.lazySingleton<_i212.BiometricCubit>(() => _i212.BiometricCubit());
-    gh.lazySingleton<_i288.WorkSheetBloc>(() => _i288.WorkSheetBloc());
     gh.lazySingleton<_i139.CheckInSettingBloc>(
         () => _i139.CheckInSettingBloc());
-    gh.lazySingleton<_i431.ThemeCubit>(() => _i431.ThemeCubit());
-    gh.lazySingleton<_i368.PersonnelBloc>(() => _i368.PersonnelBloc());
+    gh.lazySingleton<_i595.LanguageCubit>(() => _i595.LanguageCubit());
     gh.lazySingleton<_i387.LoginBloc>(() => _i387.LoginBloc());
+    gh.lazySingleton<_i44.NotificationBloc>(() => _i44.NotificationBloc());
+    gh.lazySingleton<_i368.PersonnelBloc>(() => _i368.PersonnelBloc());
+    gh.lazySingleton<_i383.PositionBloc>(() => _i383.PositionBloc());
+    gh.lazySingleton<_i435.RegisterBloc>(() => _i435.RegisterBloc());
+    gh.lazySingleton<_i46.CreateLeaveFormCubit>(
+        () => _i46.CreateLeaveFormCubit());
+    gh.lazySingleton<_i431.ThemeCubit>(() => _i431.ThemeCubit());
+    gh.lazySingleton<_i348.UpdateProfileFormCubit>(
+        () => _i348.UpdateProfileFormCubit());
+    gh.lazySingleton<_i987.UserBloc>(() => _i987.UserBloc());
+    gh.lazySingleton<_i173.UserByIdBloc>(() => _i173.UserByIdBloc());
+    gh.lazySingleton<_i945.UserByNameBloc>(() => _i945.UserByNameBloc());
+    gh.lazySingleton<_i615.UserByRolesBloc>(() => _i615.UserByRolesBloc());
+    gh.lazySingleton<_i288.WorkSheetBloc>(() => _i288.WorkSheetBloc());
     gh.lazySingleton<_i928.AppPreferences>(() => _i928.AppPreferences(
           gh<_i460.SharedPreferences>(),
           gh<_i930.EncryptedSharedPreferences>(),
@@ -204,12 +212,33 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i593.RefreshTokenApiService>(),
           gh<_i282.NoneAuthAppServerApiClient>(),
         ));
-    gh.lazySingleton<_i981.UrlFileApiClient>(() => _i981.UrlFileApiClient(
+    gh.lazySingleton<_i368.AuthApiClient>(() => _i368.AuthApiClient(
+          gh<_i388.HeaderInterceptor>(),
+          gh<_i689.AccessTokenInterceptor>(),
+          gh<_i57.RefreshTokenInterceptor>(),
+        ));
+    gh.lazySingleton<_i53.BaseUrlApiClient>(() => _i53.BaseUrlApiClient(
+          gh<_i388.HeaderInterceptor>(),
+          gh<_i689.AccessTokenInterceptor>(),
+          gh<_i57.RefreshTokenInterceptor>(),
+        ));
+    gh.lazySingleton<_i874.NotificationApiClient>(
+        () => _i874.NotificationApiClient(
+              gh<_i388.HeaderInterceptor>(),
+              gh<_i689.AccessTokenInterceptor>(),
+              gh<_i57.RefreshTokenInterceptor>(),
+            ));
+    gh.lazySingleton<_i959.RequestApiClient>(() => _i959.RequestApiClient(
           gh<_i388.HeaderInterceptor>(),
           gh<_i689.AccessTokenInterceptor>(),
           gh<_i57.RefreshTokenInterceptor>(),
         ));
     gh.lazySingleton<_i881.RequestUrlApiClient>(() => _i881.RequestUrlApiClient(
+          gh<_i388.HeaderInterceptor>(),
+          gh<_i689.AccessTokenInterceptor>(),
+          gh<_i57.RefreshTokenInterceptor>(),
+        ));
+    gh.lazySingleton<_i602.SystemApiClient>(() => _i602.SystemApiClient(
           gh<_i388.HeaderInterceptor>(),
           gh<_i689.AccessTokenInterceptor>(),
           gh<_i57.RefreshTokenInterceptor>(),
@@ -220,28 +249,7 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i689.AccessTokenInterceptor>(),
               gh<_i57.RefreshTokenInterceptor>(),
             ));
-    gh.lazySingleton<_i874.NotificationApiClient>(
-        () => _i874.NotificationApiClient(
-              gh<_i388.HeaderInterceptor>(),
-              gh<_i689.AccessTokenInterceptor>(),
-              gh<_i57.RefreshTokenInterceptor>(),
-            ));
-    gh.lazySingleton<_i602.SystemApiClient>(() => _i602.SystemApiClient(
-          gh<_i388.HeaderInterceptor>(),
-          gh<_i689.AccessTokenInterceptor>(),
-          gh<_i57.RefreshTokenInterceptor>(),
-        ));
-    gh.lazySingleton<_i959.RequestApiClient>(() => _i959.RequestApiClient(
-          gh<_i388.HeaderInterceptor>(),
-          gh<_i689.AccessTokenInterceptor>(),
-          gh<_i57.RefreshTokenInterceptor>(),
-        ));
-    gh.lazySingleton<_i368.AuthApiClient>(() => _i368.AuthApiClient(
-          gh<_i388.HeaderInterceptor>(),
-          gh<_i689.AccessTokenInterceptor>(),
-          gh<_i57.RefreshTokenInterceptor>(),
-        ));
-    gh.lazySingleton<_i53.BaseUrlApiClient>(() => _i53.BaseUrlApiClient(
+    gh.lazySingleton<_i981.UrlFileApiClient>(() => _i981.UrlFileApiClient(
           gh<_i388.HeaderInterceptor>(),
           gh<_i689.AccessTokenInterceptor>(),
           gh<_i57.RefreshTokenInterceptor>(),
@@ -260,10 +268,10 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.lazySingleton<_i467.DepartmentService>(
         () => _i467.DepartmentService(gh<_i1050.UserApiClient>()));
-    gh.lazySingleton<_i869.PositionService>(
-        () => _i869.PositionService(gh<_i1050.UserApiClient>()));
     gh.lazySingleton<_i348.NoteService>(
         () => _i348.NoteService(gh<_i1050.UserApiClient>()));
+    gh.lazySingleton<_i869.PositionService>(
+        () => _i869.PositionService(gh<_i1050.UserApiClient>()));
     gh.lazySingleton<_i940.CheckInSettingService>(
         () => _i940.CheckInSettingService(gh<_i602.SystemApiClient>()));
     gh.lazySingleton<_i120.AttendanceRepository>(() =>
@@ -329,10 +337,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i739.RequisitionUseCase(gh<_i172.RequisitionRepository>()));
     gh.factory<_i927.LocationUseCase>(
         () => _i927.LocationUseCase(gh<_i192.LocationRepository>()));
-    gh.factory<_i645.LoginUseCase>(
-        () => _i645.LoginUseCase(gh<_i975.AuthRepository>()));
     gh.factory<_i88.GetInitAppUseCase>(
         () => _i88.GetInitAppUseCase(gh<_i975.AuthRepository>()));
+    gh.factory<_i645.LoginUseCase>(
+        () => _i645.LoginUseCase(gh<_i975.AuthRepository>()));
     gh.factory<_i751.PositionUseCase>(
         () => _i751.PositionUseCase(gh<_i528.PositionRepository>()));
     gh.lazySingleton<_i841.AttendanceBloc>(
@@ -341,26 +349,26 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i701.NotificationUseCase(gh<_i1060.NotificationRepository>()));
     gh.lazySingleton<_i777.DepartmentBloc>(
         () => _i777.DepartmentBloc(gh<_i103.DepartmentUseCase>()));
-    gh.lazySingleton<_i257.SchoolBloc>(
-        () => _i257.SchoolBloc(gh<_i927.LocationUseCase>()));
     gh.lazySingleton<_i527.ScheduleSchoolBloc>(
         () => _i527.ScheduleSchoolBloc(gh<_i927.LocationUseCase>()));
-    gh.lazySingleton<_i662.WorkDayBloc>(
-        () => _i662.WorkDayBloc(gh<_i927.LocationUseCase>()));
+    gh.lazySingleton<_i257.SchoolBloc>(
+        () => _i257.SchoolBloc(gh<_i927.LocationUseCase>()));
     gh.lazySingleton<_i74.ShiftBloc>(
         () => _i74.ShiftBloc(gh<_i927.LocationUseCase>()));
+    gh.lazySingleton<_i662.WorkDayBloc>(
+        () => _i662.WorkDayBloc(gh<_i927.LocationUseCase>()));
     gh.factory<_i357.RequestUseCase>(
         () => _i357.RequestUseCase(gh<_i635.RequestRepository>()));
-    gh.lazySingleton<_i102.StationeryBloc>(
-        () => _i102.StationeryBloc(gh<_i739.RequisitionUseCase>()));
-    gh.lazySingleton<_i313.RequisitionFollowingBloc>(
-        () => _i313.RequisitionFollowingBloc(gh<_i739.RequisitionUseCase>()));
+    gh.lazySingleton<_i276.FlowBloc>(
+        () => _i276.FlowBloc(gh<_i739.RequisitionUseCase>()));
     gh.lazySingleton<_i561.RequestWorkSheetBloc>(
         () => _i561.RequestWorkSheetBloc(gh<_i739.RequisitionUseCase>()));
     gh.lazySingleton<_i134.RequisitionApproveBloc>(
         () => _i134.RequisitionApproveBloc(gh<_i739.RequisitionUseCase>()));
-    gh.lazySingleton<_i276.FlowBloc>(
-        () => _i276.FlowBloc(gh<_i739.RequisitionUseCase>()));
+    gh.lazySingleton<_i313.RequisitionFollowingBloc>(
+        () => _i313.RequisitionFollowingBloc(gh<_i739.RequisitionUseCase>()));
+    gh.lazySingleton<_i102.StationeryBloc>(
+        () => _i102.StationeryBloc(gh<_i739.RequisitionUseCase>()));
     gh.factory<_i555.UserUseCase>(
         () => _i555.UserUseCase(gh<_i801.UserRepository>()));
     gh.lazySingleton<_i605.NoteSystemCubit>(
@@ -373,12 +381,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i961.AddressBloc(gh<_i927.LocationUseCase>()));
     gh.factory<_i260.WorkAndSalaryUseCase>(
         () => _i260.WorkAndSalaryUseCase(gh<_i336.WorkAndSalaryRepository>()));
-    gh.lazySingleton<_i256.LeaveShiftBloc>(
-        () => _i256.LeaveShiftBloc(gh<_i260.WorkAndSalaryUseCase>()));
-    gh.lazySingleton<_i633.WorkAndSalaryBloc>(
-        () => _i633.WorkAndSalaryBloc(gh<_i260.WorkAndSalaryUseCase>()));
     gh.lazySingleton<_i759.LeaveHistoryBloc>(
         () => _i759.LeaveHistoryBloc(gh<_i260.WorkAndSalaryUseCase>()));
+    gh.lazySingleton<_i633.WorkAndSalaryBloc>(
+        () => _i633.WorkAndSalaryBloc(gh<_i260.WorkAndSalaryUseCase>()));
+    gh.lazySingleton<_i256.LeaveShiftBloc>(
+        () => _i256.LeaveShiftBloc(gh<_i260.WorkAndSalaryUseCase>()));
     gh.lazySingleton<_i809.RequisitionBloc>(() => _i809.RequisitionBloc(
           gh<_i739.RequisitionUseCase>(),
           gh<_i357.RequestUseCase>(),

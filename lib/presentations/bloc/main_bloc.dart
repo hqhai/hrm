@@ -17,6 +17,7 @@ import 'package:base_app/presentations/bloc/notification/notification_bloc.dart'
 import 'package:base_app/presentations/bloc/personnel/personnel_bloc.dart';
 import 'package:base_app/presentations/bloc/position/position_bloc.dart';
 import 'package:base_app/presentations/bloc/register/register_bloc.dart';
+import 'package:base_app/presentations/bloc/requisition/create_leave_form/create_leave_form_cubit.dart';
 import 'package:base_app/presentations/bloc/requisition/flow/flow_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/leave_shift/leave_shift_bloc.dart';
 import 'package:base_app/presentations/bloc/requisition/request_history_work_sheet/request_work_sheet_bloc.dart';
@@ -26,6 +27,7 @@ import 'package:base_app/presentations/bloc/requisition/requisiton_following/req
 import 'package:base_app/presentations/bloc/requisition/stationery/stationery_bloc.dart';
 import 'package:base_app/presentations/bloc/shift/shift_bloc.dart';
 import 'package:base_app/presentations/bloc/themes/theme_cubit.dart';
+import 'package:base_app/presentations/bloc/user/update_profile_form/update_profile_form_cubit.dart';
 import 'package:base_app/presentations/bloc/user/user/user_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_id/user_by_id_bloc.dart';
 import 'package:base_app/presentations/bloc/user/user_by_name/user_by_name_bloc.dart';
@@ -75,6 +77,8 @@ class MainBloc {
         BlocProvider<ShiftBloc>(create: (BuildContext context) => dI<ShiftBloc>()),
         BlocProvider<ScheduleSchoolBloc>(create: (BuildContext context) => dI<ScheduleSchoolBloc>()),
         BlocProvider<LeaveShiftBloc>(create: (BuildContext context) => dI<LeaveShiftBloc>()),
+        BlocProvider<CreateLeaveFormCubit>(create: (BuildContext context) => dI<CreateLeaveFormCubit>()),
+        BlocProvider<UpdateProfileFormCubit>(create: (BuildContext context) => dI<UpdateProfileFormCubit>()),
       ];
 
   /// All BLoCs combined (for backward compatibility)

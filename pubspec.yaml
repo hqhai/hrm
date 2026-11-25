@@ -38,7 +38,7 @@ dependencies:
     path: ./packages/common
   widgets:
     path: ./packages/widgets
-  intl: ^0.19.0
+  intl: ^0.20.2
   bloc: ^9.0.0
   equatable: ^2.0.5
   flutter_bloc: ^9.1.1
